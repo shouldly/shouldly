@@ -1,0 +1,9 @@
+*.suo
+*.cache
+*csproj.user
+src/*/bin
+src/*/obj
+*resharper*
+_ReSharper*
+
+build
