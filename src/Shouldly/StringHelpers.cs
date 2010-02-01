@@ -7,6 +7,16 @@ namespace Shouldly
 {
     public static class StringHelpers
     {
+        public static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class
+        {
+            return enumerable.DelimitWith(", ");
+        }
+
+        public static string DelimitWith<T>(this IEnumerable<T> enumerable, string separator) where T : class
+        {
+            return string.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
+        }
+
         public static string Inspect(this object value)
         {
             if (value is string)
@@ -15,25 +25,25 @@ namespace Shouldly
             if (value is IEnumerable)
             {
                 var objects = ((IEnumerable)value).Cast<object>();
-                return "[" + objects.Select(o => o.Inspect()).Delimited() + "]";
+                return "[" + objects.Select(o => o.Inspect()).CommaDelimited() + "]";
             }
 
             return value == null ? "null" : value.ToString();
         }
 
-        public static string Delimited<T>(this IEnumerable<T> enumerable, string separator) where T : class
-        {
-            return string.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
-        }
-
-        public static string Delimited<T>(this IEnumerable<T> enumerable) where T : class
-        {
-            return enumerable.Delimited(", ");
-        }
-
         public static string PascalToSpaced(this string pascal)
         {
             return Regex.Replace(pascal, @"([A-Z])", match => " " + match.Value.ToLower()).Trim();
+        }
+
+        public static string Quotify(this string input)
+        {
+            return input.Replace('\'', '"');
+        }
+
+        public static string StripWhitespace(this string input)
+        {
+            return Regex.Replace(input, @"[\r\n\t\s]", "");
         }
     }
 }

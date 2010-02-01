@@ -52,8 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShouldBeEnumerableTestExtensions.cs" />
+    <Compile Include="ShouldBeStringTestExtensions.cs" />
     <Compile Include="ShouldBeTestExtensions.cs" />
+    <Compile Include="ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
+    <Compile Include="ShouldlyMethodsAttribute.cs" />
+    <Compile Include="ShouldThrowTestExtensions.cs" />
     <Compile Include="StringHelpers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

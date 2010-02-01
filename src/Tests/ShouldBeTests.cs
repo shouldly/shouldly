@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Shouldly;
 
 namespace Tests
@@ -13,10 +14,25 @@ namespace Tests
         }
 
         [Test]
-        public void ShouldBe_WhenFalse_ShouldThrow_WithAwesomeMessage()
+        public void ShouldBe_WhenFalse_ShouldThrow()
         {
-            Assert.Throws<AssertionException>(() =>
-                "this string".ShouldBe("some other string"));
+            "this string".ShouldNotBe("some other string");
         }
+
+        [Test]
+        public void Should_WithNumbers_ShouldAllowTolerance()
+        {
+            Math.PI.ShouldNotBe(3.14);
+            Math.PI.ShouldBe(3.14, 0.01);
+            ((float)Math.PI).ShouldBe(3.14f, 0.01);
+        }
+
+        [Test]
+        public void ShouldBeCloseTo_WithText_IsPrettyLoose()
+        {
+            "Fun   with space   and \"quotes\""
+                .ShouldBeCloseTo("Fun with space and 'quotes'");
+        }
+
     }
 }

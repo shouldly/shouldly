@@ -1,10 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using NUnit.Framework;
 
 namespace Shouldly
 {
+    public class TestEnvironment
+    {
+        public string ShouldMethod { get; set; }
+        public string FileName { get; set; }
+        public int LineNumber { get; set; }
+    }
+
     public class ShouldlyMessage
     {
         private readonly object expected;
@@ -23,7 +30,6 @@ namespace Shouldly
             hasActual = true;
         }
 
-
         public override string ToString()
         {
             return hasActual ? 
@@ -33,59 +39,64 @@ namespace Shouldly
 
         private static string GenerateShouldMessage(object actual, object expected)
         {
-            var frame = GetStackFrameForOriginatingTestMethod();
+            var environment = GetStackFrameForOriginatingTestMethod();
 
-            var shouldMethod = frame.GetMethod().Name;
-            var lineNumber = frame.GetFileLineNumber() - 1;
-            var fileName = frame.GetFileName();
+            var possibleCodeLines = File.ReadAllLines(environment.FileName)
+                                        .Skip(environment.LineNumber).ToArray();
+            var codeLines = possibleCodeLines.DelimitWith("\n");
 
-            var codeLines = string.Join("\n",
-                                        File.ReadAllLines(fileName)
-                                            .Skip(lineNumber).ToArray());
+            var shouldMethodIndex = codeLines.IndexOf(environment.ShouldMethod);
+            var codePart = shouldMethodIndex > -1 ? 
+                codeLines.Substring(0, shouldMethodIndex - 1).Trim() : 
+                possibleCodeLines[0];
 
-            var codePart = codeLines.Substring(0, codeLines.IndexOf(shouldMethod) - 1).Trim();
-
-            return string.Format(
-                @"{0}
+            return string.Format(@"{0}
         {1}
     {2}
         but was
     {3}",
-                codePart, shouldMethod.PascalToSpaced(), expected.Inspect(), actual.Inspect());
+                codePart, environment.ShouldMethod.PascalToSpaced(), expected.Inspect(), actual.Inspect());
         }
 
         private static string GenerateShouldMessage(object expected)
         {
-            var frame = GetStackFrameForOriginatingTestMethod();
-
-            var shouldMethod = frame.GetMethod().Name;
-            var lineNumber = frame.GetFileLineNumber() - 1;
-            var fileName = frame.GetFileName();
+            var environment = GetStackFrameForOriginatingTestMethod();
 
             var codeLines = string.Join("\n",
-                                        File.ReadAllLines(fileName)
-                                            .Skip(lineNumber).ToArray());
+                                        File.ReadAllLines(environment.FileName)
+                                            .Skip(environment.LineNumber).ToArray());
 
-            var codePart = codeLines.Substring(0, codeLines.IndexOf(shouldMethod) - 1).Trim();
+            var codePart = codeLines.Substring(0, codeLines.IndexOf(environment.ShouldMethod) - 1).Trim();
 
             return string.Format(
                 @"{0}
         {1}
     {2}
         but does not",
-                codePart, shouldMethod.PascalToSpaced(), expected.Inspect());
+                codePart, environment.ShouldMethod.PascalToSpaced(), expected.Inspect());
         }
 
-        private static StackFrame GetStackFrameForOriginatingTestMethod()
+        private static TestEnvironment GetStackFrameForOriginatingTestMethod()
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
-            var frame = stackTrace.GetFrame(i);
-            while (!frame.GetMethod().GetCustomAttributes(typeof(TestAttribute), true).Any())
+            var shouldlyFrame = stackTrace.GetFrame(i);
+            if (shouldlyFrame == null) throw new Exception("Unable to find test method");
+
+            while (!shouldlyFrame.GetMethod().DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any())
             {
-                frame = stackTrace.GetFrame(++i);
+                shouldlyFrame = stackTrace.GetFrame(++i);
             }
-            return frame;
+            var originatingFrame = stackTrace.GetFrame(i+1);
+            if (originatingFrame.GetFileName() == null)
+                originatingFrame = stackTrace.GetFrame(i);
+
+            return new TestEnvironment
+                       {
+                           ShouldMethod = shouldlyFrame.GetMethod().Name,
+                           FileName = originatingFrame.GetFileName(),
+                           LineNumber = originatingFrame.GetFileLineNumber() - 1
+                       };
         }
     }
 }
