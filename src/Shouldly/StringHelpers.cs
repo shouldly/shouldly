@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,6 +18,11 @@ namespace Shouldly
             return string.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
         }
 
+        public static string Inspect(this Enum value)
+        {
+            return value.GetType().Name +"."+ value;
+        }
+
         public static string Inspect(this object value)
         {
             if (value is string)
@@ -27,6 +33,9 @@ namespace Shouldly
                 var objects = ((IEnumerable)value).Cast<object>();
                 return "[" + objects.Select(o => o.Inspect()).CommaDelimited() + "]";
             }
+
+            if (value is Enum)
+                return value.As<Enum>().Inspect();
 
             return value == null ? "null" : value.ToString();
         }

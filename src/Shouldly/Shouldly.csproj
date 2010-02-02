@@ -34,6 +34,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\lib\NUnit-2.5.3.9345\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Rhino-3.6\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -51,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Create.cs" />
+    <Compile Include="ObjectHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldBeEnumerableTestExtensions.cs" />
     <Compile Include="ShouldBeStringTestExtensions.cs" />
@@ -58,6 +64,7 @@
     <Compile Include="ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="ShouldlyMethodsAttribute.cs" />
+    <Compile Include="ShouldlyRhinoExtensions.cs" />
     <Compile Include="ShouldThrowTestExtensions.cs" />
     <Compile Include="StringHelpers.cs" />
   </ItemGroup>

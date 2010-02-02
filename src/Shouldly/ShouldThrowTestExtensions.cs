@@ -5,7 +5,6 @@ using NUnit.Framework;
 namespace Shouldly
 {
     [DebuggerStepThrough]
-    [ShouldlyMethods]
     public static class Should
     {
         public static string Throw<EXCEPTION>(Action actual) where EXCEPTION : Exception
@@ -20,6 +19,5 @@ namespace Shouldly
             }
             throw new AssertionException(new ShouldlyMessage(actual).ToString());
         }
-
     }
 }

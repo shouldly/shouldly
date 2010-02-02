@@ -28,11 +28,10 @@ namespace Tests
         }
 
         [Test]
-        public void ShouldBeCloseTo_WithText_IsPrettyLoose()
+        public void ShouldBe_GreaterThan()
         {
-            "Fun   with space   and \"quotes\""
-                .ShouldBeCloseTo("Fun with space and 'quotes'");
+            7.ShouldBeGreaterThan(1);
+            1.ShouldBeLessThan(7);
         }
-
     }
 }
