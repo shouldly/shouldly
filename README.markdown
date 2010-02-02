@@ -67,7 +67,7 @@ Who formatted that so ugly!? Now we have to write an ugly string test to match i
 
 Now we have a nice flexible test and our enterprise can sleep safe knowing it's precious xml is being cared for.
 
-Notice the quotes around "brown"? Shouldly will do the compare ignoring whitespace and not fussing over which quotes you used.
+Notice the quotes around "brown"? Shouldly will do the compare, ignoring whitespace and not fussing over which quotes you used.
 
 > Ok Dave, this is cool and you're really awesome and stuff but what about when I get null refs in my mock tests or expectation violations?
 
@@ -97,4 +97,4 @@ Now we see what's really happening here!
 
 Just download or git clone the latest and either include it the source in your project or run msbuild and copy the dll into your repository.
 
-Oh and feel free to fork and improve friends let's all help each other out.
+Oh and feel free to fork and improve friends, let's all help each other out.
