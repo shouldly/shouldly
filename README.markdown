@@ -1,17 +1,16 @@
 Shouldly
 ========
 
-How asserting shouldly be
+How asserting *shouldly* be
 
-This is the old way: 
+This is the old *Assert* way: 
     Assert.That(contestant.Points, Is.EqualTo(1337));
-And you get this message, when it fails:
+For your troubles, you get this message, when it fails:
     "Expected 1337 but was 0"
 
-That's not how it shouldly be...
-
-    contestant.Points.ShouldBe(1337);
-And you get this message when it fails
+That's not how it *shouldly* be...
+    contestant.Points.*ShouldBe*(1337);
+And you get this context-aware message when it fails
     contestant.Points should be 1337 but was 0
 
 Clearly, Shouldly knows more about your tests
@@ -23,7 +22,6 @@ Here's the ShouldNoty's message:
     Rhino.Mocks.Exceptions.ExpectationViolationException:
     IContestant.PlayGame("Shouldly"); Expected #1, Actual #0
 
-
 Here's Shouldly's message:
     Expected:
         IContestant.PlayGame("Shouldly");
@@ -33,4 +31,13 @@ Here's Shouldly's message:
       IContestant.PlayGame("Drinking coffee");
       IContestant.PlayGame("Commenting out test");
 
+There' other *shouldly* features:
+    ShouldBe
+    ShouldBeGreaterThan
+    ShouldBeLessThan
+    ShouldContain
+    ShouldNotContain
+    ShouldBeCloseTo
+
+ShouldBeCloseTo ignores whitespace and quoting characters, useful for comparing XML
 
