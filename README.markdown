@@ -1,7 +1,7 @@
 Shouldly
 ========
 
-## How asserting *Shouldly* be
+### How asserting *Shouldly* be
 
 This is the old *Assert* way: 
     Assert.That(contestant.Points, Is.EqualTo(1337));
@@ -30,7 +30,7 @@ Here's the *Assert* message:
       IContestant.PlayGame("Drinking coffee");
       IContestant.PlayGame("Commenting out test");
 
-There's other *Shouldly* features:
+Other *Shouldly* features:
     ShouldBe
     ShouldBeGreaterThan
     ShouldBeLessThan
