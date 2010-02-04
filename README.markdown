@@ -1,7 +1,7 @@
 Shouldly
 ========
 
-How asserting *shouldly* be
+## How asserting *Shouldly* be
 
 This is the old *Assert* way: 
     Assert.That(contestant.Points, Is.EqualTo(1337));
@@ -13,11 +13,10 @@ That's not how it **Shouldly** be...
 And you get this context-aware message when it fails
     contestant.Points should be 1337 but was 0
 
-Clearly, Shouldly knows more about your tests
+**Shouldly** uses the variables within the *ShouldBe* statement to report on errors.
 
-The Shouldly library has some useful features.
+**Shouldly** library has other useful features.
 It integrates with RhinoMocks, to give clearly messages about expectation failures:
-
 Here's the *Assert* message:
     Rhino.Mocks.Exceptions.ExpectationViolationException:
     IContestant.PlayGame("Shouldly"); Expected #1, Actual #0
@@ -31,13 +30,11 @@ Here's the *Assert* message:
       IContestant.PlayGame("Drinking coffee");
       IContestant.PlayGame("Commenting out test");
 
-There's other *shouldly* features:
+There's other *Shouldly* features:
     ShouldBe
     ShouldBeGreaterThan
     ShouldBeLessThan
     ShouldContain
     ShouldNotContain
     ShouldBeCloseTo
-
-
 
