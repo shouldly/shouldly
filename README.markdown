@@ -17,7 +17,7 @@ Which is just syntax, so far, but check out the message when it fails:
 
 The **Shouldly** library has other useful features.
 It integrates with RhinoMocks, to give clearly messages about expectation failures:
-Here's the *Assert* message:
+Here's the message without Shouldly; good luck with spotting the issue...
     Rhino.Mocks.Exceptions.ExpectationViolationException:
     IContestant.PlayGame("Shouldly"); Expected #1, Actual #0
 
