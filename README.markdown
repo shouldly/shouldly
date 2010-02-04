@@ -8,14 +8,14 @@ This is the old *Assert* way:
 For your troubles, you get this message, when it fails:
     "Expected 1337 but was 0"
 
-That's not how it **Shouldly** be...
+How it **Shouldly** be one..
     contestant.Points.ShouldBe(1337);
-And you get this context-aware message when it fails
+Which is just syntax, so far, but check out the message when it fails:
     contestant.Points should be 1337 but was 0
 
 **Shouldly** uses the variables within the *ShouldBe* statement to report on errors.
 
-**Shouldly** library has other useful features.
+The **Shouldly** library has other useful features.
 It integrates with RhinoMocks, to give clearly messages about expectation failures:
 Here's the *Assert* message:
     Rhino.Mocks.Exceptions.ExpectationViolationException:
