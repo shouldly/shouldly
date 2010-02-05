@@ -1,14 +1,14 @@
 Shouldly
 ========
 
-### How asserting *Shouldly* be
+### How asserting *Should* be
 
 This is the old *Assert* way: 
     Assert.That(contestant.Points, Is.EqualTo(1337));
 For your troubles, you get this message, when it fails:
     "Expected 1337 but was 0"
 
-How it **Shouldly** be one..
+How it **Should** be:
     contestant.Points.ShouldBe(1337);
 Which is just syntax, so far, but check out the message when it fails:
     contestant.Points should be 1337 but was 0
