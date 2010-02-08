@@ -13,11 +13,15 @@ How it **Should** be:
 Which is just syntax, so far, but check out the message when it fails:
     contestant.Points should be 1337 but was 0
 
-**Shouldly** uses the variables within the *ShouldBe* statement to report on errors.
+It might be easy to underestimate how useful this is. Let's put them side by side:
+    Assert.That(map.IndexOfValue("boo"), Is.EqualTo(2));    // -> Expected 2 but was 1
+    map.IndexOfValue("boo").ShouldBe(1);                    // -> map.IndexOfValue("boo") should be 2 but was 1
 
-The **Shouldly** library has other useful features.
-It integrates with RhinoMocks, to give clearly messages about expectation failures:
-Here's the message without Shouldly; good luck with spotting the issue...
+**Shouldly** uses the variables within the *ShouldBe* statement to report on errors, which makes a diagnose much easier
+
+The **Shouldly** library has other features.
+It integrates with RhinoMocks, to give clear messages about expectation failures:
+Here's the message without Shouldly; helpful, but not great...
     Rhino.Mocks.Exceptions.ExpectationViolationException:
     IContestant.PlayGame("Shouldly"); Expected #1, Actual #0
 
