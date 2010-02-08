@@ -6,18 +6,18 @@ Shouldly
 This is the old *Assert* way: 
     Assert.That(contestant.Points, Is.EqualTo(1337));
 For your troubles, you get this message, when it fails:
-    "Expected 1337 but was 0"
+    Expected 1337 but was 0
 
 How it **Should** be:
     contestant.Points.ShouldBe(1337);
 Which is just syntax, so far, but check out the message when it fails:
     contestant.Points should be 1337 but was 0
 
-It might be easy to underestimate how useful this is. Let's put them side by side:
+It might be easy to underestimate how useful this is. Another example, side by side:
     Assert.That(map.IndexOfValue("boo"), Is.EqualTo(2));    // -> Expected 2 but was 1
     map.IndexOfValue("boo").ShouldBe(1);                    // -> map.IndexOfValue("boo") should be 2 but was 1
 
-**Shouldly** uses the variables within the *ShouldBe* statement to report on errors, which makes a diagnose much easier
+**Shouldly** uses the variables within the *ShouldBe* statement to report on errors, which makes a diagnose much easier.
 
 The **Shouldly** library has other features.
 It integrates with RhinoMocks, to give clear messages about expectation failures:
