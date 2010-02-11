@@ -38,7 +38,7 @@ namespace Tests
             Should.Error(() =>
                 steve.ShouldHaveBeenCalled(s => s.EatHuman(Direction.North)),
                 @"*Expecting*
-                      EatHuman(North)
+                      EatHuman(Direction.North)
                   *Recorded*
                    0: EatHuman(Direction.East)
                    1: EatHuman(Direction.South)

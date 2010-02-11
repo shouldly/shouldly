@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
 namespace Shouldly
@@ -36,6 +37,11 @@ namespace Shouldly
 
             if (value is Enum)
                 return value.As<Enum>().Inspect();
+
+            if (value is ConstantExpression)
+            {
+                return value.As<ConstantExpression>().Value.Inspect();
+            }
 
             return value == null ? "null" : value.ToString();
         }
