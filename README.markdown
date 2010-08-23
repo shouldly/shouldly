@@ -1,3 +1,5 @@
+UPDATE: This repo has moved to [http://github.com/shouldly/shouldly](http://github.com/shouldly/shouldly)
+
 Shouldly
 ========
 
