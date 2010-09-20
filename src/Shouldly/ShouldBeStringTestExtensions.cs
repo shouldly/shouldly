@@ -11,6 +11,17 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeStringTestExtensions
     {
+        /// <summary>
+        /// This method will strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
+        /// </summary>
+        public static void ShouldContainWithoutWhitespace(this string actual, object expected) {
+            ShouldBeCloseTo(actual, expected);
+        }
+        /// <summary>
+        /// This method will strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
+        /// </summary>
+        /// <param name="actual"></param>
+        /// <param name="expected"></param>
         public static void ShouldBeCloseTo(this string actual, object expected)
         {
 //            const string pattern = @"\s+";
@@ -47,6 +58,12 @@ namespace Shouldly
             strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
         }
 
+        public static void ShouldStartWith(this string actual, string expected) {
+            actual.AssertAwesomely(Is.StringStarting(expected).IgnoreCase, actual, expected);
+        }
+        public static void ShouldEndWith(this string actual, string expected) {
+            actual.AssertAwesomely(Is.StringEnding(expected).IgnoreCase, actual, expected);
+        }
         public static void ShouldContain(this string actual, string expected)
         {
             actual.AssertAwesomely(Is.StringContaining(expected).IgnoreCase, actual, expected);
