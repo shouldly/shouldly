@@ -58,6 +58,7 @@
     <Compile Include="Create.cs" />
     <Compile Include="ObjectHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShouldBeDictionaryTestExtensions.cs" />
     <Compile Include="ShouldBeEnumerableTestExtensions.cs" />
     <Compile Include="ShouldBeStringTestExtensions.cs" />
     <Compile Include="ShouldBeTestExtensions.cs" />
