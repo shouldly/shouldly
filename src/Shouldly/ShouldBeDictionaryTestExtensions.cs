@@ -22,7 +22,7 @@ namespace Shouldly {
                 throw new AssertionException(new ShouldlyMessage(key).ToString());
 
             if (!dictionary[key].Equals(val))
-                throw new AssertionException(new ShouldlyMessage(val).ToString());
+                throw new AssertionException(new ShouldlyMessage(val,dictionary[key]).ToString());
 
 
         }
@@ -37,7 +37,7 @@ namespace Shouldly {
                 throw new AssertionException(new ShouldlyMessage(key).ToString());
 
             if (dictionary[key].Equals(val))
-                throw new AssertionException(new ShouldlyMessage(val).ToString());
+                throw new AssertionException(new ShouldlyMessage(dictionary[key],val).ToString());
 
         }
     }

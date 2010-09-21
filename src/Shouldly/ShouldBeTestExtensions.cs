@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using NUnit.Framework;
+using System;
 
 namespace Shouldly
 {
@@ -10,6 +11,14 @@ namespace Shouldly
         public static void ShouldBe<T>(this T actual, T expected)
         {
             actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
+        }
+
+
+        public static void ShouldBeTypeOf(this object actual, Type expected) {
+            actual.AssertAwesomely(Is.InstanceOf(expected), actual, expected);
+        }
+        public static void ShouldNotBeTypeOf(this object actual, Type expected) {
+            actual.AssertAwesomely(!Is.InstanceOf(expected), actual, expected);
         }
 
         public static void ShouldNotBe<T>(this T actual, T expected)
