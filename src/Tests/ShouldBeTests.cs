@@ -33,5 +33,24 @@ namespace Tests
             7.ShouldBeGreaterThan(1);
             1.ShouldBeLessThan(7);
         }
+
+        [Test]
+        public void ShouldBeTypeOf_ShouldNotThrowForStrings() {
+            "Sup yo".ShouldBeTypeOf(typeof(string));
+        }
+
+        class MyBase{
+
+        }
+        class MyThing : MyBase {
+
+        }
+
+
+        [Test]
+        public void ShouldBeTypeOf_ShouldNotThrowForInheritance() {
+            new MyThing().ShouldBeTypeOf(typeof(MyBase));
+        }
+
     }
 }
