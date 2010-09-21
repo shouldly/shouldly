@@ -15,11 +15,24 @@ namespace Tests {
             dictionary.ShouldNotContainKey("rob");
         }
         [Test]
+        public void ShouldNotContainKey_WhenTrue_ShouldNotThrow() {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("key", "value");
+            dictionary.ShouldNotContainKey("rob");
+        }
+        [Test]
         public void ShouldContainKeyAndValue_WhenTrue_ShouldNotThrow() {
             var dictionary = new Dictionary<string, string>();
             dictionary.Add("key", "value");
             dictionary.ShouldContainKeyAndValue("key","value");
-            dictionary.ShouldNotContainKeyAndValue("rob", "stuff");
+
+        }
+        [Test]
+        public void ShouldNotContainValueForKey_WhenTrue_ShouldNotThrow() {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("key", "value");
+            dictionary.ShouldNotContainValueForKey("key", "slurpee");
+
         }
         [Test]
         public void ShouldContainKeyAndValue_WorkWithGuids() {

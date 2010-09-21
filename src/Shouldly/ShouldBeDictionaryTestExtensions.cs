@@ -17,9 +17,13 @@ namespace Shouldly {
 
         }
         public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) {
-            
-            if (!dictionary.Contains(new KeyValuePair<TKey, TValue>(key,val)))
-                throw new AssertionException(new ShouldlyMessage(key,val).ToString());
+
+            if (!dictionary.ContainsKey(key))
+                throw new AssertionException(new ShouldlyMessage(key).ToString());
+
+            if (!dictionary[key].Equals(val))
+                throw new AssertionException(new ShouldlyMessage(val).ToString());
+
 
         }
         public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) {
@@ -27,10 +31,13 @@ namespace Shouldly {
                 throw new AssertionException(new ShouldlyMessage(key).ToString());
 
         }
-        public static void ShouldNotContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) {
+        public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) {
 
-            if (dictionary.Contains(new KeyValuePair<TKey, TValue>(key, val)))
-                throw new AssertionException(new ShouldlyMessage(key, val).ToString());
+            if (!dictionary.ContainsKey(key))
+                throw new AssertionException(new ShouldlyMessage(key).ToString());
+
+            if (dictionary[key].Equals(val))
+                throw new AssertionException(new ShouldlyMessage(val).ToString());
 
         }
     }
