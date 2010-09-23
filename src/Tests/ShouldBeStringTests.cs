@@ -16,7 +16,7 @@ namespace Tests
         [Test]
         public void ShouldBeCloseTo_ShowsYouWhereTheStringsDiffer()
         {
-            var result = "a string".CompareTo("another string");
+            "a string".CompareTo("another string");
 
 
 
