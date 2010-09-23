@@ -7,3 +7,7 @@ src/*/obj
 _ReSharper*
 
 build
+
+*.pidb
+*.userprefs
+test-results
