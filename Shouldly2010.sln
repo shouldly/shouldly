@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly", "src\Shouldly\Shouldly2010.csproj", "{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly", "src\Shouldly\Shouldly.csproj", "{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "src\Tests\Tests2010.csproj", "{7E798127-21FE-4F49-A221-53B53B40D6BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "src\Tests\Tests.csproj", "{7E798127-21FE-4F49-A221-53B53B40D6BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
