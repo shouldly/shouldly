@@ -3,7 +3,5 @@
 *csproj.user
 src/*/bin
 src/*/obj
-*resharper*
-_ReSharper*
-
+*ReSharper*
 build
