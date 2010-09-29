@@ -64,7 +64,7 @@ task :prepareGemFiles => :deployBinaries do
 
 end
 
-desc "Creates gem"
+desc "Creates the gem"
 task :createGem => :prepareGemFiles do
 
     FileUtils.cd("gem/files") do
@@ -88,7 +88,7 @@ task :createGem => :prepareGemFiles do
     end
 end
 
-desc "Push the gem to ruby gems"
+desc "Pushes the gem to the ruby gems server"
 task :pushGem => :createGem do
 	result = system("gem", "push", "gem/pkg/shouldly-#{ENV['GO_PIPELINE_LABEL']}.gem")
 end
