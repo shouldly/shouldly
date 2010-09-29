@@ -33,9 +33,9 @@ end
 desc "Gallio Test Runner"
 gallio :test => :build do |gallio|
     gallio.bin_path = 'C:/Program Files/Gallio/bin'
-	gallio.assembly_path = 'src/Tests/bin/Release/Shouldly.dll'
-	gallio.report_path = 'reports'
-	gallio.report_name = 'test-results'
+	gallio.assembly_path = 'src/Tests/bin/Release/Tests.dll'
+	gallio.report_path = 'testoutput'
+	gallio.report_name = 'index'
 end
 
 desc "Prepares the gem files to be packaged."
