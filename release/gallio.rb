@@ -3,11 +3,11 @@ class Gallio
     attr_accessor :bin_path, :assembly_path, :report_path, :report_name
     
     def run()
-        gallio = "#{bin_path}/Gallio.Echo.exe " \
-                   "/report-directory:\"#{@report_path}\" " \
-                   "/report-name-format:\"#{@report_name}\" " \
-                   "/report-type:Html " \
-                   "\"#{assembly_path}\""
+        gallio = '#{bin_path}/Gallio.Echo.exe ' \
+                   '/report-directory:\"#{@report_path}\" ' \
+                   '/report-name-format:\"#{@report_name}\" ' \
+                   '/report-type:Html ' \
+                   '\"#{assembly_path}\"'
 
         sh gallio
     end
