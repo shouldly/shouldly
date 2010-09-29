@@ -1,5 +1,4 @@
 require "albacore"
-require "release/robocopy"
 require "release/common"
 require "rubygems"
 require "rake/gempackagetask"
