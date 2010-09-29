@@ -1,36 +1,36 @@
-require 'albacore'
-require 'release/common'
-require 'release/gallio'
-require 'rubygems'
-require 'rake/gempackagetask'
+require "albacore"
+require "release/common"
+require "release/gallio"
+require "rubygems"
+require "rake/gempackagetask"
 
 task :default => [:deploySample]
 
-desc 'Inits the build'
+desc "Inits the build"
 task :initBuild do
-	Common.EnsurePath('reports')
+	Common.EnsurePath("reports")
 end
 
-desc 'Generate assembly info.'
+desc "Generate assembly info."
 assemblyinfo :assemblyInfo => :initBuild do |asm|
-    asm.version = ENV['GO_PIPELINE_LABEL']
-    asm.company_name = 'Shouldly'
-    asm.product_name = 'Shouldly'
-    asm.title = 'Shouldly'
-    asm.description = 'Should testing for .net'
-    asm.copyright = 'Copyright (c) 2010 Shouldly'
-    asm.output_file = 'src/Shouldly/Properties/AssemblyInfo.cs'
+    asm.version = ENV["GO_PIPELINE_LABEL"]
+    asm.company_name = "Shouldly"
+    asm.product_name = "Shouldly"
+    asm.title = "Shouldly"
+    asm.description = "Should testing for .net"
+    asm.copyright = "Copyright (c) 2010 Shouldly"
+    asm.output_file = "src/Shouldly/Properties/AssemblyInfo.cs"
 end
 
-desc 'Builds the solution.'
+desc "Builds the solution."
 msbuild :build => :assemblyInfo do |msb|
     msb.path_to_command = File.join(ENV['windir'], 'Microsoft.NET', 'Framework', 'v4.0.30319', 'MSBuild.exe')
     msb.properties :configuration => :Release
     msb.targets :Clean, :Build
-    msb.solution = 'Shouldly2010.sln'
+    msb.solution = "Shouldly2010.sln"
 end
 
-desc 'Gallio Test Runner'
+desc "Gallio Test Runner"
 gallio :test => :build do |gallio|
     gallio.bin_path = 'C:/Program Files/Gallio/bin'
 	gallio.assembly_path = 'src/Tests/bin/Release/Tests.dll'
@@ -38,20 +38,20 @@ gallio :test => :build do |gallio|
 	gallio.report_name = 'test-results'
 end
 
-desc 'Zips and eploys the application binaries.'
+desc "Zips and eploys the application binaries."
 zip :deployBinaries => :test do |zip|
     zip.directories_to_zip 'src/Shouldly/bin/Release/shouldly.*'
-    zip.output_file = 'Shouldly_#{ENV['GO_PIPELINE_LABEL']}.zip'
+    zip.output_file = "Shouldly_#{ENV['GO_PIPELINE_LABEL']}.zip"
     zip.output_path = ''
 end
 
-desc 'Prepares the gem files to be packaged.'
+desc "Prepares the gem files to be packaged."
 task :prepareGemFiles => :deployBinaries do
     
-    gem = 'gem'
-    lib = '#{gem}/files/lib'
-    docs = '#{gem}/files/docs'
-    pkg = '#{gem}/pkg'
+    gem = "gem"
+    lib = "#{gem}/files/lib"
+    docs = "#{gem}/files/docs"
+    pkg = "#{gem}/pkg"
     
 	Common.DeleteDirectory(gem)
 	
@@ -59,43 +59,43 @@ task :prepareGemFiles => :deployBinaries do
     Common.EnsurePath(pkg)
     Common.EnsurePath(docs)
     
-	Common.CopyFiles('src/Shouldly/bin/Release/*', lib) 
-	Common.CopyFiles('src/docs/**/*', docs) 
+	Common.CopyFiles("src/Shouldly/bin/Release/*", lib) 
+	Common.CopyFiles("src/docs/**/*", docs) 
 
 end
 
-desc 'Creates gem'
+desc "Creates gem"
 task :createGem => :prepareGemFiles do
 
-    FileUtils.cd('gem/files') do
+    FileUtils.cd("gem/files") do
     
         spec = Gem::Specification.new do |spec|
             spec.platform = Gem::Platform::RUBY
-            spec.summary = 'Should testing for .net'
-            spec.name = 'shouldly'
-            spec.version = '#{ENV['GO_PIPELINE_LABEL']}'
-            spec.files = Dir['lib/**/*'] + Dir['docs/**/*']
-            spec.authors = ['Xerxes Battiwalla']
-            spec.homepage = 'http://github.com/shouldly/shouldly/'
-            spec.description = 'Should testing for .net'
+            spec.summary = "Should testing for .net"
+            spec.name = "shouldly"
+            spec.version = "#{ENV['GO_PIPELINE_LABEL']}"
+            spec.files = Dir["lib/**/*"] + Dir["docs/**/*"]
+            spec.authors = ["Xerxes Battiwalla"]
+            spec.homepage = "http://github.com/shouldly/shouldly/"
+            spec.description = "Should testing for .net"
         end
 
         Rake::GemPackageTask.new(spec) do |package|
-            package.package_dir = '../pkg'
+            package.package_dir = "../pkg"
         end
         
-        Rake::Task['package'].invoke
+        Rake::Task["package"].invoke
     end
 end
 
-desc 'Push the gem to ruby gems'
+desc "Push the gem to ruby gems"
 task :pushGem => :createGem do
-	result = system('gem', 'push', 'gem/pkg/shouldly-#{ENV['GO_PIPELINE_LABEL']}.gem')
+	result = system("gem", "push", "gem/pkg/shouldly-#{ENV['GO_PIPELINE_LABEL']}.gem")
 end
 
-#desc 'Tag the current release'
+#desc "Tag the current release"
 #task :tagRelease do
-#	result = system('git', 'tag', '-a', 'v#{ENV['GO_PIPELINE_LABEL']}', '-m', 'release-v#{ENV['GO_PIPELINE_LABEL']}')
-#	result = system('git', 'push', '--tags')
+#	result = system("git", "tag", "-a", "v#{ENV['GO_PIPELINE_LABEL']}", "-m", "release-v#{ENV['GO_PIPELINE_LABEL']}")
+#	result = system("git", "push", "--tags")
 #end
 
