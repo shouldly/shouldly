@@ -1,5 +1,6 @@
 require "albacore"
 require "release/common"
+require "release/gallio"
 require "rubygems"
 require "rake/gempackagetask"
 
@@ -29,11 +30,12 @@ msbuild :build => :assemblyInfo do |msb|
     msb.solution = "Shouldly2010.sln"
 end
 
-desc "NUnit Test Runner"
-nunit :test => :build do |nunit|
-	nunit.path_to_command = "lib/nunit/net-2.0/nunit-console.exe"
-	nunit.assemblies "src/Tests/bin/Release/Shouldly.dll"
-	nunit.options "/xml=reports/TestResults.xml"
+desc "Gallio Test Runner"
+gallio :test => :build do |gallio|
+    gallio.bin_path = 'C:/Program Files/Gallio/bin'
+	gallio.assembly_path = 'src/Tests/bin/Release/Shouldly.dll'
+	gallio.report_path = 'reports'
+	gallio.report_name = 'test-results'
 end
 
 desc "Prepares the gem files to be packaged."
