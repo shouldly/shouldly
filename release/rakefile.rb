@@ -34,15 +34,15 @@ desc "Gallio Test Runner"
 gallio :test => :build do |gallio|
     gallio.bin_path = 'C:/Program Files/Gallio/bin'
 	gallio.assembly_path = 'src/Tests/bin/Release/Tests.dll'
-	gallio.report_path = 'testoutput'
-	gallio.report_name = 'index'
+	gallio.report_path = 'reports'
+	gallio.report_name = 'test-results'
 end
 
 desc "Zips and eploys the application binaries."
 zip :deployBinaries => :test do |zip|
     zip.directories_to_zip 'src/Shouldly/bin/Release/shouldly.*'
     zip.output_file = "Shouldly_#{ENV['GO_PIPELINE_LABEL']}.zip"
-    zip.output_path = ''
+    zip.output_path = 'D:/Websites/public.mikeobrien.net/wwwroot/Releases/Shouldly'
 end
 
 desc "Prepares the gem files to be packaged."
