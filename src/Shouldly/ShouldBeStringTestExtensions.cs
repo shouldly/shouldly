@@ -1,9 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
+﻿using System.Diagnostics;
 using NUnit.Framework;
-using Shouldly;
 
 namespace Shouldly
 {
@@ -12,13 +8,15 @@ namespace Shouldly
     public static class ShouldBeStringTestExtensions
     {
         /// <summary>
-        /// This method will strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
+        /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
         /// </summary>
-        public static void ShouldContainWithoutWhitespace(this string actual, object expected) {
+        public static void ShouldContainWithoutWhitespace(this string actual, object expected) 
+        {
             ShouldBeCloseTo(actual, expected);
         }
+
         /// <summary>
-        /// This method will strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
+        /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
         /// </summary>
         /// <param name="actual"></param>
         /// <param name="expected"></param>
@@ -52,18 +50,23 @@ namespace Shouldly
 //                    expectedBuffer = expectedBuffer.Substring(actualNextBreak);
 //                }
 //            }
+
             var strippedActual = actual.Quotify().StripWhitespace();
             var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
 
             strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
         }
 
-        public static void ShouldStartWith(this string actual, string expected) {
+        public static void ShouldStartWith(this string actual, string expected) 
+        {
             actual.AssertAwesomely(Is.StringStarting(expected).IgnoreCase, actual, expected);
         }
-        public static void ShouldEndWith(this string actual, string expected) {
+
+        public static void ShouldEndWith(this string actual, string expected) 
+        {
             actual.AssertAwesomely(Is.StringEnding(expected).IgnoreCase, actual, expected);
         }
+
         public static void ShouldContain(this string actual, string expected)
         {
             actual.AssertAwesomely(Is.StringContaining(expected).IgnoreCase, actual, expected);

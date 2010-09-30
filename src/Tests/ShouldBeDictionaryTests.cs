@@ -3,42 +3,50 @@ using NUnit.Framework;
 using Shouldly;
 using System.Collections.Generic;
 
-namespace Tests {
+namespace Tests 
+{
     [TestFixture]
-    public class ShouldBeDictionaryTests {
-        
+    public class ShouldBeDictionaryTests 
+    {
         [Test]
-        public void ShouldContainKey_WhenTrue_ShouldNotThrow() {
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("key", "value");
+        public void ShouldContainKey_WhenTrue_ShouldNotThrow() 
+        {
+            var dictionary = new Dictionary<string, string> {{"key", "value"}};
+
             dictionary.ShouldContainKey("key");
             dictionary.ShouldNotContainKey("rob");
         }
+
         [Test]
-        public void ShouldNotContainKey_WhenTrue_ShouldNotThrow() {
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("key", "value");
+        public void ShouldNotContainKey_WhenTrue_ShouldNotThrow() 
+        {
+            var dictionary = new Dictionary<string, string> {{"key", "value"}};
+
             dictionary.ShouldNotContainKey("rob");
         }
+
         [Test]
-        public void ShouldContainKeyAndValue_WhenTrue_ShouldNotThrow() {
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("key", "value");
+        public void ShouldContainKeyAndValue_WhenTrue_ShouldNotThrow() 
+        {
+            var dictionary = new Dictionary<string, string> {{"key", "value"}};
+
             dictionary.ShouldContainKeyAndValue("key","value");
-
         }
+
         [Test]
-        public void ShouldNotContainValueForKey_WhenTrue_ShouldNotThrow() {
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("key", "value");
+        public void ShouldNotContainValueForKey_WhenTrue_ShouldNotThrow() 
+        {
+            var dictionary = new Dictionary<string, string> {{"key", "value"}};
+
             dictionary.ShouldNotContainValueForKey("key", "slurpee");
-
         }
+
         [Test]
-        public void ShouldContainKeyAndValue_WorkWithGuids() {
+        public void ShouldContainKeyAndValue_WorkWithGuids() 
+        {
             var guiddy = Guid.NewGuid();
-            var dictionary = new Dictionary<string, Guid>();
-            dictionary.Add("key", guiddy);
+            var dictionary = new Dictionary<string, Guid> {{"key", guiddy}};
+
             dictionary.ShouldContainKeyAndValue("key", guiddy);
         }
     }

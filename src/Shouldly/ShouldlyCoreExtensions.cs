@@ -12,6 +12,5 @@ namespace Shouldly
 
             throw new AssertionException(new ShouldlyMessage(originalExpected, originalActual).ToString());
         }
-
     }
 }

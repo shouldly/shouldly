@@ -35,20 +35,17 @@ namespace Tests
         }
 
         [Test]
-        public void ShouldBeTypeOf_ShouldNotThrowForStrings() {
+        public void ShouldBeTypeOf_ShouldNotThrowForStrings() 
+        {
             "Sup yo".ShouldBeTypeOf(typeof(string));
         }
 
-        class MyBase{
-
-        }
-        class MyThing : MyBase {
-
-        }
-
+        class MyBase{ }
+        class MyThing : MyBase { }
 
         [Test]
-        public void ShouldBeTypeOf_ShouldNotThrowForInheritance() {
+        public void ShouldBeTypeOf_ShouldNotThrowForInheritance() 
+        {
             new MyThing().ShouldBeTypeOf(typeof(MyBase));
         }
 
