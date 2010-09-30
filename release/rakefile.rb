@@ -4,7 +4,7 @@ require "release/gallio"
 require "rubygems"
 require "rake/gempackagetask"
 
-task :default => [:deploySample]
+task :default => [:test]
 
 desc "Inits the build"
 task :initBuild do
