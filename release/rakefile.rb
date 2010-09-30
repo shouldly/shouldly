@@ -59,7 +59,7 @@ task :prepareGemFiles => :deployBinaries do
     Common.EnsurePath(pkg)
     Common.EnsurePath(docs)
     
-	Common.CopyFiles("src/Shouldly/bin/Release/*", lib) 
+	Common.CopyFiles("src/Shouldly/bin/Release/shouldly.*", lib) 
 	Common.CopyFiles("src/docs/**/*", docs) 
 
 end
@@ -75,6 +75,8 @@ task :createGem => :prepareGemFiles do
             spec.name = "shouldly"
             spec.version = "#{ENV['GO_PIPELINE_LABEL']}"
             spec.files = Dir["lib/**/*"] + Dir["docs/**/*"]
+			spec.add_runtime_dependency("nunit", "> 2.5.3.9345")
+			spec.add_runtime_dependency("rhino.mocks", "> 3.6.0.0")
             spec.authors = ["Xerxes Battiwalla"]
             spec.homepage = "http://github.com/shouldly/shouldly/"
             spec.description = "Should testing for .net"
