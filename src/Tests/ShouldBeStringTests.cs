@@ -16,10 +16,6 @@ namespace Tests
         [Test]
         public void ShouldBeCloseTo_ShowsYouWhereTheStringsDiffer()
         {
-            var result = "a string".CompareTo("another string");
-
-
-
             const string testMessage = "muhst eat braiiinnzzzz";
             Should.Error(() =>
             testMessage
@@ -32,19 +28,26 @@ namespace Tests
         }
 
         [Test]
-        public void ShouldStartWith_Should_Return_True_For_Ch_In_Cheese() {
+        public void ShouldStartWith_Should_Return_True_For_Ch_In_Cheese() 
+        {
             "Cheese".ShouldStartWith("Ch");
         }
+
         [Test]
-        public void ShouldStartWith_Should_Ignore_Case_And_Return_True_For_CH_In_Cheese() {
+        public void ShouldStartWith_Should_Ignore_Case_And_Return_True_For_CH_In_Cheese() 
+        {
             "Cheese".ShouldStartWith("CH");
         }
+
         [Test]
-        public void ShouldEndWith_Should_Return_True_For_ez_In_Cheez() {
+        public void ShouldEndWith_Should_Return_True_For_ez_In_Cheez() 
+        {
             "Cheez".ShouldEndWith("ez");
         }
+
         [Test]
-        public void ShouldEndWith_Should_Ignore_Case_And_Return_True_For_EZ_In_Cheez() {
+        public void ShouldEndWith_Should_Ignore_Case_And_Return_True_For_EZ_In_Cheez() 
+        {
             "Cheez".ShouldEndWith("EZ");
         }
     }
