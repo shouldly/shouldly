@@ -35,7 +35,7 @@ gallio :test => :build do |gallio|
     gallio.bin_path = 'C:/Program Files/Gallio/bin'
 	gallio.assembly_path = 'src/Tests/bin/Release/Tests.dll'
 	gallio.report_path = 'reports'
-	gallio.report_name = 'test-results'
+	gallio.report_name = 'index'
 end
 
 desc "Zips and eploys the application binaries."
