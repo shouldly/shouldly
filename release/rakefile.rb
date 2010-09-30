@@ -38,34 +38,34 @@ gallio :test => :build do |gallio|
 	gallio.report_name = 'index'
 end
 
-desc "Zips and eploys the application binaries."
-zip :deployBinaries => :test do |zip|
-    zip.directories_to_zip 'src/Shouldly/bin/Release/shouldly.*'
-    zip.output_file = "Shouldly_#{ENV['GO_PIPELINE_LABEL']}.zip"
-    zip.output_path = 'D:/Websites/public.mikeobrien.net/wwwroot/Releases/Shouldly'
-end
-
-desc "Prepares the gem files to be packaged."
-task :prepareGemFiles => :deployBinaries do
+desc "Prepares the files to be deployed."
+task :prepareDeploy => :test do
     
-    gem = "gem"
-    lib = "#{gem}/files/lib"
-    docs = "#{gem}/files/docs"
-    pkg = "#{gem}/pkg"
+    deploy = "deploy"
+    lib = "#{deploy}/files/lib"
+    docs = "#{deploy}/files/docs"
+    pkg = "#{deploy}/pkg"
     
-	Common.DeleteDirectory(gem)
+	Common.DeleteDirectory(deploy)
 	
     Common.EnsurePath(lib)
     Common.EnsurePath(pkg)
     Common.EnsurePath(docs)
     
-	Common.CopyFiles("src/Shouldly/bin/Release/shouldly.*", lib) 
+	Common.CopyFiles("src/Shouldly/bin/Release/Shouldly.*", lib) 
 	Common.CopyFiles("src/docs/**/*", docs) 
 
 end
 
+desc "Zips and eploys the application binaries."
+zip :deployBinaries => :prepareDeploy do |zip|
+    zip.directories_to_zip 'deploy/files/lib'
+    zip.output_file = "Shouldly_#{ENV['GO_PIPELINE_LABEL']}.zip"
+    zip.output_path = 'D:/Websites/public.mikeobrien.net/wwwroot/Releases/Shouldly'
+end
+
 desc "Creates the gem"
-task :createGem => :prepareGemFiles do
+task :createGem => :deployBinaries do
 
     FileUtils.cd("gem/files") do
     
@@ -75,8 +75,8 @@ task :createGem => :prepareGemFiles do
             spec.name = "shouldly"
             spec.version = "#{ENV['GO_PIPELINE_LABEL']}"
             spec.files = Dir["lib/**/*"] + Dir["docs/**/*"]
-			spec.add_runtime_dependency("nunit", "> 2.5.3.9345")
-			spec.add_runtime_dependency("rhino.mocks", "> 3.6.0.0")
+			spec.add_runtime_dependency("nunit", ">= 2.5.3.9345")
+			spec.add_runtime_dependency("rhino.mocks", ">= 3.6.0.0")
             spec.authors = ["Xerxes Battiwalla"]
             spec.homepage = "http://github.com/shouldly/shouldly/"
             spec.description = "Should testing for .net"
