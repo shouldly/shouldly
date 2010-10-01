@@ -20,5 +20,17 @@ namespace Shouldly
             if (actual.Contains(expected))
                 throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
         }
+
+        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) {
+            var result = actual.Where(a => ((expected - tolerance < a) & (a < expected + tolerance))).Count();
+            if (result < 1)
+                throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
+        }
+
+        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) {
+            var result = actual.Where(a => ((expected - tolerance < a) & (a < expected + tolerance))).Count();
+            if (result < 1)
+                throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
+        }
     }
 }
