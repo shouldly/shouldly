@@ -22,12 +22,14 @@ namespace Shouldly
                 throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
         }
 
-        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) {
+        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) 
+        {
             if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
                 throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
         }
 
-        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) {
+        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) 
+        {
             if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
                 throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
         }
