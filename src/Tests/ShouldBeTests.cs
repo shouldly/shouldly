@@ -35,6 +35,13 @@ namespace Tests
         }
 
         [Test]
+        public void ShouldBe_GreaterThanOrEqualTo()
+        {
+            7.ShouldBeGreaterThanOrEqualTo(1);
+            1.ShouldBeGreaterThanOrEqualTo(1);
+        }
+
+        [Test]
         public void ShouldBeTypeOf_ShouldNotThrowForStrings() 
         {
             "Sup yo".ShouldBeTypeOf(typeof(string));
