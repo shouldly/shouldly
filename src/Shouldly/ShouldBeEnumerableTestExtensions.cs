@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
@@ -20,5 +21,18 @@ namespace Shouldly
             if (actual.Contains(expected))
                 throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
         }
+
+        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) 
+        {
+            if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
+                throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
+        }
+
+        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) 
+        {
+            if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
+                throw new AssertionException(new ShouldlyMessage(expected, actual).ToString());
+        }
     }
+
 }
