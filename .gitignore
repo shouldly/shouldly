@@ -4,7 +4,9 @@
 src/*/bin
 src/*/obj
 *ReSharper*
-build
+output
 *.pidb
 *.userprefs
 test-results
+*.nuspec
+*.gem
