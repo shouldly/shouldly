@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DifferenceHighlighterHelpers.cs" />
     <Compile Include="Create.cs" />
     <Compile Include="ObjectHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
