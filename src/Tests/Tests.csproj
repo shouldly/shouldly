@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DifferenceHighlighterHelpersTests.cs" />
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />

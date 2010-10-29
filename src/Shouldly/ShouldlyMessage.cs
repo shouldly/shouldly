@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly
 {
@@ -50,12 +51,24 @@ namespace Shouldly
                 codeLines.Substring(0, shouldMethodIndex - 1).Trim() : 
                 possibleCodeLines[0];
 
-            return string.Format(@"{0}
+            return CreateActualVsExpectedMessage(actual, expected, environment, codePart);
+        }
+
+        private static string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart) {
+            string message = string.Format(@"{0}
         {1}
     {2}
         but was
     {3}",
                 codePart, environment.ShouldMethod.PascalToSpaced(), expected.Inspect(), actual.Inspect());
+
+            if (actual.CanGenerateDifferencesBetween(expected)) {
+                message += string.Format(@"
+        difference
+    {0}",
+                actual.HighlightDifferencesBetween(expected));
+            }
+            return message;
         }
 
         private static string GenerateShouldMessage(object expected)
