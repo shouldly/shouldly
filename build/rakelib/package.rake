@@ -72,6 +72,16 @@ task :create_gem => [:collate_package_contents] do
     end
 end
 
+desc "Creates the .ZIP package for the release build"
+task :create_zip => [:collate_package_contents] do
+	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	
+	zip_path = "#{output_base_path}/zip/"
+    mkdir_p zip_path
+
+	sh "#{ZIP_EXE} -r -j #{zip_path}/#{PROJECT_NAME}-#{@@build_number}.zip #{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
+end
+
 desc "Pushes the gem to the ruby gems server"
 task :push_gem => :create_gem do
 	gem_path = "#{output_base_path}/gem"

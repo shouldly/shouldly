@@ -8,5 +8,4 @@ output
 *.pidb
 *.userprefs
 test-results
-*.nuspec
 *.gem

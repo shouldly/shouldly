@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Shouldly</id>
+    <version>0.0.0</version>
+    <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
+    <authors>
+      <author>Dave Newman</author>
+      <author>Peter van der Woude</author>
+      <author>Anthony Egerton</author>
+      <author>Xerxes Battiwalla</author>
+    </authors>
+    <language>en-US</language>
+    <keywords>testing,unit testing,TDD,AAA,shoulda,testunit,rspec</keywords>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <homepage>http://shouldly.github.com</homepage>
+    <created>2010-10-10T22:28:02+11:00</created>
+    <modified>2010-10-10T22:28:02+11:00</modified>
+  </metadata>
+</package>

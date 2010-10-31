@@ -12,6 +12,7 @@ BASE_DIR = File.expand_path "../"
 SOURCE_PATH = "#{BASE_DIR}/src"
 NUNIT_EXE = "#{BASE_DIR}/lib/NUnit/bin/net-2.0/nunit-console.exe"
 NUPACK_EXE = "#{BASE_DIR}/lib/NuPack/NuPack.exe"
+ZIP_EXE = "#{BASE_DIR}/lib/Zip/zip.exe"
 OUTPUT_PATH = "#{BASE_DIR}/output"
 
 ENV["config"] = "Debug" if ENV["config"].nil?
