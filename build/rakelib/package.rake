@@ -13,7 +13,6 @@ end
 desc "Create NuPack package"
 task :nupack => [:collate_package_contents] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	dll_path = "#{output_base_path}/#{PROJECT_NAME}"
 	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
 	nupack_path = "#{output_base_path}/nupack/#{@@build_number}"
 	nupack_lib_path = "#{output_base_path}/nupack/#{@@build_number}/lib/35"
@@ -22,7 +21,7 @@ task :nupack => [:collate_package_contents] do
     mkdir_p nupack_lib_path
 
     #Copy binaries into lib path
-    cp Dir.glob("#{dll_path}/*.{dll,xml}"), nupack_lib_path
+    cp Dir.glob("#{deploy_path}/*.{dll,xml}"), nupack_lib_path
 
     #Copy nuspec and *.txt docs into package root
     cp Dir.glob("#{deploy_path}/*.txt"), nupack_path
