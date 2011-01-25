@@ -1,3 +1,15 @@
+desc "Copies all artefacts to a single location for easy distribution"
+task :prepare_artefacts => [:nupack, :create_gem, :create_zip] do
+	output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
+	artefacts_path = "#{OUTPUT_PATH}/artefacts/"
+	
+    mkdir_p artefacts_path
+	
+	cp Dir.glob("#{output_build_path}/gem/pkg/*.gem"), artefacts_path
+	cp Dir.glob("#{output_build_path}/nupack/*.nupkg"), artefacts_path
+	cp Dir.glob("#{output_build_path}/zip/*.zip"), artefacts_path
+end
+
 desc "Create NuPack package"
 task :nupack => [:collate_package_contents] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
@@ -107,7 +119,7 @@ end
 
 def updateNuspec(file)
     text = File.read(file)
-    modified_date = DateTime.now.rfc3339
+    modified_date = DateTime.now.strftime
     text.gsub! /<version>.*?<\/version>/, "<version>#{@@build_number}</version>"
     text.gsub! /<modified>.*?<\/modified>/, "<modified>#{modified_date}</modified>"
     File.open(file, 'w') { |f| f.write(text) }
