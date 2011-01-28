@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project name="jsharp-failures" default="build">
+
+  <include buildfile="../../samples.common" />
+  
+  <patternset id="source-files">
+    <include name="AssemblyInfo.jsl" />
+    <include name="JSharpTest.jsl" />
+  </patternset>
+
+</project>

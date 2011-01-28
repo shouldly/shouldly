@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{E6FDF86B-F3D1-11D4-8576-0002A516ECE8}") = "jsharp-failures", "failures\jsharp-failures.vjsproj", "{B55A6E53-57A9-4205-B396-C9983B3AF46A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B55A6E53-57A9-4205-B396-C9983B3AF46A}.Debug.ActiveCfg = Debug|.NET
+		{B55A6E53-57A9-4205-B396-C9983B3AF46A}.Debug.Build.0 = Debug|.NET
+		{B55A6E53-57A9-4205-B396-C9983B3AF46A}.Release.ActiveCfg = Release|.NET
+		{B55A6E53-57A9-4205-B396-C9983B3AF46A}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment>
+  
+    <ComponentGroup Id="Net_1.1_TestsGroup">
+      <ComponentRef Id="NUnitTestProject_1.1" />
+      <ComponentRef Id="framework_copy_for_tests_1.1" />
+      <ComponentRef Id="base_tests_1.1" />
+      <ComponentRef Id="fit_tests_1.1" />
+      <ComponentRef Id="fit_lib_1.1" />
+    </ComponentGroup>
+	
+    <ComponentGroup Id="Net_2.0_TestsGroup">
+      <ComponentRef Id="NUnitTestProject_2.0" />
+      <ComponentRef Id="framework_copy_for_tests_2.0" />
+      <ComponentRef Id="base_tests_2.0" />
+      <ComponentRef Id="gui_tests_2.0" />
+      <ComponentRef Id="fit_tests_2.0" />
+      <ComponentRef Id="fit_lib_2.0" />
+    </ComponentGroup>
+	
+    <DirectoryRef Id="net_1.1" FileSource="bin\net-1.1">
+
+      <Component Id="NUnitTestProject_1.1" DiskId="1" Guid="6670EEC9-2B3C-4c1f-A91C-BD0EDA0E8B12">
+        <File Id="NUnitTests.nunit_1.1" Name="ALLTESTS.NUN" LongName="NUnitTests.nunit" />
+		    <File Id="NUnitTests.config_1.1" Name="ALLTESTS.CFG" LongName="NUnitTests.config" />
+		  </Component>
+
+      <Component Id="fit_tests_1.1" DiskId="1" Guid="33E1C9B4-254D-4aaa-8BF5-FB18DAE3220E" >
+        <File Id="NUnitFitTests.html_1.1" Name="FITTESTS.HTM" LongName="NUnitFitTests.html" />
+        <File Id="runFile.exe_1.1" Name="runFile.exe"/>
+        <File Id="runFile.exe.config_1.1" Name="runFile.cfg" LongName="runFile.exe.config" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="lib_1.1" FileSource="bin\net-1.1\lib">
+
+      <Component Id="fit_lib_1.1" DiskId="1" Guid="589A4209-3A65-4335-932E-745F9A4D4568" >
+        <File Id="nunit.fixtures.dll_1.1" Name="FIXTURES.DLL" LongName="nunit.fixtures.dll" />
+        <File Id="fit.dll_1.1" Name="fit.dll"/>
+      </Component>
+
+    </DirectoryRef>
+    
+    <DirectoryRef Id="tests_1.1" FileSource="bin\net-1.1\tests">
+      
+      <Component Id="framework_copy_for_tests_1.1" DiskId="1" Guid="2E8EF5D0-6EFE-4d8d-BC55-DF1126262C24">
+	<File Id="nunit.framework.dll_1.1" Name="FRAMEWRK.DLL" LongName="nunit.framework.dll" />
+      </Component>
+        
+      <Component Id="base_tests_1.1" DiskId="1" Guid="85DD0370-9E05-4e9a-8AB4-02A6C24986AB">
+        <File Id="testutilities_1.1" Name="TESTUTIL.DLL" LongName="test-utilities.dll" />
+        <File Id="testassembly_1.1" Name="TESTDATA.DLL" LongName="test-assembly.dll" />		
+        <File Id="loadtestassembly_1.1" Name="LOADTEST.DLL" LongName="loadtest-assembly.dll" />		
+        <File Id="mockassembly_1.1" Name="MOCKASM.DLL" LongName="mock-assembly.dll" />
+        <File Id="nonamespaceassembly_1.1" Name="NONAMESP.DLL" LongName="nonamespace-assembly.dll" />
+        <File Id="timingtests_1.1" Name="TIMING.DLL" LongName="timing-tests.dll" />
+		    <File Id="nunit.util.tests_1.1" Name="TESTUTIL.DLL" LongName="nunit.util.tests.dll" />
+		    <File Id="nunit.framework.tests_1.1" Name="TESTFRAM.DLL" LongName="nunit.framework.tests.dll" />
+		    <File Id="nunit.mocks.tests_1.1" Name="TESTMOCK.DLL" LongName="nunit.mocks.tests.dll" />
+		    <File Id="console.tests_1.1" Name="TESTCONS.DLL" LongName="nunit-console.tests.dll" />
+		    <File Id="nunit.core.tests_1.1" Name="TESTCORE.DLL" LongName="nunit.core.tests.dll" />
+        <!-- <File Id="F__nunit_server_tests_dll_1.1" Name="NUST.DLL" LongName="nunit-server.tests.dll" /> -->
+        <File Id="nunit.fixtures.tests.dll_1.1" Name="FIXTESTS.DLL" LongName="nunit.fixtures.tests.dll" />
+      </Component>
+          
+    </DirectoryRef>
+	
+    <DirectoryRef Id="net_2.0" FileSource="bin\net-2.0">
+
+      <Component Id="NUnitTestProject_2.0" DiskId="1" Guid="6670EEC9-2B3C-4c1f-A91C-BD0EDA0E8B12">
+        <File Id="NUnitTests.nunit_2.0" Name="ALLTESTS.NUN" LongName="NUnitTests.nunit" />
+		    <File Id="NUnitTests.config_2.0" Name="ALLTESTS.CFG" LongName="NUnitTests.config" />
+      </Component>
+
+      <Component Id="fit_tests_2.0" DiskId="1" Guid="33E1C9B4-254D-4aaa-8BF5-FB18DAE3220E" >
+        <File Id="NUnitFitTests.html_2.0" Name="FITTESTS.HTM" LongName="NUnitFitTests.html" />
+        <File Id="runFile.exe_2.0" Name="runFile.exe"/>
+        <File Id="runFile.exe.config_2.0" Name="runFile.cfg" LongName="runFile.exe.config" />
+      </Component>
+ 
+    </DirectoryRef>
+
+    <DirectoryRef Id="lib_2.0" FileSource="bin\net-2.0\lib">
+
+      <Component Id="fit_lib_2.0" DiskId="1" Guid="DD9E8F25-DD22-4791-962E-0717BDE5E21D" >
+        <File Id="nunit.fixtures.dll_2.0" Name="FIXTURES.DLL" LongName="nunit.fixtures.dll" />
+        <File Id="fit.dll_2.0" Name="fit.dll"/>
+      </Component>
+
+    </DirectoryRef>
+    
+    <DirectoryRef Id="tests_2.0" FileSource="bin\net-2.0\tests">
+      
+      <Component Id="framework_copy_for_tests_2.0" DiskId="1" Guid="2E8EF5D0-6EFE-4d8d-BC55-DF1126262C24">
+	      <File Id="nunit.framework.dll_2.0" Name="FRAMEWRK.DLL" LongName="nunit.framework.dll" />
+      </Component>
+        
+      <Component Id="base_tests_2.0" DiskId="1" Guid="85DD0370-9E05-4e9a-8AB4-02A6C24986AB">
+        <File Id="testutilities_2.0" Name="TESTUTIL.DLL" LongName="test-utilities.dll" />
+        <File Id="testassembly_2.0" Name="TESTDATA.DLL" LongName="test-assembly.dll" />		
+        <File Id="loadtestassembly_2.0" Name="LOADTEST.DLL" LongName="loadtest-assembly.dll" />		
+        <File Id="mockassembly_2.0" Name="MOCKASM.DLL" LongName="mock-assembly.dll" />
+        <File Id="nonamespaceassembly_2.0" Name="NONAMESP.DLL" LongName="nonamespace-assembly.dll" />
+        <File Id="timingtests_2.0" Name="TIMING.DLL" LongName="timing-tests.dll" />
+		    <File Id="nunit.util.tests_2.0" Name="TESTUTIL.DLL" LongName="nunit.util.tests.dll" />
+		    <File Id="nunit.framework.tests_2.0" Name="TESTFRAM.DLL" LongName="nunit.framework.tests.dll" />
+		    <File Id="nunit.mocks.tests_2.0" Name="TESTMOCK.DLL" LongName="nunit.mocks.tests.dll" />
+		    <File Id="console.tests_2.0" Name="TESTCONS.DLL" LongName="nunit-console.tests.dll" />
+		    <File Id="nunit.core.tests_2.0" Name="TESTCORE.DLL" LongName="nunit.core.tests.dll" />
+        <!-- <File Id="F__nunit_server_tests_dll_2.0" Name="NUST.DLL" LongName="nunit-server.tests.dll" /> -->
+        <File Id="nunit.fixtures.tests.dll_2.0" Name="FIXTESTS.DLL" LongName="nunit.fixtures.tests.dll" />
+      </Component>
+          
+      <Component Id="gui_tests_2.0" DiskId="1" Guid="C7E0B8E5-DE60-455a-B247-B204A4C28677">
+		    <File Id="nunit.uikit.tests_2.0" Name="TESTUIKI.DLL" LongName="nunit.uikit.tests.dll" />
+                    <File Id="nunit.uiexception.tests.dll" Name="UIXCPTST.DLL" LongName="nunit.uiexception.tests.dll" />
+		    <File Id="gui.tests_2.0" Name="GUITESTS.DLL" LongName="nunit-gui.tests.dll" />
+      </Component>
+
+    </DirectoryRef>
+	
+  </Fragment>
+</Wix>

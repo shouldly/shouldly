@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="vb-money" default="build">
+
+  <include buildfile="../../samples.common" />
+
+  <patternset id="source-files">
+    <include name="AssemblyInfo.vb" />
+    <include name="IMoney.vb" />
+    <include name="Money.vb" />
+    <include name="MoneyBag.vb" />
+    <include name="MoneyTest.vb" />
+  </patternset>
+
+</project>

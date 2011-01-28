@@ -1,0 +1,123 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{20ABDB3C-EA46-468A-A574-0552299A32DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>loadtest_assembly</RootNamespace>
+    <AssemblyName>loadtest-assembly</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\tests\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\tests\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\AAA\Class1.cs">
+      <Link>AAA\Class1.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\AAA\Class2.cs">
+      <Link>AAA\Class2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\AAA\Class3.cs">
+      <Link>AAA\Class3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\AAA\Class4.cs">
+      <Link>AAA\Class4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\AAA\Class5.cs">
+      <Link>AAA\Class5.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\BBB\Class1.cs">
+      <Link>BBB\Class1.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\BBB\Class2.cs">
+      <Link>BBB\Class2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\BBB\Class3.cs">
+      <Link>BBB\Class3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\BBB\Class4.cs">
+      <Link>BBB\Class4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\BBB\Class5.cs">
+      <Link>BBB\Class5.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\CCC\Class1.cs">
+      <Link>CCC\Class1.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\CCC\Class2.cs">
+      <Link>CCC\Class2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\CCC\Class3.cs">
+      <Link>CCC\Class3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\CCC\Class4.cs">
+      <Link>CCC\Class4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\CCC\Class5.cs">
+      <Link>CCC\Class5.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\DDD\Class1.cs">
+      <Link>DDD\Class1.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\DDD\Class2.cs">
+      <Link>DDD\Class2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\DDD\Class3.cs">
+      <Link>DDD\Class3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\DDD\Class4.cs">
+      <Link>DDD\Class4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\DDD\Class5.cs">
+      <Link>DDD\Class5.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\loadtest-assembly\BaseClass.cs">
+      <Link>BaseClass.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+      <Name>nunit.framework.dll</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

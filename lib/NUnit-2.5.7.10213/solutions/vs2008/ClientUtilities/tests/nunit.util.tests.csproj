@@ -1,0 +1,358 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{74EF7165-117E-48ED-98EA-068EAE438E53}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.util.tests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Util.Tests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\Debug\tests\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\tests\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting">
+      <Name>System.Runtime.Remoting</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\NUnitCore\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\tests\nunit.core.tests.csproj">
+      <Name>nunit.core.tests</Name>
+      <Project>{DD758D21-E5D5-4D40-9450-5F65A32F359C}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Name>nunit.framework.dll</Name>
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\mock-assembly\mock-assembly.csproj">
+      <Name>mock-assembly</Name>
+      <Project>{2E368281-3BA8-4050-B05E-0E0E43F8F446}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\nonamespace-assembly\nonamespace-assembly.csproj">
+      <Name>nonamespace-assembly</Name>
+      <Project>{5110F0D2-8E50-46F8-9E17-7C8EBFECCA9D}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-utilities\test-utilities.csproj">
+      <Name>test-utilities</Name>
+      <Project>{3E63AD0F-24D4-46BE-BEE4-5A3299847D86}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\util\nunit.util.dll.csproj">
+      <Name>nunit.util.dll</Name>
+      <Project>{61CE9CE5-943E-44D4-A381-814DC1406767}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\AssemblyListTests.cs">
+      <Link>AssemblyListTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\CategoryManagerTest.cs">
+      <Link>CategoryManagerTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\CategoryParseTests.cs">
+      <Link>CategoryParseTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\EventDispatcherTests.cs">
+      <Link>EventDispatcherTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\FileWatcherTest.cs">
+      <Link>FileWatcherTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\MemorySettingsStorageTests.cs">
+      <Link>MemorySettingsStorageTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\MockAssemblyWatcher.cs">
+      <Link>MockAssemblyWatcher.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\NUnitProjectLoad.cs">
+      <Link>NUnitProjectLoad.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\NUnitProjectSave.cs">
+      <Link>NUnitProjectSave.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\NUnitProjectTests.cs">
+      <Link>NUnitProjectTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\NUnitProjectXml.cs">
+      <Link>NUnitProjectXml.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\NUnitRegistryTests.cs">
+      <Link>NUnitRegistryTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\PathUtilTests.cs">
+      <Link>PathUtilTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\ProcessRunnerTests.cs">
+      <Link>ProcessRunnerTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\ProjectConfigTests.cs">
+      <Link>ProjectConfigTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\RecentFileEntryTests.cs">
+      <Link>RecentFileEntryTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\RecentFilesTests.cs">
+      <Link>RecentFilesTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\RegistrySettingsStorageTests.cs">
+      <Link>RegistrySettingsStorageTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\RemoteTestResultTest.cs">
+      <Link>RemoteTestResultTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\ServerUtilityTests.cs">
+      <Link>ServerUtilityTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\ServiceManagerSetUpFixture.cs">
+      <Link>ServiceManagerSetUpFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\SettingsGroupTests.cs">
+      <Link>SettingsGroupTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\SummaryResultFixture.cs">
+      <Link>SummaryResultFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestAgencyTests.cs">
+      <Link>TestAgencyTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestAgentTests.cs">
+      <Link>TestAgentTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestDomainFixture.cs">
+      <Link>TestDomainFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestDomainTests_Multiple.cs">
+      <Link>TestDomainTests_Multiple.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestEventCatcher.cs">
+      <Link>TestEventCatcher.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestLoaderAssemblyTests.cs">
+      <Link>TestLoaderAssemblyTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestServerTests.cs">
+      <Link>TestServerTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\VisualStudioConverterTests.cs">
+      <Link>VisualStudioConverterTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\VSProjectTests.cs">
+      <Link>VSProjectTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\XmlResultWriterTest.cs">
+      <Link>XmlResultWriterTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\RuntimeFrameworkSelectorTests.cs">
+      <Link>RuntimeFrameworkSelectorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\TestRunnerFactoryTests.cs">
+      <Link>TestRunnerFactoryTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\tests\DomainManagerTests.cs">
+      <Link>DomainManagerTests.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\ClassLibrary1.csproj">
+      <Link>resources\ClassLibrary1.csproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\cpp-default-library_VS2005.vcproj">
+      <Link>resources\cpp-default-library_VS2005.vcproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\cpp-sample.vcproj">
+      <Link>resources\cpp-sample.vcproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\cpp-sample_VS2005.vcproj">
+      <Link>resources\cpp-sample_VS2005.vcproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\CPPLibrary.vcproj">
+      <Link>resources\CPPLibrary.vcproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\csharp-sample.csproj">
+      <Link>resources\csharp-sample.csproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\csharp-sample_VS2005.csproj">
+      <Link>resources\csharp-sample_VS2005.csproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\HebrewFileProblem.csproj">
+      <Link>resources\HebrewFileProblem.csproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\jsharp.vjsproj">
+      <Link>resources\jsharp.vjsproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\jsharp_VS2005.vjsproj">
+      <Link>resources\jsharp_VS2005.vjsproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\MakeFileProject.vcproj">
+      <Link>resources\MakeFileProject.vcproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\samples.sln">
+      <Link>resources\samples.sln</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\samples_VS2005.sln">
+      <Link>resources\samples_VS2005.sln</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\Solution1.sln">
+      <Link>resources\Solution1.sln</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\Unmanaged.vcproj">
+      <Link>resources\Unmanaged.vcproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\vb-sample.vbproj">
+      <Link>resources\vb-sample.vbproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\vb-sample_VS2005.vbproj">
+      <Link>resources\vb-sample_VS2005.vbproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\WebApplication1.sln">
+      <Link>resources\WebApplication1.sln</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\csharp-sample_VS2005_noplatform.csproj">
+      <Link>resources\csharp-sample_VS2005_noplatform.csproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\MultiplePlatformProject.csproj">
+      <Link>resources\MultiplePlatformProject.csproj</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\tests\resources\XNAWindowsProject.csproj">
+      <Link>resources\XNAWindowsProject.csproj</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

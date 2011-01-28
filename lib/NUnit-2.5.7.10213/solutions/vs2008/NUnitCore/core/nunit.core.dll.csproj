@@ -1,0 +1,457 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.core</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Core</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/nunit.core/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\Debug\lib\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1699</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\lib\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1699</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\AbstractTestCaseDecoration.cs">
+      <Link>AbstractTestCaseDecoration.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\AssemblyReader.cs">
+      <Link>AssemblyReader.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\AssemblyResolver.cs">
+      <Link>AssemblyResolver.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\CombinatorialTestCaseProvider.cs">
+      <Link>Builders\CombinatorialTestCaseProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\InlineDataPointProvider.cs">
+      <Link>Builders\InlineDataPointProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\LegacySuiteBuilder.cs">
+      <Link>Builders\LegacySuiteBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\NUnitTestCaseBuilder.cs">
+      <Link>Builders\NUnitTestCaseBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\NUnitTestFixtureBuilder.cs">
+      <Link>Builders\NUnitTestFixtureBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\ProviderCache.cs">
+      <Link>Builders\ProviderCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\SetUpFixtureBuilder.cs">
+      <Link>Builders\SetUpFixtureBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\TestAssemblyBuilder.cs">
+      <Link>Builders\TestAssemblyBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\TestCaseParameterProvider.cs">
+      <Link>Builders\TestCaseParameterProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\TestCaseSourceProvider.cs">
+      <Link>Builders\TestCaseSourceProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\ValueSourceProvider.cs">
+      <Link>Builders\ValueSourceProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\CoreExtensions.cs">
+      <Link>CoreExtensions.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\CultureDetector.cs">
+      <Link>CultureDetector.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\DirectorySwapper.cs">
+      <Link>DirectorySwapper.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\DomainAgent.cs">
+      <Link>DomainAgent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\EventListenerTextWriter.cs">
+      <Link>EventListenerTextWriter.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\EventPump.cs">
+      <Link>EventPump.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\EventQueue.cs">
+      <Link>EventQueue.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ExpectedExceptionProcessor.cs">
+      <Link>ExpectedExceptionProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\DataPointProviders.cs">
+      <Link>Extensibility\DataPointProviders.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\EventListenerCollection.cs">
+      <Link>Extensibility\EventListenerCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\FrameworkRegistry.cs">
+      <Link>Extensibility\FrameworkRegistry.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\SuiteBuilderCollection.cs">
+      <Link>Extensibility\SuiteBuilderCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\TestCaseBuilderCollection.cs">
+      <Link>Extensibility\TestCaseBuilderCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\TestCaseProviders.cs">
+      <Link>Extensibility\TestCaseProviders.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Extensibility\TestDecoratorCollection.cs">
+      <Link>Extensibility\TestDecoratorCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ExtensionHost.cs">
+      <Link>ExtensionHost.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ExtensionPoint.cs">
+      <Link>ExtensionPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\IgnoreDecorator.cs">
+      <Link>IgnoreDecorator.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\InternalTrace.cs">
+      <Link>InternalTrace.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\InternalTraceWriter.cs">
+      <Link>InternalTraceWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\InvalidSuiteException.cs">
+      <Link>InvalidSuiteException.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\InvalidTestFixtureException.cs">
+      <Link>InvalidTestFixtureException.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\LegacySuite.cs">
+      <Link>LegacySuite.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Log4NetCapture.cs">
+      <Link>Log4NetCapture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\LogCapture.cs">
+      <Link>LogCapture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NamespaceTreeBuilder.cs">
+      <Link>NamespaceTreeBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NoTestFixturesException.cs">
+      <Link>NoTestFixturesException.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NullListener.cs">
+      <Link>NullListener.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NUnitException.cs">
+      <Link>NUnitException.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NUnitFramework.cs">
+      <Link>NUnitFramework.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NUnitTestFixture.cs">
+      <Link>NUnitTestFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NUnitTestMethod.cs">
+      <Link>NUnitTestMethod.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\PlatformHelper.cs">
+      <Link>PlatformHelper.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ProxyTestRunner.cs">
+      <Link>ProxyTestRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\QueuingEventListener.cs">
+      <Link>QueuingEventListener.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Reflect.cs">
+      <Link>Reflect.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\RemoteTestRunner.cs">
+      <Link>RemoteTestRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\SetUpFixture.cs">
+      <Link>SetUpFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\SimpleTestRunner.cs">
+      <Link>SimpleTestRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\StringTextWriter.cs">
+      <Link>StringTextWriter.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\SuiteBuilderAttribute.cs">
+      <Link>SuiteBuilderAttribute.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestBuilderAttribute.cs">
+      <Link>TestBuilderAttribute.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestCaseBuilderAttribute.cs">
+      <Link>TestCaseBuilderAttribute.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestContext.cs">
+      <Link>TestContext.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestDecoratorAttribute.cs">
+      <Link>TestDecoratorAttribute.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestFixture.cs">
+      <Link>TestFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestFixtureBuilder.cs">
+      <Link>TestFixtureBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestMethod.cs">
+      <Link>TestMethod.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestRunnerThread.cs">
+      <Link>TestRunnerThread.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestSuite.cs">
+      <Link>TestSuite.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestSuiteBuilder.cs">
+      <Link>TestSuiteBuilder.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestThread.cs">
+      <Link>TestThread.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TextCapture.cs">
+      <Link>TextCapture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ThreadedTestRunner.cs">
+      <Link>ThreadedTestRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ParameterizedTestMethodSuite.cs">
+      <Link>ParameterizedTestMethodSuite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NUnitConfiguration.cs">
+      <Link>NUnitConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\AssemblyHelper.cs">
+      <Link>AssemblyHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\ProviderInfo.cs">
+      <Link>Builders\ProviderInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\MethodHelper.cs">
+      <Link>MethodHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TypeHelper.cs">
+      <Link>TypeHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\CombinatorialStrategy.cs">
+      <Link>Builders\CombinatorialStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\CombiningStrategy.cs">
+      <Link>Builders\CombiningStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\PairwiseStrategy.cs">
+      <Link>Builders\PairwiseStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\SequentialStrategy.cs">
+      <Link>Builders\SequentialStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Logger.cs">
+      <Link>Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\Builders\DatapointProvider.cs">
+      <Link>Builders\DatapointProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ParameterizedFixtureSuite.cs">
+      <Link>ParameterizedFixtureSuite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\TestAssembly.cs">
+      <Link>TestAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\ProjectRootSuite.cs">
+      <Link>ProjectRootSuite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\core\NamespaceSuite.cs">
+      <Link>NamespaceSuite.cs</Link>
+    </Compile>
+    <Content Include="..\..\..\..\src\NUnitCore\core\Results.xsd">
+      <Link>Results.xsd</Link>
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="..\..\..\..\src\NUnitCore\core\Summary.xslt">
+      <Link>Summary.xslt</Link>
+    </Content>
+    <None Include="..\..\..\..\src\NUnitCore\core\Results.xsx">
+      <Link>Results.xsx</Link>
+      <DependentUpon>Results.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,269 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3FF340D5-D3B4-4DF0-BAF1-98B3C00B6148}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit-gui-runner</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Gui</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\Debug\lib\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1699</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\lib\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1699</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\ClientUtilities\util\nunit.util.dll.csproj">
+      <Name>nunit.util.dll</Name>
+      <Project>{61CE9CE5-943E-44D4-A381-814DC1406767}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GuiComponents\UiKit\nunit.uikit.dll.csproj">
+      <Name>nunit.uikit.dll</Name>
+      <Project>{27531BBF-183D-4C3A-935B-D840B9F1A3A4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\core\nunit.core.dll.csproj">
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Name>nunit.core.dll</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\AboutBox.cs">
+      <Link>AboutBox.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\AddinDialog.cs">
+      <Link>AddinDialog.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\AppEntry.cs">
+      <Link>AppEntry.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\DetailResults.cs">
+      <Link>DetailResults.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\ExceptionDetailsForm.cs">
+      <Link>ExceptionDetailsForm.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\GuiOptions.cs">
+      <Link>GuiOptions.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\NUnitForm.cs">
+      <Link>NUnitForm.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\OptionsDialog.cs">
+      <Link>OptionsDialog.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\ProjectEditor.cs">
+      <Link>ProjectEditor.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\AdvancedLoaderSettingsPage.cs">
+      <Link>SettingsPages\AdvancedLoaderSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\AssemblyReloadSettingsPage.cs">
+      <Link>SettingsPages\AssemblyReloadSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\GuiSettingsPage.cs">
+      <Link>SettingsPages\GuiSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\TestLoaderSettingsPage.cs">
+      <Link>SettingsPages\TestLoaderSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\TestResultSettingsPage.cs">
+      <Link>SettingsPages\TestResultSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\TreeSettingsPage.cs">
+      <Link>SettingsPages\TreeSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\VisualStudioSettingsPage.cs">
+      <Link>SettingsPages\VisualStudioSettingsPage.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiRunner\nunit-gui\TestAssemblyInfoForm.cs">
+      <SubType>Form</SubType>
+      <Link>TestAssemblyInfoForm.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\AboutBox.resx">
+      <Link>AboutBox.resx</Link>
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\AddinDialog.resx">
+      <Link>AddinDialog.resx</Link>
+      <DependentUpon>AddinDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\ExceptionDetailsForm.resx">
+      <Link>ExceptionDetailsForm.resx</Link>
+      <DependentUpon>ExceptionDetailsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\NUnitForm.resx">
+      <Link>NUnitForm.resx</Link>
+      <DependentUpon>NUnitForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\OptionsDialog.resx">
+      <Link>OptionsDialog.resx</Link>
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\ProjectEditor.resx">
+      <Link>ProjectEditor.resx</Link>
+      <DependentUpon>ProjectEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\AdvancedLoaderSettingsPage.resx">
+      <Link>SettingsPages\AdvancedLoaderSettingsPage.resx</Link>
+      <DependentUpon>AdvancedLoaderSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\AssemblyReloadSettingsPage.resx">
+      <Link>SettingsPages\AssemblyReloadSettingsPage.resx</Link>
+      <DependentUpon>AssemblyReloadSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\GuiSettingsPage.resx">
+      <Link>SettingsPages\GuiSettingsPage.resx</Link>
+      <DependentUpon>GuiSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\TestLoaderSettingsPage.resx">
+      <Link>SettingsPages\TestLoaderSettingsPage.resx</Link>
+      <DependentUpon>TestLoaderSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\TestResultSettingsPage.resx">
+      <Link>SettingsPages\TestResultSettingsPage.resx</Link>
+      <DependentUpon>TestResultSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\TreeSettingsPage.resx">
+      <Link>SettingsPages\TreeSettingsPage.resx</Link>
+      <DependentUpon>TreeSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\..\src\GuiRunner\nunit-gui\SettingsPages\VisualStudioSettingsPage.resx">
+      <Link>SettingsPages\VisualStudioSettingsPage.resx</Link>
+      <DependentUpon>VisualStudioSettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="..\..\..\..\src\GuiRunner\nunit-gui\Logo.ico">
+      <Link>Logo.ico</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

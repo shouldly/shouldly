@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E87A106-EB20-4147-84C8-95B0BB43A1D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NUnit.UiException</RootNamespace>
+    <AssemblyName>nunit.uiexception</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\src\GuiException\UiException\stackSgKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1699</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\lib\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1699</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\CodeBox.cs">
+      <Link>Controls\CodeBox.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\PaintLineLocation.cs">
+      <Link>Controls\PaintLineLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\CSCode.cs">
+      <Link>CSharpParser\CSCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\CSParser.cs">
+      <Link>CSharpParser\CSParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\CSToken.cs">
+      <Link>CSharpParser\CSToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\CSTokenCollection.cs">
+      <Link>CSharpParser\CSTokenCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\Lexer.cs">
+      <Link>CSharpParser\Lexer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\LexToken.cs">
+      <Link>CSharpParser\LexToken.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\TokenClassifier.cs">
+      <Link>CSharpParser\TokenClassifier.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CSharpParser\TokenDictionary.cs">
+      <Link>CSharpParser\TokenDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\DefaultTextManager.cs">
+      <Link>DefaultTextManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\ExceptionItem.cs">
+      <Link>ExceptionItem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\ExceptionItemCollection.cs">
+      <Link>ExceptionItemCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\ITextManager.cs">
+      <Link>ITextManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Properties\Resources.Designer.cs">
+      <Link>Properties\Resources.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceParser.cs">
+      <Link>StackTraceParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\TraceExceptionHelper.cs">
+      <Link>TraceExceptionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CodeFormatters\GeneralCodeFormatter.cs">
+      <Link>CodeFormatters\GeneralCodeFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CodeFormatters\CodeFormatterCollection.cs">
+      <Link>CodeFormatters\CodeFormatterCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CodeFormatters\PlainTextCodeFormatter.cs">
+      <Link>CodeFormatters\PlainTextCodeFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CodeFormatters\ICodeFormatter.cs">
+      <Link>CodeFormatters\ICodeFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceAnalysers\FunctionParser.cs">
+      <Link>StackTraceAnalysers\FunctionParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceAnalysers\IErrorParser.cs">
+      <Link>StackTraceAnalysers\IErrorParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceAnalysers\LineNumberParser.cs">
+      <Link>StackTraceAnalysers\LineNumberParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceAnalysers\PathCompositeParser.cs">
+      <Link>StackTraceAnalysers\PathCompositeParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceAnalysers\UnixPathParser.cs">
+      <Link>StackTraceAnalysers\UnixPathParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\StackTraceAnalysers\WindowsPathParser.cs">
+      <Link>StackTraceAnalysers\WindowsPathParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\CodeFormatters\IFormatterCatalog.cs">
+      <Link>CodeFormatters\IFormatterCatalog.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\SourceCodeDisplay.cs">
+      <Link>Controls\SourceCodeDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\SplitterBox.cs">
+      <Link>Controls\SplitterBox.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\DefaultCodeRenderer.cs">
+      <Link>Controls\DefaultCodeRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\DefaultErrorListRenderer.cs">
+      <Link>Controls\DefaultErrorListRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\ErrorBrowser.cs">
+      <Link>Controls\ErrorBrowser.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\ErrorList.cs">
+      <Link>Controls\ErrorList.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\ErrorPanelLayout.cs">
+      <Link>Controls\ErrorPanelLayout.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\ErrorToolbar.cs">
+      <Link>Controls\ErrorToolbar.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\CodeRenderingContext.cs">
+      <Link>Controls\CodeRenderingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\ICodeRenderer.cs">
+      <Link>Controls\ICodeRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\ICodeView.cs">
+      <Link>Controls\ICodeView.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\IErrorListRenderer.cs">
+      <Link>Controls\IErrorListRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\IErrorDisplay.cs">
+      <Link>Controls\IErrorDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\IStackTraceView.cs">
+      <Link>Controls\IStackTraceView.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\GuiException\UiException\Controls\StackTraceDisplay.cs">
+      <Link>Controls\StackTraceDisplay.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="..\..\..\..\src\GuiException\UiException\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\stackSgKey.snk">
+      <Link>stackSgKey.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageCopyToClipboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageErrorBrowserHeader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageErrorList.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageReverseItemOrder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageSourceCodeDisplay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageSplitterBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\src\GuiException\UiException\Resources\ImageStackTraceDisplay.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

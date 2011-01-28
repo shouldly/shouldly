@@ -1,0 +1,469 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD758D21-E5D5-4D40-9450-5F65A32F359C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.core.tests</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Core.Tests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/nunit.core.tests/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\Debug\tests\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0;CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>618</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\tests\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>618</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\ClientUtilities\util\nunit.util.dll.csproj">
+      <Name>nunit.util.dll</Name>
+      <Project>{61CE9CE5-943E-44D4-A381-814DC1406767}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Name>nunit.framework.dll</Name>
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitMocks\mocks\nunit.mocks.csproj">
+      <Name>nunit.mocks</Name>
+      <Project>{EEE7C98B-23E6-472D-9036-C2D53B0DFE7C}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\mock-assembly\mock-assembly.csproj">
+      <Name>mock-assembly</Name>
+      <Project>{2E368281-3BA8-4050-B05E-0E0E43F8F446}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\nonamespace-assembly\nonamespace-assembly.csproj">
+      <Name>nonamespace-assembly</Name>
+      <Project>{5110F0D2-8E50-46F8-9E17-7C8EBFECCA9D}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-assembly\test-assembly.csproj">
+      <Name>test-assembly</Name>
+      <Project>{1960CAC4-9A82-47C5-A9B3-55BC37572C3C}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-utilities\test-utilities.csproj">
+      <Name>test-utilities</Name>
+      <Project>{3E63AD0F-24D4-46BE-BEE4-5A3299847D86}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AllTests.cs">
+      <Link>AllTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AssemblyReaderTests.cs">
+      <Link>AssemblyReaderTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AssemblyResolverTests.cs">
+      <Link>AssemblyResolverTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AssemblyTests.cs">
+      <Link>AssemblyTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AssemblyVersionFixture.cs">
+      <Link>AssemblyVersionFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AssertPassFixture.cs">
+      <Link>AssertPassFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AttributeDescriptionFixture.cs">
+      <Link>AttributeDescriptionFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\AttributeInheritance.cs">
+      <Link>AttributeInheritance.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\BasicRunnerTests.cs">
+      <Link>BasicRunnerTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\CallContextTests.cs">
+      <Link>CallContextTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\CategoryAttributeTests.cs">
+      <Link>CategoryAttributeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\CombinatorialTests.cs">
+      <Link>CombinatorialTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\CoreExtensionsTests.cs">
+      <Link>CoreExtensionsTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\CultureSettingAndDetectionTests.cs">
+      <Link>CultureSettingAndDetectionTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SetCultureAttributeTests.cs">
+      <Link>SetCultureAttributeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\DirectorySwapperTests.cs">
+      <Link>DirectorySwapperTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\EventQueueTests.cs">
+      <Link>EventQueueTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\EventTestFixture.cs">
+      <Link>EventTestFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\ExpectExceptionTest.cs">
+      <Link>ExpectExceptionTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\FailFixture.cs">
+      <Link>FailFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\FixtureSetUpTearDownTest.cs">
+      <Link>FixtureSetUpTearDownTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\Generic\DeduceTypeArgsFromArgs.cs">
+      <Link>Generic\DeduceTypeArgsFromArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\Generic\SimpleGenericFixture.cs">
+      <Link>Generic\SimpleGenericFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\Generic\SimpleGenericMethods.cs">
+      <Link>Generic\SimpleGenericMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\Generic\TypeParameterUsedWithTestMethod.cs">
+      <Link>Generic\TypeParameterUsedWithTestMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\IgnoreFixture.cs">
+      <Link>IgnoreFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\LegacySuiteTests.cs">
+      <Link>LegacySuiteTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\MaxTimeTests.cs">
+      <Link>MaxTimeTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\MockTestRunner.cs">
+      <Link>MockTestRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\NameFilterTest.cs">
+      <Link>NameFilterTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\NamespaceAssemblyTests.cs">
+      <Link>NamespaceAssemblyTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\PairwiseTests.cs">
+      <Link>PairwiseTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\PlatformDetectionTests.cs">
+      <Link>PlatformDetectionTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\PropertyAttributeTests.cs">
+      <Link>PropertyAttributeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\ReflectTests.cs">
+      <Link>ReflectTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\RemoteRunnerTests.cs">
+      <Link>RemoteRunnerTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SerializationBug.cs">
+      <Link>SerializationBug.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SetUpFixtureTests.cs">
+      <Link>SetUpFixtureTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SetUpTest.cs">
+      <Link>SetUpTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SimpleNameFilterTests.cs">
+      <Link>SimpleNameFilterTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SimpleTestRunnerTests.cs">
+      <Link>SimpleTestRunnerTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\StackOverflowTestFixture.cs">
+      <Link>StackOverflowTestFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SuiteBuilderTests.cs">
+      <Link>SuiteBuilderTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\SuiteBuilderTests_Multiple.cs">
+      <Link>SuiteBuilderTests_Multiple.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestAssemblyBuilderTests.cs">
+      <Link>TestAssemblyBuilderTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestCaseAttributeTests.cs">
+      <Link>TestCaseAttributeTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestCaseResultFixture.cs">
+      <Link>TestCaseResultFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestCaseSourceTests.cs">
+      <Link>TestCaseSourceTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestCaseTest.cs">
+      <Link>TestCaseTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestConsole.cs">
+      <Link>TestConsole.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestContextTests.cs">
+      <Link>TestContextTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestDelegateFixture.cs">
+      <Link>TestDelegateFixture.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestFixtureBuilderTests.cs">
+      <Link>TestFixtureBuilderTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestFixtureExtension.cs">
+      <Link>TestFixtureExtension.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestFixtureTests.cs">
+      <Link>TestFixtureTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestFrameworkTests.cs">
+      <Link>TestFrameworkTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestIDTests.cs">
+      <Link>TestIDTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestInfoTests.cs">
+      <Link>TestInfoTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestMethodSignatureTests.cs">
+      <Link>TestMethodSignatureTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestNameTests.cs">
+      <Link>TestNameTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestNodeTests.cs">
+      <Link>TestNodeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestRunnerThreadTests.cs">
+      <Link>TestRunnerThreadTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TestSuiteTest.cs">
+      <Link>TestSuiteTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\ThreadedTestRunnerTests.cs">
+      <Link>ThreadedTestRunnerTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\ThreadingTests.cs">
+      <Link>ThreadingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TypeHelperTests.cs">
+      <Link>TypeHelperTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\UnhandledExceptionTests.cs">
+      <Link>UnhandledExceptionTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\ValueSourceTests.cs">
+      <Link>ValueSourceTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\XmlTest.cs">
+      <Link>XmlTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\ParameterizedTestFixtureTests.cs">
+      <Link>ParameterizedTestFixtureTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\RepeatedTestFixture.cs">
+      <Link>RepeatedTestFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\TheoryTests.cs">
+      <Link>TheoryTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\RuntimeFrameworkTests.cs">
+      <Link>RuntimeFrameworkTests.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\NUnitCore\tests\DatapointTests.cs">
+      <Link>DatapointTests.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="..\..\..\..\src\NUnitCore\core\Results.xsd">
+      <Link>Results.xsd</Link>
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <None Include="..\..\..\..\src\NUnitCore\core\Results.xsx">
+      <Link>Results.xsx</Link>
+      <DependentUpon>Results.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

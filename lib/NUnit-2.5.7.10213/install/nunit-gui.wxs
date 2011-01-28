@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi"> 
+  <Fragment> 
+    
+    <ComponentGroup Id="Net_2.0_GuiRunnerGroup">
+      <ComponentRef Id="nunit.exe_2.0" />
+      <ComponentRef Id="nunit_x86.exe" />
+      <ComponentRef Id="nunit_gui_runner_2.0" />
+      <ComponentRef Id="nunit.uikit_2.0" />
+      <ComponentRef Id="nunit.uiexception.dll" />
+      <ComponentRef Id="DllFileAssociation_2.0" />
+      <ComponentRef Id="NUnitProjectFileAssociation_2.0" />
+      <ComponentRef Id="MenuShortcut_NUnit" />
+      <ComponentRef Id="MenuShortcut_2.0" />
+      <ComponentRef Id="MenuShortcut_Mono_2.0" />
+    </ComponentGroup>
+        
+    <DirectoryRef Id="net_2.0" FileSource="bin\net-2.0">
+             
+      <Component Id="nunit.exe_2.0" DiskId="1" Guid="E0AFF731-3B75-4a29-A885-076A46533D2D">
+        <File Id="nunit.exe_2.0" Name="nunit.exe">
+          <!--<Shortcut Id="DesktopShortcut" Directory="DesktopFolder"
+          Name="SNUNITDT" LongName="NUnit $(var.NominalVersion)" 
+          Icon="nunit_icon.exe" IconIndex="0" Show="normal" 
+          Advertise="no" WorkingDirectory="bin" />-->
+        </File>
+        <File Id="nunit.config_2.0" Name="NUNIT.CFG" LongName="nunit.exe.config" />
+      </Component>
+      		
+      <Component Id="nunit_x86.exe" DiskId="1" Guid="3D07B159-305C-4fa9-979B-2B50C439E024">
+        <File Id="nunit_x86.exe" Name="NUNITX86.EXE" LongName="nunit-x86.exe" />
+        <File Id="nunit_x86.config" Name="NUNITX86.CFG" LongName="nunit-x86.exe.config" />
+      </Component>
+
+      <Component Id="DllFileAssociation_2.0" Guid="51496B17-0252-4adf-9850-1E0841E5A51B">
+
+        <Registry Id="R__OpenDllWith_2.0" Root="HKCR" Key=".dll\OpenWithList\nunit.exe"/>
+
+        <Registry Id="R__OpenDll_2.0_1" Root="HKCR" Key="dllfile\shell\OpenWithNUnit"
+          Action="write" Type="string" Value="Run &amp;Tests" />
+
+      </Component>
+      		
+      <Component Id="NUnitProjectFileAssociation_2.0" Guid="74E041CF-5345-4563-BAE6-1D1BFC72CC1F">
+
+        <Registry Id="R__OpenDll_2.0_2" Root="HKCR" Key="dllfile\shell\OpenWithNUnit\command"
+          Action="write" Type="string" Value='"[!nunit.exe_2.0]" "%1"' />
+
+        <Registry Id="R__OpenNUnit_2.0_1" Root="HKCR" Key=".nunit"
+          Action="write" Type="string" Value="NUnitTestProject" />
+
+        <Registry Id="R__OpenNUnit_2.0_2" Root="HKCR" Key="NUnitTestProject"
+          Action="write" Type="string" Value="NUnit Test Project" />
+
+        <Registry Id="R__OpenNUnit_2.0_3" Root="HKCR" Key="NUnitTestProject\DefaultIcon"
+          Action="write" Type="string" Value="[!nunit.exe_2.0],0" />
+
+        <Registry Id="R__OpenNUnit_2.0_4" Root="HKCR" Key="NUnitTestProject\shell\Open"
+          Action="write" Type="string" Value="&amp;Open" />
+
+        <Registry Id="R__OpenNUnit_2.0_5" Root="HKCR" Key="NUnitTestProject\shell\Open\command"
+          Action="write" Type="string" Value='"[!nunit.exe_2.0]" "%1"' />
+
+      </Component>
+
+      <Component Id="MenuShortcut_NUnit" DiskId="1" Guid="55FE94D3-743A-4733-BF01-B296240931C1">
+        <Condition>FRAMEWORK20 = "50727-50727"</Condition>
+        <Shortcut Id="MenuShortcut_NUnit" Name="NUnit" 
+                  Target="[!nunit.exe_2.0]" Advertise="no" Directory="NUnitMenu" 
+                  Icon="nunit_icon.exe" IconIndex="0" Show="normal" 
+                  WorkingDirectory="net_2.0" />
+      </Component>
+      		
+      <Component Id="MenuShortcut_2.0" DiskId="1" Guid="A771FB75-2488-4f2c-BA22-1F4C85D64AC7">
+        <Condition>FRAMEWORK20 = "50727-50727"</Condition>
+        <Shortcut Id="MenuShortcut_2.0" Name="SNUNIT20" LongName="NUnit (.NET 2.0)" 
+                  Target="[!nunit.exe_2.0]" Advertise="no" Directory="RunUnderMenu" 
+                  Icon="nunit_icon.exe" IconIndex="0" Show="normal" 
+                  WorkingDirectory="net_2.0" />
+      </Component>
+      		
+      <Component Id="MenuShortcut_Mono_2.0" DiskId="1" Guid="CDCB0BAA-0C50-4e41-A2B8-5C15027843DF">
+        <Condition>MONODIRECTORY</Condition>
+        <Shortcut Id="MenuShortcut_Mono_2.0" Name="SNUNITMO" LongName="NUnit (Mono 2.0 Profile)" 
+                  Target="[MONODIRECTORY]bin\mono.exe" Arguments="nunit.exe"  Advertise="no"
+                  Directory="RunUnderMenu" Icon="nunit_icon.exe" IconIndex="0" Show="normal" 
+                  WorkingDirectory="net_2.0" />
+      </Component>
+    		     				
+    </DirectoryRef>
+
+    <DirectoryRef Id="lib_2.0" FileSource="bin\net-2.0\lib">
+
+      <Component Id="nunit_gui_runner_2.0" DiskId="1" Guid="7A62D7B2-1D0D-4cb4-9C52-00DBBBDAA0A2">
+        <File Id="nunit_gui_runner_2.0" Name="GUI.DLL" LongName="nunit-gui-runner.dll" />
+      </Component>
+      		
+      <Component Id="nunit.uikit_2.0" DiskId="1" Guid="5B256DDD-668C-4bdd-AC91-7EF0D961F6E6">
+        <File Id="nunit.uikit_2.0" Name="UIKIT.DLL" LongName="nunit.uikit.dll" />
+        <File Id="skipped.png_2.0" Name="SKIPPED.PNG" LongName="skipped.png" />
+        <File Id="success.png_2.0" Name="SUCCESS.PNG" LongName="success.png" />
+        <File Id="failure.png_2.0" Name="FAILURE.PNG" LongName="failure.png" />
+        <File Id="ignored.png_2.0" Name="IGNORED.PNG" LongName="ignored.png" />
+        <File Id="inconclusive.png_2.0" Name="INCNCLSV.PNG" LongName="inconclusive.png" />
+        <RemoveFile Id="RemoveThumbnails_GUI_2.0" On="uninstall" Name="*" />
+      </Component>
+
+      <Component Id="nunit.uiexception.dll" DiskId="1" Guid="0C2AAFD9-3EDC-4e1d-ACC3-9CC2E39210C2">
+        <File Id="nunit.uiexception.dll" Name="UIXCPTN.DLL" LongName="nunit.uiexception.dll" />
+      </Component>
+      		
+    </DirectoryRef>
+
+    <Icon Id="nunit_icon.exe" SourceFile="bin\net-2.0\nunit.exe" />
+	
+  </Fragment>
+</Wix>

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<project name="NUnitFramework" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="Constraints/AttributeConstraints.cs"/>
+        <include name="Constraints/BasicConstraints.cs"/>
+        <include name="Constraints/BinaryOperations.cs"/>
+        <include name="Constraints/CollectionConstraints.cs"/>
+        <include name="Constraints/CollectionTally.cs"/>
+        <include name="Constraints/ComparisonAdapter.cs"/>
+        <include name="Constraints/ComparisonConstraints.cs"/>
+        <include name="Constraints/Constraint.cs"/>
+        <include name="Constraints/ConstraintBuilder.cs"/>
+        <include name="Constraints/ConstraintExpression.cs"/>
+        <include name="Constraints/ConstraintExpressionBase.cs"/>
+        <include name="Constraints/ConstraintFactory.cs"/>
+        <include name="Constraints/ConstraintOperators.cs"/>
+        <include name="Constraints/ContainsConstraint.cs"/>
+        <include name="Constraints/DelayedConstraint.cs"/>
+        <include name="Constraints/DirectoryConstraints.cs"/>
+        <include name="Constraints/EmptyConstraint.cs"/>
+        <include name="Constraints/EqualConstraint.cs"/>
+        <include name="Constraints/EqualityAdapter.cs"/>
+        <include name="Constraints/FloatingPointNumerics.cs"/>
+        <include name="Constraints/IResolveConstraint.cs"/>
+        <include name="Constraints/MessageWriter.cs"/>
+        <include name="Constraints/MsgUtils.cs"/>
+        <include name="Constraints/Numerics.cs"/>
+        <include name="Constraints/NUnitComparer.cs"/>
+        <include name="Constraints/NUnitEqualityComparer.cs"/>
+        <include name="Constraints/PathConstraints.cs"/>
+        <include name="Constraints/PredicateConstraint.cs"/>
+        <include name="Constraints/PrefixConstraints.cs"/>
+        <include name="Constraints/PropertyConstraint.cs"/>
+        <include name="Constraints/RangeConstraint.cs"/>
+        <include name="Constraints/ResolvableConstraintExpression.cs"/>
+        <include name="Constraints/ReusableConstraint.cs"/>
+        <include name="Constraints/SameAsConstraint.cs"/>
+        <include name="Constraints/SerializableConstraints.cs"/>
+        <include name="Constraints/StringConstraints.cs"/>
+        <include name="Constraints/ThrowsConstraint.cs"/>
+        <include name="Constraints/Tolerance.cs"/>
+        <include name="Constraints/TypeConstraints.cs"/>
+        <include name="AssemblyInfo.cs"/>
+        <include name="Assert.cs"/>
+        <include name="AssertionException.cs"/>
+        <include name="AssertionHelper.cs"/>
+        <include name="Assume.cs"/>
+        <include name="CategoryAttribute.cs"/>
+        <include name="CollectionAssert.cs"/>
+        <include name="Contains.cs"/>
+        <include name="DatapointAttributes.cs"/>
+        <include name="DescriptionAttribute.cs"/>
+        <include name="DirectoryAssert.cs"/>
+        <include name="ExpectedExceptionAttribute.cs"/>
+        <include name="ExplicitAttribute.cs"/>
+        <include name="FileAssert.cs"/>
+        <include name="GlobalSettings.cs"/>
+        <include name="Has.cs"/>
+        <include name="IExpectException.cs"/>
+        <include name="IgnoreAttribute.cs"/>
+        <include name="IgnoreException.cs"/>
+        <include name="IncludeExcludeAttributes.cs"/>
+        <include name="InconclusiveException.cs"/>
+        <include name="Is.cs"/>
+        <include name="Iz.cs"/>
+        <include name="ITestCaseData.cs"/>
+        <include name="JoinTypeAttributes.cs"/>
+        <include name="List.cs"/>
+        <include name="ListMapper.cs"/>
+    <include name="MaxTimeAttribute.cs"/>
+    <include name="PropertyAttribute.cs"/>
+    <include name="RandomAttribute.cs"/>
+    <include name="Randomizer.cs"/>
+    <include name="RangeAttribute.cs"/>
+    <include name="RepeatAttribute.cs"/>
+    <include name="RequiredAddinAttribute.cs"/>
+        <include name="SetCultureAttribute.cs"/>
+        <include name="SetUICultureAttribute.cs"/>
+        <include name="SetUpAttribute.cs"/>
+        <include name="SetUpFixtureAttribute.cs"/>
+        <include name="SpecialValue.cs"/>
+        <include name="StringAssert.cs"/>
+        <include name="SuccessException.cs"/>
+        <include name="SuiteAttribute.cs"/>
+        <include name="TearDownAttribute.cs"/>
+        <include name="TestAttribute.cs"/>
+        <include name="TestCaseAttribute.cs"/>
+        <include name="TestCaseData.cs"/>
+        <include name="TestCaseSourceAttribute.cs"/>
+        <include name="TestContext.cs"/>
+        <include name="TestFixtureAttribute.cs"/>
+        <include name="TestFixtureSetUpAttribute.cs"/>
+        <include name="TestFixtureTearDownAttribute.cs"/>
+        <include name="TestState.cs"/>
+        <include name="TestStatus.cs"/>
+        <include name="Text.cs"/>
+        <include name="TextMessageWriter.cs"/>
+        <include name="TheoryAttribute.cs"/>
+        <include name="ThreadingAttributes.cs"/>
+        <include name="Throws.cs"/>
+        <include name="ValuesAttribute.cs"/>
+        <include name="ValueSourceAttribute.cs"/>
+  </patternset>
+
+  <target name="build">
+
+    <csc target="library"
+        output="${current.framework.dir}/nunit.framework.dll"
+        doc="${current.framework.dir}/nunit.framework.xml"
+        debug="${build.debug}" 
+        define="${build.defines}">
+      <nowarn>
+        <warning number="618,672"/>
+        <warning number="1699" if="${runtime.version=='2.0'}"/>
+      </nowarn>
+      <sources basedir=".">
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs" />
+      </sources>
+    </csc>
+
+    <!-- Needed locally by some NUnit tests -->
+    <copy file="${current.framework.dir}/nunit.framework.dll"
+      todir="${current.test.dir}"/>
+
+    <!-- Needed in base dir by pnunit tests -->
+    <copy file="${current.framework.dir}/nunit.framework.dll"
+      todir="${current.build.dir}"/>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitFramework/framework">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit.framework.build"/>
+        <include name="SyntaxElements.txt"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

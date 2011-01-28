@@ -5,7 +5,7 @@ namespace Shouldly
 {
     public static class ShouldlyCoreExtensions
     {
-        public static void AssertAwesomely<T>(this T actual, IResolveConstraint specifiedConstraint, object originalActual, object originalExpected)
+        internal static void AssertAwesomely<T>(this T actual, IResolveConstraint specifiedConstraint, object originalActual, object originalExpected)
         {
             var constraint = specifiedConstraint.Resolve();
             if (constraint.Matches(actual)) return;
