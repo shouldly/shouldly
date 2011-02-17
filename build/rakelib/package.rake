@@ -1,38 +1,38 @@
 desc "Copies all artefacts to a single location for easy distribution"
-task :prepare_artefacts => [:nupack, :create_gem, :create_zip] do
+task :prepare_artefacts => [:nuget, :create_gem, :create_zip] do
 	output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	artefacts_path = "#{OUTPUT_PATH}/artefacts/"
 	
     mkdir_p artefacts_path
 	
 	cp Dir.glob("#{output_build_path}/gem/pkg/*.gem"), artefacts_path
-	cp Dir.glob("#{output_build_path}/nupack/*.nupkg"), artefacts_path
+	cp Dir.glob("#{output_build_path}/nuget/*.nupkg"), artefacts_path
 	cp Dir.glob("#{output_build_path}/zip/*.zip"), artefacts_path
 end
 
-desc "Create NuPack package"
-task :nupack => [:collate_package_contents] do
+desc "Create nuget package"
+task :nuget => [:collate_package_contents] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
-	nupack_path = "#{output_base_path}/nupack/#{@@build_number}"
-	nupack_lib_path = "#{output_base_path}/nupack/#{@@build_number}/lib/35"
+	nuget_path = "#{output_base_path}/nuget/#{@@build_number}"
+	nuget_lib_path = "#{output_base_path}/nuget/#{@@build_number}/lib/35"
 
-    #Ensure nupack path exists
-    mkdir_p nupack_lib_path
+    #Ensure nuget path exists
+    mkdir_p nuget_lib_path
 
     #Copy binaries into lib path
-    cp Dir.glob("#{deploy_path}/*.{dll,xml}"), nupack_lib_path
+    cp Dir.glob("#{deploy_path}/#{PROJECT_NAME}.{dll,pdb}"), nuget_lib_path
 
     #Copy nuspec and *.txt docs into package root
-    cp Dir.glob("#{deploy_path}/*.txt"), nupack_path
-    cp "#{PROJECT_NAME}.nuspec", nupack_path
-    updateNuspec("#{nupack_path}/#{PROJECT_NAME}.nuspec")
+    cp Dir.glob("#{deploy_path}/*.txt"), nuget_path
+    cp "#{PROJECT_NAME}.nuspec", nuget_path
+    updateNuspec("#{nuget_path}/#{PROJECT_NAME}.nuspec")
 
     #Build package
-    full_path_to_nupack_exe = File.expand_path(NUPACK_EXE, File.dirname(__FILE__))
-    nuspec = File.expand_path("#{nupack_path}/#{PROJECT_NAME}.nuspec", File.dirname(__FILE__))
-    FileUtils.cd "#{output_base_path}/nupack" do
-        sh "#{full_path_to_nupack_exe} #{nuspec}"
+    full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
+    nuspec = File.expand_path("#{nuget_path}/#{PROJECT_NAME}.nuspec", File.dirname(__FILE__))
+    FileUtils.cd "#{output_base_path}/nuget" do
+        sh "#{full_path_to_nuget_exe} pack #{nuspec}"
     end
 end
 
@@ -58,7 +58,7 @@ task :create_gem => [:collate_package_contents] do
     end    	
 	
     #Copy content into gem root
-    cp Dir.glob("#{deploy_path}/*.{xml,dll}"), "#{gem_path}/files/lib"
+    cp Dir.glob("#{deploy_path}/*.{xml,dll,pdb}"), "#{gem_path}/files/lib"
     cp Dir.glob("#{deploy_path}/*.txt"), "#{gem_path}/files/doc"
 
     FileUtils.cd("#{gem_path}/files") do
@@ -106,7 +106,7 @@ task :collate_package_contents => [:get_build_number] do
 	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
 
     mkdir_p deploy_path
-	cp Dir.glob("#{dll_path}/*.{dll,xml}"), deploy_path
+	cp Dir.glob("#{dll_path}/*.{dll,xml,pdb}"), deploy_path
 
 	cp "../README.markdown", "#{deploy_path}/README.txt"
 	cp "../LICENSE.txt", "#{deploy_path}"
