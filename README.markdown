@@ -53,6 +53,7 @@ Other *Shouldly* features:
         ShouldContain
         ShouldNotContain
         ShouldContainWithoutWhitespace
+        ShouldMatch
 
     ##Dictionary
         ShouldContainKeyShouldContainKeyAndValue
