@@ -50,14 +50,31 @@ namespace Tests
 			"Sup yo".ShouldBeTypeOf(typeof(string));
 		}
 
+        [Test]
+        public void ShouldBeTypeOfWithGenericParameter_ShouldNotThrowForStrings()
+        {
+            "Sup yo".ShouldBeTypeOf<string>();
+        }
+
+		[Test]
+		public void ShouldNotBeTypeOf_ShouldNotThrowForNonMatchingType() 
+		{
+			"Sup yo".ShouldNotBeTypeOf(typeof(int));
+		}
+
+        [Test]
+        public void ShouldNotBeTypeOfWithGenericParameter_ShouldNotThrowForNonMatchingTypes()
+        {
+            "Sup yo".ShouldNotBeTypeOf<int>();
+        }
+
 		class MyBase{ }
 		class MyThing : MyBase { }
 
 		[Test]
 		public void ShouldBeTypeOf_ShouldNotThrowForInheritance() 
 		{
-			new MyThing().ShouldBeTypeOf(typeof(MyBase));
+			new MyThing().ShouldBeTypeOf<MyBase>();
 		}
-
 	}
 }

@@ -13,12 +13,22 @@ namespace Shouldly
             actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
         }
 
-        public static void ShouldBeTypeOf(this object actual, Type expected) 
+        public static void ShouldBeTypeOf<T>(this object actual)
+        {
+            ShouldBeTypeOf(actual, typeof(T));
+        }
+
+        public static void ShouldBeTypeOf(this object actual, Type expected)
         {
             actual.AssertAwesomely(Is.InstanceOf(expected), actual, expected);
         }
 
-        public static void ShouldNotBeTypeOf(this object actual, Type expected) 
+        public static void ShouldNotBeTypeOf<T>(this object actual)
+        {
+            ShouldNotBeTypeOf(actual, typeof(T));
+        }
+
+        public static void ShouldNotBeTypeOf(this object actual, Type expected)
         {
             actual.AssertAwesomely(!Is.InstanceOf(expected), actual, expected);
         }
