@@ -27,6 +27,57 @@ namespace Tests
             new[]{1,2,3}.ShouldNotContain(5);
         }
 
+        public class Vampire
+        {
+            public int BitesTaken { get; set; }
+        }
+
+        [Test]
+        public void ShouldContain_WithPredicate_UsingObjectsShouldDisplayMeaningfulMessage()
+        {
+            var vampires = new[]
+                               {
+                                   new Vampire {BitesTaken = 1},
+                                   new Vampire {BitesTaken = 2},
+                                   new Vampire {BitesTaken = 3},
+                                   new Vampire {BitesTaken = 4},
+                                   new Vampire {BitesTaken = 5},
+                                   new Vampire {BitesTaken = 6},
+                               };
+
+            Should.Error(() =>
+                vampires.ShouldContain(x => x.BitesTaken > 7),
+                "vampires should contain an element satisfying the condition (x.BitesTaken > 7) but does not");
+        }
+
+        [Test]
+        public void ShouldContain_WithPredicate_WhenTrue_ShouldNotThrow()
+        {
+            new[]{1,2,3}.ShouldContain(x => x % 3 == 0);
+        }
+
+        [Test]
+        public void ShouldContain_WithPredicate_WhenFalse_ShouldErrorWithMessage()
+        {
+            Should.Error(() =>
+            new[]{1,2,3}.ShouldContain(x => x % 4 == 0),
+            "new[]{1,2,3} should contain an element satisfying the condition ((x % 4) = 0) but does not");
+        }
+
+        [Test]
+        public void ShouldNotContain_WithPredicate_WhenTrue_ShouldNotThrow()
+        {
+            new[] { 1, 2, 3 }.ShouldNotContain(x => x % 4 == 0);
+        }
+
+        [Test]
+        public void ShouldNotContain_WithPredicate_WhenFalse_ShouldErrorWithMessage()
+        {
+            Should.Error(() =>
+            new[] { 1, 2, 3 }.ShouldNotContain(x => x % 3 == 0),
+            "new[]{1,2,3} should not contain an element satisfying the condition ((x % 3) = 0) but does");
+        }
+
         [Test]
         public void ShouldNotContain_WhenFalse_ShouldErrorWithMessage()
         {

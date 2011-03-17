@@ -40,11 +40,13 @@ Other *Shouldly* features:
         ShouldNotBe
         ShouldBeGreaterThan(OrEqualTo)
         ShouldBeLessThan(OrEqualTo)
-        ShouldBeTypeOf
+		ShouldBeTypeOf<T>
 
     ##Enumerable
-        ShouldContain
-        ShouldNotContain
+		ShouldContain
+		ShouldContain(predicate)
+		ShouldNotContain
+		ShouldNotContain(predicate)
 
     ##String
         ShouldBeCloseTo

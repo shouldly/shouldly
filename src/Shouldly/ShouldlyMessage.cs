@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly
@@ -54,7 +55,8 @@ namespace Shouldly
             return CreateActualVsExpectedMessage(actual, expected, environment, codePart);
         }
 
-        private static string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart) {
+        private static string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart) 
+        {
             string message = string.Format(@"{0}
         {1}
     {2}
@@ -81,12 +83,15 @@ namespace Shouldly
 
             var codePart = codeLines.Substring(0, codeLines.IndexOf(environment.ShouldMethod) - 1).Trim();
 
+            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
+
+            const string elementSatifyingTheConditionString = "an element satisfying the condition";
             return string.Format(
                 @"{0}
-        {1}
-    {2}
-        but does not",
-                codePart, environment.ShouldMethod.PascalToSpaced(), expected.Inspect());
+        {1} {2}
+    {3}
+        but does {4}",
+                     codePart, environment.ShouldMethod.PascalToSpaced(), expected is BinaryExpression ? elementSatifyingTheConditionString : "", expected.Inspect(), isNegatedAssertion ? "" : "not");
         }
 
         private static TestEnvironment GetStackFrameForOriginatingTestMethod()
