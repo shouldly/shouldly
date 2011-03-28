@@ -9,6 +9,7 @@ namespace Shouldly
 {
     public class TestEnvironment
     {
+        public bool DeterminedOriginatingFrame { get; set; }
         public string ShouldMethod { get; set; }
         public string FileName { get; set; }
         public int LineNumber { get; set; }
@@ -42,15 +43,19 @@ namespace Shouldly
         private static string GenerateShouldMessage(object actual, object expected)
         {
             var environment = GetStackFrameForOriginatingTestMethod();
+            var codePart = "The provided expression";
 
-            var possibleCodeLines = File.ReadAllLines(environment.FileName)
-                                        .Skip(environment.LineNumber).ToArray();
-            var codeLines = possibleCodeLines.DelimitWith("\n");
+            if (environment.DeterminedOriginatingFrame)
+            {
+                var possibleCodeLines = File.ReadAllLines(environment.FileName)
+                                            .Skip(environment.LineNumber).ToArray();
+                var codeLines = possibleCodeLines.DelimitWith("\n");
 
-            var shouldMethodIndex = codeLines.IndexOf(environment.ShouldMethod);
-            var codePart = shouldMethodIndex > -1 ? 
-                codeLines.Substring(0, shouldMethodIndex - 1).Trim() : 
-                possibleCodeLines[0];
+                var shouldMethodIndex = codeLines.IndexOf(environment.ShouldMethod);
+                codePart = shouldMethodIndex > -1 ?
+                    codeLines.Substring(0, shouldMethodIndex - 1).Trim() :
+                    possibleCodeLines[0];
+            }
 
             return CreateActualVsExpectedMessage(actual, expected, environment, codePart);
         }
@@ -76,12 +81,16 @@ namespace Shouldly
         private static string GenerateShouldMessage(object expected)
         {
             var environment = GetStackFrameForOriginatingTestMethod();
+            var codePart = "The provided expression";
 
-            var codeLines = string.Join("\n",
-                                        File.ReadAllLines(environment.FileName)
-                                            .Skip(environment.LineNumber).ToArray());
+            if (environment.DeterminedOriginatingFrame)
+            {
+                var codeLines = string.Join("\n",
+                                            File.ReadAllLines(environment.FileName)
+                                                .Skip(environment.LineNumber).ToArray());
 
-            var codePart = codeLines.Substring(0, codeLines.IndexOf(environment.ShouldMethod) - 1).Trim();
+                codePart = codeLines.Substring(0, codeLines.IndexOf(environment.ShouldMethod) - 1).Trim();
+            }
 
             var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
 
@@ -106,11 +115,10 @@ namespace Shouldly
                 shouldlyFrame = stackTrace.GetFrame(++i);
             }
             var originatingFrame = stackTrace.GetFrame(i+1);
-            if (originatingFrame.GetFileName() == null)
-                originatingFrame = stackTrace.GetFrame(i);
 
             return new TestEnvironment
                        {
+                           DeterminedOriginatingFrame = originatingFrame.GetFileName() != null,
                            ShouldMethod = shouldlyFrame.GetMethod().Name,
                            FileName = originatingFrame.GetFileName(),
                            LineNumber = originatingFrame.GetFileLineNumber() - 1

@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using NUnit.Framework.Constraints;
+﻿using NUnit.Framework.Constraints;
 
 namespace Shouldly
 {
@@ -10,7 +9,7 @@ namespace Shouldly
             var constraint = specifiedConstraint.Resolve();
             if (constraint.Matches(actual)) return;
 
-            throw new AssertionException(new ShouldlyMessage(originalExpected, originalActual).ToString());
+            throw new ChuckedAWobbly(new ShouldlyMessage(originalExpected, originalActual).ToString());
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using NUnit.Framework;
 
 namespace Shouldly 
 {
@@ -11,31 +10,31 @@ namespace Shouldly
         public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) 
         {
             if (!dictionary.ContainsKey(key))
-                throw new AssertionException(new ShouldlyMessage(key).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
         }
 
         public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
         {
             if (!dictionary.ContainsKey(key))
-                throw new AssertionException(new ShouldlyMessage(key).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
 
             if (!dictionary[key].Equals(val))
-                throw new AssertionException(new ShouldlyMessage(val,dictionary[key]).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(val,dictionary[key]).ToString());
         }
 
         public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) 
         {
             if (dictionary.ContainsKey(key))
-                throw new AssertionException(new ShouldlyMessage(key).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
         }
 
         public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
         {
             if (!dictionary.ContainsKey(key))
-                throw new AssertionException(new ShouldlyMessage(key).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
 
             if (dictionary[key].Equals(val))
-                throw new AssertionException(new ShouldlyMessage(dictionary[key],val).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(dictionary[key],val).ToString());
         }
     }
 }

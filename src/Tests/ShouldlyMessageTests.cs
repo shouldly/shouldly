@@ -10,40 +10,32 @@ namespace Tests
         [Test]
         public void CanGenerateErrorMessage()
         {
-            new ShouldlyMessage("expected", "actual").ToString()
-                .ShouldBe(@"            new ShouldlyMessage(""expected"", ""actual"").ToString()
-        can generate error message
-    ""expected""
-        but was
-    ""actual""");
+            Should.Error(
+                () => "expected".ShouldBe("actual"),
+                "() => \"expected\" should be \"actual\" but was \"expected\""
+            );
         }
 
         [Test]
         public void ShouldlyMessage_PassedCollectionsWhichCanBeCompared_ShouldShowDifferences() 
         {
-            new ShouldlyMessage(new int[] { 1, 2, 3 }, new int[] { 2, 2, 3 }).ToString()
-            .ShouldBe(@"            new ShouldlyMessage(new int[] { 1, 2, 3 }, new int[] { 2, 2, 3 }).ToString()
-        shouldly message_ passed collections which can be compared_ should show differences
-    [1, 2, 3]
-        but was
-    [2, 2, 3]
-        difference
-    [*2*, 2, 3]");
+            Should.Error(
+                () => (new[] { 1, 2, 3 }).ShouldBe(new[] { 2, 2, 3 }),
+                "() => (new[] { 1, 2, 3 }) should be [2, 2, 3] but was [1, 2, 3] difference [*1*, 2, 3]"
+            );
         }
 
         [Test]
         public void ShouldlyMessage_PassedObjectsWhichCannotCompared_ShouldNotShowDifferences() 
         {
-            new ShouldlyMessage(new UncomparableClass("ted"), new UncomparableClass("bob")).ToString()
-            .ShouldBe(@"            new ShouldlyMessage(new UncomparableClass(""ted""), new UncomparableClass(""bob"")).ToString()
-        shouldly message_ passed objects which cannot compared_ should not show differences
-    ted
-        but was
-    bob");
+            Should.Error(
+                () => new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob")),
+                "() => new UncomparableClass(\"ted\") should be bob but was ted"
+            );
         }
 
         private class UncomparableClass {
-            private string _description;
+            private readonly string _description;
 
             public UncomparableClass(string description) {
                 _description = description;

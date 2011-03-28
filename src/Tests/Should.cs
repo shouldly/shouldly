@@ -1,5 +1,4 @@
 ﻿using System;
-using NUnit.Framework;
 using Shouldly;
 
 namespace Tests
@@ -8,7 +7,7 @@ namespace Tests
     {
         public static void Error(Action action, string errorMessage)
         {
-            Shouldly.Should.Throw<AssertionException>(action).ShouldBeCloseTo(errorMessage);
+            Shouldly.Should.Throw<ChuckedAWobbly>(action).ShouldBeCloseTo(errorMessage);
         }
     }
 }
