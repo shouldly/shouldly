@@ -32,7 +32,7 @@ task :nuget => [:collate_package_contents] do
     full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
     nuspec = File.expand_path("#{nuget_path}/#{PROJECT_NAME}.nuspec", File.dirname(__FILE__))
     FileUtils.cd "#{output_base_path}/nuget" do
-        sh "#{full_path_to_nuget_exe} pack #{nuspec} -v"
+        sh "#{full_path_to_nuget_exe} pack #{nuspec} -Verbose"
     end
 	
 	`mv "#{nuget_path}/../#{PROJECT_NAME}.#{@@build_number}.nupkg" "#{nuget_path}/../#{PROJECT_NAME}-#{@@build_number}.nupkg"`
