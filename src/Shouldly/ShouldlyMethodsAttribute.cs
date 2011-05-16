@@ -3,6 +3,5 @@
 namespace Shouldly
 {
     public class ShouldlyMethodsAttribute : Attribute
-    {
-    }
+    { }
 }

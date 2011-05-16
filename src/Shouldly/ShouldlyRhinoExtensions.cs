@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
-using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Exceptions;
 
@@ -26,7 +24,7 @@ namespace Shouldly
                 var expectedCall = MethodCall(body.Method.Name, body.Arguments.Cast<object>());
                 var recordedCalls = methodCalls.Select(args => MethodCall(body.Method.Name, args));
 
-                throw new AssertionException(string.Format(
+                throw new ChuckedAWobbly(string.Format(
 @"*Expecting*
     {0}
 *Recorded*

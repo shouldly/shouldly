@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="Minimal" default="build" basedir=".">
+
+  <include buildfile="../../../samples.common" />
+
+  <patternset id="source-files">
+    <include name="Minimal.cs" />
+  </patternset>
+
+  <target name="packagex">
+    <copy todir="${package.samples.dir}/Extensibility/Core/Minimal">
+      <fileset basedir=".">
+        <include name="Minimal.csproj" />
+        <include name="Minimal.build" />
+        <include name="Readme.txt" />
+        <patternset refid="source-files" />
+      </fileset>
+    </copy>
+  </target>
+
+</project>

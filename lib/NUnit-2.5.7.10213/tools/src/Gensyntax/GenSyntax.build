@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project name="GenSyntax" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="AssemblyInfo.cs"/>
+    <include name="GenSpec.cs"/>
+    <include name="CodeGenerator.cs"/>
+    <include name="Program.cs"/>
+    <include name="Stanza.cs"/>
+    <include name="SyntaxInfo.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+    <include name="Templates/*.cs"/>
+  </patternset>
+
+  <target name="init">
+    <property name="debug" value="false"/>
+    <property name="defines" value="TRACE" unless="${debug}"/>
+    <property name="defines" value="TRACE;DEBUG" if="${debug}"/>
+    <property name="build.dir" value="../../bin"/>
+  </target>
+
+  <target name="clean" depends="init">
+    <delete>
+      <fileset basedir="${build.dir}">
+        <include name="GenSyntax.*"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="build" depends="init">
+
+    <mkdir dir="${build.dir}"/>
+
+    <csc target="exe"
+        output="${build.dir}/GenSyntax.exe"
+        debug="${debug}" 
+        define="${defines}">
+      <sources basedir=".">
+        <patternset refid="source-files"/>
+      </sources>
+      <resources prefix="GenSyntax.Templates">
+        <patternset refid="resource-files"/>
+      </resources>
+    </csc>
+
+  </target>
+
+</project>

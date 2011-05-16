@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Shouldly</id>
+    <version>0.0.0</version>
+    <authors>Dave Newman, Xerxes Battiwalla, Anthony Egerton, Peter van der Woude</authors>
+	<owners>Dave Newman, Xerxes Battiwalla, Anthony Egerton</owners>
+    <licenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://shouldly.github.com/</projectUrl>
+	<iconUrl>http://shouldly.github.com/images/nuget_logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
+    <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>
+    <dependencies>
+      <dependency id="RhinoMocks" version="3.6" />
+    </dependencies>
+  </metadata>
+</package>

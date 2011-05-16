@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<project name="cpp-cli-syntax" default="build">
+
+  <include buildfile="../../../samples.common"/>
+
+  <patternset id="source-files">
+    <include name="AssemblyInfo.cpp" />
+    <include name="cpp-cli-syntax.cpp" />
+  </patternset>
+  
+</project>

@@ -37,10 +37,33 @@ Here's the message without Shouldly; helpful, but not great...
       IContestant.PlayGame("Commenting out test");
 
 Other *Shouldly* features:
-    ShouldBe
-    ShouldBeGreaterThan
-    ShouldBeLessThan
-    ShouldContain
-    ShouldNotContain
-    ShouldBeCloseTo
+    ##Equality
+        ShouldBe
+        ShouldNotBe
+        ShouldBeGreaterThan(OrEqualTo)
+        ShouldBeLessThan(OrEqualTo)
+		ShouldBeTypeOf<T>
+
+    ##Enumerable
+		ShouldContain
+		ShouldContain(predicate)
+		ShouldNotContain
+		ShouldNotContain(predicate)
+
+    ##String
+        ShouldBeCloseTo
+        ShouldStartWith
+        ShouldEndWith
+        ShouldContain
+        ShouldNotContain
+        ShouldContainWithoutWhitespace
+        ShouldMatch
+
+    ##Dictionary
+        ShouldContainKeyShouldContainKeyAndValue
+        ShouldNotContainKey
+        ShouldNotContainKeyAndValue
+
+    ##Rhino Mocks
+        ShouldHaveBeenCalled
 

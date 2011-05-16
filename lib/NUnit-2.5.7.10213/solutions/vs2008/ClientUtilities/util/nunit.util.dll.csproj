@@ -1,0 +1,353 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61CE9CE5-943E-44D4-A381-814DC1406767}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.util</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Util</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\Debug\lib\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1699</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\lib\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1699</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting">
+      <Name>System.Runtime.Remoting</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\NUnitCore\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\AggregatingTestRunner.cs">
+      <Link>AggregatingTestRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\AssemblyList.cs">
+      <Link>AssemblyList.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\AssemblyWatcher.cs">
+      <Link>AssemblyWatcher.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\CategoryExpression.cs">
+      <Link>CategoryExpression.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\CategoryManager.cs">
+      <Link>CategoryManager.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\CommandLineOptions.cs">
+      <Link>CommandLineOptions.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ConsoleWriter.cs">
+      <Link>ConsoleWriter.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\DefaultTestRunnerFactory.cs">
+      <Link>DefaultTestRunnerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Extensibility\IProjectConverter.cs">
+      <Link>Extensibility\IProjectConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Extensibility\ProjectConverterCollection.cs">
+      <Link>Extensibility\ProjectConverterCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Interfaces\ISettings.cs">
+      <Link>Interfaces\ISettings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Interfaces\ITestEvents.cs">
+      <Link>Interfaces\ITestEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Interfaces\ITestLoader.cs">
+      <Link>Interfaces\ITestLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\MemorySettingsStorage.cs">
+      <Link>MemorySettingsStorage.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\NUnitProject.cs">
+      <Link>NUnitProject.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\NUnitRegistry.cs">
+      <Link>NUnitRegistry.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\PathUtils.cs">
+      <Link>PathUtils.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ProcessRunner.cs">
+      <Link>ProcessRunner.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ProjectConfig.cs">
+      <Link>ProjectConfig.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ProjectConfigCollection.cs">
+      <Link>ProjectConfigCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ProjectConverters\VisualStudioConverter.cs">
+      <Link>ProjectConverters\VisualStudioConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ProjectFormatException.cs">
+      <Link>ProjectFormatException.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\RecentFileEntry.cs">
+      <Link>RecentFileEntry.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\RecentFiles.cs">
+      <Link>RecentFiles.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\RecentFilesCollection.cs">
+      <Link>RecentFilesCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\RegistrySettingsStorage.cs">
+      <Link>RegistrySettingsStorage.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\RemoteTestAgent.cs">
+      <Link>RemoteTestAgent.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ResultSummarizer.cs">
+      <Link>ResultSummarizer.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ServerBase.cs">
+      <Link>ServerBase.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\ServerUtilities.cs">
+      <Link>ServerUtilities.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services.cs">
+      <Link>Services.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\AddinManager.cs">
+      <Link>Services\AddinManager.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\AddinRegistry.cs">
+      <Link>Services\AddinRegistry.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\DomainManager.cs">
+      <Link>Services\DomainManager.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\ProjectService.cs">
+      <Link>Services\ProjectService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\RecentFilesService.cs">
+      <Link>Services\RecentFilesService.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\ServiceManager.cs">
+      <Link>Services\ServiceManager.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\SettingsService.cs">
+      <Link>Services\SettingsService.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Services\TestAgency.cs">
+      <Link>Services\TestAgency.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\SettingsGroup.cs">
+      <Link>SettingsGroup.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\SettingsStorage.cs">
+      <Link>SettingsStorage.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\StackTraceFilter.cs">
+      <Link>StackTraceFilter.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestDomain.cs">
+      <Link>TestDomain.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestEventArgs.cs">
+      <Link>TestEventArgs.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestEventDispatcher.cs">
+      <Link>TestEventDispatcher.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestExceptionHandler.cs">
+      <Link>TestExceptionHandler.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestLoader.cs">
+      <Link>TestLoader.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestObserver.cs">
+      <Link>TestObserver.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestResultItem.cs">
+      <Link>TestResultItem.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\TestServer.cs">
+      <Link>TestServer.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\VSProject.cs">
+      <Link>VSProject.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\VSProjectConfig.cs">
+      <Link>VSProjectConfig.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\VSProjectConfigCollection.cs">
+      <Link>VSProjectConfigCollection.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\XmlResultTransform.cs">
+      <Link>XmlResultTransform.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\XmlResultWriter.cs">
+      <Link>XmlResultWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\XmlSettingsStorage.cs">
+      <Link>XmlSettingsStorage.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Interfaces\IRuntimeFrameworkSelector.cs">
+      <Link>Interfaces\IRuntimeFrameworkSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\RuntimeFrameworkSelector.cs">
+      <Link>RuntimeFrameworkSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\Interfaces\ITestRunnerFactory.cs">
+      <Link>Interfaces\ITestRunnerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\ClientUtilities\util\InProcessTestRunnerFactory.cs">
+      <Link>InProcessTestRunnerFactory.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="..\..\..\..\src\ClientUtilities\util\Transform.resx">
+      <Link>Transform.resx</Link>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

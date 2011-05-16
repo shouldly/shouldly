@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp-managed-failures", "failures\cpp-managed-failures.vcproj", "{7E5849C7-0469-4AD2-91B9-C87203934254}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7E5849C7-0469-4AD2-91B9-C87203934254}.Debug.ActiveCfg = Debug|Win32
+		{7E5849C7-0469-4AD2-91B9-C87203934254}.Debug.Build.0 = Debug|Win32
+		{7E5849C7-0469-4AD2-91B9-C87203934254}.Release.ActiveCfg = Release|Win32
+		{7E5849C7-0469-4AD2-91B9-C87203934254}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

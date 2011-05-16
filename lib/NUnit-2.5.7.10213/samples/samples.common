@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<project>
+
+  <property name="project.base" value="${project::get-base-directory()}" />
+
+  <property name="samples.base" value="${path::get-full-path('../..')}" />
+  <!-- Duplicate the following if more levels are added -->te
+  <property name="samples.base" value="${path::get-full-path('../../..')}"
+            unless="${path::get-file-name(samples.base)=='samples'}" />
+
+  <property name="output.dir" value="${samples.base}/bin" />
+
+  <property name="nunit.bin.dir"
+            value="${path::combine(path::get-directory-name(samples.base), 'bin')}" />
+  <property name="nunit.framework.dll"
+            value="${path::combine(nunit.bin.dir,'net-1.1/framework/nunit.framework.dll')}" />
+  <property name="nunit.core.dll"
+            value="${path::combine(nunit.bin.dir,'net-1.1/nunit.core.dll')}" />
+  <property name="nunit.core.interfaces.dll"
+            value="${path::combine(nunit.bin.dir,'net-1.1/nunit.core.interfaces.dll')}" />
+
+  <property name="sample" value="${project::get-name()}"
+            unless="${property::exists('sample')}"/>
+  <property name="sample.dll" value="${sample}.dll" />
+
+  <property name="sample.type"
+          value="${path::get-file-name(path::get-directory-name(project.base))}" />
+  <property name="sample.type" value="addin" if="${sample.type=='Core'}" />
+
+  <if test="${directory::exists(path::combine(project.base, 'Tests'))}" >
+    <property name="tests" value="${sample}Tests"
+          unless="${property::exists('tests')}" />
+    <property name="test.dll" value="${tests}.dll" />
+  </if>
+  
+  <property name="nunit.build" value="false"
+    unless="${property::exists('project.package.dir')}"/>
+  <property name="nunit.build" value="true" 
+    if="${property::exists('project.package.dir')}"/>
+
+  <property name="build.debug" value="true"
+            unless="${property::exists('build.debug')}" />
+  <property name="build.config" value="Debug"
+            if="${build.debug}" />
+  <property name="build.config" value="Release"
+            unless="${build.debug}" />
+
+
+  <target name="clean" description="Remove files created by build">
+
+    <delete file="${output.dir}/${sample.dll}" />
+    <delete file="${output.dir}/${sample}.pdb" />
+
+    <if test="${property::exists('test.dll')}">
+      <delete file="${output.dir}/${test.dll}" />
+      <delete file="${output.dir}/${path::change-extension(test.dll, '.pdb')}" />
+    </if>
+
+  </target>
+
+  <target name="init">
+
+    <mkdir dir="${output.dir}" unless="${directory::exists(output.dir)}" />
+
+    <copy file="${nunit.framework.dll}" todir="${output.dir}"
+          if="${not nunit.build and file::exists(nunit.framework.dll)}" />
+
+  </target>
+
+  <target name="init-addin">
+
+    <mkdir dir="${output.dir}" unless="${directory::exists(output.dir)}" />
+
+    <copy file="${nunit.core.dll}" todir="${output.dir}"
+          if="${not nunit.build and file::exists(nunit.core.dll)}" />
+    <copy file="${nunit.core.interfaces.dll}" todir="${output.dir}"
+          if="${not nunit.build and file::exists(nunit.core.interfaces.dll)}" />
+
+  </target>
+
+  <target name="build" Description="Build the sample">
+    <call target="build-${sample.type}"/>
+  </target>
+  
+  <target name="build-csharp" depends="init">
+
+    <csc target="library" output="${output.dir}/${sample.dll}" debug="${build.debug}">
+      <sources>
+        <patternset refid="source-files"/>
+      </sources>
+      <references basedir="${output.dir}">
+        <include name="nunit.framework.dll" />
+      </references>
+    </csc>
+
+  </target>
+
+  <target name="build-addin" depends="init-addin">
+
+    <csc target="library" output="${output.dir}/${sample}.dll" debug="${build.debug}">
+      <sources>
+        <patternset refid="source-files"/>
+      </sources>
+      <references basedir="${output.dir}">
+        <include name="nunit.core.interfaces.dll" />
+        <include name="nunit.core.dll" />
+      </references>
+    </csc>
+
+    <call target="build-addin-test" if="${property::exists('test.dll')}" />
+
+  </target>
+
+  <target name="build-addin-test">
+
+    <csc target="library" output="${output.dir}/${test.dll}" debug="${build.debug}">
+      <sources basedir="Tests">
+        <patternset refid="test-files"/>
+      </sources>
+      <references basedir="${output.dir}">
+        <include name="nunit.framework.dll" />
+        <include name="${sample}.dll" />
+      </references>
+    </csc>
+
+  </target>
+
+  <target name="build-vb" depends="init">
+
+    <vbc target="library"
+        output="${output.dir}/${sample.dll}" debug="${build.debug}">
+      <imports>
+        <import namespace="System"/>
+        <import namespace="System.Collections"/>
+      </imports>
+      <sources>
+        <patternset refid="source-files"/>
+      </sources>
+      <references basedir="${output.dir}">
+        <include name="System.dll" />
+        <include name="nunit.framework.dll" />
+      </references>
+    </vbc>
+
+  </target>
+
+  <target name="build-jsharp" depends="init">
+
+    <vjc target="library" output="${output.dir}/${sample.dll}" debug="${build.debug}">
+      <sources>
+        <patternset refid="source-files"/>
+      </sources>
+      <references basedir="${output.dir}">
+        <include name="nunit.framework.dll" />
+      </references>
+    </vjc>
+
+  </target>
+
+  <target name="build-managed" depends="init">
+
+    <readregistry property="vs.2003.path"
+      key="Software\Microsoft\VisualStudio\7.1\InstallDir"
+      hive="LocalMachine" failonerror="false"
+      unless="${property::exists( 'vs.2003.path' )}"/>
+
+    <fail message="VS 2003 must be installed to build this sample"
+      unless="${property::exists( 'vs.2003.path' )}"/>
+
+    <exec program="devenv.exe" basedir="${vs.2003.path}" workingdir="."
+      commandline="${sample}.vcproj /build ${build.config} /out ${output.dir}/${sample.dll}" />
+
+  </target>
+
+  <target name="build-cpp-cli" depends="init">
+
+    <readregistry property="vs.2005.path"
+      key="Software\Microsoft\VisualStudio\8.0\InstallDir"
+      hive="LocalMachine" failonerror="false"
+      unless="${property::exists( 'vs.2005.path' )}"/>
+
+    <fail message="VS 2005 must be installed to build this sample"
+      unless="${property::exists( 'vs.2005.path' )}"/>
+
+    <exec program="devenv.exe"
+      basedir="${vs.2005.path}" workingdir="."
+      commandline="${sample}.vcproj /build ${build.config} /out ${output.dir}/${sample.dll}"/>
+
+  </target>
+
+  <!-- ************************************************************* -->
+  <!-- Package targets are only used by the NUnit build script in    -->
+  <!-- order to package the samples for distribution.                -->
+  <!-- ************************************************************* -->
+  
+  <target name="package">
+
+    <fail message="Can't use package target directly - it must be called from the NUnit build script."
+          unless="${nunit.build}"/>
+
+    <property name="sample.path"
+              value="${string::replace(project.base, samples.base, package.samples.dir)}" />
+
+    <call target="package-${sample.type}" />
+
+  </target>
+
+  <target name="package-csharp">
+
+    <property name="sample.proj" value="${sample}.csproj" />
+
+    <call target="copy-source-files" />
+    <call target="update-framework-ref" />
+
+  </target>
+
+  <target name="package-jsharp">
+    
+    <property name="sample.proj" value="${sample}.vjsproj" />
+
+    <call target="copy-source-files" />
+    <call target="update-framework-ref" />
+
+  </target>
+
+  <target name="update-framework-ref">
+    
+    <xmlpoke
+      file="${sample.path}/${sample.proj}"
+      xpath="/VisualStudioProject/*/Build/References/Reference[@Name='nunit.framework']/@HintPath"
+      value="..\..\..\bin\net-1.1\framework\nunit.framework.dll" />
+
+  </target>
+
+  <target name="package-vb">
+    
+    <property name="sample.proj" value="${sample}.vbproj" />
+
+    <call target="copy-source-files" />
+    <call target="update-framework-ref" />
+
+  </target>
+
+  <target name="package-managed">
+    
+    <property name="sample.proj" value="${sample}.vcproj" />
+
+    <call target="copy-source-files" />
+
+    <copy todir="${package.samples.dir}/cpp/managed/failures"
+        file="./cpp-managed-failures.vcproj">
+      <filterchain>
+        <replacestring from="$(SolutionDir)..\..\..\src\NUnitFramework\framework\bin\Debug\nunit.framework.dll"
+          to="..\..\..\..\bin\nunit.framework.dll"/>
+      </filterchain>
+    </copy>
+
+  </target>
+
+  <target name="package-cpp-cli">
+    
+    <property name="sample.proj" value="${sample}.vcproj" />
+
+    <call target="copy-source-files" />
+
+    <xmlpoke
+      file="${sample.path}/${sample.proj}"
+      xpath="/VisualStudioProject/References/AssemblyReference[@AssemblyName='nunit.framework']/@RelativePath"
+      value="..\..\..\..\bin\net-2.0\framework\nunit.framework.dll" />
+
+  </target>
+
+  <target name="package-addin">
+    
+    <property name="sample.proj" value="${sample}.csproj" />
+
+    <call target="copy-source-files" />
+    <call target="copy-test-files" 
+      if="${property::exists('test.dll')}"/>
+
+  </target>
+
+  <target name="copy-source-files">
+
+    <copy todir="${sample.path}" includeemptydirs="false">
+      <fileset basedir=".">
+        <include name="${sample.proj}" />
+        <include name="${sample}.build" />
+        <include name="Readme.txt" />
+        <patternset refid="source-files" />
+      </fileset>
+    </copy>
+
+  </target>
+
+  <target name="copy-test-files">
+
+    <copy todir="${sample.path}/Tests" includeemptydirs="false">
+      <fileset basedir="Tests">
+        <include name="${sample}Tests.csproj" />
+        <include name="${sample}Tests.build" />
+        <patternset refid="test-files" />
+      </fileset>
+    </copy>
+
+  </target>
+
+</project>

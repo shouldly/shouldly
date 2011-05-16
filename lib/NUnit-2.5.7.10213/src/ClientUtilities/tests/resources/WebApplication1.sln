@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "http://localhost/WebApplication1/WebApplication1.csproj", "{7123B53C-8003-454D-92D1-E9E8C533CBED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{48E7F6A7-5E5C-4046-AD8E-5381D98D55B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7123B53C-8003-454D-92D1-E9E8C533CBED}.Debug.ActiveCfg = Debug|.NET
+		{7123B53C-8003-454D-92D1-E9E8C533CBED}.Debug.Build.0 = Debug|.NET
+		{7123B53C-8003-454D-92D1-E9E8C533CBED}.Release.ActiveCfg = Release|.NET
+		{7123B53C-8003-454D-92D1-E9E8C533CBED}.Release.Build.0 = Release|.NET
+		{48E7F6A7-5E5C-4046-AD8E-5381D98D55B8}.Debug.ActiveCfg = Debug|.NET
+		{48E7F6A7-5E5C-4046-AD8E-5381D98D55B8}.Debug.Build.0 = Debug|.NET
+		{48E7F6A7-5E5C-4046-AD8E-5381D98D55B8}.Release.ActiveCfg = Release|.NET
+		{48E7F6A7-5E5C-4046-AD8E-5381D98D55B8}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

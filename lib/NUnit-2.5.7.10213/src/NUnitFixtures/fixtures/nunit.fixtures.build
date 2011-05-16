@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="NUnitFixtures" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="AssemblyRunner.cs"/>
+        <include name="PlatformInfo.cs"/>
+        <include name="SnippetRunner.cs"/>
+        <include name="TestLoadFixture.cs"/>
+        <include name="TestCompiler.cs"/>
+        <include name="TestTree.cs"/>
+  </patternset>
+
+  <target name="build">
+    <copy file="${project.tools.dir}/fit/fit.dll" todir="${current.lib.dir}" />
+
+    <csc target="library" 
+        output="${current.lib.dir}/nunit.fixtures.dll"
+        debug="${build.debug}" define="${build.defines}">
+      <sources >
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="618" if="${runtime.version=='2.0'}"/>
+      </nowarn>
+      <references basedir="${current.lib.dir}">
+        <include name="nunit.core.interfaces.dll"/>
+        <include name="nunit.core.dll"/>
+        <include name="nunit.util.dll"/>
+        <include name="fit.dll"/>
+      </references>
+    </csc>
+
+    <copy todir="${current.build.dir}">
+      <fileset basedir="${project.tools.dir}/fit">
+        <include name="runFile.exe"/>
+        <include name="runFile.exe.config"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitFixtures/fixtures">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit.fixtures.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

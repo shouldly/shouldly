@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-failures", "failures\cs-failures.csproj", "{15D66EEE-A852-4A52-89C2-83E74ECF3770}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-money", "money\cs-money.csproj", "{11EDF872-A04D-4F75-A1BF-71168DC86AF3}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-syntax", "syntax\cs-syntax.csproj", "{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Debug.ActiveCfg = Debug|.NET
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Debug.Build.0 = Debug|.NET
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Release.ActiveCfg = Release|.NET
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Release.Build.0 = Release|.NET
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Debug.ActiveCfg = Debug|.NET
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Debug.Build.0 = Debug|.NET
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Release.ActiveCfg = Release|.NET
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Release.Build.0 = Release|.NET
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Debug.ActiveCfg = Debug|.NET
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Debug.Build.0 = Debug|.NET
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Release.ActiveCfg = Release|.NET
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

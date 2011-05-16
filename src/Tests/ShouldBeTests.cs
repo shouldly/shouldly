@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using NUnit.Framework;
 using Shouldly;
 
@@ -32,6 +33,67 @@ namespace Tests
         {
             7.ShouldBeGreaterThan(1);
             1.ShouldBeLessThan(7);
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => 7.ShouldBeLessThan(0));
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => 0.ShouldBeGreaterThan(7));
+        }
+
+        [Test]
+        public void ShouldBe_GreaterThanOrEqualTo()
+        {
+            7.ShouldBeGreaterThanOrEqualTo(1);
+            1.ShouldBeGreaterThanOrEqualTo(1);
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => 0.ShouldBeGreaterThanOrEqualTo(1));
+        }
+
+        [Test]
+        public void ShouldBeTypeOf_ShouldNotThrowForStrings()
+        {
+            "Sup yo".ShouldBeTypeOf(typeof(string));
+        }
+
+        [Test]
+        public void ShouldBeTypeOfWithGenericParameter_ShouldNotThrowForStrings()
+        {
+            "Sup yo".ShouldBeTypeOf<string>();
+        }
+
+        [Test]
+        public void ShouldNotBeTypeOf_ShouldNotThrowForNonMatchingType()
+        {
+            "Sup yo".ShouldNotBeTypeOf(typeof(int));
+        }
+
+        [Test]
+        public void ShouldNotBeTypeOfWithGenericParameter_ShouldNotThrowForNonMatchingTypes()
+        {
+            "Sup yo".ShouldNotBeTypeOf<int>();
+        }
+
+        class MyBase { }
+        class MyThing : MyBase { }
+
+        [Test]
+        public void ShouldBeTypeOf_ShouldNotThrowForInheritance()
+        {
+            new MyThing().ShouldBeTypeOf<MyBase>();
+        }
+
+        [Test]
+        public void ShouldBe_Action()
+        {
+            Action a = () => 1.ShouldBe(2);
+
+            Should.Error(a,
+                "Action a = () => 1 should be 2 but was 1");
+        }
+
+        [Test]
+        public void ShouldBe_Expression()
+        {
+            Expression<Action> lambda = () => 1.ShouldBe(2);
+
+            Should.Error(lambda.Compile(),
+            "The provided expression should be 2 but was 1");
         }
     }
 }

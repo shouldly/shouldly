@@ -1,0 +1,255 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1960CAC4-9A82-47C5-A9B3-55BC37572C3C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>test-assembly</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.TestData</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/test-assembly/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\Debug\tests\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0;CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>618,672</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\tests\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>618,672</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\NUnitCore\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Name>nunit.framework.dll</Name>
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\src\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\AttributeDescriptionTests.cs">
+      <Link>AttributeDescriptionTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\AttributeInheritance.cs">
+      <Link>AttributeInheritance.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\CategoryAttributeTests.cs">
+      <Link>CategoryAttributeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\ConsoleRunnerTest.cs">
+      <Link>ConsoleRunnerTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\CultureAttributeTests.cs">
+      <Link>CultureAttributeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\ExpectExceptionTest.cs">
+      <Link>ExpectExceptionTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\FailFixtureTests.cs">
+      <Link>FailFixtureTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\FixtureSetUpTearDownTests.cs">
+      <Link>FixtureSetUpTearDownTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\IgnoreFixtureTests.cs">
+      <Link>IgnoreFixtureTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\ParameterizedTestFixture.cs">
+      <Link>ParameterizedTestFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\PropertyAttributeTests.cs">
+      <Link>PropertyAttributeTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\RepeatedTestFixtureTests.cs">
+      <Link>RepeatedTestFixtureTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\SetupFixtureTests.cs">
+      <Link>SetupFixtureTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\SetUpTest.cs">
+      <Link>SetUpTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\SuiteBuilderTests.cs">
+      <Link>SuiteBuilderTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestCaseAttributeFixture.cs">
+      <Link>TestCaseAttributeFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestCaseTest.cs">
+      <Link>TestCaseTest.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestData.cs">
+      <Link>TestData.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestFixtureBuilderTests.cs">
+      <Link>TestFixtureBuilderTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestFixtureData.cs">
+      <Link>TestFixtureData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestFixtureExtensionTests.cs">
+      <Link>TestFixtureExtensionTests.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestMethodSignatureFixture.cs">
+      <Link>TestMethodSignatureFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\UnhandledExceptions.cs">
+      <Link>UnhandledExceptions.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\MaxTimeFixture.cs">
+      <Link>MaxTimeFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\ThreadingFixture.cs">
+      <Link>ThreadingFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TheoryFixture.cs">
+      <Link>TheoryFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TestCaseSourceAttributeFixture.cs">
+      <Link>TestCaseSourceAttributeFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\TypeHelperFixture.cs">
+      <Link>TypeHelperFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\src\tests\test-assembly\DatapointFixture.cs">
+      <Link>DatapointFixture.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

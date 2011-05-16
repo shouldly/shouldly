@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project name="NUnitServerExe" default="build" basedir=".">
+
+  <target name="build">
+    <csc target="winexe" 
+        output="${current.build.dir}/nunit-server.exe"
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <include name="TestServerConsoleApp.cs"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references basedir="${current.lib.dir}">
+        <include name="nunit.core.interfaces.dll"/>
+        <include name="nunit.core.dll"/>
+        <include name="nunit.util.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitTestServer/nunit-server-exe">
+      <fileset>
+        <include name="TestServerConsoleApp.cs"/>
+        <include name="App.ico"/>
+        <include name="App.config"/>
+        <include name="nunit-server.exe.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

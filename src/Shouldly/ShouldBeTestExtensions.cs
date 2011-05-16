@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using NUnit.Framework;
+using System;
 
 namespace Shouldly
 {
@@ -10,6 +11,26 @@ namespace Shouldly
         public static void ShouldBe<T>(this T actual, T expected)
         {
             actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
+        }
+
+        public static void ShouldBeTypeOf<T>(this object actual)
+        {
+            ShouldBeTypeOf(actual, typeof(T));
+        }
+
+        public static void ShouldBeTypeOf(this object actual, Type expected)
+        {
+            actual.AssertAwesomely(Is.InstanceOf(expected), actual, expected);
+        }
+
+        public static void ShouldNotBeTypeOf<T>(this object actual)
+        {
+            ShouldNotBeTypeOf(actual, typeof(T));
+        }
+
+        public static void ShouldNotBeTypeOf(this object actual, Type expected)
+        {
+            actual.AssertAwesomely(!Is.InstanceOf(expected), actual, expected);
         }
 
         public static void ShouldNotBe<T>(this T actual, T expected)
@@ -30,6 +51,11 @@ namespace Shouldly
         public static void ShouldBeGreaterThan(this object actual, object expected)
         {
             actual.AssertAwesomely(Is.GreaterThan(expected), actual, expected);
+        }
+
+        public static void ShouldBeGreaterThanOrEqualTo(this object actual, object expected)
+        {
+            actual.AssertAwesomely(Is.GreaterThanOrEqualTo(expected), actual, expected);
         }
 
         public static void ShouldBeLessThan(this object actual, object expected)

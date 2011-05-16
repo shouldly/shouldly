@@ -3,7 +3,9 @@
 *csproj.user
 src/*/bin
 src/*/obj
-*resharper*
-_ReSharper*
-
-build
+*ReSharper*
+output
+*.pidb
+*.userprefs
+test-results
+*.gem
