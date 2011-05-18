@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
-using NUnit.Framework;
-using Shouldly;
+﻿using NUnit.Framework;
 
-namespace Tests
+namespace Shouldly.Tests
 {
     [TestFixture]
     public class ShouldBeStringTests

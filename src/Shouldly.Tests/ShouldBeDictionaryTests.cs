@@ -1,9 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using Shouldly;
 using System.Collections.Generic;
 
-namespace Tests 
+namespace Shouldly.Tests 
 {
     [TestFixture]
     public class ShouldBeDictionaryTests 

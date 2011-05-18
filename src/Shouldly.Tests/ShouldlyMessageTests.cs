@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using Shouldly;
 
-namespace Tests
+namespace Shouldly.Tests
 {
     [TestFixture]
     [ShouldlyMethods]
@@ -14,6 +13,15 @@ namespace Tests
                 () => "expected".ShouldBe("actual"),
                 "() => \"expected\" should be \"actual\" but was \"expected\""
             );
+        }
+
+        [Test]
+        public void CanGenerate()
+        {
+            Should.Error(
+                () => 2.ShouldBe(1),
+                "() => 2 should be 1 but was 2"
+                );
         }
 
         [Test]

@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using Shouldly;
 
-namespace Tests
+namespace Shouldly.Tests
 {
     [TestFixture]
     public class ShouldlyRhinoTests
