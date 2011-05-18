@@ -2,11 +2,24 @@
 
 namespace Shouldly.Tests
 {
+    [ShouldlyMethods]
     public static class Should
     {
         public static void Error(Action action, string errorMessage)
         {
-            Shouldly.Should.Throw<Shouldly.ChuckedAWobbly>(action).ShouldBeCloseTo(errorMessage);
+            Shouldly.Should.Throw<ChuckedAWobbly>(action).ShouldBeCloseTo(errorMessage);
+        }
+
+        public static void NotError(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                throw new ChuckedAWobbly(new ShouldlyMessage(ex.GetType()).ToString());
+            }
         }
     }
 }

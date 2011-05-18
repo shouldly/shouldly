@@ -4,6 +4,7 @@ using System.Diagnostics;
 namespace Shouldly
 {
     [DebuggerStepThrough]
+    [ShouldlyMethods]
     public static class Should
     {
         public static string Throw<TException>(Action actual) where TException : Exception
@@ -16,7 +17,12 @@ namespace Shouldly
             {
                 return e.Message;
             }
-            throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+            catch (Exception e)
+            {
+                throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), e.GetType()).ToString());
+            }
+
+            throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
         }
     }
 }
