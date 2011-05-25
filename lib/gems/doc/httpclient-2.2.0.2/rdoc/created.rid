@@ -1,0 +1,15 @@
+Tue, 24 May 2011 13:27:02 +1000
+lib/hexdump.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/http-access2/cookie.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/http-access2/http.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/http-access2.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/auth.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/connection.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/cookie.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/http.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/session.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/ssl_config.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/timeout.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient/util.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/httpclient.rb	Tue, 24 May 2011 13:26:48 +1000
+lib/oauthclient.rb	Tue, 24 May 2011 13:26:48 +1000

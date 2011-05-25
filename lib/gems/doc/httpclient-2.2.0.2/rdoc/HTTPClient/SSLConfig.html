@@ -1,0 +1,1477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: HTTPClient::SSLConfig</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/httpclient/ssl_config_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/ssl_config.rb">lib/httpclient/ssl_config.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-add_crl">#add_crl</a></li>
+					
+					<li><a href="#method-i-add_trust_ca">#add_trust_ca</a></li>
+					
+					<li><a href="#method-i-cert_store%3D">#cert_store=</a></li>
+					
+					<li><a href="#method-i-change_notify">#change_notify</a></li>
+					
+					<li><a href="#method-i-ciphers%3D">#ciphers=</a></li>
+					
+					<li><a href="#method-i-clear_cert_store">#clear_cert_store</a></li>
+					
+					<li><a href="#method-i-client_cert%3D">#client_cert=</a></li>
+					
+					<li><a href="#method-i-client_key%3D">#client_key=</a></li>
+					
+					<li><a href="#method-i-default_verify_callback">#default_verify_callback</a></li>
+					
+					<li><a href="#method-i-load_cacerts">#load_cacerts</a></li>
+					
+					<li><a href="#method-i-load_trust_ca">#load_trust_ca</a></li>
+					
+					<li><a href="#method-i-options%3D">#options=</a></li>
+					
+					<li><a href="#method-i-sample_verify_callback">#sample_verify_callback</a></li>
+					
+					<li><a href="#method-i-set_client_cert_file">#set_client_cert_file</a></li>
+					
+					<li><a href="#method-i-set_crl">#set_crl</a></li>
+					
+					<li><a href="#method-i-set_trust_ca">#set_trust_ca</a></li>
+					
+					<li><a href="#method-i-timeout%3D">#timeout=</a></li>
+					
+					<li><a href="#method-i-verify_callback%3D">#verify_callback=</a></li>
+					
+					<li><a href="#method-i-verify_depth%3D">#verify_depth=</a></li>
+					
+					<li><a href="#method-i-verify_mode%3D">#verify_mode=</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">OpenSSL</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="../HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="../HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="../HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="../HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="../HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="../HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="../HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="../HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="../HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="../HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="../HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="../HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="../HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="../HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="../HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="../HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="../HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="../HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="../WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="../WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="../WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="../WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="../HTTP.html">HTTP</a></li>
+				
+					<li><a href="../HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="../HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="../HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="../HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="../HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="../HexDump.html">HexDump</a></li>
+				
+					<li><a href="../OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">HTTPClient::SSLConfig</h1>
+
+		<div id="description">
+			<p>
+Represents SSL configuration for <a
+href="../HTTPClient.html">HTTPClient</a> instance. The implementation
+depends on OpenSSL.
+</p>
+<h2>Trust Anchor Control</h2>
+<p>
+<a href="SSLConfig.html">SSLConfig</a> loads
+&#8216;httpclient/cacert.p7s&#8217; as a trust anchor (trusted
+certificate(s)) with <a
+href="SSLConfig.html#method-i-add_trust_ca">add_trust_ca</a> in
+initialization time. This means that <a
+href="../HTTPClient.html">HTTPClient</a> instance trusts some CA
+certificates by default, like Web browsers. 
+&#8216;httpclient/cacert.p7s&#8217; is created by the author and included
+in released package.
+</p>
+<p>
+&#8216;cacert.p7s&#8217; is automatically generated from JDK 1.6.
+</p>
+<p>
+You may want to change trust anchor by yourself.  Call <a
+href="SSLConfig.html#method-i-clear_cert_store">clear_cert_store</a> then
+<a href="SSLConfig.html#method-i-add_trust_ca">add_trust_ca</a> for that
+purpose.
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="DIST_CERT">DIST_CERT</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="DIST_CERT_SHA1">DIST_CERT_SHA1</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="client-cert-attribute-method" class="method-detail">
+				<a name="client_cert"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">client_cert</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top">OpenSSL::X509::Certificate</td><td><p>
+certificate for SSL client authenticateion.
+</p>
+</td></tr>
+</table>
+<p>
+nil by default. (no client authenticateion)
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="client-key-attribute-method" class="method-detail">
+				<a name="client_key"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">client_key</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top">OpenSSL::PKey::PKey</td><td><p>
+private key for SSL client authentication.
+</p>
+</td></tr>
+</table>
+<p>
+nil by default. (no client authenticateion)
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="verify-mode-attribute-method" class="method-detail">
+				<a name="verify_mode"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">verify_mode</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+A number which represents OpenSSL&#8217;s verify mode.  Default value is
+OpenSSL::SSL::VERIFY_PEER | OpenSSL::SSL::VERIFY_FAIL_IF_NO_PEER_CERT.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="verify-depth-attribute-method" class="method-detail">
+				<a name="verify_depth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">verify_depth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+A number of verify depth.  Certification path which length is longer than
+this depth is not allowed.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="verify-callback-attribute-method" class="method-detail">
+				<a name="verify_callback"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">verify_callback</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+A callback handler for custom certificate verification.  nil by default. If
+the handler is set, handler.call is invoked just after general
+OpenSSL&#8217;s verification.  handler.call is invoked with 2 arguments, ok
+and ctx; ok is a result of general OpenSSL&#8217;s verification.  ctx is a
+OpenSSL::X509::StoreContext.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="timeout-attribute-method" class="method-detail">
+				<a name="timeout"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">timeout</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+SSL timeout in sec.  nil by default.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="options-attribute-method" class="method-detail">
+				<a name="options"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">options</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+A number of OpenSSL&#8217;s SSL options.  Default value is
+OpenSSL::SSL::OP_ALL | OpenSSL::SSL::OP_NO_SSLv2
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="ciphers-attribute-method" class="method-detail">
+				<a name="ciphers"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">ciphers</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+A <a href="../String.html">String</a> of OpenSSL&#8217;s cipher
+configuration.  Default value is ALL:!ADH:!LOW:!EXP:!MD5:+SSLv2:@STRENGTH
+See ciphers(1) man in OpenSSL for more detail.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="cert-store-attribute-method" class="method-detail">
+				<a name="cert_store"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">cert_store</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+OpenSSL::X509::X509::Store used for verification.  You can reset the store
+with <a
+href="SSLConfig.html#method-i-clear_cert_store">clear_cert_store</a> and
+set the new store with <a href="SSLConfig.html#cert_store">cert_store</a>=.
+</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(client)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a <a href="SSLConfig.html">SSLConfig</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 73</span>
+73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">client</span>)
+74:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">SSLEnabled</span>
+75:       <span class="ruby-ivar">@client</span> = <span class="ruby-identifier">client</span>
+76:       <span class="ruby-ivar">@cert_store</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Store</span>.<span class="ruby-identifier">new</span>
+77:       <span class="ruby-ivar">@client_cert</span> = <span class="ruby-ivar">@client_key</span> = <span class="ruby-ivar">@client_ca</span> = <span class="ruby-keyword kw">nil</span>
+78:       <span class="ruby-ivar">@verify_mode</span> = <span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">VERIFY_PEER</span> <span class="ruby-operator">|</span> <span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">VERIFY_FAIL_IF_NO_PEER_CERT</span>
+79:       <span class="ruby-ivar">@verify_depth</span> = <span class="ruby-keyword kw">nil</span>
+80:       <span class="ruby-ivar">@verify_callback</span> = <span class="ruby-keyword kw">nil</span>
+81:       <span class="ruby-ivar">@dest</span> = <span class="ruby-keyword kw">nil</span>
+82:       <span class="ruby-ivar">@timeout</span> = <span class="ruby-keyword kw">nil</span>
+83:       <span class="ruby-ivar">@options</span> = <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">OP_ALL</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">OP_ALL</span> <span class="ruby-operator">|</span> <span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">OP_NO_SSLv2</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+84:       <span class="ruby-ivar">@ciphers</span> = <span class="ruby-value str">&quot;ALL:!ADH:!LOW:!EXP:!MD5:+SSLv2:@STRENGTH&quot;</span>
+85:       <span class="ruby-ivar">@cacerts_loaded</span> = <span class="ruby-keyword kw">false</span>
+86:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="add-crl-method" class="method-detail ">
+				<a name="method-i-add_crl"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_crl</span><span
+						class="method-args">(crl)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Adds CRL for verification.
+</p>
+<table>
+<tr><td valign="top">crl</td><td><p>
+a OpenSSL::X509::CRL or a filename of a PEM/DER formatted
+OpenSSL::X509::CRL.
+</p>
+</td></tr>
+</table>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="add-crl-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 170</span>
+170:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_crl</span>(<span class="ruby-identifier">crl</span>)
+171:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crl</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">CRL</span>)
+172:         <span class="ruby-identifier">crl</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">CRL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">crl</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> })
+173:       <span class="ruby-keyword kw">end</span>
+174:       <span class="ruby-ivar">@cert_store</span>.<span class="ruby-identifier">add_crl</span>(<span class="ruby-identifier">crl</span>)
+175:       <span class="ruby-ivar">@cert_store</span>.<span class="ruby-identifier">flags</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">V_FLAG_CRL_CHECK</span> <span class="ruby-operator">|</span> <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">V_FLAG_CRL_CHECK_ALL</span>
+176:       <span class="ruby-identifier">change_notify</span>
+177:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="SSLConfig.html#method-i-set_crl">set_crl</a>
+				</div>
+				
+
+				
+			</div>
+
+		
+			<div id="add-trust-ca-method" class="method-detail ">
+				<a name="method-i-add_trust_ca"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_trust_ca</span><span
+						class="method-args">(trust_ca_file_or_hashed_dir)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets trust anchor certificate(s) for verification.
+</p>
+<table>
+<tr><td valign="top">trust_ca_file_or_hashed_dir</td><td><p>
+a filename of a PEM/DER formatted OpenSSL::X509::Certificate or a
+&#8216;c-rehash&#8217;eddirectory name which stores trusted certificate
+files.
+</p>
+</td></tr>
+</table>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="add-trust-ca-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 147</span>
+147:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_trust_ca</span>(<span class="ruby-identifier">trust_ca_file_or_hashed_dir</span>)
+148:       <span class="ruby-ivar">@cacerts_loaded</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># avoid lazy override</span>
+149:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FileTest</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">trust_ca_file_or_hashed_dir</span>)
+150:         <span class="ruby-ivar">@cert_store</span>.<span class="ruby-identifier">add_path</span>(<span class="ruby-identifier">trust_ca_file_or_hashed_dir</span>)
+151:       <span class="ruby-keyword kw">else</span>
+152:         <span class="ruby-ivar">@cert_store</span>.<span class="ruby-identifier">add_file</span>(<span class="ruby-identifier">trust_ca_file_or_hashed_dir</span>)
+153:       <span class="ruby-keyword kw">end</span>
+154:       <span class="ruby-identifier">change_notify</span>
+155:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+				<div class="aliases">
+					Also aliased as: <a href="SSLConfig.html#method-i-set_trust_ca">set_trust_ca</a>
+				</div>
+				
+
+				
+			</div>
+
+		
+			<div id="cert-store--method" class="method-detail ">
+				<a name="method-i-cert_store%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">cert_store=</span><span
+						class="method-args">(cert_store)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets new certificate store (OpenSSL::X509::Store). don&#8217;t use if you
+don&#8217;t know what it is.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="cert-store--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 134</span>
+134:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cert_store=</span>(<span class="ruby-identifier">cert_store</span>)
+135:       <span class="ruby-ivar">@cacerts_loaded</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># avoid lazy override</span>
+136:       <span class="ruby-ivar">@cert_store</span> = <span class="ruby-identifier">cert_store</span>
+137:       <span class="ruby-identifier">change_notify</span>
+138:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="ciphers--method" class="method-detail ">
+				<a name="method-i-ciphers%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">ciphers=</span><span
+						class="method-args">(ciphers)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets cipher configuration.  New value must be a <a
+href="../String.html">String</a>.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="ciphers--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 226</span>
+226:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ciphers=</span>(<span class="ruby-identifier">ciphers</span>)
+227:       <span class="ruby-ivar">@ciphers</span> = <span class="ruby-identifier">ciphers</span>
+228:       <span class="ruby-identifier">change_notify</span>
+229:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="clear-cert-store-method" class="method-detail ">
+				<a name="method-i-clear_cert_store"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">clear_cert_store</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Drops current certificate store (OpenSSL::X509::Store) for SSL and create
+new one for the next session.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="clear-cert-store-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 124</span>
+124:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clear_cert_store</span>
+125:       <span class="ruby-ivar">@cacerts_loaded</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># avoid lazy override</span>
+126:       <span class="ruby-ivar">@cert_store</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Store</span>.<span class="ruby-identifier">new</span>
+127:       <span class="ruby-identifier">change_notify</span>
+128:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="client-cert--method" class="method-detail ">
+				<a name="method-i-client_cert%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">client_cert=</span><span
+						class="method-args">(client_cert)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets certificate (OpenSSL::X509::Certificate) for SSL client
+authentication. <a href="SSLConfig.html#client_key">client_key</a> and <a
+href="SSLConfig.html#client_cert">client_cert</a> must be a pair.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="client-cert--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 93</span>
+93:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">client_cert=</span>(<span class="ruby-identifier">client_cert</span>)
+94:       <span class="ruby-ivar">@client_cert</span> = <span class="ruby-identifier">client_cert</span>
+95:       <span class="ruby-identifier">change_notify</span>
+96:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="client-key--method" class="method-detail ">
+				<a name="method-i-client_key%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">client_key=</span><span
+						class="method-args">(client_key)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets private key (OpenSSL::PKey::PKey) for SSL client authentication. <a
+href="SSLConfig.html#client_key">client_key</a> and <a
+href="SSLConfig.html#client_cert">client_cert</a> must be a pair.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="client-key--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 102</span>
+102:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">client_key=</span>(<span class="ruby-identifier">client_key</span>)
+103:       <span class="ruby-ivar">@client_key</span> = <span class="ruby-identifier">client_key</span>
+104:       <span class="ruby-identifier">change_notify</span>
+105:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="default-verify-callback-method" class="method-detail ">
+				<a name="method-i-default_verify_callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">default_verify_callback</span><span
+						class="method-args">(is_ok, ctx)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Default callback for verification: only dumps error.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="default-verify-callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 284</span>
+284:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_verify_callback</span>(<span class="ruby-identifier">is_ok</span>, <span class="ruby-identifier">ctx</span>)
+285:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+286:         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{ is_ok ? 'ok' : 'ng' }: #{ctx.current_cert.subject}&quot;</span>
+287:       <span class="ruby-keyword kw">end</span>
+288:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">is_ok</span>
+289:         <span class="ruby-identifier">depth</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">error_depth</span>
+290:         <span class="ruby-identifier">code</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">error</span>
+291:         <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">error_string</span>
+292:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;at depth #{depth} - #{code}: #{msg}&quot;</span>
+293:       <span class="ruby-keyword kw">end</span>
+294:       <span class="ruby-identifier">is_ok</span>
+295:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="load-trust-ca-method" class="method-detail ">
+				<a name="method-i-load_trust_ca"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">load_trust_ca</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Loads default trust anchors. Calling this method resets all existing
+sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="load-trust-ca-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 160</span>
+160:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_trust_ca</span>
+161:       <span class="ruby-identifier">load_cacerts</span>
+162:       <span class="ruby-identifier">change_notify</span>
+163:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="options--method" class="method-detail ">
+				<a name="method-i-options%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">options=</span><span
+						class="method-args">(options)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets SSL options.  New value must be a combination of # constants
+OpenSSL::SSL::OP_*
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="options--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 218</span>
+218:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">options=</span>(<span class="ruby-identifier">options</span>)
+219:       <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
+220:       <span class="ruby-identifier">change_notify</span>
+221:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="sample-verify-callback-method" class="method-detail ">
+				<a name="method-i-sample_verify_callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sample_verify_callback</span><span
+						class="method-args">(is_ok, ctx)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sample callback method:  CAUTION: does not check CRL/ARL.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="sample-verify-callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 298</span>
+298:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sample_verify_callback</span>(<span class="ruby-identifier">is_ok</span>, <span class="ruby-identifier">ctx</span>)
+299:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">is_ok</span>
+300:         <span class="ruby-identifier">depth</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">error_depth</span>
+301:         <span class="ruby-identifier">code</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">error</span>
+302:         <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">error_string</span>
+303:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;at depth #{depth} - #{code}: #{msg}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+304:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+305:       <span class="ruby-keyword kw">end</span>
+306: 
+307:       <span class="ruby-identifier">cert</span> = <span class="ruby-identifier">ctx</span>.<span class="ruby-identifier">current_cert</span>
+308:       <span class="ruby-identifier">self_signed</span> = <span class="ruby-keyword kw">false</span>
+309:       <span class="ruby-identifier">ca</span> = <span class="ruby-keyword kw">false</span>
+310:       <span class="ruby-identifier">pathlen</span> = <span class="ruby-keyword kw">nil</span>
+311:       <span class="ruby-identifier">server_auth</span> = <span class="ruby-keyword kw">true</span>
+312:       <span class="ruby-identifier">self_signed</span> = (<span class="ruby-identifier">cert</span>.<span class="ruby-identifier">subject</span>.<span class="ruby-identifier">cmp</span>(<span class="ruby-identifier">cert</span>.<span class="ruby-identifier">issuer</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span>)
+313: 
+314:       <span class="ruby-comment cmt"># Check extensions whatever its criticality is. (sample)</span>
+315:       <span class="ruby-identifier">cert</span>.<span class="ruby-identifier">extensions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ex</span><span class="ruby-operator">|</span>
+316:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">oid</span>
+317:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'basicConstraints'</span>
+318:           <span class="ruby-regexp re">/CA:(TRUE|FALSE), pathlen:(\d+)/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">value</span>
+319:           <span class="ruby-identifier">ca</span> = (<span class="ruby-node">$1</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'TRUE'</span>)
+320:           <span class="ruby-identifier">pathlen</span> = <span class="ruby-node">$2</span>.<span class="ruby-identifier">to_i</span>
+321:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'keyUsage'</span>
+322:           <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\s*,\s*/</span>)
+323:           <span class="ruby-identifier">ca</span> = <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'Certificate Sign'</span>)
+324:           <span class="ruby-identifier">server_auth</span> = <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'Key Encipherment'</span>)
+325:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'extendedKeyUsage'</span>
+326:           <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\s*,\s*/</span>)
+327:           <span class="ruby-identifier">server_auth</span> = <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'Netscape Server Gated Crypto'</span>)
+328:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'nsCertType'</span>
+329:           <span class="ruby-identifier">usage</span> = <span class="ruby-identifier">ex</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\s*,\s*/</span>)
+330:           <span class="ruby-identifier">ca</span> = <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'SSL CA'</span>)
+331:           <span class="ruby-identifier">server_auth</span> = <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'SSL Server'</span>)
+332:         <span class="ruby-keyword kw">end</span>
+333:       <span class="ruby-keyword kw">end</span>
+334: 
+335:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">self_signed</span>
+336:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'self signing CA'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+337:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+338:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">ca</span>
+339:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'middle level CA'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+340:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+341:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">server_auth</span>
+342:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'for server authentication'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+343:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+344:       <span class="ruby-keyword kw">end</span>
+345: 
+346:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+347:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-client-cert-file-method" class="method-detail ">
+				<a name="method-i-set_client_cert_file"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_client_cert_file</span><span
+						class="method-args">(cert_file, key_file)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets certificate and private key for SSL client authentication.
+</p>
+<table>
+<tr><td valign="top">cert_file</td><td><p>
+must be a filename of PEM/DER formatted file.
+</p>
+</td></tr>
+<tr><td valign="top">key_file</td><td><p>
+must be a filename of PEM/DER formatted file.  Key must be an RSA key.  If
+you want to use other PKey algorithm, use <a
+href="SSLConfig.html#client_key">client_key</a>=.
+</p>
+</td></tr>
+</table>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-client-cert-file-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 114</span>
+114:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_client_cert_file</span>(<span class="ruby-identifier">cert_file</span>, <span class="ruby-identifier">key_file</span>)
+115:       <span class="ruby-ivar">@client_cert</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">cert_file</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> })
+116:       <span class="ruby-ivar">@client_key</span> = <span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">key_file</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> })
+117:       <span class="ruby-identifier">change_notify</span>
+118:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-crl-method" class="method-detail method-alias">
+				<a name="method-i-set_crl"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_crl</span><span
+						class="method-args">(crl)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+				</div>
+
+				
+
+				
+				<div class="aliases">
+          Alias for: <a href="SSLConfig.html#method-i-add_crl">add_crl</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="set-trust-ca-method" class="method-detail method-alias">
+				<a name="method-i-set_trust_ca"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_trust_ca</span><span
+						class="method-args">(trust_ca_file_or_hashed_dir)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+				</div>
+
+				
+
+				
+				<div class="aliases">
+          Alias for: <a href="SSLConfig.html#method-i-add_trust_ca">add_trust_ca</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="timeout--method" class="method-detail ">
+				<a name="method-i-timeout%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">timeout=</span><span
+						class="method-args">(timeout)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets SSL timeout in sec.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="timeout--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 209</span>
+209:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">timeout=</span>(<span class="ruby-identifier">timeout</span>)
+210:       <span class="ruby-ivar">@timeout</span> = <span class="ruby-identifier">timeout</span>
+211:       <span class="ruby-identifier">change_notify</span>
+212:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="verify-callback--method" class="method-detail ">
+				<a name="method-i-verify_callback%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">verify_callback=</span><span
+						class="method-args">(verify_callback)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets callback handler for custom certificate verification. See
+verify_callback.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="verify-callback--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 201</span>
+201:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_callback=</span>(<span class="ruby-identifier">verify_callback</span>)
+202:       <span class="ruby-ivar">@verify_callback</span> = <span class="ruby-identifier">verify_callback</span>
+203:       <span class="ruby-identifier">change_notify</span>
+204:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="verify-depth--method" class="method-detail ">
+				<a name="method-i-verify_depth%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">verify_depth=</span><span
+						class="method-args">(verify_depth)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets verify depth.  New value must be a number.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="verify-depth--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 192</span>
+192:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_depth=</span>(<span class="ruby-identifier">verify_depth</span>)
+193:       <span class="ruby-ivar">@verify_depth</span> = <span class="ruby-identifier">verify_depth</span>
+194:       <span class="ruby-identifier">change_notify</span>
+195:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="verify-mode--method" class="method-detail ">
+				<a name="method-i-verify_mode%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">verify_mode=</span><span
+						class="method-args">(verify_mode)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets verify mode of OpenSSL.  New value must be a combination of constants
+OpenSSL::SSL::VERIFY_*
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="verify-mode--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 184</span>
+184:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_mode=</span>(<span class="ruby-identifier">verify_mode</span>)
+185:       <span class="ruby-ivar">@verify_mode</span> = <span class="ruby-identifier">verify_mode</span>
+186:       <span class="ruby-identifier">change_notify</span>
+187:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="change-notify-method" class="method-detail ">
+				<a name="method-i-change_notify"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">change_notify</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="change-notify-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 351</span>
+351:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">change_notify</span>
+352:       <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">reset_all</span>
+353:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="load-cacerts-method" class="method-detail ">
+				<a name="method-i-load_cacerts"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">load_cacerts</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="load-cacerts-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/ssl_config.rb, line 355</span>
+355:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_cacerts</span>
+356:       [
+357:         [<span class="ruby-constant">DIST_CERT</span>, <span class="ruby-value str">'cacert.p7s'</span>],
+358:         [<span class="ruby-constant">DIST_CERT_SHA1</span>, <span class="ruby-value str">'cacert_sha1.p7s'</span>]
+359:       ].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cert_str</span>, <span class="ruby-identifier">ca_file</span><span class="ruby-operator">|</span>
+360:         <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>), <span class="ruby-identifier">ca_file</span>)
+361:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">file</span>)
+362:           <span class="ruby-identifier">p7</span> = <span class="ruby-constant">PKCS7</span>.<span class="ruby-identifier">read_smime</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> })
+363:           <span class="ruby-identifier">selfcert</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">cert_str</span>)
+364:           <span class="ruby-identifier">store</span> = <span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Store</span>.<span class="ruby-identifier">new</span>
+365:           <span class="ruby-identifier">store</span>.<span class="ruby-identifier">add_cert</span>(<span class="ruby-identifier">selfcert</span>)
+366:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">p7</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">store</span>, <span class="ruby-identifier">p7</span>.<span class="ruby-identifier">data</span>, <span class="ruby-value">0</span>))
+367:             <span class="ruby-identifier">add_trust_ca</span>(<span class="ruby-identifier">file</span>)
+368:             <span class="ruby-keyword kw">return</span>
+369:           <span class="ruby-keyword kw">end</span>
+370:         <span class="ruby-keyword kw">end</span>
+371:       <span class="ruby-keyword kw">end</span>
+372:       <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;cacerts loading failed&quot;</span>)
+373:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

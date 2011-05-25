@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: LibXML::XML::SaxParser</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/libxml/sax_callbacks_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/libxml/sax_callbacks.rb">lib/libxml/sax_callbacks.rb</a></li>
+					
+						<li><a href="../../lib/libxml/sax_parser_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/libxml/sax_parser.rb">lib/libxml/sax_parser.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">MODULE</span> <a href="SaxParser/Callbacks.html">LibXML::XML::SaxParser::Callbacks</a></li>
+					
+					<li><span class="type">MODULE</span> <a href="SaxParser/VerboseCallbacks.html">LibXML::XML::SaxParser::VerboseCallbacks</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-file">::file</a></li>
+					
+					<li><a href="#method-c-io">::io</a></li>
+					
+					<li><a href="#method-c-string">::string</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../LibXML.html">LibXML</a></li>
+				
+					<li><a href="../../LibXML/XML.html">LibXML::XML</a></li>
+				
+					<li><a href="../../LibXML/XML/Attr.html">LibXML::XML::Attr</a></li>
+				
+					<li><a href="../../LibXML/XML/AttrDecl.html">LibXML::XML::AttrDecl</a></li>
+				
+					<li><a href="../../LibXML/XML/Attributes.html">LibXML::XML::Attributes</a></li>
+				
+					<li><a href="../../LibXML/XML/Document.html">LibXML::XML::Document</a></li>
+				
+					<li><a href="../../LibXML/XML/Error.html">LibXML::XML::Error</a></li>
+				
+					<li><a href="../../LibXML/XML/HTMLParser.html">LibXML::XML::HTMLParser</a></li>
+				
+					<li><a href="../../LibXML/XML/Namespace.html">LibXML::XML::Namespace</a></li>
+				
+					<li><a href="../../LibXML/XML/Namespaces.html">LibXML::XML::Namespaces</a></li>
+				
+					<li><a href="../../LibXML/XML/Node.html">LibXML::XML::Node</a></li>
+				
+					<li><a href="../../LibXML/XML/Parser.html">LibXML::XML::Parser</a></li>
+				
+					<li><a href="../../LibXML/XML/Reader.html">LibXML::XML::Reader</a></li>
+				
+					<li><a href="../../LibXML/XML/SaxParser.html">LibXML::XML::SaxParser</a></li>
+				
+					<li><a href="../../LibXML/XML/SaxParser/Callbacks.html">LibXML::XML::SaxParser::Callbacks</a></li>
+				
+					<li><a href="../../LibXML/XML/SaxParser/VerboseCallbacks.html">LibXML::XML::SaxParser::VerboseCallbacks</a></li>
+				
+					<li><a href="../../LibXML/XML/XPath.html">LibXML::XML::XPath</a></li>
+				
+					<li><a href="../../LibXML/XML/XPath/Object.html">LibXML::XML::XPath::Object</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">LibXML::XML::SaxParser</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="file-method" class="method-detail ">
+				<a name="method-c-file"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">file(path) &rarr; XML::SaxParser</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a new parser by parsing the specified file or uri.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="file-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/libxml/sax_parser.rb, line 10</span>
+10:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">file</span>(<span class="ruby-identifier">path</span>)
+11:         <span class="ruby-identifier">context</span> = <span class="ruby-constant">XML</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Context</span>.<span class="ruby-identifier">file</span>(<span class="ruby-identifier">path</span>)
+12:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">context</span>)
+13:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="io-method" class="method-detail ">
+				<a name="method-c-io"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">io(io, :encoding => XML::Encoding::UTF_8) &rarr; XML::SaxParser</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a new reader by parsing the specified io object.
+</p>
+<p>
+Parameters:
+</p>
+<pre>
+ encoding - The document encoding, defaults to nil. Valid values
+            are the encoding constants defined on XML::Encoding.</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="io-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/libxml/sax_parser.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">io</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">options</span> = {})
+26:         <span class="ruby-identifier">context</span> = <span class="ruby-constant">XML</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Context</span>.<span class="ruby-identifier">io</span>(<span class="ruby-identifier">io</span>)
+27:         <span class="ruby-identifier">context</span>.<span class="ruby-identifier">encoding</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:encoding</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:encoding</span>]
+28:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">context</span>)
+29:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="string-method" class="method-detail ">
+				<a name="method-c-string"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">string(string)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a new parser by parsing the specified string.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="string-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/libxml/sax_parser.rb, line 35</span>
+35:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">string</span>(<span class="ruby-identifier">string</span>)
+36:         <span class="ruby-identifier">context</span> = <span class="ruby-constant">XML</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">Context</span>.<span class="ruby-identifier">string</span>(<span class="ruby-identifier">string</span>)
+37:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">context</span>)
+38:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

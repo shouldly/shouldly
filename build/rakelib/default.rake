@@ -2,7 +2,7 @@ task :default => ["clean", "all"]
 task :all => [:compile, :test]
 
 desc "Update assembly versions, build, generate docs and create directory for packaging"
-task :deploy => [:version_assemblies, :default, :prepare_artefacts] # :push_gem
+task :deploy => [:version_assemblies, :default, :prepare_artefacts, :deploy_artefacts]
 
 task :automated_deploy => [:get_build_number] do
 	puts "##teamcity[buildNumber '#{@@build_number}']"

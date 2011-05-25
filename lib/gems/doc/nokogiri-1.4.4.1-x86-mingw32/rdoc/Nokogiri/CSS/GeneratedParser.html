@@ -1,0 +1,2419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Nokogiri::CSS::GeneratedParser</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/nokogiri/css/generated_parser_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nokogiri/css/generated_parser.rb">lib/nokogiri/css/generated_parser.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Racc::Parser</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-i-_reduce_1">#_reduce_1</a></li>
+					
+					<li><a href="#method-i-_reduce_10">#_reduce_10</a></li>
+					
+					<li><a href="#method-i-_reduce_11">#_reduce_11</a></li>
+					
+					<li><a href="#method-i-_reduce_13">#_reduce_13</a></li>
+					
+					<li><a href="#method-i-_reduce_14">#_reduce_14</a></li>
+					
+					<li><a href="#method-i-_reduce_15">#_reduce_15</a></li>
+					
+					<li><a href="#method-i-_reduce_16">#_reduce_16</a></li>
+					
+					<li><a href="#method-i-_reduce_17">#_reduce_17</a></li>
+					
+					<li><a href="#method-i-_reduce_19">#_reduce_19</a></li>
+					
+					<li><a href="#method-i-_reduce_2">#_reduce_2</a></li>
+					
+					<li><a href="#method-i-_reduce_20">#_reduce_20</a></li>
+					
+					<li><a href="#method-i-_reduce_21">#_reduce_21</a></li>
+					
+					<li><a href="#method-i-_reduce_22">#_reduce_22</a></li>
+					
+					<li><a href="#method-i-_reduce_23">#_reduce_23</a></li>
+					
+					<li><a href="#method-i-_reduce_25">#_reduce_25</a></li>
+					
+					<li><a href="#method-i-_reduce_26">#_reduce_26</a></li>
+					
+					<li><a href="#method-i-_reduce_27">#_reduce_27</a></li>
+					
+					<li><a href="#method-i-_reduce_28">#_reduce_28</a></li>
+					
+					<li><a href="#method-i-_reduce_29">#_reduce_29</a></li>
+					
+					<li><a href="#method-i-_reduce_3">#_reduce_3</a></li>
+					
+					<li><a href="#method-i-_reduce_30">#_reduce_30</a></li>
+					
+					<li><a href="#method-i-_reduce_31">#_reduce_31</a></li>
+					
+					<li><a href="#method-i-_reduce_32">#_reduce_32</a></li>
+					
+					<li><a href="#method-i-_reduce_33">#_reduce_33</a></li>
+					
+					<li><a href="#method-i-_reduce_34">#_reduce_34</a></li>
+					
+					<li><a href="#method-i-_reduce_35">#_reduce_35</a></li>
+					
+					<li><a href="#method-i-_reduce_38">#_reduce_38</a></li>
+					
+					<li><a href="#method-i-_reduce_39">#_reduce_39</a></li>
+					
+					<li><a href="#method-i-_reduce_4">#_reduce_4</a></li>
+					
+					<li><a href="#method-i-_reduce_40">#_reduce_40</a></li>
+					
+					<li><a href="#method-i-_reduce_41">#_reduce_41</a></li>
+					
+					<li><a href="#method-i-_reduce_42">#_reduce_42</a></li>
+					
+					<li><a href="#method-i-_reduce_43">#_reduce_43</a></li>
+					
+					<li><a href="#method-i-_reduce_46">#_reduce_46</a></li>
+					
+					<li><a href="#method-i-_reduce_47">#_reduce_47</a></li>
+					
+					<li><a href="#method-i-_reduce_48">#_reduce_48</a></li>
+					
+					<li><a href="#method-i-_reduce_49">#_reduce_49</a></li>
+					
+					<li><a href="#method-i-_reduce_5">#_reduce_5</a></li>
+					
+					<li><a href="#method-i-_reduce_54">#_reduce_54</a></li>
+					
+					<li><a href="#method-i-_reduce_55">#_reduce_55</a></li>
+					
+					<li><a href="#method-i-_reduce_56">#_reduce_56</a></li>
+					
+					<li><a href="#method-i-_reduce_58">#_reduce_58</a></li>
+					
+					<li><a href="#method-i-_reduce_59">#_reduce_59</a></li>
+					
+					<li><a href="#method-i-_reduce_6">#_reduce_6</a></li>
+					
+					<li><a href="#method-i-_reduce_60">#_reduce_60</a></li>
+					
+					<li><a href="#method-i-_reduce_61">#_reduce_61</a></li>
+					
+					<li><a href="#method-i-_reduce_62">#_reduce_62</a></li>
+					
+					<li><a href="#method-i-_reduce_63">#_reduce_63</a></li>
+					
+					<li><a href="#method-i-_reduce_64">#_reduce_64</a></li>
+					
+					<li><a href="#method-i-_reduce_65">#_reduce_65</a></li>
+					
+					<li><a href="#method-i-_reduce_7">#_reduce_7</a></li>
+					
+					<li><a href="#method-i-_reduce_8">#_reduce_8</a></li>
+					
+					<li><a href="#method-i-_reduce_9">#_reduce_9</a></li>
+					
+					<li><a href="#method-i-_reduce_none">#_reduce_none</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../CHANGELOG_ja_rdoc.html">CHANGELOG.ja.rdoc</a></li>
+				
+					<li class="file"><a href="../../CHANGELOG_rdoc.html">CHANGELOG.rdoc</a></li>
+				
+					<li class="file"><a href="../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../README_ja_rdoc.html">README.ja.rdoc</a></li>
+				
+					<li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../Nokogiri.html">Nokogiri</a></li>
+				
+					<li><a href="../../Nokogiri/CSS.html">Nokogiri::CSS</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/GeneratedParser.html">Nokogiri::CSS::GeneratedParser</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/GeneratedTokenizer.html">Nokogiri::CSS::GeneratedTokenizer</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/GeneratedTokenizer/ScanError.html">Nokogiri::CSS::GeneratedTokenizer::ScanError</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/Node.html">Nokogiri::CSS::Node</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/Parser.html">Nokogiri::CSS::Parser</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/SyntaxError.html">Nokogiri::CSS::SyntaxError</a></li>
+				
+					<li><a href="../../Nokogiri/CSS/Tokenizer.html">Nokogiri::CSS::Tokenizer</a></li>
+				
+					<li><a href="../../Nokogiri/Decorators.html">Nokogiri::Decorators</a></li>
+				
+					<li><a href="../../Nokogiri/Decorators/Slop.html">Nokogiri::Decorators::Slop</a></li>
+				
+					<li><a href="../../Nokogiri/EncodingHandler.html">Nokogiri::EncodingHandler</a></li>
+				
+					<li><a href="../../Nokogiri/HTML.html">Nokogiri::HTML</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/Builder.html">Nokogiri::HTML::Builder</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/Document.html">Nokogiri::HTML::Document</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/DocumentFragment.html">Nokogiri::HTML::DocumentFragment</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/ElementDescription.html">Nokogiri::HTML::ElementDescription</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/EntityDescription.html">Nokogiri::HTML::EntityDescription</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/EntityLookup.html">Nokogiri::HTML::EntityLookup</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/SAX.html">Nokogiri::HTML::SAX</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/SAX/Parser.html">Nokogiri::HTML::SAX::Parser</a></li>
+				
+					<li><a href="../../Nokogiri/HTML/SAX/ParserContext.html">Nokogiri::HTML::SAX::ParserContext</a></li>
+				
+					<li><a href="../../Nokogiri/SyntaxError.html">Nokogiri::SyntaxError</a></li>
+				
+					<li><a href="../../Nokogiri/XML.html">Nokogiri::XML</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Attr.html">Nokogiri::XML::Attr</a></li>
+				
+					<li><a href="../../Nokogiri/XML/AttributeDecl.html">Nokogiri::XML::AttributeDecl</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Builder.html">Nokogiri::XML::Builder</a></li>
+				
+					<li><a href="../../Nokogiri/XML/CDATA.html">Nokogiri::XML::CDATA</a></li>
+				
+					<li><a href="../../Nokogiri/XML/CharacterData.html">Nokogiri::XML::CharacterData</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Comment.html">Nokogiri::XML::Comment</a></li>
+				
+					<li><a href="../../Nokogiri/XML/DTD.html">Nokogiri::XML::DTD</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Document.html">Nokogiri::XML::Document</a></li>
+				
+					<li><a href="../../Nokogiri/XML/DocumentFragment.html">Nokogiri::XML::DocumentFragment</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Element.html">Nokogiri::XML::Element</a></li>
+				
+					<li><a href="../../Nokogiri/XML/ElementContent.html">Nokogiri::XML::ElementContent</a></li>
+				
+					<li><a href="../../Nokogiri/XML/ElementDecl.html">Nokogiri::XML::ElementDecl</a></li>
+				
+					<li><a href="../../Nokogiri/XML/EntityDecl.html">Nokogiri::XML::EntityDecl</a></li>
+				
+					<li><a href="../../Nokogiri/XML/EntityReference.html">Nokogiri::XML::EntityReference</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Namespace.html">Nokogiri::XML::Namespace</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Node.html">Nokogiri::XML::Node</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Node/SaveOptions.html">Nokogiri::XML::Node::SaveOptions</a></li>
+				
+					<li><a href="../../Nokogiri/XML/NodeSet.html">Nokogiri::XML::NodeSet</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Notation.html">Nokogiri::XML::Notation</a></li>
+				
+					<li><a href="../../Nokogiri/XML/PP.html">Nokogiri::XML::PP</a></li>
+				
+					<li><a href="../../Nokogiri/XML/PP/CharacterData.html">Nokogiri::XML::PP::CharacterData</a></li>
+				
+					<li><a href="../../Nokogiri/XML/PP/Node.html">Nokogiri::XML::PP::Node</a></li>
+				
+					<li><a href="../../Nokogiri/XML/ParseOptions.html">Nokogiri::XML::ParseOptions</a></li>
+				
+					<li><a href="../../Nokogiri/XML/ProcessingInstruction.html">Nokogiri::XML::ProcessingInstruction</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Reader.html">Nokogiri::XML::Reader</a></li>
+				
+					<li><a href="../../Nokogiri/XML/RelaxNG.html">Nokogiri::XML::RelaxNG</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SAX.html">Nokogiri::XML::SAX</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SAX/Document.html">Nokogiri::XML::SAX::Document</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SAX/Parser.html">Nokogiri::XML::SAX::Parser</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SAX/Parser/Attribute.html">Nokogiri::XML::SAX::Parser::Attribute</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SAX/ParserContext.html">Nokogiri::XML::SAX::ParserContext</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SAX/PushParser.html">Nokogiri::XML::SAX::PushParser</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Schema.html">Nokogiri::XML::Schema</a></li>
+				
+					<li><a href="../../Nokogiri/XML/SyntaxError.html">Nokogiri::XML::SyntaxError</a></li>
+				
+					<li><a href="../../Nokogiri/XML/Text.html">Nokogiri::XML::Text</a></li>
+				
+					<li><a href="../../Nokogiri/XML/XPath.html">Nokogiri::XML::XPath</a></li>
+				
+					<li><a href="../../Nokogiri/XML/XPath/SyntaxError.html">Nokogiri::XML::XPath::SyntaxError</a></li>
+				
+					<li><a href="../../Nokogiri/XML/XPathContext.html">Nokogiri::XML::XPathContext</a></li>
+				
+					<li><a href="../../Nokogiri/XSLT.html">Nokogiri::XSLT</a></li>
+				
+					<li><a href="../../Nokogiri/XSLT/Stylesheet.html">Nokogiri::XSLT::Stylesheet</a></li>
+				
+					<li><a href="../../XSD/XMLParser/Nokogiri.html">XSD::XMLParser::Nokogiri</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Nokogiri::CSS::GeneratedParser</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="Racc_arg">Racc_arg</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="Racc_token_to_s_table">Racc_token_to_s_table</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="Racc_debug_parser">Racc_debug_parser</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_1"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_1</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 0 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 288</span>
+288: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_1</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+289:         <span class="ruby-identifier">result</span> = [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>].<span class="ruby-identifier">flatten</span>
+290:       
+291:     <span class="ruby-identifier">result</span>
+292: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_10"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_10</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 339</span>
+339: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_10</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+340:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>,
+341:           [
+342:             <span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>,
+343:             <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:COMBINATOR</span>, [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>])
+344:           ]
+345:         )
+346:       
+347:     <span class="ruby-identifier">result</span>
+348: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_11"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_11</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 350</span>
+350: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_11</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+351:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>, <span class="ruby-identifier">val</span>)
+352:       
+353:     <span class="ruby-identifier">result</span>
+354: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_13"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_13</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 12 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 358</span>
+358: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_13</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+359:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>, <span class="ruby-identifier">val</span>)
+360:       
+361:     <span class="ruby-identifier">result</span>
+362: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_14"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_14</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 364</span>
+364: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_14</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+365:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>, <span class="ruby-identifier">val</span>)
+366:       
+367:     <span class="ruby-identifier">result</span>
+368: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_15"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_15</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 370</span>
+370: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_15</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+371:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>,
+372:           [
+373:             <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ELEMENT_NAME</span>, [<span class="ruby-value str">'*'</span>]),
+374:             <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:COMBINATOR</span>, <span class="ruby-identifier">val</span>)
+375:           ]
+376:         )
+377:       
+378:     <span class="ruby-identifier">result</span>
+379: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_16"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_16</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 381</span>
+381: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_16</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+382:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>,
+383:           [<span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ELEMENT_NAME</span>, [<span class="ruby-value str">'*'</span>]), <span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>]
+384:         )
+385:       
+386:     <span class="ruby-identifier">result</span>
+387: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_17"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_17</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 389</span>
+389: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_17</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+390:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>], [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>])
+391:       
+392:     <span class="ruby-identifier">result</span>
+393: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_19"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_19</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 18 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 397</span>
+397: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_19</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+398:  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CLASS_CONDITION</span>, [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]]) 
+399:     <span class="ruby-identifier">result</span>
+400: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_2"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_2</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 294</span>
+294: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_2</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+295:  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">flatten</span> 
+296:     <span class="ruby-identifier">result</span>
+297: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_20"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_20</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 402</span>
+402: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_20</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+403:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ELEMENT_NAME</span>,
+404:           [[<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">':'</span>)]
+405:         )
+406:       
+407:     <span class="ruby-identifier">result</span>
+408: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_21"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_21</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 410</span>
+410: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_21</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+411:         <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">'xmlns'</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;xmlns:#{val.first}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>
+412:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ELEMENT_NAME</span>, [<span class="ruby-identifier">name</span>])
+413:       
+414:     <span class="ruby-identifier">result</span>
+415: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_22"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_22</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 417</span>
+417: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_22</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+418:  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ELEMENT_NAME</span>, <span class="ruby-identifier">val</span>) 
+419:     <span class="ruby-identifier">result</span>
+420: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_23"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_23</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 422</span>
+422: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_23</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+423:  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>] 
+424:     <span class="ruby-identifier">result</span>
+425: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_25"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_25</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 24 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 429</span>
+429: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_25</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+430:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ATTRIBUTE_CONDITION</span>,
+431:           [<span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ELEMENT_NAME</span>, [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]])] <span class="ruby-operator">+</span> (<span class="ruby-identifier">val</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">||</span> [])
+432:         )
+433:       
+434:     <span class="ruby-identifier">result</span>
+435: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_26"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_26</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 437</span>
+437: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_26</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+438:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ATTRIBUTE_CONDITION</span>,
+439:           [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]] <span class="ruby-operator">+</span> (<span class="ruby-identifier">val</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">||</span> [])
+440:         )
+441:       
+442:     <span class="ruby-identifier">result</span>
+443: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_27"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_27</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 445</span>
+445: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_27</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+446:         <span class="ruby-comment cmt"># Non standard, but hpricot supports it.</span>
+447:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:PSEUDO_CLASS</span>,
+448:           [<span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:FUNCTION</span>, [<span class="ruby-value str">'nth-child('</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]])]
+449:         )
+450:       
+451:     <span class="ruby-identifier">result</span>
+452: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_28"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_28</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 454</span>
+454: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_28</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+455:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:FUNCTION</span>, [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">strip</span>])
+456:       
+457:     <span class="ruby-identifier">result</span>
+458: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_29"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_29</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 460</span>
+460: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_29</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+461:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:FUNCTION</span>, [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">strip</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]].<span class="ruby-identifier">flatten</span>)
+462:       
+463:     <span class="ruby-identifier">result</span>
+464: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_3"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_3</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 299</span>
+299: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_3</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+300:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:DIRECT_ADJACENT_SELECTOR</span> 
+301:     <span class="ruby-identifier">result</span>
+302: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_30"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_30</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 466</span>
+466: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_30</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+467:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:FUNCTION</span>, [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">strip</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]].<span class="ruby-identifier">flatten</span>)
+468:       
+469:     <span class="ruby-identifier">result</span>
+470: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_31"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_31</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 472</span>
+472: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_31</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+473:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:FUNCTION</span>, [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">strip</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]].<span class="ruby-identifier">flatten</span>)
+474:       
+475:     <span class="ruby-identifier">result</span>
+476: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_32"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_32</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 478</span>
+478: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_32</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+479:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:FUNCTION</span>, [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">strip</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]].<span class="ruby-identifier">flatten</span>)
+480:       
+481:     <span class="ruby-identifier">result</span>
+482: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_33"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_33</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 484</span>
+484: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_33</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+485:  <span class="ruby-identifier">result</span> = [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>] 
+486:     <span class="ruby-identifier">result</span>
+487: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_34"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_34</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 489</span>
+489: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_34</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+490:  <span class="ruby-identifier">result</span> = [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>] 
+491:     <span class="ruby-identifier">result</span>
+492: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_35"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_35</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 494</span>
+494: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_35</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+495:  <span class="ruby-identifier">result</span> = [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">last</span>] 
+496:     <span class="ruby-identifier">result</span>
+497: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_38"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_38</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 37 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 503</span>
+503: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_38</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+504:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'even'</span>
+505:           <span class="ruby-identifier">val</span> = [<span class="ruby-value str">&quot;2&quot;</span>,<span class="ruby-value str">&quot;n&quot;</span>,<span class="ruby-value str">&quot;+&quot;</span>,<span class="ruby-value str">&quot;0&quot;</span>]
+506:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:AN_PLUS_B</span>, <span class="ruby-identifier">val</span>)
+507:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'odd'</span>
+508:           <span class="ruby-identifier">val</span> = [<span class="ruby-value str">&quot;2&quot;</span>,<span class="ruby-value str">&quot;n&quot;</span>,<span class="ruby-value str">&quot;+&quot;</span>,<span class="ruby-value str">&quot;1&quot;</span>]
+509:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:AN_PLUS_B</span>, <span class="ruby-identifier">val</span>)
+510:         <span class="ruby-keyword kw">else</span>
+511:           <span class="ruby-comment cmt"># This is not CSS standard.  It allows us to support this:</span>
+512:           <span class="ruby-comment cmt"># assert_xpath(&quot;//a[foo(., @href)]&quot;, @parser.parse('a:foo(@href)'))</span>
+513:           <span class="ruby-comment cmt"># assert_xpath(&quot;//a[foo(., @a, b)]&quot;, @parser.parse('a:foo(@a, b)'))</span>
+514:           <span class="ruby-comment cmt"># assert_xpath(&quot;//a[foo(., a, 10)]&quot;, @parser.parse('a:foo(a, 10)'))</span>
+515:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">val</span>
+516:         <span class="ruby-keyword kw">end</span>
+517:       
+518:     <span class="ruby-identifier">result</span>
+519: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_39"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_39</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 521</span>
+521: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_39</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+522:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'n'</span>
+523:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:AN_PLUS_B</span>, <span class="ruby-identifier">val</span>)
+524:         <span class="ruby-keyword kw">else</span>
+525:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">Racc</span><span class="ruby-operator">::</span><span class="ruby-constant">ParseError</span>, <span class="ruby-node">&quot;parse error on IDENT '#{val[1]}'&quot;</span>
+526:         <span class="ruby-keyword kw">end</span>
+527:       
+528:     <span class="ruby-identifier">result</span>
+529: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_4"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_4</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 304</span>
+304: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_4</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+305:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:CHILD_SELECTOR</span> 
+306:     <span class="ruby-identifier">result</span>
+307: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_40"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_40</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 531</span>
+531: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_40</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+532:                <span class="ruby-comment cmt"># n+3, -n+3</span>
+533:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'n'</span>
+534:           <span class="ruby-identifier">val</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-value str">&quot;1&quot;</span>)
+535:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:AN_PLUS_B</span>, <span class="ruby-identifier">val</span>)
+536:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'-n'</span>
+537:           <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>] = <span class="ruby-value str">'n'</span>
+538:           <span class="ruby-identifier">val</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-value str">&quot;-1&quot;</span>)
+539:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:AN_PLUS_B</span>, <span class="ruby-identifier">val</span>)
+540:         <span class="ruby-keyword kw">else</span>
+541:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">Racc</span><span class="ruby-operator">::</span><span class="ruby-constant">ParseError</span>, <span class="ruby-node">&quot;parse error on IDENT '#{val[1]}'&quot;</span>
+542:         <span class="ruby-keyword kw">end</span>
+543:       
+544:     <span class="ruby-identifier">result</span>
+545: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_41"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_41</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 547</span>
+547: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_41</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+548:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'n'</span>
+549:           <span class="ruby-identifier">val</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;+&quot;</span>
+550:           <span class="ruby-identifier">val</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;0&quot;</span>
+551:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:AN_PLUS_B</span>, <span class="ruby-identifier">val</span>)
+552:         <span class="ruby-keyword kw">else</span>
+553:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">Racc</span><span class="ruby-operator">::</span><span class="ruby-constant">ParseError</span>, <span class="ruby-node">&quot;parse error on IDENT '#{val[1]}'&quot;</span>
+554:         <span class="ruby-keyword kw">end</span>
+555:       
+556:     <span class="ruby-identifier">result</span>
+557: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_42"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_42</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 559</span>
+559: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_42</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+560:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:PSEUDO_CLASS</span>, [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]])
+561:       
+562:     <span class="ruby-identifier">result</span>
+563: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_43"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_43</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 565</span>
+565: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_43</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+566:  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:PSEUDO_CLASS</span>, [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]]) 
+567:     <span class="ruby-identifier">result</span>
+568: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_46"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_46</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 45 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 574</span>
+574: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_46</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+575:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:COMBINATOR</span>, <span class="ruby-identifier">val</span>)
+576:       
+577:     <span class="ruby-identifier">result</span>
+578: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_47"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_47</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 580</span>
+580: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_47</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+581:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:COMBINATOR</span>, <span class="ruby-identifier">val</span>)
+582:       
+583:     <span class="ruby-identifier">result</span>
+584: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_48"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_48</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 586</span>
+586: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_48</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+587:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:COMBINATOR</span>, <span class="ruby-identifier">val</span>)
+588:       
+589:     <span class="ruby-identifier">result</span>
+590: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_49"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_49</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 592</span>
+592: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_49</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+593:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:COMBINATOR</span>, <span class="ruby-identifier">val</span>)
+594:       
+595:     <span class="ruby-identifier">result</span>
+596: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_5"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_5</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 309</span>
+309: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_5</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+310:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:PRECEDING_SELECTOR</span> 
+311:     <span class="ruby-identifier">result</span>
+312: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_54"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_54</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 53 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 606</span>
+606: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_54</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+607:  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:ID</span>, <span class="ruby-identifier">val</span>) 
+608:     <span class="ruby-identifier">result</span>
+609: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_55"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_55</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 611</span>
+611: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_55</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+612:  <span class="ruby-identifier">result</span> = [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]] 
+613:     <span class="ruby-identifier">result</span>
+614: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_56"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_56</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 616</span>
+616: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_56</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+617:  <span class="ruby-identifier">result</span> = [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]] 
+618:     <span class="ruby-identifier">result</span>
+619: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_58"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_58</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 57 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 623</span>
+623: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_58</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+624:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:equal</span> 
+625:     <span class="ruby-identifier">result</span>
+626: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_59"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_59</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 628</span>
+628: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_59</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+629:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:prefix_match</span> 
+630:     <span class="ruby-identifier">result</span>
+631: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_6"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_6</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 314</span>
+314: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_6</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+315:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:DESCENDANT_SELECTOR</span> 
+316:     <span class="ruby-identifier">result</span>
+317: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_60"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_60</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 633</span>
+633: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_60</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+634:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:suffix_match</span> 
+635:     <span class="ruby-identifier">result</span>
+636: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_61"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_61</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 638</span>
+638: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_61</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+639:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:substring_match</span> 
+640:     <span class="ruby-identifier">result</span>
+641: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_62"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_62</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 643</span>
+643: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_62</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+644:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:not_equal</span> 
+645:     <span class="ruby-identifier">result</span>
+646: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_63"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_63</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 648</span>
+648: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_63</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+649:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:includes</span> 
+650:     <span class="ruby-identifier">result</span>
+651: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_64"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_64</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 653</span>
+653: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_64</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+654:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:dash_match</span> 
+655:     <span class="ruby-identifier">result</span>
+656: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_65"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_65</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 658</span>
+658: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_65</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+659:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:NOT</span>, [<span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]])
+660:       
+661:     <span class="ruby-identifier">result</span>
+662: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_7"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_7</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 319</span>
+319: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_7</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+320:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:DESCENDANT_SELECTOR</span> 
+321:     <span class="ruby-identifier">result</span>
+322: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_8"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_8</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 324</span>
+324: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_8</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+325:  <span class="ruby-identifier">result</span> = <span class="ruby-value">:CHILD_SELECTOR</span> 
+326:     <span class="ruby-identifier">result</span>
+327: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce--method" class="method-detail ">
+				<a name="method-i-_reduce_9"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_9</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 329</span>
+329: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_9</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+330:         <span class="ruby-identifier">result</span> =  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">nil?</span>
+331:                     <span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>
+332:                   <span class="ruby-keyword kw">else</span>
+333:                     <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:CONDITIONAL_SELECTOR</span>, [<span class="ruby-identifier">val</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]])
+334:                   <span class="ruby-keyword kw">end</span>
+335:       
+336:     <span class="ruby-identifier">result</span>
+337: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="-reduce-none-method" class="method-detail ">
+				<a name="method-i-_reduce_none"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">_reduce_none</span><span
+						class="method-args">(val, _values, result)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+reduce 68 omitted
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-reduce-none-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/nokogiri/css/generated_parser.rb, line 670</span>
+670: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_reduce_none</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">_values</span>, <span class="ruby-identifier">result</span>)
+671:   <span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>]
+672: <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

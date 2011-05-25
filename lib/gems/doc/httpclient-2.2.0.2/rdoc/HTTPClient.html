@@ -1,0 +1,3852 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: HTTPClient</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/httpclient/auth_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/auth.rb">lib/httpclient/auth.rb</a></li>
+					
+						<li><a href="./lib/httpclient/connection_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/connection.rb">lib/httpclient/connection.rb</a></li>
+					
+						<li><a href="./lib/httpclient/session_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/session.rb">lib/httpclient/session.rb</a></li>
+					
+						<li><a href="./lib/httpclient/ssl_config_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/ssl_config.rb">lib/httpclient/ssl_config.rb</a></li>
+					
+						<li><a href="./lib/httpclient/timeout_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/timeout.rb">lib/httpclient/timeout.rb</a></li>
+					
+						<li><a href="./lib/httpclient/util_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/util.rb">lib/httpclient/util.rb</a></li>
+					
+						<li><a href="./lib/httpclient_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient.rb">lib/httpclient.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">MODULE</span> <a href="HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+					
+					<li><span class="type">MODULE</span> <a href="HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+					
+					<li><span class="type">MODULE</span> <a href="HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+					
+					<li><span class="type">MODULE</span> <a href="HTTPClient/Util.html">HTTPClient::Util</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/KeepAliveDisconnected.html">HTTPClient::KeepAliveDisconnected</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/RetryableResponse.html">HTTPClient::RetryableResponse</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/Session.html">HTTPClient::Session</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/Site.html">HTTPClient::Site</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-attr_proxy">::attr_proxy</a></li>
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-c-timeout_scheduler">::timeout_scheduler</a></li>
+					
+					<li><a href="#method-i-body">#body</a></li>
+					
+					<li><a href="#method-i-cookies">#cookies</a></li>
+					
+					<li><a href="#method-i-create_boundary">#create_boundary</a></li>
+					
+					<li><a href="#method-i-create_request">#create_request</a></li>
+					
+					<li><a href="#method-i-debug_dev">#debug_dev</a></li>
+					
+					<li><a href="#method-i-debug_dev%3D">#debug_dev=</a></li>
+					
+					<li><a href="#method-i-default_redirect_uri_callback">#default_redirect_uri_callback</a></li>
+					
+					<li><a href="#method-i-delete">#delete</a></li>
+					
+					<li><a href="#method-i-delete_async">#delete_async</a></li>
+					
+					<li><a href="#method-i-do_get_block">#do_get_block</a></li>
+					
+					<li><a href="#method-i-do_get_header">#do_get_header</a></li>
+					
+					<li><a href="#method-i-do_get_stream">#do_get_stream</a></li>
+					
+					<li><a href="#method-i-do_request">#do_request</a></li>
+					
+					<li><a href="#method-i-do_request_async">#do_request_async</a></li>
+					
+					<li><a href="#method-i-dump_dummy_request_response">#dump_dummy_request_response</a></li>
+					
+					<li><a href="#method-i-file_in_form_data%3F">#file_in_form_data?</a></li>
+					
+					<li><a href="#method-i-follow_redirect">#follow_redirect</a></li>
+					
+					<li><a href="#method-i-get">#get</a></li>
+					
+					<li><a href="#method-i-get_async">#get_async</a></li>
+					
+					<li><a href="#method-i-get_content">#get_content</a></li>
+					
+					<li><a href="#method-i-getenv">#getenv</a></li>
+					
+					<li><a href="#method-i-head">#head</a></li>
+					
+					<li><a href="#method-i-head_async">#head_async</a></li>
+					
+					<li><a href="#method-i-keep_webmock_compat">#keep_webmock_compat</a></li>
+					
+					<li><a href="#method-i-load_environment">#load_environment</a></li>
+					
+					<li><a href="#method-i-no_proxy">#no_proxy</a></li>
+					
+					<li><a href="#method-i-no_proxy%3D">#no_proxy=</a></li>
+					
+					<li><a href="#method-i-no_proxy%3F">#no_proxy?</a></li>
+					
+					<li><a href="#method-i-options">#options</a></li>
+					
+					<li><a href="#method-i-options_async">#options_async</a></li>
+					
+					<li><a href="#method-i-override_header">#override_header</a></li>
+					
+					<li><a href="#method-i-post">#post</a></li>
+					
+					<li><a href="#method-i-post_async">#post_async</a></li>
+					
+					<li><a href="#method-i-post_content">#post_content</a></li>
+					
+					<li><a href="#method-i-propfind">#propfind</a></li>
+					
+					<li><a href="#method-i-propfind_async">#propfind_async</a></li>
+					
+					<li><a href="#method-i-proppatch">#proppatch</a></li>
+					
+					<li><a href="#method-i-proppatch_async">#proppatch_async</a></li>
+					
+					<li><a href="#method-i-protect_keep_alive_disconnected">#protect_keep_alive_disconnected</a></li>
+					
+					<li><a href="#method-i-proxy">#proxy</a></li>
+					
+					<li><a href="#method-i-proxy%3D">#proxy=</a></li>
+					
+					<li><a href="#method-i-put">#put</a></li>
+					
+					<li><a href="#method-i-put_async">#put_async</a></li>
+					
+					<li><a href="#method-i-redirect_uri_callback%3D">#redirect_uri_callback=</a></li>
+					
+					<li><a href="#method-i-request">#request</a></li>
+					
+					<li><a href="#method-i-request_async">#request_async</a></li>
+					
+					<li><a href="#method-i-reset">#reset</a></li>
+					
+					<li><a href="#method-i-reset_all">#reset_all</a></li>
+					
+					<li><a href="#method-i-save_cookie_store">#save_cookie_store</a></li>
+					
+					<li><a href="#method-i-set_auth">#set_auth</a></li>
+					
+					<li><a href="#method-i-set_basic_auth">#set_basic_auth</a></li>
+					
+					<li><a href="#method-i-set_cookie_store">#set_cookie_store</a></li>
+					
+					<li><a href="#method-i-set_proxy_auth">#set_proxy_auth</a></li>
+					
+					<li><a href="#method-i-strict_redirect_uri_callback">#strict_redirect_uri_callback</a></li>
+					
+					<li><a href="#method-i-trace">#trace</a></li>
+					
+					<li><a href="#method-i-trace_async">#trace_async</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">Util</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="./HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="./HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="./HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="./HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="./HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="./HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="./HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="./HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="./HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="./HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="./HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="./HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="./HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="./HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="./HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="./HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="./HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="./HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="./HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="./HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="./HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="./HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="./HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="./HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="./HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="./HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="./HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="./HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="./HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="./WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="./WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="./WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="./WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="./WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="./WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="./WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="./HTTP.html">HTTP</a></li>
+				
+					<li><a href="./HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="./HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="./HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="./HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="./HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="./HexDump.html">HexDump</a></li>
+				
+					<li><a href="./OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="./String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">HTTPClient</h1>
+
+		<div id="description">
+			<p>
+<a href="HTTPClient.html">HTTPClient</a> - <a href="HTTP.html">HTTP</a>
+client library. Copyright (C) 2000-2009  NAKAMURA, Hiroshi 
+<nahi@ruby-lang.org>.
+</p>
+<p>
+This program is copyrighted free software by NAKAMURA, Hiroshi.  You can
+redistribute it and/or modify it under the same terms of Ruby&#8217;s
+license; either the dual license version in 2003, or any later version.
+</p>
+<hr style="height: 1px"></hr><p>
+<a href="HTTPClient.html">HTTPClient</a> - <a href="HTTP.html">HTTP</a>
+client library. Copyright (C) 2000-2009  NAKAMURA, Hiroshi 
+<nahi@ruby-lang.org>.
+</p>
+<p>
+This program is copyrighted free software by NAKAMURA, Hiroshi.  You can
+redistribute it and/or modify it under the same terms of Ruby&#8217;s
+license; either the dual license version in 2003, or any later version.
+</p>
+<hr style="height: 1px"></hr><p>
+The <a href="HTTPClient.html">HTTPClient</a> class provides several methods
+for accessing Web resources via <a href="HTTP.html">HTTP</a>.
+</p>
+<p>
+<a href="HTTPClient.html">HTTPClient</a> instance is designed to be
+MT-safe.  You can call a <a href="HTTPClient.html">HTTPClient</a> instance
+from several threads without synchronization after setting up an instance.
+</p>
+<pre>
+  clnt = HTTPClient.new
+  clnt.set_cookie_store('/home/nahi/cookie.dat')
+  urls.each do |url|
+    Thread.new(url) do |u|
+      p clnt.head(u).status
+    end
+  end
+</pre>
+<h2>How to use</h2>
+<p>
+At first, how to create your client.  See initialize for more detail.
+</p>
+<ol>
+<li><p>
+Create simple client.
+</p>
+<pre>
+ clnt = HTTPClient.new
+</pre>
+</li>
+<li><p>
+Accessing resources through <a href="HTTP.html">HTTP</a> proxy.  You can
+use environment variable &#8216;http_proxy&#8217; or
+&#8216;HTTP_PROXY&#8217; instead.
+</p>
+<pre>
+ clnt = HTTPClient.new('http://myproxy:8080')
+</pre>
+</li>
+</ol>
+<h3>How to retrieve web resources</h3>
+<p>
+See get and get_content.
+</p>
+<ol>
+<li><p>
+Get content of specified URL.  It returns <a
+href="HTTP/Message.html">HTTP::Message</a> object and calling
+&#8216;body&#8217; method of it returns a content <a
+href="String.html">String</a>.
+</p>
+<pre>
+ puts clnt.get('http://dev.ctor.org/').body
+</pre>
+</li>
+<li><p>
+For getting content directly, use get_content.  It follows redirect
+response and returns a <a href="String.html">String</a> of whole result.
+</p>
+<pre>
+ puts clnt.get_content('http://dev.ctor.org/')
+</pre>
+</li>
+<li><p>
+You can pass :<a
+href="HTTPClient.html#method-i-follow_redirect">follow_redirect</a> option
+to follow redirect response in get.
+</p>
+<pre>
+ puts clnt.get('http://dev.ctor.org/', :foolow_redirect =&gt; true)
+</pre>
+</li>
+<li><p>
+Get content as chunks of <a href="String.html">String</a>.  It yields
+chunks of <a href="String.html">String</a>.
+</p>
+<pre>
+ clnt.get_content('http://dev.ctor.org/') do |chunk|
+   puts chunk
+ end
+</pre>
+</li>
+</ol>
+<h3>Invoking other <a href="HTTP.html">HTTP</a> methods</h3>
+<p>
+See head, get, post, put, delete, options, propfind, proppatch and trace.  
+It returns a <a href="HTTP/Message.html">HTTP::Message</a> instance as a
+response.
+</p>
+<ol>
+<li><p>
+Do HEAD request.
+</p>
+<pre>
+ res = clnt.head(uri)
+ p res.header['Last-Modified'][0]
+</pre>
+</li>
+<li><p>
+Do GET request with query.
+</p>
+<pre>
+ query = { 'keyword' =&gt; 'ruby', 'lang' =&gt; 'en' }
+ res = clnt.get(uri, query)
+ p res.status
+ p res.contenttype
+ p res.header['X-Custom']
+ puts res.body
+</pre>
+<p>
+You can also use keyword argument style.
+</p>
+<pre>
+ res = clnt.get(uri, :query =&gt; { :keyword =&gt; 'ruby', :lang =&gt; 'en' })
+</pre>
+</li>
+</ol>
+<h3>How to POST</h3>
+<p>
+See post.
+</p>
+<ol>
+<li><p>
+Do POST a form data.
+</p>
+<pre>
+ body = { 'keyword' =&gt; 'ruby', 'lang' =&gt; 'en' }
+ res = clnt.post(uri, body)
+</pre>
+<p>
+Keyword argument style.
+</p>
+<pre>
+ res = clnt.post(uri, :body =&gt; ...)
+</pre>
+</li>
+<li><p>
+Do multipart file upload with POST.  No need to set extra header by
+yourself from httpclient/2.1.4.
+</p>
+<pre>
+ File.open('/tmp/post_data') do |file|
+   body = { 'upload' =&gt; file, 'user' =&gt; 'nahi' }
+   res = clnt.post(uri, body)
+ end
+</pre>
+</li>
+<li><p>
+Do multipart wth custom body.
+</p>
+<pre>
+ File.open('/tmp/post_data') do |file|
+   body = [{ 'Content-Type' =&gt; 'application/atom+xml; charset=UTF-8',
+             :content =&gt; '&lt;entry&gt;...&lt;/entry&gt;' },
+           { 'Content-Type' =&gt; 'video/mp4',
+             'Content-Transfer-Encoding' =&gt; 'binary',
+             :content =&gt; file }]
+   res = clnt.post(uri, body)
+ end
+</pre>
+</li>
+</ol>
+<h3>Accessing via SSL</h3>
+<p>
+Ruby needs to be compiled with OpenSSL.
+</p>
+<ol>
+<li><p>
+Get content of specified URL via SSL. Just pass an URL which starts with
+&#8216;https://&#8217;.
+</p>
+<pre>
+ https_url = 'https://www.rsa.com'
+ clnt.get(https_url)
+</pre>
+</li>
+<li><p>
+Getting peer certificate from response.
+</p>
+<pre>
+ res = clnt.get(https_url)
+ p res.peer_cert #=&gt; returns OpenSSL::X509::Certificate
+</pre>
+</li>
+<li><p>
+Configuring OpenSSL options.  See <a
+href="HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a> for more
+details.
+</p>
+<pre>
+ user_cert_file = 'cert.pem'
+ user_key_file = 'privkey.pem'
+ clnt.ssl_config.set_client_cert_file(user_cert_file, user_key_file)
+ clnt.get(https_url)
+</pre>
+</li>
+</ol>
+<h3>Handling Cookies</h3>
+<ol>
+<li><p>
+Using volatile Cookies.  Nothing to do.  <a
+href="HTTPClient.html">HTTPClient</a> handles Cookies.
+</p>
+<pre>
+ clnt = HTTPClient.new
+ res = clnt.get(url1) # receives Cookies.
+ res = clnt.get(url2) # sends Cookies if needed.
+ p res.cookies
+</pre>
+</li>
+<li><p>
+Saving non volatile Cookies to a specified file.  Need to set a file at
+first and invoke save method at last.
+</p>
+<pre>
+ clnt = HTTPClient.new
+ clnt.set_cookie_store('/home/nahi/cookie.dat')
+ clnt.get(url)
+ ...
+ clnt.save_cookie_store
+</pre>
+</li>
+<li><p>
+Disabling Cookies.
+</p>
+<pre>
+ clnt = HTTPClient.new
+ clnt.cookie_manager = nil
+</pre>
+</li>
+</ol>
+<h3>Configuring authentication credentials</h3>
+<ol>
+<li><p>
+Authentication with Web server.  Supports <a
+href="HTTPClient/BasicAuth.html">BasicAuth</a>, <a
+href="HTTPClient/DigestAuth.html">DigestAuth</a>, and Negotiate/NTLM
+(requires ruby/ntlm module).
+</p>
+<pre>
+ clnt = HTTPClient.new
+ domain = 'http://dev.ctor.org/http-access2/'
+ user = 'user'
+ password = 'user'
+ clnt.set_auth(domain, user, password)
+ p clnt.get('http://dev.ctor.org/http-access2/login').status
+</pre>
+</li>
+<li><p>
+Authentication with Proxy server.  Supports <a
+href="HTTPClient/BasicAuth.html">BasicAuth</a> and NTLM (requires
+win32/sspi)
+</p>
+<pre>
+ clnt = HTTPClient.new(proxy)
+ user = 'proxy'
+ password = 'proxy'
+ clnt.set_proxy_auth(user, password)
+ p clnt.get(url)
+</pre>
+</li>
+</ol>
+<h3>Invoking <a href="HTTP.html">HTTP</a> methods with custom header</h3>
+<p>
+Pass a Hash or an Array for header argument.
+</p>
+<pre>
+    header = { 'Accept' =&gt; '*/*' }
+    clnt.get(uri, query, header)
+
+    header = [['Accept', 'image/jpeg'], ['Accept', 'image/png']]
+    clnt.get_content(uri, query, header)
+</pre>
+<h3>Invoking <a href="HTTP.html">HTTP</a> methods asynchronously</h3>
+<p>
+See <a href="HTTPClient.html#method-i-head_async">head_async</a>, <a
+href="HTTPClient.html#method-i-get_async">get_async</a>, <a
+href="HTTPClient.html#method-i-post_async">post_async</a>, <a
+href="HTTPClient.html#method-i-put_async">put_async</a>, <a
+href="HTTPClient.html#method-i-delete_async">delete_async</a>, <a
+href="HTTPClient.html#method-i-options_async">options_async</a>, <a
+href="HTTPClient.html#method-i-propfind_async">propfind_async</a>, <a
+href="HTTPClient.html#method-i-proppatch_async">proppatch_async</a>, and
+trace_async. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+returning value.
+</p>
+<pre>
+    connection = clnt.post_async(url, body)
+    print 'posting.'
+    while true
+      break if connection.finished?
+      print '.'
+      sleep 1
+    end
+    puts '.'
+    res = connection.pop
+    p res.status
+    p res.body.read # res.body is an IO for the res of async method.
+</pre>
+<h3>Shortcut methods</h3>
+<p>
+You can invoke <a
+href="HTTPClient.html#method-i-get_content">get_content</a>, get, etc.
+without creating <a href="HTTPClient.html">HTTPClient</a> instance.
+</p>
+<pre>
+  ruby -rhttpclient -e 'puts HTTPClient.get_content(ARGV.shift)' http://dev.ctor.org/
+  ruby -rhttpclient -e 'p HTTPClient.head(ARGV.shift).header[&quot;last-modified&quot;]' http://dev.ctor.org/</pre>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="NTLMEnabled">NTLMEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="NTLMEnabled">NTLMEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="SSPIEnabled">SSPIEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="SSPIEnabled">SSPIEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="GSSAPIEnabled">GSSAPIEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="GSSAPIEnabled">GSSAPIEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="SSLEnabled">SSLEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="SSLEnabled">SSLEnabled</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="VERSION">VERSION</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="RUBY_VERSION_STRING">RUBY_VERSION_STRING</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="LIB_NAME">LIB_NAME</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="PROPFIND_DEFAULT_EXTHEADER">PROPFIND_DEFAULT_EXTHEADER</a></dt>
+				
+				<dd class="description"><p>
+Default header for PROPFIND request.
+</p></dd>
+				
+			
+				<dt><a name="NO_PROXY_HOSTS">NO_PROXY_HOSTS</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="ssl-config-attribute-method" class="method-detail">
+				<a name="ssl_config"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">ssl_config</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top"><a href="HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></td><td><p>
+SSL configurator.
+</p>
+</td></tr>
+</table>
+				
+				</div>
+			</div>
+			
+			<div id="cookie-manager-attribute-method" class="method-detail">
+				<a name="cookie_manager"></a>
+				
+				<a name="cookie_manager="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">cookie_manager</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top"><a href="WebAgent/CookieManager.html">WebAgent::CookieManager</a></td><td><p>
+Cookies configurator.
+</p>
+</td></tr>
+</table>
+				
+				</div>
+			</div>
+			
+			<div id="test-loopback-response-attribute-method" class="method-detail">
+				<a name="test_loopback_response"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">test_loopback_response</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+An array of response <a href="HTTP.html">HTTP</a> message body <a
+href="String.html">String</a> which is used for loop-back test.  See test/*
+to see how to use it.  If you want to do loop-back test of <a
+href="HTTP.html">HTTP</a> header, use test_loopback_http_response instead.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="request-filter-attribute-method" class="method-detail">
+				<a name="request_filter"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">request_filter</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+An array of request filter which can trap <a href="HTTP.html">HTTP</a>
+request/response. See <a
+href="HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a> to see how to use
+it.
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="proxy-auth-attribute-method" class="method-detail">
+				<a name="proxy_auth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">proxy_auth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top"><a href="HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></td><td><p>
+Proxy authentication handler.
+</p>
+</td></tr>
+</table>
+				
+				</div>
+			</div>
+			
+			<div id="www-auth-attribute-method" class="method-detail">
+				<a name="www_auth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">www_auth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top"><a href="HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></td><td><p>
+WWW authentication handler.
+</p>
+</td></tr>
+</table>
+				
+				</div>
+			</div>
+			
+			<div id="follow-redirect-count-attribute-method" class="method-detail">
+				<a name="follow_redirect_count"></a>
+				
+				<a name="follow_redirect_count="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">follow_redirect_count</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+How many times <a
+href="HTTPClient.html#method-i-get_content">get_content</a> and <a
+href="HTTPClient.html#method-i-post_content">post_content</a> follows <a
+href="HTTP.html">HTTP</a> redirect. 10 by default.
+</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(*args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a <a href="HTTPClient.html">HTTPClient</a> instance which manages
+sessions, cookies, etc.
+</p>
+<p>
+HTTPClient.new takes 3 optional arguments for proxy url string, User-Agent
+<a href="String.html">String</a> and From header <a
+href="String.html">String</a>.  User-Agent and From are embedded in <a
+href="HTTP.html">HTTP</a> request Header if given.  No User-Agent and From
+header added without setting it explicitly.
+</p>
+<pre>
+  proxy = 'http://myproxy:8080'
+  agent_name = 'MyAgent/0.1'
+  from = 'from@example.com'
+  HTTPClient.new(proxy, agent_name, from)
+</pre>
+<p>
+You can use a keyword argument style Hash.  Keys are :proxy, :agent_name
+and :from.
+</p>
+<pre>
+  HTTPClient.new(:agent_name =&gt; 'MyAgent/0.1')</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 374</span>
+374:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(*<span class="ruby-identifier">args</span>)
+375:     <span class="ruby-identifier">proxy</span>, <span class="ruby-identifier">agent_name</span>, <span class="ruby-identifier">from</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:proxy</span>, <span class="ruby-value">:agent_name</span>, <span class="ruby-value">:from</span>)
+376:     <span class="ruby-ivar">@proxy</span> = <span class="ruby-keyword kw">nil</span>        <span class="ruby-comment cmt"># assigned later.</span>
+377:     <span class="ruby-ivar">@no_proxy</span> = <span class="ruby-keyword kw">nil</span>
+378:     <span class="ruby-ivar">@www_auth</span> = <span class="ruby-constant">WWWAuth</span>.<span class="ruby-identifier">new</span>
+379:     <span class="ruby-ivar">@proxy_auth</span> = <span class="ruby-constant">ProxyAuth</span>.<span class="ruby-identifier">new</span>
+380:     <span class="ruby-ivar">@request_filter</span> = [<span class="ruby-ivar">@proxy_auth</span>, <span class="ruby-ivar">@www_auth</span>]
+381:     <span class="ruby-ivar">@debug_dev</span> = <span class="ruby-keyword kw">nil</span>
+382:     <span class="ruby-ivar">@redirect_uri_callback</span> = <span class="ruby-identifier">method</span>(<span class="ruby-value">:default_redirect_uri_callback</span>)
+383:     <span class="ruby-ivar">@test_loopback_response</span> = []
+384:     <span class="ruby-ivar">@session_manager</span> = <span class="ruby-constant">SessionManager</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+385:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">agent_name</span> = <span class="ruby-identifier">agent_name</span>
+386:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">from</span> = <span class="ruby-identifier">from</span>
+387:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">ssl_config</span> = <span class="ruby-ivar">@ssl_config</span> = <span class="ruby-constant">SSLConfig</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+388:     <span class="ruby-ivar">@cookie_manager</span> = <span class="ruby-constant">WebAgent</span><span class="ruby-operator">::</span><span class="ruby-constant">CookieManager</span>.<span class="ruby-identifier">new</span>
+389:     <span class="ruby-ivar">@follow_redirect_count</span> = <span class="ruby-value">10</span>
+390:     <span class="ruby-identifier">load_environment</span>
+391:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">proxy</span> = <span class="ruby-identifier">proxy</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">proxy</span>
+392:     <span class="ruby-identifier">keep_webmock_compat</span>
+393:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="timeout-scheduler-method" class="method-detail ">
+				<a name="method-c-timeout_scheduler"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">timeout_scheduler</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+CAUTION: caller must aware of race condition.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="timeout-scheduler-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/timeout.rb, line 116</span>
+116:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">timeout_scheduler</span>
+117:       <span class="ruby-ivar">@timeout_scheduler</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">TimeoutScheduler</span>.<span class="ruby-identifier">new</span>
+118:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-class-method-details" class="method-section section">
+			<h3 class="section-header">Private Class Methods</h3>
+
+		
+			<div id="attr-proxy-method" class="method-detail ">
+				<a name="method-c-attr_proxy"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attr_proxy</span><span
+						class="method-args">(symbol, assignable = false)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="attr-proxy-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 296</span>
+296:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attr_proxy</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">assignable</span> = <span class="ruby-keyword kw">false</span>)
+297:       <span class="ruby-identifier">name</span> = <span class="ruby-identifier">symbol</span>.<span class="ruby-identifier">to_s</span>
+298:       <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) {
+299:         <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">name</span>)
+300:       }
+301:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">assignable</span>
+302:         <span class="ruby-identifier">aname</span> = <span class="ruby-identifier">name</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'='</span>
+303:         <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">aname</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">rhs</span><span class="ruby-operator">|</span>
+304:           <span class="ruby-identifier">reset_all</span>
+305:           <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">aname</span>, <span class="ruby-identifier">rhs</span>)
+306:         }
+307:       <span class="ruby-keyword kw">end</span>
+308:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="body-method" class="method-detail ">
+				<a name="method-i-body"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">body</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="body-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 400</span>
+400:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">body</span>
+401:           <span class="ruby-keyword kw">def</span> (<span class="ruby-identifier">o</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">content</span>).<span class="ruby-identifier">content</span>
+402:             <span class="ruby-keyword kw">self</span>
+403:           <span class="ruby-keyword kw">end</span>
+404:           <span class="ruby-identifier">o</span>
+405:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="cookies-method" class="method-detail ">
+				<a name="method-i-cookies"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">cookies</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns stored cookies.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="cookies-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 536</span>
+536:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cookies</span>
+537:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@cookie_manager</span>
+538:       <span class="ruby-ivar">@cookie_manager</span>.<span class="ruby-identifier">cookies</span>
+539:     <span class="ruby-keyword kw">end</span>
+540:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="debug-dev-method" class="method-detail ">
+				<a name="method-i-debug_dev"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">debug_dev</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns debug device if exists.  See <a
+href="HTTPClient.html#method-i-debug_dev">debug_dev</a>=.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="debug-dev-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 411</span>
+411:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">debug_dev</span>
+412:     <span class="ruby-ivar">@debug_dev</span>
+413:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="debug-dev--method" class="method-detail ">
+				<a name="method-i-debug_dev%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">debug_dev=</span><span
+						class="method-args">(dev)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets debug device.  Once debug device is set, all <a
+href="HTTP.html">HTTP</a> requests and responses are dumped to given
+device.  dev must respond to << for dump.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="debug-dev--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 419</span>
+419:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">debug_dev=</span>(<span class="ruby-identifier">dev</span>)
+420:     <span class="ruby-ivar">@debug_dev</span> = <span class="ruby-identifier">dev</span>
+421:     <span class="ruby-identifier">reset_all</span>
+422:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">debug_dev</span> = <span class="ruby-identifier">dev</span>
+423:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="default-redirect-uri-callback-method" class="method-detail ">
+				<a name="method-i-default_redirect_uri_callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">default_redirect_uri_callback</span><span
+						class="method-args">(uri, res)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A default method for redirect uri callback.  This method is used by <a
+href="HTTPClient.html">HTTPClient</a> instance by default. This callback
+allows relative redirect such as
+</p>
+<pre>
+  Location: ../foo/
+</pre>
+<p>
+in <a href="HTTP.html">HTTP</a> header.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="default-redirect-uri-callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 637</span>
+637:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_redirect_uri_callback</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">res</span>)
+638:     <span class="ruby-identifier">newuri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">header</span>[<span class="ruby-value str">'location'</span>][<span class="ruby-value">0</span>])
+639:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">newuri</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>)
+640:       <span class="ruby-identifier">newuri</span> = <span class="ruby-identifier">uri</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">newuri</span>
+641:       <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;could be a relative URI in location header which is not recommended&quot;</span>)
+642:       <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;'The field value consists of a single absolute URI' in HTTP spec&quot;</span>)
+643:     <span class="ruby-keyword kw">end</span>
+644:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">https?</span>(<span class="ruby-identifier">uri</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">https?</span>(<span class="ruby-identifier">newuri</span>)
+645:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;redirecting to non-https resource&quot;</span>)
+646:     <span class="ruby-keyword kw">end</span>
+647:     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;redirect to: #{newuri}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+648:     <span class="ruby-identifier">newuri</span>
+649:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="delete-method" class="method-detail ">
+				<a name="method-i-delete"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">delete</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends DELETE request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="delete-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 672</span>
+672:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+673:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:delete</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:header</span>), &amp;<span class="ruby-identifier">block</span>)
+674:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="delete-async-method" class="method-detail ">
+				<a name="method-i-delete_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">delete_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends DELETE request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="delete-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 787</span>
+787:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+788:     <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:header</span>)
+789:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:delete</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+790:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-method" class="method-detail ">
+				<a name="method-i-get"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends GET request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="get-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 657</span>
+657:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+658:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:header</span>, <span class="ruby-value">:follow_redirect</span>), &amp;<span class="ruby-identifier">block</span>)
+659:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-async-method" class="method-detail ">
+				<a name="method-i-get_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends GET request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="get-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 766</span>
+766:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+767:     <span class="ruby-identifier">query</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:header</span>)
+768:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+769:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-content-method" class="method-detail ">
+				<a name="method-i-get_content"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_content</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Retrieves a web resource.
+</p>
+<table>
+<tr><td valign="top">uri</td><td><p>
+a <a href="String.html">String</a> or an URI object which represents an URL
+of web resource.
+</p>
+</td></tr>
+<tr><td valign="top">query</td><td><p>
+a Hash or an Array of query part of URL. e.g. { &#8220;a&#8221; =>
+&#8220;b&#8221; } => &#8216;<a
+href="http://host/part?a=b">host/part?a=b</a>&#8217;. Give an array to pass
+multiple value like
+</p>
+<dl>
+<dt>[&#8220;a&#8221;, &#8220;b&#8221;], [&#8220;a&#8221;, &#8220;c&#8221;]</dt><dd><h1>> &#8216;<a href="http://host/part?a=b&a=c">host/part?a=b&a=c</a>&#8217;.</h1>
+</dd>
+</dl>
+</td></tr>
+<tr><td valign="top">header</td><td><p>
+a Hash or an Array of extra headers.  e.g. { &#8216;Accept&#8217; =>
+&#8216;<b>/</b>&#8217; } or [[&#8216;Accept&#8217;,
+&#8216;image/jpeg&#8217;], [&#8216;Accept&#8217;,
+&#8216;image/png&#8217;]].
+</p>
+</td></tr>
+<tr><td valign="top">&amp;block</td><td><p>
+Give a block to get chunked message-body of response like <a
+href="HTTPClient.html#method-i-get_content">get_content</a>(uri) {
+|chunked_body| &#8230; }. Size of each chunk may not be the same.
+</p>
+</td></tr>
+</table>
+<p>
+<a href="HTTPClient.html#method-i-get_content">get_content</a> follows <a
+href="HTTP.html">HTTP</a> redirect status (see HTTP::Status.redirect?)
+internally and try to retrieve content from redirected URL.  See
+redirect_uri_callback= how <a href="HTTP.html">HTTP</a> redirection is
+handled.
+</p>
+<p>
+If you need to get full <a href="HTTP.html">HTTP</a> response including <a
+href="HTTP.html">HTTP</a> status and headers, use get method.  get returns
+<a href="HTTP/Message.html">HTTP::Message</a> as a response and you need to
+follow <a href="HTTP.html">HTTP</a> redirect by yourself if you need.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="get-content-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 575</span>
+575:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_content</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+576:     <span class="ruby-identifier">query</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:header</span>)
+577:     <span class="ruby-identifier">follow_redirect</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {}, &amp;<span class="ruby-identifier">block</span>).<span class="ruby-identifier">content</span>
+578:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="head-method" class="method-detail ">
+				<a name="method-i-head"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">head</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends HEAD request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="head-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 652</span>
+652:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">head</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+653:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:head</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:header</span>))
+654:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="head-async-method" class="method-detail ">
+				<a name="method-i-head_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">head_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends HEAD request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="head-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 759</span>
+759:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">head_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+760:     <span class="ruby-identifier">query</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:header</span>)
+761:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:head</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+762:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="keep-webmock-compat-method" class="method-detail ">
+				<a name="method-i-keep_webmock_compat"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">keep_webmock_compat</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+webmock 1.6.2 depends on <a
+href="HTTP/Message.html#method-i-body">HTTP::Message#body</a>.content to
+work. let&#8217;s keep it work iif webmock is loaded for a while.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="keep-webmock-compat-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 397</span>
+397:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">keep_webmock_compat</span>
+398:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:do_get_block_with_webmock</span>)
+399:       <span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-keyword kw">do</span>
+400:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">body</span>
+401:           <span class="ruby-keyword kw">def</span> (<span class="ruby-identifier">o</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">content</span>).<span class="ruby-identifier">content</span>
+402:             <span class="ruby-keyword kw">self</span>
+403:           <span class="ruby-keyword kw">end</span>
+404:           <span class="ruby-identifier">o</span>
+405:         <span class="ruby-keyword kw">end</span>
+406:       <span class="ruby-keyword kw">end</span>
+407:     <span class="ruby-keyword kw">end</span>
+408:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="no-proxy-method" class="method-detail ">
+				<a name="method-i-no_proxy"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">no_proxy</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns NO_PROXY setting <a href="String.html">String</a> if given.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="no-proxy-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 461</span>
+461:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_proxy</span>
+462:     <span class="ruby-ivar">@no_proxy</span>
+463:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="no-proxy--method" class="method-detail ">
+				<a name="method-i-no_proxy%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">no_proxy=</span><span
+						class="method-args">(no_proxy)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets NO_PROXY setting <a href="String.html">String</a>.  <a
+href="HTTPClient.html#method-i-no_proxy">no_proxy</a> must be a comma
+separated <a href="String.html">String</a>. Each entry must be
+&#8216;host&#8217; or &#8216;host:port&#8217; such as; <a
+href="HTTPClient.html#method-i-no_proxy">HTTPClient#no_proxy</a> =
+&#8216;example.com,example.co.jp:443&#8217;
+</p>
+<p>
+&#8216;localhost&#8217; is treated as a <a
+href="HTTPClient.html#method-i-no_proxy">no_proxy</a> site regardless of
+explicitly listed. <a href="HTTPClient.html">HTTPClient</a> checks given
+URI objects before accessing it. &#8216;host&#8217; is tail string match. 
+No IP-addr conversion.
+</p>
+<p>
+You can use environment variable &#8216;<a
+href="HTTPClient.html#method-i-no_proxy">no_proxy</a>&#8217; or
+&#8216;NO_PROXY&#8217; for it.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="no-proxy--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 476</span>
+476:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_proxy=</span>(<span class="ruby-identifier">no_proxy</span>)
+477:     <span class="ruby-ivar">@no_proxy</span> = <span class="ruby-identifier">no_proxy</span>
+478:     <span class="ruby-identifier">reset_all</span>
+479:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="options-method" class="method-detail ">
+				<a name="method-i-options"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">options</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends OPTIONS request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="options-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 677</span>
+677:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">options</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+678:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:options</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:header</span>), &amp;<span class="ruby-identifier">block</span>)
+679:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="options-async-method" class="method-detail ">
+				<a name="method-i-options_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">options_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends OPTIONS request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="options-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 794</span>
+794:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">options_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+795:     <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:header</span>)
+796:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:options</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+797:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="post-method" class="method-detail ">
+				<a name="method-i-post"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">post</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends POST request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="post-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 662</span>
+662:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+663:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:post</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>, <span class="ruby-value">:follow_redirect</span>), &amp;<span class="ruby-identifier">block</span>)
+664:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="post-async-method" class="method-detail ">
+				<a name="method-i-post_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">post_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends POST request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="post-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 773</span>
+773:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+774:     <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>)
+775:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:post</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">body</span> <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+776:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="post-content-method" class="method-detail ">
+				<a name="method-i-post_content"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">post_content</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Posts a content.
+</p>
+<table>
+<tr><td valign="top">uri</td><td><p>
+a <a href="String.html">String</a> or an URI object which represents an URL
+of web resource.
+</p>
+</td></tr>
+<tr><td valign="top">body</td><td><p>
+a Hash or an Array of body part. e.g.
+</p>
+<pre>
+  { &quot;a&quot; =&gt; &quot;b&quot; } =&gt; 'a=b'
+</pre>
+<p>
+Give an array to pass multiple value like
+</p>
+<pre>
+  [[&quot;a&quot;, &quot;b&quot;], [&quot;a&quot;, &quot;c&quot;]] =&gt; 'a=b&amp;a=c'
+</pre>
+<p>
+When you pass a File as a value, it will be posted as a
+multipart/form-data.  e.g.
+</p>
+<pre>
+  { 'upload' =&gt; file }
+</pre>
+<p>
+You can also send custom multipart by passing an array of hashes. Each part
+must have a :content attribute which can be a file, all other keys will
+become headers.
+</p>
+<pre>
+  [{ 'Content-Type' =&gt; 'text/plain', :content =&gt; &quot;some text&quot; },
+   { 'Content-Type' =&gt; 'video/mp4', :content =&gt; File.new('video.mp4') }]
+  =&gt; &lt;Two parts with custom Content-Type header&gt;
+</pre>
+</td></tr>
+<tr><td valign="top">header</td><td><p>
+a Hash or an Array of extra headers. e.g.
+</p>
+<pre>
+  { 'Accept' =&gt; '*/*' }
+</pre>
+<p>
+or
+</p>
+<pre>
+  [['Accept', 'image/jpeg'], ['Accept', 'image/png']].
+</pre>
+</td></tr>
+<tr><td valign="top">&amp;block</td><td><p>
+Give a block to get chunked message-body of response like
+</p>
+<pre>
+  post_content(uri) { |chunked_body| ... }.
+</pre>
+<p>
+Size of each chunk may not be the same.
+</p>
+</td></tr>
+</table>
+<p>
+<a href="HTTPClient.html#method-i-post_content">post_content</a> follows <a
+href="HTTP.html">HTTP</a> redirect status (see HTTP::Status.redirect?)
+internally and try to post the content to redirected URL.  See
+redirect_uri_callback= how <a href="HTTP.html">HTTP</a> redirection is
+handled.
+</p>
+<p>
+If you need to get full <a href="HTTP.html">HTTP</a> response including <a
+href="HTTP.html">HTTP</a> status and headers, use post method.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="post-content-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 610</span>
+610:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_content</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+611:     <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>)
+612:     <span class="ruby-identifier">follow_redirect</span>(<span class="ruby-value">:post</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {}, &amp;<span class="ruby-identifier">block</span>).<span class="ruby-identifier">content</span>
+613:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="propfind-method" class="method-detail ">
+				<a name="method-i-propfind"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">propfind</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends PROPFIND request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="propfind-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 682</span>
+682:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">propfind</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+683:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:propfind</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:header</span>), &amp;<span class="ruby-identifier">block</span>)
+684:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="propfind-async-method" class="method-detail ">
+				<a name="method-i-propfind_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">propfind_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends PROPFIND request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="propfind-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 801</span>
+801:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">propfind_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+802:     <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:header</span>)
+803:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:propfind</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> <span class="ruby-constant">PROPFIND_DEFAULT_EXTHEADER</span>)
+804:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="proppatch-method" class="method-detail ">
+				<a name="method-i-proppatch"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">proppatch</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends PROPPATCH request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="proppatch-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 687</span>
+687:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">proppatch</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+688:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:proppatch</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>), &amp;<span class="ruby-identifier">block</span>)
+689:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="proppatch-async-method" class="method-detail ">
+				<a name="method-i-proppatch_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">proppatch_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends PROPPATCH request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="proppatch-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 808</span>
+808:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">proppatch_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+809:     <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>)
+810:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:proppatch</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+811:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="proxy-method" class="method-detail ">
+				<a name="method-i-proxy"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">proxy</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns URI object of <a href="HTTP.html">HTTP</a> proxy if exists.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="proxy-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 426</span>
+426:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">proxy</span>
+427:     <span class="ruby-ivar">@proxy</span>
+428:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="proxy--method" class="method-detail ">
+				<a name="method-i-proxy%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">proxy=</span><span
+						class="method-args">(proxy)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets <a href="HTTP.html">HTTP</a> proxy used for <a
+href="HTTP.html">HTTP</a> connection.  Given proxy can be an URI, a <a
+href="String.html">String</a> or nil.  You can set user/password for proxy
+authentication like <a
+href="HTTPClient.html#method-i-proxy">HTTPClient#proxy</a> = &#8216;<a
+href="http://user:passwd@myproxy:8080">user:passwd@myproxy:8080</a>&#8216;
+</p>
+<p>
+You can use environment variable &#8216;http_proxy&#8217; or
+&#8216;HTTP_PROXY&#8217; for it. You need to use
+&#8216;cgi_http_proxy&#8217; or &#8216;CGI_HTTP_PROXY&#8217; instead if you
+run <a href="HTTPClient.html">HTTPClient</a> from CGI environment from
+security reason. (<a href="HTTPClient.html">HTTPClient</a> checks
+&#8216;REQUEST_METHOD&#8217; environment variable whether it&#8217;s CGI or
+not)
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="proxy--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 440</span>
+440:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">proxy=</span>(<span class="ruby-identifier">proxy</span>)
+441:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">nil?</span>
+442:       <span class="ruby-ivar">@proxy</span> = <span class="ruby-keyword kw">nil</span>
+443:       <span class="ruby-ivar">@proxy_auth</span>.<span class="ruby-identifier">reset_challenge</span>
+444:     <span class="ruby-keyword kw">else</span>
+445:       <span class="ruby-ivar">@proxy</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">proxy</span>)
+446:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">scheme</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">scheme</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'http'</span> <span class="ruby-keyword kw">or</span>
+447:           <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">host</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">port</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
+448:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;unsupported proxy #{proxy}&quot;</span>)
+449:       <span class="ruby-keyword kw">end</span>
+450:       <span class="ruby-ivar">@proxy_auth</span>.<span class="ruby-identifier">reset_challenge</span>
+451:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">password</span>
+452:         <span class="ruby-ivar">@proxy_auth</span>.<span class="ruby-identifier">set_auth</span>(<span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">user</span>, <span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">password</span>)
+453:       <span class="ruby-keyword kw">end</span>
+454:     <span class="ruby-keyword kw">end</span>
+455:     <span class="ruby-identifier">reset_all</span>
+456:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">proxy</span> = <span class="ruby-ivar">@proxy</span>
+457:     <span class="ruby-ivar">@proxy</span>
+458:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="put-method" class="method-detail ">
+				<a name="method-i-put"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">put</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends PUT request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="put-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 667</span>
+667:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">put</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+668:     <span class="ruby-identifier">request</span>(<span class="ruby-value">:put</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>), &amp;<span class="ruby-identifier">block</span>)
+669:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="put-async-method" class="method-detail ">
+				<a name="method-i-put_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">put_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends PUT request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="put-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 780</span>
+780:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">put_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+781:     <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>)
+782:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:put</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">body</span> <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+783:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="redirect-uri-callback--method" class="method-detail ">
+				<a name="method-i-redirect_uri_callback%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">redirect_uri_callback=</span><span
+						class="method-args">(redirect_uri_callback)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets callback proc when <a href="HTTP.html">HTTP</a> redirect status is
+returned for <a href="HTTPClient.html#method-i-get_content">get_content</a>
+and post_content.  <a
+href="HTTPClient.html#method-i-default_redirect_uri_callback">default_redirect_uri_callback</a>
+is used by default.
+</p>
+<p>
+If you need strict implementation which does not allow relative URI
+redirection, set <a
+href="HTTPClient.html#method-i-strict_redirect_uri_callback">strict_redirect_uri_callback</a>
+instead.
+</p>
+<pre>
+  clnt.redirect_uri_callback = clnt.method(:strict_redirect_uri_callback)</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="redirect-uri-callback--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 550</span>
+550:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">redirect_uri_callback=</span>(<span class="ruby-identifier">redirect_uri_callback</span>)
+551:     <span class="ruby-ivar">@redirect_uri_callback</span> = <span class="ruby-identifier">redirect_uri_callback</span>
+552:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="request-method" class="method-detail ">
+				<a name="method-i-request"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">request</span><span
+						class="method-args">(method, uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends a request to the specified URL.
+</p>
+<table>
+<tr><td valign="top">method</td><td><p>
+<a href="HTTP.html">HTTP</a> method to be sent.  method.to_s.upcase is
+used.
+</p>
+</td></tr>
+<tr><td valign="top">uri</td><td><p>
+a <a href="String.html">String</a> or an URI object which represents an URL
+of web resource.
+</p>
+</td></tr>
+<tr><td valign="top">query</td><td><p>
+a Hash or an Array of query part of URL. e.g. { &#8220;a&#8221; =>
+&#8220;b&#8221; } => &#8216;<a
+href="http://host/part?a=b">host/part?a=b</a>&#8217; Give an array to pass
+multiple value like
+</p>
+<dl>
+<dt>[&#8220;a&#8221;, &#8220;b&#8221;], [&#8220;a&#8221;, &#8220;c&#8221;]</dt><dd><h1>> &#8216;<a href="http://host/part?a=b&a=c">host/part?a=b&a=c</a>&#8216;</h1>
+</dd>
+</dl>
+</td></tr>
+<tr><td valign="top">body</td><td><p>
+a Hash or an Array of body part. e.g.
+</p>
+<pre>
+  { &quot;a&quot; =&gt; &quot;b&quot; }
+  =&gt; 'a=b'
+</pre>
+<p>
+Give an array to pass multiple value like
+</p>
+<pre>
+  [[&quot;a&quot;, &quot;b&quot;], [&quot;a&quot;, &quot;c&quot;]]
+  =&gt; 'a=b&amp;a=c'.
+</pre>
+<p>
+When the given method is &#8216;POST&#8217; and the given body contains a
+file as a value, it will be posted as a multipart/form-data. e.g.
+</p>
+<pre>
+  { 'upload' =&gt; file }
+</pre>
+<p>
+You can also send custom multipart by passing an array of hashes. Each part
+must have a :content attribute which can be a file, all other keys will
+become headers.
+</p>
+<pre>
+  [{ 'Content-Type' =&gt; 'text/plain', :content =&gt; &quot;some text&quot; },
+   { 'Content-Type' =&gt; 'video/mp4', :content =&gt; File.new('video.mp4') }]
+  =&gt; &lt;Two parts with custom Content-Type header&gt;
+</pre>
+<p>
+See HTTP::Message.file? for actual condition of &#8216;a file&#8217;.
+</p>
+</td></tr>
+<tr><td valign="top">header</td><td><p>
+a Hash or an Array of extra headers.  e.g. { &#8216;Accept&#8217; =>
+&#8216;<b>/</b>&#8217; } or [[&#8216;Accept&#8217;,
+&#8216;image/jpeg&#8217;], [&#8216;Accept&#8217;,
+&#8216;image/png&#8217;]].
+</p>
+</td></tr>
+<tr><td valign="top">&amp;block</td><td><p>
+Give a block to get chunked message-body of response like get(uri) {
+|chunked_body| &#8230; }. Size of each chunk may not be the same.
+</p>
+</td></tr>
+</table>
+<p>
+You can also pass a <a href="String.html">String</a> as a body.  <a
+href="HTTPClient.html">HTTPClient</a> just sends a <a
+href="String.html">String</a> as a <a href="HTTP.html">HTTP</a> request
+message body.
+</p>
+<p>
+When you pass an IO as a body, <a href="HTTPClient.html">HTTPClient</a>
+sends it as a <a href="HTTP.html">HTTP</a> request with chunked encoding
+(Transfer-Encoding: chunked in <a href="HTTP.html">HTTP</a> header).  Bear
+in mind that some server application does not support chunked request.  At
+least cgi.rb does not support it.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="request-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 734</span>
+734:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+735:     <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>, <span class="ruby-identifier">follow_redirect</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>, <span class="ruby-value">:follow_redirect</span>)
+736:     <span class="ruby-keyword kw">if</span> [<span class="ruby-value">:post</span>, <span class="ruby-value">:put</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method</span>)
+737:       <span class="ruby-identifier">body</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">''</span>
+738:     <span class="ruby-keyword kw">end</span>
+739:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:propfind</span>
+740:       <span class="ruby-identifier">header</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">PROPFIND_DEFAULT_EXTHEADER</span>
+741:     <span class="ruby-keyword kw">else</span>
+742:       <span class="ruby-identifier">header</span> <span class="ruby-operator">||=</span> {}
+743:     <span class="ruby-keyword kw">end</span>
+744:     <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">uri</span>)
+745:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>
+746:       <span class="ruby-identifier">filtered_block</span> = <span class="ruby-identifier">proc</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">res</span>, <span class="ruby-identifier">str</span><span class="ruby-operator">|</span>
+747:         <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">str</span>)
+748:       }
+749:     <span class="ruby-keyword kw">end</span>
+750:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">follow_redirect</span>
+751:       <span class="ruby-identifier">follow_redirect</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>, &amp;<span class="ruby-identifier">block</span>)
+752:     <span class="ruby-keyword kw">else</span>
+753:       <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>, &amp;<span class="ruby-identifier">filtered_block</span>)
+754:     <span class="ruby-keyword kw">end</span>
+755:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="request-async-method" class="method-detail ">
+				<a name="method-i-request_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">request_async</span><span
+						class="method-args">(method, uri, query = nil, body = nil, header = {})</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends a request in async style.  request method creates new Thread for <a
+href="HTTP.html">HTTP</a> connection and returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance
+immediately.
+</p>
+<p>
+Arguments definition is the same as request.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="request-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 824</span>
+824:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request_async</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">body</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">header</span> = {})
+825:     <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">uri</span>)
+826:     <span class="ruby-identifier">do_request_async</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>)
+827:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="reset-method" class="method-detail ">
+				<a name="method-i-reset"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">reset</span><span
+						class="method-args">(uri)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Resets internal session for the given URL.  Keep-alive connection for the
+site (host-port pair) is disconnected if exists.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="reset-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 831</span>
+831:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset</span>(<span class="ruby-identifier">uri</span>)
+832:     <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">uri</span>)
+833:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">reset</span>(<span class="ruby-identifier">uri</span>)
+834:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="reset-all-method" class="method-detail ">
+				<a name="method-i-reset_all"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">reset_all</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Resets all of internal sessions.  Keep-alive connections are disconnected.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="reset-all-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 837</span>
+837:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_all</span>
+838:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">reset_all</span>
+839:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="save-cookie-store-method" class="method-detail ">
+				<a name="method-i-save_cookie_store"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">save_cookie_store</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Try to save Cookies to the file specified in set_cookie_store.  Unexpected
+error will be raised if you don&#8217;t call <a
+href="HTTPClient.html#method-i-set_cookie_store">set_cookie_store</a>
+first. (interface mismatch between <a
+href="WebAgent/CookieManager.html">WebAgent::CookieManager</a>
+implementation)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="save-cookie-store-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 531</span>
+531:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_cookie_store</span>
+532:     <span class="ruby-ivar">@cookie_manager</span>.<span class="ruby-identifier">save_cookies</span>
+533:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-auth-method" class="method-detail ">
+				<a name="method-i-set_auth"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_auth</span><span
+						class="method-args">(domain, user, passwd)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets credential for Web server authentication.
+</p>
+<table>
+<tr><td valign="top">domain</td><td><p>
+a <a href="String.html">String</a> or an URI to specify where <a
+href="HTTPClient.html">HTTPClient</a> should use this
+</p>
+</td></tr>
+</table>
+<pre>
+      credential.  If you set uri to nil, HTTPClient uses this credential
+      wherever a server requires it.
+</pre>
+<table>
+<tr><td valign="top">user</td><td><p>
+username <a href="String.html">String</a>.
+</p>
+</td></tr>
+<tr><td valign="top">passwd</td><td><p>
+password <a href="String.html">String</a>.
+</p>
+</td></tr>
+</table>
+<p>
+You can set multiple credentials for each uri.
+</p>
+<pre>
+  clnt.set_auth('http://www.example.com/foo/', 'foo_user', 'passwd')
+  clnt.set_auth('http://www.example.com/bar/', 'bar_user', 'passwd')
+</pre>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-auth-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 494</span>
+494:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_auth</span>(<span class="ruby-identifier">domain</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+495:     <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">domain</span>)
+496:     <span class="ruby-ivar">@www_auth</span>.<span class="ruby-identifier">set_auth</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+497:     <span class="ruby-identifier">reset_all</span>
+498:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-basic-auth-method" class="method-detail ">
+				<a name="method-i-set_basic_auth"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_basic_auth</span><span
+						class="method-args">(domain, user, passwd)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Deprecated.  Use <a href="HTTPClient.html#method-i-set_auth">set_auth</a>
+instead.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-basic-auth-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 501</span>
+501:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_basic_auth</span>(<span class="ruby-identifier">domain</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+502:     <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">domain</span>)
+503:     <span class="ruby-ivar">@www_auth</span>.<span class="ruby-identifier">basic_auth</span>.<span class="ruby-identifier">set</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+504:     <span class="ruby-identifier">reset_all</span>
+505:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-cookie-store-method" class="method-detail ">
+				<a name="method-i-set_cookie_store"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_cookie_store</span><span
+						class="method-args">(filename)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets the filename where non-volatile Cookies be saved by calling
+save_cookie_store. This method tries to load and managing Cookies from the
+specified file.
+</p>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-cookie-store-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 522</span>
+522:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_cookie_store</span>(<span class="ruby-identifier">filename</span>)
+523:     <span class="ruby-ivar">@cookie_manager</span>.<span class="ruby-identifier">cookies_file</span> = <span class="ruby-identifier">filename</span>
+524:     <span class="ruby-ivar">@cookie_manager</span>.<span class="ruby-identifier">load_cookies</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filename</span>
+525:     <span class="ruby-identifier">reset_all</span>
+526:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-proxy-auth-method" class="method-detail ">
+				<a name="method-i-set_proxy_auth"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_proxy_auth</span><span
+						class="method-args">(user, passwd)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sets credential for Proxy authentication.
+</p>
+<table>
+<tr><td valign="top">user</td><td><p>
+username <a href="String.html">String</a>.
+</p>
+</td></tr>
+<tr><td valign="top">passwd</td><td><p>
+password <a href="String.html">String</a>.
+</p>
+</td></tr>
+</table>
+<p>
+Calling this method resets all existing sessions.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-proxy-auth-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 512</span>
+512:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_proxy_auth</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+513:     <span class="ruby-ivar">@proxy_auth</span>.<span class="ruby-identifier">set_auth</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+514:     <span class="ruby-identifier">reset_all</span>
+515:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="strict-redirect-uri-callback-method" class="method-detail ">
+				<a name="method-i-strict_redirect_uri_callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">strict_redirect_uri_callback</span><span
+						class="method-args">(uri, res)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A method for redirect uri callback.  How to use:
+</p>
+<pre>
+  clnt.redirect_uri_callback = clnt.method(:strict_redirect_uri_callback)
+</pre>
+<p>
+This callback does not allow relative redirect such as
+</p>
+<pre>
+  Location: ../foo/
+</pre>
+<p>
+in <a href="HTTP.html">HTTP</a> header. (raises <a
+href="HTTPClient/BadResponseError.html">BadResponseError</a> instead)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="strict-redirect-uri-callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 620</span>
+620:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">strict_redirect_uri_callback</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">res</span>)
+621:     <span class="ruby-identifier">newuri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">header</span>[<span class="ruby-value str">'location'</span>][<span class="ruby-value">0</span>])
+622:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">https?</span>(<span class="ruby-identifier">uri</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">https?</span>(<span class="ruby-identifier">newuri</span>)
+623:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;redirecting to non-https resource&quot;</span>)
+624:     <span class="ruby-keyword kw">end</span>
+625:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">newuri</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>)
+626:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;unexpected location: #{newuri}&quot;</span>, <span class="ruby-identifier">res</span>)
+627:     <span class="ruby-keyword kw">end</span>
+628:     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;redirect to: #{newuri}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+629:     <span class="ruby-identifier">newuri</span>
+630:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="trace-method" class="method-detail ">
+				<a name="method-i-trace"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trace</span><span
+						class="method-args">(uri, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends TRACE request to the specified URL.  See request for arguments.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="trace-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 692</span>
+692:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trace</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+693:     <span class="ruby-identifier">request</span>(<span class="ruby-value str">'TRACE'</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">argument_to_hash</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>), &amp;<span class="ruby-identifier">block</span>)
+694:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="trace-async-method" class="method-detail ">
+				<a name="method-i-trace_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trace_async</span><span
+						class="method-args">(uri, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sends TRACE request in async style.  See <a
+href="HTTPClient.html#method-i-request_async">request_async</a> for
+arguments. It immediately returns a <a
+href="HTTPClient/Connection.html">HTTPClient::Connection</a> instance as a
+result.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="trace-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 815</span>
+815:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trace_async</span>(<span class="ruby-identifier">uri</span>, *<span class="ruby-identifier">args</span>)
+816:     <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> = <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>, <span class="ruby-value">:query</span>, <span class="ruby-value">:body</span>, <span class="ruby-value">:header</span>)
+817:     <span class="ruby-identifier">request_async</span>(<span class="ruby-value">:trace</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span> <span class="ruby-operator">||</span> {})
+818:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="create-boundary-method" class="method-detail ">
+				<a name="method-i-create_boundary"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create_boundary</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="create-boundary-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1004</span>
+1004:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_boundary</span>
+1005:     <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span>)
+1006:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="create-request-method" class="method-detail ">
+				<a name="method-i-create_request"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create_request</span><span
+						class="method-args">(method, uri, query, body, header)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="create-request-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 962</span>
+ 962:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>)
+ 963:     <span class="ruby-identifier">method</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>
+ 964:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+ 965:       <span class="ruby-identifier">header</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">to_a</span>
+ 966:     <span class="ruby-keyword kw">else</span>
+ 967:       <span class="ruby-identifier">header</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">dup</span>
+ 968:     <span class="ruby-keyword kw">end</span>
+ 969:     <span class="ruby-identifier">boundary</span> = <span class="ruby-keyword kw">nil</span>
+ 970:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">body</span>
+ 971:       <span class="ruby-identifier">_</span>, <span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+ 972:         <span class="ruby-identifier">key</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'content-type'</span>
+ 973:       }
+ 974:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">content_type</span>
+ 975:         <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/\Amultipart/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">content_type</span>
+ 976:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">content_type</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/boundary=(.+)\z/</span>
+ 977:             <span class="ruby-identifier">boundary</span> = <span class="ruby-node">$1</span>
+ 978:           <span class="ruby-keyword kw">else</span>
+ 979:             <span class="ruby-identifier">boundary</span> = <span class="ruby-identifier">create_boundary</span>
+ 980:             <span class="ruby-identifier">content_type</span> = <span class="ruby-node">&quot;#{content_type}; boundary=#{boundary}&quot;</span>
+ 981:             <span class="ruby-identifier">header</span> = <span class="ruby-identifier">override_header</span>(<span class="ruby-identifier">header</span>, <span class="ruby-value str">'Content-Type'</span>, <span class="ruby-identifier">content_type</span>)
+ 982:           <span class="ruby-keyword kw">end</span>
+ 983:         <span class="ruby-keyword kw">end</span>
+ 984:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'POST'</span>
+ 985:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file_in_form_data?</span>(<span class="ruby-identifier">body</span>)
+ 986:           <span class="ruby-identifier">boundary</span> = <span class="ruby-identifier">create_boundary</span>
+ 987:           <span class="ruby-identifier">content_type</span> = <span class="ruby-node">&quot;multipart/form-data; boundary=#{boundary}&quot;</span>
+ 988:         <span class="ruby-keyword kw">else</span>
+ 989:           <span class="ruby-identifier">content_type</span> = <span class="ruby-value str">'application/x-www-form-urlencoded'</span>
+ 990:         <span class="ruby-keyword kw">end</span>
+ 991:         <span class="ruby-identifier">header</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-value str">'Content-Type'</span>, <span class="ruby-identifier">content_type</span>]
+ 992:       <span class="ruby-keyword kw">end</span>
+ 993:     <span class="ruby-keyword kw">end</span>
+ 994:     <span class="ruby-identifier">req</span> = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">boundary</span>)
+ 995:     <span class="ruby-identifier">header</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+ 996:       <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+ 997:     <span class="ruby-keyword kw">end</span>
+ 998:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@cookie_manager</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cookie</span> = <span class="ruby-ivar">@cookie_manager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">uri</span>)
+ 999:       <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value str">'Cookie'</span>, <span class="ruby-identifier">cookie</span>)
+1000:     <span class="ruby-keyword kw">end</span>
+1001:     <span class="ruby-identifier">req</span>
+1002:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="do-get-block-method" class="method-detail ">
+				<a name="method-i-do_get_block"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">do_get_block</span><span
+						class="method-args">(req, proxy, conn, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+!! CAUTION !!
+</p>
+<pre>
+  Method 'do_get*' runs under MT conditon. Be careful to change.</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="do-get-block-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1045</span>
+1045:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_get_block</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">proxy</span>, <span class="ruby-identifier">conn</span>, &amp;<span class="ruby-identifier">block</span>)
+1046:     <span class="ruby-ivar">@request_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+1047:       <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">filter_request</span>(<span class="ruby-identifier">req</span>)
+1048:     <span class="ruby-keyword kw">end</span>
+1049:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span> = <span class="ruby-ivar">@test_loopback_response</span>.<span class="ruby-identifier">shift</span>
+1050:       <span class="ruby-identifier">dump_dummy_request_response</span>(<span class="ruby-identifier">req</span>.<span class="ruby-identifier">http_body</span>.<span class="ruby-identifier">dump</span>, <span class="ruby-identifier">str</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+1051:       <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_response</span>(<span class="ruby-identifier">str</span>))
+1052:       <span class="ruby-keyword kw">return</span>
+1053:     <span class="ruby-keyword kw">end</span>
+1054:     <span class="ruby-identifier">content</span> = <span class="ruby-identifier">block</span> <span class="ruby-operator">?</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-value str">''</span>
+1055:     <span class="ruby-identifier">res</span> = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_response</span>(<span class="ruby-identifier">content</span>)
+1056:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;= Request\n\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+1057:     <span class="ruby-identifier">sess</span> = <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">query</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">proxy</span>)
+1058:     <span class="ruby-identifier">res</span>.<span class="ruby-identifier">peer_cert</span> = <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">ssl_peer_cert</span>
+1059:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n\n= Response\n\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+1060:     <span class="ruby-identifier">do_get_header</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>, <span class="ruby-identifier">sess</span>)
+1061:     <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">res</span>)
+1062:     <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">get_body</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span>
+1063:       <span class="ruby-identifier">force_binary</span>(<span class="ruby-identifier">part</span>)
+1064:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>
+1065:         <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">res</span>, <span class="ruby-identifier">part</span>)
+1066:       <span class="ruby-keyword kw">else</span>
+1067:         <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">part</span>
+1068:       <span class="ruby-keyword kw">end</span>
+1069:     <span class="ruby-keyword kw">end</span>
+1070:     <span class="ruby-comment cmt"># there could be a race condition but it's OK to cache unreusable</span>
+1071:     <span class="ruby-comment cmt"># connection because we do retry for that case.</span>
+1072:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">keep</span>(<span class="ruby-identifier">sess</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">closed?</span>
+1073:     <span class="ruby-identifier">commands</span> = <span class="ruby-ivar">@request_filter</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+1074:       <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>)
+1075:     }
+1076:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">commands</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">command</span><span class="ruby-operator">|</span> <span class="ruby-identifier">command</span> <span class="ruby-operator">==</span> <span class="ruby-value">:retry</span> }
+1077:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">RetryableResponse</span>.<span class="ruby-identifier">new</span>
+1078:     <span class="ruby-keyword kw">end</span>
+1079:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="do-get-header-method" class="method-detail ">
+				<a name="method-i-do_get_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">do_get_header</span><span
+						class="method-args">(req, res, sess)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="do-get-header-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1110</span>
+1110:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_get_header</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>, <span class="ruby-identifier">sess</span>)
+1111:     <span class="ruby-identifier">res</span>.<span class="ruby-identifier">http_version</span>, <span class="ruby-identifier">res</span>.<span class="ruby-identifier">status</span>, <span class="ruby-identifier">res</span>.<span class="ruby-identifier">reason</span>, <span class="ruby-identifier">headers</span> = <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">get_header</span>
+1112:     <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+1113:       <span class="ruby-identifier">res</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+1114:     <span class="ruby-keyword kw">end</span>
+1115:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@cookie_manager</span>
+1116:       <span class="ruby-identifier">res</span>.<span class="ruby-identifier">header</span>[<span class="ruby-value str">'set-cookie'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cookie</span><span class="ruby-operator">|</span>
+1117:         <span class="ruby-ivar">@cookie_manager</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">cookie</span>, <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">request_uri</span>)
+1118:       <span class="ruby-keyword kw">end</span>
+1119:     <span class="ruby-keyword kw">end</span>
+1120:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="do-get-stream-method" class="method-detail ">
+				<a name="method-i-do_get_stream"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">do_get_stream</span><span
+						class="method-args">(req, proxy, conn)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="do-get-stream-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1081</span>
+1081:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_get_stream</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">proxy</span>, <span class="ruby-identifier">conn</span>)
+1082:     <span class="ruby-ivar">@request_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+1083:       <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">filter_request</span>(<span class="ruby-identifier">req</span>)
+1084:     <span class="ruby-keyword kw">end</span>
+1085:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span> = <span class="ruby-ivar">@test_loopback_response</span>.<span class="ruby-identifier">shift</span>
+1086:       <span class="ruby-identifier">dump_dummy_request_response</span>(<span class="ruby-identifier">req</span>.<span class="ruby-identifier">http_body</span>.<span class="ruby-identifier">dump</span>, <span class="ruby-identifier">str</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+1087:       <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_response</span>(<span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str</span>)))
+1088:       <span class="ruby-keyword kw">return</span>
+1089:     <span class="ruby-keyword kw">end</span>
+1090:     <span class="ruby-identifier">piper</span>, <span class="ruby-identifier">pipew</span> = <span class="ruby-constant">IO</span>.<span class="ruby-identifier">pipe</span>
+1091:     <span class="ruby-identifier">res</span> = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_response</span>(<span class="ruby-identifier">piper</span>)
+1092:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;= Request\n\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+1093:     <span class="ruby-identifier">sess</span> = <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">query</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">proxy</span>)
+1094:     <span class="ruby-identifier">res</span>.<span class="ruby-identifier">peer_cert</span> = <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">ssl_peer_cert</span>
+1095:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n\n= Response\n\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+1096:     <span class="ruby-identifier">do_get_header</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>, <span class="ruby-identifier">sess</span>)
+1097:     <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">res</span>)
+1098:     <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">get_body</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span>
+1099:       <span class="ruby-identifier">force_binary</span>(<span class="ruby-identifier">part</span>)
+1100:       <span class="ruby-identifier">pipew</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">part</span>)
+1101:     <span class="ruby-keyword kw">end</span>
+1102:     <span class="ruby-identifier">pipew</span>.<span class="ruby-identifier">close</span>
+1103:     <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">keep</span>(<span class="ruby-identifier">sess</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">closed?</span>
+1104:     <span class="ruby-identifier">_</span> = <span class="ruby-ivar">@request_filter</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+1105:       <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>)
+1106:     }
+1107:     <span class="ruby-comment cmt"># ignore commands (not retryable in async mode)</span>
+1108:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="do-request-method" class="method-detail ">
+				<a name="method-i-do_request"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">do_request</span><span
+						class="method-args">(method, uri, query, body, header, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="do-request-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 853</span>
+853:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>, &amp;<span class="ruby-identifier">block</span>)
+854:     <span class="ruby-identifier">conn</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>
+855:     <span class="ruby-identifier">res</span> = <span class="ruby-keyword kw">nil</span>
+856:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">body</span>)
+857:       <span class="ruby-identifier">pos</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+858:     <span class="ruby-keyword kw">end</span>
+859:     <span class="ruby-identifier">retry_count</span> = <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">protocol_retry_count</span>
+860:     <span class="ruby-identifier">proxy</span> = <span class="ruby-identifier">no_proxy?</span>(<span class="ruby-identifier">uri</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@proxy</span>
+861:     <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">retry_count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+862:       <span class="ruby-identifier">body</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pos</span>
+863:       <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>)
+864:       <span class="ruby-keyword kw">begin</span>
+865:         <span class="ruby-identifier">protect_keep_alive_disconnected</span> <span class="ruby-keyword kw">do</span>
+866:           <span class="ruby-identifier">do_get_block</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">proxy</span>, <span class="ruby-identifier">conn</span>, &amp;<span class="ruby-identifier">block</span>)
+867:         <span class="ruby-keyword kw">end</span>
+868:         <span class="ruby-identifier">res</span> = <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">pop</span>
+869:         <span class="ruby-keyword kw">break</span>
+870:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RetryableResponse</span>
+871:         <span class="ruby-identifier">res</span> = <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">pop</span>
+872:         <span class="ruby-identifier">retry_count</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+873:       <span class="ruby-keyword kw">end</span>
+874:     <span class="ruby-keyword kw">end</span>
+875:     <span class="ruby-identifier">res</span>
+876:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="do-request-async-method" class="method-detail ">
+				<a name="method-i-do_request_async"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">do_request_async</span><span
+						class="method-args">(method, uri, query, body, header)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="do-request-async-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 878</span>
+878:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_request_async</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>)
+879:     <span class="ruby-identifier">conn</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>
+880:     <span class="ruby-identifier">t</span> = <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">conn</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">tconn</span><span class="ruby-operator">|</span>
+881:       <span class="ruby-keyword kw">begin</span>
+882:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">body</span>)
+883:           <span class="ruby-identifier">pos</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+884:         <span class="ruby-keyword kw">end</span>
+885:         <span class="ruby-identifier">retry_count</span> = <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">protocol_retry_count</span>
+886:         <span class="ruby-identifier">proxy</span> = <span class="ruby-identifier">no_proxy?</span>(<span class="ruby-identifier">uri</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@proxy</span>
+887:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">retry_count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+888:           <span class="ruby-identifier">body</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pos</span>
+889:           <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>)
+890:           <span class="ruby-keyword kw">begin</span>
+891:             <span class="ruby-identifier">protect_keep_alive_disconnected</span> <span class="ruby-keyword kw">do</span>
+892:               <span class="ruby-identifier">do_get_stream</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">proxy</span>, <span class="ruby-identifier">tconn</span>)
+893:             <span class="ruby-keyword kw">end</span>
+894:             <span class="ruby-keyword kw">break</span>
+895:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RetryableResponse</span>
+896:             <span class="ruby-identifier">retry_count</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+897:           <span class="ruby-keyword kw">end</span>
+898:         <span class="ruby-keyword kw">end</span>
+899:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span>
+900:         <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">$!</span>
+901:       <span class="ruby-keyword kw">end</span>
+902:     }
+903:     <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">async_thread</span> = <span class="ruby-identifier">t</span>
+904:     <span class="ruby-identifier">conn</span>
+905:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-dummy-request-response-method" class="method-detail ">
+				<a name="method-i-dump_dummy_request_response"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump_dummy_request_response</span><span
+						class="method-args">(req, res)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="dump-dummy-request-response-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1122</span>
+1122:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_dummy_request_response</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>)
+1123:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;= Dummy Request\n\n&quot;</span>
+1124:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">req</span>
+1125:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n\n= Dummy Response\n\n&quot;</span>
+1126:     <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">res</span>
+1127:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="file-in-form-data--method" class="method-detail ">
+				<a name="method-i-file_in_form_data%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">file_in_form_data?</span><span
+						class="method-args">(body)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="file-in-form-data--source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1008</span>
+1008:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">file_in_form_data?</span>(<span class="ruby-identifier">body</span>)
+1009:     <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">multiparam_query?</span>(<span class="ruby-identifier">body</span>) <span class="ruby-operator">&amp;&amp;</span>
+1010:       <span class="ruby-identifier">body</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">v</span>) }
+1011:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="follow-redirect-method" class="method-detail ">
+				<a name="method-i-follow_redirect"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">follow_redirect</span><span
+						class="method-args">(method, uri, query, body, header, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="follow-redirect-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 925</span>
+925:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">follow_redirect</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>, &amp;<span class="ruby-identifier">block</span>)
+926:     <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-identifier">uri</span>)
+927:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>
+928:       <span class="ruby-identifier">filtered_block</span> = <span class="ruby-identifier">proc</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span>, <span class="ruby-identifier">str</span><span class="ruby-operator">|</span>
+929:         <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">str</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Status</span>.<span class="ruby-identifier">successful?</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">status</span>)
+930:       }
+931:     <span class="ruby-keyword kw">end</span>
+932:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">body</span>)
+933:       <span class="ruby-identifier">pos</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+934:     <span class="ruby-keyword kw">end</span>
+935:     <span class="ruby-identifier">retry_number</span> = <span class="ruby-value">0</span>
+936:     <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">retry_number</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@follow_redirect_count</span>
+937:       <span class="ruby-identifier">body</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pos</span>
+938:       <span class="ruby-identifier">res</span> = <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">query</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">header</span>, &amp;<span class="ruby-identifier">filtered_block</span>)
+939:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Status</span>.<span class="ruby-identifier">successful?</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">status</span>)
+940:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
+941:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Status</span>.<span class="ruby-identifier">redirect?</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">status</span>)
+942:         <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">urify</span>(<span class="ruby-ivar">@redirect_uri_callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">res</span>))
+943:         <span class="ruby-identifier">retry_number</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+944:       <span class="ruby-keyword kw">else</span>
+945:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;unexpected response: #{res.header.inspect}&quot;</span>, <span class="ruby-identifier">res</span>)
+946:       <span class="ruby-keyword kw">end</span>
+947:     <span class="ruby-keyword kw">end</span>
+948:     <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;retry count exceeded&quot;</span>, <span class="ruby-identifier">res</span>)
+949:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="getenv-method" class="method-detail ">
+				<a name="method-i-getenv"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">getenv</span><span
+						class="method-args">(name)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="getenv-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 921</span>
+921:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">getenv</span>(<span class="ruby-identifier">name</span>)
+922:     <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">upcase</span>]
+923:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="load-environment-method" class="method-detail ">
+				<a name="method-i-load_environment"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">load_environment</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="load-environment-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 907</span>
+907:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_environment</span>
+908:     <span class="ruby-comment cmt"># http_proxy</span>
+909:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">getenv</span>(<span class="ruby-value str">'REQUEST_METHOD'</span>)
+910:       <span class="ruby-comment cmt"># HTTP_PROXY conflicts with the environment variable usage in CGI where</span>
+911:       <span class="ruby-comment cmt"># HTTP_* is used for HTTP header information.  Unlike open-uri, we</span>
+912:       <span class="ruby-comment cmt"># simply ignore http_proxy in CGI env and use cgi_http_proxy instead.</span>
+913:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">proxy</span> = <span class="ruby-identifier">getenv</span>(<span class="ruby-value str">'cgi_http_proxy'</span>)
+914:     <span class="ruby-keyword kw">else</span>
+915:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">proxy</span> = <span class="ruby-identifier">getenv</span>(<span class="ruby-value str">'http_proxy'</span>)
+916:     <span class="ruby-keyword kw">end</span>
+917:     <span class="ruby-comment cmt"># no_proxy</span>
+918:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">no_proxy</span> = <span class="ruby-identifier">getenv</span>(<span class="ruby-value str">'no_proxy'</span>)
+919:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="no-proxy--method" class="method-detail ">
+				<a name="method-i-no_proxy%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">no_proxy?</span><span
+						class="method-args">(uri)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="no-proxy--source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1027</span>
+1027:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_proxy?</span>(<span class="ruby-identifier">uri</span>)
+1028:     <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@proxy</span> <span class="ruby-keyword kw">or</span> <span class="ruby-constant">NO_PROXY_HOSTS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>)
+1029:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+1030:     <span class="ruby-keyword kw">end</span>
+1031:     <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@no_proxy</span>
+1032:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+1033:     <span class="ruby-keyword kw">end</span>
+1034:     <span class="ruby-ivar">@no_proxy</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/([^:,]+)(?::(\d+))?/</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span><span class="ruby-operator">|</span>
+1035:       <span class="ruby-keyword kw">if</span> <span class="ruby-node">/(\A|\.)#{Regexp.quote(host)}\z/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span> <span class="ruby-operator">&amp;&amp;</span>
+1036:           (<span class="ruby-operator">!</span><span class="ruby-identifier">port</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">port</span>.<span class="ruby-identifier">to_i</span>)
+1037:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+1038:       <span class="ruby-keyword kw">end</span>
+1039:     <span class="ruby-keyword kw">end</span>
+1040:     <span class="ruby-keyword kw">false</span>
+1041:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="override-header-method" class="method-detail ">
+				<a name="method-i-override_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">override_header</span><span
+						class="method-args">(header, key, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="override-header-source">
+<pre>
+      <span class="ruby-comment cmt"># File lib/httpclient.rb, line 1013</span>
+1013:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">override_header</span>(<span class="ruby-identifier">header</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+1014:     <span class="ruby-identifier">result</span> = []
+1015:     <span class="ruby-identifier">header</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+1016:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">downcase</span>
+1017:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>]
+1018:       <span class="ruby-keyword kw">else</span>
+1019:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>]
+1020:       <span class="ruby-keyword kw">end</span>
+1021:     <span class="ruby-keyword kw">end</span>
+1022:     <span class="ruby-identifier">result</span>
+1023:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="protect-keep-alive-disconnected-method" class="method-detail ">
+				<a name="method-i-protect_keep_alive_disconnected"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">protect_keep_alive_disconnected</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="protect-keep-alive-disconnected-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient.rb, line 951</span>
+951:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">protect_keep_alive_disconnected</span>
+952:     <span class="ruby-keyword kw">begin</span>
+953:       <span class="ruby-keyword kw">yield</span>
+954:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">KeepAliveDisconnected</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+955:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">sess</span>
+956:         <span class="ruby-ivar">@session_manager</span>.<span class="ruby-identifier">invalidate</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">sess</span>.<span class="ruby-identifier">dest</span>)
+957:       <span class="ruby-keyword kw">end</span>
+958:       <span class="ruby-keyword kw">yield</span>
+959:     <span class="ruby-keyword kw">end</span>
+960:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

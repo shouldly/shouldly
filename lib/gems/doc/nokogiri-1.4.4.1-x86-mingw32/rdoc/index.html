@@ -1,0 +1,1451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>nokogiri-1.4.4.1-x86-mingw32 Documentation</title>
+
+	<link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
+
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body class="indexpage">
+
+	
+	<h1>nokogiri-1.4.4.1-x86-mingw32 Documentation</h1>
+
+	
+	<div id="main">
+		
+<ul>
+<li><p>
+<a href="http://nokogiri.org">nokogiri.org</a>
+</p>
+</li>
+<li><p>
+<a
+href="http://github.com/tenderlove/nokogiri/wikis">github.com/tenderlove/nokogiri/wikis</a>
+</p>
+</li>
+<li><p>
+<a
+href="http://github.com/tenderlove/nokogiri/tree/master">github.com/tenderlove/nokogiri/tree/master</a>
+</p>
+</li>
+<li><p>
+<a
+href="http://groups.google.com/group/nokogiri-talk">groups.google.com/group/nokogiri-talk</a>
+</p>
+</li>
+<li><p>
+<a
+href="http://github.com/tenderlove/nokogiri/issues">github.com/tenderlove/nokogiri/issues</a>
+</p>
+</li>
+</ul>
+<h2>DESCRIPTION:</h2>
+<p>
+<a href="Nokogiri.html">Nokogiri</a> (鋸) is an HTML, XML, SAX, and Reader
+parser.  Among Nokogiri&#8217;s many features is the ability to search
+documents via XPath or CSS3 selectors.
+</p>
+<p>
+XML is like violence - if it doesn’t solve your problems, you are not
+using enough of it.
+</p>
+<h2>FEATURES:</h2>
+<ul>
+<li><p>
+XPath support for document searching
+</p>
+</li>
+<li><p>
+CSS3 selector support for document searching
+</p>
+</li>
+<li><p>
+XML/HTML builder
+</p>
+</li>
+</ul>
+<p>
+<a href="Nokogiri.html">Nokogiri</a> parses and searches XML/HTML very
+quickly, and also has correctly implemented CSS3 selector support as well
+as XPath support.
+</p>
+<h2>SUPPORT:</h2>
+<p>
+The <a href="Nokogiri.html">Nokogiri</a> <a
+href="http://groups.google.com/group/nokogiri-talk">mailing list</a> is
+available here:
+</p>
+<pre>
+  * http://groups.google.com/group/nokogiri-talk
+</pre>
+<p>
+The <a href="http://github.com/tenderlove/nokogiri/issues">bug tracker</a>
+is available here:
+</p>
+<pre>
+  * http://github.com/tenderlove/nokogiri/issues
+</pre>
+<p>
+The IRC channel is # on freenode.
+</p>
+<h2>SYNOPSIS:</h2>
+<pre>
+  require 'nokogiri'
+  require 'open-uri'
+
+  # Get a Nokogiri::HTML:Document for the page we’re interested in...
+
+  doc = Nokogiri::HTML(open('http://www.google.com/search?q=tenderlove'))
+
+  # Do funky things with it using Nokogiri::XML::Node methods...
+
+  ####
+  # Search for nodes by css
+  doc.css('h3.r a.l').each do |link|
+    puts link.content
+  end
+
+  ####
+  # Search for nodes by xpath
+  doc.xpath('//h3/a[@class=&quot;l&quot;]').each do |link|
+    puts link.content
+  end
+
+  ####
+  # Or mix and match.
+  doc.search('h3.r a.l', '//h3/a[@class=&quot;l&quot;]').each do |link|
+    puts link.content
+  end
+</pre>
+<h2>REQUIREMENTS:</h2>
+<ul>
+<li><p>
+ruby 1.8 or 1.9
+</p>
+</li>
+<li><p>
+libxml2
+</p>
+</li>
+<li><p>
+libxml2-dev
+</p>
+</li>
+<li><p>
+libxslt
+</p>
+</li>
+<li><p>
+libxslt-dev
+</p>
+</li>
+</ul>
+<h2>ENCODING:</h2>
+<p>
+Strings are always stored as UTF-8 internally.  Methods that return text
+values will always return UTF-8 encoded strings.  Methods that return XML
+(like to_xml, to_html and inner_html) will return a string encoded like the
+source document.
+</p>
+<p>
+<b>WARNING</b>
+</p>
+<p>
+Some documents declare one particular encoding, but use a different one.
+So, which encoding should the parser choose?
+</p>
+<p>
+Remember that data is just a stream of bytes. Only us humans add meaning to
+that stream. Any particular set of bytes could be valid characters in
+multiple encodings, so detecting encoding with 100% accuracy is not
+possible. libxml2 does its best, but it can&#8217;t be right 100% of the
+time.
+</p>
+<p>
+If you want <a href="Nokogiri.html">Nokogiri</a> to handle the document
+encoding properly, your best bet is to explicitly set the encoding.  Here
+is an example of explicitly setting the encoding to EUC-JP on the parser:
+</p>
+<pre>
+    doc = Nokogiri.XML('&lt;foo&gt;&lt;bar /&gt;&lt;foo&gt;', nil, 'EUC-JP')
+</pre>
+<h2>INSTALL:</h2>
+<ul>
+<li><p>
+sudo gem install nokogiri
+</p>
+</li>
+</ul>
+<h3>Binary packages</h3>
+<p>
+Binary packages are available for:
+</p>
+<ul>
+<li><p>
+<a
+href="http://download.opensuse.org/repositories/devel:/languages:/ruby:/extensions/">SuSE</a>
+</p>
+</li>
+<li><p>
+<a
+href="http://s390.koji.fedoraproject.org/koji/packageinfo?packageID=6756">Fedora</a>
+</p>
+</li>
+</ul>
+<h2>DEVELOPMENT:</h2>
+<p>
+Developing <a href="Nokogiri.html">Nokogiri</a> requires racc and rexical.
+</p>
+<ul>
+<li><p>
+rake install:deps
+</p>
+</li>
+<li><p>
+rake test
+</p>
+</li>
+</ul>
+<h2>LICENSE:</h2>
+<p>
+(The MIT License)
+</p>
+<p>
+Copyright &#169; 2008 - 2010:
+</p>
+<ul>
+<li><p>
+<a href="http://tenderlovemaking.com">Aaron Patterson</a>
+</p>
+</li>
+<li><p>
+<a href="http://mike.daless.io">Mike Dalessio</a>
+</p>
+</li>
+</ul>
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+&#8216;Software&#8217;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+</p>
+<p>
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+</p>
+<p>
+THE SOFTWARE IS PROVIDED &#8216;AS IS&#8217;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+	</div>
+	
+
+	
+	
+	<h2>Files</h2>
+	<ul>
+		
+			<li class="file"><a href="CHANGELOG_ja_rdoc.html">CHANGELOG.ja.rdoc</a></li>
+		
+			<li class="file"><a href="CHANGELOG_rdoc.html">CHANGELOG.rdoc</a></li>
+		
+			<li class="file"><a href="Manifest_txt.html">Manifest.txt</a></li>
+		
+			<li class="file"><a href="README_ja_rdoc.html">README.ja.rdoc</a></li>
+		
+			<li class="file"><a href="README_rdoc.html">README.rdoc</a></li>
+		
+	</ul>
+	
+
+	<h2 id="classes">Classes/Modules</h2>
+	<ul>
+		
+		<li class="module"><a href="Nokogiri.html">Nokogiri</a></li>
+		
+		<li class="module"><a href="Nokogiri/CSS.html">Nokogiri::CSS</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/GeneratedParser.html">Nokogiri::CSS::GeneratedParser</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/GeneratedTokenizer.html">Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/GeneratedTokenizer/ScanError.html">Nokogiri::CSS::GeneratedTokenizer::ScanError</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/Node.html">Nokogiri::CSS::Node</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/Parser.html">Nokogiri::CSS::Parser</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/SyntaxError.html">Nokogiri::CSS::SyntaxError</a></li>
+		
+		<li class="class"><a href="Nokogiri/CSS/Tokenizer.html">Nokogiri::CSS::Tokenizer</a></li>
+		
+		<li class="module"><a href="Nokogiri/Decorators.html">Nokogiri::Decorators</a></li>
+		
+		<li class="module"><a href="Nokogiri/Decorators/Slop.html">Nokogiri::Decorators::Slop</a></li>
+		
+		<li class="class"><a href="Nokogiri/EncodingHandler.html">Nokogiri::EncodingHandler</a></li>
+		
+		<li class="module"><a href="Nokogiri/HTML.html">Nokogiri::HTML</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/Builder.html">Nokogiri::HTML::Builder</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/Document.html">Nokogiri::HTML::Document</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/DocumentFragment.html">Nokogiri::HTML::DocumentFragment</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/ElementDescription.html">Nokogiri::HTML::ElementDescription</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/EntityDescription.html">Nokogiri::HTML::EntityDescription</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/EntityLookup.html">Nokogiri::HTML::EntityLookup</a></li>
+		
+		<li class="module"><a href="Nokogiri/HTML/SAX.html">Nokogiri::HTML::SAX</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/SAX/Parser.html">Nokogiri::HTML::SAX::Parser</a></li>
+		
+		<li class="class"><a href="Nokogiri/HTML/SAX/ParserContext.html">Nokogiri::HTML::SAX::ParserContext</a></li>
+		
+		<li class="class"><a href="Nokogiri/SyntaxError.html">Nokogiri::SyntaxError</a></li>
+		
+		<li class="module"><a href="Nokogiri/XML.html">Nokogiri::XML</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Attr.html">Nokogiri::XML::Attr</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/AttributeDecl.html">Nokogiri::XML::AttributeDecl</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Builder.html">Nokogiri::XML::Builder</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/CDATA.html">Nokogiri::XML::CDATA</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/CharacterData.html">Nokogiri::XML::CharacterData</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Comment.html">Nokogiri::XML::Comment</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/DTD.html">Nokogiri::XML::DTD</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Document.html">Nokogiri::XML::Document</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/DocumentFragment.html">Nokogiri::XML::DocumentFragment</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Element.html">Nokogiri::XML::Element</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/ElementContent.html">Nokogiri::XML::ElementContent</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/ElementDecl.html">Nokogiri::XML::ElementDecl</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/EntityDecl.html">Nokogiri::XML::EntityDecl</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/EntityReference.html">Nokogiri::XML::EntityReference</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Namespace.html">Nokogiri::XML::Namespace</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Node.html">Nokogiri::XML::Node</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Node/SaveOptions.html">Nokogiri::XML::Node::SaveOptions</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/NodeSet.html">Nokogiri::XML::NodeSet</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Notation.html">Nokogiri::XML::Notation</a></li>
+		
+		<li class="module"><a href="Nokogiri/XML/PP.html">Nokogiri::XML::PP</a></li>
+		
+		<li class="module"><a href="Nokogiri/XML/PP/CharacterData.html">Nokogiri::XML::PP::CharacterData</a></li>
+		
+		<li class="module"><a href="Nokogiri/XML/PP/Node.html">Nokogiri::XML::PP::Node</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/ParseOptions.html">Nokogiri::XML::ParseOptions</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/ProcessingInstruction.html">Nokogiri::XML::ProcessingInstruction</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Reader.html">Nokogiri::XML::Reader</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/RelaxNG.html">Nokogiri::XML::RelaxNG</a></li>
+		
+		<li class="module"><a href="Nokogiri/XML/SAX.html">Nokogiri::XML::SAX</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/SAX/Document.html">Nokogiri::XML::SAX::Document</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/SAX/Parser.html">Nokogiri::XML::SAX::Parser</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/SAX/Parser/Attribute.html">Nokogiri::XML::SAX::Parser::Attribute</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/SAX/ParserContext.html">Nokogiri::XML::SAX::ParserContext</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/SAX/PushParser.html">Nokogiri::XML::SAX::PushParser</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Schema.html">Nokogiri::XML::Schema</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/SyntaxError.html">Nokogiri::XML::SyntaxError</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/Text.html">Nokogiri::XML::Text</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/XPath.html">Nokogiri::XML::XPath</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/XPath/SyntaxError.html">Nokogiri::XML::XPath::SyntaxError</a></li>
+		
+		<li class="class"><a href="Nokogiri/XML/XPathContext.html">Nokogiri::XML::XPathContext</a></li>
+		
+		<li class="module"><a href="Nokogiri/XSLT.html">Nokogiri::XSLT</a></li>
+		
+		<li class="class"><a href="Nokogiri/XSLT/Stylesheet.html">Nokogiri::XSLT::Stylesheet</a></li>
+		
+		<li class="class"><a href="XSD/XMLParser/Nokogiri.html">XSD::XMLParser::Nokogiri</a></li>
+		
+		<li class="class"><a href="Object.html">Object</a></li>
+		
+	</ul>
+
+	<h2 id="methods">Methods</h2>
+	<ul>
+		
+			<li><a href="Nokogiri.html#method-c-HTML">::HTML &mdash; Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML.html#method-c-Reader">::Reader &mdash; Nokogiri::XML</a></li>
+		
+			<li><a href="Nokogiri/XML.html#method-c-RelaxNG">::RelaxNG &mdash; Nokogiri::XML</a></li>
+		
+			<li><a href="Nokogiri/XML.html#method-c-Schema">::Schema &mdash; Nokogiri::XML</a></li>
+		
+			<li><a href="Nokogiri.html#method-c-Slop">::Slop &mdash; Nokogiri</a></li>
+		
+			<li><a href="Nokogiri.html#method-c-XML">::XML &mdash; Nokogiri</a></li>
+		
+			<li><a href="Nokogiri.html#method-c-XSLT">::XSLT &mdash; Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-c-%5B%5D">::[] &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/EncodingHandler.html#method-c-%5B%5D">::[] &mdash; Nokogiri::EncodingHandler</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-c-%5B%5D">::[] &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-c-%5B%5D%3D">::[]= &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/EncodingHandler.html#method-c-alias">::alias &mdash; Nokogiri::EncodingHandler</a></li>
+		
+			<li><a href="Nokogiri/EncodingHandler.html#method-c-clear_aliases%21">::clear_aliases! &mdash; Nokogiri::EncodingHandler</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-c-clear_cache">::clear_cache &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/EncodingHandler.html#method-c-delete">::delete &mdash; Nokogiri::EncodingHandler</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-c-file">::file &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/HTML.html#method-c-fragment">::fragment &mdash; Nokogiri::HTML</a></li>
+		
+			<li><a href="Nokogiri/XML.html#method-c-fragment">::fragment &mdash; Nokogiri::XML</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-c-from_document">::from_document &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/RelaxNG.html#method-c-from_document">::from_document &mdash; Nokogiri::XML::RelaxNG</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-c-from_io">::from_io &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-c-from_memory">::from_memory &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-c-io">::io &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri.html#method-c-make">::make &mdash; Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-c-memory">::memory &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-c-new">::new &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/ParseOptions.html#method-c-new">::new &mdash; Nokogiri::XML::ParseOptions</a></li>
+		
+			<li><a href="Nokogiri/XML/Node/SaveOptions.html#method-c-new">::new &mdash; Nokogiri::XML::Node::SaveOptions</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-c-new">::new &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-c-new">::new &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-c-new">::new &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-c-new">::new &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityReference.html#method-c-new">::new &mdash; Nokogiri::XML::EntityReference</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-c-new">::new &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/ProcessingInstruction.html#method-c-new">::new &mdash; Nokogiri::XML::ProcessingInstruction</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-c-new">::new &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-c-new">::new &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-c-new">::new &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/HTML/SAX/ParserContext.html#method-c-new">::new &mdash; Nokogiri::HTML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/HTML/DocumentFragment.html#method-c-new">::new &mdash; Nokogiri::HTML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/Comment.html#method-c-new">::new &mdash; Nokogiri::XML::Comment</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-c-new">::new &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/XPathContext.html#method-c-new">::new &mdash; Nokogiri::XML::XPathContext</a></li>
+		
+			<li><a href="Nokogiri/XML/Text.html#method-c-new">::new &mdash; Nokogiri::XML::Text</a></li>
+		
+			<li><a href="Nokogiri/XML/CDATA.html#method-c-new">::new &mdash; Nokogiri::XML::CDATA</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-c-new">::new &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-c-new">::new &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/ProcessingInstruction.html#method-c-new">::new &mdash; Nokogiri::XML::ProcessingInstruction</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-c-new">::new &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Parser.html#method-c-new">::new &mdash; Nokogiri::XML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/Attr.html#method-c-new">::new &mdash; Nokogiri::XML::Attr</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-c-new">::new &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-c-parse">::parse &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-c-parse">::parse &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XSLT.html#method-c-parse">::parse &mdash; Nokogiri::XSLT</a></li>
+		
+			<li><a href="Nokogiri/XML.html#method-c-parse">::parse &mdash; Nokogiri::XML</a></li>
+		
+			<li><a href="Nokogiri/HTML.html#method-c-parse">::parse &mdash; Nokogiri::HTML</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-c-parse">::parse &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/HTML/DocumentFragment.html#method-c-parse">::parse &mdash; Nokogiri::HTML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri.html#method-c-parse">::parse &mdash; Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-c-parse">::parse &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/CSS.html#method-c-parse">::parse &mdash; Nokogiri::CSS</a></li>
+		
+			<li><a href="Nokogiri/XSLT/Stylesheet.html#method-c-parse_stylesheet_doc">::parse_stylesheet_doc &mdash; Nokogiri::XSLT::Stylesheet</a></li>
+		
+			<li><a href="Nokogiri/XSLT.html#method-c-quote_params">::quote_params &mdash; Nokogiri::XSLT</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-c-read_io">::read_io &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-c-read_io">::read_io &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-c-read_memory">::read_memory &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-c-read_memory">::read_memory &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-c-read_memory">::read_memory &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/RelaxNG.html#method-c-read_memory">::read_memory &mdash; Nokogiri::XML::RelaxNG</a></li>
+		
+			<li><a href="Nokogiri/XSLT.html#method-c-register">::register &mdash; Nokogiri::XSLT</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-c-with">::with &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-c-without_cache">::without_cache &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/CSS.html#method-c-xpath_for">::xpath_for &mdash; Nokogiri::CSS</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%25">#% &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%25">#% &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%26">#& &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%2B">#+ &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i--">#- &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%2F">#/ &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%2F">#/ &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%3C%3C">#<< &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%3C%3C">#<< &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-%3C%3C">#<< &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-i-%3C%3C">#<< &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-%3C%3C">#<< &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%3C%3D%3E">#<=> &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%3D%3D">#== &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%3D%3D">#== &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%3E">#> &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%3E">#> &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Object.html#method-i-Nokogiri">#Nokogiri &mdash; Object</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%5B%5D">#[] &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-i-%5B%5D">#[] &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%5B%5D">#[] &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/EntityLookup.html#method-i-%5B%5D">#[] &mdash; Nokogiri::HTML::EntityLookup</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-%5B%5D%3D">#[]= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_1">#_reduce_1 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_10">#_reduce_10 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_11">#_reduce_11 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_13">#_reduce_13 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_14">#_reduce_14 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_15">#_reduce_15 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_16">#_reduce_16 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_17">#_reduce_17 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_19">#_reduce_19 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_2">#_reduce_2 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_20">#_reduce_20 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_21">#_reduce_21 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_22">#_reduce_22 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_23">#_reduce_23 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_25">#_reduce_25 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_26">#_reduce_26 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_27">#_reduce_27 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_28">#_reduce_28 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_29">#_reduce_29 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_3">#_reduce_3 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_30">#_reduce_30 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_31">#_reduce_31 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_32">#_reduce_32 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_33">#_reduce_33 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_34">#_reduce_34 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_35">#_reduce_35 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_38">#_reduce_38 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_39">#_reduce_39 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_4">#_reduce_4 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_40">#_reduce_40 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_41">#_reduce_41 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_42">#_reduce_42 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_43">#_reduce_43 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_46">#_reduce_46 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_47">#_reduce_47 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_48">#_reduce_48 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_49">#_reduce_49 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_5">#_reduce_5 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_54">#_reduce_54 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_55">#_reduce_55 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_56">#_reduce_56 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_58">#_reduce_58 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_59">#_reduce_59 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_6">#_reduce_6 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_60">#_reduce_60 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_61">#_reduce_61 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_62">#_reduce_62 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_63">#_reduce_63 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_64">#_reduce_64 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_65">#_reduce_65 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_7">#_reduce_7 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_8">#_reduce_8 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_9">#_reduce_9 &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedParser.html#method-i-_reduce_none">#_reduce_none &mdash; Nokogiri::CSS::GeneratedParser</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-accept">#accept &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-i-accept">#accept &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedTokenizer.html#method-i-action">#action &mdash; Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-add_child">#add_child &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-add_child">#add_child &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-add_class">#add_class &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-add_namespace">#add_namespace &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-add_namespace_definition">#add_namespace_definition &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-add_next_sibling">#add_next_sibling &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-add_previous_sibling">#add_previous_sibling &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-after">#after &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-after">#after &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-ancestors">#ancestors &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XSLT/Stylesheet.html#method-i-apply_to">#apply_to &mdash; Nokogiri::XSLT::Stylesheet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-at">#at &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-at">#at &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-at_css">#at_css &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-at_css">#at_css &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-at_xpath">#at_xpath &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-at_xpath">#at_xpath &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-attr">#attr &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-attr">#attr &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attr_nodes">#attr_nodes &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-attribute">#attribute &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attribute">#attribute &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-attribute">#attribute &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attribute_at">#attribute_at &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attribute_count">#attribute_count &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-attribute_nodes">#attribute_nodes &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attribute_nodes">#attribute_nodes &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/AttributeDecl.html#method-i-attribute_type">#attribute_type &mdash; Nokogiri::XML::AttributeDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-attribute_with_ns">#attribute_with_ns &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attributes">#attributes &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-attributes">#attributes &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-attributes">#attributes &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-attributes%3F">#attributes? &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-base_uri">#base_uri &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-before">#before &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-before">#before &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-blank%3F">#blank? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-block%3F">#block? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-c1">#c1 &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-c2">#c2 &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-i-cdata">#cdata &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-cdata%3F">#cdata? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-cdata_block">#cdata_block &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-cdata_block">#cdata_block &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-characters">#characters &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-child">#child &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-children">#children &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-children">#children &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-children">#children &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-children%3D">#children= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-clone">#clone &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-clone">#clone &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-coerce">#coerce &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-collect_namespaces">#collect_namespaces &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-i-column">#column &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-comment">#comment &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-comment%3F">#comment? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-compare">#compare &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-i-content">#content &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementDecl.html#method-i-content">#content &mdash; Nokogiri::XML::ElementDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-content">#content &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Text.html#method-i-content%3D">#content= &mdash; Nokogiri::XML::Text</a></li>
+		
+			<li><a href="Nokogiri/XML/Attr.html#method-i-content%3D">#content= &mdash; Nokogiri::XML::Attr</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-content%3D">#content= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-create_cdata">#create_cdata &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-create_element">#create_element &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-create_entity">#create_entity &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-create_external_subset">#create_external_subset &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-create_internal_subset">#create_internal_subset &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-create_text_node">#create_text_node &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-css">#css &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-css">#css &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-css">#css &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-css_path">#css_path &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-decorate">#decorate &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-decorate%21">#decorate! &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-decorators">#decorators &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/AttributeDecl.html#method-i-default">#default &mdash; Nokogiri::XML::AttributeDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-default%3F">#default? &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-default_namespace%3D">#default_namespace= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-default_sub_element">#default_sub_element &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-delete">#delete &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-delete">#delete &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-deprecated%3F">#deprecated? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-deprecated_attributes">#deprecated_attributes &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-depth">#depth &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-description">#description &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-description">#description &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-do_parse">#do_parse &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-document">#document &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-document">#document &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-dump_html">#dump_html &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-dup">#dup &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-dup">#dup &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-dup">#dup &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-each">#each &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-each">#each &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-each">#each &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-each">#each &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-elem%3F">#elem? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-element%3F">#element? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-element_children">#element_children &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementDecl.html#method-i-element_type">#element_type &mdash; Nokogiri::XML::ElementDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-elements">#elements &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-elements">#elements &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-empty%3F">#empty? &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-empty%3F">#empty? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-empty_element%3F">#empty_element? &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-encode_special_chars">#encode_special_chars &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-encoding">#encoding &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-encoding%3D">#encoding= &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-end_document">#end_document &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-end_element">#end_element &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-end_element">#end_element &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-end_element_namespace">#end_element_namespace &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-end_element_namespace">#end_element_namespace &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-entities">#entities &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-i-entity_type">#entity_type &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/AttributeDecl.html#method-i-enumeration">#enumeration &mdash; Nokogiri::XML::AttributeDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-error">#error &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-error">#error &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SyntaxError.html#method-i-error%3F">#error? &mdash; Nokogiri::XML::SyntaxError</a></li>
+		
+			<li><a href="Nokogiri/XML/XPathContext.html#method-i-evaluate">#evaluate &mdash; Nokogiri::XML::XPathContext</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-i-external_id">#external_id &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-external_id">#external_id &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-external_subset">#external_subset &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SyntaxError.html#method-i-fatal%3F">#fatal? &mdash; Nokogiri::XML::SyntaxError</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-filter">#filter &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-i-find_by_type">#find_by_type &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-finish">#finish &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-first">#first &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-first_element_child">#first_element_child &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-fragment">#fragment &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-fragment">#fragment &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-i-fragment">#fragment &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-fragment%3F">#fragment? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/EntityLookup.html#method-i-get">#get &mdash; Nokogiri::HTML::EntityLookup</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-get">#get &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-get_attribute">#get_attribute &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-has_attribute%3F">#has_attribute? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Namespace.html#method-i-href">#href &mdash; Nokogiri::XML::Namespace</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-html%3F">#html? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-implied_end_tag%3F">#implied_end_tag? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-implied_start_tag%3F">#implied_start_tag? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-implied_xpath_context">#implied_xpath_context &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-implied_xpath_context">#implied_xpath_context &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-in_context">#in_context &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-include%3F">#include? &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-index">#index &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-initialize_native">#initialize_native &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-inline%3F">#inline? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-inner_html">#inner_html &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-inner_html">#inner_html &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-inner_html%3D">#inner_html= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-inner_text">#inner_text &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-inner_text">#inner_text &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-inner_xml">#inner_xml &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-i-insert">#insert &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-i-inspect">#inspect &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementDecl.html#method-i-inspect">#inspect &mdash; Nokogiri::XML::ElementDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-inspect">#inspect &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-inspect">#inspect &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/AttributeDecl.html#method-i-inspect">#inspect &mdash; Nokogiri::XML::AttributeDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/ParseOptions.html#method-i-inspect">#inspect &mdash; Nokogiri::XML::ParseOptions</a></li>
+		
+			<li><a href="Nokogiri/XML/Attr.html#method-i-inspect_attributes">#inspect_attributes &mdash; Nokogiri::XML::Attr</a></li>
+		
+			<li><a href="Nokogiri/XML/Namespace.html#method-i-inspect_attributes">#inspect_attributes &mdash; Nokogiri::XML::Namespace</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-inspect_attributes">#inspect_attributes &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-inspect_attributes">#inspect_attributes &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-internal_subset">#internal_subset &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-key%3F">#key? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-keys">#keys &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-keys">#keys &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-lang">#lang &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-last">#last &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-last_element_child">#last_element_child &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-length">#length &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-line">#line &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-i-line">#line &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedTokenizer.html#method-i-load_file">#load_file &mdash; Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-local_name">#local_name &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-matches%3F">#matches? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-i-meta_encoding">#meta_encoding &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-i-meta_encoding%3D">#meta_encoding= &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/Decorators/Slop.html#method-i-method_missing">#method_missing &mdash; Nokogiri::Decorators::Slop</a></li>
+		
+			<li><a href="Nokogiri/EncodingHandler.html#method-i-name">#name &mdash; Nokogiri::EncodingHandler</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-name">#name &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-name">#name &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-name">#name &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-name">#name &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-name">#name &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-name">#name &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/CDATA.html#method-i-name">#name &mdash; Nokogiri::XML::CDATA</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-name%3D">#name= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-namespace">#namespace &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-namespace%3D">#namespace= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-namespace_definitions">#namespace_definitions &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-namespace_scopes">#namespace_scopes &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-namespace_uri">#namespace_uri &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-namespaced_key%3F">#namespaced_key? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-namespaces">#namespaces &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-namespaces">#namespaces &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-namespaces">#namespaces &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-native_content%3D">#native_content= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-native_write">#native_write &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-native_write_to">#native_write_to &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-next">#next &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-next_element">#next_element &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-next_sibling">#next_sibling &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedTokenizer.html#method-i-next_token">#next_token &mdash; Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-node_name">#node_name &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-node_name%3D">#node_name= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-node_type">#node_type &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-node_type">#node_type &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SyntaxError.html#method-i-none%3F">#none? &mdash; Nokogiri::XML::SyntaxError</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-notations">#notations &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-occur">#occur &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-i-on_error">#on_error &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-optional_attributes">#optional_attributes &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-options">#options &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-options%3D">#options= &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-i-original_content">#original_content &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-outer_xml">#outer_xml &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-parent">#parent &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-parent%3D">#parent= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-parse">#parse &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Parser.html#method-i-parse">#parse &mdash; Nokogiri::XML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/HTML/SAX/Parser.html#method-i-parse_file">#parse_file &mdash; Nokogiri::HTML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Parser.html#method-i-parse_file">#parse_file &mdash; Nokogiri::XML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Parser.html#method-i-parse_io">#parse_io &mdash; Nokogiri::XML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/HTML/SAX/Parser.html#method-i-parse_memory">#parse_memory &mdash; Nokogiri::HTML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Parser.html#method-i-parse_memory">#parse_memory &mdash; Nokogiri::XML::SAX::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-i-parse_with">#parse_with &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-path">#path &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-pointer_id">#pointer_id &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-pop">#pop &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Namespace.html#method-i-prefix">#prefix &mdash; Nokogiri::XML::Namespace</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-prefix">#prefix &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-prefix">#prefix &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementDecl.html#method-i-prefix">#prefix &mdash; Nokogiri::XML::ElementDecl</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-i-preprocess%21">#preprocess! &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-previous">#previous &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-previous%3D">#previous= &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-previous_element">#previous_element &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-previous_sibling">#previous_sibling &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-push">#push &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-read">#read &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-read_only%3F">#read_only? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/XPathContext.html#method-i-register_namespaces">#register_namespaces &mdash; Nokogiri::XML::XPathContext</a></li>
+		
+			<li><a href="Nokogiri/XML/XPathContext.html#method-i-register_ns">#register_ns &mdash; Nokogiri::XML::XPathContext</a></li>
+		
+			<li><a href="Nokogiri/XML/XPathContext.html#method-i-register_variable">#register_variable &mdash; Nokogiri::XML::XPathContext</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-remove">#remove &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-remove">#remove &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-remove_attr">#remove_attr &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-remove_attribute">#remove_attribute &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-remove_class">#remove_class &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-remove_namespaces%21">#remove_namespaces! &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-replace">#replace &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-i-replace_entities">#replace_entities &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/ParserContext.html#method-i-replace_entities%3D">#replace_entities= &mdash; Nokogiri::XML::SAX::ParserContext</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-required_attributes">#required_attributes &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-reverse">#reverse &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-root">#root &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-root%3D">#root= &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-save_end_tag%3F">#save_end_tag? &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedTokenizer.html#method-i-scan_file">#scan_file &mdash; Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedTokenizer.html#method-i-scan_setup">#scan_setup &mdash; Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+			<li><a href="Nokogiri/CSS/GeneratedTokenizer.html#method-i-scan_str">#scan_str &mdash; Nokogiri::CSS::GeneratedTokenizer</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-search">#search &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-search">#search &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-self_closing%3F">#self_closing? &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XSLT/Stylesheet.html#method-i-serialize">#serialize &mdash; Nokogiri::XSLT::Stylesheet</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-serialize">#serialize &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-serialize">#serialize &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-i-serialize">#serialize &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-set">#set &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-set_attribute">#set_attribute &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-set_namespace">#set_namespace &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-shift">#shift &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-size">#size &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-slice">#slice &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-slice">#slice &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-slop%21">#slop! &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-start_document">#start_document &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-start_element">#start_element &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-start_element">#start_element &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-start_element_namespace">#start_element_namespace &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-start_element_namespace">#start_element_namespace &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-state">#state &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/ParseOptions.html#method-i-strict">#strict &mdash; Nokogiri::XML::ParseOptions</a></li>
+		
+			<li><a href="Nokogiri/XML/ParseOptions.html#method-i-strict%3F">#strict? &mdash; Nokogiri::XML::ParseOptions</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-sub_elements">#sub_elements &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-swap">#swap &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-system_id">#system_id &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/EntityDecl.html#method-i-system_id">#system_id &mdash; Nokogiri::XML::EntityDecl</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-i-text">#text &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-text">#text &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-text">#text &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-text%3F">#text? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-i-to_a">#to_a &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-to_a">#to_a &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-to_ary">#to_ary &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-to_html">#to_html &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/HTML/Builder.html#method-i-to_html">#to_html &mdash; Nokogiri::HTML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-to_html">#to_html &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-to_html">#to_html &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-to_s">#to_s &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/SyntaxError.html#method-i-to_s">#to_s &mdash; Nokogiri::XML::SyntaxError</a></li>
+		
+			<li><a href="Nokogiri/XML/XPath/SyntaxError.html#method-i-to_s">#to_s &mdash; Nokogiri::XML::XPath::SyntaxError</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-to_s">#to_s &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-to_s">#to_s &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/ElementDescription.html#method-i-to_s">#to_s &mdash; Nokogiri::HTML::ElementDescription</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-to_str">#to_str &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-i-to_type">#to_type &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-to_xhtml">#to_xhtml &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-to_xhtml">#to_xhtml &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-to_xhtml">#to_xhtml &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/DocumentFragment.html#method-i-to_xml">#to_xml &mdash; Nokogiri::XML::DocumentFragment</a></li>
+		
+			<li><a href="Nokogiri/XML/Builder.html#method-i-to_xml">#to_xml &mdash; Nokogiri::XML::Builder</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-to_xml">#to_xml &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-to_xml">#to_xml &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/CSS/Node.html#method-i-to_xpath">#to_xpath &mdash; Nokogiri::CSS::Node</a></li>
+		
+			<li><a href="Nokogiri/XSLT/Stylesheet.html#method-i-transform">#transform &mdash; Nokogiri::XSLT::Stylesheet</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-traverse">#traverse &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/HTML/Document.html#method-i-type">#type &mdash; Nokogiri::HTML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/ElementContent.html#method-i-type">#type &mdash; Nokogiri::XML::ElementContent</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-type">#type &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-unlink">#unlink &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-unlink">#unlink &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-url">#url &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-i-valid%3F">#valid? &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-i-validate">#validate &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/DTD.html#method-i-validate">#validate &mdash; Nokogiri::XML::DTD</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-validate">#validate &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/RelaxNG.html#method-i-validate_document">#validate_document &mdash; Nokogiri::XML::RelaxNG</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-i-validate_document">#validate_document &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/Schema.html#method-i-validate_file">#validate_file &mdash; Nokogiri::XML::Schema</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-value">#value &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Attr.html#method-i-value%3D">#value= &mdash; Nokogiri::XML::Attr</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-value%3F">#value? &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-values">#values &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Document.html#method-i-version">#version &mdash; Nokogiri::XML::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-warning">#warning &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="XSD/XMLParser/Nokogiri.html#method-i-warning">#warning &mdash; XSD::XMLParser::Nokogiri</a></li>
+		
+			<li><a href="Nokogiri/XML/SyntaxError.html#method-i-warning%3F">#warning? &mdash; Nokogiri::XML::SyntaxError</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-wrap">#wrap &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/PushParser.html#method-i-write">#write &mdash; Nokogiri::XML::SAX::PushParser</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-write_html_to">#write_html_to &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-write_to">#write_to &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-write_xhtml_to">#write_xhtml_to &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-write_xml_to">#write_xml_to &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-xml%3F">#xml? &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/Reader.html#method-i-xml_version">#xml_version &mdash; Nokogiri::XML::Reader</a></li>
+		
+			<li><a href="Nokogiri/XML/SAX/Document.html#method-i-xmldecl">#xmldecl &mdash; Nokogiri::XML::SAX::Document</a></li>
+		
+			<li><a href="Nokogiri/XML/Node.html#method-i-xpath">#xpath &mdash; Nokogiri::XML::Node</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-xpath">#xpath &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+			<li><a href="Nokogiri/CSS/Parser.html#method-i-xpath_for">#xpath_for &mdash; Nokogiri::CSS::Parser</a></li>
+		
+			<li><a href="Nokogiri/XML/NodeSet.html#method-i-%7C">#| &mdash; Nokogiri::XML::NodeSet</a></li>
+		
+	</ul>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>

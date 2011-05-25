@@ -1,0 +1,7 @@
+<something>
+	<something-else>
+		testing
+		<another_child attribute='4' />
+		testing	
+	</something-else>
+</something>

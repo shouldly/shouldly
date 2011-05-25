@@ -1,0 +1,14 @@
+--- 
+topic: 
+  parent-id: {}
+
+  title: {}
+
+  approved: 
+    type: boolean
+  id: 
+    type: integer
+  viewed-at: 
+    type: datetime
+  written-on: 
+    type: date

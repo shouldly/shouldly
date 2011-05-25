@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: WebAgent::Cookie</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/httpclient/cookie_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/cookie.rb">lib/httpclient/cookie.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-discard%3F">#discard?</a></li>
+					
+					<li><a href="#method-i-domain_orig%3F">#domain_orig?</a></li>
+					
+					<li><a href="#method-i-flag">#flag</a></li>
+					
+					<li><a href="#method-i-http_only%3F">#http_only?</a></li>
+					
+					<li><a href="#method-i-join_quotedstr">#join_quotedstr</a></li>
+					
+					<li><a href="#method-i-match%3F">#match?</a></li>
+					
+					<li><a href="#method-i-normalize_cookie_value">#normalize_cookie_value</a></li>
+					
+					<li><a href="#method-i-override%3F">#override?</a></li>
+					
+					<li><a href="#method-i-parse">#parse</a></li>
+					
+					<li><a href="#method-i-path_orig%3F">#path_orig?</a></li>
+					
+					<li><a href="#method-i-secure%3F">#secure?</a></li>
+					
+					<li><a href="#method-i-set_flag">#set_flag</a></li>
+					
+					<li><a href="#method-i-use%3F">#use?</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">CookieUtils</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="../HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="../HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="../HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="../HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="../HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="../HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="../HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="../HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="../HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="../HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="../HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="../HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="../HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="../HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="../HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="../HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="../HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="../HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="../WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="../WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="../WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="../WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="../HTTP.html">HTTP</a></li>
+				
+					<li><a href="../HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="../HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="../HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="../HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="../HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="../HexDump.html">HexDump</a></li>
+				
+					<li><a href="../OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">WebAgent::Cookie</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="USE">USE</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="SECURE">SECURE</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="DOMAIN">DOMAIN</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="PATH">PATH</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="DISCARD">DISCARD</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="OVERRIDE">OVERRIDE</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="OVERRIDE_OK">OVERRIDE_OK</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="HTTP_ONLY">HTTP_ONLY</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="name-attribute-method" class="method-detail">
+				<a name="name"></a>
+				
+				<a name="name="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">name</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="value-attribute-method" class="method-detail">
+				<a name="value"></a>
+				
+				<a name="value="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">value</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="domain-attribute-method" class="method-detail">
+				<a name="domain"></a>
+				
+				<a name="domain="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">domain</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="path-attribute-method" class="method-detail">
+				<a name="path"></a>
+				
+				<a name="path="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">path</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="expires-attribute-method" class="method-detail">
+				<a name="expires"></a>
+				
+				<a name="expires="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">expires</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="url-attribute-method" class="method-detail">
+				<a name="url"></a>
+				
+				<a name="url="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">url</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="use-attribute-method" class="method-detail">
+				<a name="use"></a>
+				
+				<a name="use="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">use</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="secure-attribute-method" class="method-detail">
+				<a name="secure"></a>
+				
+				<a name="secure="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">secure</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="http-only-attribute-method" class="method-detail">
+				<a name="http_only"></a>
+				
+				<a name="http_only="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">http_only</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="discard-attribute-method" class="method-detail">
+				<a name="discard"></a>
+				
+				<a name="discard="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">discard</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="domain-orig-attribute-method" class="method-detail">
+				<a name="domain_orig"></a>
+				
+				<a name="domain_orig="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">domain_orig</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="path-orig-attribute-method" class="method-detail">
+				<a name="path_orig"></a>
+				
+				<a name="path_orig="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">path_orig</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="override-attribute-method" class="method-detail">
+				<a name="override"></a>
+				
+				<a name="override="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">override</span><span
+						class="attribute-access-type">[W]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 74</span>
+74:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>()
+75:       <span class="ruby-ivar">@name</span> = <span class="ruby-ivar">@value</span> = <span class="ruby-ivar">@domain</span> = <span class="ruby-ivar">@path</span> = <span class="ruby-keyword kw">nil</span>
+76:       <span class="ruby-ivar">@expires</span> = <span class="ruby-keyword kw">nil</span>
+77:       <span class="ruby-ivar">@url</span> = <span class="ruby-keyword kw">nil</span>
+78:       <span class="ruby-ivar">@use</span> = <span class="ruby-ivar">@secure</span> = <span class="ruby-ivar">@http_only</span> = <span class="ruby-ivar">@discard</span> = <span class="ruby-ivar">@domain_orig</span> = <span class="ruby-ivar">@path_orig</span> = <span class="ruby-ivar">@override</span> = <span class="ruby-keyword kw">nil</span>
+79:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="discard--method" class="method-detail ">
+				<a name="method-i-discard%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">discard?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="discard--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 81</span>
+81:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discard?</span>
+82:       <span class="ruby-ivar">@discard</span>
+83:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="domain-orig--method" class="method-detail ">
+				<a name="method-i-domain_orig%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">domain_orig?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="domain-orig--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 97</span>
+97:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">domain_orig?</span>
+98:       <span class="ruby-ivar">@domain_orig</span>
+99:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="flag-method" class="method-detail ">
+				<a name="method-i-flag"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">flag</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="flag-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 109</span>
+109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flag</span>
+110:       <span class="ruby-identifier">flg</span> = <span class="ruby-value">0</span>
+111:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">USE</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@use</span>
+112:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">SECURE</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@secure</span>
+113:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">HTTP_ONLY</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@http_only</span>
+114:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">DOMAIN</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@domain_orig</span>
+115:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">PATH</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@path_orig</span>
+116:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">DISCARD</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@discard</span>
+117:       <span class="ruby-identifier">flg</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">OVERRIDE</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@override</span>
+118:       <span class="ruby-identifier">flg</span>
+119:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="http-only--method" class="method-detail ">
+				<a name="method-i-http_only%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">http_only?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="http-only--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 93</span>
+93:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">http_only?</span>
+94:       <span class="ruby-ivar">@http_only</span>
+95:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="join-quotedstr-method" class="method-detail ">
+				<a name="method-i-join_quotedstr"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">join_quotedstr</span><span
+						class="method-args">(array, sep)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="join-quotedstr-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 144</span>
+144:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">join_quotedstr</span>(<span class="ruby-identifier">array</span>, <span class="ruby-identifier">sep</span>)
+145:       <span class="ruby-identifier">ret</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>()
+146:       <span class="ruby-identifier">old_elem</span> = <span class="ruby-keyword kw">nil</span>
+147:       <span class="ruby-identifier">array</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span>
+148:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">elem</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/&quot;/</span>).<span class="ruby-identifier">length</span> <span class="ruby-operator">%</span> <span class="ruby-value">2</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+149:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">old_elem</span>
+150:             <span class="ruby-identifier">old_elem</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sep</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">elem</span>
+151:           <span class="ruby-keyword kw">else</span>
+152:             <span class="ruby-identifier">ret</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">elem</span>
+153:             <span class="ruby-identifier">old_elem</span> = <span class="ruby-keyword kw">nil</span>
+154:           <span class="ruby-keyword kw">end</span>  
+155:         <span class="ruby-keyword kw">else</span>
+156:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">old_elem</span>
+157:             <span class="ruby-identifier">old_elem</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sep</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">elem</span>
+158:             <span class="ruby-identifier">ret</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">old_elem</span>
+159:             <span class="ruby-identifier">old_elem</span> = <span class="ruby-keyword kw">nil</span>
+160:           <span class="ruby-keyword kw">else</span>
+161:             <span class="ruby-identifier">old_elem</span> = <span class="ruby-identifier">elem</span>.<span class="ruby-identifier">dup</span>
+162:           <span class="ruby-keyword kw">end</span>
+163:         <span class="ruby-keyword kw">end</span>
+164:       }
+165:       <span class="ruby-identifier">ret</span>
+166:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="match--method" class="method-detail ">
+				<a name="method-i-match%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">match?</span><span
+						class="method-args">(url)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="match--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 132</span>
+132:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match?</span>(<span class="ruby-identifier">url</span>)
+133:       <span class="ruby-identifier">domainname</span> = <span class="ruby-identifier">url</span>.<span class="ruby-identifier">host</span>
+134:       <span class="ruby-keyword kw">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">domainname</span> <span class="ruby-operator">||</span>
+135:           <span class="ruby-operator">!</span><span class="ruby-identifier">domain_match</span>(<span class="ruby-identifier">domainname</span>, <span class="ruby-ivar">@domain</span>) <span class="ruby-operator">||</span>
+136:           (<span class="ruby-ivar">@path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">head_match?</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-identifier">url</span>.<span class="ruby-identifier">path</span>)) <span class="ruby-operator">||</span>
+137:           (<span class="ruby-ivar">@secure</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">url</span>.<span class="ruby-identifier">scheme</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'https'</span>)) )
+138:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+139:       <span class="ruby-keyword kw">else</span>
+140:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+141:       <span class="ruby-keyword kw">end</span>
+142:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="override--method" class="method-detail ">
+				<a name="method-i-override%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">override?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="override--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 105</span>
+105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">override?</span>
+106:       <span class="ruby-ivar">@override</span>
+107:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="parse-method" class="method-detail ">
+				<a name="method-i-parse"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">parse</span><span
+						class="method-args">(str, url)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="parse-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 168</span>
+168:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">url</span>)
+169:       <span class="ruby-ivar">@url</span> = <span class="ruby-identifier">url</span>
+170:       <span class="ruby-comment cmt"># TODO: should not depend on join_quotedstr. scan with escape like CSV.</span>
+171:       <span class="ruby-identifier">cookie_elem</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/;/</span>)
+172:       <span class="ruby-identifier">cookie_elem</span> = <span class="ruby-identifier">join_quotedstr</span>(<span class="ruby-identifier">cookie_elem</span>, <span class="ruby-value str">';'</span>)
+173:       <span class="ruby-identifier">cookie_elem</span> <span class="ruby-operator">-=</span> [<span class="ruby-value str">&quot;&quot;</span>] <span class="ruby-comment cmt"># del empty elements, a cookie might included &quot;;;&quot;</span>
+174:       <span class="ruby-identifier">first_elem</span> = <span class="ruby-identifier">cookie_elem</span>.<span class="ruby-identifier">shift</span>
+175:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_elem</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/([^=]*)(\=(.*))?/</span>
+176:         <span class="ruby-keyword kw">return</span>
+177:         <span class="ruby-comment cmt">## raise ArgumentError 'invalid cookie value'</span>
+178:       <span class="ruby-keyword kw">end</span>
+179:       <span class="ruby-ivar">@name</span> = <span class="ruby-node">$1</span>.<span class="ruby-identifier">strip</span>
+180:       <span class="ruby-ivar">@value</span> = <span class="ruby-identifier">normalize_cookie_value</span>(<span class="ruby-node">$3</span>)
+181:       <span class="ruby-identifier">cookie_elem</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
+182:         <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/=/</span>, <span class="ruby-value">2</span>)  <span class="ruby-comment cmt">## value may nil</span>
+183:         <span class="ruby-identifier">key</span>.<span class="ruby-identifier">strip!</span>
+184:         <span class="ruby-identifier">value</span> = <span class="ruby-identifier">normalize_cookie_value</span>(<span class="ruby-identifier">value</span>)
+185:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">downcase</span>
+186:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'domain'</span>
+187:           <span class="ruby-ivar">@domain</span> = <span class="ruby-identifier">value</span>
+188:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'expires'</span>
+189:           <span class="ruby-ivar">@expires</span> = <span class="ruby-keyword kw">nil</span>
+190:           <span class="ruby-keyword kw">begin</span>
+191:             <span class="ruby-ivar">@expires</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">value</span>).<span class="ruby-identifier">gmtime</span>() <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>
+192:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span>
+193:           <span class="ruby-keyword kw">end</span>
+194:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'path'</span>
+195:           <span class="ruby-ivar">@path</span> = <span class="ruby-identifier">value</span>
+196:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'secure'</span>
+197:           <span class="ruby-ivar">@secure</span> = <span class="ruby-keyword kw">true</span>  <span class="ruby-comment cmt">## value may nil, but must 'true'.</span>
+198:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'httponly'</span>
+199:           <span class="ruby-ivar">@http_only</span> = <span class="ruby-keyword kw">true</span>  <span class="ruby-comment cmt">## value may nil, but must 'true'.</span>
+200:         <span class="ruby-keyword kw">else</span>
+201:           <span class="ruby-comment cmt">## ignore</span>
+202:         <span class="ruby-keyword kw">end</span>
+203:       }
+204:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="path-orig--method" class="method-detail ">
+				<a name="method-i-path_orig%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">path_orig?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="path-orig--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 101</span>
+101:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">path_orig?</span>
+102:       <span class="ruby-ivar">@path_orig</span>
+103:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="secure--method" class="method-detail ">
+				<a name="method-i-secure%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">secure?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="secure--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 89</span>
+89:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">secure?</span>
+90:       <span class="ruby-ivar">@secure</span>
+91:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-flag-method" class="method-detail ">
+				<a name="method-i-set_flag"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_flag</span><span
+						class="method-args">(flag)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="set-flag-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 121</span>
+121:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_flag</span>(<span class="ruby-identifier">flag</span>)
+122:       <span class="ruby-identifier">flag</span> = <span class="ruby-identifier">flag</span>.<span class="ruby-identifier">to_i</span>
+123:       <span class="ruby-ivar">@use</span> = <span class="ruby-keyword kw">true</span>      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">USE</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+124:       <span class="ruby-ivar">@secure</span> = <span class="ruby-keyword kw">true</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">SECURE</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+125:       <span class="ruby-ivar">@http_only</span> = <span class="ruby-keyword kw">true</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">HTTP_ONLY</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+126:       <span class="ruby-ivar">@domain_orig</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">DOMAIN</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+127:       <span class="ruby-ivar">@path_orig</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">PATH</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+128:       <span class="ruby-ivar">@discard</span>  = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">DISCARD</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+129:       <span class="ruby-ivar">@override</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flag</span> &amp; <span class="ruby-constant">OVERRIDE</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+130:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="use--method" class="method-detail ">
+				<a name="method-i-use%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">use?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="use--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 85</span>
+85:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use?</span>
+86:       <span class="ruby-ivar">@use</span>
+87:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="normalize-cookie-value-method" class="method-detail ">
+				<a name="method-i-normalize_cookie_value"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">normalize_cookie_value</span><span
+						class="method-args">(value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="normalize-cookie-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/cookie.rb, line 206</span>
+206:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">normalize_cookie_value</span>(<span class="ruby-identifier">value</span>)
+207:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>
+208:         <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\A&quot;(.*)&quot;\z/</span>) { <span class="ruby-node">$1</span> }
+209:         <span class="ruby-identifier">value</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">empty?</span>
+210:       <span class="ruby-keyword kw">end</span>
+211:       <span class="ruby-identifier">value</span>
+212:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

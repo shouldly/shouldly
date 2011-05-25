@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: HTTPClient::WWWAuth</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/httpclient/auth_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/auth.rb">lib/httpclient/auth.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link"><a href="AuthFilterBase.html">HTTPClient::AuthFilterBase</a></p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-filter_request">#filter_request</a></li>
+					
+					<li><a href="#method-i-filter_response">#filter_response</a></li>
+					
+					<li><a href="#method-i-reset_challenge">#reset_challenge</a></li>
+					
+					<li><a href="#method-i-set_auth">#set_auth</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="../HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="../HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="../HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="../HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="../HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="../HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="../HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="../HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="../HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="../HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="../HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="../HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="../HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="../HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="../HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="../HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="../HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="../HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="../WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="../WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="../WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="../WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="../HTTP.html">HTTP</a></li>
+				
+					<li><a href="../HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="../HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="../HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="../HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="../HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="../HexDump.html">HexDump</a></li>
+				
+					<li><a href="../OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">HTTPClient::WWWAuth</h1>
+
+		<div id="description">
+			<p>
+Authentication filter for handling authentication negotiation between Web
+server.  Parses &#8216;WWW-Authentication&#8217; header in response and
+generates &#8216;Authorization&#8217; header in request.
+</p>
+<p>
+Authentication filter is implemented using request filter of <a
+href="../HTTPClient.html">HTTPClient</a>. It traps <a
+href="../HTTP.html">HTTP</a> response header and maintains authentication
+state, and traps <a href="../HTTP.html">HTTP</a> request header for
+inserting necessary authentication header.
+</p>
+<p>
+<a href="WWWAuth.html">WWWAuth</a> has sub filters (<a
+href="BasicAuth.html">BasicAuth</a>, <a
+href="DigestAuth.html">DigestAuth</a>, <a
+href="NegotiateAuth.html">NegotiateAuth</a> and <a
+href="SSPINegotiateAuth.html">SSPINegotiateAuth</a>) and delegates some
+operations to it. <a href="NegotiateAuth.html">NegotiateAuth</a> requires
+&#8216;ruby/ntlm&#8217; module (rubyntlm gem). <a
+href="SSPINegotiateAuth.html">SSPINegotiateAuth</a> requires
+&#8216;win32/sspi&#8217; module (rubysspi gem).
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="basic-auth-attribute-method" class="method-detail">
+				<a name="basic_auth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">basic_auth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="digest-auth-attribute-method" class="method-detail">
+				<a name="digest_auth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">digest_auth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="negotiate-auth-attribute-method" class="method-detail">
+				<a name="negotiate_auth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">negotiate_auth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="sspi-negotiate-auth-attribute-method" class="method-detail">
+				<a name="sspi_negotiate_auth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">sspi_negotiate_auth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="oauth-attribute-method" class="method-detail">
+				<a name="oauth"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">oauth</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates new <a href="WWWAuth.html">WWWAuth</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/auth.rb, line 83</span>
+83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+84:       <span class="ruby-ivar">@basic_auth</span> = <span class="ruby-constant">BasicAuth</span>.<span class="ruby-identifier">new</span>
+85:       <span class="ruby-ivar">@digest_auth</span> = <span class="ruby-constant">DigestAuth</span>.<span class="ruby-identifier">new</span>
+86:       <span class="ruby-ivar">@negotiate_auth</span> = <span class="ruby-constant">NegotiateAuth</span>.<span class="ruby-identifier">new</span>
+87:       <span class="ruby-ivar">@ntlm_auth</span> = <span class="ruby-constant">NegotiateAuth</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'NTLM'</span>)
+88:       <span class="ruby-ivar">@sspi_negotiate_auth</span> = <span class="ruby-constant">SSPINegotiateAuth</span>.<span class="ruby-identifier">new</span>
+89:       <span class="ruby-ivar">@oauth</span> = <span class="ruby-constant">OAuth</span>.<span class="ruby-identifier">new</span>
+90:       <span class="ruby-comment cmt"># sort authenticators by priority</span>
+91:       <span class="ruby-ivar">@authenticator</span> = [<span class="ruby-ivar">@oauth</span>, <span class="ruby-ivar">@negotiate_auth</span>, <span class="ruby-ivar">@ntlm_auth</span>, <span class="ruby-ivar">@sspi_negotiate_auth</span>, <span class="ruby-ivar">@digest_auth</span>, <span class="ruby-ivar">@basic_auth</span>]
+92:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="filter-request-method" class="method-detail ">
+				<a name="method-i-filter_request"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">filter_request</span><span
+						class="method-args">(req)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Filter API implementation.  Traps <a href="../HTTP.html">HTTP</a> request
+and insert &#8216;Authorization&#8217; header if needed.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="filter-request-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/auth.rb, line 111</span>
+111:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter_request</span>(<span class="ruby-identifier">req</span>)
+112:       <span class="ruby-ivar">@authenticator</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">auth</span><span class="ruby-operator">|</span>
+113:         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">set?</span> <span class="ruby-comment cmt"># hasn't be set, don't use it</span>
+114:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cred</span> = <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">req</span>)
+115:           <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">set</span>(<span class="ruby-value str">'Authorization'</span>, <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">scheme</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">cred</span>)
+116:           <span class="ruby-keyword kw">return</span>
+117:         <span class="ruby-keyword kw">end</span>
+118:       <span class="ruby-keyword kw">end</span>
+119:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="filter-response-method" class="method-detail ">
+				<a name="method-i-filter_response"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">filter_response</span><span
+						class="method-args">(req, res)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Filter API implementation.  Traps <a href="../HTTP.html">HTTP</a> response
+and parses &#8216;WWW-Authenticate&#8217; header.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="filter-response-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/auth.rb, line 123</span>
+123:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>)
+124:       <span class="ruby-identifier">command</span> = <span class="ruby-keyword kw">nil</span>
+125:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Status</span><span class="ruby-operator">::</span><span class="ruby-constant">UNAUTHORIZED</span>
+126:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">challenge</span> = <span class="ruby-identifier">parse_authentication_header</span>(<span class="ruby-identifier">res</span>, <span class="ruby-value str">'www-authenticate'</span>)
+127:           <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">request_uri</span>
+128:           <span class="ruby-identifier">challenge</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">scheme</span>, <span class="ruby-identifier">param_str</span><span class="ruby-operator">|</span>
+129:             <span class="ruby-ivar">@authenticator</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">auth</span><span class="ruby-operator">|</span>
+130:               <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">set?</span> <span class="ruby-comment cmt"># hasn't be set, don't use it</span>
+131:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scheme</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">scheme</span>.<span class="ruby-identifier">downcase</span>
+132:                 <span class="ruby-identifier">challengeable</span> = <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">challenge</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">param_str</span>)
+133:                 <span class="ruby-identifier">command</span> = <span class="ruby-value">:retry</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">challengeable</span>
+134:               <span class="ruby-keyword kw">end</span>
+135:             <span class="ruby-keyword kw">end</span>
+136:           <span class="ruby-keyword kw">end</span>
+137:           <span class="ruby-comment cmt"># ignore unknown authentication scheme</span>
+138:         <span class="ruby-keyword kw">end</span>
+139:       <span class="ruby-keyword kw">end</span>
+140:       <span class="ruby-identifier">command</span>
+141:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="reset-challenge-method" class="method-detail ">
+				<a name="method-i-reset_challenge"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">reset_challenge</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Resets challenge state.  See sub filters for more details.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="reset-challenge-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/httpclient/auth.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_challenge</span>
+96:       <span class="ruby-ivar">@authenticator</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">auth</span><span class="ruby-operator">|</span>
+97:         <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">reset_challenge</span>
+98:       <span class="ruby-keyword kw">end</span>
+99:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-auth-method" class="method-detail ">
+				<a name="method-i-set_auth"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_auth</span><span
+						class="method-args">(uri, user, passwd)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set authentication credential.  See sub filters for more details.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-auth-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/auth.rb, line 102</span>
+102:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_auth</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+103:       <span class="ruby-ivar">@authenticator</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">auth</span><span class="ruby-operator">|</span>
+104:         <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">set</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">passwd</span>)
+105:       <span class="ruby-keyword kw">end</span>
+106:       <span class="ruby-identifier">reset_challenge</span>
+107:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

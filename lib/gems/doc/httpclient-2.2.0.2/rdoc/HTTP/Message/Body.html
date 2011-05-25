@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: HTTP::Message::Body</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/httpclient/http_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/http.rb">lib/httpclient/http.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">CLASS</span> <a href="Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-build_query_multipart_str">#build_query_multipart_str</a></li>
+					
+					<li><a href="#method-i-content">#content</a></li>
+					
+					<li><a href="#method-i-dump">#dump</a></li>
+					
+					<li><a href="#method-i-dump_chunk">#dump_chunk</a></li>
+					
+					<li><a href="#method-i-dump_chunk_size">#dump_chunk_size</a></li>
+					
+					<li><a href="#method-i-dump_chunked">#dump_chunked</a></li>
+					
+					<li><a href="#method-i-dump_chunks">#dump_chunks</a></li>
+					
+					<li><a href="#method-i-dump_last_chunk">#dump_last_chunk</a></li>
+					
+					<li><a href="#method-i-init_request">#init_request</a></li>
+					
+					<li><a href="#method-i-init_response">#init_response</a></li>
+					
+					<li><a href="#method-i-params_from_file">#params_from_file</a></li>
+					
+					<li><a href="#method-i-remember_pos">#remember_pos</a></li>
+					
+					<li><a href="#method-i-reset_pos">#reset_pos</a></li>
+					
+					<li><a href="#method-i-set_content">#set_content</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="../../HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="../../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../../HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="../../HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="../../HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="../../HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="../../HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="../../HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="../../HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="../../HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="../../HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="../../HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="../../HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="../../HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="../../HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="../../HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="../../HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="../../HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="../../HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="../../HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="../../HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="../../HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="../../HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="../../HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="../../HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="../../HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="../../HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="../../WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="../../WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="../../WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="../../HTTP.html">HTTP</a></li>
+				
+					<li><a href="../../HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="../../HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="../../HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="../../HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="../../HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="../../HexDump.html">HexDump</a></li>
+				
+					<li><a href="../../OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">HTTP::Message::Body</h1>
+
+		<div id="description">
+			<p>
+Represents <a href="../../HTTP.html">HTTP</a> message body.
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="DEFAULT_CHUNK_SIZE">DEFAULT_CHUNK_SIZE</a></dt>
+				
+				<dd class="description"><p>
+Default value for <a href="Body.html#chunk_size">chunk_size</a>
+</p></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="size-attribute-method" class="method-detail">
+				<a name="size"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">size</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Size of body.  nil when size is unknown (e.g. chunked response).
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="chunk-size-attribute-method" class="method-detail">
+				<a name="chunk_size"></a>
+				
+				<a name="chunk_size="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">chunk_size</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+maxbytes of IO#read for streaming request.  See <a
+href="Body.html#DEFAULT_CHUNK_SIZE">DEFAULT_CHUNK_SIZE</a>.
+</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a <a href="Body.html">Message::Body</a>.  Use <a
+href="Body.html#method-i-init_request">init_request</a> or <a
+href="Body.html#method-i-init_response">init_response</a> for acutual
+initialize.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 408</span>
+408:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+409:         <span class="ruby-ivar">@body</span> = <span class="ruby-keyword kw">nil</span>
+410:         <span class="ruby-ivar">@size</span> = <span class="ruby-keyword kw">nil</span>
+411:         <span class="ruby-ivar">@positions</span> = <span class="ruby-keyword kw">nil</span>
+412:         <span class="ruby-ivar">@chunk_size</span> = <span class="ruby-keyword kw">nil</span>
+413:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="content-method" class="method-detail ">
+				<a name="method-i-content"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">content</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns a message body itself.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="content-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 493</span>
+493:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">content</span>
+494:         <span class="ruby-ivar">@body</span>
+495:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-method" class="method-detail ">
+				<a name="method-i-dump"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump</span><span
+						class="method-args">(header = '', dev = '')</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Dumps message body to given dev. dev needs to respond to <<.
+</p>
+<p>
+<a href="../Message.html">Message</a> header must be given as the first
+argument for performance reason. (header is dumped to dev, too) If no dev
+(the second argument) given, this method returns a dumped <a
+href="../../String.html">String</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dump-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 442</span>
+442:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump</span>(<span class="ruby-identifier">header</span> = <span class="ruby-value str">''</span>, <span class="ruby-identifier">dev</span> = <span class="ruby-value str">''</span>)
+443:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Parts</span>)
+444:           <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">header</span>
+445:           <span class="ruby-identifier">buf</span> = <span class="ruby-value str">''</span>
+446:           <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">parts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span>
+447:             <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">part</span>)
+448:               <span class="ruby-identifier">reset_pos</span>(<span class="ruby-identifier">part</span>)
+449:               <span class="ruby-keyword kw">while</span> <span class="ruby-operator">!</span><span class="ruby-identifier">part</span>.<span class="ruby-identifier">read</span>(<span class="ruby-ivar">@chunk_size</span>, <span class="ruby-identifier">buf</span>).<span class="ruby-identifier">nil?</span>
+450:                 <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">buf</span>
+451:               <span class="ruby-keyword kw">end</span>
+452:               <span class="ruby-identifier">part</span>.<span class="ruby-identifier">rewind</span>
+453:             <span class="ruby-keyword kw">else</span>
+454:               <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">part</span>
+455:             <span class="ruby-keyword kw">end</span>
+456:           <span class="ruby-keyword kw">end</span>
+457:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@body</span>
+458:           <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">header</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@body</span>
+459:         <span class="ruby-keyword kw">else</span>
+460:           <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">header</span>
+461:         <span class="ruby-keyword kw">end</span>
+462:         <span class="ruby-identifier">dev</span>
+463:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-chunked-method" class="method-detail ">
+				<a name="method-i-dump_chunked"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump_chunked</span><span
+						class="method-args">(header = '', dev = '')</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Dumps message body with chunked encoding to given dev. dev needs to respond
+to <<.
+</p>
+<p>
+<a href="../Message.html">Message</a> header must be given as the first
+argument for performance reason. (header is dumped to dev, too) If no dev
+(the second argument) given, this method returns a dumped <a
+href="../../String.html">String</a>.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dump-chunked-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 472</span>
+472:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_chunked</span>(<span class="ruby-identifier">header</span> = <span class="ruby-value str">''</span>, <span class="ruby-identifier">dev</span> = <span class="ruby-value str">''</span>)
+473:         <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">header</span>
+474:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Parts</span>)
+475:           <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">parts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span>
+476:             <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">part</span>)
+477:               <span class="ruby-identifier">reset_pos</span>(<span class="ruby-identifier">part</span>)
+478:               <span class="ruby-identifier">dump_chunks</span>(<span class="ruby-identifier">part</span>, <span class="ruby-identifier">dev</span>)
+479:             <span class="ruby-keyword kw">else</span>
+480:               <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">dump_chunk</span>(<span class="ruby-identifier">part</span>)
+481:             <span class="ruby-keyword kw">end</span>
+482:           <span class="ruby-keyword kw">end</span>
+483:           <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">dump_last_chunk</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span>)
+484:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@body</span>
+485:           <span class="ruby-identifier">reset_pos</span>(<span class="ruby-ivar">@body</span>)
+486:           <span class="ruby-identifier">dump_chunks</span>(<span class="ruby-ivar">@body</span>, <span class="ruby-identifier">dev</span>)
+487:           <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">dump_last_chunk</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span>)
+488:         <span class="ruby-keyword kw">end</span>
+489:         <span class="ruby-identifier">dev</span>
+490:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="init-request-method" class="method-detail ">
+				<a name="method-i-init_request"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">init_request</span><span
+						class="method-args">(body = nil, boundary = nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Initialize this instance as a request.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="init-request-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 416</span>
+416:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">init_request</span>(<span class="ruby-identifier">body</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">boundary</span> = <span class="ruby-keyword kw">nil</span>)
+417:         <span class="ruby-ivar">@boundary</span> = <span class="ruby-identifier">boundary</span>
+418:         <span class="ruby-ivar">@positions</span> = {}
+419:         <span class="ruby-identifier">set_content</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">boundary</span>)
+420:         <span class="ruby-ivar">@chunk_size</span> = <span class="ruby-constant">DEFAULT_CHUNK_SIZE</span>
+421:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="init-response-method" class="method-detail ">
+				<a name="method-i-init_response"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">init_response</span><span
+						class="method-args">(body = nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Initialize this instance as a response.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="init-response-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 424</span>
+424:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">init_response</span>(<span class="ruby-identifier">body</span> = <span class="ruby-keyword kw">nil</span>)
+425:         <span class="ruby-ivar">@body</span> = <span class="ruby-identifier">body</span>
+426:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:bytesize</span>)
+427:           <span class="ruby-ivar">@size</span> = <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">bytesize</span>
+428:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:size</span>)
+429:           <span class="ruby-ivar">@size</span> = <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">size</span>
+430:         <span class="ruby-keyword kw">else</span>
+431:           <span class="ruby-ivar">@size</span> = <span class="ruby-keyword kw">nil</span>
+432:         <span class="ruby-keyword kw">end</span>
+433:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="build-query-multipart-str-method" class="method-detail ">
+				<a name="method-i-build_query_multipart_str"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">build_query_multipart_str</span><span
+						class="method-args">(query, boundary)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="build-query-multipart-str-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 586</span>
+586:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_query_multipart_str</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">boundary</span>)
+587:         <span class="ruby-identifier">parts</span> = <span class="ruby-constant">Parts</span>.<span class="ruby-identifier">new</span>
+588:         <span class="ruby-identifier">query</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attr</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+589:           <span class="ruby-identifier">value</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">''</span>
+590:           <span class="ruby-identifier">headers</span> = [<span class="ruby-node">&quot;--#{boundary}&quot;</span>]
+591:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">value</span>)
+592:             <span class="ruby-identifier">remember_pos</span>(<span class="ruby-identifier">value</span>)
+593:             <span class="ruby-identifier">param_str</span> = <span class="ruby-identifier">params_from_file</span>(<span class="ruby-identifier">value</span>).<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+594:               <span class="ruby-node">&quot;#{k}=\&quot;#{v}\&quot;&quot;</span>
+595:             }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;; &quot;</span>)
+596:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:mime_type</span>)
+597:               <span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">mime_type</span>
+598:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:content_type</span>)
+599:               <span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">content_type</span>
+600:             <span class="ruby-keyword kw">else</span>
+601:               <span class="ruby-identifier">path</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:path</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">path</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+602:               <span class="ruby-identifier">content_type</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">mime_type</span>(<span class="ruby-identifier">path</span>)
+603:             <span class="ruby-keyword kw">end</span>
+604:             <span class="ruby-identifier">headers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%{Content-Disposition: form-data; name=&quot;#{attr}&quot;; #{param_str}}</span>
+605:             <span class="ruby-identifier">headers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%{Content-Type: #{content_type}}</span>
+606:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+607:             <span class="ruby-identifier">h</span> = <span class="ruby-identifier">attr</span>
+608:             <span class="ruby-identifier">value</span> = <span class="ruby-identifier">h</span>[<span class="ruby-value">:content</span>]
+609:             <span class="ruby-identifier">h</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h_key</span>, <span class="ruby-identifier">h_val</span><span class="ruby-operator">|</span>
+610:               <span class="ruby-identifier">headers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%{#{h_key}: #{h_val}}</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h_key</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:content</span>
+611:             <span class="ruby-keyword kw">end</span>
+612:             <span class="ruby-identifier">remember_pos</span>(<span class="ruby-identifier">value</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Message</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">value</span>)
+613:           <span class="ruby-keyword kw">else</span>
+614:             <span class="ruby-identifier">headers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%{Content-Disposition: form-data; name=&quot;#{attr}&quot;}</span>
+615:           <span class="ruby-keyword kw">end</span>
+616:           <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">headers</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">CRLF</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span>)
+617:           <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">value</span>)
+618:           <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">add</span>(<span class="ruby-constant">CRLF</span>)
+619:         <span class="ruby-keyword kw">end</span>
+620:         <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">add</span>(<span class="ruby-node">&quot;--#{boundary}--&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span>) <span class="ruby-comment cmt"># empty epilogue</span>
+621:         <span class="ruby-identifier">parts</span>
+622:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-chunk-method" class="method-detail ">
+				<a name="method-i-dump_chunk"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump_chunk</span><span
+						class="method-args">(str)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="dump-chunk-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 531</span>
+531:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_chunk</span>(<span class="ruby-identifier">str</span>)
+532:         <span class="ruby-identifier">dump_chunk_size</span>(<span class="ruby-identifier">str</span>.<span class="ruby-identifier">bytesize</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">str</span> <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span>)
+533:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-chunk-size-method" class="method-detail ">
+				<a name="method-i-dump_chunk_size"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump_chunk_size</span><span
+						class="method-args">(size)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="dump-chunk-size-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 539</span>
+539:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_chunk_size</span>(<span class="ruby-identifier">size</span>)
+540:         <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;%x&quot;</span>, <span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">CRLF</span>
+541:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-chunks-method" class="method-detail ">
+				<a name="method-i-dump_chunks"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump_chunks</span><span
+						class="method-args">(io, dev)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="dump-chunks-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 524</span>
+524:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_chunks</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">dev</span>)
+525:         <span class="ruby-identifier">buf</span> = <span class="ruby-value str">''</span>
+526:         <span class="ruby-keyword kw">while</span> <span class="ruby-operator">!</span><span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-ivar">@chunk_size</span>, <span class="ruby-identifier">buf</span>).<span class="ruby-identifier">nil?</span>
+527:           <span class="ruby-identifier">dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">dump_chunk</span>(<span class="ruby-identifier">buf</span>)
+528:         <span class="ruby-keyword kw">end</span>
+529:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dump-last-chunk-method" class="method-detail ">
+				<a name="method-i-dump_last_chunk"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dump_last_chunk</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="dump-last-chunk-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 535</span>
+535:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_last_chunk</span>
+536:         <span class="ruby-identifier">dump_chunk_size</span>(<span class="ruby-value">0</span>)
+537:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="params-from-file-method" class="method-detail ">
+				<a name="method-i-params_from_file"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">params_from_file</span><span
+						class="method-args">(value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="params-from-file-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 624</span>
+624:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">params_from_file</span>(<span class="ruby-identifier">value</span>)
+625:         <span class="ruby-identifier">params</span> = {}
+626:         <span class="ruby-identifier">path</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:path</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">path</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+627:         <span class="ruby-identifier">params</span>[<span class="ruby-value str">'filename'</span>] = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">path</span> <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>)
+628:         <span class="ruby-comment cmt"># Creation time is not available from File::Stat</span>
+629:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:mtime</span>)
+630:           <span class="ruby-identifier">params</span>[<span class="ruby-value str">'modification-date'</span>] = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">mtime</span>.<span class="ruby-identifier">rfc822</span>
+631:         <span class="ruby-keyword kw">end</span>
+632:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:atime</span>)
+633:           <span class="ruby-identifier">params</span>[<span class="ruby-value str">'read-date'</span>] = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">atime</span>.<span class="ruby-identifier">rfc822</span>
+634:         <span class="ruby-keyword kw">end</span>
+635:         <span class="ruby-identifier">params</span>
+636:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="remember-pos-method" class="method-detail ">
+				<a name="method-i-remember_pos"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">remember_pos</span><span
+						class="method-args">(io)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="remember-pos-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 515</span>
+515:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remember_pos</span>(<span class="ruby-identifier">io</span>)
+516:         <span class="ruby-comment cmt"># IO may not support it (ex. IO.pipe)</span>
+517:         <span class="ruby-ivar">@positions</span>[<span class="ruby-identifier">io</span>] = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+518:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="reset-pos-method" class="method-detail ">
+				<a name="method-i-reset_pos"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">reset_pos</span><span
+						class="method-args">(io)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="reset-pos-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 520</span>
+520:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_pos</span>(<span class="ruby-identifier">io</span>)
+521:         <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-ivar">@positions</span>[<span class="ruby-identifier">io</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@positions</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">io</span>)
+522:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-content-method" class="method-detail ">
+				<a name="method-i-set_content"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_content</span><span
+						class="method-args">(body, boundary = nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="set-content-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/http.rb, line 499</span>
+499:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_content</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">boundary</span> = <span class="ruby-keyword kw">nil</span>)
+500:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:read</span>)
+501:           <span class="ruby-comment cmt"># uses Transfer-Encoding: chunked.  bear in mind that server may not</span>
+502:           <span class="ruby-comment cmt"># support it.  at least ruby's CGI doesn't.</span>
+503:           <span class="ruby-ivar">@body</span> = <span class="ruby-identifier">body</span>
+504:           <span class="ruby-identifier">remember_pos</span>(<span class="ruby-ivar">@body</span>)
+505:           <span class="ruby-ivar">@size</span> = <span class="ruby-keyword kw">nil</span>
+506:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">boundary</span> <span class="ruby-keyword kw">and</span> <span class="ruby-constant">Message</span>.<span class="ruby-identifier">multiparam_query?</span>(<span class="ruby-identifier">body</span>)
+507:           <span class="ruby-ivar">@body</span> = <span class="ruby-identifier">build_query_multipart_str</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">boundary</span>)
+508:           <span class="ruby-ivar">@size</span> = <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">size</span>
+509:         <span class="ruby-keyword kw">else</span>
+510:           <span class="ruby-ivar">@body</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">create_query_part_str</span>(<span class="ruby-identifier">body</span>)
+511:           <span class="ruby-ivar">@size</span> = <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">bytesize</span>
+512:         <span class="ruby-keyword kw">end</span>
+513:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
