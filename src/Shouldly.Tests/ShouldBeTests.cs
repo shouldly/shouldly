@@ -32,8 +32,8 @@ namespace Shouldly.Tests
         {
             7.ShouldBeGreaterThan(1);
             1.ShouldBeLessThan(7);
-            Shouldly.Should.Throw<Shouldly.ChuckedAWobbly>(() => 7.ShouldBeLessThan(0));
-            Shouldly.Should.Throw<Shouldly.ChuckedAWobbly>(() => 0.ShouldBeGreaterThan(7));
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => 7.ShouldBeLessThan(0));
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => 0.ShouldBeGreaterThan(7));
         }
 
         [Test]
