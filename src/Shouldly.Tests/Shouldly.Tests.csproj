@@ -49,6 +49,7 @@
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />
+    <Compile Include="ShouldBeSameAsTests.cs" />
     <Compile Include="ShouldBeStringTests.cs" />
     <Compile Include="ShouldBeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

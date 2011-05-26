@@ -62,5 +62,15 @@ namespace Shouldly
         {
             actual.AssertAwesomely(Is.LessThan(expected), actual, expected);
         }
+
+        public static void ShouldBeSameAs(this object actual, object expected)
+        {
+            actual.AssertAwesomely(Is.SameAs(expected), actual, expected);
+        }
+
+        public static void ShouldNotBeSameAs(this object actual, object expected)
+        {
+            actual.AssertAwesomely(Is.Not.SameAs(expected), actual, expected);
+        }
     }
 }
