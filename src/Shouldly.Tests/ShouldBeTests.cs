@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using NUnit.Framework;
 
@@ -66,6 +67,15 @@ namespace Shouldly.Tests
         public void ShouldNotBeTypeOfWithGenericParameter_ShouldNotThrowForNonMatchingTypes()
         {
             "Sup yo".ShouldNotBeTypeOf<int>();
+        }
+
+        [Test]
+        public void ShouldBe_ShouldNotThrowWhenCalledOnANullEnumerableReference()
+        {
+            IEnumerable<int> something = null;
+            Should.Error(
+                () => something.ShouldBe(new[] { 1, 2, 3 }),
+                "() => something should be [1, 2, 3] but was null");
         }
 
         class MyBase { }
