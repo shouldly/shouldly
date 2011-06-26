@@ -7,7 +7,7 @@ namespace Shouldly.Tests
     {
         public static void Error(Action action, string errorMessage)
         {
-            Shouldly.Should.Throw<ChuckedAWobbly>(action).ShouldBeCloseTo(errorMessage);
+            Shouldly.Should.Throw<ChuckedAWobbly>(action).Message.ShouldBeCloseTo(errorMessage);
         }
 
         public static void NotError(Action action)
