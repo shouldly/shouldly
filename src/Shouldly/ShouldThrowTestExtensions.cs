@@ -7,7 +7,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class Should
     {
-        public static string Throw<TException>(Action actual) where TException : Exception
+        public static TException Throw<TException>(Action actual) where TException : Exception
         {
             try
             {
@@ -15,7 +15,7 @@ namespace Shouldly
             }
             catch (TException e)
             {
-                return e.Message;
+                return e;
             }
             catch (Exception e)
             {
