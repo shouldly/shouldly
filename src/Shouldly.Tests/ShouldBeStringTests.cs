@@ -81,7 +81,7 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeEqualIgnoringCase_GivenStringAndSubstring_ShouldFail()
+        public void ShouldBeEqualIgnoringCase_GivenSubstringAndString_ShouldFail()
         {
             Should.Error(() =>
                 "a".ShouldBeEqualIgnoringCase("ab"),
@@ -90,6 +90,18 @@ namespace Shouldly.Tests
     'ab'
         but was
     'a'");
+        }
+
+        [Test]
+        public void ShouldBeEqualIgnoringCase_GivenStringAndSubstring_ShouldFail()
+        {
+            Should.Error(() =>
+                "ab".ShouldBeEqualIgnoringCase("a"),
+@"'ab'
+        should be equal ignoring case
+    'a'
+        but was
+    'ab'");
         }
     }
 }
