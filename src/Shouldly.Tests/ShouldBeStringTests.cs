@@ -55,5 +55,41 @@ namespace Shouldly.Tests
         {
             "Cheese".ShouldMatch(@"C.e{2}s[e]");
         }
+
+        [Test]
+        public void ShouldBeEqualIgnoringCase_GivenStringsDifferingOnlyInCase_ShouldPass()
+        {
+            "SamplE".ShouldBeEqualIgnoringCase("sAMPLe");
+        }
+
+        [Test]
+        public void ShouldBeEqualIgnoringCase_GivenNullStrings_ShouldPass()
+        {
+            default(string).ShouldBeEqualIgnoringCase(default(string));
+        }
+
+        [Test]
+        public void ShouldBeEqualIgnoringCase_GivenNullAndEmptyString_ShouldFail()
+        {
+            Should.Error(() =>
+                default(string).ShouldBeEqualIgnoringCase(string.Empty),
+@"default(string)
+        should be equal ignoring case
+    ''
+        but was
+    null");
+        }
+
+        [Test]
+        public void ShouldBeEqualIgnoringCase_GivenStringAndSubstring_ShouldFail()
+        {
+            Should.Error(() =>
+                "a".ShouldBeEqualIgnoringCase("ab"),
+@"'a'
+        should be equal ignoring case
+    'ab'
+        but was
+    'a'");
+        }
     }
 }
