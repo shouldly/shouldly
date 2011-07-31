@@ -129,7 +129,7 @@ module Net
         Nokogiri::HTML(res).xpath('id("manual_downloads")/li').map do |fileinfo|
           obj = {
             :description => fileinfo.at_xpath('descendant::h4').text,
-            :date        => fileinfo.at_xpath('descendant::p/abbr').attribute('title').text,
+            :date        => fileinfo.at_xpath('descendant::p/time').children.text,
             :size        => fileinfo.at_xpath('descendant::p/strong').text,
             :id          => /\d+$/.match(fileinfo.at_xpath('a').attribute('href').text)[0]
           }
@@ -142,4 +142,3 @@ module Net
     end
   end
 end
-

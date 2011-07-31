@@ -1,3 +1,5 @@
+require "./prerequisites.rb"
+
 puts `ruby -v`
 
 ENV["config"] = "Debug" if ENV["config"].nil?
