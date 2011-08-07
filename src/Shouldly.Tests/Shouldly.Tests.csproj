@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldlyMessageTests.cs" />
     <Compile Include="ShouldlyRhinoTests.cs" />
+    <Compile Include="ShouldlySpecsTests.cs" />
     <Compile Include="ShouldThrowTests.cs" />
   </ItemGroup>
   <ItemGroup>
