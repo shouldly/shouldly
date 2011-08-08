@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Nokogiri::XML::SAX::ParserContext</title>
+
+	<link rel="stylesheet" href="../../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../../index.html">Home</a>
+          <a href="../../../index.html#classes">Classes</a>
+          <a href="../../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../../lib/nokogiri/xml/sax/parser_context_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/nokogiri/xml/sax/parser_context.rb">lib/nokogiri/xml/sax/parser_context.rb</a></li>
+					
+						<li><a href="../../../ext/nokogiri/xml_sax_parser_c.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="ext/nokogiri/xml_sax_parser.c">ext/nokogiri/xml_sax_parser.c</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link"><a href="../../../Object.html">Object</a></p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-file">::file</a></li>
+					
+					<li><a href="#method-c-io">::io</a></li>
+					
+					<li><a href="#method-c-memory">::memory</a></li>
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-column">#column</a></li>
+					
+					<li><a href="#method-i-line">#line</a></li>
+					
+					<li><a href="#method-i-parse_with">#parse_with</a></li>
+					
+					<li><a href="#method-i-replace_entities">#replace_entities</a></li>
+					
+					<li><a href="#method-i-replace_entities%3D">#replace_entities=</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../../CHANGELOG_ja_rdoc.html">CHANGELOG.ja.rdoc</a></li>
+				
+					<li class="file"><a href="../../../CHANGELOG_rdoc.html">CHANGELOG.rdoc</a></li>
+				
+					<li class="file"><a href="../../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../README_ja_rdoc.html">README.ja.rdoc</a></li>
+				
+					<li class="file"><a href="../../../README_rdoc.html">README.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../../Nokogiri.html">Nokogiri</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS.html">Nokogiri::CSS</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/GeneratedParser.html">Nokogiri::CSS::GeneratedParser</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/GeneratedTokenizer.html">Nokogiri::CSS::GeneratedTokenizer</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/GeneratedTokenizer/ScanError.html">Nokogiri::CSS::GeneratedTokenizer::ScanError</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/Node.html">Nokogiri::CSS::Node</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/Parser.html">Nokogiri::CSS::Parser</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/SyntaxError.html">Nokogiri::CSS::SyntaxError</a></li>
+				
+					<li><a href="../../../Nokogiri/CSS/Tokenizer.html">Nokogiri::CSS::Tokenizer</a></li>
+				
+					<li><a href="../../../Nokogiri/Decorators.html">Nokogiri::Decorators</a></li>
+				
+					<li><a href="../../../Nokogiri/Decorators/Slop.html">Nokogiri::Decorators::Slop</a></li>
+				
+					<li><a href="../../../Nokogiri/EncodingHandler.html">Nokogiri::EncodingHandler</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML.html">Nokogiri::HTML</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/Builder.html">Nokogiri::HTML::Builder</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/Document.html">Nokogiri::HTML::Document</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/DocumentFragment.html">Nokogiri::HTML::DocumentFragment</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/ElementDescription.html">Nokogiri::HTML::ElementDescription</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/EntityDescription.html">Nokogiri::HTML::EntityDescription</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/EntityLookup.html">Nokogiri::HTML::EntityLookup</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/SAX.html">Nokogiri::HTML::SAX</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/SAX/Parser.html">Nokogiri::HTML::SAX::Parser</a></li>
+				
+					<li><a href="../../../Nokogiri/HTML/SAX/ParserContext.html">Nokogiri::HTML::SAX::ParserContext</a></li>
+				
+					<li><a href="../../../Nokogiri/SyntaxError.html">Nokogiri::SyntaxError</a></li>
+				
+					<li><a href="../../../Nokogiri/XML.html">Nokogiri::XML</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Attr.html">Nokogiri::XML::Attr</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/AttributeDecl.html">Nokogiri::XML::AttributeDecl</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Builder.html">Nokogiri::XML::Builder</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/CDATA.html">Nokogiri::XML::CDATA</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/CharacterData.html">Nokogiri::XML::CharacterData</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Comment.html">Nokogiri::XML::Comment</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/DTD.html">Nokogiri::XML::DTD</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Document.html">Nokogiri::XML::Document</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/DocumentFragment.html">Nokogiri::XML::DocumentFragment</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Element.html">Nokogiri::XML::Element</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/ElementContent.html">Nokogiri::XML::ElementContent</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/ElementDecl.html">Nokogiri::XML::ElementDecl</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/EntityDecl.html">Nokogiri::XML::EntityDecl</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/EntityReference.html">Nokogiri::XML::EntityReference</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Namespace.html">Nokogiri::XML::Namespace</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Node.html">Nokogiri::XML::Node</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Node/SaveOptions.html">Nokogiri::XML::Node::SaveOptions</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/NodeSet.html">Nokogiri::XML::NodeSet</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Notation.html">Nokogiri::XML::Notation</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/PP.html">Nokogiri::XML::PP</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/PP/CharacterData.html">Nokogiri::XML::PP::CharacterData</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/PP/Node.html">Nokogiri::XML::PP::Node</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/ParseOptions.html">Nokogiri::XML::ParseOptions</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/ProcessingInstruction.html">Nokogiri::XML::ProcessingInstruction</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Reader.html">Nokogiri::XML::Reader</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/RelaxNG.html">Nokogiri::XML::RelaxNG</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SAX.html">Nokogiri::XML::SAX</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SAX/Document.html">Nokogiri::XML::SAX::Document</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SAX/Parser.html">Nokogiri::XML::SAX::Parser</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SAX/Parser/Attribute.html">Nokogiri::XML::SAX::Parser::Attribute</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SAX/ParserContext.html">Nokogiri::XML::SAX::ParserContext</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SAX/PushParser.html">Nokogiri::XML::SAX::PushParser</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Schema.html">Nokogiri::XML::Schema</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/SyntaxError.html">Nokogiri::XML::SyntaxError</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/Text.html">Nokogiri::XML::Text</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/XPath.html">Nokogiri::XML::XPath</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/XPath/SyntaxError.html">Nokogiri::XML::XPath::SyntaxError</a></li>
+				
+					<li><a href="../../../Nokogiri/XML/XPathContext.html">Nokogiri::XML::XPathContext</a></li>
+				
+					<li><a href="../../../Nokogiri/XSLT.html">Nokogiri::XSLT</a></li>
+				
+					<li><a href="../../../Nokogiri/XSLT/Stylesheet.html">Nokogiri::XSLT::Stylesheet</a></li>
+				
+					<li><a href="../../../XSD/XMLParser/Nokogiri.html">XSD::XMLParser::Nokogiri</a></li>
+				
+					<li><a href="../../../Object.html">Object</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Nokogiri::XML::SAX::ParserContext</h1>
+
+		<div id="description">
+			<pre>
+ 
+</pre>
+<p>
+Context for <a href="../../XML.html">XML</a> <a href="../SAX.html">SAX</a>
+parsers.  This class is usually not instantiated by the user.  Instead, you
+should be looking at <a href="Parser.html">Nokogiri::XML::SAX::Parser</a>
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="file-method" class="method-detail ">
+				<a name="method-c-file"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">parse_file(filename)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Parse file given <tt>filename</tt>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="file-source">
+<pre>
+static VALUE parse_file(VALUE klass, VALUE filename)
+{
+  xmlParserCtxtPtr ctxt = xmlCreateFileParserCtxt(StringValuePtr(filename));
+  return Data_Wrap_Struct(klass, NULL, deallocate, ctxt);
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="io-method" class="method-detail ">
+				<a name="method-c-io"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">parse_io(io, encoding)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Parse <tt>io</tt> object with <tt>encoding</tt>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="io-source">
+<pre>
+static VALUE parse_io(VALUE klass, VALUE io, VALUE encoding)
+{
+  xmlCharEncoding enc = (xmlCharEncoding)NUM2INT(encoding);
+
+  xmlParserCtxtPtr ctxt = xmlCreateIOParserCtxt(
+      NULL,
+      NULL,
+      (xmlInputReadCallback)io_read_callback,
+      (xmlInputCloseCallback)io_close_callback,
+      (void *)io,
+      enc
+  );
+
+  return Data_Wrap_Struct(klass, NULL, deallocate, ctxt);
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="memory-method" class="method-detail ">
+				<a name="method-c-memory"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">parse_memory(data)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Parse the <a href="../../XML.html">XML</a> stored in memory in
+<tt>data</tt>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="memory-source">
+<pre>
+static VALUE parse_memory(VALUE klass, VALUE data)
+{
+  xmlParserCtxtPtr ctxt;
+
+  if(NIL_P(data)) rb_raise(rb_eArgError, &quot;data cannot be nil&quot;);
+  if(!(int)RSTRING_LEN(data))
+    rb_raise(rb_eRuntimeError, &quot;data cannot be empty&quot;);
+
+  ctxt = xmlCreateMemoryParserCtxt(
+      StringValuePtr(data),
+      (int)RSTRING_LEN(data)
+  );
+
+  return Data_Wrap_Struct(klass, NULL, deallocate, ctxt);
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(thing, encoding = 'UTF-8')</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/nokogiri/xml/sax/parser_context.rb, line 9</span>
+ 9:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">thing</span>, <span class="ruby-identifier">encoding</span> = <span class="ruby-value str">'UTF-8'</span>
+10:           [<span class="ruby-value">:read</span>, <span class="ruby-value">:close</span>].<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">thing</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">x</span>) } <span class="ruby-operator">?</span>
+11:             <span class="ruby-identifier">io</span>(<span class="ruby-identifier">thing</span>, <span class="ruby-constant">Parser</span><span class="ruby-operator">::</span><span class="ruby-constant">ENCODINGS</span>[<span class="ruby-identifier">encoding</span>]) <span class="ruby-operator">:</span> <span class="ruby-identifier">memory</span>(<span class="ruby-identifier">thing</span>)
+12:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="column-method" class="method-detail ">
+				<a name="method-i-column"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">column</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Get the current column the parser context is processing.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="column-source">
+<pre>
+static VALUE column(VALUE self)
+{
+  xmlParserCtxtPtr ctxt;
+  xmlParserInputPtr io;
+
+  Data_Get_Struct(self, xmlParserCtxt, ctxt);
+
+  io = ctxt-&gt;input;
+  if(io)
+    return INT2NUM(io-&gt;col);
+
+  return Qnil;
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="line-method" class="method-detail ">
+				<a name="method-i-line"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">line</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Get the current line the parser context is processing.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="line-source">
+<pre>
+static VALUE line(VALUE self)
+{
+  xmlParserCtxtPtr ctxt;
+  xmlParserInputPtr io;
+
+  Data_Get_Struct(self, xmlParserCtxt, ctxt);
+
+  io = ctxt-&gt;input;
+  if(io)
+    return INT2NUM(io-&gt;line);
+
+  return Qnil;
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="parse-with-method" class="method-detail ">
+				<a name="method-i-parse_with"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">parse_with(sax_handler)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Use <tt>sax_handler</tt> and parse the current document
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="parse-with-source">
+<pre>
+static VALUE parse_with(VALUE self, VALUE sax_handler)
+{
+  xmlParserCtxtPtr ctxt;
+  xmlSAXHandlerPtr sax;
+
+  if(!rb_obj_is_kind_of(sax_handler, cNokogiriXmlSaxParser))
+    rb_raise(rb_eArgError, &quot;argument must be a Nokogiri::XML::SAX::Parser&quot;);
+
+  Data_Get_Struct(self, xmlParserCtxt, ctxt);
+  Data_Get_Struct(sax_handler, xmlSAXHandler, sax);
+
+  /* Free the sax handler since we'll assign our own */
+  if(ctxt-&gt;sax &amp;&amp; ctxt-&gt;sax != (xmlSAXHandlerPtr)&amp;xmlDefaultSAXHandler)
+    xmlFree(ctxt-&gt;sax);
+
+  ctxt-&gt;sax = sax;
+  ctxt-&gt;userData = (void *)NOKOGIRI_SAX_TUPLE_NEW(ctxt, sax_handler);
+
+  xmlParseDocument(ctxt);
+
+  if(NULL != ctxt-&gt;myDoc) xmlFreeDoc(ctxt-&gt;myDoc);
+
+  NOKOGIRI_SAX_TUPLE_DESTROY(ctxt-&gt;userData);
+
+  return Qnil ;
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="replace-entities-method" class="method-detail ">
+				<a name="method-i-replace_entities"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">replace_entities</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Should this parser replace entities?  &amp;amp; will get converted to
+&#8217;&amp;&#8217; if set to true
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="replace-entities-source">
+<pre>
+static VALUE get_replace_entities(VALUE self)
+{
+  xmlParserCtxtPtr ctxt;
+  Data_Get_Struct(self, xmlParserCtxt, ctxt);
+
+  if(0 == ctxt-&gt;replaceEntities)
+    return Qfalse;
+  else
+    return Qtrue;
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="replace-entities--method" class="method-detail ">
+				<a name="method-i-replace_entities%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-callseq">replace_entities=(boolean)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Should this parser replace entities?  &amp;amp; will get converted to
+&#8217;&amp;&#8217; if set to true
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="replace-entities--source">
+<pre>
+static VALUE set_replace_entities(VALUE self, VALUE value)
+{
+  xmlParserCtxtPtr ctxt;
+  Data_Get_Struct(self, xmlParserCtxt, ctxt);
+
+  if(Qfalse == value)
+    ctxt-&gt;replaceEntities = 0;
+  else
+    ctxt-&gt;replaceEntities = 1;
+
+  return value;
+}</pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

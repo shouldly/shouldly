@@ -1,0 +1,1708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: HTTPClient::Session</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/httpclient/session_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/session.rb">lib/httpclient/session.rb</a></li>
+					
+						<li><a href="../lib/httpclient_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient.rb">lib/httpclient.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">CLASS</span> <a href="BadResponseError.html">HTTPClient::BadResponseError</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-close">#close</a></li>
+					
+					<li><a href="#method-i-closed%3F">#closed?</a></li>
+					
+					<li><a href="#method-i-connect">#connect</a></li>
+					
+					<li><a href="#method-i-connect_ssl_proxy">#connect_ssl_proxy</a></li>
+					
+					<li><a href="#method-i-create_socket">#create_socket</a></li>
+					
+					<li><a href="#method-i-create_ssl_socket">#create_ssl_socket</a></li>
+					
+					<li><a href="#method-i-eof%3F">#eof?</a></li>
+					
+					<li><a href="#method-i-get_body">#get_body</a></li>
+					
+					<li><a href="#method-i-get_header">#get_header</a></li>
+					
+					<li><a href="#method-i-invalidate">#invalidate</a></li>
+					
+					<li><a href="#method-i-invalidated%3F">#invalidated?</a></li>
+					
+					<li><a href="#method-i-no_message_body%3F">#no_message_body?</a></li>
+					
+					<li><a href="#method-i-parse_header">#parse_header</a></li>
+					
+					<li><a href="#method-i-parse_keepalive_header">#parse_keepalive_header</a></li>
+					
+					<li><a href="#method-i-query">#query</a></li>
+					
+					<li><a href="#method-i-read_body_chunked">#read_body_chunked</a></li>
+					
+					<li><a href="#method-i-read_body_length">#read_body_length</a></li>
+					
+					<li><a href="#method-i-read_body_rest">#read_body_rest</a></li>
+					
+					<li><a href="#method-i-read_header">#read_header</a></li>
+					
+					<li><a href="#method-i-set_header">#set_header</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="Timeout.html">HTTPClient::Timeout</a></li>
+				
+				
+				
+					<li><span class="include">Util</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="../HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="../HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="../HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="../HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="../HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="../HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="../HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="../HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="../HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="../HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="../HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="../HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="../HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="../HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="../HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="../HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="../HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="../HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="../HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="../HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="../HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="../HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="../HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="../WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="../WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="../WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="../WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="../WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="../HTTP.html">HTTP</a></li>
+				
+					<li><a href="../HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="../HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="../HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="../HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="../HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="../HexDump.html">HexDump</a></li>
+				
+					<li><a href="../OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">HTTPClient::Session</h1>
+
+		<div id="description">
+			<p>
+Manages a <a href="../HTTP.html">HTTP</a> session with a <a
+href="Site.html">Site</a>.
+</p>
+<hr style="height: 1px"></hr><p>
+Deprecated.  just for backward compatibility
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="StatusParseRegexp">StatusParseRegexp</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="RS">RS</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+				<dt><a name="BadResponse">BadResponse</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="dest-attribute-method" class="method-detail">
+				<a name="dest"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">dest</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Destination site
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="proxy-attribute-method" class="method-detail">
+				<a name="proxy"></a>
+				
+				<a name="proxy="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">proxy</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Proxy site
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="socket-sync-attribute-method" class="method-detail">
+				<a name="socket_sync"></a>
+				
+				<a name="socket_sync="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">socket_sync</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Boolean value for Socket#sync
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="requested-version-attribute-method" class="method-detail">
+				<a name="requested_version"></a>
+				
+				<a name="requested_version="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">requested_version</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Requested protocol version
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="debug-dev-attribute-method" class="method-detail">
+				<a name="debug_dev"></a>
+				
+				<a name="debug_dev="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">debug_dev</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+Device for dumping log for debugging
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="connect-timeout-attribute-method" class="method-detail">
+				<a name="connect_timeout"></a>
+				
+				<a name="connect_timeout="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">connect_timeout</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="connect-retry-attribute-method" class="method-detail">
+				<a name="connect_retry"></a>
+				
+				<a name="connect_retry="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">connect_retry</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="send-timeout-attribute-method" class="method-detail">
+				<a name="send_timeout"></a>
+				
+				<a name="send_timeout="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">send_timeout</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="receive-timeout-attribute-method" class="method-detail">
+				<a name="receive_timeout"></a>
+				
+				<a name="receive_timeout="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">receive_timeout</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="read-block-size-attribute-method" class="method-detail">
+				<a name="read_block_size"></a>
+				
+				<a name="read_block_size="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">read_block_size</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="protocol-retry-count-attribute-method" class="method-detail">
+				<a name="protocol_retry_count"></a>
+				
+				<a name="protocol_retry_count="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">protocol_retry_count</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="socket-local-attribute-method" class="method-detail">
+				<a name="socket_local"></a>
+				
+				<a name="socket_local="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">socket_local</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="ssl-config-attribute-method" class="method-detail">
+				<a name="ssl_config"></a>
+				
+				<a name="ssl_config="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">ssl_config</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="ssl-peer-cert-attribute-method" class="method-detail">
+				<a name="ssl_peer_cert"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">ssl_peer_cert</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="test-loopback-http-response-attribute-method" class="method-detail">
+				<a name="test_loopback_http_response"></a>
+				
+				<a name="test_loopback_http_response="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">test_loopback_http_response</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="transparent-gzip-decompression-attribute-method" class="method-detail">
+				<a name="transparent_gzip_decompression"></a>
+				
+				<a name="transparent_gzip_decompression="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">transparent_gzip_decompression</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(client, dest, agent_name, from)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 527</span>
+527:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">dest</span>, <span class="ruby-identifier">agent_name</span>, <span class="ruby-identifier">from</span>)
+528:       <span class="ruby-ivar">@client</span> = <span class="ruby-identifier">client</span>
+529:       <span class="ruby-ivar">@dest</span> = <span class="ruby-identifier">dest</span>
+530:       <span class="ruby-ivar">@invalidated</span> = <span class="ruby-keyword kw">false</span>
+531:       <span class="ruby-ivar">@proxy</span> = <span class="ruby-keyword kw">nil</span>
+532:       <span class="ruby-ivar">@socket_sync</span> = <span class="ruby-keyword kw">true</span>
+533:       <span class="ruby-ivar">@requested_version</span> = <span class="ruby-keyword kw">nil</span>
+534: 
+535:       <span class="ruby-ivar">@debug_dev</span> = <span class="ruby-keyword kw">nil</span>
+536: 
+537:       <span class="ruby-ivar">@connect_timeout</span> = <span class="ruby-keyword kw">nil</span>
+538:       <span class="ruby-ivar">@connect_retry</span> = <span class="ruby-value">1</span>
+539:       <span class="ruby-ivar">@send_timeout</span> = <span class="ruby-keyword kw">nil</span>
+540:       <span class="ruby-ivar">@receive_timeout</span> = <span class="ruby-keyword kw">nil</span>
+541:       <span class="ruby-ivar">@read_block_size</span> = <span class="ruby-keyword kw">nil</span>
+542:       <span class="ruby-ivar">@protocol_retry_count</span> = <span class="ruby-value">5</span>
+543: 
+544:       <span class="ruby-ivar">@ssl_config</span> = <span class="ruby-keyword kw">nil</span>
+545:       <span class="ruby-ivar">@ssl_peer_cert</span> = <span class="ruby-keyword kw">nil</span>
+546: 
+547:       <span class="ruby-ivar">@test_loopback_http_response</span> = <span class="ruby-keyword kw">nil</span>
+548:       <span class="ruby-ivar">@socket_local</span> = <span class="ruby-constant">Site</span><span class="ruby-operator">::</span><span class="ruby-constant">EMPTY</span>
+549: 
+550:       <span class="ruby-ivar">@agent_name</span> = <span class="ruby-identifier">agent_name</span>
+551:       <span class="ruby-ivar">@from</span> = <span class="ruby-identifier">from</span>
+552:       <span class="ruby-ivar">@state</span> = <span class="ruby-value">:INIT</span>
+553: 
+554:       <span class="ruby-ivar">@requests</span> = []
+555: 
+556:       <span class="ruby-ivar">@status</span> = <span class="ruby-keyword kw">nil</span>
+557:       <span class="ruby-ivar">@reason</span> = <span class="ruby-keyword kw">nil</span>
+558:       <span class="ruby-ivar">@headers</span> = []
+559: 
+560:       <span class="ruby-ivar">@socket</span> = <span class="ruby-keyword kw">nil</span>
+561:       <span class="ruby-ivar">@readbuf</span> = <span class="ruby-keyword kw">nil</span>
+562: 
+563:       <span class="ruby-ivar">@transparent_gzip_decompression</span> = <span class="ruby-keyword kw">false</span>
+564:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="close-method" class="method-detail ">
+				<a name="method-i-close"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">close</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="close-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 599</span>
+599:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close</span>
+600:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">closed?</span>
+601:         <span class="ruby-comment cmt"># @socket.flush may block when it the socket is already closed by</span>
+602:         <span class="ruby-comment cmt"># foreign host and the client runs under MT-condition.</span>
+603:         <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">close</span>
+604:       <span class="ruby-keyword kw">end</span>
+605:       <span class="ruby-ivar">@state</span> = <span class="ruby-value">:INIT</span>
+606:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="closed--method" class="method-detail ">
+				<a name="method-i-closed%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">closed?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="closed--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 608</span>
+608:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">closed?</span>
+609:       <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:INIT</span>
+610:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="eof--method" class="method-detail ">
+				<a name="method-i-eof%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">eof?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="eof--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 633</span>
+633:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eof?</span>
+634:       <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@content_length</span>.<span class="ruby-identifier">nil?</span>
+635:         <span class="ruby-ivar">@content_length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+636:       <span class="ruby-keyword kw">else</span>
+637:         <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">closed?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">eof?</span>
+638:       <span class="ruby-keyword kw">end</span>
+639:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-body-method" class="method-detail ">
+				<a name="method-i-get_body"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_body</span><span
+						class="method-args">(&block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="get-body-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 641</span>
+641:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_body</span>(&amp;<span class="ruby-identifier">block</span>)
+642:       <span class="ruby-keyword kw">begin</span>
+643:         <span class="ruby-identifier">read_header</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:META</span>
+644:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:DATA</span>
+645:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gzipped</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@transparent_gzip_decompression</span>
+646:           <span class="ruby-comment cmt"># zlib itself has a functionality to decompress gzip stream.</span>
+647:           <span class="ruby-comment cmt"># - zlib 1.2.5 Manual</span>
+648:           <span class="ruby-comment cmt">#   http://www.zlib.net/manual.html#Advanced</span>
+649:           <span class="ruby-comment cmt"># &gt; windowBits can also be greater than 15 for optional gzip decoding. Add 32 to</span>
+650:           <span class="ruby-comment cmt"># &gt; windowBits to enable zlib and gzip decoding with automatic header detection,</span>
+651:           <span class="ruby-comment cmt"># &gt; or add 16 to decode only the gzip format</span>
+652:           <span class="ruby-identifier">inflate_stream</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Inflate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">MAX_WBITS</span> <span class="ruby-operator">+</span> <span class="ruby-value">32</span>)
+653:           <span class="ruby-identifier">original_block</span> = <span class="ruby-identifier">block</span>
+654:           <span class="ruby-identifier">block</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">buf</span><span class="ruby-operator">|</span>
+655:             <span class="ruby-identifier">original_block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">inflate_stream</span>.<span class="ruby-identifier">inflate</span>(<span class="ruby-identifier">buf</span>))
+656:           }
+657:         <span class="ruby-keyword kw">end</span>
+658:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@chunked</span>
+659:           <span class="ruby-identifier">read_body_chunked</span>(&amp;<span class="ruby-identifier">block</span>)
+660:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@content_length</span>
+661:           <span class="ruby-identifier">read_body_length</span>(&amp;<span class="ruby-identifier">block</span>)
+662:         <span class="ruby-keyword kw">else</span>
+663:           <span class="ruby-identifier">read_body_rest</span>(&amp;<span class="ruby-identifier">block</span>)
+664:         <span class="ruby-keyword kw">end</span>
+665:       <span class="ruby-keyword kw">rescue</span>
+666:         <span class="ruby-identifier">close</span>
+667:         <span class="ruby-identifier">raise</span>
+668:       <span class="ruby-keyword kw">end</span>
+669:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">eof?</span>
+670:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@next_connection</span>
+671:           <span class="ruby-ivar">@state</span> = <span class="ruby-value">:WAIT</span>
+672:         <span class="ruby-keyword kw">else</span>
+673:           <span class="ruby-identifier">close</span>
+674:         <span class="ruby-keyword kw">end</span>
+675:       <span class="ruby-keyword kw">end</span>
+676:       <span class="ruby-keyword kw">nil</span>
+677:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-header-method" class="method-detail ">
+				<a name="method-i-get_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_header</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="get-header-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 620</span>
+620:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_header</span>
+621:       <span class="ruby-keyword kw">begin</span>
+622:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:META</span>
+623:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;get_status must be called at the beginning of a session&quot;</span>)
+624:         <span class="ruby-keyword kw">end</span>
+625:         <span class="ruby-identifier">read_header</span>
+626:       <span class="ruby-keyword kw">rescue</span>
+627:         <span class="ruby-identifier">close</span>
+628:         <span class="ruby-identifier">raise</span>
+629:       <span class="ruby-keyword kw">end</span>
+630:       [<span class="ruby-ivar">@version</span>, <span class="ruby-ivar">@status</span>, <span class="ruby-ivar">@reason</span>, <span class="ruby-ivar">@headers</span>]
+631:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="invalidate-method" class="method-detail ">
+				<a name="method-i-invalidate"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">invalidate</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="invalidate-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 612</span>
+612:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">invalidate</span>
+613:       <span class="ruby-ivar">@invalidated</span> = <span class="ruby-keyword kw">true</span>
+614:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="invalidated--method" class="method-detail ">
+				<a name="method-i-invalidated%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">invalidated?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="invalidated--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 616</span>
+616:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">invalidated?</span>
+617:       <span class="ruby-ivar">@invalidated</span>
+618:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="query-method" class="method-detail ">
+				<a name="method-i-query"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">query</span><span
+						class="method-args">(req)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Send a request to the server
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="query-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 567</span>
+567:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span>(<span class="ruby-identifier">req</span>)
+568:       <span class="ruby-identifier">connect</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:INIT</span>
+569:       <span class="ruby-comment cmt"># Use absolute URI (not absolute path) iif via proxy AND not HTTPS.</span>
+570:       <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">request_absolute_uri</span> = <span class="ruby-operator">!</span><span class="ruby-ivar">@proxy</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">https?</span>(<span class="ruby-ivar">@dest</span>)
+571:       <span class="ruby-keyword kw">begin</span>
+572:         <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@send_timeout</span>, <span class="ruby-constant">SendTimeoutError</span>) <span class="ruby-keyword kw">do</span>
+573:           <span class="ruby-identifier">set_header</span>(<span class="ruby-identifier">req</span>)
+574:           <span class="ruby-identifier">req</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-ivar">@socket</span>)
+575:           <span class="ruby-comment cmt"># flush the IO stream as IO::sync mode is false</span>
+576:           <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">flush</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@socket_sync</span>
+577:         <span class="ruby-keyword kw">end</span>
+578:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNABORTED</span>, <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNRESET</span>, <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EPIPE</span>, <span class="ruby-constant">IOError</span>
+579:         <span class="ruby-comment cmt"># JRuby can raise IOError instead of ECONNRESET for now</span>
+580:         <span class="ruby-identifier">close</span>
+581:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">KeepAliveDisconnected</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+582:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">HTTPClient</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeoutError</span>
+583:         <span class="ruby-identifier">close</span>
+584:         <span class="ruby-identifier">raise</span>
+585:       <span class="ruby-keyword kw">rescue</span>
+586:         <span class="ruby-identifier">close</span>
+587:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">SSLEnabled</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">$!</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">SSLError</span>)
+588:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">KeepAliveDisconnected</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+589:         <span class="ruby-keyword kw">else</span>
+590:           <span class="ruby-identifier">raise</span>
+591:         <span class="ruby-keyword kw">end</span>
+592:       <span class="ruby-keyword kw">end</span>
+593: 
+594:       <span class="ruby-ivar">@state</span> = <span class="ruby-value">:META</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:WAIT</span>
+595:       <span class="ruby-ivar">@next_connection</span> = <span class="ruby-keyword kw">nil</span>
+596:       <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">req</span>)
+597:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="connect-method" class="method-detail ">
+				<a name="method-i-connect"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">connect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Connect to the server
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="connect-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 700</span>
+700:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect</span>
+701:       <span class="ruby-identifier">site</span> = <span class="ruby-ivar">@proxy</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@dest</span>
+702:       <span class="ruby-identifier">retry_number</span> = <span class="ruby-value">0</span>
+703:       <span class="ruby-keyword kw">begin</span>
+704:         <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@connect_timeout</span>, <span class="ruby-constant">ConnectTimeoutError</span>) <span class="ruby-keyword kw">do</span>
+705:           <span class="ruby-ivar">@socket</span> = <span class="ruby-identifier">create_socket</span>(<span class="ruby-identifier">site</span>)
+706:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">https?</span>(<span class="ruby-ivar">@dest</span>)
+707:             <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">LoopBackSocket</span>)
+708:               <span class="ruby-identifier">connect_ssl_proxy</span>(<span class="ruby-ivar">@socket</span>, <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@dest</span>.<span class="ruby-identifier">to_s</span>)) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@proxy</span>
+709:             <span class="ruby-keyword kw">else</span>
+710:               <span class="ruby-ivar">@socket</span> = <span class="ruby-identifier">create_ssl_socket</span>(<span class="ruby-ivar">@socket</span>)
+711:               <span class="ruby-identifier">connect_ssl_proxy</span>(<span class="ruby-ivar">@socket</span>, <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@dest</span>.<span class="ruby-identifier">to_s</span>)) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@proxy</span>
+712:               <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">ssl_connect</span>(<span class="ruby-ivar">@dest</span>.<span class="ruby-identifier">host</span>)
+713:               <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">post_connection_check</span>(<span class="ruby-ivar">@dest</span>)
+714:               <span class="ruby-ivar">@ssl_peer_cert</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">peer_cert</span>
+715:             <span class="ruby-keyword kw">end</span>
+716:           <span class="ruby-keyword kw">end</span>
+717:           <span class="ruby-comment cmt"># Use Ruby internal buffering instead of passing data immediately</span>
+718:           <span class="ruby-comment cmt"># to the underlying layer</span>
+719:           <span class="ruby-comment cmt"># =&gt; we need to to call explicitly flush on the socket</span>
+720:           <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">sync</span> = <span class="ruby-ivar">@socket_sync</span>
+721:         <span class="ruby-keyword kw">end</span>
+722:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RetryableResponse</span>
+723:         <span class="ruby-identifier">retry_number</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+724:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">retry_number</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@protocol_retry_count</span>
+725:           <span class="ruby-keyword kw">retry</span>
+726:         <span class="ruby-keyword kw">end</span>
+727:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;connect to the server failed with status #{@status} #{@reason}&quot;</span>)
+728:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">TimeoutError</span>
+729:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@connect_retry</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+730:           <span class="ruby-keyword kw">retry</span>
+731:         <span class="ruby-keyword kw">else</span>
+732:           <span class="ruby-identifier">retry_number</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+733:           <span class="ruby-keyword kw">retry</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">retry_number</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@connect_retry</span>
+734:         <span class="ruby-keyword kw">end</span>
+735:         <span class="ruby-identifier">close</span>
+736:         <span class="ruby-identifier">raise</span>
+737:       <span class="ruby-keyword kw">end</span>
+738:       <span class="ruby-ivar">@state</span> = <span class="ruby-value">:WAIT</span>
+739:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="connect-ssl-proxy-method" class="method-detail ">
+				<a name="method-i-connect_ssl_proxy"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">connect_ssl_proxy</span><span
+						class="method-args">(socket, uri)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="connect-ssl-proxy-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 772</span>
+772:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect_ssl_proxy</span>(<span class="ruby-identifier">socket</span>, <span class="ruby-identifier">uri</span>)
+773:       <span class="ruby-identifier">req</span> = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_connect_request</span>(<span class="ruby-identifier">uri</span>)
+774:       <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">request_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+775:         <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">filter_request</span>(<span class="ruby-identifier">req</span>)
+776:       <span class="ruby-keyword kw">end</span>
+777:       <span class="ruby-identifier">set_header</span>(<span class="ruby-identifier">req</span>)
+778:       <span class="ruby-identifier">req</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-ivar">@socket</span>)
+779:       <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">flush</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@socket_sync</span>
+780:       <span class="ruby-identifier">res</span> = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">new_response</span>(<span class="ruby-value str">''</span>)
+781:       <span class="ruby-identifier">parse_header</span>
+782:       <span class="ruby-identifier">res</span>.<span class="ruby-identifier">http_version</span>, <span class="ruby-identifier">res</span>.<span class="ruby-identifier">status</span>, <span class="ruby-identifier">res</span>.<span class="ruby-identifier">reason</span> = <span class="ruby-ivar">@version</span>, <span class="ruby-ivar">@status</span>, <span class="ruby-ivar">@reason</span>
+783:       <span class="ruby-ivar">@headers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+784:         <span class="ruby-identifier">res</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">set</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+785:       <span class="ruby-keyword kw">end</span>
+786:       <span class="ruby-identifier">commands</span> = <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">request_filter</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+787:         <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">req</span>, <span class="ruby-identifier">res</span>)
+788:       }
+789:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">commands</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">command</span><span class="ruby-operator">|</span> <span class="ruby-identifier">command</span> <span class="ruby-operator">==</span> <span class="ruby-value">:retry</span> }
+790:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">RetryableResponse</span>.<span class="ruby-identifier">new</span>
+791:       <span class="ruby-keyword kw">end</span>
+792:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-value">200</span>
+793:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;connect to ssl proxy failed with status #{@status} #{@reason}&quot;</span>, <span class="ruby-identifier">res</span>)
+794:       <span class="ruby-keyword kw">end</span>
+795:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="create-socket-method" class="method-detail ">
+				<a name="method-i-create_socket"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create_socket</span><span
+						class="method-args">(site)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="create-socket-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 741</span>
+741:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_socket</span>(<span class="ruby-identifier">site</span>)
+742:       <span class="ruby-identifier">socket</span> = <span class="ruby-keyword kw">nil</span>
+743:       <span class="ruby-keyword kw">begin</span>
+744:         <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;! CONNECT TO #{site.host}:#{site.port}\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+745:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span> = <span class="ruby-ivar">@test_loopback_http_response</span>.<span class="ruby-identifier">shift</span>
+746:           <span class="ruby-identifier">socket</span> = <span class="ruby-constant">LoopBackSocket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">site</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">site</span>.<span class="ruby-identifier">port</span>, <span class="ruby-identifier">str</span>)
+747:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@socket_local</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Site</span><span class="ruby-operator">::</span><span class="ruby-constant">EMPTY</span>
+748:           <span class="ruby-identifier">socket</span> = <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">site</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">site</span>.<span class="ruby-identifier">port</span>)
+749:         <span class="ruby-keyword kw">else</span>
+750:           <span class="ruby-identifier">socket</span> = <span class="ruby-constant">TCPSocket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">site</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">site</span>.<span class="ruby-identifier">port</span>, <span class="ruby-ivar">@socket_local</span>.<span class="ruby-identifier">host</span>, <span class="ruby-ivar">@socket_local</span>.<span class="ruby-identifier">port</span>)
+751:         <span class="ruby-keyword kw">end</span>
+752:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug_dev</span>
+753:           <span class="ruby-ivar">@debug_dev</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;! CONNECTION ESTABLISHED\n&quot;</span>
+754:           <span class="ruby-identifier">socket</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">DebugSocket</span>)
+755:           <span class="ruby-identifier">socket</span>.<span class="ruby-identifier">debug_dev</span> = <span class="ruby-ivar">@debug_dev</span>
+756:         <span class="ruby-keyword kw">end</span>
+757:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SystemCallError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+758:         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; (#{site})&quot;</span>
+759:         <span class="ruby-identifier">raise</span>
+760:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SocketError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+761:         <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; (#{site})&quot;</span>
+762:         <span class="ruby-identifier">raise</span>
+763:       <span class="ruby-keyword kw">end</span>
+764:       <span class="ruby-identifier">socket</span>
+765:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="create-ssl-socket-method" class="method-detail ">
+				<a name="method-i-create_ssl_socket"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create_ssl_socket</span><span
+						class="method-args">(raw_socket)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+wrap socket with OpenSSL.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="create-ssl-socket-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 768</span>
+768:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_ssl_socket</span>(<span class="ruby-identifier">raw_socket</span>)
+769:       <span class="ruby-constant">SSLSocketWrap</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">raw_socket</span>, <span class="ruby-ivar">@ssl_config</span>, <span class="ruby-ivar">@debug_dev</span>)
+770:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="no-message-body--method" class="method-detail ">
+				<a name="method-i-no_message_body%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">no_message_body?</span><span
+						class="method-args">(status)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="no-message-body--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 867</span>
+867:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">no_message_body?</span>(<span class="ruby-identifier">status</span>)
+868:       <span class="ruby-operator">!</span><span class="ruby-identifier">status</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-comment cmt"># HTTP/0.9</span>
+869:         ((<span class="ruby-identifier">status</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">100</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">200</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">204</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">304</span>)
+870:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="parse-header-method" class="method-detail ">
+				<a name="method-i-parse_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">parse_header</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="parse-header-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 819</span>
+819:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_header</span>
+820:       <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@receive_timeout</span>, <span class="ruby-constant">ReceiveTimeoutError</span>) <span class="ruby-keyword kw">do</span>
+821:         <span class="ruby-identifier">initial_line</span> = <span class="ruby-keyword kw">nil</span>
+822:         <span class="ruby-keyword kw">begin</span>
+823:           <span class="ruby-identifier">initial_line</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">gets</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+824:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">initial_line</span>.<span class="ruby-identifier">nil?</span>
+825:             <span class="ruby-identifier">close</span>
+826:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">KeepAliveDisconnected</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+827:           <span class="ruby-keyword kw">end</span>
+828:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNABORTED</span>, <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNRESET</span>, <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EPIPE</span>, <span class="ruby-constant">IOError</span>
+829:           <span class="ruby-comment cmt"># JRuby can raise IOError instead of ECONNRESET for now</span>
+830:           <span class="ruby-identifier">close</span>
+831:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">KeepAliveDisconnected</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+832:         <span class="ruby-keyword kw">end</span>
+833:         <span class="ruby-keyword kw">begin</span>
+834:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">StatusParseRegexp</span> <span class="ruby-operator">!~</span> <span class="ruby-identifier">initial_line</span>
+835:             <span class="ruby-ivar">@version</span> = <span class="ruby-value str">'0.9'</span>
+836:             <span class="ruby-ivar">@status</span> = <span class="ruby-keyword kw">nil</span>
+837:             <span class="ruby-ivar">@reason</span> = <span class="ruby-keyword kw">nil</span>
+838:             <span class="ruby-ivar">@next_connection</span> = <span class="ruby-keyword kw">false</span>
+839:             <span class="ruby-ivar">@content_length</span> = <span class="ruby-keyword kw">nil</span>
+840:             <span class="ruby-ivar">@readbuf</span> = <span class="ruby-identifier">initial_line</span>
+841:             <span class="ruby-keyword kw">break</span>
+842:           <span class="ruby-keyword kw">end</span>
+843:           <span class="ruby-ivar">@version</span>, <span class="ruby-ivar">@status</span>, <span class="ruby-ivar">@reason</span> = <span class="ruby-node">$1</span>, <span class="ruby-node">$2</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-node">$3</span>
+844:           <span class="ruby-ivar">@next_connection</span> = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">keep_alive_enabled?</span>(<span class="ruby-ivar">@version</span>)
+845:           <span class="ruby-ivar">@headers</span> = []
+846:           <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span>
+847:             <span class="ruby-identifier">line</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">gets</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+848:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">line</span>
+849:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadResponseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'unexpected EOF'</span>)
+850:             <span class="ruby-keyword kw">end</span>
+851:             <span class="ruby-identifier">line</span>.<span class="ruby-identifier">chomp!</span>
+852:             <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">empty?</span>
+853:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">\ \</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">\t\</span>
+854:               <span class="ruby-identifier">last</span> = <span class="ruby-ivar">@headers</span>.<span class="ruby-identifier">last</span>[<span class="ruby-value">1</span>]
+855:               <span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">' '</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">last</span>.<span class="ruby-identifier">empty?</span>
+856:               <span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span>
+857:             <span class="ruby-keyword kw">else</span>
+858:               <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\s*:\s*/</span>, <span class="ruby-value">2</span>)
+859:               <span class="ruby-identifier">parse_keepalive_header</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+860:               <span class="ruby-ivar">@headers</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>]
+861:             <span class="ruby-keyword kw">end</span>
+862:           <span class="ruby-keyword kw">end</span>
+863:         <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">while</span> (<span class="ruby-ivar">@version</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'1.1'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-value">100</span>)
+864:       <span class="ruby-keyword kw">end</span>
+865:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="parse-keepalive-header-method" class="method-detail ">
+				<a name="method-i-parse_keepalive_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">parse_keepalive_header</span><span
+						class="method-args">(key, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="parse-keepalive-header-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 872</span>
+872:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_keepalive_header</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+873:       <span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">downcase</span>
+874:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'content-length'</span>
+875:         <span class="ruby-ivar">@content_length</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_i</span>
+876:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'content-encoding'</span> <span class="ruby-keyword kw">and</span> ( <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'gzip'</span> <span class="ruby-keyword kw">or</span>
+877:                                             <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'x-gzip'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'deflate'</span> )
+878:         <span class="ruby-ivar">@gzipped</span> = <span class="ruby-keyword kw">true</span>
+879:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'transfer-encoding'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'chunked'</span>
+880:         <span class="ruby-ivar">@chunked</span> = <span class="ruby-keyword kw">true</span>
+881:         <span class="ruby-ivar">@chunk_length</span> = <span class="ruby-value">0</span>
+882:         <span class="ruby-ivar">@content_length</span> = <span class="ruby-keyword kw">nil</span>
+883:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'connection'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'proxy-connection'</span>
+884:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'keep-alive'</span>
+885:           <span class="ruby-ivar">@next_connection</span> = <span class="ruby-keyword kw">true</span>
+886:         <span class="ruby-keyword kw">else</span>
+887:           <span class="ruby-ivar">@next_connection</span> = <span class="ruby-keyword kw">false</span>
+888:         <span class="ruby-keyword kw">end</span>
+889:       <span class="ruby-keyword kw">end</span>
+890:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-body-chunked-method" class="method-detail ">
+				<a name="method-i-read_body_chunked"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_body_chunked</span><span
+						class="method-args">(&block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="read-body-chunked-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 916</span>
+916:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_body_chunked</span>(&amp;<span class="ruby-identifier">block</span>)
+917:       <span class="ruby-identifier">buf</span> = <span class="ruby-value str">''</span>
+918:       <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span>
+919:         <span class="ruby-identifier">len</span> = <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">gets</span>(<span class="ruby-constant">RS</span>)
+920:         <span class="ruby-ivar">@chunk_length</span> = <span class="ruby-identifier">len</span>.<span class="ruby-identifier">hex</span>
+921:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@chunk_length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+922:           <span class="ruby-ivar">@content_length</span> = <span class="ruby-value">0</span>
+923:           <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">gets</span>(<span class="ruby-constant">RS</span>)
+924:           <span class="ruby-keyword kw">return</span>
+925:         <span class="ruby-keyword kw">end</span>
+926:         <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@receive_timeout</span>, <span class="ruby-constant">ReceiveTimeoutError</span>) <span class="ruby-keyword kw">do</span>
+927:           <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">read</span>(<span class="ruby-ivar">@chunk_length</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>, <span class="ruby-identifier">buf</span>)
+928:         <span class="ruby-keyword kw">end</span>
+929:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">buf</span>.<span class="ruby-identifier">empty?</span>
+930:           <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">buf</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>, <span class="ruby-ivar">@chunk_length</span>)
+931:         <span class="ruby-keyword kw">end</span>
+932:       <span class="ruby-keyword kw">end</span>
+933:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-body-length-method" class="method-detail ">
+				<a name="method-i-read_body_length"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_body_length</span><span
+						class="method-args">(&block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="read-body-length-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 892</span>
+892:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_body_length</span>(&amp;<span class="ruby-identifier">block</span>)
+893:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@content_length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+894:       <span class="ruby-identifier">buf</span> = <span class="ruby-value str">''</span>
+895:       <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span>
+896:         <span class="ruby-identifier">maxbytes</span> = <span class="ruby-ivar">@read_block_size</span>
+897:         <span class="ruby-identifier">maxbytes</span> = <span class="ruby-ivar">@content_length</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">maxbytes</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@content_length</span>
+898:         <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@receive_timeout</span>, <span class="ruby-constant">ReceiveTimeoutError</span>) <span class="ruby-keyword kw">do</span>
+899:           <span class="ruby-keyword kw">begin</span>
+900:             <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">readpartial</span>(<span class="ruby-identifier">maxbytes</span>, <span class="ruby-identifier">buf</span>)
+901:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EOFError</span>
+902:             <span class="ruby-identifier">buf</span> = <span class="ruby-keyword kw">nil</span>
+903:           <span class="ruby-keyword kw">end</span>
+904:         <span class="ruby-keyword kw">end</span>
+905:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">buf</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">buf</span>.<span class="ruby-identifier">bytesize</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+906:           <span class="ruby-ivar">@content_length</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">buf</span>.<span class="ruby-identifier">bytesize</span>
+907:           <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">buf</span>
+908:         <span class="ruby-keyword kw">else</span>
+909:           <span class="ruby-ivar">@content_length</span> = <span class="ruby-value">0</span>
+910:         <span class="ruby-keyword kw">end</span>
+911:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@content_length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+912:       <span class="ruby-keyword kw">end</span>
+913:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-body-rest-method" class="method-detail ">
+				<a name="method-i-read_body_rest"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_body_rest</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="read-body-rest-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 935</span>
+935:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_body_rest</span>
+936:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@readbuf</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@readbuf</span>.<span class="ruby-identifier">bytesize</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+937:         <span class="ruby-keyword kw">yield</span> <span class="ruby-ivar">@readbuf</span>
+938:         <span class="ruby-ivar">@readbuf</span> = <span class="ruby-keyword kw">nil</span>
+939:       <span class="ruby-keyword kw">end</span>
+940:       <span class="ruby-identifier">buf</span> = <span class="ruby-value str">''</span>
+941:       <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span>
+942:         <span class="ruby-identifier">timeout</span>(<span class="ruby-ivar">@receive_timeout</span>, <span class="ruby-constant">ReceiveTimeoutError</span>) <span class="ruby-keyword kw">do</span>
+943:           <span class="ruby-keyword kw">begin</span>
+944:             <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">readpartial</span>(<span class="ruby-ivar">@read_block_size</span>, <span class="ruby-identifier">buf</span>)
+945:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EOFError</span>
+946:             <span class="ruby-identifier">buf</span> = <span class="ruby-keyword kw">nil</span>
+947:           <span class="ruby-keyword kw">end</span>
+948:         <span class="ruby-keyword kw">end</span>
+949:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">buf</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">buf</span>.<span class="ruby-identifier">bytesize</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+950:           <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">buf</span>
+951:         <span class="ruby-keyword kw">else</span>
+952:           <span class="ruby-keyword kw">return</span>
+953:         <span class="ruby-keyword kw">end</span>
+954:       <span class="ruby-keyword kw">end</span>
+955:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-header-method" class="method-detail ">
+				<a name="method-i-read_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_header</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Read status block.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="read-header-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 798</span>
+798:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_header</span>
+799:       <span class="ruby-ivar">@content_length</span> = <span class="ruby-keyword kw">nil</span>
+800:       <span class="ruby-ivar">@chunked</span> = <span class="ruby-keyword kw">false</span>
+801:       <span class="ruby-ivar">@gzipped</span> = <span class="ruby-keyword kw">false</span>
+802:       <span class="ruby-ivar">@chunk_length</span> = <span class="ruby-value">0</span>
+803:       <span class="ruby-identifier">parse_header</span>
+804:       <span class="ruby-comment cmt"># Header of the request has been parsed.</span>
+805:       <span class="ruby-ivar">@state</span> = <span class="ruby-value">:DATA</span>
+806:       <span class="ruby-identifier">req</span> = <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">shift</span>
+807:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">request_method</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'HEAD'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">no_message_body?</span>(<span class="ruby-ivar">@status</span>)
+808:         <span class="ruby-ivar">@content_length</span> = <span class="ruby-value">0</span>
+809:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@next_connection</span>
+810:           <span class="ruby-ivar">@state</span> = <span class="ruby-value">:WAIT</span>
+811:         <span class="ruby-keyword kw">else</span>
+812:           <span class="ruby-identifier">close</span>
+813:         <span class="ruby-keyword kw">end</span>
+814:       <span class="ruby-keyword kw">end</span>
+815:       <span class="ruby-ivar">@next_connection</span> = <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@content_length</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@chunked</span>
+816:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-header-method" class="method-detail ">
+				<a name="method-i-set_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_header</span><span
+						class="method-args">(req)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="set-header-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/session.rb, line 681</span>
+681:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_header</span>(<span class="ruby-identifier">req</span>)
+682:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@requested_version</span>
+683:         <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/^(?:HTTP\/|)(\d+.\d+)$/</span> <span class="ruby-operator">=~</span> <span class="ruby-ivar">@requested_version</span>
+684:           <span class="ruby-identifier">req</span>.<span class="ruby-identifier">http_version</span> = <span class="ruby-node">$1</span>
+685:         <span class="ruby-keyword kw">end</span>
+686:       <span class="ruby-keyword kw">end</span>
+687:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@agent_name</span>
+688:         <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">set</span>(<span class="ruby-value str">'User-Agent'</span>, <span class="ruby-node">&quot;#{@agent_name} #{LIB_NAME}&quot;</span>)
+689:       <span class="ruby-keyword kw">end</span>
+690:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@from</span>
+691:         <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">set</span>(<span class="ruby-value str">'From'</span>, <span class="ruby-ivar">@from</span>)
+692:       <span class="ruby-keyword kw">end</span>
+693:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@transparent_gzip_decompression</span>
+694:         <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">set</span>(<span class="ruby-value str">'Accept-Encoding'</span>, <span class="ruby-value str">'gzip,deflate'</span>)
+695:       <span class="ruby-keyword kw">end</span>
+696:       <span class="ruby-identifier">req</span>.<span class="ruby-identifier">header</span>.<span class="ruby-identifier">set</span>(<span class="ruby-value str">'Date'</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">httpdate</span>)
+697:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

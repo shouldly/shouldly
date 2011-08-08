@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: HTTPClient::OAuth::Config</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/httpclient/auth_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/httpclient/auth.rb">lib/httpclient/auth.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="../Util.html">HTTPClient::Util</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="../../HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="../../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../../HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="../../HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="../../HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="../../HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="../../HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="../../HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="../../HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="../../HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="../../HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="../../HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="../../HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="../../HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="../../HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="../../HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="../../HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="../../HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="../../HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="../../HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="../../HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="../../HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="../../HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="../../HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="../../HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="../../HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="../../HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="../../HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="../../HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="../../HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="../../WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="../../WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="../../WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="../../WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="../../HTTP.html">HTTP</a></li>
+				
+					<li><a href="../../HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="../../HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="../../HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="../../HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="../../HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="../../HexDump.html">HexDump</a></li>
+				
+					<li><a href="../../OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">HTTPClient::OAuth::Config</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="http-method-attribute-method" class="method-detail">
+				<a name="http_method"></a>
+				
+				<a name="http_method="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">http_method</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="realm-attribute-method" class="method-detail">
+				<a name="realm"></a>
+				
+				<a name="realm="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">realm</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="consumer-key-attribute-method" class="method-detail">
+				<a name="consumer_key"></a>
+				
+				<a name="consumer_key="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">consumer_key</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="consumer-secret-attribute-method" class="method-detail">
+				<a name="consumer_secret"></a>
+				
+				<a name="consumer_secret="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">consumer_secret</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="token-attribute-method" class="method-detail">
+				<a name="token"></a>
+				
+				<a name="token="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">token</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="secret-attribute-method" class="method-detail">
+				<a name="secret"></a>
+				
+				<a name="secret="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">secret</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="signature-method-attribute-method" class="method-detail">
+				<a name="signature_method"></a>
+				
+				<a name="signature_method="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">signature_method</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="version-attribute-method" class="method-detail">
+				<a name="version"></a>
+				
+				<a name="version="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">version</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="callback-attribute-method" class="method-detail">
+				<a name="callback"></a>
+				
+				<a name="callback="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">callback</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="verifier-attribute-method" class="method-detail">
+				<a name="verifier"></a>
+				
+				<a name="verifier="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">verifier</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="session-handle-attribute-method" class="method-detail">
+				<a name="session_handle"></a>
+				
+				<a name="session_handle="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">session_handle</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+for <a href="../OAuth.html">OAuth</a> <a href="../Session.html">Session</a>
+1.0 (draft)
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="signature-handler-attribute-method" class="method-detail">
+				<a name="signature_handler"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">signature_handler</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="debug-timestamp-attribute-method" class="method-detail">
+				<a name="debug_timestamp"></a>
+				
+				<a name="debug_timestamp="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">debug_timestamp</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="debug-nonce-attribute-method" class="method-detail">
+				<a name="debug_nonce"></a>
+				
+				<a name="debug_nonce="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">debug_nonce</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(*args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/httpclient/auth.rb, line 625</span>
+625:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(*<span class="ruby-identifier">args</span>)
+626:         <span class="ruby-ivar">@http_method</span>,
+627:           <span class="ruby-ivar">@realm</span>,
+628:           <span class="ruby-ivar">@consumer_key</span>,
+629:           <span class="ruby-ivar">@consumer_secret</span>,
+630:           <span class="ruby-ivar">@token</span>,
+631:           <span class="ruby-ivar">@secret</span>,
+632:           <span class="ruby-ivar">@signature_method</span>,
+633:           <span class="ruby-ivar">@version</span>,
+634:           <span class="ruby-ivar">@callback</span>,
+635:           <span class="ruby-ivar">@verifier</span> =
+636:         <span class="ruby-identifier">keyword_argument</span>(<span class="ruby-identifier">args</span>,
+637:           <span class="ruby-value">:http_method</span>,
+638:           <span class="ruby-value">:realm</span>,
+639:           <span class="ruby-value">:consumer_key</span>,
+640:           <span class="ruby-value">:consumer_secret</span>,
+641:           <span class="ruby-value">:token</span>,
+642:           <span class="ruby-value">:secret</span>,
+643:           <span class="ruby-value">:signature_method</span>,
+644:           <span class="ruby-value">:version</span>,
+645:           <span class="ruby-value">:callback</span>,
+646:           <span class="ruby-value">:verifier</span>
+647:         )
+648:         <span class="ruby-ivar">@http_method</span> <span class="ruby-operator">||=</span> <span class="ruby-value">:post</span>
+649:         <span class="ruby-ivar">@session_handle</span> = <span class="ruby-keyword kw">nil</span>
+650:         <span class="ruby-ivar">@signature_handler</span> = {}
+651:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

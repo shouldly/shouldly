@@ -1,0 +1,6 @@
+--- 
+something: 
+  something-else: 
+    __content__: testing
+    child_attribute: "15"
+  root_attribute: "12"

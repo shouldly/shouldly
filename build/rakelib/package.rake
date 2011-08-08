@@ -1,5 +1,7 @@
-desc "Copies all artefacts to a single location for easy distribution"
-task :prepare_artefacts => [:nuget, :create_gem, :create_zip] do
+	desc "Deploys artefacts to their relevant locations"
+task :deploy_artefacts => [:prepare_artefacts, :push_to_github, :push_to_nuget] #, :push_gem]
+
+task :prepare_artefacts => [:nuget, :create_zip] do #:create_gem, 
 	output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	artefacts_path = "#{OUTPUT_PATH}/artefacts/"
 	
@@ -10,7 +12,57 @@ task :prepare_artefacts => [:nuget, :create_gem, :create_zip] do
 	cp Dir.glob("#{output_build_path}/zip/*.zip"), artefacts_path
 end
 
-desc "Create nuget package"
+task :push_to_github do
+	puts "Pushing to github..."
+	artefacts_path = "#{OUTPUT_PATH}/artefacts"
+	zipfile = Dir.glob("#{artefacts_path}/*.zip")[0]
+	
+	login = ENV["github_login"]
+	token = ENV["github_token"]
+	
+	raise "GitHub login ENV [github_login] not set" if login.nil?
+	raise "GitHub token ENV [github_token] not set" if token.nil?
+	
+	repos = GITHUB_REPO
+	gh = Net::GitHub::Upload.new(
+		:login => login,
+		:token => token
+	)
+	
+	gh.list_files(repos).each do |file|
+		if file[:description].include? "(Beta)"
+			puts "Deleting old beta download: [#{file[:name]}]"
+			gh.delete repos, file[:id]
+		end
+	end
+	
+	desc = "#{PROJECT_NAME} v#{@@build_number}"
+	desc = (desc + " (Beta)") if (get_build_version[4]).to_i > 1
+	
+	puts "Uploading new version: [#{desc}]"
+	
+	direct_link = gh.upload(
+		:repos => repos,
+		:file  => zipfile,
+		:description => desc,
+		:content_type => 'application/zip'
+	)	
+end
+
+task :push_to_nuget do
+	puts "Pushing to nuget..."
+	artefacts_path = "#{OUTPUT_PATH}/artefacts"
+	nupkg = Dir.glob("#{artefacts_path}/*.nupkg")[0]
+	
+	api_key = ENV["nuget_apikey"]
+	
+	raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
+
+    full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
+    sh "#{full_path_to_nuget_exe} push -source http://packages.nuget.org/v1/ #{nupkg} #{api_key}"
+end
+
+
 task :nuget => [:collate_package_contents] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
@@ -38,7 +90,6 @@ task :nuget => [:collate_package_contents] do
 	`mv "#{nuget_path}/../#{PROJECT_NAME}.#{@@build_number}.nupkg" "#{nuget_path}/../#{PROJECT_NAME}-#{@@build_number}.nupkg"`
 end
 
-desc "Creates the gem"
 task :create_gem => [:collate_package_contents] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
@@ -85,7 +136,6 @@ task :create_gem => [:collate_package_contents] do
     end
 end
 
-desc "Creates the .ZIP package for the release build"
 task :create_zip => [:collate_package_contents] do
 	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	
@@ -95,7 +145,6 @@ task :create_zip => [:collate_package_contents] do
 	sh "#{ZIP_EXE} -r -j #{zip_path}/#{PROJECT_NAME}-#{@@build_number}.zip #{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
 end
 
-desc "Pushes the gem to the ruby gems server"
 task :push_gem => :create_gem do
 	gem_path = "#{output_base_path}/gem"
 	result = system("gem", "push", "gem/pkg/shouldly-#{@@build_number}.gem")

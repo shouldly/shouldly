@@ -26,8 +26,9 @@ namespace Shouldly.DifferenceHighlighting
 
         public bool CanProcess<T1, T2>(T1 expected, T2 actual)
         {
-            return (expected is IEnumerable)
-                    & !(expected is string)
+            return  expected != null && actual != null
+                    && (expected is IEnumerable)
+                    && !(expected is string)
                     && (expected.GetType() == actual.GetType());
         }
 

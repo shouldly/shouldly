@@ -9,3 +9,5 @@ output
 *.userprefs
 test-results
 *.gem
+*crunch*.xml
+*.nupkg

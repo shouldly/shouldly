@@ -1,0 +1,43 @@
+--- 
+ListBucketResult: 
+  Prefix: {}
+
+  Name: 
+    __content__: projectionist
+  MaxKeys: 
+    __content__: "1000"
+  Contents: 
+  - StorageClass: 
+      __content__: STANDARD
+    Owner: 
+      DisplayName: 
+        __content__: noradio
+      ID: 
+        __content__: bb2041a25975c3d4ce9775fe9e93e5b77a6a9fad97dc7e00686191f3790b13f1
+    Size: 
+      __content__: "186870"
+    ETag: 
+      __content__: "\"2ac1aa042e20ab7e1a9879b0df9f17b7\""
+    LastModified: 
+      __content__: "2006-11-15T05:49:39.000Z"
+    Key: 
+      __content__: 1973-plymouth-satellite-sebring.jpg
+  - StorageClass: 
+      __content__: STANDARD
+    Owner: 
+      DisplayName: 
+        __content__: noradio
+      ID: 
+        __content__: bb2041a25975c3d4ce9775fe9e93e5b77a6a9fad97dc7e00686191f3790b13f1
+    Size: 
+      __content__: "43562"
+    ETag: 
+      __content__: "\"4ead118ba91491f9c9697153264a1943\""
+    LastModified: 
+      __content__: "2006-11-15T05:51:20.000Z"
+    Key: 
+      __content__: 37-cluster.jpg
+  Marker: {}
+
+  IsTruncated: 
+    __content__: "false"

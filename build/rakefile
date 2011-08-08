@@ -1,11 +1,18 @@
-require 'rake/clean'
-require "rake/gempackagetask"
-require 'date'
-require "albacore"
-require "rubygems"
+require "./prerequisites.rb"
+
+puts `ruby -v`
+
+ENV["config"] = "Debug" if ENV["config"].nil?
+CONFIG = ENV["config"]
+
+# required as libxml2-2.dll needs to be in the path
+# https://rubyforge.org/forum/forum.php?thread_id=27116&forum_id=2129
+ENV["PATH"] = ENV["PATH"] + ";" + File.expand_path("../lib/gems/bin") 
 
 PROJECT_NAME = "Shouldly"
 PROJECT_TAGLINE = "Should style unit testing for .NET"
+
+GITHUB_REPO = "shouldly/shouldly"
 
 BASE_DIR = File.expand_path "../"
 
@@ -18,7 +25,18 @@ TAPE_EXE = "#{BASE_DIR}/lib/Tape/Tape.exe"
 ZIP_EXE = "#{BASE_DIR}/lib/Zip/zip.exe"
 OUTPUT_PATH = "#{BASE_DIR}/output"
 
-ENV["config"] = "Debug" if ENV["config"].nil?
-CONFIG = ENV["config"]
+require 'rake/clean'
+require "rake/gempackagetask"
+require 'date'
+require "albacore"
+require "rubygems"
+
+# Hack for Ruby 1.8.6 compat where setting GEM_HOME alone doesn't work
+# in both BASH and CMD (can't find project specific rubygems)
+LOCAL_GEM_PATH = '../lib/gems/gems'
+LOCAL_GEMS = FileList.new("#{LOCAL_GEM_PATH}/*")
+LOCAL_GEMS.each { |d| $LOAD_PATH << "#{d}/lib" }
+
+require "net/github-upload"
 
 CLEAN.include(OUTPUT_PATH)

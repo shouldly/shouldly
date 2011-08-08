@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: OAuthClient</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/oauthclient_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/oauthclient.rb">lib/oauthclient.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link"><a href="HTTPClient.html">HTTPClient</a></p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-filter_response">#filter_response</a></li>
+					
+					<li><a href="#method-i-get_access_token">#get_access_token</a></li>
+					
+					<li><a href="#method-i-get_oauth_response">#get_oauth_response</a></li>
+					
+					<li><a href="#method-i-get_request_token">#get_request_token</a></li>
+					
+					<li><a href="#method-i-unescape">#unescape</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./HTTPClient.html">HTTPClient</a></li>
+				
+					<li><a href="./HTTPClient/AuthFilterBase.html">HTTPClient::AuthFilterBase</a></li>
+				
+					<li><a href="./HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="./HTTPClient/BadResponseError.html">HTTPClient::BadResponseError</a></li>
+				
+					<li><a href="./HTTPClient/BasicAuth.html">HTTPClient::BasicAuth</a></li>
+				
+					<li><a href="./HTTPClient/ConfigurationError.html">HTTPClient::ConfigurationError</a></li>
+				
+					<li><a href="./HTTPClient/ConnectTimeoutError.html">HTTPClient::ConnectTimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/Connection.html">HTTPClient::Connection</a></li>
+				
+					<li><a href="./HTTPClient/DebugSocket.html">HTTPClient::DebugSocket</a></li>
+				
+					<li><a href="./HTTPClient/DigestAuth.html">HTTPClient::DigestAuth</a></li>
+				
+					<li><a href="./HTTPClient/LoopBackSocket.html">HTTPClient::LoopBackSocket</a></li>
+				
+					<li><a href="./HTTPClient/NegotiateAuth.html">HTTPClient::NegotiateAuth</a></li>
+				
+					<li><a href="./HTTPClient/OAuth.html">HTTPClient::OAuth</a></li>
+				
+					<li><a href="./HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></li>
+				
+					<li><a href="./HTTPClient/ProxyAuth.html">HTTPClient::ProxyAuth</a></li>
+				
+					<li><a href="./HTTPClient/ReceiveTimeoutError.html">HTTPClient::ReceiveTimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/SSLConfig.html">HTTPClient::SSLConfig</a></li>
+				
+					<li><a href="./HTTPClient/SSLSocketWrap.html">HTTPClient::SSLSocketWrap</a></li>
+				
+					<li><a href="./HTTPClient/SSPINegotiateAuth.html">HTTPClient::SSPINegotiateAuth</a></li>
+				
+					<li><a href="./HTTPClient/SendTimeoutError.html">HTTPClient::SendTimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/Session.html">HTTPClient::Session</a></li>
+				
+					<li><a href="./HTTPClient/SessionManager.html">HTTPClient::SessionManager</a></li>
+				
+					<li><a href="./HTTPClient/Site.html">HTTPClient::Site</a></li>
+				
+					<li><a href="./HTTPClient/SocketWrap.html">HTTPClient::SocketWrap</a></li>
+				
+					<li><a href="./HTTPClient/Timeout.html">HTTPClient::Timeout</a></li>
+				
+					<li><a href="./HTTPClient/TimeoutError.html">HTTPClient::TimeoutError</a></li>
+				
+					<li><a href="./HTTPClient/TimeoutScheduler.html">HTTPClient::TimeoutScheduler</a></li>
+				
+					<li><a href="./HTTPClient/TimeoutScheduler/Period.html">HTTPClient::TimeoutScheduler::Period</a></li>
+				
+					<li><a href="./HTTPClient/Util.html">HTTPClient::Util</a></li>
+				
+					<li><a href="./HTTPClient/WWWAuth.html">HTTPClient::WWWAuth</a></li>
+				
+					<li><a href="./HTTPAccess2.html">HTTPAccess2</a></li>
+				
+					<li><a href="./HTTPAccess2/Client.html">HTTPAccess2::Client</a></li>
+				
+					<li><a href="./HTTPAccess2/Client/RetryableResponse.html">HTTPAccess2::Client::RetryableResponse</a></li>
+				
+					<li><a href="./HTTPAccess2/Session.html">HTTPAccess2::Session</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/BadResponse.html">HTTPAccess2::Session::BadResponse</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/Error.html">HTTPAccess2::Session::Error</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/InvalidState.html">HTTPAccess2::Session::InvalidState</a></li>
+				
+					<li><a href="./HTTPAccess2/Session/KeepAliveDisconnected.html">HTTPAccess2::Session::KeepAliveDisconnected</a></li>
+				
+					<li><a href="./WebAgent.html">WebAgent</a></li>
+				
+					<li><a href="./WebAgent/Cookie.html">WebAgent::Cookie</a></li>
+				
+					<li><a href="./WebAgent/CookieManager.html">WebAgent::CookieManager</a></li>
+				
+					<li><a href="./WebAgent/CookieManager/Error.html">WebAgent::CookieManager::Error</a></li>
+				
+					<li><a href="./WebAgent/CookieManager/ErrorOverrideOK.html">WebAgent::CookieManager::ErrorOverrideOK</a></li>
+				
+					<li><a href="./WebAgent/CookieManager/SpecialError.html">WebAgent::CookieManager::SpecialError</a></li>
+				
+					<li><a href="./WebAgent/CookieUtils.html">WebAgent::CookieUtils</a></li>
+				
+					<li><a href="./HTTP.html">HTTP</a></li>
+				
+					<li><a href="./HTTP/Message.html">HTTP::Message</a></li>
+				
+					<li><a href="./HTTP/Message/Body.html">HTTP::Message::Body</a></li>
+				
+					<li><a href="./HTTP/Message/Body/Parts.html">HTTP::Message::Body::Parts</a></li>
+				
+					<li><a href="./HTTP/Message/Headers.html">HTTP::Message::Headers</a></li>
+				
+					<li><a href="./HTTP/Status.html">HTTP::Status</a></li>
+				
+					<li><a href="./HexDump.html">HexDump</a></li>
+				
+					<li><a href="./OAuthClient.html">OAuthClient</a></li>
+				
+					<li><a href="./String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">OAuthClient</h1>
+
+		<div id="description">
+			<p>
+<a href="OAuthClient.html">OAuthClient</a> provides OAuth related methods
+in addition to <a href="HTTPClient.html">HTTPClient</a>.
+</p>
+<p>
+See sample/ dir how to use <a href="OAuthClient.html">OAuthClient</a>.
+There are sample clients for Twitter, FriendFeed and Google Buzz.
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="oauth-config-attribute-method" class="method-detail">
+				<a name="oauth_config"></a>
+				
+				<a name="oauth_config="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">oauth_config</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<table>
+<tr><td valign="top"><a href="HTTPClient/OAuth/Config.html">HTTPClient::OAuth::Config</a></td><td><p>
+OAuth configurator.
+</p>
+</td></tr>
+</table>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(*arg)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Creates a <a href="OAuthClient.html">OAuthClient</a> instance which
+provides OAuth related methods in addition to <a
+href="HTTPClient.html">HTTPClient</a>.
+</p>
+<p>
+Method signature is as same as <a href="HTTPClient.html">HTTPClient</a>. 
+See HTTPClient.new
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/oauthclient.rb, line 31</span>
+31:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(*<span class="ruby-identifier">arg</span>)
+32:     <span class="ruby-keyword kw">super</span>
+33:     <span class="ruby-ivar">@oauth_config</span> = <span class="ruby-constant">HTTPClient</span><span class="ruby-operator">::</span><span class="ruby-constant">OAuth</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span>.<span class="ruby-identifier">new</span>
+34:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">www_auth</span>.<span class="ruby-identifier">oauth</span>.<span class="ruby-identifier">set_config</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-ivar">@oauth_config</span>)
+35:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">www_auth</span>.<span class="ruby-identifier">oauth</span>.<span class="ruby-identifier">challenge</span>(<span class="ruby-keyword kw">nil</span>)
+36:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="get-access-token-method" class="method-detail ">
+				<a name="method-i-get_access_token"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_access_token</span><span
+						class="method-args">(uri, request_token, request_token_secret, verifier = nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Get access token.
+</p>
+<table>
+<tr><td valign="top">uri</td><td><p>
+URI for request token.
+</p>
+</td></tr>
+<tr><td valign="top">request_token</td><td><p>
+a request token <a href="String.html">String</a>. See get_access_token.
+</p>
+</td></tr>
+<tr><td valign="top">request_token_secret</td><td><p>
+a request secret <a href="String.html">String</a>. See get_access_token.
+</p>
+</td></tr>
+<tr><td valign="top">verifier</td><td><p>
+a verifier tag <a href="String.html">String</a>.
+</p>
+</td></tr>
+</table>
+<p>
+When the request succeeds and the server returns a pair of access token and
+secret, oauth_config.token and oauth_token.secret are updated with the
+access token. Then you can call OAuthClient#get, #, #, etc. All requests
+are signed.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="get-access-token-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/oauthclient.rb, line 69</span>
+69:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_access_token</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">request_token</span>, <span class="ruby-identifier">request_token_secret</span>, <span class="ruby-identifier">verifier</span> = <span class="ruby-keyword kw">nil</span>)
+70:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">token</span> = <span class="ruby-identifier">request_token</span>
+71:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">secret</span> = <span class="ruby-identifier">request_token_secret</span>
+72:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">callback</span> = <span class="ruby-keyword kw">nil</span>
+73:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">verifier</span> = <span class="ruby-identifier">verifier</span>
+74:     <span class="ruby-identifier">res</span> = <span class="ruby-identifier">request</span>(<span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">http_method</span>, <span class="ruby-identifier">uri</span>)
+75:     <span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">res</span>)
+76:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">verifier</span> = <span class="ruby-keyword kw">nil</span>
+77:     <span class="ruby-identifier">res</span>
+78:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-oauth-response-method" class="method-detail ">
+				<a name="method-i-get_oauth_response"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_oauth_response</span><span
+						class="method-args">(res)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Parse response and returns a Hash.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="get-oauth-response-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/oauthclient.rb, line 81</span>
+81:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_oauth_response</span>(<span class="ruby-identifier">res</span>)
+82:     <span class="ruby-identifier">enc</span> = <span class="ruby-identifier">res</span>.<span class="ruby-identifier">header</span>[<span class="ruby-value str">'content-encoding'</span>]
+83:     <span class="ruby-identifier">body</span> = <span class="ruby-keyword kw">nil</span>
+84:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">enc</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">enc</span>[<span class="ruby-value">0</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">enc</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'gzip'</span>
+85:       <span class="ruby-identifier">body</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">GzipReader</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">content</span>)) { <span class="ruby-operator">|</span><span class="ruby-identifier">gz</span><span class="ruby-operator">|</span> <span class="ruby-identifier">gz</span>.<span class="ruby-identifier">read</span> }
+86:     <span class="ruby-keyword kw">else</span>
+87:       <span class="ruby-identifier">body</span> = <span class="ruby-identifier">res</span>.<span class="ruby-identifier">content</span>
+88:     <span class="ruby-keyword kw">end</span>
+89:     <span class="ruby-identifier">body</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'&amp;'</span>).<span class="ruby-identifier">inject</span>({}) { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span>, <span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+90:       <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>, <span class="ruby-value">2</span>)
+91:       <span class="ruby-identifier">r</span>[<span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">key</span>)] = <span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">value</span>)
+92:       <span class="ruby-identifier">r</span>
+93:     }
+94:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-request-token-method" class="method-detail ">
+				<a name="method-i-get_request_token"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_request_token</span><span
+						class="method-args">(uri, callback = nil, param = nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Get request token.
+</p>
+<table>
+<tr><td valign="top">uri</td><td><p>
+URI for request token.
+</p>
+</td></tr>
+<tr><td valign="top">callback</td><td><p>
+callback <a href="String.html">String</a>. This can be nil for OAuth 1.0a
+</p>
+</td></tr>
+<tr><td valign="top">param</td><td><p>
+Additional query parameter Hash.
+</p>
+</td></tr>
+</table>
+<p>
+It returns a <a href="HTTP/Message.html">HTTP::Message</a> instance as a
+response. When the request is made successfully, you can retrieve a pair of
+request token and secret like following;
+</p>
+<pre>
+  res = client.get_request_token(...)
+  token = res.oauth_params['oauth_token']
+  secret = res.oauth_params['oauth_token_secret']</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="get-request-token-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/oauthclient.rb, line 49</span>
+49:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_request_token</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">callback</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">param</span> = <span class="ruby-keyword kw">nil</span>)
+50:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">token</span> = <span class="ruby-keyword kw">nil</span>
+51:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">secret</span> = <span class="ruby-keyword kw">nil</span>
+52:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">callback</span> = <span class="ruby-identifier">callback</span>
+53:     <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">verifier</span> = <span class="ruby-keyword kw">nil</span>
+54:     <span class="ruby-identifier">res</span> = <span class="ruby-identifier">request</span>(<span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">http_method</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">param</span>)
+55:     <span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">res</span>)
+56:     <span class="ruby-identifier">res</span>
+57:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="filter-response-method" class="method-detail ">
+				<a name="method-i-filter_response"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">filter_response</span><span
+						class="method-args">(res)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="filter-response-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/oauthclient.rb, line 102</span>
+102:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter_response</span>(<span class="ruby-identifier">res</span>)
+103:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">200</span>
+104:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">oauth_params</span> = <span class="ruby-identifier">get_oauth_response</span>(<span class="ruby-identifier">res</span>)
+105:         <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">token</span> = <span class="ruby-identifier">res</span>.<span class="ruby-identifier">oauth_params</span>[<span class="ruby-value str">'oauth_token'</span>]
+106:         <span class="ruby-identifier">oauth_config</span>.<span class="ruby-identifier">secret</span> = <span class="ruby-identifier">res</span>.<span class="ruby-identifier">oauth_params</span>[<span class="ruby-value str">'oauth_token_secret'</span>]
+107:       <span class="ruby-keyword kw">end</span>
+108:     <span class="ruby-keyword kw">end</span>
+109:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="unescape-method" class="method-detail ">
+				<a name="method-i-unescape"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">unescape</span><span
+						class="method-args">(escaped)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="unescape-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/oauthclient.rb, line 98</span>
+ 98:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">escaped</span>)
+ 99:     <span class="ruby-identifier">escaped</span> <span class="ruby-operator">?</span> <span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">escaped</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+100:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

@@ -4,9 +4,10 @@ using System.Diagnostics;
 namespace Shouldly
 {
     [DebuggerStepThrough]
+    [ShouldlyMethods]
     public static class Should
     {
-        public static string Throw<TException>(Action actual) where TException : Exception
+        public static TException Throw<TException>(Action actual) where TException : Exception
         {
             try
             {
@@ -14,9 +15,14 @@ namespace Shouldly
             }
             catch (TException e)
             {
-                return e.Message;
+                return e;
             }
-            throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+            catch (Exception e)
+            {
+                throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), e.GetType()).ToString());
+            }
+
+            throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
         }
     }
 }
