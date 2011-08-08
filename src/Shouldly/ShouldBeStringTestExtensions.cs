@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace Shouldly
 {
@@ -27,6 +28,16 @@ namespace Shouldly
             var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
 
             strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
+        }
+
+        /// <summary>
+        /// Compare two strings ignoring case
+        /// </summary>
+        /// <param name="actual"></param>
+        /// <param name="expected"></param>
+        public static void ShouldBeEqualIgnoringCase(this string actual, string expected)
+        {
+            actual.AssertAwesomely(Is.EqualTo(expected).IgnoreCase, actual, expected);
         }
 
         public static void ShouldStartWith(this string actual, string expected)
