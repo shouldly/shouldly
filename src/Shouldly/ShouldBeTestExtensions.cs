@@ -20,7 +20,7 @@ namespace Shouldly
 
         public static void ShouldBeTypeOf(this object actual, Type expected)
         {
-            actual.AssertAwesomely(Is.InstanceOf(expected), actual, expected);
+            actual.AssertAwesomely(Is.InstanceOf(expected), actual.GetType(), expected);
         }
 
         public static void ShouldNotBeTypeOf<T>(this object actual)
