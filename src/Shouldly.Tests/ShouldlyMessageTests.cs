@@ -3,7 +3,6 @@
 namespace Shouldly.Tests
 {
     [TestFixture]
-    [ShouldlyMethods]
     public class ShouldlyMessageTests
     {
         [Test]
@@ -31,6 +30,15 @@ namespace Shouldly.Tests
                 () => (new[] { 1, 2, 3 }).ShouldBe(new[] { 2, 2, 3 }),
                 "() => (new[] { 1, 2, 3 }) should be [2, 2, 3] but was [1, 2, 3] difference [*1*, 2, 3]"
             );
+        }
+
+        [Test]
+        public void ShouldlyMessage_CanGenerateForOfTypeAssertion()
+        {
+            Should.Error(
+                () => 2.ShouldBeTypeOf<double>(),
+                "() => 2 should be type of System.Double but was System.Int32"
+                );
         }
 
         [Test]

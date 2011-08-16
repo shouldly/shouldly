@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using Shouldly.DifferenceHighlighting;
+using System.Reflection;
 
 namespace Shouldly
 {
@@ -107,14 +108,20 @@ namespace Shouldly
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
-            var shouldlyFrame = stackTrace.GetFrame(i);
-            if (shouldlyFrame == null) throw new Exception("Unable to find test method");
+            var currentFrame = stackTrace.GetFrame(i);
 
-            while (!shouldlyFrame.GetMethod().DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any())
+            if (currentFrame == null) throw new Exception("Unable to find test method");
+
+            var shouldlyFrame = default(StackFrame);
+            while (shouldlyFrame == null || IsShouldlyMethod(currentFrame.GetMethod()))
             {
-                shouldlyFrame = stackTrace.GetFrame(++i);
+                if (IsShouldlyMethod(currentFrame.GetMethod()))
+                    shouldlyFrame = currentFrame;
+
+                currentFrame = stackTrace.GetFrame(++i);
             }
-            var originatingFrame = stackTrace.GetFrame(i+1);
+
+            var originatingFrame = currentFrame;
 
             return new TestEnvironment
                        {
@@ -123,6 +130,14 @@ namespace Shouldly
                            FileName = originatingFrame.GetFileName(),
                            LineNumber = originatingFrame.GetFileLineNumber() - 1
                        };
+        }
+
+        private static bool IsShouldlyMethod(MethodBase method)
+        {
+            if (method.DeclaringType == null)
+                return false;
+
+            return method.DeclaringType.GetCustomAttributes(typeof (ShouldlyMethodsAttribute), true).Any();
         }
     }
 }
