@@ -15,7 +15,7 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBe_WhenFalse_ShouldThrow()
+        public void ShouldNotBe_WhenTrue_ShouldNotThrow()
         {
             "this string".ShouldNotBe("some other string");
         }
@@ -42,7 +42,7 @@ namespace Shouldly.Tests
         {
             7.ShouldBeGreaterThanOrEqualTo(1);
             1.ShouldBeGreaterThanOrEqualTo(1);
-            Shouldly.Should.Throw<Shouldly.ChuckedAWobbly>(() => 0.ShouldBeGreaterThanOrEqualTo(1));
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => 0.ShouldBeGreaterThanOrEqualTo(1));
         }
 
         [Test]

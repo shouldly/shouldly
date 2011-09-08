@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using System.Diagnostics;
 using NUnit.Framework;
 
@@ -8,6 +7,17 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeStringTestExtensions
     {
+        /// <summary>
+        /// Perform a string comparison, specifying the desired case sensitivity
+        /// </summary>
+        public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
+        {
+            var constraint = (caseSensitivity == Case.Sensitive)
+                                 ? Is.EqualTo(expected)
+                                 : Is.EqualTo(expected).IgnoreCase;
+            actual.AssertAwesomely(constraint, actual, expected);
+        }
+
         /// <summary>
         /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
         /// </summary>
