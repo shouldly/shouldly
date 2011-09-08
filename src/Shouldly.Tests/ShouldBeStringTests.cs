@@ -55,5 +55,19 @@ namespace Shouldly.Tests
         {
             "Cheese".ShouldMatch(@"C.e{2}s[e]");
         }
+
+        [Test]
+        public void ShouldBe_GivenCaseInsensitiveOptionAndStringsDifferingOnlyInCase_ShouldPass()
+        {
+            "SamplE".ShouldBe("sAMPLe", Case.Insensitive);
+        }
+
+        [Test]
+        public void ShouldBe_GivenCaseSensitiveOptionAndStringsDifferingOnlyInCase_ShouldFail()
+        {
+            Should.Error(() =>
+                         "SamplE".ShouldBe("sAMPLe", Case.Sensitive),
+                         "'SamplE' should be 'sAMPLe' but was 'SamplE'");
+        }
     }
 }

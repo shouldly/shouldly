@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Case.cs" />
     <Compile Include="Create.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
