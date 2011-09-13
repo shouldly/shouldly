@@ -71,6 +71,10 @@ Other *Shouldly* features:
         ShouldContainKeyShouldContainKeyAndValue
         ShouldNotContainKey
         ShouldNotContainKeyAndValue
+	
+    ##Exceptions
+        Should.Throw<T>(Action)
+        Should.NotThrow(Action)
 
     ##Rhino Mocks
         ShouldHaveBeenCalled

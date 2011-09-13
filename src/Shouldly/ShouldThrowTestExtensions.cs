@@ -24,5 +24,17 @@ namespace Shouldly
 
             throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
         }
+
+        public static void NotThrow(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                throw new ChuckedAWobbly(new ShouldlyMessage(ex.GetType()).ToString());
+            }
+        }
     }
 }
