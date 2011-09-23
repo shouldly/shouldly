@@ -2,6 +2,5 @@
 
 namespace Shouldly
 {
-    public class ShouldlyMethodsAttribute : Attribute
-    { }
+    internal class ShouldlyMethodsAttribute : Attribute { }
 }

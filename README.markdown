@@ -26,22 +26,23 @@ It might be easy to underestimate how useful this is. Another example, side by s
 
 **Shouldly** uses the variables within the *ShouldBe* statement to report on errors, which makes diagnosing easier.
 
-The **Shouldly** library has other features.
-It integrates with RhinoMocks, to give clear messages about expectation failures:
-Here's the message without Shouldly; helpful, but not great...
+Another example, if you compare two collections:
+    
+    (new[] { 1, 2, 3 }).ShouldBe(new[] { 1, 2, 4 });
+ 
+and it fails because they're different, it'll show you the differences between the two collections:
+        should be
+    [1, 2, 4]
+        but was
+    [1, 2, 3]
+        difference
+    [1, 2, *3*]
 
-    Rhino.Mocks.Exceptions.ExpectationViolationException:
-    IContestant.PlayGame("Shouldly"); Expected #1, Actual #0
-
-**Shouldly's** message:
-
-    Expected:
-        IContestant.PlayGame("Shouldly");
-    Recorded:
-        IContestant.PlayGame("Debugging");
-        IContestant.PlayGame("Logging");
-        IContestant.PlayGame("Drinking coffee");
-        IContestant.PlayGame("Commenting out test");
+If you want to check that a particular call does/does not throw an exception, it's as simple as:
+    
+    Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-1));
+    
+Then if it chucks a wobbly, you have access to the exception to help debug what the underlying cause was.
 
 Other *Shouldly* features:
 
@@ -53,10 +54,12 @@ Other *Shouldly* features:
 		ShouldBeTypeOf<T>
 
     ##Enumerable
-		ShouldContain
-		ShouldContain(predicate)
-		ShouldNotContain
-		ShouldNotContain(predicate)
+        ShouldContain
+        ShouldContain(predicate)
+        ShouldNotContain
+        ShouldNotContain(predicate)
+        ShouldBeEmpty
+        ShouldNotBeEmpty
 
     ##String
         ShouldBeCloseTo
@@ -75,7 +78,4 @@ Other *Shouldly* features:
     ##Exceptions
         Should.Throw<T>(Action)
         Should.NotThrow(Action)
-
-    ##Rhino Mocks
-        ShouldHaveBeenCalled
 

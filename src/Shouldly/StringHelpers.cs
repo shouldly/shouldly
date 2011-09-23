@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
-    public static class StringHelpers
+    internal static class StringHelpers
     {
         public static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class
         {

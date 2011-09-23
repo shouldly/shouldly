@@ -11,8 +11,5 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
     <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>
-    <dependencies>
-      <dependency id="RhinoMocks" version="3.6" />
-    </dependencies>
   </metadata>
 </package>

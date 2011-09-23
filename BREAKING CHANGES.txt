@@ -1,0 +1,25 @@
+v1.0 -> v1.1 Breaking Changes
+    # Shouldly.Should.Throw<TException> changed to return thrown exception when failed, rather than exception message
+        FIX: Any code relying on Throw<T>() to return a string should update to call Message. Eg:
+        Should.Throw<SomeException>(() => throw new OtherException()).Message.ShouldBe("Threw other exception");
+    
+    # Rhino Mocks has been deprecated from Shouldly. 
+        Won't break build as such, but please bear in mind that plans are to remove this functionality from Shouldly
+        This also means the NuGet package has been updated to remove the explicit dependency on Rhino.Mocks.
+        
+    # The following classes have been marked internal. They shouldn't have been marked public:
+        Shouldly.ObjectHelpers
+            T As<T>()
+        Shouldly.ShouldlyCoreExtentions
+            void AssertAwesomely<T>()
+        Shouldly.TestEnvironment
+        Shouldly.ShouldlyMessage
+        Shouldly.ShouldlyMethodsAttribute
+        Shouldly.StringHelpers
+            string CommaDelimited<T>()
+            string DelimitWith<T>()
+            string Inspect()
+
+        If you're using these methods, please implement locally before updating to v1.1
+
+====EOF====

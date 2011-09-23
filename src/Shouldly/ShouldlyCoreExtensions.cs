@@ -2,7 +2,7 @@
 
 namespace Shouldly
 {
-    public static class ShouldlyCoreExtensions
+    internal static class ShouldlyCoreExtensions
     {
         internal static void AssertAwesomely<T>(this T actual, IResolveConstraint specifiedConstraint, object originalActual, object originalExpected)
         {

@@ -161,6 +161,7 @@ task :collate_package_contents => [:get_build_number] do
 
 	cp "../README.markdown", "#{deploy_path}/README.txt"
 	cp "../LICENSE.txt", "#{deploy_path}"
+	cp "../BREAKING CHANGES.txt", "#{deploy_path}"
 
     tidyUpTextFileFromMarkdown("#{deploy_path}/README.txt")
 end

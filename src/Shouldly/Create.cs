@@ -1,7 +1,9 @@
-﻿using Rhino.Mocks;
+﻿using System;
+using Rhino.Mocks;
 
 namespace Shouldly
 {
+    [Obsolete("Rhino.Mocks support is deprecated and will be removed from a future version of Shouldly", false)]
     public static class Create
     {
         public static T Mock<T>() where T : class

@@ -9,6 +9,7 @@ namespace Shouldly
 {
     public static class ShouldlyRhinoExtensions
     {
+        [Obsolete("Rhino.Mocks support is deprecated and will be removed from a future version of Shouldly", false)]
         public static void ShouldHaveBeenCalled<T>(this T mock, Expression<Action<T>> action)
         {
             try
@@ -34,9 +35,9 @@ namespace Shouldly
 
         private static string MethodCall(string name, IEnumerable<object> arguments)
         {
-            return string.Format("{0}({1})", 
-                                 name, 
+            return string.Format("{0}({1})",
+                                 name,
                                  arguments.Select(a => a.Inspect()).CommaDelimited());
         }
-   }
+    }
 }

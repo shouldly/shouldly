@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Shouldly
 {
-    public class TestEnvironment
+    internal class TestEnvironment
     {
         public bool DeterminedOriginatingFrame { get; set; }
         public string ShouldMethod { get; set; }
@@ -16,7 +16,7 @@ namespace Shouldly
         public int LineNumber { get; set; }
     }
 
-    public class ShouldlyMessage
+    internal class ShouldlyMessage
     {
         private readonly object expected;
         private readonly object actual;
