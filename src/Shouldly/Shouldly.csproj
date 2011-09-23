@@ -67,6 +67,7 @@
     <Compile Include="ShouldBeTestExtensions.cs" />
     <Compile Include="ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
+    <Compile Include="ShouldlyMessageGenerators.cs" />
     <Compile Include="ShouldlyMethodsAttribute.cs" />
     <Compile Include="ShouldlyRhinoExtensions.cs" />
     <Compile Include="ShouldThrowTestExtensions.cs" />

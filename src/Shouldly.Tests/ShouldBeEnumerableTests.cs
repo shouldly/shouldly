@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
@@ -104,5 +105,52 @@ namespace Shouldly.Tests
                 "new[] { 1.0f, 2.1f, (float)Math.PI, 4.321f, 5.4321f } should contain 3.14 but was [1, 2.1, 3.141593, 4.321, 5.4321]");
         }
 
+        [Test]
+        public void ShouldBeEmpty_WhenEmpty_ShouldNotError()
+        {
+            Should.NotError(() => new object[0].ShouldBeEmpty());
+        }
+
+        [Test]
+        public void ShouldBeEmpty_WhenNull_ShouldError()
+        {
+            IEnumerable<object> objects = null;
+            Should.Error(() =>
+                objects.ShouldBeEmpty(),
+                "objects should be empty but was null");
+        }
+
+        [Test]
+        public void ShouldBeEmpty_WhenNotEmpty_ShouldError()
+        {
+            var objects = (new[] { new object(), new object() });
+            Should.Error(() => 
+                objects.ShouldBeEmpty(),
+                "objects should be empty but was [System.Object, System.Object]");
+        }
+
+        [Test]
+        public void ShouldNotBeEmpty_WhenNotEmpty_ShouldNotError()
+        {
+            Should.NotError(() => new[] { new object() }.ShouldNotBeEmpty());
+        }
+
+        [Test]
+        public void ShouldNotBeEmpty_WhenNull_ShouldError()
+        {
+            IEnumerable<object> objects = null;
+            Should.Error(() =>
+                objects.ShouldNotBeEmpty(),
+                "objects should not be empty but was null");
+        }
+
+        [Test]
+        public void ShouldNotBeEmpty_WhenEmpty_ShouldError()
+        {
+            var objects = new object[0];
+            Should.Error(() =>
+                objects.ShouldNotBeEmpty(),
+                "objects should not be empty but was");
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using Shouldly.DifferenceHighlighting;
 using System.Reflection;
 
@@ -18,27 +18,28 @@ namespace Shouldly
 
     internal class ShouldlyMessage
     {
-        private readonly object expected;
-        private readonly object actual;
-        private readonly bool hasActual;
+        private readonly object _expected;
+        private readonly object _actual;
+        private readonly bool _hasActual;
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] { new ShouldBeEmptyMessageGenerator(), new DefaultMessageGenerator() };
 
         public ShouldlyMessage(object expected)
         {
-            this.expected = expected;
+            _expected = expected;
         }
 
         public ShouldlyMessage(object expected, object actual)
         {
-            this.actual = actual;
-            this.expected = expected;
-            hasActual = true;
+            _actual = actual;
+            _expected = expected;
+            _hasActual = true;
         }
 
         public override string ToString()
         {
-            return hasActual ? 
-                GenerateShouldMessage(actual, expected) : 
-                GenerateShouldMessage(expected);
+            return _hasActual ?
+                GenerateShouldMessage(_actual, _expected) :
+                GenerateShouldMessage(_expected);
         }
 
         private static string GenerateShouldMessage(object actual, object expected)
@@ -61,7 +62,15 @@ namespace Shouldly
             return CreateActualVsExpectedMessage(actual, expected, environment, codePart);
         }
 
-        private static string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart) 
+        private static string GenerateShouldMessage(object expected)
+        {
+            var environment = GetStackFrameForOriginatingTestMethod();
+            var message = ShouldlyMessageGenerators.First(x => x.CanProcess(environment)).GenerateErrorMessage(environment, expected);
+
+            return message;
+        }
+
+        private static string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart)
         {
             string message = string.Format(@"{0}
         {1}
@@ -70,38 +79,14 @@ namespace Shouldly
     {3}",
                 codePart, environment.ShouldMethod.PascalToSpaced(), expected.Inspect(), actual.Inspect());
 
-            if (actual.CanGenerateDifferencesBetween(expected)) {
+            if (actual.CanGenerateDifferencesBetween(expected))
+            {
                 message += string.Format(@"
         difference
     {0}",
                 actual.HighlightDifferencesBetween(expected));
             }
             return message;
-        }
-
-        private static string GenerateShouldMessage(object expected)
-        {
-            var environment = GetStackFrameForOriginatingTestMethod();
-            var codePart = "The provided expression";
-
-            if (environment.DeterminedOriginatingFrame)
-            {
-                var codeLines = string.Join("\n",
-                                            File.ReadAllLines(environment.FileName)
-                                                .Skip(environment.LineNumber).ToArray());
-
-                codePart = codeLines.Substring(0, codeLines.IndexOf(environment.ShouldMethod) - 1).Trim();
-            }
-
-            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
-
-            const string elementSatifyingTheConditionString = "an element satisfying the condition";
-            return string.Format(
-                @"{0}
-        {1} {2}
-    {3}
-        but does {4}",
-                     codePart, environment.ShouldMethod.PascalToSpaced(), expected is BinaryExpression ? elementSatifyingTheConditionString : "", expected.Inspect(), isNegatedAssertion ? "" : "not");
         }
 
         private static TestEnvironment GetStackFrameForOriginatingTestMethod()
@@ -137,7 +122,7 @@ namespace Shouldly
             if (method.DeclaringType == null)
                 return false;
 
-            return method.DeclaringType.GetCustomAttributes(typeof (ShouldlyMethodsAttribute), true).Any();
+            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
         }
     }
 }

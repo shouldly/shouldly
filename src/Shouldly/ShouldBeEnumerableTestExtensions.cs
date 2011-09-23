@@ -36,6 +36,18 @@ namespace Shouldly
                 throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
         }
 
+        public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)
+        {
+            if (actual == null || (actual != null && actual.Count() != 0))
+                throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+        }
+
+        public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual)
+        {
+            if (actual == null || actual != null && actual.Count() == 0)
+                throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+        }
+
         public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) 
         {
             if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
