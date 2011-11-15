@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using NUnit.Framework;
 using System;
 
@@ -39,6 +40,16 @@ namespace Shouldly
         }
 
         public static void ShouldBe(this float actual, float expected, double tolerance)
+        {
+            actual.AssertAwesomely(Is.EqualTo(expected).Within(tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
+        {
+            actual.AssertAwesomely(Is.EqualTo(expected).Within(tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
         {
             actual.AssertAwesomely(Is.EqualTo(expected).Within(tolerance), actual, expected);
         }

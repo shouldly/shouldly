@@ -72,7 +72,8 @@ namespace Shouldly
 
         private static string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart)
         {
-            string message = string.Format(@"{0}
+            string message = string.Format(@"
+    {0}
         {1}
     {2}
         but was

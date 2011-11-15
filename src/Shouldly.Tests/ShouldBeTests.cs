@@ -46,6 +46,23 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBe_EnumerableValues_ShouldCompareItemsInEachEnumerable()
+        {
+            new[] { 1, 2 }.ShouldBe(new[] { 1, 2 });
+
+            Should.Error(() =>
+                new[] { 2, 1 }.ShouldBe(new[] { 1, 2 }),
+                "new[] { 2, 1 } should be [1, 2] but was [2, 1] difference [*2*, *1*]"
+            );
+        }
+
+        [Test]
+        public void ShouldBe_EnumerableOfDoubles_ShouldAllowTolerance()
+        {
+            new[] { Math.PI, Math.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
+        }
+
+        [Test]
         public void ShouldBeTypeOf_ShouldNotThrowForStrings()
         {
             "Sup yo".ShouldBeTypeOf(typeof(string));

@@ -17,7 +17,8 @@ namespace Shouldly
 
         public override string GenerateErrorMessage(TestEnvironment environment, object actual)
         {
-            const string format = @"{0}
+            const string format = @"
+    {0}
             {1}
         but was {2}";
 
@@ -41,7 +42,8 @@ namespace Shouldly
 
         public override string GenerateErrorMessage(TestEnvironment environment, object expected)
         {
-            var format = @"{0}
+            var format = @"
+    {0}
         {1} {2}
     {3}
         but does {4}";

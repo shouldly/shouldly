@@ -11,3 +11,4 @@ test-results
 *.gem
 *crunch*.xml
 *.nupkg
+*DotSettings*
