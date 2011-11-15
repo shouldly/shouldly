@@ -54,6 +54,7 @@ Other *Shouldly* features:
 		ShouldBeTypeOf<T>
 
     ##Enumerable
+    	ShouldBe(with Tolerance)
         ShouldContain
         ShouldContain(predicate)
         ShouldNotContain
