@@ -10,7 +10,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldContain_WhenTrue_ShouldNotThrow()
         {
-            new[]{1,2,3}.ShouldContain(2);
+            new[] { 1, 2, 3 }.ShouldContain(2);
         }
 
         [Test]
@@ -18,13 +18,13 @@ namespace Shouldly.Tests
         {
             Should.Error(() =>
                 new[] { 1, 2, 3 }.ShouldContain(5),
-                "new[]{1,2,3} should contain 5 but was [1, 2, 3]");
+                "new[]{ 1, 2, 3 } should contain 5 but was [1, 2, 3]");
         }
 
         [Test]
         public void ShouldNotContain_WhenTrue_ShouldNotThrow()
         {
-            new[]{1,2,3}.ShouldNotContain(5);
+            new[] { 1, 2, 3 }.ShouldNotContain(5);
         }
 
         public class Vampire
@@ -53,14 +53,14 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldContain_WithPredicate_WhenTrue_ShouldNotThrow()
         {
-            new[]{1,2,3}.ShouldContain(x => x % 3 == 0);
+            new[] { 1, 2, 3 }.ShouldContain(x => x % 3 == 0);
         }
 
         [Test]
         public void ShouldContain_WithPredicate_WhenFalse_ShouldErrorWithMessage()
         {
             Should.Error(() =>
-            new[]{1,2,3}.ShouldContain(x => x % 4 == 0),
+            new[] { 1, 2, 3 }.ShouldContain(x => x % 4 == 0),
             "new[]{1,2,3} should contain an element satisfying the condition ((x % 4) = 0) but does not");
         }
 
@@ -81,7 +81,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldNotContain_WhenFalse_ShouldErrorWithMessage()
         {
-            Should.Error(() => 
+            Should.Error(() =>
                 new[] { 1, 2, 3 }.ShouldNotContain(2),
                 "new[]{1,2,3} should not contain 2 but was [1, 2, 3]");
         }
@@ -124,7 +124,7 @@ namespace Shouldly.Tests
         public void ShouldBeEmpty_WhenNotEmpty_ShouldError()
         {
             var objects = (new[] { new object(), new object() });
-            Should.Error(() => 
+            Should.Error(() =>
                 objects.ShouldBeEmpty(),
                 "objects should be empty but was [System.Object, System.Object]");
         }

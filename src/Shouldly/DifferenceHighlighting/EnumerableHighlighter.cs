@@ -26,10 +26,9 @@ namespace Shouldly.DifferenceHighlighting
 
         public bool CanProcess<T1, T2>(T1 expected, T2 actual)
         {
-            return  expected != null && actual != null
-                    && (expected is IEnumerable)
-                    && !(expected is string)
-                    && (expected.GetType() == actual.GetType());
+            return expected != null && actual != null
+                   && (expected is IEnumerable)
+                   && !(expected is string);
         }
 
         public string HighlightDifferences<T1, T2>(T1 expected, T2 actual)
@@ -94,5 +93,5 @@ namespace Shouldly.DifferenceHighlighting
 
             return _differenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
         }
-   }
+    }
 }

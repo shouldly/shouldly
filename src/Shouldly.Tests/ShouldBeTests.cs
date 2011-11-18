@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using NUnit.Framework;
 
@@ -51,8 +52,23 @@ namespace Shouldly.Tests
             new[] { 1, 2 }.ShouldBe(new[] { 1, 2 });
 
             Should.Error(() =>
-                new[] { 2, 1 }.ShouldBe(new[] { 1, 2 }),
-                "new[] { 2, 1 } should be [1, 2] but was [2, 1] difference [*2*, *1*]"
+                         new[] { 2, 1 }.ShouldBe(new[] { 1, 2 }),
+                         "new[] { 2, 1 } should be [1, 2] but was [2, 1] difference [*2*, *1*]"
+                );
+        }
+
+        [Test]
+        public void ShouldBe_EnumerableTypesOfDifferentRuntimeTypes_ShouldShowDifferences()
+        {
+            var a = new Widget { Name = "Joe", Enabled = true };
+            var b = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
+
+            IEnumerable<Widget> aEnumerable = a.ToEnumerable();
+            IEnumerable<Widget> bEnumerable = new[] { b };
+
+            Should.Error(() =>
+                aEnumerable.ShouldBe(bEnumerable),
+                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
             );
         }
 

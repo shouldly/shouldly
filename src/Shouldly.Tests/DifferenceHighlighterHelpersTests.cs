@@ -35,7 +35,7 @@ namespace Shouldly.Tests
         [Test]
         public void HighlightDifferencesBetween_DifferentTypes_DisplaysActualWithoutHighlight()
         {
-            new[] { "hi", "mum" }.HighlightDifferencesBetween(new[] { 1, 2 }).ShouldBe("[\"hi\", \"mum\"]");
+            new[] { "hi", "mum" }.HighlightDifferencesBetween(new[] { 1, 2 }).ShouldBe("[*\"hi\"*, *\"mum\"*]");
         }
 
         [Test]

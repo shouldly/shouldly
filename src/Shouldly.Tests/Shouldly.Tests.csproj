@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DifferenceHighlighterHelpersTests.cs" />
+    <Compile Include="EnumerableExtensionHelpers.cs" />
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="ShouldlyRhinoTests.cs" />
     <Compile Include="ShouldNotThrowTests.cs" />
     <Compile Include="ShouldThrowTests.cs" />
+    <Compile Include="Widget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shouldly\Shouldly.csproj">
