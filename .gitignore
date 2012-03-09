@@ -12,3 +12,4 @@ test-results
 *crunch*.xml
 *.nupkg
 *DotSettings*
+*DS_Store

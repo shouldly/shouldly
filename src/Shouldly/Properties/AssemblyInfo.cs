@@ -5,5 +5,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Shouldly")]
 [assembly: AssemblyProduct("Shouldly")]
 [assembly: AssemblyCopyright("Copyright (c) 2010 Shouldly")]
-[assembly: AssemblyVersion("1.1.0.1")]
+[assembly: AssemblyVersion("0.0.0.0")]
 
