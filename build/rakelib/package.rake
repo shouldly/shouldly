@@ -1,5 +1,5 @@
 	desc "Deploys artefacts to their relevant locations"
-task :deploy_artefacts => [:prepare_artefacts, :push_to_github, :push_to_nuget] #, :push_gem]
+task :deploy_artefacts => [:prepare_artefacts, :push_to_nuget]
 
 task :prepare_artefacts => [:nuget, :create_zip] do #:create_gem, 
 	output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
