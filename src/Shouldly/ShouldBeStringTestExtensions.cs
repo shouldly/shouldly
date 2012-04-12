@@ -51,7 +51,7 @@ namespace Shouldly
 
         public static void ShouldContain(this string actual, string expected)
         {
-            actual.AssertAwesomely(Is.StringContaining(expected).IgnoreCase, actual, expected);
+            actual.AssertAwesomely(Is.StringContaining(expected).IgnoreCase, actual.Clip(100), expected);
         }
 
         public static void ShouldNotContain(this string actual, string expected)

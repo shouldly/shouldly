@@ -51,12 +51,22 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldlyMessage_WhenComparingLongStrings_ShouldLimitTheMessageTo100Characters()
+        public void ShouldlyMessage_WhenComparingStringsOver100Characters_ShouldLimitTheMessageTo100Characters()
         {
-            var longString = new string('a', 51);
+            var longString = new string('a', 110);
             Should.Error(
               () => longString.ShouldContain("zzzz"),
-              string.Format("() => longString should contain \"zzzz\" but was \"{0}\"",longString.Substring(0,51))
+              string.Format("() => longString should contain \"zzzz\" but was \"{0}\"",longString.Substring(0,100))
+          );
+        }
+
+        [Test]
+        public void ShouldlyMessage_WhenComparingStringsUnder100Characters_ShouldNotLimitTheMessage()
+        {
+            var longString = new string('a', 80);
+            Should.Error(
+              () => longString.ShouldContain("zzzz"),
+              string.Format("() => longString should contain \"zzzz\" but was \"{0}\"", longString)
           );
         }
 
