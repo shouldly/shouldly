@@ -33,8 +33,8 @@ namespace Shouldly
         /// <param name="expected"></param>
         public static void ShouldBeCloseTo(this string actual, object expected)
         {
-            var strippedActual = actual.Quotify().StripWhitespace();
-            var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
+            var strippedActual = actual.Quotify().StripWhitespace().ToUpper();
+            var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace().ToUpper();
 
             strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
         }
