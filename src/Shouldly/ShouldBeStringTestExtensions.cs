@@ -27,7 +27,7 @@ namespace Shouldly
         }
 
         /// <summary>
-        /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
+        /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings case-insensitively
         /// </summary>
         /// <param name="actual"></param>
         /// <param name="expected"></param>
