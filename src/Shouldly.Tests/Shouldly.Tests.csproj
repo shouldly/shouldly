@@ -63,8 +63,7 @@
     <Compile Include="ShouldlyMessageTests.cs" />
     <Compile Include="ShouldlyRhinoTests.cs" />
     <Compile Include="ShouldlyStringExtensionTests.cs" />
-    <Compile Include="ShouldNotThrowTests.cs" />
-    <Compile Include="ShouldThrowTests.cs" />
+    <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="Widget.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using NUnit.Framework;
 
@@ -47,32 +46,6 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBe_EnumerableValues_ShouldCompareItemsInEachEnumerable()
-        {
-            new[] { 1, 2 }.ShouldBe(new[] { 1, 2 });
-
-            Should.Error(() =>
-                         new[] { 2, 1 }.ShouldBe(new[] { 1, 2 }),
-                         "new[] { 2, 1 } should be [1, 2] but was [2, 1] difference [*2*, *1*]"
-                );
-        }
-
-        [Test]
-        public void ShouldBe_EnumerableTypesOfDifferentRuntimeTypes_ShouldShowDifferences()
-        {
-            var a = new Widget { Name = "Joe", Enabled = true };
-            var b = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
-
-            IEnumerable<Widget> aEnumerable = a.ToEnumerable();
-            IEnumerable<Widget> bEnumerable = new[] { b };
-
-            Should.Error(() =>
-                aEnumerable.ShouldBe(bEnumerable),
-                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
-            );
-        }
-
-        [Test]
         public void ShouldBe_EnumerableOfDoubles_ShouldAllowTolerance()
         {
             new[] { Math.PI, Math.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
@@ -102,15 +75,6 @@ namespace Shouldly.Tests
             "Sup yo".ShouldNotBeTypeOf<int>();
         }
 
-        [Test]
-        public void ShouldBe_ShouldNotThrowWhenCalledOnANullEnumerableReference()
-        {
-            IEnumerable<int> something = null;
-            Should.Error(
-                () => something.ShouldBe(new[] { 1, 2, 3 }),
-                "() => something should be [1, 2, 3] but was null");
-        }
-
         class MyBase { }
         class MyThing : MyBase { }
 
@@ -118,24 +82,6 @@ namespace Shouldly.Tests
         public void ShouldBeTypeOf_ShouldNotThrowForInheritance()
         {
             new MyThing().ShouldBeTypeOf<MyBase>();
-        }
-
-        [Test]
-        public void ShouldBe_Action()
-        {
-            Action a = () => 1.ShouldBe(2);
-
-            Should.Error(a,
-                "Action a = () => 1 should be 2 but was 1");
-        }
-
-        [Test]
-        public void ShouldBe_Expression()
-        {
-            Expression<Action> lambda = () => 1.ShouldBe(2);
-
-            Should.Error(lambda.Compile(),
-            "The provided expression should be 2 but was 1");
         }
     }
 }
