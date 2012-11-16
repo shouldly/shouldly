@@ -213,17 +213,13 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeCloseTo_ShowsYouWhereTheStringsDiffer()
+        public void ShouldBeCloseTo()
         {
             const string testMessage = "muhst eat braiiinnzzzz";
             Should.Error(() =>
                          testMessage
                              .ShouldBeCloseTo("must eat brains"),
-                         @"testMessage
-    should be close to
-'must eat brains'
-    but was
-'muhst eat braiiinnzzzz'");
+                         @"testMessage should be close to 'must eat brains' but was 'muhst eat braiiinnzzzz'");
         }
 
         private class UncomparableClass

@@ -8,8 +8,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldBeCloseTo_IsPrettyLoose()
         {
-            "Fun   with space   and \"quotes\""
-                .ShouldBeCloseTo("Fun with space and 'quotes'");
+            "Fun   with space   and \"quotes\"".ShouldBeCloseTo("Fun with space and 'quotes'");
         }
 
         [Test]

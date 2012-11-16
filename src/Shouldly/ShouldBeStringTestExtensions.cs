@@ -23,7 +23,10 @@ namespace Shouldly
         /// </summary>
         public static void ShouldContainWithoutWhitespace(this string actual, object expected)
         {
-            ShouldBeCloseTo(actual, expected);
+            var strippedActual = actual.Quotify().StripWhitespace();
+            var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
+
+            strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
         }
 
         /// <summary>
@@ -31,12 +34,10 @@ namespace Shouldly
         /// </summary>
         /// <param name="actual"></param>
         /// <param name="expected"></param>
+        [System.Obsolete]
         public static void ShouldBeCloseTo(this string actual, object expected)
         {
-            var strippedActual = actual.Quotify().StripWhitespace();
-            var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
-
-            strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
+            ShouldContainWithoutWhitespace(actual, expected);
         }
 
         public static void ShouldStartWith(this string actual, string expected)
