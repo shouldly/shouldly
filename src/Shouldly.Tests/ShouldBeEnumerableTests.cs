@@ -31,6 +31,15 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldlyMessage_WhenComparingMatchingStringsOver100Characters_ShouldNotClipStringForComparison()
+        {
+            var longString = new string('a', 110) + "zzzz";
+
+            Should.NotError(
+              () => longString.ShouldContain("zzzz"));
+        }
+
+        [Test]
         public void ShouldContain_WithNumbersWhenTrue_ShouldAllowTolerance()
         {
             new[] { 1.0, 2.1, Math.PI, 4.321, 5.4321 }.ShouldNotContain(3.14);
