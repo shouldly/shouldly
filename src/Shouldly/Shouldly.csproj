@@ -37,9 +37,6 @@
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\lib\RhinoMocks\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -58,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Case.cs" />
-    <Compile Include="Create.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighterExtensions.cs" />
@@ -75,7 +71,6 @@
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="ShouldlyMessageGenerators.cs" />
     <Compile Include="ShouldlyMethodsAttribute.cs" />
-    <Compile Include="ShouldlyRhinoExtensions.cs" />
     <Compile Include="ShouldlyStringExtensions.cs" />
     <Compile Include="ShouldThrowTestExtensions.cs" />
     <Compile Include="StringHelpers.cs" />

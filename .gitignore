@@ -13,3 +13,4 @@ test-results
 *.nupkg
 *DotSettings*
 *DS_Store
+*ncrunch*
