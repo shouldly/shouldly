@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using NUnit.Framework;
-using System;
 
 namespace Shouldly
 {
@@ -61,7 +61,6 @@ namespace Shouldly
 
         public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
         {
-            //actual.ShouldBe(expected);
             actual.AssertAwesomely(Is.EqualTo(expected).Within(tolerance), actual, expected);
         }
 
