@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Shouldly
@@ -96,7 +97,8 @@ namespace Shouldly
 
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
         {
-            expected.ShouldContain(actual);
+            if (!expected.Contains(actual))
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
     }
 }
