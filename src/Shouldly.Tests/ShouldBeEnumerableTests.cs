@@ -31,6 +31,13 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldAllBe_WithPredicate_WhenTrue_ShouldNotThrow()
+        {
+            new[] { 1, 2, 3 }.ShouldAllBe(x => x < 4);
+        }
+
+
+        [Test]
         public void ShouldlyMessage_WhenComparingMatchingStringsOver100Characters_ShouldNotClipStringForComparison()
         {
             var longString = new string('a', 110) + "zzzz";

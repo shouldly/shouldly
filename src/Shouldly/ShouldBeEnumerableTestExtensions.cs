@@ -36,6 +36,13 @@ namespace Shouldly
                 throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
         }
 
+        public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
+        {
+            var condition = elementPredicate.Compile();
+            if (actual.Any(v => !condition(v)))
+                throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
+        }
+
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)
         {
             if (actual == null || (actual != null && actual.Count() != 0))
