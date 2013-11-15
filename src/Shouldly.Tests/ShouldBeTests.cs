@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
@@ -105,5 +109,41 @@ namespace Shouldly.Tests
         {
             new MyThing().ShouldBeTypeOf<MyBase>();
         }
-    }
+
+		[Test]
+		public void ShouldBe_ComparingObjectWithString_ShouldThrow()
+		{
+			Shouldly.Should.Throw<ChuckedAWobbly>(() => new object().ShouldBe("this string"));
+		}
+
+		[Test]
+		public void ShouldBe_ComparingBaseWithDerived_ShouldThrow()
+		{
+			Shouldly.Should.Throw<ChuckedAWobbly>(() => new MyBase().ShouldBe(new MyThing()));
+		}
+
+		class Strange : IEnumerable<Strange>
+		{
+			public IEnumerator<Strange> GetEnumerator()
+			{
+				return new List<Strange>().GetEnumerator();
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return GetEnumerator();
+			}
+
+			public static implicit operator Strange(string thing)
+			{
+				return new Strange();
+			}
+		}
+
+	    [Test]
+	    public void ShouldBe_WhenThingsAreDifferentTypes_ThatOverrideEqualsPoorly_ShouldThrow()
+	    {
+		    Shouldly.Should.Throw<ChuckedAWobbly>(() => new Strange().ShouldBe("hello"));
+	    }
+	}
 }
