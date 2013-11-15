@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using NUnit.Framework;
@@ -30,6 +31,16 @@ namespace Shouldly.Tests
                 () => new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob")),
                 "() => new UncomparableClass(\"ted\") should be bob but was ted"
             );
+
+	        Should.Error(
+		        () => 12.ShouldBe("string"),
+		        "() => 12 should be System.String but was System.Int32"
+		        );
+
+			Should.Error(
+				() => new Strange().ShouldBe("string"),
+				"() => new Strange() should be System.String but was Shouldly.Tests.ShouldlyMessageTests+Strange"
+				);
 
             Should.Error(() =>
                          "SamplE".ShouldBe("sAMPLe", Case.Sensitive),
@@ -233,5 +244,23 @@ namespace Shouldly.Tests
                 return _description;
             }
         }
+
+		private class Strange : IEnumerable<Strange>
+		{
+			public IEnumerator<Strange> GetEnumerator()
+			{
+				return new List<Strange>().GetEnumerator();
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return GetEnumerator();
+			}
+
+			public static implicit operator Strange(string thing)
+			{
+				return new Strange();
+			}
+		}
     }
 }

@@ -13,7 +13,7 @@ namespace Shouldly
         public static void ShouldBe<T>(this T actual, object expected)
         {
 	        if (!(expected is T))
-		        throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType().Name, typeof (T).Name).ToString());
+		        throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType(), typeof (T)).ToString());
 
 	        var expectedAsT = (T) expected;
             actual.AssertAwesomely(Is.EqualTo(expectedAsT), actual, expectedAsT);
