@@ -10,9 +10,13 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
-        public static void ShouldBe<T>(this T actual, T expected)
+        public static void ShouldBe<T>(this T actual, object expected)
         {
-            actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
+	        if (!(expected is T))
+		        throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType().Name, typeof (T).Name).ToString());
+
+	        var expectedAsT = (T) expected;
+            actual.AssertAwesomely(Is.EqualTo(expectedAsT), actual, expectedAsT);
         }
 
         public static T ShouldBeTypeOf<T>(this object actual)
