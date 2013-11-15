@@ -72,7 +72,17 @@ namespace Shouldly.Tests
                 "Action a = () => 1 should be 2 but was 1");
         }
 
-        [Test]
+	    [Test]
+	    public void ComparingEnumerables()
+	    {
+		    Should.Error(
+			    () => new Strange().ShouldBe("string"),
+			    "() => new Strange() should be System.String but was Shouldly.Tests.ShouldlyMessageTests+Strange"
+			    );
+
+	    }
+
+	    [Test]
         public void ShouldBeTypeOf()
         {
             Should.Error(

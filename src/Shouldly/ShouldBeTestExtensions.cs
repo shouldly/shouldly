@@ -1,23 +1,51 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using System;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
-        public static void ShouldBe<T>(this T actual, object expected)
-        {
-	        if (!(expected is T))
-		        throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType(), typeof (T)).ToString());
+	    public static void ShouldBe<T>(this T actual, object expected)
+	    {
+			if(!(expected is T))
+				if (AreEnumerableAndHaveSameElementType(actual, expected))
+					actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
+				else 
+					throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType(), typeof (T)).ToString());
 
-	        var expectedAsT = (T) expected;
-            actual.AssertAwesomely(Is.EqualTo(expectedAsT), actual, expectedAsT);
-        }
+		    else
+		    {
+			    var expectedAsT = (T) expected;
+				actual.AssertAwesomely(Is.EqualTo(expectedAsT), actual, expectedAsT);
+		    }
+	    }
+
+	    private static bool AreEnumerableAndHaveSameElementType(object a, object b)
+	    {
+		    if (!(a is IEnumerable && b is IEnumerable))
+			    return false;
+
+		    var aEnumerable = ((IEnumerable) a).Cast<object>().ToList();
+		    var bEnumerable = ((IEnumerable) b).Cast<object>().ToList();
+
+		    if (aEnumerable.Count != bEnumerable.Count)
+			    return false;
+
+		    var aElement = aEnumerable.FirstOrDefault();
+		    var bElement = bEnumerable.FirstOrDefault();
+
+		    if (aElement == null || bElement == null)
+			    return false;
+
+		    return aElement.GetType() == bElement.GetType();
+	    }
 
         public static T ShouldBeTypeOf<T>(this object actual)
         {

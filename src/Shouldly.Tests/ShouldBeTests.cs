@@ -122,6 +122,12 @@ namespace Shouldly.Tests
 			Shouldly.Should.Throw<ChuckedAWobbly>(() => new MyBase().ShouldBe(new MyThing()));
 		}
 
+	    [Test]
+	    public void ShouldBe_WithIEnumerablesOfDifferentCollectionTypes_ShouldNotThrow()
+	    {
+		    new List<int> {1, 2, 3}.ShouldBe(new[] {1, 2, 3});
+	    }
+
 		class Strange : IEnumerable<Strange>
 		{
 			public IEnumerator<Strange> GetEnumerator()
