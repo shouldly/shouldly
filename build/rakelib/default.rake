@@ -1,5 +1,5 @@
 task :default => ["clean", "all"]
-task :all => [:compile, :test]
+task :all => [:compile, :test, :prepare_artefacts]
 
 desc "Update assembly versions, build, generate docs and create directory for packaging"
 task :deploy => [:version_assemblies, :default, :prepare_artefacts, :deploy_artefacts]

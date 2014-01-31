@@ -87,7 +87,7 @@ task :nuget => [:collate_package_contents] do
         sh "#{full_path_to_nuget_exe} pack #{nuspec} -Verbose"
     end
 	
-	`mv "#{nuget_path}/../#{PROJECT_NAME}.#{@@build_number}.nupkg" "#{nuget_path}/../#{PROJECT_NAME}-#{@@build_number}.nupkg"`
+	#`mv "#{nuget_path}/../#{PROJECT_NAME}.#{@@build_number}.nupkg" "#{nuget_path}/../#{PROJECT_NAME}-#{@@build_number}.nupkg"`
 end
 
 task :create_gem => [:collate_package_contents] do
