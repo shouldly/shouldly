@@ -1,4 +1,5 @@
 prerequisite_gems = ['albacore']
+prerequisite_gems = ['zip-zip']
 
 installed_gems = `gem list`
 
