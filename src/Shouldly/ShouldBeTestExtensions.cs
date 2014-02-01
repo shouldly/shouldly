@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace Shouldly
 {
@@ -16,7 +17,7 @@ namespace Shouldly
 
         public static T ShouldBeTypeOf<T>(this object actual)
         {
-            ShouldBeTypeOf(actual, typeof (T));
+            ShouldBeTypeOf(actual, typeof(T));
             return (T) actual;
         }
 
@@ -27,7 +28,7 @@ namespace Shouldly
 
         public static void ShouldNotBeTypeOf<T>(this object actual)
         {
-            ShouldNotBeTypeOf(actual, typeof (T));
+            ShouldNotBeTypeOf(actual, typeof(T));
         }
 
         public static void ShouldNotBeTypeOf(this object actual, Type expected)
@@ -97,12 +98,14 @@ namespace Shouldly
 
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
         {
-            expected.ShouldContain(actual);
+            if (!expected.Contains(actual))
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected)
         {
-            expected.ShouldNotContain(actual);
+            if (expected.Contains(actual))
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
     }
 }

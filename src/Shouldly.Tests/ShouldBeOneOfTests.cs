@@ -19,5 +19,13 @@ namespace Shouldly.Tests
         {
             Shouldly.Should.Throw<ChuckedAWobbly>(() => 1.ShouldBeOneOf(4, 5, 6));
         }
+
+        [Test]
+        public void ErrorMessageIsNice()
+        {
+            Should.Error(
+                () => 1.ShouldBeOneOf(4, 5, 6),
+                "() => 1 should be one of [4, 5, 6] but was 1");
+        }
     }
 }
