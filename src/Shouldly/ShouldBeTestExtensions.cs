@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using NUnit.Framework;
-using System;
 
 namespace Shouldly
 {
@@ -92,6 +93,12 @@ namespace Shouldly
         public static void ShouldNotBeSameAs(this object actual, object expected)
         {
             actual.AssertAwesomely(Is.Not.SameAs(expected), actual, expected);
+        }
+
+        public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
+        {
+            if (!expected.Contains(actual))
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
     }
 }

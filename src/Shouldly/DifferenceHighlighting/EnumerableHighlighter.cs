@@ -28,7 +28,9 @@ namespace Shouldly.DifferenceHighlighting
         {
             return expected != null && actual != null
                    && (expected is IEnumerable)
-                   && !(expected is string);
+                   && !(expected is string)
+                   && (actual is IEnumerable)
+                   && !(actual is string);
         }
 
         public string HighlightDifferences<T1, T2>(T1 expected, T2 actual)
