@@ -57,10 +57,24 @@ namespace Shouldly.Tests
             const decimal pi = (decimal)Math.PI;
             const decimal tolerance = 0.01m;
             const decimal piWithinTolerance = 3.14m;
+            const decimal piOutsideTolerance = 3.16m;
 
             Shouldly.Should.Throw<ChuckedAWobbly>(() => pi.ShouldBe(piWithinTolerance));
             pi.ShouldBe(piWithinTolerance, tolerance);
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => pi.ShouldBe(pi + 2*tolerance, tolerance));
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => pi.ShouldBe(piOutsideTolerance, tolerance));
+        }
+
+        [Test]
+        public void ShouldNotBe_WithDecimal_ShouldAllowTolerance()
+        {
+            const decimal pi = (decimal) Math.PI;
+            const decimal tolerance = 0.01m;
+            const decimal piWithinTolerance = 3.14m;
+            const decimal piOutsideTolerance = 3.16m;
+
+            pi.ShouldNotBe(piWithinTolerance);
+            piOutsideTolerance.ShouldNotBe(pi, tolerance);
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => piWithinTolerance.ShouldNotBe(pi, tolerance));
         }
 
         [Test]
