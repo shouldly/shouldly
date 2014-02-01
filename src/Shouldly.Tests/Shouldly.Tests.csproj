@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DifferenceHighlighterHelpersTests.cs" />
     <Compile Include="EnumerableExtensionHelpers.cs" />
+    <Compile Include="EnumerableHighlighterTests.cs" />
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />

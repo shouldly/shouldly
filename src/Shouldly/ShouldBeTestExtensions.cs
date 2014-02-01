@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace Shouldly
 {
@@ -97,12 +98,14 @@ namespace Shouldly
 
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
         {
-            expected.ShouldContain(actual);
+            if (!expected.Contains(actual))
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected)
         {
-            expected.ShouldNotContain(actual);
+            if (expected.Contains(actual))
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
     }
 }
