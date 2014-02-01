@@ -64,9 +64,19 @@ namespace Shouldly
             actual.AssertAwesomely(Is.EqualTo(expected).Within(tolerance), actual, expected);
         }
 
+        public static void ShouldNotBe(this decimal actual, decimal expected, decimal tolerance)
+        {
+            actual.AssertAwesomely(Is.Not.EqualTo(expected).Within(tolerance), actual, expected);
+        }
+
         public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
         {
             actual.AssertAwesomely(Is.EqualTo(expected).Within(tolerance), actual, expected);
+        }
+
+        public static void ShouldNotBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
+        {
+            actual.AssertAwesomely(Is.Not.EqualTo(expected).Within(tolerance), actual, expected);
         }
 
         public static void ShouldBeGreaterThan(this object actual, object expected)
