@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using NUnit.Framework;
 using System;
 
@@ -16,7 +17,7 @@ namespace Shouldly
 
         public static T ShouldBeTypeOf<T>(this object actual)
         {
-            ShouldBeTypeOf(actual, typeof(T));
+            ShouldBeTypeOf(actual, typeof (T));
             return (T) actual;
         }
 
@@ -27,7 +28,7 @@ namespace Shouldly
 
         public static void ShouldNotBeTypeOf<T>(this object actual)
         {
-            ShouldNotBeTypeOf(actual, typeof(T));
+            ShouldNotBeTypeOf(actual, typeof (T));
         }
 
         public static void ShouldNotBeTypeOf(this object actual, Type expected)
@@ -93,6 +94,16 @@ namespace Shouldly
         public static void ShouldNotBeSameAs(this object actual, object expected)
         {
             actual.AssertAwesomely(Is.Not.SameAs(expected), actual, expected);
+        }
+
+        public static void ShouldBeInRange(this IComparable actual, IComparable from, IComparable to)
+        {
+            actual.AssertAwesomely(Is.InRange(from, to), actual, new {from, to});
+        }
+
+        public static void ShouldNotBeInRange(this IComparable actual, IComparable from, IComparable to)
+        {
+            actual.AssertAwesomely(Is.Not.InRange(from, to), actual, new {from, to});
         }
     }
 }
