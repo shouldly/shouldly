@@ -52,19 +52,28 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void Should_WithDecimal_ShouldAllowTolerance()
+        public void ShouldBe_WithDecimal_ShouldAllowTolerance()
         {
-            var pi = (decimal)Math.PI;
-            pi.ShouldNotBe(3.14m);
-            pi.ShouldBe(3.14m, 0.01m);
+            const decimal pi = (decimal)Math.PI;
+            const decimal tolerance = 0.01m;
+            const decimal piWithinTolerance = 3.14m;
+
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => pi.ShouldBe(piWithinTolerance));
+            pi.ShouldBe(piWithinTolerance, tolerance);
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => pi.ShouldBe(pi + 2*tolerance, tolerance));
         }
 
         [Test]
-        public void ShouldBe_DecimalEnumerable_ShouldAllowTolerance()
+        public void ShouldBe_WithDecimalEnumerable_ShouldAllowTolerance()
         {
             var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
-            var secondSet = new[] { 1.2301m, 2.34m, 3.45m };
-            firstSet.ShouldBe(secondSet, 0.01m);
+            var passingSet = new[] { 1.2301m, 2.34m, 3.45m };
+            var failingSet = new[] { 1.2301m, 2.34m, 3.47m };
+            const decimal tolerance = 0.01m;
+
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => firstSet.ShouldBe(passingSet));
+            firstSet.ShouldBe(passingSet, tolerance);
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => firstSet.ShouldBe(failingSet, tolerance));
         }
 
         [Test]
