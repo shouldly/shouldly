@@ -91,6 +91,19 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldNotBe_WithDecimalEnumerable_ShouldAllowTolerance()
+        {
+            var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
+            var passingSet = new[] { 1.2301m, 2.34m, 3.45m };
+            var failingSet = new[] { 1.2301m, 2.34m, 3.47m };
+            const decimal tolerance = 0.01m;
+
+            firstSet.ShouldNotBe(passingSet);
+            firstSet.ShouldNotBe(failingSet, tolerance);
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => firstSet.ShouldNotBe(passingSet, tolerance));
+        }
+
+        [Test]
         public void ShouldBeTypeOf_ShouldNotThrowForStrings()
         {
             "Sup yo".ShouldBeTypeOf(typeof(string));
