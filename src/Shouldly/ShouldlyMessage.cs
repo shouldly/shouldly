@@ -110,7 +110,6 @@ namespace Shouldly
             var originatingFrame = currentFrame;
 
             var fileName = originatingFrame.GetFileName();
-            Trace.WriteLine(fileName);
             return new TestEnvironment
                        {
                            DeterminedOriginatingFrame = fileName != null,
