@@ -26,5 +26,12 @@ namespace Shouldly.Tests
                 );
             
         }
+
+        [Test]
+        public void ShouldNotThrow_IfCallDoesNotThrow_ShouldDoNothingAndReturnValue()
+        {
+            Should.NotError(
+                () => Shouldly.Should.NotThrow(() => 1).ShouldBe(1));
+        }
     }
 }
