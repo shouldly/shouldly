@@ -80,6 +80,14 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBeTypeOfWithGenericParameter_ShouldReturnThis()
+        {
+            string str = "Sup yo";
+            string ret = str.ShouldBeTypeOf<string>();
+            ret.ShouldBe(str);
+        }
+
+        [Test]
         public void ShouldNotBeTypeOf_ShouldNotThrowForNonMatchingType()
         {
             "Sup yo".ShouldNotBeTypeOf(typeof(int));
