@@ -1,10 +1,10 @@
 	desc "Deploys artefacts to their relevant locations"
-task :deploy_artefacts => [:prepare_artefacts, :push_to_nuget]
+task :deploy_artefacts => [:push_to_nuget]
 
 task :prepare_artefacts => [:nuget, :create_zip] do #:create_gem, 
 	output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
 	artefacts_path = "#{OUTPUT_PATH}/artefacts/"
-	
+
     mkdir_p artefacts_path
 	
 	cp Dir.glob("#{output_build_path}/gem/pkg/*.gem"), artefacts_path
