@@ -59,7 +59,7 @@ task :push_to_nuget do
 	raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
 
     full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
-    sh "#{full_path_to_nuget_exe} push -source http://packages.nuget.org/v1/ #{nupkg} #{api_key}"
+    sh "#{full_path_to_nuget_exe} push #{nupkg} #{api_key}"
 end
 
 
