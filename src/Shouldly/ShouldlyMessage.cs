@@ -109,11 +109,13 @@ namespace Shouldly
 
             var originatingFrame = currentFrame;
 
+            var fileName = originatingFrame.GetFileName();
+            Trace.WriteLine(fileName);
             return new TestEnvironment
                        {
-                           DeterminedOriginatingFrame = originatingFrame.GetFileName() != null,
+                           DeterminedOriginatingFrame = fileName != null,
                            ShouldMethod = shouldlyFrame.GetMethod().Name,
-                           FileName = originatingFrame.GetFileName(),
+                           FileName = fileName,
                            LineNumber = originatingFrame.GetFileLineNumber() - 1
                        };
         }
