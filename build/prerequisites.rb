@@ -9,5 +9,6 @@ prerequisite_gems.each do |gem|
     `gem install #{gem}`
   end
   
+  `gem install rubyzip -v 0.9.9`
   require gem
 end

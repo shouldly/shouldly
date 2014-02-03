@@ -19,7 +19,7 @@ BASE_DIR = File.expand_path "../"
 LIB_PATH = "#{BASE_DIR}/lib"
 
 SOURCE_PATH = "#{BASE_DIR}/src"
-NUNIT_EXE = "#{BASE_DIR}/lib/NUnit/bin/net-2.0/nunit-console.exe"
+NUNIT_EXE = "#{BASE_DIR}/lib/NUnit/nunit-console.exe"
 NUGET_EXE = "#{BASE_DIR}/lib/NuGet/NuGet.exe"
 TAPE_EXE = "#{BASE_DIR}/lib/Tape/Tape.exe"
 ZIP_EXE = "#{BASE_DIR}/lib/Zip/zip.exe"
