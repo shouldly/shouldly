@@ -1,9 +1,11 @@
 desc "Gets build number based on git tags and commit."
 task :get_build_number do
- 	version_info = get_build_version
-	@@build_number = "#{version_info[1]}.#{version_info[2]}.#{version_info[3]}.#{version_info[4]}"
+    version_info = JSON.parse(get_build_version)
+    @@build_number = "#{version_info['NugetVersion']}"
+    puts "Version number will be #{version_info['NugetVersion']}"
 end
 
 def get_build_version
-  /v(\d+)\.(\d+)\.(\d+)\-(\d+)/.match(`git describe --tags --long --match v*`.chomp)
+    gitflowversion = File.expand_path "../lib/GitVersion/GitFlowVersion.exe"
+    `#{gitflowversion}`
 end
