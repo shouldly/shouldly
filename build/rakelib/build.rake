@@ -1,6 +1,7 @@
 desc "Generate assembly info."
 assemblyinfo :version_assemblies => [:get_build_number] do |asm|
-    asm.version = @@build_number
+    asm.version = @@assembly_version
+    asm.custom_attributes :AssemblyInformationalVersion => @@build_number
     asm.company_name = PROJECT_NAME
     asm.product_name = PROJECT_NAME
     asm.title = PROJECT_NAME
