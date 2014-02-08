@@ -61,15 +61,6 @@ namespace Shouldly.Tests
                 "Action a = () => 1 should be 2 but was 1");
         }
 
-        //TODO Fix test in .net 4.0, expressions in .net 4.0 has the filename available in the stackframe, which causes this test to fail
-        [Test, Ignore]
-        public void CompiledLambda()
-        {
-            Expression<Action> lambda = () => 1.ShouldBe(2);
-            Should.Error(lambda.Compile(),
-                "The provided expression should be 2 but was 1");
-        }
-
         [Test]
         public void ShouldBeTypeOf()
         {
