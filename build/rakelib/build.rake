@@ -1,6 +1,7 @@
 desc "Generate assembly info."
 assemblyinfo :version_assemblies => [:get_build_number] do |asm|
-    asm.version = @@build_number
+    asm.version = @@assembly_version
+    asm.custom_attributes :AssemblyInformationalVersion => @@build_number
     asm.company_name = PROJECT_NAME
     asm.product_name = PROJECT_NAME
     asm.title = PROJECT_NAME
@@ -10,8 +11,13 @@ assemblyinfo :version_assemblies => [:get_build_number] do |asm|
 end
 
 desc "Builds the solution."
-msbuild :compile => :version_assemblies do |msb|
-    msb.properties :configuration => :Debug
+msbuild :compile_net40 do |msb|
+    msb.properties :configuration => :Debug, :TargetFrameworkVersion => "v4.0"
+    msb.targets :Build
+    msb.solution = "#{BASE_DIR}/Shouldly.sln"
+end
+msbuild :compile => [:version_assemblies, :compile_net40] do |msb|
+    msb.properties :configuration => :Debug, :TargetFrameworkVersion => "v3.5"
     msb.targets :Clean, :Build
-    msb.solution = "#{BASE_DIR}/Shouldly2010.sln"
+    msb.solution = "#{BASE_DIR}/Shouldly.sln"
 end

@@ -59,10 +59,6 @@ namespace Shouldly.Tests
             Action a = () => 1.ShouldBe(2);
             Should.Error(a,
                 "Action a = () => 1 should be 2 but was 1");
-
-            Expression<Action> lambda = () => 1.ShouldBe(2);
-            Should.Error(lambda.Compile(),
-            "The provided expression should be 2 but was 1");
         }
 
         [Test]
@@ -112,7 +108,7 @@ namespace Shouldly.Tests
 
             Should.Error(() =>
                          new[] { 1, 2, 3 }.ShouldContain(x => x % 4 == 0),
-                         "new[]{1,2,3} should contain an element satisfying the condition ((x % 4) = 0) but does not");
+                         "new[]{1,2,3} should contain an element satisfying the condition ((x % 4) == 0) but does not");
 
             Should.Error(() =>
                 new[] { 1.0, 2.1, Math.PI, 4.321, 5.4321 }.ShouldContain(3.14, 0.001),
@@ -127,8 +123,9 @@ namespace Shouldly.Tests
         public void ShouldNotContain()
         {
             Should.Error(() =>
-                         new[] {1, 2, 3}.ShouldNotContain(x => x%3 == 0),
-                         "new[]{1,2,3} should not contain an element satisfying the condition ((x % 3) = 0) but does");
+                         new[] { 1, 2, 3 }.ShouldNotContain(x => x % 3 == 0),
+                         "new[]{1,2,3} should not contain an element satisfying the condition ((x % 3) == 0) but does");
+
 
             Should.Error(() =>
                 new[] { 1, 2, 3 }.ShouldNotContain(2),
