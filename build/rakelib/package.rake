@@ -71,10 +71,12 @@ task :nuget => [:collate_package_contents] do
 
     #Ensure nuget path exists
     mkdir_p nuget_lib_path
+    mkdir_p "#{nuget_lib_path}/net40"
+    mkdir_p "#{nuget_lib_path}/net35"
 
     #Copy binaries into lib path
-    cp Dir.glob("#{deploy_path}/net40/#{PROJECT_NAME}.{dll,pdb}"), "#{nuget_lib_path}/net40"
-    cp Dir.glob("#{deploy_path}/net35/#{PROJECT_NAME}.{dll,pdb}"), "#{nuget_lib_path}/net35"
+    cp Dir.glob("#{output_base_path}/net40/#{PROJECT_NAME}.{dll,pdb}"), "#{nuget_lib_path}/net40"
+    cp Dir.glob("#{output_base_path}/net35/#{PROJECT_NAME}.{dll,pdb}"), "#{nuget_lib_path}/net35"
 
     #Copy nuspec and *.txt docs into package root
     cp Dir.glob("#{deploy_path}/*.txt"), nuget_path
