@@ -1,62 +1,62 @@
-	desc "Deploys artefacts to their relevant locations"
+    desc "Deploys artefacts to their relevant locations"
 task :deploy_artefacts => [:push_to_nuget]
 
 task :prepare_artefacts => [:nuget, :create_zip] do #:create_gem, 
-	output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	artefacts_path = "#{OUTPUT_PATH}/artefacts/"
+    output_build_path = "#{OUTPUT_PATH}/#{CONFIG}"
+    artefacts_path = "#{OUTPUT_PATH}/artefacts/"
 
     mkdir_p artefacts_path
-	
-	cp Dir.glob("#{output_build_path}/gem/pkg/*.gem"), artefacts_path
-	cp Dir.glob("#{output_build_path}/nuget/*.nupkg"), artefacts_path
-	cp Dir.glob("#{output_build_path}/zip/*.zip"), artefacts_path
+    
+    cp Dir.glob("#{output_build_path}/gem/pkg/*.gem"), artefacts_path
+    cp Dir.glob("#{output_build_path}/nuget/*.nupkg"), artefacts_path
+    cp Dir.glob("#{output_build_path}/zip/*.zip"), artefacts_path
 end
 
 task :push_to_github do
-	puts "Pushing to github..."
-	artefacts_path = "#{OUTPUT_PATH}/artefacts"
-	zipfile = Dir.glob("#{artefacts_path}/*.zip")[0]
-	
-	login = ENV["github_login"]
-	token = ENV["github_token"]
-	
-	raise "GitHub login ENV [github_login] not set" if login.nil?
-	raise "GitHub token ENV [github_token] not set" if token.nil?
-	
-	repos = GITHUB_REPO
-	gh = Net::GitHub::Upload.new(
-		:login => login,
-		:token => token
-	)
-	
-	gh.list_files(repos).each do |file|
-		if file[:description].include? "(Beta)"
-			puts "Deleting old beta download: [#{file[:name]}]"
-			gh.delete repos, file[:id]
-		end
-	end
-	
-	desc = "#{PROJECT_NAME} v#{@@build_number}"
-	desc = (desc + " (Beta)") if (get_build_version[4]).to_i > 1
-	
-	puts "Uploading new version: [#{desc}]"
-	
-	direct_link = gh.upload(
-		:repos => repos,
-		:file  => zipfile,
-		:description => desc,
-		:content_type => 'application/zip'
-	)	
+    puts "Pushing to github..."
+    artefacts_path = "#{OUTPUT_PATH}/artefacts"
+    zipfile = Dir.glob("#{artefacts_path}/*.zip")[0]
+    
+    login = ENV["github_login"]
+    token = ENV["github_token"]
+    
+    raise "GitHub login ENV [github_login] not set" if login.nil?
+    raise "GitHub token ENV [github_token] not set" if token.nil?
+    
+    repos = GITHUB_REPO
+    gh = Net::GitHub::Upload.new(
+        :login => login,
+        :token => token
+    )
+    
+    gh.list_files(repos).each do |file|
+        if file[:description].include? "(Beta)"
+            puts "Deleting old beta download: [#{file[:name]}]"
+            gh.delete repos, file[:id]
+        end
+    end
+    
+    desc = "#{PROJECT_NAME} v#{@@build_number}"
+    desc = (desc + " (Beta)") if (get_build_version[4]).to_i > 1
+    
+    puts "Uploading new version: [#{desc}]"
+    
+    direct_link = gh.upload(
+        :repos => repos,
+        :file  => zipfile,
+        :description => desc,
+        :content_type => 'application/zip'
+    )   
 end
 
 task :push_to_nuget do
-	puts "Pushing to nuget..."
-	artefacts_path = "#{OUTPUT_PATH}/artefacts"
-	nupkg = Dir.glob("#{artefacts_path}/*.nupkg")[0]
-	
-	api_key = ENV["nuget_apikey"]
-	
-	raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
+    puts "Pushing to nuget..."
+    artefacts_path = "#{OUTPUT_PATH}/artefacts"
+    nupkg = Dir.glob("#{artefacts_path}/*.nupkg")[0]
+    
+    api_key = ENV["nuget_apikey"]
+    
+    raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
 
     full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
     sh "#{full_path_to_nuget_exe} push #{nupkg} #{api_key}"
@@ -64,10 +64,10 @@ end
 
 
 task :nuget => [:collate_package_contents] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
-	nuget_path = "#{output_base_path}/nuget/#{@@build_number}"
-	nuget_lib_path = "#{output_base_path}/nuget/#{@@build_number}/lib"
+    output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+    deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
+    nuget_path = "#{output_base_path}/nuget/#{@@build_number}"
+    nuget_lib_path = "#{output_base_path}/nuget/#{@@build_number}/lib"
 
     #Ensure nuget path exists
     mkdir_p nuget_lib_path
@@ -89,14 +89,14 @@ task :nuget => [:collate_package_contents] do
     FileUtils.cd "#{output_base_path}/nuget" do
         sh "#{full_path_to_nuget_exe} pack #{nuspec} -Verbose"
     end
-	
-	#`mv "#{nuget_path}/../#{PROJECT_NAME}.#{@@build_number}.nupkg" "#{nuget_path}/../#{PROJECT_NAME}-#{@@build_number}.nupkg"`
+    
+    #`mv "#{nuget_path}/../#{PROJECT_NAME}.#{@@build_number}.nupkg" "#{nuget_path}/../#{PROJECT_NAME}-#{@@build_number}.nupkg"`
 end
 
 task :create_gem => [:collate_package_contents] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
-	gem_path = "#{output_base_path}/gem"
+    output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+    deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
+    gem_path = "#{output_base_path}/gem"
 
     #Ensure gem path exists
     mkdir_p gem_path
@@ -111,8 +111,8 @@ task :create_gem => [:collate_package_contents] do
     
     Dir.glob("src/docs/**/*") do |name|
         FileUtils.cp(name, docs)
-    end    	
-	
+    end     
+    
     #Copy content into gem root
     cp Dir.glob("#{deploy_path}/*.{xml,dll,pdb}"), "#{gem_path}/files/lib"
     cp Dir.glob("#{deploy_path}/*.txt"), "#{gem_path}/files/doc"
@@ -124,8 +124,8 @@ task :create_gem => [:collate_package_contents] do
             spec.name = "Shouldly"
             spec.version = "#{@@build_number}"
             spec.files = Dir["lib/**/*"] + Dir["docs/**/*"]
-			spec.add_runtime_dependency("nunit", ">= 2.5.3.9345")
-			spec.add_runtime_dependency("rhino.mocks", ">= 3.6.0.0")
+            spec.add_runtime_dependency("nunit", ">= 2.5.3.9345")
+            spec.add_runtime_dependency("rhino.mocks", ">= 3.6.0.0")
             spec.authors = ["Dave Newman", "Peter van der Woude", "Anthony Egerton", "Xerxes Battiwalla"]
             spec.homepage = "http://shouldly.github.com/"
             spec.description = PROJECT_TAGLINE
@@ -140,31 +140,33 @@ task :create_gem => [:collate_package_contents] do
 end
 
 task :create_zip => [:collate_package_contents] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	
-	zip_path = "#{output_base_path}/zip/"
+    output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+    
+    zip_path = "#{output_base_path}/zip/"
     mkdir_p zip_path
 
-	sh "#{ZIP_EXE} -r -j #{zip_path}/#{PROJECT_NAME}-#{@@build_number}.zip #{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
+    sh "#{ZIP_EXE} -r -j #{zip_path}/#{PROJECT_NAME}-#{@@build_number}-net35.zip #{output_base_path}/net35 #{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
+    sh "#{ZIP_EXE} -r -j #{zip_path}/#{PROJECT_NAME}-#{@@build_number}-net40.zip #{output_base_path}/net40 #{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
 end
 
 task :push_gem => :create_gem do
-	gem_path = "#{output_base_path}/gem"
-	result = system("gem", "push", "gem/pkg/shouldly-#{@@build_number}.gem")
+    gem_path = "#{output_base_path}/gem"
+    result = system("gem", "push", "gem/pkg/shouldly-#{@@build_number}.gem")
 end
 
 task :collate_package_contents => [:get_build_number] do
-	output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
-	dll_path = output_base_path 
-	# "#{output_base_path}/#{PROJECT_NAME}"
-	deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
+    output_base_path = "#{OUTPUT_PATH}/#{CONFIG}"
+    dll_path = output_base_path 
+    # "#{output_base_path}/#{PROJECT_NAME}"
+    deploy_path = "#{output_base_path}/#{PROJECT_NAME}-#{@@build_number}"
 
     mkdir_p deploy_path
-	cp Dir.glob("#{dll_path}/*.{dll,xml,pdb}"), deploy_path
+    cp Dir.glob("#{dll_path}/*.{dll,xml,pdb}"), deploy_path
+    cp Dir.glob("#{dll_path}/*.{dll,xml,pdb}"), deploy_path
 
-	cp "../README.markdown", "#{deploy_path}/README.txt"
-	cp "../LICENSE.txt", "#{deploy_path}"
-	cp "../BREAKING CHANGES.txt", "#{deploy_path}"
+    cp "../README.markdown", "#{deploy_path}/README.txt"
+    cp "../LICENSE.txt", "#{deploy_path}"
+    cp "../BREAKING CHANGES.txt", "#{deploy_path}"
 
     tidyUpTextFileFromMarkdown("#{deploy_path}/README.txt")
 end
