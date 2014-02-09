@@ -11,45 +11,45 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
-	    public static void ShouldBe<T>(this T actual, object expected)
-	    {
-			if(!(expected is T))
-				if (AreEnumerableAndHaveSameElementType(actual, expected))
-					actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
-				else 
-					throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType(), typeof (T)).ToString());
+        public static void ShouldBe<T>(this T actual, object expected)
+        {
+            if (!(expected is T))
+                if (AreEnumerableAndHaveSameElementType(actual, expected))
+                    actual.AssertAwesomely(Is.EqualTo(expected), actual, expected);
+                else
+                    throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType(), typeof(T)).ToString());
 
-		    else
-		    {
-			    var expectedAsT = (T) expected;
-				actual.AssertAwesomely(Is.EqualTo(expectedAsT), actual, expectedAsT);
-		    }
-	    }
+            else
+            {
+                var expectedAsT = (T)expected;
+                actual.AssertAwesomely(Is.EqualTo(expectedAsT), actual, expectedAsT);
+            }
+        }
 
-	    private static bool AreEnumerableAndHaveSameElementType(object a, object b)
-	    {
-		    if (!(a is IEnumerable && b is IEnumerable))
-			    return false;
+        private static bool AreEnumerableAndHaveSameElementType(object a, object b)
+        {
+            if (!(a is IEnumerable && b is IEnumerable))
+                return false;
 
-		    var aEnumerable = ((IEnumerable) a).Cast<object>().ToList();
-		    var bEnumerable = ((IEnumerable) b).Cast<object>().ToList();
+            var aEnumerable = ((IEnumerable)a).Cast<object>().ToList();
+            var bEnumerable = ((IEnumerable)b).Cast<object>().ToList();
 
-		    if (aEnumerable.Count != bEnumerable.Count)
-			    return false;
+            if (aEnumerable.Count != bEnumerable.Count)
+                return false;
 
-		    var aElement = aEnumerable.FirstOrDefault();
-		    var bElement = bEnumerable.FirstOrDefault();
+            var aElement = aEnumerable.FirstOrDefault();
+            var bElement = bEnumerable.FirstOrDefault();
 
-		    if (aElement == null || bElement == null)
-			    return false;
+            if (aElement == null || bElement == null)
+                return false;
 
-		    return aElement.GetType() == bElement.GetType();
-	    }
+            return aElement.GetType() == bElement.GetType();
+        }
 
         public static T ShouldBeTypeOf<T>(this object actual)
         {
-            ShouldBeTypeOf(actual, typeof (T));
-            return (T) actual;
+            ShouldBeTypeOf(actual, typeof(T));
+            return (T)actual;
         }
 
         public static void ShouldBeTypeOf(this object actual, Type expected)
@@ -59,7 +59,7 @@ namespace Shouldly
 
         public static void ShouldNotBeTypeOf<T>(this object actual)
         {
-            ShouldNotBeTypeOf(actual, typeof (T));
+            ShouldNotBeTypeOf(actual, typeof(T));
         }
 
         public static void ShouldNotBeTypeOf(this object actual, Type expected)
@@ -129,12 +129,12 @@ namespace Shouldly
 
         public static void ShouldBeInRange(this IComparable actual, IComparable from, IComparable to)
         {
-            actual.AssertAwesomely(Is.InRange(from, to), actual, new {from, to});
+            actual.AssertAwesomely(Is.InRange(from, to), actual, new { from, to });
         }
 
         public static void ShouldNotBeInRange(this IComparable actual, IComparable from, IComparable to)
         {
-            actual.AssertAwesomely(Is.Not.InRange(from, to), actual, new {from, to});
+            actual.AssertAwesomely(Is.Not.InRange(from, to), actual, new { from, to });
         }
     }
 }
