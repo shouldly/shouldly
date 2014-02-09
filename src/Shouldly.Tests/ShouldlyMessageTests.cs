@@ -235,26 +235,29 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldNotThrow()
         {
-            Should.Error(
-                () => Shouldly.Should.NotThrow(() => { throw new IndexOutOfRangeException(); }),
-                "() => Shouldly.Should not throw System.IndexOutOfRangeException but does"
-                );
+            var ex = Assert.Throws<ChuckedAWobbly>(() => 
+                Shouldly.Should.NotThrow(new Action(() => { throw new IndexOutOfRangeException(); }))); 
+            ex.Message.ShouldContainWithoutWhitespace("Shouldly.Should not throw System.IndexOutOfRangeException but does");
+
+            ex = Assert.Throws<ChuckedAWobbly>(() => 
+                Shouldly.Should.NotThrow(new Func<string>(() => { throw new IndexOutOfRangeException(); }))); 
+            ex.Message.ShouldContainWithoutWhitespace("Shouldly.Should not throw System.IndexOutOfRangeException but does");
         }
 
         [Test]
         public void ShouldThrow()
         {
-            Action shouldThrowAction =
-            () => Shouldly.Should.Throw<NotImplementedException>(() =>
-            {
-                throw new RankException();
-            });
-            Should.Error(shouldThrowAction, "() => Shouldly.Should throw System.NotImplementedException but was System.RankException");
+            var ex = Assert.Throws<ChuckedAWobbly>(() =>
+                Shouldly.Should.Throw<NotImplementedException>(new Action(() =>
+                {
+                    throw new RankException();
+                })));
+            ex.Message.ShouldContainWithoutWhitespace("Shouldly.Should throw System.NotImplementedException but was System.RankException");
 
-            shouldThrowAction =
-            () => Shouldly.Should.Throw<NotImplementedException>(() => { });
+            ex = Assert.Throws<ChuckedAWobbly>(() => 
+                Shouldly.Should.Throw<NotImplementedException>(() => { }));
 
-            Should.Error(shouldThrowAction, "() => Shouldly.Should throw System.NotImplementedException but does not");
+            ex.Message.ShouldContainWithoutWhitespace("Shouldly.Should throw System.NotImplementedException but does not");
         }
 
         [Test]

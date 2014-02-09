@@ -74,6 +74,7 @@
     <Compile Include="ShouldNotBeInRangeTests.cs" />
     <Compile Include="ShouldNotBeOneOfTests.cs" />
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
+    <Compile Include="TaskSupport.cs" />
     <Compile Include="Widget.cs" />
   </ItemGroup>
   <ItemGroup>
