@@ -16,9 +16,14 @@ namespace Shouldly
             throw new NotImplementedException();
         }
 
-        public static bool Same(object o, object expected)
+        public static bool Same(object actual, object expected)
         {
-            throw new NotImplementedException();
+            if (actual == null && expected == null)
+                return true;
+            if (actual == null || expected == null)
+                return false;
+
+            return ReferenceEquals(actual, expected);
         }
 
         public static bool Equal(IEnumerable<decimal> object1, IEnumerable<decimal> expected, decimal tolerance)
