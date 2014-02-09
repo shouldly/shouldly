@@ -112,7 +112,7 @@ namespace Shouldly
             var fileName = originatingFrame.GetFileName();
             return new TestEnvironment
                        {
-                           DeterminedOriginatingFrame = fileName != null,
+                           DeterminedOriginatingFrame = fileName != null && File.Exists(fileName),
                            ShouldMethod = shouldlyFrame.GetMethod().Name,
                            FileName = fileName,
                            LineNumber = originatingFrame.GetFileLineNumber() - 1
