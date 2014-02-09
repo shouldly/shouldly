@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
@@ -12,6 +9,14 @@ namespace Shouldly.Tests
         public void ShouldNotThrowWhenValueIsExpected()
         {
             1.ShouldBeOneOf(1, 2, 3);
+            SomeFlags.Val1.ShouldBeOneOf(SomeFlags.Val1, SomeFlags.Val2);
+        }
+
+        [Flags]
+        enum SomeFlags
+        {
+            Val1,
+            Val2
         }
 
         [Test]

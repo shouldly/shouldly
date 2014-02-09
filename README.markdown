@@ -6,7 +6,7 @@ Shouldly
 This is the old *Assert* way: 
 
     Assert.That(contestant.Points, Is.EqualTo(1337));
-    
+
 For your troubles, you get this message, when it fails:
 
     Expected 1337 but was 0
@@ -14,7 +14,7 @@ For your troubles, you get this message, when it fails:
 How it **Should** be:
 
     contestant.Points.ShouldBe(1337);
-    
+
 Which is just syntax, so far, but check out the message when it fails:
 
     contestant.Points should be 1337 but was 0
@@ -41,20 +41,22 @@ and it fails because they're different, it'll show you the differences between t
 If you want to check that a particular call does/does not throw an exception, it's as simple as:
     
     Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-1));
-    
+
 Then if it chucks a wobbly, you have access to the exception to help debug what the underlying cause was.
 
 Other *Shouldly* features:
 
     ##Equality
         ShouldBe
+        ShouldBeOneOf
         ShouldNotBe
+        ShouldNotBeOneOf
         ShouldBeGreaterThan(OrEqualTo)
         ShouldBeLessThan(OrEqualTo)
-		ShouldBeTypeOf<T>
+        ShouldBeTypeOf<T>
 
     ##Enumerable
-    	ShouldBe(with Tolerance)
+        ShouldBe(with Tolerance)
         ShouldContain
         ShouldContain(predicate)
         ShouldNotContain
@@ -75,7 +77,7 @@ Other *Shouldly* features:
         ShouldContainKeyShouldContainKeyAndValue
         ShouldNotContainKey
         ShouldNotContainKeyAndValue
-	
+
     ##Exceptions
         Should.Throw<T>(Action)
         Should.NotThrow(Action)
