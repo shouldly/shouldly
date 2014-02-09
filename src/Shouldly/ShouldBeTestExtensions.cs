@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
-﻿using System.Collections;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using System;
 
 namespace Shouldly
 {
+    [DebuggerStepThrough]
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
