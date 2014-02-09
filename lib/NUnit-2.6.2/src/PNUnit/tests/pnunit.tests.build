@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project name="PNUnitTests" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="AssemblyInfo.cs"/>
+        <include name="Cmp.cs"/>
+        <include name="Testing.cs"/>
+    <include name="ParallelExamples.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library"
+        output="${current.build.dir}/pnunit.tests.dll"
+        debug="${build.debug}" 
+        define="${build.defines}">
+      <sources basedir=".">
+        <patternset refid="source-files"/>
+      </sources>
+      <references>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.framework.dir}/pnunit.framework.dll"/>
+      </references>
+    </csc>
+
+    <copy todir="${current.build.dir}">
+      <fileset>
+        <include name="*.conf"/>
+        <include name="runpnunit.bat"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/PNUnit/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="pnunit.tests.csproj"/>
+        <include name="pnunit.tests.build"/>
+        <include name="*.conf"/>
+        <include name="runpnunit.bat"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

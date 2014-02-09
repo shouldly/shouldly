@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD758D21-E5D5-4D40-9450-5F65A32F359C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.core.tests</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Core.Tests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/nunit.core.tests/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Debug\tests\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0,NET_3_5,CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>618</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Release\tests\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;CLR_2_0,NET_3_5,CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>618</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\ClientUtilities\util\nunit.util.dll.csproj">
+      <Name>nunit.util.dll</Name>
+      <Project>{61CE9CE5-943E-44D4-A381-814DC1406767}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Name>nunit.framework.dll</Name>
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\mock-assembly\mock-assembly.csproj">
+      <Name>mock-assembly</Name>
+      <Project>{2E368281-3BA8-4050-B05E-0E0E43F8F446}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\nonamespace-assembly\nonamespace-assembly.csproj">
+      <Name>nonamespace-assembly</Name>
+      <Project>{5110F0D2-8E50-46F8-9E17-7C8EBFECCA9D}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-assembly\test-assembly.csproj">
+      <Name>test-assembly</Name>
+      <Project>{1960CAC4-9A82-47C5-A9B3-55BC37572C3C}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-utilities\test-utilities.csproj">
+      <Name>test-utilities</Name>
+      <Project>{3E63AD0F-24D4-46BE-BEE4-5A3299847D86}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <Reference Include="NSubstitute">
+      <HintPath>..\..\..\lib\3.5\NSubstitute.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionAttributeExceptionTests.cs" />
+    <Compile Include="ActionAttributeTests.cs" />
+    <Compile Include="AllTests.cs" />
+    <Compile Include="AssemblyHelperTests.cs" />
+    <Compile Include="AssemblyReaderTests.cs" />
+    <Compile Include="AssemblyResolverTests.cs" />
+    <Compile Include="AssemblyTests.cs" />
+    <Compile Include="AssemblyVersionFixture.cs" />
+    <Compile Include="AssertPassFixture.cs" />
+    <Compile Include="AttributeDescriptionFixture.cs" />
+    <Compile Include="AttributeInheritance.cs" />
+    <Compile Include="BasicRunnerTests.cs" />
+    <Compile Include="CallContextTests.cs" />
+    <Compile Include="CategoryAttributeTests.cs" />
+    <Compile Include="CombinatorialTests.cs" />
+    <Compile Include="CoreExtensionsTests.cs" />
+    <Compile Include="CultureSettingAndDetectionTests.cs" />
+    <Compile Include="DatapointTests.cs" />
+    <Compile Include="DirectorySwapperTests.cs" />
+    <Compile Include="EventQueueTests.cs" />
+    <Compile Include="EventTestFixture.cs" />
+    <Compile Include="ExpectExceptionTest.cs" />
+    <Compile Include="FailFixture.cs" />
+    <Compile Include="FixtureSetUpTearDownTest.cs" />
+    <Compile Include="Generic\DeduceTypeArgsFromArgs.cs" />
+    <Compile Include="Generic\SimpleGenericFixture.cs" />
+    <Compile Include="Generic\SimpleGenericMethods.cs" />
+    <Compile Include="Generic\TypeParameterUsedWithTestMethod.cs" />
+    <Compile Include="IgnoreFixture.cs" />
+    <Compile Include="LegacySuiteTests.cs" />
+    <Compile Include="MaxTimeTests.cs" />
+    <Compile Include="NameFilterTest.cs" />
+    <Compile Include="NamespaceAssemblyTests.cs" />
+    <Compile Include="NUnitTestCaseBuilderTests.cs" />
+    <Compile Include="PairwiseTests.cs" />
+    <Compile Include="ParameterizedTestFixtureTests.cs" />
+    <Compile Include="PlatformDetectionTests.cs" />
+    <Compile Include="PropertyAttributeTests.cs" />
+    <Compile Include="ReflectTests.cs" />
+    <Compile Include="RemoteRunnerTests.cs" />
+    <Compile Include="RepeatedTestFixture.cs" />
+    <Compile Include="RuntimeFrameworkTests.cs" />
+    <Compile Include="SerializationBug.cs" />
+    <Compile Include="SetCultureAttributeTests.cs" />
+    <Compile Include="SetUpFixtureTests.cs" />
+    <Compile Include="SetUpTest.cs" />
+    <Compile Include="SimpleNameFilterTests.cs" />
+    <Compile Include="SimpleTestRunnerTests.cs" />
+    <Compile Include="StackOverflowTestFixture.cs" />
+    <Compile Include="SuiteBuilderTests.cs" />
+    <Compile Include="SuiteBuilderTests_Multiple.cs" />
+    <Compile Include="TestAssemblyBuilderTests.cs" />
+    <Compile Include="TestCaseAttributeTests.cs" />
+    <Compile Include="TestCaseResultFixture.cs" />
+    <Compile Include="TestCaseSourceTests.cs" />
+    <Compile Include="TestCaseTest.cs" />
+    <Compile Include="TestConsole.cs" />
+    <Compile Include="TestContextTests.cs" />
+    <Compile Include="TestDelegateFixture.cs" />
+    <Compile Include="TestExecutionContextTests.cs" />
+    <Compile Include="TestFixtureBuilderTests.cs" />
+    <Compile Include="TestFixtureExtension.cs" />
+    <Compile Include="TestFixtureTests.cs" />
+    <Compile Include="TestFrameworkTests.cs" />
+    <Compile Include="TestIDTests.cs" />
+    <Compile Include="TestInfoTests.cs" />
+    <Compile Include="TestMethodSignatureTests.cs" />
+    <Compile Include="TestNameTests.cs" />
+    <Compile Include="TestNodeTests.cs" />
+    <Compile Include="TestRunnerThreadTests.cs" />
+    <Compile Include="TestSuiteTest.cs" />
+    <Compile Include="TheoryTests.cs" />
+    <Compile Include="ThreadedTestRunnerTests.cs" />
+    <Compile Include="ThreadingTests.cs" />
+    <Compile Include="TypeHelperTests.cs" />
+    <Compile Include="UnhandledExceptionTests.cs" />
+    <Compile Include="ValueSourceTests.cs" />
+    <Compile Include="XmlTest.cs" />
+    <Compile Include="DirectoryChangeTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nunit.core.tests.build">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Results.xsd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

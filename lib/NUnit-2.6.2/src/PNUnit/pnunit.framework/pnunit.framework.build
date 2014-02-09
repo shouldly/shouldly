@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project name="PNUnitFramework" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="AssemblyInfo.cs"/>
+        <include name="Interfaces.cs"/>
+        <include name="PNUnitServices.cs"/>
+  </patternset>
+
+  <target name="build">
+
+    <csc target="library"
+        output="${current.framework.dir}/pnunit.framework.dll"
+        debug="${build.debug}" 
+        define="${build.defines}">
+      <sources basedir=".">
+        <patternset refid="source-files"/>
+      </sources>
+      <references>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+      </references>
+    </csc>
+
+    <!-- Needed in base dir by pnunit tests -->
+    <copy file="${current.framework.dir}/pnunit.framework.dll"
+      todir="${current.build.dir}"/>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/PNUnit/pnunit.framework">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="pnunit.framework.csproj"/>
+        <include name="pnunit.framework.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

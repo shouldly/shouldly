@@ -1,0 +1,178 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ConstraintModel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Constraint-Based Assert Model (NUnit 2.4)</h2>
+
+<p>The constraint-based Assert model uses a single method of the Assert class
+   for all assertions. The logic necessary to carry out each assertion is
+   embedded in the constraint object passed as the second parameter to that
+   method.
+   
+<p>Here's a very simple assert using the constraint model:
+<pre>      Assert.That( myString, Is.EqualTo("Hello") );</pre>
+
+<p>The second argument in this assertion uses one of NUnit's <b>syntax helpers</b>
+to create an <b>EqualConstraint</b>. The same assertion could also be made in this form:
+<pre>      Assert.That( myString, new EqualConstraint("Hello") );</pre>
+
+<p>Using this model, all assertions are made using one of the forms of the
+   Assert.That() method, which has a number of overloads...
+   
+<div class="code" style="width: 36em">
+<pre>
+Assert.That( object actual, IResolveConstraint constraint )
+Assert.That( object actual, IResolveConstraint constraint, 
+             string message )
+Assert.That( object actual, IResolveConstraint constraint,
+             string message, object[] parms )
+			 
+Assert.That( ActualValueDelegate del, IResolveConstraint constraint )
+Assert.That( ActualValueDelegate del, IResolveConstraint constraint, 
+             string message )
+Assert.That( ActualValueDelegate del, IResolveConstraint constraint,
+             string message, object[] parms )
+			 
+Assert.That<T>( ref T actual, IResolveConstraint constraint )
+Assert.That<T>( ref T actual, IResolveConstraint constraint, 
+             string message )
+Assert.That<T>( ref T actual, IResolveConstraint constraint,
+             string message, object[] parms )
+			 
+Assert.That( bool condition );
+Assert.That( bool condition, string message );
+Assert.That( bool condition, string message, object[] parms );
+
+Assert.That( TestDelegate del, IResolveConstraint constraint );
+</pre>
+</div>
+
+<p>If you derive your test fixture class from <b>AssertionHelper</b>, the
+Expect() method may be used in place of Assert.That()...
+
+<div class="code" style="width: 36em">
+<pre>
+Expect( object actual, IResolveConstraint constraint )
+Expect( object actual, IResolveConstraint constraint, 
+             string message )
+Expect( object actual, IResolveConstraint constraint, 
+             string message, object[] parms )
+			 
+Expect( ActualValueDelegate del, IResolveConstraint constraint )
+Expect( ActualValueDelegate del, IResolveConstraint constraint, 
+             string message )
+Expect( ActualValueDelegate del, IResolveConstraint constraint,
+             string message, object[] parms )
+			 
+Expect<T>( ref T actual, IResolveConstraint constraint )
+Expect<T>( ref T actual, IResolveConstraint constraint, 
+             string message )
+Expect<T>( ref T actual, IResolveConstraint constraint,
+             string message, object[] parms )
+			 
+Expect( bool condition );
+Expect( bool condition, string message );
+Expect( bool condition, string message, object[] parms );
+
+Expect( TestDelegate del, IResolveConstraint constraint );
+</pre>
+</div>
+
+<p>The overloads that take a bool work exactly like Assert.IsTrue.
+   
+<p>For overloads taking a constraint, the argument must be a object implementing 
+  the <b>IConstraint</b> interface, which supports performing a test
+   on an actual value and generating appropriate messages. This interface
+   is described in more detail under 
+   <a href="customConstraints.html">Custom Constraints</a>.
+   
+<p>NUnit provides a number of constraint classes similar to the <b>EqualConstraint</b>
+   used in the example above. Generally, these classes may be used directly or
+   through a syntax helper. Test fixture classes inheriting from <b>AssertionHelper</b>
+   are able to use shorter forms. The valid forms are described on the pages related to
+   each constraint. Note that the menu items listed to the right generally reflect the
+   names of the syntax helpers.
+   
+<p><b>See also:</b> the 
+<a href="classicModel.html">classic model</a> of assertions.
+   
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li id="current"><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

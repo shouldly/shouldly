@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="NUnitGuiTests" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="CommandLineTests.cs"/>
+        <include name="ExceptionDetailsFormTests.cs"/>
+    <include name="RecentFileMenuHandlerTests.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.test.dir}/nunit-gui.tests.dll" 
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references>
+        <include name="System.Windows.Forms.dll"/>
+	  <include name="System.Drawing.dll"/>
+        <include name="${current.lib.dir}/nunit-gui-runner.dll"/>
+        <include name="${current.lib.dir}/nunit.util.dll"/>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.test.dir}/test-utilities.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/GuiRunner/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit-gui.tests.csproj"/>
+        <include name="nunit-gui.tests.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

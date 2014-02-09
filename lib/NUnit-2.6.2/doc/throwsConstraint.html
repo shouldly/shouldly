@@ -1,0 +1,168 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ThrowsConstraint</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Throws Constraint (NUnit 2.5)</h2>
+
+<p><b>ThrowsConstraint</b> is used to test that some code, represented as a delegate,
+throws a particular exception. It may be used alone, to merely test the type
+of constraint, or with an additional constraint to be applied to the exception
+specified as an argument.
+
+p>The related <b>ThrowsNothingConstraint</b> simply asserts that the delegate
+does not throw an exception.
+
+<h4>Constructors</h4>
+<div class="code"><pre>
+ThrowsConstraint(Type expectedType)
+ThrowsConstraint&lt;T&gt;()
+ThrowsConstraint(Type expectedType, Constraint constraint)
+ThrowsConstraint&lt;T&gt;(Constraint constraint)
+ThrowsNothingConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Throws.Exception
+Throws.TargetInvocationException
+Throws.ArgumentException
+Throws.InvalidOperationException
+Throws.TypeOf(Type expectedType)
+Throws.TypeOf&lt;T&gt;()
+Throws.InstanceOf(Type expectedType)
+Throws.InstanceOf&lt;T&gt;()
+Throws.Nothing
+Throws.InnerException
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+// .NET 1.1
+Assert.That( new TestDelegate(SomeMethod),
+  Throws.TypeOf(typeof(ArgumentException)));
+Assert.That( new TestDelegate(SomeMethod),
+  Throws.Exception.TypeOf(typeof(ArgumentException)));
+Assert.That( new TestDelegate(SomeMethod),
+  Throws.TypeOf(typeof(ArgumentException))
+    .With.Property("Parameter").EqualTo("myParam"));
+Assert.That( new TestDelegate(SomeMethod),
+  Throws.ArgumentException );
+Assert.That( new TestDelegate(SomeMethod), 
+  Throws.TargetInvocationException
+    .With.InnerException.TypeOf(ArgumentException));
+	
+// .NET 2.0
+Assert.That( SomeMethod, 
+  Throws.TypeOf&lt;ArgumentException&gt;());
+Assert.That( SomeMethod, 
+  Throws.Exception.TypeOf&lt;ArgumentException&gt;());
+Assert.That( SomeMethod, 
+  Throws.TypeOf&lt;ArgumentException&gt;()
+    .With.Property("Parameter").EqualTo("myParam"));
+Assert.That( SomeMethod, Throws.ArgumentException );
+Assert.That( SomeMethod, 
+  Throws.TargetInvocationException
+    .With.InnerException.TypeOf&lt;ArgumentException&gt;());
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><b>Throws.Exception</b> may be followed by further constraints,
+    which are applied to the exception itself as shown in the last two
+	examples above. It may also be used alone to verify that some
+	exception has been thrown, without regard to type. This is
+	not a recommended practice since you should normally know
+	what exception you are expecting.
+<li><b>Throws.TypeOf</b> and <b>Throws.InstanceOf</b> are provided
+    as a shorter syntax for this common test. They work exactly like
+	the corresponding forms following <b>Throws.Exception</b>.
+<li><b>Throws.TargetInvocationException</b>, <b>Throws.ArgumentException</b>
+    and <b>Throws.InvalidOperationException</b> provide a shortened form
+	for some common exceptions.
+<li>Used alone, <b>Throws.InnerException</b> simply tests the InnerException
+    value of the thrown exception. More commonly, it will be used in 
+	combination with a test for the type of the outer exception as shown
+	in the examples above.
+</ol>
+
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li id="current"><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

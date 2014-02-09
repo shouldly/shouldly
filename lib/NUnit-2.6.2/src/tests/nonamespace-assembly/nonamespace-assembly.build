@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="NoNamespaceAssembly" default="build" basedir=".">
+
+  <target name="build">
+    <csc target="library" 
+       output="${current.test.dir}/nonamespace-assembly.dll" 
+       debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <include name="NoNamespaceTestFixture.cs"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/tests/nonamespace-assembly">
+      <fileset>
+        <include name="NoNamespaceTestFixture.cs"/>
+        <include name="nonamespace-assembly.csproj"/>
+        <include name="nonamespace-assembly.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

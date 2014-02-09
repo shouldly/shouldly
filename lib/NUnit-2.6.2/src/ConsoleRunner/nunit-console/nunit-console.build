@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="NUnit-Console" default="build">
+
+  <patternset id="source-files">
+    <include name="AssemblyInfo.cs"/>
+    <include name="ConsoleOptions.cs"/>
+    <include name="ConsoleUi.cs"/>
+    <include name="EventCollector.cs"/>
+    <include name="Runner.cs"/>
+    <include name="TestNameParser.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.lib.dir}/nunit-console-runner.dll"
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="1699" if="${runtime.version>='2.0'}"/>
+      </nowarn>
+      <references basedir="${current.lib.dir}">
+        <include name="nunit.core.interfaces.dll"/>
+        <include name="nunit.core.dll"/>
+        <include name="nunit.util.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/ConsoleRunner/nunit-console">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit-console.csproj"/>
+        <include name="nunit-console.build"/>
+        <include name="App.ico"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

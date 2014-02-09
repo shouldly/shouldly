@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.framework</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Framework</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Debug\framework\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0</DefineConstants>
+    <DocumentationFile>..\..\..\bin\Debug\framework\nunit.framework.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>1699</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Release\framework\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;CLR_2_0</DefineConstants>
+    <DocumentationFile>..\..\..\bin\Release\framework\nunit.framework.xml</DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>1699</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Assert.cs" />
+    <Compile Include="AssertionHelper.cs" />
+    <Compile Include="Assume.cs" />
+    <Compile Include="ActionTargets.cs" />
+    <Compile Include="Attributes\CategoryAttribute.cs" />
+    <Compile Include="Attributes\DatapointAttributes.cs" />
+    <Compile Include="Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Attributes\ExpectedExceptionAttribute.cs" />
+    <Compile Include="Attributes\ExplicitAttribute.cs" />
+    <Compile Include="Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Attributes\IncludeExcludeAttributes.cs" />
+    <Compile Include="Attributes\JoinTypeAttributes.cs" />
+    <Compile Include="Attributes\MaxTimeAttribute.cs" />
+    <Compile Include="Attributes\PropertyAttribute.cs" />
+    <Compile Include="Attributes\RandomAttribute.cs" />
+    <Compile Include="Attributes\RangeAttribute.cs" />
+    <Compile Include="Attributes\RepeatAttribute.cs" />
+    <Compile Include="Attributes\RequiredAddinAttribute.cs" />
+    <Compile Include="Attributes\SetCultureAttribute.cs" />
+    <Compile Include="Attributes\SetUICultureAttribute.cs" />
+    <Compile Include="Attributes\SetUpAttribute.cs" />
+    <Compile Include="Attributes\SetUpFixtureAttribute.cs" />
+    <Compile Include="Attributes\SuiteAttribute.cs" />
+    <Compile Include="Attributes\TearDownAttribute.cs" />
+    <Compile Include="Attributes\TestActionAttribute.cs" />
+    <Compile Include="Attributes\TestAttribute.cs" />
+    <Compile Include="Attributes\TestCaseAttribute.cs" />
+    <Compile Include="Attributes\TestCaseSourceAttribute.cs" />
+    <Compile Include="Attributes\TestFixtureAttribute.cs" />
+    <Compile Include="Attributes\TestFixtureSetUpAttribute.cs" />
+    <Compile Include="Attributes\TestFixtureTearDownAttribute.cs" />
+    <Compile Include="Attributes\TheoryAttribute.cs" />
+    <Compile Include="Attributes\ThreadingAttributes.cs" />
+    <Compile Include="Attributes\ValuesAttribute.cs" />
+    <Compile Include="Attributes\ValueSourceAttribute.cs" />
+    <Compile Include="CollectionAssert.cs" />
+    <Compile Include="Constraints\AttributeConstraints.cs" />
+    <Compile Include="Constraints\BasicConstraints.cs" />
+    <Compile Include="Constraints\BinaryOperations.cs" />
+    <Compile Include="Constraints\CollectionConstraints.cs" />
+    <Compile Include="Constraints\CollectionTally.cs" />
+    <Compile Include="Constraints\ComparisonAdapter.cs" />
+    <Compile Include="Constraints\ComparisonConstraints.cs" />
+    <Compile Include="Constraints\Constraint.cs" />
+    <Compile Include="Constraints\ConstraintBuilder.cs" />
+    <Compile Include="Constraints\ConstraintExpression.cs" />
+    <Compile Include="Constraints\ConstraintExpressionBase.cs" />
+    <Compile Include="Constraints\ConstraintFactory.cs" />
+    <Compile Include="Constraints\ConstraintOperators.cs" />
+    <Compile Include="Constraints\ContainsConstraint.cs" />
+    <Compile Include="Constraints\DelayedConstraint.cs" />
+    <Compile Include="Constraints\DirectoryConstraints.cs" />
+    <Compile Include="Constraints\EmptyConstraint.cs" />
+    <Compile Include="Constraints\EqualConstraint.cs" />
+    <Compile Include="Constraints\EqualityAdapter.cs" />
+    <Compile Include="Constraints\FloatingPointNumerics.cs" />
+    <Compile Include="Constraints\GreaterThanConstraint.cs" />
+    <Compile Include="Constraints\GreaterThanOrEqualConstraint.cs" />
+    <Compile Include="Constraints\IResolveConstraint.cs" />
+    <Compile Include="Constraints\LessThanConstraint.cs" />
+    <Compile Include="Constraints\LessThanOrEqualConstraint.cs" />
+    <Compile Include="Constraints\MessageWriter.cs" />
+    <Compile Include="Constraints\MsgUtils.cs" />
+    <Compile Include="Constraints\Numerics.cs" />
+    <Compile Include="Constraints\NUnitComparer.cs" />
+    <Compile Include="Constraints\NUnitEqualityComparer.cs" />
+    <Compile Include="Constraints\PathConstraints.cs" />
+    <Compile Include="Constraints\PredicateConstraint.cs" />
+    <Compile Include="Constraints\PrefixConstraints.cs" />
+    <Compile Include="Constraints\PropertyConstraint.cs" />
+    <Compile Include="Constraints\RangeConstraint.cs" />
+    <Compile Include="Constraints\ResolvableConstraintExpression.cs" />
+    <Compile Include="Constraints\ReusableConstraint.cs" />
+    <Compile Include="Constraints\SameAsConstraint.cs" />
+    <Compile Include="Constraints\SerializableConstraints.cs" />
+    <Compile Include="Constraints\StringConstraints.cs" />
+    <Compile Include="Constraints\ThrowsConstraint.cs" />
+    <Compile Include="Constraints\Tolerance.cs" />
+    <Compile Include="Constraints\TypeConstraints.cs" />
+    <Compile Include="Contains.cs" />
+    <Compile Include="DirectoryAssert.cs" />
+    <Compile Include="Exceptions\AssertionException.cs" />
+    <Compile Include="Exceptions\IgnoreException.cs" />
+    <Compile Include="Exceptions\InconclusiveException.cs" />
+    <Compile Include="Exceptions\SuccessException.cs" />
+    <Compile Include="FileAssert.cs" />
+    <Compile Include="GlobalSettings.cs" />
+    <Compile Include="Has.cs" />
+    <Compile Include="Interfaces\INUnitEqualityComparer.cs" />
+    <Compile Include="Interfaces\ITestAction.cs" />
+    <Compile Include="IExpectException.cs" />
+    <Compile Include="TestDetails.cs" />
+    <Compile Include="Is.cs" />
+    <Compile Include="ITestCaseData.cs" />
+    <Compile Include="Iz.cs" />
+    <Compile Include="List.cs" />
+    <Compile Include="ListMapper.cs" />
+    <Compile Include="Randomizer.cs" />
+    <Compile Include="SpecialValue.cs" />
+    <Compile Include="StringAssert.cs" />
+    <Compile Include="TestCaseData.cs" />
+    <Compile Include="TestContext.cs" />
+    <Compile Include="TestState.cs" />
+    <Compile Include="TestStatus.cs" />
+    <Compile Include="Text.cs" />
+    <Compile Include="TextMessageWriter.cs" />
+    <Compile Include="Throws.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nunit.framework.build" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

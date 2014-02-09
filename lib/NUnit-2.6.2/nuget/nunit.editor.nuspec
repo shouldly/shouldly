@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+		<id>NUnit.Editor</id>
+		<version>${package.version}</version>
+		<title>NUnit.Editor</title>
+		<authors>Charlie Poole</authors>
+		<owners>Charlie Poole</owners>
+		<licenseUrl>http://nunit.org/nuget/license.html</licenseUrl>
+		<projectUrl>http://nunit.org</projectUrl>
+		<iconUrl>http://nunit.org/nuget/nunit_32x32.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>NUnit.Editor is a standalone gui editor for nunit projects.</summary>
+		<description>The NUnit project editor allows easy editing of NUnit projects. It supports a form-based interface for editing properties as well as a rudimentary XML editor.&#10;&#13;This package includes only the editor, which is also available as a part of the NUnit.Runners package.</description>
+		<language>en-US</language>
+		<tags>test testing framework project editor</tags>
+	</metadata>
+	<files>
+		<file src="${project.base.dir}\license.txt" />
+		<file src="${current.build.dir}\nunit-editor.exe" target="tools" />
+	</files>
+</package>

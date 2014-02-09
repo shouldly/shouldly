@@ -1,0 +1,31 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-failures", "failures\cs-failures.csproj", "{15D66EEE-A852-4A52-89C2-83E74ECF3770}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-money", "money\cs-money.csproj", "{11EDF872-A04D-4F75-A1BF-71168DC86AF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-syntax", "syntax\cs-syntax.csproj", "{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D66EEE-A852-4A52-89C2-83E74ECF3770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EDF872-A04D-4F75-A1BF-71168DC86AF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06F46FA2-687B-4B46-A912-C1B0B4CC1B20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

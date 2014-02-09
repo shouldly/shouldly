@@ -1,0 +1,224 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ConditionConstraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Condition Constraints (NUnit 2.4)</h2>
+
+<p>ConditionConstraints test a specific condition and are named for the condition 
+   they test. They verify that the actual value satisfies the condition. The
+   following condition helpers are provided.
+   
+<h3>NullConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a value is Null.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+NullConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.Null
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That( anObject, Is.Null );
+Assert.That( anObject, Is.Not.Null );
+</pre></div>
+
+<h3>TrueConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a value is true.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+TrueConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.True
+</pre></div>
+
+<h4>Example of Use</h4>
+<div class="code"><pre>
+Assert.That( condition, Is.True );
+</pre></div>
+
+<h3>FalseConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a value is false.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+FalseConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.False
+</pre></div>
+
+<h4>Example of Use</h4>
+<div class="code"><pre>
+Assert.That( condition, Is.False );
+</pre></div>
+
+<h3>NaNConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a value is floating-point NaN.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+NaNConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.NaN
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That( aDouble, Is.NaN );
+Assert.That( aDouble, Is.Not.NaN );
+</pre></div>
+
+<h3>EmptyConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that an object is an empty string, directory or collection.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+EmptyConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.Empty
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That( aString, Is.Empty );
+Assert.Thst( dirInfo, Is.Empty );
+Assert.That( collection, Is.Empty );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><b>EmptyConstraint</b> creates and uses either an <b>EmptyStringConstraint</b>,
+<b>EmptyDirectoryConstraint</b> or <b>EmptyCollectionConstraint</b> depending on 
+the argument tested.
+<li>A <b>DirectoryInfo</b> argument is required in order to test for an empty directory.
+To test whether a string represents a directory path, you must first construct
+a <b>DirectoryInfo</b>.
+</ol>
+
+<h3>UniqueItemsConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that an array, collection or other IEnumerable is composed
+of unique items with no duplicates.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+UniqueItemsConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.Unique
+</pre></div>
+
+<h4>Example of Use</h4>
+
+<div class="code"><pre>
+Assert.That( collection, Is.Unique );
+</pre></div>
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li id="current"><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

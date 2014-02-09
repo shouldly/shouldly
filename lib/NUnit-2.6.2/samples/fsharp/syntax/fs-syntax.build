@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<project name="fs-syntax" default="build">
+
+  <include buildfile="../../samples.common" />
+
+  <patternset id="source-files">
+    <include name="AssertSyntaxTests.fs" />
+  </patternset>
+
+</project>

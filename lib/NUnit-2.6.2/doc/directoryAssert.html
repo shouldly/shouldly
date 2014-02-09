@@ -1,0 +1,179 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - DirectoryAssert</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>DirectoryAssert (NUnit 2.5)</h2>
+<p>The DirectoryAssert class provides methods for making asserts about
+file system directories, which may be provided as DirectoryInfos or as strings 
+giving the path to each directory.</p>
+
+<p> <b>DirectoryAssert.AreEqual()</b> and <b>DirectoryAssert.AreNotEqual()</b>
+compare two directories for equality. Directories are considered equal if
+they have the same FullName, Attributes, CreationTime and LastAccessTime.
+
+<p><b>Note:</b> Two different directories containing the same files are not
+considered to be equal.
+
+<div class="code" style="width: 40em"><pre>
+
+DirectoryAssert.AreEqual( DirectoryInfo expected, DirectoryInfo actual );
+DirectoryAssert.AreEqual( DirectoryInfo expected, DirectoryInfo actual, 
+                string message );
+DirectoryAssert.AreEqual( DirectoryInfo expected, DirectoryInfo actual,
+                string message, params object[] args );
+
+DirectoryAssert.AreEqual( string expected, string actual );
+DirectoryAssert.AreEqual( string expected, string actual, 
+                string message );
+DirectoryAssert.AreEqual( string expected, string actual,
+                string message, params object[] args );
+
+DirectoryAssert.AreNotEqual( DirectoryInfo expected, DirectoryInfo actual );
+DirectoryAssert.AreNotEqual( DirectoryInfo expected, DirectoryInfo actual, 
+                string message );
+DirectoryAssert.AreNotEqual( DirectoryInfo expected, DirectoryInfo actual,
+                string message, params object[] args );
+
+DirectoryAssert.AreNotEqual( string expected, string actual );
+DirectoryAssert.AreNotEqual( string expected, string actual, 
+                string message );
+DirectoryAssert.AreNotEqual( string expected, string actual,
+                string message, params object[] args );
+
+</pre></div>
+
+<p><b>DirectoryAssert.IsEmpty()</b> and <b>DirectoryAssert.IsNotEmpty()</b>
+test whether the specified directory is empty.
+
+<div class="code" style="width: 40em"><pre>
+
+DirectoryAssert.IsEmpty( DirectoryInfo directory );
+DirectoryAssert.IsEmpty( DirectoryInfo directory, string message );
+DirectoryAssert.IsEmpty( DirectoryInfo directory,
+                string message, params object[] args );
+
+DirectoryAssert.IsEmpty( string directory );
+DirectoryAssert.IsEmpty( string directory, string message );
+DirectoryAssert.IsEmpty( string directory,
+                string message, params object[] args );
+
+DirectoryAssert.IsNotEmpty( DirectoryInfo directory );
+DirectoryAssert.IsNotEmpty( DirectoryInfo directory, string message );
+DirectoryAssert.IsNotEmpty( DirectoryInfo directory,
+                string message, params object[] args );
+
+DirectoryAssert.IsNotEmpty( string directory );
+DirectoryAssert.IsNotEmpty( string directory, string message );
+DirectoryAssert.IsNotEmpty( string directory,
+                string message, params object[] args );
+
+</pre></div>
+
+<p><b>DirectoryAssert.IsWithin()</b> and <b>DirectoryAssert.IsNotWithin()</b>
+test whether the second directory is a direct or indirect subdirectory
+of the first directory.
+
+<div class="code" style="width: 40em"><pre>
+
+DirectoryAssert.IsWithin( DirectoryInfo expected, DirectoryInfo actual );
+DirectoryAssert.IsWithin( DirectoryInfo expected, DirectoryInfo actual,
+                string message );
+DirectoryAssert.IsWithin( DirectoryInfo expected, DirectoryInfo actual,
+                string message, params object[] args );
+
+DirectoryAssert.IsWithin( string expected, string actual );
+DirectoryAssert.IsWithin( string expected, string actual,
+                string message );
+DirectoryAssert.IsWithin( string expected, string actual,
+                string message, params object[] args );
+
+DirectoryAssert.IsNotWithin( DirectoryInfo expected, DirectoryInfo actual );
+DirectoryAssert.IsNotWithin( DirectoryInfo expected, DirectoryInfo actual,
+                string message );
+DirectoryAssert.IsNotWithin( DirectoryInfo expected, DirectoryInfo actual,
+                string message, params object[] args );
+
+DirectoryAssert.IsNotWithin( string expected, string actual );
+DirectoryAssert.IsNotWithin( string expected, string actual,
+                string message );
+DirectoryAssert.IsNotWithin( string expected, string actual,
+                string message, params object[] args );
+
+</pre></div>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<ul>
+<li><a href="equalityAsserts.html">Equality&nbsp;Asserts</a></li>
+<li><a href="identityAsserts.html">Identity&nbsp;Asserts</a></li>
+<li><a href="conditionAsserts.html">Condition&nbsp;Asserts</a></li>
+<li><a href="comparisonAsserts.html">Comparison&nbsp;Asserts</a></li>
+<li><a href="typeAsserts.html">Type&nbsp;Asserts</a></li>
+<li><a href="exceptionAsserts.html">Exception&nbsp;Asserts</a></li>
+<li><a href="utilityAsserts.html">Utility&nbsp;Methods</a></li>
+<li><a href="stringAssert.html">String&nbsp;Assert</a></li>
+<li><a href="collectionAssert.html">Collection&nbsp;Assert</a></li>
+<li><a href="fileAssert.html">File&nbsp;Assert</a></li>
+<li id="current"><a href="directoryAssert.html">Directory&nbsp;Assert</a></li>
+</ul>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

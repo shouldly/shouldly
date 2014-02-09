@@ -1,0 +1,430 @@
+<?xml version="1.0"?>
+<project name="NUnit" default="build" basedir=".">
+
+  <!-- ***************************************************************** -->
+  <!-- *********           Set Common Properties          ************** -->
+  <!-- ***************************************************************** -->
+
+  <target name="set-common-properties">
+
+  <!-- ***************************************************************** -->
+  <!-- ***        Properties to change for each new release          *** -->
+  <!-- ***************************************************************** -->
+
+    <!-- The nominal version has three components and is used for the name
+       of the install directory and on the program files menu. -->
+    <property name="nominal.version" value="2.6.2" />
+
+    <!-- The package version may include a prerelease suffix following
+       the three-component nominal version -->
+    <property name="package.version" value="${nominal.version}"/>
+
+    <!-- Package Configuration (Release, Alpha, Beta, etc.) -->
+    <property name="package.configuration" value=""/>
+
+  <!-- ***************************************************************** -->
+  <!-- ***   End of properties to change for each new release        *** -->
+  <!-- ***************************************************************** -->
+
+    <!-- Project name - used as a prefix for packages -->
+    <property name="project.name" value="NUnit"/>
+
+    <!-- Determine todays build number -->
+    <property name="temp.now" value="${datetime::now()}"/>
+    <property name="temp.yr" value="${datetime::get-year(temp.now)-2000}"/>
+    <property name="temp.day" value="${string::pad-left(datetime::get-day-of-year(temp.now),3,'0')}"/>
+    <property name="package.build.number" value="${temp.yr}${temp.day}"/>
+
+    <!-- The internal version has four components and is used for assemblies and 
+       as the ProductVersion in the msi -->
+    <property name="internal.version" value="${nominal.version}.${package.build.number}"/>
+
+    <!-- Base name for packages - add suffix for Alpha, Beta, RC -->
+  <property name="package.base.name" 
+      value="${project.name}-${package.version}"/>
+
+  <!-- Frameworks supported by this build script. The first
+         installed framework found is the default for builds. 
+         The first .NET and Mono frameworks found are the
+         respective net and mono defaults. -->
+  <property name="supported.frameworks" 
+    value="net-3.5,net-2.0,net-4.0,net-4.5,net-1.1,net-1.0,mono-3.5,mono-2.0,mono-1.0"/>
+
+  <!-- Packages we normally create -->
+  <property name="standard.packages" value="net-3.5,net-1.1" 
+      if="${platform::is-windows()}"/>
+  <property name="standard.packages" value="mono-3.5,mono-1.0"
+      unless="${platform::is-windows()}"/>
+
+  <!-- NuGet packages we create -->
+  <property name="nuget.packages"
+    value="nunit,nunit.mocks,pnunit,nunit.runners,nunit.editor"/>
+
+  <!-- Our standard package for general distribution -->
+  <property name="default.package.config" value="net-3.5" />
+
+  <!-- Options for runing the NUnit tests -->
+  <property name="nunit.options" value=""/>
+
+  <!-- Options for running light to create the msi -->
+  <property name="light.suppressices" value=""/>
+
+<!-- ***************************************************************** -->
+<!-- **********Set Properties used by Various targets **************** -->
+<!-- ***************************************************************** -->
+
+  <!-- Project base dir is nant project base dir -->
+  <property name="project.base.dir"
+    value="${project::get-base-directory()}"/>
+
+  <!-- Other directories are derived from base dir -->
+  <property name="project.build.dir" 
+    value="${path::combine(project.base.dir,'builds')}"/>
+  <property name="project.package.dir" 
+    value="${path::combine(project.base.dir,'packages')}"/>
+  <property name="project.src.dir"
+    value="${path::combine(project.base.dir, 'src')}"/>
+  <property name="project.doc.dir"
+    value="${path::combine(project.base.dir,'doc')}"/>
+  <property name="project.samples.dir"
+    value="${path::combine(project.base.dir,'samples')}"/>
+  <property name="project.solutions.dir"
+    value="${path::combine(project.base.dir,'solutions')}"/>
+  <property name="project.tools.dir"
+    value="${path::combine(project.base.dir,'tools')}"/>
+  <property name="project.lib.dir"
+    value="${path::combine(project.base.dir,'lib')}"/>
+  <property name="project.install.dir"
+    value="${path::combine(project.base.dir, 'install')}"/>
+  <property name="project.nuget.dir"
+    value="${path::combine(project.base.dir, 'nuget')}"/>
+
+  <!-- Set paths to various package directories -->
+  <property name="package.working.dir" 
+    value="${path::combine(project.package.dir,package.base.name)}"/>
+  <property name="package.bin.dir" 
+    value="${path::combine(package.working.dir,'bin')}"/>
+  <property name="package.doc.dir" 
+    value="${path::combine(package.working.dir,'doc')}"/>
+  <property name="package.samples.dir" 
+    value="${path::combine(package.working.dir,'samples')}"/>
+  <property name="package.src.dir" 
+    value="${path::combine(package.working.dir,'src')}"/>
+  <property name="package.lib.dir" 
+    value="${path::combine(package.working.dir,'lib')}"/>
+  <property name="package.solutions.dir"
+    value="${path::combine(package.working.dir,'solutions')}"/>
+  <property name="package.resource.dir"
+    value="${path::combine(package.working.dir,'resources')}"/>
+  <property name="package.install.dir"
+    value="${path::combine(package.working.dir,'install')}"/>
+
+  <property name="build.defines" value=""/>
+
+  <!-- sdk-exists causes an error if the framework is not installed! -->
+  <!-- Default runtime configuration -->
+  <foreach item="String" delim="," 
+      property="framework" in="${supported.frameworks}">
+    <if test="${framework::exists( framework )}">
+      <property name="installed.frameworks" value="${installed.frameworks},${framework}"
+        if="${property::exists('installed.frameworks')}"/>
+      <property name="installed.frameworks" value="${framework}"
+        unless="${property::exists('installed.frameworks')}"/>
+      <if test="${framework::sdk-exists( framework )}">
+        <property name="installed.sdks" value="${installed.sdks},${framework}"
+          if="${property::exists('installed.sdks')}"/>
+        <property name="installed.sdks" value="${framework}"
+          unless="${property::exists('installed.sdks')}"/>
+        <property name="default.runtime" value="${framework}"
+          unless="${property::exists('default.runtime')}"/>
+        <property name="default.net.runtime" value="${framework}"
+          if="${string::starts-with(framework,'net')}"
+          unless="${property::exists('default.net.runtime')}"/>
+        <property name="default.mono.runtime" value="${framework}"
+          if="${string::starts-with(framework,'mono')}"
+          unless="${property::exists('default.mono.runtime')}"/>
+      </if>
+    </if>
+  </foreach>
+
+  <call target="set-${default.runtime}-runtime-config" />
+
+  <call target="set-default-package-config" />
+
+</target>
+
+<!-- ***************************************************************** -->
+<!-- ***    Targets for setting the runtime configuration          *** -->
+<!-- ***************************************************************** -->
+
+  <target name="set-runtime-config">   
+
+    <property name="runtime.config" value="${default.runtime}"
+      unless="${property::exists('runtime.config')}"/>
+
+    <call target="check-sdk-exists"/>
+
+    <call target="set-${runtime.config}-runtime-config"/>
+
+    <property name="nant.settings.currentframework" value="${runtime.config}"/>
+
+  </target>
+  
+  <target name="set-default-dot-net-runtime-config">
+
+    <fail unless="${property::exists( 'default.net.runtime' )}"
+      message="No versions of the .NET SDK were found"/>
+
+    <call target="set-${default.net.runtime}-runtime-config" />
+
+  </target>
+
+  <target name="set-default-mono-runtime-config">
+
+    <fail unless="${property::exists( 'default.mono.runtime' )}"
+      message="No versions of the Mono runtime were found"/>
+
+    <call target="set-${default.mono.runtime}-runtime-config" />
+
+  </target>
+
+  <target name="set-net-1.0-runtime-config">
+
+    <property name="runtime.platform" value="net"/>
+    <property name="runtime.version" value="1.0"/>
+    <property name="target.version" value="1.0"/>
+    <property name="runtime.defines" value="MSNET,CLR_1_0,NET_1_0"/>
+    <property name="supported.test.platforms" 
+      value="net-1.0,net-1.1,net-2.0,mono-1.0,mono-2.0"/>
+
+  </target>
+	
+  <target name="set-net-1.1-runtime-config">
+
+    <property name="runtime.platform" value="net"/>
+    <property name="runtime.version" value="1.1"/>
+    <property name="target.version" value="1.1"/>
+    <property name="runtime.defines" value="MSNET,CLR_1_1,NET_1_1"/>
+    <property name="supported.test.platforms"
+      value="net-1.0,net-1.1,net-2.0,mono-1.0,mono-2.0"/>
+
+  </target>
+	
+  <target name="set-net-2.0-runtime-config">
+
+    <property name="runtime.platform" value="net"/>
+    <property name="runtime.version" value="2.0"/>
+    <property name="target.version" value="2.0"/>
+    <property name="runtime.defines" value="MSNET,CLR_2_0,NET_2_0"/>
+    <property name="supported.test.platforms" value="net-2.0,mono-2.0"/>
+
+  </target>
+   
+  <target name="set-net-3.5-runtime-config">
+
+    <property name="runtime.platform" value="net"/>
+    <property name="runtime.version" value="3.5"/>
+    <property name="target.version" value="2.0"/>
+    <property name="runtime.defines" value="MSNET,CLR_2_0,NET_3_5,CS_3_0"/>
+    <property name="supported.test.platforms" value="net-3.5,mono-3.5"/>
+
+  </target>
+ 	
+  <target name="set-net-4.0-runtime-config">
+
+    <property name="runtime.platform" value="net"/>
+    <property name="runtime.version" value="4.0"/>
+    <property name="target.version" value="2.0"/>
+    <property name="runtime.defines" value="MSNET,CLR_4_0,NET_4_0,CS_4_0"/>
+    <property name="supported.test.platforms" value="net-4.0"/>
+
+  </target>
+  
+  <target name="set-net-4.5-runtime-config">
+
+    <property name="runtime.platform" value="net"/>
+    <property name="runtime.version" value="4.5"/>
+    <property name="target.version" value="2.0"/>
+    <property name="runtime.defines" value="MSNET,CLR_4_0,NET_4_5,CS_5_0"/>
+    <property name="supported.test.platforms" value="net-4.5"/>
+
+  </target>
+ 	
+  <target name="set-mono-1.0-runtime-config">
+
+    <property name="runtime.platform" value="mono"/>
+    <property name="runtime.version" value="1.0"/>
+    <property name="target.version" value="1.0"/>
+    <property name="runtime.defines" value="MONO,CLR_1_1,NET_1_1"/>
+    <property name="supported.test.platforms"
+      value="mono-1.0,mono-2.0,net-1.0,net-1.1,net-2.0"/>
+
+  </target>
+
+  <target name="set-mono-2.0-runtime-config">
+
+    <property name="runtime.platform" value="mono"/>
+    <property name="runtime.version" value="2.0"/>
+    <property name="target.version" value="2.0"/>
+    <property name="runtime.defines" value="MONO,CLR_2_0,NET_2_0"/>
+    <property name="supported.test.platforms" value="mono-2.0,net-2.0"/>
+
+  </target>
+
+  <target name="set-mono-3.5-runtime-config">
+
+    <property name="runtime.platform" value="mono"/>
+    <property name="runtime.version" value="3.5"/>
+    <property name="target.version" value="2.0"/>
+    <property name="runtime.defines" value="MONO,CLR_2_0,NET_3_5,CS_3_0"/>
+    <property name="supported.test.platforms" value="mono-3.5,net-3.5,mono-2.0,net-2.0"/>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***    Targets for setting the package configuration          *** -->
+<!-- ***************************************************************** -->
+
+  <target name="set-package-config">   
+    <call target="set-${package.config}-package-config"/>
+  </target>
+
+  <target name="set-default-package-config">
+    <call target="set-${default.package.config}-package-config"/>
+  </target>
+
+  <target name="set-net-3.5-package-config">
+    <property name="package.config" value="net-3.5"/>
+  </target>
+
+  <target name="set-net-2.0-package-config">
+    <property name="package.config" value="net-2.0"/>
+  </target>
+
+  <target name="set-net-1.1-package-config">
+    <property name="package.config" value="net-1.1"/>
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- **************** Internally used targets ************************ -->
+<!-- ***************************************************************** -->
+
+  <!-- Check that current runtime is installed -->
+  <target name="check-runtime-exists">
+
+    <fail unless="${framework::exists(runtime.config)}"
+      message="The ${runtime.config} runtime is not installed"/>
+
+  </target>
+
+  <!-- Check that current runtime sdk is installed -->
+  <target name="check-sdk-exists" depends="check-runtime-exists">
+
+    <fail unless="${framework::sdk-exists(runtime.config)}"
+      message="The ${runtime.config} SDK is not configured or not installed"/>
+
+  </target>
+
+  <!-- Set up the build directory -->
+  <target name="set-build-dir" depends="set-runtime-config">
+
+    <property name="build.config" value="debug" 
+      unless="${property::exists('build.config')}"/>
+
+    <property name="runtime.platform.dir"
+      value="${path::combine(project.build.dir,runtime.platform)}"/>
+    <property name="runtime.version.dir"
+      value="${path::combine(runtime.platform.dir,runtime.version)}"/>
+    <property name="current.build.dir" 
+      value="${path::combine(runtime.version.dir,build.config)}"/>
+    <property name="current.lib.dir" 
+      value="${path::combine(current.build.dir,'lib')}"/>
+    <property name="current.test.dir" 
+      value="${path::combine(current.build.dir,'tests')}"/>
+    <property name="current.framework.dir" 
+      value="${path::combine(current.build.dir,'framework')}"/>
+
+<!--    <property name="package.bin.dir" 
+      value="${path::combine(package.working.dir,runtime.config)}"/>-->
+  </target>
+  
+  <target name="make-build-dir" depends="set-build-dir">
+    <mkdir dir="${current.build.dir}"
+      unless="${directory::exists(current.build.dir)}"/>
+    <mkdir dir="${current.lib.dir}"
+      unless="${directory::exists(current.lib.dir)}"/>
+    <mkdir dir="${current.framework.dir}"
+      unless="${directory::exists(current.framework.dir)}"/>
+    <mkdir dir="${current.test.dir}"
+      unless="${directory::exists(current.test.dir)}"/>
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***               Display Today's Build Number                *** -->
+<!-- ***************************************************************** -->
+
+  <target name="build-number">
+    <echo message="Today's build number is ${package.build.number}"/>
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***           Dump configuration settings for debugging       *** -->
+<!-- ***************************************************************** -->
+
+  <target name="dump-settings" depends="set-build-dir">
+
+    <echo>Project Directories</echo>
+    <echo>  Base:      ${project.base.dir}</echo>
+    <echo>   Doc:      ${project.doc.dir}</echo>
+    <echo>   Samples:  ${project.samples.dir}</echo>
+    <echo>   Source:   ${project.src.dir}</echo>
+    <echo>   Build:    ${project.build.dir}</echo>
+    <echo>   Package:  ${project.package.dir}</echo>
+    <echo>   Tools:    ${project.tools.dir}</echo>
+    <echo></echo>
+    <echo>Runtimes Supported:</echo>
+    <echo>  ${supported.frameworks}</echo>
+    <echo>Runtimes Installed:</echo>
+    <echo>  ${installed.frameworks}</echo>
+    <echo>Framework SDKs Installed:</echo>
+    <echo>  ${installed.sdks}</echo>
+    <echo></echo>
+    <if test="${property::exists('default.net.runtime')}">
+    <echo>Default .Net Runtime: ${default.net.runtime}</echo>
+    </if>
+    <if test="${not property::exists('default.net.runtime')}">
+    <echo>Default .Net Runtime: (none)</echo>
+    </if>
+    <if test="${property::exists('default.mono.runtime')}">
+    <echo>Default Mono Runtime: ${default.mono.runtime}</echo>
+    </if>
+    <if test="${not property::exists('default.mono.runtime')}">
+    <echo>Default Mono Runtime: (none)</echo>
+    </if>
+    <echo>     General Default: ${default.runtime}</echo>
+    <echo></echo>
+    <echo>Current Build Info</echo>
+    <echo>  Config:    ${build.config}</echo>
+    <echo>  Runtime:   ${runtime.config}</echo>
+    <echo>  Build Dir: ${current.build.dir}</echo>
+    <echo>  Defines:   ${build.defines}</echo>
+    <echo></echo>
+    <echo>Test Platforms for Current Build</echo>
+    <echo>  Supported: ${supported.test.platforms}</echo>
+    <echo></echo>
+    <echo>Packaging</echo>
+    <echo>  Base Name: ${package.base.name}</echo>
+    <echo>  Version:   ${package.version}</echo>
+    <echo>  Work Dir:  ${package.working.dir}</echo>
+    <echo>   Bin:      ${package.bin.dir}</echo>
+    <echo>   Doc:      ${package.doc.dir}</echo>
+    <echo>   Samples:  ${package.samples.dir}</echo>
+    <echo>   Source:   ${package.src.dir}</echo>
+    <echo></echo>
+    <echo>Current Framework and SDK Directories</echo>
+    <echo>  ${framework::get-framework-directory(framework::get-target-framework())}</echo>
+    <echo>  ${framework::get-sdk-directory(framework::get-target-framework())}</echo>
+
+  </target>
+
+</project>

@@ -1,0 +1,637 @@
+<?xml version="1.0"?>
+<project name="NUnit" default="help" basedir="..">
+
+<!-- ***************************************************************** -->
+<!-- This script has been tested with the NAnt 0.92 release.           -->
+<!--                                                                   -->
+<!-- At least one of the supported runtimes and sdk must be installed. -->
+<!-- In order to build the msi, WiX 2.0 and the WiX tasks for NAnt     -->
+<!-- are required. To run the test coverage target, NCover is          -->
+<!-- required.                                                         -->
+<!--                                                                   -->
+<!-- Currently, the .NET 1.0 builds of the GUI runner cannot be run    -->
+<!-- successfully. However, the .NET 1.1 builds may be run under 1.0.  -->
+<!--                                                                   -->
+<!-- ***************************************************************** -->
+
+<!-- ***************************************************************** -->
+<!-- ***  Include common targets and initialize property settings  *** -->
+<!-- ***************************************************************** -->
+
+  <include buildfile="scripts/nunit.common.targets"/>
+
+  <call target="set-common-properties"/>
+
+<!-- ***************************************************************** -->
+<!-- ***             Targets that clean directories                *** -->
+<!-- ***************************************************************** -->
+
+  <!-- Removes the current package working directory -->
+  <target name="clean-package-dir">
+
+        <delete dir="${package.working.dir}" 
+            if="${directory::exists( package.working.dir )}"/>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***         Targets for packaging the NUnit distribution      *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-all"
+      description="Create all the standard packages for distribution">
+      
+    <call target="package-src"/>
+
+    <call target="package-docs"/>
+
+    <call target="package-samples"/>
+
+    <call target="package-nuget"/>
+
+    <foreach item="String" delim="," 
+        property="runtime.config" in="${standard.packages}">
+
+      <call target="set-runtime-config"/>
+      <call target="package"/>
+
+    </foreach>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***            Package Binaries From Current Build            *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-build" depends="set-build-dir, set-package-name"
+      description="Create a zip of the current build (not a full installation)">
+
+    <zip ziplevel="9"
+        zipfile="${project.package.dir}/${package.name}.zip">
+      <fileset basedir="${current.build.dir}" prefix="${package.base.name}">
+        <include name="**"/>
+      </fileset>
+    </zip>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***   Package Using the Currently Selected Package Config     *** -->
+<!-- ***      or the default package if none is selected           *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package" depends="build-install-image,set-package-name"
+      description="Create a package using the current or default config">
+
+    <call target="create-zip"/>
+    <call target="create-msi" if="${platform::is-windows()}"/>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                    Package as a zip                       *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-zip" 
+    depends="build-install-image,set-package-name,create-zip"
+    description="Create zip binary distribution package"/>
+
+<!-- ***************************************************************** -->
+<!-- ***                   Package as an msi                       *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-msi" 
+    depends="build-install-image,set-package-name,create-msi" 
+    description="Build standard msi file and deploy it to the package dir"/>
+
+<!-- ***************************************************************** -->
+<!-- ***                     Install the msi                       *** -->
+<!-- ***************************************************************** -->
+
+  <target name="install-msi" depends="set-package-name"
+      description="Install msi file on system" >
+
+      <exec program="msiexec" workingdir="${project.package.dir}"
+        commandline="/i ${package.name}.msi /passive" />
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                   Uninstall the msi                       *** -->
+<!-- ***************************************************************** -->
+
+  <target name="remove-msi" depends="set-package-name"
+    description="Uninstall an msi" >
+
+        <exec program="msiexec" workingdir="${project.package.dir}"
+          commandline="/x ${package.name}.msi /passive" /> 
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                    Create the zip                         *** -->
+<!-- ***************************************************************** -->
+
+  <!-- Create zip from existing install image -->
+  <target name="create-zip">
+
+    <!--<call target="set-package-name"/>-->
+
+    <zip ziplevel="9"
+        zipfile="${project.package.dir}/${package.name}.zip">
+      <fileset basedir="${package.working.dir}" prefix="${package.base.name}">
+        <include name="**"/>
+      </fileset>
+    </zip>
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                    Create the msi                         *** -->
+<!-- ***************************************************************** -->
+
+  <!-- Create msi from existing install image -->
+  <target name="create-msi">
+  
+    <fail message="MSI can only be built on the Win32 platform" unless="${platform::is-windows()}"/>
+
+    <property name="wix.dir"
+      value="${project.tools.dir}/wix"/>
+    <property name="work.dir"
+      value="${package.working.dir}"/>
+    <property name="install.dir"
+      value="${project.base.dir}/install"/>
+
+    <!--<call target="set-package-name"/>-->
+
+    <candle out="${work.dir}/" exedir="${wix.dir}">
+      <defines>
+        <define name="ProductVersion" value="${internal.version}" />
+        <define name="NominalVersion" value="${nominal.version}" />
+        <define name="TargetRuntime" value="${runtime.version}" />
+        <define name="InstallImage" value="packages\NUnit-${package.version}" />
+      </defines>
+      <sources basedir="${install.dir}">
+        <include name="NUnit.wxs" if="${runtime.version >= '2.0'}"/>
+        <include name="NUnit-net-1.1.wxs" unless="${runtime.version >= '2.0'}"/>
+        <include name="base.wxs" if="${runtime.version >= '2.0'}"/>
+        <include name="base-net-1.1.wxs" unless="${runtime.version >= '2.0'}"/>
+        <include name="tests.wxs" />
+        <include name="pnunit.wxs" />
+        <include name="doc.wxs"  if="${runtime.version >= '2.0'}"/>
+        <include name="nunit-gui.wxs" if="${runtime.version >= '2.0'}"/>
+        <include name="net45-tests.wxs" if="${runtime.version >= '2.0'}"/>
+        <include name="NSubstitute.wxs" if="${runtime.version >= '2.0'}"/>
+      </sources>
+    </candle>
+
+    <light exedir="${wix.dir}"
+      out="${project.package.dir}/${package.name}.msi"
+      suppressices="${light.suppressices}"
+      extensions="WixUIExtension">
+      <sources>
+        <include name="${work.dir}/NUnit.wixobj" if="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/NUnit-net-1.1.wixobj" unless="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/base.wixobj" if="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/base-net-1.1.wixobj" unless="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/tests.wixobj" />
+        <include name="${work.dir}/pnunit.wixobj" />
+        <include name="${work.dir}/doc.wixobj"  if="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/samples.wixobj"  if="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/nunit-gui.wixobj" if="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/net45-tests.wixobj" if="${runtime.version >= '2.0'}"/>
+        <include name="${work.dir}/NSubstitute.wixobj" if="${runtime.version >= '2.0'}"/>
+        <include name="${wix.dir}/wixui.wixlib" />
+      </sources>
+    </light>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                  Package source files                     *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-src" depends="clean-package-dir"
+    description="Create full source package for developer use">
+
+    <call target="copy-docs"/>
+    <call target="copy-samples"/>
+    <call target="copy-src"/>
+
+    <copy file="license.txt" todir="${package.working.dir}" />
+
+    <!-- Create the zip file -->
+    <zip  ziplevel="9"
+        zipfile="${project.package.dir}/${package.base.name}-src.zip">
+      <fileset basedir="${package.working.dir}" prefix="${package.base.name}">
+        <include name="**"/>
+      </fileset>
+    </zip>
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                      Package docs                         *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-docs" depends="clean-package-dir"
+      description="Create a zip of the docs only">
+
+    <call target="copy-docs"/>
+
+    <!-- Create the zip file -->
+    <zip ziplevel="9"
+        zipfile="${project.package.dir}/${package.base.name}-docs.zip">
+      <fileset basedir="${package.working.dir}" prefix="${package.base.name}">
+        <include name="**"/>
+      </fileset>
+    </zip>
+    
+  </target>
+  
+<!-- ***************************************************************** -->
+<!-- ***                     Package samples                       *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-samples" depends="clean-package-dir"
+      description="Create a zip file of the samples.">
+
+    <call target="copy-samples"/>
+
+    <!-- Create the zip file -->
+    <zip ziplevel="9"
+        zipfile="${project.package.dir}/${package.base.name}-samples.zip">
+      <fileset basedir="${package.working.dir}" prefix="${package.base.name}">
+        <include name="**"/>
+      </fileset>
+    </zip>
+    
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                    Package resources                      *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-resources" depends="clean-package-dir"
+      description="Package resources for localization - currently not working">
+
+    <copy todir="${package.resource.dir}/nunit-gui-runner">
+      <fileset basedir="GuiRunner/nunit-gui/obj/Release">
+        <include name="*.resources"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${package.resource.dir}/nunit.uikit">
+      <fileset basedir="GuiComponents/UiKit/obj/Release">
+        <include name="NUnit.UiKit.AddConfigurationDialog.resources"/>
+        <include name="NUnit.UiKit.AssemblyPathDialog.resources"/>
+        <include name="NUnit.UiKit.ConfigurationEditor.resources"/>
+        <include name="NUnit.UiKit.RenameConfigurationDialog.resources"/>
+        <include name="NUnit.UiKit.TestPropertiesDialog.resources"/>
+        <include name="NUnit.UiKit.TestTree.resources"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${package.working.dir}">
+      <fileset basedir="${project.tools.dir}/localization">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+
+    <if test="${property::exists('localize')}">
+    <foreach property="culture" item="String" delim="," 
+        in="${localize}">
+    <foreach property="folder" item="Folder" 
+        in="${package.working.dir}/resources">
+      <property name="proj" 
+        value="${path::get-file-name(folder)}"/>
+      <property name="projdir" 
+        value="${package.working.dir}/${culture}/${proj}"/>
+    <foreach property="file" item="File" in="${folder}">
+      <property name="filename"
+        value="${path::get-file-name-without-extension(file)}"/>
+      <copy file="${file}" 
+        tofile="${projdir}/${filename}.${culture}.resources"/>"
+    </foreach>
+    </foreach>
+    </foreach>   
+    </if>
+
+    <zip  ziplevel="9"
+        zipfile="${project.package.dir}/${package.base.name}-resources.zip">
+      <fileset basedir="${package.working.dir}" prefix="${package.base.name}">
+        <include name="**"/>
+      </fileset>
+    </zip>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                    Package for NuGet                      *** -->
+<!-- ***************************************************************** -->
+
+  <target name="package-nuget" depends="set-build-dir, clean-package-dir"
+      description="Create all nuget packages">
+
+    <foreach item="String" delim="," 
+        property="nuget.package.name" in="${nuget.packages}">
+
+      <call target="create-nuget-package" />
+
+    </foreach>
+
+  </target>
+
+  <target name="create-nuget-package">
+
+    <echo message="Creating ${nuget.package.name} nuget package"/>
+
+    <copy file="${project.nuget.dir}/${nuget.package.name}.nuspec"
+        tofile="${project.nuget.dir}/_${nuget.package.name}.nuspec"
+        overwrite="true">
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+
+    <exec program="NuGet.exe"
+      workingdir="${project.nuget.dir}"
+      commandline="pack _${nuget.package.name}.nuspec -o ${project.package.dir}" />
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***            Helper targets used for packaging              *** -->
+<!-- ***************************************************************** -->
+
+  <target name="set-package-name">
+
+    <property name="package.name" value="${package.base.name}"/>
+    <property name="package.name" value="${package.name}-${runtime.config}"
+      unless="${runtime.config == default.package.config}"/>
+    <property name="package.name" value="${package.name}-dbg"
+      if="${build.config == 'debug'}"/>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***            Build install image for a package              *** -->
+<!-- ***************************************************************** -->
+
+  <!-- Create an install image for use by a package -->
+  <target name="build-install-image" depends="clean-package-dir">
+
+    <call target="copy-top-level-files" />
+
+    <call target="copy-bins" />
+    <call target="copy-docs" />
+
+  </target>
+
+  <target name="copy-top-level-files">
+
+    <copy file="license.txt" todir="${package.working.dir}" />
+    <copy file="${project.src.dir}/GuiRunner/nunit-gui/Logo.ico"
+          todir="${package.working.dir}" />
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***           Copy a set of binaries for a package            *** -->
+<!-- ***************************************************************** -->
+
+  <target name="copy-bins" depends="set-build-dir">
+
+    <mkdir dir="${package.bin.dir}"/>
+    <copy todir="${package.bin.dir}">
+      <fileset basedir="${current.build.dir}">
+        <include name="*"/>
+        <include name="lib/**"/>
+        <include name="tests/*"/>
+        <include name="framework/*"/>
+        <exclude name="*.wixobj"/>
+        <exclude name="nunit-server.*"/>
+        <exclude name="nunit-test-server.*"/>
+      </fileset>
+    </copy>
+
+  </target>
+  
+<!-- ***************************************************************** -->
+<!-- ***           Copy the documentation for a package            *** -->
+<!-- ***************************************************************** -->
+
+  <target name="copy-docs">
+    <mkdir dir="${package.doc.dir}"/>
+    <copy todir="${package.doc.dir}">
+      <fileset basedir="${project.doc.dir}">
+        <include name="*.html"/>
+	<include name="nunit.css"/>
+        <include name="codeFuncs.js"/>
+        <include name="favicon.ico"/>
+	<include name="files/*"/>
+	<include name="img/*"/>
+        <exclude name="img/thumbs.db"/>
+      </fileset>
+    </copy>
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***            Copy sample programs for a package             *** -->
+<!-- ***************************************************************** -->
+
+  <target name="copy-samples">
+
+    <mkdir dir="${package.samples.dir}"/>
+
+    <!-- Copy files that are not part of an individual project -->
+    <copy todir="${package.samples.dir}">
+      <fileset basedir="${project.samples.dir}">
+        <include name="ReadMe.txt" />
+        <include name="samples.common" />
+        <include name="csharp/CSharp.sln" />
+        <include name="fsharp/FSharp.sln" />
+        <include name="vb/vb-samples.sln" />
+        <include name="cpp/cpp-cli.sln" />
+        <include name="Extensibility/Core/CoreExtensibility.sln" />
+        <include name="Extensibility/Core/Install.bat" />
+      </fileset>
+    </copy>
+
+    <!-- Copy each project's files -->
+    <nant target="package">
+      <buildfiles refid="sample.buildfiles"  failonerror="true" />
+    </nant>
+
+  </target>
+
+
+<!-- ***************************************************************** -->
+<!-- ***            Copy the source code for a package             *** -->
+<!-- ***************************************************************** -->
+
+  <target name="copy-src">
+    <delete dir="${package.src.dir}" />
+    <mkdir dir="${package.src.dir}"/>
+
+    <!-- Copy project top level files -->
+    <copy todir="${package.working.dir}">
+      <fileset basedir="${project.base.dir}">
+	<include name="build"/>
+	<include name="build.bat"/>
+        <include name="license.rtf"/>
+	<include name="license.txt"/>
+	<include name="nant"/>
+	<include name="nant.bat"/>
+        <include name="nunit.build"/>
+        <include name="nunit.build.include"/>
+	<include name="nunit.sln"/>
+	<include name="nunit2012.sln"/>
+	<include name="nunit.snk"/>
+        <include name="NUnitFitTests.html"/>
+        <include name="NUnitTests.nunit"/>
+        <include name="NUnitTests.config"/>
+        <include name="NUnitTests.v1.nunit"/>
+	<include name="NUnitTests.v2.nunit"/>
+	<include name="package"/>
+	<include name="package.bat"/>
+	<include name="install/*.wxs" />
+	<include name="lib/**"/>
+	<include name="nuget/nunit.nuspec"/>
+	<include name="nuget/nunit.editor.nuspec"/>
+	<include name="nuget/nunit.mocks.nuspec"/>
+	<include name="nuget/nunit.runners.nuspec"/>
+	<include name="nuget/pnunit.nuspec"/>
+	<include name="scripts/nunit.build.targets"/>
+	<include name="scripts/nunit.common.targets"/>
+	<include name="scripts/nunit.package.targets"/>
+	<include name="src/nunit.snk"/>
+	<include name="src/CommonAssemblyInfo.cs"/>
+	<include name="src/nunit20under21.config"/>
+	<include name="src/nunit20under22.config"/>
+	<include name="src/nunit21under22.config"/>
+	<include name="src/PNUnit/*.conf"/>
+	<include name="src/PNUnit/runpnunit.bat"/>
+	<include name="tools/**"/>
+      </fileset>
+    </copy>
+
+    <!-- Copy individual projects -->
+    <nant target="package" inheritrefs="true">
+      <buildfiles refid="project.buildfiles" />
+    </nant>
+
+    <nant target="package" inheritrefs="true">
+      <buildfiles refid="gui.buildfiles" />
+    </nant>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***        Targets for installing the NUnit distribution      *** -->
+<!-- ***************************************************************** -->
+
+  <target name="install" depends="build-install-image"
+      description="Install NUnit directly from the build">
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ****** Patternsets and Filesets Used by Various Targets  ******** -->
+<!-- ***************************************************************** -->
+
+  <fileset id="project.buildfiles" basedir="${project.src.dir}">
+
+    <!-- NUnit Base -->
+    <include name="NUnitFramework/framework/nunit.framework.build" />
+    <include name="NUnitCore/interfaces/nunit.core.interfaces.build" />
+    <include name="NUnitCore/core/nunit.core.build" />
+    <include name="NUnitMocks/mocks/nunit.mocks.build" />
+    <include name="ClientUtilities/util/nunit.util.build" />
+
+    <!-- Console Runner -->
+    <include name="ConsoleRunner/nunit-console/nunit-console.build" />
+    <include name="ConsoleRunner/nunit-console-exe/nunit-console.exe.build" />
+
+    <!-- Test Server -->
+    <include name="NUnitTestServer/nunit-agent-exe/nunit-agent.exe.build" />
+
+    <!-- PNUnit -->
+    <include name="PNUnit/pnunit.framework/pnunit.framework.build" />
+    <include name="PNUnit/agent/pnunit-agent.build"/>
+    <include name="PNUnit/launcher/pnunit-launcher.build"/>
+
+    <!-- Test Utilities and Dummy Projects -->
+    <include name="tests/mock-assembly/mock-assembly.build" />
+    <include name="tests/nonamespace-assembly/nonamespace-assembly.build" />
+    <include name="tests/test-assembly/test-assembly.build" />
+	<include name="tests/test-assembly-net45/test-assembly-net45.build" if="${framework::exists('net-4.5')}" />
+    <include name="tests/test-utilities/test-utilities.build" />
+
+    <!-- NUnit Base Tests -->
+    <include name="NUnitFramework/tests/nunit.framework.tests.build" />
+    <include name="NUnitCore/tests/nunit.core.tests.build" />
+	<include name="NUnitCore/tests-net45/nunit.core.tests.net45.build" if="${framework::exists('net-4.5')}" />
+    <include name="NUnitMocks/tests/nunit.mocks.tests.build" />
+    <include name="ClientUtilities/tests/nunit.util.tests.build" />
+
+    <!-- Console Runner Tests -->
+    <include name="ConsoleRunner/tests/nunit-console.tests.build" />
+
+    <!-- PNUnit Tests -->
+    <include name="PNUnit/tests/pnunit.tests.build"/>
+
+  </fileset>
+
+  <fileset id="gui.buildfiles" basedir="${project.src.dir}">
+
+    <!-- Gui Runner -->
+    <include name="GuiException/UiException/nunit.uiexception.build" />
+    <include name="GuiComponents/UiKit/nunit.uikit.build" />
+    <include name="GuiRunner/nunit-gui/nunit-gui.build" />
+    <include name="GuiRunner/nunit-gui-exe/nunit-gui.exe.build" />
+    <include name="ProjectEditor/editor/nunit-editor.build" />
+
+    <!-- GUI Tests -->
+    <include name="GuiException/tests/nunit.uiexception.tests.build" />
+    <include name="GuiComponents/tests/nunit.uikit.tests.build" />
+    <include name="GuiRunner/tests/nunit-gui.tests.build" />
+    <include name="ProjectEditor/tests/nunit-editor.tests.build" />
+
+  </fileset>
+
+  <!-- BuildFiles for Samples -->
+  <!-- Note: For each sample, sample.buildfile includes sample.build.
+       The distribution includes sample.build, but not sample.buildfile,
+       because the latter is used by NUnit for packaging. -->
+  <fileset id="sample.buildfiles" basedir="${project.samples.dir}">
+
+    <!-- C# Samples -->
+    <include name="csharp/failures/cs-failures.build" />
+    <include name="csharp/money/cs-money.build" />
+    <include name="csharp/syntax/cs-syntax.build" />
+
+    <!-- F# Samples -->
+    <include name="fsharp/failures/fs-failures.build" />
+    <include name="fsharp/money/fs-money.build" />
+    <include name="fsharp/syntax/fs-syntax.build" />
+
+	  <!-- VB Samples -->
+    <include name="vb/failures/vb-failures.build"
+      if="${task::exists('vbc') and platform::is-windows()}" />
+    <include name="vb/money/vb-money.build"
+      if="${task::exists('vbc') and platform::is-windows()}" />
+    <include name="vb/syntax/vb-syntax.build"
+      if="${task::exists('vbc') and platform::is-windows()}" />
+
+    <!-- C++/CLI Samples -->
+    <include name="cpp/failures/cpp-cli-failures.build"
+      if="${platform::is-windows()}" />
+    <include name="cpp/syntax/cpp-cli-syntax.build"
+      if="${platform::is-windows()}" />
+
+    <!-- Extensibility Samples -->
+    <include name="Extensibility/Core/Minimal/Minimal.build" />
+    <include name="Extensibility/Core/SampleFixtureExtension/SampleFixtureExtension.build" />
+    <include name="Extensibility/Core/SampleSuiteExtension/SampleSuiteExtension.build" />
+  </fileset>
+
+</project>

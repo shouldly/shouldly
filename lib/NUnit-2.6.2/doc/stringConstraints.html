@@ -1,0 +1,254 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - StringConstraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>String Constraints (NUnit 2.4)</h2>
+
+<p>String constraints perform tests that are specific to strings.
+   Attempting to test a non-string value with a string constraint
+   is an error and gives an exception.
+   
+<p>The <b>Text</b> prefix is deprecated beginning with NUnit 2.5.1
+   and will be removed in NUnit 3.0.
+ 
+<h3>SubstringConstraint</h3>  
+
+<h4>Action</h4>
+<p>Tests for a substring.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+SubstringConstraint(string expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.StringContaining(string expected)
+Contains.Substring(string expected)
+ContainsSubstring(string expected)
+Contains(string expected)
+[Obsolete] Text.Contains(string expected)
+[Obsolete] Text.DoesNotContain(string expected)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+string phrase = "Make your tests fail before passing!"
+
+Assert.That( phrase, Is.StringContaining( "tests fail" ) );
+Assert.That( phrase, Contains.Substring( "tests fail" ) );
+Assert.That( phrase, Is.Not.StringContaining( "tests pass" ) );
+Assert.That( phrase, Is.StringContaining( "make" ).IgnoreCase );
+Expect (phrase, Contains.Substring( "make" ).IgnoreCase );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><b>ContainsSubstring</b> and <b>Contains</b> may appear only in the 
+    body of a constraint expression or when the inherited syntax is used.
+<li><b>Contains</b> is not actually a string constraint but is converted
+    to one when a string is being tested.
+</ol>
+
+<h3>StartsWithConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests for an initial string.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+StartsWithConstraint(string expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.StringStarting(string expected)
+StartsWith(string expected)
+[Obsolete] Text.StartsWith(string expected)
+[Obsolete] Text.DoesNotStartWith(string expected)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+string phrase = "Make your tests fail before passing!"
+
+Assert.That( phrase, Is.StringStarting( "Make" ) );
+Assert.That( phrase, Is.Not.StringStarting( "Break" ) );
+Assert.That( phrase, Has.Length.GreaterThan(10)
+                .And.Not.StartsWith( "Break" ) );
+Expect( phrase, StartsWith( "Make" ) );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><b>StartsWith</b> may appear only in the body of a constraint 
+    expression or when the inherited syntax is used.
+</ol>
+
+<h3>EndsWithConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests for an ending string.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+EndsWithConstraint(string expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.StringEnding(string expected)
+EndsWith(string expected)
+[Obsolete] Text.EndsWith(string expected)
+[Obsolete] Text.DoesNotEndWith(string expected)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+string phrase = "Make your tests fail before passing!"
+
+Assert.That( phrase, Is.StringEnding( "!" ) );
+Assert.That( phrase, Is.StringEnding( "PASSING!" ).IgnoreCase );
+Expect( phrase, EndsWith( "!" ) );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><b>EndsWith</b> may appear only in the body of a constraint 
+    expression or when the inherited syntax is used.
+</ol>
+
+<h3>RegexConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a pattern is matched.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+RegexConstraint(string pattern)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.StringMatching(string pattern)
+Matches(string pattern)
+[Obsolete] Text.Matches(string pattern)
+[Obsolete] Text.DoesNotMatch(string pattern)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+string phrase = "Make your tests fail before passing!"
+
+Assert.That( phrase, Is.StringMatching( "Make.*tests.*pass" ) );
+Assert.That( phrase, Is.Not.StringMatching( "your.*passing.*tests" ) );
+Assert.That( phrase, Has.Length.GreaterThan(10)
+                .And.Not.Matches( "your.*passing.*tests" ) );
+Expect( phrase, Matches( "Make.*pass" ) );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><b>Matches</b> may appear only in the body of a constraint 
+    expression or when the inherited syntax is used.
+</ol>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li id="current"><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

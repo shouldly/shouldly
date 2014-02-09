@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project name="NUnit.Mocks.Tests" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="AssemblyInfo.cs"/>
+    <include name="DynamicMockTests.cs"/>
+    <include name="MockTests.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library"
+       output="${current.test.dir}/nunit.mocks.tests.dll" 
+       debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references basedir="${current.framework.dir}">
+        <include name="nunit.framework.dll"/>
+        <include name="nunit.mocks.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitMocks/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit.mocks.tests.csproj"/>
+        <include name="nunit.mocks.tests.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

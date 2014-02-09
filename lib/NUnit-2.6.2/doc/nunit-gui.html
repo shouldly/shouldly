@@ -1,0 +1,151 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - Nunit-gui</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>NUnit Gui Runner</h2>
+<p>The nunit.exe program is a graphical runner. It shows the tests in an 
+	explorer-like browser window and provides a visual indication of the success or 
+	failure of the tests. It allows you to selectively run single tests or suites 
+	and reloads automatically as you modify and re-compile your code. The following 
+	is a screenshot of NUnit running the same mock-assembly.dll shown in the 
+	nunit-console example.</p>
+
+<div class="screenshot-left">
+     <img src="img/gui-screenshot.jpg"></div>
+<p>
+<h4>Tree Display</h4>
+<p>This version of NUnit uses symbols in the test tree, which allow those who 
+   are unable to easily distinguish colors to determine the test status.
+   Successful tests are colored green, with a check mark. Tests that are ignored 
+   are marked with a yellow circle, containing a question mark. If any
+   tests had failed, they would be marked red, with an X symbol.</p>
+
+<p>In this example, there were a total of 11 test cases, but one of them was not 
+   counted because it was marked Explicit. Note that it is shown as a gray
+   circle in the tree. Of the remaining 10 tests, 5 were run successfully and
+   5 were ignored.</p>
+   
+<p>The symbols shown in the tree are actually files in the NUnit bin directory.
+   These files are named Success.jpg, Failure.jpg and Ignored.jpg and may be
+   modified or replaced by the user.</p>
+
+<p><b>Note:</b> Beginning with NUnit 2.6, tests marked with the <b>IgnoreAttribtute</b> are shown in yellow immediately upon loading. Similarly,
+non-runnable tests (e.g.: wrong argument type) are shown in red at load time.
+   
+<h4>Progress Bar</h4>
+<p>The progress bar shows the progress of the test. It is colored according
+to the "worst" result obtained: red if there were any failures, yellow if
+some tests were ignored and green for success.
+
+<h4>Result Summary</h4>
+<p>At the end of the test run, a summary of the results is displayed immediately
+below the progress bar. If the result information does not fit in the space
+available, hovering over it shows the full information.
+
+<h4>Result Tabs</h4>
+<p>The tabs along the bottom of the display show the results of running
+a test. The <b>Errors and Failures</b> tab displays the error message
+and stack trace for both unexpected exceptions and assertion failures.
+Beginning with NUnit 2.5, source code for each stack location can be displayed
+in this tab - as is seen above - provided that the program was compiled with 
+debug information.
+
+<p>The <b>Tests Not Run</b> tab provides a list of all tests that were
+selected for running but were not run, together with the reason.
+
+<p>The Text Output tab displays text output from the tests, potentially
+including console output, trace output and log output. The default display
+provides a single tab, but additional tabs may be created by the user to
+hold specific kinds of output. For more information on creating new tabs, 
+see the documentation for the 
+<a href="settingsDialog.html">Settings Dialog</a>.
+   
+
+<h3>Mini-Gui</h3>
+
+<p>Since the release of NUnit 2.4, an alternate "mini-gui" is also available. It 
+   may be selected from the View menu. In the following screenshot, the mini
+   gui window has been positioned next to the Visual Studio IDE so
+   that both windows can be seen.</p>
+   
+<div class="screenshot-left">
+     <img src="img/miniGui.jpg"></div>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li id="current"><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<ul>
+<li><a href="guiCommandLine.html">Command-Line</a></li>
+<li><a href="mainMenu.html">Main&nbsp;Menu</a></li>
+<li><a href="contextMenu.html">Context&nbsp;Menu</a></li>
+<li><a href="settingsDialog.html">Settings&nbsp;Dialog</a></li>
+<li><a href="addinsDialog.html">Addins&nbsp;Dialog</a></li>
+<li><a href="testProperties.html">Test&nbsp;Properties</a></li>
+<li><a href="configEditor.html">Configuration&nbsp;Editor</a></li>
+</ul>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

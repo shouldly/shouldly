@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<project name="NUnitUiException" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="Properties/Resources.Designer.cs"/>
+    <include name="CodeFormatters/CodeFormatterCollection.cs"/>
+    <include name="CodeFormatters/GeneralCodeFormatter.cs"/>
+    <include name="CodeFormatters/ICodeFormatter.cs"/>
+    <include name="CodeFormatters/IFormatterCatalog.cs"/>
+    <include name="CodeFormatters/PlainTextCodeFormatter.cs"/>
+    <include name="Controls/CodeBox.cs"/>
+    <include name="Controls/CodeRenderingContext.cs"/>
+    <include name="Controls/DefaultCodeRenderer.cs"/>
+    <include name="Controls/DefaultErrorListRenderer.cs"/>
+    <include name="Controls/ErrorBrowser.cs"/>
+    <include name="Controls/ErrorList.cs"/>
+    <include name="Controls/ErrorPanelLayout.cs"/>
+    <include name="Controls/ErrorToolbar.cs"/>
+    <include name="Controls/ICodeRenderer.cs"/>
+    <include name="Controls/ICodeView.cs"/>
+    <include name="Controls/IErrorDisplay.cs"/>
+    <include name="Controls/IErrorListRenderer.cs"/>
+    <include name="Controls/IStackTraceView.cs"/>
+    <include name="Controls/PaintLineLocation.cs"/>
+    <include name="Controls/SourceCodeDisplay.cs"/>
+    <include name="Controls/SplitterBox.cs"/>
+    <include name="Controls/StackTraceDisplay.cs"/>
+    <include name="CSharpParser/CSCode.cs"/>
+    <include name="CSharpParser/CSParser.cs"/>
+    <include name="CSharpParser/CSToken.cs"/>
+    <include name="CSharpParser/CSTokenCollection.cs"/>
+    <include name="CSharpParser/Lexer.cs"/>
+    <include name="CSharpParser/LexToken.cs"/>
+    <include name="CSharpParser/TokenClassifier.cs"/>
+    <include name="CSharpParser/TokenDictionary.cs"/>
+    <include name="StackTraceAnalysers/FunctionParser.cs"/>
+    <include name="StackTraceAnalysers/IErrorParser.cs"/>
+    <include name="StackTraceAnalysers/LineNumberParser.cs"/>
+    <include name="StackTraceAnalysers/PathCompositeParser.cs"/>
+    <include name="StackTraceAnalysers/UnixPathParser.cs"/>
+    <include name="StackTraceAnalysers/WindowsPathParser.cs"/>
+    <include name="AssemblyInfo.cs"/>
+    <include name="DefaultTextManager.cs"/>
+    <include name="ExceptionItem.cs"/>
+    <include name="ExceptionItemCollection.cs"/>
+    <include name="ITextManager.cs"/>
+    <include name="StackTraceParser.cs"/>
+    <include name="TraceExceptionHelper.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+    <include name="Properties/Resources.resx"/>
+  </patternset>
+
+  <patternset id="content-files">
+    <include name="Resources/*.png"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+    output="${current.lib.dir}/nunit.uiexception.dll"
+    debug="${build.debug}" define="${build.defines}"
+    if="${runtime.version >= '2.0'}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="1699"/>
+      </nowarn>
+      <resources prefix="NUnit.UiException" dynamicprefix="true">
+        <patternset refid="resource-files"/>
+      </resources>
+      <references basedir="${current.lib.dir}">
+        <include name="System.dll"/>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="System.Drawing.dll"/>
+      </references>
+    </csc>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/GuiException/UiException">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <patternset refid="content-files"/>
+        <include name="nunit.uiexception.dll.csproj"/>
+        <include name="nunit.uiexception.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

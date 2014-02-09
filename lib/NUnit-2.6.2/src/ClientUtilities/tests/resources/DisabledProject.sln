@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisabledProject", "DisabledProject\DisabledProject.csproj", "{45103FD8-4F1F-4B2D-9E75-20094E98EE64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugOnly", "DebugOnly\DebugOnly.csproj", "{B9DB5E6C-8A54-40F9-9B1E-225B58FE7ED4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45103FD8-4F1F-4B2D-9E75-20094E98EE64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45103FD8-4F1F-4B2D-9E75-20094E98EE64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45103FD8-4F1F-4B2D-9E75-20094E98EE64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45103FD8-4F1F-4B2D-9E75-20094E98EE64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9DB5E6C-8A54-40F9-9B1E-225B58FE7ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9DB5E6C-8A54-40F9-9B1E-225B58FE7ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9DB5E6C-8A54-40F9-9B1E-225B58FE7ED4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

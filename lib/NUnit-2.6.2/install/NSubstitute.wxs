@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment>
+
+    <DirectoryRef Id="lib" FileSource="bin\lib">
+
+      <Component Id="NSubstitute">
+        <File Id="NSubstitute.dll" Name="NSubstitute.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+
+</Wix>

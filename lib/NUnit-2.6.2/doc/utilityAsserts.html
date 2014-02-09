@@ -1,0 +1,136 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - UtilityAsserts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Utility Methods</h2>
+<p>Four utility methods, <b>Pass()</b>, <b>Fail()</b>, <b>Ignore()</b> and <b>Inconclusive()</b> are provided 
+   in order to allow more direct control of the test process:</p>
+<div class="code" style="width: 36em"><pre>
+Assert.Pass();
+Assert.Pass( string message );
+Assert.Pass( string message, object[] parms );
+
+Assert.Fail();
+Assert.Fail( string message );
+Assert.Fail( string message, object[] parms );
+
+Assert.Ignore();
+Assert.Ignore( string message );
+Assert.Ignore( string message, object[] parms );
+
+Assert.Inconclusive();
+Assert.Inconclusive( string message );
+Assert.Inconclusive( string message, object[] parms );</pre>
+</div>
+<p>The <b>Assert.Pass</b> method allows you to immediately end the test, recording
+	it as successful. Since it causes an exception to be thrown, it is more
+	efficient to simply allow the test to return. However, Assert.Pass allows 
+	you to record a message in the test result and may also make the test
+	easier to read in some situations. Additionally, like the other methods
+	on this page, it can be invoked from a nested method call with the
+	result of immediately terminating test execution.</p>
+<p>The <b>Assert.Fail</b> method provides you with the ability to generate a failure based 
+	on tests that are not encapsulated by the other methods. It is also useful in 
+	developing your own project-specific assertions.</p>
+<p>Here's an example of its use to create a private assertion that tests whether a 
+	string contains an expected value.</p>
+<div class="code" style="width: 36em">
+	<pre>public void AssertStringContains( string expected, string actual )
+{
+    AssertStringContains( expected, actual, string.Empty );
+}
+
+public void AssertStringContains( string expected, string actual,
+    string message )
+{
+    if ( actual.IndexOf( expected ) < 0 )
+        Assert.Fail( message );
+}</pre>
+</div>
+<p>The <b>Assert.Ignore</b> method provides you with the ability to dynamically cause a 
+	test or suite to be ignored at runtime. It may be called in a test, setup or 
+	fixture setup method. We recommend that you use this only in isolated cases. 
+	The category facility is provided for more extensive inclusion or exclusion of 
+	tests or you may elect to simply divide tests run on different occasions into 
+	different assemblies.</p>
+<p>The <b>Assert.Inconclusive</b> method indicates that the test could not be
+   completed with the data available. It should be used in situations where 
+   another run with different data might run to completion, with either a
+   success or failure outcome.
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<ul>
+<li><a href="equalityAsserts.html">Equality&nbsp;Asserts</a></li>
+<li><a href="identityAsserts.html">Identity&nbsp;Asserts</a></li>
+<li><a href="conditionAsserts.html">Condition&nbsp;Asserts</a></li>
+<li><a href="comparisonAsserts.html">Comparison&nbsp;Asserts</a></li>
+<li><a href="typeAsserts.html">Type&nbsp;Asserts</a></li>
+<li><a href="exceptionAsserts.html">Exception&nbsp;Asserts</a></li>
+<li id="current"><a href="utilityAsserts.html">Utility&nbsp;Methods</a></li>
+<li><a href="stringAssert.html">String&nbsp;Assert</a></li>
+<li><a href="collectionAssert.html">Collection&nbsp;Assert</a></li>
+<li><a href="fileAssert.html">File&nbsp;Assert</a></li>
+<li><a href="directoryAssert.html">Directory&nbsp;Assert</a></li>
+</ul>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

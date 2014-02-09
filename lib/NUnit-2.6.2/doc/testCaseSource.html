@@ -1,0 +1,364 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - TestCaseSource</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<script language="JavaScript" src="codeFuncs.js" ></script> <!-- Do it this way for IE -->
+
+<h3>TestCaseSourceAttribute (NUnit 2.5)</h3>
+
+<p><b>TestCaseSourceAttribute</b> is used on a parameterized test method to
+identify the property, method or field that will provide the required 
+arguments. The attribute has three public constructors.
+
+<div class="code">
+<pre>
+TestCaseSourceAttribute(Type sourceType);
+</pre>
+</div>
+
+<p>The <b>sourceType</b> argument represents the class that provides test cases.
+It must implement <b>IEnumerable</b> and return test case data appropriate for
+the test method on which the attribute appears.
+
+<p>This is a new form of the attribute in NUnit 2.6.2 and is recommended for
+use in preference to other forms because it doesn't use a string to specify
+the data source and is therefore more easily refactored.
+
+<div class="code">
+<pre>
+TestCaseSourceAttribute(Type sourceType, string sourceName);
+TestCaseSourceAttribute(string sourceName);
+</pre>
+</div>
+
+<p>These older constructors are no longer recommended. If a <b>sourceType</b>
+is specified, it represents the class that provides
+the test cases. It must have a default constructor.
+
+<p>If <b>sourceType</b> is not specified, the class containing the test
+method is used. NUnit will construct it using either the default constructor
+or - if arguments are provided - the appropriate constructor for those 
+arguments.
+
+<p>The <b>sourceName</b> argument represents the name of the source used
+to provide test cases. It has the following characteristics:
+<ul>
+<li>It may be a field, property or method.
+<li>It may be either an instance or a static member.
+<li>It must return an IEnumerable or a type that implements IEnumerable.
+<li>The individual items returned by the enumerator must be compatible
+    with the signature of the method on which the attribute appears.
+	The rules for this are described in the next section.
+</ul>
+
+<p><b>TestCaseSourceAttribute</b> supports one named parameter:
+
+<dl>
+<dt><b>Category</b>
+<dd>Used to assign one or more categories to every test case returned from this source.
+</dl>
+
+<h3>Constructing Test Cases</h3>
+
+<p>In constructing tests, NUnit uses each item returned by
+the enumerator as follows:
+<ol>
+
+<li><p>If it is an object implementing <b>NUnit.Framework.ITestCaseData</b>, 
+its properties are used to provide the test case. In NUnit 2.5 and later, this is
+done using reflection to allow compatibility with earlier versions that
+did not implement <b>ITestCaseData</b>.
+
+<p>The following public fields or properties are used:
+  <p><dl>
+  <dt><b>Arguments</b>
+  <dd>An <b>object[]</b> representing the arguments to the method
+  <dt><b>Categories</b>
+  <dd>An IList of categories to be applied to the test case.
+  <dt><b>Description</b>
+  <dd>Sets the description property of the test
+  <dt><b>ExpectedException</b>
+  <dd>Specifies a the Type of an exception that should be thrown by this invocation
+  <dt><b>ExpectedExceptionName</b>
+  <dd>Specifies a the FullName of an exception that should be thrown by this invocation
+  <dt><b>Ignored</b>
+  <dd>If true, the test case is ignored.
+  <dt><b>IgnoreReason</b>
+  <dd>Specifies the reason for ignoring this test case. If set to a non-empty
+      string, then the test is ignored.
+  <dt><b>Properties</b>
+  <dd>An IDictionary of properties to be applied to the test case.
+      Note that the values provided must be compatible with PropertiesAttribute.
+	  In particular, use of custom types or enums will cause problems.
+  <dt><b>Result</b>
+  <dd>The expected result to be returned from the method, which must have
+      a compatible return type.
+  <dt><b>TestName</b>
+  <dd>Provides a name for the test. If not specified, a name is generated based on 
+      the method name and the arguments provided
+  </dl>
+
+<p>
+<li><p>If the test has a single argument and the returned value matches the type of
+that argument it is used directly.
+
+<li><p>If it is an <b>object[]</b>, its members are used to provide
+the arguments for the method, as in this example, which returns
+arguments from a named static field.
+
+<div class="code">
+<pre>[Test, TestCaseSource("DivideCases")]
+public void DivideTest(int n, int d, int q)
+{
+    Assert.AreEqual( q, n / d );
+}
+
+static object[] DivideCases =
+{
+    new object[] { 12, 3, 4 },
+    new object[] { 12, 2, 6 },
+    new object[] { 12, 4, 3 } 
+};
+</pre></div>
+
+<li><p>If it is an array of some other type, NUnit can use it provided
+that the arguments to the method are all of that type. For example,
+the above code could be modified to make the three nested arrays 
+of type int[].
+
+<li><p>If anything else is returned, it is used directly as the sole 
+argument to the method. This allows NUnit to give an error message
+in cases where the method requires a different number arguments or
+an argument of a different type.
+This can also eliminate a bit of extra typing by the programmer, 
+as in this example:
+
+<div class="code"><pre>
+static int[] EvenNumbers = new int[] { 2, 4, 6, 8 };
+
+[Test, TestCaseSource("EvenNumbers")]
+public void TestMethod(int num)
+{
+    Assert.IsTrue( num % 2 == 0 );
+}
+</pre></div>
+
+</ol>
+
+<h3>TestCaseData Class</h3>
+
+<p>Although any object implementing <b>ITestCaseData</b> may be used to
+   provide extended test case information, NUnit provides the <b>TestCaseData</b> 
+   class for this purpose. The following    example returns <b>TestCaseData</b> 
+   instances from a data source in a separately defined class.
+
+<div class="code">
+<pre>[TestFixture]
+public class MyTests
+{
+  [Test,TestCaseSource(typeof(MyFactoryClass),"TestCases")]
+  public int DivideTest(int n, int d)
+  {
+    return n/d;
+  }
+	
+  ...
+}
+
+public class MyFactoryClass
+{
+  public static IEnumerable TestCases
+  {
+    get
+    {
+      yield return new TestCaseData( 12, 3 ).Returns( 4 );
+      yield return new TestCaseData( 12, 2 ).Returns( 6 );
+      yield return new TestCaseData( 12, 4 ).Returns( 3 );
+      yield return new TestCaseData( 0, 0 )
+        .Throws(typeof(DivideByZeroException))
+        .SetName("DivideByZero")
+        .SetDescription("An exception is expected");
+    }
+  }  
+}
+</div>
+
+<p>This example uses the fluent interface supported by <b>TestCaseData</b>
+to make the program more readable. The last yield statement above  is equivalent to
+
+<div class="code"><pre>
+      TestCaseData data = new TestCaseData(0,0);
+      data.ExpectedException = typeof(DivideByZeroException;
+      data.TestName = "DivideByZero";
+      data.Description = "An exception is expected";
+      yield return data;
+</pre>
+</div> 
+
+<p><b>TestCaseData</b> supports the following properties
+and methods, which may be appended to an instance in any order.
+
+<p>
+<dl>
+  <dt><b>.Ignore()</b>
+  <dd>Causes the test case to be ignored.
+  <dt><b>.Ignore(string)</b>
+  <dd>Causes the test case to be ignored with a reason specified.
+  <dt><b>.MakeExplicit()</b>
+  <dd>Causes the test case to be marked explicit.
+  <dt><b>.MakeExplicit(string)</b>
+  <dd>Causes the test case to be marked explicit and specifies the reason for doing so.
+  <dt><b>.Returns</b>
+  <dd>The expected result to be returned from the method, which must have
+      a compatible return type.
+  <dt><b>.SetCategory(string)</b>
+  <dd>Applies a category to the test
+  <dt><b>.SetDescription(string)</b>
+  <dd>Sets the description property of the test
+  <dt><b>.SetName(string)</b>
+  <dd>Provides a name for the test. If not specified, a name is generated based on 
+      the method name and the arguments provided
+  <dt><b>.SetProperty(string, string)</b>
+  <dt><b>.SetProperty(string, int)</b>
+  <dt><b>.SetProperty(string, double)</b>
+  <dd>Applies a named property and value to the test
+  <dt><b>.Throws(Type)</b>
+  <dt><b>.Throws(string)</b>
+  <dd>Specifies a the Type or FullName of an exception that should be thrown by this invocation
+</dl>
+
+<h3>Order of Execution</h3>
+
+<p>In NUnit 2.5, individual test cases are sorted alphabetically and executed in
+   that order. With NUnit 2.5.1, the individual cases are not sorted, but are
+   executed in the order in which NUnit discovers them. This order does <b>not</b>
+   follow the lexical order of the attributes and will often vary between different
+   compilers or different versions of the CLR.
+   
+<p>As a result, when <b>TestCaseSourceAttribute</b> appears multiple times on a 
+   method or when other data-providing attributes are used in combination with 
+   <b>TestCaseSourceAttribute</b>, the order of the test cases is undefined.
+
+<p>However, when a single <b>TestCaseSourceAttribute</b> is used by itself, 
+   the order of the tests follows exactly the order in which the test cases 
+   are returned from the source.
+   
+<h3>Note on Object Construction</h3>
+
+<p>NUnit locates the test cases at the time the tests are loaded, creates
+instances of each class with non-static sources and builds a list of 
+tests to be executed. Each source object is only created once at this
+time and is destroyed after all tests are loaded. 
+
+<p>If the data source is in the test fixture itself, the object is created
+using the appropriate constructor for the fixture parameters provided on
+the <b>TestFixtureAttribute</b> or
+the default constructor if no parameters were specified. Since this object
+is destroyed before the tests are run, no communication is possible between
+these two phases - or between different runs - except through the parameters
+themselves.
+
+   
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li><a href="testCase.html">TestCase</a></li>
+<li id="current"><a href="testCaseSource.html">TestCaseSource</a></li>
+<li><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

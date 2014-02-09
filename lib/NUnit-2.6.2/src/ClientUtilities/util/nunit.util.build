@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<project name="NUnitUtil" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="AggregatingTestRunner.cs"/>
+    <include name="AssemblyInfo.cs"/>
+    <include name="AssemblyList.cs"/>
+    <include name="AssemblyWatcher.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="CategoryExpression.cs"/>
+    <include name="CategoryManager.cs"/>
+    <include name="CommandLineOptions.cs"/>
+    <include name="ConsoleWriter.cs"/>
+    <include name="DefaultTestRunnerFactory.cs"/>
+    <include name="FileWatcher.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="Guard.cs"/>
+    <include name="IAssemblyWatcher.cs"/>
+    <include name="InProcessTestRunnerFactory.cs"/>
+    <include name="MemorySettingsStorage.cs"/>
+    <include name="NUnitProject.cs"/>
+    <include name="NUnitRegistry.cs"/>
+    <include name="PathUtils.cs"/>
+    <include name="ProcessRunner.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="ProjectConfig.cs"/>
+    <include name="ProjectConfigCollection.cs"/>
+    <include name="ProjectFormatException.cs"/>
+    <include name="RecentFileEntry.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="RecentFiles.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="RecentFilesCollection.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="RegistrySettingsStorage.cs"/>
+    <include name="RemoteTestAgent.cs"/>
+    <include name="ResultSummarizer.cs"/>
+    <include name="RuntimeFrameworkSelector.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="ServerBase.cs"/>
+    <include name="ServerUtilities.cs"/>
+    <include name="Services.cs"/>
+    <include name="SettingsGroup.cs"/>
+    <include name="SettingsStorage.cs"/>
+    <include name="StackTraceFilter.cs"/>
+    <include name="TestDomain.cs"/>
+    <include name="TestEventArgs.cs"/>
+    <include name="TestEventDispatcher.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="TestExceptionHandler.cs"/>
+    <include name="TestLabelLevel.cs"/>
+    <include name="TestLoader.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="TestObserver.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="TestResultItem.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="TestServer.cs"/>
+    <include name="VSProject.cs"/>
+    <include name="VSProjectConfig.cs"/>
+    <include name="VSProjectConfigCollection.cs"/>
+    <include name="XmlResultTransform.cs"/>
+    <include name="XmlResultWriter.cs"/>
+    <include name="XmlSettingsStorage.cs"/>
+    <include name="Extensibility/IProjectConverter.cs"/>
+    <include name="Extensibility/ProjectConverterCollection.cs"/>
+    <include name="Interfaces/IRuntimeFrameworkSelector.cs"/>
+    <include name="Interfaces/ISettings.cs"/>
+    <include name="Interfaces/ITestEvents.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="Interfaces/ITestLoader.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="Interfaces/ITestRunnerFactory.cs"/>
+    <include name="ProjectConverters/VisualStudioConverter.cs"/>
+    <include name="Services/AddinManager.cs"/>
+    <include name="Services/AddinRegistry.cs"/>
+    <include name="Services/DomainManager.cs"/>
+    <include name="Services/ProjectService.cs"/>
+    <include name="Services/RecentFilesService.cs" if="${runtime.version >= '2.0'}"/>
+    <include name="Services/ServiceManager.cs"/>
+    <include name="Services/SettingsService.cs"/>
+    <include name="Services/TestAgency.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+    <include name="Transform.resx"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.lib.dir}/nunit.util.dll"
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="618"/>
+        <warning number="1699" if="${runtime.version>='2.0'}"/>
+      </nowarn>
+      <resources prefix="NUnit.Util">
+        <patternset refid="resource-files"/>
+      </resources>
+      <references>
+        <include name="System.Runtime.Remoting.dll"/>
+        <include name="System.Configuration.dll"/>
+        <include name="System.Drawing.dll"/>
+	<include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+      </references>
+    </csc>
+  </target>
+  
+  <target name="package">
+    <copy todir="${package.src.dir}/ClientUtilities/util">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <include name="nunit.util.dll.csproj"/>
+        <include name="nunit.util.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <DirectoryRef Id="INSTALLDIR">
+
+      <Component Id="Logo.ico">
+        <File Id="Logo.ico"
+              Source="Logo.ico"
+              KeyPath="yes" />
+        <RemoveFile Id="RemoveThumbnails"
+                    Name="*"
+                    On="uninstall" />
+      </Component>
+
+      <Component Id="license.txt">
+        <File Id="license.txt" Source="license.txt" />
+      </Component>
+
+      <Component Id="InstallationRegistryEntry">
+        <RegistryKey Root="HKMU"
+                     Key="SOFTWARE\[Manufacturer]\NUnit\$(var.NominalVersion)"                      Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="InstallDir"
+                         Action="write"
+                         Type="string"
+                         Value="[INSTALLDIR]" />
+          <RegistryValue Name="ProductVersion"
+                         Action="write"
+                         Type="string"
+                         Value="[ProductVersion]" />
+        </RegistryKey>
+        <RemoveFolder Id="RemoveInstallDir" On="uninstall"/>
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="bin" FileSource="bin">
+
+      <Component Id="nunit_console"
+                 Guid="6B31CFF2-575A-4dae-80AC-CF4AD3E46F7D">
+        <File Id="console.exe" Name="nunit-console.exe" />
+        <File Id="console.config" Name="nunit-console.exe.config" />
+        <RemoveFolder Id="RemoveBinFolder" On="uninstall"/>
+      </Component>
+
+      <Component Id="nunit_console_x86"
+                 Guid="A409E3D7-535F-4ad7-BC4A-534CFACCABC9">
+        <File Id="console_x86.exe" Name="nunit-console-x86.exe" />
+        <File Id="console_x86.config" Name="nunit-console-x86.exe.config" />
+      </Component>
+
+      <Component Id="nunit_agent"
+                 Guid="148230B8-4F7E-4a86-B2A9-51FCDCC218CF">
+        <File Id="nunit_agent.exe" Name="nunit-agent.exe" />
+        <File Id="nunit_agent.config" Name="nunit-agent.exe.config" />
+      </Component>
+
+      <Component Id="nunit_agent_x86"
+                 Guid="47AB79E2-38AD-49ca-9CDC-9B5A6B105097">
+        <File Id="nunit_agent_x86.exe" Name="nunit-agent-x86.exe" />
+        <File Id="nunit_agent_x86.config" Name="nunit-agent-x86.exe.config" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="lib" FileSource="bin\lib">
+
+      <Component Id="nunit.core">
+        <File Id="nunit.core.dll" Name="nunit.core.dll" />
+      </Component>
+
+      <Component Id="nunit.core.interfaces">
+        <File Id="nunit.core.interfaces.dll"
+              Name="nunit.core.interfaces.dll" />
+      </Component>
+
+      <Component Id="nunit.util">
+        <File Id="nunit.util.dll" Name="nunit.util.dll" />
+      </Component>
+
+      <Component Id="console.dll">
+        <File Id="console.dll.dll" Name="nunit-console-runner.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="addins">
+
+      <Component Id="AddinsFolder" Guid="2DD8DD2D-E3A7-49d7-BB93-1F55B568BCBB">
+        <CreateFolder />
+        <RemoveFile Id="RemoveAddins" Name="*.*" On="uninstall" />
+        <RemoveFolder Id="RemoveAddinFolder" On="uninstall" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="framework" FileSource="bin\framework">
+
+      <Component Id="nunit.framework"
+                 Guid="FB56F875-B4DD-4f35-A681-A160958DC54D">
+        <File Id="nunit.framework.dll" Name="nunit.framework.dll" />
+        <File Id="nunit.framework.xml" Name="nunit.framework.xml" />
+      </Component>
+
+      <Component Id="nunit.mocks">
+        <File Id="nunit.mocks.dll" Name="nunit.mocks.dll" />
+      </Component>
+
+      <Component Id="AssemblyReferenceFolder">
+        <RegistryKey Root="HKMU"
+                     Key="Software\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\NUnit [ProductVersion]"
+                     Action="createAndRemoveOnUninstall">
+          <RegistryValue Action="write" 
+                         Type="string"
+                         Value="[framework]" />
+        </RegistryKey>
+
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+</Wix>

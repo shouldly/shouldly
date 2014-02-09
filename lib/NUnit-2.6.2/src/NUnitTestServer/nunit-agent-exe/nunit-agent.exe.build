@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<project name="NUnitAgentExe" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="Program.cs"/>
+    <include name="AssemblyInfo.cs"/>
+  </patternset>
+
+  <target name="build">
+
+    <csc target="winexe" 
+        output="${current.build.dir}/nunit-agent.exe"
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references basedir="${current.lib.dir}">
+        <include name="System.Runtime.Remoting.dll"/>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="nunit.core.interfaces.dll"/>
+        <include name="nunit.core.dll"/>
+        <include name="nunit.util.dll"/>
+      </references>
+    </csc>
+
+    <copy file="App.config" if="${runtime.version >= '2.0'}"
+      tofile="${current.build.dir}/nunit-agent.exe.config"/>
+    <copy file="App.v1.config" unless="${runtime.version >= '2.0'}"
+      tofile="${current.build.dir}/nunit-agent.exe.config"/>
+
+    <csc target="winexe" 
+        output="${current.build.dir}/nunit-agent-x86.exe"
+        debug="${build.debug}" define="${build.defines}"
+        platform="x86" if="${runtime.version >= '2.0'}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references basedir="${current.lib.dir}">
+        <include name="System.Runtime.Remoting.dll"/>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="nunit.core.interfaces.dll"/>
+        <include name="nunit.core.dll"/>
+        <include name="nunit.util.dll"/>
+      </references>
+    </csc>
+
+    <copy file="App.config" if="${runtime.version >= '2.0'}"
+      tofile="${current.build.dir}/nunit-agent-x86.exe.config"/>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitTestServer/nunit-agent-exe">
+      <fileset>
+        <patternset refid="source-files" />
+        <include name="App.config" />
+        <include name="App.v1.config" />
+        <include name="nunit-agent.exe.csproj"/>
+        <include name="nunit-agent.exe.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

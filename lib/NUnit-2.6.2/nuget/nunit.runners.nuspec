@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+		<id>NUnit.Runners</id>
+		<version>${package.version}</version>
+		<title>NUnit.Runners</title>
+		<authors>Charlie Poole</authors>
+		<owners>Charlie Poole</owners>
+		<licenseUrl>http://nunit.org/nuget/license.html</licenseUrl>
+		<projectUrl>http://nunit.org</projectUrl>
+		<iconUrl>http://nunit.org/nuget/nunit_32x32.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>NUnit is a unit-testing framework for all .Net languages with a strong TDD focus.</summary>
+		<description>NUnit features a fluent assert syntax, parameterized, generic and theory tests and is user-extensible. A number of runners, both from the NUnit project and by third parties, are able to execute NUnit tests.&#10;&#13;Version 2.6 is the seventh major release of this well-known and well-tested programming tool.&#10;&#13;This package includes the NUnit console, gui and pnunit runners and is compatible with all NUnit framework versions 2.0 through 2.6. The NUnit project editor is also included.</description>
+		<language>en-US</language>
+		<tags>test testing tdd runner</tags>
+	</metadata>
+	<files>
+		<file src="${project.base.dir}\license.txt" />
+		<file src="${current.build.dir}\agent.conf" target="tools" />
+		<file src="${current.build.dir}\agent.log.conf" target="tools" />
+		<file src="${current.build.dir}\launcher.log.conf" target="tools" />
+		<file src="${current.build.dir}\nunit.exe" target="tools" />
+		<file src="${current.build.dir}\nunit.exe.config" target="tools" />
+		<file src="${current.build.dir}\nunit.framework.dll" target="tools" />
+		<file src="${current.build.dir}\nunit-agent.exe" target="tools" />
+		<file src="${current.build.dir}\nunit-agent.exe.config" target="tools" />
+		<file src="${current.build.dir}\nunit-agent-x86.exe" target="tools" />
+		<file src="${current.build.dir}\nunit-agent-x86.exe.config" target="tools" />
+		<file src="${current.build.dir}\nunit-console.exe" target="tools" />
+		<file src="${current.build.dir}\nunit-console.exe.config" target="tools" />
+		<file src="${current.build.dir}\nunit-console-x86.exe" target="tools" />
+		<file src="${current.build.dir}\nunit-console-x86.exe.config" target="tools" />
+		<file src="${current.build.dir}\nunit-editor.exe" target="tools" />
+		<file src="${current.build.dir}\nunit-x86.exe" target="tools" />
+		<file src="${current.build.dir}\nunit-x86.exe.config" target="tools" />
+		<file src="${current.build.dir}\pnunit.framework.dll" target="tools" />
+		<file src="${current.build.dir}\pnunit.tests.dll" target="tools" />
+		<file src="${current.build.dir}\pnunit-agent.exe" target="tools" />
+		<file src="${current.build.dir}\pnunit-agent.exe.config" target="tools" />
+		<file src="${current.build.dir}\pnunit-launcher.exe" target="tools" />
+		<file src="${current.build.dir}\pnunit-launcher.exe.config" target="tools" />
+		<file src="${current.build.dir}\runpnunit.bat" target="tools" />
+		<file src="${current.build.dir}\test.conf" target="tools" />
+		<file src="${current.build.dir}\lib\log4net.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit.core.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit.core.interfaces.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit.uiexception.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit.uikit.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit.util.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit-console-runner.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\nunit-gui-runner.dll" target="tools\lib" />
+		<file src="${current.build.dir}\lib\Images\**\*.jpg" target="tools\lib\Images" />
+		<file src="${current.build.dir}\lib\Images\**\*.png" target="tools\lib\Images" />
+	</files>
+</package>

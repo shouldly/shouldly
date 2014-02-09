@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<project name="NUnitCoreTests" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="Generic/DeduceTypeArgsFromArgs.cs"/>
+        <include name="Generic/SimpleGenericFixture.cs"/>
+        <include name="Generic/SimpleGenericMethods.cs"/>
+        <include name="Generic/TypeParameterUsedWithTestMethod.cs"/>
+    <include name="ActionAttributeExceptionTests.cs"/>
+    <include name="ActionAttributeTests.cs"/>
+        <include name="AllTests.cs"/>
+        <include name="AssemblyHelperTests.cs"/>
+        <include name="AssemblyReaderTests.cs"/>
+        <include name="AssemblyResolverTests.cs"/>
+        <include name="AssemblyTests.cs"/>
+        <include name="AssemblyVersionFixture.cs"/>
+        <include name="AssertPassFixture.cs"/>
+        <include name="AttributeDescriptionFixture.cs"/>
+        <include name="AttributeInheritance.cs"/>
+        <include name="BasicRunnerTests.cs"/>
+        <include name="CallContextTests.cs"/>
+        <include name="CategoryAttributeTests.cs"/>
+        <include name="CombinatorialTests.cs"/>
+        <include name="CoreExtensionsTests.cs"/>
+        <include name="CultureSettingAndDetectionTests.cs"/>
+        <include name="DatapointTests.cs"/>
+        <include name="DirectoryChangeTests.cs"/>
+        <include name="DirectorySwapperTests.cs"/>
+        <include name="EventQueueTests.cs"/>
+        <include name="EventTestFixture.cs"/>
+        <include name="ExpectExceptionTest.cs"/>
+        <include name="FailFixture.cs"/>
+        <include name="FixtureSetUpTearDownTest.cs"/>
+        <include name="IgnoreFixture.cs"/>
+        <include name="LegacySuiteTests.cs"/>
+    <include name="MaxTimeTests.cs"/>
+        <include name="MockTestRunner.cs"/>
+        <include name="NameFilterTest.cs"/>
+        <include name="NamespaceAssemblyTests.cs"/>
+        <include name="NUnitTestCaseBuilderTests.cs"/>
+        <include name="PairwiseTests.cs"/>
+        <include name="ParameterizedTestCaseTests.cs"/>
+        <include name="ParameterizedTestFixtureTests.cs"/>
+        <include name="PlatformDetectionTests.cs"/>
+        <include name="PropertyAttributeTests.cs"/>
+        <include name="ReflectTests.cs"/>
+        <include name="RemoteRunnerTests.cs"/>
+        <include name="RepeatedTestFixture.cs"/>
+        <include name="RuntimeFrameworkTests.cs"/>
+        <include name="SerializationBug.cs"/>
+        <include name="SetCultureAttributeTests.cs"/>
+        <include name="SetUpFixtureTests.cs"/>
+        <include name="SetUpTest.cs"/>
+        <include name="SimpleNameFilterTests.cs"/>
+        <include name="SimpleTestRunnerTests.cs"/>
+        <include name="StackOverflowTestFixture.cs"/>
+        <include name="SuiteBuilderTests.cs"/>
+        <include name="SuiteBuilderTests_Multiple.cs"/>
+        <include name="TestAssemblyBuilderTests.cs"/>
+        <include name="TestCaseAttributeTests.cs"/>
+        <include name="TestCaseResultFixture.cs"/>
+        <include name="TestCaseSourceTests.cs"/>
+        <include name="TestCaseTest.cs"/>
+    <include name="TestContextTests.cs"/>
+    <include name="TestConsole.cs"/>
+    <include name="TestDelegateFixture.cs"/>
+        <include name="TestExecutionContextTests.cs"/>
+        <include name="TestFixtureBuilderTests.cs"/>
+        <include name="TestFixtureExtension.cs"/>
+        <include name="TestFixtureTests.cs"/>
+        <include name="TestFrameworkTests.cs"/>
+        <include name="TestIDTests.cs"/>
+        <include name="TestInfoTests.cs"/>
+        <include name="TestMethodSignatureTests.cs"/>
+        <include name="TestNameTests.cs"/>
+        <include name="TestNodeTests.cs"/>
+        <include name="TestRunnerThreadTests.cs"/>
+        <include name="TestSuiteTest.cs"/>
+        <include name="TheoryTests.cs"/>
+        <include name="ThreadedTestRunnerTests.cs"/>
+        <include name="ThreadingTests.cs"/>
+        <include name="TypeHelperTests.cs"/>
+        <include name="UnhandledExceptionTests.cs"/>
+        <include name="ValueSourceTests.cs"/>
+        <include name="XmlTest.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+       output="${current.test.dir}/nunit.core.tests.dll"
+       debug="${build.debug}" 
+       define="${build.defines}">
+      <nowarn>
+        <warning number="618,672"/>
+      </nowarn>
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <resources prefix="NUnit.Core.Tests">
+        <include name="Results.xsd"/>
+      </resources>
+      <references>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.framework.dir}/nunit.mocks.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.util.dll"/>
+        <include name="${current.lib.dir}/NSubstitute.dll" if="${runtime.version >= '3.5'}"/>
+        <include name="${current.test.dir}/test-assembly.dll"/>
+        <include name="${current.test.dir}/test-utilities.dll"/>
+        <include name="${current.test.dir}/mock-assembly.dll"/>
+        <include name="${current.test.dir}/nonamespace-assembly.dll"/>
+        <include name="System.Data.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitCore/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="Results.xsd"/>
+        <include name="nunit.core.tests.csproj"/>
+        <include name="nunit.core.tests.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

@@ -1,0 +1,334 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - QuickStart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<style><!--
+  div.code { width: 34em }
+--></style>
+
+<h2>NUnit Quick Start</h2>
+
+<p><b>Note:</b> This page is based on the original QuickStart.doc, found in
+earlier releases of NUnit. It has been pointed out that it isn't a good 
+example of Test-Driven Development. However, we're keeping it in the docs
+because it does illustrate the basics of using NUnit. We'll revise or replace
+it in a future release.</p>
+
+<p>Let’s start with a simple example, whose full source code is available <a href="quickStartSource.html">here</a>. Suppose we are writing a bank application and we have a basic domain class – Account. Account supports operations to deposit, withdraw, and transfer funds. The Account class may look like this:</p>
+
+<div class="code">
+<pre>namespace Bank
+{
+  public class Account
+  {
+    private decimal balance;
+	
+    public void Deposit(decimal amount)
+    {
+      balance += amount;
+    }
+
+    public void Withdraw(decimal amount)
+    {
+      balance -= amount;
+    }
+
+    public void TransferFunds(Account destination, decimal amount)
+    {
+    }
+
+    public decimal Balance
+    {
+      get { return balance; }
+    }
+  }
+}</pre>
+</div>
+
+<p>Now let’s write a test for this class – AccountTest. The first method we will test is TransferFunds.</p>
+
+<div class="code">
+<pre>namespace Bank
+{
+  using NUnit.Framework;
+
+  [TestFixture]
+  public class AccountTest
+  {
+    [Test]
+    public void TransferFunds()
+    {
+      Account source = new Account();
+      source.Deposit(200m);
+      
+      Account destination = new Account();
+      destination.Deposit(150m);
+
+      source.TransferFunds(destination, 100m);
+	  
+      Assert.AreEqual(250m, destination.Balance);
+      Assert.AreEqual(100m, source.Balance);
+    }
+  }
+}</pre>
+</div>
+
+<p>The first thing to notice about this class is that it has a [TestFixture] attribute associated with it – this is the way to indicate that the class contains test code (this attribute can be inherited). The class has to be public and there are no restrictions on its superclass. The class also has to have a default constructor.</p>
+
+<p>The only method in the class – TransferFunds, has a [Test] attribute associated with it – this is an indication that it is a test method. Test methods have to return void and take no parameters. In our test method we do the usual initialization of the required test objects, execute the tested business method and check the state of the business objects. The Assert class defines a collection of methods used to check the post-conditions and in our example we use the AreEqual method to make sure that after the transfer both accounts have the correct balances (there are several overloadings of this method, the version that was used in this example has the following parameters : the first parameter is an expected value and the second parameter is the actual value).</p>
+
+<p>Compile and run this example. Assume that you have compiled your test code into a bank.dll. Start the NUnit Gui (the installer will have created a shortcut on your desktop and in the “Program Files” folder), after the GUI starts, select the File->Open menu item, navigate to the location of your bank.dll and select it in the “Open” dialog box. When the bank.dll is loaded you will see a test tree structure in the left panel and a collection of status panels on the right. Click the Run button, the status bar and the TransferFunds node in the test tree turn red – our test has failed. The “Errors and Failures” panel displayed the following message:
+
+<pre>    TransferFunds : expected &lt;250&gt; but was &lt;150&gt;</pre>
+
+and the stack trace panel right below it reported where in the test code the failure has occurred – 
+
+<pre>    at bank.AccountTest.TransferFunds() in C:\nunit\BankSampleTests\AccountTest.cs:line 19</pre></p>
+
+<p>That is expected behavior; the test has failed because we have not implemented the TransferFunds method yet. Now let’s get it to work. Don’t close the GUI and go back to your IDE and fix the code, make your TransferFunds method look like this:</p>
+
+<div class="code">
+<pre>public void TransferFunds(Account destination, decimal amount)
+{
+  destination.Deposit(amount);
+  Withdraw(amount);
+}</pre>
+</div>
+
+<p>Now recompile your code and click the run button in GUI again – the status bar and the test tree turn green. (Note how the GUI has reloaded the assembly automatically for you; we will keep the GUI open all the time and continue working with our code in IDE and write more tests).</p>
+
+<p>Let’s add some error checking to our Account code. We are adding the minimum balance requirement for the account to make sure that banks continue to make their money by charging your minimal overdraft protection fee. Let’s add the minimum balance property to our Account class:</p>
+
+<div class="code">
+<pre>private decimal minimumBalance = 10m;
+
+public decimal MinimumBalance
+{
+  get{ return minimumBalance; }
+}</pre>
+</div>
+
+<p>We will use an exception to indicate an overdraft:</p>
+
+<div class="code">
+<pre>namespace Bank
+{
+  using System;
+  
+  public class InsufficientFundsException : ApplicationException
+  {
+  }
+}</pre>
+</div>
+
+<p>Add a new test method to our AccountTest class:</p>
+
+<div class="code">
+<pre>[Test]
+[ExpectedException(typeof(InsufficientFundsException))]
+public void TransferWithInsufficientFunds()
+{
+  Account source = new Account();
+  source.Deposit(200m);
+	
+  Account destination = new Account();
+  destination.Deposit(150m);
+	
+  source.TransferFunds(destination, 300m);
+}</pre>
+</div>
+
+<p>This test method in addition to [Test] attribute has an [ExpectedException] attribute associated with it – this is the way to indicate that the test code is expecting an exception of a certain type; if such an exception is not thrown during the execution – the test will fail. Compile your code and go back to the GUI. As you compiled your test code, the GUI has grayed out and collapsed the test tree as if the tests were not run yet (GUI watches for the changes made to the test assemblies and updates itself when the structure of the test tree has changed – e.g. new test is added). Click the “Run” button – we have a red status bar again. We got the following Failure :
+
+<pre>    TransferWithInsufficentFunds : InsufficientFundsException was expected</pre>
+
+Let’s fix our Account code again, modify the TransferFunds method this way:</p>
+
+<div class="code">
+<pre>public void TransferFunds(Account destination, decimal amount)
+{
+  destination.Deposit(amount);
+	
+  if(balance-amount &lt; minimumBalance)
+    throw new InsufficientFundsException();
+		
+  Withdraw(amount);
+}</pre>
+</div>
+
+<p>Compile and run the tests – green bar. Success! But wait, looking at the code we’ve just written we can see that the bank may be loosing money on every unsuccessful funds Transfer operation. Let’s write a test to confirm our suspicions. Add this test method:</p>
+	
+<div class="code">
+<pre>[Test]
+public void TransferWithInsufficientFundsAtomicity()
+{
+  Account source = new Account();
+  source.Deposit(200m);
+
+  Account destination = new Account();
+  destination.Deposit(150m);
+	
+  try
+  {
+  	source.TransferFunds(destination, 300m);
+  }
+  catch(InsufficientFundsException expected)
+  {
+  }
+
+  Assert.AreEqual(200m, source.Balance);
+  Assert.AreEqual(150m, destination.Balance);
+}</pre>
+</div>
+
+<p>We are testing the transactional property of our business method – all operations are successful or none. Compile and run – red bar. OK, we’ve made $300.00 out of a thin air (1999 .com déjà vu?) – the source account has the correct balance of 200.00 but the destination account shows : $450.00. How do we fix this? Can we just move the minimum balance check call in front of the updates:</p>
+
+<div class="code">
+<pre>public void TransferFunds(Account destination, decimal amount)
+{
+  if(balance-amount &lt; minimumBalance) 
+    throw new InsufficientFundsException();
+	
+  destination.Deposit(amount);
+
+  Withdraw(amount);
+}</pre>
+</div>
+
+<p>What if the Withdraw() method throws another exception? Should we execute a compensating transaction in the catch block or rely on our transaction manager to restore the state of the objects? We need to answer those questions at some point, but not now; but what do we do with the failing test in the meantime – remove it? A better way is to temporarily ignore it, add the following attribute to your test method</p>
+	
+<div class="code">
+<pre>[Test]
+[Ignore("Decide how to implement transaction management")]
+public void TransferWithInsufficientFundsAtomicity()
+{
+  // code is the same
+}</pre>
+</div>
+
+<p>Compile and run – yellow bar. Click on “Tests Not Run” tab and you will see bank.AccountTest.TransferWithInsufficientFundsAtomicity() in the list along with the Reason this test is ignored.</p>
+
+<p>Looking at our test code we can see that some refactoring is in order. All test methods share a common set of test objects. Let’s extract this initialization code into a setup method and reuse it in all of our tests. The refactored version of our test class looks like this:</p>
+
+<div class="code">
+<pre>namespace Bank
+{
+  using NUnit.Framework;
+
+  [TestFixture]
+  public class AccountTest
+  {
+    Account source;
+    Account destination;
+
+    [SetUp]
+    public void Init()
+    {
+      source = new Account();
+      source.Deposit(200m);
+	  
+      destination = new Account();
+      destination.Deposit(150m);
+    }
+
+    [Test]
+    public void TransferFunds()
+    {
+      source.TransferFunds(destination, 100m);
+	  
+      Assert.AreEqual(250m, destination.Balance);
+      Assert.AreEqual(100m, source.Balance);
+    }
+
+    [Test]
+    [ExpectedException(typeof(InsufficientFundsException))]
+    public void TransferWithInsufficientFunds()
+    {
+      source.TransferFunds(destination, 300m);
+    }
+
+    [Test]
+    [Ignore("Decide how to implement transaction management")]
+    public void TransferWithInsufficientFundsAtomicity()
+    {
+      try
+      {
+        source.TransferFunds(destination, 300m);
+      }
+      catch(InsufficientFundsException expected)
+      {
+      }
+
+      Assert.AreEqual(200m, source.Balance);
+      Assert.AreEqual(150m, destination.Balance);
+    }
+  }
+}</pre>
+</div>
+
+<p>Note that Init method has the common initialization code, it has void return type, no parameters, and it is marked with [SetUp] attribute. Compile and run – same yellow bar!</p>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<ul>
+<li id="current"><a href="quickStart.html">Quick&nbsp;Start</a></li>
+<ul>
+<li><a href="quickStartSource.html">Source&nbsp;Listing</a></li>
+</ul>
+<li><a href="installation.html">Installation</a></li>
+</ul>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ConfigFiles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Configuration Files</h2>
+
+<p>NUnit uses configuration files for the test runner executable – either nunit-console.exe or
+nunitgui.exe – as well as for the tests being run. Only settings that pertain to NUnit itself should be in
+the nunit-console.exe.config and nunit-gui.exe.config, while those that pertain to your own
+application and tests should be in a separate configuration file.</p>
+
+<h3>NUnit Configuration Files</h3>
+
+<p>One main purpose of the nunit-console and nunit-gui config files is to allow 
+NUnit to run with various versions of the .NET framework. NUnit is built using
+versions 1.1 and 2.0 of the framework. The two builds are provided as separate
+downloads and either build can be made to run against other versions of the CLR.</p>
+ 
+<p>As delivered, the <startup> section of each config file is commented out,
+causing NUnit to run with the version of .NET used to build it. If you uncomment 
+the <startup> section, the entries there control the order in which alternate 
+framework versions are selected.</p>
+
+<h3>Test Configuration File</h3>
+
+<p>When a configuration file is used to provide settings or to control the environment in which a test
+is run, specific naming conventions must be followed.</p>
+
+<p>If a single assembly is being loaded, then the configuration file is given the name of the assembly
+file with the config extension. For example, the configuration file used to run nunit.tests.dll must
+be named nunit.tests.dll.config and located in the same directory as the dll.</p>
+
+<p>If an NUnit project is being loaded into a single AppDomain, the configuration file uses the 
+name of the project file with the extension <i>changed</i> to config. For example, the project 
+AllTests.nunit would require a configuration file named AllTests.config, located in the same 
+directory as AllTests.nunit. The same rule is followed when loading Visual Studio projects or solutions.</p>
+
+<blockquote>
+<p><b>Note:</b> The above only applies if a single AppDomain is being used. If an NUnit 
+project is loaded using a separate AppDomain for each assembly, then the individual
+configuration files for each of the assemblies are used.
+</blockquote>
+
+<p>Generally, you should be able to simply copy your application config file and rename it as
+described above.</p>
+
+<p>In versions of NUnit prior to 2.6, it was possible to change the behavior of 
+NUnit by adding special sections to the test config file. This feature is no
+longer supported.
+
+<p>The following recommendations are provided in the case of each of the settings
+that are no longer available:
+
+<h4>OldStyleTestCases</h4>
+<p>NUnit no longer recognizes test methods without attributes.Use <b>TestAttribute</b>.
+
+<h4>ApartmentState</h4>
+<p>We recommend the use of <b>RequiresSTAAttribute</b> or <b>RequiresMTAAttribute</b>
+on those test cases, test fixtures or setup fixtures that require a particular apartment.
+As a temporary measure, the nunit-console <b>-apartment</b> option may be used.
+
+<h4>ThreadPriority</h4>
+<p>This is no longer supported.
+
+<h4>DefaultLogThreshold</h4>
+<p>This is now controlled by a setting in the NUnit Gui runner.
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li id="current"><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

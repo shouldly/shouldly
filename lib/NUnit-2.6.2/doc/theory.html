@@ -1,0 +1,214 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - Theory</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h3>TheoryAttribute (NUnit 2.5)</h3>
+
+<p>A Theory is a special type of test, used to verify a general
+   statement about the system under development. Normal tests are
+   <em>example-based</em>. That is, the developer supplies one or
+   more examples of inputs and expected outputs either within the
+   code of the test or - in the case of
+   <a href="parameterizedTests.html">Parameterized Tests</a> 
+   - as arguments to the test method. A theory, on the other hand,
+   makes a general statement that all of its assertions will pass
+   for all arguments satisfying certain assumptions.
+   
+<p>Theories are implemented in NUnit
+   as methods within a <b>TestFixture</b>, which are annotated
+   with the <b>TheoryAttribute</b>. Theory methods must always have 
+   arguments and therefore appears quite similar to 
+   <a href="parameterizedTests.html">Parameterized Tests</a>   at first glance. However, a Theory incorporates additional data sources 
+   for its arguments and allows special processing for assumptions
+   about that data. The key difference, though, is that theories
+   make general statements and are more than just a set of examples.
+   
+<h4>Data for Theories</h4>
+
+<p>The primary source of data for a <b>Theory</b> is the
+   <a href="datapoint.html"><b>Datapoint</b> or <b>Datapoints</b> attribute</a>. 
+   NUnit will use any fields of the required types, which are annotated
+   with one of these attributes, to provide data for each parameter
+   of the Theory. NUnit assembles the values for individual arguments 
+   combinatorially to provide test cases for the theory.
+   
+<p>In addition to the Datapoint and Datapoints attributes, it
+   is possible to use any of the approaches for supplying data
+   that are recognized on normal parameterized tests. We suggest
+   that this capability not be overused, since it runs counter
+   to the distinction between a test based on examples and a
+   theory. However, it may be useful in order to guarantee that
+   a specific test case is included.
+
+<p>For <b>boolean</b> and <b>enum</b> arguments, NUnit can supply the 
+   data without any action by the user. All possible values are supplied
+   to the argument. This feature is disabled if the user supplies any 
+   values for the argument.
+   
+<h4>Assumptions</h4>
+
+<p>The theory itself is responsible for ensuring that all data supplied
+   meets its assumptions. It does this by use of the
+   <b>Assume.That(...)</b> construct, which works just like
+   <b>Assert.That(...)</b> but does not cause a failure. If
+   the assumption is not satisfied for a particular test case, that case
+   returns an Inconclusive result, rather than a Success or Failure. 
+   
+<p>The overall result of executing a Theory over a set of test cases is 
+   determined as follows:
+   
+   <ul>
+   <li>If the assumptions are violated for <b>all</b> test cases, then the
+       Theory itself is marked as a failure.
+   
+   <li>If any Assertion fails, the Theory itself fails.
+   
+   <li>If at least <b>some</b> cases pass the stated assumptions, and 
+       there are <b>no</b> assertion failures or exceptions, then the
+	   Theory passes.
+   </ul>
+
+<p>Since the user does not generally care about inconclusive cases under
+   a theory, they are not normally displayed in the Gui. For situations
+   where they are needed - such as debugging - the context menu for the
+   theory provides an option to display them.
+   
+<h4>Example:</h4>
+
+<p>In the following example, the theory SquareRootDefinition
+   verifies that the implementation of square root satisies
+   the following definition:
+   
+<p style="margin: 2em"><i>
+"Given a non-negative number, the square root of that number
+ is always non-negative and, when multiplied by itself, gives 
+ the original number."</i>
+
+<div class="code" style="width: 36em">
+<pre>
+public class SqrtTests
+{
+    [Datapoints]
+    public double[] values = new double[] { 0.0, 1.0, -1.0, 42.0 };
+
+    [Theory]
+    public void SquareRootDefinition(double num)
+    {
+        Assume.That(num >= 0.0);
+
+        double sqrt = Math.Sqrt(num);
+
+        Assert.That(sqrt >= 0.0);
+        Assert.That(sqrt * sqrt, Is.EqualTo(num).Within(0.000001));
+    }
+}
+</pre>
+</div>
+   
+<h4>See also...</h4>
+
+<ul>
+<li><a href="datapoint.html">Datapoint(s)Attribute</a><li><a href="parameterizedTests.html">Parameterized Tests</a></ul>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li><a href="testCase.html">TestCase</a></li>
+<li><a href="testCaseSource.html">TestCaseSource</a></li>
+<li><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li id="current"><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

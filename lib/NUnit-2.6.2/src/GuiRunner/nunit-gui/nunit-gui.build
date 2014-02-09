@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<project name="NUnitGuiRunner" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="AboutBox.cs"/>
+    <include name="AddinDialog.cs"/>
+    <include name="AppEntry.cs"/>
+    <include name="AssemblyInfo.cs"/>
+    <include name="DetailResults.cs"/>
+    <include name="ExceptionDetailsForm.cs"/>
+    <include name="GuiOptions.cs"/>
+    <include name="NUnitForm.cs"/>
+    <include name="NUnitPresenter.cs"></include>
+    <include name="OptionsDialog.cs"/>
+    <include name="ProjectEditor.cs"/>
+    <include name="RecentFileMenuHandler.cs"/>
+    <include name="TestAssemblyInfoForm.cs"/>
+    <include name="SettingsPages/AdvancedLoaderSettingsPage.cs"/>
+    <include name="SettingsPages/AssemblyReloadSettingsPage.cs"/>
+    <include name="SettingsPages/GuiSettingsPage.cs"/>
+    <include name="SettingsPages/InternalTraceSettingsPage.cs"/>
+    <include name="SettingsPages/InternalTraceSettingsPage.Designer.cs"/>
+    <include name="SettingsPages/ProjectEditorSettingsPage.cs"/>
+    <include name="SettingsPages/ProjectEditorSettingsPage.Designer.cs"/>
+    <include name="SettingsPages/RuntimeSelectionSettingsPage.cs"/>
+    <include name="SettingsPages/RuntimeSelectionSettingsPage.Designer.cs"/>
+    <include name="SettingsPages/TestLoaderSettingsPage.cs"/>
+    <include name="SettingsPages/TestResultSettingsPage.cs"/>
+    <include name="SettingsPages/TreeSettingsPage.cs"/>
+    <include name="SettingsPages/VisualStudioSettingsPage.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+    <include name="AboutBox.resx"/>
+    <include name="AddinDialog.resx"/>
+    <include name="ExceptionDetailsForm.resx"/>
+    <include name="NUnitForm.resx"/>
+    <include name="OptionsDialog.resx"/>
+    <include name="ProjectEditor.resx"/>
+    <include name="App.ico"/>
+    <include name="Logo.ico"/>
+    <include name="SettingsPages/AdvancedLoaderSettingsPage.resx"/>
+    <include name="SettingsPages/AssemblyReloadSettingsPage.resx"/>
+    <include name="SettingsPages/GuiSettingsPage.resx"/>
+    <include name="SettingsPages/InternalTraceSettingsPage.resx"/>
+    <include name="SettingsPages/ProjectEditorSettingsPage.resx"/>
+    <include name="SettingsPages/RuntimeSelectionSettingsPage.resx"/>
+    <include name="SettingsPages/TestLoaderSettingsPage.resx"/>
+    <include name="SettingsPages/TestResultSettingsPage.resx"/>
+    <include name="SettingsPages/TreeSettingsPage.resx"/>
+    <include name="SettingsPages/VisualStudioSettingsPage.resx"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+       output="${current.lib.dir}/nunit-gui-runner.dll" 
+       win32icon="Logo.ico" debug="${build.debug}"
+       define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="618,1699" if="${runtime.version>='2.0'}"/>
+      </nowarn>
+      <resources>
+        <patternset refid="resource-files"/>
+      </resources>
+      <references>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="System.Drawing.dll"/>
+        <include name="System.Configuration.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.util.dll"/>
+        <include name="${current.lib.dir}/nunit.uikit.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/GuiRunner/nunit-gui">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <include name="nunit-gui.csproj"/>
+        <include name="nunit-gui.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

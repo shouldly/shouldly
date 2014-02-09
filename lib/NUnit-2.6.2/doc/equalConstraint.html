@@ -1,0 +1,307 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - EqualConstraint</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Equal Constraint (NUnit 2.4 / 2.5)</h2>
+
+<p>An EqualConstraint is used to test whether an actual value
+   is equal to the expected value supplied in its constructor,
+   optionally within a specified tolerance.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+EqualConstraint(object expected )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.EqualTo( object expected )
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+...AsCollection
+...NoClip
+...Within(object tolerance)
+      .Ulps
+      .Percent
+      .Days
+      .Hours
+      .Minutes
+      .Seconds
+      .Milliseconds
+      .Ticks
+...Using(IEqualityComparer comparer)
+...Using(IEqualityComparer&lt;T&gt; comparer)
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Comparing Numerics</h4>
+<p>Numerics are compared based on their values. Different types
+   may be compared successfully if their values are equal.
+   
+<p>Using the <b>Within</b> modifier, numerics may be tested
+for equality within a fixed or percent tolerance.
+
+<div class="code"><pre>
+Assert.That(2 + 2, Is.EqualTo(4.0));
+Assert.That(2 + 2 == 4);
+Assert.That(2 + 2, Is.Not.EqualTo(5));
+Assert.That(2 + 2 != 5);
+Assert.That( 5.0, Is.EqualTo( 5 );
+Assert.That( 5.5, Is.EqualTo( 5 ).Within(0.075);
+Assert.That( 5.5, Is.EqualTo( 5 ).Within(1.5).Percent;
+</pre></div>
+
+<h4>Comparing Floating Point Values</h4>
+<p>Values of type float and double are normally compared using a tolerance
+specified by the <b>Within</b> modifier. The special values PositiveInfinity, 
+NegativeInfinity and NaN compare
+as equal to themselves.
+
+<p>With version 2.5, floating-point values may be compared using a tolerance
+in "Units in the Last Place" or ULPs. For certain types of numerical work,
+this is safer than a fixed tolerance because it automatically compensates
+for the added inaccuracy of larger numbers.
+
+<div class="code" style="width: 42em"><pre>
+Assert.That( 2.1 + 1.2, Is.EqualTo( 3.3 ).Within( .0005 );
+Assert.That( double.PositiveInfinity, Is.EqualTo( double.PositiveInfinity ) );
+Assert.That( double.NegativeInfinity, Is.EqualTo( double.NegativeInfinity ) );
+Assert.That( double.NaN, Is.EqualTo( double.NaN ) );
+Assert.That( 20000000000000004.0, Is.EqualTo(20000000000000000.0).Within(1).Ulps);
+</pre></div>
+
+<h4>Comparing Strings</h4>
+
+<p>String comparisons normally respect case. The <b>IgnoreCase</b> modifier 
+   causes the comparison to be case-insensitive. It may also be used when 
+   comparing arrays or collections of strings.
+
+<div class="code"><pre>
+Assert.That( "Hello!", Is.Not.EqualTo( "HELLO!" ) );
+Assert.That( "Hello!", Is.EqualTo( "HELLO!" ).IgnoreCase );
+
+string[] expected = new string[] { "Hello", World" };
+string[] actual = new string[] { "HELLO", "world" };
+Assert.That( actual, Is.EqualTo( expected ).IgnoreCase;
+</pre></div>
+
+<h4>Comparing DateTimes and TimeSpans</h4>
+
+<p><b>DateTimes</b> and <b>TimeSpans</b> may be compared either with or without
+   a tolerance. A tolerance is specified using <b>Within</b> with either a 
+   <b>TimeSpan</b> as an argument or with a numeric value followed by a one of 
+   the time conversion modifiers: <b>Days</b>, <b>Hours</b>, <b>Minutes</b>,
+   <b>Seconds</b>, <b>Milliseconds</b> or <b>Ticks</b>.
+
+<div class="code"><pre>
+DateTime now = DateTime.Now;
+DateTime later = now + TimeSpan.FromHours(1.0);
+
+Assert.That( now, Is.EqualTo(now) );
+Assert.That( later. Is.EqualTo(now).Within(TimeSpan.FromHours(3.0);
+Assert.That( later, Is.EqualTo(now).Within(3).Hours;
+</pre></div>
+
+<h4>Comparing Arrays and Collections</h4>
+
+<p>Since version 2.2, NUnit has been able to compare two single-dimensioned arrays.
+    Beginning with version 2.4, multi-dimensioned arrays, nested arrays (arrays of arrays)
+	and collections may be compared. With version 2.5, any IEnumerable is supported.
+	Two arrays, collections or IEnumerables are considered equal if they have the
+	the same dimensions and if each of the corresponding elements is equal.</p>
+	
+<p>If you want to treat two arrays of different shapes as simple collections 
+   for purposes of comparison, use the <b>AsCollection</b> modifier, which causes 
+   the comparison to be made element by element, without regard for the rank or 
+   dimensions of the array. Note that jagged arrays (arrays of arrays) do not
+   have a single underlying collection. The modifier would be applied
+   to each array separately, which has no effect in most cases. 
+
+<div class="code"><pre>
+int[] i3 = new int[] { 1, 2, 3 };
+double[] d3 = new double[] { 1.0, 2.0, 3.0 };
+int[] iunequal = new int[] { 1, 3, 2 };
+Assert.That(i3, Is.EqualTo(d3));
+Assert.That(i3, Is.Not.EqualTo(iunequal));
+
+int array2x2 = new int[,] { { 1, 2 } { 3, 4 } };
+int array4 = new int[] { 1, 2, 3, 4 };		
+Assert.That( array2x2, Is.Not.EqualTo( array4 ) );
+Assert.That( array2x2, Is.EqualTo( array4 ).AsCollection );
+</pre></div>
+
+<h4>Comparing Dictionaries</h4>
+
+<p>Dictionaries implement <b>ICollection</b>, and NUnit has treated
+them as collections since version 2.4. However, this did not
+give useful results, since the dictionary entries had to be
+in the same order for the comparison to succeed and the 
+underlying implementation had to be the same.
+
+<p>Beginning with NUnit 2.5.6, NUnit has specific code for
+comparing dictionaries. Two dictionaries are considered equal if
+
+<ol>
+<li>The list of keys is the same - without regard to ordering.
+<li>The values associated with each key are equal.
+</ol>
+
+<p>You can use this capability to compare any two objects implementing
+<b>IDictionary</b>. Generic and non-generic dictionaries (Hashtables) 
+may be successfully compared.
+
+<h4>User-Specified Comparers</h4>
+
+<p>If the default NUnit or .NET behavior for testing equality doesn't
+meet your needs, you can supply a comparer of your own through the
+<b>Using</b> modifier. When used with <b>EqualConstraint</b>, you
+may supply an <b>IEqualityComparer</b>, <b>IEqualityComparer&lt;T&gt;</b>,
+<b>IComparer</b>, <b>IComparer&lt;T&gt</b>; or <b>Comparison&lt;T&gt;</b> 
+as the argument to <b>Using</b>.
+
+<div class="code"><pre>
+Assert.That( myObj1, Is.EqualTo( myObj2 ).Using( myComparer ) );
+</pre></div>
+
+<p>Prior to NUnit 2.6, only one comparer could be used. If multiple
+comparers were specified, all but one was ignored. Beginning with NUnit 2.6,
+multiple generic comparers for different types may be specified. NUnit 
+will use the appropriate comparer for any two types being compared. As a result,
+it is now possible to provide a comparer for an array, a collection type or
+a dictionary. The user-provided comparer will be used directly, bypassing the
+default NUnit logic for array, collection or dictionary equality.
+
+<div class="code"><pre>
+class ListOfIntComparer : IEqualityComparer&lt;List&lt;int&gt;&gt;
+{
+	...
+}
+
+var list1 = new List&lt;int&gt;();
+var list2 = new List&lt;int&gt;();
+var myComparer = new ListOfIntComparer();
+...
+Assert.That( list1, Is.EqualTo(list2).Using( myComparer ) );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li><p>When checking the equality of user-defined classes, NUnit first examines each class to determine whether it implements <b>IEquatable&lt;T&gt;</b>. If either object implements the interface for the type of the other object, then that implementation is used in making the comparison. If neither class implements the appropriate interface, NUnit makes use 
+    of the <b>Equals</b> override on the expected object. If you neglect to either implement <b>IEquatable&lt;T&gt;</b> or to
+	override <b>Equals</b>, you can expect failures comparing non-identical objects. 
+	In particular, overriding <b>operator==</b> without overriding <b>Equals</b>
+or implementing the interface has no effect.
+<li><p>The <b>Within</b> modifier was originally designed for use with floating point
+    values only. Beginning with NUnit 2.4, comparisons of <b>DateTime</b> values 
+	may use a <b>TimeSpan</b> as a tolerance. Beginning with NUnit 2.4.2, 
+	non-float numeric comparisons may also specify a tolerance.
+<li><p>Beginning with NUnit 2.4.4, float and double comparisons for which no 
+	tolerance is specified use a default, use the value of
+	<b>GlobalSettings.DefaultFloatingPointTolerance</b>. If this is not
+	set, a tolerance of 0.0d is used.
+<li><p>Prior to NUnit 2.2.3, comparison of two NaN values would always fail,
+    as specified by IEEE floating point standards. The new behavior, was
+	introduced after some discussion becuase it seems more useful in tests. 
+	To avoid confusion, consider using <b>Is.NaN</b> where appropriate.
+<li><p>When an equality test between two strings fails, the relevant portion of
+	of both strings is displayed in the error message, clipping the strings to
+	fit the length of the line as needed. Beginning with 2.4.4, this behavior
+	may be modified by use of the <b>NoClip</b> modifier on the constraint. In
+	addition, the maximum line length may be modified for all tests by setting
+	the value of <b>TextMessageWriter.MaximumLineLength</b> in the appropriate
+	level of setup.
+<li><p>When used with arrays, collections or dictionaries, EqualConstraint 
+    operates recursively. Any modifiers are saved and used as they apply to 
+	individual items.
+<li><p>A user-specified comparer will not be called by <b>EqualConstraint</b>
+    if either or both arguments are null. If both are null, the Constraint
+	succeeds. If only one is null, it fails.
+<li><p>NUnit has special semantics for comparing <b>Streams</b> and
+<b>DirectoryInfos</b>. For a <b>Stream</b>, the contents are compared.
+For a <b>DirectoryInfo</b>, the first-level directory contents are compared.
+</ol>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li id="current"><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

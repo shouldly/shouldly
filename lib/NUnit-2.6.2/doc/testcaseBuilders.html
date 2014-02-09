@@ -1,0 +1,117 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - TestcaseBuilders</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h3>TestCaseBuilders (NUnit 2.4)</h3>
+
+<h4>Purpose</h4>
+<p>TestCaseBuilders create Tests based on a MethodInfo. NUnit uses several
+TestCaseBuilders internally to create various kinds of TestMethods.
+
+<h4>Extension Point</h4>
+Addins use the host to access this extension point by name:
+
+<pre>
+	IExtensionPoint testCaseBuilders = host.GetExtensionPoint( "TestCaseBuilders" );</pre>
+
+<h4>Interfaces</h4>
+<p>The extension object passed to Install must implement either the ITestCaseBuilder 
+or the ITestCaseBuilder2 interface:
+
+<pre>
+	public interface ITestCaseBuilder
+	{
+		bool CanBuildFrom( MethodInfo method );
+		Test BuildFrom( MethodInfo method );
+	}
+
+	public interface ITestCaseBuilder2 : ITestCaseBuilder
+	{
+		bool CanBuildFrom( MethodInfo method, Test suite );
+		Test BuildFrom( MethodInfo method, Test suite );
+	}
+</pre>
+
+<p>NUnit will call ITestCaseBuilder2 if it is available. Otherwise
+ITestCaseBuilder will be used.
+
+<p>The CanBuildFrom method should return true if the addin can build
+a test from the MethodInfo provided. Some TestCaseBuilder addins are only 
+intended to apply to methods within a specific type of fixture. The
+suite argument of the ITestCaseBuilder2 interface may be used to make
+this determination.
+
+<p>The BuildFrom method should return a test constructed over the MethodInfo
+provided as an argument or null if the method cannot be used.
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<ul>
+<li><a href="customConstraints.html">Custom&nbsp;Constraints</a></li>
+<li><a href="nunitAddins.html">NUnit&nbsp;Addins</a></li>
+<ul>
+<li><a href="suiteBuilders.html">SuiteBuilders</a></li>
+<li id="current"><a href="testcaseBuilders.html">TestcaseBuilders</a></li>
+<li><a href="testDecorators.html">TestDecorators</a></li>
+<li><a href="testcaseProviders.html">TestcaseProviders</a></li>
+<li><a href="datapointProviders.html">DatapointProviders</a></li>
+<li><a href="eventListeners.html">EventListeners</a></li>
+</ul>
+<li><a href="extensionTips.html">Tips&nbsp;for&nbsp;Extenders</a></li>
+</ul>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

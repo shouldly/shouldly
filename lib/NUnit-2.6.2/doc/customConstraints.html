@@ -1,0 +1,141 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - CustomConstraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Custom Constraints (NUnit 2.4 / 2.5)</h2>
+
+<p>You can implement your own custom constraints by creating a class that 
+inherits from the <b>Constraint</b> abstract class, which supports performing a 
+test on an actual value and generating appropriate messages. The class includes
+two abstract methods, which you must override and four virtual methods with
+default implementation that may be overridden as needed:
+   
+<div class="code" style="width: 36em">
+<pre>public abstract class Constraint
+{
+ 	...
+    public abstract bool Matches( object actual );
+    public virtual bool Matches( ActualValueDelegate del );
+    public virtual bool Matches&lt;T&gt;( ref T actual );
+    public abstract void WriteDescriptionTo( MessageWriter writer );
+    public virtual void WriteMessageTo( MessageWriter writer );
+    public virtual void WriteActualValueTo( MessageWriter writer );
+	...
+}</pre>
+</div>   
+
+<p>Your derived class should save the actual argument to Matches in the protected
+field <b>actual</b> for later use.
+
+<p>The MessageWriter abstract class is implemented in the framework by
+TextMessageWriter. Examining the source for some of the builtin constraints
+should give you a good idea of how to use it if you have special formatting
+requirements for error messages.
+
+<h3>Custom Constraint Syntax</h3>
+
+<p>Having written a custom constraint class, you can use it directly through its constructor:
+
+<div class="code">
+<pre>Assert.That(myObject, new CustomConstraint());</pre>
+</div>
+
+<p>You may also use it in expressions through NUnit's <b>Matches</b> syntax element:
+<div class="code">
+<pre>Assert.That(myObject, Is.Not.Null.And.Matches(new CustomConstraint());</pre>
+</div>
+
+<p>The direct construction approach is not very convenient or easy to read.
+For its built-in constraints, NUnit includes classes that implement a special 
+constraint syntax, allowing you to write things like...
+
+<div class="code">
+<pre>Assert.That( myArray, Is.All.InRange(1,100) );</pre>
+</div>
+
+<p>Ideally, that's what you would like to do with the custom constraint as well.
+To accomplish this, two separate steps are required:
+
+<ol>
+
+<li>Provide a static class patterned after NUnit's <b>Is</b> class, with properties
+or methods that constuct your custom constructor. If you like, you can even call it
+<b>Is</b>, provided you place it in your own namespace and avoid any conflicts. This
+allows you to write things like:
+
+<div class="code">
+<pre>Assert.That( myObject, Is.Custom(x,y) );</pre>
+</div>
+
+<li>Provide an extension method for NUnit's <b>ConstraintExpression</b>, allowing
+you to write things like:
+
+<div class="code">
+<pre>Assert.That( myList, Is.Not.All.Custom(x,y) );</pre>
+</div>
+
+</ol>
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<ul>
+<li id="current"><a href="customConstraints.html">Custom&nbsp;Constraints</a></li>
+<li><a href="nunitAddins.html">NUnit&nbsp;Addins</a></li>
+<li><a href="extensionTips.html">Tips&nbsp;for&nbsp;Extenders</a></li>
+</ul>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

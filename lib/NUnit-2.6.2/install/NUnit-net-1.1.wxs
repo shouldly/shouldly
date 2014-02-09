@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Product
+    UpgradeCode="EE7297AC-EF4E-4415-8621-0066AA2D57D4"
+    Name="NUnit $(var.NominalVersion) (.NET 1.1 Support)"
+    Id="87C7C49D-9F6E-490E-96DD-285D4B23D979"
+    Version="$(var.ProductVersion)"
+    Manufacturer="nunit.org" Language="1033">
+
+    <Package Comments="NUnit $(var.ProductVersion)" Manufacturer="nunit.org" InstallerVersion="200" Platform="x86" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+
+    <!-- ***************************************************************** -->
+    <!-- **********       Define Install Conditions             ********** -->
+    <!-- ***************************************************************** -->
+
+    <Condition Message="NUnit (.NET 1.1 Support) requires .NET 1.0, .NET 1.1 or Mono to be installed as a prerequisite.">
+      FRAMEWORK10 OR FRAMEWORK11 OR MONODIRECTORY
+    </Condition>
+
+    <!-- ***************************************************************** -->
+    <!-- **********  Define Properties used in the install      ********** -->
+    <!-- ***************************************************************** -->
+
+    <Property Id="FRAMEWORK10">
+      <RegistrySearch Id="Framework10Registry" Type="raw" Root="HKLM" Key="Software\Microsoft\.NETFramework\policy\v1.0" Name="3705" />
+    </Property>
+
+    <Property Id="FRAMEWORK11">
+      <RegistrySearch Id="Framework11Registry" Type="raw" Root="HKLM" Key="Software\Microsoft\.NETFramework\policy\v1.1" Name="4322" />
+    </Property>
+
+    <Property Id="MONODEFAULTCLR">
+      <RegistrySearch Id="MonoDefaultClr" Type="raw" Root="HKLM" Key="Software\Novell\Mono" Name="DefaultCLR" />
+    </Property>
+
+    <Property Id="MONODIRECTORY">
+      <RegistrySearch Id="MonoDirectory" Type="directory" Root="HKLM" Key="Software\Novell\Mono\[MONODEFAULTCLR]" Name="SDKInstallRoot" />
+    </Property>
+
+    <Property Id="CMD_EXE" Value="[!SystemFolder]cmd.exe" />
+
+    <!-- ***************************************************************** -->
+    <!-- *********  Properties for the Add Remove Programs list  ********* -->
+    <!-- ***************************************************************** -->
+
+    <Property Id="ARPCONTACT" Value="Charlie Poole" />
+    <Property Id="ARPPRODUCTICON" Value="nunit_icon.exe" />
+    <Property Id="ARPHELPLINK" Value="http://lists.sourceforge.net/lists/listinfo/nunit-users" />
+    <Property Id="ARPREADME" Value="http://nunit.org/?p=releaseNotes&amp;r=2.6" />
+    <Property Id="ARPURLINFOABOUT" Value="NUnit is a testing framework for all .NET languages" />
+    <Property Id="ARPURLUPDATEINFO" Value="http://nunit.org?p=download" />
+
+
+    <!-- ***************************************************************** -->
+    <!-- **********       Define Directory Structure            ********** -->
+    <!-- ***************************************************************** -->
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+
+        <!-- Target locations for NUnit Files -->
+        <Directory Id="INSTALLDIR" Name="NUnit $(var.NominalVersion)">
+
+          <Directory Id="parent" Name="bin">
+
+            <Directory Id="bin" Name="net-1.1">
+
+              <Directory Id="lib" Name="lib" />
+              <Directory Id="addins" Name="addins" />
+              <Directory Id="tests" Name="tests" />
+              <Directory Id="framework" Name="framework" />
+
+            </Directory>
+
+          </Directory>
+
+        </Directory>
+
+      </Directory>
+
+      <!-- Desktop Folder Directory for our Desktop Shortcut -->
+      <Directory Id="DesktopFolder" Name="." SourceName="User's Desktop" />
+
+      <!-- Program Menu Folder and our subfolders for Shortcuts -->
+      <Directory Id="ProgramMenuFolder" Name=".">
+        <Directory Id="NUnitMenu" Name="NUnit $(var.NominalVersion)">
+          <Component Id="NUnitMenu">
+            <RemoveFolder Id="NUnitMenu" On="uninstall"/>
+            <RegistryValue Root="HKMU"
+               Key="SOFTWARE\[Manufacturer]\NUnit\$(var.NominalVersion)"
+               Type="integer" Name="NUnitMenu" Value="1" />
+          </Component>
+        </Directory>
+      </Directory>
+
+    </Directory>
+
+
+    <!-- ***************************************************************** -->
+    <!-- **********      Define the NUnit feature tree          ********** -->
+    <!-- ***************************************************************** -->
+
+    <Feature Id="BaseFeature" ConfigurableDirectory="INSTALLDIR" Level="1" Title="NUnit $(var.NominalVersion)" Display="expand" Description="Installs the NUnit console runner for .NET 1.1 and supporting assemblies required to write and run tests.">
+
+      <!-- Defined in this file -->
+      <ComponentRef Id="NUnitMenu" />
+
+      <!-- Defined in base-net-1.1.wxs -->
+      <ComponentRef Id="license.txt" />
+      <ComponentRef Id="Logo.ico" />
+      <ComponentRef Id="nunit.framework" />
+      <ComponentRef Id="nunit.mocks" />
+      <ComponentRef Id="AssemblyReferenceFolder" />
+      <ComponentRef Id="nunit.core" />
+      <ComponentRef Id="nunit.core.interfaces" />
+      <ComponentRef Id="nunit.util" />
+      <ComponentRef Id="AddinsFolder" />
+      <ComponentRef Id="nunit_console" />
+      <ComponentRef Id="console.dll" />
+      <ComponentRef Id="nunit_agent" />
+
+      <Feature Id="PNUnitRunner" Level="10" Title="PNUnit Runner" Display="expand" Description="Installs the PNUnit runner for parallel distributed tests.">
+
+        <!-- Defined in pnunit.wxs -->
+        <ComponentRef Id="pnunit_agent" />
+        <ComponentRef Id="pnunit_launcher" />
+        <ComponentRef Id="pnunit_framework" />
+        <ComponentRef Id="log4net" />
+
+      </Feature>
+
+      <Feature Id="TestsFeature" Level="10" Title="Unit Tests" Display="expand" Description="Installs the unit tests for NUnit itself">
+
+        <!-- Defined in tests.wxs -->
+        <ComponentRef Id="NUnitTestProject" />
+        <ComponentRef Id="framework_copy_for_tests" />
+        <ComponentRef Id="base_tests" />
+
+        <!-- Defined in pnunit.wxs -->
+        <ComponentRef Id="pnunit_tests" />
+
+      </Feature>
+
+    </Feature>
+
+    <!-- The NUnit files are all in a single cab file that is embedded in the MSI -->
+    <Media Id="1" EmbedCab="yes" Cabinet="nunit.cab" />
+
+    <!-- ***************************************************************** -->
+    <!-- **********  Define our GUI using standard WiX UI       ********** -->
+    <!-- ***************************************************************** -->
+
+    <UIRef Id="WixUI_Mondo" />
+    <!--<UIRef Id="WixUI_FeatureTree" />-->
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Icon Id="nunit_icon.exe" SourceFile="Logo.ico" />
+
+  </Product>
+</Wix>

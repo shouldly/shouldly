@@ -1,0 +1,254 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ComparisonConstraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Comparison Constraints (NUnit 2.4 / 2.5)</h2>
+
+<p>Comparison constraints are able to test whether one value
+is greater or less than another. Comparison constraints work
+on numeric values, as well as other objects that implement the
+<b>IComparable</b> interface or - beginning with NUnit 2.5 - 
+<b>IComparable&lt;T&gt;</b>.
+
+<p>Beginning with NUnit 2.5, you may supply your own comparison
+algorithm through the <b>Using</b> modifier.
+
+<h3>GreaterThanConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one value is greater than another.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+GreaterThanConstraint(object expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.GreaterThan(object expected)
+Is.Positive // Equivalent to Is.GreaterThan(0)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That(7, Is.GreaterThan(3));
+Assert.That(myOwnObject, 
+    Is.GreaterThan(theExpected).Using(myComparer));
+Assert.That(42, Is.Positive);
+</pre></div>
+
+<h3>GreaterThanOrEqualConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one value is greater than or equal to another.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+GreaterThanOrEqualConstraint(object expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.GreaterThanOrEqualTo(object expected)
+Is.AtLeast(object expected)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That(7, Is.GreaterThanOrEqualTo(3));
+Assert.That(7, Is.AtLeast(3));
+Assert.That(7, Is.GreaterThanOrEqualTo(7));
+Assert.That(7, Is.AtLeast(7));
+Assert.That(myOwnObject, 
+    Is.GreaterThanOrEqualTo(theExpected).Using(myComparer));
+</pre></div>
+
+<h3>LessThanConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one value is less than another.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+LessThanConstraint(object expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.LessThan(object expected)
+Is.Negative // Equivalent to Is.LessThan(0)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That(3, Is.LessThan(7));
+Assert.That(myOwnObject, 
+    Is.LessThan(theExpected).Using(myComparer));
+Assert.That(-5, Is.Negative);
+</pre></div>
+
+<h3>LessThanOrEqualConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one value is less than or equal to another.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+LessThanOrEqualConstraint(object expected)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.LessThanOrEqualTo(object expected)
+Is.AtMost(object expected)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That(3, Is.LessThanOrEqualTo(7));
+Assert.That(3, Is.AtMost(7));
+Assert.That(3, Is.LessThanOrEqualTo(3));
+Assert.That(3, Is.AtMost(3));
+Assert.That(myOwnObject, 
+    Is.LessThanOrEqualTo(theExpected).Using(myComparer));
+</pre></div>
+
+<h3>RangeConstraint</h3>
+
+<h4>Action</h4>
+<p>
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+RangeConstraint(IComparable from, IComparable to)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.InRange(IComparable from, IComparable to)
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 }
+
+Assert.That( 42, Is.InRange(1, 100) );
+Assert.That( iarray, Is.All.InRange(1, 3) );
+Assert.That(myOwnObject, 
+    Is.InRange(lowExpected, highExpected).Using(myComparer));
+</pre></div>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li id="current"><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project name="NUnitFrameworkTests" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="Constraints/AfterConstraintTests.cs"/>
+    <include name="Constraints/AndTest.cs"/>
+    <include name="Constraints/BasicConstraintTests.cs"/>
+    <include name="Constraints/CollectionConstraintTests.cs"/>
+    <include name="Constraints/ComparerTests.cs"/>
+    <include name="Constraints/ComparisonConstraintTests.cs"/>
+    <include name="Constraints/ConstraintTestBase.cs"/>
+    <include name="Constraints/EmptyConstraintTest.cs"/>
+    <include name="Constraints/EqualConstraintTests.cs"/>
+    <include name="Constraints/EqualTest.cs"/>
+    <include name="Constraints/FloatingPointNumericsTest.cs"/>
+    <include name="Constraints/MsgUtilTests.cs"/>
+    <include name="Constraints/NotTest.cs"/>
+    <include name="Constraints/NumericsTest.cs"/>
+    <include name="Constraints/NUnitEqualityComparerTests.cs"/>
+    <include name="Constraints/OrTest.cs"/>
+    <include name="Constraints/PathConstraintTests.cs"/>
+    <include name="Constraints/PredicateConstraintTests.cs"/>
+    <include name="Constraints/PropertyTests.cs"/>
+    <include name="Constraints/ReusableConstraintTests.cs"/>
+    <include name="Constraints/SameAsTest.cs"/>
+    <include name="Constraints/SerializableConstraintTest.cs"/>
+    <include name="Constraints/StringConstraintTests.cs"/>
+    <include name="Constraints/ThrowsConstraintTests.cs"/>
+    <include name="Constraints/ToStringTests.cs"/>
+    <include name="Constraints/TypeConstraintTests.cs"/>
+    <include name="Syntax/AfterTests.cs"/>
+    <include name="Syntax/ArbitraryConstraintMatching.cs"/>
+    <include name="Syntax/CollectionTests.cs"/>
+    <include name="Syntax/ComparisonTests.cs"/>
+    <include name="Syntax/EqualityTests.cs"/>
+    <include name="Syntax/InvalidCodeTests.cs"/>
+    <include name="Syntax/OperatorOverrides.cs"/>
+    <include name="Syntax/OperatorTests.cs"/>
+    <include name="Syntax/PathConstraintTests.cs"/>
+    <include name="Syntax/PropertyTests.cs"/>
+    <include name="Syntax/SerializableConstraints.cs"/>
+    <include name="Syntax/SimpleConstraints.cs"/>
+    <include name="Syntax/StringConstraints.cs"/>
+    <include name="Syntax/SyntaxTest.cs"/>
+    <include name="Syntax/TestCompiler.cs"/>
+    <include name="Syntax/ThrowsTests.cs"/>
+    <include name="Syntax/TypeConstraints.cs"/>
+    <include name="ArrayEqualsFailureMessageFixture.cs"/>
+    <include name="ArrayEqualsFixture.cs"/>
+    <include name="ArrayNotEqualFixture.cs"/>
+    <include name="AssertThrowsTests.cs"/>
+    <include name="AssumeThatTests.cs"/>
+    <include name="CollectionAssertTest.cs"/>
+    <include name="CollectionAdapter.cs"/>
+    <include name="ConditionAssertTests.cs"/>
+    <include name="DirectoryAssertTests.cs"/>
+    <include name="EqualsFixture.cs"/>
+    <include name="FileAssertTests.cs"/>
+    <include name="GreaterEqualFixture.cs"/>
+    <include name="GreaterFixture.cs"/>
+    <include name="LessEqualFixture.cs"/>
+    <include name="LessFixture.cs"/>
+    <include name="ListContentsTests.cs"/>
+    <include name="MessageChecker.cs"/>
+    <include name="NotEqualFixture.cs"/>
+    <include name="NotSameFixture.cs"/>
+    <include name="NullableTypesTests.cs"/>
+    <include name="RandomizerTests.cs"/>
+    <include name="RangeTests.cs"/>
+    <include name="SameFixture.cs"/>
+    <include name="StringAssertTests.cs"/>
+    <include name="TestDelegates.cs"/>
+    <include name="TestFixtureAttributeTests.cs"/>
+    <include name="TextMessageWriterTests.cs"/>
+    <include name="TypeAssertTest.cs"/>
+    <include name="ValuesAttributeTests.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+        <include name="data/TestImage1.jpg"/>
+        <include name="data/TestImage2.jpg"/>
+        <include name="data/TestText1.txt"/>
+        <include name="data/TestText2.txt"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.test.dir}/nunit.framework.tests.dll"
+        debug="${build.debug}" 
+        define="${build.defines}">
+      <nowarn>
+        <warning number="618,672"/>
+      </nowarn>
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <resources prefix="NUnit.Framework.Tests.data">
+        <patternset refid="resource-files"/>
+      </resources>
+      <references>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="System.Data.dll"/>
+        <include name="System.Drawing.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitFramework/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <include name="nunit.framework.tests.csproj"/>
+        <include name="nunit.framework.tests.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

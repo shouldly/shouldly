@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment>
+
+    <DirectoryRef Id="tests" FileSource="bin\tests">
+
+      <Component Id="net45_tests" Guid="2A57CB85-59B5-49B4-8C90-6A41A35D4C88">
+        <File Id="nunit.core.tests.net45" Name="nunit.core.tests.net45.dll" />
+        <File Id="test_assembly_net45" Name="test-assembly-net45.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+
+</Wix>

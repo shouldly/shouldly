@@ -1,0 +1,111 @@
+#!/bin/sh
+# PACKAGE - Packages NUnit
+
+NANT="tools/nant/bin/NAnt.exe"
+options="-f:scripts/nunit.package.targets"
+config=""
+runtime=""
+commands=""
+passthru=false
+
+for arg in $@
+do
+  if [ $passthru = true ]
+  then
+    commands="$commands $arg"
+    continue
+  fi
+
+  case "$arg" in
+    debug|release)
+      config="$arg"
+      ;;
+
+    mono-1.0|1.0)
+      runtime="mono-1.0"
+      ;;
+
+    mono-2.0|2.0)
+      runtime="mono-2.0"
+      ;;
+
+    mono-3.5|3.5)
+      runtime="mono-3.5"
+      ;;
+
+    mono-4.0|4.0)
+      runtime="mono-4.0"
+      ;;
+
+    src|docs|samples|zip|all)
+      commands="$commands package-$arg"
+      ;;
+
+    source)
+      commands="$commands package-src"
+      ;;
+
+    -h|--help)
+      echo "Builds one or more NUnit packages for distribution"
+      echo
+      echo "usage: PACKAGE [option [...] ] [ -- nantoptions ]"
+      echo
+      echo "Options may be any of the following, in any order..."
+      echo
+      echo "  debug          Builds debug packages (default)"
+      echo "  release        Builds release packages"
+      echo
+      echo "  mono-4.0, 4.0  Builds package using Mono 4.0 profile (future)"
+      echo "  mono-3.5, 3.5  Builds package using Mono 3.5 profile (default)"
+      echo "  mono-2.0, 2.0  Builds package using Mono 2.0 profile"
+      echo "  mono-1.0, 1.0  Builds package using Mono 1.0 profile"
+      echo
+      echo "  src, source    Builds the source package"
+      echo "  docs           Builds the documentation package"
+      echo "  samples        Builds the nunit samples package"
+      echo "  zip            Builds a binary package in zipped form"
+      echo "  all            Builds source, documentation, 3.5 and 1.0 packages"
+      echo
+      echo "  -h, --help     Displays this help message"
+      echo
+      echo "In addition, any valid target in the NAnt script may"
+      echo "be supplied as an argument. This requires some degree"
+      echo "of familiarity with the script, in order to avoid"
+      echo "use of incompatible options."
+      echo   
+      exit;
+      ;;
+
+    --)
+      passthru=true;
+      ;;
+
+    *)
+      echo "Invalid argument: $arg"
+      echo
+      echo "Use $0 -h for more info"
+      echo
+      exit;
+      ;;
+  esac
+done
+
+if [ "$commands" = "" ]
+then
+  commands="package"
+fi
+
+
+if [ "$config" != "" ]
+then
+  options="$options -D:build.config=$config"
+fi
+
+if [ "$runtime" != "" ]
+then
+  options="$options -D:runtime.config=$runtime"
+fi
+
+exec mono $NANT $options $clean $commands
+
+

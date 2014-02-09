@@ -1,0 +1,126 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - VsTestAdapter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>NUnit Test Adapter for Visual Studio 11</h2>
+
+<p>The NUnit Test Adapter allows you to run NUnit tests inside
+   Visual Studio. The current release, version 0.92, is designed to work
+   with the Visual Studio 11 Beta Release. Releases of Visual Studio
+   prior to VS 11 did not have the ability to directly run tests built with 
+   Open Source testing frameworks like NUnit.
+
+<h3>Installation</h3>
+
+<p>The easiest way to install the NUnit Test Adapter is using the
+   Extension Manager within Visual Studio. Follow these steps:
+   <ol>
+   <li>From within Visual Studio 11, select Tools | Extension Manager.
+   <li>In the left panel of the Extension Manager, select Online Extensions.
+   <li>Locate the NUnit Test Adapter in the center panel and highlight it.
+   <li>Click 'Download' and follow the instructions.
+   </ol>
+
+<p>Use the Extension Manager to ensure that the NUnit Test Adapter is enabled.
+
+<h3>Usage</h3>
+
+<p>In preparation for using the test adapter, make sure that the Unit
+   Test Explorer is shown in your window. If you don't see it, use
+   the menu ( <b>Unit Test | Windows | Unit Test Explorer</b> ) to show it and position
+   the window where you would like it within Visual Studio.
+
+<div class="screenshot-left">
+   <img src="img/nunitTestAdapter.png"></div>
+
+<p>When you initially open a solution, no tests will be displayed.
+   After compiling the assemblies in the solution, Visual Studio will
+   interact with the NUnit Test Adapter to discover tests and a list 
+   of them will be shown in the Unit Test Explorer.
+
+<p>Click on <b>Run All Tests</b> in the Unit Test Explorer to run 
+   all the tests. You may also select one or more tests in the list and 
+   run them by right-clicking and using the context menu.
+
+<p>The context menu also contains entries for debugging tests and for
+   navigating to the source code of a test.
+
+<h3>Known Problems</h3>
+
+<ol>
+<li><p>There is no test status corresponding to NUnit's <b>Inconclusive</b>
+    result, so tests with this result are reported as <b>Not Run</b>.
+
+<li><p>Test cases appear in a flat list, without any grouping by fixture or
+    namespace. This can make it hard to select a group of related tests 
+    to be run. It is, however, relatively easy to rerun all failing tests.
+
+<li><p>Theories are reported as individual cases, rather as a single unit.
+
+<li><p>Startup performance is now improved as compared to the developer 
+    preview, but is still intermittently slow.
+</ol>
+
+<h3>Reporting Problems</h3>
+
+<p>Bugs should be reported using the separate test adapter
+<a href="http://bugs.launchpad.net/nunit-vs-adapter">bug tracker</a> on Launchpad.
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li id="current"><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>
