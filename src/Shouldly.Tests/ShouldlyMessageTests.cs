@@ -133,6 +133,14 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldAllBe()
+        {
+            Should.Error(() =>
+                         new[] { 1, 2, 3 }.ShouldAllBe(x => x + 4 < 7),
+                         "new[]{1,2,3} should all be an element satisfying the condition ((x + 4) < 7) but does not");
+        }
+
+        [Test]
         public void ShouldBeEmpty()
         {
             IEnumerable<object> objects = null;
