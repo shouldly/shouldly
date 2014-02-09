@@ -56,10 +56,12 @@
   <ItemGroup>
     <Compile Include="DifferenceHighlighterHelpersTests.cs" />
     <Compile Include="EnumerableExtensionHelpers.cs" />
+    <Compile Include="EnumerableHighlighterTests.cs" />
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />
     <Compile Include="ShouldBeInRangeTests.cs" />
+    <Compile Include="ShouldBeOneOfTests.cs" />
     <Compile Include="ShouldBeSameAsTests.cs" />
     <Compile Include="ShouldBeStringTests.cs" />
     <Compile Include="ShouldBeTests.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="ShouldlyMessageTests.cs" />
     <Compile Include="ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
+    <Compile Include="ShouldNotBeOneOfTests.cs" />
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="Widget.cs" />
   </ItemGroup>
