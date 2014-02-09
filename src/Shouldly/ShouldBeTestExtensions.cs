@@ -111,6 +111,11 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected);
         }
 
+        public static void ShouldBeLessThanOrEqualTo(this object actual, object expected)
+        {
+            actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected);
+        }
+
         public static void ShouldBeLessThan(this object actual, object expected)
         {
             actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected);

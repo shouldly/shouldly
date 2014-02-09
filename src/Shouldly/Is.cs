@@ -31,6 +31,11 @@ namespace Shouldly
             throw new NotImplementedException();
         }
 
+        public static bool LessThanOrEqualTo(object o, object expected)
+        {
+            throw new NotImplementedException();
+        }
+
         public static bool GreaterThan(object actual, object expected)
         {
             throw new NotImplementedException();
