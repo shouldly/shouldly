@@ -26,10 +26,64 @@ namespace Shouldly
             return ReferenceEquals(actual, expected);
         }
 
-        public static bool Equal(IEnumerable<decimal> object1, IEnumerable<decimal> expected, decimal tolerance)
+        public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
         {
-            // Is.EqualTo(expected).Within(tolerance)
-            throw new NotImplementedException();
+            var expectedEnum = expected.GetEnumerator();
+            var actualEnum = actual.GetEnumerator();
+
+            for (; ; )
+            {
+                var expectedHasData = expectedEnum.MoveNext();
+                var actualHasData = actualEnum.MoveNext();
+
+                if (!expectedHasData && !actualHasData)
+                    return true;
+
+                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current, tolerance))
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool Equal(IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
+        {
+            var expectedEnum = expected.GetEnumerator();
+            var actualEnum = actual.GetEnumerator();
+
+            for (; ; )
+            {
+                var expectedHasData = expectedEnum.MoveNext();
+                var actualHasData = actualEnum.MoveNext();
+
+                if (!expectedHasData && !actualHasData)
+                    return true;
+
+                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current, tolerance))
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool Equal(IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
+        {
+            var expectedEnum = expected.GetEnumerator();
+            var actualEnum = actual.GetEnumerator();
+
+            for (; ; )
+            {
+                var expectedHasData = expectedEnum.MoveNext();
+                var actualHasData = actualEnum.MoveNext();
+
+                if (!expectedHasData && !actualHasData)
+                    return true;
+
+                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current, tolerance))
+                {
+                    return false;
+                }
+            }
         }
 
         public static bool Equal(decimal actual, decimal expected, decimal tolerance)
@@ -40,18 +94,6 @@ namespace Shouldly
         public static bool Equal(double actual, double expected, double tolerance)
         {
             return Math.Abs(actual - expected) < tolerance;
-        }
-
-        public static bool Equal(IEnumerable<float> object1, IEnumerable<float> expected, double tolerance)
-        {
-            // Is.EqualTo(expected).Within(tolerance)
-            throw new NotImplementedException();
-        }
-
-        public static bool Equal(IEnumerable<double> object1, IEnumerable<double> expected, double tolerance)
-        {
-            // Is.EqualTo(expected).Within(tolerance)
-            throw new NotImplementedException();
         }
 
         public static bool InstanceOf(object o, Type expected)
