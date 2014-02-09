@@ -100,24 +100,39 @@ namespace Shouldly
             return actual.Equals(expected);
         }
 
-        public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, IComparable<T> expected)
+        public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, T expected)
         {
-            throw new NotImplementedException();
+            return Compare(comparable, expected) >= 0;
         }
 
-        public static bool LessThanOrEqualTo<T>(IComparable<T> comparable, IComparable<T> expected)
+        public static bool LessThanOrEqualTo<T>(IComparable<T> comparable, T expected)
         {
-            throw new NotImplementedException();
+            return Compare(comparable, expected) <= 0;
         }
 
-        public static bool GreaterThan<T>(IComparable<T> comparable, IComparable<T> expected)
+        public static bool GreaterThan<T>(IComparable<T> comparable, T expected)
         {
-            throw new NotImplementedException();
+            return Compare(comparable, expected) > 0;
         }
 
-        public static bool LessThan<T>(IComparable<T> comparable, IComparable<T> expected)
+        public static bool LessThan<T>(IComparable<T> comparable, T expected)
         {
-            throw new NotImplementedException();
+            return Compare(comparable, expected) < 0;
+        }
+
+        private static decimal Compare<T>(IComparable<T> comparable, T expected)
+        {
+            if (!typeof (T).IsValueType)
+            {
+                // ReSharper disable CompareNonConstrainedGenericWithNull
+                if (comparable == null)
+                    return expected == null ? 0 : -1;
+                if (expected == null)
+                    return +1;
+                // ReSharper restore CompareNonConstrainedGenericWithNull
+            }
+
+            return comparable.CompareTo(expected);
         }
     }
 }
