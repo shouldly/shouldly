@@ -65,6 +65,12 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBe_EnumerableOfFloats_ShouldAllowTolerance()
+        {
+            new[] { (float)Math.PI, (float)Math.PI }.ShouldBe(new[] { 3.14f, 3.14f }, 0.01);
+        }
+
+        [Test]
         public void Should_WithDecimal_ShouldAllowTolerance()
         {
             var pi = (decimal)Math.PI;

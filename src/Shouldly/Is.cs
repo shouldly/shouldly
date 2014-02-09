@@ -6,37 +6,17 @@ namespace Shouldly
 {
     internal class Is
     {
-        public static bool NotInRange(IComparable comparable, IComparable @from, IComparable to)
-        {
-            throw new NotImplementedException();
-        }
-
         public static bool InRange(IComparable comparable, IComparable @from, IComparable to)
         {
             throw new NotImplementedException();
         }
 
+        public static bool InRange<T>(IComparable<T> comparable, T @from, T to)
+        {
+            throw new NotImplementedException();
+        }
+
         public static bool Same(object o, object expected)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool LessThan(object o, object expected)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool GreaterThanOrEqualTo(object o, object expected)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool LessThanOrEqualTo(object o, object expected)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool GreaterThan(object actual, object expected)
         {
             throw new NotImplementedException();
         }
@@ -118,6 +98,26 @@ namespace Shouldly
                 return false;
 
             return actual.Equals(expected);
+        }
+
+        public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, IComparable<T> expected)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool LessThanOrEqualTo<T>(IComparable<T> comparable, IComparable<T> expected)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool GreaterThan<T>(IComparable<T> comparable, IComparable<T> expected)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool LessThan<T>(IComparable<T> comparable, IComparable<T> expected)
+        {
+            throw new NotImplementedException();
         }
     }
 }
