@@ -1,0 +1,172 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ReusableConstraint</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>ReusableConstraint (NUnit 2.5.6)</h2>
+
+<p>Normally constraints just work. However, attempting to reuse the 
+same constraint in several places can lead to unexpected results.
+
+<p>Consider the following code as an example:
+
+<code><pre>
+    Constraint myConstraint = Is.Not.Null;
+    Assert.That("not a null", myConstraint); // Passes, of course
+    Assert.That("not a null", myConstraint); // Fails! What's that about?
+</pre></code>
+
+<p>We'll save the technical explanation for later and show the
+solution first:
+
+<code><pre>
+    ReusableConstraint myConstraint = Is.Not.Null;
+    Assert.That("not a null", myConstraint); // Passes
+    Assert.That("not a null", myConstraint); // Passes
+</pre></code>
+
+Or alternatively..
+
+<code><pre>
+    var myConstraint = new ReusableConstraint(Is.Not.Null);
+    Assert.That("not a null", myConstraint); // Passes
+    Assert.That("not a null", myConstraint); // Passes
+</pre></code>
+
+<h3>Technical Explanation</h3>
+
+<p>In the original example, the value assigned to myConstraint is
+known as an <b>unresolved</b> constraint. In fact, it's an
+unresolved NullConstraint, because that was the last constraint 
+encountered in the expression. It's associated with a <b>Not</b>
+operator that has not yet been applied.
+
+<p>That's OK for use with Assert.That(), because the method
+knows how to resolve a constraint before using it. Assert.That()
+resolves this constraint to a NotConstraint referencing the
+original NullConstraint.
+
+<p>Of course, the original reference in myConstraint is left
+unchanged in all of this. But the EqualConstraint it points
+to has now been resolved. It is now a <b>resolved</b> constraint
+and can't be resolved again by the second Assert.That(), which
+only sees the NullConstraint and not the NotConstraint.
+
+<p>So, for reusability, what we want to save is the result
+of resolving the constraint, in this case
+
+<pre>    NotConstraint => NullConstraint</pre>
+
+That's what <b>ReusableConstraint</b> does for us. It resolves
+the full expression and saves the result. Then it passes all
+operations on to that saved result.
+
+<h3>When to Use It</h3>
+
+<p>Use this constraint any time you want to reuse a constraint
+expression and you'll be safe.
+
+<p>If you like to take chances, you'll find that you can
+avoid using it in the following cases...
+
+<ol>
+<li> With a simple constraint involving no operators, like...
+
+<pre>
+    Constraint myConstraint = Is.Null;
+    Constraint myConstraint = Is.EqualTo(42);
+</pre>
+
+<li> With any constraint you construct using new, without
+using the "dotted" constraint syntax...
+
+<pre>
+    Constraint myConstraint = new NotConstraint(new NullConstraint());
+    Constraint myConstraint = new AndConstraint(
+        new GreaterThanConstraint(0), 
+        new LessThanConstraint(100));
+</pre>
+
+<p>However, there is no significant penalty to using <b>ReusableConstraint</b>.
+It makes your intent much clearer and the exceptions listed are accidents of
+the internal implementation and could disappear in future releases.
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li id="current"><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

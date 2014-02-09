@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<project name="NUnitCoreTestsNet45" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="NUnitTestCaseBuilderTests.cs"/>
+    <include name="NUnitAsyncTestMethodTests.cs"/>
+  </patternset>
+
+  <target name="build" if ="${runtime.version >= '2.0'}">
+
+    <echo message=".NET 4.5 is not installed - skipping test-assembly-net45"
+	unless="${framework::exists('net-4.5')}"/>
+
+    <if test="${framework::exists('net-4.5')}">
+
+      <property name="previousFramework" value="${nant.settings.currentframework}"/>
+      <property name="nant.settings.currentframework" value="net-4.5"/>
+
+      <csc target="library" 
+         output="${current.test.dir}/nunit.core.tests.net45.dll"
+         debug="${build.debug}" 
+         define="${build.defines}">
+        <nowarn>
+          <warning number="618,672"/>
+        </nowarn>
+        <sources>
+          <patternset refid="source-files"/>
+          <include name="../../GeneratedAssemblyInfo.cs"/>
+        </sources>
+        <resources prefix="NUnit.Core.Tests.45">
+          <include name="Results.xsd"/>
+         </resources>
+        <references>
+          <include name="${current.framework.dir}/nunit.framework.dll"/>
+          <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+          <include name="${current.lib.dir}/nunit.core.dll"/>
+          <include name="${current.lib.dir}/nunit.util.dll"/>
+          <include name="${current.test.dir}/test-assembly-net45.dll"/>
+        </references>
+      </csc>
+
+      <property name="nant.settings.currentframework" value="${previousFramework}"/>
+
+    </if>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/NUnitCore/tests-net45">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit.core.tests.net45.csproj"/>
+        <include name="nunit.core.tests.net45.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

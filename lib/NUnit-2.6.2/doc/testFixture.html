@@ -1,0 +1,442 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - TestFixture</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<script language="JavaScript" src="codeFuncs.js" ></script> <!-- Do it this way for IE -->
+
+<h3>TestFixtureAttribute (NUnit 2.0 / 2.5)</h3>
+
+<p>This is the attribute that marks a class that contains tests and, optionally, 
+	setup or teardown methods. NUnit 2.5 introduces parameterized and generic
+	test fixtures - see below.</p>
+	
+<p>Most restrictions on a class that is used as a test fixture have now been
+   eliminated. As of NUnit 2.5.3, a test fixture class:
+	<ul>
+		<li>May be public, protected, private or internal.
+		<li>May be a static class in .NET 2.0 or later.
+		<li>May be generic, so long as any type parameters are provided or
+		    can be inferred from the actual arguments.
+		<li>May not be abstract - although the attribute may be applied to an
+		    abstract class intended to serve as a base class for test fixtures.
+		<li>If no arguments are provided with the TestFixtureAttribute, the class
+		     must have a default constructor. 
+		<li>If arguments are provided, they must match one of the constructors.
+	</ul>
+</p>
+
+<p>If any of these restrictions are violated, the class is not runnable
+   as a test and will display as an error.</p>
+
+<p>It is advisable that the constructor not have any side effects, 
+   since NUnit may construct the object multiple times in the course of a session.</li>
+
+<p>Beginning with NUnit 2.5, the <b>TestFixture</b> attribute is optional
+   for non-parameterized, non-generic fixtures. So long as the class contains
+   at least one method marked with the <b>Test</b>, <b>TestCase</b> or 
+   <b>TestCaseSource</b> attribute, it will be treated as a test fixture.
+
+<h4>Example:</h4>
+
+<div class="code">
+
+<div class="langFilter">
+	<a href="javascript:Show('DD1')" onmouseover="Show('DD1')"><img src="img/langFilter.gif" width="14" height="14" alt="Language Filter"></a>
+	<div id="DD1" class="dropdown" style="display: none;" onclick="Hide('DD1')">
+		<a href="javascript:ShowCS()">C#</a><br>
+		<a href="javascript:ShowVB()">VB</a><br>
+		<a href="javascript:ShowMC()">C++</a><br>
+		<a href="javascript:ShowJS()">J#</a><br>
+	</div>
+</div>
+
+<pre class="cs">namespace NUnit.Tests
+{
+  using System;
+  using NUnit.Framework;
+
+  [TestFixture]
+  public class SuccessTests
+  {
+    // ...
+  }
+}
+</pre>
+
+<pre class="vb">Imports System
+Imports Nunit.Framework
+
+Namespace Nunit.Tests
+
+  &lt;TestFixture()&gt; Public Class SuccessTests
+    ' ...
+  End Class
+End Namespace
+</pre>
+
+<pre class="mc">#using &lt;Nunit.Framework.dll&gt;
+using namespace System;
+using namespace NUnit::Framework;
+
+namespace NUnitTests
+{
+  [TestFixture]
+  public __gc class SuccessTests
+  {
+    // ...
+  };
+}
+
+#include "cppsample.h"
+
+namespace NUnitTests {
+  // ...
+}
+</pre>
+
+<pre class="js">package NUnit.Tests;
+
+import System.*;
+import NUnit.Framework.TestFixture;
+
+
+/** @attribute NUnit.Framework.TestFixture() */
+public class SuccessTests
+{
+  // ...
+}
+</pre>
+
+</div>
+
+<h3>Inheritance</h3>
+
+<p>The <b>TestFixtureAttribute</b> may be applied to a base class and is
+inherited by any derived classes. This includes any abstract base class,
+so the well-known Abstract Fixture pattern may be implemented if desired.
+
+<p>In order to facilitate use of generic and/or parameterized classes,
+where the derived class may require a different number of arguments (or
+type arguments) from the base class, superfluous <b>TestFixture</b> 
+attributes are ignored, using the following rules:
+
+<ol>
+<li>If all TestFixture attributes provide constructor or type arguments, 
+then all of them are used.
+<li>If some of the attributes provide arguments and others do not, then
+only those with arguments are used and those without arguments are ignored.
+<li>If none of the attributes provide arguments, one of them is selected
+for use by NUnit. It is not possible to predict which will be used, so
+this situation should generally be avoided.
+</ol>
+
+This permits code like the following, which would cause an error if the
+attribute on the base class were not ignored.
+
+<div class="code">
+<pre>[TestFixture]
+public class AbstractFixtureBase
+{
+    ...
+}
+
+[TestFixture(typeof(string))]
+public class DerivedFixture&lt;T&gt; : AbstractFixtureBase
+{
+    ...
+}
+</pre>
+</div>
+
+<h3>Parameterized Test Fixtures (NUnit 2.5)</h3>
+
+<p>Beginning with NUnit 2.5, test fixtures may take constructor arguments.
+   Argument values are specified as arguments to the <b>TestFixture</b>
+   attribute. NUnit will construct a separate instance of the fixture
+   for each set of arguments.
+   
+<p>Individual fixture instances in a set of parameterized fixtures may be ignored. 
+   Set the <b>Ignore</b> named parameter of the attribute to true or set 
+   <b>IgnoreReason</b> to a non-empty string.
+
+<p>Individual fixture instances may be given categories as well. Set the <b>Category</b>
+   named parameter of the attribute to the name of the category or to a comma-separated
+   list of categories.
+   
+<h4>Example</h4>
+
+<p>The following test fixture would be instantiated by NUnit three times,
+   passing in each set of arguments to the appropriate constructor. Note
+   that there are three different constructors, matching the data types
+   provided as arguments.
+   
+<div class="code"><pre>
+[TestFixture("hello", "hello", "goodbye")]
+[TestFixture("zip", "zip")]
+[TestFixture(42, 42, 99)]
+public class ParameterizedTestFixture
+{
+    private string eq1;
+    private string eq2;
+    private string neq;
+    
+    public ParameterizedTestFixture(string eq1, string eq2, string neq)
+    {
+        this.eq1 = eq1;
+        this.eq2 = eq2;
+        this.neq = neq;
+    }
+
+    public ParameterizedTestFixture(string eq1, string eq2)
+        : this(eq1, eq2, null) { }
+
+    public ParameterizedTestFixture(int eq1, int eq2, int neq)
+    {
+        this.eq1 = eq1.ToString();
+        this.eq2 = eq2.ToString();
+        this.neq = neq.ToString();
+    }
+
+    [Test]
+    public void TestEquality()
+    {
+        Assert.AreEqual(eq1, eq2);
+        if (eq1 != null &amp;&amp; eq2 != null)
+            Assert.AreEqual(eq1.GetHashCode(), eq2.GetHashCode());
+    }
+
+    [Test]
+    public void TestInequality()
+    {
+        Assert.AreNotEqual(eq1, neq);
+        if (eq1 != null &amp;&amp; neq != null)
+            Assert.AreNotEqual(eq1.GetHashCode(), neq.GetHashCode());
+    }
+}
+</pre></div>
+
+<h3>Generic Test Fixtures (NUnit 2.5)</h3>
+
+<p>Beginning with NUnit 2.5, you may also use a generic class as a test fixture.
+   In order for NUnit to instantiate the fixture, you must either specify the 
+   types to be used as arguments to <b>TestFixtureAttribute</b> or use the
+   named parameter <b>TypeArgs=</b> to specify them. NUnit will construct a
+   separate instance of the fixture for each <b>TestFixtureAttribute</b> 
+   you provide.
+   
+<h4>Example</h4>
+
+<p>The following test fixture would be instantiated by NUnit twice,
+   once using an ArrayList and once using a List&lt;int&gt;.
+   
+<div class="code"><pre>
+[TestFixture(typeof(ArrayList))]
+[TestFixture(typeof(List&lt;int&gt;))]
+public class IList_Tests&lt;TList&gt; where TList : IList, new()
+{
+  private IList list;
+
+  [SetUp]
+  public void CreateList()
+  {
+    this.list = new TList();
+  }
+
+  [Test]
+  public void CanAddToList()
+  {
+    list.Add(1); list.Add(2); list.Add(3);
+    Assert.AreEqual(3, list.Count);
+  }
+}</pre></div>
+
+<h3>Generic Test Fixtures with Parameters (NUnit 2.5)</h3>
+
+<p>If a Generic fixture, uses constructor arguments, there are three
+   approaches to telling NUnit which arguments are type parameters 
+   and which are normal constructor parameters.
+   <ol>
+   <li>Specify both sets of parameters as arguments to the <b>TestFixtureAttribute</b>.
+       Leading <b>System.Type</b> arguments are used as type parameters, while
+	   any remaining arguments are used to construct the instance. In the
+	   following example, this leads to some obvious duplication...
+
+<div class="code"><pre>
+[TestFixture(typeof(double), typeof(int), 100.0, 42)]
+[TestFixture(typeof(int) typeof(double), 42, 100.0)]
+public class SpecifyBothSetsOfArgs&lt;T1, T2&gt;
+{
+    T1 t1;
+    T2 t2;
+
+    public SpecifyBothSetsOfArgs(T1 t1, T2 t2)
+    {
+        this.t1 = t1;
+        this.t2 = t2;
+    }
+
+    [TestCase(5, 7)]
+    public void TestMyArgTypes(T1 t1, T2 t2)
+    {
+        Assert.That(t1, Is.TypeOf&lt;T1&gt;());
+        Assert.That(t2, Is.TypeOf&lt;T2&gt;());
+    }
+}</pre></div>
+
+   <li>Specify normal parameters as arguments to <b>TestFixtureAttribute</b>
+       and use the named parameter <b>TypeArgs=</b> to specify the type
+	   arguments. Again, for this example, the type info is duplicated, but
+	   it is at least more cleanly separated from the normal arguments...
+
+<div class="code" style="width: 40em"><pre>
+[TestFixture(100.0, 42, TypeArgs=new Type[] {typeof(double), typeof(int) } )]
+[TestFixture(42, 100.0, TypeArgs=new Type[] {typeof(int), typeof(double) } )]
+public class SpecifyTypeArgsSeparately&lt;T1, T2&gt;
+{
+    T1 t1;
+    T2 t2;
+
+    public SpecifyTypeArgsSeparately(T1 t1, T2 t2)
+    {
+        this.t1 = t1;
+        this.t2 = t2;
+    }
+
+    [TestCase(5, 7)]
+    public void TestMyArgTypes(T1 t1, T2 t2)
+    {
+        Assert.That(t1, Is.TypeOf&lt;T1&gt;());
+        Assert.That(t2, Is.TypeOf&lt;T2&gt;());
+    }
+}</pre></div>
+
+   <li>In some cases, when the constructor makes use of all the type parameters 
+       NUnit may simply be able to deduce them from the arguments provided. 
+	   That's the case here and the following is the preferred way to
+	   write this example...
+   
+<div class="code"><pre>
+[TestFixture(100.0, 42)]
+[TestFixture(42, 100.0)]
+public class DeduceTypeArgsFromArgs&lt;T1, T2&gt;
+{
+    T1 t1;
+    T2 t2;
+
+    public DeduceTypeArgsFromArgs(T1 t1, T2 t2)
+    {
+        this.t1 = t1;
+        this.t2 = t2;
+    }
+
+    [TestCase(5, 7)]
+    public void TestMyArgTypes(T1 t1, T2 t2)
+    {
+        Assert.That(t1, Is.TypeOf&lt;T1&gt;());
+        Assert.That(t2, Is.TypeOf&lt;T2&gt;());
+    }
+}</pre></div>
+   </ol> 
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li><a href="testCase.html">TestCase</a></li>
+<li><a href="testCaseSource.html">TestCaseSource</a></li>
+<li id="current"><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

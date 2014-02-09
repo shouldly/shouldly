@@ -1,0 +1,245 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ExceptionAsserts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Exception Asserts (NUnit 2.5)</h2>
+
+<p>The <b>Assert.Throws</b> method is pretty much in a class by itself. Rather than
+   comparing values, it attempts to invoke a code snippet, represented as
+   a delegate, in order to verify that it throws a particular exception.
+   
+<p>It's also in a class by itself in that it returns an Exception, rather
+    than void, if the Assert is successful. See the example below for
+	a few ways to use this.
+   
+<p><b>Assert.Throws</b> may be used with a constraint argument, which is applied
+   to the actual exception thrown, or with the Type of exception expected.
+   The Type format is available in both both a non-generic and (in the .NET 2.0 version)
+   generic form.
+   
+<p><b>Assert.DoesNotThrow</b> simply verifies that the delegate does not throw
+   an exception.
+   
+<p><b>Assert.Catch</b> is similar to <b>Assert.Throws</b> but will pass for an exception
+   that is derived from the one specified.
+   
+<div class="code" style="width: 40em"><pre>
+Exception Assert.Throws( Type expectedExceptionType, TestDelegate code );
+Exception Assert.Throws( Type expectedExceptionType, TestDelegate code, 
+		string message );
+Exception Assert.Throws( Type expectedExceptionType, TestDelegate code, 
+		string message, params object[] parms);
+
+Exception Assert.Throws( IResolveConstraint constraint, TestDelegate code );
+Exception Assert.Throws( IResolveConstraint constraint, TestDelegate code, 
+		string message );
+Exception Assert.Throws( IResolveConstraint constraint, TestDelegate code, 
+		string message, params object[] parms);
+
+T Assert.Throws&lt;T&gt;( TestDelegate code );
+T Assert.Throws&lt;T&gt;( TestDelegate code, string message );
+T Assert.Throws&lt;T&gt;( TestDelegate code, string message, 
+		params object[] parms);
+		
+void Assert.DoesNotThrow( TestDelegate code );
+void Assert.DoesNotThrow( TestDelegate code, string message );
+void Assert.DoesNotThrow( TestDelegate code, string message, 
+        params object[] parms);
+
+Exception Assert.Catch( TestDelegate code );
+Exception Assert.Catch( TestDelegate code, string message );
+Exception Assert.Catch( TestDelegate code, string message, 
+        params object[] parms);
+
+Exception Assert.Catch( Type expectedExceptionType, TestDelegate code );
+Exception Assert.Catch( Type expectedExceptionType, TestDelegate code, 
+		string message );
+Exception Assert.Catch( Type expectedExceptionType, TestDelegate code, 
+		string message, params object[] parms);
+
+T Assert.Catch&lt;T&gt;( TestDelegate code );
+T Assert.Catch&lt;T&gt;( TestDelegate code, string message );
+T Assert.Catch&lt;T&gt;( TestDelegate code, string message, 
+		params object[] parms);
+</pre></div>
+
+<p>In the above code <b>TestDelegate</b> is a delegate of the form
+<b>void TestDelegate()</b>, which is used to execute the code
+in question. Under .NET 2.0, this may be an anonymous delegate.
+If compiling under C# 3.0, it may be a lambda expression.
+
+<p>The following example shows different ways of writing the
+same test.
+
+<div class="code"><pre>
+[TestFixture]
+public class AssertThrowsTests
+{
+  [Test]
+  public void Tests()
+  {
+    // .NET 1.x
+    Assert.Throws( typeof(ArgumentException),
+      new TestDelegate(MethodThatThrows) );
+	  
+    // .NET 2.0
+    Assert.Throws&lt;ArgumentException&gt;( MethodThatThrows() );
+
+    Assert.Throws&lt;ArgumentException&gt;(
+	  delegate { throw new ArgumentException(); } );
+
+    // Using C# 3.0	  
+    Assert.Throws&lt;ArgumentException&gt;(
+      () => throw new ArgumentException(); } );
+  }
+  
+  void MethodThatThrows()
+  {
+    throw new ArgumentException();
+  }
+
+</pre></div>
+
+<p>This example shows use of the return value to perform
+additional verification of the exception.
+
+<div class="code"><pre>
+[TestFixture]
+public class UsingReturnValue
+{
+  [Test]
+  public void TestException()
+  {
+    MyException ex = Assert.Throws&lt;MyException&gt;(
+      delegate { throw new MyException( "message", 42 ); } );
+    Assert.That( ex.Message, Is.EqualTo( "message" ) );
+    Assert.That( ex.MyParam, Is.EqualTo( 42 ) ); 
+  }
+</pre></div>
+
+<p>This example does the same thing
+using the overload that includes a constraint.
+
+<div class="code"><pre>
+[TestFixture]
+public class UsingConstraint
+{
+  [Test]
+  public void TestException()
+  {
+    Assert.Throws( Is.Typeof&lt;MyException&gt;()
+                 .And.Message.EqualTo( "message" )
+                 .And.Property( "MyParam" ).EqualTo( 42 ),
+      delegate { throw new MyException( "message", 42 ); } );
+  }
+</pre></div>
+
+<p>Use the form that matches your style of coding.
+
+<h3>Exact Versus Derived Types</h3>
+
+<p>When used with a Type argument, <b>Assert.Throws</b> requires
+that exact type to be thrown. If you want to test for any
+derived Type, use one of the forms that allows specifying
+a constraint. Alternatively, you may use <b>Assert.Catch</b>,
+which differs from <b>Assert.Throws</b> in allowing derived
+types. See the following code for examples:
+
+<div class="code">
+<pre>
+// Require an ApplicationException - derived types fail!
+Assert.Throws( typeof(ApplicationException), code );
+Assert.Throws&lt;ApplicationException&gt;()( code );
+
+// Allow both ApplicationException and any derived type
+Assert.Throws( Is.InstanceOf( typeof(ApplicationException), code );
+Assert.Throws( Is.InstanceOf&lt;ApplicationException&gt;(), code );
+
+// Allow both ApplicationException and any derived type
+Assert.Catch&lt;ApplicationException&gt;( code );
+
+// Allow any kind of exception
+Assert.Catch( code );
+</pre>
+</div>
+
+<h4>See also...</h4>
+<ul>
+<li><a href="throwsConstraint.html">ThrowsConstraint</a></ul>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<ul>
+<li><a href="equalityAsserts.html">Equality&nbsp;Asserts</a></li>
+<li><a href="identityAsserts.html">Identity&nbsp;Asserts</a></li>
+<li><a href="conditionAsserts.html">Condition&nbsp;Asserts</a></li>
+<li><a href="comparisonAsserts.html">Comparison&nbsp;Asserts</a></li>
+<li><a href="typeAsserts.html">Type&nbsp;Asserts</a></li>
+<li id="current"><a href="exceptionAsserts.html">Exception&nbsp;Asserts</a></li>
+<li><a href="utilityAsserts.html">Utility&nbsp;Methods</a></li>
+<li><a href="stringAssert.html">String&nbsp;Assert</a></li>
+<li><a href="collectionAssert.html">Collection&nbsp;Assert</a></li>
+<li><a href="fileAssert.html">File&nbsp;Assert</a></li>
+<li><a href="directoryAssert.html">Directory&nbsp;Assert</a></li>
+</ul>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

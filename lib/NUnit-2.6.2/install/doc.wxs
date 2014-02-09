@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <DirectoryRef Id="doc" FileSource="doc">
+
+      <Component Id="HtmlDocs" Guid="B94DA2CD-CB19-43b6-8DE4-E588C7EA8A49">
+
+        <File Id="nunit.css" Name="nunit.css" />
+        <File Id="codeFuncs.js" Name="codeFuncs.js" />
+        <File Id="favicon.ico" Name="favicon.ico" />
+        <File Id="actionAttributes.html" Name="actionAttributes.html" />
+        <File Id="addinsDialog.html" Name="addinsDialog.html" />
+        <File Id="assemblyIsolation.html" Name="assemblyIsolation.html" />
+        <File Id="assertions.html" Name="assertions.html" />
+        <File Id="attributes.html" Name="attributes.html" />
+        <File Id="category.html" Name="category.html" />
+        <File Id="collectionAssert.html" Name="collectionAssert.html" />
+        <File Id="collectionConstraints.html"
+              Name="collectionConstraints.html" />
+        <File Id="combinatorial.html" Name="combinatorial.html" />
+        <File Id="comparisonAsserts.html" Name="comparisonAsserts.html" />
+        <File Id="comparisonConstraints.html"
+              Name="comparisonConstraints.html" />
+        <File Id="compoundConstraints.html" Name="compoundConstraints.html" />
+        <File Id="conditionAsserts.html" Name="conditionAsserts.html" />
+        <File Id="conditionConstraints.html"
+              Name="conditionConstraints.html" />
+        <File Id="configEditor.html" Name="configEditor.html" />
+        <File Id="configFiles.html" Name="configFiles.html" />
+        <File Id="consoleCommandLine.html" Name="consoleCommandLine.html" />
+        <File Id="constraintModel.html" Name="constraintModel.html" />
+        <File Id="contextMenu.html" Name="contextMenu.html" />
+        <File Id="culture.html" Name="culture.html" />
+        <File Id="customConstraints.html" Name="customConstraints.html" />
+        <File Id="datapoint.html" Name="datapoint.html" />
+        <File Id="datapointProviders.html" Name="datapointProviders.html" />
+        <File Id="delayedConstraint.html" Name="delayedConstraint.html" />
+        <File Id="description.html" Name="description.html" />
+        <File Id="directoryAssert.html" Name="directoryAssert.html" />
+        <File Id="equalConstraint.html" Name="equalConstraint.html" />
+        <File Id="equalityAsserts.html" Name="equalityAsserts.html" />
+        <File Id="eventListeners.html" Name="eventListeners.html" />
+        <File Id="exception.html" Name="exception.html" />
+        <File Id="exceptionAsserts.html" Name="exceptionAsserts.html" />
+        <File Id="explicit.html" Name="explicit.html" />
+        <File Id="extensibility.html" Name="extensibility.html" />
+        <File Id="extensionTips.html" Name="extensionTips.html" />
+        <File Id="fileAssert.html" Name="fileAssert.html" />
+        <File Id="fixtureSetup.html" Name="fixtureSetup.html" />
+        <File Id="fixtureTeardown.html" Name="fixtureTeardown.html" />
+        <File Id="getStarted.html" Name="getStarted.html" />
+        <File Id="guiCommandLine.html" Name="guiCommandLine.html" />
+        <File Id="identityAsserts" Name="identityAsserts.html" />
+        <File Id="ignore.html" Name="ignore.html" />
+        <File Id="index.html" Name="index.html" />
+        <File Id="installation.html" Name="installation.html" />
+        <File Id="license.html" Name="license.html" />
+        <File Id="listMapper.html" Name="listMapper.html" />
+        <File Id="mainMenu.html" Name="mainMenu.html" />
+        <File Id="maxtime.html" Name="maxtime.html" />
+        <File Id="multiAssembly.html" Name="multiAssembly.html" />
+        <File Id="nunit_agent.html" Name="nunit-agent.html" />
+        <File Id="nunit_console.html" Name="nunit-console.html" />
+        <File Id="nunit_gui.html" Name="nunit-gui.html" />
+        <File Id="nunitAddins.html" Name="nunitAddins.html" />
+        <File Id="pairwise.html" Name="pairwise.html" />
+        <File Id="parameterizedTests.html" Name="parameterizedTests.html" />
+        <File Id="pathConstraints.html" Name="pathConstraints.html" />
+        <File Id="platform.html" Name="platform.html" />
+        <File Id="pnunit.html" Name="pnunit.html" />
+        <File Id="projectEditor.html" Name="projectEditor.html" />
+        <File Id="property.html" Name="property.html" />
+        <File Id="propertyConstraint.html" Name="propertyConstraint.html" />
+        <File Id="quickstart.html" Name="quickStart.html" />
+        <File Id="random.html" Name="random.html" />
+        <File Id="range.html" Name="range.html" />
+        <File Id="releaseBreakdown.html" Name="releaseBreakdown.html" />
+        <File Id="releaseNotes.html" Name="releaseNotes.html" />
+        <File Id="repeat.html" Name="repeat.html" />
+        <File Id="requiredAddin.html" Name="requiredAddin.html" />
+        <File Id="requiresMTA.html" Name="requiresMTA.html" />
+        <File Id="requiresSTA.html" Name="requiresSTA.html" />
+        <File Id="requiresThread.html" Name="requiresThread.html" />
+        <File Id="reusableConstraint.html" Name="reusableConstraint.html" />
+        <File Id="runningTests.html" Name="runningTests.html" />
+        <File Id="runtimeSelection.html" Name="runtimeSelection.html" />
+        <File Id="sameasConstraint.html" Name="sameasConstraint.html" />
+        <File Id="samples.html" Name="samples.html" />
+        <File Id="sequential.html" Name="sequential.html" />
+        <File Id="setCulture.html" Name="setCulture.html" />
+        <File Id="setUICulture.html" Name="setUICulture.html" />
+        <File Id="settingsDialog.html" Name="settingsDialog.html" />
+        <File Id="setup.html" Name="setup.html" />
+        <File Id="setupFixture.html" Name="setupFixture.html" />
+        <File Id="stringAssert.html" Name="stringAssert.html" />
+        <File Id="stringConstraints.html" Name="stringConstraints.html" />
+        <File Id="suite.html" Name="suite.html" />
+        <File Id="suiteBuilders.html" Name="suiteBuilders.html" />
+        <File Id="teardown.html" Name="teardown.html" />
+        <File Id="test.html" Name="test.html" />
+        <File Id="testCase.html" Name="testCase.html" />
+        <File Id="testcaseBuilders.html" Name="testcaseBuilders.html" />
+        <File Id="testcaseProviders.html" Name="testcaseProviders.html" />
+        <File Id="testCaseSource.html" Name="testCaseSource.html" />
+        <File Id="testContext.html" Name="testContext.html" />
+        <File Id="testDecorators.html" Name="testDecorators.html" />
+        <File Id="testFixture.html" Name="testFixture.html" />
+        <File Id="testProperties.html" Name="testProperties.html" />
+        <File Id="theory.html" Name="theory.html" />
+        <File Id="throwsConstraint.html" Name="throwsConstraint.html" />
+        <File Id="timeout.html" Name="timeout.html" />
+        <File Id="typeAsserts.html" Name="typeAsserts.html" />
+        <File Id="typeConstraints.html" Name="typeConstraints.html" />
+        <File Id="upgrade.html" Name="upgrade.html" />
+        <File Id="utilityAsserts.html" Name="utilityAsserts.html" />
+        <File Id="values.html" Name="values.html" />
+        <File Id="valueSource.html" Name="valueSource.html" />
+        <File Id="vsSupport.html" Name="vsSupport.html" />
+        <File Id="vsTestAdapterLicense.html" Name="vsTestAdapterLicense.html" />
+        <File Id="vsTestAdapter.html" Name="vsTestAdapter.html" />
+        <File Id="writingTests.html" Name="writingTests.html" />
+        <RemoveFile Id="RemoveThumbnails_Doc" Name="*" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="files" FileSource="doc\files">
+      <Component Id="DocFiles" Guid="F054972E-63F6-4596-AFD5-A029648C59B5">
+        <File Id="F__doc_file70" Name="QuickStart.doc" />
+        <File Id="F__doc_file71" Name="QuickStart.Spanish.doc" />
+        <File Id="F__doc_file72" Name="Results.xsd" />
+        <File Id="F__doc_file73" Name="Summary.xslt" />
+        <File Id="F__doc_file75" Name="TestResult.xml" />
+        <RemoveFile Id="RemoveThumbnails_Doc_Files" Name="*" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="img" FileSource="doc\img">
+      <Component Id="DocImages" Guid="27F9B183-519D-416a-9019-8BDA50D6684B">
+        <File Id="addinsDialog.jpg" Name="addinsDialog.jpg" />
+        <File Id="advancedSettings.jpg" Name="advancedSettings.jpg" />
+        <File Id="assemblyReloadSettings.jpg"
+              Name="assemblyReloadSettings.jpg" />
+        <File Id="assembliesTab.jpg" Name="assembliesTab.jpg" />
+        <File Id="bulletOff.gif" Name="bulletOff.gif" />
+        <File Id="bulletOn.gif" Name="bulletOn.gif" />
+        <File Id="configEditor.jpg" Name="configEditor.jpg" />
+        <File Id="console_mock.jpg" Name="console-mock.jpg" />
+        <File Id="generalSettings.jpg" Name="generalSettings.jpg" />
+        <File Id="generalTab.jpg" Name="generalTab.jpg" />
+        <File Id="gui_screenshot.jpg" Name="gui-screenshot.jpg" />
+        <File Id="gui_verify.jpg" Name="gui-verify.jpg" />
+        <File Id="internalTraceSettings.jpg"
+              Name="internalTraceSettings.jpg" />
+        <File Id="langFilter.gif" Name="langFilter.gif" />
+        <File Id="logo.gif" Name="logo.gif" />
+        <File Id="miniGui.jpg" Name="miniGui.jpg" />
+        <File Id="nunitTestAdapter.png" Name="nunitTestAdapter.png" />
+        <File Id="testProperties.jpg" Name="testProperties.jpg" />
+        <File Id="testLoadSettings.jpg" Name="testLoadSettings.jpg" />
+        <File Id="testResultSettings.jpg" Name="testResultSettings.jpg" />
+        <File Id="textOutputSettings.jpg" Name="textOutputSettings.jpg" />
+        <File Id="treeDisplaySettings.jpg" Name="treeDisplaySettings.jpg" />
+        <File Id="visualStudioSettings.jpg" Name="visualStudioSettings.jpg" />
+        <RemoveFile Id="RemoveThumbnails_Doc_Img" Name="*" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="NUnitMenu">
+
+      <Component Id="MenuShortcut_NUnitHelp"
+                 Guid="782BEE83-3E79-474a-A8C0-E63A4C38E807">
+        <Shortcut Id="MenuShortcut_NUnitHelp"
+                  Name="Documentation"
+                  Target="[!index.html]"
+                  Advertise="no"
+                  Show="normal"
+                  WorkingDirectory="doc" />
+        <RegistryValue Root = "HKCU"
+          Key="Software\[Manufacturer]\NUnit\$(var.NominalVersion)\Shortcuts"
+          Name="Documentation" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+</Wix>

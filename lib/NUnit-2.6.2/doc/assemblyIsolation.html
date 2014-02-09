@@ -1,0 +1,118 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - AssemblyIsolation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h3>Assembly Isolation</h3>
+
+<p>NUnit isolates test assemblies from its own code and from one another
+   by use of separate AppDomains and/or Processes.
+   
+<p>By default, NUnit loads a test assembly into a separate <b>AppDomain</b>, 
+   while its own code runs in the primary <b>AppDomain</b>.
+   
+<p>When multiple assemblies are run at the same time, NUnit loads them differently 
+   depending on how they were specified. For assemblies that are part of an
+   NUnit project, then a single <b>AppDomain</b> is used. If the assemblies 
+   were specified on the console runner command line, then a separate 
+   <b>AppDomain</b> is used for each of them.
+   
+<p>If greater separation is desired, test assemblies may be loaded into
+   a separate <b>Process</b> or into multiple processes. This is done
+   automatically by NUnit in the case where the tests are to be run under
+   a different runtime from the one that NUnit is currently using. Tests
+   running in a separate process are executed under the control of the
+   <a href="nunit-agent.html">nunit-agent</a> program.
+   
+<h3>Controlling Isolation</h3>
+
+<p>Beyond the NUnit default behavior, the user may control the level of isolation
+   through the command line or through NUnit's general settings. Process and AppDomain
+   isolation may also be specified as part of the settings of an NUnit project.
+   
+<h4>Command Line</h4>
+
+<p>Assembly Isolation may be specified on the console runner commandline using
+   the <b>/process</b> and <b>/domain</b> options. See 
+   <a href="consoleCommandLine.html">NUnit-Console Command Line Options</a>   for more information.
+   
+<h4>General Settings</h4>
+
+<p>The built-in NUnit defaults may be overridden using the <b>Assembly Isolation</b>
+   panel of the NUnit <b>Settings Dialog</b>. Settings made here are saved and become
+   the new default values for all executions of NUnit until changed. For more info,
+   see the <a href="settingsDialog.html">Settings Dialog</a> page.
+
+<h4>Project Settings</h4>
+
+<p>Isolation settings may be specified for an individual NUnit project using the
+   <a href="projectEditor.html">Project Editor</a>.
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li id="current"><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

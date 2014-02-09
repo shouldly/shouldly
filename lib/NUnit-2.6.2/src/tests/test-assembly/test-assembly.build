@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project name="TestAssembly" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="ActionAttributeExceptionFixture.cs"/>
+    <include name="ActionAttributeFixture.cs"/>
+    <include name="AttributeDescriptionTests.cs"/>
+    <include name="AttributeInheritance.cs"/>
+    <include name="CategoryAttributeTests.cs"/>
+    <include name="ConsoleRunnerTest.cs"/>
+    <include name="CultureAttributeTests.cs"/>
+    <include name="DatapointFixture.cs"/>
+    <include name="DirectoryChangeFixture.cs"/>
+    <include name="ExpectExceptionTest.cs"/>
+    <include name="FailFixtureTests.cs"/>
+    <include name="FixtureSetUpTearDownTests.cs"/>
+    <include name="IgnoreFixtureTests.cs"/>
+    <include name="LegacySuiteData.cs"/>
+    <include name="MaxTimeFixture.cs"/>
+    <include name="ParameterizedTestFixture.cs"/>
+    <include name="ParameterizedTestMethodFixture.cs"/>
+    <include name="PropertyAttributeTests.cs"/>
+    <include name="RepeatedTestFixtureTests.cs"/>
+    <include name="SetupFixtureTests.cs"/>
+    <include name="SetUpTest.cs"/>
+    <include name="TestCaseAttributeFixture.cs"/>
+    <include name="TestCaseBuilderFixture.cs"/>
+    <include name="TestCaseSourceAttributeFixture.cs"/>
+    <include name="TestCaseTest.cs"/>
+    <include name="TestContextData.cs"/>
+    <include name="TestData.cs"/>
+    <include name="TestFixtureBuilderTests.cs"/>
+    <include name="TestFixtureData.cs"/>
+    <include name="TestFixtureExtensionTests.cs"/>
+    <include name="TestMethodSignatureFixture.cs"/>
+    <include name="TheoryFixture.cs"/>
+    <include name="ThreadingFixture.cs"/>
+    <include name="TypeHelperFixture.cs"/>
+    <include name="UnhandledExceptions.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.test.dir}/test-assembly.dll" 
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="618,672"/>
+      </nowarn>
+      <references>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.framework.dir}/nunit.framework.extensions.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/tests/test-assembly">
+      <fileset>
+        <patternset refid="source-files" />
+        <include name="test-assembly.csproj"/>
+        <include name="test-assembly.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

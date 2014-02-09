@@ -1,0 +1,141 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - MultiAssembly</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Multiple-Assembly Support</h2>
+
+<p>Since version 2.1, NUnit has allowed loading suites of tests from multiple assemblies in both
+the console and GUI runners. This may be done on an adhoc basis or by creating NUnit test projects
+saved as files of type '.nunit'. In either case, a top-level suite is constructed, which contains
+the root suite for each assembly. Tests are run and reported just as for a single assembly.</p>
+
+<h3>Adhoc Usage</h3>
+
+<p>Using the console runner, multiple assemblies may be run simply by specifying their names on the 
+command line. See <a href="consoleCommandLine.html">NUnit-Console Command Line Options</a> for
+an example of this usage.</p>
+
+<p>The gui runner does not support specifying multiple assemblies on the command-line.
+However, you can load a single assembly and then use the Project menu to add additional 
+assemblies. Additionally, you can drag multiple assemblies to the tree view pane, in which 
+case they will replace any assemblies already loaded.</p>
+
+<h3>NUnit Test Projects</h3>
+
+<p>Running tests from multiple assemblies is facilitated by the use of NUnit test projects. These are
+files with the extension .nunit containing information about the assemblies to be loaded. The
+following is an example of a hypothetical test project file:</p>
+
+<div class="code">
+<pre>&lt;NUnitProject&gt;
+  &lt;Settings activeconfig="Debug"/&gt;
+  &lt;Config name="Debug"&gt;
+    &lt;assembly path="LibraryCore\bin\Debug\Library.dll"/&gt;
+    &lt;assembly path="LibraryUI\bin\Debug\LibraryUI.dll"/&gt;
+  &lt;/Config&gt;
+  &lt;Config name="Release"&gt;
+    &lt;assembly path="LibraryCore\bin\Release\Library.dll"/&gt;
+    &lt;assembly path="LibraryUI\bin\Release\LibraryUI.dll"/&gt;
+  &lt;/Config&gt;
+&lt;/NUnitProject&gt;</pre>
+</div>
+
+<p>This project contains two configurations, each of which contains two assemblies. The Debug
+configuration is currently active. By default, the assemblies will be loaded using the directory
+containing this file as the ApplicationBase. The PrivateBinPath will be set automatically to
+<code>LibraryCore\bin\Debug;LibraryUI\bin\Debug</code> or to the corresonding release path.
+XML attributes are used to specify non-default values for the ApplicationBase, Configuration
+File and PrivateBinPath. The <a href="projectEditor.html">Project Editor</a> may
+be used to create or modify NUnit projects.</p>
+
+<p>Even when you are running a single test assembly, NUnit creates an internal project
+to contain that assembly. If you are using the gui, you can save this project, edit it,
+add additional assemblies, etc. Note that the gui does not display the internal project
+unless you add assemblies or modify it in some other way.
+
+<p>If you use <a href="vsSupport.html">Visual Studio Support</a> to load Visual
+Studio .Net project or solution files, NUnit converts them to Test projects internally.
+As with other internal projects, these test projects are not saved automatically but may
+be saved by use of the File menu.</p>
+
+<h3>Loading and Running</h3>
+
+<p>In the past, test writers have been able to rely on the current directory being set to the 
+directory containing the single loaded assembly. For the purpose of compatibility, NUnit continues
+to set the current directory to the directory containing each assembly whenever any test from that 
+assembly is run.</p>
+
+<p>Additionally, because some assemblies may rely on unmanaged dlls in the same directory, the 
+current directory is also set to that of the assembly at the time the assembly is loaded. However, 
+in cases where multiple assemblies reference the same unmanaged assembly, this may not be sufficient 
+and the user may need to place the directory containing the unmanaged dll on the path.</p>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li id="current"><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

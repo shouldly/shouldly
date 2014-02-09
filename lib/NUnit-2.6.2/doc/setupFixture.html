@@ -1,0 +1,229 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - SetupFixture</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<script language="JavaScript" src="codeFuncs.js" ></script> <!-- Do it this way for IE -->
+
+<h3>SetUpFixtureAttribute (NUnit 2.4)</h3>
+
+<p>This is the attribute that marks a class that contains the one-time
+	setup or teardown methods for all the test fixtures under a given
+	namespace. The class may contain at most one method marked with the
+	SetUpAttribute and one method marked with the TearDownAttribute.</p>
+	
+<p>There are a few restrictions on a class that is used as a setup fixture.
+	<ul>
+		<li>
+			It must be a publicly exported type or NUnit will not see it.</li>
+		<li>
+			It must have a default constructor or NUnit will not be able to construct it.</li>
+	</ul>
+</p>
+
+<p>The SetUp method in a SetUpFixture is executed once before any of the fixtures
+contained in its namespace. The TearDown method is executed once after all the 
+fixtures have completed execution. In the examples below, the method RunBeforeAnyTests()
+is called before any tests or setup methods in the NUnit.Tests namespace. The method
+RunAfterAnyTests() is called after all the tests in the namespace as well as their
+individual or fixture teardowns have completed exection.</p>
+
+<p>Only one SetUpFixture should be created in a given namespace. A SetUpFixture
+outside of any namespace provides SetUp and TearDown for the entire assembly.
+
+<h4>Example:</h4>
+
+<div class="code">
+
+<div class="langFilter">
+	<a href="javascript:Show('DD1')" onmouseover="Show('DD1')"><img src="img/langFilter.gif" width="14" height="14" alt="Language Filter"></a>
+	<div id="DD1" class="dropdown" style="display: none;" onclick="Hide('DD1')">
+		<a href="javascript:ShowCS()">C#</a><br>
+		<a href="javascript:ShowVB()">VB</a><br>
+		<a href="javascript:ShowMC()">C++</a><br>
+		<a href="javascript:ShowJS()">J#</a><br>
+	</div>
+</div>
+
+<pre class="cs">namespace NUnit.Tests
+{
+  using System;
+  using NUnit.Framework;
+
+  [SetUpFixture]
+  public class MySetUpClass
+  {
+    [SetUp]
+	RunBeforeAnyTests()
+	{
+	  // ...
+	}
+
+    [TearDown]
+	RunAfterAnyTests()
+	{
+	  // ...
+	}
+  }
+}
+</pre>
+
+<pre class="vb">Imports System
+Imports Nunit.Framework
+
+Namespace Nunit.Tests
+
+  &lt;TestFixture()&gt; Public Class MySetUpClass
+    &lt;SetUp()&gt; Public Sub RunBeforeAnyTests()
+	  ' ...
+	End Sub
+	
+	&lt;TearDown()&gt; Public Sub RunAfterAnyTests()
+	  ' ...
+	End Sub
+  End Class
+End Namespace
+</pre>
+
+<pre class="mc">#using &lt;Nunit.Framework.dll&gt;
+using namespace System;
+using namespace NUnit::Framework;
+
+namespace NUnitTests
+{
+  [TestFixture]
+  public __gc class MySetUpClass
+  {
+    [SetUp] public void RunBeforeAnyTests();
+	[TearDown] public void RunAfterAnyTests();
+  };
+}
+
+#include "cppsample.h"
+
+namespace NUnitTests {
+  // ...
+}
+</pre>
+
+<pre class="js">package NUnit.Tests;
+
+import System.*;
+import NUnit.Framework.TestFixture;
+
+
+/** @attribute NUnit.Framework.TestFixture() */
+public class MySetUpClass
+{
+  /** @attribute NUnit.Framework.SetUp() */
+  public void RunBeforeAnyTests()
+  { /* ... */ }
+
+  /** @attribute NUnit.Framework.TearDown() */
+  public void RunAfterAnyTests()
+  { /* ... */ }
+}
+</pre>
+
+</div>
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li id="current"><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li><a href="testCase.html">TestCase</a></li>
+<li><a href="testCaseSource.html">TestCaseSource</a></li>
+<li><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

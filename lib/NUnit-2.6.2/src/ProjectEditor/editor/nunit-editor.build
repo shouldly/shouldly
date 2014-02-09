@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<project name="NUnitEditor" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="Properties/AssemblyInfo.cs"/>
+    <include name="AboutBox.cs"/>
+    <include name="AboutBox.Designer.cs"/>
+    <include name="Delegates.cs"/>
+    <include name="IDialog.cs"/>
+    <include name="IView.cs"/>
+    <include name="PathUtils.cs"/>
+    <include name="Program.cs"/>
+    <include name="ConfigurationEditor/AddConfigurationDialog.cs"/>
+    <include name="ConfigurationEditor/AddConfigurationDialog.Designer.cs"/>
+    <include name="ConfigurationEditor/AddConfigurationPresenter.cs"/>
+    <include name="ConfigurationEditor/ConfigurationEditor.cs"/>
+    <include name="ConfigurationEditor/ConfigurationEditorView.cs"/>
+    <include name="ConfigurationEditor/ConfigurationEditorView.Designer.cs"/>
+    <include name="ConfigurationEditor/IConfigurationEditorView.cs"/>
+    <include name="ConfigurationEditor/RenameConfigurationDialog.cs"/>
+    <include name="ConfigurationEditor/RenameConfigurationDialog.Designer.cs"/>
+    <include name="ConfigurationEditor/RenameConfigurationPresenter.cs"/>
+    <include name="Main/IMainView.cs"/>
+    <include name="Main/IProjectDocument.cs"/>
+    <include name="Main/MainForm.cs"/>
+    <include name="Main/MainForm.Designer.cs"/>
+    <include name="Main/MainPresenter.cs"/>
+    <include name="Main/ProjectDocument.cs"/>
+    <include name="PropertyEditor/AssemblyList.cs"/>
+    <include name="PropertyEditor/ConfigList.cs"/>
+    <include name="PropertyEditor/IProjectConfig.cs"/>
+    <include name="PropertyEditor/IProjectModel.cs"/>
+    <include name="PropertyEditor/IPropertyView.cs"/>
+    <include name="PropertyEditor/ProjectConfig.cs"/>
+    <include name="PropertyEditor/ProjectModel.cs"/>
+    <include name="PropertyEditor/PropertyPresenter.cs"/>
+    <include name="PropertyEditor/PropertyView.cs"/>
+    <include name="PropertyEditor/PropertyView.Designer.cs"/>
+    <include name="PropertyEditor/RuntimeFramework.cs"/>
+    <include name="PropertyEditor/VSProject.cs"/>
+    <include name="PropertyEditor/VSProjectConfig.cs"/>
+    <include name="PropertyEditor/VSProjectConfigCollection.cs"/>
+    <include name="PropertyEditor/XmlHelper.cs"/>
+    <include name="ViewElements/ButtonElement.cs"/>
+    <include name="ViewElements/ComboBoxElement.cs"/>
+    <include name="ViewElements/ControlElement.cs"/>
+    <include name="ViewElements/DialogManager.cs"/>
+    <include name="ViewElements/IComboBox.cs"/>
+    <include name="ViewElements/ICommand.cs"/>
+    <include name="ViewElements/IDialogManager.cs"/>
+    <include name="ViewElements/IMessageDisplay.cs"/>
+    <include name="ViewElements/ISelection.cs"/>
+    <include name="ViewElements/ISelectionList.cs"/>
+    <include name="ViewElements/ITextElement.cs"/>
+    <include name="ViewElements/IViewElement.cs"/>
+    <include name="ViewElements/ListBoxElement.cs"/>
+    <include name="ViewElements/MenuElement.cs"/>
+    <include name="ViewElements/MessageDisplay.cs"/>
+    <include name="ViewElements/RadioButtonGroup.cs"/>
+    <include name="ViewElements/TextElement.cs"/>
+    <include name="XmlEditor/IXmlView.cs"/>
+    <include name="XmlEditor/XmlPresenter.cs"/>
+    <include name="XmlEditor/XmlView.cs"/>
+    <include name="XmlEditor/XmlView.Designer.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+    <include name="**/*.resx"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="winexe" 
+        output="${current.build.dir}/nunit-editor.exe" 
+        debug="${build.debug}"
+        define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+      </sources>
+      <resources>
+        <patternset refid="resource-files"/>
+      </resources>
+      <references>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="System.Drawing.dll"/>
+        <include name="System.Xml.dll"/>
+      </references>
+    </csc>
+<!--
+    <copy file="Ship.config"
+      tofile="${current.build.dir}/nunit-editor.config"/>
+ -->      
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/ProjectEditor/editor">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <include name="nunit-editor.csproj"/>
+        <include name="nunit-editor.build"/>
+        <include name="App.ico"/>
+        <include name="App.config"/>
+        <include name="Ship.config"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

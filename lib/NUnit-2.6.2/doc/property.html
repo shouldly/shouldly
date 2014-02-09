@@ -1,0 +1,256 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - Property</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<script language="JavaScript" src="codeFuncs.js" ></script> <!-- Do it this way for IE -->
+
+<h3>PropertyAttribute (NUnit 2.4)</h3>
+
+<p>The Property attribute provides a generalized approach to setting named
+   properties on any test case or fixture, using a name/value pair.</p>
+   
+<p>In the example below, the fixture class MathTests is given a Location
+   value of 723 while the test case AdditionTest is given a Severity
+   of "Critical"</p>
+
+<h4>Example:</h4>
+
+<div class="code">
+
+<div class="langFilter">
+	<a href="javascript:Show('DD1')" onmouseover="Show('DD1')"><img src="img/langFilter.gif" width="14" height="14" alt="Language Filter"></a>
+	<div id="DD1" class="dropdown" style="display: none" onclick="Hide('DD1')">
+		<a href="javascript:ShowCS()">C#</a><br>
+		<a href="javascript:ShowVB()">VB</a><br>
+		<a href="javascript:ShowMC()">C++</a><br>
+		<a href="javascript:ShowJS()">J#</a><br>
+	</div>
+</div>
+
+<pre class="cs">namespace NUnit.Tests
+{
+  using System;
+  using NUnit.Framework;
+
+  [TestFixture, Property("Location",723)]
+  public class MathTests
+  {
+    [Test, Property("Severity", "Critical")]
+	public void AdditionTest()
+    { /* ... */ }
+  }
+}
+</pre>
+
+<pre class="vb">Imports System
+Imports Nunit.Framework
+
+Namespace Nunit.Tests
+
+  &lt;TestFixture(), Property("Location",723)&gt;
+    Public Class MathTests
+	
+    &lt;Test(), Property("Severity","Critical")&gt;
+	  Public Sub AdditionTest()
+    ' ...
+    End Sub
+	
+  End Class
+  
+End Namespace
+</pre>
+
+<pre class="mc">#using &lt;Nunit.Framework.dll&gt;
+using namespace System;
+using namespace NUnit::Framework;
+
+namespace NUnitTests
+{
+  [TestFixture, Property("Location",723)]
+  public __gc class MathTests
+  {
+    [Test, Property("Severity","Critical")] void AdditionTest();
+  };
+}
+
+#include "cppsample.h"
+
+namespace NUnitTests {
+  // ...
+}
+</pre>
+
+<pre class="js">package NUnit.Tests;
+
+import System.*;
+import NUnit.Framework.TestFixture;
+
+
+/** @attribute NUnit.Framework.TestFixture() */
+/** @attribute NUnit.Framework.Property("Location",723) */
+public class MathTests
+{
+  /** @attribute NUnit.Framework.Test() */
+  /** @attribute NUnit.Framework.Property("Severity","Critical") */
+  public void AdditionTest()
+  { /* ... */ }
+}
+</pre>
+
+</div>
+
+<h4>Usage Note</h4>
+
+<p>The PropertyAttribute is not used for any purpose by NUnit itself, but
+it does display them in the XML output file and in the Test Properties
+dialog of the gui.</p>
+
+<p>It is
+   possible to write extensions that access the value of specific properties.
+   It is also possible to access the value of properties from within a test
+   using reflection.</p>
+   
+<h3>Custom Property Attributes</h3>
+
+<p>Users can define custom
+attributes that derive from <b>PropertyAttribute</b> and have them
+recognized by NUnit. PropertyAttribute provides a protected constructor
+that takes the value of the property and sets the property name to the
+name of the derived class. NUnit itself uses this facility: some of
+it's specialized attributes are actually specializations of <b>PropertyAttribute</b>.
+
+<p>Here's an example that creates a Severity property. It works
+just like any other property, but has a simpler syntax and is type-safe.
+A test reporting system might make use of the property to provide special reports.
+
+<div class=code><pre>
+public enum SeverityLevel
+{
+    Critical,
+    Major,
+    Normal,
+    Minor
+}
+
+[AttributeUsage(AttributeTargets.Method, AllowMultiple=false)]
+public class SeverityAttribute : PropertyAttribute
+{
+    public SeverityAttribute( SeverityLevel level )
+	    : base( level ); 
+}
+
+...
+
+[Test, Severity( SeverityLevel.Critical)]
+public void MyTest()
+{ /*...*/ }
+</pre></div>
+
+<p>Beginning with NUnit 2.5, a property attribute is able to contain
+multiple name/value pairs. This capability is not exposed publicly
+but may be used by derived property classes. NUnit uses this
+feature itself for certain attributes. See, for example, 
+<a href="requiresThread.html">RequiresThreadAttribute</a>.
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li id="current"><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li><a href="testCase.html">TestCase</a></li>
+<li><a href="testCaseSource.html">TestCaseSource</a></li>
+<li><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

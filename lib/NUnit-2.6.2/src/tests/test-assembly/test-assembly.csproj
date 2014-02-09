@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1960CAC4-9A82-47C5-A9B3-55BC37572C3C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>test-assembly</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.TestData</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/test-assembly/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Debug\tests\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>618,672</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Release\tests\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>618,672</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\NUnitCore\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Name>nunit.framework.dll</Name>
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PNUnit\pnunit.framework\pnunit.framework.csproj">
+      <Project>{5261ABA1-98E6-4603-A4F0-59CAC307AC68}</Project>
+      <Name>pnunit.framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nonamespace-assembly\nonamespace-assembly.csproj">
+      <Project>{5110F0D2-8E50-46F8-9E17-7C8EBFECCA9D}</Project>
+      <Name>nonamespace-assembly</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionAttributeExceptionFixture.cs" />
+    <Compile Include="AttributeDescriptionTests.cs" />
+    <Compile Include="AttributeInheritance.cs" />
+    <Compile Include="ActionAttributeFixture.cs" />
+    <Compile Include="CategoryAttributeTests.cs" />
+    <Compile Include="ConsoleRunnerTest.cs" />
+    <Compile Include="CultureAttributeTests.cs" />
+    <Compile Include="DatapointFixture.cs" />
+    <Compile Include="ExpectExceptionTest.cs" />
+    <Compile Include="FailFixtureTests.cs" />
+    <Compile Include="FixtureSetUpTearDownTests.cs" />
+    <Compile Include="IgnoreFixtureTests.cs" />
+    <Compile Include="LegacySuiteData.cs" />
+    <Compile Include="MaxTimeFixture.cs" />
+    <Compile Include="ParameterizedTestFixture.cs" />
+    <Compile Include="PropertyAttributeTests.cs" />
+    <Compile Include="RepeatedTestFixtureTests.cs" />
+    <Compile Include="SetupFixtureTests.cs" />
+    <Compile Include="SetUpTest.cs" />
+    <Compile Include="TestCaseAttributeFixture.cs" />
+    <Compile Include="TestCaseBuilderFixture.cs" />
+    <Compile Include="TestCaseSourceAttributeFixture.cs" />
+    <Compile Include="TestCaseTest.cs" />
+    <Compile Include="TestContextData.cs" />
+    <Compile Include="TestData.cs" />
+    <Compile Include="TestFixtureBuilderTests.cs" />
+    <Compile Include="TestFixtureData.cs" />
+    <Compile Include="TestFixtureExtensionTests.cs" />
+    <Compile Include="TestMethodSignatureFixture.cs" />
+    <Compile Include="TheoryFixture.cs" />
+    <Compile Include="ThreadingFixture.cs" />
+    <Compile Include="TypeHelperFixture.cs" />
+    <Compile Include="UnhandledExceptions.cs" />
+    <Compile Include="DirectoryChangeFixture.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test-assembly.build" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

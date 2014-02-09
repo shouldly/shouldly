@@ -1,0 +1,236 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ProjectEditor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Project Editor</h2>
+
+<p>Beginning with NUnit 2.6, the Project Editor is a separate program, which may be executed
+directly or run through the Project | Edit dropdown menu of the NUnit GUI. The editor now
+provides two main views of the project: a property-oriented view based on the Project Editor
+that was built into earlier versions of the NUnit GUI and an xml view, which allows direct
+editing of the .nunit file.
+
+<h2>Property View</h2>
+
+<p>This view consists of a common area and two tabs, as seen in the image below.</p>
+
+<div class="screenshot-left">
+<img src="img/generalTab.jpg"></div>
+
+<h3>Common Area</h3>
+
+<p>The common area of the Project Editor contains information pertaining to
+   the project as a whole. Information that applies to a particular configuration
+   is displayed in the General and Assemblies tabs.
+   
+<h4>Project Path</h4>
+<p>This label shows the full path to the project file. In the case of a 
+   wrapper project, the path is set to the same directory as the assembly
+   that was initially opened.
+   
+<h4>Application Base</h4> 
+<p>This TextBox allows the user to change the project AppBase, which defaults to 
+   the directory of the project file. The button to the right of the TextBox
+   allows the user to browse and select a directory.
+   
+<h4>Process Model</h4>
+<p>This dropdown list allows you to specify how operating system processes are
+   used in loading and running the tests in this project. Four settings are
+   defined:
+   <ul>
+   <li>The <b>Default</b> setting refers to the option selected by the user
+       on the Assembly Isolation page of the NUnit Settings Dialog.
+   <li><b>Single</b> means that tests are run in a test domain in the
+   	   same process as NUnit. This is the way previous versions of NUnit
+	   ran tests.
+   <li><b>Separate</b> means that all the tests are run in a separate process 
+       that NUnit creates.
+   <li><b>Multiple</b> means that NUnit will create a separate process for
+       each test assembly in the project and run its tests there.
+   </ul>
+   
+<h4>Domain Usage</h4>
+<p>This dropdown list allows you to specify how tests are loaded into
+   AppDomains by NUnit. Three settings are defined:
+   <ul>
+   <li>The <b>Default</b> setting refers to the option selected by the user
+       on the Assembly Isolation page of the NUnit Settings Dialog.
+   <li><b>Single</b> means that all tests will run in a single test domain
+       created by NUnit. This was the way versions of NUnit prior to 2.4
+	   ran tests.
+   <li><b>Multiple</b> means that each test assembly is loaded into a
+       separate AppDomain. This setting is not available when Multiple
+	   processes are selected in the Process Model dropown.
+   </ul>
+   
+<h4>Configuration</h4>
+<p>This dropdown list allows you to select the particular configuration
+   within a project that is displayed in the bottom part of the dialog.
+   
+<h4>Edit Configs...</h4>
+<p>This button opens the  
+   <a href="configEditor.html">Configuration Editor</a>,
+   which allows you to add, delete or rename configs and set the
+   active configuration.
+
+<h3>General Tab</h3>
+
+<p>The General tab allows setting a number of options pertaining to the selected configuration, all of
+which will be stored in the NUnit project file as attributes of the <config> xml node.</p>
+
+<h4>Runtime</h4>
+<p>This dropdown allows you to select a particular runtime framework to be used
+   for loading and running tests under the current configuration. Currently,
+   only Microsoft .NET and Mono are supported. If <b>Any</b> is selected, the 
+   tests will be run under the same runtime that NUnit itself is currently using.
+
+<h4>Version</h4>
+<p>This ComboBox allows you to select the particular version of the runtime framework
+   to be used for loading and running tests under the current configuration. The
+   dropdown list contains entries for
+   <ul>
+   <li>Default
+   <li>1.0
+   <li>1.1
+   <li>2.0
+   <li>4.0
+   </ul>
+   
+<p>If you select "Default" the assemblies in the project are examined to determine  
+   the version that is required.
+   See <a href="runtimeSelection.html">Runtime Selection</a> for 
+   more information on how NUnit selects the version to be used.
+
+<p>In special cases, you may wish to enter a version number that is not listed
+   in the list box. You may specify the version using two, three or four
+   components. The version you provide will be saved as you enter it. Leaving
+   the text box blank is equivalent to selecting "Default." 
+   
+<p><b>Note:</b> Running tests under a different runtime or version from the one that NUnit
+   is currently using will force them to run in a separate process.
+   
+<p><b>Note:</b> To conform with normal usage, specifying Mono as the runtime
+   with "1.0" as the version results in use of the Mono 1.0 profile, equating
+   to version 1.1.4322.
+   
+<h4>ApplicationBase</h4>
+<p>The ApplicationBase defaults to the directory containing the project file. Beginning
+with NUnit 2.2.3, it may be set to any location that is desired.</p>
+
+<h4>Configuration File Name</h4>
+<p>The configuration file defaults to the name of the test project with the extension changed
+from .nunit to .config. The user may substitute another name.</p>
+
+<h4>PrivateBinPath</h4>
+<p>By default, the PrivateBinPath is generated from the assembly locations specified on the
+Assemblies Tab. For those applications requiring a different level of control, it may be
+specified manually or using this editor or placed in the configuration file.</p>
+
+<h3>Assemblies Tab</h3>
+
+<p>The assemblies tab contains the list of assemblies that form part of this test project.</p>
+
+<p>Note: Although the dialog shows the location of assemblies as absolute paths, they are always
+persisted in the NUnit project file as paths relative to the application base. This allows moving
+projects as a whole to a different directory location.</p>
+
+<div class="screenshot-left">
+<img src="img/assembliesTab.jpg"></div>
+
+<h4>Add...</h4>
+<p>Opens a dialog allowing adding an assembly to this configuration. If Visual
+Stuio support is enabled, you may also select and add a VS project.</p>
+
+<h4>Remove</h4>
+<p>After confirmation, removes the selected assembly from this configuration.</p>
+
+<h4>Assembly Path</h4>
+<p>This text box displays the full path to the selected assembly. You may edit
+the contents to change the path to the assembly.
+
+<h2>XML View</h2>
+
+<p>This view simply displays the XML from the project file, as seen here. You may
+edit the XML directly.</p>
+
+<div class="screenshot-left">
+<img src="img/xmlView.jpg"></div>
+
+<p><b>Note:</b> In this version of NUnit, the XML editor is somewhat primitive.
+Errors in XML formatting are caught and an error message displayed. However,
+the values of attributes are not validated as they are in the property-based
+view and it is possible to create a project file, which NUnit is unable to
+load. Improvements, including intellisense and better error handling, are
+planned in future versions of the Project Editor.
+
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li id="current"><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <DirectoryRef Id="bin" FileSource="bin">
+
+      <Component Id="nunit.exe" Guid="9845C9CA-2C57-4445-892D-1080FE6F29BD">
+        <File Id="nunit.exe" Name="nunit.exe" />
+        <File Id="nunit.config" Name="nunit.exe.config" />
+        <RegistryValue Root="HKCR"
+                       Key=".dll\OpenWithList\nunit.exe"
+                       Type="string"
+                       Value="" />
+        <RegistryValue Root="HKCR"
+                       Key="dllfile\shell\OpenWithNUnit"
+                       Action="write"
+                       Type="string"
+                       Value="Run &amp;Tests" />
+        <RegistryValue Root="HKCR"
+                       Key="dllfile\shell\OpenWithNUnit\command"
+                       Action="write"
+                       Type="string"
+                       Value="&quot;[#nunit.exe]&quot; &quot;%1&quot;" />
+        <RegistryValue Root="HKCR"
+                       Key=".nunit"
+                       Action="write"
+                       Type="string"
+                       Value="NUnitTestProject" />
+        <RegistryValue Root="HKCR"
+                       Key="NUnitTestProject"
+                       Action="write"
+                       Type="string"
+                       Value="NUnit Test Project" />
+        <RegistryValue Root="HKCR"
+                       Key="NUnitTestProject\DefaultIcon"
+                       Action="write"
+                       Type="string"
+                       Value="[#nunit.exe],0" />
+        <RegistryValue Root="HKCR"
+                       Key="NUnitTestProject\shell\Open"
+                       Action="write" Type="string"
+                       Value="&amp;Open" />
+        <RegistryValue Root="HKCR"
+                       Key="NUnitTestProject\shell\Open\command"
+                       Action="write"
+                       Type="string"
+                       Value="&quot;[#nunit.exe]&quot; &quot;%1&quot;" />
+      </Component>
+
+      <Component Id="nunit_x86" Guid="0F8FCF59-E264-4062-B0AB-B79ED1235BD9">
+        <File Id="nunit_x86.exe" Name="nunit-x86.exe" />
+        <File Id="nunit_x86.config" Name="nunit-x86.exe.config" />
+      </Component>
+
+      <Component Id="nunit_editor.exe">
+        <File Id="nunit_editor.exe" Name="nunit-editor.exe" />
+        <RegistryValue Root="HKCR"
+                       Key="NUnitTestProject\shell\Edit"
+                       Action="write" Type="string"
+                       Value="&amp;Edit" />
+        <RegistryValue Root="HKCR"
+                       Key="NUnitTestProject\shell\Edit\command"
+                       Action="write"
+                       Type="string"
+                     Value="&quot;[#nunit_editor.exe]&quot; &quot;%1&quot;" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="lib" FileSource="bin\lib">
+
+      <Component Id="nunit_gui_runner">
+        <File Id="nunit_gui_runner" Name="nunit-gui-runner.dll" />
+      </Component>
+
+      <Component Id="nunit.uikit">
+        <File Id="nunit.uikit" Name="nunit.uikit.dll" />
+        <RemoveFile Id="RemoveThumbnails_GUI" On="uninstall" Name="*" />
+      </Component>
+
+      <Component Id="nunit.uiexception.dll">
+        <File Id="nunit.uiexception.dll" Name="nunit.uiexception.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="Circles" FileSource="bin\lib\Images\Tree\Circles">
+
+      <Component Id="CirclesImageSet"
+                 Guid="90F2E35F-E65E-409d-ACE3-8A99E6D1369C">
+        <File Id="circles_skipped" Name="skipped.jpg" />
+        <File Id="circles_success" Name="success.jpg" />
+        <File Id="circles_failure" Name="failure.jpg" />
+        <File Id="circles_ignored" Name="ignored.jpg" />
+        <File Id="circles_inconclusive" Name="inconclusive.jpg" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="Classic" FileSource="bin\lib\Images\Tree\Classic">
+
+      <Component Id="ClassicImageSet"
+                 Guid="A5EE8820-8209-462a-9D49-58D4CE0347C3">
+        <File Id="classic_skipped" Name="skipped.jpg" />
+        <File Id="classic_success" Name="success.jpg" />
+        <File Id="classic_failure" Name="failure.jpg" />
+        <File Id="classic_ignored" Name="ignored.jpg" />
+        <File Id="classic_inconclusive" Name="inconclusive.jpg" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="Default" FileSource="bin\lib\Images\Tree\Default">
+
+      <Component Id="DefaultImageSet"
+                 Guid="76133AEB-8245-4e46-8C2D-FB9C3F0682C6">
+        <File Id="default_skipped" Name="skipped.png" />
+        <File Id="default_success" Name="success.png" />
+        <File Id="default_failure" Name="failure.png" />
+        <File Id="default_ignored" Name="ignored.png" />
+        <File Id="default_inconclusive" Name="inconclusive.png" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="VisualStudio" FileSource="bin\lib\Images\Tree\Visual Studio">
+
+      <Component Id="VisualStudioImageSet"
+                 Guid="8143B7BB-9B4C-4b25-81B3-4FAF0F14B3EF">
+        <File Id="vs_skipped" Name="skipped.png" />
+        <File Id="vs_success" Name="success.png" />
+        <File Id="vs_failure" Name="failure.png" />
+        <File Id="vs_ignored" Name="ignored.png" />
+        <File Id="vs_inconclusive.png" Name="inconclusive.png" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="tests" FileSource="bin\tests">
+
+      <Component Id="gui_tests"
+                 Guid="7AA78B1B-62AA-457c-BFCC-D9D661C9AE9E">
+        <File Id="nunit.uikit.tests" Name="nunit.uikit.tests.dll" />
+        <File Id="nunit.uiexception.tests.dll"               Name="nunit.uiexception.tests.dll" />
+        <File Id="gui.tests" Name="nunit-gui.tests.dll" />
+        <File Id="nunit_editor_tests" Name="nunit-editor.tests.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="NUnitMenu">
+
+      <!-- ICE69 Error on this component can be ignored -->
+      <Component Id="MenuShortcut_NUnit">
+        <Shortcut Id="MenuShortcut_NUnit"
+                  Name="NUnit"
+                  Target="[#nunit.exe]"
+                  Advertise="no"
+                  Icon="nunit_icon.exe"
+                  IconIndex="0"
+                  Show="normal"
+                  WorkingDirectory="bin" />
+        <RegistryValue Root = "HKCU"
+          Key="Software\[Manufacturer]\NUnit\$(var.NominalVersion)\Shortcuts"
+          Name="NUnitShortcut" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+
+      <!-- ICE69 Error on this component can be ignored -->
+      <Component Id="EditorMenuShortcut">
+        <Shortcut Id="EditorMenuShortcut"
+                  ShortName="Editor"
+                  Name="Project Editor"
+                  Target="[#nunit_editor.exe]"
+                  Advertise="no"
+                  Icon="nunit_icon.exe"
+                  IconIndex="0"
+                  Show="normal"
+                  WorkingDirectory="bin" />
+        <RegistryValue Root = "HKCU"
+          Key="Software\[Manufacturer]\NUnit\$(var.NominalVersion)\Shortcuts"
+          Name="ProjectEditorShortcut" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="RunUnderMenu">
+
+      <Component Id="RunUnderMenu">
+        <RemoveFolder Id="RunUnderMenu" On="uninstall"/>
+        <RegistryValue Root="HKMU"
+          Key="Software\[Manufacturer]\NUnit\$(var.NominalVersion)\Shortcuts"
+          Name="RunUnderMenu" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+
+      <!-- ICE69 Error on this component can be ignored -->
+      <Component Id="MenuShortcut_2.0">
+        <Condition>FRAMEWORK20</Condition>
+        <Shortcut Id="MenuShortcut_2.0"
+                  Name="NUnit (.NET)"
+                  Target="[#nunit.exe]"
+                  Advertise="no"
+                  Icon="nunit_icon.exe"
+                  IconIndex="0"
+                  Show="normal"
+                  WorkingDirectory="bin" />
+        <RegistryValue Root = "HKCU"
+          Key="Software\[Manufacturer]\NUnit\$(var.NominalVersion)\Shortcuts"
+          Name="NUnitUnderNetShortcut" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
+      <Component Id="MenuShortcut_Mono_2.0">
+        <Condition>MONODIRECTORY</Condition>
+        <Shortcut Id="MenuShortcut_Mono_2.0"
+                  Name="NUnit (Mono)"
+                  Target="[MONODIRECTORY]bin\mono.exe"
+                  Arguments="nunit.exe"
+                  Advertise="no"
+                  Icon="nunit_icon.exe"
+                  IconIndex="0"
+                  Show="normal"
+                  WorkingDirectory="bin" />
+        <RegistryValue Root = "HKCU"
+          Key="Software\[Manufacturer]\NUnit\$(var.NominalVersion)\Shortcuts"
+          Name="NUnitUnderMonoShortcut" Type="integer" Value="1" />
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+</Wix>

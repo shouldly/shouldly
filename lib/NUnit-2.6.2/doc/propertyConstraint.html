@@ -1,0 +1,152 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - PropertyConstraint</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Property Constraints (NUnit 2.4.2)</h2>
+
+<p>Property constraints are used to test for the existence of a named property and
+optionally to test its value. It may also be used as a prefix for other constraints
+to be applied to the property.
+
+<h3>PropertyExistsConstraint</h3>
+
+<h4>Action</h4>
+
+<p>Tests for the existence of a named property on an object.
+
+<h4>Constructor</h4>
+
+<div class="code"><pre>
+PropertyExistsConstraint(string name)
+</pre></div>
+
+<h4>Syntax</h4>
+
+<div class="code"><pre>
+Has.Property( string )
+</pre></div>
+
+<h4>Examples of Use</h4>
+
+<div class="code"><pre>
+Assert.That( someObject, Has.Property( "Version" ) );
+</pre></div>
+
+<h3>PropertyConstraint</h3>
+
+<h4>Action</h4>
+
+<p>Tests for the existence of a named property on an object and causes subsequent
+allows tests to be made on the property value.
+
+<h4>Constructor</h4>
+
+<div class="code"><pre>
+PropertyConstraint(string name)
+</pre></div>
+
+<h4>Syntax</h4>
+
+<div class="code"><pre>
+Has.Property(string)...
+</pre></div>
+
+<h4>Examples of Use</h4>
+
+<div class="code"><pre>
+Assert.That(someObject, Has.Property("Version").EqualTo("2.0"));
+Assert.That(collection, Has.Property("Count").GreaterThan(10));
+</pre></div>
+
+<h3>Special Properties</h3>
+
+<p>Certain common properties are known to NUnit and 
+may be tested using the following syntax...
+
+<div class="code"><pre>
+Has.Length...
+Has.Count...
+Has.Message...
+Has.InnerException...
+</pre></div>
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li id="current"><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

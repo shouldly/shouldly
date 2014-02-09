@@ -1,0 +1,329 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - Exception</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<script language="JavaScript" src="codeFuncs.js" ></script> <!-- Do it this way for IE -->
+
+<h3>ExpectedExceptionAttribute (NUnit 2.0 plus Updates)</h3>
+
+<p>This is the way to specify that the execution of a test will throw an 
+	exception. This attribute has a number of positional and
+	named parameters, which we will discuss in separate sections
+	according to the purpose they serve.</p>
+	
+<h4>Specifying the Expected Exception Type</h4>
+
+<p>The original attribute, introduced with NUnit 2.0 took a single
+argument giving the exact type of the expected exception. For example...</p>
+
+
+<div class="code"><pre>[ExpectedException( typeof( ArgumentException ) )]
+public void TestMethod()
+{
+...</pre></div>
+
+<p>Beginning with NUnit 2.2.4, it became possible to specify the type
+of exception as a string, avoiding the need for a reference to the
+defining assembly...</p>
+
+<div class="code"><pre>[ExpectedException( "System.ArgumentException" ) )]
+public void TestMethod()
+{
+...</pre></div>
+
+<p>The above two examples function identically: the test only succeeds if a
+System.Argument exception is thrown.</p>
+
+<h4>Specifying the Expected Message</h4>
+
+<p>NUnit 2.1 introduced a constructor with a second argument, specifying the
+exact text of the message property of the exception. After NUnit 2.2.4, the
+same extension was made to the constructor taking a string argument. With
+NUnit 2.4, these arguments are marked obsolete, and a named parameter
+is provided instead...</p>
+
+<div class="code" style="width: 44em"><pre>// Obsolete form:
+[ExpectedException( typeof( ArgumentException ), "expected message" )]
+[ExpectedException( "System.ArgumentException", "expected message" )]
+
+// Prefered form:
+[ExpectedException( typeof( ArgumentException ), ExpectedMessage="expected message" )]
+[ExpectedException( "System.ArgumentException", ExpectedMessage="expected message" )]</pre></div>
+
+<p>With NUnit 2.4, it is possible to specify additional tests on the
+exception message, beyond a simple exact match. This is done using the 
+MatchType named parameter, whose argument is an enumeration, defined as
+follows:</p>
+   
+<div class="code">
+<pre>public enum MessageMatch
+{
+    /// Expect an exact match
+    Exact,	
+    /// Expect a message containing the parameter string
+    Contains,
+    /// Match the regular expression provided as a parameter
+    Regex,
+    /// Expect a message starting with the parameter string
+    StartsWith
+}</pre></div>
+
+<p>The following example is for a test that passes only if an ArgumentException
+with a message containing "unspecified" is received.</p>
+
+<div class="code" style="width: 57em">
+<pre>[ExpectedException( typeof( ArgumentException), ExpectedMessage="unspecified", MatchType=MessageMatch.Contains )]
+public void TestMethod()
+{
+...</pre></div>
+
+<p>If MatchType is not specified, an exact match is used as before.</p>
+
+<h4>Specifying a Custom Error Message</h4>
+
+<p>With NUnit 2.4, it is possible to specify a custom message to be
+displayed if the ExpectedException attribute is not satisfied. This
+is done through the UserMessage named parameter...</p>
+
+<div class="code" style="width: 41em">
+<pre>[ExpectedException( typeof( ArgumentException ), UserMessage="Custom message" )]
+public void TestMethod()
+{
+...</pre>
+</div>
+
+<h4>Handling the Exception in Code</h4>
+
+<p>If the processing required for an exception is too complex to express
+in the attribute declaration, the normal practice is to process it in the
+test code using a try/catch block. As an alternative, NUnit 2.4 allows
+designating a method that will be called to process the exception. This
+is particularly useful when multiple exceptions need to be processed
+in the same way.</p>
+
+<p>An common exception handler may be designated by implementing the
+<b>IExpectExceptionInterface</b>, which is defined as follows...</p>
+
+<div class="code">
+<pre>public interface IExpectException
+{
+    void HandleException( System.Exception ex );
+}</pre>
+</div>
+
+<p>The exception handler is only called for methods marked with
+the <b>ExpectedException</b> attribute. If all checks - including
+the type of the exception - are to be performed in code, the
+attribute may be specified without any arguments in order to
+indicate that an exception is expected.</p>
+
+<p>An handler may be designated for a particular method
+using the <b>Handler</b> named parameter.</p>
+
+<div class="code"><pre>[ExpectedException( Handler="HandlerMethod" )]
+public void TestMethod()
+{
+...
+}
+
+public void HandlerMethod( System.Exception ex )
+{
+...
+}</pre></div>
+
+<p>This technique may be
+used without implementing <b>IExpectException</b> or in
+combination with it. In the latter case, the designated handler
+applies to any method that specifies it, while the normal
+exception handler applies to any other methods that specify
+an <b>ExpectedException</b>.</p>
+
+<p>However it is specified, the handler method should examine the exception and 
+<b>Assert</b> on whatever properties are relevant. Any resulting failure message 
+will then be consistent in format with other assertions performed in the tests.</p>
+
+
+<h4>Example:</h4>
+
+<div class="code">
+
+<div class="langFilter">
+	<a href="javascript:Show('DD1')" onmouseover="Show('DD1')"><img src="img/langFilter.gif" width="14" height="14" alt="Language Filter"></a>
+	<div id="DD1" class="dropdown" style="display: none" onclick="Hide('DD1')">
+		<a href="javascript:ShowCS()">C#</a><br>
+		<a href="javascript:ShowVB()">VB</a><br>
+		<a href="javascript:ShowMC()">C++</a><br>
+	</div>
+</div>
+
+<pre class="cs">namespace NUnit.Tests
+{
+  using System;
+  using NUnit.Framework;
+
+  [TestFixture]
+  public class SuccessTests
+  {
+    [Test]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void ExpectAnExceptionByType()
+    { /* ... */ }
+
+    [Test]
+    [ExpectedException("System.InvalidOperationException")]
+    public void ExpectAnExceptionByName()
+    { /* ... */ }
+  }
+}
+</pre>
+
+<pre class="vb">Imports System
+Imports Nunit.Framework
+
+Namespace Nunit.Tests
+
+  &lt;TestFixture()&gt; Public Class SuccessTests
+    &lt;Test(), ExpectedException(GetType(Exception))&gt;
+      Public Sub ExpectAnExceptionByType()
+    &#39; ...
+    End Sub
+
+  &lt;TestFixture()&gt; Public Class SuccessTests
+    &lt;Test(), ExpectedException("System.Exception")&gt;
+      Public Sub ExpectAnExceptionByName()
+    &#39; ...
+    End Sub
+  End Class
+End Namespace
+</pre>
+
+<pre class="mc">#using &lt;Nunit.Framework.dll&gt;
+using namespace System;
+using namespace NUnit::Framework;
+
+namespace NUnitTests
+{
+  [TestFixture]
+  public __gc class SuccessTests
+  {
+    [Test]
+    [ExpectedException(__typeof(InvalidOperationException))]
+    void ExpectAnExceptionByType();
+
+    [Test]
+    [ExpectedException(S"SystemInvalidOperationException")]
+    void ExpectAnExceptionByName();
+  };
+}
+
+#include &quot;cppsample.h&quot;
+
+namespace NUnitTests {
+  // ...
+}
+</pre>
+
+</div>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li id="current"><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li><a href="testCase.html">TestCase</a></li>
+<li><a href="testCaseSource.html">TestCaseSource</a></li>
+<li><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - TestCase</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<script language="JavaScript" src="codeFuncs.js" ></script> <!-- Do it this way for IE -->
+
+<h3>TestCaseAttribute (NUnit 2.5)</h3>
+
+<p><b>TestCaseAttribute</b> serves the dual purpose of marking a method with
+   parameters as a test method and providing inline data to be used when
+   invoking that method. Here is an example of a test being run three
+   times, with three different sets of data:
+   
+<div class="code">
+<pre>[TestCase(12,3,4)]
+[TestCase(12,2,6)]
+[TestCase(12,4,3)]
+public void DivideTest(int n, int d, int q)
+{
+  Assert.AreEqual( q, n / d );
+}
+</pre>
+</div>
+
+<p><b>Note:</b> Because arguments to .NET attributes are limited in terms of the 
+Types that may be used, NUnit will make some attempt to convert the supplied
+values using <b>Convert.ChangeType()</b> before supplying it to the test.
+
+<p><b>TestCaseAttribute</b> may appear one or more times on a test method,
+which may also carry other attributes providing test data, such as the
+<a href="factories.html">FactoriesAttribute</a>.
+The method may optionally be marked with the 
+<a href="test.html">TestAttribute</a> as well.
+
+<p>By using the named parameter <b>Result</b> this test set may be simplified
+further:
+
+<div class="code">
+<pre>[TestCase(12,3, Result=4)]
+[TestCase(12,2, Result=6)]
+[TestCase(12,4, Result=3)]
+public int DivideTest(int n, int d)
+{
+  return( n / d );
+}
+</pre>
+</div>
+
+<p>In the above example, NUnit checks that the return
+value of the method is equal to the expected result provided on the attribut
+
+<p><b>TestCaseAttribute</b> supports a number of additional 
+named parameters, which may be used as follows:
+
+<dl>
+<dt><b>Description</b>
+<dd>Sets the description property of the test
+<dt><b>ExpectedException</b>
+<dd>Specifies a the Type of an exception that should be thrown by this invocation
+<dt><b>ExpectedExceptionName</b>
+<dd>Specifies a the FullName of an exception that should be thrown by this invocation
+<dt><b>ExpectedMessage</b>
+<dd>Specifies the message text of the expected exception
+<dt><b>Explicit</b>
+<dd>Set to true in order to make the individual test case Explicit. Use <b>Reason</b> to explain why.
+<dt><b>Ignore</b>
+<dd>Set to true in order to ignore the individual test case. Use <b>Reason</b> to explain why.
+<dt><b>IgnoreReason</b>
+<dd>Causes this test case to be ignored and specifies the reason. Equivalent to <b>Ignore</b> combined with <b>Reason</b>. This attribute will be removed in a later release.
+<dt><b>MatchType</b>
+<dd>A <b>MessageMatch</b> enum value indicating how to test the expected message (See <a href="exception.html">ExpectedExceptionAttribute</a>)
+<dt><b>Reason</b>
+<dd>Specifies the reason for not running this test case. Use in conjunction with <b>Ignore</b> or <b>Explicit</b>.
+<dt><b>Result</b>
+<dd>The expected result to be returned from the method, which must have
+a compatible return type.
+<dt><b>TestName</b>
+<dd>Provides a name for the test. If not specified, a name is generated based on 
+the method name and the arguments provided.
+</dl>
+
+<h3>Order of Execution</h3>
+
+<p>In NUnit 2.5, individual test cases are sorted alphabetically and executed in
+   that order. Beginning with NUnit 2.5.1, the individual cases are not sorted, but are
+   executed in the order in which NUnit discovers them. This order does <b>not</b>
+   follow the lexical order of the attributes and will often vary between different
+   compilers or different versions of the CLR.
+   
+<p>As a result, when <b>TestCaseAttribute</b> appears multiple times on a method
+   or when other data-providing attributes are used in combination with 
+   <b>TestCaseAttribute</b>, the order of the test cases is undefined.
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<ul>
+<li><a href="actionAttributes.html">Action&nbsp;Attributes</a></li>
+<li><a href="category.html">Category</a></li>
+<li><a href="combinatorial.html">Combinatorial</a></li>
+<li><a href="culture.html">Culture</a></li>
+<li><a href="datapoint.html">Datapoint(s)</a></li>
+<li><a href="description.html">Description</a></li>
+<li><a href="exception.html">Exception</a></li>
+<li><a href="explicit.html">Explicit</a></li>
+<li><a href="ignore.html">Ignore</a></li>
+<li><a href="maxtime.html">Maxtime</a></li>
+<li><a href="pairwise.html">Pairwise</a></li>
+<li><a href="platform.html">Platform</a></li>
+<li><a href="property.html">Property</a></li>
+<li><a href="random.html">Random</a></li>
+<li><a href="range.html">Range</a></li>
+<li><a href="repeat.html">Repeat</a></li>
+<li><a href="requiredAddin.html">RequiredAddin</a></li>
+<li><a href="requiresMTA.html">Requires&nbsp;MTA</a></li>
+<li><a href="requiresSTA.html">Requires&nbsp;STA</a></li>
+<li><a href="requiresThread.html">Requires&nbsp;Thread</a></li>
+<li><a href="sequential.html">Sequential</a></li>
+<li><a href="setCulture.html">SetCulture</a></li>
+<li><a href="setUICulture.html">SetUICulture</a></li>
+<li><a href="setup.html">Setup</a></li>
+<li><a href="setupFixture.html">SetupFixture</a></li>
+<li><a href="suite.html">Suite</a></li>
+<li><a href="teardown.html">Teardown</a></li>
+<li><a href="test.html">Test</a></li>
+<li id="current"><a href="testCase.html">TestCase</a></li>
+<li><a href="testCaseSource.html">TestCaseSource</a></li>
+<li><a href="testFixture.html">TestFixture</a></li>
+<li><a href="fixtureSetup.html">TestFixtureSetUp</a></li>
+<li><a href="fixtureTeardown.html">TestFixtureTearDown</a></li>
+<li><a href="theory.html">Theory</a></li>
+<li><a href="timeout.html">Timeout</a></li>
+<li><a href="values.html">Values</a></li>
+<li><a href="valueSource.html">ValueSource</a></li>
+</ul>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

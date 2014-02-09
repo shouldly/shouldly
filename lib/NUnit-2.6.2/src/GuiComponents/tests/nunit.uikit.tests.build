@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="NUnit.UiKit.Tests" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="AddConfigurationDialogTests.cs"/>
+        <include name="ErrorDisplayTests.cs"/>
+        <include name="LongRunningOperationDisplayTests.cs"/>
+        <include name="ProgressBarTests.cs"/>
+        <include name="RecentFileMenuHandlerTests.cs"/>
+        <include name="StatusBarTests.cs"/>
+        <include name="TestSuiteTreeNodeTests.cs"/>
+        <include name="TestSuiteTreeViewFixture.cs"/>
+        <include name="TestTreeTests.cs"/>
+        <include name="VisualStateTests.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.test.dir}/nunit.uikit.tests.dll" 
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="System.Drawing.dll"/>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.util.dll"/>
+        <include name="${current.lib.dir}/nunit.uikit.dll"/>
+        <include name="${current.lib.dir}/nunit.uiexception.dll"/>
+        <include name="${current.test.dir}/test-utilities.dll"/>
+        <include name="${current.test.dir}/mock-assembly.dll"/>
+        <include name="${current.test.dir}/notestfixtures-assembly.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/GuiComponents/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="nunit.uikit.tests.csproj"/>
+        <include name="nunit.uikit.tests.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

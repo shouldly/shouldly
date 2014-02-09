@@ -1,0 +1,368 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - CollectionConstraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Collection Constraints (NUnit 2.4 / 2.5)</h2>
+
+<p>Collection constraints perform tests that are specific to collections.
+   The following collection constraints are provided. Before NUnit 2.4.6,
+   these constraints only operated on true Collections. Beginning with 2.4.6,
+   they can work with any object that implements IEnumerable.
+   
+<p>Beginning with NUnit 2.4.2, use of an improper argument type caused tests
+   to fail. Later releases give an error rather than a failure, so that negated
+   constraints will not appear to succeed. 
+   
+<p>For example, both of the following statements give an error in later releases, 
+   but the second would have succeeded in earlier versions of NUnit.
+   
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+
+Assert.That( 5, Is.SubsetOf( iarray ) );  // Fails in early releases
+Assert.That( 5, Is.Not.SubsetOf( iarray ) ); /
+</pre></div>
+
+<h3>AllItemsConstraint</h3>
+
+<h4>Action</h4>
+<p>Applies a constraint to each item in a collection, succeeding only if all of them succeed.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+AllItemsConstraint(Constraint itemConstraint)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.All...
+Has.All...
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+string[] sarray = new string[] { "a", "b", "c" };
+
+Assert.That( iarray, Is.All.Not.Null );
+Assert.That( sarray, Is.All.InstanceOf<string>() );
+Assert.That( iarray, Is.All.GreaterThan(0) );
+Assert.That( iarray, Has.All.GreaterThan(0) );
+</pre></div>
+
+<h3>SomeItemsConstraint</h3>
+
+<h4>Action</h4>
+<p>Applies a constraint to each item in a collection, succeeding if at least one of them succeeds.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+SomeItemsConstraint(Constraint itemConstraint)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Has.Some...
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+string[] sarray = new string[] { "a", "b", "c" };
+
+Assert.That( iarray, Has.Some.GreaterThan(2) );
+Assert.That( sarray, Has.Some.Length(1) );
+</pre></div>
+
+<h3>ExactCountConstraint</h3>
+
+<h4>Action</h4>
+<p>Applies a constraint to each item in a collection, succeeding if the specified number of items succeed.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+ExactCountConstraint(int expectedCount, Constraint itemConstraint)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Has.Exactly(int expectedCount)...
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] array = new int[] { 1, 2, 3 };
+
+Assert.That( array, Has.Exactly(1).EqualTo(3) );
+Assert.That( array, Has.Exactly(2).GreaterThan(1) );
+Assert.That( array, Has.Exactly(3).LessThan(100) );
+</pre></div>
+
+<h3>NoItemConstraint</h3>
+
+<h4>Action</h4>
+<p>Applies a constraint to each item in a collection, succeeding only if all of them fail.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+NoItemConstraint(Constraint itemConstraint)
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Has.None...
+Has.No...
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+string[] sarray = new string[] { "a", "b", "c" };
+
+Assert.That( iarray, Has.None.Null );
+Assert.That( iarray, Has.No.Null );
+Assert.That( sarray, Has.None.EqualTo("d") );
+Assert.That( iarray, Has.None.LessThan(0) );
+</pre></div>
+
+<h3>UniqueItemsConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a collection contains only unique items.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+UniqueItemsConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.Unique
+</pre></div>
+
+<h4>Example of Use</h4>
+<div class="code"><pre>
+string[] sarray = new string[] { "a", "b", "c" };
+
+Assert.That( sarray, Is.Unique );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li>??
+</ol>
+
+<h3>CollectionContainsConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that a collection contains an object. 
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+CollectionContainsConstraint( object )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Has.Member( object )
+Contains.Item( object )
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+string[] sarray = new string[] { "a", "b", "c" };
+
+Assert.That( iarray, Has.Member(3) );
+Assert.That( sarray, Has.Member("b") );
+Assert.That( sarray, Contains.Item("c") );
+Assert.That( sarray, Has.No.Member("x") );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li>For references, <b>Has.Member</b> uses object equality to find a member in a 
+collection. To check for an object equal to an item the collection, use 
+<b>Has.Some.EqualTo(...)</b>.
+</ol>
+
+<h3>CollectionEquivalentConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that two collections are equivalent - that they contain 
+the same items, in any order.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+CollectionEquivalentConstraint( IEnumerable other )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.EquivalentTo( IEnumerable other )
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+string[] sarray = new string[] { "a", "b", "c" };
+
+Assert.That( new string[] { "c", "a", "b" }, Is.EquivalentTo( sarray ) );
+Assert.That( new int[] { 1, 2, 2 }, Is.Not.EquivalentTo( iarray ) );
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li>To compare collections for equality, use Is.EqualTo().
+</ol>
+
+<h3>CollectionSubsetConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one collection is a subset of another.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+CollectionSubsetConstraint( ICollection )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.SubsetOf( IEnumerable )
+</pre></div>
+
+<h4>Example of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+
+Assert.That( new int[] { 1, 3 }, Is.SubsetOf( iarray ) );
+</pre></div>
+
+<h3>CollectionOrderedConstraint (NUnit 2.5)</h3>
+
+<h4>Action</h4>
+<p>Tests that a collection is ordered.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+CollectionOrderedConstraint()
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.Ordered
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...Descending
+...By(string propertyName)
+...Using(IComparer comparer)
+...Using<T>(IComparer&lt;T&gt; comparer)
+...Using<T>(Comparison&lt;T&gt; comparer)
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+int[] iarray = new int[] { 1, 2, 3 };
+string[] sarray = new string[] { "c", "b", "a" };
+string[] sarray2 = new string[] ( "a", "aa", "aaa" );
+
+Assert.That( iarray, Is.Ordered );
+Assert.That( sarray, Is.Ordered.Descending );
+Assert.That( sarray2, Is.Ordered.By("Length");
+</pre></div>
+
+<h4>Notes</h4>
+<ol>
+<li>Modifiers may be combined and may appear in any order. If the
+same modifier is used more than once, the result is undefined.
+<li>The syntax of Is.Ordered has changed from earlier betas.
+</ol>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li id="current"><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

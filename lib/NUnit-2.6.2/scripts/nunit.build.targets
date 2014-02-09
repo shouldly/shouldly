@@ -1,0 +1,478 @@
+<?xml version="1.0"?>
+<project name="NUnit" default="build" basedir="..">
+
+<!-- ***************************************************************** -->
+<!-- This script has been tested with the NAnt 0.92 release.           -->
+<!--                                                                   -->
+<!-- At least one of the supported runtimes and sdk must be installed. -->
+<!-- In order to build the msi, WiX 2.0 and the WiX tasks for NAnt     -->
+<!-- are required. To run the test coverage target, NCover is          -->
+<!-- required.                                                         -->
+<!--                                                                   -->
+<!-- Currently, the .NET 1.0 builds of the GUI runner cannot be run    -->
+<!-- successfully. However, the .NET 1.1 builds may be run under 1.0.  -->
+<!--                                                                   -->
+<!-- ***************************************************************** -->
+
+<!-- ***************************************************************** -->
+<!-- ***  Include common targets and initialize property settings  *** -->
+<!-- ***************************************************************** -->
+
+  <include buildfile="scripts/nunit.common.targets"/>
+
+  <call target="set-common-properties"/>
+
+<!-- ***************************************************************** -->
+<!-- ***             Targets that clean directories                *** -->
+<!-- ***************************************************************** -->
+
+  <target name="clean" depends="set-build-dir"
+      description="Removes output created by the current build config">
+
+    <delete dir="${current.build.dir}" 
+      if="${directory::exists( current.build.dir )}"/>
+
+    <delete file="src/GeneratedAssemblyInfo.cs"
+      if="${file::exists( 'src/GeneratedAssemblyInfo.cs' )}"/>
+
+  </target>
+
+  <target name="clean-all" 
+      description="Removes output created by all build configs">
+ 
+    <delete dir="${project.build.dir}" 
+      if="${directory::exists( project.build.dir )}"/>
+
+    <delete file="src/GeneratedAssemblyInfo.cs"
+      if="${file::exists( 'src/GeneratedAssemblyInfo.cs' )}"/>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***              Targets that generate code                   *** -->
+<!-- ***************************************************************** -->
+
+  <!-- Generate AssemblyInfo for this build -->
+  <target name="gen-assembly-info">
+
+    <asminfo output="src/GeneratedAssemblyInfo.cs" language="CSharp">
+      <imports>
+        <import namespace="System.Reflection"/>
+      </imports>
+      <attributes>
+        <attribute type="AssemblyCompanyAttribute" value="NUnit.org"/>
+        <attribute type="AssemblyProductAttribute" value="NUnit"/>
+        <attribute type="AssemblyCopyrightAttribute"
+          value="Copyright (C) 2002-2012 Charlie Poole.&#xD;&#xA;Copyright (C) 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov.&#xD;&#xA;Copyright (C) 2000-2002 Philip Craig.&#xD;&#xA;All Rights Reserved."/>
+        <attribute type="AssemblyTrademarkAttribute" value="NUnit is a trademark of NUnit.org"/>
+        <attribute type="AssemblyVersionAttribute" value="${internal.version}"/>
+        <attribute type="AssemblyInformationalVersionAttribute" value="${internal.version}"/>
+        <attribute type="AssemblyConfigurationAttribute" value="${package.configuration}"/>
+      </attributes>
+    </asminfo>
+
+  </target>
+
+
+<!-- ***************************************************************** -->
+<!-- ***              Targets that perform builds                  *** -->
+<!-- ***************************************************************** -->
+
+  <!-- Build NUnit for default runtime version and config -->
+  <target name="build" depends="build-init"
+    description="Build NUnit for default runtime version and config">
+
+    <echo message="*"/>
+    <echo message="* Starting ${runtime.config} ${build.config} build"/>
+    <echo message="*"/>
+
+    <!-- Copy key file to base directory, so second level files can access it -->
+    <copy file="${project.base.dir}/nunit.snk" todir="${project.build.dir}"/>-->
+
+    <!-- Copy lib files to current lib dir -->
+    <copy todir="${current.lib.dir}" flatten="true">
+      <fileset basedir="${project.lib.dir}">
+        <include name="*"/>
+        <include name="3.5/*" if="${runtime.version >= '3.5'}"/>
+      </fileset>
+    </copy>
+
+    <!-- Build NUnit components and tests -->
+    <nant target="build">
+      <buildfiles refid="project.buildfiles"/>
+    </nant>
+
+    <!-- Build GUI if runtime is 2.0 or greater -->
+    <call target="build-gui" if="${runtime.version >= '2.0'}" />
+
+    <!-- Copy test project for this runtime framework -->
+    <property name="runtime.testproj" value="NUnitTests.v2.nunit"
+      if="${runtime.version >= '2.0'}"/>
+    <property name="runtime.testproj" value="NUnitTests.v1.nunit"
+      unless="${runtime.version >= '2.0'}"/>
+
+    <copy file="${project.base.dir}/${runtime.testproj}"
+        tofile="${current.build.dir}/NUnitTests.nunit">
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+
+    <!-- Copy other files for running tests -->
+    <copy todir="${current.build.dir}" flatten="true">
+      <fileset basedir="${project.base.dir}">
+        <include name="NUnitTests.config" />
+        <include name="NUnitFitTests.html" />
+        <include name="clr.bat" />
+        <include name="src/PNUnit/*.conf" />
+        <include name="src/PNUnit/runpnunit.bat" />
+      </fileset>
+    </copy>
+
+  </target>
+
+  <!-- Build the Gui -->
+  <target name="build-gui">
+
+    <fail unless="${runtime.version >= '2.0'}" 
+      message="Runtime 2.0 or greater is required to build the NUnit GUI" />
+
+    <nant target="build">
+      <buildfiles refid="gui.buildfiles"/>
+    </nant>
+
+  </target>
+
+  <!-- Build current config for all available runtimes -->
+  <target name="build-all"
+      description="Build current config for all available runtimes">
+
+    <foreach item="String" delim="," 
+        property="framework" in="${installed.frameworks}">
+
+      <call target="set-${framework}-runtime-config"/>
+      <call target="build"/>
+
+    </foreach>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ***                 Targets for running tests                 *** -->
+<!-- ***************************************************************** -->
+
+  <target name="test" depends="build,run-test"
+    description="Build and run tests for selected config and runtime"/>
+
+  <target name="run-test"
+      description="Run tests for selected config and runtime (no rebuild)">
+
+    <echo message="*"/>
+    <echo message="* Testing ${runtime.config} ${build.config} build"/>
+    <echo message="*    Running under ${nant.settings.currentframework}"/>
+    <echo message="*"/>
+
+    <!-- We use exec rather than the nunit2 task because we are testing
+         a new build of NUnit which is likely not to be included in the Nant build -->
+    <!-- Mono currently has a SIGSEGV fault if we run in a single AppDomain -->
+
+    <property name="result.file" 
+      value="TestResult-${nant.settings.currentframework}"/>
+    <exec basedir="${current.build.dir}"
+      workingdir="${current.build.dir}" 
+	  program="nunit-console.exe" 
+      managed="strict"
+	  commandline="NUnitTests.nunit ${nunit.options} -xml:${result.file}.xml" />
+
+  </target>
+
+  <target name="test-coverage" depends="build"
+    description="Run tests for a build under NCover to get coverage results">
+
+    <echo message="*"/>
+    <echo message="* Starting ${runtime.config} ${build.config} test coverage run"/>
+    <echo message="*"/>
+
+    <property name="ncover.options" 
+      value="//a nunit.framework;nunit.core;nunit.extensions;nunit.util;nunit.console;nunit.uikit;nunit-gui-runner"/>
+
+    <!-- We use exec rather than the nunit2 task because we are testing
+         a new build of NUnit which is likely not to be included in the Nant build -->
+    <exec basedir="${ncover.dir}"
+          workingdir="${current.build.dir}" 
+	  program="NCover.Console.exe" 
+      managed="strict"
+	  commandline="nunit-console.exe NUnitTests.nunit ${nunit.options} ${ncover.options}"
+	if="${build.win32}" />
+
+    <!-- Mono currently has a SIGSEGV fault if we run in a single AppDomain -->
+         a new build of NUnit which is likely not to be included in the Nant build -->
+    <exec basedir="${ncover.dir}"
+          workingdir="${current.build.dir}" 
+	  program="NCover.Console.exe" 
+          managed="strict"
+	  commandline="nunit-console.exe NUnitTests.nunit ${nunit.options}"
+	unless="${build.win32}" />
+
+  </target>
+
+  <target name="test-all"
+      description="Build and test all runtimes for current config">
+
+    <foreach item="String" delim="," 
+        property="framework" in="${installed.frameworks}">
+
+      <call target="set-${framework}-runtime-config"/>
+      <call target="test" />
+
+    </foreach>
+
+  </target>
+
+  <target name="test-each-runtime" depends="build"
+      description="Run tests for the current build under each runtime">
+
+    <foreach item="String" delim=","
+        property="framework" in="${supported.test.platforms}">
+
+      <if test="${framework::exists( framework )}">
+        <property name="nant.settings.currentframework"
+            value="${framework}" />
+        <call target="run-test" failonerror="false" />
+      </if>
+
+    </foreach>
+
+    <property name="nant.settings.currentframework" value="${runtime.config}" />
+
+    <echo message="*" />
+    <echo message="* Restored runtime to ${nant.settings.currentframework}" />
+    <echo message="*" />
+
+  </target>
+
+  <target name="test-under-net-1.0">
+    <if test="${framework::exists('net-1.0')}">
+      <property name="nant.settings.currentframework" value="net-1.0"/>
+      <call target="run-test"/>
+      <property name="nant.settings.currentframework" value="${runtime.config}" />
+    </if>
+  </target>
+
+  <target name="test-all-under-each"
+      description="Build all runtimes and test the builds under each runtime.">
+
+    <foreach item="String" delim="," 
+        property="framework" in="${installed.frameworks}">
+
+      <call target="set-${framework}-runtime-config"/>
+      <call target="test-each-runtime" failonerror="false"/>
+
+    </foreach>
+
+  </target>
+
+  <target name="nunit2-test" depends="build"
+    description="Run tests for a build using the nunit2 task">
+
+    <echo message="*"/>
+    <echo message="* Starting ${runtime.config} ${build.config} test run"/>
+    <echo message="*"/>
+
+    <nunit2>
+      <formatter type="Plain"/>
+      <test assemblyname="${current.build.dir}/nunit.framework.tests.dll"/>
+    </nunit2>
+  </target>
+
+  <target name="timing-test" depends="build"
+    description="Run timing tests (long)">
+
+    <echo message="*"/>
+    <echo message="* Starting ${runtime.config} ${build.config} timing tests"/>
+    <echo message="*"/>
+    <echo message="* WARNING: Test may take some time to run"/>
+    <echo message="*"/>
+
+    <exec basedir="${current.build.dir}" 
+      workingdir="${current.build.dir}" 
+      program="nunit-console.exe" 
+      commandline="timing-tests.dll"/>
+
+  </target>
+
+  <target name="gui-test" depends="build"
+    description="Run tests for a build using gui runner">
+
+    <echo message="*"/>
+    <echo message="* Starting ${runtime.config} ${build.config} gui test run"/>
+    <echo message="*"/>
+
+    <exec basedir="${current.build.dir}" 
+      workingdir="${current.build.dir}" 
+      program="nunit.exe" 
+      managed="strict"
+      commandline="NUnitTests.nunit -run"/>
+
+  </target>
+
+  <target name="fit-tests" depends="build"
+    description="Run Fit Acceptance tests on the build">
+
+    <echo message="*"/>
+    <echo message="* Starting ${runtime.config} ${build.config} Fit Tests"/>
+    <echo message="*"/>
+
+    <exec basedir="${current.build.dir}" 
+      workingdir="${current.build.dir}" 
+      program="runfile.exe" 
+      managed="strict"
+      commandline="NUnitFitTests.html TestResults.html ." />
+
+  </target>
+
+
+<!-- ***************************************************************** -->
+<!-- *       Build the NUnit samples - not part of normal build    *** -->
+<!-- ***************************************************************** -->
+
+  <property name="samples.bin.dir"
+    value="${path::combine(project.samples.dir, 'bin')}"/>
+
+  <target name="clean-samples" description="Removes the samples build directory">
+    <delete dir="${samples.bin.dir}" />
+  </target>
+
+  <target name="build-samples" depends="build"
+     description="Build the NUnit samples">
+    
+    <mkdir dir="${samples.bin.dir}" unless="${directory::exists(samples.bin.dir)}" />
+
+    <copy todir="${samples.bin.dir}"
+      file="${path::combine(current.framework.dir,'nunit.framework.dll')}" />
+    <copy todir="${samples.bin.dir}"
+      file="${path::combine(current.lib.dir,'nunit.core.interfaces.dll')}" />
+    <copy todir="${samples.bin.dir}"
+      file="${path::combine(current.lib.dir,'nunit.core.dll')}" />
+
+    <nant target="build">
+      <buildfiles refid="sample.buildfiles" />
+    </nant>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ******              Targets used internally              ******** -->
+<!-- ***************************************************************** -->
+
+  <target name="build-init" depends="make-build-dir,gen-assembly-info">
+
+    <property name="build.debug" value="${build.config == 'debug'}"/>
+
+    <property name="build.defines" value="DEBUG,TRACE,${runtime.defines}"
+        dynamic="true" if="${build.config == 'debug'}"/>
+    <property name="build.defines" value="TRACE,${runtime.defines}"
+        dynamic="true" unless="${build.config == 'debug'}"/>
+
+  </target>
+
+<!-- ***************************************************************** -->
+<!-- ****** Patternsets and Filesets Used by Various Targets  ******** -->
+<!-- ***************************************************************** -->
+
+  <fileset id="project.buildfiles" basedir="${project.src.dir}">
+
+    <!-- NUnit Base -->
+    <include name="NUnitFramework/framework/nunit.framework.build" />
+    <include name="NUnitCore/interfaces/nunit.core.interfaces.build" />
+    <include name="NUnitCore/core/nunit.core.build" />
+    <include name="NUnitMocks/mocks/nunit.mocks.build" />
+    <include name="ClientUtilities/util/nunit.util.build" />
+
+    <!-- Console Runner -->
+    <include name="ConsoleRunner/nunit-console/nunit-console.build" />
+    <include name="ConsoleRunner/nunit-console-exe/nunit-console.exe.build" />
+
+    <!-- Test Server -->
+    <include name="NUnitTestServer/nunit-agent-exe/nunit-agent.exe.build" />
+
+    <!-- PNUnit -->
+    <include name="PNUnit/pnunit.framework/pnunit.framework.build" />
+    <include name="PNUnit/agent/pnunit-agent.build"/>
+    <include name="PNUnit/launcher/pnunit-launcher.build"/>
+
+    <!-- Test Utilities and Dummy Projects -->
+    <include name="tests/mock-assembly/mock-assembly.build" />
+    <include name="tests/nonamespace-assembly/nonamespace-assembly.build" />
+    <include name="tests/test-assembly/test-assembly.build" />
+    <include name="tests/test-assembly-net45/test-assembly-net45.build" />
+    <include name="tests/test-utilities/test-utilities.build" />
+
+    <!-- NUnit Base Tests -->
+    <include name="NUnitFramework/tests/nunit.framework.tests.build" />
+    <include name="NUnitCore/tests/nunit.core.tests.build" />
+    <include name="NUnitCore/tests-net45/nunit.core.tests.net45.build" />
+    <include name="NUnitMocks/tests/nunit.mocks.tests.build" />
+    <include name="ClientUtilities/tests/nunit.util.tests.build" />
+
+    <!-- Console Runner Tests -->
+    <include name="ConsoleRunner/tests/nunit-console.tests.build" />
+
+    <!-- PNUnit Tests -->
+    <include name="PNUnit/tests/pnunit.tests.build"/>
+
+  </fileset>
+
+  <fileset id="gui.buildfiles" basedir="${project.src.dir}">
+
+    <!-- Gui Runner -->
+    <include name="GuiException/UiException/nunit.uiexception.build" />
+    <include name="GuiComponents/UiKit/nunit.uikit.build" />
+    <include name="GuiRunner/nunit-gui/nunit-gui.build" />
+    <include name="GuiRunner/nunit-gui-exe/nunit-gui.exe.build" />
+    
+    <!-- GUI Tests -->
+    <include name="GuiException/tests/nunit.uiexception.tests.build" />
+    <include name="GuiComponents/tests/nunit.uikit.tests.build" />
+    <include name="GuiRunner/tests/nunit-gui.tests.build" />
+
+    <!-- Project Editor -->
+    <include name="ProjectEditor/editor/nunit-editor.build" />
+
+    <!-- Project Editor Tests -->
+    <include name="ProjectEditor/tests/nunit-editor.tests.build" />
+    
+  </fileset>
+
+  <!-- BuildFiles for Samples -->
+  <!-- Note: For each sample, sample.buildfile includes sample.build.
+       The distribution includes sample.build, but not sample.buildfile,
+       because the latter is used by NUnit for packaging. -->
+  <fileset id="sample.buildfiles" basedir="${project.samples.dir}">
+
+    <!-- CSharp Samples -->
+    <include name="csharp/failures/cs-failures.build" />
+    <include name="csharp/money/cs-money.build" />
+    <include name="csharp/syntax/cs-syntax.build" />
+
+    <!-- VB Samples -->
+    <include name="vb/failures/vb-failures.build"
+      if="${task::exists('vbc') and platform::is-windows()}" />
+    <include name="vb/money/vb-money.build"
+      if="${task::exists('vbc') and platform::is-windows()}" />
+    <include name="vb/syntax/vb-syntax.build"
+      if="${task::exists('vbc') and platform::is-windows()}" />
+
+    <!-- C++/CLI Samples -->
+    <include name="cpp/failures/cpp-cli-failures.build"
+      if="${platform::is-windows()}" />
+    <include name="cpp/syntax/cpp-cli-syntax.build"
+      if="${platform::is-windows()}" />
+
+    <!-- Extensibility Samples -->
+    <include name="Extensibility/Core/Minimal/Minimal.build" />
+    <include name="Extensibility/Core/SampleFixtureExtension/SampleFixtureExtension.build" />
+    <include name="Extensibility/Core/SampleSuiteExtension/SampleSuiteExtension.build" />
+  </fileset>
+
+</project>

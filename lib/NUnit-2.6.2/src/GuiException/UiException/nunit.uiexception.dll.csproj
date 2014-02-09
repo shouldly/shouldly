@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E87A106-EB20-4147-84C8-95B0BB43A1D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NUnit.UiException</RootNamespace>
+    <AssemblyName>nunit.uiexception</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyOriginatorKeyFile>..\..\..\..\src\GuiException\UiException\stackSgKey.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\Debug\lib\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1699</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\Release\lib\</OutputPath>
+    <DefineConstants>TRACE;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1699</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="CodeFormatters\CodeFormatterCollection.cs" />
+    <Compile Include="CodeFormatters\GeneralCodeFormatter.cs" />
+    <Compile Include="CodeFormatters\ICodeFormatter.cs" />
+    <Compile Include="CodeFormatters\IFormatterCatalog.cs" />
+    <Compile Include="CodeFormatters\PlainTextCodeFormatter.cs" />
+    <Compile Include="Controls\CodeBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CodeRenderingContext.cs" />
+    <Compile Include="Controls\DefaultCodeRenderer.cs" />
+    <Compile Include="Controls\DefaultErrorListRenderer.cs" />
+    <Compile Include="Controls\ErrorBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorPanelLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ICodeRenderer.cs" />
+    <Compile Include="Controls\ICodeView.cs" />
+    <Compile Include="Controls\IErrorDisplay.cs" />
+    <Compile Include="Controls\IErrorListRenderer.cs" />
+    <Compile Include="Controls\IStackTraceView.cs" />
+    <Compile Include="Controls\PaintLineLocation.cs" />
+    <Compile Include="Controls\SourceCodeDisplay.cs" />
+    <Compile Include="Controls\SplitterBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\StackTraceDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CSharpParser\CSCode.cs" />
+    <Compile Include="CSharpParser\CSParser.cs" />
+    <Compile Include="CSharpParser\CSToken.cs" />
+    <Compile Include="CSharpParser\CSTokenCollection.cs" />
+    <Compile Include="CSharpParser\Lexer.cs" />
+    <Compile Include="CSharpParser\LexToken.cs" />
+    <Compile Include="CSharpParser\TokenClassifier.cs" />
+    <Compile Include="CSharpParser\TokenDictionary.cs" />
+    <Compile Include="DefaultTextManager.cs" />
+    <Compile Include="ExceptionItem.cs" />
+    <Compile Include="ExceptionItemCollection.cs" />
+    <Compile Include="ITextManager.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="StackTraceAnalysers\FunctionParser.cs" />
+    <Compile Include="StackTraceAnalysers\IErrorParser.cs" />
+    <Compile Include="StackTraceAnalysers\LineNumberParser.cs" />
+    <Compile Include="StackTraceAnalysers\PathCompositeParser.cs" />
+    <Compile Include="StackTraceAnalysers\UnixPathParser.cs" />
+    <Compile Include="StackTraceAnalysers\WindowsPathParser.cs" />
+    <Compile Include="StackTraceParser.cs" />
+    <Compile Include="TraceExceptionHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nunit.uiexception.build" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

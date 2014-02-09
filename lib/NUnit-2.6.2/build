@@ -1,0 +1,127 @@
+#!/bin/sh
+# build - Builds and tests NUnit
+
+NANT="tools/nant/bin/NAnt.exe"
+options="-f:scripts/nunit.build.targets"
+config=""
+runtime=""
+clean=""
+commands=""
+passthru=false
+
+for arg in $@
+do
+  if [ $passthru = true ]
+  then
+    commands="$commands $arg"
+    continue
+  fi
+
+  case "$arg" in
+    debug|release)
+      config="$arg"
+      ;;
+
+    mono-1.0|1.0)
+      runtime="mono-1.0"
+      ;;
+
+    mono-2.0|2.0)
+      runtime="mono-2.0"
+      ;;
+
+    mono-3.5|3.5)
+      runtime="mono-3.5"
+      ;;
+
+    mono-4.0|4.0)
+      runtime="mono-4.0"
+      ;;
+
+    clean)
+      clean="clean"
+      ;;
+
+    clean-all)
+      clean="clean-all"
+      ;;
+
+    samples|tools|all)
+      commands="$commands build-$arg"
+      ;;
+
+    test|test45|gui-test|gen-syntax)
+      commands="$commands $arg"
+      ;;
+
+    -h|--help)
+      echo "Builds and tests NUnit"
+      echo
+      echo "usage: BUILD [option [...] ]"
+      echo
+      echo "Options may be any of the following, in any order..."
+      echo
+      echo "  debug          Builds debug configuration (default)"
+      echo "  release        Builds release configuration"
+      echo
+      echo "  mono-4.0, 4.0  Builds using Mono 4.0 profile (future)"
+      echo "  mono-3.5, 3.5  Builds using Mono 3.5 profile (default)"
+      echo "  mono-2.0, 2.0  Builds using Mono 2.0 profile"
+      echo "  mono-1.0, 1.0  Builds using Mono 1.0 profile"
+      echo
+      echo "  clean          Cleans the output directory before building"
+      echo "  clean-all      Removes output directories for all runtimes"
+      echo
+      echo "  samples        Builds the NUnit samples"
+      echo "  tools          Builds the NUnit tools"
+      echo
+      echo "  test           Runs tests for a build using the console runner"
+      echo "  test45         Run the .NET 4.5 async test assembly tests"
+      echo "  gui-test       Runs tests for a build using the NUnit gui"
+      echo
+      echo "  -h, --help     Displays this help message"
+      echo
+      echo "Notes:"
+      echo
+      echo "  1. The default Mono profile to be used is selected automatically"
+      echo "     by the NAnt script based on the version of Mono installed"
+      echo
+      echo "  2. When building under the 3.5 or higher profile, the 2.0"
+      echo "     runtime version is targeted for NUnit itself. Tests use"
+      echo "     the specified higher level framework."
+      echo   
+      exit;
+      ;;
+
+    --)
+      passthru=true
+      ;;
+
+    *)
+      echo "Invalid argument: $arg"
+      echo
+      echo "Use $0 -h for more info"
+      echo
+      exit;
+      ;;
+  esac
+done
+
+if [ "$commands" = "" ]
+then
+  commands="build"
+fi
+
+if [ "$config" != "" ]
+then
+  options="$options -D:build.config=$config"
+fi
+
+if [ "$runtime" != "" ]
+then
+  options="$options -D:runtime.config=$runtime"
+fi
+
+exec mono "$NANT" $options $clean $commands
+
+

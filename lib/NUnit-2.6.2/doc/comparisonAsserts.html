@@ -1,0 +1,280 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ComparisonAsserts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Comparisons (NUnit 2.2.4)</h2>
+
+<p>The following methods test whether one object is greater than than another.
+   Contrary to the normal order of Asserts, these methods are designed to be
+   read in the "natural" English-language or mathematical order. Thus 
+   <b>Assert.Greater( x, y )</b> asserts that x is greater than y ( x &gt; y ). </p>
+   
+<div class="code" style="width: 36em" >
+<pre>Assert.Greater( int arg1, int arg2 );
+Assert.Greater( int arg1, int arg2, string message );
+Assert.Greater( int arg1, int arg2, string message, 
+                object[] parms );
+
+Assert.Greater( uint arg1, uint arg2 );
+Assert.Greater( uint arg1, uint arg2, string message );
+Assert.Greater( uint arg1, uint arg2, string message, 
+                object[] parms );
+
+Assert.Greater( long arg1, long arg2 );
+Assert.Greater( long arg1, long arg2, string message );
+Assert.Greater( long arg1, long arg2, string message, 
+                object[] parms );
+
+Assert.Greater( ulong arg1, ulong arg2 );
+Assert.Greater( ulong arg1, ulong arg2, string message );
+Assert.Greater( ulong arg1, ulong arg2, string message, 
+                object[] parms );
+
+Assert.Greater( decimal arg1, decimal arg2 );
+Assert.Greater( decimal arg1, decimal arg2, string message );
+Assert.Greater( decimal arg1, decimal arg2, string message, 
+                object[] parms );
+
+Assert.Greater( double arg1, double arg2 );
+Assert.Greater( double arg1, double arg2, string message );
+Assert.Greater( double arg1, double arg2, string message, 
+                object[] parms );
+
+Assert.Greater( double arg1, double arg2 );
+Assert.Greater( double arg1, double arg2, string message );
+Assert.Greater( double arg1, double arg2, string message, 
+                object[] parms );
+
+Assert.Greater( float arg1, float arg2 );
+Assert.Greater( float arg1, float arg2, string message );
+Assert.Greater( float arg1, float arg2, string message, 
+                object[] parms );
+
+Assert.Greater( IComparable arg1, IComparable arg2 );
+Assert.Greater( IComparable arg1, IComparable arg2, string message );
+Assert.Greater( IComparable arg1, IComparable arg2, string message, 
+                object[] parms );</pre>
+</div>
+				
+<p>The following methods test whether one object is greater than or equal to another.
+   Contrary to the normal order of Asserts, these methods are designed to be
+   read in the "natural" English-language or mathematical order. Thus 
+   <b>Assert.GreaterOrEqual( x, y )</b> asserts that x is greater than or equal to y ( x &gt;= y ). </p>
+   
+<div class="code" style="width: 36em" >
+<pre>Assert.GreaterOrEqual( int arg1, int arg2 );
+Assert.GreaterOrEqual( int arg1, int arg2, string message );
+Assert.GreaterOrEqual( int arg1, int arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( uint arg1, uint arg2 );
+Assert.GreaterOrEqual( uint arg1, uint arg2, string message );
+Assert.GreaterOrEqual( uint arg1, uint arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( long arg1, long arg2 );
+Assert.GreaterOrEqual( long arg1, long arg2, string message );
+Assert.GreaterOrEqual( long arg1, long arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( ulong arg1, ulong arg2 );
+Assert.GreaterOrEqual( ulong arg1, ulong arg2, string message );
+Assert.GreaterOrEqual( ulong arg1, ulong arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( decimal arg1, decimal arg2 );
+Assert.GreaterOrEqual( decimal arg1, decimal arg2, string message );
+Assert.GreaterOrEqual( decimal arg1, decimal arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( double arg1, double arg2 );
+Assert.GreaterOrEqual( double arg1, double arg2, string message );
+Assert.GreaterOrEqual( double arg1, double arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( double arg1, double arg2 );
+Assert.GreaterOrEqual( double arg1, double arg2, string message );
+Assert.GreaterOrEqual( double arg1, double arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( float arg1, float arg2 );
+Assert.GreaterOrEqual( float arg1, float arg2, string message );
+Assert.GreaterOrEqual( float arg1, float arg2, string message, 
+                object[] parms );
+
+Assert.GreaterOrEqual( IComparable arg1, IComparable arg2 );
+Assert.GreaterOrEqual( IComparable arg1, IComparable arg2, string message );
+Assert.GreaterOrEqual( IComparable arg1, IComparable arg2, string message, 
+                object[] parms );</pre>
+</div>
+				
+<p>The following methods test whether one object is less than than another.
+   Contrary to the normal order of Asserts, these methods are designed to be
+   read in the "natural" English-language or mathematical order. Thus 
+   <b>Assert.Less( x, y )</b> asserts that x is less than y ( x &lt; y ). </p>
+   
+<div class="code" style="width: 36em" >
+<pre>Assert.Less( int arg1, int arg2 );
+Assert.Less( int arg1, int arg2, string message );
+Assert.Less( int arg1, int arg2, string message, 
+                object[] parms );
+				
+Assert.Less( uint arg1, uint arg2 );
+Assert.Less( uint arg1, uint arg2, string message );
+Assert.Less( uint arg1, uint arg2, string message, 
+                object[] parms );
+				
+Assert.Less( long arg1, long arg2 );
+Assert.Less( long arg1, long arg2, string message );
+Assert.Less( long arg1, long arg2, string message, 
+                object[] parms );
+
+Assert.Less( ulong arg1, ulong arg2 );
+Assert.Less( ulong arg1, ulong arg2, string message );
+Assert.Less( ulong arg1, ulong arg2, string message, 
+                object[] parms );
+
+Assert.Less( decimal arg1, decimal arg2 );
+Assert.Less( decimal arg1, decimal arg2, string message );
+Assert.Less( decimal arg1, decimal arg2, string message, 
+                object[] parms );
+				
+Assert.Less( double arg1, double arg2 );
+Assert.Less( double arg1, double arg2, string message );
+Assert.Less( double arg1, double arg2, string message, 
+                object[] parms );
+				
+Assert.Less( float arg1, float arg2 );
+Assert.Less( float arg1, float arg2, string message );
+Assert.Less( float arg1, float arg2, string message, 
+                object[] parms );
+				
+Assert.Less( IComparable arg1, IComparable arg2 );
+Assert.Less( IComparable arg1, IComparable arg2, string message );
+Assert.Less( IComparable arg1, IComparable arg2, string message, 
+                object[] parms );</pre>
+</div>
+
+<p>The following methods test whether one object is less than or equal to another.
+   Contrary to the normal order of Asserts, these methods are designed to be
+   read in the "natural" English-language or mathematical order. Thus 
+   <b>Assert.LessOrEqual( x, y )</b> asserts that x is less than or equal to y ( x &lt;= y ). </p>
+   
+<div class="code" style="width: 36em" >
+<pre>Assert.LessOrEqual( int arg1, int arg2 );
+Assert.LessOrEqual( int arg1, int arg2, string message );
+Assert.LessOrEqual( int arg1, int arg2, string message, 
+                object[] parms );
+				
+Assert.LessOrEqual( uint arg1, uint arg2 );
+Assert.LessOrEqual( uint arg1, uint arg2, string message );
+Assert.LessOrEqual( uint arg1, uint arg2, string message, 
+                object[] parms );
+				
+Assert.LessOrEqual( long arg1, long arg2 );
+Assert.LessOrEqual( long arg1, long arg2, string message );
+Assert.LessOrEqual( long arg1, long arg2, string message, 
+                object[] parms );
+
+Assert.LessOrEqual( ulong arg1, ulong arg2 );
+Assert.LessOrEqual( ulong arg1, ulong arg2, string message );
+Assert.LessOrEqual( ulong arg1, ulong arg2, string message, 
+                object[] parms );
+
+Assert.LessOrEqual( decimal arg1, decimal arg2 );
+Assert.LessOrEqual( decimal arg1, decimal arg2, string message );
+Assert.LessOrEqual( decimal arg1, decimal arg2, string message, 
+                object[] parms );
+				
+Assert.LessOrEqual( double arg1, double arg2 );
+Assert.LessOrEqual( double arg1, double arg2, string message );
+Assert.LessOrEqual( double arg1, double arg2, string message, 
+                object[] parms );
+				
+Assert.LessOrEqual( float arg1, float arg2 );
+Assert.LessOrEqual( float arg1, float arg2, string message );
+Assert.LessOrEqual( float arg1, float arg2, string message, 
+                object[] parms );
+				
+Assert.LessOrEqual( IComparable arg1, IComparable arg2 );
+Assert.LessOrEqual( IComparable arg1, IComparable arg2, string message );
+Assert.LessOrEqual( IComparable arg1, IComparable arg2, string message, 
+                object[] parms );</pre>
+</div>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<ul>
+<li><a href="equalityAsserts.html">Equality&nbsp;Asserts</a></li>
+<li><a href="identityAsserts.html">Identity&nbsp;Asserts</a></li>
+<li><a href="conditionAsserts.html">Condition&nbsp;Asserts</a></li>
+<li id="current"><a href="comparisonAsserts.html">Comparison&nbsp;Asserts</a></li>
+<li><a href="typeAsserts.html">Type&nbsp;Asserts</a></li>
+<li><a href="exceptionAsserts.html">Exception&nbsp;Asserts</a></li>
+<li><a href="utilityAsserts.html">Utility&nbsp;Methods</a></li>
+<li><a href="stringAssert.html">String&nbsp;Assert</a></li>
+<li><a href="collectionAssert.html">Collection&nbsp;Assert</a></li>
+<li><a href="fileAssert.html">File&nbsp;Assert</a></li>
+<li><a href="directoryAssert.html">Directory&nbsp;Assert</a></li>
+</ul>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

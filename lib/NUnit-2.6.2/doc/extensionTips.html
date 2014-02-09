@@ -1,0 +1,100 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - ExtensionTips</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h3>Tips for Writing Extensions</h3>
+
+<p>An Extenders Guide will be published in the future. At the moment, writing an
+extension is a bit of an adventure. Extension authors are advised to join the 
+nunit-developer list and post questions and comments there.
+
+<p>For the moment, the following tips may be of assistance.
+<ul>
+<li>The <b>nunit.core.interfaces</b> assembly is intended to be stable in the future
+while the <b>nunit.core</b> assembly will change from release to release. Right now,
+both assemblies are still in flux, but extensions that depend solely on the interfaces
+assembly will have a much better chance of surviving NUnit version changes. Unfortunately,
+this is rather difficult to do without duplicating a great deal of NUnit code. Most
+of the add-in samples provided with NUnit are currently version dependent.
+
+<li>If you place the definition of a custom attribute in the same assembly as your
+add-in, then user tests are dependent on the add-in assembly. If the add-in is 
+version-dependent, then the user tests will also be version-dependent. We suggest
+placing any types referenced by user tests in a separate assembly, particularly if
+your extension relies on nunit.core.
+
+<li>If using Visual Studio, set Copy Local to false for any references to nunit.core
+or nunit.core.interfaces. This is especially important if you are also building
+NUnit itself.
+
+<li>There is currently no mechanism to allow decorators to apply in a particular order.
+NUnit applies decorators in the order in which they are returned through reflection,
+which may vary among different runtimes.
+
+<li>Avoid trying to "stretch" the existing extension points to do more than they were
+intended to do. Rather, let us know what further extension points you would like to see!
+</ul>
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<ul>
+<li><a href="customConstraints.html">Custom&nbsp;Constraints</a></li>
+<li><a href="nunitAddins.html">NUnit&nbsp;Addins</a></li>
+<li id="current"><a href="extensionTips.html">Tips&nbsp;for&nbsp;Extenders</a></li>
+</ul>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

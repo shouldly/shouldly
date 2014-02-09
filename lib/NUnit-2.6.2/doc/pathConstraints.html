@@ -1,0 +1,204 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - PathConstraints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Path Constraints (NUnit 2.5)</h2>
+
+<p>Path constraints perform tests on paths, without reference to any
+   actual files or directories. This allows testing paths that are
+   created by an application for reference or later use, without 
+   any effect on the environment.
+   
+<p>Path constraints are intended to work across multiple file systems,
+   and convert paths to a canonical form before comparing them. 
+
+<p>It is usually not necessary to know the file system of the paths
+   in order to compare them. Where necessary, the programmer may
+   use the <b>IgnoreCase</b> and <b>RespectCase</b> modifiers to provide 
+   behavior other than the system default.
+      
+<h3>SamePathConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that two paths are equivalent.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+SamePathConstraint( string expectedPath )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.SamePath( string expectedPath )
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+...RespectCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+<div class="code"><pre>
+Assert.That( "/folder1/./junk/../folder2", 
+	Is.SamePath( "/folder1/folder2" ) );
+Assert.That( "/folder1/./junk/../folder2/x", 
+	Is.Not.SamePath( "/folder1/folder2" ) );
+
+Assert.That( @"C:\folder1\folder2",
+	Is.SamePath( @"C:\Folder1\Folder2" ).IgnoreCase );
+Assert.That( "/folder1/folder2",
+	Is.Not.SamePath( "/Folder1/Folder2" ).RespectCase );
+</pre></div>
+
+<h3>SubPathConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one path is under another path.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+SubPathConstraint( string expectedPath )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.SubPath( string expectedPath )
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+...RespectCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+
+<div class="code"><pre>
+Assert.That( "/folder1/./junk/../folder2", 
+	Is.SubPath( "/folder1/folder2" ) );
+Assert.That( "/folder1/junk/folder2",
+	Is.Not.SubPath( "/folder1/folder2" ) );
+
+Assert.That( @"C:\folder1\folder2\folder3",
+	Is.SubPath( @"C:\Folder1\Folder2/Folder3" ).IgnoreCase );
+Assert.That( "/folder1/folder2/folder3",
+	Is.Not.SubPath( "/Folder1/Folder2/Folder3" ).RespectCase );
+</pre></div>
+
+<h3>SamePathOrUnderConstraint</h3>
+
+<h4>Action</h4>
+<p>Tests that one path is equivalent another path or that it is under it.
+
+<h4>Constructor</h4>
+<div class="code"><pre>
+SamePathOrUnderConstraint( string expectedPath )
+</pre></div>
+
+<h4>Syntax</h4>
+<div class="code"><pre>
+Is.SamePathOrUnder( string expectedPath )
+</pre></div>
+
+<h4>Modifiers</h4>
+<div class="code"><pre>
+...IgnoreCase
+...RespectCase
+</pre></div>
+
+<h4>Examples of Use</h4>
+
+<div class="code"><pre>
+Assert.That( "/folder1/./junk/../folder2", 
+	Is.SamePathOrUnder( "/folder1/folder2" ) );
+Assert.That( "/folder1/junk/../folder2/./folder3",
+	Is.SamePathOrUnder( "/folder1/folder2" ) );
+Assert.That( "/folder1/junk/folder2/folder3",
+	Is.Not.SamePathOrUnder( "/folder1/folder2" ) );
+
+Assert.That( @"C:\folder1\folder2\folder3",
+	Is.SamePathOrUnder( @"C:\Folder1\Folder2" ).IgnoreCase );
+Assert.That( "/folder1/folder2/folder3",
+	Is.Not.SamePathOrUnder( "/Folder1/Folder2" ).RespectCase );
+</pre></div>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<ul>
+<li><a href="equalConstraint.html">Equal&nbsp;Constraint</a></li>
+<li><a href="sameasConstraint.html">SameAs&nbsp;Constraint</a></li>
+<li><a href="conditionConstraints.html">Condition&nbsp;Constraints</a></li>
+<li><a href="comparisonConstraints.html">Comparison&nbsp;Constrants</a></li>
+<li id="current"><a href="pathConstraints.html">Path&nbsp;Constraints</a></li>
+<li><a href="typeConstraints.html">Type&nbsp;Constraints</a></li>
+<li><a href="stringConstraints.html">String&nbsp;Constraints</a></li>
+<li><a href="collectionConstraints.html">Collection&nbsp;Constraints</a></li>
+<li><a href="propertyConstraint.html">Property&nbsp;Constraint</a></li>
+<li><a href="throwsConstraint.html">Throws&nbsp;Constraint</a></li>
+<li><a href="compoundConstraints.html">Compound&nbsp;Constraints</a></li>
+<li><a href="delayedConstraint.html">Delayed&nbsp;Constraint</a></li>
+<li><a href="listMapper.html">List&nbsp;Mapper</a></li>
+<li><a href="reusableConstraint.html">Reusable&nbsp;Constraint</a></li>
+</ul>
+<li><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

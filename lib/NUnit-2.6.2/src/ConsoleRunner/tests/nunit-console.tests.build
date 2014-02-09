@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project name="NUnit.Console.Tests" default="build">
+
+  <patternset id="source-files">
+    <include name="CommandLineTests.cs"/>
+    <include name="CommandLineTests_MultipleAssemblies.cs"/>
+    <include name="ConsoleRunnerTest.cs"/>
+    <include name="TestNameParserTests.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+      output="${current.test.dir}/nunit-console.tests.dll"
+      debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.util.dll"/>
+        <include name="${current.lib.dir}/nunit-console-runner.dll"/>
+        <include name="${current.test.dir}/nunit.framework.tests.dll"/>
+        <include name="${current.test.dir}/test-assembly.dll"/>
+        <include name="${current.test.dir}/mock-assembly.dll"/>
+		    <include name="${current.test.dir}/nonamespace-assembly.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/ConsoleRunner/tests">
+      <fileset>
+        <patternset refid="source-files" />
+        <include name="EmptyLineTextFile.txt" />
+        <include name="EmptyTextFile.txt" />
+        <include name="nunit-console.tests.csproj" />
+        <include name="nunit-console.tests.build" />
+      </fileset>
+    </copy>
+  </target>
+
+</project>

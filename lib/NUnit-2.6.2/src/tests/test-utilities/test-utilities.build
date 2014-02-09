@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project name="TestUtilities" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="FormTester.cs"/>
+        <include name="MockTestEventSource.cs" if="${runtime.version >= '2.0'}"/>
+        <include name="TempResourceFile.cs"/>
+        <include name="TestAssert.cs"/>
+        <include name="TestBuilder.cs"/>
+        <include name="TestFinder.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.test.dir}/test-utilities.dll" 
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <references>
+        <include name="System.Windows.Forms.dll"/>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.util.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/tests/test-utilities">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="test-utilities.csproj"/>
+        <include name="test-utilities.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{74EF7165-117E-48ED-98EA-068EAE438E53}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.util.tests</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Util.Tests</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Debug\tests\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;NET_2_0;CLR_2_0;CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Release\tests\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;NET_2_0;CLR_2_0;CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting">
+      <Name>System.Runtime.Remoting</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\NUnitCore\core\nunit.core.dll.csproj">
+      <Name>nunit.core.dll</Name>
+      <Project>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitCore\tests\nunit.core.tests.csproj">
+      <Name>nunit.core.tests</Name>
+      <Project>{DD758D21-E5D5-4D40-9450-5F65A32F359C}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Name>nunit.framework.dll</Name>
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\mock-assembly\mock-assembly.csproj">
+      <Name>mock-assembly</Name>
+      <Project>{2E368281-3BA8-4050-B05E-0E0E43F8F446}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\nonamespace-assembly\nonamespace-assembly.csproj">
+      <Name>nonamespace-assembly</Name>
+      <Project>{5110F0D2-8E50-46F8-9E17-7C8EBFECCA9D}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-utilities\test-utilities.csproj">
+      <Name>test-utilities</Name>
+      <Project>{3E63AD0F-24D4-46BE-BEE4-5A3299847D86}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\util\nunit.util.dll.csproj">
+      <Name>nunit.util.dll</Name>
+      <Project>{61CE9CE5-943E-44D4-A381-814DC1406767}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\ClassLibrary1.csproj" />
+    <EmbeddedResource Include="resources\csharp-sample.csproj" />
+    <EmbeddedResource Include="resources\csharp-sample_VS2005.csproj" />
+    <EmbeddedResource Include="resources\csharp-sample_VS2005_noplatform.csproj" />
+    <EmbeddedResource Include="resources\HebrewFileProblem.csproj" />
+    <EmbeddedResource Include="resources\jsharp.vjsproj" />
+    <EmbeddedResource Include="resources\jsharp_VS2005.vjsproj" />
+    <EmbeddedResource Include="resources\MultiplePlatformProject.csproj" />
+    <EmbeddedResource Include="resources\samples.sln" />
+    <EmbeddedResource Include="resources\samples_VS2005.sln" />
+    <EmbeddedResource Include="resources\Solution1.sln" />
+    <EmbeddedResource Include="resources\vb-sample.vbproj" />
+    <EmbeddedResource Include="resources\vb-sample_VS2005.vbproj" />
+    <EmbeddedResource Include="resources\WebApplication1.sln" />
+    <EmbeddedResource Include="resources\XNAWindowsProject.csproj" />
+    <EmbeddedResource Include="resources\MissingOutputPath.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\cpp-default-library_VS2005.vcproj" />
+    <EmbeddedResource Include="resources\cpp-sample.vcproj" />
+    <EmbeddedResource Include="resources\cpp-sample_VS2005.vcproj" />
+    <EmbeddedResource Include="resources\CPPLibrary.vcproj" />
+    <EmbeddedResource Include="resources\MakeFileProject.vcproj" />
+    <EmbeddedResource Include="resources\Unmanaged.vcproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyListTests.cs" />
+    <Compile Include="AssemblyWatcherTests.cs" />
+    <Compile Include="CategoryManagerTest.cs" />
+    <Compile Include="CategoryParseTests.cs" />
+    <Compile Include="DomainManagerTests.cs" />
+    <Compile Include="EventDispatcherTests.cs" />
+    <Compile Include="FileWatcherTests.cs" />
+    <Compile Include="MemorySettingsStorageTests.cs" />
+    <Compile Include="MockAssemblyWatcher.cs" />
+    <Compile Include="NUnitProjectLoad.cs" />
+    <Compile Include="NUnitProjectSave.cs" />
+    <Compile Include="NUnitProjectTests.cs" />
+    <Compile Include="NUnitProjectXml.cs" />
+    <Compile Include="NUnitRegistryTests.cs" />
+    <Compile Include="PathUtilTests.cs" />
+    <Compile Include="ProcessRunnerTests.cs" />
+    <Compile Include="ProjectConfigTests.cs" />
+    <Compile Include="RecentFileEntryTests.cs" />
+    <Compile Include="RecentFilesTests.cs" />
+    <Compile Include="RegistrySettingsStorageTests.cs" />
+    <Compile Include="RemoteTestResultTest.cs" />
+    <Compile Include="resources\TestResource.cs" />
+    <Compile Include="RuntimeFrameworkSelectorTests.cs" />
+    <Compile Include="ServerUtilityTests.cs" />
+    <Compile Include="ServiceManagerSetUpFixture.cs" />
+    <Compile Include="SettingsGroupTests.cs" />
+    <Compile Include="SummaryResultFixture.cs" />
+    <Compile Include="TestAgencyTests.cs" />
+    <Compile Include="TestAgentTests.cs" />
+    <Compile Include="TestDomainFixture.cs" />
+    <Compile Include="TestDomainTests_Multiple.cs" />
+    <Compile Include="TestEventCatcher.cs" />
+    <Compile Include="TestLoaderAssemblyTests.cs" />
+    <Compile Include="TestLoaderWatcherTests.cs" />
+    <Compile Include="TestRunnerFactoryTests.cs" />
+    <Compile Include="TestServerTests.cs" />
+    <Compile Include="VisualStudioConverterTests.cs" />
+    <Compile Include="VSProjectTests.cs" />
+    <Compile Include="XmlResultWriterTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nunit.util.tests.build" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\DisabledProject.sln" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\DisabledProject.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\DebugOnly.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

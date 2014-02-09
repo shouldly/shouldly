@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<project name="fs-money" default="build">
+
+  <include buildfile="../../samples.common" />
+  
+  <patternset id="source-files">
+    <include name="Money.fs" />
+    <include name="MoneyBag.fs" />
+    <include name="MoneyTest.fs" />
+  </patternset>
+
+</project>

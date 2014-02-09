@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EBD43A7F-AFCA-4281-BB53-5CDD91F966A3}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>nunit.core</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Core</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/nunit.core/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Debug\lib\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>1699</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\bin\Release\lib\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>1699</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\interfaces\nunit.core.interfaces.dll.csproj">
+      <Name>nunit.core.interfaces.dll</Name>
+      <Project>{435428F8-5995-4CE4-8022-93D595A8CC0F}</Project>
+      <Private>False</Private>
+    </ProjectReference>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AbstractTestCaseDecoration.cs" />
+    <Compile Include="AssemblyHelper.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="AssemblyReader.cs" />
+    <Compile Include="AssemblyResolver.cs" />
+    <Compile Include="ActionsHelper.cs" />
+    <Compile Include="AsyncSynchronizationContext.cs" />
+    <Compile Include="Builders\CombinatorialStrategy.cs" />
+    <Compile Include="Builders\CombinatorialTestCaseProvider.cs" />
+    <Compile Include="Builders\CombiningStrategy.cs" />
+    <Compile Include="Builders\DatapointProvider.cs" />
+    <Compile Include="Builders\InlineDataPointProvider.cs" />
+    <Compile Include="Builders\LegacySuiteBuilder.cs" />
+    <Compile Include="Builders\NUnitTestCaseBuilder.cs" />
+    <Compile Include="Builders\NUnitTestFixtureBuilder.cs" />
+    <Compile Include="Builders\PairwiseStrategy.cs" />
+    <Compile Include="Builders\ProviderCache.cs" />
+    <Compile Include="Builders\ProviderInfo.cs" />
+    <Compile Include="Builders\SequentialStrategy.cs" />
+    <Compile Include="Builders\SetUpFixtureBuilder.cs" />
+    <Compile Include="Builders\TestAssemblyBuilder.cs" />
+    <Compile Include="Builders\TestCaseParameterProvider.cs" />
+    <Compile Include="Builders\TestCaseSourceProvider.cs" />
+    <Compile Include="Builders\ValueSourceProvider.cs" />
+    <Compile Include="ContextDictionary.cs" />
+    <Compile Include="CoreExtensions.cs" />
+    <Compile Include="CultureDetector.cs" />
+    <Compile Include="DirectorySwapper.cs" />
+    <Compile Include="DomainAgent.cs" />
+    <Compile Include="EventListenerTextWriter.cs" />
+    <Compile Include="EventPump.cs" />
+    <Compile Include="EventQueue.cs" />
+    <Compile Include="ExpectedExceptionProcessor.cs" />
+    <Compile Include="Extensibility\DataPointProviders.cs" />
+    <Compile Include="Extensibility\EventListenerCollection.cs" />
+    <Compile Include="Extensibility\FrameworkRegistry.cs" />
+    <Compile Include="Extensibility\SuiteBuilderCollection.cs" />
+    <Compile Include="Extensibility\TestCaseBuilderCollection.cs" />
+    <Compile Include="Extensibility\TestCaseProviders.cs" />
+    <Compile Include="Extensibility\TestDecoratorCollection.cs" />
+    <Compile Include="ExtensionHost.cs" />
+    <Compile Include="ExtensionPoint.cs" />
+    <Compile Include="IgnoreDecorator.cs" />
+    <Compile Include="InternalTrace.cs" />
+    <Compile Include="InternalTraceWriter.cs" />
+    <Compile Include="InvalidSuiteException.cs" />
+    <Compile Include="InvalidTestFixtureException.cs" />
+    <Compile Include="LegacySuite.cs" />
+    <Compile Include="Log4NetCapture.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="MethodHelper.cs" />
+    <Compile Include="NamespaceSuite.cs" />
+    <Compile Include="NamespaceTreeBuilder.cs" />
+    <Compile Include="NoTestFixturesException.cs" />
+    <Compile Include="NullListener.cs" />
+    <Compile Include="NUnitAsyncTestMethod.cs" />
+    <Compile Include="NUnitConfiguration.cs" />
+    <Compile Include="NUnitException.cs" />
+    <Compile Include="NUnitFramework.cs" />
+    <Compile Include="NUnitTestFixture.cs" />
+    <Compile Include="NUnitTestMethod.cs" />
+    <Compile Include="ParameterizedFixtureSuite.cs" />
+    <Compile Include="ParameterizedTestMethodSuite.cs" />
+    <Compile Include="PlatformHelper.cs" />
+    <Compile Include="ProjectRootSuite.cs" />
+    <Compile Include="ProxyTestRunner.cs" />
+    <Compile Include="QueuingEventListener.cs" />
+    <Compile Include="Reflect.cs" />
+    <Compile Include="RemoteTestRunner.cs" />
+    <Compile Include="SetUpFixture.cs" />
+    <Compile Include="SimpleTestRunner.cs" />
+    <Compile Include="StringTextWriter.cs" />
+    <Compile Include="SuiteBuilderAttribute.cs" />
+    <Compile Include="TestAction.cs" />
+    <Compile Include="TestAssembly.cs" />
+    <Compile Include="TestBuilderAttribute.cs" />
+    <Compile Include="TestCaseBuilderAttribute.cs" />
+    <Compile Include="TestDecoratorAttribute.cs" />
+    <Compile Include="TestExecutionContext.cs" />
+    <Compile Include="TestFixture.cs" />
+    <Compile Include="TestFixtureBuilder.cs" />
+    <Compile Include="TestMethod.cs" />
+    <Compile Include="TestRunnerThread.cs" />
+    <Compile Include="TestSuite.cs" />
+    <Compile Include="TestSuiteBuilder.cs" />
+    <Compile Include="TestThread.cs" />
+    <Compile Include="TextCapture.cs" />
+    <Compile Include="ThreadedTestRunner.cs" />
+    <Compile Include="ThreadUtility.cs" />
+    <Compile Include="TypeHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nunit.core.build" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

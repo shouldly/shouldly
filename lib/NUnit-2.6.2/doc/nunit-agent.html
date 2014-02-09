@@ -1,0 +1,103 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - Nunit-agent</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>NUnit-Agent</h2>
+
+<p>The nunit-agent.exe program is used by other runners when the tests are being
+   run in a separate process. It is not intended for direct execution by users.
+
+<p>NUnit runs tests in a separate process in several situations:
+
+<ol>
+<li>When the program needs to be run under a different framework or version
+from the one being used by NUnit itself.
+<li>When the user requests process-level isolation through the command line
+or the NUnit settings.
+</ol>
+
+<h3>Debugging</h3>
+
+<p>When debugging tests that are run in a separate process, it is 
+   not possible to do so by simply running the console or gui runner
+   under the debugger. Rather, it is necessary to attach the debugger
+   to the nunit-agent process after the tests have been loaded. 
+
+<p>When running under the Gui, NUnit will continue to use the same 
+   process to reload tests so that it is not normally necessary to 
+   re-attach to a new process. However, if the settings are changed
+   in a way that requires a differnt process - for example, by changing 
+   the version of the runtime that is being used - the old process will
+   be terminated and a new one created. In that case, it's necessary
+   to re-attach to the new process.
+
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li id="current"><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

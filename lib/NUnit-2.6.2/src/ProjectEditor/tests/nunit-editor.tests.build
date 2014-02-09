@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project name="NUnitEditorTests" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="Properties/AssemblyInfo.cs"/>
+    <include name="FormTester.cs"/>
+    <include name="NUnitProjectXml.cs"/>
+    <include name="Model/AssemblyListTests.cs"/>
+    <include name="Model/NUnitProjectSave.cs"/>
+    <include name="Model/ProjectCreationTests.cs"/>
+    <include name="Model/ProjectDocumentTests.cs"/>
+    <include name="Model/ProjectModelChangeTests.cs"/>
+    <include name="Model/ProjectModelLoadTests.cs"/>
+    <include name="Presenters/AddConfigurationPresenterTests.cs"/>
+    <include name="Presenters/ConfigurationEditorTests.cs"/>
+    <include name="Presenters/MainPresenterTests.cs"/>
+    <include name="Presenters/PropertyPresenterTests.cs"/>
+    <include name="Presenters/RenameConfigurationPresenterTests.cs"/>
+    <include name="Presenters/SelectionStub.cs"/>
+    <include name="Presenters/XmlPresenterTests.cs"/>
+    <include name="Views/AddConfigurationDialogTests.cs"/>
+    <include name="Views/ConfigurationEditorViewTests.cs"/>
+    <include name="Views/PropertyViewTests.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+    <include name="resources/*"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+        output="${current.test.dir}/nunit-editor.tests.dll"
+        debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+      </sources>
+      <resources prefix="NUnit.ProjectEditor.Tests.resources">
+        <patternset refid="resource-files"/>
+      </resources>
+      <references>
+        <include name="System.Windows.Forms.dll"/>
+	      <include name="System.Drawing.dll"/>
+        <include name="System.Xml.dll"/>
+        <include name="${current.framework.dir}/nunit.framework.dll"/>
+        <include name="${current.lib.dir}/NSubstitute.dll" if="${runtime.version >= '3.5'}"/>
+        <include name="${current.test.dir}/test-utilities.dll"/>
+        <include name="${current.build.dir}/nunit-editor.exe"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/ProjectEditor/tests">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <include name="nunit-editor.tests.csproj"/>
+        <include name="nunit-editor.tests.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+		<id>NUnit.Mocks</id>
+		<version>${package.version}</version>
+		<title>NUnit.Mocks</title>
+		<authors>Charlie Poole</authors>
+		<owners>Charlie Poole</owners>
+		<licenseUrl>http://nunit.org/nuget/license.html</licenseUrl>
+		<projectUrl>http://nunit.org</projectUrl>
+		<iconUrl>http://nunit.org/nuget/nunit_32x32.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>NUnit.Mocks is a very simple mock object framework for use with NUnit.</summary>
+		<description>NUnit.Mocks was originally developed for internal use in NUnit's own tests, although we no longer use it for that purpose.&#10;&#13;In addition, it has been useful as a teaching tool, allowing users to gain familiarity with mocking techniques before moving on to more serious frameworks.&#10;&#13;For production use, we recommend you install a full-featured mock object framework.&#10;&#13;The NUnit project now uses NSubstitute and NUnit.Mocks is no longer being developed.</description>
+		<language>en-US</language>
+		<dependencies>
+			<dependency id="NUnit" />
+		</dependencies>
+		<tags>test testing tdd mock framework</tags>
+	</metadata>
+	<files>
+		<file src="${project.base.dir}\license.txt" />
+		<file src="${current.build.dir}\framework\nunit.mocks.dll" target="lib" />
+	</files>
+</package>

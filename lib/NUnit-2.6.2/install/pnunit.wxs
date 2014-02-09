@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <DirectoryRef Id="bin" FileSource="bin">
+
+      <Component Id="pnunit_agent" Guid="CB4CF43B-1D4B-40a7-859B-8B48802B3C07">
+        <File Id="pnunit_agent" Name="pnunit-agent.exe" />
+        <File Id="pnunit_agent_config" Name="pnunit-agent.exe.config" />
+        <File Id="agent_conf" Name="agent.conf" />
+        <File Id="agent_log_conf" Name="agent.log.conf" />
+      </Component>
+
+      <Component Id="pnunit_launcher" Guid="63A18689-3885-4429-8492-61FF79A21AE0">
+        <File Id="pnunit_launcher" Name="pnunit-launcher.exe" />
+        <File Id="pnunit_launcher_config" Name="pnunit-launcher.exe.config" />
+        <File Id="test_conf" Name="test.conf" />
+        <File Id="launcher_log_conf" Name="launcher.log.conf" />
+      </Component>
+
+      <Component Id="pnunit_tests" Guid="9A5B261D-43A1-475c-A4F0-721759E12A4F">
+        <File Id="pnunit_tests" Name="pnunit.tests.dll" />
+        <File Id="runpnunit_bat" Name="runpnunit.bat" />
+        <File Id="pnunit.framework.pnunit.copy" Name="pnunit.framework.dll" />
+        <File Id="nunit.framework.pnunit.copy" Name="nunit.framework.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="lib" FileSource="bin\lib">
+
+      <Component Id="log4net">
+        <File Id="log4net.dll" Name="log4net.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="framework" FileSource="bin\framework">
+
+      <Component Id="pnunit_framework">
+        <File Id="pnunit_framework" Name="pnunit.framework.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+</Wix>

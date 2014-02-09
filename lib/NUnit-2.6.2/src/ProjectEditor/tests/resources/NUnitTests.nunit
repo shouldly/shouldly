@@ -1,0 +1,25 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" autoconfig="true" appbase="D:\Dev\NUnit\nunit-2.6\work" processModel="Default" domainUsage="Default" />
+  <Config name="Debug" binpathtype="Manual" runtimeFramework="v2.0.50727" appbase="" binpath="bin/Debug/lib;bin/Debug/tests;bin/Debug/framework">
+    <assembly path="bin/Debug/nunit.framework.tests.dll" />
+    <assembly path="bin/Debug/nunit.core.tests.dll" />
+    <assembly path="bin/Debug/nunit.util.tests.dll" />
+    <assembly path="bin/Debug/nunit.mocks.tests.dll" />
+    <assembly path="bin/Debug/nunit-console.tests.dll" />
+    <assembly path="bin/Debug/nunit.uikit.tests.dll" />
+    <assembly path="bin/Debug/nunit.uiexception.tests.dll" />
+    <assembly path="bin/Debug/nunit-gui.tests.dll" />
+    <assembly path="bin/Debug/nunit.fixtures.tests.dll" />
+  </Config>
+  <Config name="Release" binpath="bin/Release/lib;bin/Release/tests;bin/Release/framework" binpathtype="Manual">
+    <assembly path="bin/Release/tests/nunit.framework.tests.dll" />
+    <assembly path="bin/Release/tests/nunit.core.tests.dll" />
+    <assembly path="bin/Release/tests/nunit.util.tests.dll" />
+    <assembly path="bin/Release/tests/nunit.mocks.tests.dll" />
+    <assembly path="bin/Release/tests/nunit-console.tests.dll" />
+    <assembly path="bin/Release/tests/nunit.uikit.tests.dll" />
+    <assembly path="bin/Release/tests/nunit.uiexception.tests.dll" />
+    <assembly path="bin/Release/tests/nunit-gui.tests.dll" />
+    <assembly path="bin/Release/tests/nunit.fixtures.tests.dll" />
+  </Config>
+</NUnitProject>

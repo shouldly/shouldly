@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ED57DCEC-3C16-4A90-BD3C-4D5BE5AD70FB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NUnit.ProjectEditor</RootNamespace>
+    <AssemblyName>nunit-editor</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CLR_2_0,NET_2_0,CS_3_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationEditor\AddConfigurationDialog.Designer.cs">
+      <DependentUpon>AddConfigurationDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationEditor\AddConfigurationPresenter.cs" />
+    <Compile Include="ConfigurationEditor\ConfigurationEditorView.Designer.cs">
+      <DependentUpon>ConfigurationEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationEditor\RenameConfigurationDialog.Designer.cs">
+      <DependentUpon>RenameConfigurationDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationEditor\RenameConfigurationPresenter.cs" />
+    <Compile Include="Delegates.cs" />
+    <Compile Include="IDialog.cs" />
+    <Compile Include="IView.cs" />
+    <Compile Include="Main\IProjectDocument.cs" />
+    <Compile Include="Main\IMainView.cs" />
+    <Compile Include="Main\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\ProjectDocument.cs" />
+    <Compile Include="Main\MainPresenter.cs" />
+    <Compile Include="PropertyEditor\AssemblyList.cs" />
+    <Compile Include="PropertyEditor\ConfigList.cs" />
+    <Compile Include="PropertyEditor\IProjectConfig.cs" />
+    <Compile Include="PropertyEditor\ProjectConfig.cs" />
+    <Compile Include="PropertyEditor\ProjectModel.cs" />
+    <Compile Include="PropertyEditor\RuntimeFramework.cs" />
+    <Compile Include="PropertyEditor\VSProject.cs" />
+    <Compile Include="PropertyEditor\VSProjectConfig.cs" />
+    <Compile Include="PropertyEditor\VSProjectConfigCollection.cs" />
+    <Compile Include="PropertyEditor\XmlHelper.cs" />
+    <Compile Include="ViewElements\ButtonElement.cs" />
+    <Compile Include="ViewElements\ComboBoxElement.cs" />
+    <Compile Include="ViewElements\ControlElement.cs" />
+    <Compile Include="ViewElements\DialogManager.cs" />
+    <Compile Include="ViewElements\IComboBox.cs" />
+    <Compile Include="ViewElements\IDialogManager.cs" />
+    <Compile Include="ViewElements\IMessageDisplay.cs" />
+    <Compile Include="ViewElements\ISelection.cs" />
+    <Compile Include="ViewElements\ISelectionList.cs" />
+    <Compile Include="ViewElements\ITextElement.cs" />
+    <Compile Include="ViewElements\IViewElement.cs" />
+    <Compile Include="ViewElements\ListBoxElement.cs" />
+    <Compile Include="ViewElements\ICommand.cs" />
+    <Compile Include="ViewElements\MenuElement.cs" />
+    <Compile Include="ConfigurationEditor\AddConfigurationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationEditor\ConfigurationEditor.cs" />
+    <Compile Include="ConfigurationEditor\ConfigurationEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationEditor\IConfigurationEditorView.cs" />
+    <Compile Include="ConfigurationEditor\RenameConfigurationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyEditor\IProjectModel.cs" />
+    <Compile Include="PropertyEditor\IPropertyView.cs" />
+    <Compile Include="PropertyEditor\PropertyPresenter.cs" />
+    <Compile Include="PropertyEditor\PropertyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyEditor\PropertyView.Designer.cs">
+      <DependentUpon>PropertyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PathUtils.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationEditor\AddConfigurationDialog.resx">
+      <DependentUpon>AddConfigurationDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationEditor\ConfigurationEditorView.resx">
+      <DependentUpon>ConfigurationEditorView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationEditor\RenameConfigurationDialog.resx">
+      <DependentUpon>RenameConfigurationDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyEditor\PropertyView.resx">
+      <DependentUpon>PropertyView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlEditor\XmlView.resx">
+      <DependentUpon>XmlView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="nunit-editor.build" />
+    <Compile Include="ViewElements\MessageDisplay.cs" />
+    <Compile Include="ViewElements\RadioButtonGroup.cs" />
+    <Compile Include="ViewElements\TextElement.cs" />
+    <Compile Include="XmlEditor\IXmlView.cs" />
+    <Compile Include="XmlEditor\XmlPresenter.cs" />
+    <Compile Include="XmlEditor\XmlView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XmlEditor\XmlView.Designer.cs">
+      <DependentUpon>XmlView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

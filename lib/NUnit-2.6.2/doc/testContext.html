@@ -1,0 +1,132 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - TestContext</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>TestContext (NUnit 2.5.7 / 2.6)</h2>
+
+<p>Each NUnit test runs in an execution context, which includes information about the environment as well as the test itself.
+The <b>TestContext</b> class allows tests to access certain information about the execution context.
+
+<p>This class has been present in NUnit since 2.5.7, but was undocumented until the 2.6 release. Those earlier versions of TestContext are not covered here.
+
+<h3>CurrentContext</h3>
+
+<p>The context of the currently executing test may be accessed by
+use of the static property <b>CurrentContext</b>, which gets
+a reference to the current <b>TestContext</b>. This context
+is created separately for each test before it begins execution.
+
+<p>All other properties apply to the <b>TestContext</b> instance returned by <b>CurrentContext</b>. Note that the context may not be changed - all properties are read-only.
+
+<h3>Test</h3>
+
+<p>Gets a representation of the current test, with the following properties:
+
+<ul>
+<li><b>Name</b> - The name of the test
+<li><b>FullName</b> - The fully qualified name of the test
+<li><b>Properties</b> - An <b>IDictionary</b> of the test properties
+</ul>
+
+<h3>Result</h3>
+
+<p>Gets a representation of the test result, with the following properties:
+
+<ul>
+<li><b>Status</b> - A <b>TestStatus</b> with possible values
+  <ul>
+  <li>Inconclusive
+  <li>Skipped
+  <li>Passed
+  <li>Failed
+  </ul>
+<li><b>State</b> - A <b>TestState</b> with possible values
+  <ul>
+  <li>Inconclusive
+  <li>NotRunnable
+  <li>Skipped
+  <li>Ignored
+  <li>Success
+  <li>Failure
+  <li>Error
+  <li>Cancelled
+  </ul>
+</ul>
+
+<h4>Notes:</h4>
+<ol>
+<li>The result of the test may be accessed during setup or test execution, but it only has a useful value at in the TearDown method.
+<li>The <b>Status</b> value should be used in preference to <b>State</b> wherever possible, since the latter will not be available in future releases.
+</ol>
+
+<h3>TestDirectory</h3>
+
+<p>Gets the full path of the directory containing the current test assembly.
+
+<h3>WorkDirectory</h3>
+
+<p>Gets the full path of the directory to be used for output from this test run. The XML result file and any redirected output files are located under this directory. This is normally the directory that was current when execution of
+NUnit began but may be changed by use of the <b>/work</b> option of nunit-console.
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<ul>
+<li><a href="assertions.html">Assertions</a></li>
+<li><a href="attributes.html">Attributes</a></li>
+<li><a href="constraintModel.html">Constraints</a></li>
+<li id="current"><a href="testContext.html">Test&nbsp;Context</a></li>
+</ul>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

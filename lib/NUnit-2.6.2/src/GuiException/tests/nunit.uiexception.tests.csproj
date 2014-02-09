@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{092486D0-6AB9-4134-932F-0FDA10704455}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.UiException.Tests</RootNamespace>
+    <AssemblyName>nunit.uiexception.tests</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\Debug\tests\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CLR_2_0,NET_3_5,CS_3_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\Release\tests\</OutputPath>
+    <DefineConstants>TRACE;CLR_2_0,NET_3_5,CS_3_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="NSubstitute">
+      <HintPath>..\..\..\lib\3.5\NSubstitute.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NUnitFramework\framework\nunit.framework.dll.csproj">
+      <Project>{83DD7E12-A705-4DBA-9D71-09C8973D9382}</Project>
+      <Name>nunit.framework.dll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\tests\test-utilities\test-utilities.csproj">
+      <Project>{3E63AD0F-24D4-46BE-BEE4-5A3299847D86}</Project>
+      <Name>test-utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UiException\nunit.uiexception.dll.csproj">
+      <Project>{3E87A106-EB20-4147-84C8-95B0BB43A1D4}</Project>
+      <Name>nunit.uiexception.dll</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="CodeFormatters\TestCodeFormatterCollection.cs" />
+    <Compile Include="CodeFormatters\TestGeneralCodeFormatter.cs" />
+    <Compile Include="CodeFormatters\TestPlainTextCodeFormatter.cs" />
+    <Compile Include="Controls\TestCodeBox.cs" />
+    <Compile Include="Controls\TestCodeRenderingContext.cs" />
+    <Compile Include="Controls\TestDefaultCodeRenderer.cs" />
+    <Compile Include="Controls\TestDefaultErrorListRenderer.cs" />
+    <Compile Include="Controls\TestErrorBrowser.cs" />
+    <Compile Include="Controls\TestErrorList.cs" />
+    <Compile Include="Controls\TestErrorPanelLayout.cs" />
+    <Compile Include="Controls\TestErrorToolbar.cs" />
+    <Compile Include="Controls\TestSourceCodeDisplay.cs" />
+    <Compile Include="Controls\TestSplitterBox.cs" />
+    <Compile Include="Controls\TestStackTraceDisplay.cs" />
+    <Compile Include="CSharpParser\TestCSCode.cs" />
+    <Compile Include="CSharpParser\TestCSParser.cs" />
+    <Compile Include="CSharpParser\TestLexer.cs" />
+    <Compile Include="CSharpParser\TestToken.cs" />
+    <Compile Include="CSharpParser\TestTokenClassifier.cs" />
+    <Compile Include="CSharpParser\TestTokenDictionary.cs" />
+    <EmbeddedResource Include="data\Basic.cs" />
+    <Compile Include="data\TestResource.cs" />
+    <Compile Include="StackTraceAnalysers\TestFunctionParser.cs" />
+    <Compile Include="StackTraceAnalysers\TestIErrorParser.cs" />
+    <Compile Include="StackTraceAnalysers\TestLineNumberParser.cs" />
+    <Compile Include="StackTraceAnalysers\TestPathParser.cs" />
+    <Compile Include="StackTraceAnalysers\TestUnixPathParser.cs" />
+    <Compile Include="StackTraceAnalysers\TestWindowsPathParser.cs" />
+    <Compile Include="TestDefaultTextManager.cs" />
+    <Compile Include="TestExceptionItem.cs" />
+    <Compile Include="TestExceptionItemCollection.cs" />
+    <Compile Include="TestPaintLineLocation.cs" />
+    <Compile Include="TestStackTraceParser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="data\HelloWorld.txt" />
+    <EmbeddedResource Include="data\TextCode.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="nunit.uiexception.tests.build" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

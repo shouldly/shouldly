@@ -1,0 +1,228 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - NunitAddins</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>NUnit Addins</h2>
+
+<p>NUnit originally identified tests in the time-honored way used in many xUnit
+test frameworks. Test classes inherited from the framework's 
+TestCase class. Individual test case methods were identified by having names
+starting with "test..."</p>
+
+<p>With NUnit 2.0, we introduced the use of attributes to identify both fixtures
+and test cases. Use of attributes in this way was a natural outcome of their 
+presence in .NET and gave us a way of identifying tests that was completely
+independent of both inheritance and naming conventions.</p>
+
+<p>However, by moving away from an inheritance-based mechanism we no longer
+had an easy way for others to extend NUnit's internal behavior. NUnit Addins are 
+intended to fill that gap, providing an mechanism to introduce new or changed 
+behavior without modifying NUnit itself.</p>
+
+<h3>Extension Points, Extensions and Addins</h3>
+
+<p>NUnit provides a number of <b>Extension Points</b>, places where it is
+possible to extend its behavior. Because NUnit works with various hosts
+and uses separate AppDomains to run tests, <b>Extension Points</b> are 
+categorized into three types: Core, Client and Gui. Each of these types is
+supported by a different <b>Extension Host</b>.
+
+<p>An NUnit <b>Addin</b> provides enhanced functionality through one or more 
+extensions, which it installs at identified <b>Extension Points</b>. Each
+<b>Addin</b> is characterized by the types of extensions it supplies, so that
+an <b>Extension Host</b> knows whether to invoke it.</p>
+
+<blockquote>
+<p><b>Note:</b> In the current release, only Core extensions are actually
+supported. An Addin may characterize itself as a Client or Gui extension and
+will be listed as such in the <a href="addinsDialog.html">Addins Dialog</a>, 
+but no other action is taken.</p>
+</blockquote> 
+
+<h3>Addin Identification, Loading and Installation</h3>
+
+<p>NUnit examines all assemblies in the <b>bin/addins</b> directory, looking
+for public classes with the <b>NUnitAddinAttribute</b> and implementing the
+<b>IAddin</b> interface. It loads all those it finds as Addins.</p>
+
+<p><b>NUnitAddinAttribute</b> supports three optional named parameters: Type,
+Name and Description. Name and Description are strings representing the name
+of the extension and a description of what it does. If no name is provided,
+the name of the class is used. Type may be any one or a combination of the 
+ExtensionType enum members:
+
+<pre>
+	[Flags]
+	public enum ExtensionType
+	{
+		Core=1,
+		Client=2,
+		Gui=4
+	}
+</pre>
+
+The values may be or'ed together, allowing for future Addins that require
+extensions at multiple levels of the application. If not provided, Type
+defaults to ExtensionType.Core.</p>
+
+<p>The <b>IAddin</b> interface, which must be implemented by each Addin,
+is defined as follows:</p>
+
+<pre>
+	public interface IAddin
+	{
+		bool Install( IExtensionHost host );
+	}
+</pre>
+
+<p> The <b>Install</b> method is called by each host for which the addin has
+specified an ExtensionType. The addin should check that the necessary extension
+points are available and install itself, returning true for success or false
+for failure to install. The method will be called once for each extension
+host and - for Core extensions - each time a new test domain is loaded.</p>
+
+<p>The Install method uses the <b>IExtensionHost</b> interface to locate
+extension points. It is defined as follows:</p>
+
+<pre>
+	public interface IExtensionHost
+	{
+	 	IExtensionPoint[] ExtensionPoints { get; }
+		IExtensionPoint GetExtensionPoint( string name );
+		ExtensionType ExtensionTypes { get; }
+	}
+</pre>
+
+<p>The <b>ExtensionPoints</b> property returns an array of all extension points
+for those extensions that need the information. The <b>ExtensionTypes</b>
+property returns the flags for the type of extension supported by this host,
+allowing, for example, Gui extensions to only load in a Gui host.</p>
+
+<p>Most addins will only need to use the <b>GetExtensionPoint</b> method to
+get the interface to a particular extension point. The <b>IExtensionPoint</b>
+interface is defined as follows:</p>
+
+<pre>
+	public interface IExtensionPoint
+	{
+		string Name { get; }
+		IExtensionHost Host { get; }
+		void Install( object extension );
+		void Remove( object extension );
+	}
+</pre>
+
+<p>Once again, most addins will only need to use one method - the
+<b>Install</b> method in this case. This method passes an extension object
+to the <b>Extension Point</b> where it is installed. Generally, extensions
+do not need to remove themselves once installed, but the method is
+provided in any case.</p>
+
+<p>With NUnit 2.5, an additional interface, <b>IExtensionPoint2</b> is
+available. It derives from <b>IExtensionPoint</b> and also allows setting
+the priority order in which the extension will be called in comparison to 
+other extensions on the same extension point. The interface is defined
+as follows:
+
+<pre>
+	public interface IExtensionPoint2 : IExtensionPoint
+	{
+		void Install( object extension, int priority );
+	}
+</pre>
+
+<p>Only extension points that use a priority scheme implement this interface.
+In general, extension points with a priority scheme will use a default value
+for priority if the Install method without a priority is called. 
+
+<p>In the NUnit 2.5 release, only the <b>TestDecorators</b> extension point implements
+<b>IExtensionPoint2</b>.
+
+<h3>Extension Point Details</h3>
+
+<p>Depending on the particular extension point, the object passed will
+need to implement one or more interfaces. The following <b>ExtensionPoints</b>
+are implemented in this release of NUnit:
+
+<ul>
+	<li><a href="suiteBuilders.html">SuiteBuilders</a>	<li><a href="testcaseBuilders.html">TestCaseBuilders</a>	<li><a href="testDecorators.html">TestDecorators</a>	<li><a href="testcaseProviders.html">TestCaseProviders</a>	<li><a href="datapointProviders.html">DataPointProviders</a>	<li><a href="eventListeners.html">EventListeners</a></ul></p>
+
+<p>For examples of implementing each type of extension, see the Extensibility
+samples provided with NUnit. More complete examples are available in the
+code of NUnit itself, since NUnit uses the same mechanism internally.</p>
+
+<h4>See also...</h4>
+
+<ul>
+<li><a href="extensionTips.html">Tips for Writing Extensions</a></ul>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<li><a href="extensibility.html">Extensibility</a></li>
+<ul>
+<li><a href="customConstraints.html">Custom&nbsp;Constraints</a></li>
+<li id="current"><a href="nunitAddins.html">NUnit&nbsp;Addins</a></li>
+<ul>
+<li><a href="suiteBuilders.html">SuiteBuilders</a></li>
+<li><a href="testcaseBuilders.html">TestcaseBuilders</a></li>
+<li><a href="testDecorators.html">TestDecorators</a></li>
+<li><a href="testcaseProviders.html">TestcaseProviders</a></li>
+<li><a href="datapointProviders.html">DatapointProviders</a></li>
+<li><a href="eventListeners.html">EventListeners</a></li>
+</ul>
+<li><a href="extensionTips.html">Tips&nbsp;for&nbsp;Extenders</a></li>
+</ul>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

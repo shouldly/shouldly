@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<project name="NUnitUiKit" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="AddConfigurationDialog.cs"/>
+        <include name="AddTabPageDialog.cs"/>
+        <include name="AppContainer.cs"/>
+        <include name="AssemblyInfo.cs"/>
+        <include name="ConfigurationEditor.cs"/>
+        <include name="EditTabPagesDialog.cs"/>
+        <include name="ErrorDisplay.cs"/>
+        <include name="ExpandingLabel.cs"/>
+        <include name="ExpandingTextBox.cs"/>
+        <include name="FolderBrowser.cs"/>
+        <include name="GuiAttachedConsole.cs"/>
+        <include name="GuiTestEventDispatcher.cs"/>
+    <include name="IMessageDisplay.cs"/>
+    <include name="LongRunningOperationDisplay.cs"/>
+    <include name="MessageDisplay.cs"/>
+    <include name="NotRunTree.cs"/>
+    <include name="NUnitFormBase.cs"/>
+        <include name="ProgressBar.cs"/>
+        <include name="RenameConfigurationDialog.cs"/>
+        <include name="ResultTabs.cs"/>
+        <include name="SettingsDialogBase.cs"/>
+        <include name="SimpleSettingsDialog.cs"/>
+        <include name="ScrollingTextDisplayForm.cs"/>
+        <include name="SettingsPage.cs"/>
+        <include name="StatusBar.cs"/>
+        <include name="TabbedSettingsDialog.cs"/>
+        <include name="TestLoaderUI.cs"/>
+    <include name="TestPropertiesDialog.cs"/>
+    <include name="TestPropertiesDialog.Designer.cs"/>
+    <include name="TestSuiteTreeNode.cs"/>
+    <include name="TestSuiteTreeView.cs"/>
+    <include name="TestTree.cs"/>
+    <include name="TextBoxDisplay.cs"/>
+    <include name="TextDisplayContent.cs"/>
+        <include name="TextDisplayTabPage.cs"/>
+        <include name="TextDisplayTabSettings.cs"/>       
+        <include name="TextDisplayWriter.cs"/>
+        <include name="TextDisplay.cs"/>
+        <include name="TextDisplayWriter.cs"/>
+        <include name="TextOutputSettingsPage.cs"/>
+        <include name="TipWindow.cs"/>
+        <include name="TreeBasedSettingsDialog.cs"/>
+        <include name="UserMessage.cs"/>
+        <include name="VisualState.cs"/>
+        <include name="WaitCursor.cs"/>
+  </patternset>
+
+  <patternset id="resource-files">
+        <include name="AddConfigurationDialog.resx"/>
+        <include name="AddTabPageDialog.resx"/>
+        <include name="ConfigurationEditor.resx"/>
+        <include name="EditTabPagesDialog.resx"/>
+        <include name="ErrorDisplay.resx"/>
+        <include name="ExpandingLabel.resx"/>
+        <include name="ExpandingTextBox.resx"/>
+        <include name="LongRunningOperationDisplay.resx"/>
+        <include name="NotRunTree.resx"/>
+        <include name="ProgressBar.resx"/>
+        <include name="RenameConfigurationDialog.resx"/>
+        <include name="ResultTabs.resx"/>
+        <include name="SettingsDialogBase.resx"/>
+        <include name="SettingsPage.resx"/>
+        <include name="SimpleSettingsDialog.resx"/>
+        <include name="StatusBar.resx"/>
+        <include name="TabbedSettingsDialog.resx"/>
+        <include name="TestPropertiesDialog.resx"/>
+        <include name="TestSuiteTreeView.resx"/>
+        <include name="TestTree.resx"/>
+        <include name="TextBoxDisplay.resx"/>
+        <include name="TextDisplayTabPage.resx"/>
+        <include name="TextOutputSettingsPage.resx"/>
+        <include name="TipWindow.resx"/>
+        <include name="TreeBasedSettingsDialog.resx"/>
+        <include name="UserMessage.resx"/>
+        <include name="Images/Ellipsis.gif"/>
+        <include name="Images/pinned.gif"/>
+        <include name="Images/unpinned.gif"/>
+  </patternset>
+
+  <patternset id="content-files">
+    <include name="Images/**"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="library" 
+    output="${current.lib.dir}/nunit.uikit.dll"
+    debug="${build.debug}" define="${build.defines}">
+      <sources>
+        <patternset refid="source-files"/>
+        <include name="../../GeneratedAssemblyInfo.cs"/>
+      </sources>
+      <nowarn>
+        <warning number="1699" if="${runtime.version>='2.0'}"/>
+      </nowarn>
+      <resources prefix="NUnit.UiKit" dynamicprefix="true">
+        <patternset refid="resource-files"/>
+      </resources>
+      <references basedir="${current.lib.dir}">
+        <include name="System.Windows.Forms.dll"/>
+        <include name="System.Drawing.dll"/>
+        <include name="System.Data.dll"/>
+        <include name="nunit.uiexception.dll"/>
+        <include name="nunit.core.interfaces.dll"/>
+        <include name="nunit.core.dll"/>
+        <include name="nunit.util.dll"/>
+      </references>
+    </csc>
+
+    <copy todir="${current.lib.dir}">
+      <fileset>
+        <patternset refid="content-files"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/GuiComponents/UiKit">
+      <fileset>
+        <patternset refid="source-files"/>
+        <patternset refid="resource-files"/>
+        <patternset refid="content-files"/>
+        <include name="nunit.uikit.dll.csproj"/>
+        <include name="nunit.uikit.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

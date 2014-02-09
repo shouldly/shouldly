@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <DirectoryRef Id="bin" FileSource="bin">
+
+      <Component Id="NUnitTestProject"
+                 Guid="6670EEC9-2B3C-4c1f-A91C-BD0EDA0E8B12">
+        <File Id="NUnitTests.nunit" Name="NUnitTests.nunit" />
+        <File Id="NUnitTests.config" Name="NUnitTests.config" />
+      </Component>
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="tests" FileSource="bin\tests">
+
+      <Component Id="framework_copy_for_tests">
+        <File Id="nunit.framework.copy" Name="nunit.framework.dll" />
+      </Component>
+
+      <Component Id="base_tests" Guid="85DD0370-9E05-4e9a-8AB4-02A6C24986AB">
+        <File Id="testutilities" Name="test-utilities.dll" />
+        <File Id="testassembly" Name="test-assembly.dll" />
+        <File Id="mockassembly" Name="mock-assembly.dll" />
+        <File Id="nonamespaceassembly" Name="nonamespace-assembly.dll" />
+        <File Id="nunit.util.tests" Name="nunit.util.tests.dll" />
+        <File Id="nunit.framework.tests" Name="nunit.framework.tests.dll" />
+        <File Id="nunit.mocks.tests" Name="nunit.mocks.tests.dll" />
+        <File Id="console.tests" Name="nunit-console.tests.dll" />
+        <File Id="nunit.core.tests" Name="nunit.core.tests.dll" />
+      </Component>
+
+    </DirectoryRef>
+
+  </Fragment>
+</Wix>

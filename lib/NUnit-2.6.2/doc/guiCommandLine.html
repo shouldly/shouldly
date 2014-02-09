@@ -1,0 +1,199 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - GuiCommandLine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>NUnit Command Line Options</h2>
+<p>The forms interface may be run with or without the name of a file containing 
+	tests on the command line. If the program is started without any file 
+	specified, it automatically loads the most recently loaded assembly.</p>
+<p><b>Note:</b> Options that take values may use an equal sign, a colon or a space 
+	to separate the option from its value.</p>
+<p><b>Note:</b> Under the Windows operating system, options may be prefixed by either
+    a forward slash or a hyphen. Under Linux, a hyphen must be used. Options that
+	take values may use an equal sign, a colon or a space to separate the option 
+	from its value.</p>
+<h4>Run without loading an Assembly</h4>
+<p>To suppress loading of the most recent assembly, use the <b>/noload</b> switch:
+	<pre class="programtext">        nunit /noload</pre>
+</p>
+<h4>Specifying an Assembly</h4>
+<p>The other option is to specify an assembly or project file name on the command 
+	line. The following will start the forms interface with the assembly 
+	nunit.tests.dll:
+	<pre class="programtext">        nunit nunit.tests.dll</pre>
+</p>
+<p>The following will start the forms interface loading the same assembly through 
+	its Visual Studio project definition:
+	<pre class="programtext">        nunit nunit.tests.csproj</pre>
+</p>
+<p>Assuming an NUnit test project has been created containing the assembly, the 
+	following will again load nunit.tests.dll:
+	<pre class="programtext">        nunit nunit.tests.nunit</pre>
+</p>
+<h4>Specifying an Assembly and a Fixture</h4>
+<p>
+	When specifying a a fixture, you must give the full name of the test fixture 
+	along with the containing assembly. For example, to load only the 
+	NUnit.Tests.AssertionTests in the nunit.tests.dll assembly use the following 
+	command:
+	<pre class="programtext">        nunit /fixture:NUnit.Tests.AssertionTests nunit.tests.dll</pre>
+</p>
+<p>The name specified after the <b>/fixture</b> option may be that of a TestFixture 
+	class, or a namespace. If a namespace is given, then all fixtures under that 
+	namespace are loaded. This option may be used with Visual Studio or NUnit 
+	projects as well.</p>
+
+<h4>Specifying Test Categories to Include or Exclude</h4>
+<p>NUnit provides CategoryAttribute for use in marking tests as belonging to 
+	one or more categories. Categories may be included or excluded in a test run 
+	using the <b>/include</b> or <b>/exclude</b> options. The following command 
+	starts the gui with only the tests in the BaseLine category selected:
+	<pre class="programtext">        nunit myassembly.dll /include:BaseLine</pre>
+</p>
+<p>The following command selects all tests <b>except</b> those in the Database 
+	category:
+	<pre class="programtext">        nunit myassembly.dll /exclude:Database</pre>
+</p>
+<p>
+Multiple categories may be specified on either option, by using commas to 
+separate them.
+<p><b>Note:</b> At this time, the /include and /exclude options may not be
+combined on the command line.</p>
+<!--   
+<h4>Specifying the Version of the CLR</h4>
+
+<p>Most applications are written to run under a specific version of the CLR.
+A few are designed to operate correctly under multiple versions. In either case,
+it is important to be able to specify the CLR version to be used for testing.</p>
+
+<p>When only one version of the CLR is used, the config files for nunit and
+nunit-console may be set up to specify that version. As a more convenient
+alternative when switching CLRs, you may use the provided <b>clr.bat</b>
+command to specify the version under which NUnit should run.</p>
+
+<p>For example, to run the gui under the RTM version of 
+the .Net 2.0 framework, use:</p>
+
+<pre class="programtext">       clr net-2.0 nunit</pre>
+
+<p>The <b>clr.bat</b> file is located in the NUnit <b>bin</b> directory. You may
+put this on your path, or copy it to a convenient location. Enter <b>clr /?</b> 
+for a list of options.</p>
+	
+<p><b>Note:</b> If you use a &lt;startup&gt; section in the config file, it takes
+precedence over this option.</p>
+
+<p><b>Note:</b> This command is specific to the Microsoft .Net 
+framework. The Mono framework provides other means to specify the version
+to be used when running a command and the NUnit Windows interface does
+not currently run under Mono.</p>
+-->
+
+<h4>Load and Run All Tests</h4>
+Normally, nunit only loads an assembly and then waits for the user to click 
+on the Run button. If you wish to have the tests run immediately, use the <b>/run</b>
+option:
+<pre class="programtext">        nunit nunit.tests.dll /run</pre>
+</p>
+<h4>Load and Run Selected Tests</h4>
+To load and immediately rerun the last selected tests, use the <b>/runselected</b>
+option:
+<pre class="programtext">        nunit nunit.tests.dll /runselected</pre>
+</p>
+<p><b>Note:</b> If no selection has been saved, this option works just like <b>/run</b>.
+<h4>Specifying which Configuration to Load</h4>
+<p>When loading a Visual Studio project or an NUnit project, the first 
+	configuration found will be loaded by default. Usually this is Debug. The 
+	configuration loaded may be controlled using the <b>/config</b> switch. The 
+	following will load the Release configuration of the nunit.tests.dll:
+	<pre class="programtext">        nunit nunit.tests.csproj /config:Release</pre>
+</p>
+<p><b>Note:</b> This option has no effect when loading an assembly directly.</p>
+<h4>Specifying Multiple Assemblies</h4>
+<p>The forms interface does <b>not</b> currently provide for specifying more than 
+	one assembly on the command line. Multiple-assembly projects must be loaded by 
+	specifying the name of a Visual Studio solution file or an NUnit test project.</p>
+<h4>Clearing the ShadowCopy Cache</h4>
+<p>The <b>/cleanup</b> option erases the shadow copy cache and exits.
+<h4>Displaying Help</h4>
+<p>The <b>/help</b> or <b>/?</b> option displays a message box containing a brief 
+	help message.</p>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<ul>
+<li id="current"><a href="guiCommandLine.html">Command-Line</a></li>
+<li><a href="mainMenu.html">Main&nbsp;Menu</a></li>
+<li><a href="contextMenu.html">Context&nbsp;Menu</a></li>
+<li><a href="settingsDialog.html">Settings&nbsp;Dialog</a></li>
+<li><a href="addinsDialog.html">Addins&nbsp;Dialog</a></li>
+<li><a href="testProperties.html">Test&nbsp;Properties</a></li>
+<li><a href="configEditor.html">Configuration&nbsp;Editor</a></li>
+</ul>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

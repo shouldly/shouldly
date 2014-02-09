@@ -1,0 +1,150 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - VsSupport</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h2>Visual Studio Support</h2>
+
+<p>NUnit supports the Visual Studio project and solution format, which are also 
+   used by a number of other IDEs. Visual Studio support is enabled/disabled
+   by use of the <a href="settingsDialog.html">Settings Dialog</a>
+<h3>Running From Within Visual Studio</h3>
+
+<p>The most convenient way to do this is to set up a custom tool entry specifying the path to 
+NUnit as the command. For a VS2003 C# project, you can use $(TargetPath) for the arguments and
+$(TargetDir) for the initial directory. 
+
+<p>With Visual Studio VS2005 this becomes a bit harder, because that release changed the
+meaning of the 'Target' macros so they now point to the intermediate 'obj' directories rather
+than the final output in one of the 'bin' directories. Here are some alternatives that
+work in both versions:
+
+<ul>
+<li><b>$(ProjectDir)$(ProjectFileName)</b> to open the VS Project rather than the assembly.
+    If you use this approach, be sure to rename your config file accordingly and put it
+	in the same directory as the VS project file.
+<li><b>$(ProjectDir)bin/Debug/$(TargetName)$(TargetExt)</b> to run the assembly directly.
+    Note that this requires hard-coding part of the path, including the configuration.
+</ul>
+
+<p>If you would like to debug your tests, use the Visual Studio
+Debug | Processes… menu item to attach to NUnit after starting it and set breakpoints in
+your test code as desired before running the tests.</p>
+
+<h3>Using Console Interface to Debug Applications</h3>
+
+<p>When the nunit-console program is run in debug mode under Visual Studio, it detects that it is
+running in this mode and sends output to the Visual Studio output window. Output is formatted so
+that double clicking any error or failure entries opens the appropriate test file at the location
+where the failure was detected.</p>
+
+<h3>Opening Visual Studio Projects</h3>
+
+<p>When Visual Studio support is enabled, the File Open dialog displays the following supported
+Visual Studio project types: C#, VB.Net, J# and C++. The project file is read and the
+configurations and output assembly locations are identified. Since the project files do not contain
+information about the most recently opened configuration, the output assembly for the first
+configuration found (usually Debug) is loaded in the GUI. The tree shows the project as the toplevel
+node with the assembly shown as its descendant.</p>
+
+<p>Beginning with NUnit 2.2.2, you may also open a Visual Studio project by dragging it to the gui tree control.</p>
+
+<p>When tests are run for a Visual studio project, they run just as if the output assembly had been
+loaded with one exception. The default location for the config file is the directory containing the
+project file and it's default name is the same as the project file with an extension of .config.
+For example, the following command would load the tests in the nunit.tests assembly using the
+configuration file nunit.tests.dll.config located in the same directory as the dll.
+	<pre class="programtext">        nunit.exe nunit.tests.dll</pre>
+On the other hand, the following command would load the tests using the configuration file
+nunit.tests.config located in the same directory as the csproj file.
+      <pre class="programtext">        nunit.exe nunit.tests.csproj</pre>
+The same consideration applies to running tests using the console runner.</p>
+
+<h3>Opening Visual Studio Solutions</h3>
+
+<p>When Visual Studio support is enabled, solution files may be opened as well. All the output
+assemblies from contained projects of the types supported will be loaded in the tree. In the case
+where all contained projects are located in the subdirectories beneath the solution, it will be
+possible to load and run tests using this method directly.</p>
+
+<p>Beginning with NUnit 2.2.2, you may also open a Visual Studio solution by dragging it to the gui tree control.</p>
+
+<p>When a solution contains projects located elsewhere in the file system, it may not be possible to
+run the tests - although the solution will generally load without problem. In this case, the Project
+Editor should be use to modify and save the NUnit test project so that there is all referenced
+assemblies are located in or beneath the application base directory.</p>
+
+<h3>Adding Visual Studio Projects to the Open Test Project</h3>
+
+<p>When Visual Studio support is enabled, the Project menu contains an active entry to add a VS
+project to the loaded project. The output assembly will be added for each of the configurations
+specified in the VS project.</p>
+
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li id="current"><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

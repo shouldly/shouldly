@@ -1,0 +1,128 @@
+<!-- saved from url=(0014)about:internet --><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<!-- Standard Head Part -->
+<head>
+<title>NUnit - RuntimeSelection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-US">
+<meta name="norton-safeweb-site-verification" content="tb6xj01p4hgo5x-8wscsmq633y11-e6nhk-bnb5d987bseanyp6p0uew-pec8j963qlzj32k5x9h3r2q7wh-vmy8bbhek5lnpp5w4p8hocouuq39e09jrkihdtaeknua" />
+<link rel="stylesheet" type="text/css" href="nunit.css">
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<!-- End Standard Head Part -->
+
+<body>
+
+<!-- Standard Header for NUnit.org -->
+<div id="header">
+  <a id="logo" href="http://www.nunit.org"><img src="img/logo.gif" alt="NUnit.org" title="NUnit.org"></a>
+  <div id="nav">
+    <a href="http://www.nunit.org">NUnit</a>
+    <a class="active" href="index.html">Documentation</a>
+  </div>
+</div>
+<!-- End of Header -->
+
+<div id="content">
+
+<h3>Runtime Selection</h3>
+
+<p>Before loading an assembly, NUnit must determine what runtime to use. By default
+(see below for exceptions) the following rules are used:
+
+<ol>
+<li><p>If the assembly was built for the same runtime under which NUnit is currently 
+running, then that runtime is used.
+
+<li><p>If the assembly was built for a different runtime version and that version 
+is available, NUnit uses it, running out of process if necessary. 
+
+<li><p>If the assembly was built for a different runtime version, which is not
+available, then the result depends on whether the build version is earlier or
+later than the current version. If earlier, the test will be run using the
+same runtime version under which NUnit is running. If later, then it is not
+possible to load the test and NUnit gives an error message.
+
+<li><p>If multiple assemblies are being run at the same time, NUnit first
+determines the runtime under which each assembly was built. The highest version 
+is then selected for the entire group, and rules 1 through 3 are applied.
+</ol>
+
+<p><b>Note:</b> For versions 2.5.4 and 2.5.5, automatic runtime selection only
+works in the Gui runner. Use the /framework option to select the appropriate
+runtime under the Console runner.
+
+<h3>Overriding the Defaults</h3>
+
+<p>The default runtime framework may be overridden using command line arguments, 
+   menu items in the Gui or settings in an NUnit project file. Provided that the 
+   requested framework is available, it will be used. If it isn't available, 
+   NUnit will issue an error message.
+   
+<p><b>Note:</b> To use version 1.x runtimes, you must have NUnit's support 
+   for those runtimes installed, in addition to the runtime itself. This
+   support is an option of the NUnit installation.
+
+<h4>Command Line Options</h4>
+
+<p>The <b>/framework</b> option of console runner allows you to specify
+   the framework type and version to be used for a test run. See
+   <a href="consoleCommandLine.html">NUnit-Console Command Line Options</a>   for more information.
+   
+<h4>Gui Menu Selection</h4>
+
+<p>The main menu provides <b>File | Select Runtime</b> sub-items allowing you
+   to reload the tests under a specific runtime. See 
+   <a href="mainMenu.html">Main Menu</a> for more info.
+   
+<h4>Project Settings</h4>
+
+<p>The NUnit project format supports specification of a specific runtime to
+   be used with a project at the configuration level. See
+   <a href="projectEditor.html">Project Editor</a>   for more information.
+</div>
+
+<!-- Submenu -->
+<div id="subnav">
+<ul>
+<li><a href="index.html">NUnit 2.6.2</a></li>
+<ul>
+<li><a href="getStarted.html">Getting&nbsp;Started</a></li>
+<li><a href="writingTests.html">Writing&nbsp;Tests</a></li>
+<li><a href="runningTests.html">Running&nbsp;Tests</a></li>
+<ul>
+<li><a href="nunit-console.html">Console&nbsp;Runner</a></li>
+<li><a href="nunit-gui.html">Gui&nbsp;Runner</a></li>
+<li><a href="pnunit.html">PNUnit&nbsp;Runner</a></li>
+<li><a href="nunit-agent.html">NUnit&nbsp;Agent</a></li>
+<li><a href="projectEditor.html">Project&nbsp;Editor</a></li>
+<li id="current"><a href="runtimeSelection.html">Runtime&nbsp;Selection</a></li>
+<li><a href="assemblyIsolation.html">Assembly&nbsp;Isolation</a></li>
+<li><a href="configFiles.html">Configuration&nbsp;Files</a></li>
+<li><a href="multiAssembly.html">Multiple&nbsp;Assemblies</a></li>
+<li><a href="vsSupport.html">Visual&nbsp;Studio&nbsp;Support</a></li>
+</ul>
+<li><a href="extensibility.html">Extensibility</a></li>
+<li><a href="releaseNotes.html">Release&nbsp;Notes</a></li>
+<li><a href="samples.html">Samples</a></li>
+<li><a href="license.html">License</a></li>
+</ul>
+<li><a href="vsTestAdapter.html">NUnit&nbsp;Test&nbsp;Adapter</a></li>
+<ul>
+<li><a href="vsTestAdapterLicense.html">License</a></li>
+</ul>
+<li><a href="&r=2.6.2.html"></a></li>
+<li><a href="&r=2.6.2.html"></a></li>
+</ul>
+</div>
+<!-- End of Submenu -->
+
+
+<!-- Standard Footer for NUnit.org -->
+<div id="footer">
+  Copyright &copy; 2012 Charlie Poole. All Rights Reserved.
+</div>
+<!-- End of Footer -->
+
+</body>
+</html>

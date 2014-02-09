@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="PNUnitLauncher" default="build" basedir=".">
+
+  <patternset id="source-files">
+        <include name="AssemblyInfo.cs"/>
+        <include name="Barrier.cs"/>
+        <include name="launcher.cs"/>
+	<include name="MessageQueue.cs"/>
+        <include name="Runner.cs"/>
+        <include name="TestConf.cs"/>
+  </patternset>
+
+  <target name="build">
+    <csc target="exe"
+        output="${current.build.dir}/pnunit-launcher.exe"
+        debug="${build.debug}" 
+        define="${build.defines}">
+      <sources basedir=".">
+        <patternset refid="source-files"/>
+      </sources>
+      <references>
+        <include name="System.Runtime.Remoting.dll"/>
+        <include name="${current.framework.dir}/pnunit.framework.dll"/>
+        <include name="${current.lib.dir}/nunit.core.dll"/>
+        <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+        <include name="${current.lib.dir}/log4net.dll"/>
+      </references>
+    </csc>
+
+    <copy file="Ship.config"
+      tofile="${current.build.dir}/pnunit-launcher.exe.config"/>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/PNUnit/launcher">
+      <fileset>
+        <patternset refid="source-files"/>
+        <include name="App.ico"/>
+        <include name="App.config"/>
+        <include name="Ship.config"/>
+        <include name="pnunit-launcher.csproj"/>
+        <include name="pnunit-launcher.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>

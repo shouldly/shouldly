@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<project name="TestAssembly" default="build" basedir=".">
+
+  <patternset id="source-files">
+    <include name="AsyncDummyFixture.cs"/>
+    <include name="AsyncRealFixture.cs"/>
+  </patternset>
+
+  <target name="build" if="${runtime.version >= '2.0'}">
+
+    <echo message=".NET 4.5 is not installed - skipping test-assembly-net45"
+	unless="${framework::exists('net-4.5')}"/>
+
+    <if test="${framework::exists('net-4.5')}">
+
+      <property name="previousFramework" value="${nant.settings.currentframework}"/>
+      <property name="nant.settings.currentframework" value="net-4.5"/>
+
+      <csc target="library" 
+          output="${current.test.dir}/test-assembly-net45.dll" 
+          debug="${build.debug}" define="${build.defines}">
+        <sources>
+          <patternset refid="source-files"/>
+          <include name="../../GeneratedAssemblyInfo.cs"/>
+        </sources>
+        <nowarn>
+          <warning number="618,672"/>
+        </nowarn>
+        <references>
+          <include name="${current.framework.dir}/nunit.framework.dll"/>
+          <include name="${current.framework.dir}/nunit.framework.extensions.dll"/>
+          <include name="${current.lib.dir}/nunit.core.interfaces.dll"/>
+          <include name="${current.lib.dir}/nunit.core.dll"/>
+        </references>
+      </csc>
+
+      <property name="nant.settings.currentframework" value="${previousFramework}"/>
+
+    </if>
+
+  </target>
+
+  <target name="package">
+    <copy todir="${package.src.dir}/tests/test-assembly-net45">
+      <fileset>
+        <patternset refid="source-files" />
+        <include name="test-assembly-net45.csproj"/>
+        <include name="test-assembly-net45.build"/>
+      </fileset>
+    </copy>
+  </target>
+
+</project>
