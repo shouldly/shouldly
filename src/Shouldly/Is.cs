@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
@@ -30,7 +31,7 @@ namespace Shouldly
             throw new NotImplementedException();
         }
 
-        public static bool GreaterThan(object o, object expected)
+        public static bool GreaterThan(object actual, object expected)
         {
             throw new NotImplementedException();
         }
@@ -41,16 +42,14 @@ namespace Shouldly
             throw new NotImplementedException();
         }
 
-        public static bool Equal(decimal object1, decimal expected, decimal tolerance)
+        public static bool Equal(decimal actual, decimal expected, decimal tolerance)
         {
-            // Is.EqualTo(expected).Within(tolerance)
-            throw new NotImplementedException();
+            return Math.Abs(actual - expected) < tolerance;
         }
 
-        public static bool Equal(double object1, double expected, double tolerance)
+        public static bool Equal(double actual, double expected, double tolerance)
         {
-            // Is.EqualTo(expected).Within(tolerance)
-            throw new NotImplementedException();
+            return Math.Abs(actual - expected) < tolerance;
         }
 
         public static bool Equal(IEnumerable<float> object1, IEnumerable<float> expected, double tolerance)
@@ -67,42 +66,53 @@ namespace Shouldly
 
         public static bool InstanceOf(object o, Type expected)
         {
-            throw new NotImplementedException();
+            if (o == null)
+                return false;
+            return expected.IsInstanceOfType(o);
         }
 
-        public static bool StringMatchingRegex(string s, string regexPattern)
+        public static bool StringMatchingRegex(string actual, string regexPattern)
         {
-            throw new NotImplementedException();
+            return Regex.IsMatch(actual, regexPattern);
         }
 
-        public static bool StringContainingIgnoreCase(string s, string expected)
+        public static bool StringContainingIgnoreCase(string actual, string expected)
         {
-            throw new NotImplementedException();
+            if (actual == null)
+                return false;
+
+            return actual.IndexOf(expected, StringComparison.InvariantCultureIgnoreCase) != -1;
         }
 
-        public static bool EndsWithIgnoringCase(string s, string expected)
+        public static bool EndsWithIgnoringCase(string actual, string expected)
         {
-            throw new NotImplementedException();
+            if (actual == null)
+                return false;
+
+            return actual.EndsWith(expected, StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public static bool StringStartingWithIgnoreCase(string s, string expected)
+        public static bool StringStartingWithIgnoreCase(string actual, string expected)
         {
-            throw new NotImplementedException();
+            if (actual == null)
+                return false;
+
+            return actual.StartsWith(expected, StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public static bool StringEqualIgnoreCase(string s, string expected)
+        public static bool StringEqualIgnoreCase(string actual, string expected)
         {
-            throw new NotImplementedException();
+            return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);
         }
 
-        public static bool StringEqual(string s, string expected)
+        public static bool Equal(object actual, object expected)
         {
-            throw new NotImplementedException();
-        }
+            if (actual == null && expected == null)
+                return true;
+            if (actual == null || expected == null)
+                return false;
 
-        public static bool Equal(object elementAt, object expected)
-        {
-            throw new NotImplementedException();
+            return actual.Equals(expected);
         }
     }
 }

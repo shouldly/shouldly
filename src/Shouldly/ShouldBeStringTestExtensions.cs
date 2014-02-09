@@ -13,7 +13,7 @@ namespace Shouldly
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
         {
             actual.AssertAwesomely(v => (caseSensitivity == Case.Sensitive)
-                ? Is.StringEqual(v, expected)
+                ? Is.Equal(v, expected)
                 : Is.StringEqualIgnoreCase(v, expected), actual, expected);
         }
 
@@ -25,7 +25,7 @@ namespace Shouldly
             var strippedActual = actual.Quotify().StripWhitespace();
             var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
 
-            strippedActual.AssertAwesomely(v => Is.StringEqual(v, strippedExpected), actual, expected);
+            strippedActual.AssertAwesomely(v => Is.Equal(v, strippedExpected), actual, expected);
         }
 
         /// <summary>
