@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System;
@@ -10,39 +9,14 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
-        public static void ShouldBe<T>(this T actual, object expected)
+        public static void ShouldBe<T>(this T actual, T expected)
         {
-            if (!(expected is T))
-                if (AreEnumerableAndHaveSameElementType(actual, expected))
-                    actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
-                else
-                    throw new ChuckedAWobbly(new ShouldlyMessage(expected.GetType(), typeof(T)).ToString());
-
-            else
-            {
-                var expectedAsT = (T)expected;
-                actual.AssertAwesomely(v => Is.Equal(v, expectedAsT), actual, expectedAsT);
-            }
+             actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
         }
-
-        private static bool AreEnumerableAndHaveSameElementType(object a, object b)
+        
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
         {
-            if (!(a is IEnumerable && b is IEnumerable))
-                return false;
-
-            var aEnumerable = ((IEnumerable)a).Cast<object>().ToList();
-            var bEnumerable = ((IEnumerable)b).Cast<object>().ToList();
-
-            if (aEnumerable.Count != bEnumerable.Count)
-                return false;
-
-            var aElement = aEnumerable.FirstOrDefault();
-            var bElement = bEnumerable.FirstOrDefault();
-
-            if (aElement == null || bElement == null)
-                return false;
-
-            return aElement.GetType() == bElement.GetType();
+             actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
         }
 
         public static T ShouldBeTypeOf<T>(this object actual)
@@ -143,22 +117,12 @@ namespace Shouldly
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
-        public static void ShouldBeInRange(this IComparable actual, IComparable from, IComparable to)
+        public static void ShouldBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.InRange(v, from, to), actual, new {from, to});
         }
 
-        public static void ShouldNotBeInRange(this IComparable actual, IComparable from, IComparable to)
-        {
-            actual.AssertAwesomely(v => !Is.InRange(v, from, to), actual, new {from, to});
-        }
-
-        public static void ShouldBeInRange<T>(this IComparable<T> actual, T from, T to)
-        {
-            actual.AssertAwesomely(v => Is.InRange(v, from, to), actual, new {from, to});
-        }
-
-        public static void ShouldNotBeInRange<T>(this IComparable<T> actual, T from, T to)
+        public static void ShouldNotBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => !Is.InRange(v, from, to), actual, new {from, to});
         }

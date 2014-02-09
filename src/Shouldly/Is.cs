@@ -4,16 +4,11 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
-    internal class Is
+    internal static class Is
     {
-        public static bool InRange(IComparable comparable, IComparable @from, IComparable to)
+        public static bool InRange<T>(T comparable, T @from, T to) where T : IComparable<T>
         {
-            throw new NotImplementedException();
-        }
-
-        public static bool InRange<T>(IComparable<T> comparable, T @from, T to)
-        {
-            throw new NotImplementedException();
+            return comparable.CompareTo(from) >= 0 && comparable.CompareTo(to) <= 0;
         }
 
         public static bool Same(object actual, object expected)
@@ -24,6 +19,31 @@ namespace Shouldly
                 return false;
 
             return ReferenceEquals(actual, expected);
+        }
+
+        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+        {
+            if (actual == null && expected == null)
+                return true;
+            if (actual == null || expected == null)
+                return false;
+
+            var expectedEnum = expected.GetEnumerator();
+            var actualEnum = actual.GetEnumerator();
+
+            for (; ; )
+            {
+                var expectedHasData = expectedEnum.MoveNext();
+                var actualHasData = actualEnum.MoveNext();
+
+                if (!expectedHasData && !actualHasData)
+                    return true;
+
+                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current))
+                {
+                    return false;
+                }
+            }
         }
 
         public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)

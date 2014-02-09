@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
@@ -32,15 +31,9 @@ namespace Shouldly.Tests
                 "() => new UncomparableClass(\"ted\") should be bob but was ted"
             );
 
-	        Should.Error(
-		        () => 12.ShouldBe("string"),
-		        "() => 12 should be System.String but was System.Int32"
-		        );
-
-			Should.Error(
-				() => new Strange().ShouldBe("string"),
-				"() => new Strange() should be System.String but was Shouldly.Tests.ShouldlyMessageTests+Strange"
-				);
+            var ex = Assert.Throws<ChuckedAWobbly>(() =>
+                ((object)12).ShouldBe("string"));
+            ex.Message.ShouldContainWithoutWhitespace("((object)12) should be \"string\" but was 12");
 
             Should.Error(() =>
                          "SamplE".ShouldBe("sAMPLe", Case.Sensitive),
@@ -72,17 +65,17 @@ namespace Shouldly.Tests
                 "Action a = () => 1 should be 2 but was 1");
         }
 
-	    [Test]
-	    public void ComparingEnumerables()
-	    {
-		    Should.Error(
-			    () => new Strange().ShouldBe("string"),
-			    "() => new Strange() should be System.String but was Shouldly.Tests.ShouldlyMessageTests+Strange"
-			    );
+        [Test]
+        public void ComparingEnumerables()
+        {
+            var ex = Assert.Throws<ChuckedAWobbly>(()=>
+                new Strange().ShouldBe("string"));
 
-	    }
+            ex.Message.ShouldContainWithoutWhitespace(
+                "new Strange() should be [] (string) but was [] (null) difference []");
+        }
 
-	    [Test]
+        [Test]
         public void ShouldBeTypeOf()
         {
             Should.Error(
@@ -263,22 +256,38 @@ namespace Shouldly.Tests
             }
         }
 
-		private class Strange : IEnumerable<Strange>
-		{
-			public IEnumerator<Strange> GetEnumerator()
-			{
-				return new List<Strange>().GetEnumerator();
-			}
+        private class Strange : IEnumerable<Strange>
+        {
+            private readonly string _thing;
 
-			IEnumerator IEnumerable.GetEnumerator()
-			{
-				return GetEnumerator();
-			}
+            public Strange()
+            {
+            }
 
-			public static implicit operator Strange(string thing)
-			{
-				return new Strange();
-			}
-		}
+            private Strange(string thing)
+            {
+                _thing = thing;
+            }
+
+            public IEnumerator<Strange> GetEnumerator()
+            {
+                return new List<Strange>().GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+
+            public static implicit operator Strange(string thing)
+            {
+                return new Strange(thing);
+            }
+
+            public override string ToString()
+            {
+                return _thing ?? "null";
+            }
+        }
     }
 }
