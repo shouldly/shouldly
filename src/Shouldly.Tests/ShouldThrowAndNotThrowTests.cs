@@ -10,10 +10,10 @@ namespace Shouldly.Tests
         public void ShouldThrow_WhenItThrowsCorrectException()
         {
             Action shouldThrowAction =
-                () => Shouldly.Should.Throw<NotImplementedException>(() =>
+                () => Shouldly.Should.Throw<NotImplementedException>(new Action(() =>
                 {
                     throw new NotImplementedException();
-                });
+                }));
 
             Should.NotError(shouldThrowAction);
         }
