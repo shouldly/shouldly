@@ -21,7 +21,7 @@ namespace Shouldly
         private readonly object _expected;
         private readonly object _actual;
         private readonly bool _hasActual;
-        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] { new ShouldBeEmptyMessageGenerator(), new DefaultMessageGenerator() };
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DefaultMessageGenerator() };
 
         public ShouldlyMessage(object expected)
         {

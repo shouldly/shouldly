@@ -183,6 +183,32 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBeNullOrEmpty()
+        {
+            string nullstring = null;
+            Should.Error(
+                () => nullstring.ShouldBe(string.Empty),
+                "() => nullstring should be \"\" but was null");
+
+            Should.Error(
+             () => "a".ShouldBeNullOrEmpty(),
+             "() => \"a\" should be null or empty");
+        }
+
+        [Test]
+        public void ShouldNotBeNullOrEmpty()
+        {
+           Should.Error(
+               () => "".ShouldNotBeNullOrEmpty(), 
+               "() => \"\" should not be null or empty");
+
+            string nullString = null;
+           Should.Error(
+               () => nullString.ShouldNotBeNullOrEmpty(), 
+               "() => nullString should not be null or empty");
+        }
+
+        [Test]
         public void ShouldBeSameAs()
         {
             var aReferenceType = new object();

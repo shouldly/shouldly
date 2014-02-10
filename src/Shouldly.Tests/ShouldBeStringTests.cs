@@ -52,5 +52,24 @@ namespace Shouldly.Tests
         {
             "SamplE".ShouldBe("sAMPLe", Case.Insensitive);
         }
+
+        [Test]
+        public void ShouldBeNullOrEmpty_GivenAnEmptyString_ShouldPass()
+        {
+            "".ShouldBeNullOrEmpty();
+        }
+
+        [Test]
+        public void ShouldBeNullOrEmpty_GivenANullString_ShouldPass()
+        {
+            string nullstring = null;
+            nullstring.ShouldBeNullOrEmpty();
+        }
+
+        [Test]
+        public void ShouldNotBeNullOrEmpty_GivenANonEmptyString_ShouldPass()
+        {
+            "a".ShouldNotBeNullOrEmpty();
+        }
     }
 }

@@ -72,6 +72,8 @@ Other *Shouldly* features:
         ShouldNotContain
         ShouldContainWithoutWhitespace
         ShouldMatch
+        ShouldBeNullOrEmpty
+        ShouldNotBeNullOrEmpty
 
     ##Dictionary
         ShouldContainKeyShouldContainKeyAndValue
