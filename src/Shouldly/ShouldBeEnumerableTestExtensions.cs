@@ -84,17 +84,7 @@ namespace Shouldly
                 }
                 return false;
             }))
-            {
-                //TODO: message generation should be moved to ShouldlyMessage
-                throw new ChuckedAWobbly(string.Format(@"
-                    {0}
-                        {1}
-                    {2}
-                        but was
-                    {3}", actual.Inspect(), "should be subset of",
-                    expected.Inspect(), "not"
-                    ));
-            }
+                throw new ChuckedAWobbly(new ShouldlyMessage(expected).ToString());
         }
     }
 
