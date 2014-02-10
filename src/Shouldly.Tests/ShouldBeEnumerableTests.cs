@@ -142,6 +142,7 @@ namespace Shouldly.Tests
             ex.Message.ShouldContainWithoutWhitespace("new[] { 1, 1, 2, 3, 4, 5 } should be subset of [ 1, 2, 3, 4, 5 ] but does not");
             ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
                 new[] { 1, 2, 3, 4, 4, 5, 5, 3, 2, 2 }.ShouldBeSubsetOf(new[] { 1, 2, 3, 4, 5, 1, 2, 3, 4, 5 }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { 1, 2, 3, 4, 4, 5, 5, 3, 2, 2 } should be subset of [ 1, 2, 3, 4, 5, 1, 2, 3, 4, 5] but does not");
 
             ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
                 new[] { "1" }.ShouldBeSubsetOf(new[] { "1 " }));
