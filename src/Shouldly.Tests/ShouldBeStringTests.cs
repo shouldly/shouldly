@@ -54,22 +54,22 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeEmpty_GivenAnEmptyString_ShouldPass()
+        public void ShouldBeNullOrEmpty_GivenAnEmptyString_ShouldPass()
         {
-            "".ShouldBeEmpty();
+            "".ShouldBeNullOrEmpty();
         }
 
         [Test]
-        public void ShouldBeEmpty_GivenANullString_ShouldPass()
+        public void ShouldBeNullOrEmpty_GivenANullString_ShouldPass()
         {
             string nullstring = null;
-            nullstring.ShouldBeEmpty();
+            nullstring.ShouldBeNullOrEmpty();
         }
 
         [Test]
-        public void ShouldNotBeEmpty_GivenANonEmptyString_ShouldPass()
+        public void ShouldNotBeNullOrEmpty_GivenANonEmptyString_ShouldPass()
         {
-            "a".ShouldNotBeEmpty();
+            "a".ShouldNotBeNullOrEmpty();
         }
     }
 }
