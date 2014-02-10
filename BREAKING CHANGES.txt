@@ -7,17 +7,7 @@ v1.0 -> v1.1 Breaking Changes
     # Shouldly.Should.Throw<TException> changed to return thrown exception when failed, rather than exception message
         FIX: Any code relying on Throw<T>() to return a string should update to call Message. Eg:
         Should.Throw<SomeException>(() => throw new OtherException()).Message.ShouldBe("Threw other exception"); 
-        
-    # IEnumerables<> containing unrelated types no longer considered equal, even when empty. This was probably
-        a source of bugs, causing tests to pass unexpectedly under certain conditions. Specifically:
-        (IEnumerable<T>) x.ShouldBe((IEnumerable<U>) y) always throws ChuckedAWobbly unless U is subtype of, or same as T.
-        FIX: Explicitly cast collections before comparing (e.g. use LINQ method IEnumerable.Cast<T>())
-
-    # (T) x.ShouldBe((U) y) now performs runtime type check that y is T. If !(y is T) it always throws. Previously
-        if y had an implicit cast to T, it would perform that cast first. Combined with peculiarities in comparing
-        IEnumerables (above) this lead to some strange false passes.
-        FIX: Explicitly cast y to T if that is the comparison you mean to make.
-
+   
     # Rhino Mocks has been deprecated from Shouldly. 
         Won't break build as such, but please bear in mind that plans are to remove this functionality from Shouldly
         This also means the NuGet package has been updated to remove the explicit dependency on Rhino.Mocks.
