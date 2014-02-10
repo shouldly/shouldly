@@ -27,13 +27,21 @@ namespace Shouldly
 
         public static string Inspect(this object value)
         {
+            if (value == null)
+                return "null";
+
             if (value is string)
                 return "\"" + value + "\"";
 
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();
-                return "[" + objects.Select(o => o.Inspect()).CommaDelimited() + "]";
+                var inspect = "[" + objects.Select(o => o.Inspect()).CommaDelimited() + "]";
+                if (inspect == "[]" && value.ToString() != value.GetType().FullName)
+                {
+                    inspect += " (" + value + ")";
+                }
+                return inspect;
             }
 
             if (value is Enum)

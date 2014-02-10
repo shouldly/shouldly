@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Shouldly.Tests
 {
@@ -17,7 +13,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldNotThrowWhenOutOfRange()
         {
-            1.5.ShouldNotBeInRange(1.6m, 1.7m);
+            1.5m.ShouldNotBeInRange(1.6m, 1.7m);
         }
 
         [Test]

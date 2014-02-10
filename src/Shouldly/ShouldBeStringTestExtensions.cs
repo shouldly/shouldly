@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using NUnit.Framework;
+using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly
 {
@@ -12,10 +12,9 @@ namespace Shouldly
         /// </summary>
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
         {
-            var constraint = (caseSensitivity == Case.Sensitive)
-                                 ? Is.EqualTo(expected)
-                                 : Is.EqualTo(expected).IgnoreCase;
-            actual.AssertAwesomely(constraint, actual, expected);
+            actual.AssertAwesomely(v => (caseSensitivity == Case.Sensitive)
+                ? Is.Equal(v, expected)
+                : Is.StringEqualIgnoreCase(v, expected), actual, expected);
         }
 
         /// <summary>
@@ -26,7 +25,7 @@ namespace Shouldly
             var strippedActual = actual.Quotify().StripWhitespace();
             var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
 
-            strippedActual.AssertAwesomely(Is.EqualTo(strippedExpected), actual, expected);
+            strippedActual.AssertAwesomely(v => Is.Equal(v, strippedExpected), actual, expected);
         }
 
         /// <summary>
@@ -42,27 +41,27 @@ namespace Shouldly
 
         public static void ShouldStartWith(this string actual, string expected)
         {
-            actual.AssertAwesomely(Is.StringStarting(expected).IgnoreCase, actual, expected);
+            actual.AssertAwesomely(v => Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
         }
 
         public static void ShouldEndWith(this string actual, string expected)
         {
-            actual.AssertAwesomely(Is.StringEnding(expected).IgnoreCase, actual, expected);
+            actual.AssertAwesomely(v => Is.EndsWithIgnoringCase(v, expected), actual, expected);
         }
 
         public static void ShouldContain(this string actual, string expected)
         {
-            actual.AssertAwesomely(Is.StringContaining(expected).IgnoreCase, actual.Clip(100), expected);
+            actual.AssertAwesomely(v => Is.StringContainingIgnoreCase(v, expected), actual.Clip(100), expected);
         }
 
         public static void ShouldNotContain(this string actual, string expected)
         {
-            actual.AssertAwesomely(Is.Not.StringContaining(expected).IgnoreCase, actual, expected);
+            actual.AssertAwesomely(v => !Is.StringContainingIgnoreCase(v, expected), actual, expected);
         }
 
         public static void ShouldMatch(this string actual, string regexPattern)
         {
-            actual.AssertAwesomely(Is.StringMatching(regexPattern), actual, regexPattern);
+            actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern);
         }
     }
 }
