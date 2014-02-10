@@ -67,7 +67,7 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeSubset_WhenTrue_ShouldNotThrow()
+        public void ShouldBeSubsetOf_WhenTrue_ShouldNotThrow()
         {
             new object[] { }.ShouldBeSubsetOf(new object[] { });
             new object[] { }.ShouldBeSubsetOf(new object[] { 1, 2, 3, 4, 5 });
@@ -95,7 +95,7 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeSubset_WhenFalse_ShouldThrow()
+        public void ShouldBeSubsetOf_WhenFalse_ShouldThrow()
         {
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new object[] { 1 }.ShouldBeSubsetOf(new object[] {}));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new object[] { 6 }.ShouldBeSubsetOf(new object[] { 1, 2, 3, 4, 5 }));
@@ -117,9 +117,50 @@ namespace Shouldly.Tests
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { " " }.ShouldBeSubsetOf(new[] { "" }));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1" }.ShouldBeSubsetOf(new[] { " " }));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new object[] { "6" }.ShouldBeSubsetOf(new object[] { "1", "2", "3", "4", "5" }));
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1" }.ShouldBeSubsetOf(new[] { "1 " }));
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1", "1" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
+  Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1", "1" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1", "2", "3", "4", "5", "6" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
+        }
+
+        [Test]
+        public void ShouldBeSubsetOf_WhenFalse_CorrectMessageAppears()
+        {
+            var ex = Assert.Throws<ChuckedAWobbly>(() => 
+                new object[] { 1 }.ShouldBeSubsetOf(new object[] { }));
+            ex.Message.ShouldContainWithoutWhitespace("new object[] { 1 } should be subset of [] but does not");
+            ex = Assert.Throws<ChuckedAWobbly>(() => 
+                new object[] { 6 }.ShouldBeSubsetOf(new object[] { 1, 2, 3, 4, 5 }));
+            ex.Message.ShouldContainWithoutWhitespace("new object[] { 6 } should be subset of [ 1, 2, 3, 4, 5 ] but does not");
+
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { 1 }.ShouldBeSubsetOf(new int[] { }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { 1 } should be subset of [] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { 1 }.ShouldBeSubsetOf(new[] { 2, 2, 2, 2, 2, 2, 22, 3, 4, 5 }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { 1 } should be subset of [ 2, 2, 2, 2, 2, 2, 22, 3, 4, 5 ] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { 1, 1, 2, 3, 4, 5 }.ShouldBeSubsetOf(new[] { 1, 2, 3, 4, 5 }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { 1, 1, 2, 3, 4, 5 } should be subset of [ 1, 2, 3, 4, 5 ] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { 1, 2, 3, 4, 4, 5, 5, 3, 2, 2 }.ShouldBeSubsetOf(new[] { 1, 2, 3, 4, 5, 1, 2, 3, 4, 5 }));
+
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { "1" }.ShouldBeSubsetOf(new[] { "1 " }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { \"1\" } should be subset of [ \"1\"  ] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { " " }.ShouldBeSubsetOf(new[] { "" }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { \" \" } should be subset of [\"\"] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { "1" }.ShouldBeSubsetOf(new[] { " " }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { \"1\" } should be subset of [\" \"] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new object[] { "6" }.ShouldBeSubsetOf(new object[] { "1", "2", "3", "4", "5" }));
+            ex.Message.ShouldContainWithoutWhitespace("new object[] { \"6\" } should be subset of [ \"1\", \"2\", \"3\", \"4\", \"5\" ] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { "1", "1" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { \"1\", \"1\" } should be subset of [\"1\", \"2\", \"3\", \"4\", \"5\" ] but does not");
+            ex = Shouldly.Should.Throw<ChuckedAWobbly>(() =>
+                new[] { "1", "2", "3", "4", "5", "6" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
+            ex.Message.ShouldContainWithoutWhitespace("new[] { \"1\", \"2\", \"3\", \"4\", \"5\", \"6\" } should be subset of [ \"1\", \"2\", \"3\", \"4\", \"5\" ] but does not");
         }
     }
 }
