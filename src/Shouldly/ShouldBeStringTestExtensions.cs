@@ -65,13 +65,13 @@ namespace Shouldly
             actual.AssertAwesomely(Is.StringMatching(regexPattern), actual, regexPattern);
         }
 
-        public static void ShouldBeEmpty(this string actual)
+        public static void ShouldBeNullOrEmpty(this string actual)
         {
             if (!string.IsNullOrEmpty(actual))
                 throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
         }
 
-        public static void ShouldNotBeEmpty(this string actual)
+        public static void ShouldNotBeNullOrEmpty(this string actual)
         {
             if (string.IsNullOrEmpty(actual))
                 throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
