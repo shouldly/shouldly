@@ -6,6 +6,31 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
+    internal class ShouldBeNullOrEmptyMessageGenerator : ShouldlyMessageGenerator
+    {
+        private static readonly Regex Validator = new Regex("Should(Not)?BeNullOrEmpty", RegexOptions.Compiled);
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return Validator.IsMatch(environment.ShouldMethod);
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment, object actual)
+        {
+            const string format = @"
+    {0}
+            {1}";
+
+            var codePart = GetCodePart(environment);
+            var actualValue = actual.Inspect();
+
+            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
+            if (isNegatedAssertion)
+                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actual == null ? "null" : "");
+
+            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actualValue);
+        }
+    }
+
     internal class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("Should(Not)?BeEmpty", RegexOptions.Compiled);
