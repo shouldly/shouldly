@@ -117,7 +117,7 @@ namespace Shouldly.Tests
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { " " }.ShouldBeSubsetOf(new[] { "" }));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1" }.ShouldBeSubsetOf(new[] { " " }));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new object[] { "6" }.ShouldBeSubsetOf(new object[] { "1", "2", "3", "4", "5" }));
-  Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1", "1" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
+            Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1", "1" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new[] { "1", "2", "3", "4", "5", "6" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4", "5" }));
         }
 
