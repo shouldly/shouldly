@@ -66,6 +66,36 @@ namespace Shouldly
             if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
+
+        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
+        {
+            if (actual.Equals(expected))
+                return;
+
+            List<T> actualList = actual.ToList();
+            List<T> expectedList = expected.ToList();
+
+            if (!actualList.TrueForAll(element =>
+            {
+                if (expectedList.Contains(element))
+                {
+                    expectedList.Remove(element);
+                    return true;
+                }
+                return false;
+            }))
+            {
+                //TODO: message generation should be moved to ShouldlyMessage
+                throw new ChuckedAWobbly(string.Format(@"
+                    {0}
+                        {1}
+                    {2}
+                        but was
+                    {3}", actual.Inspect(), "should be subset of",
+                    expected.Inspect(), "not"
+                    ));
+            }
+        }
     }
 
 }
