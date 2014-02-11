@@ -153,6 +153,33 @@ namespace Shouldly.Tests
             new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
         }
 
+        [Test]
+        public void ShouldBe_WithIEnumerablesOfDifferentOrder_ShouldNotThrow()
+        {
+            new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: true);
+        }
+
+        [Test]
+        public void ShouldBe_WithIEnumerablesOfDifferentOrder_WithMissingItems_ShouldThrow()
+        {
+            Should.Error(()=> 
+                new List<int> { 1, 3 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: true), 
+                "new List<int> { 1, 3 } should be [1, 2, 3] but was [1, 3] difference [1, *3*, *]");
+            Should.Error(()=>
+                new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 3 }, ignoreOrder: true),
+                "new List<int> { 1, 3, 2 } should be [1, 3] but was [1, 3, 2] difference [1, 3, *2*]");
+        }
+
+        [Test]
+        public void ShouldBe_WithIEnumerablesOfDifferentOrderWhenTypeNotComparable_ShouldNotThrow()
+        {
+            var ex = Assert.Throws<ArgumentException>(() =>
+                new List<object> {new object(), new object()}.ShouldBe(new[] {new object(), new object()},
+                    ignoreOrder: true));
+
+            ex.Message.ShouldBe("At least one object must implement IComparable.");
+        }
+
         class Strange : IEnumerable<Strange>
         {
             public IEnumerator<Strange> GetEnumerator()

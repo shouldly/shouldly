@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Shouldly
@@ -21,15 +22,15 @@ namespace Shouldly
             return ReferenceEquals(actual, expected);
         }
 
-        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder)
         {
             if (actual == null && expected == null)
                 return true;
             if (actual == null || expected == null)
                 return false;
 
-            var expectedEnum = expected.GetEnumerator();
-            var actualEnum = actual.GetEnumerator();
+            var expectedEnum = ignoreOrder ? expected.OrderBy(e => e).GetEnumerator() : expected.GetEnumerator();
+            var actualEnum = ignoreOrder ? actual.OrderBy(e => e).GetEnumerator() : actual.GetEnumerator();
 
             for (; ; )
             {
@@ -189,7 +190,7 @@ namespace Shouldly
 
         private static decimal Compare<T>(IComparable<T> comparable, T expected)
         {
-            if (!typeof (T).IsValueType)
+            if (!typeof(T).IsValueType)
             {
                 // ReSharper disable CompareNonConstrainedGenericWithNull
                 if (comparable == null)
