@@ -75,7 +75,8 @@
     <Compile Include="ShouldlyMessageGenerators.cs" />
     <Compile Include="ShouldlyMethodsAttribute.cs" />
     <Compile Include="ShouldlyStringExtensions.cs" />
-    <Compile Include="ShouldThrowTestExtensions.cs" />
+    <Compile Include="ShouldThrowTaskExtensions.cs" />
+    <Compile Include="ShouldThrowExtensions.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
   </ItemGroup>
