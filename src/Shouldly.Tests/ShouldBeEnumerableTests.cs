@@ -72,6 +72,18 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldContain_WhenFalse_CorrectMessageAppears()
+        {
+            var ex = Assert.Throws<ChuckedAWobbly>(() =>
+                new[] { 1, 2, 3, 4, 5 }.ShouldContain(-123643));
+            ex.Message.ShouldContainWithoutWhitespace("new[] {1, 2, 3, 4, 5} should contain -123643 but was [1, 2, 3, 4, 5]");
+            ex = Assert.Throws<ChuckedAWobbly>(() =>
+                new[] { "1", "2", "3", "4", "5" }.ShouldContain("501320123684721352134213452148172634987129380478123478612"));
+            ex.Message.ShouldContainWithoutWhitespace("new[] {\"1\", \"2\", \"3\", \"4\", \"5\"} should contain " +
+                                                      "\"501320123684721352134213452148172634987129380478123478612\" but was [\"1\", \"2\", \"3\", \"4\", \"5\"]");
+        }
+
+        [Test]
         public void ShouldNotContain_WhenTrue_ShouldNotThrow()
         {
             new[] { 1, 2, 3, 4, 5 }.ShouldNotContain(6);
