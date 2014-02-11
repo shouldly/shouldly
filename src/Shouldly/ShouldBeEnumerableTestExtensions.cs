@@ -12,18 +12,24 @@ namespace Shouldly
     {
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected)
         {
+            if (expected == null)
+                return;
+
             if (!actual.Contains(expected))
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected)
         {
-            if (actual.Contains(expected))
+            if (expected == null || actual.Contains(expected))
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
         {
+            if (elementPredicate == null)
+                return;
+
             var condition = elementPredicate.Compile();
             if (!actual.Any(condition))
                 throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
@@ -31,9 +37,9 @@ namespace Shouldly
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
         {
-            var condition = elementPredicate.Compile();
-            if (actual.Any(condition))
-                throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
+            var condition = elementPredicate == null ? null : elementPredicate.Compile();
+            if (condition == null || actual.Any(condition))
+                throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate == null ? Expression.Empty() : elementPredicate.Body).ToString());
         }
 
         public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
