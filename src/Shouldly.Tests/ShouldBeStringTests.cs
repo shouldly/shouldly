@@ -6,9 +6,9 @@ namespace Shouldly.Tests
     public class ShouldBeStringTests
     {
         [Test]
-        public void ShouldBeCloseTo_IsPrettyLoose()
+        public void ShouldContainWithoutWhitespace_IsPrettyLoose()
         {
-            "Fun   with space   and \"quotes\"".ShouldBeCloseTo("Fun with space and 'quotes'");
+            "Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and 'quotes'");
         }
 
         [Test]
