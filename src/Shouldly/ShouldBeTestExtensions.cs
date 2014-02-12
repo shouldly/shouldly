@@ -14,9 +14,9 @@ namespace Shouldly
              actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
         }
         
-        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder = false)
         {
-             actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
+             actual.AssertAwesomely(v => Is.Equal(v, expected, ignoreOrder), actual, expected);
         }
 
         public static T ShouldBeTypeOf<T>(this object actual)
