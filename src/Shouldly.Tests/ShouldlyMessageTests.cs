@@ -261,13 +261,12 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeCloseTo()
+        public void ShouldContainWithoutWhitespace()
         {
             const string testMessage = "muhst eat braiiinnzzzz";
             Should.Error(() =>
-                         testMessage
-                             .ShouldBeCloseTo("must eat brains"),
-                         @"testMessage should be close to 'must eat brains' but was 'muhst eat braiiinnzzzz'");
+                testMessage.ShouldContainWithoutWhitespace("must eat brains"),
+                @"testMessage should contain without whitespace 'must eat brains' but was 'muhst eat braiiinnzzzz'");
         }
 
         private class UncomparableClass

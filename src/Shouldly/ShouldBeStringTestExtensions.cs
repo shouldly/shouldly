@@ -28,17 +28,6 @@ namespace Shouldly
             strippedActual.AssertAwesomely(v => Is.Equal(v, strippedExpected), actual, expected);
         }
 
-        /// <summary>
-        /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
-        /// </summary>
-        /// <param name="actual"></param>
-        /// <param name="expected"></param>
-        [System.Obsolete]
-        public static void ShouldBeCloseTo(this string actual, object expected)
-        {
-            ShouldContainWithoutWhitespace(actual, expected);
-        }
-
         public static void ShouldStartWith(this string actual, string expected)
         {
             actual.AssertAwesomely(v => Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
