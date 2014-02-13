@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
