@@ -223,10 +223,22 @@ namespace Shouldly.Tests
 
         public class ShouldAllBe
         {
-            [Test]
-            public void ShouldAllBe_WithPredicate_WhenTrue_ShouldNotThrow()
+            public void ShouldAllBe_EnumerablesWithIntegers_WithPredicate_WhenTrue_ShouldNotThrow()
             {
-                new[] {1, 2, 3}.ShouldAllBe(x => x < 4);
+                new[] {1, 2, 3}.ShouldAllBe(x => x.Equals(1) || (x >= 2 && x <= 3));
+                new[] { 1, 2, 3, 4, 9999999 }.ShouldAllBe(x => x <= 9999999);
+                new[] { 457, 237, 565, 981, 7551 }.ShouldAllBe(x => x % 2 != 0);
+            }
+
+            [Test]
+            public void ShouldAllBe_EnumerablesWithIntegers_WithPredicate_WhenFalse_ShouldThrow()
+            {
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>new[] { 1, 2, 3 }.ShouldAllBe(x => x.Equals(1) && (x >= 2 && x <= 3)));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>new[] { 1, 2, 3, 4, 9999999 }.ShouldAllBe(x => x < 9999999));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>new[] { 457, 237, 565, 981, 7551 }.ShouldAllBe(x => x % 3 != 0));
             }
         }
 
