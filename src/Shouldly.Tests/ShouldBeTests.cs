@@ -160,6 +160,12 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBe_WithIEnumerableOfString_ShouldNotThrow()
+        {
+            new []{"foo"}.ShouldBe(new[]{"foo"});
+        }
+
+        [Test]
         public void ShouldBe_WithIEnumerablesOfDifferentOrder_WithMissingItems_ShouldThrow()
         {
             Should.Error(()=> 
