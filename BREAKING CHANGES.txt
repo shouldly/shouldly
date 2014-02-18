@@ -2,6 +2,8 @@ v1.1 -> v2.0 Breaking Changes
     # ShouldBeGreaterThan and ShouldBeLessThan are now constrained to IComparable<T>
         If you are doing something like this `1.ShouldBeLessThan(3f)` then cast one of the types so they are the same type
         i.e `((float)1).ShouldBeLessThan(3f)`
+    # Method Grouping on Should.Throw no longer works due to async overloads.
+        Change `Should.Throw(service.DoSomething)` to `Should.Throw(() => service.DoSomething)`
 
 v1.0 -> v1.1 Breaking Changes
     # Shouldly.Should.Throw<TException> changed to return thrown exception when failed, rather than exception message
