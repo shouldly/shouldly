@@ -2,6 +2,7 @@
 
  - **breaking**: Removed ShouldBeCloseTo [#94](https://github.com/shouldly/shouldly/pull/94) [#46](https://github.com/shouldly/shouldly/issues/46)
  - **breaking**: ShouldBeGreaterThan and ShouldBeLessThan are now constrained to IComparable<T>
+ - **breaking**: Method Grouping on Should.Throw no longer works due to async overloads
  - ShouldBeTypeOf should return the object [63](https://github.com/shouldly/shouldly/pull/63) +Enhancement
  - ShouldAllBe for IEnumerables [60](https://github.com/shouldly/shouldly/pull/60) +Enhancement
  - ShouldBeOneOf(params) [#58](https://github.com/shouldly/shouldly/issues/58) [#72](https://github.com/shouldly/shouldly/pull/72) +Enhancement
