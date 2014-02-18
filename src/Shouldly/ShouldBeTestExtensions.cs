@@ -9,7 +9,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
-        public static void ShouldBe(this object actual, object expected)
+        public static void ShouldBe<T>(this T actual, T expected)
         {
             actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
         }
@@ -27,7 +27,7 @@ namespace Shouldly
 
         public static void ShouldBeTypeOf(this object actual, Type expected)
         {
-            actual.AssertAwesomely(v=> Is.InstanceOf(v, expected), actual.GetType(), expected);
+            actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual.GetType(), expected);
         }
 
         public static void ShouldNotBeTypeOf<T>(this object actual)
@@ -119,12 +119,12 @@ namespace Shouldly
 
         public static void ShouldBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>
         {
-            actual.AssertAwesomely(v => Is.InRange(v, from, to), actual, new {from, to});
+            actual.AssertAwesomely(v => Is.InRange(v, from, to), actual, new { from, to });
         }
 
         public static void ShouldNotBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>
         {
-            actual.AssertAwesomely(v => !Is.InRange(v, from, to), actual, new {from, to});
+            actual.AssertAwesomely(v => !Is.InRange(v, from, to), actual, new { from, to });
         }
     }
 }

@@ -15,6 +15,13 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBe_ShouldNotThrow_WhenDifferentConvertableTypes()
+        {
+            const long number = 3;
+            number.ShouldBe(3);
+        }
+
+        [Test]
         public void ShouldNotBe_WhenTrue_ShouldNotThrow()
         {
             "this string".ShouldNotBe("some other string");
@@ -162,7 +169,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldBe_WithIEnumerableOfString_ShouldNotThrow()
         {
-            new []{"foo"}.ShouldBe(new[]{"foo"});
+            new []{"foo"}.ShouldBe<string>(new[]{"foo"});
         }
 
         [Test]

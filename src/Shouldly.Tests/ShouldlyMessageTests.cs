@@ -72,7 +72,7 @@ namespace Shouldly.Tests
                 new Strange().ShouldBe("string"));
 
             ex.Message.ShouldContainWithoutWhitespace(
-                "new Strange() should be \"string\" but was [] (null)");
+                "new Strange() should be [] (string) but was [] (null) difference[]");
         }
 
         [Test]

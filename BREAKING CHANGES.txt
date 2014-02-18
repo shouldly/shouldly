@@ -4,6 +4,11 @@ v1.1 -> v2.0 Breaking Changes
         i.e `((float)1).ShouldBeLessThan(3f)`
     # Method Grouping on Should.Throw no longer works due to async overloads.
         Change `Should.Throw(service.DoSomething)` to `Should.Throw(() => service.DoSomething)`
+    # IEnumerable.ShouldBe(IEnumerable) now uses .Equals to compare
+        - This is because of c#'s overload selection, it will always pick the ShouldBe<T>(T, T) overload rather than ShouldBe<T>(IEnumerable<T>, IEnumerable<T>)
+        - There are two ways to select the IEnumerable overload:
+           - Specify T. i.e new[]{"foo"}.ShouldBe<string>(new[]{"foo"});
+           - Specify the `ignoreOrder` parameter. i.e new[]{"foo"}.ShouldBe(new[]{"foo"}, ignoreOrder: false)
 
 v1.0 -> v1.1 Breaking Changes
     # Shouldly.Should.Throw<TException> changed to return thrown exception when failed, rather than exception message
