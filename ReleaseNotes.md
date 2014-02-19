@@ -6,7 +6,8 @@
  - **breaking**: IEnumerable.ShouldBe(IEnumerable) now uses .Equals to compare
      - specify T to get Item Comparison (`new[]{"foo"}.ShouldBe<string>(new[]{"foo"})` for item comparison, or specify `ignoreOrder` to select IEnumerable overload
      - See Breaking Changes.txt for more information
- - **breaking**: `ShouldBeTypeOf<T>` renamed to `ShouldBeAssignableTo<T>`
+ - **breaking**: `ShouldBeTypeOf<T>` renamed to `ShouldBeAssignableTo<T>` [#98](https://github.com/shouldly/shouldly/issues/98)
+ - `ShouldBeOfType<T>` added for exact match of type, `ShouldBeAssignableTo<T>` allows derived classes [#98](https://github.com/shouldly/shouldly/issues/98)
  - ShouldBeTypeOf should return the object [#63](https://github.com/shouldly/shouldly/pull/63) +Enhancement
  - ShouldAllBe for IEnumerables [#60](https://github.com/shouldly/shouldly/pull/60) +Enhancement
  - ShouldBeOneOf(params) [#58](https://github.com/shouldly/shouldly/issues/58) [#72](https://github.com/shouldly/shouldly/pull/72) +Enhancement

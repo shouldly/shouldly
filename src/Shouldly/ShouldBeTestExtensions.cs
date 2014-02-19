@@ -27,7 +27,18 @@ namespace Shouldly
 
         public static void ShouldBeAssignableTo(this object actual, Type expected)
         {
-            actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual.GetType(), expected);
+            actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual == null ? null : actual.GetType(), expected);
+        }
+
+        public static T ShouldBeOfType<T>(this object actual)
+        {
+            ShouldBeOfType(actual, typeof(T));
+            return (T)actual;
+        }
+
+        public static void ShouldBeOfType(this object actual, Type expected)
+        {
+            actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual == null ? null : actual.GetType(), expected);
         }
 
         public static void ShouldNotBeAssignableTo<T>(this object actual)
@@ -38,6 +49,16 @@ namespace Shouldly
         public static void ShouldNotBeAssignableTo(this object actual, Type expected)
         {
             actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected);
+        }
+
+        public static void ShouldNotBeOfType<T>(this object actual)
+        {
+            ShouldNotBeOfType(actual, typeof(T));
+        }
+
+        public static void ShouldNotBeOfType(this object actual, Type expected)
+        {
+            actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected);
         }
 
         public static void ShouldNotBe<T>(this T actual, T expected)

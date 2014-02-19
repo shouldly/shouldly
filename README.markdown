@@ -53,7 +53,8 @@ Other *Shouldly* features:
         ShouldNotBeOneOf
         ShouldBeGreaterThan(OrEqualTo)
         ShouldBeLessThan(OrEqualTo)
-        ShouldBeTypeOf<T>
+        ShouldBeOfType<T> - Exact type match
+        ShouldBeAssignableTo<T>
         ShouldBeInRange
         ShouldNotBeInRange
 

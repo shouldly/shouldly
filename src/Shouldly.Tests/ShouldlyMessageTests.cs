@@ -76,11 +76,41 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeTypeOf()
+        public void ShouldBeAssignableTo()
         {
             Should.Error(
                 () => 2.ShouldBeAssignableTo<double>(),
                 "() => 2 should be assignable to System.Double but was System.Int32"
+            );
+        }
+
+        [Test]
+        public void ShouldBeAssignableTo_PassNull()
+        {
+            MyThing myThing = null;
+            Should.Error(
+                () => myThing.ShouldBeAssignableTo<MyBase>(),
+                "() => myThing should be assignable to Shouldly.Tests.MyBase but was null"
+            );
+        }
+
+        [Test]
+        public void ShouldBeOfType()
+        {
+            var myThing = new MyThing();
+            Should.Error(
+                () => myThing.ShouldBeOfType<MyBase>(),
+                "() => myThing should be of type Shouldly.Tests.MyBase but was Shouldly.Tests.MyThing"
+            );
+        }
+
+        [Test]
+        public void ShouldBeOfType_PassNull()
+        {
+            MyThing myThing = null;
+            Should.Error(
+                () => myThing.ShouldBeOfType<MyBase>(),
+                "() => myThing should be of type Shouldly.Tests.MyBase but was null"
             );
         }
 
