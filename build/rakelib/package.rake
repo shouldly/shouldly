@@ -51,12 +51,14 @@ end
 
 task :push_to_nuget do
     puts "Pushing to nuget..."
-    artefacts_path = "#{OUTPUT_PATH}/artefacts"
-    nupkg = Dir.glob("#{artefacts_path}/*.nupkg")[0]
     
     api_key = ENV["nuget_apikey"]
+    artefacts_path = ENV["artefacts_path"]
     
     raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
+    raise "Artefacts Path ENV [artefacts_path] not set" if artefacts_path.nil?
+    
+    nupkg = Dir.glob("#{artefacts_path}/*.nupkg")[0]
 
     full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
     sh "#{full_path_to_nuget_exe} push #{nupkg} #{api_key}"
