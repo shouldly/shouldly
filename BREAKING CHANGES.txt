@@ -9,6 +9,7 @@ v1.1 -> v2.0 Breaking Changes
         - There are two ways to select the IEnumerable overload:
            - Specify T. i.e new[]{"foo"}.ShouldBe<string>(new[]{"foo"});
            - Specify the `ignoreOrder` parameter. i.e new[]{"foo"}.ShouldBe(new[]{"foo"}, ignoreOrder: false)
+           - Make expected value less specific than actual, for instance: `new[]{"foo"}.ShouldBe(new[]{"foo"}.AsEnumerable())`
 
 v1.0 -> v1.1 Breaking Changes
     # Shouldly.Should.Throw<TException> changed to return thrown exception when failed, rather than exception message
