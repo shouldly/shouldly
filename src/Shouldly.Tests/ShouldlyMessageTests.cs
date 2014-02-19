@@ -79,8 +79,8 @@ namespace Shouldly.Tests
         public void ShouldBeTypeOf()
         {
             Should.Error(
-                () => 2.ShouldBeTypeOf<double>(),
-                "() => 2 should be type of System.Double but was System.Int32"
+                () => 2.ShouldBeAssignableTo<double>(),
+                "() => 2 should be assignable to System.Double but was System.Int32"
             );
         }
 

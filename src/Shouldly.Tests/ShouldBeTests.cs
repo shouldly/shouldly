@@ -102,22 +102,22 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeTypeOf_ShouldNotThrowForStrings()
+        public void ShouldBeAssignableTo_ShouldNotThrowForStrings()
         {
-            "Sup yo".ShouldBeTypeOf(typeof(string));
+            "Sup yo".ShouldBeAssignableTo(typeof(string));
         }
 
         [Test]
         public void ShouldBeTypeOfWithGenericParameter_ShouldNotThrowForStrings()
         {
-            "Sup yo".ShouldBeTypeOf<string>();
+            "Sup yo".ShouldBeAssignableTo<string>();
         }
 
         [Test]
         public void ShouldBeTypeOfWithGenericParameter_ShouldReturnThis()
         {
             string str = "Sup yo";
-            string ret = str.ShouldBeTypeOf<string>();
+            string ret = str.ShouldBeAssignableTo<string>();
             ret.ShouldBe(str);
         }
 
@@ -139,7 +139,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldBeTypeOf_ShouldNotThrowForInheritance()
         {
-            new MyThing().ShouldBeTypeOf<MyBase>();
+            new MyThing().ShouldBeAssignableTo<MyBase>();
         }
 
         [Test]
