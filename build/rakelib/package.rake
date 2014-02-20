@@ -53,12 +53,17 @@ task :push_to_nuget do
     puts "Pushing to nuget..."
     
     api_key = ENV["nuget_apikey"]
-    nuget_artefacts_path = ENV["artefacts_path"]
-    
+    artefacts = ENV["nuget_artefacts_path"]
+
     raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
-    raise "Artefacts Path ENV [artefacts_path] not set" if nuget_artefacts_path.nil?
+    raise "Artefacts Path ENV [nuget_artefacts_path] not set" if artefacts.nil?
     
-    nupkg = Dir.glob("#{nuget_artefacts_path}/*.nupkg")[0]
+    packages = Dir.glob("#{artefacts}/*.nupkg")
+    
+    raise "No NuGet packages found" if packages.empty
+    nupkg = packages[0]
+    
+    puts "Publishing #{nupkg}"
 
     full_path_to_nuget_exe = File.expand_path(NUGET_EXE, File.dirname(__FILE__))
     sh "#{full_path_to_nuget_exe} push #{nupkg} #{api_key}"
