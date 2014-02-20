@@ -60,7 +60,7 @@ task :push_to_nuget do
     
     packages = Dir.glob("#{artefacts}/*.nupkg")
     
-    raise "No NuGet packages found" if packages.empty
+    raise "No NuGet packages found" if packages.empty?
     nupkg = packages[0]
     
     puts "Publishing #{nupkg}"
