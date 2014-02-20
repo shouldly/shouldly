@@ -53,7 +53,7 @@ task :push_to_nuget do
     puts "Pushing to nuget..."
     
     api_key = ENV["nuget_apikey"]
-    artefacts = ENV["nuget_artefacts_path"].tr('\', '/')
+    artefacts = ENV["nuget_artefacts_path"].tr('\\', '/')
 
     raise "NuGet API key ENV [nuget_apikey] not set" if api_key.nil?
     raise "Artefacts Path ENV [nuget_artefacts_path] not set" if artefacts.nil?
