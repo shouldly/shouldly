@@ -1,4 +1,7 @@
-# 2.0.0.0
+# 2.0.1
+ - Fix possible deadlock in `Should.[Not]Throw(Func<Task>)` [#101](https://github.com/shouldly/shouldly/issues/101) +Fix
+
+# 2.0.0
 
  - **breaking**: Removed ShouldBeCloseTo [#94](https://github.com/shouldly/shouldly/pull/94) [#46](https://github.com/shouldly/shouldly/issues/46)
  - **breaking**: ShouldBeGreaterThan and ShouldBeLessThan are now constrained to `IComparable<T>`
