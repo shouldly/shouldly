@@ -235,24 +235,6 @@ namespace Shouldly.Tests
             ex.Message.ShouldBe("At least one object must implement IComparable.");
         }
 
-        class Strange : IEnumerable<Strange>
-        {
-            public IEnumerator<Strange> GetEnumerator()
-            {
-                return new List<Strange>().GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-
-            public static implicit operator Strange(string thing)
-            {
-                return new Strange();
-            }
-        }
-
         [Test]
         public void ShouldBe_WhenThingsAreDifferentTypes_ThatOverrideEqualsPoorly_ShouldThrow()
         {

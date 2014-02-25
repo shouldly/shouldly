@@ -11,7 +11,12 @@ namespace Shouldly
     {
         public static void ShouldBe<T>(this T actual, T expected)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
+            var actualEnumerable = actual as IEnumerable<object>;
+            var expectedEnumerable = expected as IEnumerable<object>;
+            if (actualEnumerable != null && !ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName))
+                actualEnumerable.AssertAwesomely(v => Is.Equal(v, expectedEnumerable, false), actualEnumerable, expectedEnumerable);
+            else
+                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
         }
 
         public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder = false)
@@ -147,5 +152,20 @@ namespace Shouldly
         {
             actual.AssertAwesomely(v => !Is.InRange(v, from, to), actual, new { from, to });
         }
+    }
+
+    public static class ShouldlyConfiguration
+    {
+        static ShouldlyConfiguration()
+        {
+            CompareAsObjectTypes = new List<string>
+            {
+                "Newtonsoft.Json.Linq.JToken",
+                "Shouldly.Tests.Strange",
+                "System.String"
+            };
+        }
+
+        public static List<string> CompareAsObjectTypes { get; private set; }
     }
 }

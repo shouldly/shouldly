@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -44,17 +43,6 @@ namespace Shouldly.Tests
                          "new[] { 2, 1 } should be [1, 2] but was [2, 1] difference [*2*, *1*]"
                 );
 
-            var aWidget = new Widget { Name = "Joe", Enabled = true };
-            var bWidget = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
-
-            IEnumerable<Widget> aEnumerable = aWidget.ToEnumerable();
-            IEnumerable<Widget> bEnumerable = new[] { bWidget };
-
-            Should.Error(() =>
-                aEnumerable.ShouldBe(bEnumerable),
-                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
-            );
-
             IEnumerable<int> something = null;
             Should.Error(
                 () => something.ShouldBe(new[] { 1, 2, 3 }),
@@ -68,6 +56,17 @@ namespace Shouldly.Tests
         [Test]
         public void ComparingEnumerables()
         {
+            var aWidget = new Widget { Name = "Joe", Enabled = true };
+            var bWidget = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
+
+            IEnumerable<Widget> aEnumerable = aWidget.ToEnumerable();
+            IEnumerable<Widget> bEnumerable = new[] { bWidget };
+
+            Should.Error(() =>
+                aEnumerable.ShouldBe(bEnumerable),
+                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
+            );
+
             var ex = Assert.Throws<ChuckedAWobbly>(()=>
                 new Strange().ShouldBe("string"));
 
@@ -314,38 +313,5 @@ namespace Shouldly.Tests
             }
         }
 
-        private class Strange : IEnumerable<Strange>
-        {
-            private readonly string _thing;
-
-            public Strange()
-            {
-            }
-
-            private Strange(string thing)
-            {
-                _thing = thing;
-            }
-
-            public IEnumerator<Strange> GetEnumerator()
-            {
-                return new List<Strange>().GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-
-            public static implicit operator Strange(string thing)
-            {
-                return new Strange(thing);
-            }
-
-            public override string ToString()
-            {
-                return _thing ?? "null";
-            }
-        }
     }
 }
