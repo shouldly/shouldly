@@ -66,12 +66,34 @@ namespace Shouldly.Tests
                 aEnumerable.ShouldBe(bEnumerable),
                 "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
             );
+            
+            var aArray = new[] { bWidget };
+
+            Should.Error(() =>
+                aEnumerable.ShouldBe(aArray),
+                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
+            );
 
             var ex = Assert.Throws<ChuckedAWobbly>(()=>
                 new Strange().ShouldBe("string"));
 
             ex.Message.ShouldContainWithoutWhitespace(
                 "new Strange() should be [] (string) but was [] (null) difference[]");
+        }
+
+        [Test]
+        public void ComparingEnumerables2()
+        {
+            var aWidget = new Widget { Name = "Joe", Enabled = true };
+            var bWidget = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
+
+            var aEnumerable = aWidget.ToEnumerable();
+            var bEnumerable = new[] { bWidget };
+
+            Should.Error(() =>
+                bEnumerable.ShouldBe(aEnumerable),
+                "bEnumerable should be [Name(Joe) Enabled(True)] but was [Name(Joeyjojoshabadoo Jr) Enabled(True)] difference [*Name(Joeyjojoshabadoo Jr) Enabled(True)*]"
+            );
         }
 
         [Test]
