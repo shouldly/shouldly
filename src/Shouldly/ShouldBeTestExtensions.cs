@@ -24,6 +24,41 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.Equal(v, expected, ignoreOrder), actual, expected);
         }
 
+        public static void ShouldBe(this float actual, float expected, double tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this double actual, double expected, double tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldNotBe<T>(this T actual, T expected)
+        {
+            actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected);
+        }
+
         public static T ShouldBeAssignableTo<T>(this object actual)
         {
             ShouldBeAssignableTo(actual, typeof(T));
@@ -64,41 +99,6 @@ namespace Shouldly
         public static void ShouldNotBeOfType(this object actual, Type expected)
         {
             actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected);
-        }
-
-        public static void ShouldNotBe<T>(this T actual, T expected)
-        {
-            actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected);
-        }
-
-        public static void ShouldBe(this float actual, float expected, double tolerance)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
-        }
-
-        public static void ShouldBe(this IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
-        }
-
-        public static void ShouldBe(this IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
-        }
-
-        public static void ShouldBe(this double actual, double expected, double tolerance)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
-        }
-
-        public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
-        }
-
-        public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
         }
 
         public static void ShouldBeGreaterThan<T>(this T actual, T expected) where T : IComparable<T>
