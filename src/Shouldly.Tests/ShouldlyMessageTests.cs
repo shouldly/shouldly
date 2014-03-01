@@ -11,21 +11,6 @@ namespace Shouldly.Tests
         public void ShouldBe()
         {
             Should.Error(
-                () => "expected".ShouldBe("actual"),
-                "() => \"expected\" should be \"actual\" but was \"expected\""
-            );
-
-            Should.Error(
-                () => 2.ShouldBe(1),
-                "() => 2 should be 1 but was 2"
-            );
-
-            Should.Error(
-                () => (new[] { 1, 2, 3 }).ShouldBe(new[] { 2, 2, 3 }),
-                "() => (new[] { 1, 2, 3 }) should be [2, 2, 3] but was [1, 2, 3] difference [*1*, 2, 3]"
-            );
-
-            Should.Error(
                 () => new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob")),
                 "() => new UncomparableClass(\"ted\") should be bob but was ted"
             );

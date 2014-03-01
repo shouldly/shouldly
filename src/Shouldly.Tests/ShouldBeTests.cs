@@ -9,25 +9,6 @@ namespace Shouldly.Tests
     public class ShouldBeTests
     {
         [Test]
-        public void ShouldBe_WhenTrue_ShouldNotThrow()
-        {
-            true.ShouldBe(true);
-        }
-
-        [Test]
-        public void ShouldBe_ShouldNotThrow_WhenDifferentConvertableTypes()
-        {
-            const long number = 3;
-            number.ShouldBe(3);
-        }
-
-        [Test]
-        public void ShouldNotBe_WhenTrue_ShouldNotThrow()
-        {
-            "this string".ShouldNotBe("some other string");
-        }
-
-        [Test]
         public void Should_WithNumbers_ShouldAllowTolerance()
         {
             Math.PI.ShouldNotBe(3.14);
@@ -194,35 +175,6 @@ namespace Shouldly.Tests
         public void ShouldBe_ComparingBaseWithDerived_ShouldThrow()
         {
             Shouldly.Should.Throw<ChuckedAWobbly>(() => new MyBase().ShouldBe(new MyThing()));
-        }
-
-        [Test]
-        public void ShouldBe_WithIEnumerablesOfDifferentCollectionTypes_ShouldNotThrow()
-        {
-            new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
-        }
-
-        [Test]
-        public void ShouldBe_WithIEnumerablesOfDifferentOrder_ShouldNotThrow()
-        {
-            new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: true);
-        }
-
-        [Test]
-        public void ShouldBe_WithIEnumerableOfString_ShouldNotThrow()
-        {
-            new []{"foo"}.ShouldBe<string>(new[]{"foo"});
-        }
-
-        [Test]
-        public void ShouldBe_WithIEnumerablesOfDifferentOrder_WithMissingItems_ShouldThrow()
-        {
-            Should.Error(()=> 
-                new List<int> { 1, 3 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: true), 
-                "new List<int> { 1, 3 } should be [1, 2, 3] but was [1, 3] difference [1, *3*, *]");
-            Should.Error(()=>
-                new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 3 }, ignoreOrder: true),
-                "new List<int> { 1, 3, 2 } should be [1, 3] but was [1, 3, 2] difference [1, 3, *2*]");
         }
 
         [Test]
