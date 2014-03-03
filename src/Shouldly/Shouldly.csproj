@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Case.cs" />
+    <Compile Include="ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighterExtensions.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="ShouldThrowExtensions.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
+    <Compile Include="TaskExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sn.snk" />
