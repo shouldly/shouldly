@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
@@ -108,15 +109,99 @@ namespace Shouldly.Tests
             }
 
             [Test]
-            public void ShouldContain_WithPredicate_WhenTrue_ShouldNotThrow()
+            public void ShouldContain_EnumerablesWithIntegers_WithPredicate_WhenTrue_ShouldNotThrow()
             {
-                new[] {1, 2, 3}.ShouldContain(x => x%3 == 0);
+                new[] { new int() }.ShouldContain(new int());
+                new[] {1, 2, 3}.ShouldContain(x => x.Equals(1));
+                new[] {1, 2, 3, 4, 9999999}.ShouldContain(x => x >= 9999999);
+                new[] {457, 237, 565, 981, 7551}.ShouldContain(x => x%2 != 0);
+                new[] {457, 237, 565, 981, 7551}.ShouldContain(x => x < 10000 && x > 5000);
             }
 
             [Test]
-            public void ShouldNotContain_WithPredicate_WhenTrue_ShouldNotThrow()
+            public void ShouldNotContain_EnumerablesWithIntegers_WithPredicate_WhenTrue_ShouldNotThrow()
             {
-                new[] {1, 2, 3}.ShouldNotContain(x => x%4 == 0);
+                new[] { new int() }.ShouldNotContain(1);
+                new[] { 1, 2, 3 }.ShouldNotContain(x => x.Equals(4));
+                new[] { 1, 2, 3, 4, 9999999 }.ShouldNotContain(x => x > 9999999);
+                new[] { 457, 237, 565, 981, 7551 }.ShouldNotContain(x => x % 2 == 0);
+                new[] { 457, 237, 565, 981, 7551 }.ShouldNotContain(x => x < 10000 && x > 8000);
+            }
+
+            [Test]
+            public void ShouldContain_EnumerablesWithIntegers_WithPredicate_WhenFalse_ShouldThrow()
+            {
+                Assert.Throws<ChuckedAWobbly>(() => new[] { new int() }.ShouldContain(1));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 1, 2, 3 }.ShouldContain(x => x.Equals(4)));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 1, 2, 3, 4, 9999999 }.ShouldContain(x => x > 9999999));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 457, 237, 565, 981, 7551 }.ShouldContain(x => x % 2 == 0));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 457, 237, 565, 981, 7551 }.ShouldContain(x => x < 10000 && x > 8000));
+            }
+
+            [Test]
+            public void ShouldNotContain_EnumerablesWithIntegers_WithPredicate_WhenFalse_ShouldThrow()
+            {
+                Assert.Throws<ChuckedAWobbly>(() => new[] { new int() }.ShouldNotContain(new int()));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 1, 2, 3 }.ShouldNotContain(x => x.Equals(1)));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 1, 2, 3, 4, 9999999 }.ShouldNotContain(x => x >= 9999999));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 457, 237, 565, 981, 7551 }.ShouldNotContain(x => x % 2 != 0));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { 457, 237, 565, 981, 7551 }.ShouldNotContain(x => x < 10000 && x > 5000));
+            }
+
+            [Test]
+            public void ShouldContain_EnumerablesWithStrings_WithPredicate_WhenTrue_ShouldNotThrow()
+            {
+                new[] { "1", "2", "3" }.ShouldContain(x => x.Equals("1"));
+                new[] {"1", "2", "3", "4", "9999999"}.ShouldContain(
+                    x => x.Contains("9") && x.EndsWith("9") && x.Length == 7);
+                new[] {"457", "237", "565", "981", "7551"}.ShouldContain(x => x.IndexOfAny(new[] {'9'}).Equals(0));
+                new[] {"457", "237", "565", "981", "7551"}.ShouldContain(
+                    x => x.ToList().All(y => Int32.Parse(y.ToString()) < 10));
+            }
+
+            [Test]
+            public void ShouldNotContain_EnumerablesWithStrings_WithPredicate_WhenTrue_ShouldNotThrow()
+            {
+                new[] { "1", "2", "3" }.ShouldNotContain(x => x.Equals("5"));
+                new[] { "1", "2", "3", "4", "9999999" }.ShouldNotContain(
+                    x => x.Contains("9") && x.EndsWith("9") && x.Length == 6);
+                new[] { "457", "237", "565", "981", "7551" }.ShouldNotContain(x => x.IndexOfAny(new[] { '9' }).Equals(5));
+                new[] { "457", "237", "565", "981", "7551" }.ShouldNotContain(
+                    x => x.ToList().All(y => Int32.Parse(y.ToString()) > 10));
+            }
+
+            [Test]
+            public void ShouldContain_EnumerablesWithStrings_WithPredicate_WhenFalse_ShouldThrow()
+            {
+                Assert.Throws<ChuckedAWobbly>(() => new[] {"1", "2", "3"}.ShouldContain(x => x.Equals("5")));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>
+                        new[] {"1", "2", "3", "4", "9999999"}.ShouldContain(
+                            x => x.Contains("9") && x.EndsWith("9") && x.Length == 6));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>
+                        new[] {"457", "237", "565", "981", "7551"}.ShouldContain(
+                            x => x.IndexOfAny(new[] {'9'}).Equals(5)));
+                Assert.Throws<ChuckedAWobbly>(() => new[] { "457", "237", "565", "981", "7551" }.ShouldContain(
+                    x => x.ToList().All(y => Int32.Parse(y.ToString()) > 10)));
+            }
+
+            [Test]
+            public void ShouldNotContain_EnumerablesWithStrings_WithPredicate_WhenFalse_ShouldThrow()
+            {
+                Assert.Throws<ChuckedAWobbly>(() => new[] { "1", "2", "3" }.ShouldNotContain(x => x.Equals("1")));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>
+                        new[] { "1", "2", "3", "4", "9999999" }.ShouldNotContain(
+                            x => x.Contains("9") && x.EndsWith("9") && x.Length == 7));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>
+                        new[] { "457", "237", "565", "981", "7551" }.ShouldNotContain(
+                            x => x.IndexOfAny(new[] {'9'}).Equals(0)));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>
+                        new[] { "457", "237", "565", "981", "7551" }.ShouldNotContain(
+                            x => x.ToList().All(y => Int32.Parse(y.ToString()) < 10)));
             }
 
             [Test]
@@ -138,10 +223,22 @@ namespace Shouldly.Tests
 
         public class ShouldAllBe
         {
-            [Test]
-            public void ShouldAllBe_WithPredicate_WhenTrue_ShouldNotThrow()
+            public void ShouldAllBe_EnumerablesWithIntegers_WithPredicate_WhenTrue_ShouldNotThrow()
             {
-                new[] {1, 2, 3}.ShouldAllBe(x => x < 4);
+                new[] {1, 2, 3}.ShouldAllBe(x => x.Equals(1) || (x >= 2 && x <= 3));
+                new[] { 1, 2, 3, 4, 9999999 }.ShouldAllBe(x => x <= 9999999);
+                new[] { 457, 237, 565, 981, 7551 }.ShouldAllBe(x => x % 2 != 0);
+            }
+
+            [Test]
+            public void ShouldAllBe_EnumerablesWithIntegers_WithPredicate_WhenFalse_ShouldThrow()
+            {
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>new[] { 1, 2, 3 }.ShouldAllBe(x => x.Equals(1) && (x >= 2 && x <= 3)));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>new[] { 1, 2, 3, 4, 9999999 }.ShouldAllBe(x => x < 9999999));
+                Assert.Throws<ChuckedAWobbly>(
+                    () =>new[] { 457, 237, 565, 981, 7551 }.ShouldAllBe(x => x % 3 != 0));
             }
         }
 
