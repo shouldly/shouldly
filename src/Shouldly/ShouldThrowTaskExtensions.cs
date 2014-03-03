@@ -1,5 +1,6 @@
 ﻿#if net40
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shouldly
@@ -10,7 +11,7 @@ namespace Shouldly
         {
             try
             {
-                actual().Wait();
+                RunAndWait(actual);
             }
             catch (AggregateException e)
             {
@@ -35,7 +36,7 @@ namespace Shouldly
         {
             try
             {
-                action().Wait();
+                RunAndWait(action);
             }
             catch (AggregateException ex)
             {
@@ -47,10 +48,31 @@ namespace Shouldly
             }
         }
 
+        private static void RunAndWait(Func<Task> actual)
+        {
+            // Drop the sync context so continuations will not post to it, causing a deadlock
+            if (SynchronizationContext.Current != null)
+            {
+                Task.Factory.StartNew(actual, CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default).Unwrap().Wait();
+            }
+            else
+            {
+                actual().Wait();
+            }
+        }
+
         public static T NotThrow<T>(Func<Task<T>> action)
         {
             try
             {
+                // Drop the sync context so continuations will not post to it, causing a deadlock
+                if (SynchronizationContext.Current != null)
+                {
+                    return Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
+                        TaskScheduler.Default).Unwrap().Result;
+                }
+                
                 return action().Result;
             }
             catch (AggregateException ex)

@@ -4,10 +4,21 @@
     <id>Shouldly</id>
     <version>0.0.0</version>
     <authors>Dave Newman, Xerxes Battiwalla, Anthony Egerton, Peter van der Woude</authors>
-	<owners>Dave Newman, Xerxes Battiwalla, Anthony Egerton</owners>
+    <owners>Dave Newman, Xerxes Battiwalla, Anthony Egerton</owners>
     <licenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>http://shouldly.github.com/</projectUrl>
-	<iconUrl>http://shouldly.github.com/images/nuget_logo.png</iconUrl>
+    <iconUrl>http://shouldly.github.com/images/nuget_logo.png</iconUrl>
+    <releaseNotes> - Task Support in Should.(Not)Throw
+ - IEnumerable.ShouldAllBe(predecate)
+ - ShouldBeOneOf(params)
+ - IEnumerable.ShouldBe can ignore order
+ - IEnumerable.ShouldBeSubsetOf
+ - Should(Not)BeNullOrEmpty
+ - Should(Not)BeInRange
+ - ShouldBeOfType -> ShouldBeTypeOf and ShouldBeAssignableTo
+
+Full release notes and breaking changes at https://github.com/shouldly/shouldly/blob/master/ReleaseNotes.md
+</releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
     <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>

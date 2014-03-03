@@ -15,6 +15,13 @@ namespace Shouldly.Tests
         }
 
         [Test]
+        public void ShouldBe_ShouldNotThrow_WhenDifferentConvertableTypes()
+        {
+            const long number = 3;
+            number.ShouldBe(3);
+        }
+
+        [Test]
         public void ShouldNotBe_WhenTrue_ShouldNotThrow()
         {
             "this string".ShouldNotBe("some other string");
@@ -95,44 +102,86 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldBeTypeOf_ShouldNotThrowForStrings()
+        public void ShouldBeAssignableTo_ShouldNotThrowForStrings()
         {
-            "Sup yo".ShouldBeTypeOf(typeof(string));
+            "Sup yo".ShouldBeAssignableTo(typeof(string));
         }
 
         [Test]
-        public void ShouldBeTypeOfWithGenericParameter_ShouldNotThrowForStrings()
+        public void ShouldBeOfType_ShouldNotThrowForStrings()
         {
-            "Sup yo".ShouldBeTypeOf<string>();
+            "Sup yo".ShouldBeOfType(typeof(string));
         }
 
         [Test]
-        public void ShouldBeTypeOfWithGenericParameter_ShouldReturnThis()
+        public void ShouldBeAssignableToWithGenericParameter_ShouldNotThrowForStrings()
+        {
+            "Sup yo".ShouldBeAssignableTo<string>();
+        }
+
+        [Test]
+        public void ShouldBeOfTypeWithGenericParameter_ShouldNotThrowForStrings()
+        {
+            "Sup yo".ShouldBeOfType<string>();
+        }
+
+        [Test]
+        public void ShouldBeAssignableToWithGenericParameter_ShouldReturnThis()
         {
             string str = "Sup yo";
-            string ret = str.ShouldBeTypeOf<string>();
+            string ret = str.ShouldBeAssignableTo<string>();
             ret.ShouldBe(str);
         }
 
         [Test]
-        public void ShouldNotBeTypeOf_ShouldNotThrowForNonMatchingType()
+        public void ShouldBeOfTypeWithGenericParameter_ShouldReturnThis()
         {
-            "Sup yo".ShouldNotBeTypeOf(typeof(int));
+            string str = "Sup yo";
+            string ret = str.ShouldBeOfType<string>();
+            ret.ShouldBe(str);
         }
 
         [Test]
-        public void ShouldNotBeTypeOfWithGenericParameter_ShouldNotThrowForNonMatchingTypes()
+        public void ShouldNotBeAssignableTo_ShouldNotThrowForNonMatchingType()
         {
-            "Sup yo".ShouldNotBeTypeOf<int>();
+            "Sup yo".ShouldNotBeAssignableTo(typeof(int));
         }
 
-        class MyBase { }
-        class MyThing : MyBase { }
+        [Test]
+        public void ShouldNotBeOfType_ShouldNotThrowForNonMatchingType()
+        {
+            "Sup yo".ShouldNotBeOfType(typeof(int));
+        }
 
         [Test]
-        public void ShouldBeTypeOf_ShouldNotThrowForInheritance()
+        public void ShouldNotBeAssignableToWithGenericParameter_ShouldNotThrowForNonMatchingTypes()
         {
-            new MyThing().ShouldBeTypeOf<MyBase>();
+            "Sup yo".ShouldNotBeAssignableTo<int>();
+        }
+
+        [Test]
+        public void ShouldNotBeOfTypeWithGenericParameter_ShouldNotThrowForNonMatchingTypes()
+        {
+            "Sup yo".ShouldNotBeOfType<int>();
+        }
+
+        [Test]
+        public void ShouldNotBeOfType_TreatsNullAsNotMatchingAndDoesNotThrow()
+        {
+            object o = null;
+            o.ShouldNotBeOfType<int>();
+        }
+
+        [Test]
+        public void ShouldBeAssignableTo_ShouldNotThrowForInheritance()
+        {
+            new MyThing().ShouldBeAssignableTo<MyBase>();
+        }
+
+        [Test]
+        public void ShouldBeOfType_ShouldNotThrowForSameType()
+        {
+            new MyThing().ShouldBeAssignableTo<MyThing>();
         }
 
         [Test]
@@ -157,6 +206,12 @@ namespace Shouldly.Tests
         public void ShouldBe_WithIEnumerablesOfDifferentOrder_ShouldNotThrow()
         {
             new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: true);
+        }
+
+        [Test]
+        public void ShouldBe_WithIEnumerableOfString_ShouldNotThrow()
+        {
+            new []{"foo"}.ShouldBe<string>(new[]{"foo"});
         }
 
         [Test]

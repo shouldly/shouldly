@@ -53,16 +53,22 @@ Other *Shouldly* features:
         ShouldNotBeOneOf
         ShouldBeGreaterThan(OrEqualTo)
         ShouldBeLessThan(OrEqualTo)
-        ShouldBeTypeOf<T>
+        ShouldBeOfType<T> - Exact type match
+        ShouldBeAssignableTo<T>
+        ShouldBeInRange
+        ShouldNotBeInRange
 
     ##Enumerable
-        ShouldBe(with Tolerance)
+        ShouldBe(optional Tolerance/Ignore order)
+        ShouldAllBe(predicate)
         ShouldContain
         ShouldContain(predicate)
         ShouldNotContain
         ShouldNotContain(predicate)
         ShouldBeEmpty
         ShouldNotBeEmpty
+        ShouldBeOneOf(params)
+        ShouldBeSubsetOf
 
     ##String
         ShouldBeCloseTo
