@@ -240,17 +240,6 @@ namespace Shouldly.Tests
                 Assert.Throws<ChuckedAWobbly>(
                     () =>new[] { 457, 237, 565, 981, 7551 }.ShouldAllBe(x => x % 3 != 0));
             }
-
-            [Test]
-            public void ShouldAllBe_EnumerablesWithIntegers_WithPredicate_WhenFalse_ShouldThrow()
-            {
-                Assert.Throws<ChuckedAWobbly>(
-                    () =>new[] { 1, 2, 3 }.ShouldAllBe(x => x.Equals(1) && (x >= 2 && x <= 3)));
-                Assert.Throws<ChuckedAWobbly>(
-                    () =>new[] { 1, 2, 3, 4, 9999999 }.ShouldAllBe(x => x < 9999999));
-                Assert.Throws<ChuckedAWobbly>(
-                    () =>new[] { 457, 237, 565, 981, 7551 }.ShouldAllBe(x => x % 3 != 0));
-            }
         }
 
         public class ShouldBeEmpty
