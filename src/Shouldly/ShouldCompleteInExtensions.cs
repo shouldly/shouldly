@@ -1,6 +1,6 @@
-﻿using System.Linq;
-#if net40
+﻿#if net40
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System;
 using System.Threading.Tasks;
@@ -35,7 +35,8 @@ namespace Shouldly
             {
                 var te = ae.InnerExceptions.FirstOrDefault(e => e is TimeoutException);
 
-                throw te ?? ae;
+                PreserveStackTrace(ae ?? te);
+                throw;
             }
         }
 
@@ -49,8 +50,16 @@ namespace Shouldly
             {
                 var te = ae.InnerExceptions.FirstOrDefault(e => e is TimeoutException);
 
-                throw te ?? ae;
+                PreserveStackTrace(ae ?? te);
+                throw;
             }
+        }
+
+        private static void PreserveStackTrace(Exception exception)
+        {
+            MethodInfo preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
+              BindingFlags.Instance | BindingFlags.NonPublic);
+            preserveStackTrace.Invoke(exception, null);
         }
     }
 }
