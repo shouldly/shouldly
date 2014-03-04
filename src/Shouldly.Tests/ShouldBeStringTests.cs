@@ -5,6 +5,40 @@ namespace Shouldly.Tests
     [TestFixture]
     public class ShouldBeStringTests
     {
+        public class ShouldBe
+        {
+            [Test]
+            public void ShouldBe_ArrayOfCharsComparedToString_WhenSame_ShouldNotThrow()
+            {
+                (new[] { 'a', 'b', 'c'}).ShouldBe("abc");
+            }
+
+            [Test]
+            public void ShouldBe_ArrayOfCharsComparedToString_WhenNotSame_ShouldThrow()
+            {
+                Should.Error(
+                    () => (new[] { 'a', 'b', 'c' }).ShouldBe("abcd"),
+                    "() => (new[] { 'a', 'b', 'c' }) should be \"abcd\" but was [a, b, c]");
+            }
+        }
+
+        public class ShouldNotBe
+        {
+            [Test]
+            public void ShouldNotBe_ArrayOfCharsComparedToString_WhenSame_ShouldThrow()
+            {
+                Should.Error(
+                    () => (new[]{'a', 'b', 'c'}).ShouldNotBe("abc"),
+                    "() => (new[] { 'a', 'b', 'c' }) should not be \"abc\" but was [a, b, c]");
+            }
+
+            [Test]
+            public void ShouldNotBe_ArrayOfCharsComparedToString_WhenNotSame_ShouldNotThrow()
+            {
+                (new[] {'a', 'b', 'c'}).ShouldNotBe("abcd");
+            }
+        }
+
         [Test]
         public void ShouldContainWithoutWhitespace_IsPrettyLoose()
         {

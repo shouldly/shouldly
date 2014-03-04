@@ -19,6 +19,11 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.Equal(v, expected, ignoreOrder), actual, expected);
         }
 
+        public static void ShouldNotBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder = false)
+        {
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, ignoreOrder), actual, expected);
+        }
+
         public static T ShouldBeAssignableTo<T>(this object actual)
         {
             ShouldBeAssignableTo(actual, typeof(T));
