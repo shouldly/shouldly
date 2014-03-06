@@ -64,6 +64,10 @@
     <Compile Include="MyBase.cs" />
     <Compile Include="MyThing.cs" />
     <Compile Include="Should.cs" />
+    <Compile Include="ShouldBeAssignableTo\DerivedTypeScenario.cs" />
+    <Compile Include="ShouldBeAssignableTo\GenericOverloadReturnsValue.cs" />
+    <Compile Include="ShouldBeAssignableTo\IntAssignableToDoubleScenario.cs" />
+    <Compile Include="ShouldBeAssignableTo\NullIsNotAssignableToTypeScenario.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />
     <Compile Include="ShouldBeGreaterOrEqualTo\IntScenario.cs" />
@@ -79,6 +83,9 @@
     <Compile Include="ShouldBeLessThan\IntScenario.cs" />
     <Compile Include="ShouldBeLessThan\StringScenario.cs" />
     <Compile Include="ShouldBeLessThan\StringVsNullScenario.cs" />
+    <Compile Include="ShouldBeOfType\DerivedTypeScenario.cs" />
+    <Compile Include="ShouldBeOfType\GenericOverloadReturnsValue.cs" />
+    <Compile Include="ShouldBeOfType\NullIsNotAssignableToTypeScenario.cs" />
     <Compile Include="ShouldBeOneOfTests.cs" />
     <Compile Include="ShouldBeSameAsTests.cs" />
     <Compile Include="ShouldBeStringTests.cs" />

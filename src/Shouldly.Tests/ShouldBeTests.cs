@@ -6,46 +6,6 @@ namespace Shouldly.Tests
     public class ShouldBeTests
     {
         [Test]
-        public void ShouldBeAssignableTo_ShouldNotThrowForStrings()
-        {
-            "Sup yo".ShouldBeAssignableTo(typeof(string));
-        }
-
-        [Test]
-        public void ShouldBeOfType_ShouldNotThrowForStrings()
-        {
-            "Sup yo".ShouldBeOfType(typeof(string));
-        }
-
-        [Test]
-        public void ShouldBeAssignableToWithGenericParameter_ShouldNotThrowForStrings()
-        {
-            "Sup yo".ShouldBeAssignableTo<string>();
-        }
-
-        [Test]
-        public void ShouldBeOfTypeWithGenericParameter_ShouldNotThrowForStrings()
-        {
-            "Sup yo".ShouldBeOfType<string>();
-        }
-
-        [Test]
-        public void ShouldBeAssignableToWithGenericParameter_ShouldReturnThis()
-        {
-            string str = "Sup yo";
-            string ret = str.ShouldBeAssignableTo<string>();
-            ret.ShouldBe(str);
-        }
-
-        [Test]
-        public void ShouldBeOfTypeWithGenericParameter_ShouldReturnThis()
-        {
-            string str = "Sup yo";
-            string ret = str.ShouldBeOfType<string>();
-            ret.ShouldBe(str);
-        }
-
-        [Test]
         public void ShouldNotBeAssignableTo_ShouldNotThrowForNonMatchingType()
         {
             "Sup yo".ShouldNotBeAssignableTo(typeof(int));
@@ -74,24 +34,6 @@ namespace Shouldly.Tests
         {
             object o = null;
             o.ShouldNotBeOfType<int>();
-        }
-
-        [Test]
-        public void ShouldBeAssignableTo_ShouldNotThrowForInheritance()
-        {
-            new MyThing().ShouldBeAssignableTo<MyBase>();
-        }
-
-        [Test]
-        public void ShouldBeOfType_ShouldNotThrowForSameType()
-        {
-            new MyThing().ShouldBeAssignableTo<MyThing>();
-        }
-
-        [Test]
-        public void ShouldBe_WhenThingsAreDifferentTypes_ThatOverrideEqualsPoorly_ShouldThrow()
-        {
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => new Strange().ShouldBe("hello"));
         }
 
         [Test]
