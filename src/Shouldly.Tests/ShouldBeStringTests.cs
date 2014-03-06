@@ -12,18 +12,6 @@ namespace Shouldly.Tests
         }
 
         [Test]
-        public void ShouldEndWith_Should_Return_True_For_ez_In_Cheez()
-        {
-            "Cheez".ShouldEndWith("ez");
-        }
-
-        [Test]
-        public void ShouldEndWith_Should_Ignore_Case_And_Return_True_For_EZ_In_Cheez()
-        {
-            "Cheez".ShouldEndWith("EZ");
-        }
-
-        [Test]
         public void ShouldMatch_Should_Match_Based_On_RegEx_Pattern()
         {
             "Cheese".ShouldMatch(@"C.e{2}s[e]");

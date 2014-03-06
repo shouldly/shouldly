@@ -135,8 +135,11 @@
     <Compile Include="ShouldNotBe\StringScenario.cs" />
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="Strange.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldNotStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldNotStartWith\ShouldIgnoreCaseByDefault.cs" />
+    <Compile Include="Strings\ShouldEndWith\BasicScenario.cs" />
+    <Compile Include="Strings\ShouldEndWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="Strings\ShouldStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldStartWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="TaskSupport.cs" />
