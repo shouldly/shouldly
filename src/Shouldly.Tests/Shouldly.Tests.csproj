@@ -66,7 +66,19 @@
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />
+    <Compile Include="ShouldBeGreaterOrEqualTo\IntScenario.cs" />
+    <Compile Include="ShouldBeGreaterOrEqualTo\StringScenario.cs" />
+    <Compile Include="ShouldBeGreaterThan\EqualScenario.cs" />
+    <Compile Include="ShouldBeGreaterThan\IntScenario.cs" />
+    <Compile Include="ShouldBeGreaterThan\StringScenario.cs" />
+    <Compile Include="ShouldBeGreaterThan\StringVsNullScenario.cs" />
     <Compile Include="ShouldBeInRangeTests.cs" />
+    <Compile Include="ShouldBeLessThanOrEqualTo\IntScenario.cs" />
+    <Compile Include="ShouldBeLessThanOrEqualTo\StringScenario.cs" />
+    <Compile Include="ShouldBeLessThan\EqualScenario.cs" />
+    <Compile Include="ShouldBeLessThan\IntScenario.cs" />
+    <Compile Include="ShouldBeLessThan\StringScenario.cs" />
+    <Compile Include="ShouldBeLessThan\StringVsNullScenario.cs" />
     <Compile Include="ShouldBeOneOfTests.cs" />
     <Compile Include="ShouldBeSameAsTests.cs" />
     <Compile Include="ShouldBeStringTests.cs" />
@@ -124,6 +136,7 @@
     <None Include="packages.config" />
     <None Include="sn.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

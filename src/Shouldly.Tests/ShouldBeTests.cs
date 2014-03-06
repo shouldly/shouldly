@@ -6,44 +6,6 @@ namespace Shouldly.Tests
     public class ShouldBeTests
     {
         [Test]
-        public void ShouldBe_GreaterThan()
-        {
-            7.ShouldBeGreaterThan(1);
-            "b".ShouldBeGreaterThan("a");
-            "b".ShouldBeGreaterThan(null);
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => 0.ShouldBeGreaterThan(7));
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => "a".ShouldBeGreaterThan("b"));
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => ((string)null).ShouldBeGreaterThan("b"));
-        }
-
-        [Test]
-        public void ShouldBe_LessThan()
-        {
-            1.ShouldBeLessThan(7);
-            "a".ShouldBeLessThan("b");
-            ((string)null).ShouldBeLessThan("b");
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => 7.ShouldBeLessThan(0));
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => "b".ShouldBeLessThan("a"));
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => "b".ShouldBeLessThan(null));
-        }
-
-        [Test]
-        public void ShouldBe_GreaterThanOrEqualTo()
-        {
-            7.ShouldBeGreaterThanOrEqualTo(1);
-            1.ShouldBeGreaterThanOrEqualTo(1);
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => 0.ShouldBeGreaterThanOrEqualTo(1));
-        }
-
-        [Test]
-        public void ShouldBe_LessThanOrEqualTo()
-        {
-            1.ShouldBeLessThanOrEqualTo(7);
-            1.ShouldBeLessThanOrEqualTo(1);
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => 2.ShouldBeLessThanOrEqualTo(1));
-        }
-
-        [Test]
         public void ShouldBeAssignableTo_ShouldNotThrowForStrings()
         {
             "Sup yo".ShouldBeAssignableTo(typeof(string));
