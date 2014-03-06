@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Tests.ShouldBeAssignableTo
 {
-    public class IntAssignableToDoubleScenario : ShouldlyShouldFailureTestScenario
+    public class BasicTypesScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
@@ -10,6 +10,11 @@
         protected override string ChuckedAWobblyErrorMessage
         {
             get { return "2 should be assignable to System.Double but was System.Int32"; }
+        }
+
+        protected override void ShouldPass()
+        {
+            1.ShouldBeAssignableTo<int>();
         }
     }
 }

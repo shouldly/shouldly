@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Tests.ShouldBeOfType
 {
-    public class NullIsNotAssignableToTypeScenario : ShouldlyShouldFailureTestScenario
+    public class ActualIsNullScenario : ShouldlyShouldFailureTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
