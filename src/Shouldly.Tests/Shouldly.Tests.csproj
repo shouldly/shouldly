@@ -100,8 +100,8 @@
     <Compile Include="ShouldBe\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBe\BoolScenario.cs" />
     <Compile Include="ShouldBe\BoxedIntScenario.cs" />
-    <Compile Include="ShouldBe\CaseSensitivity\CaseIsInsensitiveScenario.cs" />
-    <Compile Include="ShouldBe\CaseSensitivity\CaseIsSensitiveScenario.cs" />
+    <Compile Include="Strings\ShouldBe\CaseIsInsensitiveScenario.cs" />
+    <Compile Include="Strings\ShouldBe\CaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldBe\ComparingBaseWithDerivedTypeShouldFail.cs" />
     <Compile Include="ShouldBe\ComparingObjectWithString.cs" />
     <Compile Include="ShouldBe\EnumerableType\ActualIsNullScenario.cs" />
@@ -135,6 +135,10 @@
     <Compile Include="ShouldNotBe\StringScenario.cs" />
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="Strange.cs" />
+    <Compile Include="Strings\ShouldNotStartWith\BasicScenario.cs" />
+    <Compile Include="Strings\ShouldNotStartWith\ShouldIgnoreCaseByDefault.cs" />
+    <Compile Include="Strings\ShouldStartWith\BasicScenario.cs" />
+    <Compile Include="Strings\ShouldStartWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="TaskSupport.cs" />
     <Compile Include="UncomparableClass.cs" />
     <Compile Include="Widget.cs" />

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly
 {
@@ -36,6 +35,16 @@ namespace Shouldly
         public static void ShouldEndWith(this string actual, string expected)
         {
             actual.AssertAwesomely(v => Is.EndsWithIgnoringCase(v, expected), actual, expected);
+        }
+
+        public static void ShouldNotStartWith(this string actual, string expected)
+        {
+            actual.AssertAwesomely(v => !Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
+        }
+
+        public static void ShouldNotEndWith(this string actual, string expected)
+        {
+            actual.AssertAwesomely(v => !Is.EndsWithIgnoringCase(v, expected), actual, expected);
         }
 
         public static void ShouldContain(this string actual, string expected)
