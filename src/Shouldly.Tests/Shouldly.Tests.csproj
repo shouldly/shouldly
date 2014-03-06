@@ -100,6 +100,9 @@
     <Compile Include="ShouldBe\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBe\BoolScenario.cs" />
     <Compile Include="ShouldBe\BoxedIntScenario.cs" />
+    <Compile Include="Strings\ShouldBeEmpty\ActualIsNull.cs" />
+    <Compile Include="Strings\ShouldBeEmpty\ShouldBeEmptyBasicScenario.cs" />
+    <Compile Include="Strings\ShouldBeNullOrEmpty.cs" />
     <Compile Include="Strings\ShouldBe\CaseIsInsensitiveScenario.cs" />
     <Compile Include="Strings\ShouldBe\CaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldBe\ComparingBaseWithDerivedTypeShouldFail.cs" />

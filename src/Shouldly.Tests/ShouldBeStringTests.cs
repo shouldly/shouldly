@@ -16,24 +16,5 @@ namespace Shouldly.Tests
         {
             "Cheese".ShouldMatch(@"C.e{2}s[e]");
         }
-
-        [Test]
-        public void ShouldBeNullOrEmpty_GivenAnEmptyString_ShouldPass()
-        {
-            "".ShouldBeNullOrEmpty();
-        }
-
-        [Test]
-        public void ShouldBeNullOrEmpty_GivenANullString_ShouldPass()
-        {
-            string nullstring = null;
-            nullstring.ShouldBeNullOrEmpty();
-        }
-
-        [Test]
-        public void ShouldNotBeNullOrEmpty_GivenANonEmptyString_ShouldPass()
-        {
-            "a".ShouldNotBeNullOrEmpty();
-        }
     }
 }
