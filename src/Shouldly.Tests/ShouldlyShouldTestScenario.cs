@@ -3,17 +3,14 @@ using NUnit.Framework;
 namespace Shouldly.Tests
 {
     [TestFixture]
-    public abstract class ShouldlyShouldTestScenario
+    public abstract class ShouldlyShouldTestScenario : ShouldlyShouldFailureTestScenario
     {
         protected abstract void ShouldPass();
-        protected abstract void ShouldThrowAWobbly();
-        protected abstract string ChuckedAWobblyErrorMessage { get; }
 
         [Test]
-        public void RunScenario()
+        public void ShouldMethodShouldNotFail()
         {
             Should.NotError(ShouldPass);
-            Should.Error(ShouldThrowAWobbly, ChuckedAWobblyErrorMessage);
         }
     }
 }

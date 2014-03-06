@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe
+﻿namespace Shouldly.Tests.ShouldNotBe
 {
     public class StringScenario : ShouldlyShouldTestScenario
     {
@@ -7,17 +7,17 @@
 
         protected override void ShouldPass()
         {
-            ThisString.ShouldBe(ThisString);
+            ThisString.ShouldNotBe(ThisOtherString);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            ThisString.ShouldBe(ThisOtherString);
+            ThisString.ShouldNotBe(ThisString);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "ThisString should be \"this other string\" but was \"this string\""; }
+            get { return "ThisString should not be \"this string\" but was \"this string\""; }
         }
     }
 }

@@ -1,21 +1,21 @@
-﻿namespace Shouldly.Tests.ShouldBe
+﻿namespace Shouldly.Tests.ShouldNotBe
 {
     public class IntegerScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldPass()
         {
-            1.ShouldBe(1);
+            1.ShouldNotBe(2);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            const int two = 2;
-            two.ShouldBe(1);
+            const int one = 1;
+            one.ShouldNotBe(1);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "two should be 1 but was 2"; }
+            get { return "one should not be 1 but was 1"; }
         }
     }
 }

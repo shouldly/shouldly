@@ -1,21 +1,21 @@
-﻿namespace Shouldly.Tests.ShouldBe
+﻿namespace Shouldly.Tests.ShouldNotBe
 {
     public class BoolScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldPass()
         {
-            true.ShouldBe(true);
+            false.ShouldNotBe(true);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            const bool myValue = false;
-            myValue.ShouldBe(true);
+            const bool myFalseValue = false;
+            myFalseValue.ShouldNotBe(false);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myValue should be True but was False"; }
+            get { return "myFalseValue should not be False but was False"; }
         }
     }
 }

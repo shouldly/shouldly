@@ -2,7 +2,7 @@
 
 namespace Shouldly.Tests.ShouldBe.EnumerableScenarios
 {
-    public class DifferentOrderWithMissingItemFromExpectedScenario : ShouldlyShouldFailTestScenario
+    public class DifferentOrderWithMissingItemFromExpectedScenario : ShouldlyShouldFailureTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
