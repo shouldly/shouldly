@@ -57,6 +57,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\GuidScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKey\ClassScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKey\GuidScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKey\StringScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\ClassScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\GuidScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainKey\ClassScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainKey\GuidScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainKey\StringScenario.cs" />
     <Compile Include="DifferenceHighlighterHelpersTests.cs" />
     <Compile Include="EnumerableExtensionHelpers.cs" />
     <Compile Include="EnumerableHighlighterTests.cs" />
@@ -72,7 +86,6 @@
     <Compile Include="ShouldBeAssignableTo\GenericOverloadReturnsValue.cs" />
     <Compile Include="ShouldBeAssignableTo\BasicTypesScenario.cs" />
     <Compile Include="ShouldBeAssignableTo\NullIsNotAssignableToTypeScenario.cs" />
-    <Compile Include="ShouldBeDictionaryTests.cs" />
     <Compile Include="ShouldBeEnumerableTests.cs" />
     <Compile Include="ShouldBeGreaterOrEqualTo\IntScenario.cs" />
     <Compile Include="ShouldBeGreaterOrEqualTo\StringScenario.cs" />
