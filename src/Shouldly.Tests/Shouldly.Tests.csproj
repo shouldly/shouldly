@@ -72,15 +72,32 @@
     <Compile Include="ShouldBeStringTests.cs" />
     <Compile Include="ShouldBeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShouldBe\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBe\BoolScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableScenarios\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableScenarios\DifferentOrderWithMissingItemScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableScenarios\EnumerableOfStringScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableScenarios\IgnoringOrderScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableScenarios\DifferentCollectionTypeScenario.cs" />
+    <Compile Include="ShouldBe\BoxedIntScenario.cs" />
+    <Compile Include="ShouldBe\CaseSensitivity\CaseIsInsensitiveScenario.cs" />
+    <Compile Include="ShouldBe\CaseSensitivity\CaseIsSensitiveScenario.cs" />
+    <Compile Include="ShouldBe\ComparingBaseWithDerivedTypeShouldFail.cs" />
+    <Compile Include="ShouldBe\ComparingObjectWithString.cs" />
+    <Compile Include="ShouldBe\EnumerableType\ActualIsNullScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\CannotIgnoreOrderWhenItemsAreNotComparable.cs" />
+    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\EnumerableOfComplexTypeScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\IgnoringOrderScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\DifferentCollectionTypeScenario.cs" />
+    <Compile Include="ShouldBe\JTokenScenario.cs" />
     <Compile Include="ShouldBe\NumbersOfDifferentTypesScenario.cs" />
     <Compile Include="ShouldBe\IntegerScenario.cs" />
     <Compile Include="ShouldBe\StringScenario.cs" />
+    <Compile Include="ShouldBe\UncomparableClassScenario.cs" />
+    <Compile Include="ShouldBe\WithTollerance\EnumerableOfDoubleScenario.cs" />
+    <Compile Include="ShouldBe\WithTollerance\DoubleScenario.cs" />
+    <Compile Include="ShouldBe\WithTollerance\FloatScenario.cs" />
+    <Compile Include="ShouldBe\WithTollerance\DecimalScenario.cs" />
+    <Compile Include="ShouldBe\WithTollerance\EnumerableOfFloatScenario.cs" />
+    <Compile Include="ShouldBe\WithTollerance\EnumerableOfDecimalScenario.cs" />
     <Compile Include="ShouldlyShouldFailureTestScenario.cs" />
     <Compile Include="ShouldlyShouldTestScenario.cs" />
     <Compile Include="ShouldlyMessageTests.cs" />
@@ -94,6 +111,7 @@
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="Strange.cs" />
     <Compile Include="TaskSupport.cs" />
+    <Compile Include="UncomparableClass.cs" />
     <Compile Include="Widget.cs" />
   </ItemGroup>
   <ItemGroup>

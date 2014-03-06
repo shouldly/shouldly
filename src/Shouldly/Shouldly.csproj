@@ -81,6 +81,7 @@
     <Compile Include="ShouldThrowExtensions.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
+    <Compile Include="TestEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sn.snk" />

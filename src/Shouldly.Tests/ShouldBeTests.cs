@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Shouldly.Tests
 {
     [TestFixture]
     public class ShouldBeTests
     {
-        [Test]
-        public void Should_WithNumbers_ShouldAllowTolerance()
-        {
-            Math.PI.ShouldNotBe(3.14);
-            Math.PI.ShouldBe(3.14, 0.01);
-            ((float)Math.PI).ShouldBe(3.14f, 0.01);
-        }
-
         [Test]
         public void ShouldBe_GreaterThan()
         {
@@ -52,34 +41,6 @@ namespace Shouldly.Tests
             1.ShouldBeLessThanOrEqualTo(7);
             1.ShouldBeLessThanOrEqualTo(1);
             Shouldly.Should.Throw<ChuckedAWobbly>(() => 2.ShouldBeLessThanOrEqualTo(1));
-        }
-
-        [Test]
-        public void ShouldBe_EnumerableOfDoubles_ShouldAllowTolerance()
-        {
-            new[] { Math.PI, Math.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
-        }
-
-        [Test]
-        public void ShouldBe_EnumerableOfFloats_ShouldAllowTolerance()
-        {
-            new[] { (float)Math.PI, (float)Math.PI }.ShouldBe(new[] { 3.14f, 3.14f }, 0.01);
-        }
-
-        [Test]
-        public void Should_WithDecimal_ShouldAllowTolerance()
-        {
-            var pi = (decimal)Math.PI;
-            pi.ShouldNotBe(3.14m);
-            pi.ShouldBe(3.14m, 0.01m);
-        }
-
-        [Test]
-        public void ShouldBe_DecimalEnumerable_ShouldAllowTolerance()
-        {
-            var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
-            var secondSet = new[] { 1.2301m, 2.34m, 3.45m };
-            firstSet.ShouldBe(secondSet, 0.01m);
         }
 
         [Test]
@@ -163,28 +124,6 @@ namespace Shouldly.Tests
         public void ShouldBeOfType_ShouldNotThrowForSameType()
         {
             new MyThing().ShouldBeAssignableTo<MyThing>();
-        }
-
-        [Test]
-        public void ShouldBe_ComparingObjectWithString_ShouldThrow()
-        {
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => new object().ShouldBe("this string"));
-        }
-
-        [Test]
-        public void ShouldBe_ComparingBaseWithDerived_ShouldThrow()
-        {
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => new MyBase().ShouldBe(new MyThing()));
-        }
-
-        [Test]
-        public void ShouldBe_WithIEnumerablesOfDifferentOrderWhenTypeNotComparable_ShouldNotThrow()
-        {
-            var ex = Assert.Throws<ArgumentException>(() =>
-                new List<object> {new object(), new object()}.ShouldBe(new[] {new object(), new object()},
-                    ignoreOrder: true));
-
-            ex.Message.ShouldBe("At least one object must implement IComparable.");
         }
 
         [Test]

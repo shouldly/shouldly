@@ -8,80 +8,6 @@ namespace Shouldly.Tests
     public class ShouldlyMessageTests
     {
         [Test]
-        public void ShouldBe()
-        {
-            Should.Error(
-                () => new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob")),
-                "() => new UncomparableClass(\"ted\") should be bob but was ted"
-            );
-
-            var ex = Assert.Throws<ChuckedAWobbly>(() =>
-                ((object)12).ShouldBe("string"));
-            ex.Message.ShouldContainWithoutWhitespace("((object)12) should be \"string\" but was 12");
-
-            Should.Error(() =>
-                         "SamplE".ShouldBe("sAMPLe", Case.Sensitive),
-                         "'SamplE' should be 'sAMPLe' but was 'SamplE'");
-
-            Should.Error(() =>
-                         new[] { 2, 1 }.ShouldBe(new[] { 1, 2 }),
-                         "new[] { 2, 1 } should be [1, 2] but was [2, 1] difference [*2*, *1*]"
-                );
-
-            IEnumerable<int> something = null;
-            Should.Error(
-                () => something.ShouldBe(new[] { 1, 2, 3 }),
-                "() => something should be [1, 2, 3] but was null");
-
-            Action a = () => 1.ShouldBe(2);
-            Should.Error(a,
-                "Action a = () => 1 should be 2 but was 1");
-        }
-
-        [Test]
-        public void ComparingEnumerables()
-        {
-            var aWidget = new Widget { Name = "Joe", Enabled = true };
-            var bWidget = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
-
-            IEnumerable<Widget> aEnumerable = aWidget.ToEnumerable();
-            IEnumerable<Widget> bEnumerable = new[] { bWidget };
-
-            Should.Error(() =>
-                aEnumerable.ShouldBe(bEnumerable),
-                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
-            );
-            
-            var aArray = new[] { bWidget };
-
-            Should.Error(() =>
-                aEnumerable.ShouldBe(aArray),
-                "aEnumerable should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] but was [Name(Joe) Enabled(True)] difference [*Name(Joe) Enabled(True)*]"
-            );
-
-            var ex = Assert.Throws<ChuckedAWobbly>(()=>
-                new Strange().ShouldBe("string"));
-
-            ex.Message.ShouldContainWithoutWhitespace(
-                "new Strange() should be [] (string) but was [] (null) difference[]");
-        }
-
-        [Test]
-        public void ComparingEnumerables2()
-        {
-            var aWidget = new Widget { Name = "Joe", Enabled = true };
-            var bWidget = new Widget { Name = "Joeyjojoshabadoo Jr", Enabled = true };
-
-            var aEnumerable = aWidget.ToEnumerable();
-            var bEnumerable = new[] { bWidget };
-
-            Should.Error(() =>
-                bEnumerable.ShouldBe(aEnumerable),
-                "bEnumerable should be [Name(Joe) Enabled(True)] but was [Name(Joeyjojoshabadoo Jr) Enabled(True)] difference [*Name(Joeyjojoshabadoo Jr) Enabled(True)*]"
-            );
-        }
-
-        [Test]
         public void ShouldBeAssignableTo()
         {
             Should.Error(
@@ -221,11 +147,6 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldBeNullOrEmpty()
         {
-            string nullstring = null;
-            Should.Error(
-                () => nullstring.ShouldBe(string.Empty),
-                "() => nullstring should be \"\" but was null");
-
             Should.Error(
              () => "a".ShouldBeNullOrEmpty(),
              "() => \"a\" should be null or empty");
@@ -304,21 +225,5 @@ namespace Shouldly.Tests
                 testMessage.ShouldContainWithoutWhitespace("must eat brains"),
                 @"testMessage should contain without whitespace 'must eat brains' but was 'muhst eat braiiinnzzzz'");
         }
-
-        private class UncomparableClass
-        {
-            private readonly string _description;
-
-            public UncomparableClass(string description)
-            {
-                _description = description;
-            }
-
-            public override string ToString()
-            {
-                return _description;
-            }
-        }
-
     }
 }

@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableScenarios
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class EnumerableOfStringScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldPass()
         {
-            new[] { "foo" }.ShouldBe<string>(new[] { "foo" });
+            new[] { "foo" }.ShouldBe(new[] { "foo" });
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            new[] { "foo" }.ShouldBe<string>(new[] { "foo2" });
+            new[] { "foo" }.ShouldBe(new[] { "foo2" });
         }
 
         protected override string ChuckedAWobblyErrorMessage

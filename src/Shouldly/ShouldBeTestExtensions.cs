@@ -21,7 +21,14 @@ namespace Shouldly
 
         public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder = false)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, ignoreOrder), actual, expected);
+            if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof (T).FullName))
+            {
+                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
+            }
+            else
+            {
+                actual.AssertAwesomely(v => Is.Equal(v, expected, ignoreOrder), actual, expected);
+            }
         }
 
         public static void ShouldBe(this float actual, float expected, double tolerance)
