@@ -95,7 +95,6 @@
     <Compile Include="ShouldBeOfType\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBeOneOfTests.cs" />
     <Compile Include="ShouldBeSameAsTests.cs" />
-    <Compile Include="ShouldBeStringTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldBe\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBe\BoolScenario.cs" />
@@ -139,6 +138,7 @@
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="Strange.cs" />
     <Compile Include="Strings\ShouldContainWithoutWhitespace.cs" />
+    <Compile Include="Strings\ShouldMatch.cs" />
     <Compile Include="Strings\ShouldNotEndWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldNotStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldNotStartWith\ShouldIgnoreCaseByDefault.cs" />
