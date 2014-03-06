@@ -1,52 +1,10 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Shouldly.Tests
 {
     [TestFixture]
     public class ShouldBeEnumerableTests
     {
-        public class ShouldContain
-        {
-            [Test]
-            public void ShouldNotContain_EnumerablesWithIntegers_WhenTrue_ShouldNotThrow()
-            {
-                new int[] {}.ShouldNotContain(1);
-                new[] {1, 2, 3, 4, 5, 5}.ShouldNotContain(55);
-                new[] {13562377128312434, 2, 3, 4, 5}.ShouldNotContain(13562377128112434);
-                new[] {2, 3, 4, 5, 4, 123665, 11234, -1356237712831}.ShouldNotContain(-1356235712831);
-            }
-
-            [Test]
-            public void ShouldNotContain_EnumerablesWithIntegers_WhenFalse_ShouldThrow()
-            {
-                Assert.Throws<ChuckedAWobbly>(() => 
-                    new[] { 1 }.ShouldNotContain(1));
-                Assert.Throws<ChuckedAWobbly>(() => 
-                    new[] { 1, 2, 3, 4, 5 }.ShouldNotContain(5));
-                Assert.Throws<ChuckedAWobbly>(() => 
-                    new[] { 13562377128312434, 2, 3, 4, 5 }.ShouldNotContain(13562377128312434));
-                Assert.Throws<ChuckedAWobbly>(() => 
-                    new[] { 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 }.ShouldNotContain(-1356237712831));
-            }
-
-            [Test]
-            public void ShouldNotContain_EnumerablesWithStrings_WhenTrue_ShouldNotThrow()
-            {
-                new string[] { }.ShouldNotContain("1");
-                new[] { "1", "2", "3", "4", "5" }.ShouldNotContain("55");
-                new[] { "13562377128312434", "2", "3", "4", "5" }.ShouldNotContain("13562377128112434");
-            }
-
-            [Test]
-            public void ShouldNotContain_EnumerablesWithStrings_WhenFalse_ShouldThrow()
-            {
-                Assert.Throws<ChuckedAWobbly>(() => new[] { "1" }.ShouldNotContain("1"));
-                Assert.Throws<ChuckedAWobbly>(() => new[] { "1", "2", "3", "4", "5" }.ShouldNotContain("5"));
-                Assert.Throws<ChuckedAWobbly>(() => new[] { "13562377128312434", "2", "3", "4", "5" }.ShouldNotContain("13562377128312434"));
-            }
-        }
-
         public class ShouldAllBe
         {
             [Test]

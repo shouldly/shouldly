@@ -80,6 +80,15 @@
     <Compile Include="Should.cs" />
     <Compile Include="ShouldBeOfType\BasicTypesScenario.cs" />
     <Compile Include="ShouldBeTests.cs" />
+    <Compile Include="ShouldNotContain\DoubleWithToleranceScenario.cs" />
+    <Compile Include="ShouldNotContain\FloatWithToleranceScenario.cs" />
+    <Compile Include="ShouldNotContain\IntegerScenario.cs" />
+    <Compile Include="ShouldNotContain\IntegerWithNegativeValuesScenario.cs" />
+    <Compile Include="ShouldNotContain\LongStringScenario.cs" />
+    <Compile Include="ShouldNotContain\PredicateScenario.cs" />
+    <Compile Include="ShouldNotContain\StringArrayScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsCharScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringScenario.cs" />
     <Compile Include="ShouldContain\FloatWithToleranceScenario.cs" />
     <Compile Include="ShouldContain\DoubleWithToleranceScenario.cs" />
     <Compile Include="ShouldContain\EmptyArrayScenario.cs" />
