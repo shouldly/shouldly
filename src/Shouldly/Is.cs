@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -20,6 +21,21 @@ namespace Shouldly
                 return false;
 
             return ReferenceEquals(actual, expected);
+        }
+
+        public static bool Equal<T>(T expected, T actual)
+        {
+            return Equal(expected, actual, GetEqualityComparer<T>());
+        }
+
+        public static bool Equal<T>(T expected, T actual, IEqualityComparer<T> comparer)
+        {
+            return comparer.Equals(expected, actual);
+        }
+
+        static IEqualityComparer<T> GetEqualityComparer<T>(bool skipTypeCheck = false, IEqualityComparer innerComparer = null)
+        {
+            return new EqualityComparer<T>(skipTypeCheck, innerComparer);
         }
 
         public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder)
@@ -156,16 +172,6 @@ namespace Shouldly
         public static bool StringEqualIgnoreCase(string actual, string expected)
         {
             return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);
-        }
-
-        public static bool Equal(object actual, object expected)
-        {
-            if (actual == null && expected == null)
-                return true;
-            if (actual == null || expected == null)
-                return false;
-
-            return actual.Equals(expected);
         }
 
         public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, T expected)
