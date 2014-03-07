@@ -57,11 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EqualityComparer.cs" />
     <Compile Include="Case.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighterExtensions.cs" />
     <Compile Include="DifferenceHighlighting\IHighlighter.cs" />
+    <Compile Include="EqualityComparerAdapter.cs" />
     <Compile Include="Is.cs" />
     <Compile Include="Properties\InternalsVisibleToInfo.cs" />
     <Compile Include="ObjectHelpers.cs" />
