@@ -8,5 +8,9 @@ namespace Shouldly
         public ChuckedAWobbly(string message) : base(message)
         {
         }
+
+        public ChuckedAWobbly(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

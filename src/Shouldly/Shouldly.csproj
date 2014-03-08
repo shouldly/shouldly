@@ -65,6 +65,7 @@
     <Compile Include="DifferenceHighlighting\IHighlighter.cs" />
     <Compile Include="EqualityComparerAdapter.cs" />
     <Compile Include="Is.cs" />
+    <Compile Include="ObjectEqualityComparer.cs" />
     <Compile Include="Properties\InternalsVisibleToInfo.cs" />
     <Compile Include="ObjectHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="ShouldBeEnumerableTestExtensions.cs" />
     <Compile Include="ShouldBeStringTestExtensions.cs" />
     <Compile Include="ShouldBeTestExtensions.cs" />
+    <Compile Include="ShouldlyConfiguration.cs" />
     <Compile Include="ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="ShouldlyMessageGenerators.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="ShouldThrowExtensions.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
+    <Compile Include="TestEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sn.snk" />

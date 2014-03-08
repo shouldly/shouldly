@@ -73,7 +73,9 @@ Other *Shouldly* features:
     ##String
         ShouldBeCloseTo
         ShouldStartWith
+        ShouldNotStartWith
         ShouldEndWith
+        ShouldNotEndWith
         ShouldContain
         ShouldNotContain
         ShouldContainWithoutWhitespace
