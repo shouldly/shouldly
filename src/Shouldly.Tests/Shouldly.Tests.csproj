@@ -162,6 +162,7 @@
     <Compile Include="ShouldlyShouldTestScenario.cs" />
     <Compile Include="ShouldlyMessageTests.cs" />
     <Compile Include="ShouldlyStringExtensionTests.cs" />
+    <Compile Include="ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
     <Compile Include="ShouldNotBeOneOfTests.cs" />
     <Compile Include="ShouldNotBe\BoolScenario.cs" />
