@@ -6,11 +6,6 @@ namespace Shouldly
     [Serializable]
     class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
     {
-        [TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
-        public ObjectEqualityComparer()
-        {
-        }
-
         public override bool Equals(T x, T y)
         {
             if (x != null)
@@ -20,7 +15,6 @@ namespace Shouldly
             return y == null;
         }
 
-        [TargetedPatchingOptOut("Performance critical to inline across NGen image boundaries")]
         public override int GetHashCode(T obj)
         {
             if (obj == null)
