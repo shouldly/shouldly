@@ -31,6 +31,7 @@ Another example, if you compare two collections:
     (new[] { 1, 2, 3 }).ShouldBe(new[] { 1, 2, 4 });
  
 and it fails because they're different, it'll show you the differences between the two collections:
+
         should be
     [1, 2, 4]
         but was
@@ -84,7 +85,8 @@ Other *Shouldly* features:
         ShouldNotBeNullOrEmpty
 
     ##Dictionary
-        ShouldContainKeyShouldContainKeyAndValue
+        ShouldContainKey
+        ShouldContainKeyAndValue
         ShouldNotContainKey
         ShouldNotContainKeyAndValue
 
