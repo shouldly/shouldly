@@ -76,6 +76,9 @@
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
+    <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
+    <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
+    <Compile Include="ShouldThrow\ActionDelegateScenario.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />
@@ -182,7 +185,6 @@
     <Compile Include="ShouldNotBe\IntegerScenario.cs" />
     <Compile Include="ShouldNotBe\NumbersOfDifferentTypesScenario.cs" />
     <Compile Include="ShouldNotBe\StringScenario.cs" />
-    <Compile Include="ShouldThrowAndNotThrowTests.cs" />
     <Compile Include="TestHelpers\Strange.cs" />
     <Compile Include="Strings\ShouldContainWithoutWhitespace.cs" />
     <Compile Include="Strings\ShouldMatch.cs" />
