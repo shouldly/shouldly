@@ -14,21 +14,6 @@ namespace Shouldly.Tests
             }
         }
 
-        public class ShouldBeEmpty
-        {
-            [Test]
-            public void ShouldBeEmpty_WhenEmpty_ShouldNotError()
-            {
-                Should.NotError(() => new object[0].ShouldBeEmpty());
-            }
-
-            [Test]
-            public void ShouldNotBeEmpty_WhenNotEmpty_ShouldNotError()
-            {
-                Should.NotError(() => new[] {new object()}.ShouldNotBeEmpty());
-            }
-        }
-
         public class ShouldBeSubsetOf
         {
             [Test]

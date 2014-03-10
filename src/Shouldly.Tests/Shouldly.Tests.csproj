@@ -78,10 +78,12 @@
     <Compile Include="MyBase.cs" />
     <Compile Include="MyThing.cs" />
     <Compile Include="Should.cs" />
+    <Compile Include="ShouldBeEmpty\ArrayScenario.cs" />
     <Compile Include="ShouldBeOfType\BasicTypesScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\MultiDimentionalArrayScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\SameInstanceInDifferentInterfaceCollectionTypes.cs" />
+    <Compile Include="ShouldNotBeEmpty\ArrayScenario.cs" />
     <Compile Include="ShouldNotContain\DoubleWithToleranceScenario.cs" />
     <Compile Include="ShouldNotContain\FloatWithToleranceScenario.cs" />
     <Compile Include="ShouldNotContain\IntegerScenario.cs" />
