@@ -80,6 +80,7 @@
     <Compile Include="Should.cs" />
     <Compile Include="ShouldAllBe\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeEmpty\ArrayScenario.cs" />
+    <Compile Include="ShouldBeInRange\DecimalScenaro.cs" />
     <Compile Include="ShouldBeOfType\BasicTypesScenario.cs" />
     <Compile Include="ShouldBeSubsetOf\DecimalArrayScenario.cs" />
     <Compile Include="ShouldBeSubsetOf\FloatArrayScenario.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="ShouldBeGreaterThan\IntScenario.cs" />
     <Compile Include="ShouldBeGreaterThan\StringScenario.cs" />
     <Compile Include="ShouldBeGreaterThan\StringVsNullScenario.cs" />
-    <Compile Include="ShouldBeInRangeTests.cs" />
     <Compile Include="ShouldBeLessThanOrEqualTo\IntScenario.cs" />
     <Compile Include="ShouldBeLessThanOrEqualTo\StringScenario.cs" />
     <Compile Include="ShouldBeLessThan\EqualScenario.cs" />
