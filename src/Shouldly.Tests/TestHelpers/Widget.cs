@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.TestHelpers
 {
     public class Widget
     {

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.TestHelpers
 {
     class Strange : IEnumerable<Strange>
     {

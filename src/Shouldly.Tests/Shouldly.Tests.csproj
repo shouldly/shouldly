@@ -182,7 +182,7 @@
     <Compile Include="ShouldNotBe\NumbersOfDifferentTypesScenario.cs" />
     <Compile Include="ShouldNotBe\StringScenario.cs" />
     <Compile Include="ShouldThrowAndNotThrowTests.cs" />
-    <Compile Include="Strange.cs" />
+    <Compile Include="TestHelpers\Strange.cs" />
     <Compile Include="Strings\ShouldContainWithoutWhitespace.cs" />
     <Compile Include="Strings\ShouldMatch.cs" />
     <Compile Include="Strings\ShouldNotEndWith\BasicScenario.cs" />
@@ -193,8 +193,8 @@
     <Compile Include="Strings\ShouldStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldStartWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="TaskSupport.cs" />
-    <Compile Include="UncomparableClass.cs" />
-    <Compile Include="Widget.cs" />
+    <Compile Include="TestHelpers\UncomparableClass.cs" />
+    <Compile Include="TestHelpers\Widget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shouldly\Shouldly.csproj">
