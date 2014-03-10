@@ -50,7 +50,16 @@ namespace Shouldly
             // Implements IComparable?
             var comparable = x as IComparable;
             if (comparable != null)
-                return comparable.CompareTo(y) == 0;
+            {
+                try
+                {
+                    return comparable.CompareTo(y) == 0;
+                }
+                catch (ArgumentException)
+                {
+                    // Thrown when two comparable types are not compatible, i.e string and int
+                }
+            }
 
             // Enumerable?
             var enumerableX = x as IEnumerable;
