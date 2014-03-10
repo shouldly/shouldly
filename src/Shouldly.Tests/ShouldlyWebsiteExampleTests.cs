@@ -14,10 +14,10 @@ namespace Shouldly.Tests
             [Test]
             public void NUnit_ContestantPointsShouldBe1337()
             {
-                var contestant = new Contestant() {Points = 0};
+                var contestant = new Contestant {Points = 0};
 
                 var exception =
-                    Shouldly.Should.Throw<Exception>(
+                    Should.Throw<Exception>(
                         () => Assert.That(contestant.Points, NUnit.Framework.Is.EqualTo(1337)));
 
                 exception.Message.ShouldContainWithoutWhitespace("Expected: 1337 But was: 0");
@@ -65,7 +65,7 @@ namespace Shouldly.Tests
                 var map = GetMap();
 
                 var exception =
-                    Shouldly.Should.Throw<Exception>(
+                    Should.Throw<Exception>(
                         () => Assert.That(map.IndexOf("boo"), NUnit.Framework.Is.EqualTo(2)));
 
                 exception.Message.ShouldContainWithoutWhitespace("Expected: 2 But was: 1");
@@ -114,7 +114,7 @@ namespace Shouldly.Tests
             {
                 var widget = new Widget();
 
-                Shouldly.Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-1));
+                Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-1));
             }
 
             [Test]
@@ -122,7 +122,7 @@ namespace Shouldly.Tests
             {
                 var widget = new Widget();
 
-                Shouldly.Should.NotThrow(() => widget.Twist(5));
+                Should.NotThrow(() => widget.Twist(5));
             }
 
             [Test]
@@ -131,8 +131,8 @@ namespace Shouldly.Tests
                 var widget = new Widget();
 
                 TestHelpers.Should.Error(
-                    () => Shouldly.Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-2)),
-                    "() => Shouldly.Should throw System.ArgumentOutOfRangeException but was System.InvalidOperationException");
+                    () => Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-2)),
+                    "() => Should throw System.ArgumentOutOfRangeException but was System.InvalidOperationException");
             }
 
             [Test]
@@ -141,8 +141,8 @@ namespace Shouldly.Tests
                 var widget = new Widget();
 
                 TestHelpers.Should.Error(
-                    () => Shouldly.Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(5)),
-                    "() => Shouldly.Should throw System.ArgumentOutOfRangeException but does not");
+                    () => Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(5)),
+                    "() => Should throw System.ArgumentOutOfRangeException but does not");
             }
 
             private class Widget

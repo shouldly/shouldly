@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldNotBeOfType
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldNotBeOfType
 {
     public class BasicTypesScenario : ShouldlyShouldTestScenario
     {

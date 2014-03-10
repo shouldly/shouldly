@@ -8,6 +8,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
         protected override void ShouldThrowAWobbly()
         {
             MyThing myThing = null;
+            // ReSharper disable once ExpressionIsAlwaysNull
             myThing.ShouldBeAssignableTo<MyBase>();
         }
 

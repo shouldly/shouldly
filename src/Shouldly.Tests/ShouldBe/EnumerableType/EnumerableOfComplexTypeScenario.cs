@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Shouldly.Tests.InternalTests;
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType

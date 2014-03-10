@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldNotContain
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldNotContain
 {
     public class IntegerWithNegativeValuesScenario : ShouldlyShouldTestScenario
     {

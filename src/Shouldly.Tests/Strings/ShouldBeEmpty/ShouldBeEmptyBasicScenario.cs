@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.Strings.ShouldBeEmpty
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.Strings.ShouldBeEmpty
 {
     public class ShouldBeEmptyBasicScenario : ShouldlyShouldTestScenario
     {

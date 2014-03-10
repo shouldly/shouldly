@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeLessThan
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeLessThan
 {
     public class IntScenario : ShouldlyShouldTestScenario
     {

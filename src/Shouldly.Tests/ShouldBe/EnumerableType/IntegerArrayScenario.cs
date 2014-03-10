@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class IntegerArrayScenario : ShouldlyShouldTestScenario
     {

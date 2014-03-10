@@ -10,7 +10,7 @@ namespace Shouldly.Tests
         public void ShouldThrow_WhenItThrowsCorrectException()
         {
             Action shouldThrowAction =
-                () => Shouldly.Should.Throw<NotImplementedException>(new Action(() =>
+                () => Should.Throw<NotImplementedException>(new Action(() =>
                 {
                     throw new NotImplementedException();
                 }));
@@ -22,7 +22,7 @@ namespace Shouldly.Tests
         public void ShouldNotThrow_IfCallDoesNotThrow_ShouldDoNothing()
         {
             TestHelpers.Should.NotError(
-                () => Shouldly.Should.NotThrow(() => {})
+                () => Should.NotThrow(() => {})
                 );
             
         }
@@ -31,7 +31,7 @@ namespace Shouldly.Tests
         public void ShouldNotThrow_IfCallDoesNotThrow_ShouldDoNothingAndReturnValue()
         {
             TestHelpers.Should.NotError(
-                () => Shouldly.Should.NotThrow(() => 1).ShouldBe(1));
+                () => Should.NotThrow(() => 1).ShouldBe(1));
         }
     }
 }

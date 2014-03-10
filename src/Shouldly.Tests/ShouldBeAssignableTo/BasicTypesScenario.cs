@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeAssignableTo
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeAssignableTo
 {
     public class BasicTypesScenario : ShouldlyShouldTestScenario
     {

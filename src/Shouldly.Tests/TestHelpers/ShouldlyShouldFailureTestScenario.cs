@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.TestHelpers
 {
     [TestFixture]
     public abstract class ShouldlyShouldFailureTestScenario
@@ -11,7 +11,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldMethodShouldThrowAWobbly()
         {
-            TestHelpers.Should.Error(ShouldThrowAWobbly, ChuckedAWobblyErrorMessage);
+            Should.Error(ShouldThrowAWobbly, ChuckedAWobblyErrorMessage);
         }
     }
 }

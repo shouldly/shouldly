@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.Strings.ShouldNotStartWith
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.Strings.ShouldNotStartWith
 {
     public class BasicScenario : ShouldlyShouldTestScenario
     {

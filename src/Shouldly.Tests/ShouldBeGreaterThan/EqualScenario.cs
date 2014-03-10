@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeGreaterThan
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeGreaterThan
 {
     public class EqualScenario : ShouldlyShouldFailureTestScenario
     {

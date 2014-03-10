@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBe.WithTollerance
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBe.WithTollerance
 {
     public class EnumerableOfDecimalScenario : ShouldlyShouldTestScenario
     {

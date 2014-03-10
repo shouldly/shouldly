@@ -1,4 +1,5 @@
 ﻿using System;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe.WithTollerance
 {

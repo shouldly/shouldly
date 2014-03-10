@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldAllBe
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldAllBe
 {
     public class IntegerArrayScenario : ShouldlyShouldTestScenario
     {

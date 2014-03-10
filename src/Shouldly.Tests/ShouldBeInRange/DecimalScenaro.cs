@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeInRange
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeInRange
 {
     public class DecimalScenaro : ShouldlyShouldTestScenario
     {

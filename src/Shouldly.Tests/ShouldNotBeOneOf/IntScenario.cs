@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldNotBeOneOf
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldNotBeOneOf
 {
     public class IntScenario : ShouldlyShouldTestScenario
     {

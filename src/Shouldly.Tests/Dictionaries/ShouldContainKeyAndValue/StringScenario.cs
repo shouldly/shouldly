@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 {

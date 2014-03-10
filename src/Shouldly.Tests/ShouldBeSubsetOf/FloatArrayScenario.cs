@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeSubsetOf
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeSubsetOf
 {
     public class FloatArrayScenario : ShouldlyShouldTestScenario
     {

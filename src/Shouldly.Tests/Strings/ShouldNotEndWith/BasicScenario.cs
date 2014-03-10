@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.Strings.ShouldNotEndWith
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.Strings.ShouldNotEndWith
 {
     public class BasicScenario : ShouldlyShouldTestScenario
     {

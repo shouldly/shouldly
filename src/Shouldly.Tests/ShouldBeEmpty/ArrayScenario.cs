@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeEmpty
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeEmpty
 {
     public class ArrayScenario : ShouldlyShouldTestScenario
     {

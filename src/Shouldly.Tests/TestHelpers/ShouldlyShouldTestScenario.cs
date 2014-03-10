@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.TestHelpers
 {
     [TestFixture]
     public abstract class ShouldlyShouldTestScenario : ShouldlyShouldFailureTestScenario
@@ -10,7 +10,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldMethodShouldNotFail()
         {
-            TestHelpers.Should.NotError(ShouldPass);
+            Should.NotError(ShouldPass);
         }
     }
 }

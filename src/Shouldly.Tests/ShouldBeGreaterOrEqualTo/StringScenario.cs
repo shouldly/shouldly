@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
 {
     public class StringScenario : ShouldlyShouldTestScenario
     {

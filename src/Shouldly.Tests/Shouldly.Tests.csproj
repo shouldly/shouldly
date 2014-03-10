@@ -171,8 +171,8 @@
     <Compile Include="ShouldBe\WithTollerance\DecimalScenario.cs" />
     <Compile Include="ShouldBe\WithTollerance\EnumerableOfFloatScenario.cs" />
     <Compile Include="ShouldBe\WithTollerance\EnumerableOfDecimalScenario.cs" />
-    <Compile Include="ShouldlyShouldFailureTestScenario.cs" />
-    <Compile Include="ShouldlyShouldTestScenario.cs" />
+    <Compile Include="TestHelpers\ShouldlyShouldFailureTestScenario.cs" />
+    <Compile Include="TestHelpers\ShouldlyShouldTestScenario.cs" />
     <Compile Include="ShouldlyMessageTests.cs" />
     <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldlyWebsiteExampleTests.cs" />

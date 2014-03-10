@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBe.CaseSensitivity
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.Strings.ShouldBe
 {
     public class CaseIsSensitiveScenario : ShouldlyShouldTestScenario
     {

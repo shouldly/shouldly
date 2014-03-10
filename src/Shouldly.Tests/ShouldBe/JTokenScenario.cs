@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBe
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBe
 {
     /// <summary>
     /// Strange emulates JToken, a class which can be implicitly cast to from a string which is IEnumerable, 

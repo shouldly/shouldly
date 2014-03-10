@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBe
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBe
 {
     public class IntegerScenario : ShouldlyShouldTestScenario
     {

@@ -32,7 +32,7 @@ namespace Shouldly.DifferenceHighlighting
 
         public static IHighlighter GetHighlighterFor<T1, T2>(T1 expected, T2 actual)
         {
-            return Highlighters.Where(x => x.CanProcess(expected, actual)).FirstOrDefault();
+            return Highlighters.FirstOrDefault(x => x.CanProcess(expected, actual));
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldThrowWhenInRange()
         {
-            Shouldly.Should.Throw<ChuckedAWobbly>(() => 1.5m.ShouldNotBeInRange(1.4m, 1.6m));
+            Should.Throw<ChuckedAWobbly>(() => 1.5m.ShouldNotBeInRange(1.4m, 1.6m));
         }
 
         [Test]

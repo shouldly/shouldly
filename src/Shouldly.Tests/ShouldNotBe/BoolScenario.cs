@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldNotBe
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldNotBe
 {
     public class BoolScenario : ShouldlyShouldTestScenario
     {
