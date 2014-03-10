@@ -75,8 +75,8 @@
     <Compile Include="TestHelpers\EnumerableExtensionHelpers.cs" />
     <Compile Include="InternalTests\EnumerableHighlighterTests.cs" />
     <Compile Include="InternalTests\EqualityComparerTests.cs" />
-    <Compile Include="MyBase.cs" />
-    <Compile Include="MyThing.cs" />
+    <Compile Include="TestHelpers\MyBase.cs" />
+    <Compile Include="TestHelpers\MyThing.cs" />
     <Compile Include="TestHelpers\Should.cs" />
     <Compile Include="ShouldAllBe\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeEmpty\ArrayScenario.cs" />
