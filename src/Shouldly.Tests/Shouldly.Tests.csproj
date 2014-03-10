@@ -73,6 +73,8 @@
     <Compile Include="Dictionaries\ShouldNotContainKey\StringScenario.cs" />
     <Compile Include="InternalTests\DifferenceHighlighterHelpersTests.cs" />
     <Compile Include="ShouldBeSameAs\BasicScenario.cs" />
+    <Compile Include="ShouldBeSameAs\BoxedIntScenario.cs" />
+    <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
@@ -187,7 +189,6 @@
     <Compile Include="ShouldBe\WithTollerance\EnumerableOfDecimalScenario.cs" />
     <Compile Include="TestHelpers\ShouldlyShouldFailureTestScenario.cs" />
     <Compile Include="TestHelpers\ShouldlyShouldTestScenario.cs" />
-    <Compile Include="ShouldlyMessageTests.cs" />
     <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
