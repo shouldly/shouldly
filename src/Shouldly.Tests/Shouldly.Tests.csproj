@@ -72,6 +72,11 @@
     <Compile Include="Dictionaries\ShouldNotContainKey\GuidScenario.cs" />
     <Compile Include="Dictionaries\ShouldNotContainKey\StringScenario.cs" />
     <Compile Include="InternalTests\DifferenceHighlighterHelpersTests.cs" />
+    <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
+    <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
+    <Compile Include="TestHelpers\SomeFlags.cs" />
+    <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
+    <Compile Include="ShouldBeOneOf\IntScenario.cs" />
     <Compile Include="TestHelpers\EnumerableExtensionHelpers.cs" />
     <Compile Include="InternalTests\EnumerableHighlighterTests.cs" />
     <Compile Include="InternalTests\EqualityComparerTests.cs" />
@@ -135,7 +140,6 @@
     <Compile Include="ShouldBeOfType\DerivedTypeScenario.cs" />
     <Compile Include="ShouldBeOfType\GenericOverloadReturnsValue.cs" />
     <Compile Include="ShouldBeOfType\ActualIsNullScenario.cs" />
-    <Compile Include="ShouldBeOneOfTests.cs" />
     <Compile Include="ShouldBeSameAsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldBe\ActualIsNullScenario.cs" />
@@ -173,7 +177,6 @@
     <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
-    <Compile Include="ShouldNotBeOneOfTests.cs" />
     <Compile Include="ShouldNotBe\BoolScenario.cs" />
     <Compile Include="ShouldNotBe\IntegerScenario.cs" />
     <Compile Include="ShouldNotBe\NumbersOfDifferentTypesScenario.cs" />
