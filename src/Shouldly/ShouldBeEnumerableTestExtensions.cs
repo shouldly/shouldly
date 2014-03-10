@@ -51,19 +51,19 @@ namespace Shouldly
 
         public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual)
         {
-            if (actual == null || actual != null && actual.Count() == 0)
+            if (actual == null || actual != null && !actual.Any())
                 throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
         }
 
         public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) 
         {
-            if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
+            if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) 
         {
-            if (actual.Where(a => Math.Abs(expected - a) < tolerance).Count() < 1)
+            if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
         }
 
