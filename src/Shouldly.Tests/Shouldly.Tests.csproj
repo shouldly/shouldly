@@ -78,8 +78,15 @@
     <Compile Include="MyBase.cs" />
     <Compile Include="MyThing.cs" />
     <Compile Include="Should.cs" />
+    <Compile Include="ShouldAllBe\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeEmpty\ArrayScenario.cs" />
     <Compile Include="ShouldBeOfType\BasicTypesScenario.cs" />
+    <Compile Include="ShouldBeSubsetOf\DecimalArrayScenario.cs" />
+    <Compile Include="ShouldBeSubsetOf\FloatArrayScenario.cs" />
+    <Compile Include="ShouldBeSubsetOf\IntegerArrayScenario.cs" />
+    <Compile Include="ShouldBeSubsetOf\ObjectArrayOfIntScenario.cs" />
+    <Compile Include="ShouldBeSubsetOf\StringArrayScenario.cs" />
+    <Compile Include="ShouldBeSubsetOf\SuccessScenarios.cs" />
     <Compile Include="ShouldBe\EnumerableType\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\MultiDimentionalArrayScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\SameInstanceInDifferentInterfaceCollectionTypes.cs" />
@@ -109,7 +116,6 @@
     <Compile Include="ShouldBeAssignableTo\GenericOverloadReturnsValue.cs" />
     <Compile Include="ShouldBeAssignableTo\BasicTypesScenario.cs" />
     <Compile Include="ShouldBeAssignableTo\NullIsNotAssignableToTypeScenario.cs" />
-    <Compile Include="ShouldBeEnumerableTests.cs" />
     <Compile Include="ShouldBeGreaterOrEqualTo\IntScenario.cs" />
     <Compile Include="ShouldBeGreaterOrEqualTo\StringScenario.cs" />
     <Compile Include="ShouldBeGreaterThan\EqualScenario.cs" />
