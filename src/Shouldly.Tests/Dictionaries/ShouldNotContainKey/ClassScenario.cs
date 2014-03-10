@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Dictionaries.ShouldNotContainKey
 {
     public class ClassScenario : ShouldlyShouldTestScenario
     {
-        readonly Dictionary<MyThing, MyThing> _dictionary = new Dictionary<MyThing,MyThing>
+        readonly Dictionary<MyThing, MyThing> _dictionary = new Dictionary<MyThing, MyThing>
         {
             {ThingKey, new MyThing()}
         };
@@ -18,7 +19,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainKey
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_dictionary should not contain key Shouldly.Tests.MyThing but does"; }
+            get { return "_dictionary should not contain key Shouldly.Tests.TestHelpers.MyThing but does"; }
         }
 
         protected override void ShouldPass()

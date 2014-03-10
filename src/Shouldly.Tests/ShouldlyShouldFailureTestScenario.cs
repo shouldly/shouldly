@@ -11,7 +11,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldMethodShouldThrowAWobbly()
         {
-            Should.Error(ShouldThrowAWobbly, ChuckedAWobblyErrorMessage);
+            TestHelpers.Should.Error(ShouldThrowAWobbly, ChuckedAWobblyErrorMessage);
         }
     }
 }

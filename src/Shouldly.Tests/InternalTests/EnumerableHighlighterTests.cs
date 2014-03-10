@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Shouldly.DifferenceHighlighting;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.InternalTests
 {
     [TestFixture]
     public class EnumerableHighlighterTests

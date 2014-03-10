@@ -28,7 +28,7 @@ namespace Shouldly.Tests
             {
                 var contestant = new Contestant {Points = 0};
 
-                Should.Error(
+                TestHelpers.Should.Error(
                     () => contestant.Points.ShouldBe(1337),
                     "() => contestant.Points should be 1337 but was 0");
             }
@@ -76,7 +76,7 @@ namespace Shouldly.Tests
             {
                 var map = GetMap();
 
-                Should.Error(
+                TestHelpers.Should.Error(
                     () => map.IndexOf("boo").ShouldBe(2),
                     "() => map.IndexOf(\"boo\") should be 2 but was 1");
             }
@@ -95,7 +95,7 @@ namespace Shouldly.Tests
             [Test]
             public void Shouldly_CompareTwoCollections()
             {
-                Should.Error(
+                TestHelpers.Should.Error(
                     () => (new[] {1, 2, 3}).ShouldBe(new[] {1, 2, 4}),
                     "() => (new[] {1, 2, 3}) should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
             }
@@ -130,7 +130,7 @@ namespace Shouldly.Tests
             {
                 var widget = new Widget();
 
-                Should.Error(
+                TestHelpers.Should.Error(
                     () => Shouldly.Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-2)),
                     "() => Shouldly.Should throw System.ArgumentOutOfRangeException but was System.InvalidOperationException");
             }
@@ -140,7 +140,7 @@ namespace Shouldly.Tests
             {
                 var widget = new Widget();
 
-                Should.Error(
+                TestHelpers.Should.Error(
                     () => Shouldly.Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(5)),
                     "() => Shouldly.Should throw System.ArgumentOutOfRangeException but does not");
             }

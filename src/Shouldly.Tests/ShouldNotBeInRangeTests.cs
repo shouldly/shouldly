@@ -19,7 +19,7 @@ namespace Shouldly.Tests
         [Test]
         public void ErrorMessageIsNice()
         {
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => 1.5m.ShouldNotBeInRange(1.4m, 1.6m),
                 "() => 1.5m should not be in range { from = 1.4, to = 1.6 } but was 1.5");
         }

@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBe
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBe
 {
     public class ComparingBaseWithDerivedTypeShouldFail : ShouldlyShouldFailureTestScenario
     {
@@ -9,7 +11,7 @@
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new MyBase() should be Shouldly.Tests.MyThing but was Shouldly.Tests.MyBase"; }
+            get { return "new MyBase() should be Shouldly.Tests.TestHelpers.MyThing but was Shouldly.Tests.TestHelpers.MyBase"; }
         }
     }
 }

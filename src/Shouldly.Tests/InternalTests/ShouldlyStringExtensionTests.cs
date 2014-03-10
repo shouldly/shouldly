@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.InternalTests
 {
     [TestFixture]
     public class ShouldlyStringExtensionTests

@@ -10,7 +10,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldMethodShouldNotFail()
         {
-            Should.NotError(ShouldPass);
+            TestHelpers.Should.NotError(ShouldPass);
         }
     }
 }

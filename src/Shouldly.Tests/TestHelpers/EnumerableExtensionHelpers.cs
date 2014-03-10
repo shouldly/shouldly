@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.TestHelpers
 {
     public static class EnumerableExtensionHelpers
     {

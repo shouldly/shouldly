@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shouldly.Tests
+namespace Shouldly.Tests.TestHelpers
 {
     [ShouldlyMethods]
     public static class Should

@@ -14,18 +14,18 @@ namespace Shouldly.Tests
         {
             var longString = new string('a', 110);
 
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => longString.ShouldContain("zzzz"),
                 string.Format("() => longString should contain \"zzzz\" but was \"{0}\"", longString.Substring(0, 100))
             );
 
             var justTheRightLengthString = new string('a', 80);
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => justTheRightLengthString.ShouldContain("zzzz"),
                 string.Format("() => justTheRightLengthString should contain \"zzzz\" but was \"{0}\"", justTheRightLengthString)
             );
 
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 new[] { 1, 2, 3 }.ShouldContain(5),
                 "new[]{ 1, 2, 3 } should contain 5 but was [1, 2, 3]");
 
@@ -39,19 +39,19 @@ namespace Shouldly.Tests
                                    new Vampire {BitesTaken = 6},
                                };
 
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 vampires.ShouldContain(x => x.BitesTaken > 7),
                 "vampires should contain an element satisfying the condition (x.BitesTaken > 7) but does not");
 
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                          new[] { 1, 2, 3 }.ShouldContain(x => x % 4 == 0),
                          "new[]{1,2,3} should contain an element satisfying the condition ((x % 4) == 0) but does not");
 
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 new[] { 1.0, 2.1, Math.PI, 4.321, 5.4321 }.ShouldContain(3.14, 0.001),
                 "new[] { 1.0, 2.1, Math.PI, 4.321, 5.4321 } should contain 3.14 but was [1, 2.1, 3.14159265358979, 4.321, 5.4321]");
 
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 new[] { 1.0f, 2.1f, (float)Math.PI, 4.321f, 5.4321f }.ShouldContain(3.14f, 0.001),
                 "new[] { 1.0f, 2.1f, (float)Math.PI, 4.321f, 5.4321f } should contain 3.14 but was [1, 2.1, 3.141593, 4.321, 5.4321]");
         }
@@ -59,12 +59,12 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldNotContain()
         {
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                          new[] { 1, 2, 3 }.ShouldNotContain(x => x % 3 == 0),
                          "new[]{1,2,3} should not contain an element satisfying the condition ((x % 3) == 0) but does");
 
 
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 new[] { 1, 2, 3 }.ShouldNotContain(2),
                 "new[]{1,2,3} should not contain 2 but was [1, 2, 3]");
         }
@@ -72,7 +72,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldAllBe()
         {
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                          new[] { 1, 2, 3 }.ShouldAllBe(x => x + 4 < 7),
                          "new[]{1,2,3} should all be an element satisfying the condition ((x + 4) < 7) but does not");
         }
@@ -81,12 +81,12 @@ namespace Shouldly.Tests
         public void ShouldBeEmpty()
         {
             IEnumerable<object> objects = null;
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => objects.ShouldBeEmpty(),
                 "() => objects should be empty but was null");
 
             objects = (new[] { new object(), new object() });
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => objects.ShouldBeEmpty(),
                 "() => objects should be empty but was [System.Object, System.Object]");
         }
@@ -95,12 +95,12 @@ namespace Shouldly.Tests
         public void ShouldNotBeEmpty()
         {
             IEnumerable<object> objects = null;
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => objects.ShouldNotBeEmpty(),
                 "() => objects should not be empty but was null");
 
             objects = new object[0];
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => objects.ShouldNotBeEmpty(),
                 "() => objects should not be empty but was");
         }
@@ -108,7 +108,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldBeNullOrEmpty()
         {
-            Should.Error(
+            TestHelpers.Should.Error(
              () => "a".ShouldBeNullOrEmpty(),
              "() => \"a\" should be null or empty");
         }
@@ -116,12 +116,12 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldNotBeNullOrEmpty()
         {
-           Should.Error(
+           TestHelpers.Should.Error(
                () => "".ShouldNotBeNullOrEmpty(), 
                "() => \"\" should not be null or empty");
 
             string nullString = null;
-           Should.Error(
+           TestHelpers.Should.Error(
                () => nullString.ShouldNotBeNullOrEmpty(), 
                "() => nullString should not be null or empty");
         }
@@ -131,20 +131,20 @@ namespace Shouldly.Tests
         {
             var aReferenceType = new object();
             var anotherReferenceType = new object();
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => aReferenceType.ShouldBeSameAs(anotherReferenceType),
                 "() => aReferenceType should be same as System.Object but was System.Object"
             );
 
             var list = new List<int> { 1, 2, 3 };
             var equalListWithDifferentRef = new List<int> { 1, 2, 3 };
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => list.ShouldBeSameAs(equalListWithDifferentRef),
                 "() => list should be same as [1, 2, 3] but was [1, 2, 3] difference [1, 2, 3]"
             );
 
             const int boxedInt = 1;
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => boxedInt.ShouldBeSameAs(boxedInt),
                 "() => boxedInt should be same as 1 but was 1"
             );
@@ -182,7 +182,7 @@ namespace Shouldly.Tests
         public void ShouldContainWithoutWhitespace()
         {
             const string testMessage = "muhst eat braiiinnzzzz";
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 testMessage.ShouldContainWithoutWhitespace("must eat brains"),
                 @"testMessage should contain without whitespace 'must eat brains' but was 'muhst eat braiiinnzzzz'");
         }

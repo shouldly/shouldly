@@ -21,7 +21,7 @@ namespace Shouldly.Tests
             Action shouldThrowAction =
             () => Shouldly.Should.Throw<NotImplementedException>(() => Task.Factory.StartNew(() => { }));
 
-            Should.Error(shouldThrowAction, "() => Shouldly.Should throw System.NotImplementedException but does not");
+            TestHelpers.Should.Error(shouldThrowAction, "() => Shouldly.Should throw System.NotImplementedException but does not");
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Shouldly.Tests
 
             var result = Shouldly.Should.NotThrow(() => Task.Factory.StartNew(() => "foo"));
             result.ShouldBe("foo");
-            Should.Error(() =>
+            TestHelpers.Should.Error(() =>
                 Shouldly.Should.NotThrow(() => Task.Factory.StartNew(() => { throw new IndexOutOfRangeException(); })),
                 "Shouldly.Should not throw System.IndexOutOfRangeException but does");
         }

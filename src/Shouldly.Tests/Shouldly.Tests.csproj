@@ -71,13 +71,13 @@
     <Compile Include="Dictionaries\ShouldNotContainKey\ClassScenario.cs" />
     <Compile Include="Dictionaries\ShouldNotContainKey\GuidScenario.cs" />
     <Compile Include="Dictionaries\ShouldNotContainKey\StringScenario.cs" />
-    <Compile Include="DifferenceHighlighterHelpersTests.cs" />
-    <Compile Include="EnumerableExtensionHelpers.cs" />
-    <Compile Include="EnumerableHighlighterTests.cs" />
-    <Compile Include="EqualityComparerTests.cs" />
+    <Compile Include="InternalTests\DifferenceHighlighterHelpersTests.cs" />
+    <Compile Include="TestHelpers\EnumerableExtensionHelpers.cs" />
+    <Compile Include="InternalTests\EnumerableHighlighterTests.cs" />
+    <Compile Include="InternalTests\EqualityComparerTests.cs" />
     <Compile Include="MyBase.cs" />
     <Compile Include="MyThing.cs" />
-    <Compile Include="Should.cs" />
+    <Compile Include="TestHelpers\Should.cs" />
     <Compile Include="ShouldAllBe\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeEmpty\ArrayScenario.cs" />
     <Compile Include="ShouldBeInRange\DecimalScenaro.cs" />
@@ -170,7 +170,7 @@
     <Compile Include="ShouldlyShouldFailureTestScenario.cs" />
     <Compile Include="ShouldlyShouldTestScenario.cs" />
     <Compile Include="ShouldlyMessageTests.cs" />
-    <Compile Include="ShouldlyStringExtensionTests.cs" />
+    <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
     <Compile Include="ShouldNotBeOneOfTests.cs" />

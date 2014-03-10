@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Dictionaries.ShouldContainKey
 {
@@ -18,7 +19,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKey
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_dictionary should contain key Shouldly.Tests.MyThing but does not"; }
+            get { return "_dictionary should contain key Shouldly.Tests.TestHelpers.MyThing but does not"; }
         }
 
         protected override void ShouldPass()

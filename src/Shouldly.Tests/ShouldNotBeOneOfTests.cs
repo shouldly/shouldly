@@ -23,7 +23,7 @@ namespace Shouldly.Tests
         [Test]
         public void ErrorMessageIsNice()
         {
-            Should.Error(
+            TestHelpers.Should.Error(
                 () => 1.ShouldNotBeOneOf(1, 2, 3),
                 "() => 1 should not be one of [1, 2, 3] but was 1");
         }

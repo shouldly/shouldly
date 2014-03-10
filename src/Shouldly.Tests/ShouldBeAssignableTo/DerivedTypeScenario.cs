@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeAssignableTo
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeAssignableTo
 {
     public class DerivedTypeScenario : ShouldlyShouldTestScenario
     {
@@ -10,7 +12,7 @@
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myThing should be assignable to System.String but was Shouldly.Tests.MyThing"; }
+            get { return "myThing should be assignable to System.String but was Shouldly.Tests.TestHelpers.MyThing"; }
         }
 
         protected override void ShouldPass()

@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeOfType
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeOfType
 {
     public class ActualIsNullScenario : ShouldlyShouldFailureTestScenario
     {
@@ -11,7 +13,7 @@
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myThing should be of type Shouldly.Tests.MyBase but was null"; }
+            get { return "myThing should be of type Shouldly.Tests.TestHelpers.MyBase but was null"; }
         }
     }
 }

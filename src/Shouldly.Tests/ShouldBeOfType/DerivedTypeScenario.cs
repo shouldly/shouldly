@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests.ShouldBeOfType
+﻿using Shouldly.Tests.TestHelpers;
+
+namespace Shouldly.Tests.ShouldBeOfType
 {
     public class DerivedTypeScenario : ShouldlyShouldFailureTestScenario
     {
@@ -10,7 +12,7 @@
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myThing should be of type Shouldly.Tests.MyBase but was Shouldly.Tests.MyThing"; }
+            get { return "myThing should be of type Shouldly.Tests.TestHelpers.MyBase but was Shouldly.Tests.TestHelpers.MyThing"; }
         }
     }
 }
