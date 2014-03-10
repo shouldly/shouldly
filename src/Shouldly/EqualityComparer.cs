@@ -16,12 +16,9 @@ namespace Shouldly
         static readonly Type NullableType = typeof(Nullable<>);
 
         readonly Func<IEqualityComparer> _innerComparerFactory;
-        readonly bool _skipTypeCheck;
 
-        public EqualityComparer(bool skipTypeCheck = false, IEqualityComparer innerComparer = null)
+        public EqualityComparer(IEqualityComparer innerComparer = null)
         {
-            _skipTypeCheck = skipTypeCheck;
-
             // Use a thunk to delay evaluation of DefaultInnerComparer
             _innerComparerFactory = () => innerComparer ?? DefaultInnerComparer;
         }
@@ -39,10 +36,6 @@ namespace Shouldly
                 if (Object.Equals(y, default(T)))
                     return false;
             }
-
-            // Same type?
-            if (!_skipTypeCheck && x.GetType() != y.GetType())
-                return false;
 
             // Implements IEquatable<T>?
             var equatable = x as IEquatable<T>;

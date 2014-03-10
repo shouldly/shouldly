@@ -33,9 +33,9 @@ namespace Shouldly
             return comparer.Equals(expected, actual);
         }
 
-        static IEqualityComparer<T> GetEqualityComparer<T>(bool skipTypeCheck = false, IEqualityComparer innerComparer = null)
+        static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer innerComparer = null)
         {
-            return new EqualityComparer<T>(skipTypeCheck, innerComparer);
+            return new EqualityComparer<T>(innerComparer);
         }
 
         public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shouldly.Tests.ShouldBe.EnumerableScenarios
+namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class DifferentCollectionTypeScenario : ShouldlyShouldTestScenario
     {
