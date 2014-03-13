@@ -1,7 +1,20 @@
+# 2.1.0 (13 March 2014)
+
+ - IEnumerable matching failures fixes [118](https://github.com/shouldly/shouldly/issues/118) [100](https://github.com/shouldly/shouldly/issues/100)
+ - Equality fixes [115](https://github.com/shouldly/shouldly/pull/115)
+ - Fails on comparing arrays [111](https://github.com/shouldly/shouldly/issues/111)
+ - Equality of multidimensional arrays is throwing [107](https://github.com/shouldly/shouldly/issues/107)
+
+This release fixes a few major breaking changes in 2.0.0
+
+Commits: fb2be376c2...0912db75e6
+
+
 # v2.0.1 (24 February 2014)
+
  - Fix possible deadlock in `Should.[Not]Throw(Func<Task>)` [#101](https://github.com/shouldly/shouldly/issues/101) +Fix
 
-Commits: 2d3d40a...b843979
+Commits: 2d3d40afd9...b8439790d5
 
 
 # v2.0.0 (20 February 2014)
@@ -29,20 +42,20 @@ Commits: 2d3d40a...b843979
  - ChuckedAWobbly should be serializable [#64](https://github.com/shouldly/shouldly/pull/64)
  
  **note**: When shouldly is running under .net 4.0 (this affects old versions too) a shouldly assertion inside a compiled lambda will give an incorrect error message (if you do this, let us know why). See [#80](https://github.com/shouldly/shouldly/issues/80)
- 
-Commits: d16284b...c855ea4
+
+Commits: d16284be27...c855ea41eb
 
 
- # v1.1.1.1 (16 November 2012)
- 
+# v1.1.1.1 (16 November 2012)
+
  - Truncate error string "actual" output on `ShouldContain to 100 chars [#37](https://github.com/shouldly/shouldly/issues/37) [42](https://github.com/shouldly/shouldly/pull/42)
  - Remove dependency on Rhino.Mocks [#51](https://github.com/shouldly/shouldly/issues/51)
- 
-Commits: 5b07fdf...1545f74
+
+Commits: 5b07fdfd97...1545f74a2e
 
 
- # v1.1.1 (09 March 2012)
- 
+# v1.1.1 (09 March 2012)
+
  - Sign Shouldly.dll [#40](https://github.com/shouldly/shouldly/issues/40)
  - ShouldBe on two IEnumerables of different static types doesn't show differences [#39](https://github.com/shouldly/shouldly/issues/39)
  - Allow tolerance when comparing collections of doubles [#38](https://github.com/shouldly/shouldly/issues/38)
@@ -51,12 +64,12 @@ Commits: 5b07fdf...1545f74
  - Deprecate Rhino.Mocks [#34](https://github.com/shouldly/shouldly/issues/34)
  - Split core features from rhino mocks dependent code [#30](https://github.com/shouldly/shouldly/issues/30)
  - Additional Assertions [#21](https://github.com/shouldly/shouldly/issues/21)
- 
-Commits: 4f67b23...729e91f
 
- 
- # v1.1.0 (23 September 2011)
- 
+Commits: 4f67b23cda...729e91f570
+
+
+# v1.1.0 (23 September 2011)
+
  - added `string.ShouldBe(string, Case)` [#33](https://github.com/shouldly/shouldly/pull/33)
  - Fixed bug with `ShouldBeTypeOf<T>` assert method [#32](https://github.com/shouldly/shouldly/pull/32)
  - Fixed bug with `ShouldBeTypeOf<T>` assert method [#31](https://github.com/shouldly/shouldly/pull/31)
@@ -88,5 +101,7 @@ Commits: 4f67b23...729e91f
  - Support for tolerance on enumerations of floating point numbers. [#3](https://github.com/shouldly/shouldly/issues/3)
  - Simple additions [#2](https://github.com/shouldly/shouldly/pull/2)
  - Added startswith and endswith as well as an alias for `ShouldBeCloseTo` [#1](https://github.com/shouldly/shouldly/pull/1)
+ - Add ShouldNotHaveBeenCalled() [17](https://github.com/shouldly/shouldly/issues/17)
+ - Add support for Rhino Method Options [16](https://github.com/shouldly/shouldly/issues/16)
 
-Commits: a2450e9...a3bb9f5
+Commits: a2450e9b45...a3bb9f5598
