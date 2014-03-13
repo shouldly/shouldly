@@ -1,7 +1,10 @@
-# 2.0.1
+# v2.0.1 (24 February 2014)
  - Fix possible deadlock in `Should.[Not]Throw(Func<Task>)` [#101](https://github.com/shouldly/shouldly/issues/101) +Fix
 
-# 2.0.0
+Commits: 2d3d40a...b843979
+
+
+# v2.0.0 (20 February 2014)
 
  - **breaking**: Removed ShouldBeCloseTo [#94](https://github.com/shouldly/shouldly/pull/94) [#46](https://github.com/shouldly/shouldly/issues/46)
  - **breaking**: ShouldBeGreaterThan and ShouldBeLessThan are now constrained to `IComparable<T>`
@@ -27,11 +30,17 @@
  
  **note**: When shouldly is running under .net 4.0 (this affects old versions too) a shouldly assertion inside a compiled lambda will give an incorrect error message (if you do this, let us know why). See [#80](https://github.com/shouldly/shouldly/issues/80)
  
+Commits: d16284b...c855ea4
+
+
  # v1.1.1.1 (16 November 2012)
  
  - Truncate error string "actual" output on `ShouldContain to 100 chars [#37](https://github.com/shouldly/shouldly/issues/37) [42](https://github.com/shouldly/shouldly/pull/42)
  - Remove dependency on Rhino.Mocks [#51](https://github.com/shouldly/shouldly/issues/51)
  
+Commits: 5b07fdf...1545f74
+
+
  # v1.1.1 (09 March 2012)
  
  - Sign Shouldly.dll [#40](https://github.com/shouldly/shouldly/issues/40)
@@ -43,6 +52,8 @@
  - Split core features from rhino mocks dependent code [#30](https://github.com/shouldly/shouldly/issues/30)
  - Additional Assertions [#21](https://github.com/shouldly/shouldly/issues/21)
  
+Commits: 4f67b23...729e91f
+
  
  # v1.1.0 (23 September 2011)
  
@@ -77,4 +88,5 @@
  - Support for tolerance on enumerations of floating point numbers. [#3](https://github.com/shouldly/shouldly/issues/3)
  - Simple additions [#2](https://github.com/shouldly/shouldly/pull/2)
  - Added startswith and endswith as well as an alias for `ShouldBeCloseTo` [#1](https://github.com/shouldly/shouldly/pull/1)
-   
+
+Commits: a2450e9...a3bb9f5
