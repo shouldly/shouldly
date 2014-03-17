@@ -75,6 +75,8 @@
     <Compile Include="ShouldBeSameAs\BasicScenario.cs" />
     <Compile Include="ShouldBeSameAs\BoxedIntScenario.cs" />
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
+    <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
+    <Compile Include="ShouldBe\DomainSpecificDoubleScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="ShouldThrow\FuncOfTaskThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="TestHelpers\DomainSpecificDouble.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />
