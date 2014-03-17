@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 namespace Shouldly
 {
@@ -35,6 +36,12 @@ namespace Shouldly
 
                 if (Object.Equals(y, default(T)))
                     return false;
+            }
+
+            if (Numerics.IsNumericType(x) && Numerics.IsNumericType(y))
+            {
+                var tollerance = Tolerance.Empty;
+                return Numerics.AreEqual(x, y, ref tollerance);
             }
 
             // Implements IEquatable<T>?
