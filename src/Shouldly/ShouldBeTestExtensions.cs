@@ -5,7 +5,7 @@ using System;
 
 namespace Shouldly
 {
-    //[DebuggerStepThrough]
+    [DebuggerStepThrough]
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
