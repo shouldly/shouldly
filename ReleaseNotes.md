@@ -1,11 +1,21 @@
+# 2.1.1 (19 March 2014)
+ - Fixed boxed numeric equality issues [#121](https://github.com/shouldly/shouldly/issues/121)
+ - Equality should use expected.Equals not actual.Equals [#120](https://github.com/shouldly/shouldly/issues/120)
+
+Thanks to [vorou](https://github.com/vorou) and [Jake Ginnivan](https://github.com/jakeginnivan) for contributing to this release
+
+Commits: 954bb795dd4...0459759b4a
+
 # 2.1.0 (13 March 2014)
 
- - IEnumerable matching failures fixes [118](https://github.com/shouldly/shouldly/issues/118) [100](https://github.com/shouldly/shouldly/issues/100)
- - Equality fixes [115](https://github.com/shouldly/shouldly/pull/115)
- - Fails on comparing arrays [111](https://github.com/shouldly/shouldly/issues/111)
- - Equality of multidimensional arrays is throwing [107](https://github.com/shouldly/shouldly/issues/107)
+ - IEnumerable matching failures fixes [#118](https://github.com/shouldly/shouldly/issues/118) [#100](https://github.com/shouldly/shouldly/issues/100)
+ - Equality fixes [#115](https://github.com/shouldly/shouldly/pull/115)
+ - Fails on comparing arrays [#111](https://github.com/shouldly/shouldly/issues/111)
+ - Equality of multidimensional arrays is throwing [#107](https://github.com/shouldly/shouldly/issues/107)
 
 This release fixes a few major breaking changes in 2.0.0
+
+Thanks to [James Kelly](https://github.com/jmkelly) [vorou](https://github.com/vorou) and [Jake Ginnivan](https://github.com/jakeginnivan) for contributing to this release
 
 Commits: fb2be376c2...0912db75e6
 
@@ -42,6 +52,8 @@ Commits: 2d3d40afd9...b8439790d5
  - ChuckedAWobbly should be serializable [#64](https://github.com/shouldly/shouldly/pull/64)
  
  **note**: When shouldly is running under .net 4.0 (this affects old versions too) a shouldly assertion inside a compiled lambda will give an incorrect error message (if you do this, let us know why). See [#80](https://github.com/shouldly/shouldly/issues/80)
+
+Thanks to [Sam Salisbury](https://github.com/samsalisbury) [Ben Scott](https://github.com/bendetat) [James Kelly](https://github.com/jmkelly) [Ilya Murzinov](https://github.com/ilya-murzinov) [Kővágó Zoltán](https://github.com/DirtYiCE) [Jake Ginnivan](https://github.com/jakeginnivan) [Egbert Teeselink](https://github.com/eteeselink) for contributing to this release!
 
 Commits: d16284be27...c855ea41eb
 
