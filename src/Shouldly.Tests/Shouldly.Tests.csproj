@@ -75,6 +75,7 @@
     <Compile Include="ShouldBeSameAs\BasicScenario.cs" />
     <Compile Include="ShouldBeSameAs\BoxedIntScenario.cs" />
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
+    <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
