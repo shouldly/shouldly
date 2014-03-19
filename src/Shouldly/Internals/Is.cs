@@ -30,7 +30,7 @@ namespace Shouldly
 
         public static bool Equal<T>(T expected, T actual, IEqualityComparer<T> comparer)
         {
-            return comparer.Equals(expected, actual);
+            return comparer.Equals(actual, expected);
         }
 
         static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer innerComparer = null)
