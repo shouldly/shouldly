@@ -50,10 +50,11 @@ namespace Shouldly
             }
             catch (AggregateException ae)
             {
-                if (ae.InnerExceptions.Count != 1)
+                var flattened = ae.Flatten();
+                if (flattened.InnerExceptions.Count != 1)
                     throw;
 
-                var inner = ae.InnerException;
+                var inner = flattened.InnerException;
                 PreserveStackTrace(inner);
                 throw inner;
             }
