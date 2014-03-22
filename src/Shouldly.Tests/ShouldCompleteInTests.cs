@@ -1,5 +1,4 @@
-﻿using Shouldly.Tests.TestHelpers;
-#if net40
+﻿#if net40
 using System;
 using System.Threading;
 using NUnit.Framework;
