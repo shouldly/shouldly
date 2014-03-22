@@ -1,5 +1,4 @@
 ﻿#if net40
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System;
@@ -17,12 +16,12 @@ namespace Shouldly
             CompleteIn(actual, timeout);
         }
 
-        public static void CompleteIn<T>(Func<T> function, TimeSpan timeout)
+        public static T CompleteIn<T>(Func<T> function, TimeSpan timeout)
         {
             var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
 
-            CompleteIn(actual, timeout);
+            return CompleteIn(actual, timeout);
         }
 
         public static void CompleteIn(Task actual, TimeSpan timeout)
@@ -33,14 +32,16 @@ namespace Shouldly
             }
             catch (AggregateException ae)
             {
-                var te = ae.InnerExceptions.FirstOrDefault(e => e is TimeoutException);
+                if (ae.InnerExceptions.Count != 1) 
+                    throw;
 
-                PreserveStackTrace(ae ?? te);
-                throw;
+                var inner = ae.InnerException;
+                PreserveStackTrace(inner);
+                throw inner;
             }
         }
 
-        public static void CompleteIn<T>(Task<T> actual, TimeSpan timeout)
+        public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout)
         {
             try
             {
@@ -48,11 +49,15 @@ namespace Shouldly
             }
             catch (AggregateException ae)
             {
-                var te = ae.InnerExceptions.FirstOrDefault(e => e is TimeoutException);
+                if (ae.InnerExceptions.Count != 1)
+                    throw;
 
-                PreserveStackTrace(ae ?? te);
-                throw;
+                var inner = ae.InnerException;
+                PreserveStackTrace(inner);
+                throw inner;
             }
+
+            return actual.Result;
         }
 
         private static void PreserveStackTrace(Exception exception)
