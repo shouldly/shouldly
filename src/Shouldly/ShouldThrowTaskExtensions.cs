@@ -9,22 +9,31 @@ namespace Shouldly
     {
         public static TException Throw<TException>(Func<Task> actual) where TException : Exception
         {
+            return Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout);
+        }
+
+        public static TException Throw<TException>(Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
+        {
             try
             {
-                RunAndWait(actual);
+                RunAndWait(actual, timeoutAfter);
+            }
+            catch (TimeoutException)
+            {
+                throw;
             }
             catch (AggregateException e)
             {
                 var innerException = e.InnerException;
                 if (innerException is TException)
-                    return (TException) innerException;
+                    return (TException)innerException;
 
                 throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), innerException.GetType()).ToString());
             }
             catch (Exception e)
             {
                 if (e is TException)
-                    return (TException) e;
+                    return (TException)e;
 
                 throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), e.GetType()).ToString());
             }
@@ -34,9 +43,18 @@ namespace Shouldly
 
         public static void NotThrow(Func<Task> action)
         {
+            NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout);
+        }
+
+        public static void NotThrow(Func<Task> action, TimeSpan timeoutAfter)
+        {
             try
             {
-                RunAndWait(action);
+                RunAndWait(action, timeoutAfter);
+            }
+            catch (TimeoutException)
+            {
+                throw;
             }
             catch (AggregateException ex)
             {
@@ -48,32 +66,37 @@ namespace Shouldly
             }
         }
 
-        private static void RunAndWait(Func<Task> actual)
+        private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter)
         {
             // Drop the sync context so continuations will not post to it, causing a deadlock
             if (SynchronizationContext.Current != null)
             {
-                Task.Factory.StartNew(actual, CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default).Unwrap().Wait();
+                CompleteIn(Task.Factory.StartNew(actual, CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default).Unwrap(), timeoutAfter);
             }
             else
             {
-                actual().Wait();
+                CompleteIn(actual, timeoutAfter);
             }
         }
 
         public static T NotThrow<T>(Func<Task<T>> action)
+        {
+            return NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout);
+        }
+
+        public static T NotThrow<T>(Func<Task<T>> action, TimeSpan timeoutAfter)
         {
             try
             {
                 // Drop the sync context so continuations will not post to it, causing a deadlock
                 if (SynchronizationContext.Current != null)
                 {
-                    return Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default).Unwrap().Result;
+                    return CompleteIn(Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
+                        TaskScheduler.Default).Unwrap(), timeoutAfter);
                 }
-                
-                return action().Result;
+
+                return CompleteIn(action, timeoutAfter);
             }
             catch (AggregateException ex)
             {
