@@ -94,3 +94,5 @@ Other *Shouldly* features:
         Should.Throw<T>(Action)
         Should.NotThrow(Action)
 
+    ## Tasks
+        CompleteIn
