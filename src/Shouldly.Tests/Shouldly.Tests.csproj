@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="ShouldCompleteInTests.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\GuidScenario.cs" />

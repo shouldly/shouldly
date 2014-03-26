@@ -60,6 +60,7 @@
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />
+    <Compile Include="ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighterExtensions.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Internals\StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
     <Compile Include="Internals\TestEnvironment.cs" />
+    <Compile Include="TaskExtensions.cs" />
     <Compile Include="Internals\Tolerance.cs" />
     <Compile Include="Internals\ToleranceMode.cs" />
   </ItemGroup>
