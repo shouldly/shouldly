@@ -25,6 +25,27 @@ namespace Shouldly
             throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
         }
 
+        public static TException ThrowExact<TException>(Action actual) where TException : Exception
+        {
+            try
+            {
+                actual();
+            }
+            catch (TException e)
+            {
+                if (e.GetType() == typeof (TException))
+                {
+                    return e;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), e.GetType()).ToString());
+            }
+
+            throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
+        }
+
         public static void NotThrow(Action action)
         {
             try
