@@ -32,6 +32,31 @@ namespace Shouldly
             throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
         }
 
+        public static TException ThrowExact<TException>(Func<Task> actual) where TException : Exception
+        {
+            try
+            {
+                RunAndWait(actual);
+            }
+            catch (AggregateException e)
+            {
+                var innerException = e.InnerException;
+                if (innerException.GetType() == typeof(TException))
+                    return (TException)innerException;
+
+                throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), innerException.GetType()).ToString());
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(TException))
+                    return (TException)e;
+
+                throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), e.GetType()).ToString());
+            }
+
+            throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
+        }
+
         public static void NotThrow(Func<Task> action)
         {
             try
