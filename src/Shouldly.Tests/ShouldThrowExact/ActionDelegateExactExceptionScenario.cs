@@ -3,7 +3,7 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldThrowExact
 {
-    class ActionDelegateExactExceptionScenario : ShouldlyShouldTestScenario
+    public class ActionDelegateExactExceptionScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
