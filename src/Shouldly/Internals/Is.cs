@@ -38,15 +38,15 @@ namespace Shouldly
             return new EqualityComparer<T>(innerComparer);
         }
 
-        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder)
+        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected)
         {
             if (actual == null && expected == null)
                 return true;
             if (actual == null || expected == null)
                 return false;
 
-            var expectedEnum = ignoreOrder ? expected.OrderBy(e => e).GetEnumerator() : expected.GetEnumerator();
-            var actualEnum = ignoreOrder ? actual.OrderBy(e => e).GetEnumerator() : actual.GetEnumerator();
+            var expectedEnum = expected.GetEnumerator();
+            var actualEnum = actual.GetEnumerator();
 
             for (; ; )
             {
@@ -61,6 +61,28 @@ namespace Shouldly
                     return false;
                 }
             }
+        }
+
+        public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+        {
+            if (actual == null && expected == null)
+                return true;
+            
+            if (actual == null || expected == null)
+                return false;
+
+            if (actual is ICollection && expected is ICollection && ((ICollection)actual).Count != ((ICollection)expected).Count)
+                return false;
+
+            var expectedList = expected.ToList();
+            foreach (var actualElement in actual)
+            {
+                var match = expectedList.FirstOrDefault(x => Is.Equal(x, actualElement));
+                if (!expectedList.Remove(match))
+                    return false;
+            }
+                
+            return true;
         }
 
         public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)

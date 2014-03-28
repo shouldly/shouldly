@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldCompleteInTests.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
@@ -172,7 +173,7 @@
     <Compile Include="ShouldBe\ComparingBaseWithDerivedTypeShouldFail.cs" />
     <Compile Include="ShouldBe\ComparingObjectWithString.cs" />
     <Compile Include="ShouldBe\EnumerableType\ActualIsNullScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\CannotIgnoreOrderWhenItemsAreNotComparable.cs" />
+    <Compile Include="ShouldBe\EnumerableType\IgnoreOrderWhenItemsAreNotComparableScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfComplexTypeScenario.cs" />
