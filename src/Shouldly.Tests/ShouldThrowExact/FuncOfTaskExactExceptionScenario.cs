@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.ShouldThrow
+namespace Shouldly.Tests.ShouldThrowExact
 {
     public class FuncOfTaskExactExceptionScenario : ShouldlyShouldTestScenario
     {

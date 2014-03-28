@@ -86,13 +86,12 @@
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskScenario.cs" />
     <Compile Include="ShouldNotThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
-    <Compile Include="ShouldThrow\ActionDelegateExactExceptionScenario.cs" />
+    <Compile Include="ShouldThrowExact\ActionDelegateExactExceptionScenario.cs" />
     <Compile Include="ShouldThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldThrow\ActionDelegateThrowsDifferentExceptionScenario.cs" />
-    <Compile Include="ShouldThrow\ActionDelegateExactExceptionThrowsDifferentExceptionScenario.cs" />
-    <Compile Include="ShouldThrow\FuncOfTaskExactExceptionThrowsDifferentExceptionScenario.cs" />
-    <Compile Include="ShouldThrow\FuncOfTaskExactExceptionScenario.cs" />
-    <Compile Include="ShouldThrow\FuncOfTaskOfStringExactExceptionScenario.cs" />
+    <Compile Include="ShouldThrowExact\ActionDelegateExactExceptionThrowsDifferentExceptionScenario.cs" />
+    <Compile Include="ShouldThrowExact\FuncOfTaskExactExceptionThrowsDifferentExceptionScenario.cs" />
+    <Compile Include="ShouldThrowExact\FuncOfTaskExactExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskOfStringThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskScenario.cs" />

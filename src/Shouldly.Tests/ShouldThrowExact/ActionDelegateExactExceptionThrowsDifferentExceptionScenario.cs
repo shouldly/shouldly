@@ -1,7 +1,7 @@
 ﻿using System;
 using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.ShouldThrow
+namespace Shouldly.Tests.ShouldThrowExact
 {
     public class ActionDelegateExactExceptionThrowsDifferentExceptionScenario : ShouldlyShouldFailureTestScenario
     {
