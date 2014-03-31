@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.ShouldThrow
+namespace Shouldly.Tests.ShouldThrowExact
 {
-    public class FuncOfTaskScenario : ShouldlyShouldTestScenario
+    public class FuncOfTaskExactExceptionScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            Should.Throw<InvalidOperationException>(() =>
+            Should.ThrowExact<NullReferenceException>(() =>
             {
                 var task = Task.Factory.StartNew(() => { }, 
                     CancellationToken.None, TaskCreationOptions.None,
@@ -21,12 +21,12 @@ namespace Shouldly.Tests.ShouldThrow
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Should throw System.InvalidOperationException but does not"; }
+            get { return "Should throw exact System.NullReferenceException but does not"; }
         }
 
         protected override void ShouldPass()
         {
-            var ex = Should.Throw<SystemException>(() =>
+            var ex = Should.ThrowExact<InvalidOperationException>(() =>
             {
                 var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
                     CancellationToken.None, TaskCreationOptions.None,

@@ -26,7 +26,7 @@ namespace Shouldly.Tests.ShouldThrow
 
         protected override void ShouldPass()
         {
-            var ex = Should.Throw<InvalidOperationException>(() =>
+            var ex = Should.Throw<SystemException>(() =>
             {
                 var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
                     CancellationToken.None, TaskCreationOptions.None,
