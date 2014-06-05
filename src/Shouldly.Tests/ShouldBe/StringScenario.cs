@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using NUnit.Framework;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe
 {
