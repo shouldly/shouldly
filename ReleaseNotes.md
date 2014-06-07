@@ -1,12 +1,25 @@
+# vNext
+
+ - [#136](https://github.com/shouldly/shouldly/pull/136) - Should be on a list of strings fails
+ - [#132](https://github.com/shouldly/shouldly/pull/132) - ShouldBe for IEnumerable with IgnoreOrder = true fails if objects are not IComparable contributed by Asger Hallas ([asgerhallas](https://github.com/asgerhallas))
+ - [#131](https://github.com/shouldly/shouldly/issues/131) - Case enum on string asserts could be renamed
+ - [#109](https://github.com/shouldly/shouldly/issues/109) - Task.ShouldCompleteIn (equivalent to NUnit Timeout Attribute)
+
+Commits: 6c29deca2c...40cea808b7
+
+
 # 2.1.1 (19 March 2014)
+
+ - [#124](https://github.com/shouldly/shouldly/pull/124) - Swap expected and actual in Is.Equal contributed by vorou ([vorou](https://github.com/vorou))
  - Fixed boxed numeric equality issues [#121](https://github.com/shouldly/shouldly/issues/121)
  - Equality should use expected.Equals not actual.Equals [#120](https://github.com/shouldly/shouldly/issues/120)
 
 Thanks to [vorou](https://github.com/vorou) and [Jake Ginnivan](https://github.com/jakeginnivan) for contributing to this release
 
-Commits: 954bb795dd4...0459759b4a
+Commits: 954bb795dd...43e3aff8e4
 
 # 2.1.0 (13 March 2014)
+
 
  - IEnumerable matching failures fixes [#118](https://github.com/shouldly/shouldly/issues/118) [#100](https://github.com/shouldly/shouldly/issues/100)
  - Equality fixes [#115](https://github.com/shouldly/shouldly/pull/115)
@@ -24,7 +37,7 @@ Commits: fb2be376c2...0912db75e6
 
  - Fix possible deadlock in `Should.[Not]Throw(Func<Task>)` [#101](https://github.com/shouldly/shouldly/issues/101) +Fix
 
-Commits: 2d3d40afd9...b8439790d5
+Commits: b8439790d5...2d3d40afd9
 
 
 # v2.0.0 (20 February 2014)
@@ -35,7 +48,7 @@ Commits: 2d3d40afd9...b8439790d5
  - **breaking**: IEnumerable.ShouldBe(IEnumerable) now uses .Equals to compare
      - specify T to get Item Comparison (`new[]{"foo"}.ShouldBe<string>(new[]{"foo"})` for item comparison, or specify `ignoreOrder` to select IEnumerable overload
      - See Breaking Changes.txt for more information
- - **breaking**: `ShouldBeTypeOf<T>` renamed to `ShouldBeAssignableTo<T>` [#98](https://github.com/shouldly/shouldly/issues/98)
+   **breaking**: `ShouldBeTypeOf<T>` renamed to `ShouldBeAssignableTo<T>` [#98](https://github.com/shouldly/shouldly/issues/98)
  - `ShouldBeOfType<T>` added for exact match of type, `ShouldBeAssignableTo<T>` allows derived classes [#98](https://github.com/shouldly/shouldly/issues/98)
  - ShouldBeTypeOf should return the object [#63](https://github.com/shouldly/shouldly/pull/63) +Enhancement
  - ShouldAllBe for IEnumerables [#60](https://github.com/shouldly/shouldly/pull/60) +Enhancement
@@ -47,15 +60,15 @@ Commits: 2d3d40afd9...b8439790d5
  - ShouldBeInRange and ShouldNotBeInRange [#73](https://github.com/shouldly/shouldly/pull/73) [#53](https://github.com/shouldly/shouldly/issues/53) +Enhancement
  - Exception when attempting to calculate stacktrace, only in CI [#84](https://github.com/shouldly/shouldly/pull/84) [#49](https://github.com/shouldly/shouldly/issues/49) [#62](https://github.com/shouldly/shouldly/issues/62) +fix
  - Missing Should.BeLessThanOrEqualTo mirror of BeGreaterThanOrEqualTo [#82](https://github.com/shouldly/shouldly/issues/82) +fix
- -  Should.NotThrow returns thrown exception [#68](https://github.com/shouldly/shouldly/pull/68)
+ - Should.NotThrow returns thrown exception [#68](https://github.com/shouldly/shouldly/pull/68)
  - JToken.Parse("{}").ShouldBe("hello"); Passes [#65](https://github.com/shouldly/shouldly/issues/65) [#66](https://github.com/shouldly/shouldly/pull/66) +fix
  - ChuckedAWobbly should be serializable [#64](https://github.com/shouldly/shouldly/pull/64)
- 
- **note**: When shouldly is running under .net 4.0 (this affects old versions too) a shouldly assertion inside a compiled lambda will give an incorrect error message (if you do this, let us know why). See [#80](https://github.com/shouldly/shouldly/issues/80)
+
+**note**: When shouldly is running under .net 4.0 (this affects old versions too) a shouldly assertion inside a compiled lambda will give an incorrect error message (if you do this, let us know why). See [#80](https://github.com/shouldly/shouldly/issues/80)
 
 Thanks to [Sam Salisbury](https://github.com/samsalisbury) [Ben Scott](https://github.com/bendetat) [James Kelly](https://github.com/jmkelly) [Ilya Murzinov](https://github.com/ilya-murzinov) [Kővágó Zoltán](https://github.com/DirtYiCE) [Jake Ginnivan](https://github.com/jakeginnivan) [Egbert Teeselink](https://github.com/eteeselink) for contributing to this release!
 
-Commits: d16284be27...c855ea41eb
+Commits: c855ea41eb...d16284be27
 
 
 # v1.1.1.1 (16 November 2012)
@@ -63,7 +76,7 @@ Commits: d16284be27...c855ea41eb
  - Truncate error string "actual" output on `ShouldContain to 100 chars [#37](https://github.com/shouldly/shouldly/issues/37) [42](https://github.com/shouldly/shouldly/pull/42)
  - Remove dependency on Rhino.Mocks [#51](https://github.com/shouldly/shouldly/issues/51)
 
-Commits: 5b07fdfd97...1545f74a2e
+Commits: 1545f74a2e...5b07fdfd97
 
 
 # v1.1.1 (09 March 2012)
@@ -77,7 +90,7 @@ Commits: 5b07fdfd97...1545f74a2e
  - Split core features from rhino mocks dependent code [#30](https://github.com/shouldly/shouldly/issues/30)
  - Additional Assertions [#21](https://github.com/shouldly/shouldly/issues/21)
 
-Commits: 4f67b23cda...729e91f570
+Commits: 729e91f570...4f67b23cda
 
 
 # v1.1.0 (23 September 2011)
@@ -116,4 +129,5 @@ Commits: 4f67b23cda...729e91f570
  - Add ShouldNotHaveBeenCalled() [17](https://github.com/shouldly/shouldly/issues/17)
  - Add support for Rhino Method Options [16](https://github.com/shouldly/shouldly/issues/16)
 
-Commits: a2450e9b45...a3bb9f5598
+Commits: a3bb9f5598...08c4ebfa29
+ 	
