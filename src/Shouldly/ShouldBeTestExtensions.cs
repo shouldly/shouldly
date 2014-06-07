@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -61,6 +62,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
         }
 
+        [ContractAnnotation("actual:null,expected:null => halt")]
         public static void ShouldNotBe<T>(this T actual, T expected)
         {
             actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected);
