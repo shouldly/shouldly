@@ -11,7 +11,7 @@ namespace Shouldly
     {
         public static void ShouldBe<T>(this T actual, T expected)
         {
-            if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName))
+            if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName) || typeof(T) == typeof(string))
                 actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected);
             else 
                 actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);

@@ -9,8 +9,7 @@ namespace Shouldly
             CompareAsObjectTypes = new List<string>
             {
                 "Newtonsoft.Json.Linq.JToken",
-                "Shouldly.Tests.TestHelpers.Strange",
-                "System.String"
+                "Shouldly.Tests.TestHelpers.Strange"
             };
         }
 
