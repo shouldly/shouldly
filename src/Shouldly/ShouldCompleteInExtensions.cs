@@ -24,6 +24,16 @@ namespace Shouldly
             return CompleteIn(actual, timeout);
         }
 
+        public static void CompleteIn(Func<Task> actual, TimeSpan timeout)
+        {
+            CompleteIn(actual(), timeout);
+        }
+
+        public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout)
+        {
+            return CompleteIn(actual(), timeout);
+        }
+
         public static void CompleteIn(Task actual, TimeSpan timeout)
         {
             try

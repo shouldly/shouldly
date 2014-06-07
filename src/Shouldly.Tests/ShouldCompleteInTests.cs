@@ -49,7 +49,7 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldCompleteInT_WhenThrowsNonTimeoutException()
         {
-            Should.Throw<NotImplementedException>(() => Should.CompleteIn<string>(() => { throw new NotImplementedException(); }, TimeSpan.FromSeconds(1)));
+            Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => { throw new NotImplementedException(); }), TimeSpan.FromSeconds(1)));
         }
     }
 }

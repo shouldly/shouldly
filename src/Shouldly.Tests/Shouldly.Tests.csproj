@@ -96,6 +96,7 @@
     <Compile Include="ShouldThrow\FuncOfTaskThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="ShouldThrow\TaskTimeoutTests.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />

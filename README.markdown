@@ -91,8 +91,12 @@ Other *Shouldly* features:
         ShouldNotContainKeyAndValue
 
     ##Exceptions
-        Should.Throw<T>(Action)
+        Should.Throw<TException>(Action)
         Should.NotThrow(Action)
+        Should.Throw<TException>(Func<Task>[, Timeout])
+        Should.NotThrow(Func<Task>[, Timeout])
+
+        **Task overloads for Should.Throw are blocking and will automatically timeout after 10 seconds (specified in ShouldlyConfiguration.DefaultTaskTimeout)**
 
     ## Tasks
         CompleteIn
