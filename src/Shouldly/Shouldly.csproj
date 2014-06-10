@@ -60,6 +60,7 @@
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />
+    <Compile Include="Properties\JetBrains.Annotations.cs" />
     <Compile Include="ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
