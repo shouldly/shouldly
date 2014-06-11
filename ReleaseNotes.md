@@ -1,9 +1,11 @@
-# vNext
+# 2.2.0 (7 June 2014)
 
+ - [#135](https://github.com/shouldly/shouldly/issues/135) - Should be on a list of strings fails +fix
+ - [#126](https://github.com/shouldly/shouldly/pull/126) - Tasks now timeout after 10 seconds
  - [#136](https://github.com/shouldly/shouldly/pull/136) - Should be on a list of strings fails
  - [#132](https://github.com/shouldly/shouldly/pull/132) - ShouldBe for IEnumerable with IgnoreOrder = true fails if objects are not IComparable contributed by Asger Hallas ([asgerhallas](https://github.com/asgerhallas))
  - [#131](https://github.com/shouldly/shouldly/issues/131) - Case enum on string asserts could be renamed
- - [#109](https://github.com/shouldly/shouldly/issues/109) - Task.ShouldCompleteIn (equivalent to NUnit Timeout Attribute)
+ - [#109](https://github.com/shouldly/shouldly/issues/109) - Task.ShouldCompleteIn (equivalent to NUnit Timeout Attribute) contributed by Gert Jansen van Rensburg ([gertjvr](https://github.com/gertjvr))
 
 Commits: 6c29deca2c...40cea808b7
 
