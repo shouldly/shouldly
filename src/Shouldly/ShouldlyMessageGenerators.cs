@@ -3,9 +3,39 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
+    internal class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
+    {
+        private static readonly Regex Validator = new Regex("HaveProperty", RegexOptions.Compiled);
+        private static readonly Regex DynamicObjectNameExtractor = new Regex(@"DynamicShould.HaveProperty\((?<dynamicObjectName>.*),(?<propertyName>.*)\)", RegexOptions.Compiled);
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return Validator.IsMatch(environment.ShouldMethod);
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment, object actual)
+        {
+            const string format = @" Dynamic Object
+    ""{0}""
+should contain property
+            {1}
+    but does not.";
+
+            var dynamicTestContext = environment.TestContext as DynamicTestContext;
+            var testFileName = dynamicTestContext.CallingMethodStackFrame.GetFileName();
+            var assertionLineNumber = dynamicTestContext.CallingMethodStackFrame.GetFileLineNumber();
+
+            var codeLine = File.ReadAllLines(testFileName).ToArray()[assertionLineNumber - 1];
+            var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
+            var propertyName = DynamicObjectNameExtractor.Match(codeLine).Groups["propertyName"];
+
+            return String.Format(format, dynamicObjectName, propertyName);
+        }
+    }
+
     internal class ShouldBeNullOrEmptyMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("Should(Not)?BeNullOrEmpty", RegexOptions.Compiled);

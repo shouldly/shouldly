@@ -5,15 +5,22 @@ using System.IO;
 using System.Linq;
 using Shouldly.DifferenceHighlighting;
 using System.Reflection;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
     internal class ShouldlyMessage
     {
+        private readonly TestContext _testContext;
         private readonly object _expected;
         private readonly object _actual;
         private readonly bool _hasActual;
-        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DefaultMessageGenerator() };
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DynamicShouldMessageGenerator(), new DefaultMessageGenerator() };
+
+        public ShouldlyMessage(TestContext testContext)
+        {
+            _testContext = testContext;
+        }
 
         public ShouldlyMessage(object expected)
         {
@@ -30,13 +37,14 @@ namespace Shouldly
         public override string ToString()
         {
             return _hasActual ?
-                GenerateShouldMessage(_actual, _expected) :
-                GenerateShouldMessage(_expected);
+                GenerateShouldMessage(_actual, _expected, _testContext) :
+                GenerateShouldMessage(_expected, _testContext);
         }
 
-        private static string GenerateShouldMessage(object actual, object expected)
+        private static string GenerateShouldMessage(object actual, object expected, TestContext testContext)
         {
             var environment = GetStackFrameForOriginatingTestMethod();
+            environment.TestContext = testContext;
             var codePart = "The provided expression";
 
             if (environment.DeterminedOriginatingFrame)
@@ -54,9 +62,10 @@ namespace Shouldly
             return CreateActualVsExpectedMessage(actual, expected, environment, codePart);
         }
 
-        private static string GenerateShouldMessage(object expected)
+        private static string GenerateShouldMessage(object expected, TestContext testContext)
         {
             var environment = GetStackFrameForOriginatingTestMethod();
+            environment.TestContext = testContext;
             var message = ShouldlyMessageGenerators.First(x => x.CanProcess(environment)).GenerateErrorMessage(environment, expected);
 
             return message;
