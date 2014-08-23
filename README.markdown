@@ -142,6 +142,9 @@ Other *Shouldly* features:
 
 [CompleteIn] (#tasksCompleteInExample)
 
+#### Dynamic
+
+[ShouldHaveProperty] (#dynamicShouldHaveProperty)
 
 <a name="classesUsedInExamples"> </a>
 ### Examples
@@ -1263,5 +1266,34 @@ public void CompleteIn()
 ```
 System.TimeoutException : The operation has timed out.
 ```
+
+<a name="dynamicShouldHaveProperty"> </a>
+#### Dynamic - ShouldHaveProperty
+
+
+Using the classes defined [here](#classesUsedInExamples), the following test ...
+
+```c#
+// NOTE: Currently not in the latest Nuget version of Shouldly (version - 2.1.1 )
+[Test]
+public void DynamicShouldHavePropertyTest()
+{
+    var homerThinkingLikeFlanders = new ExpandoObject();
+    DynamicShould.HaveProperty(homerThinkingLikeFlanders, "IAmABigFourEyedLameO");
+}
+```
+
+... shows the following message on failure ...
+
+```
+Shouldly.ChuckedAWobbly : 
+    Dynamic Object
+        "homerThinkingLikeFlanders"
+    should contain property
+                 "IAmABigFourEyedLameO"
+        but does not.
+```
+
+
 
 
