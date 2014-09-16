@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -18,21 +17,21 @@ namespace Shouldly
 
         public override string GenerateErrorMessage(TestEnvironment environment, object actual)
         {
-            const string format = @" Dynamic Object
-    ""{0}""
-should contain property
-            {1}
-    but does not.";
+            const string format =  @"
+    Dynamic Object
+        ""{0}""
+    should contain property
+                {1}
+        but does not.";
 
-            var dynamicTestContext = environment.TestContext as DynamicTestContext;
-            var testFileName = dynamicTestContext.CallingMethodStackFrame.GetFileName();
-            var assertionLineNumber = dynamicTestContext.CallingMethodStackFrame.GetFileLineNumber();
+            var testFileName = environment.OriginatingFrame.GetFileName();
+            var assertionLineNumber = environment.OriginatingFrame.GetFileLineNumber();
 
             var codeLine = File.ReadAllLines(testFileName).ToArray()[assertionLineNumber - 1];
             var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
             var propertyName = DynamicObjectNameExtractor.Match(codeLine).Groups["propertyName"];
 
-            return String.Format(format, dynamicObjectName, propertyName);
+            return String.Join("\n", String.Format(format, dynamicObjectName, propertyName));
         }
     }
 

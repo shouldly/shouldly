@@ -5,22 +5,15 @@ using System.IO;
 using System.Linq;
 using Shouldly.DifferenceHighlighting;
 using System.Reflection;
-using Shouldly.Internals;
 
 namespace Shouldly
 {
     internal class ShouldlyMessage
     {
-        private readonly TestContext _testContext;
         private readonly object _expected;
         private readonly object _actual;
         private readonly bool _hasActual;
         private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DynamicShouldMessageGenerator(), new DefaultMessageGenerator() };
-
-        public ShouldlyMessage(TestContext testContext)
-        {
-            _testContext = testContext;
-        }
 
         public ShouldlyMessage(object expected)
         {
@@ -37,14 +30,13 @@ namespace Shouldly
         public override string ToString()
         {
             return _hasActual ?
-                GenerateShouldMessage(_actual, _expected, _testContext) :
-                GenerateShouldMessage(_expected, _testContext);
+                GenerateShouldMessage(_actual, _expected) :
+                GenerateShouldMessage(_expected);
         }
 
-        private static string GenerateShouldMessage(object actual, object expected, TestContext testContext)
+        private static string GenerateShouldMessage(object actual, object expected)
         {
             var environment = GetStackFrameForOriginatingTestMethod();
-            environment.TestContext = testContext;
             var codePart = "The provided expression";
 
             if (environment.DeterminedOriginatingFrame)
@@ -62,10 +54,9 @@ namespace Shouldly
             return CreateActualVsExpectedMessage(actual, expected, environment, codePart);
         }
 
-        private static string GenerateShouldMessage(object expected, TestContext testContext)
+        private static string GenerateShouldMessage(object expected)
         {
             var environment = GetStackFrameForOriginatingTestMethod();
-            environment.TestContext = testContext;
             var message = ShouldlyMessageGenerators.First(x => x.CanProcess(environment)).GenerateErrorMessage(environment, expected);
 
             return message;
@@ -106,6 +97,18 @@ namespace Shouldly
                     shouldlyFrame = currentFrame;
 
                 currentFrame = stackTrace.GetFrame(++i);
+
+                // Required to support the DynamicShould.HaveProperty method that takes in a dynamic as a parameter.
+                // Having a method that takes a dynamic really stuffs up the stack trace because the runtime binder
+                // has to inject a whole heap of methods. Our normal way of just taking the next frame doesn't work.
+                // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
+                // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
+                // scanarios. Alternately, it could be replaced with a more robust implementation.
+                while ( currentFrame.GetMethod().DeclaringType == null ||
+                        currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
+                {
+                    currentFrame = stackTrace.GetFrame(++i);
+                }
             }
 
             var originatingFrame = currentFrame;
@@ -116,7 +119,8 @@ namespace Shouldly
                            DeterminedOriginatingFrame = fileName != null && File.Exists(fileName),
                            ShouldMethod = shouldlyFrame.GetMethod().Name,
                            FileName = fileName,
-                           LineNumber = originatingFrame.GetFileLineNumber() - 1
+                           LineNumber = originatingFrame.GetFileLineNumber() - 1,
+                           OriginatingFrame = originatingFrame
                        };
         }
 
