@@ -31,7 +31,7 @@ namespace Shouldly
             var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
             var propertyName = DynamicObjectNameExtractor.Match(codeLine).Groups["propertyName"];
 
-            return String.Join("\n", String.Format(format, dynamicObjectName, propertyName));
+            return String.Format(format, dynamicObjectName, propertyName);
         }
     }
 
