@@ -18,7 +18,7 @@ namespace Shouldly
         public override string GenerateErrorMessage(TestEnvironment environment, object actual)
         {
             const string format =  @"
-    Dynamic Object
+    Dynamic object
         ""{0}""
     should contain property
                 {1}
@@ -27,11 +27,11 @@ namespace Shouldly
             var testFileName = environment.OriginatingFrame.GetFileName();
             var assertionLineNumber = environment.OriginatingFrame.GetFileLineNumber();
 
-            var codeLine = File.ReadAllLines(testFileName).ToArray()[assertionLineNumber - 1];
+            var codeLine = string.Join("", File.ReadAllLines(testFileName).ToArray().Skip(assertionLineNumber - 1).Select(s => s.Trim()));
             var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
             var propertyName = DynamicObjectNameExtractor.Match(codeLine).Groups["propertyName"];
 
-            return String.Join("\n", String.Format(format, dynamicObjectName, propertyName));
+            return String.Format(format, dynamicObjectName, propertyName);
         }
     }
 

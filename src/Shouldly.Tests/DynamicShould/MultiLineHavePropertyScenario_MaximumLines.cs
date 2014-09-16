@@ -3,13 +3,18 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe
 {
-    public class HavePropertyScenario : ShouldlyShouldTestScenario
+    public class MultiLineHavePropertyScenario_MaximumLines : ShouldlyShouldTestScenario
     {
         protected override void ShouldPass()
         {
             dynamic testDynamicObject = new ExpandoObject();
             testDynamicObject.Foo = "FooPropertyValue";
-            DynamicShould.HaveProperty(testDynamicObject, "Foo");
+            DynamicShould
+                .HaveProperty
+                (
+                testDynamicObject,
+                "Foo"
+                );
         }
 
         protected override void ShouldThrowAWobbly()
@@ -17,7 +22,11 @@ namespace Shouldly.Tests.ShouldBe
             dynamic testDynamicObject = new ExpandoObject();
             testDynamicObject.Bar = "BarPropertyValue";
             DynamicShould
-                .HaveProperty(testDynamicObject, "foo");
+                .HaveProperty
+                (
+                testDynamicObject, 
+                "foo"
+                );
         }
 
         protected override string ChuckedAWobblyErrorMessage
