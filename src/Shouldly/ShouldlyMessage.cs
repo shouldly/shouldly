@@ -13,7 +13,7 @@ namespace Shouldly
         private readonly object _expected;
         private readonly object _actual;
         private readonly bool _hasActual;
-        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DefaultMessageGenerator() };
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DynamicShouldMessageGenerator(), new DefaultMessageGenerator() };
 
         public ShouldlyMessage(object expected)
         {
@@ -97,6 +97,18 @@ namespace Shouldly
                     shouldlyFrame = currentFrame;
 
                 currentFrame = stackTrace.GetFrame(++i);
+
+                // Required to support the DynamicShould.HaveProperty method that takes in a dynamic as a parameter.
+                // Having a method that takes a dynamic really stuffs up the stack trace because the runtime binder
+                // has to inject a whole heap of methods. Our normal way of just taking the next frame doesn't work.
+                // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
+                // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
+                // scanarios. Alternately, it could be replaced with a more robust implementation.
+                while ( currentFrame.GetMethod().DeclaringType == null ||
+                        currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
+                {
+                    currentFrame = stackTrace.GetFrame(++i);
+                }
             }
 
             var originatingFrame = currentFrame;
@@ -107,7 +119,8 @@ namespace Shouldly
                            DeterminedOriginatingFrame = fileName != null && File.Exists(fileName),
                            ShouldMethod = shouldlyFrame.GetMethod().Name,
                            FileName = fileName,
-                           LineNumber = originatingFrame.GetFileLineNumber() - 1
+                           LineNumber = originatingFrame.GetFileLineNumber() - 1,
+                           OriginatingFrame = originatingFrame
                        };
         }
 
