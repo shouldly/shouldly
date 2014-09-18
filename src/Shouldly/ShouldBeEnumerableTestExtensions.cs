@@ -86,6 +86,33 @@ namespace Shouldly
             }))
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected).ToString());
         }
+
+		public static void ShouldBeUnique<T>(this IEnumerable<T> actual)
+		{
+			var list = new List<object>();
+
+			foreach (object o1 in actual)
+			{
+				foreach (object o2 in list)
+					if (o1 != null && o1.Equals(o2))
+						throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+				list.Add(o1);
+			}
+		}
+
+		public static void ShouldNotBeUnique<T>(this IEnumerable<T> actual)
+		{
+			var list = new List<object>();
+
+			foreach (object o1 in actual)
+			{
+				foreach(object o2 in list)
+					if (o1 != null && o1.Equals(o2))
+						return;
+				list.Add(o1);
+			}
+			throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+		}
     }
 
 }
