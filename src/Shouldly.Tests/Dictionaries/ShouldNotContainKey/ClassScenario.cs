@@ -19,7 +19,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainKey
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_dictionary should not contain key Shouldly.Tests.TestHelpers.MyThing but does"; }
+            get { return "Dictionary \"_dictionary\" should not contain key \"Shouldly.Tests.TestHelpers.MyThing\" but does"; }
         }
 
         protected override void ShouldPass()

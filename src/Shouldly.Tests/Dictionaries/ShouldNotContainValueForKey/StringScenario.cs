@@ -7,16 +7,16 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
     {
         private readonly Dictionary<string, string> _dictionary = new Dictionary<string, string>
         {
-            { "Foo", ""}
+            { "Foo", "Bar"}
         };
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldNotContainValueForKey("Foo", "");
+            _dictionary.ShouldNotContainValueForKey("Foo", "Bar");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_dictionary should not contain value for key \"\" but was \"\""; }
+            get { return "Dictionary \"_dictionary\" should not contain key \"Foo\" with value \"Bar\" but does"; }
         }
 
         protected override void ShouldPass()

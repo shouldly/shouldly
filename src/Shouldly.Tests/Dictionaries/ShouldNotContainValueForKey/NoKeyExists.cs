@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
+namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
 {
-    public class OnlyValueMatches : ShouldlyShouldTestScenario
+    public class NoKeyExists : ShouldlyShouldTestScenario
     {
         readonly Dictionary<MyThing, MyThing> _dictionary = new Dictionary<MyThing,MyThing>
         {
@@ -15,17 +15,17 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldContainKeyAndValue(new MyThing(), ThingValue);
+            _dictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should contain key \"Shouldly.Tests.TestHelpers.MyThing\" with value \"Shouldly.Tests.TestHelpers.MyThing\" but the key does not exist"; }
+            get { return "Dictionary \"_dictionary\" should not contain key \"Shouldly.Tests.TestHelpers.MyThing\" with value \"Shouldly.Tests.TestHelpers.MyThing\" but the key does not exist"; }
         }
 
         protected override void ShouldPass()
         {
-            _dictionary.ShouldContainKeyAndValue(ThingKey, ThingValue);
+            _dictionary.ShouldNotContainValueForKey(ThingKey, new MyThing());
         }
     }
 }
