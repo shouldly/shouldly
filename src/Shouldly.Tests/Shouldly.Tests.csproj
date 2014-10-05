@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="DynamicShould\HavePropertyNonDynamicScenario.cs" />
     <Compile Include="DynamicShould\MultiLineHavePropertyScenario_MaximumLines.cs" />
     <Compile Include="DynamicShould\MultiLineHavePropertyScenario.cs" />
     <Compile Include="DynamicShould\HavePropertyScenario.cs" />

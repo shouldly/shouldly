@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
+using System.Linq;
 
 namespace Shouldly
 {
@@ -9,11 +11,22 @@ namespace Shouldly
     {
         public static void HaveProperty(dynamic dynamicTestObject, string p)
         {
-            var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
-
-            if (! dynamicAsDictionary.ContainsKey(p))
+            if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
-                throw new ChuckedAWobbly(new ShouldlyMessage(p).ToString());
+                var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
+
+                if (!dynamicAsDictionary.ContainsKey(p))
+                {
+                    throw new ChuckedAWobbly(new ShouldlyMessage(p).ToString());
+                }
+            }
+            else
+            {
+                var dynamicAsObject = (object)dynamicTestObject;
+                if (!dynamicAsObject.GetType().GetProperties().Select(x => x.Name).Contains(p))
+                {
+                    throw new ChuckedAWobbly(new ShouldlyMessage(p).ToString());
+                }
             }
         }
     }
