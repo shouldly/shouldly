@@ -60,6 +60,7 @@
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
+    <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
     <Compile Include="ShouldCompleteInTests.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
