@@ -28,6 +28,9 @@ namespace Shouldly
         {
             var type = typeof (T);
 
+            if (ReferenceEquals(x, y))
+                return true;
+
             // Null?
             if (!type.IsValueType || (type.IsGenericType && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
             {
