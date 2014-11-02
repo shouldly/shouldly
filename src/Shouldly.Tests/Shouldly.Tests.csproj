@@ -40,6 +40,7 @@
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -58,6 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="DynamicShould\HavePropertyNonDynamicScenario.cs" />
+    <Compile Include="DynamicShould\MultiLineHavePropertyScenario_MaximumLines.cs" />
+    <Compile Include="DynamicShould\MultiLineHavePropertyScenario.cs" />
+    <Compile Include="DynamicShould\HavePropertyScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
     <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
