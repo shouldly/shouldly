@@ -21,8 +21,8 @@ namespace Shouldly
     Dynamic object
         ""{0}""
     should contain property
-                {1}
-        but does not.";
+        {1}
+    but does not.";
 
             var testFileName = environment.OriginatingFrame.GetFileName();
             var assertionLineNumber = environment.OriginatingFrame.GetFileLineNumber();
@@ -45,13 +45,13 @@ namespace Shouldly
         public override string GenerateErrorMessage(TestEnvironment environment)
         {
             const string format = @"
-Dictionary
-    ""{0}""
-should not contain key
-""{1}""
-with value
-            ""{2}""
-{3}";
+    Dictionary
+        ""{0}""
+    should not contain key
+        ""{1}""
+    with value
+        ""{2}""
+    {3}";
 
             var codePart = environment.GetCodePart();
             var expectedValue = environment.Expected.Inspect();
@@ -81,13 +81,13 @@ with value
         public override string GenerateErrorMessage(TestEnvironment environment)
         {
             const string format = @"
-Dictionary
-    ""{0}""
-should contain key
-""{1}""
-with value
-            ""{2}""
-{3}";
+    Dictionary
+        ""{0}""
+    should contain key
+        ""{1}""
+    with value
+        ""{2}""
+    {3}";
 
             var codePart = environment.GetCodePart();
             var expectedValue = environment.Expected.Inspect();
@@ -117,11 +117,11 @@ with value
         public override string GenerateErrorMessage(TestEnvironment environment)
         {
             const string format = @"
-Dictionary
-    ""{0}""
-{1}
-            ""{2}""
-but does {3}";
+    Dictionary
+        ""{0}""
+    {1}
+        ""{2}""
+    but does {3}";
 
             var codePart = environment.GetCodePart();
             var expectedValue = environment.Expected.Inspect();

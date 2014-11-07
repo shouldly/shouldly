@@ -123,7 +123,7 @@ namespace Shouldly
                         currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
                 {
                     currentFrame = stackTrace.GetFrame(++i);
-            }
+                }
             }
 
             var originatingFrame = currentFrame;
