@@ -954,19 +954,20 @@ Using the classes defined [here](#classesUsedInExamples), the following test ...
 [Test]
 public void ShouldMatch()
 {
-    var simpsonDog = new Dog() { Name = "Santas little helper"};
-    simpsonDog.Name.ShouldContainWithoutWhitespace("Santas Little Helper");
+    var simpsonDog = new Dog() { Name = "Santas little helper" };
+    simpsonDog.Name.ShouldMatch("Santas Little Helper");
 }
 ```
 
 ... shows the following message on failure ...
 
-`Shouldly.ChuckedAWobbly : 
+```
+Shouldly.ChuckedAWobbly : 
     simpsonDog.Name
-        should contain without whitespace
+        should match
     "Santas Little Helper"
         but was
-    "Santas little helper"``
+    "Santas little helper"
 ```
 
 <a name="stringShouldBeNullOrEmptyExample"> </a>
@@ -1025,9 +1026,9 @@ Using the classes defined [here](#classesUsedInExamples), the following test ...
 [Test]
 public void ShouldContainKey()
 {
-    var dictionary = new Dictionary<string, string>();
-    dictionary.Add("Embiggen", "To empower or embolden." );
-    dictionary.ShouldContainKey("Cromulent");
+    var websters = new Dictionary<string, string>();
+    websters.Add("Embiggen", "To empower or embolden.");
+    websters.ShouldContainKey("Cromulent");
 }
 ```
 
@@ -1035,10 +1036,11 @@ public void ShouldContainKey()
 
 ```
 Shouldly.ChuckedAWobbly : 
-    dictionary
-        should contain key 
-    "Cromulent"
-        but does not
+Dictionary
+    "websters"
+should contain key
+            "Cromulent"
+but does not
 ```
 
 <a name="dictionaryShouldContainKeyAndValueExample"> </a>
@@ -1051,10 +1053,10 @@ Using the classes defined [here](#classesUsedInExamples), the following test ...
 [Test]
 public void ShouldContainKeyAndValue()
 {
-    var dictionary = new Dictionary<string, string>();
-    dictionary.Add("Cromulent", "I never heard the word before moving to Springfield.");
+    var websters = new Dictionary<string, string>();
+    websters.Add("Cromulent", "I never heard the word before moving to Springfield.");
 
-    dictionary.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
+    websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
 }
 ```
 
@@ -1062,11 +1064,13 @@ public void ShouldContainKeyAndValue()
 
 ```
 Shouldly.ChuckedAWobbly : 
-    dictionary
-        should contain key and value
-    "Fine, acceptable."
-        but was
-    "I never heard the word before moving to Springfield."
+Dictionary
+    "websters"
+should contain key
+"Cromulent"
+with value
+            "Fine, acceptable."
+but value was "I never heard the word before moving to Springfield."
 ```
 
 <a name="dictionaryShouldNotContainKeyExample"> </a>
@@ -1079,10 +1083,10 @@ Using the classes defined [here](#classesUsedInExamples), the following test ...
 [Test]
 public void ShouldNotContainKey()
 {
-    var dictionary = new Dictionary<string, string>();
-    dictionary.Add("Chazzwazzers", "What Australians would have called a bull frog.");
+    var websters = new Dictionary<string, string>();
+    websters.Add("Chazzwazzers", "What Australians would have called a bull frog.");
 
-    dictionary.ShouldNotContainKey("Chazzwazzers");
+    websters.ShouldNotContainKey("Chazzwazzers");
 }
 ```
 
@@ -1090,10 +1094,11 @@ public void ShouldNotContainKey()
 
 ```
 Shouldly.ChuckedAWobbly : 
-    dictionary
-        should not contain key 
-    "Chazzwazzers"
-        but does 
+Dictionary
+    "websters"
+should not contain key
+            "Chazzwazzers"
+but does
 ```
 
 <a name="dictionaryShouldNotContainValueForKeyExample"> </a>
@@ -1106,10 +1111,10 @@ Using the classes defined [here](#classesUsedInExamples), the following test ...
 [Test]
 public void ShouldNotContainValueForKey()
 {
-    var dictionary = new Dictionary<string, string>();
-    dictionary.Add("Chazzwazzers", "What Australians would have called a bull frog.");
+    var websters = new Dictionary<string, string>();
+    websters.Add("Chazzwazzers", "What Australians would have called a bull frog.");
 
-    dictionary.ShouldNotContainValueForKey("Chazzwazzers", "What Australians would have called a bull frog." );
+    websters.ShouldNotContainValueForKey("Chazzwazzers", "What Australians would have called a bull frog.");
 }
 ```
 
@@ -1117,11 +1122,13 @@ public void ShouldNotContainValueForKey()
 
 ```
 Shouldly.ChuckedAWobbly : 
-    dictionary
-        should not contain value for key
-    "What Australians would have called a bull frog."
-        but was
-    "What Australians would have called a bull frog."
+Dictionary
+    "websters"
+should not contain key
+"Chazzwazzers"
+with value
+            "What Australians would have called a bull frog."
+but does
 ```
 
 <a name="exceptionsShouldThrowActionExample"> </a>

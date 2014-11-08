@@ -1,28 +1,27 @@
 ﻿using System.Collections.Generic;
 using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.Dictionaries.ShouldContainKey
+namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
 {
-    public class StringScenario : ShouldlyShouldTestScenario
+    public class StringScenario_KeyAndValueExist : ShouldlyShouldTestScenario
     {
         private readonly Dictionary<string, string> _dictionary = new Dictionary<string, string>
         {
-            { "Foo", ""}
+            { "Foo", "Bar"}
         };
-
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldContainKey("bar");
+            _dictionary.ShouldNotContainValueForKey("Foo", "Bar");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should contain key \"bar\" but does not"; }
+            get { return "Dictionary \"_dictionary\" should not contain key \"Foo\" with value \"Bar\" but does"; }
         }
 
         protected override void ShouldPass()
         {
-            _dictionary.ShouldContainKey("Foo");
+            _dictionary.ShouldNotContainValueForKey("Foo", "baz");
         }
     }
 }

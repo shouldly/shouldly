@@ -23,8 +23,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
         {
             get
             {
-                return "_dictionary should not contain value for key fa1e5f58-578f-43d4-b4d6-67eae06a5d17 " +
-                       "but was fa1e5f58-578f-43d4-b4d6-67eae06a5d17";
+                return "Dictionary \"_dictionary\" should not contain key \"edae0d73-8e4c-4251-85c8-e5497c7ccad1\" with value \"fa1e5f58-578f-43d4-b4d6-67eae06a5d17\" but does";
             }
         }
 

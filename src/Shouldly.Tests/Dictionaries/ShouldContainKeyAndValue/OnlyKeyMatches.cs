@@ -3,7 +3,7 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 {
-    public class OnlyKeyMatches : ShouldlyShouldFailureTestScenario
+    public class OnlyKeyMatches : ShouldlyShouldTestScenario
     {
         readonly Dictionary<MyThing, MyThing> _dictionary = new Dictionary<MyThing,MyThing>
         {
@@ -20,7 +20,12 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_dictionary should contain key and value Shouldly.Tests.TestHelpers.MyThing but was Shouldly.Tests.TestHelpers.MyThing"; }
+            get { return "Dictionary \"_dictionary\" should contain key \"Shouldly.Tests.TestHelpers.MyThing\" with value \"Shouldly.Tests.TestHelpers.MyThing\" but value was \"Shouldly.Tests.TestHelpers.MyThing\""; }
+        }
+
+        protected override void ShouldPass()
+        {
+            _dictionary.ShouldContainKeyAndValue(ThingKey, ThingValue);
         }
     }
 }

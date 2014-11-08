@@ -15,14 +15,14 @@ namespace Shouldly
             return Validator.IsMatch(environment.ShouldMethod);
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment, object actual)
+        public override string GenerateErrorMessage(TestEnvironment environment)
         {
             const string format =  @"
     Dynamic object
         ""{0}""
     should contain property
-                {1}
-        but does not.";
+        {1}
+    but does not.";
 
             var testFileName = environment.OriginatingFrame.GetFileName();
             var assertionLineNumber = environment.OriginatingFrame.GetFileLineNumber();
@@ -34,29 +34,126 @@ namespace Shouldly
             return String.Format(format, dynamicObjectName, propertyName);
         }
     }
+    internal class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
+    {
+        private static readonly Regex Validator = new Regex("ShouldNotContainValueForKey", RegexOptions.Compiled);
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return Validator.IsMatch(environment.ShouldMethod);
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment)
+        {
+            const string format = @"
+    Dictionary
+        ""{0}""
+    should not contain key
+        ""{1}""
+    with value
+        ""{2}""
+    {3}";
+
+            var codePart = environment.GetCodePart();
+            var expectedValue = environment.Expected.Inspect();
+            var actualValue = environment.Actual.Inspect();
+            var keyValue = environment.Key.Inspect();
+
+            if (environment.HasKey)
+            {
+                var valueString = "but does";
+                return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);
+            }
+            else
+            {
+                return String.Format(format, codePart, actualValue.Trim('"'), expectedValue.Trim('"'), "but the key does not exist");
+            }
+        }
+    }
+
+    internal class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenerator
+    {
+        private static readonly Regex Validator = new Regex("ShouldContainKeyAndValue", RegexOptions.Compiled);
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return Validator.IsMatch(environment.ShouldMethod);
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment)
+        {
+            const string format = @"
+    Dictionary
+        ""{0}""
+    should contain key
+        ""{1}""
+    with value
+        ""{2}""
+    {3}";
+
+            var codePart = environment.GetCodePart();
+            var expectedValue = environment.Expected.Inspect();
+            var actualValue = environment.Actual.Inspect();
+            var keyValue = environment.Key.Inspect();
+
+            if (environment.HasKey)
+            {
+                var valueString = string.Format("but value was \"{0}\"", actualValue.Trim('"'));
+                return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);
+            }
+            else
+            {
+                return String.Format(format, codePart, actualValue.Trim('"'), expectedValue.Trim('"'), "but the key does not exist");
+            }
+        }
+    }
+
+    internal class DictionaryShouldOrNotConatinKeyMessageGenerator : ShouldlyMessageGenerator
+    {
+        private static readonly Regex Validator = new Regex("Should(Not)?ContainKey", RegexOptions.Compiled);
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return Validator.IsMatch(environment.ShouldMethod) && !environment.HasActual;
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment)
+        {
+            const string format = @"
+    Dictionary
+        ""{0}""
+    {1}
+        ""{2}""
+    but does {3}";
+
+            var codePart = environment.GetCodePart();
+            var expectedValue = environment.Expected.Inspect();
+
+            if (environment.IsNegatedAssertion)
+                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected, "");
+
+            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expectedValue.Trim('"'), "not");
+        }
+    }
 
     internal class ShouldBeNullOrEmptyMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("Should(Not)?BeNullOrEmpty", RegexOptions.Compiled);
         public override bool CanProcess(TestEnvironment environment)
         {
-            return Validator.IsMatch(environment.ShouldMethod);
+            return Validator.IsMatch(environment.ShouldMethod) && !environment.HasActual;
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment, object actual)
+        public override string GenerateErrorMessage(TestEnvironment environment)
         {
             const string format = @"
     {0}
             {1}";
 
-            var codePart = GetCodePart(environment);
-            var actualValue = actual.Inspect();
+            var codePart = environment.GetCodePart();
+            var expectedValue = environment.Expected.Inspect();
 
-            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
-            if (isNegatedAssertion)
-                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actual == null ? "null" : "");
+            if (environment.IsNegatedAssertion)
+                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected == null ? "null" : "");
 
-            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actualValue);
+            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expectedValue);
         }
     }
 
@@ -66,69 +163,29 @@ namespace Shouldly
 
         public override bool CanProcess(TestEnvironment environment)
         {
-            return Validator.IsMatch(environment.ShouldMethod);
+            return Validator.IsMatch(environment.ShouldMethod) && !environment.HasActual;
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment, object actual)
+        public override string GenerateErrorMessage(TestEnvironment environment)
         {
             const string format = @"
     {0}
             {1}
         but was {2}";
 
-            var codePart = GetCodePart(environment);
-            var actualValue = actual.Inspect();
+            var codePart = environment.GetCodePart();
+            var expectedValue = environment.Expected.Inspect();
 
-            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
-            if (isNegatedAssertion)
-                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actual == null ? "null" : "");
+            if (environment.IsNegatedAssertion)
+                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected == null ? "null" : "");
 
-            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actualValue);
-        }
-    }
-
-    internal class DefaultMessageGenerator : ShouldlyMessageGenerator
-    {
-        public override bool CanProcess(TestEnvironment environment)
-        {
-            return true;
-        }
-
-        public override string GenerateErrorMessage(TestEnvironment environment, object expected)
-        {
-            var format = @"
-    {0}
-        {1} {2}
-    {3}
-        but does {4}";
-
-            var codePart = GetCodePart(environment);
-            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
-
-            const string elementSatifyingTheConditionString = "an element satisfying the condition";
-            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expected is BinaryExpression ? elementSatifyingTheConditionString : "", expected.Inspect(), isNegatedAssertion ? "" : "not");
+            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expectedValue);
         }
     }
 
     internal abstract class ShouldlyMessageGenerator
     {
         public abstract bool CanProcess(TestEnvironment environment);
-        public abstract string GenerateErrorMessage(TestEnvironment environment, object expected);
-
-
-        protected static string GetCodePart(TestEnvironment environment)
-        {
-            var codePart = "The provided expression";
-
-            if (environment.DeterminedOriginatingFrame)
-            {
-                var codeLines = String.Join("\n",
-                                            File.ReadAllLines(environment.FileName)
-                                                .Skip(environment.LineNumber).ToArray());
-
-                codePart = codeLines.Substring(0, codeLines.IndexOf(environment.ShouldMethod) - 1).Trim();
-            }
-            return codePart;
-        }
+        public abstract string GenerateErrorMessage(TestEnvironment environment);
     }
 }

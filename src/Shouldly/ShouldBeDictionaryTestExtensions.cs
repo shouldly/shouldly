@@ -13,28 +13,28 @@ namespace Shouldly
                 throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
         }
 
-        public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
-        {
-            if (!dictionary.ContainsKey(key))
-                throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
-
-            if (!dictionary[key].Equals(val))
-                throw new ChuckedAWobbly(new ShouldlyMessage(val,dictionary[key]).ToString());
-        }
-
         public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) 
         {
             if (dictionary.ContainsKey(key))
                 throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
         }
 
+        public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
+        {
+            if (!dictionary.ContainsKey(key))
+                throw new ChuckedAWobbly(new ShouldlyMessage(val, key).ToString());
+
+            if (!dictionary[key].Equals(val))
+                throw new ChuckedAWobbly(new ShouldlyMessage(val, dictionary[key], key).ToString());
+        }
+
         public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
         {
             if (!dictionary.ContainsKey(key))
-                throw new ChuckedAWobbly(new ShouldlyMessage(key).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(val, key).ToString());
 
             if (dictionary[key].Equals(val))
-                throw new ChuckedAWobbly(new ShouldlyMessage(dictionary[key],val).ToString());
+                throw new ChuckedAWobbly(new ShouldlyMessage(val, dictionary[key], key).ToString());
         }
     }
 }

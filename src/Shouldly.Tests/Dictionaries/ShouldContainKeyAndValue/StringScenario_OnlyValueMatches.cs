@@ -3,7 +3,7 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 {
-    public class StringScenario : ShouldlyShouldTestScenario
+    public class StringScenario_OnlyValueMatches : ShouldlyShouldTestScenario
     {
         private readonly Dictionary<string, string> _dictionary = new Dictionary<string, string>
         {
