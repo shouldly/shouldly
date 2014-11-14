@@ -228,8 +228,6 @@
     <Compile Include="ShouldBeUnique\ObjectArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\StringArrayScenario.cs" />
     <Compile Include="ShouldNotBeUnique\InegerArrayScenario.cs" />
-    <Compile Include="ShouldNotBeUnique\ObjectArrayScenario.cs" />
-    <Compile Include="ShouldNotBeUnique\StringArrayScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shouldly\Shouldly.csproj">

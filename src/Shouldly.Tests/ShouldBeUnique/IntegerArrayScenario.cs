@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBeUnique
         {
             get
             {
-                return "new [] { 1, 2, 2 } should be unique but was not";
+                return "new [] { 1, 2, 2 } should be unique but [2] was duplicated";
             }
         }
 

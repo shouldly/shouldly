@@ -11,15 +11,17 @@ namespace Shouldly
 {
     internal class ShouldlyMessage
     {
-        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[] {new ShouldBeNullOrEmptyMessageGenerator(),  new ShouldBeEmptyMessageGenerator(), new DynamicShouldMessageGenerator(), new DictionaryShouldOrNotConatinKeyMessageGenerator(), new DictionaryShouldContainKeyAndValueMessageGenerator(), new DictionaryShouldNotContainValueForKeyMessageGenerator() };
-        private TestEnvironment _testEnvironment;
+        private readonly TestEnvironment _testEnvironment;
         private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = 
             new ShouldlyMessageGenerator[]
             {
-                new ShouldBeNullOrEmptyMessageGenerator(),  
-                new ShouldBeEmptyMessageGenerator(), 
-                new ShouldBeUniqueMessageGenerator(), 
-                new DefaultMessageGenerator()
+                new ShouldBeNullOrEmptyMessageGenerator(),
+                new ShouldBeEmptyMessageGenerator(),
+                new ShouldBeUniqueMessageGenerator(),
+                new DictionaryShouldOrNotConatinKeyMessageGenerator(),
+                new DictionaryShouldContainKeyAndValueMessageGenerator(),
+                new DictionaryShouldNotContainValueForKeyMessageGenerator(),
+                new DynamicShouldMessageGenerator()
             };
 
         public ShouldlyMessage(object expected)
