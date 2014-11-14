@@ -72,6 +72,11 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
         }
 
+        public static void ShouldBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
         [ContractAnnotation("actual:null,expected:null => halt")]
         public static void ShouldNotBe<T>(this T actual, T expected)
         {
@@ -84,6 +89,11 @@ namespace Shouldly
         }
 
         public static void ShouldNotBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance)
+        {
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected);
+        }
+
+        public static void ShouldNotBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
         {
             actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected);
         }
