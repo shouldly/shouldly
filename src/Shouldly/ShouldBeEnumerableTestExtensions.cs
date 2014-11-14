@@ -86,6 +86,27 @@ namespace Shouldly
             }))
                 throw new ChuckedAWobbly(new ShouldlyMessage(expected).ToString());
         }
+
+        public static void ShouldBeUnique<T>(this IEnumerable<T> actual)
+        {
+            var duplicates = GetDuplicates(actual);
+            if (duplicates.Any())
+                throw new ChuckedAWobbly(new ShouldlyMessage(new List<T>(), duplicates).ToString());
+        }
+
+        static List<object> GetDuplicates<T>(IEnumerable<T> items)
+        {
+            var list = new List<object>();
+            var duplicates = new List<object>();
+
+            foreach (object o1 in items)
+            {
+                duplicates.AddRange(list.Where(o2 => o1 != null && o1.Equals(o2)));
+                list.Add(o1);
+            }
+
+            return duplicates;
+        }
     }
 
 }
