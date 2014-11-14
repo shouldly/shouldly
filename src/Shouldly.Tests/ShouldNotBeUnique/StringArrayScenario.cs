@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldNotBeUnique
             get
             {
                 return "new string[] { \"string2\", \"string1\", \"string42\", \"string53\" } " +
-                "should not be unique [ \"string2\", \"string1\", \"string42\", \"string53\" ] but does";
+                "should not be unique but was";
             }
         }
 

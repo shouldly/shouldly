@@ -212,7 +212,7 @@
     <Compile Include="Strings\ShouldStartWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="TestHelpers\UncomparableClass.cs" />
     <Compile Include="TestHelpers\Widget.cs" />
-    <Compile Include="ShouldBeUnique\InegerArrayScenario.cs" />
+    <Compile Include="ShouldBeUnique\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\ObjectArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\StringArrayScenario.cs" />
     <Compile Include="ShouldNotBeUnique\InegerArrayScenario.cs" />
@@ -238,8 +238,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="ShouldBeUnique\" />
-    <Folder Include="ShouldNotBeUnique\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
