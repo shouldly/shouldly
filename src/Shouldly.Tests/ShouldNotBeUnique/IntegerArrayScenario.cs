@@ -2,13 +2,13 @@
 
 namespace Shouldly.Tests.ShouldNotBeUnique
 {
-    public class InegerArrayScenario : ShouldlyShouldTestScenario
+    public class IntegerArrayScenario : ShouldlyShouldTestScenario
     {
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "new [] { 1, 2, 3 } should not be unique [ 1, 2, 3 ] but does";
+                return "new [] { 1, 2, 3 } should not be unique but was";
             }
         }
 

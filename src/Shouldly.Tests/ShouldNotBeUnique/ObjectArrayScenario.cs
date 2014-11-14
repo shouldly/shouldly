@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldNotBeUnique
         {
             get
             {
-                return "new object[] { 1, 2, 3, 4, 7 } should not be unique [1, 2, 3, 4, 7] but does";
+                return "new object[] { 1, 2, 3, 4, 7 } should not be unique but was";
             }
         }
 
