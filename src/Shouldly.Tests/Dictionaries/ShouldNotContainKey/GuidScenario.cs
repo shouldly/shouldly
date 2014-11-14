@@ -20,7 +20,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainKey
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_dictionary should not contain key 89bdbe3d-3436-4749-bcb7-84264394026c but does"; }
+            get { return "Dictionary \"_dictionary\" should not contain key \"89bdbe3d-3436-4749-bcb7-84264394026c\" but does"; }
         }
 
         protected override void ShouldPass()

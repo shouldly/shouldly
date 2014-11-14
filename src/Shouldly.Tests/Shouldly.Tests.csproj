@@ -38,6 +38,7 @@
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -55,14 +56,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario_OnlyValueMatches.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario_OnlyKeyMatches.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\GuidScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="DynamicShould\HavePropertyNonDynamicScenario.cs" />
+    <Compile Include="DynamicShould\MultiLineHavePropertyScenario_MaximumLines.cs" />
+    <Compile Include="DynamicShould\MultiLineHavePropertyScenario.cs" />
+    <Compile Include="DynamicShould\HavePropertyScenario.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_KeyAndValueExist.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\KeyAndValueExist.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_NoKeyExists.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
+    <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
     <Compile Include="ShouldCompleteInTests.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\GuidScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario.cs" />
     <Compile Include="Dictionaries\ShouldContainKey\ClassScenario.cs" />
     <Compile Include="Dictionaries\ShouldContainKey\GuidScenario.cs" />
     <Compile Include="Dictionaries\ShouldContainKey\StringScenario.cs" />
@@ -81,6 +93,7 @@
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
+    <Compile Include="ShouldNotBeUnique\IntegerArrayScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
@@ -215,7 +228,6 @@
     <Compile Include="ShouldBeUnique\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\ObjectArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\StringArrayScenario.cs" />
-    <Compile Include="ShouldNotBeUnique\InegerArrayScenario.cs" />
     <Compile Include="ShouldNotBeUnique\ObjectArrayScenario.cs" />
     <Compile Include="ShouldNotBeUnique\StringArrayScenario.cs" />
   </ItemGroup>
