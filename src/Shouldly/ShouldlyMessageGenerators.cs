@@ -135,6 +135,30 @@ namespace Shouldly
 
     internal class ShouldBeNullOrEmptyMessageGenerator : ShouldlyMessageGenerator
     {
+        private static readonly Regex Validator = new Regex("Should(Not)?BeUnique", RegexOptions.Compiled);
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return Validator.IsMatch(environment.ShouldMethod);
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment)
+        {
+            const string format = @"
+    {0}
+            {1} {2}";
+
+            var codePart = environment.GetCodePart();
+
+            var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
+            if (isNegatedAssertion)
+                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), "but was");
+
+            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), "but was not");
+        }
+    }
+
+    internal class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
+    {
         private static readonly Regex Validator = new Regex("Should(Not)?BeNullOrEmpty", RegexOptions.Compiled);
         public override bool CanProcess(TestEnvironment environment)
         {
