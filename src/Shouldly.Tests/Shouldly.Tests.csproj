@@ -74,6 +74,7 @@
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
     <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
+    <Compile Include="ShouldBe\WithTolerance\DateTimeOffsetScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\DateTimeScenario.cs" />
     <Compile Include="ShouldCompleteInTests.cs" />
     <Compile Include="Dictionaries\ShouldContainKey\ClassScenario.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
+    <Compile Include="ShouldNotBe\WithTolerance\DateTimeOffsetScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\DateTimeScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />

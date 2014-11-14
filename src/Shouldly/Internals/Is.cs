@@ -160,6 +160,11 @@ namespace Shouldly
             return (actual - expected).Duration() < tolerance;
         }
 
+        public static bool Equal(DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance)
+        {
+            return (actual - expected).Duration() < tolerance;
+        }
+
         public static bool InstanceOf(object o, Type expected)
         {
             if (o == null)
