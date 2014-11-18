@@ -1,4 +1,4 @@
-﻿using System.Dynamic;
+﻿#if net40
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.DynamicShouldTests
@@ -30,3 +30,4 @@ namespace Shouldly.Tests.DynamicShouldTests
         }
     }
 }
+#endif
