@@ -1,4 +1,3 @@
-#if net40
 namespace Shouldly.MessageGenerators
 {
     internal abstract class ShouldlyMessageGenerator
@@ -7,4 +6,3 @@ namespace Shouldly.MessageGenerators
         public abstract string GenerateErrorMessage(TestEnvironment environment);
     }
 }
-#endif
