@@ -18,7 +18,7 @@ namespace Shouldly.Tests.TestHelpers
             }
             catch (Exception ex)
             {
-                throw new ChuckedAWobbly(new ShouldlyMessage(ex.GetType()).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.GetType()).ToString());
             }
         }
     }

@@ -65,13 +65,13 @@ namespace Shouldly
         public static void ShouldBeNullOrEmpty(this string actual)
         {
             if (!string.IsNullOrEmpty(actual))
-                throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(actual).ToString());
         }
 
         public static void ShouldNotBeNullOrEmpty(this string actual)
         {
             if (string.IsNullOrEmpty(actual))
-                throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(actual).ToString());
         }
 
     }

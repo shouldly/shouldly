@@ -19,10 +19,10 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException), e.GetType()).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType()).ToString());
             }
 
-            throw new ChuckedAWobbly(new ShouldlyMessage(typeof(TException)).ToString());
+            throw new ChuckedAWobbly(new ExpectedShouldlyMessage(typeof(TException)).ToString());
         }
 
         public static void NotThrow(Action action)
@@ -33,7 +33,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ChuckedAWobbly(new ShouldlyMessage(ex.GetType()).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.GetType()).ToString());
             }
         }
 
@@ -45,7 +45,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ChuckedAWobbly(new ShouldlyMessage(ex.GetType()).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.GetType()).ToString());
             }
         }
     }

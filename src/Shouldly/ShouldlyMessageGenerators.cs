@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly
 {
@@ -71,6 +70,76 @@ namespace Shouldly
         }
     }
 
+    internal class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
+    {
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return environment.ShouldMethod.StartsWith("Should")
+                && !environment.ShouldMethod.Contains("Contain")
+                && environment.UnderlyingShouldMethod.GetParameters().Last().Name == "tolerance";
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment)
+        {
+            const string format = @"
+        {0}
+    should {1}be within
+        {2}
+    of
+        {3}
+    but was 
+        {4}";
+
+            var codePart = environment.GetCodePart();
+            var tolerance = environment.Tolerance.Inspect();
+            var expectedValue = environment.Expected.Inspect();
+            var actualValue = environment.Actual.Inspect();
+            var negated = environment.ShouldMethod.Contains("Not") ? "not " : string.Empty;
+
+            var message = string.Format(format, codePart, negated, tolerance, expectedValue, actualValue);
+
+            if (environment.Actual.CanGenerateDifferencesBetween(environment.Expected))
+            {
+                message += string.Format(@"
+        difference
+    {0}",
+                environment.Actual.HighlightDifferencesBetween(environment.Expected));
+            }
+
+            return message;
+        }
+    }
+
+    internal class ShouldContainWithinRangeMessageGenerator : ShouldlyMessageGenerator
+    {
+        public override bool CanProcess(TestEnvironment environment)
+        {
+            return environment.ShouldMethod.StartsWith("Should")
+                   && environment.ShouldMethod.Contains("Contain")
+                   && environment.UnderlyingShouldMethod.GetParameters().Last().Name == "tolerance";
+        }
+
+        public override string GenerateErrorMessage(TestEnvironment environment)
+        {
+            const string format = @"
+        {0}
+    should {1}contain
+        {2}
+    within
+        {3}
+    but was
+        {4}";
+
+            var codePart = environment.GetCodePart();
+            var tolerance = environment.Tolerance.Inspect();
+            var expectedValue = environment.Expected.Inspect();
+            var actualValue = environment.Actual.Inspect();
+            var negated = environment.ShouldMethod.Contains("Not") ? "not " : string.Empty;
+            
+            return string.Format(format, codePart, negated, expectedValue, tolerance, actualValue);
+        }
+    }
+
     internal class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("ShouldContainKeyAndValue", RegexOptions.Compiled);
@@ -107,7 +176,7 @@ namespace Shouldly
         }
     }
 
-    internal class DictionaryShouldOrNotConatinKeyMessageGenerator : ShouldlyMessageGenerator
+    internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("Should(Not)?ContainKey", RegexOptions.Compiled);
         public override bool CanProcess(TestEnvironment environment)

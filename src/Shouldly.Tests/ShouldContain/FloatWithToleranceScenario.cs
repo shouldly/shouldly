@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new[]{1f, 2f, 3f} should contain 1.8 but was [1, 2, 3]"; }
+            get { return "new[]{1f, 2f, 3f} should contain 1.8 within 0.1 but was [1, 2, 3]"; }
         }
 
         protected override void ShouldPass()

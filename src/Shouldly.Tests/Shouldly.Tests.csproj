@@ -74,6 +74,9 @@
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
     <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
+    <Compile Include="ShouldBe\WithTolerance\DateTimeOffsetScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\DateTimeScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\TimeSpanScenario.cs" />
     <Compile Include="ShouldCompleteInTests.cs" />
     <Compile Include="Dictionaries\ShouldContainKey\ClassScenario.cs" />
     <Compile Include="Dictionaries\ShouldContainKey\GuidScenario.cs" />
@@ -93,6 +96,9 @@
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
+    <Compile Include="ShouldNotBe\WithTolerance\DateTimeOffsetScenario.cs" />
+    <Compile Include="ShouldNotBe\WithTolerance\DateTimeScenario.cs" />
+    <Compile Include="ShouldNotBe\WithTolerance\TimeSpanScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
@@ -197,12 +203,12 @@
     <Compile Include="ShouldBe\IntegerScenario.cs" />
     <Compile Include="ShouldBe\StringScenario.cs" />
     <Compile Include="ShouldBe\UncomparableClassScenario.cs" />
-    <Compile Include="ShouldBe\WithTollerance\EnumerableOfDoubleScenario.cs" />
-    <Compile Include="ShouldBe\WithTollerance\DoubleScenario.cs" />
-    <Compile Include="ShouldBe\WithTollerance\FloatScenario.cs" />
-    <Compile Include="ShouldBe\WithTollerance\DecimalScenario.cs" />
-    <Compile Include="ShouldBe\WithTollerance\EnumerableOfFloatScenario.cs" />
-    <Compile Include="ShouldBe\WithTollerance\EnumerableOfDecimalScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\EnumerableOfDoubleScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\DoubleScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\FloatScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\DecimalScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\EnumerableOfFloatScenario.cs" />
+    <Compile Include="ShouldBe\WithTolerance\EnumerableOfDecimalScenario.cs" />
     <Compile Include="TestHelpers\ShouldlyShouldFailureTestScenario.cs" />
     <Compile Include="TestHelpers\ShouldlyShouldTestScenario.cs" />
     <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
@@ -227,7 +233,6 @@
     <Compile Include="ShouldBeUnique\IntegerArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\ObjectArrayScenario.cs" />
     <Compile Include="ShouldBeUnique\StringArrayScenario.cs" />
-    <Compile Include="ShouldNotBeUnique\InegerArrayScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shouldly\Shouldly.csproj">

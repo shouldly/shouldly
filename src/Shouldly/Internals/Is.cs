@@ -155,6 +155,23 @@ namespace Shouldly
             return Math.Abs(actual - expected) < tolerance;
         }
 
+        public static bool Equal(DateTime actual, DateTime expected, TimeSpan tolerance)
+        {
+            return (actual - expected).Duration() < tolerance;
+        }
+
+        public static bool Equal(DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance)
+        {
+            return (actual - expected).Duration() < tolerance;
+        }
+
+        public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
+        {
+            return (actual - expected).Duration() < tolerance;
+        }
+
+       
+
         public static bool InstanceOf(object o, Type expected)
         {
             if (o == null)

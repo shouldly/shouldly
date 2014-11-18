@@ -9,42 +9,66 @@ using System.Reflection;
 
 namespace Shouldly
 {
-    internal class ShouldlyMessage
+    internal class ExpectedShouldlyMessage : ShouldlyMessage
     {
-        private readonly TestEnvironment _testEnvironment;
-        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = 
-            new ShouldlyMessageGenerator[]
-            {
-                new ShouldBeNullOrEmptyMessageGenerator(),
-                new ShouldBeEmptyMessageGenerator(),
-                new ShouldBeUniqueMessageGenerator(),
-                new DictionaryShouldOrNotConatinKeyMessageGenerator(),
-                new DictionaryShouldContainKeyAndValueMessageGenerator(),
-                new DictionaryShouldNotContainValueForKeyMessageGenerator(),
-                new DynamicShouldMessageGenerator()
-            };
-
-        public ShouldlyMessage(object expected)
+        public ExpectedShouldlyMessage(object expected)
         {
-            _testEnvironment = GetStackFrameForOriginatingTestMethod(expected);
-            _testEnvironment.HasActual = false; 
-
+            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected);
         }
+    }
 
-        public ShouldlyMessage(object expected, object actual)
+    internal class ExpectedActualShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualShouldlyMessage(object expected, object actual)
         {
-            _testEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
-            _testEnvironment.HasActual = true; 
+            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment.HasActual = true;
         }
+    }
 
-        public ShouldlyMessage(object expected, object actual, object key)
+    internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance)
         {
-            _testEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
-            _testEnvironment.Key = key; 
-            _testEnvironment.HasActual = true; 
-            _testEnvironment.HasKey = true; 
+            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment.Tolerance = tolerance;
+            TestEnvironment.HasActual = true;
         }
+    }
 
+    internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key)
+        {
+            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment.Key = key;
+            TestEnvironment.HasActual = true;
+            TestEnvironment.HasKey = true; 
+        }
+    }
+
+    internal abstract class ShouldlyMessage
+    {
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
+        {
+            new ShouldBeNullOrEmptyMessageGenerator(),  
+			new ShouldBeEmptyMessageGenerator(), 
+			new DynamicShouldMessageGenerator(), 
+			new DictionaryShouldOrNotContainKeyMessageGenerator(), 
+			new DictionaryShouldContainKeyAndValueMessageGenerator(), 
+			new DictionaryShouldNotContainValueForKeyMessageGenerator(),
+            new ShouldBeWithinRangeMessageGenerator(), 
+            new ShouldContainWithinRangeMessageGenerator(),
+            new ShouldBeUniqueMessageGenerator(), 
+        };
+        private TestEnvironment _testEnvironment;
+
+        protected TestEnvironment TestEnvironment
+        {
+            get { return _testEnvironment; }
+            set { _testEnvironment = value; }
+        }
+        
         public override string ToString()
         {
             return   GenerateShouldMessage();
@@ -107,7 +131,7 @@ namespace Shouldly
         }
 
         // TODO: Move all this logic into the TestEnvironment class itself. Perhaps as part of it's constructor
-        private static TestEnvironment GetStackFrameForOriginatingTestMethod(object expected, object actual = null)
+        protected static TestEnvironment GetStackFrameForOriginatingTestMethod(object expected, object actual = null)
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
@@ -143,6 +167,7 @@ namespace Shouldly
                        {
                            DeterminedOriginatingFrame = fileName != null && File.Exists(fileName),
                            ShouldMethod = shouldlyFrame.GetMethod().Name,
+                           UnderlyingShouldMethod = shouldlyFrame.GetMethod(),
                            FileName = fileName,
                            LineNumber = originatingFrame.GetFileLineNumber() - 1,
                            OriginatingFrame = originatingFrame,

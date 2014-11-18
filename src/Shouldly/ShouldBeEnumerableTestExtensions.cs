@@ -13,58 +13,58 @@ namespace Shouldly
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected)
         {
             if (!actual.Contains(expected))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected)
         {
             if (actual.Contains(expected))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
         {
             var condition = elementPredicate.Compile();
             if (!actual.Any(condition))
-                throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(elementPredicate.Body).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
         {
             var condition = elementPredicate.Compile();
             if (actual.Any(condition))
-                throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(elementPredicate.Body).ToString());
         }
 
         public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
         {
             var condition = elementPredicate.Compile();
             if (actual.Any(v => !condition(v)))
-                throw new ChuckedAWobbly(new ShouldlyMessage(elementPredicate.Body).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(elementPredicate.Body).ToString());
         }
 
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)
         {
             if (actual == null || (actual != null && actual.Count() != 0))
-                throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(actual).ToString());
         }
 
         public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual)
         {
             if (actual == null || actual != null && !actual.Any())
-                throw new ChuckedAWobbly(new ShouldlyMessage(actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(actual).ToString());
         }
 
         public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) 
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance).ToString());
         }
 
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) 
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance).ToString());
         }
 
         public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
@@ -84,14 +84,14 @@ namespace Shouldly
                 }
                 return false;
             }))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected).ToString());
+                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(expected).ToString());
         }
 
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual)
         {
             var duplicates = GetDuplicates(actual);
             if (duplicates.Any())
-                throw new ChuckedAWobbly(new ShouldlyMessage(new List<T>(), duplicates).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(new List<T>(), duplicates).ToString());
         }
 
         static List<object> GetDuplicates<T>(IEnumerable<T> items)
