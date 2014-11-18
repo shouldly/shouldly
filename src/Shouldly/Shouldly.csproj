@@ -62,6 +62,16 @@
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />
+    <Compile Include="MessageGenerators\DictionaryShouldContainKeyAndValueMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\DictionaryShouldNotContainValueForKeyMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\DynamicShouldMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeEmptyMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeNullOrEmptyMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeUniqueMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeWithinRangeMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldContainWithinRangeMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldlyMessageGenerator.cs" />
     <Compile Include="Properties\JetBrains.Annotations.cs" />
     <Compile Include="ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
@@ -82,7 +92,6 @@
     <Compile Include="ShouldlyConfiguration.cs" />
     <Compile Include="ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
-    <Compile Include="ShouldlyMessageGenerators.cs" />
     <Compile Include="ShouldlyMethodsAttribute.cs" />
     <Compile Include="ShouldlyStringExtensions.cs" />
     <Compile Include="ShouldThrowTaskExtensions.cs" />
