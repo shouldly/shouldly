@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if net40
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
@@ -31,3 +32,4 @@ namespace Shouldly
         }
     }
 }
+#endif

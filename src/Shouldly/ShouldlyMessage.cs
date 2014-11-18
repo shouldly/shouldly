@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Shouldly.DifferenceHighlighting;
 using System.Reflection;
+using Shouldly.MessageGenerators;
 
 namespace Shouldly
 {
@@ -82,17 +83,13 @@ namespace Shouldly
                 var message = messageGenerator.GenerateErrorMessage(_testEnvironment);
                 return message;
             }
-            else
+            
+            if (_testEnvironment.HasActual)
             {
-                if (_testEnvironment.HasActual)
-                {
-                    return CreateActualVsExpectedMessage(_testEnvironment.Actual, _testEnvironment.Expected, _testEnvironment, _testEnvironment.GetCodePart());
-                }
-                else
-                {
-                    return CreateExpectedErrorMessage();
-                }
+                return CreateActualVsExpectedMessage(_testEnvironment.Actual, _testEnvironment.Expected, _testEnvironment, _testEnvironment.GetCodePart());
             }
+                
+            return CreateExpectedErrorMessage();
         }
 
         public string CreateExpectedErrorMessage()
