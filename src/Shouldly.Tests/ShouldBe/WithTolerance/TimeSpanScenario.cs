@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "timeSpan should be 02:06:00 but was 01:00:00"; }
+            get { return "timeSpan should be within 01:00:00 of 02:06:00 but was 01:00:00"; }
         }
 
         protected override void ShouldPass()

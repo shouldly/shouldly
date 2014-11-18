@@ -7,19 +7,19 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
     {
         protected override void ShouldThrowAWobbly()
         {
-            const float pi = (float)Math.PI;
-            pi.ShouldBe(3.24f, 0.01f);
+            const double pi = Math.PI;
+            pi.ShouldBe(3.24d, 0.01d);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "pi should be 3.24 but was 3.141593"; }
+            get { return "pi should be within 0.01 of 3.24 but was 3.14159265358979"; }
         }
 
         protected override void ShouldPass()
         {
-            const float pi = (float)Math.PI;
-            pi.ShouldBe(3.14f, 0.01f);
+            const double pi = Math.PI;
+            pi.ShouldBe(3.14d, 0.01d);
         }
     }
 }

@@ -34,47 +34,47 @@ namespace Shouldly
 
         public static void ShouldBe(this float actual, float expected, double tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this double actual, double expected, double tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this DateTime actual, DateTime expected, TimeSpan tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
@@ -85,17 +85,17 @@ namespace Shouldly
 
         public static void ShouldNotBe(this DateTime actual, DateTime expected, TimeSpan tolerance)
         {
-            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldNotBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance)
         {
-            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static void ShouldNotBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
         {
-            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected);
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected, tolerance);
         }
 
         public static T ShouldBeAssignableTo<T>(this object actual)
@@ -173,13 +173,13 @@ namespace Shouldly
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
         {
             if (!expected.Contains(actual))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected)
         {
             if (expected.Contains(actual))
-                throw new ChuckedAWobbly(new ShouldlyMessage(expected, actual).ToString());
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>

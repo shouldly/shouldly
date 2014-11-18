@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "date should be 1/06/2000 1:00:01 AM but was 1/06/2000 12:00:00 AM"; }
+            get { return "date should be within 01:00:00 of 1/06/2000 1:00:01 AM but was 1/06/2000 12:00:00 AM"; }
         }
 
         protected override void ShouldPass()

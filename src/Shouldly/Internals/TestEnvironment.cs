@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Shouldly
 {
@@ -12,10 +13,12 @@ namespace Shouldly
         public string FileName { get; set; }
         public int LineNumber { get; set; }
         public StackFrame OriginatingFrame  { get; set; }
+        public MethodBase UnderlyingShouldMethod { get; set; }
 
         public object Key { get; set; }
         public object Expected { get; set; }
         public object Actual { get; set; }
+        public object Tolerance { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
         // In some cases it means the "Actual" value is not relevant (eg: "dictionary.ContainsKey(key)") and in some
