@@ -54,8 +54,10 @@ namespace Shouldly
         {
             new ShouldBeNullOrEmptyMessageGenerator(),  
 			new ShouldBeEmptyMessageGenerator(), 
+#if net40
 			new DynamicShouldMessageGenerator(), 
-			new DictionaryShouldOrNotContainKeyMessageGenerator(), 
+#endif
+            new DictionaryShouldOrNotContainKeyMessageGenerator(), 
 			new DictionaryShouldContainKeyAndValueMessageGenerator(), 
 			new DictionaryShouldNotContainValueForKeyMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
