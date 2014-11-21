@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe.WithTolerance
@@ -16,7 +13,11 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "date should be within 01:00:00 of 1/06/2000 1:00:01 AM but was 1/06/2000 12:00:00 AM"; }
+            get 
+            { 
+                return String.Format("date should be within {0} of {1} but was {2}",
+                    TimeSpan.FromHours(1), new DateTime(2000, 6, 1, 1, 0, 1), new DateTime(2000, 6, 1)); 
+            }
         }
 
         protected override void ShouldPass()
