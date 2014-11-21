@@ -1,3 +1,16 @@
+# 2.3.0
+
+ - [#155](https://github.com/shouldly/shouldly/pull/155) - Fix hardcoded datetimes in tests contributed by Ilya Murzinov ([ilya-murzinov](https://github.com/ilya-murzinov))
+ - [#151](https://github.com/shouldly/shouldly/pull/151) [#149](https://github.com/shouldly/shouldly/issues/149) - ShouldBe tolerance for dates contributed by Ben Scott ([bendetat](https://github.com/bendetat))
+ - [#148](https://github.com/shouldly/shouldly/pull/148) - Improving the messages for the Dictionary failure scenarios. contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
+ - [#145](https://github.com/shouldly/shouldly/pull/145) [#138](https://github.com/shouldly/shouldly/issues/138) - Implementing the 'DynamicShould.HaveProperty' functionality. contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
+ - [#144](https://github.com/shouldly/shouldly/pull/144) - Add ShouldBeUnique for collections contributed by Ilya Murzinov ([ilya-murzinov](https://github.com/ilya-murzinov))
+ - [#143](https://github.com/shouldly/shouldly/issues/143) - Dictionary "ShouldNotContainKeyAndValue" shows slightly incorrect message
+ - [#50](https://github.com/shouldly/shouldly/issues/50) - ShouldAll for IEnumerables
+
+Commits: [b0516804c0...81cad48f85](https://github.com/shouldly/shouldly/compare/b0516804c0...81cad48f85)
+
+
 # 2.2.0 (7 June 2014)
 
  - [#135](https://github.com/shouldly/shouldly/issues/135) - Should be on a list of strings fails +fix
