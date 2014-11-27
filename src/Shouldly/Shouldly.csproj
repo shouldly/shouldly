@@ -67,6 +67,7 @@
     <Compile Include="MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DynamicShouldMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeEmptyMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeIgnoringOrderMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrEmptyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeUniqueMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeWithinRangeMessageGenerator.cs" />

@@ -11,7 +11,6 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
             get { yield return new YourAverageNonComparableType(1); yield return new YourAverageNonComparableType(2); }
         }
 
-
         protected override void ShouldPass()
         {
             var expected = new[]
@@ -36,7 +35,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return @"Actual should be [2, 3] but was [1, 2] difference [*1*, *2*]"; }
+            get { return @"Actual should be [2, 3] (ignoring order) but Actual is missing [3] and [2, 3] is missing [1]"; }
         }
 
         public class YourAverageNonComparableType

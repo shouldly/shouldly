@@ -82,6 +82,8 @@ namespace Shouldly
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
         }
 
+        public bool IgnoreOrder { get; set; }
+
         public string GetCodePart()
         {
             var codePart = "The provided expression";

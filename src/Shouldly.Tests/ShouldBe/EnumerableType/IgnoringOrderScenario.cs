@@ -17,7 +17,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new List<int> { 1, 4, 2 } should be [1, 2, 3] but was [1, 4, 2] difference [1, *4*, *2*]"; }
+            get { return "new List<int> { 1, 4, 2 } should be [1, 2, 3] (ignoring order) but new List<int> { 1, 4, 2 } is missing [3] and [1, 2, 3] is missing [4]"; }
         }
     }
 }
