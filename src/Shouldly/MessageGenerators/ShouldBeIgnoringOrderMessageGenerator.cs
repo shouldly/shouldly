@@ -33,7 +33,8 @@ namespace Shouldly.MessageGenerators
     {0}
             {1}
     {2} (ignoring order)
-    but {3}";
+            but
+    {3}";
 
             string missingMessage = !string.IsNullOrEmpty(actualMissingMessage) && !string.IsNullOrEmpty(expectedMissingMessage)
                 ? string.Format("{0} and {1}", actualMissingMessage, expectedMissingMessage)
