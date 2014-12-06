@@ -14,7 +14,7 @@ namespace Shouldly
     {
         public ExpectedShouldlyMessage(object expected)
         {
-            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected);
+            TestEnvironment = new TestEnvironment(expected);
         }
     }
 
@@ -22,7 +22,7 @@ namespace Shouldly
     {
         public ExpectedActualShouldlyMessage(object expected, object actual)
         {
-            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment = new TestEnvironment(expected, actual);
             TestEnvironment.HasActual = true;
         }
     }
@@ -31,7 +31,7 @@ namespace Shouldly
     {
         public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance)
         {
-            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment = new TestEnvironment(expected, actual);
             TestEnvironment.Tolerance = tolerance;
             TestEnvironment.HasActual = true;
         }
@@ -41,7 +41,7 @@ namespace Shouldly
     {
         public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key)
         {
-            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment = new TestEnvironment(expected, actual);
             TestEnvironment.Key = key;
             TestEnvironment.HasActual = true;
             TestEnvironment.HasKey = true; 
@@ -127,60 +127,6 @@ namespace Shouldly
                 actual.HighlightDifferencesBetween(expected));
             }
             return message;
-        }
-
-        // TODO: Move all this logic into the TestEnvironment class itself. Perhaps as part of it's constructor
-        protected static TestEnvironment GetStackFrameForOriginatingTestMethod(object expected, object actual = null)
-        {
-            var stackTrace = new StackTrace(true);
-            var i = 0;
-            var currentFrame = stackTrace.GetFrame(i);
-
-            if (currentFrame == null) throw new Exception("Unable to find test method");
-
-            var shouldlyFrame = default(StackFrame);
-            while (shouldlyFrame == null || IsShouldlyMethod(currentFrame.GetMethod()))
-            {
-                if (IsShouldlyMethod(currentFrame.GetMethod()))
-                    shouldlyFrame = currentFrame;
-
-                currentFrame = stackTrace.GetFrame(++i);
-
-                // Required to support the DynamicShould.HaveProperty method that takes in a dynamic as a parameter.
-                // Having a method that takes a dynamic really stuffs up the stack trace because the runtime binder
-                // has to inject a whole heap of methods. Our normal way of just taking the next frame doesn't work.
-                // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
-                // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
-                // scanarios. Alternately, it could be replaced with a more robust implementation.
-                while ( currentFrame.GetMethod().DeclaringType == null ||
-                        currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
-                {
-                    currentFrame = stackTrace.GetFrame(++i);
-                }
-            }
-
-            var originatingFrame = currentFrame;
-
-            var fileName = originatingFrame.GetFileName();
-            return new TestEnvironment
-                       {
-                           DeterminedOriginatingFrame = fileName != null && File.Exists(fileName),
-                           ShouldMethod = shouldlyFrame.GetMethod().Name,
-                           UnderlyingShouldMethod = shouldlyFrame.GetMethod(),
-                           FileName = fileName,
-                           LineNumber = originatingFrame.GetFileLineNumber() - 1,
-                           OriginatingFrame = originatingFrame,
-                           Expected = expected,
-                           Actual = actual
-                       };
-        }
-
-        private static bool IsShouldlyMethod(MethodBase method)
-        {
-            if (method.DeclaringType == null)
-                return false;
-
-            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
         }
     }
 }
