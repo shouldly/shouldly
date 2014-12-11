@@ -71,7 +71,9 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\KeyAndValueExist.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_NoKeyExists.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
+    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
     <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
     <Compile Include="ShouldBe\WithTolerance\DateTimeOffsetScenario.cs" />
@@ -192,11 +194,11 @@
     <Compile Include="ShouldBe\ComparingObjectWithString.cs" />
     <Compile Include="ShouldBe\EnumerableType\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderWhenItemsAreNotComparableScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromBothScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfComplexTypeScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\IgnoringOrderScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\IgnoreOrderScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentCollectionTypeScenario.cs" />
     <Compile Include="ShouldBe\JTokenScenario.cs" />
     <Compile Include="ShouldBe\NumbersOfDifferentTypesScenario.cs" />

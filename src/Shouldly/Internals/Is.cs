@@ -71,13 +71,14 @@ namespace Shouldly
             if (actual == null || expected == null)
                 return false;
 
-            if (actual is ICollection && expected is ICollection && ((ICollection)actual).Count != ((ICollection)expected).Count)
+            var actualCollection = actual as ICollection;
+            if (actualCollection != null && expected is ICollection && actualCollection.Count != ((ICollection)expected).Count)
                 return false;
 
             var expectedList = expected.ToList();
             foreach (var actualElement in actual)
             {
-                var match = expectedList.FirstOrDefault(x => Is.Equal(x, actualElement));
+                var match = expectedList.FirstOrDefault(x => Equal(x, actualElement));
                 if (!expectedList.Remove(match))
                     return false;
             }
@@ -169,8 +170,6 @@ namespace Shouldly
         {
             return (actual - expected).Duration() < tolerance;
         }
-
-       
 
         public static bool InstanceOf(object o, Type expected)
         {

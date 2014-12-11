@@ -26,9 +26,14 @@ namespace Shouldly
             }
             else
             {
-                actual.AssertAwesomely(v => ignoreOrder
-                    ? Is.EqualIgnoreOrder(v, expected)
-                    : Is.Equal(v, expected), actual, expected);
+                if (ignoreOrder)
+                {
+                    actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected);
+                }
+                else
+                {
+                    actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
+                }
             }
         }
 

@@ -14,3 +14,5 @@ test-results
 *DotSettings*
 *DS_Store
 *ncrunch*
+*.orig
+Shouldly.sln.ide/

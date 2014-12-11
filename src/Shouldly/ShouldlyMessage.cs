@@ -37,6 +37,16 @@ namespace Shouldly
         }
     }
 
+    internal class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual)
+        {
+            TestEnvironment = new TestEnvironment(expected, actual);
+            TestEnvironment.IgnoreOrder = true;
+            TestEnvironment.HasActual = true;
+        }
+    }
+
     internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key)
@@ -44,7 +54,7 @@ namespace Shouldly
             TestEnvironment = new TestEnvironment(expected, actual);
             TestEnvironment.Key = key;
             TestEnvironment.HasActual = true;
-            TestEnvironment.HasKey = true; 
+            TestEnvironment.HasKey = true;
         }
     }
 
@@ -53,16 +63,17 @@ namespace Shouldly
         private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
             new ShouldBeNullOrEmptyMessageGenerator(),  
-			new ShouldBeEmptyMessageGenerator(), 
-#if net40
-			new DynamicShouldMessageGenerator(), 
-#endif
+            new ShouldBeEmptyMessageGenerator(), 
+    #if net40
+            new DynamicShouldMessageGenerator(), 
+    #endif
             new DictionaryShouldOrNotContainKeyMessageGenerator(), 
-			new DictionaryShouldContainKeyAndValueMessageGenerator(), 
-			new DictionaryShouldNotContainValueForKeyMessageGenerator(),
+            new DictionaryShouldContainKeyAndValueMessageGenerator(), 
+            new DictionaryShouldNotContainValueForKeyMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 
+            new ShouldBeIgnoringOrderMessageGenerator(), 
         };
         private TestEnvironment _testEnvironment;
 
@@ -71,10 +82,10 @@ namespace Shouldly
             get { return _testEnvironment; }
             set { _testEnvironment = value; }
         }
-        
+
         public override string ToString()
         {
-            return   GenerateShouldMessage();
+            return GenerateShouldMessage();
         }
 
         private string GenerateShouldMessage()
@@ -85,12 +96,12 @@ namespace Shouldly
                 var message = messageGenerator.GenerateErrorMessage(_testEnvironment);
                 return message;
             }
-            
+
             if (_testEnvironment.HasActual)
             {
                 return CreateActualVsExpectedMessage(_testEnvironment.Actual, _testEnvironment.Expected, _testEnvironment, _testEnvironment.GetCodePart());
             }
-                
+
             return CreateExpectedErrorMessage();
         }
 
