@@ -41,7 +41,7 @@ namespace Shouldly
     {
         public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual)
         {
-            TestEnvironment = GetStackFrameForOriginatingTestMethod(expected, actual);
+            TestEnvironment = new TestEnvironment(expected, actual);
             TestEnvironment.IgnoreOrder = true;
             TestEnvironment.HasActual = true;
         }

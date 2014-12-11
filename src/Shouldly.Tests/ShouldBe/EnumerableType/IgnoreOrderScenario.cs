@@ -3,7 +3,7 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class IgnoringOrderScenario : ShouldlyShouldTestScenario
+    public class IgnoreOrderScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldPass()
         {
