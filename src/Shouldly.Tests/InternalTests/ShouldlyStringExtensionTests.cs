@@ -22,5 +22,28 @@ namespace Shouldly.Tests.InternalTests
         {
             string.Empty.ShouldMatch(string.Empty.Clip(10));
         }
-   }
+
+        [Test]
+        [TestCase("() => result")]
+        [TestCase("( ) => result")]
+        [TestCase("( ) =>result")]
+        [TestCase("( )=> result")]
+        [TestCase("( )=>result")]
+        [TestCase("()=>result")]
+        [TestCase(@"()
+                        =>result")]
+        [TestCase(@"()
+                        => result")]
+        [TestCase(@"()
+                        =>
+                        result")]
+
+        [TestCase(@" =>         
+                        result")] // The () might be on a different line. Shouldly environment will only give us what is on the assertion line.
+        public void StripLambdaExpressionSyntax_ShouldRemoveLambda(string input)
+        {
+            var inputWithLambdaExpressionStripped = input.StripLambdaExpressionSyntax();
+            inputWithLambdaExpressionStripped.ShouldBe("result");
+        }
+    }
 }

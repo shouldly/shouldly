@@ -74,6 +74,7 @@ namespace Shouldly
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
+            new ShouldSatisfyAllConditionsMessageGenerator(),
         };
         private TestEnvironment _testEnvironment;
 
