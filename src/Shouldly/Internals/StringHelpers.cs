@@ -77,5 +77,11 @@ namespace Shouldly
         {
             return Regex.Replace(input, @"[\r\n\t\s]", "");
         }
+
+        public static string StripLambdaExpressionSyntax(this string input)
+        {
+            var result = Regex.Replace(input, @"\(*\s*\)*\s*=>\s*", "");
+            return result;
+        }
     }
 }

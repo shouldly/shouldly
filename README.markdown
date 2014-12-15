@@ -146,6 +146,11 @@ Other *Shouldly* features:
 
 [ShouldHaveProperty] (#dynamicShouldHaveProperty)
 
+#### Other
+
+[ShouldSatisfyAllConditions] (#shouldSatisfyAllConditions)
+
+
 <a name="classesUsedInExamples"> </a>
 ### Examples
 All the example use the following classes.
@@ -1281,7 +1286,6 @@ System.TimeoutException : The operation has timed out.
 Using the classes defined [here](#classesUsedInExamples), the following test ...
 
 ```c#
-// NOTE: Currently not in the latest Nuget version of Shouldly (version - 2.1.1 )
 [Test]
 public void DynamicShouldHavePropertyTest()
 {
@@ -1301,6 +1305,75 @@ Shouldly.ChuckedAWobbly :
         but does not.
 ```
 
+<a name="shouldSatisfyAllConditions"> </a>
+#### Other - ShouldSatisfyAllConditions
 
+It is a good practice to have only one assertion per test. But like they say 'To every rule, there is an exception'.
+Sometimes it might be neater to check for multiple things as part of a single test (null checking before asserting for example).
+Normally, if the first assertion fails, the test is terminated and the subsequent assertions are not evaluated.
+This might require multiple passes to fix each of the failing assertions. But by using the 'ShouldSatisfyAllConditions' method,
+all the assertions are evaluated at once and all failures displayed in one message, leading to quicker debugging. For example ...
 
+Using the classes defined [here](#classesUsedInExamples), the following test ...
 
+```c#
+[Test]
+public void Without_ShouldSatisfyAllConditions()
+{
+    var mrBurns = new Person() { Name = "Homer", Salary = 30000 };
+    mrBurns.Name.ShouldBe("Mr.Burns");
+    mrBurns.Salary.ShouldBeGreaterThan(1000000);
+}
+```
+
+... shows the following message on failure ...
+
+```
+Shouldly.ChuckedAWobbly : 
+    mrBurns.Name
+        should be
+    "Mr.Burns"
+        but was
+    "Homer"
+```
+
+... and stops further execution and assertion. But the following is a better test which ...
+
+```c#
+// NOTE: Currently not in the latest Nuget version of Shouldly (version - 2.3.0 )
+[Test]
+public void ShouldSatisfyAllConditions()
+{
+    var millionaire = new Person() { Name = "Homer", Salary = 30000 };
+    millionaire.ShouldSatisfyAllConditions
+        (
+            () => millionaire.Name.ShouldBe("Mr.Burns"),
+            () => millionaire.Salary.ShouldBeGreaterThan(1000000)
+        );
+}
+```
+
+... shows the following message on failure ...
+
+```
+Shouldly.ChuckedAWobbly : 
+        millionaire should satisfy all the conditions specified, but does not.
+        The following errors were found ...
+--------------- Error 1 ---------------
+
+    millionaire.Name
+        should be
+    "Mr.Burns"
+        but was
+    "Homer"
+
+--------------- Error 2 ---------------
+
+    millionaire.Salary
+        should be greater than
+    1000000
+        but was
+    30000
+
+-----------------------------------------
+```

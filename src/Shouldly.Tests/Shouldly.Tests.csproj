@@ -106,6 +106,10 @@
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskScenario.cs" />
     <Compile Include="ShouldNotThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MixShoudlyAssertsWithNUnitAsserts.cs" />
+    <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario.cs" />
+    <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MultiLine2.cs" />
+    <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MultiLine.cs" />
     <Compile Include="ShouldThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldThrow\ActionDelegateThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskOfStringThrowsDifferentExceptionScenario.cs" />

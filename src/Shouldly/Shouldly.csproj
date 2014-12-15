@@ -66,6 +66,7 @@
     <Compile Include="MessageGenerators\DictionaryShouldNotContainValueForKeyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DynamicShouldMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldSatisfyAllConditionsMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeEmptyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeIgnoringOrderMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrEmptyMessageGenerator.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="MessageGenerators\ShouldContainWithinRangeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldlyMessageGenerator.cs" />
     <Compile Include="Properties\JetBrains.Annotations.cs" />
+    <Compile Include="ShouldSatisfyAllConditionsTestExtensions.cs" />
     <Compile Include="ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
