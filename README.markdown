@@ -1340,7 +1340,6 @@ Shouldly.ChuckedAWobbly :
 ... and stops further execution and assertion. But the following is a better test which ...
 
 ```c#
-// NOTE: Currently not in the latest Nuget version of Shouldly (version - 2.3.0 )
 [Test]
 public void ShouldSatisfyAllConditions()
 {
