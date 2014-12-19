@@ -19,7 +19,7 @@ namespace Shouldly.MessageGenerators
         The following errors were found ...
 {1}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var expectedValue = environment.Expected.ToString();
 
             return String.Format(format, codePart, expectedValue);

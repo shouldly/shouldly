@@ -20,7 +20,7 @@ namespace Shouldly.MessageGenerators
         ""{2}""
     but does {3}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var expectedValue = environment.Expected.Inspect();
 
             if (environment.IsNegatedAssertion)

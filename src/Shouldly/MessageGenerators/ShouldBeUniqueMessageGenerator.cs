@@ -20,7 +20,7 @@ namespace Shouldly.MessageGenerators
     but {2}
             was duplicated";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var actual = environment.Actual.Inspect();
 
             return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actual);

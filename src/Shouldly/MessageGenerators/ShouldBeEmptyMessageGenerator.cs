@@ -19,7 +19,7 @@ namespace Shouldly.MessageGenerators
             {1}
         but was {2}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var expectedValue = environment.Expected.Inspect();
 
             if (environment.IsNegatedAssertion)

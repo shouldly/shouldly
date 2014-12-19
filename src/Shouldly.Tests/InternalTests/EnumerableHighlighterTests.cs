@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Shouldly.DifferenceHighlighting;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.InternalTests
 {
@@ -12,7 +13,7 @@ namespace Shouldly.Tests.InternalTests
         public void CanProcessTwoEnumerables()
         {
             _context
-                .CanProcess(new[] {1, 2, 3}, new[] {4, 5, 6})
+                .CanProcess(MockHelper.GetMockTestEnvironment( new[] { 1, 2, 3 }, new[] { 4, 5, 6 }).Object)
                 .ShouldBe(true);
         }
 
@@ -20,7 +21,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessEnumerableActualAndIntExpected()
         {
             _context
-                .CanProcess(new[] {1, 2, 3}, 4)
+                .CanProcess(MockHelper.GetMockTestEnvironment(new[] {1, 2, 3}, 4).Object)
                 .ShouldBe(false);
         }
 
@@ -28,7 +29,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessEnumerableActualAndStringExpected()
         {
             _context
-                .CanProcess(new[] {1, 2, 3}, "four")
+                .CanProcess(MockHelper.GetMockTestEnvironment(new[] {1, 2, 3}, "four").Object)
                 .ShouldBe(false);
         }
 
@@ -36,7 +37,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessStringActualAndStringExpected()
         {
             _context
-                .CanProcess("one", "two")
+                .CanProcess(MockHelper.GetMockTestEnvironment("one", "two").Object)
                 .ShouldBe(false);
         }
 
@@ -44,7 +45,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessTwoInts()
         {
             _context
-                .CanProcess(1, 2)
+                .CanProcess(MockHelper.GetMockTestEnvironment(1, 2).Object)
                 .ShouldBe(false);
         }
     }

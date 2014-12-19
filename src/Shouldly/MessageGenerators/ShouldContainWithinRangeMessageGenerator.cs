@@ -22,7 +22,7 @@ namespace Shouldly.MessageGenerators
     but was
         {4}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var tolerance = environment.Tolerance.Inspect();
             var expectedValue = environment.Expected.Inspect();
             var actualValue = environment.Actual.Inspect();

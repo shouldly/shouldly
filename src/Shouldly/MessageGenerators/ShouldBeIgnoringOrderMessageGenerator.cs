@@ -16,7 +16,7 @@ namespace Shouldly.MessageGenerators
         {
             var expected = ((IEnumerable)environment.Expected).Cast<object>().ToArray();
             var actual = ((IEnumerable)environment.Actual).Cast<object>().ToArray();
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var expectedFormattedValue = expected.Inspect();
 
             var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(e, a))).ToArray();

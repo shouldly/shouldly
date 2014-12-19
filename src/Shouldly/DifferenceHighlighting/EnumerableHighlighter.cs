@@ -23,23 +23,20 @@ namespace Shouldly.DifferenceHighlighting
         {
         }
 
-        public bool CanProcess<T1, T2>(T1 expected, T2 actual)
+        public bool CanProcess(ITestEnvironment testEnvironment)
         {
-            return expected != null && actual != null
-                   && (expected is IEnumerable)
-                   && !(expected is string)
-                   && (actual is IEnumerable)
-                   && !(actual is string);
+            return testEnvironment.Expected != null && testEnvironment.Actual != null
+                   && (testEnvironment.Expected is IEnumerable)
+                   && !(testEnvironment.Expected is string)
+                   && (testEnvironment.Actual is IEnumerable)
+                   && !(testEnvironment.Actual is string);
         }
 
-        public string HighlightDifferences<T1, T2>(T1 expected, T2 actual)
+        public string HighlightDifferences(ITestEnvironment testEnvironment)
         {
-            return HighlightDifferences((IEnumerable)expected, (IEnumerable)actual);
-        }
-
-        private string HighlightDifferences(IEnumerable expected, IEnumerable actual)
-        {
-            if (CanProcess(expected, actual))
+            var actual = testEnvironment.Actual as IEnumerable;
+            var expected = testEnvironment.Expected as IEnumerable;
+            if (CanProcess(testEnvironment))
             {
                 var actualList = actual.Cast<object>();
                 var expectedList = expected.Cast<object>();

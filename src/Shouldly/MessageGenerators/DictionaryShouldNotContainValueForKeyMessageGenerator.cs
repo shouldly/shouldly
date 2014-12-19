@@ -22,7 +22,7 @@ namespace Shouldly.MessageGenerators
         ""{2}""
     {3}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var expectedValue = environment.Expected.Inspect();
             var actualValue = environment.Actual.Inspect();
             var keyValue = environment.Key.Inspect();

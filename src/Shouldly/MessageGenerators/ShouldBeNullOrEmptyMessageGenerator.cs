@@ -17,7 +17,7 @@ namespace Shouldly.MessageGenerators
     {0}
             {1}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
 
             var isNegatedAssertion = environment.ShouldMethod.Contains("Not");
             if (isNegatedAssertion)

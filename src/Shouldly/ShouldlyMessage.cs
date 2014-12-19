@@ -100,7 +100,7 @@ namespace Shouldly
 
             if (_testEnvironment.HasActual)
             {
-                return CreateActualVsExpectedMessage(_testEnvironment.Actual, _testEnvironment.Expected, _testEnvironment, _testEnvironment.GetCodePart());
+                return CreateActualVsExpectedMessage(_testEnvironment);
             }
 
             return CreateExpectedErrorMessage();
@@ -114,29 +114,30 @@ namespace Shouldly
     {3}
         but does {4}";
 
-            var codePart = _testEnvironment.GetCodePart();
+            var codePart = _testEnvironment.CodePart;
             var isNegatedAssertion = _testEnvironment.ShouldMethod.Contains("Not");
 
             const string elementSatifyingTheConditionString = "an element satisfying the condition";
             return String.Format(format, codePart, _testEnvironment.ShouldMethod.PascalToSpaced(), _testEnvironment.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _testEnvironment.Expected.Inspect(), isNegatedAssertion ? "" : "not");
         }
 
-        private string CreateActualVsExpectedMessage(object actual, object expected, TestEnvironment environment, string codePart)
+        private string CreateActualVsExpectedMessage(TestEnvironment environment)
         {
+            var codePart = environment.CodePart;
             string message = string.Format(@"
     {0}
         {1}
     {2}
         but was
     {3}",
-                codePart, environment.ShouldMethod.PascalToSpaced(), expected.Inspect(), actual.Inspect());
+                codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected.Inspect(), environment.Actual.Inspect());
 
-            if (actual.CanGenerateDifferencesBetween(expected))
+            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(environment))
             {
                 message += string.Format(@"
         difference
     {0}",
-                actual.HighlightDifferencesBetween(expected));
+                DifferenceHighlighterExtensions.HighlightDifferencesBetween(environment));
             }
             return message;
         }

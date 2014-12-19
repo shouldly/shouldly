@@ -23,7 +23,7 @@ namespace Shouldly.MessageGenerators
     but was 
         {4}";
 
-            var codePart = environment.GetCodePart();
+            var codePart = environment.CodePart;
             var tolerance = environment.Tolerance.Inspect();
             var expectedValue = environment.Expected.Inspect();
             var actualValue = environment.Actual.Inspect();
@@ -31,12 +31,12 @@ namespace Shouldly.MessageGenerators
 
             var message = string.Format(format, codePart, negated, tolerance, expectedValue, actualValue);
 
-            if (environment.Actual.CanGenerateDifferencesBetween(environment.Expected))
+            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(environment))
             {
                 message += string.Format(@"
         difference
     {0}",
-                    environment.Actual.HighlightDifferencesBetween(environment.Expected));
+                    DifferenceHighlighterExtensions.HighlightDifferencesBetween(environment));
             }
 
             return message;
