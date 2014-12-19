@@ -234,6 +234,7 @@
     <Compile Include="Strings\ShouldEndWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="Strings\ShouldStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldStartWith\ShouldIgnoreCaseByDefault.cs" />
+    <Compile Include="TestHelpers\TestShouldlyAssertionContext.cs" />
     <Compile Include="TestHelpers\UncomparableClass.cs" />
     <Compile Include="TestHelpers\Widget.cs" />
     <Compile Include="ShouldBeUnique\IntegerArrayScenario.cs" />

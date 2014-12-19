@@ -6,12 +6,12 @@ namespace Shouldly.MessageGenerators
     internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("Should(Not)?ContainKey", RegexOptions.Compiled);
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(environment.ShouldMethod) && !environment.HasActual;
+            return Validator.IsMatch(context.ShouldMethod) && !context.HasActual;
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             const string format = @"
     Dictionary
@@ -20,13 +20,13 @@ namespace Shouldly.MessageGenerators
         ""{2}""
     but does {3}";
 
-            var codePart = environment.GetCodePart();
-            var expectedValue = environment.Expected.Inspect();
+            var codePart = context.CodePart;
+            var expectedValue = context.Expected.Inspect();
 
-            if (environment.IsNegatedAssertion)
-                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected, "");
+            if (context.IsNegatedAssertion)
+                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected, "");
 
-            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expectedValue.Trim('"'), "not");
+            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue.Trim('"'), "not");
         }
     }
 }

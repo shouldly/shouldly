@@ -13,26 +13,26 @@ namespace Shouldly.DifferenceHighlighting
         /// Compares an actual value against an expected one and creates
         /// a string with the differences highlighted
         /// </summary>
-        public static string HighlightDifferencesBetween(this object actualValue, object expectedValue)
+        public static string HighlightDifferencesBetween(IShouldlyAssertionContext context)
         {
-            var validHighlighter = GetHighlighterFor(expectedValue, actualValue);
+            var validHighlighter = GetHighlighterFor(context);
 
             if (validHighlighter == null)
             {
-                return actualValue.Inspect();
+                return context.Actual.Inspect();
             }
 
-            return validHighlighter.HighlightDifferences(expectedValue, actualValue);
+            return validHighlighter.HighlightDifferences(context);
         }
 
-        public static bool CanGenerateDifferencesBetween<T1, T2>(this T1 actual, T2 expected)
+        public static bool CanGenerateDifferencesBetween(IShouldlyAssertionContext context)
         {
-            return GetHighlighterFor(expected, actual) != null;
+            return GetHighlighterFor(context) != null;
         }
 
-        public static IHighlighter GetHighlighterFor<T1, T2>(T1 expected, T2 actual)
+        private static IHighlighter GetHighlighterFor(IShouldlyAssertionContext context)
         {
-            return Highlighters.FirstOrDefault(x => x.CanProcess(expected, actual));
+            return Highlighters.FirstOrDefault(x => x.CanProcess(context));
         }
     }
 }

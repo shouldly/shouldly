@@ -6,13 +6,14 @@ using System.Reflection;
 
 namespace Shouldly
 {
-    internal class TestEnvironment
+    internal class ShouldlyAssertionContext : IShouldlyAssertionContext
     {
 
         public bool DeterminedOriginatingFrame { get; set; }
         public string ShouldMethod { get; set; }
         public string FileName { get; set; }
         public int LineNumber { get; set; }
+        public string CodePart { get; set; }
         public StackFrame OriginatingFrame  { get; set; }
         public MethodBase UnderlyingShouldMethod { get; set; }
 
@@ -20,6 +21,7 @@ namespace Shouldly
         public object Expected { get; set; }
         public object Actual { get; set; }
         public object Tolerance { get; set; }
+        public bool IgnoreOrder { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
         // In some cases it means the "Actual" value is not relevant (eg: "dictionary.ContainsKey(key)") and in some
@@ -31,7 +33,7 @@ namespace Shouldly
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
 
-        internal TestEnvironment(object expected, object actual = null)
+        internal ShouldlyAssertionContext(object expected, object actual = null)
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
@@ -72,6 +74,7 @@ namespace Shouldly
            OriginatingFrame = originatingFrame;
            Expected = expected;
            Actual = actual;
+           CodePart = GetCodePart();
         }
 
         private bool IsShouldlyMethod(MethodBase method)
@@ -82,9 +85,7 @@ namespace Shouldly
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
         }
 
-        public bool IgnoreOrder { get; set; }
-
-        public string GetCodePart()
+        private string GetCodePart()
         {
             var codePart = "The provided expression";
 

@@ -4,14 +4,14 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldContainWithinRangeMessageGenerator : ShouldlyMessageGenerator
     {
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return environment.ShouldMethod.StartsWith("Should")
-                   && environment.ShouldMethod.Contains("Contain")
-                   && environment.UnderlyingShouldMethod.GetParameters().Last().Name == "tolerance";
+            return context.ShouldMethod.StartsWith("Should")
+                   && context.ShouldMethod.Contains("Contain")
+                   && context.UnderlyingShouldMethod.GetParameters().Last().Name == "tolerance";
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             const string format = @"
         {0}
@@ -22,11 +22,11 @@ namespace Shouldly.MessageGenerators
     but was
         {4}";
 
-            var codePart = environment.GetCodePart();
-            var tolerance = environment.Tolerance.Inspect();
-            var expectedValue = environment.Expected.Inspect();
-            var actualValue = environment.Actual.Inspect();
-            var negated = environment.ShouldMethod.Contains("Not") ? "not " : string.Empty;
+            var codePart = context.CodePart;
+            var tolerance = context.Tolerance.Inspect();
+            var expectedValue = context.Expected.Inspect();
+            var actualValue = context.Actual.Inspect();
+            var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
             
             return string.Format(format, codePart, negated, expectedValue, tolerance, actualValue);
         }

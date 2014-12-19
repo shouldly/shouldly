@@ -10,12 +10,12 @@ namespace Shouldly.MessageGenerators
     {
         private static readonly Regex Validator = new Regex("HaveProperty", RegexOptions.Compiled);
         private static readonly Regex DynamicObjectNameExtractor = new Regex(@"DynamicShould.HaveProperty\((?<dynamicObjectName>.*),(?<propertyName>.*)\)", RegexOptions.Compiled);
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(environment.ShouldMethod);
+            return Validator.IsMatch(context.ShouldMethod);
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             const string format =  @"
     Dynamic object
@@ -24,8 +24,8 @@ namespace Shouldly.MessageGenerators
         {1}
     but does not.";
 
-            var testFileName = environment.OriginatingFrame.GetFileName();
-            var assertionLineNumber = environment.OriginatingFrame.GetFileLineNumber();
+            var testFileName = context.OriginatingFrame.GetFileName();
+            var assertionLineNumber = context.OriginatingFrame.GetFileLineNumber();
 
             var codeLine = string.Join("", File.ReadAllLines(testFileName).ToArray().Skip(assertionLineNumber - 1).Select(s => s.Trim()));
             var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
