@@ -62,6 +62,7 @@
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />
+    <Compile Include="Internals\IShouldlyAssertionContext.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldContainKeyAndValueMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldNotContainValueForKeyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="ShouldThrowExtensions.cs" />
     <Compile Include="Internals\StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
-    <Compile Include="Internals\TestEnvironment.cs" />
+    <Compile Include="Internals\ShouldlyAssertionContext.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="Internals\Tolerance.cs" />
     <Compile Include="Internals\ToleranceMode.cs" />
