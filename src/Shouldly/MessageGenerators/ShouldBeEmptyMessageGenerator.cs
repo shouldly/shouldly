@@ -7,25 +7,25 @@ namespace Shouldly.MessageGenerators
     {
         private static readonly Regex Validator = new Regex("Should(Not)?BeEmpty", RegexOptions.Compiled);
 
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(environment.ShouldMethod) && !environment.HasActual;
+            return Validator.IsMatch(context.ShouldMethod) && !context.HasActual;
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             const string format = @"
     {0}
             {1}
         but was {2}";
 
-            var codePart = environment.CodePart;
-            var expectedValue = environment.Expected.Inspect();
+            var codePart = context.CodePart;
+            var expectedValue = context.Expected.Inspect();
 
-            if (environment.IsNegatedAssertion)
-                return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected == null ? "null" : "");
+            if (context.IsNegatedAssertion)
+                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected == null ? "null" : "");
 
-            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expectedValue);
+            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Shouldly.DifferenceHighlighting
     /// </summary>
     internal interface IHighlighter
     {
-        bool CanProcess(ITestEnvironment testEnvironment);
-        string HighlightDifferences(ITestEnvironment testEnvironment);
+        bool CanProcess(IShouldlyAssertionContext context);
+        string HighlightDifferences(IShouldlyAssertionContext context);
     }
 }

@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Shouldly
 {
-    internal interface ITestEnvironment
+    internal interface IShouldlyAssertionContext
     {
 
         bool DeterminedOriginatingFrame { get; set; }

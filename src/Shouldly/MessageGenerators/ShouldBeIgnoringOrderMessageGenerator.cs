@@ -7,16 +7,16 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
     {
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return environment.IgnoreOrder;
+            return context.IgnoreOrder;
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
-            var expected = ((IEnumerable)environment.Expected).Cast<object>().ToArray();
-            var actual = ((IEnumerable)environment.Actual).Cast<object>().ToArray();
-            var codePart = environment.CodePart;
+            var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
+            var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();
+            var codePart = context.CodePart;
             var expectedFormattedValue = expected.Inspect();
 
             var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(e, a))).ToArray();
@@ -39,7 +39,7 @@ namespace Shouldly.MessageGenerators
             string missingMessage = !string.IsNullOrEmpty(actualMissingMessage) && !string.IsNullOrEmpty(expectedMissingMessage)
                 ? string.Format("{0} and {1}", actualMissingMessage, expectedMissingMessage)
                 : string.Format("{0}{1}", actualMissingMessage, expectedMissingMessage);
-            return string.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), expectedFormattedValue, missingMessage);
+            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedFormattedValue, missingMessage);
         }
     }
 }

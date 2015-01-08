@@ -7,12 +7,12 @@ namespace Shouldly.MessageGenerators
     {
         private static readonly Regex Validator = new Regex("ShouldBeUnique", RegexOptions.Compiled);
 
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(environment.ShouldMethod) && environment.HasActual;
+            return Validator.IsMatch(context.ShouldMethod) && context.HasActual;
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             const string format = @"
     {0}
@@ -20,10 +20,10 @@ namespace Shouldly.MessageGenerators
     but {2}
             was duplicated";
 
-            var codePart = environment.CodePart;
-            var actual = environment.Actual.Inspect();
+            var codePart = context.CodePart;
+            var actual = context.Actual.Inspect();
 
-            return String.Format(format, codePart, environment.ShouldMethod.PascalToSpaced(), actual);
+            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), actual);
         }
     }
 }

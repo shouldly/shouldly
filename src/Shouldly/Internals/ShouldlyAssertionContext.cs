@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Shouldly
 {
-    internal class TestEnvironment : ITestEnvironment
+    internal class ShouldlyAssertionContext : IShouldlyAssertionContext
     {
 
         public bool DeterminedOriginatingFrame { get; set; }
@@ -33,7 +33,7 @@ namespace Shouldly
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
 
-        internal TestEnvironment(object expected, object actual = null)
+        internal ShouldlyAssertionContext(object expected, object actual = null)
         {
             var stackTrace = new StackTrace(true);
             var i = 0;

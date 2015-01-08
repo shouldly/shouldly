@@ -39,7 +39,7 @@ namespace Shouldly.Tests.InternalTests
                         result")]
 
         [TestCase(@" =>         
-                        result")] // The () might be on a different line. Shouldly environment will only give us what is on the assertion line.
+                        result")] // The () might be on a different line. Shouldly context will only give us what is on the assertion line.
         public void StripLambdaExpressionSyntax_ShouldRemoveLambda(string input)
         {
             var inputWithLambdaExpressionStripped = input.StripLambdaExpressionSyntax();

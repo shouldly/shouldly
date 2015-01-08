@@ -14,7 +14,7 @@ namespace Shouldly
     {
         public ExpectedShouldlyMessage(object expected)
         {
-            TestEnvironment = new TestEnvironment(expected);
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected);
         }
     }
 
@@ -22,8 +22,8 @@ namespace Shouldly
     {
         public ExpectedActualShouldlyMessage(object expected, object actual)
         {
-            TestEnvironment = new TestEnvironment(expected, actual);
-            TestEnvironment.HasActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
+            ShouldlyAssertionContext.HasActual = true;
         }
     }
 
@@ -31,9 +31,9 @@ namespace Shouldly
     {
         public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance)
         {
-            TestEnvironment = new TestEnvironment(expected, actual);
-            TestEnvironment.Tolerance = tolerance;
-            TestEnvironment.HasActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
+            ShouldlyAssertionContext.Tolerance = tolerance;
+            ShouldlyAssertionContext.HasActual = true;
         }
     }
 
@@ -41,9 +41,9 @@ namespace Shouldly
     {
         public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual)
         {
-            TestEnvironment = new TestEnvironment(expected, actual);
-            TestEnvironment.IgnoreOrder = true;
-            TestEnvironment.HasActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
+            ShouldlyAssertionContext.IgnoreOrder = true;
+            ShouldlyAssertionContext.HasActual = true;
         }
     }
 
@@ -51,10 +51,10 @@ namespace Shouldly
     {
         public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key)
         {
-            TestEnvironment = new TestEnvironment(expected, actual);
-            TestEnvironment.Key = key;
-            TestEnvironment.HasActual = true;
-            TestEnvironment.HasKey = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
+            ShouldlyAssertionContext.Key = key;
+            ShouldlyAssertionContext.HasActual = true;
+            ShouldlyAssertionContext.HasKey = true;
         }
     }
 
@@ -76,12 +76,12 @@ namespace Shouldly
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
         };
-        private TestEnvironment _testEnvironment;
+        private ShouldlyAssertionContext _shouldlyAssertionContext;
 
-        protected TestEnvironment TestEnvironment
+        protected ShouldlyAssertionContext ShouldlyAssertionContext
         {
-            get { return _testEnvironment; }
-            set { _testEnvironment = value; }
+            get { return _shouldlyAssertionContext; }
+            set { _shouldlyAssertionContext = value; }
         }
 
         public override string ToString()
@@ -91,16 +91,16 @@ namespace Shouldly
 
         private string GenerateShouldMessage()
         {
-            var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(_testEnvironment));
+            var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(_shouldlyAssertionContext));
             if (messageGenerator != null)
             {
-                var message = messageGenerator.GenerateErrorMessage(_testEnvironment);
+                var message = messageGenerator.GenerateErrorMessage(_shouldlyAssertionContext);
                 return message;
             }
 
-            if (_testEnvironment.HasActual)
+            if (_shouldlyAssertionContext.HasActual)
             {
-                return CreateActualVsExpectedMessage(_testEnvironment);
+                return CreateActualVsExpectedMessage(_shouldlyAssertionContext);
             }
 
             return CreateExpectedErrorMessage();
@@ -114,30 +114,30 @@ namespace Shouldly
     {3}
         but does {4}";
 
-            var codePart = _testEnvironment.CodePart;
-            var isNegatedAssertion = _testEnvironment.ShouldMethod.Contains("Not");
+            var codePart = _shouldlyAssertionContext.CodePart;
+            var isNegatedAssertion = _shouldlyAssertionContext.ShouldMethod.Contains("Not");
 
             const string elementSatifyingTheConditionString = "an element satisfying the condition";
-            return String.Format(format, codePart, _testEnvironment.ShouldMethod.PascalToSpaced(), _testEnvironment.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _testEnvironment.Expected.Inspect(), isNegatedAssertion ? "" : "not");
+            return String.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.Inspect(), isNegatedAssertion ? "" : "not");
         }
 
-        private string CreateActualVsExpectedMessage(TestEnvironment environment)
+        private string CreateActualVsExpectedMessage(ShouldlyAssertionContext context)
         {
-            var codePart = environment.CodePart;
+            var codePart = context.CodePart;
             string message = string.Format(@"
     {0}
         {1}
     {2}
         but was
     {3}",
-                codePart, environment.ShouldMethod.PascalToSpaced(), environment.Expected.Inspect(), environment.Actual.Inspect());
+                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.Inspect(), context.Actual.Inspect());
 
-            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(environment))
+            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(context))
             {
                 message += string.Format(@"
         difference
     {0}",
-                DifferenceHighlighterExtensions.HighlightDifferencesBetween(environment));
+                DifferenceHighlighterExtensions.HighlightDifferencesBetween(context));
             }
             return message;
         }

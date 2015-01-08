@@ -6,12 +6,12 @@ namespace Shouldly.MessageGenerators
     internal class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("ShouldContainKeyAndValue", RegexOptions.Compiled);
-        public override bool CanProcess(TestEnvironment environment)
+        public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(environment.ShouldMethod);
+            return Validator.IsMatch(context.ShouldMethod);
         }
 
-        public override string GenerateErrorMessage(TestEnvironment environment)
+        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             const string format = @"
     Dictionary
@@ -22,12 +22,12 @@ namespace Shouldly.MessageGenerators
         ""{2}""
     {3}";
 
-            var codePart = environment.CodePart;
-            var expectedValue = environment.Expected.Inspect();
-            var actualValue = environment.Actual.Inspect();
-            var keyValue = environment.Key.Inspect();
+            var codePart = context.CodePart;
+            var expectedValue = context.Expected.Inspect();
+            var actualValue = context.Actual.Inspect();
+            var keyValue = context.Key.Inspect();
 
-            if (environment.HasKey)
+            if (context.HasKey)
             {
                 var valueString = string.Format("but value was \"{0}\"", actualValue.Trim('"'));
                 return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);

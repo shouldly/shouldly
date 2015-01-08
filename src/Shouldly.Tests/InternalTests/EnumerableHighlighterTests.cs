@@ -13,7 +13,7 @@ namespace Shouldly.Tests.InternalTests
         public void CanProcessTwoEnumerables()
         {
             _context
-                .CanProcess(MockHelper.GetMockTestEnvironment( new[] { 1, 2, 3 }, new[] { 4, 5, 6 }).Object)
+                .CanProcess(new TestShouldlyAssertionContext( new[] { 1, 2, 3 }, new[] { 4, 5, 6 }))
                 .ShouldBe(true);
         }
 
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessEnumerableActualAndIntExpected()
         {
             _context
-                .CanProcess(MockHelper.GetMockTestEnvironment(new[] {1, 2, 3}, 4).Object)
+                .CanProcess(new TestShouldlyAssertionContext(new[] {1, 2, 3}, 4))
                 .ShouldBe(false);
         }
 
@@ -29,7 +29,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessEnumerableActualAndStringExpected()
         {
             _context
-                .CanProcess(MockHelper.GetMockTestEnvironment(new[] {1, 2, 3}, "four").Object)
+                .CanProcess(new TestShouldlyAssertionContext(new[] {1, 2, 3}, "four"))
                 .ShouldBe(false);
         }
 
@@ -37,7 +37,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessStringActualAndStringExpected()
         {
             _context
-                .CanProcess(MockHelper.GetMockTestEnvironment("one", "two").Object)
+                .CanProcess(new TestShouldlyAssertionContext("one", "two"))
                 .ShouldBe(false);
         }
 
@@ -45,7 +45,7 @@ namespace Shouldly.Tests.InternalTests
         public void CannotProcessTwoInts()
         {
             _context
-                .CanProcess(MockHelper.GetMockTestEnvironment(1, 2).Object)
+                .CanProcess(new TestShouldlyAssertionContext(1, 2))
                 .ShouldBe(false);
         }
     }
