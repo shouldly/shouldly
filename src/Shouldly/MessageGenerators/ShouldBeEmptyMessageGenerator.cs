@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -17,15 +19,19 @@ namespace Shouldly.MessageGenerators
             const string format = @"
     {0}
             {1}
-        but was {2}";
+        but{2} was {3}";
 
             var codePart = context.CodePart;
             var expectedValue = context.Expected.Inspect();
 
             if (context.IsNegatedAssertion)
-                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected == null ? "null" : "");
+                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), string.Empty, context.Expected == null ? "null" : "");
 
-            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue);
+            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(),
+                !(context.Expected is string) && context.Expected is IEnumerable
+                    ? string.Format(" had {0} item(s) and", context.Expected.As<IEnumerable>().Cast<object>().Count())
+                    : string.Empty,
+                expectedValue);
         }
     }
 }
