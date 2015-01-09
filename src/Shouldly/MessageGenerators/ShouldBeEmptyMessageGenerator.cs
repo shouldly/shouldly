@@ -27,9 +27,10 @@ namespace Shouldly.MessageGenerators
             if (context.IsNegatedAssertion)
                 return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), string.Empty, context.Expected == null ? "null" : "");
 
+            var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
             return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(),
                 !(context.Expected is string) && context.Expected is IEnumerable
-                    ? string.Format(" had {0} item(s) and", context.Expected.As<IEnumerable>().Cast<object>().Count())
+                ? string.Format(" had {0} item{1} and", count, count == 1 ? string.Empty : "s")
                     : string.Empty,
                 expectedValue);
         }
