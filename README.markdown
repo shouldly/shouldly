@@ -674,7 +674,7 @@ public void IEnumerable_ShouldBeEmpty()
 Shouldly.ChuckedAWobbly : 
     powerPlantOnTheWeekend
             should be empty
-        but was [Simpsons.Person]
+        but had 1 item and was [Simpsons.Person]
 ```
 
 <a name="enumerableShouldNotBeEmptyExample"> </a>
