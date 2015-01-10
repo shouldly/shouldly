@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldBeEmpty
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new[] { 1 } should be empty but was [1]"; }
+            get { return "new[] { 1 } should be empty but had 1 item and was [1]"; }
         }
 
         protected override void ShouldPass()
