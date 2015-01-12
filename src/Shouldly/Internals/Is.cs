@@ -82,8 +82,8 @@ namespace Shouldly
                 if (!expectedList.Remove(match))
                     return false;
             }
-                
-            return true;
+
+            return !expectedList.Any();
         }
 
         public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
