@@ -21,7 +21,7 @@ namespace Shouldly.MessageGenerators
     but does {3}";
 
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.Inspect();
+            var expectedValue = context.Expected.ToStringAwesomely();
 
             if (context.IsNegatedAssertion)
                 return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected, "");

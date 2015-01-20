@@ -19,7 +19,7 @@ namespace Shouldly.DifferenceHighlighting
 
             if (validDifferenceHighlighter == null)
             {
-                return context.Actual.Inspect();
+                return context.Actual.ToStringAwesomely();
             }
 
             return validDifferenceHighlighter.HighlightDifferences(context);

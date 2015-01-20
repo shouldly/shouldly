@@ -23,9 +23,9 @@ namespace Shouldly.MessageGenerators
     {3}";
 
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.Inspect();
-            var actualValue = context.Actual.Inspect();
-            var keyValue = context.Key.Inspect();
+            var expectedValue = context.Expected.ToStringAwesomely();
+            var actualValue = context.Actual.ToStringAwesomely();
+            var keyValue = context.Key.ToStringAwesomely();
 
             if (context.HasRelevantKey)
             {

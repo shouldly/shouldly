@@ -115,7 +115,7 @@ namespace Shouldly
             var isNegatedAssertion = _shouldlyAssertionContext.ShouldMethod.Contains("Not");
 
             const string elementSatifyingTheConditionString = "an element satisfying the condition";
-            return String.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.Inspect(), isNegatedAssertion ? "" : "not");
+            return String.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.ToStringAwesomely(), isNegatedAssertion ? "" : "not");
         }
 
         private string CreateActualVsExpectedMessage(ShouldlyAssertionContext context)
@@ -127,7 +127,7 @@ namespace Shouldly
     {2}
         but was
     {3}",
-                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.Inspect(), context.Actual.Inspect());
+                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), context.Actual.ToStringAwesomely());
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {

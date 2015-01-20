@@ -20,13 +20,12 @@ namespace Shouldly
             return String.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
         }
 
-        private static string Inspect(this Enum value)
+        private static string ToStringAwesomely(this Enum value)
         {
             return value.GetType().Name +"."+ value;
         }
 
-        // TODO: Should this be renamed? It is not really "inspecting" anything, just converting an object to an expressive string. Perhaps "ToStringAwesomely()"?
-        internal static string Inspect(this object value)
+        internal static string ToStringAwesomely(this object value)
         {
             if (value == null)
                 return "null";
@@ -37,7 +36,7 @@ namespace Shouldly
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();
-                var inspect = "[" + objects.Select(o => o.Inspect()).CommaDelimited() + "]";
+                var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
                 if (inspect == "[]" && value.ToString() != value.GetType().FullName)
                 {
                     inspect += " (" + value + ")";
@@ -46,11 +45,11 @@ namespace Shouldly
             }
 
             if (value is Enum)
-                return value.As<Enum>().Inspect();
+                return value.As<Enum>().ToStringAwesomely();
 
             if (value is ConstantExpression)
             {
-                return value.As<ConstantExpression>().Value.Inspect();
+                return value.As<ConstantExpression>().Value.ToStringAwesomely();
             }
 
             if (value is MemberExpression)
@@ -58,7 +57,7 @@ namespace Shouldly
                 var member = value.As<MemberExpression>();
                 var constant = member.Expression.As<ConstantExpression>();
                 var info = member.Member.As<FieldInfo>();
-                return info.GetValue(constant.Value).Inspect();
+                return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
             return value == null ? "null" : value.ToString();

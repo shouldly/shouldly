@@ -42,7 +42,7 @@ namespace Shouldly.DifferenceHighlighting
                 return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount);
             }
 
-            return actual.Inspect();
+            return actual.ToStringAwesomely();
         }
 
         private string HighlightDifferencesBetweenLists(IEnumerable<object> actualList, IEnumerable<object> expectedList, int highestListCount)
@@ -72,7 +72,7 @@ namespace Shouldly.DifferenceHighlighting
         {
             if (expectedList.Count() <= itemPosition)
             {
-                return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
+                return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
             }
 
             if (actualList.Count() <= itemPosition)
@@ -82,10 +82,10 @@ namespace Shouldly.DifferenceHighlighting
 
             if (Is.Equal(actualList.ElementAt(itemPosition), expectedList.ElementAt(itemPosition)))
             {
-                return actualList.ElementAt(itemPosition).Inspect();
+                return actualList.ElementAt(itemPosition).ToStringAwesomely();
             }
 
-            return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
+            return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
         }
     }
 }

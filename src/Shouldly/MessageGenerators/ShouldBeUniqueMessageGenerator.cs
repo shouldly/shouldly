@@ -21,7 +21,7 @@ namespace Shouldly.MessageGenerators
             was duplicated";
 
             var codePart = context.CodePart;
-            var actual = context.Actual.Inspect();
+            var actual = context.Actual.ToStringAwesomely();
 
             return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), actual);
         }
