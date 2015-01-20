@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using Shouldly.DifferenceHighlighting;
-using System.Reflection;
 using Shouldly.MessageGenerators;
 
 namespace Shouldly
@@ -23,7 +20,7 @@ namespace Shouldly
         public ExpectedActualShouldlyMessage(object expected, object actual)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.HasActual = true;
+            ShouldlyAssertionContext.HasRelevantActual = true;
         }
     }
 
@@ -33,7 +30,7 @@ namespace Shouldly
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.Tolerance = tolerance;
-            ShouldlyAssertionContext.HasActual = true;
+            ShouldlyAssertionContext.HasRelevantActual = true;
         }
     }
 
@@ -43,7 +40,7 @@ namespace Shouldly
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.IgnoreOrder = true;
-            ShouldlyAssertionContext.HasActual = true;
+            ShouldlyAssertionContext.HasRelevantActual = true;
         }
     }
 
@@ -53,8 +50,8 @@ namespace Shouldly
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.Key = key;
-            ShouldlyAssertionContext.HasActual = true;
-            ShouldlyAssertionContext.HasKey = true;
+            ShouldlyAssertionContext.HasRelevantActual = true;
+            ShouldlyAssertionContext.HasRelevantKey = true;
         }
     }
 
@@ -98,7 +95,7 @@ namespace Shouldly
                 return message;
             }
 
-            if (_shouldlyAssertionContext.HasActual)
+            if (_shouldlyAssertionContext.HasRelevantActual)
             {
                 return CreateActualVsExpectedMessage(_shouldlyAssertionContext);
             }
@@ -132,12 +129,12 @@ namespace Shouldly
     {3}",
                 codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.Inspect(), context.Actual.Inspect());
 
-            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(context))
+            if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
                 message += string.Format(@"
         difference
     {0}",
-                DifferenceHighlighterExtensions.HighlightDifferencesBetween(context));
+                DifferenceHighlighter.HighlightDifferences(context));
             }
             return message;
         }

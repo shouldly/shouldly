@@ -27,7 +27,7 @@ namespace Shouldly.MessageGenerators
             var actualValue = context.Actual.Inspect();
             var keyValue = context.Key.Inspect();
 
-            if (context.HasKey)
+            if (context.HasRelevantKey)
             {
                 var valueString = string.Format("but value was \"{0}\"", actualValue.Trim('"'));
                 return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);

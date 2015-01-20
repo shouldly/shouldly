@@ -9,18 +9,14 @@ namespace Shouldly.DifferenceHighlighting
     /// Highlights differences between IEnumerables of the same type,
     /// marking differences with asterisks
     /// </summary>
-    internal class EnumerableHighlighter : IHighlighter
+    internal class EnumerableDifferenceHighlighter : IDifferenceHighlighter
     {
         private const int MaxElementsToShow = 1000;
-        private readonly DifferenceHighlighter _differenceHighlighter;
+        private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter;
 
-        public EnumerableHighlighter(DifferenceHighlighter differenceHighlighter)
+        public EnumerableDifferenceHighlighter() 
         {
-            _differenceHighlighter = differenceHighlighter;
-        }
-
-        public EnumerableHighlighter() : this(new DifferenceHighlighter())
-        {
+            _itemDifferenceHighlighter = new ItemDifferenceHighlighter();
         }
 
         public bool CanProcess(IShouldlyAssertionContext context)
@@ -76,12 +72,12 @@ namespace Shouldly.DifferenceHighlighting
         {
             if (expectedList.Count() <= itemPosition)
             {
-                return _differenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
+                return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
             }
 
             if (actualList.Count() <= itemPosition)
             {
-                return DifferenceHighlighter.HighlightCharacter;
+                return ItemDifferenceHighlighter.HighlightCharacter;
             }
 
             if (Is.Equal(actualList.ElementAt(itemPosition), expectedList.ElementAt(itemPosition)))
@@ -89,7 +85,7 @@ namespace Shouldly.DifferenceHighlighting
                 return actualList.ElementAt(itemPosition).Inspect();
             }
 
-            return _differenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
+            return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
         }
     }
 }

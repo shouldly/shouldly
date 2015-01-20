@@ -19,8 +19,8 @@ namespace Shouldly.Tests.TestHelpers
         public object Actual { get; set; }
         public object Tolerance { get; set; }
         public bool IgnoreOrder { get; set; }
-        public bool HasActual { get; set; }
-        public bool HasKey { get; set; }
+        public bool HasRelevantActual { get; set; }
+        public bool HasRelevantKey { get; set; }
 
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {

@@ -7,12 +7,12 @@ namespace Shouldly.Tests.InternalTests
     [TestFixture]
     public class EnumerableHighlighterTests
     {
-        private readonly EnumerableHighlighter _context = new EnumerableHighlighter(new DifferenceHighlighter());
+        private readonly EnumerableDifferenceHighlighter _highlighter = new EnumerableDifferenceHighlighter();
 
         [Test]
         public void CanProcessTwoEnumerables()
         {
-            _context
+            _highlighter
                 .CanProcess(new TestShouldlyAssertionContext( new[] { 1, 2, 3 }, new[] { 4, 5, 6 }))
                 .ShouldBe(true);
         }
@@ -20,7 +20,7 @@ namespace Shouldly.Tests.InternalTests
         [Test]
         public void CannotProcessEnumerableActualAndIntExpected()
         {
-            _context
+            _highlighter
                 .CanProcess(new TestShouldlyAssertionContext(new[] {1, 2, 3}, 4))
                 .ShouldBe(false);
         }
@@ -28,7 +28,7 @@ namespace Shouldly.Tests.InternalTests
         [Test]
         public void CannotProcessEnumerableActualAndStringExpected()
         {
-            _context
+            _highlighter
                 .CanProcess(new TestShouldlyAssertionContext(new[] {1, 2, 3}, "four"))
                 .ShouldBe(false);
         }
@@ -36,7 +36,7 @@ namespace Shouldly.Tests.InternalTests
         [Test]
         public void CannotProcessStringActualAndStringExpected()
         {
-            _context
+            _highlighter
                 .CanProcess(new TestShouldlyAssertionContext("one", "two"))
                 .ShouldBe(false);
         }
@@ -44,7 +44,7 @@ namespace Shouldly.Tests.InternalTests
         [Test]
         public void CannotProcessTwoInts()
         {
-            _context
+            _highlighter
                 .CanProcess(new TestShouldlyAssertionContext(1, 2))
                 .ShouldBe(false);
         }

@@ -8,7 +8,6 @@ namespace Shouldly
 {
     internal class ShouldlyAssertionContext : IShouldlyAssertionContext
     {
-
         public bool DeterminedOriginatingFrame { get; set; }
         public string ShouldMethod { get; set; }
         public string FileName { get; set; }
@@ -28,8 +27,8 @@ namespace Shouldly
         // cases it means that the value is relevant, but during execution we got a null. (eg: Foo.ShouldBe(bar) where 
         // Foo is null). So for now, it is a flag needs to be set externally to determine whether or not the "Actual" value
         // is relevant.
-        public bool HasActual { get; set; }
-        public bool HasKey { get; set; }
+        public bool HasRelevantActual { get; set; }
+        public bool HasRelevantKey { get; set; }
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
 
@@ -97,7 +96,6 @@ namespace Shouldly
             }
             return codePart;
         }
-
 
     }
 }

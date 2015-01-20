@@ -8,7 +8,7 @@ namespace Shouldly.MessageGenerators
         private static readonly Regex Validator = new Regex("Should(Not)?BeNullOrEmpty", RegexOptions.Compiled);
         public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(context.ShouldMethod) && !context.HasActual;
+            return Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
         }
 
         public override string GenerateErrorMessage(ShouldlyAssertionContext context)

@@ -31,12 +31,12 @@ namespace Shouldly.MessageGenerators
 
             var message = string.Format(format, codePart, negated, tolerance, expectedValue, actualValue);
 
-            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(context))
+            if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
                 message += string.Format(@"
         difference
     {0}",
-                    DifferenceHighlighterExtensions.HighlightDifferencesBetween(context));
+                    DifferenceHighlighter.HighlightDifferences(context));
             }
 
             return message;

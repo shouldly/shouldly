@@ -5,7 +5,6 @@ namespace Shouldly
 {
     internal interface IShouldlyAssertionContext
     {
-
         bool DeterminedOriginatingFrame { get; set; }
         string ShouldMethod { get; set; }
         string FileName { get; set; }
@@ -24,7 +23,7 @@ namespace Shouldly
         // cases it means that the value is relevant, but during execution we got a null. (eg: Foo.ShouldBe(bar) where 
         // Foo is null). So for now, it is a flag needs to be set externally to determine whether or not the "Actual" value
         // is relevant.
-        bool HasActual { get; set; }
-        bool HasKey { get; set; }
+        bool HasRelevantActual { get; set; }
+        bool HasRelevantKey { get; set; }
     }
 }
