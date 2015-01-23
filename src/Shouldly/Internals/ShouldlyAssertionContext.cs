@@ -91,9 +91,11 @@ namespace Shouldly
 
             if (DeterminedOriginatingFrame)
             {
-                var codeLines = String.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
+                var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
 
-                codePart = codeLines.Substring(0, codeLines.IndexOf(ShouldMethod) - 1).Trim();
+                var indexOf = codeLines.IndexOf(ShouldMethod);
+                if (indexOf > 0)
+                    codePart = codeLines.Substring(0, indexOf - 1).Trim();
             }
             return codePart;
         }
