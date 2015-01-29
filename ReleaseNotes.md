@@ -1,4 +1,4 @@
-# vNext
+# 2.4.0
 
  - [#173](https://github.com/shouldly/shouldly/pull/173) - Stop crash when in release mode
  - [#165](https://github.com/shouldly/shouldly/pull/165) - Show count when .ShouldBeEmpty() fails for IEnumerable contributed by Matt Kocaj ([cottsak](https://github.com/cottsak))
