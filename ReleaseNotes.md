@@ -1,3 +1,18 @@
+# vNext
+
+ - [#173](https://github.com/shouldly/shouldly/pull/173) - Stop crash when in release mode contributed by Jake Ginnivan ([JakeGinnivan](https://github.com/JakeGinnivan))
+ - [#167](https://github.com/shouldly/shouldly/pull/167) - Ignore order issue - More unit tests as part of review contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
+ - [#166](https://github.com/shouldly/shouldly/pull/166) - Fixing issue #164 contributed by Jake Ginnivan ([JakeGinnivan](https://github.com/JakeGinnivan))
+ - [#165](https://github.com/shouldly/shouldly/pull/165) - Show count when .ShouldBeEmpty() fails for IEnumerable contributed by Matt Kocaj ([cottsak](https://github.com/cottsak))
+ - [#164](https://github.com/shouldly/shouldly/issues/164) - Ignore case = true breaks comparison for yield break/yield return methods
+ - [#163](https://github.com/shouldly/shouldly/pull/163) - Refactoring the difference highlighting contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
+ - [#162](https://github.com/shouldly/shouldly/pull/162) - Some minor clean ups. contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
+ - [#160](https://github.com/shouldly/shouldly/issues/160) - Multiple Assertions
+ - [#105](https://github.com/shouldly/shouldly/issues/105) - "Length cannot be less than zero" at Shouldly.ShouldlyMessage.ToString()
+
+Commits: [8b59f323d5...b3c8952b72](https://github.com/shouldly/shouldly/compare/8b59f323d5...b3c8952b72)
+
+
 # 2.3.0
 
  - [#155](https://github.com/shouldly/shouldly/pull/155) - Fix hardcoded datetimes in tests contributed by Ilya Murzinov ([ilya-murzinov](https://github.com/ilya-murzinov))
@@ -33,8 +48,8 @@ Thanks to [vorou](https://github.com/vorou) and [Jake Ginnivan](https://github.c
 
 Commits: 954bb795dd...43e3aff8e4
 
-# 2.1.0 (13 March 2014)
 
+# 2.1.0 (13 March 2014)
 
  - IEnumerable matching failures fixes [#118](https://github.com/shouldly/shouldly/issues/118) [#100](https://github.com/shouldly/shouldly/issues/100)
  - Equality fixes [#115](https://github.com/shouldly/shouldly/pull/115)
@@ -63,7 +78,7 @@ Commits: b8439790d5...2d3d40afd9
  - **breaking**: IEnumerable.ShouldBe(IEnumerable) now uses .Equals to compare
      - specify T to get Item Comparison (`new[]{"foo"}.ShouldBe<string>(new[]{"foo"})` for item comparison, or specify `ignoreOrder` to select IEnumerable overload
      - See Breaking Changes.txt for more information
- -  **breaking**: `ShouldBeTypeOf<T>` renamed to `ShouldBeAssignableTo<T>` [#98](https://github.com/shouldly/shouldly/issues/98)
+ - **breaking**: `ShouldBeTypeOf<T>` renamed to `ShouldBeAssignableTo<T>` [#98](https://github.com/shouldly/shouldly/issues/98)
  - `ShouldBeOfType<T>` added for exact match of type, `ShouldBeAssignableTo<T>` allows derived classes [#98](https://github.com/shouldly/shouldly/issues/98)
  - ShouldBeTypeOf should return the object [#63](https://github.com/shouldly/shouldly/pull/63) +Enhancement
  - ShouldAllBe for IEnumerables [#60](https://github.com/shouldly/shouldly/pull/60) +Enhancement
@@ -145,4 +160,3 @@ Commits: 729e91f570...4f67b23cda
  - Add support for Rhino Method Options [16](https://github.com/shouldly/shouldly/issues/16)
 
 Commits: a3bb9f5598...08c4ebfa29
- 	
