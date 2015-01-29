@@ -1,13 +1,9 @@
 # vNext
 
- - [#173](https://github.com/shouldly/shouldly/pull/173) - Stop crash when in release mode contributed by Jake Ginnivan ([JakeGinnivan](https://github.com/JakeGinnivan))
- - [#167](https://github.com/shouldly/shouldly/pull/167) - Ignore order issue - More unit tests as part of review contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
- - [#166](https://github.com/shouldly/shouldly/pull/166) - Fixing issue #164 contributed by Jake Ginnivan ([JakeGinnivan](https://github.com/JakeGinnivan))
+ - [#173](https://github.com/shouldly/shouldly/pull/173) - Stop crash when in release mode
  - [#165](https://github.com/shouldly/shouldly/pull/165) - Show count when .ShouldBeEmpty() fails for IEnumerable contributed by Matt Kocaj ([cottsak](https://github.com/cottsak))
- - [#164](https://github.com/shouldly/shouldly/issues/164) - Ignore case = true breaks comparison for yield break/yield return methods
- - [#163](https://github.com/shouldly/shouldly/pull/163) - Refactoring the difference highlighting contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
- - [#162](https://github.com/shouldly/shouldly/pull/162) - Some minor clean ups. contributed by Chaitanya Gurrapu ([chaitanyagurrapu](https://github.com/chaitanyagurrapu))
- - [#160](https://github.com/shouldly/shouldly/issues/160) - Multiple Assertions
+ - [#164](https://github.com/shouldly/shouldly/issues/164) [#167](https://github.com/shouldly/shouldly/pull/167) - Ignore case = true breaks comparison for yield break/yield return methods
+ - [#160](https://github.com/shouldly/shouldly/issues/160) - Multiple Assertions - see https://github.com/shouldly/shouldly#shouldSatisfyAllConditions
  - [#105](https://github.com/shouldly/shouldly/issues/105) - "Length cannot be less than zero" at Shouldly.ShouldlyMessage.ToString()
 
 Commits: [8b59f323d5...b3c8952b72](https://github.com/shouldly/shouldly/compare/8b59f323d5...b3c8952b72)
