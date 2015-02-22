@@ -68,6 +68,7 @@
     <Compile Include="MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DynamicShouldMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldAllBeMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldContainATypeWithDefaultToStringMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldContainMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldSatisfyAllConditionsMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeEmptyMessageGenerator.cs" />
