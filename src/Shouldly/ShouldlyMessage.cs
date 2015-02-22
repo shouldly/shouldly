@@ -71,6 +71,7 @@ namespace Shouldly
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
+            new ShouldContainATypeWithDefaultToStringMessageGenerator(),
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
