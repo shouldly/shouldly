@@ -17,15 +17,15 @@ namespace Shouldly.MessageGenerators
             var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
             var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();
             var codePart = context.CodePart;
-            var expectedFormattedValue = expected.Inspect();
+            var expectedFormattedValue = expected.ToStringAwesomely();
 
             var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(e, a))).ToArray();
             var missingFromActual = expected.Where(e => !actual.Any(a => Is.Equal(e, a))).ToArray();
 
             var actualMissingMessage = missingFromActual.Any() ? string.Format("{0} is missing {1}", codePart,
-                missingFromActual.Inspect()) : string.Empty;
+                missingFromActual.ToStringAwesomely()) : string.Empty;
             var expectedMissingMessage = missingFromExpected.Any() ? string.Format("{0} is missing {1}", expectedFormattedValue,
-                missingFromExpected.Inspect()) : string.Empty;
+                missingFromExpected.ToStringAwesomely()) : string.Empty;
 
             //"first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 

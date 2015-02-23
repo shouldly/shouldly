@@ -78,10 +78,10 @@
     <Compile Include="Properties\JetBrains.Annotations.cs" />
     <Compile Include="ShouldSatisfyAllConditionsTestExtensions.cs" />
     <Compile Include="ShouldCompleteInExtensions.cs" />
+    <Compile Include="DifferenceHighlighting\ItemDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting\EnumerableDifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceHighlighter.cs" />
-    <Compile Include="DifferenceHighlighting\EnumerableHighlighter.cs" />
-    <Compile Include="DifferenceHighlighting\DifferenceHighlighterExtensions.cs" />
-    <Compile Include="DifferenceHighlighting\IHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting\IDifferenceHighlighter.cs" />
     <Compile Include="Internals\EqualityComparerAdapter.cs" />
     <Compile Include="Internals\Is.cs" />
     <Compile Include="Internals\Numerics.cs" />
@@ -97,7 +97,6 @@
     <Compile Include="ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="ShouldlyMethodsAttribute.cs" />
-    <Compile Include="ShouldlyStringExtensions.cs" />
     <Compile Include="ShouldThrowTaskExtensions.cs" />
     <Compile Include="ShouldThrowExtensions.cs" />
     <Compile Include="Internals\StringHelpers.cs" />

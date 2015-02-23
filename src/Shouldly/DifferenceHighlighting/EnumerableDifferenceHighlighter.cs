@@ -9,18 +9,14 @@ namespace Shouldly.DifferenceHighlighting
     /// Highlights differences between IEnumerables of the same type,
     /// marking differences with asterisks
     /// </summary>
-    internal class EnumerableHighlighter : IHighlighter
+    internal class EnumerableDifferenceHighlighter : IDifferenceHighlighter
     {
         private const int MaxElementsToShow = 1000;
-        private readonly DifferenceHighlighter _differenceHighlighter;
+        private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter;
 
-        public EnumerableHighlighter(DifferenceHighlighter differenceHighlighter)
+        public EnumerableDifferenceHighlighter() 
         {
-            _differenceHighlighter = differenceHighlighter;
-        }
-
-        public EnumerableHighlighter() : this(new DifferenceHighlighter())
-        {
+            _itemDifferenceHighlighter = new ItemDifferenceHighlighter();
         }
 
         public bool CanProcess(IShouldlyAssertionContext context)
@@ -46,7 +42,7 @@ namespace Shouldly.DifferenceHighlighting
                 return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount);
             }
 
-            return actual.Inspect();
+            return actual.ToStringAwesomely();
         }
 
         private string HighlightDifferencesBetweenLists(IEnumerable<object> actualList, IEnumerable<object> expectedList, int highestListCount)
@@ -76,20 +72,20 @@ namespace Shouldly.DifferenceHighlighting
         {
             if (expectedList.Count() <= itemPosition)
             {
-                return _differenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
+                return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
             }
 
             if (actualList.Count() <= itemPosition)
             {
-                return DifferenceHighlighter.HighlightCharacter;
+                return ItemDifferenceHighlighter.HighlightCharacter;
             }
 
             if (Is.Equal(actualList.ElementAt(itemPosition), expectedList.ElementAt(itemPosition)))
             {
-                return actualList.ElementAt(itemPosition).Inspect();
+                return actualList.ElementAt(itemPosition).ToStringAwesomely();
             }
 
-            return _differenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).Inspect());
+            return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
         }
     }
 }

@@ -24,19 +24,19 @@ namespace Shouldly.MessageGenerators
         {4}";
 
             var codePart = context.CodePart;
-            var tolerance = context.Tolerance.Inspect();
-            var expectedValue = context.Expected.Inspect();
-            var actualValue = context.Actual.Inspect();
+            var tolerance = context.Tolerance.ToStringAwesomely();
+            var expectedValue = context.Expected.ToStringAwesomely();
+            var actualValue = context.Actual.ToStringAwesomely();
             var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
             var message = string.Format(format, codePart, negated, tolerance, expectedValue, actualValue);
 
-            if (DifferenceHighlighterExtensions.CanGenerateDifferencesBetween(context))
+            if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
                 message += string.Format(@"
         difference
     {0}",
-                    DifferenceHighlighterExtensions.HighlightDifferencesBetween(context));
+                    DifferenceHighlighter.HighlightDifferences(context));
             }
 
             return message;
