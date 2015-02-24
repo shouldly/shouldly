@@ -8,7 +8,7 @@ namespace Shouldly.MessageGenerators
     {
         public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.StartsWith("ShouldContain")
+            return context.ShouldMethod.EndsWith("Contain")
                    && ExpectedTypeHasDefaultToStringImpl(context);
         }
 
@@ -29,13 +29,14 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            string message = string.Format(@"
+            string format = @"
     {0}
         {1}
     {2}
-        but did not",
-                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely());
-            return message;
+        but did{3}";
+            if (context.IsNegatedAssertion)
+                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), "");
+            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), " not");
         }
     }
 }
