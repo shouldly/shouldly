@@ -34,7 +34,7 @@ namespace Shouldly.MessageGenerators
         {1}
     {2}
         but did not",
-                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.Inspect());
+                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely());
             return message;
         }
     }
