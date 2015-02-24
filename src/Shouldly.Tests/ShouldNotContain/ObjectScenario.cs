@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldNotContain
     new[] { a, b, c }
         should not contain
     System.Object
-        but did";
+        but does";
             }
 
         }

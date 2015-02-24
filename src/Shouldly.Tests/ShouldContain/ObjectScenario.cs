@@ -20,7 +20,7 @@ namespace Shouldly.Tests.ShouldContain
     new[] { a, b, c }
         should contain
     System.Object
-        but did not"; }
+        but does not"; }
             
         }
 

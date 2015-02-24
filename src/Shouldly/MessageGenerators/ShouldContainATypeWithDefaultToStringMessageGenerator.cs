@@ -33,7 +33,7 @@ namespace Shouldly.MessageGenerators
     {0}
         {1}
     {2}
-        but did{3}";
+        but does{3}";
             if (context.IsNegatedAssertion)
                 return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), "");
             return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), " not");
