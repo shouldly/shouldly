@@ -128,6 +128,7 @@
     <Compile Include="ShouldNotBe\WithTolerance\DateTimeOffsetScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\DateTimeScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\TimeSpanScenario.cs" />
+    <Compile Include="ShouldNotContain\ObjectScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
