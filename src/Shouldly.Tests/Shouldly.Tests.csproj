@@ -122,6 +122,7 @@
     <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
     <Compile Include="ShouldContain\ObjectScenario.cs" />
+    <Compile Include="ShouldContain\PredicateObjectScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="ShouldNotBe\WithTolerance\DateTimeScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\TimeSpanScenario.cs" />
     <Compile Include="ShouldNotContain\ObjectScenario.cs" />
+    <Compile Include="ShouldNotContain\PredicateObjectScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
