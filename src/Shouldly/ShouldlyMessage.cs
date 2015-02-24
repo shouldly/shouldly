@@ -112,13 +112,13 @@ namespace Shouldly
     {0}
         {1} {2}
     {3}
-        but does {4}";
+        but does{4}";
 
             var codePart = _shouldlyAssertionContext.CodePart;
             var isNegatedAssertion = _shouldlyAssertionContext.ShouldMethod.Contains("Not");
 
             const string elementSatifyingTheConditionString = "an element satisfying the condition";
-            return String.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.ToStringAwesomely(), isNegatedAssertion ? "" : "not");
+            return String.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.ToStringAwesomely(), isNegatedAssertion ? "" : " not");
         }
 
         private string CreateActualVsExpectedMessage(ShouldlyAssertionContext context)
