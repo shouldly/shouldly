@@ -16,3 +16,4 @@ test-results
 *ncrunch*
 *.orig
 Shouldly.sln.ide/
+packages/

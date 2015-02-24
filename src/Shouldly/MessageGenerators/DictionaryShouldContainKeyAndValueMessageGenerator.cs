@@ -23,11 +23,11 @@ namespace Shouldly.MessageGenerators
     {3}";
 
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.Inspect();
-            var actualValue = context.Actual.Inspect();
-            var keyValue = context.Key.Inspect();
+            var expectedValue = context.Expected.ToStringAwesomely();
+            var actualValue = context.Actual.ToStringAwesomely();
+            var keyValue = context.Key.ToStringAwesomely();
 
-            if (context.HasKey)
+            if (context.HasRelevantKey)
             {
                 var valueString = string.Format("but value was \"{0}\"", actualValue.Trim('"'));
                 return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);

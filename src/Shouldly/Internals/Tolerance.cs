@@ -9,7 +9,7 @@ namespace NUnit.Framework.Constraints
     ///     type that supports taking a difference between two
     ///     objects and comparing that difference to a value.
     /// </summary>
-    public class Tolerance
+    internal class Tolerance
     {
         private const string ModeMustFollowTolerance = "Tolerance amount must be specified before setting mode";
         private const string MultipleToleranceModes = "Tried to use multiple tolerance modes at the same time";
