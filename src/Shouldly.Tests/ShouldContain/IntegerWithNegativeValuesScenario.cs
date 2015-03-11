@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldContain
         {
             get { return "new[] { 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 } " +
                          "should contain 6 " +
-                         "but was [2, 3, 4, 5, 4, 123665, 11234, -1356237712831]"; }
+                         "but did not"; }
         }
 
         protected override void ShouldPass()
