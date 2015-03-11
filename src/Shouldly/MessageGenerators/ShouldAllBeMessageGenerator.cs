@@ -14,7 +14,7 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
-            const string format = @"{0} should satisfy the condition {1} but {2} does not";
+            const string format = @"{0} should satisfy the condition {1} but {2} do not";
 
             var codePart = context.CodePart;
             var expectedValue = context.Expected.Inspect();
