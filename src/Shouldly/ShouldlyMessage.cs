@@ -64,6 +64,7 @@ namespace Shouldly
         {
             new ShouldBeNullOrEmptyMessageGenerator(),  
             new ShouldBeEmptyMessageGenerator(), 
+            new ShouldAllBeMessageGenerator(), 
     #if net40
             new DynamicShouldMessageGenerator(), 
     #endif
