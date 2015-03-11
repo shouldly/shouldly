@@ -14,8 +14,7 @@ namespace Shouldly.Tests.ShouldContain
         {
             //TODO This should really show an elipsis if it is truncated
             get { return "longString should contain \"fff\" " +
-                         "but was \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\""; }
+                         "but did not"; }
         }
 
         protected override void ShouldPass()
