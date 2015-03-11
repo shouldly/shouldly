@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -8,13 +9,17 @@ namespace Shouldly.MessageGenerators
 
         public override bool CanProcess(ShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(context.ShouldMethod) && !context.HasActual;
+            return Validator.IsMatch(context.ShouldMethod);
         }
 
         public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
-            // todo: fixme
-            return "new[] { 1, 2, 3 } should satisfy the condition (x < 2) but [2,3] does not";
+            const string format = @"{0} should satisfy the condition {1} but {2} does not";
+
+            var codePart = context.CodePart;
+            var expectedValue = context.Expected.Inspect();
+
+            return String.Format(format, codePart, expectedValue, context.Actual.Inspect());
         }
     }
 }

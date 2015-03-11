@@ -39,8 +39,9 @@ namespace Shouldly
         public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
         {
             var condition = elementPredicate.Compile();
-            if (actual.Any(v => !condition(v)))
-                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(elementPredicate.Body).ToString());
+            var actualResults = actual.Where(part => !condition(part));
+            if (actualResults.Any())
+                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(elementPredicate.Body, actualResults).ToString());
         }
 
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)
@@ -55,13 +56,13 @@ namespace Shouldly
                 throw new ChuckedAWobbly(new ExpectedShouldlyMessage(actual).ToString());
         }
 
-        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance) 
+        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance)
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
                 throw new ChuckedAWobbly(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance).ToString());
         }
 
-        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance) 
+        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance)
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
                 throw new ChuckedAWobbly(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance).ToString());
