@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldAllBe
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new[] { 1, 2, 3 } should all be an element satisfying the condition (x < 2) but does not"; }
+            get { return "new[] { 1, 2, 3 } should satisfy the condition (x < 2) but [2,3] do not"; }
         }
 
         protected override void ShouldPass()
