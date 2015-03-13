@@ -125,12 +125,16 @@
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
     <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
+    <Compile Include="ShouldContain\ObjectScenario.cs" />
+    <Compile Include="ShouldContain\PredicateObjectScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
     <Compile Include="ShouldNotBeSameAs\BasicScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\DateTimeOffsetScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\DateTimeScenario.cs" />
     <Compile Include="ShouldNotBe\WithTolerance\TimeSpanScenario.cs" />
+    <Compile Include="ShouldNotContain\ObjectScenario.cs" />
+    <Compile Include="ShouldNotContain\PredicateObjectScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
@@ -281,7 +285,9 @@
     <None Include="packages.config" />
     <None Include="sn.snk" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

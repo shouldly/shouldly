@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Foo\" should contain B but did not"; }
+            get { return "\"Foo\" should contain B but does not"; }
         }
 
         protected override void ShouldPass()
