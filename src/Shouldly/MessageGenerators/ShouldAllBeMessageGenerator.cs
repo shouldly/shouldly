@@ -17,9 +17,9 @@ namespace Shouldly.MessageGenerators
             const string format = @"{0} should satisfy the condition {1} but {2} do not";
 
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.Inspect();
+            var expectedValue = context.Expected.ToStringAwesomely();
 
-            return String.Format(format, codePart, expectedValue, context.Actual.Inspect());
+            return string.Format(format, codePart, expectedValue, context.Actual.ToStringAwesomely());
         }
     }
 }
