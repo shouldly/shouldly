@@ -6,7 +6,7 @@ assemblyinfo :version_assemblies => [:get_build_number] do |asm|
     asm.product_name = PROJECT_NAME
     asm.title = PROJECT_NAME
     asm.description = PROJECT_TAGLINE
-    asm.copyright = "Copyright (c) 2010 #{PROJECT_NAME}"
+    asm.copyright = "Copyright (c) 2015 #{PROJECT_NAME}"
     asm.output_file = "#{SOURCE_PATH}/Shouldly/Properties/AssemblyInfo.cs"
 end
 
