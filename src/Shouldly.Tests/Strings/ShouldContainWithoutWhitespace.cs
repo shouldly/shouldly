@@ -13,7 +13,7 @@ namespace Shouldly.Tests.Strings
         {
             get { return "\"Fun   with space   and \\\"quotes\\\"\" " +
                          "should contain without whitespace \"Fun with space and missing quotes\" " +
-                         "but was \"Fun   with space   and \"quotes\"\""; }
+                         "but does not"; }
         }
 
         protected override void ShouldPass()

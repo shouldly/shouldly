@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldNotContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return " new[]{\"a\", \"b\", \"c\"} should not contain \"c\" but was [\"a\", \"b\", \"c\"]"; }
+            get { return " new[]{\"a\", \"b\", \"c\"} should not contain \"c\" but does"; }
         }
 
         protected override void ShouldPass()

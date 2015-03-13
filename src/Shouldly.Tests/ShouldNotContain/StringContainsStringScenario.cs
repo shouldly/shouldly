@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldNotContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Shouldly is legendary\" should not contain \"legendary\" but was \"Shouldly is legendary\""; } 
+            get { return "\"Shouldly is legendary\" should not contain \"legendary\" but does"; } 
         }
 
         protected override void ShouldPass()

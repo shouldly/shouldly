@@ -12,9 +12,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            //TODO This should really show an elipsis if it is truncated
-            get { return "longString should contain \"fff\" " +
-                         "but did not"; }
+            get { return "longString should contain \"fff\" but does not"; }
         }
 
         protected override void ShouldPass()

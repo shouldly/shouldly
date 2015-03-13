@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using System.Linq.Expressions;
-using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.MessageGenerators
 {
@@ -16,18 +13,15 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(ShouldlyAssertionContext context)
         {
-            const string format = @"
-        {0}
-    should contain
-        {1}
-    but did not";
-
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
-
-            var message = string.Format(format, codePart, expectedValue);
-
-            return message;
+            const string format = @"
+    {0}
+        {1}
+    {2}
+        but does{3}";
+            if (context.IsNegatedAssertion)
+                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), "");
+            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), " not");
         }
     }
 }
