@@ -7,9 +7,9 @@ namespace Shouldly.Tests.ShouldContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
+            var a = new object();
+            var b = new object();
+            var c = new object();
             new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals(""));
         }
 
@@ -17,7 +17,7 @@ namespace Shouldly.Tests.ShouldContain
         {
             get { return @"
     new[] { a, b, c }
-        should contain
+        should contain an element satisfying the condition
     o.GetType().FullName.Equals("""")
         but does not"; }
             
@@ -25,9 +25,9 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override void ShouldPass()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
+            var a = new object();
+            var b = new object();
+            var c = new object();
             new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
 
         }
