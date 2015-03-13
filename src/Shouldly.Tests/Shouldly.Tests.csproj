@@ -8,16 +8,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shouldly.Tests</RootNamespace>
     <AssemblyName>Shouldly.Tests</AssemblyName>
-    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0</TargetFrameworkVersion>
-    <NuGetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == 'v4.0'">net40</NuGetFrameworkVersion>
-    <NuGetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == 'v3.5'">net35</NuGetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\$(NuGetFrameworkVersion)</OutputPath>
+    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,14 +23,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\$(NuGetFrameworkVersion)</OutputPath>
+    <OutputPath>bin\Release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-    <DefineConstants>$(NuGetFrameworkVersion);$(DefineConstants)</DefineConstants>
+    <DefineConstants>$(DefineConstants)</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
