@@ -24,8 +24,6 @@ NUGET_EXE = "#{BASE_DIR}/lib/NuGet/NuGet.exe"
 ZIP_EXE = "#{BASE_DIR}/lib/Zip/zip.exe"
 OUTPUT_PATH = "#{BASE_DIR}/output"
 
-`#{NUGET_EXE} install`
-
 gem 'rubyzip', '~> 0.9.9'
 require 'rake/clean'
 require "rubygems/package_task"
