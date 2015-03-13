@@ -2,13 +2,13 @@ using System.Linq.Expressions;
 
 namespace Shouldly.MessageGenerators
 {
-    internal class ShouldContainMessageGenerator : ShouldlyMessageGenerator
+    internal class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
     {
         public override bool CanProcess(ShouldlyAssertionContext context)
         {
             return context.ShouldMethod.StartsWith("Should")
                    && context.ShouldMethod.Contains("Contain")
-                   && !(context.Expected is Expression);
+                   && context.Expected is Expression;
         }
 
         public override string GenerateErrorMessage(ShouldlyAssertionContext context)
@@ -16,7 +16,7 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
             const string format = @"
     {0}
-        {1}
+        {1} an element satisfying the condition
     {2}
         but does{3}";
             if (context.IsNegatedAssertion)

@@ -17,7 +17,7 @@ namespace Shouldly.Tests.ShouldNotContain
         {
             get { return @"
     new[] { a, b, c }
-        should not contain
+        should not contain an element satisfying the condition
     o.GetType().FullName.Equals(""System.Object"")
         but does"; }
             
