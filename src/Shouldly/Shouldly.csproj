@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicShould.cs" />
+    <Compile Include="Internals\ExpressionStringBuilder.cs" />
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />

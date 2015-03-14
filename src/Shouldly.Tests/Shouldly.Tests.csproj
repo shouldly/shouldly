@@ -71,6 +71,7 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\KeyAndValueExist.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_NoKeyExists.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
+    <Compile Include="InternalTests\ExpressionStringBuilderTests.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario2.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseIEnumerableMethodYieldBreak.cs" />
