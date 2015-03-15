@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -58,6 +59,11 @@ namespace Shouldly
                 var constant = member.Expression.As<ConstantExpression>();
                 var info = member.Member.As<FieldInfo>();
                 return info.GetValue(constant.Value).ToStringAwesomely();
+            }
+
+            if (value is BinaryExpression)
+            {
+                return ExpressionStringBuilder.ToString((BinaryExpression) value);
             }
 
             return value == null ? "null" : value.ToString();

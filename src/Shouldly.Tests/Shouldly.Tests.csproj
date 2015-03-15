@@ -102,6 +102,7 @@
     <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
     <Compile Include="ShouldContain\ObjectScenario.cs" />
+    <Compile Include="ShouldContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldContain\PredicateObjectScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldNotBeOneOf\IntScenario.cs" />
