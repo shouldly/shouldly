@@ -1,32 +1,42 @@
-﻿// Attribution: https://github.com/AdaptiveConsulting/ReactGraph/blob/3e744cf401a21b11988d1c8ddff4dc982d5fb4cb/src/ReactGraph/Construction/ExpressionStringBuilder.cs
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Shouldly.Internals
+// ReSharper disable CheckNamespace
+namespace ExpressionToString
 {
-    internal class ExpressionStringBuilder : ExpressionVisitor
+    class ExpressionStringBuilder : ExpressionVisitor
     {
+        // ReSharper disable InconsistentNaming
         private readonly StringBuilder builder = new StringBuilder();
+        private readonly bool trimLongArgumentList;
+        bool skipDot;
 
-        private ExpressionStringBuilder()
+        private ExpressionStringBuilder(bool trimLongArgumentList)
         {
+            this.trimLongArgumentList = trimLongArgumentList;
         }
 
-        public static string ToString(Expression expression)
+        /// <summary>
+        /// A nicely formatted ToString of an expression
+        /// </summary>
+        /// <param name="expression">The expression to format</param>
+        /// <param name="trimLongArgumentList">If true will replace large (>3) argument lists with an elipsis</param>
+        /// <returns></returns>
+        public static string ToString(Expression expression, bool trimLongArgumentList = false)
         {
-            var visitor = new ExpressionStringBuilder();
+            var visitor = new ExpressionStringBuilder(trimLongArgumentList);
             visitor.Visit(expression);
             var s = visitor.builder.ToString();
             return s;
         }
 
+
         protected override Expression VisitLambda<T>(Expression<T> node)
         {
-            if (node.Parameters.Any(p => p.Name != null))
+            if (node.Parameters.Any())
             {
                 Out("(");
                 Out(String.Join(",", node.Parameters.Select(n => n.Name)));
@@ -61,7 +71,6 @@ namespace Shouldly.Internals
             return node;
         }
 
-        bool skipDot;
         protected override Expression VisitMember(MemberExpression node)
         {
             if (node.Expression.NodeType == ExpressionType.Constant)
@@ -179,7 +188,7 @@ namespace Shouldly.Internals
             }
             Out(node.Method.Name + "(");
             var args = node.Arguments.ToArray();
-            if (args.Length > 3)
+            if (args.Length > 3 && trimLongArgumentList)
             {
                 Out("...");
             }

@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Packages\ExpressionStringBuilder.0.9.1\ExpressionStringBuilder.cs" />
     <Compile Include="DynamicShould.cs" />
-    <Compile Include="Internals\ExpressionStringBuilder.cs" />
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />
@@ -111,6 +111,7 @@
     <Compile Include="Internals\ToleranceMode.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="sn.snk" />
   </ItemGroup>
   <ItemGroup />
