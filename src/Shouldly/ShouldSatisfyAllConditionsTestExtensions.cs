@@ -29,7 +29,7 @@ namespace Shouldly
             if (errorMessages.Any())
             {
                 var errorMessageString = BuildErrorMessageString(errorMessages);
-                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(errorMessageString).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString).ToString());
             }
         }
 

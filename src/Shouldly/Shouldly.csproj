@@ -79,6 +79,7 @@
     <Compile Include="MessageGenerators\ShouldContainWithinRangeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldlyMessageGenerator.cs" />
     <Compile Include="Properties\JetBrains.Annotations.cs" />
+    <Compile Include="ShouldAssertException.cs" />
     <Compile Include="ShouldSatisfyAllConditionsTestExtensions.cs" />
     <Compile Include="ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\ItemDifferenceHighlighter.cs" />

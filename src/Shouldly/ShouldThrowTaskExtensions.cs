@@ -28,17 +28,17 @@ namespace Shouldly
                 if (innerException is TException)
                     return (TException)innerException;
 
-                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType()).ToString());
             }
             catch (Exception e)
             {
                 if (e is TException)
                     return (TException)e;
 
-                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType()).ToString());
             }
 
-            throw new ChuckedAWobbly(new ExpectedShouldlyMessage(typeof(TException)).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException)).ToString());
         }
 
         public static void NotThrow(Func<Task> action)
@@ -58,11 +58,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.InnerException.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType()).ToString());
             }
             catch (Exception ex)
             {
-                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType()).ToString());
             }
         }
 
@@ -100,11 +100,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.InnerException.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType()).ToString());
             }
             catch (Exception ex)
             {
-                throw new ChuckedAWobbly(new ExpectedShouldlyMessage(ex.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType()).ToString());
             }
         }
     }

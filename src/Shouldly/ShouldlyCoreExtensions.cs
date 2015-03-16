@@ -12,10 +12,10 @@ namespace Shouldly
             }
             catch (ArgumentException ex)
             {
-                throw new ChuckedAWobbly(ex.Message, ex);
+                throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(originalExpected, originalActual).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual).ToString());
         }
 
         internal static void AssertAwesomelyIgnoringOrder<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected)
@@ -26,10 +26,10 @@ namespace Shouldly
             }
             catch (ArgumentException ex)
             {
-                throw new ChuckedAWobbly(ex.Message, ex);
+                throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ChuckedAWobbly(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual).ToString());
+            throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual).ToString());
         }
 
         internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, object tolerance)
@@ -40,10 +40,10 @@ namespace Shouldly
             }
             catch (ArgumentException ex)
             {
-                throw new ChuckedAWobbly(ex.Message, ex);
+                throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ChuckedAWobbly(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance).ToString());
+            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance).ToString());
         }
     }
 }
