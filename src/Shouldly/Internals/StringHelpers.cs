@@ -63,7 +63,7 @@ namespace Shouldly
 
             if (value is BinaryExpression)
             {
-                return ExpressionStringBuilder.ToString((BinaryExpression) value);
+                return ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 
             return value == null ? "null" : value.ToString();
