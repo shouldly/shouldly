@@ -178,13 +178,13 @@ namespace Shouldly
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
         {
             if (!expected.Contains(actual))
-                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(expected, actual).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected)
         {
             if (expected.Contains(actual))
-                throw new ChuckedAWobbly(new ExpectedActualShouldlyMessage(expected, actual).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual).ToString());
         }
 
         public static void ShouldBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>
