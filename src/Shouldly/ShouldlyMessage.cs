@@ -122,7 +122,7 @@ namespace Shouldly
             return string.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.ToStringAwesomely(), isNegatedAssertion ? "" : " not");
         }
 
-        private string CreateActualVsExpectedMessage(ShouldlyAssertionContext context)
+        private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
             string message = string.Format(@"
