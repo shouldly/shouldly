@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldThrowAsync
-{
-    [TestFixture]
+{  
     public class FuncOfTaskScenarioAsync : ShouldlyShouldTestScenario
     {
        
