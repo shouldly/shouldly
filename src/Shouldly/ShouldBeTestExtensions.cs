@@ -6,16 +6,16 @@ using JetBrains.Annotations;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
+    //[DebuggerStepThrough]
     [ShouldlyMethods]
     public static class ShouldBeTestExtensions
     {
-        public static void ShouldBe<T>(this T actual, T expected)
+        public static void ShouldBe<T>(this T actual, T expected, Func<string> customMessage = null)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName) || typeof(T) == typeof(string))
-                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected);
+                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
             else 
-                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
+                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder = false)

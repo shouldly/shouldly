@@ -4,7 +4,7 @@ namespace Shouldly
 {
     internal static class ShouldlyCoreExtensions
     {
-        internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected)
+        internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, Func<string> customMessage = null)
         {
             try
             {
@@ -12,13 +12,15 @@ namespace Shouldly
             }
             catch (ArgumentException ex)
             {
-                throw new ShouldAssertException(ex.Message, ex);
+                var evaledCustomMessage = EvaluateCustomMessage(customMessage);
+                throw new ShouldAssertException(evaledCustomMessage + ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual).ToString());
+            var evaledCustomMessage2 = EvaluateCustomMessage(customMessage);
+            throw new ShouldAssertException(evaledCustomMessage2 + new ExpectedActualShouldlyMessage(originalExpected, originalActual).ToString());
         }
 
-        internal static void AssertAwesomelyIgnoringOrder<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected)
+        internal static void AssertAwesomelyIgnoringOrder<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, Func<string> customMessage = null)
         {
             try
             {
@@ -26,13 +28,15 @@ namespace Shouldly
             }
             catch (ArgumentException ex)
             {
-                throw new ShouldAssertException(ex.Message, ex);
+                var evaledCustomMessage = EvaluateCustomMessage(customMessage);
+                throw new ShouldAssertException(evaledCustomMessage + ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual).ToString());
+            var evaledCustomMessage2 = EvaluateCustomMessage(customMessage);
+            throw new ShouldAssertException(evaledCustomMessage2 + new ExpectedActualShouldlyMessage(originalExpected, originalActual).ToString());
         }
 
-        internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, object tolerance)
+        internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, object tolerance, Func<string> customMessage = null)
         {
             try
             {
@@ -40,10 +44,31 @@ namespace Shouldly
             }
             catch (ArgumentException ex)
             {
-                throw new ShouldAssertException(ex.Message, ex);
+                var evaledCustomMessage = EvaluateCustomMessage(customMessage);
+                throw new ShouldAssertException(evaledCustomMessage + ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance).ToString());
+            var evaledCustomMessage2 = EvaluateCustomMessage(customMessage);
+            throw new ShouldAssertException(evaledCustomMessage2 + new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance).ToString());
+        }
+
+        private static string EvaluateCustomMessage(Func<string> customMessage)
+        {
+            var evaledCustomMessage = string.Empty;
+
+            if (customMessage != null)
+            {
+                try
+                {
+                    evaledCustomMessage = customMessage() + Environment.NewLine;
+                }
+                catch (Exception ex)
+                {
+                    evaledCustomMessage = ex.ToString() + Environment.NewLine;
+                }
+            }
+
+            return evaledCustomMessage;
         }
     }
 }
