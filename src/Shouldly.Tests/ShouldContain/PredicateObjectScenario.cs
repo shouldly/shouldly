@@ -1,5 +1,4 @@
 ﻿using Shouldly.Tests.TestHelpers;
-using System;
 
 namespace Shouldly.Tests.ShouldContain
 {
