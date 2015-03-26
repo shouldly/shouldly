@@ -7,27 +7,34 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldThrowAsync
 {  
-    public class FuncOfTaskScenarioAsync : ShouldlyShouldTestScenario
+    [TestFixture]
+    public class FuncOfTaskScenarioAsync
     {
        
-        protected override void ShouldThrowAWobbly()
+        [Test]
+        public void ShouldThrowAWobbly()
         {
-            Should.ThrowAsync<InvalidOperationException>(() =>
+            try
             {
-                var task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-                return task;
-            }).Wait();
+               
+                Should.ThrowAsync<InvalidOperationException>(() =>
+                {
+                    var task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
+                        CancellationToken.None, TaskCreationOptions.None,
+                        TaskScheduler.Default);
+                    return task;
+                }).Wait();
+            }
+            catch (AggregateException e)
+            {
+                var inner = e.Flatten().InnerException;
+                inner.ShouldBeOfType<ShouldAssertException>();
+            }
+           
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "Should throw System.InvalidOperationException but does not"; }
-        }
-
-        
-        protected  override void ShouldPass()
+        [Test]
+        public void ShouldPass()
         {
             Should.ThrowAsync<InvalidOperationException>(() =>
             {
@@ -36,28 +43,6 @@ namespace Shouldly.Tests.ShouldThrowAsync
                     TaskScheduler.Default);
                 return task;
             }).Wait();
-        }
-    }
-
-    [TestFixture]
-    [Ignore]
-    public class Tests
-    {
-        public class MyClass
-        {
-            public int Add(int a, int b)
-            {
-                //if (a > 5)
-                //    throw new ArgumentException("a is greater than 5");
-                return a + b;
-            }
-        }
-
-        [Test]
-        public void ExceptionTest()
-        {
-            var m = new MyClass();
-            Should.ThrowAsync<ArgumentException>(() => Task.Factory.StartNew(() => m.Add(6, 1))).Wait();
         }
     }
 }
