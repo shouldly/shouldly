@@ -10,12 +10,12 @@ namespace Shouldly.MessageGenerators
     {
         private static readonly Regex Validator = new Regex("HaveProperty", RegexOptions.Compiled);
         private static readonly Regex DynamicObjectNameExtractor = new Regex(@"DynamicShould.HaveProperty\((?<dynamicObjectName>.*),(?<propertyName>.*)\)", RegexOptions.Compiled);
-        public override bool CanProcess(ShouldlyAssertionContext context)
+        public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return Validator.IsMatch(context.ShouldMethod);
         }
 
-        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
+        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             const string format =  @"
     Dynamic object
