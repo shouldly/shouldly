@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
 
@@ -9,6 +10,17 @@ namespace Shouldly
     public static class ShouldBeTestExtensions
     {
         public static void ShouldBe<T>(this T actual, T expected)
+        {
+            ShouldBe(actual, expected, (Func<string>)null);
+        }
+        public static void ShouldBe<T>(this T actual, T expected, Func<string> message)
+        {
+            if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName) || typeof(T) == typeof(string))
+                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected);
+            else 
+                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected);
+        }
+        public static void ShouldBe<T>(this T actual, T expected, string message)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName) || typeof(T) == typeof(string))
                 actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected);
