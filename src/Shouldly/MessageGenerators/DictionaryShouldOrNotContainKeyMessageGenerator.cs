@@ -6,12 +6,12 @@ namespace Shouldly.MessageGenerators
     internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
     {
         private static readonly Regex Validator = new Regex("Should(Not)?ContainKey", RegexOptions.Compiled);
-        public override bool CanProcess(ShouldlyAssertionContext context)
+        public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
         }
 
-        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
+        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             const string format = @"
     Dictionary

@@ -22,6 +22,8 @@ namespace Shouldly.Tests.TestHelpers
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }
 
+        public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {
             Expected = expected;
