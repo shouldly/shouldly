@@ -31,6 +31,7 @@ namespace Shouldly
         public bool HasRelevantKey { get; set; }
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+        public string CustomMessage { get; set; }
 
         internal ShouldlyAssertionContext(object expected, object actual = null)
         {

@@ -9,12 +9,14 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         {
             IEnumerable<int> something = null;
             // ReSharper disable once ExpressionIsAlwaysNull
-            something.ShouldBe(new[] { 1, 2, 3 });
+            something.ShouldBe(new[] { 1, 2, 3 }, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "something should be [1, 2, 3] but was null"; }
+            get { return "something should be [1, 2, 3] but was null" +
+                         " Additional Info:" +
+                         " Some additional context"; }
         }
     }
 }
