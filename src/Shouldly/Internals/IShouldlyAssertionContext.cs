@@ -25,5 +25,7 @@ namespace Shouldly
         // is relevant.
         bool HasRelevantActual { get; set; }
         bool HasRelevantKey { get; set; }
+
+        bool IsNegatedAssertion { get; }
     }
 }

@@ -7,12 +7,12 @@ namespace Shouldly.MessageGenerators
     {
         private static readonly Regex Validator = new Regex("ShouldSatisfyAllConditions", RegexOptions.Compiled);
 
-        public override bool CanProcess(ShouldlyAssertionContext context)
+        public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
         }
 
-        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
+        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             const string format = @"
         {0} should satisfy all the conditions specified, but does not.
