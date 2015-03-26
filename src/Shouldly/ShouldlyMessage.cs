@@ -77,12 +77,12 @@ namespace Shouldly
             new ShouldSatisfyAllConditionsMessageGenerator(),
             new ShouldBeSubsetOfMessageGenerator()
         };
-        private ShouldlyAssertionContext _shouldlyAssertionContext;
+        private IShouldlyAssertionContext _shouldlyAssertionContext;
 
-        protected ShouldlyAssertionContext ShouldlyAssertionContext
+        protected IShouldlyAssertionContext ShouldlyAssertionContext
         {
             get { return _shouldlyAssertionContext; }
-            set { _shouldlyAssertionContext = value; }
+            set { _shouldlyAssertionContext = value.As<IShouldlyAssertionContext>(); }
         }
 
         public override string ToString()
