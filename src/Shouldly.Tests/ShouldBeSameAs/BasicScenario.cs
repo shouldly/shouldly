@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeSameAs
             var zulu = new object();
             var tutsie = new object();
 
-            zulu.ShouldBeSameAs(tutsie);
+            zulu.ShouldBeSameAs(tutsie, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -17,7 +17,9 @@ namespace Shouldly.Tests.ShouldBeSameAs
             get
             {
                 //TODO maybe include GetHashCode?
-                return "zulu should be same as System.Object but was System.Object";
+                return "zulu should be same as System.Object but was System.Object" +
+                       " Additional Info:" +
+                       " Some additional context";
             }
         }
 
@@ -25,7 +27,7 @@ namespace Shouldly.Tests.ShouldBeSameAs
         {
             var zulu = new object();
 
-            zulu.ShouldBeSameAs(zulu);
+            zulu.ShouldBeSameAs(zulu, () => "Some additional context");
         }
     }
 }
