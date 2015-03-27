@@ -82,7 +82,7 @@ namespace Shouldly
         protected IShouldlyAssertionContext ShouldlyAssertionContext
         {
             get { return _shouldlyAssertionContext; }
-            set { _shouldlyAssertionContext = value.As<IShouldlyAssertionContext>(); }
+            set { _shouldlyAssertionContext = value; }
         }
 
         public override string ToString()
