@@ -73,19 +73,10 @@ namespace Shouldly
             if (actual.Equals(expected))
                 return;
 
-            List<T> actualList = actual.ToList();
-            List<T> expectedList = expected.ToList();
+            var missing = actual.Except(expected);
 
-            if (!actualList.TrueForAll(element =>
-            {
-                if (expectedList.Contains(element))
-                {
-                    expectedList.Remove(element);
-                    return true;
-                }
-                return false;
-            }))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(expected).ToString());
+            if (missing.Any())
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing).ToString());
         }
 
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual)
