@@ -7,12 +7,12 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
     {
-        public override bool CanProcess(ShouldlyAssertionContext context)
+        public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.IgnoreOrder;
         }
 
-        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
+        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
             var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();

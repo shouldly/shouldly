@@ -4,14 +4,14 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
     {
-        public override bool CanProcess(ShouldlyAssertionContext context)
+        public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.ShouldMethod.StartsWith("Should")
                    && context.ShouldMethod.Contains("Contain")
                    && context.Expected is Expression;
         }
 
-        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
+        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
             const string format = @"
