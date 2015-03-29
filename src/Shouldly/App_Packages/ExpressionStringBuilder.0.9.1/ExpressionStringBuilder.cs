@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if net40
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -277,3 +278,4 @@ namespace ExpressionToString
         }
     }
 }
+#endif

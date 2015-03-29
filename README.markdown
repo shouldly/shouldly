@@ -25,7 +25,7 @@ It might be easy to underestimate how useful this is. Another example, side by s
 
 **Shouldly** uses the code before the *ShouldBe* statement to report on errors, which makes diagnosing easier.
 
-Read more about Shouldly and it's features at [http://docs.shouldly-lib.net/](http://docs.shouldly-lib.net/])
+Read more about Shouldly and it's features at [http://docs.shouldly-lib.net/](http://docs.shouldly-lib.net/)
 
 ## Contributing
 **Getting started with Git and GitHub**

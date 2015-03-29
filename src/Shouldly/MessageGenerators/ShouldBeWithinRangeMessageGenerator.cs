@@ -5,14 +5,14 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
     {
-        public override bool CanProcess(ShouldlyAssertionContext context)
+        public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.ShouldMethod.StartsWith("Should")
                    && !context.ShouldMethod.Contains("Contain")
                    && context.UnderlyingShouldMethod.GetParameters().Any(p => p.Name == "tolerance");
         }
 
-        public override string GenerateErrorMessage(ShouldlyAssertionContext context)
+        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             const string format = @"
         {0}
