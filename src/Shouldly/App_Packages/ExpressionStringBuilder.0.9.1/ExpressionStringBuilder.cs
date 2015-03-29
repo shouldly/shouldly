@@ -1,4 +1,4 @@
-﻿#if NET40
+﻿#if net40
 using System;
 using System.Linq;
 using System.Linq.Expressions;
