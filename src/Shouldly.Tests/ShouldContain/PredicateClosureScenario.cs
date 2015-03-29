@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿#if net40
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldContain
 {
@@ -23,3 +24,4 @@ namespace Shouldly.Tests.ShouldContain
         }
     }
 }
+#endif
