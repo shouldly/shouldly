@@ -27,5 +27,6 @@ namespace Shouldly
         bool HasRelevantKey { get; set; }
 
         bool IsNegatedAssertion { get; }
+        string CustomMessage { get; set; }
     }
 }

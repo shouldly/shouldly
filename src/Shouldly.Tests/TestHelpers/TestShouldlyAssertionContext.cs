@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace Shouldly.Tests.TestHelpers
 {
@@ -12,8 +10,8 @@ namespace Shouldly.Tests.TestHelpers
         public string FileName { get; set; }
         public int LineNumber { get; set; }
         public string CodePart { get; set; }
-        public System.Diagnostics.StackFrame OriginatingFrame { get; set; }
-        public System.Reflection.MethodBase UnderlyingShouldMethod { get; set; }
+        public StackFrame OriginatingFrame { get; set; }
+        public MethodBase UnderlyingShouldMethod { get; set; }
         public object Key { get; set; }
         public object Expected { get; set; }
         public object Actual { get; set; }
@@ -23,6 +21,8 @@ namespace Shouldly.Tests.TestHelpers
         public bool HasRelevantKey { get; set; }
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+
+        public string CustomMessage { get; set; }
 
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {
