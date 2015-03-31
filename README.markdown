@@ -1,5 +1,4 @@
 ![Icon](https://raw.github.com/shouldly/shouldly/master/package_icon.png)
-
 Shouldly
 ========
 Shouldly is an assertion framework which focuses on giving great error messages when the assertion fails while being simple and terse.
