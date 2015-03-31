@@ -6,12 +6,12 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] { 1m }.ShouldBeSubsetOf(new[] { 2m, 3m, 4m });
+            new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] { 2m, 3m, 4m });
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new[] { 1m } should be subset of  [2, 3, 4] but does not"; }
+            get { return "new[] { 1m, 2m, 5m } should be subset of  [2, 3, 4] but [1, 5] are outside subset"; }
         }
 
         protected override void ShouldPass()
