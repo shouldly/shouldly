@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new[] { 1f, 2f, 5f } should be subset of  [2, 3, 4] but [1, 5] do not"; }
+            get { return "new[] { 1f, 2f, 5f } should be subset of  [2, 3, 4] but [1, 5] are outside subset"; }
         }
 
         protected override void ShouldPass()
