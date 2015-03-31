@@ -1,4 +1,4 @@
-![Icon](https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png)
+![Icon](https://raw.github.com/shouldly/shouldly/master/package_icon.png)
 
 Shouldly
 ========
