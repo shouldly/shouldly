@@ -1,18 +1,19 @@
 ﻿using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.Strings.ShouldNotStartWith
+namespace Shouldly.Tests.Strings
 {
-    public class BasicScenario : ShouldlyShouldTestScenario
+    public class ShouldNotBeNullOrEmpty : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldNotStartWith("Ch", () => "Some additional context");
+            "".ShouldNotBeNullOrEmpty(() => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get {
-                return "\"Cheese\" should not start with \"Ch\" but was \"Cheese\" " +
+            get
+            {
+                return "\"\" should not be null or empty " +
                        "Additional Info: " +
                        "Some additional context";
             }
@@ -20,7 +21,7 @@ namespace Shouldly.Tests.Strings.ShouldNotStartWith
 
         protected override void ShouldPass()
         {
-            "Cheese".ShouldNotStartWith("Ce");
+            " ".ShouldNotBeNullOrEmpty();
         }
     }
 }

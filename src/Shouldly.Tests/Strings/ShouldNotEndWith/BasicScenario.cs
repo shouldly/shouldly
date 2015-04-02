@@ -6,12 +6,16 @@ namespace Shouldly.Tests.Strings.ShouldNotEndWith
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldNotEndWith("se");
+            "Cheese".ShouldNotEndWith("se", () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Cheese\" should not end with \"se\" but was \"Cheese\""; }
+            get {
+                return "\"Cheese\" should not end with \"se\" but was \"Cheese\" " +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

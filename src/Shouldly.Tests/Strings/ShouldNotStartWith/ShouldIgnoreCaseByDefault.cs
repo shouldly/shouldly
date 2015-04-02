@@ -7,9 +7,11 @@ namespace Shouldly.Tests.Strings.ShouldNotStartWith
         [Test]
         public void Test()
         {
-            TestHelpers.Should.Error(()=>
-            "Cheese".ShouldNotStartWith("CH"),
-            "\"Cheese\" should not start with \"CH\" but was \"Cheese\"");
+            TestHelpers.Should.Error(() =>
+                "Cheese".ShouldNotStartWith("CH", () => "Some additional context"),
+                "\"Cheese\" should not start with \"CH\" but was \"Cheese\" " +
+                "Additional Info: " +
+                "Some additional context");
         }
     }
 }
