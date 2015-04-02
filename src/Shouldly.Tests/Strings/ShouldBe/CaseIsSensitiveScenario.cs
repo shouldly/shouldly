@@ -6,12 +6,16 @@ namespace Shouldly.Tests.Strings.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            "SamplE".ShouldBe("sAMPLe", Case.Sensitive);
+            "SamplE".ShouldBe("sAMPLe", Case.Sensitive, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "'SamplE' should be 'sAMPLe' but was 'SamplE'"; }
+            get {
+                return "'SamplE' should be 'sAMPLe' but was 'SamplE'" +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
