@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -99,5 +100,33 @@ namespace Shouldly
             }
             return stringToClip;
         }
+
+        internal static string ToSafeString(this char c)
+        {
+            if (Char.IsControl(c) || Char.IsWhiteSpace(c))
+            {
+                switch (c)
+                {
+                    case '\r':
+                        return @"\r";
+                    case '\n':
+                        return @"\n";
+                    case '\t':
+                        return @"\t";
+                    case '\a':
+                        return @"\a";
+                    case '\v':
+                        return @"\v";
+                    case '\f':
+                        return @"\f";
+                    case ' ':
+                        return @"\s";
+                    default:
+                        return String.Format("\\u{0:X};", (int)c);
+                }
+            }
+            return c.ToString(CultureInfo.InvariantCulture);
+        }
+
     }
 }
