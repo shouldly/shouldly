@@ -8,6 +8,14 @@ namespace Shouldly
     public static partial class ShouldBeStringTestExtensions
     {
         /// <summary>
+        /// Perform a case sensitive string comparison
+        /// </summary>
+        public static void ShouldBe(this string actual, string expected)
+        {
+            ShouldBe(actual, expected, Case.Sensitive, () => null);
+        }
+
+        /// <summary>
         /// Perform a string comparison, specifying the desired case sensitivity
         /// </summary>
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
@@ -22,9 +30,9 @@ namespace Shouldly
 
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity, Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => (caseSensitivity == Case.Sensitive)
-                ? Is.Equal(v, expected)
-                : Is.StringEqualIgnoreCase(v, expected), actual, expected, customMessage);
+            actual.AssertAwesomelyWithCaseSensitivity(
+                v => Is.StringEqualWithCaseSensitivity(v, expected, caseSensitivity), 
+                actual, expected, caseSensitivity, customMessage);
         }
     }
 }
