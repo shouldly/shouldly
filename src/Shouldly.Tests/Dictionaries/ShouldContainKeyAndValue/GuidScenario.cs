@@ -18,12 +18,17 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldContainKeyAndValue(_missingGuidKey, _missingGuidValue);
+            _dictionary.ShouldContainKeyAndValue(_missingGuidKey, _missingGuidValue, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should contain key \"1924e617-2fc2-47ae-ad38-b6f30ec2226b\" with value \"f08a0b08-c9f4-49bb-a4d4-be06e88b69c8\" but the key does not exist"; }
+            get {
+                return
+                    "Dictionary \"_dictionary\" should contain key \"1924e617-2fc2-47ae-ad38-b6f30ec2226b\" with value \"f08a0b08-c9f4-49bb-a4d4-be06e88b69c8\" but the key does not exist " +
+                    "Additional Info: " +
+                    "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
