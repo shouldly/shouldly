@@ -15,12 +15,17 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainKey
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldNotContainKey(GuidKey);
+            _dictionary.ShouldNotContainKey(GuidKey, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should not contain key \"89bdbe3d-3436-4749-bcb7-84264394026c\" but does"; }
+            get {
+                return
+                    "Dictionary \"_dictionary\" should not contain key \"89bdbe3d-3436-4749-bcb7-84264394026c\" but does " +
+                    "Additional Info: " +
+                    "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
