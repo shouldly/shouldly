@@ -17,9 +17,12 @@ namespace Shouldly.Tests.ShouldNotBe
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myFalseValue should not be False but was False" +
-                         " Additional Info:" +
-                         " Some additional context"; }
+            get
+            {
+                return "myFalseValue should not be False but was False" +
+                       "Additional Info:" +
+                       "Some additional context";
+            }
         }
     }
 }

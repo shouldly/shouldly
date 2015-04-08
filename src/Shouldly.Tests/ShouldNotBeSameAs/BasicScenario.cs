@@ -14,8 +14,8 @@ namespace Shouldly.Tests.ShouldNotBeSameAs
         protected override string ChuckedAWobblyErrorMessage
         {
             get { return "zulu should not be same as System.Object but was System.Object" +
-                         " Additional Info:" +
-                         " Some additional context"; }
+                         "Additional Info:" +
+                         "Some additional context"; }
         }
 
         protected override void ShouldPass()

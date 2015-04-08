@@ -8,18 +8,20 @@ namespace Shouldly.Tests.ShouldBeUnique
         {
             get
             {
-                return "new [] { 1, 2, 2 } should be unique but [2] was duplicated";
+                return "new [] { 1, 2, 2 } should be unique but [2] was duplicated" +
+                       "Additional Info:" +
+                       "Some additional context";
             }
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            new [] { 1, 2, 2 }.ShouldBeUnique();
+            new[] {1, 2, 2}.ShouldBeUnique(() => "Some additional context");
         }
 
         protected override void ShouldPass()
         {
-            new [] { 1, 2, 3 }.ShouldBeUnique();
+            new[] {1, 2, 3}.ShouldBeUnique(() => "Some additional context");
         }
     }
 }

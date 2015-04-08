@@ -13,9 +13,13 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "firstSet should be within 0.1 of [1.4301, 2.34, 3.45] but was [1.23, 2.34, 3.45001] difference [*1.23*, 2.34, *3.45001*]" +
-                         " Additional Info:" +
-                         " Some additional context"; }
+            get
+            {
+                return
+                    "firstSet should be within 0.1 of [1.4301, 2.34, 3.45] but was [1.23, 2.34, 3.45001] difference [*1.23*, 2.34, *3.45001*]" +
+                    "Additional Info:" +
+                    "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

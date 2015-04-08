@@ -10,7 +10,8 @@ namespace Shouldly.Tests.ShouldNotContain
             var a = new Object();
             var b = new Object();
             var c = new Object();
-            new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName.Equals("System.Object"));
+            new[] {a, b, c}.ShouldNotContain(o => o.GetType().FullName.Equals("System.Object"),
+                () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -19,8 +20,9 @@ namespace Shouldly.Tests.ShouldNotContain
     new[] { a, b, c }
         should not contain an element satisfying the condition
     o.GetType().FullName.Equals(""System.Object"")
-        but does"; }
-            
+        but does
+    Additional Info:
+    Some additional context"; }
         }
 
         protected override void ShouldPass()
@@ -28,7 +30,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var a = new Object();
             var b = new Object();
             var c = new Object();
-            new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName.Equals(""));
+            new[] {a, b, c}.ShouldNotContain(o => o.GetType().FullName.Equals(""), () => "Some additional context");
 
         }
     }

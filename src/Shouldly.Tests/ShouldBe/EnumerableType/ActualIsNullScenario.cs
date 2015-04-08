@@ -15,8 +15,8 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         protected override string ChuckedAWobblyErrorMessage
         {
             get { return "something should be [1, 2, 3] but was null" +
-                         " Additional Info:" +
-                         " Some additional context"; }
+                         "Additional Info:" +
+                         "Some additional context"; }
         }
     }
 }

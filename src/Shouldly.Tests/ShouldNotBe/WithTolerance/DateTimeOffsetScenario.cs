@@ -16,8 +16,8 @@ namespace Shouldly.Tests.ShouldNotBe.WithTolerance
             get 
             {
                 return String.Format("date should not be within {0} of {1} but was {2}" +
-                                     " Additional Info:" +
-                                     " Some additional context",
+                                     "Additional Info:" +
+                                     "Some additional context",
                     TimeSpan.FromHours(1.5),
                         new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero),
                             new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero)); 
