@@ -6,14 +6,14 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] {1f}.ShouldBeSubsetOf(new[] {2f, 3f, 4f}, () => "Some additional context");
+            new[] { 1f, 2f, 5f }.ShouldBeSubsetOf(new[] {2f, 3f, 4f}, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "new[] { 1f } should be subset of  [2, 3, 4] but does not" +
+                return "new[] { 1f, 2f, 5f } should be subset of  [2, 3, 4] but [1, 5] are outside subset" +
                        "Additional Info:" +
                        "Some additional context";
             }

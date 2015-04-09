@@ -80,6 +80,7 @@ namespace Shouldly
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
+            new ShouldBeSubsetOfMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 

@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
         {
             get
             {
-                return "arr should be subset of [1, 2] but does not" +
+                return "arr should be subset of [1, 2] but [3] is outside subset" +
                        "Additional Info:" +
                        "Some additional context";
             }

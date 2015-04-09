@@ -1,3 +1,5 @@
+![Icon](https://raw.github.com/shouldly/shouldly/master/package_icon.png)
+
 Shouldly
 ========
 Shouldly is an assertion framework which focuses on giving great error messages when the assertion fails while being simple and terse.
@@ -39,3 +41,6 @@ Read more about Shouldly and it's features at [http://docs.shouldly-lib.net/](ht
 Once you're familiar with Git and GitHub, clone the repository and start contributing.
 
 If you need inspiration for which issue to pick up have a look for the [Jump-In](https://github.com/shouldly/shouldly/labels/Jump-In) label on issues which are put on issues which are ready to be picked up by anyone. 
+
+## Icon
+[Star](https://thenounproject.com/term/star/20931/) created by [Luboš Volkov](https://thenounproject.com/Lubo%C5%A1%20Volkov/) from The Noun Project
