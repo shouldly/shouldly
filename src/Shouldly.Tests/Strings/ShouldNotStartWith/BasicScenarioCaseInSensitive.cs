@@ -1,14 +1,12 @@
-﻿using NUnit.Framework;
-using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Strings.ShouldNotStartWith
 {
-    public class ShouldIgnoreCaseByDefault : ShouldlyShouldTestScenario
+    public class BasicScenarioCaseInSensitive : ShouldlyShouldTestScenario
     {
-
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldNotStartWith("cH");
+            "Cheese".ShouldNotStartWith("cH", Case.Insensitive);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -18,7 +16,7 @@ namespace Shouldly.Tests.Strings.ShouldNotStartWith
 
         protected override void ShouldPass()
         {
-            "Cheese".ShouldNotStartWith("Ce");
+            "Cheese".ShouldNotStartWith("Ce", Case.Insensitive);
         }
     }
 }

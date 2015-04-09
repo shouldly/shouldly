@@ -147,6 +147,15 @@
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
     <Compile Include="ShouldThrow\TaskTimeoutTests.cs" />
+    <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldNotStartWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldNotStartWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldStartWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldStartWith\BasicScenarioCaseInSensitive.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />

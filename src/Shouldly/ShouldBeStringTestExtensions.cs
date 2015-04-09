@@ -27,24 +27,24 @@ namespace Shouldly
             strippedActual.AssertAwesomely(v => Is.Equal(v, strippedExpected), actual, expected);
         }
 
-        public static void ShouldStartWith(this string actual, string expected)
+        public static void ShouldStartWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
         {
-            actual.AssertAwesomely(v => Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
+            actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
-        public static void ShouldEndWith(this string actual, string expected)
+        public static void ShouldEndWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
         {
-            actual.AssertAwesomely(v => Is.EndsWithIgnoringCase(v, expected), actual, expected);
+            actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
-        public static void ShouldNotStartWith(this string actual, string expected)
+        public static void ShouldNotStartWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
         {
-            actual.AssertAwesomely(v => !Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
+            actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
-        public static void ShouldNotEndWith(this string actual, string expected)
+        public static void ShouldNotEndWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
         {
-            actual.AssertAwesomely(v => !Is.EndsWithIgnoringCase(v, expected), actual, expected);
+            actual.AssertAwesomely(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
         public static void ShouldContain(this string actual, string expected)
