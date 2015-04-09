@@ -18,8 +18,8 @@ namespace Shouldly.Tests.ShouldBeSameAs
             {
                 //TODO maybe include GetHashCode?
                 return "zulu should be same as System.Object but was System.Object" +
-                       " Additional Info:" +
-                       " Some additional context";
+                       "Additional Info:" +
+                       "Some additional context";
             }
         }
 
