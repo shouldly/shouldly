@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             int result = 4;
             result.ShouldSatisfyAllConditions
                     (
-                        () => result.ShouldBeOfType<int>(),
+                        () => result.ShouldBeOfType<int>(() => "Some additional context"),
                         () => Assert.AreEqual(4, result)
                     );
         }
@@ -20,7 +20,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             int result = 4;
             result.ShouldSatisfyAllConditions
                     (
-                        () => result.ShouldBeOfType<float>(),
+                        () => result.ShouldBeOfType<float>(() => "Some additional context"),
                         () => Assert.AreEqual(5, result)
                     );
         }
@@ -38,6 +38,8 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
     System.Single
         but was
     System.Int32
+    Additional Info:
+    Some additional context
 --------------- Error 2 ---------------
   Expected: 5
   But was:  4

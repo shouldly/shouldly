@@ -34,7 +34,7 @@ namespace Shouldly.Tests.ShouldThrow
                 return task;
             });
             ex.ShouldNotBe(null);
-            ex.ShouldBeOfType<InvalidOperationException>();
+            ex.ShouldBeOfType<InvalidOperationException>(() => "Some additional context");
         }
     }
 }
