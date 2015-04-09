@@ -6,12 +6,16 @@ namespace Shouldly.Tests.ShouldBeLessThan
     {
         protected override void ShouldThrowAWobbly()
         {
-            1.ShouldBeLessThan(1);
+            1.ShouldBeLessThan(1, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "1 should be less than 1 but was 1"; }
+            get {
+                return "1 should be less than 1 but was 1" +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
     }
 }
