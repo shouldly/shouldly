@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.9.1\ExpressionStringBuilder.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrEmptyTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringStartEndTestExtensions.cs" />
     <Compile Include="ShouldStaticClasses\DynamicShould.cs" />
     <Compile Include="Internals\FloatingPointNumerics.cs" />
     <Compile Include="Internals\EqualityComparer.cs" />
@@ -85,8 +88,8 @@
     <Compile Include="ShouldlyExtensionMethods\ShouldBeGtLtTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeRangeTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeTypeTestExtensions.cs" />
-    <Compile Include="ShouldlyExtensionMethods\ShouldBe\ShouldBeDateTimeTestExtensions.cs" />
-    <Compile Include="ShouldlyExtensionMethods\ShouldBe\ShouldBeNumericTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\DateTimeShouldBeTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\NumericShouldBeTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldSatisfyAllConditionsTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldCompleteInExtensions.cs" />
     <Compile Include="DifferenceHighlighting\ItemDifferenceHighlighter.cs" />
@@ -102,8 +105,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeDictionaryTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeEnumerableTestExtensions.cs" />
-    <Compile Include="ShouldlyExtensionMethods\ShouldBe\ShouldBeStringTestExtensions.cs" />
-    <Compile Include="ShouldlyExtensionMethods\ShouldBe\ShouldBeTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringShouldBeTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\GenericShouldBeTestExtensions.cs" />
     <Compile Include="ShouldlyConfiguration.cs" />
     <Compile Include="Internals\ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
