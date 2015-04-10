@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
-using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Strings.ShouldEndWith
 {
-    public class ShouldIgnoreCaseByDefault: ShouldlyShouldTestScenario
+    public class BasicScenarioCaseInsensitive : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldEndWith("ze");
+            "Cheese".ShouldEndWith("ze", Case.Insensitive);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -17,7 +16,7 @@ namespace Shouldly.Tests.Strings.ShouldEndWith
 
         protected override void ShouldPass()
         {
-            "Cheese".ShouldEndWith("SE");
+            "Cheese".ShouldEndWith("Se", Case.Insensitive);
         }
     }
 }

@@ -2,21 +2,21 @@
 
 namespace Shouldly.Tests.Strings.ShouldStartWith
 {
-    public class ShouldIgnoreCaseByDefault : ShouldlyShouldTestScenario
+    public class BasicScenarioCaseSensitive : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldStartWith("Ce");
+            "Cheese".ShouldStartWith("cH", Case.Sensitive);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Cheese\" should start with \"Ce\" but was \"Cheese\""; }
+            get { return "\"Cheese\" should start with \"cH\" but was \"Cheese\""; }
         }
 
         protected override void ShouldPass()
         {
-            "Cheese".ShouldStartWith("CH");
+            "Cheese".ShouldStartWith("Ch", Case.Sensitive);
         }
     }
 }
