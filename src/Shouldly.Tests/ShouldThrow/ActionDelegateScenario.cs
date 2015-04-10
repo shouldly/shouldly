@@ -18,7 +18,7 @@ namespace Shouldly.Tests.ShouldThrow
         protected override void ShouldPass()
         {
             var ex = Should.Throw<NotImplementedException>(() => { throw new NotImplementedException(); });
-            ex.ShouldBeOfType<NotImplementedException>(() => "Some additional context");
+            ex.ShouldBeOfType<NotImplementedException>();
             ex.ShouldNotBe(null);
         }
     }

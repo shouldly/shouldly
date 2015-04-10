@@ -27,7 +27,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
             catch (AggregateException e)
             {
                 var inner = e.Flatten().InnerException;
-                inner.ShouldBeOfType<ShouldAssertException>(() => "Some additional context");
+                inner.ShouldBeOfType<ShouldAssertException>();
             }
         }
 
