@@ -60,11 +60,11 @@ namespace Shouldly
         /*** CompleteIn(Func<Task<T>>) ***/
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout)
         {
-            return CompleteIn(actual(), timeout, () => null);
+            return CompleteIn(actual, timeout, () => null);
         }
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string customMessage)
         {
-            return CompleteIn(actual(), timeout, () => customMessage);
+            return CompleteIn(actual, timeout, () => customMessage);
         }
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, Func<string> customMessage)
         {
