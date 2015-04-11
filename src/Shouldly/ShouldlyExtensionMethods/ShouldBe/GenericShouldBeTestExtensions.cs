@@ -7,7 +7,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeTestExtensions
+    public static partial class ShouldBeTestExtensions
     {
         public static void ShouldBe<T>(this T actual, T expected)
         {

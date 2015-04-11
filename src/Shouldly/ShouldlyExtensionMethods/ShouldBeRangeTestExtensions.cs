@@ -4,9 +4,7 @@ using System.Linq;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class ShouldBeRangeTestExtensions
+    public static partial class ShouldBeTestExtensions
     {
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected)
         {

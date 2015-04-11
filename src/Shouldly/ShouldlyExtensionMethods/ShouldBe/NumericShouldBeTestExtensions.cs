@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class ShouldBeNumericTestExtensions
+    public static partial class ShouldBeTestExtensions
     {
         public static void ShouldBe(this float actual, float expected, double tolerance)
         {

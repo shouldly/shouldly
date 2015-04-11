@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class ShouldBeGtLtTestExtensions
+    public static partial class ShouldBeTestExtensions
     {
         public static void ShouldBeGreaterThan<T>(this T actual, T expected) where T : IComparable<T>
         {

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class ShouldBeTypeTestExtensions
+    public static partial class ShouldBeTestExtensions
     {
         public static T ShouldBeAssignableTo<T>(this object actual)
         {

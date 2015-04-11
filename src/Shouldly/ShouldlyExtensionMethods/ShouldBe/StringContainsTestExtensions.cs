@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class ContainsTestExtensions
+    public static partial class ShouldBeStringTestExtensions
     {
         /// <summary>
         /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings

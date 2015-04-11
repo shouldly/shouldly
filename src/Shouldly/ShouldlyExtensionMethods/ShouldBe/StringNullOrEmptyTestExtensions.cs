@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class NullOrEmptyTestExtensions
+    public static partial class ShouldBeStringTestExtensions
     {
         public static void ShouldBeNullOrEmpty(this string actual)
         {

@@ -5,7 +5,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeStringTestExtensions
+    public static partial class ShouldBeStringTestExtensions
     {
         /// <summary>
         /// Perform a string comparison, specifying the desired case sensitivity

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class ShouldBeDateTimeTestExtensions
+    public static partial class ShouldBeTestExtensions
     {
         public static void ShouldBe(this DateTime actual, DateTime expected, TimeSpan tolerance)
         {

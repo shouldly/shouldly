@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
-    public static class StartEndTestExtensions
+    public static partial class ShouldBeStringTestExtensions
     {
         /*** ShouldStartWith ***/
-        public static void ShouldStartWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldStartWith(this string actual, string expected)
+        {
+            ShouldStartWith(actual, expected, () => null);
+        }
+        
+        public static void ShouldStartWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldStartWith(actual, expected, () => null, caseSensitivity);
         }
@@ -24,7 +26,12 @@ namespace Shouldly
         }
 
         /*** ShouldEndWith ***/
-        public static void ShouldEndWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldEndWith(this string actual, string expected)
+        {
+            ShouldEndWith(actual, expected, () => null);
+        }
+
+        public static void ShouldEndWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldEndWith(actual, expected, () => null, caseSensitivity);
         }
@@ -40,7 +47,11 @@ namespace Shouldly
         }
 
         /*** ShouldNotStartWith ***/
-        public static void ShouldNotStartWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldNotStartWith(this string actual, string expected)
+        {
+            ShouldNotStartWith(actual, expected, () => null);
+        }
+public static void ShouldNotStartWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldNotStartWith(actual, expected, () => null, caseSensitivity);
         }
@@ -56,7 +67,11 @@ namespace Shouldly
         }
 
         /*** ShouldNotEndWith ***/
-        public static void ShouldNotEndWith(this string actual, string expected, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldNotEndWith(this string actual, string expected)
+        {
+            ShouldNotEndWith(actual, expected, () => null);
+        }
+public static void ShouldNotEndWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldNotEndWith(actual, expected, () => null, caseSensitivity);
         }
