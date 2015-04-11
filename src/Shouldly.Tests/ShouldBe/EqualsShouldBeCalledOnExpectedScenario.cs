@@ -6,14 +6,17 @@ namespace Shouldly.Tests.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            new BaseClass().ShouldBe(new SubclassWithStubbedEquals {EqualsResult = false});
+            new BaseClass().ShouldBe(new SubclassWithStubbedEquals { EqualsResult = false }, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "new BaseClass() should be Shouldly.Tests.ShouldBe.SubclassWithStubbedEquals but was Shouldly.Tests.ShouldBe.BaseClass";
+                return @"new BaseClass() should be Shouldly.Tests.ShouldBe.SubclassWithStubbedEquals 
+                        but was Shouldly.Tests.ShouldBe.BaseClass
+Additional Info:
+Some additional context";
             }
         }
 
