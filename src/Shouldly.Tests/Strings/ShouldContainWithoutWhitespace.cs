@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and missing quotes", () => "Some additional context");
+            "Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and missing quotes", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

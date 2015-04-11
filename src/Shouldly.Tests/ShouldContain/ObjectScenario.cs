@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldContain
             var b = new Object();
             var c = new Object();
             var d = new Object();
-            new[] { a, b, c }.ShouldContain(d, () => "Some additional context");
+            new[] { a, b, c }.ShouldContain(d, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

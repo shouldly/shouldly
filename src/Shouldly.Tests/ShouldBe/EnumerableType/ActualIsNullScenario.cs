@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         {
             IEnumerable<int> something = null;
             // ReSharper disable once ExpressionIsAlwaysNull
-            something.ShouldBe(new[] { 1, 2, 3 }, () => "Some additional context");
+            something.ShouldBe(new[] { 1, 2, 3 }, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

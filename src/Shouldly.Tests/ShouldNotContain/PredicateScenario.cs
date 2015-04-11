@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldNotContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] {1, 2, 3}.ShouldNotContain(i => i < 4, () => "Some additional context");
+            new[] {1, 2, 3}.ShouldNotContain(i => i < 4, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

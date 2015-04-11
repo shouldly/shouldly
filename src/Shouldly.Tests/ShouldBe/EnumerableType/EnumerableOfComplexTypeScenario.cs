@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override void ShouldThrowAWobbly()
         {
-            _aEnumerable.ShouldBe(_bArray, () => "Some additional context");
+            _aEnumerable.ShouldBe(_bArray, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

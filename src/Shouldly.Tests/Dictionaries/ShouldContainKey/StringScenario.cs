@@ -12,7 +12,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKey
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldContainKey("bar", () => "Some additional context");
+            _dictionary.ShouldContainKey("bar", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

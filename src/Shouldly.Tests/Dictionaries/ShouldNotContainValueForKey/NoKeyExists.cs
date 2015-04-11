@@ -15,7 +15,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, () => "Some additional context");
+            _dictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

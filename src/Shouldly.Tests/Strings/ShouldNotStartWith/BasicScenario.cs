@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldNotStartWith
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldNotStartWith("Ch", () => "Some additional context");
+            "Cheese".ShouldNotStartWith("Ch", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

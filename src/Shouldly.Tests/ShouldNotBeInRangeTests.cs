@@ -7,7 +7,7 @@ namespace Shouldly.Tests
     {
         protected override void ShouldThrowAWobbly()
         {
-            1.5m.ShouldNotBeInRange(1.4m, 1.6m, () => "Some additional context");
+            1.5m.ShouldNotBeInRange(1.4m, 1.6m, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

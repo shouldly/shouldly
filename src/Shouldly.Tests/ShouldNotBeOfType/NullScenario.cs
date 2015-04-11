@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldNotBeOfType
         public void AndShouldNotThrow()
         {
             object o = null;
-            o.ShouldNotBeOfType<int>(() => "Some additional context");
+            o.ShouldNotBeOfType<int>("Some additional context");
         }
 
         //TODO Test of null.ShouldNotBeOfType<int?>()

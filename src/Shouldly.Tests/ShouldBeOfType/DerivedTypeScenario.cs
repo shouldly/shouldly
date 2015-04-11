@@ -7,7 +7,7 @@ namespace Shouldly.Tests.ShouldBeOfType
         protected override void ShouldThrowAWobbly()
         {
             var myThing = new MyThing();
-            myThing.ShouldBeOfType<MyBase>(() => "Some additional context");
+            myThing.ShouldBeOfType<MyBase>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

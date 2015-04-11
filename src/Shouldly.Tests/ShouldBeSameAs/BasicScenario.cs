@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeSameAs
             var zulu = new object();
             var tutsie = new object();
 
-            zulu.ShouldBeSameAs(tutsie, () => "Some additional context");
+            zulu.ShouldBeSameAs(tutsie, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

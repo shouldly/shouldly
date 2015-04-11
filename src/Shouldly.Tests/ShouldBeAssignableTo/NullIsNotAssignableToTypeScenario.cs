@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
         {
             MyThing myThing = null;
             // ReSharper disable once ExpressionIsAlwaysNull
-            myThing.ShouldBeAssignableTo<MyBase>(() => "Some additional context");
+            myThing.ShouldBeAssignableTo<MyBase>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] {1f, 2f, 3f}.ShouldContain(1.8f, 0.1d, () => "Some additional context");
+            new[] {1f, 2f, 3f}.ShouldContain(1.8f, 0.1d, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

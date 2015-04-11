@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldNotContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Foo".ShouldNotContain('F', () => "Some additional context");
+            "Foo".ShouldNotContain('F', "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

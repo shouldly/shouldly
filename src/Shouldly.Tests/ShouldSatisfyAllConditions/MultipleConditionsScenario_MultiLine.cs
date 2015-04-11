@@ -23,10 +23,10 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             result.ShouldSatisfyAllConditions
                     (
                         ()
-                            => result.ShouldBeOfType<float>(() => "Some additional context"),
+                            => result.ShouldBeOfType<float>("Some additional context"),
                         () 
                             =>
-                            result.ShouldBeGreaterThan(5, () => "Some additional context")
+                            result.ShouldBeGreaterThan(5, "Some additional context")
                     );
         }
 

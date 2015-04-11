@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldNotContain
         protected override void ShouldThrowAWobbly()
         {
             var capturedOuterVar = 4;
-            new[] {1, 2, 3}.ShouldNotContain(i => i < capturedOuterVar, () => "Some additional context");
+            new[] {1, 2, 3}.ShouldNotContain(i => i < capturedOuterVar, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

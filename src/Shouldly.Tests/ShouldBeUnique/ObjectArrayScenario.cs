@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ShouldBeUnique
 
         protected override void ShouldThrowAWobbly()
         {
-            new object[] {1, 2, 3, 4, 2}.ShouldBeUnique(() => "Some additional context");
+            new object[] {1, 2, 3, 4, 2}.ShouldBeUnique("Some additional context");
         }
 
         protected override void ShouldPass()

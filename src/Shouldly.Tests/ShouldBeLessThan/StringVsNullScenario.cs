@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldBeLessThan
     {
         protected override void ShouldThrowAWobbly()
         {
-            "b".ShouldBeLessThan(null, () => "Some additional context");
+            "b".ShouldBeLessThan(null, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ShouldNotBe
         protected override void ShouldThrowAWobbly()
         {
             const bool myFalseValue = false;
-            myFalseValue.ShouldNotBe(false, () => "Some additional context");
+            myFalseValue.ShouldNotBe(false, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

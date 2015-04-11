@@ -7,7 +7,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] { (float)Math.PI, (float)Math.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, () => "Some additional context");
+            new[] { (float)Math.PI, (float)Math.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

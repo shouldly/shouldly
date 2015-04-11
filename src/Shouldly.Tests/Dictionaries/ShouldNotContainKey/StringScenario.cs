@@ -11,7 +11,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainKey
         };
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldNotContainKey("Foo", () => "Some additional context");
+            _dictionary.ShouldNotContainKey("Foo", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

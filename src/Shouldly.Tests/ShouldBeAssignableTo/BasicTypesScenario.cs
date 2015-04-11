@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
     {
         protected override void ShouldThrowAWobbly()
         {
-            2.ShouldBeAssignableTo<double>(() => "Some additional context");
+            2.ShouldBeAssignableTo<double>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
