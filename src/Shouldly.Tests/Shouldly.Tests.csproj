@@ -143,7 +143,7 @@
     <Compile Include="ShouldThrow\FuncOfTaskOfStringThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskScenario.cs" />
-    <Compile Include="ShouldThrow\FuncOfTaskThrowsDifferentExceptionScenario.cs" />
+    <Compile Include="ShouldThrow\TaskThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
     <Compile Include="ShouldThrow\TaskTimeoutTests.cs" />

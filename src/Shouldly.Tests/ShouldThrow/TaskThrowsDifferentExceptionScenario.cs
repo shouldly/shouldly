@@ -1,13 +1,15 @@
-﻿using System;
+﻿#if net40
+using System;
+using System.Threading.Tasks;
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class ActionDelegateThrowsDifferentExceptionScenario : ShouldlyShouldFailureTestScenario
+    public class TaskThrowsDifferentExceptionScenario : ShouldlyShouldFailureTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            Should.Throw<InvalidOperationException>(() => { throw new RankException(); }, "Some additional context");
+            Should.Throw<InvalidOperationException>(Task.Factory.StartNew(() => { throw new RankException(); }), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -18,3 +20,4 @@ Some additional context"; }
         }
     }
 }
+#endif

@@ -7,12 +7,17 @@ namespace Shouldly.Tests.ShouldThrow
     {
         protected override void ShouldThrowAWobbly()
         {
-            Should.Throw<NotImplementedException>(() => { });
+            Should.Throw<NotImplementedException>(() => { }, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Should throw System.NotImplementedException but does not"; }
+            get
+            {
+                return @"Should throw System.NotImplementedException but does not
+Additional Info:
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()
