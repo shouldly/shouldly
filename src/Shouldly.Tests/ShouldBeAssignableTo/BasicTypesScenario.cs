@@ -6,17 +6,22 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
     {
         protected override void ShouldThrowAWobbly()
         {
-            2.ShouldBeAssignableTo<double>();
+            2.ShouldBeAssignableTo<double>(() => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "2 should be assignable to System.Double but was System.Int32"; }
+            get
+            {
+                return "2 should be assignable to System.Double but was System.Int32" +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
         {
-            1.ShouldBeAssignableTo<int>();
+            1.ShouldBeAssignableTo<int>(() => "Some additional context");
         }
     }
 }

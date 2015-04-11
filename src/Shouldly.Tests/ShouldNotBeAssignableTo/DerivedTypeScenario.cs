@@ -7,7 +7,7 @@ namespace Shouldly.Tests.ShouldNotBeAssignableTo
         protected override void ShouldThrowAWobbly()
         {
             var myThing = new MyThing();
-            myThing.ShouldNotBeAssignableTo<MyThing>();
+            myThing.ShouldNotBeAssignableTo<MyThing>(() => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -18,7 +18,7 @@ namespace Shouldly.Tests.ShouldNotBeAssignableTo
         protected override void ShouldPass()
         {
             var myThing = new MyThing();
-            myThing.ShouldNotBeAssignableTo<string>();
+            myThing.ShouldNotBeAssignableTo<string>(() => "Some additional context");
         }
     }
 }

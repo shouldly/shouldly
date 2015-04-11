@@ -7,18 +7,23 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
         protected override void ShouldThrowAWobbly()
         {
             var myThing = new MyThing();
-            myThing.ShouldBeAssignableTo<string>();
+            myThing.ShouldBeAssignableTo<string>(() => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myThing should be assignable to System.String but was Shouldly.Tests.TestHelpers.MyThing"; }
+            get
+            {
+                return "myThing should be assignable to System.String but was Shouldly.Tests.TestHelpers.MyThing" +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
         {
             var myThing = new MyThing();
-            myThing.ShouldBeAssignableTo<MyBase>();
+            myThing.ShouldBeAssignableTo<MyBase>(() => "Some additional context");
         }
     }
 }

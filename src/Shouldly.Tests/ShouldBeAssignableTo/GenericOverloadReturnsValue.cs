@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
         {
             object val = "Foo";
             // ReSharper disable once SuggestUseVarKeywordEvident
-            string returnedVal = val.ShouldBeAssignableTo<string>();
+            string returnedVal = val.ShouldBeAssignableTo<string>(() => "Some additional context");
             returnedVal.ShouldBe("Foo");
         }
     }
