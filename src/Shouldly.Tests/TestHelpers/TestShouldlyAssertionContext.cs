@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Shouldly.Tests.TestHelpers
@@ -6,7 +7,7 @@ namespace Shouldly.Tests.TestHelpers
     public class TestShouldlyAssertionContext : IShouldlyAssertionContext
     {
         public bool DeterminedOriginatingFrame { get; set; }
-        public string ShouldMethod { get; set; } 
+        public string ShouldMethod { get; set; }
         public string FileName { get; set; }
         public int LineNumber { get; set; }
         public string CodePart { get; set; }
@@ -16,6 +17,8 @@ namespace Shouldly.Tests.TestHelpers
         public object Expected { get; set; }
         public object Actual { get; set; }
         public object Tolerance { get; set; }
+        public TimeSpan? Timeout { get; set; }
+
         public bool IgnoreOrder { get; set; }
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }

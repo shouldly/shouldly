@@ -20,6 +20,8 @@ namespace Shouldly
         public object Expected { get; set; }
         public object Actual { get; set; }
         public object Tolerance { get; set; }
+        public TimeSpan? Timeout { get; set; }
+
         public bool IgnoreOrder { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 

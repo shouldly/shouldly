@@ -60,6 +60,18 @@ namespace Shouldly
         }
     }
 
+    #if net40
+    internal class CompleteInShouldlyMessage : ShouldlyMessage
+    {
+        public CompleteInShouldlyMessage(string what, TimeSpan timeout, string customMessage = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(what);
+            ShouldlyAssertionContext.Timeout = timeout;
+            ShouldlyAssertionContext.CustomMessage = customMessage;
+        }
+    }
+#endif
+
     internal abstract class ShouldlyMessage
     {
         private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
@@ -68,7 +80,8 @@ namespace Shouldly
             new ShouldBeEmptyMessageGenerator(), 
             new ShouldAllBeMessageGenerator(), 
     #if net40
-            new DynamicShouldMessageGenerator(), 
+            new DynamicShouldMessageGenerator(),
+            new ShouldCompleteInMessageGenerator(),
     #endif
             new DictionaryShouldOrNotContainKeyMessageGenerator(), 
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 
