@@ -18,7 +18,7 @@ namespace Shouldly
                 throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage()).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage).ToString());
         }
 
         internal static void AssertAwesomelyIgnoringOrder<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected,  Func<string> customMessage = null)
@@ -35,7 +35,7 @@ namespace Shouldly
                 throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage()).ToString());
+            throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage).ToString());
         }
 
         internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, object tolerance, Func<string> customMessage = null )
@@ -52,7 +52,7 @@ namespace Shouldly
                 throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage()).ToString());
+            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage).ToString());
         }
     }
 }

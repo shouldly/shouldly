@@ -37,7 +37,7 @@ namespace Shouldly
             if (errorMessages.Any())
             {
                 var errorMessageString = BuildErrorMessageString(errorMessages);
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString, customMessage).ToString());
             }
         }
 

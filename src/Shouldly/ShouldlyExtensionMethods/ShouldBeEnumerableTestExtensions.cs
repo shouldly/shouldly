@@ -23,7 +23,7 @@ namespace Shouldly
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, Func<string> customMessage)
         {
             if (!actual.Contains(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected)
@@ -39,7 +39,7 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, Func<string> customMessage)
         {
             if (actual.Contains(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
@@ -56,7 +56,7 @@ namespace Shouldly
         {
             var condition = elementPredicate.Compile();
             if (!actual.Any(condition))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
@@ -73,7 +73,7 @@ namespace Shouldly
         {
             var condition = elementPredicate.Compile();
             if (actual.Any(condition))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage).ToString());
         }
 
         public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
@@ -91,7 +91,7 @@ namespace Shouldly
             var condition = elementPredicate.Compile();
             var actualResults = actual.Where(part => !condition(part));
             if (actualResults.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actualResults, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actualResults, customMessage).ToString());
         }
 
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)
@@ -107,7 +107,7 @@ namespace Shouldly
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual, Func<string> customMessage)
         {
             if (actual == null || (actual != null && actual.Count() != 0))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
         public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual)
@@ -123,7 +123,7 @@ namespace Shouldly
         public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual, Func<string> customMessage)
         {
             if (actual == null || actual != null && !actual.Any())
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
         public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance)
@@ -139,7 +139,7 @@ namespace Shouldly
         public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, Func<string> customMessage)
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-                throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
         }
 
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance)
@@ -155,7 +155,7 @@ namespace Shouldly
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, Func<string> customMessage)
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-                throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
         }
 
         public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
@@ -175,7 +175,7 @@ namespace Shouldly
 
             var missing = actual.Except(expected);
             if (missing.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage).ToString());
         }
 
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual)
@@ -192,7 +192,7 @@ namespace Shouldly
         {
             var duplicates = GetDuplicates(actual);
             if (duplicates.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(new List<T>(), duplicates, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(new List<T>(), duplicates, customMessage).ToString());
         }
 
         static List<object> GetDuplicates<T>(IEnumerable<T> items)

@@ -17,7 +17,7 @@ namespace Shouldly
         public static void ShouldBeNullOrEmpty(this string actual, Func<string> customMessage)
         {
             if (!string.IsNullOrEmpty(actual))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
         public static void ShouldNotBeNullOrEmpty(this string actual)
@@ -33,7 +33,7 @@ namespace Shouldly
         public static void ShouldNotBeNullOrEmpty(this string actual, Func<string> customMessage)
         {
             if (string.IsNullOrEmpty(actual))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         } 
     }
 }

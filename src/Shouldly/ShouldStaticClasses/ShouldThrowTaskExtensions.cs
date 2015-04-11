@@ -83,10 +83,10 @@ namespace Shouldly
                 if (e is TException)
                     return (TException)e;
 
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType(), customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
 
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage()).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -166,11 +166,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
             }
         }
 
@@ -230,11 +230,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
             }
         }
 
@@ -259,7 +259,7 @@ namespace Shouldly
                 return (TException)innerException;
 
             throw new ShouldAssertException(
-                new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage()).ToString());
+                new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
         }
     }
 }
