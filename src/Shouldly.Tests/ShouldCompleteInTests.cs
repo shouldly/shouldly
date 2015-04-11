@@ -1,6 +1,7 @@
 ﻿#if net40
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Shouldly.Tests
@@ -11,13 +12,37 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldCompleteIn_WhenFinishBeforeTimeout()
         {
-            Should.NotThrow(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(1)), TimeSpan.FromSeconds(2)));
+            Should.NotThrow(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(0.5)), TimeSpan.FromSeconds(2)));
         }
 
         [Test]
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
-            Should.Throw<TimeoutException>(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(2)), TimeSpan.FromSeconds(1)));
+            var ex = Should.Throw<TimeoutException>(() => 
+                Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(2)), TimeSpan.FromSeconds(1), () => "Some additional context"));
+            ex.Message.ShouldContainWithoutWhitespace(@"
+    Delegate
+        should complete in
+    00:00:01
+        but did not
+    Additional Info:
+    Some additional context");
+        }
+
+        [Test]
+        public void ShouldCompleteInTask_WhenFinishAfterTimeout()
+        {
+            var ex = Should.Throw<TimeoutException>(() => 
+                Should.CompleteIn(
+                    () => Task.Factory.StartNew(() => Thread.Sleep(TimeSpan.FromSeconds(2))), 
+                    TimeSpan.FromSeconds(1), () => "Some additional context"));
+            ex.Message.ShouldContainWithoutWhitespace(@"
+    Task
+        should complete in
+    00:00:01
+        but did not
+    Additional Info:
+    Some additional context");
         }
 
         [Test]
@@ -39,11 +64,40 @@ namespace Shouldly.Tests
         [Test]
         public void ShouldCompleteInT_WhenFinishAfterTimeout()
         {
-            Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
+            var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
             {
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 return "";
-            }, TimeSpan.FromSeconds(1)));
+            }, TimeSpan.FromSeconds(1), () => "Some additional context"));
+
+            ex.Message.ShouldContainWithoutWhitespace(@"
+    Delegate
+        should complete in
+    00:00:01
+        but did not
+    Additional Info:
+    Some additional context");
+        }
+
+        [Test]
+        public void ShouldCompleteInTaskT_WhenFinishAfterTimeout()
+        {
+            var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
+            {
+                return Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    return "";
+                });
+            }, TimeSpan.FromSeconds(1), () => "Some additional context"));
+
+            ex.Message.ShouldContainWithoutWhitespace(@"
+    Task
+        should complete in
+    00:00:01
+        but did not
+    Additional Info:
+    Some additional context");
         }
 
         [Test]
