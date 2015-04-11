@@ -28,7 +28,7 @@ namespace Shouldly
 
     internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage = null)
+        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.Tolerance = tolerance;
@@ -39,7 +39,7 @@ namespace Shouldly
 
     internal class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual, Func<string> customMessage = null)
+        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.IgnoreOrder = true;
@@ -50,7 +50,7 @@ namespace Shouldly
 
     internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key, Func<string> customMessage = null)
+        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.Key = key;
