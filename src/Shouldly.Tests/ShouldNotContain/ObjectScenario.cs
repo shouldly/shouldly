@@ -34,7 +34,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var b = new Object();
             var c = new Object();
             var d = new Object();
-            new[] {a, b, c}.ShouldNotContain(d, () => "Some additional context");
+            new[] {a, b, c}.ShouldNotContain(d);
         }
     }
 }

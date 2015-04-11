@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldNotBeOfType
 
         protected override void ShouldPass()
         {
-            1.ShouldNotBeOfType<string>(() => "Some additional context");
+            1.ShouldNotBeOfType<string>();
         }
     }
 }

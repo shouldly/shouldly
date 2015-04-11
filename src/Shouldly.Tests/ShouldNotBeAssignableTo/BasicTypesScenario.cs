@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ShouldNotBeAssignableTo
 
         protected override void ShouldPass()
         {
-            1.ShouldNotBeAssignableTo<string>(() => "Some additional context");
+            1.ShouldNotBeAssignableTo<string>();
         }
     }
 }

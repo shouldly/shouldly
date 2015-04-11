@@ -18,7 +18,7 @@ namespace Shouldly.Tests.ShouldNotBeAssignableTo
         protected override void ShouldPass()
         {
             var myThing = new MyThing();
-            myThing.ShouldNotBeAssignableTo<string>(() => "Some additional context");
+            myThing.ShouldNotBeAssignableTo<string>();
         }
     }
 }

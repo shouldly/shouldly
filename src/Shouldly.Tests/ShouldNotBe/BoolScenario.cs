@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldNotBe
     {
         protected override void ShouldPass()
         {
-            false.ShouldNotBe(true, () => "Some additional context");
+            false.ShouldNotBe(true);
         }
 
         protected override void ShouldThrowAWobbly()

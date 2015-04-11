@@ -10,10 +10,10 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             result.ShouldSatisfyAllConditions
                     (
                         ()
-                            => result.ShouldBeOfType<int>(() => "Some additional context"),
+                            => result.ShouldBeOfType<int>(),
                         () 
                             =>
-                            result.ShouldBeGreaterThan(3, () => "Some additional context")
+                            result.ShouldBeGreaterThan(3)
                     );
         }
 

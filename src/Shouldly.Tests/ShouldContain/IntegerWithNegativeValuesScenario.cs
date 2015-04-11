@@ -23,7 +23,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override void ShouldPass()
         {
-            new[] { 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 }.ShouldContain(-1356237712831, () => "Some additional context");
+            new[] { 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 }.ShouldContain(-1356237712831);
         }
     }
 }

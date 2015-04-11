@@ -23,7 +23,7 @@ namespace Shouldly.Tests.ShouldNotBeSameAs
             var zulu = new object();
             var tutsie = new object();
 
-            zulu.ShouldNotBeSameAs(tutsie, () => "Some additional context");
+            zulu.ShouldNotBeSameAs(tutsie);
         }
     }
 }

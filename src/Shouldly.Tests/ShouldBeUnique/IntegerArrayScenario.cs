@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldBeUnique
 
         protected override void ShouldPass()
         {
-            new[] {1, 2, 3}.ShouldBeUnique(() => "Some additional context");
+            new[] {1, 2, 3}.ShouldBeUnique();
         }
     }
 }

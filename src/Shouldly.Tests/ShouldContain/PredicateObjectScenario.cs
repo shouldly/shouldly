@@ -28,8 +28,7 @@ namespace Shouldly.Tests.ShouldContain
             var a = new object();
             var b = new object();
             var c = new object();
-            new[] {a, b, c}.ShouldContain(o => o.GetType().FullName.Equals("System.Object"),
-                () => "Some additional context");
+            new[] {a, b, c}.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
         }
     }
 }

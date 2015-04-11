@@ -21,7 +21,7 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
 
         protected override void ShouldPass()
         {
-            "".ShouldBeEmpty(() => "Some additional context");
+            "".ShouldBeEmpty();
         }
     }
 }

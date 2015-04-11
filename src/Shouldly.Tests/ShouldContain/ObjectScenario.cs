@@ -30,7 +30,7 @@ namespace Shouldly.Tests.ShouldContain
             var a = new Object();
             var b = new Object();
             var c = new Object();
-            new[] { a, b, c }.ShouldContain(b, () => "Some additional context");
+            new[] { a, b, c }.ShouldContain(b);
         }
     }
 }

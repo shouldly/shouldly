@@ -144,12 +144,12 @@ namespace Shouldly
 
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance)
         {
-            ShouldContain(actual, expected, () => null);
+            ShouldContain(actual, expected, tolerance, () => null);
         }
 
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, string customMessage)
         {
-            ShouldContain(actual, expected, () => customMessage);
+            ShouldContain(actual, expected, tolerance, () => customMessage);
         }
 
         public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, Func<string> customMessage)

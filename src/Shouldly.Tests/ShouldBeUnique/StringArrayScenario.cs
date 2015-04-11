@@ -22,7 +22,7 @@ namespace Shouldly.Tests.ShouldBeUnique
 
         protected override void ShouldPass()
         {
-            new string[] {"string2", "string1", "string42", "string53"}.ShouldBeUnique(() => "Some additional context");
+            new string[] {"string2", "string1", "string42", "string53"}.ShouldBeUnique();
         }
     }
 }

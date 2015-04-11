@@ -23,7 +23,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
         protected override void ShouldPass()
         {
             var myThing = new MyThing();
-            myThing.ShouldBeAssignableTo<MyBase>(() => "Some additional context");
+            myThing.ShouldBeAssignableTo<MyBase>();
         }
     }
 }

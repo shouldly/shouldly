@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldNotContain
 
         protected override void ShouldPass()
         {
-            "Foo".ShouldNotContain('B', () => "Some additional context");
+            "Foo".ShouldNotContain('B');
         }
     }
 }

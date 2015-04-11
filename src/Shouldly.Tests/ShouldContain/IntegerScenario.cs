@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override void ShouldPass()
         {
-            new[] { 1, 2, 3, 4, 5 }.ShouldContain(3, () => "Some additional context");
+            new[] { 1, 2, 3, 4, 5 }.ShouldContain(3);
         }
     }
 }

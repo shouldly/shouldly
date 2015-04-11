@@ -25,7 +25,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override void ShouldPass()
         {
-            _aEnumerable.ShouldBe(_aEnumerable, () => "Some additonal context");
+            _aEnumerable.ShouldBe(_aEnumerable);
         }
     }
 }

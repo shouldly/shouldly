@@ -26,7 +26,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         {
             var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
             var secondSet = new[] { 1.2301m, 2.34m, 3.45m };
-            firstSet.ShouldBe(secondSet, 0.01m, () => "Some additional context");
+            firstSet.ShouldBe(secondSet, 0.01m);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldAllBe
 
         protected override void ShouldPass()
         {
-            new[] {1, 2, 3}.ShouldAllBe(x => x < 4, () => "Some additional context");
+            new[] {1, 2, 3}.ShouldAllBe(x => x < 4);
         }
     }
 }

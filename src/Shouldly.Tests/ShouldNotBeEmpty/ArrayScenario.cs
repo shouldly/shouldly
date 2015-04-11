@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldNotBeEmpty
 
         protected override void ShouldPass()
         {
-            new[] {1}.ShouldNotBeEmpty(() => "Some additional context");
+            new[] {1}.ShouldNotBeEmpty();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
             var arr = new object[] { 1, 2, 3 };
             var arr2 = new object[] { 1, 2, 3, 4 };
 
-            arr.ShouldBeSubsetOf(arr2, () => "Some additional context");
+            arr.ShouldBeSubsetOf(arr2);
         }
     }
 }

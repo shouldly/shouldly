@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
 
         protected override void ShouldPass()
         {
-            1.ShouldBeAssignableTo<int>(() => "Some additional context");
+            1.ShouldBeAssignableTo<int>();
         }
     }
 }

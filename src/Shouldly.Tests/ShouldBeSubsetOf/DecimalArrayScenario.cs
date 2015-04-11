@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
 
         protected override void ShouldPass()
         {
-            new[] {1m}.ShouldBeSubsetOf(new[] {1m, 2m, 3m}, () => "Some additional context");
+            new[] {1m}.ShouldBeSubsetOf(new[] {1m, 2m, 3m});
         }
     }
 }

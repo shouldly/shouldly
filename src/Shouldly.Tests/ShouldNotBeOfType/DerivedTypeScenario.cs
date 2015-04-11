@@ -24,7 +24,7 @@ namespace Shouldly.Tests.ShouldNotBeOfType
         protected override void ShouldPass()
         {
             var myThing = new MyThing();
-            myThing.ShouldNotBeOfType<MyBase>(() => "Some additional context");
+            myThing.ShouldNotBeOfType<MyBase>();
         }
     }
 }
