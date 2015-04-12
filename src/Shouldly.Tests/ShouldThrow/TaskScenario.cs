@@ -1,4 +1,4 @@
-﻿#if net40
+#if net40
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,17 +6,14 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class FuncOfTaskScenario : ShouldlyShouldTestScenario
+    public class TaskScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            Should.Throw<InvalidOperationException>(() =>
-            {
-                var task = Task.Factory.StartNew(() => { }, 
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-                return task;
-            }, "Some additional context");
+            var task = Task.Factory.StartNew(() => { },
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+            Should.Throw<InvalidOperationException>(task, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -28,13 +25,10 @@ Some additional context"; }
 
         protected override void ShouldPass()
         {
-            var ex = Should.Throw<InvalidOperationException>(() =>
-            {
-                var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
-                return task;
-            });
+            var ex = Should.Throw<InvalidOperationException>(task);
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
         }

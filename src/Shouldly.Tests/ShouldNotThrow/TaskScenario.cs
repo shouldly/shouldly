@@ -1,4 +1,4 @@
-﻿#if net40
+#if net40
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,17 +6,14 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
-    public class FuncOfTaskOfStringScenario : ShouldlyShouldTestScenario
+    public class TaskScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
-            Should.NotThrow(() =>
-            {
-                var task = Task.Factory.StartNew<string>(() => { throw new RankException(); },
+            var task = Task.Factory.StartNew(() => { throw new RankException(); },
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
-                return task;
-            }, "Some additional context");
+            Should.NotThrow(task, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -31,13 +28,10 @@ Some additional context";
 
         protected override void ShouldPass()
         {
-            Should.NotThrow(() =>
-            {
-                var task = Task.Factory.StartNew(() => "Foo",
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-                return task;
-            }).ShouldBe("Foo");
+            var task = Task.Factory.StartNew(() => { },
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+            Should.NotThrow(task);
         }
     }
 }
