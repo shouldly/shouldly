@@ -1,4 +1,5 @@
 ﻿#if net40
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
@@ -10,23 +11,35 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class DynamicShould
     {
-        public static void HaveProperty(dynamic dynamicTestObject, string p)
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName)
+        {
+            Func<string> customMessage = () => null;
+            HaveProperty(dynamicTestObject, propertyName, customMessage);
+        }
+
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string customMessage)
+        {
+            Func<string> message = () => customMessage;
+            HaveProperty(dynamicTestObject, propertyName, message);
+        }
+
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, Func<string> customMessage)
         {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
                 var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
 
-                if (!dynamicAsDictionary.ContainsKey(p))
+                if (!dynamicAsDictionary.ContainsKey(propertyName))
                 {
-                    throw new ShouldAssertException(new ExpectedShouldlyMessage(p).ToString());
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage()).ToString());
                 }
             }
             else
             {
                 var dynamicAsObject = (object)dynamicTestObject;
-                if (!dynamicAsObject.GetType().GetProperties().Select(x => x.Name).Contains(p))
+                if (!dynamicAsObject.GetType().GetProperties().Select(x => x.Name).Contains(propertyName))
                 {
-                    throw new ShouldAssertException(new ExpectedShouldlyMessage(p).ToString());
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage()).ToString());
                 }
             }
         }
