@@ -14,12 +14,17 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKey
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldContainKey(new MyThing());
+            _dictionary.ShouldContainKey(new MyThing(), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should contain key \"Shouldly.Tests.TestHelpers.MyThing\" but does not"; }
+            get {
+                return
+                    "Dictionary \"_dictionary\" should contain key \"Shouldly.Tests.TestHelpers.MyThing\" but does not " +
+                    "Additional Info: " +
+                    "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

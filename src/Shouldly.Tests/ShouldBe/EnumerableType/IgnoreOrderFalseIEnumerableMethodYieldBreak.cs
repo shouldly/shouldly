@@ -12,14 +12,16 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override void ShouldThrowAWobbly()
         {
-            GetEmptyEnumerable().ShouldBe(new[] {2, 4}, false);
+            GetEmptyEnumerable().ShouldBe(new[] { 2, 4 }, false, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "GetEmptyEnumerable() should be [2, 4] but was [] difference [*, *]";
+                return @"GetEmptyEnumerable() should be [2, 4] but was [] difference [*, *]
+Additional Info:
+Some additional context";
             }
         }
 

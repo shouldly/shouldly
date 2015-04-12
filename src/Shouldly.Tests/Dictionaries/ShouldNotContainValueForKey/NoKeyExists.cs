@@ -15,12 +15,17 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
 
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue);
+            _dictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should not contain key \"Shouldly.Tests.TestHelpers.MyThing\" with value \"Shouldly.Tests.TestHelpers.MyThing\" but the key does not exist"; }
+            get {
+                return
+                    "Dictionary \"_dictionary\" should not contain key \"Shouldly.Tests.TestHelpers.MyThing\" with value \"Shouldly.Tests.TestHelpers.MyThing\" but the key does not exist " +
+                    "Additional Info: " +
+                    "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

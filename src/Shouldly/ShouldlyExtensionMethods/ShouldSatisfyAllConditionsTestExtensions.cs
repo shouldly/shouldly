@@ -11,7 +11,15 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
     {
-        public static void ShouldSatisfyAllConditions(this object actual, params Action[] conditions)
+        public static void ShouldSatisfyAllConditions(this object actual, [InstantHandle] params Action[] conditions)
+        {
+            ShouldSatisfyAllConditions(actual, () => null, conditions);
+        }
+        public static void ShouldSatisfyAllConditions(this object actual, string customMessage, [InstantHandle] params Action[] conditions)
+        {
+            ShouldSatisfyAllConditions(actual, () => customMessage, conditions);
+        }
+        public static void ShouldSatisfyAllConditions(this object actual, Func<string> customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
             foreach (var action in conditions) 
@@ -29,7 +37,7 @@ namespace Shouldly
             if (errorMessages.Any())
             {
                 var errorMessageString = BuildErrorMessageString(errorMessages);
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString, customMessage).ToString());
             }
         }
 

@@ -7,12 +7,18 @@ namespace Shouldly.Tests.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            new BadEquatable().ShouldBe(new BadEquatable());
+            new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new BadEquatable() should be Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable but was Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable"; }
+            get
+            {
+                return @"new BadEquatable() should be Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable 
+                        but was Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable
+Additional Info:
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()

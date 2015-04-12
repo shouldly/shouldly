@@ -11,12 +11,16 @@ namespace Shouldly.Tests.Dictionaries.ShouldNotContainValueForKey
         };
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldNotContainValueForKey("Foo", "Bar");
+            _dictionary.ShouldNotContainValueForKey("Foo", "Bar", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should not contain key \"Foo\" with value \"Bar\" but does"; }
+            get {
+                return "Dictionary \"_dictionary\" should not contain key \"Foo\" with value \"Bar\" but does " +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

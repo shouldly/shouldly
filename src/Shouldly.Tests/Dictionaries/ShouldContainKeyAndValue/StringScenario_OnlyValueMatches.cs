@@ -11,12 +11,17 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
         };
         protected override void ShouldThrowAWobbly()
         {
-            _dictionary.ShouldContainKeyAndValue("bar", "baz");
+            _dictionary.ShouldContainKeyAndValue("bar", "baz", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dictionary \"_dictionary\" should contain key \"bar\" with value \"baz\" but the key does not exist"; }
+            get {
+                return
+                    "Dictionary \"_dictionary\" should contain key \"bar\" with value \"baz\" but the key does not exist" +
+                    "Additional Info: " +
+                    "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

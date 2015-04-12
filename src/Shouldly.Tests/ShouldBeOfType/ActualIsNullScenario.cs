@@ -8,12 +8,17 @@ namespace Shouldly.Tests.ShouldBeOfType
         {
             MyThing myThing = null;
             // ReSharper disable once ExpressionIsAlwaysNull
-            myThing.ShouldBeOfType<MyBase>();
+            myThing.ShouldBeOfType<MyBase>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "myThing should be of type Shouldly.Tests.TestHelpers.MyBase but was null"; }
+            get
+            {
+                return "myThing should be of type Shouldly.Tests.TestHelpers.MyBase but was null" +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
     }
 }

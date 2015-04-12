@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override void ShouldThrowAWobbly()
         {
-            _aEnumerable.ShouldBe(_bArray);
+            _aEnumerable.ShouldBe(_bArray, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -18,7 +18,9 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
             get { return "_aEnumerable " +
                          "should be [Name(Joeyjojoshabadoo Jr) Enabled(True)] " +
                          "but was [Name(Joe) Enabled(True)] " +
-                         "difference [*Name(Joe) Enabled(True)*]"; }
+                         "difference [*Name(Joe) Enabled(True)*] " +
+                         "Additional Info: " +
+                         "Some additional context"; }
         }
 
         protected override void ShouldPass()
