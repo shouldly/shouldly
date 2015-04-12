@@ -5,7 +5,7 @@ using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class TaskThrowsDifferentExceptionScenario : ShouldlyShouldFailureTestScenario
+    public class TaskThrowsDifferentExceptionScenario : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
@@ -17,6 +17,13 @@ namespace Shouldly.Tests.ShouldThrow
             get { return @"Should throw System.InvalidOperationException but was System.RankException
 Additional Info:
 Some additional context"; }
+        }
+
+        protected override void ShouldPass()
+        {
+            var ex = Should.Throw<InvalidOperationException>(Task.Factory.StartNew(() => { throw new InvalidOperationException(); }));
+            ex.ShouldNotBe(null);
+            ex.ShouldBeOfType<InvalidOperationException>();
         }
     }
 }

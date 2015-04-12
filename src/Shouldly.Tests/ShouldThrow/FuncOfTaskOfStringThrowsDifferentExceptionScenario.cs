@@ -19,9 +19,12 @@ namespace Shouldly.Tests.ShouldThrow
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return @"Should throw System.InvalidOperationException but was System.RankException
+            get
+            {
+                return @"Should throw System.InvalidOperationException but was System.RankException
 Additional Info:
-Some additional context"; }
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()

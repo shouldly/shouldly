@@ -68,7 +68,7 @@ namespace Shouldly
         {
             try
             {
-                RunAndWait(actual, timeoutAfter);
+                RunAndWait(actual, timeoutAfter, customMessage);
             }
             catch (TimeoutException)
             {
@@ -103,6 +103,20 @@ namespace Shouldly
             NotThrow(() => action, customMessage);
         }
 
+        /*** Should.NotThrow(Task<T>) ***/
+        public static T NotThrow<T>(Task<T> action)
+        {
+            return NotThrow(action, () => null);
+        }
+        public static T NotThrow<T>(Task<T> action, string customMessage)
+        {
+            return NotThrow(action, () => customMessage);
+        }
+        public static T NotThrow<T>(Task<T> action, Func<string> customMessage)
+        {
+            return NotThrow(() => action, customMessage);
+        }
+
         /*** Should.NotThrow(Func<Task>) ***/
         public static void NotThrow(Func<Task> action)
         {
@@ -114,7 +128,7 @@ namespace Shouldly
         }
         public static void NotThrow(Func<Task> action, Func<string> customMessage)
         {
-            NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout);
+            NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** Should.NotThrow(Task, TimeSpan) ***/
@@ -144,7 +158,7 @@ namespace Shouldly
         {
             try
             {
-                RunAndWait(action, timeoutAfter);
+                RunAndWait(action, timeoutAfter, customMessage);
             }
             catch (TimeoutException)
             {
@@ -152,11 +166,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage()).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage()).ToString());
             }
         }
 
@@ -205,32 +219,36 @@ namespace Shouldly
                 if (SynchronizationContext.Current != null)
                 {
                     return CompleteIn(Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default).Unwrap(), timeoutAfter);
+                        TaskScheduler.Default).Unwrap(), timeoutAfter, customMessage);
                 }
 
-                return CompleteIn(action, timeoutAfter);
+                return CompleteIn(action, timeoutAfter, customMessage);
+            }
+            catch (TimeoutException)
+            {
+                throw;
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage()).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage()).ToString());
             }
         }
 
-        private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter)
+        private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter, Func<string> customMessage)
         {
             // Drop the sync context so continuations will not post to it, causing a deadlock
             if (SynchronizationContext.Current != null)
             {
                 CompleteIn(Task.Factory.StartNew(actual, CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default).Unwrap(), timeoutAfter);
+                    TaskScheduler.Default).Unwrap(), timeoutAfter, customMessage);
             }
             else
             {
-                CompleteIn(actual, timeoutAfter);
+                CompleteIn(actual, timeoutAfter, customMessage);
             }
         }
 

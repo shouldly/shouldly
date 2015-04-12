@@ -22,7 +22,7 @@ Some additional context";
 
         protected override void ShouldPass()
         {
-            var ex = Should.Throw<NotImplementedException>(() => { throw new NotImplementedException(); });
+            var ex = Should.Throw<NotImplementedException>(new Action(() => { throw new NotImplementedException(); }));
             ex.ShouldBeOfType<NotImplementedException>();
             ex.ShouldNotBe(null);
         }
