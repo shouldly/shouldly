@@ -7,6 +7,6 @@ task :get_build_number do
 end
 
 def get_build_version
-    gitflowversion = File.expand_path "../lib/GitVersion/GitFlowVersion.exe"
+    gitflowversion = File.expand_path "../lib/GitVersion/GitVersion.exe"
     `#{gitflowversion}`
 end
