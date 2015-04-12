@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.9.1\ExpressionStringBuilder.cs" />
-    <Compile Include="MessageGenerators\ShouldCompleteInMessageGenerator.cs" />
+    <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrEmptyTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringStartEndTestExtensions.cs" />
@@ -69,6 +69,7 @@
     <Compile Include="Internals\EqualityComparer.cs" />
     <Compile Include="Case.cs" />
     <Compile Include="Internals\IShouldlyAssertionContext.cs" />
+    <Compile Include="MessageGenerators\ShouldCompleteInMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldContainKeyAndValueMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldNotContainValueForKeyMessageGenerator.cs" />
     <Compile Include="MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
@@ -85,7 +86,6 @@
     <Compile Include="MessageGenerators\ShouldBeWithinRangeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldContainWithinRangeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldlyMessageGenerator.cs" />
-    <Compile Include="Properties\JetBrains.Annotations.cs" />
     <Compile Include="ShouldAssertException.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeGtLtTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeRangeTestExtensions.cs" />
