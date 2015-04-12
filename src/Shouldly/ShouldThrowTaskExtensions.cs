@@ -27,9 +27,20 @@ namespace Shouldly
             });
 
         }
+
+        public static TException Throw<TException>(Task actual) where TException : Exception
+        {
+            return Throw<TException>(() => actual);
+        }
+
         public static TException Throw<TException>(Func<Task> actual) where TException : Exception
         {
             return Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout);
+        }
+
+        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter) where TException : Exception
+        {
+            return Throw<TException>(() => actual, timeoutAfter);
         }
 
         public static TException Throw<TException>(Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
