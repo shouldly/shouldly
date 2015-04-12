@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldMatch(@"\d+", () => "Some additional context");
+            "Cheese".ShouldMatch(@"\d+", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

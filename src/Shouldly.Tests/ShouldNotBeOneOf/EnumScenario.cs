@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldNotBeOneOf
     {
         protected override void ShouldThrowAWobbly()
         {
-            SomeFlags.Val1.ShouldNotBeOneOf(new[] { SomeFlags.Val1 }, () => "Some additional context");
+            SomeFlags.Val1.ShouldNotBeOneOf(new[] { SomeFlags.Val1 }, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
     {
         protected override void ShouldThrowAWobbly()
         {
-            1.ShouldBeGreaterThanOrEqualTo(7, () => "Some additional context");
+            1.ShouldBeGreaterThanOrEqualTo(7, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

@@ -21,7 +21,7 @@ namespace Shouldly
         public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<string> customMessage)
         {
             if (!dictionary.ContainsKey(key))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(key, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(key, customMessage).ToString());
         }
 
         public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
@@ -37,7 +37,7 @@ namespace Shouldly
         public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<string> customMessage)
         {
             if (dictionary.ContainsKey(key))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(key, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(key, customMessage).ToString());
         }
 
         public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
@@ -53,10 +53,10 @@ namespace Shouldly
         public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, Func<string> customMessage)
         {
             if (!dictionary.ContainsKey(key))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage).ToString());
 
             if (!dictionary[key].Equals(val))
-                throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary[key], key, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary[key], key, customMessage).ToString());
         }
 
         public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val)
@@ -72,10 +72,10 @@ namespace Shouldly
         public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, Func<string> customMessage)
         {
             if (!dictionary.ContainsKey(key))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage).ToString());
 
             if (dictionary[key].Equals(val))
-                throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary[key], key, customMessage()).ToString());
+                throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary[key], key, customMessage).ToString());
         }
     }
 }

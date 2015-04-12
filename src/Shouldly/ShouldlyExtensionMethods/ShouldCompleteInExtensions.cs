@@ -17,9 +17,7 @@ namespace Shouldly
         }
         public static void CompleteIn(Action action, TimeSpan timeout, string customMessage)
         {
-            var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default);
-            CompleteIn(actual, timeout, () => customMessage);
+            CompleteIn(action, timeout, () => customMessage);
         }
         public static void CompleteIn(Action action, TimeSpan timeout, Func<string> customMessage)
         {
@@ -62,11 +60,11 @@ namespace Shouldly
         /*** CompleteIn(Func<Task<T>>) ***/
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout)
         {
-            return CompleteIn(actual(), timeout, () => null);
+            return CompleteIn(actual, timeout, () => null);
         }
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string customMessage)
         {
-            return CompleteIn(actual(), timeout, () => customMessage);
+            return CompleteIn(actual, timeout, () => customMessage);
         }
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, Func<string> customMessage)
         {

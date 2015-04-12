@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] {2m, 3m, 4m}, () => "Some additional context");
+            new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] {2m, 3m, 4m}, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
 
         protected override void ShouldPass()
         {
-            new[] {1m}.ShouldBeSubsetOf(new[] {1m, 2m, 3m}, () => "Some additional context");
+            new[] {1m}.ShouldBeSubsetOf(new[] {1m, 2m, 3m});
         }
     }
 }

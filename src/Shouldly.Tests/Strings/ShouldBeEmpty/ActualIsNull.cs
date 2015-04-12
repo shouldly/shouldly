@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
     {
         protected override void ShouldThrowAWobbly()
         {
-            ((string) null).ShouldBeEmpty(() => "Some additional context");
+            ((string) null).ShouldBeEmpty("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

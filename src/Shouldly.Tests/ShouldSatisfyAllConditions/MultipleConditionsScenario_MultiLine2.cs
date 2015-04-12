@@ -11,11 +11,11 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
                     (
                         () 
                             => result
-                                .ShouldBeOfType<int>(() => "Some additional context"),
+                                .ShouldBeOfType<int>(),
                         () 
                             => 
                             result
-                            .ShouldBeGreaterThan(3, () => "Some additional context")
+                            .ShouldBeGreaterThan(3)
                     );
         }
 
@@ -26,11 +26,11 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
                     (
                         () 
                             => result
-                                .ShouldBeOfType<float>(() => "Some additional context"),
+                                .ShouldBeOfType<float>("Some additional context"),
                         () 
                             => 
                             result
-                            .ShouldBeGreaterThan(5, () => "Some additional context")
+                            .ShouldBeGreaterThan(5, "Some additional context")
                     );
         }
 

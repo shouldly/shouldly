@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldBeOfType
     {
         protected override void ShouldThrowAWobbly()
         {
-            1.ShouldBeOfType<string>(() => "Some additional context");
+            1.ShouldBeOfType<string>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldBeOfType
 
         protected override void ShouldPass()
         {
-            1.ShouldBeOfType<int>(() => "Some additional context");
+            1.ShouldBeOfType<int>();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         protected override void ShouldThrowAWobbly()
         {
             const decimal pi = (decimal)Math.PI;
-            pi.ShouldBe(3.24m, 0.01m, () => "Some additional context");
+            pi.ShouldBe(3.24m, 0.01m, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

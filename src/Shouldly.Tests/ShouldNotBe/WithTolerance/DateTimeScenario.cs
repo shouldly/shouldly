@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldNotBe.WithTolerance
         protected override void ShouldThrowAWobbly()
         {
             var date = new DateTime(2000, 6, 1);
-            date.ShouldNotBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5), () => "Some additional context");
+            date.ShouldNotBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

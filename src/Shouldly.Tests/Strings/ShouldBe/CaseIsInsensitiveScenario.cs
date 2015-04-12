@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            "SamplE".ShouldBe("different", Case.Insensitive, () => "Some additional context");
+            "SamplE".ShouldBe("different", Case.Insensitive, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

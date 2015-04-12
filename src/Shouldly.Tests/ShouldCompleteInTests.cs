@@ -19,7 +19,7 @@ namespace Shouldly.Tests
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<TimeoutException>(() => 
-                Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(2)), TimeSpan.FromSeconds(1), () => "Some additional context"));
+                Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(2)), TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Delegate
         should complete in
@@ -35,7 +35,7 @@ namespace Shouldly.Tests
             var ex = Should.Throw<TimeoutException>(() => 
                 Should.CompleteIn(
                     () => Task.Factory.StartNew(() => Thread.Sleep(TimeSpan.FromSeconds(2))), 
-                    TimeSpan.FromSeconds(1), () => "Some additional context"));
+                    TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Task
         should complete in
@@ -68,7 +68,7 @@ namespace Shouldly.Tests
             {
                 Thread.Sleep(TimeSpan.FromSeconds(2));
                 return "";
-            }, TimeSpan.FromSeconds(1), () => "Some additional context"));
+            }, TimeSpan.FromSeconds(1), "Some additional context"));
 
             ex.Message.ShouldContainWithoutWhitespace(@"
     Delegate
@@ -89,7 +89,7 @@ namespace Shouldly.Tests
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     return "";
                 });
-            }, TimeSpan.FromSeconds(1), () => "Some additional context"));
+            }, TimeSpan.FromSeconds(1), "Some additional context"));
 
             ex.Message.ShouldContainWithoutWhitespace(@"
     Task

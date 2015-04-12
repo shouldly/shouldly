@@ -9,13 +9,13 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
         {
             var arr = new[] { 1 };
 
-            arr.ShouldBeSubsetOf(arr, () => "Some additional context");
+            arr.ShouldBeSubsetOf(arr, "Some additional context");
         }
 
         [Test]
         public void EmptyArrayIsSubsetOfAnything()
         {
-            new int[0].ShouldBeSubsetOf(new[] {1, 2, 3, 4}, () => "Some additional context");
+            new int[0].ShouldBeSubsetOf(new[] {1, 2, 3, 4}, "Some additional context");
         }
     }
 }

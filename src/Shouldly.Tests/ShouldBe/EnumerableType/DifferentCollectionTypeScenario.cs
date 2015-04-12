@@ -7,7 +7,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
     {
         protected override void ShouldPass()
         {
-            new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 }, false, () => "Some additional context");
+            new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 }, false);
         }
 
         protected override void ShouldThrowAWobbly()

@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             int result = 4;
             result.ShouldSatisfyAllConditions
                     (
-                        () => result.ShouldBeOfType<int>(() => "Some additional context"),
+                        () => result.ShouldBeOfType<int>(),
                         () => Assert.AreEqual(4, result)
                     );
         }
@@ -20,7 +20,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             int result = 4;
             result.ShouldSatisfyAllConditions
                     (
-                        () => result.ShouldBeOfType<float>(() => "Some additional context"),
+                        () => result.ShouldBeOfType<float>("Some additional context"),
                         () => Assert.AreEqual(5, result)
                     );
         }

@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Foo".ShouldContain('B', () => "Some additional context");
+            "Foo".ShouldContain('B', "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override void ShouldPass()
         {
-            "Foo".ShouldContain('F', () => "Some additional context");
+            "Foo".ShouldContain('F');
         }
     }
 }

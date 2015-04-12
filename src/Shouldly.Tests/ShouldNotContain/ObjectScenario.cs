@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var a = new Object();
             var b = new Object();
             var c = new Object();
-            new[] {a, b, c}.ShouldNotContain(c, () => "Some additional context");
+            new[] {a, b, c}.ShouldNotContain(c, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -34,7 +34,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var b = new Object();
             var c = new Object();
             var d = new Object();
-            new[] {a, b, c}.ShouldNotContain(d, () => "Some additional context");
+            new[] {a, b, c}.ShouldNotContain(d);
         }
     }
 }

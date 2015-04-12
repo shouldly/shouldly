@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldEndWith
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldEndWith("ze", () => "Some additional context");
+            "Cheese".ShouldEndWith("ze", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

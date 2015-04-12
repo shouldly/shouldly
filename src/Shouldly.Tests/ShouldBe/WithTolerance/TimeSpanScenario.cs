@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         protected override void ShouldThrowAWobbly()
         {
             var timeSpan = TimeSpan.FromHours(1);
-            timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1), () => "Some additional context");
+            timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage

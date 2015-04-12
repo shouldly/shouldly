@@ -12,17 +12,22 @@ namespace Shouldly.Tests.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            new Strange().ShouldBe("string");
+            new Strange().ShouldBe("string", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new Strange() should be [] (string) but was [] (null) difference[]"; }
+            get
+            {
+                return @"new Strange() should be [] (string) but was [] (null) difference[]
+Additional Info:
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()
         {
-            ((Strange) "string").ShouldBe("string");
+            ((Strange)"string").ShouldBe("string");
         }
     }
 }

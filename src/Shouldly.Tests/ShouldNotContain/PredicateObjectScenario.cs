@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var b = new Object();
             var c = new Object();
             new[] {a, b, c}.ShouldNotContain(o => o.GetType().FullName.Equals("System.Object"),
-                () => "Some additional context");
+                "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -30,7 +30,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var a = new Object();
             var b = new Object();
             var c = new Object();
-            new[] {a, b, c}.ShouldNotContain(o => o.GetType().FullName.Equals(""), () => "Some additional context");
+            new[] {a, b, c}.ShouldNotContain(o => o.GetType().FullName.Equals(""));
 
         }
     }

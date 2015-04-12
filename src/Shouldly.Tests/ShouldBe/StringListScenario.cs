@@ -15,12 +15,17 @@ namespace Shouldly.Tests.ShouldBe
 
         protected override void ShouldThrowAWobbly()
         {
-            _thisString.ShouldBe(_thisOtherStringList);
+            _thisString.ShouldBe(_thisOtherStringList, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "_thisString should be [\"1\", \"3\"] but was [\"1\", \"2\"] difference [\"1\", *\"2\"*]"; }
+            get
+            {
+                return "_thisString should be [\"1\", \"3\"] but was [\"1\", \"2\"] difference [\"1\", *\"2\"*]" + @"
+Additional Info:
+Some additional context";
+            }
         }
     }
 }

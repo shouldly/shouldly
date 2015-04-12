@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldAllBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[] {1, 2, 3}.ShouldAllBe(x => x < 2, () => "Some additional context");
+            new[] {1, 2, 3}.ShouldAllBe(x => x < 2, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldAllBe
 
         protected override void ShouldPass()
         {
-            new[] {1, 2, 3}.ShouldAllBe(x => x < 4, () => "Some additional context");
+            new[] {1, 2, 3}.ShouldAllBe(x => x < 4);
         }
     }
 }
