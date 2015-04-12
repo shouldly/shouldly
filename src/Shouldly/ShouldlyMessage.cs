@@ -9,7 +9,7 @@ namespace Shouldly
 {
     internal class ExpectedShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedShouldlyMessage(object expected, Func<string> customMessage = null)
+        public ExpectedShouldlyMessage(object expected, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
@@ -18,7 +18,7 @@ namespace Shouldly
 
     internal class ExpectedActualShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualShouldlyMessage(object expected, object actual, Func<string> customMessage = null)
+        public ExpectedActualShouldlyMessage(object expected, object actual, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.HasRelevantActual = true;
@@ -63,11 +63,11 @@ namespace Shouldly
     #if net40
     internal class CompleteInShouldlyMessage : ShouldlyMessage
     {
-        public CompleteInShouldlyMessage(string what, TimeSpan timeout, string customMessage = null)
+        public CompleteInShouldlyMessage(string what, TimeSpan timeout, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(what);
             ShouldlyAssertionContext.Timeout = timeout;
-            ShouldlyAssertionContext.CustomMessage = customMessage;
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 #endif
