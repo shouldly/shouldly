@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -7,7 +8,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class Should
     {
-        public static TException Throw<TException>(Action actual) where TException : Exception
+        public static TException Throw<TException>([InstantHandle]Action actual) where TException : Exception
         {
             try
             {
