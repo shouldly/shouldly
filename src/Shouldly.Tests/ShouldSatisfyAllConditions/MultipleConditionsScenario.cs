@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using System;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldSatisfyAllConditions
 {
@@ -19,6 +20,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             int result = 4;
             result.ShouldSatisfyAllConditions
                     (
+                        "Some additional context",
                         () => result.ShouldBeOfType<float>(() => "Some additional context"),
                         () => result.ShouldBeGreaterThan(5, () => "Some additional context")
                     );
@@ -48,7 +50,10 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
     4
     Additional Info:
     Some additional context
------------------------------------------";
+-----------------------------------------
+
+Additional Info:
+Some additional context";
             }
         }
     }
