@@ -8,12 +8,16 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         protected override void ShouldThrowAWobbly()
         {
             const decimal pi = (decimal)Math.PI;
-            pi.ShouldBe(3.24m, 0.01m);
+            pi.ShouldBe(3.24m, 0.01m, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "pi should be within 0.01 of 3.24 but was 3.14159265358979"; }
+            get {
+                return "pi should be within 0.01 of 3.24 but was 3.14159265358979 " +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

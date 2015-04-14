@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using ExpressionToString;
 
 namespace Shouldly
 {
@@ -61,10 +60,12 @@ namespace Shouldly
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
+#if net40
             if (value is BinaryExpression)
             {
-                return ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
+                return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
+#endif
 
             return value == null ? "null" : value.ToString();
         }

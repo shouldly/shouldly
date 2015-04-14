@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿#if net40
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
@@ -7,7 +8,7 @@ namespace Shouldly.Tests.ShouldNotContain
         protected override void ShouldThrowAWobbly()
         {
             var capturedOuterVar = 4;
-            new[] { 1, 2, 3 }.ShouldNotContain(i => i < capturedOuterVar);
+            new[] {1, 2, 3}.ShouldNotContain(i => i < capturedOuterVar, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -18,8 +19,11 @@ namespace Shouldly.Tests.ShouldNotContain
         new[] { 1, 2, 3 }
                 should not contain an element satisfying the condition
             (i < capturedOuterVar)
-                but does";
+                but does
+        Additional Info:
+        Some additional context";
             }
         }
     }
 }
+#endif

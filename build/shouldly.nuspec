@@ -7,7 +7,7 @@
     <owners>Dave Newman, Xerxes Battiwalla, Anthony Egerton, Jake Ginnivan</owners>
     <licenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>http://shouldly.github.com/</projectUrl>
-    <iconUrl>http://shouldly.github.com/images/nuget_logo.png</iconUrl>
+    <iconUrl>https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png</iconUrl>
     <releaseNotes> - task.ShouldCompleteIn(Timeout)
 - task.ShouldThrow now times out after 10 second, specify timeout or use ShouldlyConfiguration.DefaultTaskTimeout to change
     </releaseNotes>

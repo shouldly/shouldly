@@ -1,5 +1,4 @@
 ﻿using Shouldly.Tests.TestHelpers;
-using System;
 
 namespace Shouldly.Tests.ShouldContain
 {
@@ -10,7 +9,7 @@ namespace Shouldly.Tests.ShouldContain
             var a = new object();
             var b = new object();
             var c = new object();
-            new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals(""));
+            new[] {a, b, c}.ShouldContain(o => o.GetType().FullName.Equals(""), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -19,8 +18,9 @@ namespace Shouldly.Tests.ShouldContain
     new[] { a, b, c }
         should contain an element satisfying the condition
     o.GetType().FullName.Equals("""")
-        but does not"; }
-            
+        but does not
+    Additional Info:
+    Some additional context"; }
         }
 
         protected override void ShouldPass()
@@ -28,8 +28,7 @@ namespace Shouldly.Tests.ShouldContain
             var a = new object();
             var b = new object();
             var c = new object();
-            new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
-
+            new[] {a, b, c}.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
         }
     }
 }

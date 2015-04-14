@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -16,6 +17,7 @@ namespace Shouldly
         object Expected { get; set; }
         object Actual { get; set; }
         object Tolerance { get; set; }
+        TimeSpan? Timeout { get; set; }
         bool IgnoreOrder { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
@@ -25,5 +27,8 @@ namespace Shouldly
         // is relevant.
         bool HasRelevantActual { get; set; }
         bool HasRelevantKey { get; set; }
+
+        bool IsNegatedAssertion { get; }
+        string CustomMessage { get; set; }
     }
 }

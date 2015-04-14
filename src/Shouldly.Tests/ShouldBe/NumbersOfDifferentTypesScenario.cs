@@ -12,12 +12,17 @@ namespace Shouldly.Tests.ShouldBe
         protected override void ShouldThrowAWobbly()
         {
             const long aLong = 2L;
-            aLong.ShouldBe(1);
+            aLong.ShouldBe(1, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "aLong should be 1 but was 2"; }
+            get
+            {
+                return @"aLong should be 1 but was 2
+Additional Info:
+Some additional context";
+            }
         }
     }
 }

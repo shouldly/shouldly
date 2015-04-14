@@ -14,12 +14,17 @@ namespace Shouldly.Tests.ShouldThrow
             Should.Throw<InvalidOperationException>(new Func<Task<string>>(() =>
             {
                 throw new RankException();
-            }));
+            }), "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Should throw System.InvalidOperationException but was System.RankException"; }
+            get
+            {
+                return @"Should throw System.InvalidOperationException but was System.RankException
+Additional Info:
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()

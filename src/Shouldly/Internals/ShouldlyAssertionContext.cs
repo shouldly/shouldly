@@ -20,6 +20,8 @@ namespace Shouldly
         public object Expected { get; set; }
         public object Actual { get; set; }
         public object Tolerance { get; set; }
+        public TimeSpan? Timeout { get; set; }
+
         public bool IgnoreOrder { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
@@ -31,11 +33,13 @@ namespace Shouldly
         public bool HasRelevantKey { get; set; }
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+        public string CustomMessage { get; set; }
 
         internal ShouldlyAssertionContext(object expected, object actual = null)
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
+            
             var currentFrame = stackTrace.GetFrame(i);
 
             if (currentFrame == null) throw new Exception("Unable to find test method");
@@ -54,7 +58,8 @@ namespace Shouldly
                 // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
                 // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
                 // scanarios. Alternately, it could be replaced with a more robust implementation.
-                while ( currentFrame.GetMethod().DeclaringType == null ||
+
+                while (currentFrame.GetMethod().DeclaringType == null ||
                         currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
                 {
                     currentFrame = stackTrace.GetFrame(++i);

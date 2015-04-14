@@ -9,18 +9,20 @@ namespace Shouldly.Tests.ShouldBeUnique
             get
             {
                 return "new string[] { \"string2\", \"string1\", \"string42\", \"string2\" } " +
-                "should be unique but [\"string2\"] was duplicated";
+                       "should be unique but [\"string2\"] was duplicated" +
+                       "Additional Info:" +
+                       "Some additional context";
             }
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            new string[] { "string2", "string1", "string42", "string2" }.ShouldBeUnique();
+            new string[] {"string2", "string1", "string42", "string2"}.ShouldBeUnique("Some additional context");
         }
 
         protected override void ShouldPass()
         {
-            new string[] { "string2", "string1", "string42", "string53" }.ShouldBeUnique();
+            new string[] {"string2", "string1", "string42", "string53"}.ShouldBeUnique();
         }
     }
 }
