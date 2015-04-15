@@ -2,6 +2,7 @@
 
 namespace Shouldly
 {
+    [Obsolete]
     [Serializable]
     internal class ChuckedAWobbly : Exception
     {
