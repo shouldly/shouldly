@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -42,51 +43,51 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)
         {
             ShouldContain(actual, elementPredicate, () => null);
         }
 
-        public static void ShouldContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate, string customMessage)
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string customMessage)
         {
             ShouldContain(actual, elementPredicate, () => customMessage);
         }
 
-        public static void ShouldContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
             if (!actual.Any(condition))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage).ToString());
         }
 
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)
         {
             ShouldNotContain(actual, elementPredicate, () => null);
         }
 
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate, string customMessage)
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string customMessage)
         {
             ShouldNotContain(actual, elementPredicate, () => customMessage);
         }
 
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
             if (actual.Any(condition))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage).ToString());
         }
 
-        public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate)
+        public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)
         {
             ShouldAllBe(actual, elementPredicate, () => null);
         }
 
-        public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate, string customMessage)
+        public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string customMessage)
         {
             ShouldAllBe(actual, elementPredicate, () => customMessage);
         }
 
-        public static void ShouldAllBe<T>(this IEnumerable<T> actual, Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
+        public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
             var actualResults = actual.Where(part => !condition(part));
