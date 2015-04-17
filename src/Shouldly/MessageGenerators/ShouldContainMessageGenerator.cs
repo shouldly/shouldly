@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
 {
@@ -18,10 +19,14 @@ namespace Shouldly.MessageGenerators
     {0}
         {1}
     {2}
-        but does{3}";
-            if (context.IsNegatedAssertion)
-                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), "");
-            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), " not");
+        but was actually
+    {3}";
+
+            return string.Format(format,
+                    codePart,
+                    context.ShouldMethod.PascalToSpaced(),
+                    context.Expected.ToStringAwesomely(),
+                    context.Actual.ToStringAwesomely());
         }
     }
 }
