@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldNotContain
         {
             get
             {
-                return "\"Foo\" should not contain F but does" +
+                return "\"Foo\" should not contain F but was actually \"Foo\"" +
                        "Additional Info:" +
                        "Some additional context";
             }

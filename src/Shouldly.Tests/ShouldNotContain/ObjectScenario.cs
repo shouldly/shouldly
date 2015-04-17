@@ -21,7 +21,8 @@ namespace Shouldly.Tests.ShouldNotContain
     new[] { a, b, c }
         should not contain
     System.Object
-        but does
+        but was actually
+    [System.Object, System.Object, System.Object]
     Additional Info:
     Some additional context";
             }

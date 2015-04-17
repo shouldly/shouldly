@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldContain
         {
             get
             {
-                return "new[]{\"a\", \"b\", \"c\"} should contain \"d\" but does not" +
+                return "new[]{\"a\", \"b\", \"c\"} should contain \"d\" but was actually [\"a\", \"b\", \"c\"]" +
                        "Additional Info:" +
                        "Some additional context";
             }

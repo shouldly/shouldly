@@ -15,7 +15,8 @@ namespace Shouldly.Tests.ShouldNotContain
             {
                 return "new[] { 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 } " +
                        "should not contain 3 " +
-                       "but does" +
+                       "but was actually" +
+                       "[ 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 ]" +
                        "Additional Info:" +
                        "Some additional context";
             }

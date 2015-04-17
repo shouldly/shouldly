@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldContain
         {
             get
             {
-                return "new[] { 1, 2, 3, 4, 5 } should contain 6 but does not" +
+                return "new[] { 1, 2, 3, 4, 5 } should contain 6 but was actually [1, 2, 3, 4, 5]" +
                        "Additional Info:" +
                        "Some additional context";
             }
