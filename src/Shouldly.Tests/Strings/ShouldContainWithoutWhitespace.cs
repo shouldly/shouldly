@@ -11,10 +11,12 @@ namespace Shouldly.Tests.Strings
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get {
+            get
+            {
                 return "\"Fun   with space   and \\\"quotes\\\"\" " +
                        "should contain without whitespace \"Fun with space and missing quotes\" " +
-                       "but does not" +
+                       "but was actually" +
+                       "\"Fun   with space   and \"quotes\"\"" +
                        "Additional Info: " +
                        "Some additional context";
             }
