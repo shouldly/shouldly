@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.9.1\ExpressionStringBuilder.cs" />
+    <Compile Include="DifferenceHighlighting\StringDifferenceFormatter.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="DynamicShould.cs" />
     <Compile Include="Internals\FloatingPointNumerics.cs" />

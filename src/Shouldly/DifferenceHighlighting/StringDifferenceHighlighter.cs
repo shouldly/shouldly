@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Shouldly.DifferenceHighlighting
 {
     internal class StringDifferenceHighlighter : IDifferenceHighlighter
     {
+        private int maxDiffLength = 20;
+
         public bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.Expected != null && 
@@ -18,43 +22,77 @@ namespace Shouldly.DifferenceHighlighting
         {
             var actualValue = context.Actual as string;
             var expectedValue = context.Expected as string;
-
-            var indexStringBuilder = new StringBuilder();
-            var expectedValueStringBuilder = new StringBuilder();
-            var actualValueStringBuilder = new StringBuilder();
-            var expectedCodeStringBuilder = new StringBuilder();
-            var actualCodeStringBuilder = new StringBuilder();
-            var differenceStringLineOneBuilder = new StringBuilder();
-            var differenceStringLineTwoBuilder = new StringBuilder();
-
             int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
-            int minLenOfStrings = Math.Min(actualValue.Length, expectedValue.Length);
 
-            for (int index = 0; index < maxLengthOfStrings; index++)
+            var output = new StringBuilder();
+
+            if (maxLengthOfStrings <= maxDiffLength)
             {
-                var isEqual = CheckEquality(context.CaseSensitivity, index, minLenOfStrings, actualValue, expectedValue);
-
-                differenceStringLineOneBuilder.Append(string.Format("{0,-5}", isEqual ? " " : @" | " ));
-                differenceStringLineTwoBuilder.Append(string.Format("{0,-5}", isEqual ? " " : @"\|/" ));
-                indexStringBuilder.Append(string.Format("{0,-5}", index));
-                expectedValueStringBuilder.Append(string.Format("{0,-5}", index < expectedValue.Length ? expectedValue[index].ToSafeString() : ""));
-                actualValueStringBuilder.Append(string.Format("{0,-5}", index < actualValue.Length ? actualValue[index].ToSafeString() : ""));
-                expectedCodeStringBuilder.Append(string.Format("{0,-5}", index < expectedValue.Length ? ((int)expectedValue[index]).ToString() : ""));
-                actualCodeStringBuilder.Append(string.Format("{0,-5}", index < actualValue.Length ? ((int)actualValue[index]).ToString() : ""));
+                var sdf = new StringDifferenceFormatter(actualValue, expectedValue, context.CaseSensitivity, 0);
+                output.AppendLine(string.Format("{0}", context.CaseSensitivity == Case.Insensitive ? "Case Insensitive Comparison" : "Case Sensitive Comparison"));
+                output.Append(sdf.ToString());
+                return output.ToString();
             }
+            else
+            {
+                var startIndexOfDiffString = ConsolidatedIndicesOfDifferencesToStartIndexOfDiffString(actualValue, expectedValue, context.CaseSensitivity).First();
 
-            var outputString = GenerateDifferenceString(context.CaseSensitivity, 
-                                                        differenceStringLineOneBuilder, differenceStringLineTwoBuilder, indexStringBuilder, 
-                                                        expectedValueStringBuilder, actualValueStringBuilder, expectedCodeStringBuilder, 
-                                                        actualCodeStringBuilder);
-            return outputString;
+                var trimmedActualValue = actualValue.Substring(startIndexOfDiffString, maxDiffLength + 1);
+                var trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString, maxDiffLength + 1);
 
+                var prefixWithDots = startIndexOfDiffString != 0;
+                var suffixWithDots = startIndexOfDiffString + maxDiffLength + 1 < maxLengthOfStrings;
+                var sdf = new StringDifferenceFormatter(trimmedActualValue, trimmedExpectedValue, context.CaseSensitivity, startIndexOfDiffString, prefixWithDots, suffixWithDots);
+                output.AppendLine(string.Format("{0}", context.CaseSensitivity == Case.Insensitive ? "Case Insensitive Comparison" : "Case Sensitive Comparison"));
+                output.Append(sdf.ToString());
+                return output.ToString();
+            }
         }
 
-        private bool CheckEquality(Case caseSensitivity, int index, int minLengthOfStrings, string actualValue, string expectedValue)
+        private List<int> ConsolidatedIndicesOfDifferencesToStartIndexOfDiffString(string actualValue, string expectedValue, Case caseSensitivity)
         {
-            bool isEqual = false;
-            if (index < minLengthOfStrings)
+            var trimmedIndicesOfDifference = new List<int>();
+            int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
+
+            var indicesOfAllDifferences = GetIndicesOfAllDifferences(actualValue, expectedValue, caseSensitivity);
+
+            foreach (var indexOfDifference in indicesOfAllDifferences)
+            {
+                if (!IsIndexOfDifferencesAlreadyAccountedFor(trimmedIndicesOfDifference, indexOfDifference))
+                {
+                    var trimmedStartOfDifference = Math.Max(0, indexOfDifference - maxDiffLength / 2);
+                    trimmedStartOfDifference = Math.Min(trimmedStartOfDifference, maxLengthOfStrings - (maxDiffLength + 1));
+
+                    trimmedIndicesOfDifference.Add(trimmedStartOfDifference);
+                }
+            }
+
+            return trimmedIndicesOfDifference;
+        }
+
+        private bool IsIndexOfDifferencesAlreadyAccountedFor(List<int> trimmedIndicesOfDifference, int currentIndex)
+        {
+            if (trimmedIndicesOfDifference != null && trimmedIndicesOfDifference.Any())
+            {
+                var lastTrimmedIndexOfDifference = trimmedIndicesOfDifference.Last();
+                if (currentIndex >= lastTrimmedIndexOfDifference && currentIndex <= lastTrimmedIndexOfDifference + maxDiffLength)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue, Case caseSensitivity)
+        {
+            // TODO: Refactor?
+            var indicesOfAlldifferences = new List<int>();
+            int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
+            int minLenOfStrings = Math.Min(actualValue.Length, expectedValue.Length);
+            bool isEqual;
+
+            for (int index = 0; index < maxLengthOfStrings; index++)
             {
                 if (caseSensitivity == Case.Insensitive)
                 {
@@ -64,28 +102,13 @@ namespace Shouldly.DifferenceHighlighting
                 {
                     isEqual = Equals(actualValue[index], expectedValue[index]);
                 }
+
+                if (!isEqual)
+                    indicesOfAlldifferences.Add(index);
             }
-            return isEqual;
+
+            return indicesOfAlldifferences;
         }
 
-        private string GenerateDifferenceString(Case caseSensitivity, 
-                                                StringBuilder differenceStringLineOneBuilder, StringBuilder differenceStringLineTwoBuilder, StringBuilder indexStringBuilder, 
-                                                StringBuilder expectedValueStringBuilder, StringBuilder actualValueStringBuilder, StringBuilder expectedCodeStringBuilder, 
-                                                StringBuilder actualCodeStringBuilder)
-        {
-            var output = new StringBuilder();
-            output.AppendLine(string.Format("{0}", caseSensitivity == Case.Insensitive ? "Case Insensitive Comparison" : "Case Sensitive Comparison"));
-            output.AppendLine("Difference     | " + differenceStringLineOneBuilder);
-            output.AppendLine("               | " + differenceStringLineTwoBuilder);
-            output.AppendLine("Index          | " + indexStringBuilder);
-            output.AppendLine("Expected Value | " + expectedValueStringBuilder);
-            output.AppendLine("Actual Value   | " + actualValueStringBuilder);
-            output.AppendLine("Expected Code  | " + expectedCodeStringBuilder);
-            output.AppendLine("Actual Code    | " + actualCodeStringBuilder);
-            output.AppendLine();
-
-            var outputString = output.ToString();
-            return outputString;
-        }
     }
 }
