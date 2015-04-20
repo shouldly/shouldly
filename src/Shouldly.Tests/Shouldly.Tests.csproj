@@ -116,6 +116,8 @@
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
     <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
+    <Compile Include="ShouldContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
+    <Compile Include="ShouldContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldContain\ObjectScenario.cs" />
     <Compile Include="ShouldContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldContain\PredicateObjectScenario.cs" />
@@ -128,6 +130,8 @@
     <Compile Include="ShouldNotContain\ObjectScenario.cs" />
     <Compile Include="ShouldNotContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldNotContain\PredicateObjectScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringCaseIsSensitiveScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
