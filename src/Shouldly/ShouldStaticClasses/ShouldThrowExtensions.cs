@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -7,15 +8,15 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class Should
     {
-        public static TException Throw<TException>(Action actual) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual) where TException : Exception
         {
             return Throw<TException>(actual, () => null);
         }
-        public static TException Throw<TException>(Action actual, string customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, string customMessage) where TException : Exception
         {
             return Throw<TException>(actual, () => customMessage);
         }
-        public static TException Throw<TException>(Action actual, Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, Func<string> customMessage) where TException : Exception
         {
             try
             {
@@ -33,15 +34,15 @@ namespace Shouldly
             throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage).ToString());
         }
 
-        public static void NotThrow(Action action)
+        public static void NotThrow([InstantHandle] Action action)
         {
             NotThrow(action, () => null);
         }
-        public static void NotThrow(Action action, string customMessage)
+        public static void NotThrow([InstantHandle] Action action, string customMessage)
         {
             NotThrow(action, () => customMessage);
         }
-        public static void NotThrow(Action action, Func<string> customMessage)
+        public static void NotThrow([InstantHandle] Action action, Func<string> customMessage)
         {
             try
             {
@@ -53,15 +54,15 @@ namespace Shouldly
             }
         }
 
-        public static T NotThrow<T>(Func<T> action)
+        public static T NotThrow<T>([InstantHandle] Func<T> action)
         {
             return NotThrow(action, () => null);
         }
-        public static T NotThrow<T>(Func<T> action, string customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<T> action, string customMessage)
         {
             return NotThrow(action, () => customMessage);
         }
-        public static T NotThrow<T>(Func<T> action, Func<string> customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<T> action, Func<string> customMessage)
         {
             try
             {
