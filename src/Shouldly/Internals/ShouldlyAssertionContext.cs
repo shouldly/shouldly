@@ -84,8 +84,9 @@ namespace Shouldly
         {
             if (method.DeclaringType == null)
                 return false;
-
-            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
+           
+            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
+               || (method.DeclaringType.DeclaringType !=null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
 
         private string GetCodePart()
