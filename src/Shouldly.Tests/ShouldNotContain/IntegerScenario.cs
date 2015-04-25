@@ -4,16 +4,18 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class IntegerScenario : ShouldlyShouldTestScenario
     {
+        protected int[] target = new[] { 1, 2, 3, 4, 5 };
+
         protected override void ShouldThrowAWobbly()
         {
-            new[] {1, 2, 3, 4, 5}.ShouldNotContain(3, "Some additional context");
+            target.ShouldNotContain(3, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "new[] { 1, 2, 3, 4, 5 } should not contain 3 but was actually [1, 2, 3, 4, 5]" +
+                return "target should not contain 3 but was actually [1, 2, 3, 4, 5]" +
                        "Additional Info:" +
                        "Some additional context";
             }
@@ -21,7 +23,7 @@ namespace Shouldly.Tests.ShouldNotContain
 
         protected override void ShouldPass()
         {
-            new[] {1, 2, 3, 4, 5}.ShouldNotContain(7);
+            target.ShouldNotContain(7);
         }
     }
 }

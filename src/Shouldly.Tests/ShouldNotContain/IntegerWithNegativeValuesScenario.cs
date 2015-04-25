@@ -4,19 +4,20 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class IntegerWithNegativeValuesScenario : ShouldlyShouldTestScenario
     {
+        protected int[] target = new int[] { 2, 3, 4, 5, 4, 123665, 11234, -13562377 };
+
         protected override void ShouldThrowAWobbly()
         {
-            new[] {2, 3, 4, 5, 4, 123665, 11234, -1356237712831}.ShouldNotContain(3, "Some additional context");
+            target.ShouldNotContain(3, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "new[] { 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 } " +
-                       "should not contain 3 " +
+                return "target should not contain 3 " +
                        "but was actually" +
-                       "[ 2, 3, 4, 5, 4, 123665, 11234, -1356237712831 ]" +
+                       "[ 2, 3, 4, 5, 4, 123665, 11234, -13562377 ]" +
                        "Additional Info:" +
                        "Some additional context";
             }
@@ -24,7 +25,7 @@ namespace Shouldly.Tests.ShouldNotContain
 
         protected override void ShouldPass()
         {
-            new[] {2, 3, 4, 5, 4, 123665, 11234, -1356237712831}.ShouldNotContain(-300);
+            target.ShouldNotContain(-300);
         }
     }
 }
