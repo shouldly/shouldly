@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Shouldly.DifferenceHighlighting
 {
-    internal class StringDifferenceFormatter 
+    internal class FormattedDetailedDifferenceString 
     {
         private readonly string _actualValue;
         private readonly string _expectedValue;
@@ -19,17 +17,17 @@ namespace Shouldly.DifferenceHighlighting
         private StringBuilder actualValueStringBuilder;
         private StringBuilder expectedCodeStringBuilder;
 
-        internal bool PrefixWithDots { get; set; }
-        internal bool SuffixWithDots { get; set; }
+        private bool _prefixWithDots;
+        private bool _suffixWithDots;
 
-        internal StringDifferenceFormatter(string actualValue, string expectedValue, Case caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
+        internal FormattedDetailedDifferenceString(string actualValue, string expectedValue, Case caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
         {
             _actualValue = actualValue;
             _expectedValue = expectedValue;
             _caseSensitivity = caseSensitivity;
             _indexOffset = indexOffset;
-            PrefixWithDots = prefixWithDots;
-            SuffixWithDots = suffixWithDots;
+            _prefixWithDots = prefixWithDots;
+            _suffixWithDots = suffixWithDots;
 
             differenceStringLineOneBuilder = new StringBuilder();
             differenceStringLineTwoBuilder = new StringBuilder();
@@ -50,7 +48,7 @@ namespace Shouldly.DifferenceHighlighting
             int maxLengthOfStrings = Math.Max(_actualValue.Length, _expectedValue.Length);
             int minLenOfStrings = Math.Min(_actualValue.Length, _expectedValue.Length);
 
-            if (PrefixWithDots)
+            if (_prefixWithDots)
             {
                 AddDots();
             }
@@ -68,7 +66,7 @@ namespace Shouldly.DifferenceHighlighting
                 actualCodeStringBuilder.Append(string.Format("{0,-5}", index < _actualValue.Length ? ((int)_actualValue[index]).ToString() : ""));
             }
 
-            if (SuffixWithDots)
+            if (_suffixWithDots)
             {
                 AddDots();
             }
