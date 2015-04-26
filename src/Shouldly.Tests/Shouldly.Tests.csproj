@@ -87,6 +87,7 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\KeyAndValueExist.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_NoKeyExists.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
+    <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
     <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario2.cs" />
@@ -203,9 +204,8 @@
     <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\BoundedNumberOfDiffsAreShown.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\CompletelyDifferentStringsScenario.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionOne.cs" />
     <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidated.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -213,15 +213,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\LongStringVsShortStringScenario.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\MultipleDiffsAreTruncatedAtTheEnd.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\MultipleDiffsAreTruncatedAtTheStart.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\MultipleDiffsAreTruncatedAtTheStartAndTheEnd.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
