@@ -22,6 +22,7 @@ namespace Shouldly.DifferenceHighlighting
         {
             var actualValue = context.Actual as string;
             var expectedValue = context.Expected as string;
+
             int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
 
             var output = new StringBuilder();
@@ -37,15 +38,40 @@ namespace Shouldly.DifferenceHighlighting
             {
                 var indicesOfAllDiffs = GetIndicesOfAllDifferences(actualValue, expectedValue, context.CaseSensitivity);
                 var differenceIndexConsolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDiffs);
-                var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndexes(); 
+                var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices(); 
 
                 if (startIndicesOfAllDiffs.Count > 10)
                     startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(10).ToList();
 
                 foreach (var startIndexOfDiffString in startIndicesOfAllDiffs)
                 {
-                    var trimmedActualValue = actualValue.Substring(startIndexOfDiffString, maxDiffLength);
-                    var trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString, maxDiffLength);
+
+                    string trimmedActualValue = "";
+                    string trimmedExpectedValue = "";
+
+                    if (startIndexOfDiffString < actualValue.Length)
+                    {
+                       if(actualValue.Length >= startIndexOfDiffString + maxDiffLength)
+                        {
+                            trimmedActualValue = actualValue.Substring(startIndexOfDiffString, maxDiffLength);
+                        }
+                       else
+                       {
+                            trimmedActualValue = actualValue.Substring(startIndexOfDiffString);
+                       }
+                    }
+
+                    if (startIndexOfDiffString < expectedValue.Length)
+                    {
+                       if(expectedValue.Length >= startIndexOfDiffString + maxDiffLength)
+                        {
+                            trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString, maxDiffLength);
+                        }
+                       else
+                       {
+                            trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString);
+                       }
+                    }
 
                     var prefixWithDots = startIndexOfDiffString != 0;
                     var suffixWithDots = startIndexOfDiffString + maxDiffLength < maxLengthOfStrings;
@@ -58,21 +84,26 @@ namespace Shouldly.DifferenceHighlighting
 
         private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue, Case caseSensitivity)
         {
-            // TODO: Refactor?
             var indicesOfAlldifferences = new List<int>();
             int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
-            int minLenOfStrings = Math.Min(actualValue.Length, expectedValue.Length);
             bool isEqual;
 
             for (int index = 0; index < maxLengthOfStrings; index++)
             {
-                if (caseSensitivity == Case.Insensitive)
+                if (index < actualValue.Length && index < expectedValue.Length)
                 {
-                    isEqual = StringComparer.InvariantCultureIgnoreCase.Equals(actualValue[index].ToString(), expectedValue[index].ToString());
+                    if (caseSensitivity == Case.Insensitive)
+                    {
+                        isEqual = StringComparer.InvariantCultureIgnoreCase.Equals(actualValue[index].ToString(), expectedValue[index].ToString());
+                    }
+                    else
+                    {
+                        isEqual = Equals(actualValue[index], expectedValue[index]);
+                    }
                 }
                 else
                 {
-                    isEqual = Equals(actualValue[index], expectedValue[index]);
+                    isEqual = false;
                 }
 
                 if (!isEqual)

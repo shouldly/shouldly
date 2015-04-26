@@ -10,45 +10,65 @@ namespace Shouldly.DifferenceHighlighting
         private readonly int _maxLengthOfStrings;
         private readonly List<int> _indicesOfAllDifferences;
 
-        public DifferenceIndexConsolidator(int maxDiffLength, int maxLengthOfStrings, List<int> indicesOfAllDifferences) 
+        public DifferenceIndexConsolidator(int maxDiffLength, int maxLengthOfStrings, List<int> indicesOfAllDifferences)
         {
-            _maxDiffLength = maxDiffLength - 1;
+            _maxDiffLength = maxDiffLength;
             _maxLengthOfStrings = maxLengthOfStrings;
-            _indicesOfAllDifferences = indicesOfAllDifferences;
+            _indicesOfAllDifferences = indicesOfAllDifferences.OrderBy(x => x).ToList();
         }
 
-
-        public List<int> GetConsolidatedIndexes()
+        public List<int> GetConsolidatedIndices()
         {
-            var trimmedIndicesOfDifference = new List<int>();
+            var diffIndicesWithDistanceToNextDiffIndex = CalculateDistanceBetweenDiffIndices(_indicesOfAllDifferences);
+            var consolidatedIndices = new List<List<int>>();
 
-            foreach (var indexOfDifference in _indicesOfAllDifferences)
+            var diffDistanceCounter = 0;
+            var currentConsolidationRun = new List<int>();
+
+            foreach (var diffIndexWithDistance in diffIndicesWithDistanceToNextDiffIndex)
             {
-                if (!IsIndexOfDifferencesAlreadyAccountedFor(trimmedIndicesOfDifference, indexOfDifference))
+                currentConsolidationRun.Add(diffIndexWithDistance.Item1);
+                diffDistanceCounter = diffDistanceCounter + diffIndexWithDistance.Item2;
+                if (diffDistanceCounter >= _maxDiffLength || diffIndexWithDistance.Item2 == 0)
                 {
-                    var trimmedStartOfDifference = Math.Max(0, indexOfDifference - _maxDiffLength / 2);
-                    trimmedStartOfDifference = Math.Min(trimmedStartOfDifference, _maxLengthOfStrings - (_maxDiffLength + 1));
-
-                    trimmedIndicesOfDifference.Add(trimmedStartOfDifference);
+                    consolidatedIndices.Add(currentConsolidationRun);
+                    diffDistanceCounter = 0;
+                    currentConsolidationRun = new List<int>();
                 }
             }
 
-            return trimmedIndicesOfDifference;
+            var centeredConsolidatedDiffs = consolidatedIndices.Select(CenterDiffIndices).ToList();
+
+            return centeredConsolidatedDiffs;
         }
 
-        private bool IsIndexOfDifferencesAlreadyAccountedFor(List<int> trimmedIndicesOfDifference, int currentIndex)
+        private int CenterDiffIndices(List<int> diffIndices)
         {
-            if (trimmedIndicesOfDifference != null && trimmedIndicesOfDifference.Any())
+            var averageIndexOfAllDiffs = Math.Round(diffIndices.Average());
+            var requiredAdjustmentToCenterDiff = (_maxDiffLength - 1) / 2;
+            int adjustedIndex;
+            var isCloseToTheEnd = averageIndexOfAllDiffs + requiredAdjustmentToCenterDiff >= _maxLengthOfStrings;
+            if (!isCloseToTheEnd)
             {
-                var lastTrimmedIndexOfDifference = trimmedIndicesOfDifference.Last();
-                if (currentIndex >= lastTrimmedIndexOfDifference && currentIndex <= lastTrimmedIndexOfDifference + _maxDiffLength)
-                {
-                    return true;
-                }
+                adjustedIndex = (int) Math.Max(0, averageIndexOfAllDiffs - requiredAdjustmentToCenterDiff);
+            }
+            else
+            {
+                adjustedIndex = _maxLengthOfStrings - _maxDiffLength;
             }
 
-            return false;
+            return adjustedIndex;
         }
 
+        private List<Tuple<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
+        {
+            var diffToNextIndex = diffIndices.Zip(diffIndices.Skip(1), (i1, i2) => i2 - i1)
+                                    .ToList();
+
+            diffToNextIndex.Add(0);
+
+            var result = diffIndices.Zip(diffToNextIndex, (i1, i2) => new Tuple<int, int>(i1, i2)).ToList();
+            return result;
+        }
     }
 }
