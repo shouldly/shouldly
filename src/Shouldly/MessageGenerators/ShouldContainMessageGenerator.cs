@@ -1,15 +1,27 @@
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldContainMessageGenerator : ShouldlyMessageGenerator
     {
+        private static readonly Regex Validator = new Regex("ShouldContain", RegexOptions.Compiled);
+
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.StartsWith("Should")
-                   && context.ShouldMethod.Contains("Contain")
-                   && !(context.Expected is Expression);
+           return Validator.IsMatch(context.ShouldMethod) && !(context.Expected is Expression);
         }
+
+/*
+        public override bool CanProcess(IShouldlyAssertionContext context)
+        {
+            var res = context.ShouldMethod.StartsWith("Should");
+            var res2 = context.ShouldMethod.Contains("Contain");
+            var res3 = !(context.Expected is Expression);
+
+            return res && res2 && res3;
+        }
+*/
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
