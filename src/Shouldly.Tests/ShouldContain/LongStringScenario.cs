@@ -13,12 +13,11 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            //
             get
             {
                 return "target should contain \"fff\" " +
                        "but was actually \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"";
+                       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...\"";
             }
         }
 

@@ -99,5 +99,15 @@ namespace Shouldly
             }
             return stringToClip;
         }
+
+        internal static string Clip(this string stringToClip, int maximumStringLength, string ellipsis)
+        {
+            if (stringToClip.Length > maximumStringLength)
+            {
+                stringToClip = stringToClip.Substring(0, maximumStringLength) + ellipsis;
+            }
+            return stringToClip;
+        }
+
     }
 }

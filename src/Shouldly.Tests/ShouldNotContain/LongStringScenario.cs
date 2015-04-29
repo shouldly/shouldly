@@ -13,12 +13,11 @@ namespace Shouldly.Tests.ShouldNotContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            //TODO This should really show an elipsis if it is truncated
             get
             {
                 return "target should not contain \"zzzz\" " +
                        "but was actually \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"";
+                       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...\"";
             }
         }
 
