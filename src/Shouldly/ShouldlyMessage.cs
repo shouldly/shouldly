@@ -93,7 +93,8 @@ namespace Shouldly
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
-            new ShouldBeSubsetOfMessageGenerator()
+            new ShouldBeSubsetOfMessageGenerator(),
+            new ShouldNotContainCaseInsensitiveMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 
