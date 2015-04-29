@@ -4,21 +4,27 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class LongStringScenario : ShouldlyShouldTestScenario
     {
+        protected string target = new string('a', 110) + "zzzz";
+
         protected override void ShouldThrowAWobbly()
         {
-            var longString = new string('a', 110) + "zzzz";
-            longString.ShouldContain("fff");
+            target.ShouldContain("fff");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "longString should contain \"fff\" but was actually \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\""; }
+            //
+            get
+            {
+                return "target should contain \"fff\" " +
+                       "but was actually \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"";
+            }
         }
 
         protected override void ShouldPass()
         {
-            var longString = new string('a', 110) + "zzzz";
-            longString.ShouldContain("zzzz");
+            target.ShouldContain("zzzz");
         }
     }
 }
