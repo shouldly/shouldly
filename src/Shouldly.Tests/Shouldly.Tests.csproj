@@ -178,6 +178,20 @@
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringControlCharacterScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringTabScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringNewLineScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheEnd.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheEndBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStart.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionOne.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStartBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\BasicScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\BoundedNumberOfDiffsAreShown.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidated.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionOne.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\LongRunOfDiffsAreConsolidatedAndContinued.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\LongStringVsShortStringScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\ShouldBeScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringBackslashAScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringBackslashFScenario.cs" />
@@ -186,36 +200,36 @@
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringNewLineScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringSpaceScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringTabScenario.cs" />
-    <Compile Include="Strings\DetailedDifference\LongStrings\LongStringsAreTruncatedAtTheEndBorderCondition.cs" />
-    <Compile Include="Strings\DetailedDifference\LongStrings\LongStringsAreTruncatedAtTheEnd.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheEndBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheEnd.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionTwo.cs" />
-    <Compile Include="Strings\DetailedDifference\LongStrings\LongStringsAreTruncatedAtTheStartBorderCondition.cs" />
-    <Compile Include="Strings\DetailedDifference\LongStrings\LongStringsAreTruncatedAtTheStart.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStartBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStart.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionOne.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionOne.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\BasicScenario.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\BasicScenario.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\BoundedNumberOfDiffsAreShown.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\BoundedNumberOfDiffsAreShown.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionTwo.cs" />
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionOne.cs" />
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidated.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionOne.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidated.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\LongRunOfDiffsAreConsolidatedAndContinued.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\LongRunOfDiffsAreConsolidatedAndContinued.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\LongStringVsShortStringScenario.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\LongStringVsShortStringScenario.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Strings\DetailedDifference\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TestHelpers\SomeFlags.cs" />

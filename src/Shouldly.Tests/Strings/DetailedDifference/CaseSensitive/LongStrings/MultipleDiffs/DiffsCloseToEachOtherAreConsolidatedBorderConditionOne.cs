@@ -1,24 +1,24 @@
 ﻿using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.Strings.DetailedDifference.LongStrings.MultipleDiffs
+namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs
 {
     // Just before the edge case for consolidation. 2 differences are exactly the required length apart to be consolidated into one diff
     public class DiffsCloseToEachOtherAreConsolidatedBorderConditionOne: ShouldlyShouldTestScenario
     {
         protected override void ShouldPass()
         {
-            "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
+            "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v", 
-             Case.Insensitive);
+             Case.Sensitive);
         }
 
         protected override void ShouldThrowAWobbly()
         {
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
-            "1a,1b.1c,1d,1e,1f,1g,1h,1j,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1w", 
-             Case.Insensitive);
+            "1a,1b.1c,1d,1e,1f,1g,1h,1I,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1V", 
+             Case.Sensitive);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -27,26 +27,26 @@ namespace Shouldly.Tests.Strings.DetailedDifference.LongStrings.MultipleDiffs
             {
                 return @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
                         should be
-                    ""1a,1b.1c,1d,1e,1f,1g,1h,1j,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1w""
+                    ""1a,1b.1c,1d,1e,1f,1g,1h,1I,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1V""
                         but was
                     ""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
                         difference
-                    Case Insensitive Comparison
+                    Case Sensitive Comparison
 
                     Difference     |       |                                                                                                   |        
                                    |      \|/                                                                                                 \|/       
                     Index          | ...  5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   ...  
-                    Expected Value | ...  .    1    c    ,    1    d    ,    1    e    ,    1    f    ,    1    g    ,    1    h    ,    1    j    ...  
+                    Expected Value | ...  .    1    c    ,    1    d    ,    1    e    ,    1    f    ,    1    g    ,    1    h    ,    1    I    ...  
                     Actual Value   | ...  ,    1    c    ,    1    d    ,    1    e    ,    1    f    ,    1    g    ,    1    h    ,    1    i    ...  
-                    Expected Code  | ...  46   49   99   44   49   100  44   49   101  44   49   102  44   49   103  44   49   104  44   49   106  ...  
+                    Expected Code  | ...  46   49   99   44   49   100  44   49   101  44   49   102  44   49   103  44   49   104  44   49   73   ...  
                     Actual Code    | ...  44   49   99   44   49   100  44   49   101  44   49   102  44   49   103  44   49   104  44   49   105  ...  
 
                     Difference     |       |                                                                                                   |   
                                    |      \|/                                                                                                 \|/  
                     Index          | ...  44   45   46   47   48   49   50   51   52   53   54   55   56   57   58   59   60   61   62   63   64   
-                    Expected Value | ...  .    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    w    
+                    Expected Value | ...  .    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    V    
                     Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    v    
-                    Expected Code  | ...  46   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   119  
+                    Expected Code  | ...  46   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   86   
                     Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  "
                     ;
                 }

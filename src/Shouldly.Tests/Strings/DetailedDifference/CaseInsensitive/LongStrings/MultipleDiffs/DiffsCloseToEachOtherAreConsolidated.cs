@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.Strings.DetailedDifference.LongStrings.MultipleDiffs
+namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs
 {
     public class DiffsCloseToEachOtherAreConsolidated: ShouldlyShouldTestScenario
     {

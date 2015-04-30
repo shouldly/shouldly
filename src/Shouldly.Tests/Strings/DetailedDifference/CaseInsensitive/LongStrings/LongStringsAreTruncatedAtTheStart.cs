@@ -1,6 +1,6 @@
 ﻿using Shouldly.Tests.TestHelpers;
 
-namespace Shouldly.Tests.Strings.DetailedDifference.LongStrings
+namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
 {
     public class LongStringsAreTruncatedAtTheStart: ShouldlyShouldTestScenario
     {
