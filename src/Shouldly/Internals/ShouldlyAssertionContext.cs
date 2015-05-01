@@ -36,6 +36,17 @@ namespace Shouldly
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
         public string CustomMessage { get; set; }
 
+        /// <summary>
+        /// Manually specify the parts of the context, default format is {codePart} {shouldMethod}....
+        /// </summary>
+        protected ShouldlyAssertionContext(string codePart, string shouldMethod, object expected, object actual = null)
+        {
+            CodePart = codePart;
+            ShouldMethod = shouldMethod;
+            Expected = expected;
+            Actual = actual;
+        }
+
         internal ShouldlyAssertionContext(object expected, object actual = null)
         {
             var stackTrace = new StackTrace(true);

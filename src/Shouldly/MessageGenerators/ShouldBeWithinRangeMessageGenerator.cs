@@ -9,6 +9,7 @@ namespace Shouldly.MessageGenerators
         {
             return context.ShouldMethod.StartsWith("Should")
                    && !context.ShouldMethod.Contains("Contain")
+                   && context.UnderlyingShouldMethod != null
                    && context.UnderlyingShouldMethod.GetParameters().Any(p => p.Name == "tolerance");
         }
 

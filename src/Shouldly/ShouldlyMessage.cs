@@ -91,7 +91,16 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
-#endif
+
+    internal class ShouldlyThrowShouldlyMessage : ShouldlyMessage
+    {
+        public ShouldlyThrowShouldlyMessage(Type exception, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+    #endif
 
     internal abstract class ShouldlyMessage
     {
