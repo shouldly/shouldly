@@ -40,6 +40,7 @@ namespace Shouldly
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
+            
             var currentFrame = stackTrace.GetFrame(i);
 
             if (currentFrame == null) throw new Exception("Unable to find test method");
@@ -58,7 +59,8 @@ namespace Shouldly
                 // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
                 // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
                 // scanarios. Alternately, it could be replaced with a more robust implementation.
-                while ( currentFrame.GetMethod().DeclaringType == null ||
+
+                while (currentFrame.GetMethod().DeclaringType == null ||
                         currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
                 {
                     currentFrame = stackTrace.GetFrame(++i);
@@ -84,8 +86,9 @@ namespace Shouldly
         {
             if (method.DeclaringType == null)
                 return false;
-
-            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
+           
+            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
+               || (method.DeclaringType.DeclaringType !=null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
 
         private string GetCodePart()
