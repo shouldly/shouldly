@@ -32,9 +32,10 @@ namespace Shouldly
     {
         public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ExpectedActualWithCaseSensitivityShouldlyContext(expected, actual, caseSensitivity)
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
             {
-                HasRelevantActual = true
+                HasRelevantActual = true,
+                CaseSensitivity = caseSensitivity
             };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
@@ -106,7 +107,6 @@ namespace Shouldly
             new DictionaryShouldOrNotContainKeyMessageGenerator(), 
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
-            new ShouldNotContainWithCaseSensitivityMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 

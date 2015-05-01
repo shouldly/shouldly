@@ -14,17 +14,19 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
+            var caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : string.Empty;
             const string format = @"
     {0}
         {1}
-    {2}
+    {2}{3}
         but was actually
-    {3}";
+    {4}";
 
             return string.Format(format,
                     codePart,
                     context.ShouldMethod.PascalToSpaced(),
                     context.Expected.ToStringAwesomely(),
+                    caseSensitivity,
                     context.Actual.ToStringAwesomely());
         }
     }

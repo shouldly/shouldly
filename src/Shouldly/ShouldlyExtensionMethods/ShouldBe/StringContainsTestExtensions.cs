@@ -52,7 +52,12 @@ namespace Shouldly
 
         public static void ShouldContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
         {
-            actual.AssertAwesomely(v => (caseSensitivity == Case.Sensitive) ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
+            actual.AssertAwesomely(
+                v => (caseSensitivity == Case.Sensitive) ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected), 
+                actual.Clip(100, "..."),
+                expected,
+                caseSensitivity,
+                customMessage);
         }
 
         public static void ShouldNotContain(this string actual, string expected)
@@ -82,7 +87,7 @@ namespace Shouldly
 
         public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
         {
-            actual.AssertAwesomelyWithCaseSensitivity(v =>
+            actual.AssertAwesomely(v =>
             {
                 var b = (caseSensitivity == Case.Sensitive) ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected);
                 return b;

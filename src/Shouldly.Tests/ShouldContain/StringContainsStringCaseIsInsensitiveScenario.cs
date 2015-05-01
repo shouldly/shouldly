@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ShouldContain
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "target should contain \"legend-wait for it-ary\" but was actually \"Shouldly is legendary\""; }
+            get { return "target should contain \"legend-wait for it-ary\" (case insensitive comparison) but was actually \"Shouldly is legendary\""; }
         }
 
         protected override void ShouldPass()

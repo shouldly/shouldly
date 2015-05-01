@@ -15,7 +15,7 @@ namespace Shouldly.Tests.ShouldContain
         {
             get
             {
-                return "target should contain \"fff\" " +
+                return "target should contain \"fff\" (case insensitive comparison) " +
                        "but was actually \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
                        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...\"";
             }

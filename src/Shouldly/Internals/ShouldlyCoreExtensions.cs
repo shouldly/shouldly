@@ -55,7 +55,7 @@ namespace Shouldly
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage).ToString());
         }
 
-        internal static void AssertAwesomelyWithCaseSensitivity<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, Case caseSensitivity, Func<string> customMessage = null)
+        internal static void AssertAwesomely<T>(this T actual, Func<T, bool> specifiedConstraint, object originalActual, object originalExpected, Case caseSensitivity, Func<string> customMessage = null)
         {
             if (customMessage == null)
                 customMessage = () => null;
