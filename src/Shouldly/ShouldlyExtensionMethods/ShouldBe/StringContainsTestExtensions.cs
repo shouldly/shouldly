@@ -82,7 +82,11 @@ namespace Shouldly
 
         public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
         {
-            actual.AssertAwesomelyCaseSensitivity(v => (caseSensitivity == Case.Sensitive) ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
+            actual.AssertAwesomelyWithCaseSensitivity(v =>
+            {
+                var b = (caseSensitivity == Case.Sensitive) ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected);
+                return b;
+            }, actual.Clip(100, "..."), expected, caseSensitivity, customMessage);
         }
 
         public static void ShouldMatch(this string actual, string regexPattern)

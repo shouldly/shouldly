@@ -6,12 +6,13 @@ namespace Shouldly.Tests.ShouldContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Shouldly is LEGENDARY".ShouldContain("legendary", Case.Sensitive);
+            const string target = "Shouldly is LEGENDARY";
+            target.ShouldContain("legendary", Case.Sensitive);
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Shouldly is LEGENDARY\" should contain \"legendary\" but does not"; }
+            get { return "target should contain \"legendary\" but was actually \"Shouldly is LEGENDARY\""; }
         }
 
         protected override void ShouldPass()

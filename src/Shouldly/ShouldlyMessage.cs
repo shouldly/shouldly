@@ -20,19 +20,22 @@ namespace Shouldly
     {
         public ExpectedActualShouldlyMessage(object expected, object actual, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.HasRelevantActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                HasRelevantActual = true
+            };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 
-    internal class ExpectedActualCaseInsensitiveShouldlyMessage : ShouldlyMessage
+    internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualCaseInsensitiveShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ExpectedActualCaseInsensitiveShouldlyContext(expected, actual);
-            ShouldlyAssertionContext.Tolerance = tolerance;
-            ShouldlyAssertionContext.HasRelevantActual = true;
+            ShouldlyAssertionContext = new ExpectedActualWithCaseSensitivityShouldlyContext(expected, actual, caseSensitivity)
+            {
+                HasRelevantActual = true
+            };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
@@ -41,9 +44,11 @@ namespace Shouldly
     {
         public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.Tolerance = tolerance;
-            ShouldlyAssertionContext.HasRelevantActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                Tolerance = tolerance,
+                HasRelevantActual = true
+            };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
@@ -63,21 +68,25 @@ namespace Shouldly
     {
         public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.Key = key;
-            ShouldlyAssertionContext.HasRelevantActual = true;
-            ShouldlyAssertionContext.HasRelevantKey = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                Key = key,
+                HasRelevantActual = true,
+                HasRelevantKey = true
+            };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 
-    #if net40
+#if net40
     internal class CompleteInShouldlyMessage : ShouldlyMessage
     {
         public CompleteInShouldlyMessage(string what, TimeSpan timeout, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(what);
-            ShouldlyAssertionContext.Timeout = timeout;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(what)
+            {
+                Timeout = timeout
+            };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
@@ -97,6 +106,7 @@ namespace Shouldly
             new DictionaryShouldOrNotContainKeyMessageGenerator(), 
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
+            new ShouldNotContainWithCaseSensitivityMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 
@@ -104,8 +114,7 @@ namespace Shouldly
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
-            new ShouldBeSubsetOfMessageGenerator(),
-            new ShouldNotContainCaseInsensitiveMessageGenerator()
+            new ShouldBeSubsetOfMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 
