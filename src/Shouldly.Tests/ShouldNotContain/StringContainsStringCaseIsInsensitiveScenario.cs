@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using System;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
@@ -6,12 +7,20 @@ namespace Shouldly.Tests.ShouldNotContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            "Shouldly is legendary".ShouldNotContain("legendary", Case.Insensitive);
+            try
+            {
+                "Shouldly is legendary".ShouldNotContain("LEGENDARY", Case.Insensitive);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Shouldly is legendary\" should not contain \"legendary\" but does"; } 
+            get { return "\"Shouldly is legendary\" should not contain case insensitive \"LEGENDARY\" but does"; } 
         }
 
         protected override void ShouldPass()

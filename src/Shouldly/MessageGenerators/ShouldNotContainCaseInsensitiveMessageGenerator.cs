@@ -1,19 +1,12 @@
-﻿using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-
-namespace Shouldly.MessageGenerators
+﻿namespace Shouldly.MessageGenerators
 {
     internal class ShouldNotContainCaseInsensitiveMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldNotContain", RegexOptions.Compiled);
-
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            // Cannot check to see if caseSensitivity paramter is Case.Insensitive
-            ParameterInfo methodParameterInfo = context.UnderlyingShouldMethod.GetParameters().FirstOrDefault(x => x.Name == "caseSensitivity");
+            bool canProcess = context is ExpectedActualCaseInsensitiveShouldlyContext;
 
-            return Validator.IsMatch(context.ShouldMethod);
+            return canProcess;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)

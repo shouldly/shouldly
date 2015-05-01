@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.9.1\ExpressionStringBuilder.cs" />
     <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
+    <Compile Include="Internals\ExpectedActualCaseInsensitiveShouldlyContext.cs" />
     <Compile Include="MessageGenerators\ShouldNotContainCaseInsensitiveMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrEmptyTestExtensions.cs" />
