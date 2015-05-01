@@ -26,6 +26,17 @@ namespace Shouldly
         }
     }
 
+    internal class ExpectedActualCaseInsensitiveShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualCaseInsensitiveShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ExpectedActualCaseInsensitiveShouldlyContext(expected, actual);
+            ShouldlyAssertionContext.Tolerance = tolerance;
+            ShouldlyAssertionContext.HasRelevantActual = true;
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
@@ -93,7 +104,8 @@ namespace Shouldly
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
-            new ShouldBeSubsetOfMessageGenerator()
+            new ShouldBeSubsetOfMessageGenerator(),
+            new ShouldNotContainCaseInsensitiveMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 

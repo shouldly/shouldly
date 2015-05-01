@@ -27,32 +27,62 @@ namespace Shouldly
 
         public static void ShouldContain(this string actual, string expected)
         {
-            ShouldContain(actual, expected, () => null);
+            ShouldContain(actual, expected, () => null, Case.Insensitive);
+        }
+
+        public static void ShouldContain(this string actual, string expected, Case caseSensitivity)
+        {
+            ShouldContain(actual, expected, () => null, caseSensitivity);
         }
 
         public static void ShouldContain(this string actual, string expected, string customMessage)
         {
-            ShouldContain(actual, expected, () => customMessage);
+            ShouldContain(actual, expected, () => customMessage, Case.Insensitive);
+        }
+
+        public static void ShouldContain(this string actual, string expected, string customMessage, Case caseSensitivity)
+        {
+            ShouldContain(actual, expected, () => customMessage, caseSensitivity);
         }
 
         public static void ShouldContain(this string actual, string expected, Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
+            ShouldContain(actual, expected, customMessage, Case.Insensitive);
+        }
+
+        public static void ShouldContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
+        {
+            actual.AssertAwesomely(v => (caseSensitivity == Case.Sensitive) ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
         }
 
         public static void ShouldNotContain(this string actual, string expected)
         {
-            ShouldNotContain(actual, expected, () => null);
+            ShouldNotContain(actual, expected, () => null, Case.Insensitive);
+        }
+
+        public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity)
+        {
+            ShouldNotContain(actual, expected, () => null, caseSensitivity);
         }
 
         public static void ShouldNotContain(this string actual, string expected, string customMessage)
         {
-            ShouldNotContain(actual, expected, () => customMessage);
+            ShouldNotContain(actual, expected, () => customMessage, Case.Insensitive);
+        }
+
+        public static void ShouldNotContain(this string actual, string expected, string customMessage, Case caseSensitivity)
+        {
+            ShouldNotContain(actual, expected, () => customMessage, caseSensitivity);
         }
 
         public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => !Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
+            ShouldNotContain(actual, expected, customMessage, Case.Insensitive);
+        }
+
+        public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
+        {
+            actual.AssertAwesomelyCaseSensitivity(v => (caseSensitivity == Case.Sensitive) ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
         }
 
         public static void ShouldMatch(this string actual, string regexPattern)

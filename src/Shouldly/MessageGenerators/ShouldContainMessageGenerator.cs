@@ -4,11 +4,18 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldContainMessageGenerator : ShouldlyMessageGenerator
     {
+        /*private static readonly Regex Validator = new Regex("ShouldContain", RegexOptions.Compiled);*/
+
+        /*public override bool CanProcess(IShouldlyAssertionContext context)
+        {
+           return Validator.IsMatch(context.ShouldMethod) && !(context.Expected is Expression);
+        }*/
+
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.ShouldMethod.StartsWith("Should")
-                   && context.ShouldMethod.Contains("Contain")
-                   && !(context.Expected is Expression);
+                    && context.ShouldMethod.Contains("Contain")
+                    && !(context.Expected is Expression);
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)

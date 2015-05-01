@@ -191,6 +191,15 @@ namespace Shouldly
             return actual.IndexOf(expected, StringComparison.InvariantCultureIgnoreCase) != -1;
         }
 
+        public static bool StringContainingUsingCaseSensitivity(string actual, string expected)
+        {
+            if (actual == null)
+                return false;
+
+            return actual.IndexOf(expected, StringComparison.InvariantCulture) != -1;
+        }
+
+
         public static bool EndsWithUsingCaseSensitivity(string actual, string expected, Case caseSensitivity)
         {
             if (actual == null)
