@@ -11,16 +11,18 @@ namespace Shouldly.Tests.ShouldContain
             var b = new Object();
             var c = new Object();
             var d = new Object();
-            new[] { a, b, c }.ShouldContain(d, "Some additional context");
+            var target = new[] { a, b, c };
+            target.ShouldContain(d, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get { return @"
-    new[] { a, b, c }
+    target
         should contain
     System.Object
-        but does not
+        but was actually
+    [System.Object, System.Object, System.Object]
     Additional Info:
     Some additional context"; }
         }
@@ -30,7 +32,8 @@ namespace Shouldly.Tests.ShouldContain
             var a = new Object();
             var b = new Object();
             var c = new Object();
-            new[] { a, b, c }.ShouldContain(b);
+            var target = new[] { a, b, c };
+            target.ShouldContain(b);
         }
     }
 }

@@ -4,19 +4,21 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class StringContainsStringScenario : ShouldlyShouldTestScenario
     {
+        protected string target = "Shouldly is legendary";
+
         protected override void ShouldThrowAWobbly()
         {
-            "Shouldly is legendary".ShouldContain("legend-wait for it-dary");
+            target.ShouldContain("legend-wait for it-ary");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Shouldly is legendary\" should contain \"legend-wait for it-dary\" but does not"; } 
+            get { return "target should contain \"legend-wait for it-ary\" but was actually \"Shouldly is legendary\""; } 
         }
 
         protected override void ShouldPass()
         {
-            "Shouldly is legendary".ShouldContain("legendary");
+            target.ShouldContain("legendary");
         }
     }
 }

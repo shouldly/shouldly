@@ -37,7 +37,7 @@ namespace Shouldly
 
         public static void ShouldContain(this string actual, string expected, Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => Is.StringContainingIgnoreCase(v, expected), actual.Clip(100), expected, customMessage);
+            actual.AssertAwesomely(v => Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
         }
 
         public static void ShouldNotContain(this string actual, string expected)
@@ -52,7 +52,7 @@ namespace Shouldly
 
         public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => !Is.StringContainingIgnoreCase(v, expected), actual, expected, customMessage);
+            actual.AssertAwesomely(v => !Is.StringContainingIgnoreCase(v, expected), actual.Clip(100, "..."), expected, customMessage);
         }
 
         public static void ShouldMatch(this string actual, string regexPattern)
