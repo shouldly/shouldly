@@ -30,12 +30,17 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
                 new YourAverageNonComparableType(3)
             };
 
-            Actual.ShouldBe(expected, ignoreOrder: true);
+            Actual.ShouldBe(expected, true, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return @"Actual should be [2, 3] (ignoring order) but Actual is missing [3] and [2, 3] is missing [1]"; }
+            get
+            {
+                return @"Actual should be [2, 3] (ignoring order) but Actual is missing [3] and [2, 3] is missing [1]
+Additional Info:
+Some additional context";
+            }
         }
 
         public class YourAverageNonComparableType

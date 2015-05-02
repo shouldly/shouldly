@@ -9,9 +9,10 @@ namespace Shouldly
 {
     internal class ExpectedShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedShouldlyMessage(object expected)
+        public ExpectedShouldlyMessage(object expected, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 
@@ -26,43 +27,89 @@ namespace Shouldly
     }
     internal class ExpectedActualShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualShouldlyMessage(object expected, object actual)
+        public ExpectedActualShouldlyMessage(object expected, object actual, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.HasRelevantActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
+    internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                HasRelevantActual = true,
+                CaseSensitivity = caseSensitivity
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 
     internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance)
+        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.Tolerance = tolerance;
-            ShouldlyAssertionContext.HasRelevantActual = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                Tolerance = tolerance,
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 
     internal class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual)
+        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.IgnoreOrder = true;
             ShouldlyAssertionContext.HasRelevantActual = true;
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
 
     internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key)
+        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.Key = key;
-            ShouldlyAssertionContext.HasRelevantActual = true;
-            ShouldlyAssertionContext.HasRelevantKey = true;
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
+            {
+                Key = key,
+                HasRelevantActual = true,
+                HasRelevantKey = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
+
+#if net40
+    internal class CompleteInShouldlyMessage : ShouldlyMessage
+    {
+        public CompleteInShouldlyMessage(string what, TimeSpan timeout, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(what)
+            {
+                Timeout = timeout
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
+    internal class ShouldlyThrowShouldlyMessage : ShouldlyMessage
+    {
+        public ShouldlyThrowShouldlyMessage(Type exception, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+    #endif
 
     internal abstract class ShouldlyMessage
     {
@@ -72,7 +119,8 @@ namespace Shouldly
             new ShouldBeEmptyMessageGenerator(), 
             new ShouldAllBeMessageGenerator(), 
     #if net40
-            new DynamicShouldMessageGenerator(), 
+            new DynamicShouldMessageGenerator(),
+            new ShouldCompleteInMessageGenerator(),
     #endif
             new DictionaryShouldOrNotContainKeyMessageGenerator(), 
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 
@@ -96,7 +144,14 @@ namespace Shouldly
 
         public override string ToString()
         {
-            return GenerateShouldMessage();
+            var message = GenerateShouldMessage();
+            if (_shouldlyAssertionContext.CustomMessage != null)
+            {
+                message += string.Format(@"
+    Additional Info:
+    {0}", _shouldlyAssertionContext.CustomMessage);
+            }
+            return message;
         }
 
         private string GenerateShouldMessage()

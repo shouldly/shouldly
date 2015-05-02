@@ -8,12 +8,17 @@ namespace Shouldly.Tests.Strings.ShouldNotStartWith
 
         protected override void ShouldThrowAWobbly()
         {
-            "Cheese".ShouldNotStartWith("cH");
+            "Cheese".ShouldNotStartWith("cH", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Cheese\" should not start with \"cH\" but was \"Cheese\""; }
+            get
+            {
+                return "\"Cheese\" should not start with \"cH\" but was \"Cheese\"" +
+                "Additional Info: " +
+                "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

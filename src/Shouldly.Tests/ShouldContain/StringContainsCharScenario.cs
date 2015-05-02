@@ -4,19 +4,26 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class StringContainsCharScenario : ShouldlyShouldTestScenario
     {
+        protected string target = "Foo";
+
         protected override void ShouldThrowAWobbly()
         {
-            "Foo".ShouldContain('B');
+            target.ShouldContain('B', "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"Foo\" should contain B but does not"; }
+            get
+            {
+                return "target should contain B but was actually \"Foo\"" +
+                       "Additional Info:" +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
         {
-            "Foo".ShouldContain('F');
+            target.ShouldContain('F');
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -16,6 +17,7 @@ namespace Shouldly
         object Expected { get; set; }
         object Actual { get; set; }
         object Tolerance { get; set; }
+        TimeSpan? Timeout { get; set; }
         bool IgnoreOrder { get; set; }
         Case CaseSensitivity { get; set; }
 
@@ -28,5 +30,7 @@ namespace Shouldly
         bool HasRelevantKey { get; set; }
 
         bool IsNegatedAssertion { get; }
+        string CustomMessage { get; set; }
+        Case? CaseSensitivity { get; set; }
     }
 }

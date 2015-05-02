@@ -6,12 +6,19 @@ namespace Shouldly.Tests.ShouldContain
     {
         protected override void ShouldThrowAWobbly()
         {
-            new int[0].ShouldContain(1);
+            var target = new int[0];
+            target.ShouldContain(1, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new int[0] should contain 1 but does not"; }
+            get
+            {
+                return "target should contain 1 but was actually" +
+                        "[]"  +
+                       "Additional Info:" +
+                       "Some additional context";
+            }
         }
     }
 }

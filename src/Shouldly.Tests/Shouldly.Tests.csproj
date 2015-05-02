@@ -118,6 +118,8 @@
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
     <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
+    <Compile Include="ShouldContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
+    <Compile Include="ShouldContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldContain\ObjectScenario.cs" />
     <Compile Include="ShouldContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldContain\PredicateObjectScenario.cs" />
@@ -130,11 +132,19 @@
     <Compile Include="ShouldNotContain\ObjectScenario.cs" />
     <Compile Include="ShouldNotContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldNotContain\PredicateObjectScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringCaseIsSensitiveScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
+    <Compile Include="ShouldNotThrow\FuncOfTaskOfTWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskScenario.cs" />
+    <Compile Include="ShouldNotThrow\FuncOfTaskWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskOfTScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskOfTWithTimeoutScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskWithTimeoutScenario.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MixShoudlyAssertsWithNUnitAsserts.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MultiLine2.cs" />
@@ -145,7 +155,9 @@
     <Compile Include="ShouldThrow\FuncOfTaskOfStringThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskScenario.cs" />
-    <Compile Include="ShouldThrow\FuncOfTaskThrowsDifferentExceptionScenario.cs" />
+    <Compile Include="ShouldThrow\FuncOfTaskWithTimeoutScenario.cs" />
+    <Compile Include="ShouldThrow\TaskScenario.cs" />
+    <Compile Include="ShouldThrow\TaskThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
     <Compile Include="ShouldThrow\TaskTimeoutTests.cs" />
@@ -211,6 +223,7 @@
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ShouldThrow\TaskWithTimeoutScenario.cs" />
     <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseInSensitive.cs" />
     <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseSensitive.cs" />
     <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
@@ -15,14 +12,16 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         protected override void ShouldThrowAWobbly()
         {
-            GetEnumerable().ShouldBe(new[] {1, 2}, false);
+            GetEnumerable().ShouldBe(new[] { 1, 2 }, false, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return "GetEnumerable() should be [1, 2] but was [1] difference [1, *]";
+                return @"GetEnumerable() should be [1, 2] but was [1] difference [1, *]
+Additional Info:
+Some additional context";
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using System;
+using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldSatisfyAllConditions
 {
@@ -19,8 +20,9 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             int result = 4;
             result.ShouldSatisfyAllConditions
                     (
-                        () => result.ShouldBeOfType<float>(),
-                        () => result.ShouldBeGreaterThan(5)
+                        "Some additional context",
+                        () => result.ShouldBeOfType<float>("Some additional context"),
+                        () => result.ShouldBeGreaterThan(5, "Some additional context")
                     );
         }
 
@@ -37,6 +39,8 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
     System.Single
         but was
     System.Int32
+    Additional Info:
+    Some additional context
 --------------- Error 2 ---------------
 
     result
@@ -44,7 +48,12 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
     5
         but was
     4
------------------------------------------";
+    Additional Info:
+    Some additional context
+-----------------------------------------
+
+Additional Info:
+Some additional context";
             }
         }
     }

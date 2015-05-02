@@ -8,12 +8,14 @@ namespace Shouldly.Tests.ShouldNotBeSameAs
         {
             var zulu = new object();
 
-            zulu.ShouldNotBeSameAs(zulu);
+            zulu.ShouldNotBeSameAs(zulu, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "zulu should not be same as System.Object but was System.Object"; }
+            get { return "zulu should not be same as System.Object but was System.Object" +
+                         "Additional Info:" +
+                         "Some additional context"; }
         }
 
         protected override void ShouldPass()

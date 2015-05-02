@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeOfType
         {
             object val = "Foo";
             // ReSharper disable once SuggestUseVarKeywordEvident
-            string returnedVal = val.ShouldBeOfType<string>();
+            string returnedVal = val.ShouldBeOfType<string>("Some additional context");
             returnedVal.ShouldBe("Foo");
         }
     }

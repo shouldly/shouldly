@@ -24,6 +24,24 @@ namespace Shouldly.Tests.InternalTests
         }
 
         [Test]
+        public void ClipWithEllipsis_ShouldNotReduceTheSizeOfAStringSmallerThanTheMaximumLength()
+        {
+            "small".ShouldMatch("small".Clip(10, "..."));
+        }
+
+        [Test]
+        public void ClipWithEllipsis_ShouldReduceTheSizeOfAStringLongerThanTheMaximumLength()
+        {
+            "largestrin...".ShouldMatch("largestringtoclip".Clip(10, "..."));
+        }
+
+        [Test]
+        public void ClipWithEllipsis_ShouldHandleEmptyStrings()
+        {
+            string.Empty.ShouldMatch(string.Empty.Clip(10, "..."));
+        }
+
+        [Test]
         [TestCase("() => result")]
         [TestCase("( ) => result")]
         [TestCase("( ) =>result")]
