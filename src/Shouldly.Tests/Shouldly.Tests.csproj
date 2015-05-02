@@ -160,7 +160,6 @@
     <Compile Include="ShouldThrow\TaskThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
-    <Compile Include="ShouldThrow\TaskTimeoutTests.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\ShouldBeScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringBackslashFScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringBackslashVScenario.cs" />

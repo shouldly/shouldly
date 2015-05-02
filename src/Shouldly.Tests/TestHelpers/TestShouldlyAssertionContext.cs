@@ -22,7 +22,6 @@ namespace Shouldly.Tests.TestHelpers
         public bool IgnoreOrder { get; set; }
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }
-        public Case CaseSensitivity { get; set; }
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
 

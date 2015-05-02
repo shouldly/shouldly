@@ -22,9 +22,9 @@ namespace Shouldly
 
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity, Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => (caseSensitivity == Case.Sensitive)
+            actual.AssertAwesomelyWithCaseSensitivity(v => (caseSensitivity == Case.Sensitive)
                 ? Is.Equal(v, expected)
-                : Is.StringEqualIgnoreCase(v, expected), actual, expected, customMessage);
+                : Is.StringEqualIgnoreCase(v, expected), actual, expected, caseSensitivity, customMessage);
         }
     }
 }

@@ -23,8 +23,6 @@ namespace Shouldly.Tests.ShouldBe
             get
             {
                 return @"ThisString should be ""this other string"" but was ""this string""
-                            Additional Info:
-                            Some additional context
                             difference
                             Case Sensitive Comparison
                             Difference     |                           |         |    |    |    |    |    |    |    |    |    |   
@@ -33,13 +31,10 @@ namespace Shouldly.Tests.ShouldBe
                             Expected Value | t    h    i    s    \s   o    t    h    e    r    \s   s    t    r    i    n    g    
                             Actual Value   | t    h    i    s    \s   s    t    r    i    n    g                                  
                             Expected Code  | 116  104  105  115  32   111  116  104  101  114  32   115  116  114  105  110  103  
-                            Actual Code    | 116  104  105  115  32   115  116  114  105  110  103   ";
-            get { return "ThisString should be \"this other string\" but was \"this string\""; }
-            get
-            {
-                return "ThisString should be \"this other string\" but was \"this string\"" + @"
-Additional Info:
-Some additional context";
+                            Actual Code    | 116  104  105  115  32   115  116  114  105  110  103   
+                            Additional Info:
+                            Some additional context ";
+            }
         }
     }
-}}
+}

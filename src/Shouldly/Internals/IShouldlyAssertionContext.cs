@@ -19,7 +19,6 @@ namespace Shouldly
         object Tolerance { get; set; }
         TimeSpan? Timeout { get; set; }
         bool IgnoreOrder { get; set; }
-        Case CaseSensitivity { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
         // In some cases it means the "Actual" value is not relevant (eg: "dictionary.ContainsKey(key)") and in some

@@ -16,15 +16,6 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
-    {
-        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity)
-        {
-            ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
-            ShouldlyAssertionContext.HasRelevantActual = true;
-            ShouldlyAssertionContext.CaseSensitivity = caseSensitivity;
-        }
-    }
     internal class ExpectedActualShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualShouldlyMessage(object expected, object actual, Func<string> customMessage)
@@ -39,7 +30,7 @@ namespace Shouldly
 
     internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity, Func<string> customMessage)
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case? caseSensitivity, Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
             {

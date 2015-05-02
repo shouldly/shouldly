@@ -20,11 +20,11 @@ namespace Shouldly.DifferenceHighlighting
         private bool _prefixWithDots;
         private bool _suffixWithDots;
 
-        internal FormattedDetailedDifferenceString(string actualValue, string expectedValue, Case caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
+        internal FormattedDetailedDifferenceString(string actualValue, string expectedValue, Case? caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
         {
             _actualValue = actualValue;
             _expectedValue = expectedValue;
-            _caseSensitivity = caseSensitivity;
+            _caseSensitivity = caseSensitivity ?? Case.Sensitive;
             _indexOffset = indexOffset;
             _prefixWithDots = prefixWithDots;
             _suffixWithDots = suffixWithDots;
