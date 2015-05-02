@@ -225,11 +225,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyNotThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyNotThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
@@ -253,8 +253,7 @@ namespace Shouldly
             if (innerException is TException)
                 return (TException)innerException;
 
-            throw new ShouldAssertException(
-                new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
         }
     }
 }
