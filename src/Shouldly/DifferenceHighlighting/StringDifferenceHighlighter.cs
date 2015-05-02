@@ -83,7 +83,7 @@ namespace Shouldly.DifferenceHighlighting
             }
         }
 
-        private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue, Case caseSensitivity)
+        private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue, Case? caseSensitivity)
         {
             var indicesOfAlldifferences = new List<int>();
             int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);

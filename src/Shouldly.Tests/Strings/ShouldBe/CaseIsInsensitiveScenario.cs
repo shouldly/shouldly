@@ -23,7 +23,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
                          Actual Value   | S    a    m    p    l    E                   
                          Expected Code  | 100  105  102  102  101  114  101  110  116  
                          Actual Code    | 83   97   109  112  108  69  
-                         Additional Info: 
+                         Additional Info:
                          Some additional context";
             }
         }
