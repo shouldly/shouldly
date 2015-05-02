@@ -87,6 +87,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.
                           9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z""
                         difference
                     Case Insensitive Comparison
+                    Showing some of the 18 differences
                     Difference     |       |                                                                                                       
                                    |      \|/                                                                                                      
                     Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   ...  

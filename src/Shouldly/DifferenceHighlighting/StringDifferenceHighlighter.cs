@@ -8,6 +8,7 @@ namespace Shouldly.DifferenceHighlighting
     internal class StringDifferenceHighlighter : IDifferenceHighlighter
     {
         private int maxDiffLength = 21;
+        private int maxNumberOfDiffs = 10;
 
         public bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -38,10 +39,13 @@ namespace Shouldly.DifferenceHighlighting
             {
                 var indicesOfAllDiffs = GetIndicesOfAllDifferences(actualValue, expectedValue, context.CaseSensitivity);
                 var differenceIndexConsolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDiffs);
-                var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices(); 
+                var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices();
 
-                if (startIndicesOfAllDiffs.Count > 10)
-                    startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(10).ToList();
+                if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
+                {
+                    output.AppendLine(string.Format("Showing some of the {0} differences", indicesOfAllDiffs.Count));
+                    startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
+                }
 
                 foreach (var startIndexOfDiffString in startIndicesOfAllDiffs)
                 {
