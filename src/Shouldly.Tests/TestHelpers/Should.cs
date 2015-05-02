@@ -18,7 +18,7 @@ namespace Shouldly.Tests.TestHelpers
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType()).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), null).ToString());
             }
         }
     }

@@ -1,33 +1,35 @@
-﻿using NUnit.Framework;
-#if net40
+﻿#if net40
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Shouldly.Tests.ShouldThrowAsync
 {  
     [TestFixture]
     public class FuncOfTaskScenarioAsync
     {
-       
         [Test]
         public void ShouldThrowAWobbly()
         {
             try
             {
-               
                 Should.ThrowAsync<InvalidOperationException>(() =>
                 {
                     var task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
                         CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
                     return task;
-                }).Wait();
+                }, "Some additional context").Wait();
             }
             catch (AggregateException e)
             {
                 var inner = e.Flatten().InnerException;
-                inner.ShouldBeOfType<ShouldAssertException>();
+                var ex = inner.ShouldBeOfType<ShouldAssertException>();
+                ex.Message.ShouldContainWithoutWhitespace(@"
+                            Should throw System.InvalidOperationException but does not
+                            Additional Info:
+                            Some additional context");
             }
         }
 

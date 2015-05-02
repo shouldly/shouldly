@@ -87,6 +87,7 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\KeyAndValueExist.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_NoKeyExists.cs" />
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
+    <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
     <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario2.cs" />
@@ -117,6 +118,8 @@
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
     <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
     <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
+    <Compile Include="ShouldContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
+    <Compile Include="ShouldContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldContain\ObjectScenario.cs" />
     <Compile Include="ShouldContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldContain\PredicateObjectScenario.cs" />
@@ -129,11 +132,19 @@
     <Compile Include="ShouldNotContain\ObjectScenario.cs" />
     <Compile Include="ShouldNotContain\PredicateClosureScenario.cs" />
     <Compile Include="ShouldNotContain\PredicateObjectScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringCaseIsSensitiveScenario.cs" />
+    <Compile Include="ShouldNotContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
+    <Compile Include="ShouldNotThrow\FuncOfTaskOfTWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskScenario.cs" />
+    <Compile Include="ShouldNotThrow\FuncOfTaskWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskOfTScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskOfTWithTimeoutScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskScenario.cs" />
+    <Compile Include="ShouldNotThrow\TaskWithTimeoutScenario.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MixShoudlyAssertsWithNUnitAsserts.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MultiLine2.cs" />
@@ -144,10 +155,11 @@
     <Compile Include="ShouldThrow\FuncOfTaskOfStringThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskScenario.cs" />
-    <Compile Include="ShouldThrow\FuncOfTaskThrowsDifferentExceptionScenario.cs" />
+    <Compile Include="ShouldThrow\FuncOfTaskWithTimeoutScenario.cs" />
+    <Compile Include="ShouldThrow\TaskScenario.cs" />
+    <Compile Include="ShouldThrow\TaskThrowsDifferentExceptionScenario.cs" />
     <Compile Include="ShouldThrow\FuncOfTaskWhichThrowsDirectlyScenario.cs" />
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
-    <Compile Include="ShouldThrow\TaskTimeoutTests.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\ShouldBeScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringBackslashFScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringBackslashVScenario.cs" />
@@ -156,6 +168,20 @@
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringControlCharacterScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringTabScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\UnsafeStringNewLineScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheEnd.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheEndBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStart.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionOne.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\LongStringsAreTruncatedAtTheStartBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\BasicScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\BoundedNumberOfDiffsAreShown.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidated.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionOne.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\LongRunOfDiffsAreConsolidatedAndContinued.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\LongStringVsShortStringScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseSensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\ShouldBeScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringBackslashAScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringBackslashFScenario.cs" />
@@ -164,6 +190,48 @@
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringNewLineScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringSpaceScenario.cs" />
     <Compile Include="Strings\DetailedDifference\CaseSensitive\UnsafeStringTabScenario.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheEndBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheEnd.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStartBorderCondition.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStart.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionOne.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\BasicScenario.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\BoundedNumberOfDiffsAreShown.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionTwo.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidatedBorderConditionOne.cs" />
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\DiffsCloseToEachOtherAreConsolidated.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\LongRunOfDiffsAreConsolidatedAndContinued.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\LongStringVsShortStringScenario.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShouldThrow\TaskWithTimeoutScenario.cs" />
+    <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldNotStartWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldNotStartWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldStartWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldStartWith\BasicScenarioCaseInSensitive.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />

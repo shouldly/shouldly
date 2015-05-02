@@ -191,20 +191,39 @@ namespace Shouldly
             return actual.IndexOf(expected, StringComparison.InvariantCultureIgnoreCase) != -1;
         }
 
-        public static bool EndsWithIgnoringCase(string actual, string expected)
+        public static bool StringContainingUsingCaseSensitivity(string actual, string expected)
         {
             if (actual == null)
                 return false;
 
-            return actual.EndsWith(expected, StringComparison.InvariantCultureIgnoreCase);
+            return actual.IndexOf(expected, StringComparison.InvariantCulture) != -1;
         }
 
-        public static bool StringStartingWithIgnoreCase(string actual, string expected)
+
+        public static bool EndsWithUsingCaseSensitivity(string actual, string expected, Case caseSensitivity)
         {
             if (actual == null)
                 return false;
 
-            return actual.StartsWith(expected, StringComparison.InvariantCultureIgnoreCase);
+            if (caseSensitivity == Case.Insensitive)
+            {
+                return actual.EndsWith(expected, StringComparison.InvariantCultureIgnoreCase);
+            }
+
+            return actual.EndsWith(expected);
+        }
+
+        public static bool StringStartingWithUsingCaseSensitivity(string actual, string expected, Case caseSensitivity)
+        {
+            if (actual == null)
+                return false;
+
+            if (caseSensitivity == Case.Insensitive)
+            {
+                return actual.StartsWith(expected, StringComparison.InvariantCultureIgnoreCase);
+            }
+
+            return actual.StartsWith(expected);
         }
 
         public static bool StringEqualIgnoreCase(string actual, string expected)

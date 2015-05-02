@@ -26,13 +26,16 @@ namespace Shouldly.Tests.DynamicShouldTests
                 .HaveProperty
                 (
                 testDynamicObject, 
-                "foo"
+                "foo",
+                "Some additional context"
                 );
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Dynamic object \"testDynamicObject\" should contain property \"foo\" but does not."; }
+            get { return "Dynamic object \"testDynamicObject\" should contain property \"foo\" but does not." + @"
+Additional Info:
+Some additional context"; }
         }
     }
 }

@@ -20,8 +20,10 @@ namespace Shouldly
         public object Expected { get; set; }
         public object Actual { get; set; }
         public object Tolerance { get; set; }
+        public Case? CaseSensitivity { get; set; }
+        public TimeSpan? Timeout { get; set; }
+
         public bool IgnoreOrder { get; set; }
-        public Case CaseSensitivity { get; set; }
 
         // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
         // In some cases it means the "Actual" value is not relevant (eg: "dictionary.ContainsKey(key)") and in some
@@ -32,6 +34,18 @@ namespace Shouldly
         public bool HasRelevantKey { get; set; }
 
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+        public string CustomMessage { get; set; }
+
+        /// <summary>
+        /// Manually specify the parts of the context, default format is {codePart} {shouldMethod}....
+        /// </summary>
+        protected ShouldlyAssertionContext(string codePart, string shouldMethod, object expected, object actual = null)
+        {
+            CodePart = codePart;
+            ShouldMethod = shouldMethod;
+            Expected = expected;
+            Actual = actual;
+        }
 
         internal ShouldlyAssertionContext(object expected, object actual = null)
         {
@@ -81,8 +95,9 @@ namespace Shouldly
         {
             if (method.DeclaringType == null)
                 return false;
-
-            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any();
+           
+            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
+               || (method.DeclaringType.DeclaringType !=null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
 
         private string GetCodePart()

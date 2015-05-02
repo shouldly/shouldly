@@ -8,12 +8,17 @@ namespace Shouldly.Tests.ShouldBe
         {
             object a = 0;
             object b = 0.1;
-            a.ShouldBe(b);
+            a.ShouldBe(b, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "a should be 0.1 but was 0"; }
+            get
+            {
+                return @"a should be 0.1 but was 0
+Additional Info:
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()

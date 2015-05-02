@@ -6,12 +6,17 @@ namespace Shouldly.Tests.ShouldBeInRange
     {
         protected override void ShouldThrowAWobbly()
         {
-            1.5m.ShouldBeInRange(1.6m, 1.7m);
+            1.5m.ShouldBeInRange(1.6m, 1.7m, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "1.5m should be in range { from = 1.6, to = 1.7 } but was 1.5"; }
+            get
+            {
+                return @"1.5m should be in range { from = 1.6, to = 1.7 } but was 1.5
+Additional Info:
+Some additional context";
+            }
         }
 
         protected override void ShouldPass()

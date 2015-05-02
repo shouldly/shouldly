@@ -128,5 +128,14 @@ namespace Shouldly
             return c.ToString(CultureInfo.InvariantCulture);
         }
 
+        internal static string Clip(this string stringToClip, int maximumStringLength, string ellipsis)
+        {
+            if (stringToClip.Length > maximumStringLength)
+            {
+                stringToClip = stringToClip.Substring(0, maximumStringLength) + ellipsis;
+            }
+            return stringToClip;
+        }
+
     }
 }

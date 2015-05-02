@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
     {
         protected override void ShouldThrowAWobbly()
         {
-            new[,] {{"1", "2"}, {"3", "5"}}.ShouldBe(new[,] {{"1", "2"}, {"3", "4"}});
+            new[,] { { "1", "2" }, { "3", "5" } }.ShouldBe(new[,] { { "1", "2" }, { "3", "4" } }, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -16,7 +16,9 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
                 return "new[,] {{\"1\", \"2\"}, {\"3\", \"5\"}} " +
                        "should be [\"1\", \"2\", \"3\", \"4\"] " +
                        "but was [\"1\", \"2\", \"3\", \"5\"] " +
-                       "difference [\"1\", \"2\", \"3\", *\"5\"*]";
+                       "difference [\"1\", \"2\", \"3\", *\"5\"*]" + @"
+Additional Info:
+Some additional context";
             }
         }
 

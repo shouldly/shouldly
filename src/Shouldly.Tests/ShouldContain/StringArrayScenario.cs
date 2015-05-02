@@ -4,19 +4,26 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class StringArrayScenario : ShouldlyShouldTestScenario
     {
+        protected string[] target = new[] { "a", "b", "c" };
+
         protected override void ShouldThrowAWobbly()
         {
-            new[]{"a", "b", "c"}.ShouldContain("d");
+            target.ShouldContain("d", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return " new[]{\"a\", \"b\", \"c\"} should contain \"d\" but does not"; }
+            get
+            {
+                return "target should contain \"d\" but was actually [\"a\", \"b\", \"c\"]" +
+                       "Additional Info:" +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()
         {
-            new[] { "a", "b", "c" }.ShouldContain("b");
+            target.ShouldContain("b");
         }
     }
 }

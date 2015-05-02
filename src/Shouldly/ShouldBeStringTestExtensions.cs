@@ -29,22 +29,42 @@ namespace Shouldly
 
         public static void ShouldStartWith(this string actual, string expected)
         {
-            actual.AssertAwesomely(v => Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
+            ShouldStartWith(actual, expected, Case.Insensitive);
+        }
+
+        public static void ShouldStartWith(this string actual, string expected, Case caseSensitivity)
+        {
+            actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
         public static void ShouldEndWith(this string actual, string expected)
         {
-            actual.AssertAwesomely(v => Is.EndsWithIgnoringCase(v, expected), actual, expected);
+            ShouldEndWith(actual, expected, Case.Insensitive);
+        }
+
+        public static void ShouldEndWith(this string actual, string expected, Case caseSensitivity)
+        {
+            actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
         public static void ShouldNotStartWith(this string actual, string expected)
         {
-            actual.AssertAwesomely(v => !Is.StringStartingWithIgnoreCase(v, expected), actual, expected);
+            ShouldNotStartWith(actual, expected, Case.Insensitive);
+        }
+
+        public static void ShouldNotStartWith(this string actual, string expected, Case caseSensitivity)
+        {
+            actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
         public static void ShouldNotEndWith(this string actual, string expected)
         {
-            actual.AssertAwesomely(v => !Is.EndsWithIgnoringCase(v, expected), actual, expected);
+            ShouldNotEndWith(actual, expected, Case.Insensitive);
+        }
+
+        public static void ShouldNotEndWith(this string actual, string expected, Case caseSensitivity)
+        {
+            actual.AssertAwesomely(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected);
         }
 
         public static void ShouldContain(this string actual, string expected)

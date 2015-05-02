@@ -14,12 +14,17 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         protected override void ShouldThrowAWobbly()
         {
             // ReSharper disable once RedundantArgumentDefaultValue
-            new List<int> { 1, 4, 2 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: false);
+            new List<int> { 1, 4, 2 }.ShouldBe(new[] { 1, 2, 3 }, false, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "new List<int> { 1, 4, 2 } should be [1, 2, 3] but was [1, 4, 2] difference [1, *4 *, *2 *]"; }
+            get
+            {
+                return @"new List<int> { 1, 4, 2 } should be [1, 2, 3] but was [1, 4, 2] difference [1, *4 *, *2 *]
+Additional Info:
+Some additional context";
+            }
         }
     }
 }

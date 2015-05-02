@@ -6,12 +6,17 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
     {
         protected override void ShouldThrowAWobbly()
         {
-            ((string)null).ShouldBeEmpty();
+            ((string) null).ShouldBeEmpty("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "((string)null) should be empty but was null"; }
+            get
+            {
+                return "((string)null) should be empty but was null" +
+                       "Additional Info:" +
+                       "Some additional context";
+            }
         }
     }
 }

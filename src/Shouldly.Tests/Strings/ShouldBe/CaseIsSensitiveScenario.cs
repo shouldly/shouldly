@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            "SamplE".ShouldBe("sAMPLe", Case.Sensitive);
+            "SamplE".ShouldBe("sAMPLe", Case.Sensitive, () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -22,9 +22,11 @@ namespace Shouldly.Tests.Strings.ShouldBe
                           Expected Value | s    A    M    P    L    e    
                           Actual Value   | S    a    m    p    l    E    
                           Expected Code  | 115  65   77   80   76   101  
-                          Actual Code    | 83   97   109  112  108  69   ";
+                          Actual Code    | 83   97   109  112  108  69   
+                          Additional Info:
+                          Some additional context";
 
-            }
+        }
         }
 
         protected override void ShouldPass()

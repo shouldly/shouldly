@@ -6,12 +6,16 @@ namespace Shouldly.Tests.ShouldBeGreaterThan
     {
         protected override void ShouldThrowAWobbly()
         {
-            "a".ShouldBeGreaterThan("b");
+            "a".ShouldBeGreaterThan("b", "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "\"a\" should be greater than \"b\" but was \"a\""; }
+            get {
+                return "\"a\" should be greater than \"b\" but was \"a\"" +
+                       "Additional Info: " +
+                       "Some additional context";
+            }
         }
 
         protected override void ShouldPass()

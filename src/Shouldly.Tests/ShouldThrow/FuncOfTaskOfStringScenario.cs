@@ -16,12 +16,14 @@ namespace Shouldly.Tests.ShouldThrow
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
                 return task;
-            });
+            }, "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "Should throw System.InvalidOperationException but does not"; }
+            get { return @"Should throw System.InvalidOperationException but does not
+Additional Info:
+Some additional context"; }
         }
 
         protected override void ShouldPass()
