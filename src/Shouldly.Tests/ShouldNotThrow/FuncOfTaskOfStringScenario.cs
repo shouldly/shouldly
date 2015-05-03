@@ -21,9 +21,9 @@ namespace Shouldly.Tests.ShouldNotThrow
         {
             get
             {
-                return @"Should should not throw but threw System.RankException" +
-                        "Additional Info:" +
-                        "Some additional context";
+                return "Should should not throw but threw System.RankException with message \"Attempted to operate on an array with the incorrect number of dimensions.\"" +
+                        " Additional Info:" +
+                        " Some additional context";
             }
         }
 
