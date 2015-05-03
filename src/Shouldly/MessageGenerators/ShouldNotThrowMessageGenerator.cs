@@ -23,7 +23,7 @@ namespace Shouldly.MessageGenerators
             string errorMessage = string.Format(format, codePart, expectedValue);
 
             var notThrowAssertionContext = context as ShouldNotThrowAssertionContext;
-            errorMessage += (notThrowAssertionContext != null) ? string.Format(" with message {0}", notThrowAssertionContext.ExceptionMessage) : string.Empty;
+            errorMessage += (notThrowAssertionContext != null) ? string.Format(" with message \"{0}\"", notThrowAssertionContext.ExceptionMessage) : string.Empty;
 
             return errorMessage;
         }
