@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 using Shouldly.DifferenceHighlighting;
 using Shouldly.MessageGenerators;
 
@@ -9,7 +10,7 @@ namespace Shouldly
 {
     internal class ExpectedShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedShouldlyMessage(object expected, Func<string> customMessage)
+        public ExpectedShouldlyMessage(object expected, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
@@ -18,7 +19,7 @@ namespace Shouldly
 
     internal class ExpectedActualShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualShouldlyMessage(object expected, object actual, Func<string> customMessage)
+        public ExpectedActualShouldlyMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
             {
@@ -30,7 +31,7 @@ namespace Shouldly
 
     internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity, Func<string> customMessage)
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, Case caseSensitivity, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
             {
@@ -43,7 +44,7 @@ namespace Shouldly
 
     internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, Func<string> customMessage)
+        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
             {
@@ -56,7 +57,7 @@ namespace Shouldly
 
     internal class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual, Func<string> customMessage)
+        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual);
             ShouldlyAssertionContext.IgnoreOrder = true;
@@ -67,7 +68,7 @@ namespace Shouldly
 
     internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key, Func<string> customMessage)
+        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(expected, actual)
             {
@@ -82,7 +83,7 @@ namespace Shouldly
 #if net40
     internal class CompleteInShouldlyMessage : ShouldlyMessage
     {
-        public CompleteInShouldlyMessage(string what, TimeSpan timeout, Func<string> customMessage)
+        public CompleteInShouldlyMessage(string what, TimeSpan timeout, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(what)
             {
@@ -94,7 +95,7 @@ namespace Shouldly
 
     internal class ShouldlyThrowShouldlyMessage : ShouldlyMessage
     {
-        public ShouldlyThrowShouldlyMessage(Type exception, Func<string> customMessage)
+        public ShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();

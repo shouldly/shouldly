@@ -1,6 +1,7 @@
 ﻿#if net40
 using System;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -15,7 +16,7 @@ namespace Shouldly
             return ThrowAsync<TException>(task, () => customMessage);
         }
 
-        public static Task<TException> ThrowAsync<TException>(Task task, Func<string> customMessage)
+        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string> customMessage)
             where TException : Exception
         {
             return ThrowAsync<TException>(() => task, customMessage);
@@ -28,7 +29,7 @@ namespace Shouldly
         {
             return ThrowAsync<TException>(actual, () => customMessage);
         }
-        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, Func<string> customMessage) where TException : Exception
+        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return actual().ContinueWith(t =>
             {

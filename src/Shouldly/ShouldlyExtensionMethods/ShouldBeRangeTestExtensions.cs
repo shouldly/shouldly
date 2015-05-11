@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -13,7 +14,7 @@ namespace Shouldly
         {
             ShouldBeOneOf(actual, expected, () => customMessage);
         }
-        public static void ShouldBeOneOf<T>(this T actual, T[] expected, Func<string> customMessage)
+        public static void ShouldBeOneOf<T>(this T actual, T[] expected, [InstantHandle] Func<string> customMessage)
         {
             if (!expected.Contains(actual))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -27,7 +28,7 @@ namespace Shouldly
         {
             ShouldNotBeOneOf(actual, expected, () => customMessage);
         }
-        public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, Func<string> customMessage)
+        public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, [InstantHandle] Func<string> customMessage)
         {
             if (expected.Contains(actual))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -41,7 +42,7 @@ namespace Shouldly
         {
             ShouldBeInRange(actual, from, to, () => customMessage);
         }
-        public static void ShouldBeInRange<T>(this T actual, T from, T to, Func<string> customMessage) where T : IComparable<T>
+        public static void ShouldBeInRange<T>(this T actual, T from, T to, [InstantHandle] Func<string> customMessage) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }
@@ -54,7 +55,7 @@ namespace Shouldly
         {
             ShouldNotBeInRange(actual, from, to, () => customMessage);
         }
-        public static void ShouldNotBeInRange<T>(this T actual, T from, T to, Func<string> customMessage) where T : IComparable<T>
+        public static void ShouldNotBeInRange<T>(this T actual, T from, T to, [InstantHandle] Func<string> customMessage) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => !Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }
