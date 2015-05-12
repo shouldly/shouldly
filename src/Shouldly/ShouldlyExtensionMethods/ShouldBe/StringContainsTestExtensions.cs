@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -17,7 +18,7 @@ namespace Shouldly
             ShouldContainWithoutWhitespace(actual, expected, () => customMessage);
         }
 
-        public static void ShouldContainWithoutWhitespace(this string actual, object expected, Func<string> customMessage)
+        public static void ShouldContainWithoutWhitespace(this string actual, object expected, [InstantHandle] Func<string> customMessage)
         {
             var strippedActual = actual.Quotify().StripWhitespace();
             var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
@@ -45,12 +46,12 @@ namespace Shouldly
             ShouldContain(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldContain(this string actual, string expected, Func<string> customMessage)
+        public static void ShouldContain(this string actual, string expected, [InstantHandle] Func<string> customMessage)
         {
             ShouldContain(actual, expected, customMessage, Case.Insensitive);
         }
 
-        public static void ShouldContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
+        public static void ShouldContain(this string actual, string expected, [InstantHandle] Func<string> customMessage, Case caseSensitivity)
         {
             actual.AssertAwesomely(
                 v => (caseSensitivity == Case.Sensitive) ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected), 
@@ -80,12 +81,12 @@ namespace Shouldly
             ShouldNotContain(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage)
+        public static void ShouldNotContain(this string actual, string expected, [InstantHandle] Func<string> customMessage)
         {
             ShouldNotContain(actual, expected, customMessage, Case.Insensitive);
         }
 
-        public static void ShouldNotContain(this string actual, string expected, Func<string> customMessage, Case caseSensitivity)
+        public static void ShouldNotContain(this string actual, string expected, [InstantHandle] Func<string> customMessage, Case caseSensitivity)
         {
             actual.AssertAwesomely(v =>
             {
@@ -104,7 +105,7 @@ namespace Shouldly
             ShouldMatch(actual, regexPattern, () => customMessage);
         }
 
-        public static void ShouldMatch(this string actual, string regexPattern, Func<string> customMessage)
+        public static void ShouldMatch(this string actual, string regexPattern, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
         } 

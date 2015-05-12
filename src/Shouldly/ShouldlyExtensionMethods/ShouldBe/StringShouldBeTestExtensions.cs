@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -28,7 +29,7 @@ namespace Shouldly
             ShouldBe(actual, expected, caseSensitivity, () => customMessage);
         }
 
-        public static void ShouldBe(this string actual, string expected, Case caseSensitivity, Func<string> customMessage)
+        public static void ShouldBe(this string actual, string expected, Case caseSensitivity, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomelyWithCaseSensitivity(
                 v => Is.StringEqualWithCaseSensitivity(v, expected, caseSensitivity), 

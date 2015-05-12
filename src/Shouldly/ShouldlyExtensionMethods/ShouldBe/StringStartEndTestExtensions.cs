@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -20,7 +21,7 @@ namespace Shouldly
             ShouldStartWith(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldStartWith(this string actual, string expected, Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldStartWith(this string actual, string expected, [InstantHandle] Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
         {
             actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
         }
@@ -41,7 +42,7 @@ namespace Shouldly
             ShouldEndWith(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldEndWith(this string actual, string expected, Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldEndWith(this string actual, string expected, [InstantHandle] Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
         {
             actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
         }
@@ -61,7 +62,7 @@ public static void ShouldNotStartWith(this string actual, string expected, Case 
             ShouldNotStartWith(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldNotStartWith(this string actual, string expected, Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldNotStartWith(this string actual, string expected, [InstantHandle] Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
         {
             actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
         }
@@ -81,7 +82,7 @@ public static void ShouldNotEndWith(this string actual, string expected, Case ca
             ShouldNotEndWith(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldNotEndWith(this string actual, string expected, Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldNotEndWith(this string actual, string expected, [InstantHandle] Func<string> customMessage, Case caseSensitivity = Case.Insensitive)
         {
             actual.AssertAwesomely(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
         }

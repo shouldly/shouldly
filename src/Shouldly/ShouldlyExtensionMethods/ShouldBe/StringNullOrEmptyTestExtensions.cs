@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -14,7 +15,7 @@ namespace Shouldly
             ShouldBeNullOrEmpty(actual, () => customMessage);
         }
 
-        public static void ShouldBeNullOrEmpty(this string actual, Func<string> customMessage)
+        public static void ShouldBeNullOrEmpty(this string actual, [InstantHandle] Func<string> customMessage)
         {
             if (!string.IsNullOrEmpty(actual))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
@@ -30,7 +31,7 @@ namespace Shouldly
             ShouldNotBeNullOrEmpty(actual, () => customMessage);
         }
 
-        public static void ShouldNotBeNullOrEmpty(this string actual, Func<string> customMessage)
+        public static void ShouldNotBeNullOrEmpty(this string actual, [InstantHandle] Func<string> customMessage)
         {
             if (string.IsNullOrEmpty(actual))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());

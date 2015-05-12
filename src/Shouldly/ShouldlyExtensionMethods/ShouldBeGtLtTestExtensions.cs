@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -14,7 +15,7 @@ namespace Shouldly
             ShouldBeGreaterThan(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeGreaterThan<T>(this T actual, T expected, Func<string> customMessage) where T : IComparable<T>
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
@@ -29,7 +30,7 @@ namespace Shouldly
             ShouldBeLessThan(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeLessThan<T>(this T actual, T expected, Func<string> customMessage) where T : IComparable<T>
+        public static void ShouldBeLessThan<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
         }
@@ -44,7 +45,7 @@ namespace Shouldly
             ShouldBeGreaterThanOrEqualTo(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, Func<string> customMessage) where T : IComparable<T>
+        public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
         }
@@ -59,7 +60,7 @@ namespace Shouldly
             ShouldBeLessThanOrEqualTo(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, Func<string> customMessage) where T : IComparable<T>
+        public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage) where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
         } 

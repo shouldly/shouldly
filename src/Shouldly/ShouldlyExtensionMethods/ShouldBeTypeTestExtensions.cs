@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -14,7 +15,7 @@ namespace Shouldly
             return ShouldBeAssignableTo<T>(actual, () => customMessage);
         }
 
-        public static T ShouldBeAssignableTo<T>(this object actual, Func<string> customMessage)
+        public static T ShouldBeAssignableTo<T>(this object actual, [InstantHandle] Func<string> customMessage)
         {
             ShouldBeAssignableTo(actual, typeof(T), customMessage);
             return (T)actual;
@@ -30,7 +31,7 @@ namespace Shouldly
             ShouldBeAssignableTo(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeAssignableTo(this object actual, Type expected, Func<string> customMessage)
+        public static void ShouldBeAssignableTo(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual == null ? null : actual.GetType(), expected, customMessage);
         }
@@ -45,7 +46,7 @@ namespace Shouldly
             return ShouldBeOfType<T>(actual, () => customMessage);
         }
 
-        public static T ShouldBeOfType<T>(this object actual, Func<string> customMessage)
+        public static T ShouldBeOfType<T>(this object actual, [InstantHandle] Func<string> customMessage)
         {
             ShouldBeOfType(actual, typeof(T), customMessage);
             return (T)actual;
@@ -61,7 +62,7 @@ namespace Shouldly
             ShouldBeOfType(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeOfType(this object actual, Type expected, Func<string> customMessage)
+        public static void ShouldBeOfType(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual == null ? null : actual.GetType(),
                 expected, customMessage);
@@ -77,7 +78,7 @@ namespace Shouldly
             ShouldNotBeAssignableTo<T>(actual, () => customMessage);
         }
 
-        public static void ShouldNotBeAssignableTo<T>(this object actual, Func<string> customMessage)
+        public static void ShouldNotBeAssignableTo<T>(this object actual, [InstantHandle] Func<string> customMessage)
         {
             ShouldNotBeAssignableTo(actual, typeof(T), customMessage);
         }
@@ -92,7 +93,7 @@ namespace Shouldly
             ShouldNotBeAssignableTo(actual, expected, () => customMessage);
         }
 
-        public static void ShouldNotBeAssignableTo(this object actual, Type expected, Func<string> customMessage)
+        public static void ShouldNotBeAssignableTo(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected);
         }
@@ -107,7 +108,7 @@ namespace Shouldly
             ShouldNotBeOfType<T>(actual, () => customMessage);
         }
 
-        public static void ShouldNotBeOfType<T>(this object actual, Func<string> customMessage)
+        public static void ShouldNotBeOfType<T>(this object actual, [InstantHandle] Func<string> customMessage)
         {
             ShouldNotBeOfType(actual, typeof(T), customMessage);
         }
@@ -122,7 +123,7 @@ namespace Shouldly
             ShouldNotBeOfType(actual, expected, () => customMessage);
         }
 
-        public static void ShouldNotBeOfType(this object actual, Type expected, Func<string> customMessage)
+        public static void ShouldNotBeOfType(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage);
         } 

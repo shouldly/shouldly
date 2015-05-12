@@ -17,7 +17,7 @@ namespace Shouldly
         {
             return Throw<TException>(actual, () => customMessage);
         }
-        public static TException Throw<TException>(Task actual, Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>(Task actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return Throw<TException>(() => actual, customMessage);
         }
@@ -31,7 +31,7 @@ namespace Shouldly
         {
             return Throw<TException>(actual, () => customMessage);
         }
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -48,7 +48,7 @@ namespace Shouldly
             return Throw<TException>(actual, timeoutAfter, () => customMessage);
         }
 
-        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, Func<string> customMessage)
+        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
             where TException : Exception
         {
             return Throw<TException>(() => actual, timeoutAfter, customMessage);            
@@ -65,7 +65,7 @@ namespace Shouldly
         {
             return Throw<TException>(actual, timeoutAfter, () => customMessage);
         }
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Shouldly
         {
             NotThrow(action, () => customMessage);
         }
-        public static void NotThrow(Task action, Func<string> customMessage)
+        public static void NotThrow(Task action, [InstantHandle] Func<string> customMessage)
         {
             NotThrow(() => action, customMessage);
         }
@@ -113,7 +113,7 @@ namespace Shouldly
         {
             return NotThrow(action, () => customMessage);
         }
-        public static T NotThrow<T>(Task<T> action, Func<string> customMessage)
+        public static T NotThrow<T>(Task<T> action, [InstantHandle] Func<string> customMessage)
         {
             return NotThrow(() => action, customMessage);
         }
@@ -127,7 +127,7 @@ namespace Shouldly
         {
             NotThrow(action, () => customMessage);
         }
-        public static void NotThrow([InstantHandle] Func<Task> action, Func<string> customMessage)
+        public static void NotThrow([InstantHandle] Func<Task> action, [InstantHandle] Func<string> customMessage)
         {
             NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -141,7 +141,7 @@ namespace Shouldly
         {
             NotThrow(action, timeoutAfter, () => customMessage);
         }
-        public static void NotThrow(Task action, TimeSpan timeoutAfter, Func<string> customMessage)
+        public static void NotThrow(Task action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
             NotThrow(() => action, timeoutAfter, customMessage);
         }
@@ -155,7 +155,7 @@ namespace Shouldly
         {
             NotThrow(action, timeoutAfter, () => customMessage);
         }
-        public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, Func<string> customMessage)
+        public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
             try
             {
@@ -184,7 +184,7 @@ namespace Shouldly
         {
             return NotThrow(action, () => customMessage);            
         }
-        public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, Func<string> customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, [InstantHandle] Func<string> customMessage)
         {
             return NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -198,7 +198,7 @@ namespace Shouldly
         {
             return NotThrow(action, timeoutAfter, () => customMessage);
         }
-        public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, Func<string> customMessage)
+        public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
             return NotThrow(() => action, timeoutAfter, customMessage);
         }
@@ -212,7 +212,7 @@ namespace Shouldly
         {
             return NotThrow(action, timeoutAfter, () => customMessage);
         }
-        public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, Func<string> customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
             try
             {
@@ -239,7 +239,7 @@ namespace Shouldly
             }
         }
 
-        private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter, Func<string> customMessage)
+        private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
             // Drop the sync context so continuations will not post to it, causing a deadlock
             if (SynchronizationContext.Current != null)
@@ -253,7 +253,7 @@ namespace Shouldly
             }
         }
 
-        private static TException HandleAggregateException<TException>(AggregateException e, Func<string> customMessage) where TException : Exception
+        private static TException HandleAggregateException<TException>(AggregateException e, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             var innerException = e.InnerException;
             if (innerException is TException)

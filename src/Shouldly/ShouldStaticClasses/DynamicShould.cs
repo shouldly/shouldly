@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -23,7 +24,7 @@ namespace Shouldly
             HaveProperty(dynamicTestObject, propertyName, message);
         }
 
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, Func<string> customMessage)
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, [InstantHandle] Func<string> customMessage)
         {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace Shouldly 
 {
@@ -18,7 +19,7 @@ namespace Shouldly
             ShouldContainKey(dictionary, key, () => customMessage);
         }
 
-        public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<string> customMessage)
+        public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, [InstantHandle] Func<string> customMessage)
         {
             if (!dictionary.ContainsKey(key))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(key, customMessage).ToString());
@@ -34,7 +35,7 @@ namespace Shouldly
             ShouldNotContainKey(dictionary, key, () => customMessage);
         }
 
-        public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<string> customMessage)
+        public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, [InstantHandle] Func<string> customMessage)
         {
             if (dictionary.ContainsKey(key))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(key, customMessage).ToString());
@@ -50,7 +51,7 @@ namespace Shouldly
             ShouldContainKeyAndValue(dictionary, key, val, () => customMessage);
         }
 
-        public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, Func<string> customMessage)
+        public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, [InstantHandle] Func<string> customMessage)
         {
             if (!dictionary.ContainsKey(key))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage).ToString());
@@ -69,7 +70,7 @@ namespace Shouldly
             ShouldNotContainValueForKey(dictionary, key, val, () => customMessage);
         }
 
-        public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, Func<string> customMessage)
+        public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, [InstantHandle] Func<string> customMessage)
         {
             if (!dictionary.ContainsKey(key))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage).ToString());

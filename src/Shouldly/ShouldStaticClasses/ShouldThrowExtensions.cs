@@ -16,7 +16,7 @@ namespace Shouldly
         {
             return Throw<TException>(actual, () => customMessage);
         }
-        public static TException Throw<TException>([InstantHandle] Action actual, Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Shouldly
         {
             NotThrow(action, () => customMessage);
         }
-        public static void NotThrow([InstantHandle] Action action, Func<string> customMessage)
+        public static void NotThrow([InstantHandle] Action action, [InstantHandle] Func<string> customMessage)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Shouldly
         {
             return NotThrow(action, () => customMessage);
         }
-        public static T NotThrow<T>([InstantHandle] Func<T> action, Func<string> customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string> customMessage)
         {
             try
             {

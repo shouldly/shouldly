@@ -21,7 +21,7 @@ namespace Shouldly
             ShouldContain(actual, expected, () => customMessage);
         }
 
-        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, Func<string> customMessage)
+        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
         {
             if (!actual.Contains(expected))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -37,7 +37,7 @@ namespace Shouldly
             ShouldNotContain(actual, expected, () => customMessage);
         }
 
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, Func<string> customMessage)
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
         {
             if (actual.Contains(expected))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -53,7 +53,7 @@ namespace Shouldly
             ShouldContain(actual, elementPredicate, () => customMessage);
         }
 
-        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, [InstantHandle] Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
             if (!actual.Any(condition))
@@ -70,7 +70,7 @@ namespace Shouldly
             ShouldNotContain(actual, elementPredicate, () => customMessage);
         }
 
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, [InstantHandle] Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
             if (actual.Any(condition))
@@ -87,7 +87,7 @@ namespace Shouldly
             ShouldAllBe(actual, elementPredicate, () => customMessage);
         }
 
-        public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, Func<string> customMessage)
+        public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, [InstantHandle] Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
             var actualResults = actual.Where(part => !condition(part));
@@ -105,7 +105,7 @@ namespace Shouldly
             ShouldBeEmpty(actual, () => customMessage);
         }
 
-        public static void ShouldBeEmpty<T>(this IEnumerable<T> actual, Func<string> customMessage)
+        public static void ShouldBeEmpty<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
             if (actual == null || (actual != null && actual.Count() != 0))
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
@@ -121,7 +121,7 @@ namespace Shouldly
             ShouldNotBeEmpty(actual, () => customMessage);
         }
 
-        public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual, Func<string> customMessage)
+        public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
             if (actual == null || actual != null && !actual.Any())
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
@@ -137,7 +137,7 @@ namespace Shouldly
             ShouldContain(actual, expected, tolerance, () => customMessage);
         }
 
-        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, Func<string> customMessage)
+        public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, [InstantHandle] Func<string> customMessage)
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
                 throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
@@ -153,7 +153,7 @@ namespace Shouldly
             ShouldContain(actual, expected, tolerance, () => customMessage);
         }
 
-        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, Func<string> customMessage)
+        public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, [InstantHandle] Func<string> customMessage)
         {
             if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
                 throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
@@ -169,7 +169,7 @@ namespace Shouldly
             ShouldBeSubsetOf(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, Func<string> customMessage)
+        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, [InstantHandle] Func<string> customMessage)
         {
             if (actual.Equals(expected))
                 return;
@@ -189,7 +189,7 @@ namespace Shouldly
             ShouldBeUnique(actual, () => customMessage);
         }
 
-        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, Func<string> customMessage)
+        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
             var duplicates = GetDuplicates(actual);
             if (duplicates.Any())

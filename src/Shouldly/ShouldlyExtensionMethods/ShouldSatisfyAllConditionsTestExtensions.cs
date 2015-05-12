@@ -19,7 +19,7 @@ namespace Shouldly
         {
             ShouldSatisfyAllConditions(actual, () => customMessage, conditions);
         }
-        public static void ShouldSatisfyAllConditions(this object actual, Func<string> customMessage, [InstantHandle] params Action[] conditions)
+        public static void ShouldSatisfyAllConditions(this object actual, [InstantHandle] Func<string> customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
             foreach (var action in conditions) 

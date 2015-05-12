@@ -17,7 +17,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, () => customMessage);
         }
-        public static void ShouldBe<T>(this T actual, T expected, Func<string> customMessage)
+        public static void ShouldBe<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName) || typeof(T) == typeof(string))
                 actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
@@ -36,7 +36,7 @@ namespace Shouldly
             ShouldNotBe(actual, expected, () => customMessage);
         }
         [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>(this T actual, T expected, Func<string> customMessage )
+        public static void ShouldNotBe<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
         }
@@ -49,7 +49,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, ignoreOrder, () => customMessage);
         }
-        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder, Func<string> customMessage)
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, bool ignoreOrder, [InstantHandle] Func<string> customMessage)
         {
             if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName))
             {
@@ -76,7 +76,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, tolerance, () => customMessage);
         }
-        public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, Func<string> customMessage)
+        public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage);
         }
@@ -89,7 +89,7 @@ namespace Shouldly
         {
             ShouldBeSameAs(actual, expected, () => customMessage);
         }
-        public static void ShouldBeSameAs(this object actual, object expected, Func<string> customMessage)
+        public static void ShouldBeSameAs(this object actual, object expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, customMessage);
         }
@@ -102,7 +102,7 @@ namespace Shouldly
         {
             ShouldNotBeSameAs(actual, expected, () => customMessage);
         }
-        public static void ShouldNotBeSameAs(this object actual, object expected, Func<string> customMessage)
+        public static void ShouldNotBeSameAs(this object actual, object expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => !Is.Same(v, expected), actual, expected, customMessage);
         }
