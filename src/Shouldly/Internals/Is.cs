@@ -226,9 +226,14 @@ namespace Shouldly
             return actual.StartsWith(expected);
         }
 
-        public static bool StringEqualIgnoreCase(string actual, string expected)
+        public static bool StringEqualWithCaseSensitivity(string actual, string expected, Case caseSensitivity)
         {
-            return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);
+            if (caseSensitivity == Case.Insensitive)
+            {
+                return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);
+            }
+
+            return StringComparer.InvariantCulture.Equals(actual, expected);
         }
 
         public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, T expected)
