@@ -15,8 +15,10 @@ namespace Shouldly.Tests.ShouldNotThrow
             var task = Task.Factory.StartNew(() => { Thread.Sleep(5000); },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
-            var ex = Should.Throw<ShouldCompleteInException>(() => 
-                Should.NotThrow(() => task, TimeSpan.FromSeconds(0.5), "Some additional context"));
+
+            var ex = Should.Throw<ShouldCompleteInException>(() =>
+                task.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
+
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
@@ -40,7 +42,8 @@ namespace Shouldly.Tests.ShouldNotThrow
             var task = Task.Factory.StartNew(() => { },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
-            Should.NotThrow(() => task, TimeSpan.FromSeconds(2));
+
+            task.ShouldNotThrow(TimeSpan.FromSeconds(2));
         }
     }
 }

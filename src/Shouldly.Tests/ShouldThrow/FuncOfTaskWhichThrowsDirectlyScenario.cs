@@ -11,7 +11,8 @@ namespace Shouldly.Tests.ShouldThrow
         public void ShouldPass()
         {
             // ReSharper disable once RedundantDelegateCreation
-            Should.Throw<InvalidOperationException>(new Func<Task>(() => { throw new InvalidOperationException(); }));
+            var task = new Func<Task>(() => { throw new InvalidOperationException(); });
+            task.ShouldThrow<InvalidOperationException>();
         }
     }
 }

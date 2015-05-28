@@ -7,6 +7,21 @@ namespace Shouldly
 {
     public static partial class Should
     {
+        /*** ShouldThrowAsync(Task) ***/
+        public static Task<TException> ShouldThrowAsync<TException>(this Task task) where TException : Exception
+        {
+            return ThrowAsync<TException>(task);
+        }
+        public static Task<TException> ShouldThrowAsync<TException>(this Task task, string customMessage) where TException : Exception
+        {
+            return ThrowAsync<TException>(task, customMessage);
+        }
+        public static Task<TException> ShouldThrowAsync<TException>(this Task task, [InstantHandle] Func<string> customMessage) where TException : Exception
+        {
+            return ThrowAsync<TException>(task, customMessage);
+        }
+
+        /*** Should.ThrowAsync(Task) ***/
         public static Task<TException> ThrowAsync<TException>(Task task) where TException : Exception
         {
             return ThrowAsync<TException>(task, () => null);
@@ -15,12 +30,26 @@ namespace Shouldly
         {
             return ThrowAsync<TException>(task, () => customMessage);
         }
-
-        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string> customMessage)
-            where TException : Exception
+        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return ThrowAsync<TException>(() => task, customMessage);
         }
+
+        /*** ShouldThrowAsync(Func<Task>) ***/
+        public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual) where TException : Exception
+        {
+            return ThrowAsync<TException>(actual);
+        }
+        public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual, string customMessage) where TException : Exception
+        {
+            return ThrowAsync<TException>(actual, customMessage);
+        }
+        public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
+        {
+            return ThrowAsync<TException>(actual, customMessage);
+        }
+
+        /*** Should.ThrowAsync(Func<Task>) ***/
         public static Task<TException> ThrowAsync<TException>(Func<Task> actual) where TException : Exception
         {
             return ThrowAsync<TException>(actual, () => null);

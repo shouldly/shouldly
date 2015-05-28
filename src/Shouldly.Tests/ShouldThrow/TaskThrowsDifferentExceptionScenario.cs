@@ -9,19 +9,23 @@ namespace Shouldly.Tests.ShouldThrow
     {
         protected override void ShouldThrowAWobbly()
         {
-            Should.Throw<InvalidOperationException>(Task.Factory.StartNew(() => { throw new RankException(); }), "Some additional context");
+            var task = Task.Factory.StartNew(() => { throw new RankException(); });
+
+            task.ShouldThrow<InvalidOperationException>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return @"Should throw System.InvalidOperationException but was System.RankException
+            get { return @"task should throw System.InvalidOperationException but was System.RankException
 Additional Info:
 Some additional context"; }
         }
 
         protected override void ShouldPass()
         {
-            var ex = Should.Throw<InvalidOperationException>(Task.Factory.StartNew(() => { throw new InvalidOperationException(); }));
+            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); });
+
+            var ex = task.ShouldThrow<InvalidOperationException>();
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
         }

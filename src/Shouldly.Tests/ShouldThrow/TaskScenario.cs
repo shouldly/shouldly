@@ -13,12 +13,13 @@ namespace Shouldly.Tests.ShouldThrow
             var task = Task.Factory.StartNew(() => { },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
-            Should.Throw<InvalidOperationException>(task, "Some additional context");
+
+            task.ShouldThrow<InvalidOperationException>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return @"Should throw System.InvalidOperationException but does not
+            get { return @"task should throw System.InvalidOperationException but does not
 Additional Info:
 Some additional context"; }
         }
@@ -26,9 +27,11 @@ Some additional context"; }
         protected override void ShouldPass()
         {
             var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-            var ex = Should.Throw<InvalidOperationException>(task);
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+
+            var ex = task.ShouldThrow<InvalidOperationException>();
+
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
         }

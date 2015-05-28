@@ -14,8 +14,8 @@ namespace Shouldly.Tests.ShouldThrow
             var task = Task.Factory.StartNew(() => { Thread.Sleep(5000); },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
-            var ex = Should.Throw<ShouldCompleteInException>(() => 
-                Should.Throw<InvalidOperationException>(task, TimeSpan.FromSeconds(0.5), "Some additional context"));
+
+            var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
@@ -39,7 +39,8 @@ namespace Shouldly.Tests.ShouldThrow
             var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
-            var ex = Should.Throw<InvalidOperationException>(task, TimeSpan.FromSeconds(2));
+
+            var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(2));
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
         }

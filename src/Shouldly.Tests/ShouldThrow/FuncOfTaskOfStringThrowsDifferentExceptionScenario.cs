@@ -11,17 +11,21 @@ namespace Shouldly.Tests.ShouldThrow
         protected override void ShouldThrowAWobbly()
         {
             // ReSharper disable once RedundantDelegateCreation
-            Should.Throw<InvalidOperationException>(new Func<Task<string>>(() =>
+            Action action = () =>
             {
-                throw new RankException();
-            }), "Some additional context");
+                new Func<Task<string>>(() => {
+                    throw new RankException();
+                }).Invoke();
+            };
+
+            action.ShouldThrow<InvalidOperationException>("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return @"Should throw System.InvalidOperationException but was System.RankException
+                return @"action should throw System.InvalidOperationException but was System.RankException
 Additional Info:
 Some additional context";
             }
@@ -29,13 +33,12 @@ Some additional context";
 
         protected override void ShouldPass()
         {
-            var ex = Should.Throw<InvalidOperationException>(() =>
-            {
-                var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-                return task;
-            });
+            var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+
+            var ex = task.ShouldThrow<InvalidOperationException>();
+
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
         }

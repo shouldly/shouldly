@@ -11,16 +11,17 @@ namespace Shouldly.Tests.ShouldNotThrow
         protected override void ShouldThrowAWobbly()
         {
             var task = Task.Factory.StartNew(() => { throw new RankException(); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-            Should.NotThrow(task, "Some additional context");
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+
+            task.ShouldNotThrow("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return @"Should not throw System.RankException but does
+                return @"task should not throw System.RankException but does
 Additional Info:
 Some additional context";
             }
@@ -31,7 +32,8 @@ Some additional context";
             var task = Task.Factory.StartNew(() => { },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
-            Should.NotThrow(task);
+
+            task.ShouldNotThrow();
         }
     }
 }
