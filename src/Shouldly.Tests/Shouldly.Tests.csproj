@@ -78,6 +78,8 @@
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\GuidScenario.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
     <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue\ValueIsNull.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey\ValueIsNull.cs" />
     <Compile Include="DynamicShould\HavePropertyNonDynamicScenario.cs" />
     <Compile Include="DynamicShould\MultiLineHavePropertyScenario_MaximumLines.cs" />
     <Compile Include="DynamicShould\MultiLineHavePropertyScenario.cs" />
