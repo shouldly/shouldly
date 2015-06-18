@@ -56,7 +56,7 @@ namespace Shouldly
             if (!dictionary.ContainsKey(key))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage).ToString());
 
-            if (!dictionary[key].Equals(val))
+            if (!Equals(dictionary[key], val))
                 throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary[key], key, customMessage).ToString());
         }
 
@@ -75,7 +75,7 @@ namespace Shouldly
             if (!dictionary.ContainsKey(key))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(val, key, customMessage).ToString());
 
-            if (dictionary[key].Equals(val))
+            if (Equals(dictionary[key], val))
                 throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary[key], key, customMessage).ToString());
         }
     }

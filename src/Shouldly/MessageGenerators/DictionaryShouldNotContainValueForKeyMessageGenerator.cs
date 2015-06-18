@@ -19,7 +19,7 @@ namespace Shouldly.MessageGenerators
     should not contain key
         ""{1}""
     with value
-        ""{2}""
+        {2}
     {3}";
 
             var codePart = context.CodePart;
@@ -27,14 +27,18 @@ namespace Shouldly.MessageGenerators
             var actualValue = context.Actual.ToStringAwesomely();
             var keyValue = context.Key.ToStringAwesomely();
 
+            var expectedValueString = context.Expected == null
+                ? expectedValue
+                : string.Format("\"{0}\"", expectedValue.Trim('"'));            
+
             if (context.HasRelevantKey)
             {
                 var valueString = "but does";
-                return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);
+                return String.Format(format, codePart, keyValue.Trim('"'), expectedValueString, valueString);
             }
             else
             {
-                return String.Format(format, codePart, actualValue.Trim('"'), expectedValue.Trim('"'), "but the key does not exist");
+                return String.Format(format, codePart, actualValue.Trim('"'), expectedValueString, "but the key does not exist");
             }
         }
     }

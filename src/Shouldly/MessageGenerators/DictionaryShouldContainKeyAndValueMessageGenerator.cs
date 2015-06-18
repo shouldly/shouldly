@@ -29,7 +29,10 @@ namespace Shouldly.MessageGenerators
 
             if (context.HasRelevantKey)
             {
-                var valueString = string.Format("but value was \"{0}\"", actualValue.Trim('"'));
+                var actualValueString = context.Actual == null
+                    ? actualValue
+                    : string.Format("\"{0}\"", actualValue.Trim('"'));
+                var valueString = string.Format("but value was {0}", actualValueString);
                 return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);
             }
             else
