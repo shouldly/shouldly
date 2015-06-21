@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="shouldly.nuspec" />
     <None Include="sn.snk" />
   </ItemGroup>
   <ItemGroup />

@@ -1,0 +1,30 @@
+install:
+  - choco install gitversion.portable -pre
+
+assembly_info:
+  patch: false
+  
+before_build:
+  - ps: ./tools/gitversion.exe /l console /output buildserver /updateAssemblyInfo
+
+platform:
+  - Any CPU
+
+configuration:
+  - Release
+
+environment:
+  matrix:
+  # net35
+  - TargetFrameworkVersion: v3.5
+
+  # net40
+  - TargetFrameworkVersion: v4.0
+ 
+build:
+  project: Shouldly.sln
+
+after_build:
+  - cmd: ECHO nuget pack <Project>\<NuSpec>.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - cmd: nuget pack <Project>\<NuSpec>.nuspec - version "%GitVersion_NuGetVersion%" - prop "target=%CONFIGURATION%"
+  - cmd: appveyor PushArtifact "<NuSpec>.%GitVersion_NuGetVersion%.nupkg"

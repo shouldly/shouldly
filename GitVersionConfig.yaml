@@ -1,1 +1,30 @@
+assembly-versioning-scheme: MajorMinorPatch
+mode: ContinuousDelivery
+tag-prefix: '[vV]'
+continuous-delivery-fallback-tag: ci
 next-version: 2.5.0
+branches:
+  master:
+    tag: 
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+  release[/-]:
+    tag: beta
+  feature[/-]:
+    tag: useBranchName
+    increment: Inherit
+  hotfix[/-]:
+    tag: beta
+  support[/-]:
+    tag: 
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+  develop:
+    mode: ContinuousDeployment
+    tag: unstable
+    increment: Minor
+    track-merge-target: true
+  (pull|pull\-requests|pr)[/-]:
+    tag: PullRequest
+    increment: Inherit
+    tag-number-pattern: '[/-](?<number>\d+)[-/]'
