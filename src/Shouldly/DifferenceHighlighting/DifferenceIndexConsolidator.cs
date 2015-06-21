@@ -27,9 +27,9 @@ namespace Shouldly.DifferenceHighlighting
 
             foreach (var diffIndexWithDistance in diffIndicesWithDistanceToNextDiffIndex)
             {
-                currentConsolidationRun.Add(diffIndexWithDistance.Item1);
-                diffDistanceCounter = diffDistanceCounter + diffIndexWithDistance.Item2;
-                if (diffDistanceCounter >= _maxDiffLength || diffIndexWithDistance.Item2 == 0)
+                currentConsolidationRun.Add(diffIndexWithDistance.Key);
+                diffDistanceCounter = diffDistanceCounter + diffIndexWithDistance.Value;
+                if (diffDistanceCounter >= _maxDiffLength || diffIndexWithDistance.Value == 0)
                 {
                     consolidatedIndices.Add(currentConsolidationRun);
                     diffDistanceCounter = 0;
@@ -60,14 +60,14 @@ namespace Shouldly.DifferenceHighlighting
             return adjustedIndex;
         }
 
-        private List<Tuple<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
+        private List<KeyValuePair<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
         {
             var diffToNextIndex = diffIndices.Zip(diffIndices.Skip(1), (i1, i2) => i2 - i1)
                                     .ToList();
 
             diffToNextIndex.Add(0);
 
-            var result = diffIndices.Zip(diffToNextIndex, (i1, i2) => new Tuple<int, int>(i1, i2)).ToList();
+            var result = diffIndices.Zip(diffToNextIndex, (i1, i2) => new KeyValuePair<int, int>(i1, i2)).ToList();
             return result;
         }
     }
