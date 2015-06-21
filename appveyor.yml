@@ -1,11 +1,11 @@
 install:
-  - choco install gitversion.portable -pre
+  - choco install gitversion.portable -pre -y
 
 assembly_info:
   patch: false
   
 before_build:
-  - ps: ./tools/gitversion.exe /l console /output buildserver /updateAssemblyInfo
+  - gitversion /l console /output buildserver /updateAssemblyInfo
 
 platform:
   - Any CPU
