@@ -7,20 +7,20 @@ namespace Shouldly.Tests.InternalTests
     [TestFixture]
     public class DifferenceIndexConsolidatorTests
     {
-        int maxDiffLength = 5;
-        int maxLengthOfStrings = 21;
+        private const int MaxDiffLength = 5;
+        private const int MaxLengthOfStrings = 21;
 
         [Test, TestCaseSource("IndexConsolidationTestCases")]
         public void ShouldConsolidate_Indices_Correctly_GivenInput(List<int> indicesOfAllDifferences, List<int> expectedConsolidatedOutputIndices)
         {
-            var consolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDifferences);
+            var consolidator = new DifferenceIndexConsolidator(MaxDiffLength, MaxLengthOfStrings, indicesOfAllDifferences);
             var outputFromConsolidator = consolidator.GetConsolidatedIndices();
             outputFromConsolidator.ShouldBe(expectedConsolidatedOutputIndices);
         }
 
-        static object[] IndexConsolidationTestCases =
+        static readonly object[] IndexConsolidationTestCases =
         {
-                             // indicesOfAllDifferences,  expectedConsolidatedOutputIndices               
+            // indicesOfAllDifferences,  expectedConsolidatedOutputIndices
             // Simple cases, no consolidation so far. Each diff index is > maxDiffLength from the next.
             new object[] { new List<int>() {2 }, new List<int>() {0 } },
             new object[] { new List<int>() {0 }, new List<int>() {0 } },

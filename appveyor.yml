@@ -5,6 +5,7 @@ assembly_info:
   patch: false
   
 before_build:
+  - nuget restore
   - gitversion /l console /output buildserver /updateAssemblyInfo
 
 platform:
