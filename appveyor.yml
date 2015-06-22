@@ -3,29 +3,20 @@ install:
 
 assembly_info:
   patch: false
-  
-before_build:
-  - nuget restore
-  - gitversion /l console /output buildserver /updateAssemblyInfo
 
 platform:
   - Any CPU
 
 configuration:
   - Release
-
-environment:
-  matrix:
-  # net35
-  - TargetFrameworkVersion: v3.5
-
-  # net40
-  - TargetFrameworkVersion: v4.0
  
-build:
-  project: Shouldly.sln
-
-after_build:
+build_script:
+  - cmd: nuget restore
+  - cmd: gitversion /l console /output buildserver /updateAssemblyInfo
+  
+  - cmd: msbuild Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%;TargetFrameworkVersion=v3.5"
+  - cmd: msbuild Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%;TargetFrameworkVersion=v4.0"
+  
   - cmd: ECHO nuget pack Shouldly.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - cmd: nuget pack Shouldly.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - cmd: appveyor PushArtifact "Shouldly.%GitVersion_NuGetVersion%.nupkg"
