@@ -13,7 +13,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, () => null);
         }
-        public static void ShouldBe<T>(this T actual, T expected, string customMessage)
+        public static void  ShouldBe<T>(this T actual, T expected, string customMessage)
         {
             ShouldBe(actual, expected, () => customMessage);
         }

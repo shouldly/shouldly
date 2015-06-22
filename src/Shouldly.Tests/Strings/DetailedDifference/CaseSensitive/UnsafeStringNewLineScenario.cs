@@ -6,15 +6,12 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
     {
         protected override void ShouldPass()
         {
-            @"StringOne
-NewLine".ShouldBe(@"StringOne
-NewLine", Case.Sensitive);
+            "StringOne\r\nNewLine".ShouldBe("StringOne\r\nNewLine", Case.Sensitive);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            "StringOneNoNewLine".ShouldBe(@"Stringone
-NewLine", Case.Sensitive);
+            "StringOneNoNewLine".ShouldBe("Stringone\r\nNewLine", Case.Sensitive);
         }
 
         protected override string ChuckedAWobblyErrorMessage

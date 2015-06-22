@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Shouldly</id>
+    <version>0.0.0</version>
+    <authors>Dave Newman, Xerxes Battiwalla, Anthony Egerton, Peter van der Woude, Jake Ginnivan</authors>
+    <owners>Dave Newman, Xerxes Battiwalla, Anthony Egerton, Jake Ginnivan</owners>
+    <licenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://shouldly.github.com/</projectUrl>
+    <iconUrl>https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
+    <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>
+  </metadata>
+  <files>
+    <file src="output\$target$\net40\Shouldly.dll" target="lib\net40\Shouldly.dll" />
+    <file src="output\$target$\net35\Shouldly.dll" target="lib\net35\Shouldly.dll" />
+  </files>
+</package>

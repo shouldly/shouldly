@@ -1,8 +1,0 @@
-<topic>
-	<title></title>
-	<id type="integer"></id>
-	<approved type="boolean"></approved>
-	<written-on type="date"></written-on>
-	<viewed-at type="datetime"></viewed-at>
-	<parent-id></parent-id>
-</topic>

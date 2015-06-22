@@ -1,8 +1,0 @@
-FasterXmlSimple
-
-FasterXS is intended to be a drop in replacement for the xml input functionality
-from XmlSimple.  Instead of using rexml, it uses libxml and the associated ruby
-bindings.  This reduces CPU utilisation and memory consumption considerably.
-
-Preliminary benchmarks show it between 3 and 10 times as fast, and using a
-fraction of the ram.

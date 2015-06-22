@@ -27,9 +27,9 @@ namespace Shouldly.DifferenceHighlighting
 
             foreach (var diffIndexWithDistance in diffIndicesWithDistanceToNextDiffIndex)
             {
-                currentConsolidationRun.Add(diffIndexWithDistance.Item1);
-                diffDistanceCounter = diffDistanceCounter + diffIndexWithDistance.Item2;
-                if (diffDistanceCounter >= _maxDiffLength || diffIndexWithDistance.Item2 == 0)
+                currentConsolidationRun.Add(diffIndexWithDistance.Key);
+                diffDistanceCounter = diffDistanceCounter + diffIndexWithDistance.Value;
+                if (diffDistanceCounter >= _maxDiffLength || diffIndexWithDistance.Value == 0)
                 {
                     consolidatedIndices.Add(currentConsolidationRun);
                     diffDistanceCounter = 0;
@@ -60,15 +60,38 @@ namespace Shouldly.DifferenceHighlighting
             return adjustedIndex;
         }
 
-        private List<Tuple<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
+        private List<KeyValuePair<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
         {
-            var diffToNextIndex = diffIndices.Zip(diffIndices.Skip(1), (i1, i2) => i2 - i1)
-                                    .ToList();
+            var diffToNextIndex = diffIndices.Zip(diffIndices.Skip(1), (i1, i2) => i2 - i1).ToList();
 
             diffToNextIndex.Add(0);
 
-            var result = diffIndices.Zip(diffToNextIndex, (i1, i2) => new Tuple<int, int>(i1, i2)).ToList();
+            var result = diffIndices.Zip(diffToNextIndex, (i1, i2) => new KeyValuePair<int, int>(i1, i2)).ToList();
             return result;
         }
     }
+
+#if !net40
+    static class ZipPolyfill
+    {
+        public static IEnumerable<TResult> Zip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
+        {
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
+            if (resultSelector == null) throw new ArgumentNullException("resultSelector");
+            return ZipIterator(first, second, resultSelector);
+        }
+
+        private static IEnumerable<TResult> ZipIterator<TFirst, TSecond, TResult>
+            (IEnumerable<TFirst> first,
+            IEnumerable<TSecond> second,
+            Func<TFirst, TSecond, TResult> resultSelector)
+        {
+            using (IEnumerator<TFirst> e1 = first.GetEnumerator())
+            using (IEnumerator<TSecond> e2 = second.GetEnumerator())
+                while (e1.MoveNext() && e2.MoveNext())
+                    yield return resultSelector(e1.Current, e2.Current);
+        }
+    }
+#endif
 }
