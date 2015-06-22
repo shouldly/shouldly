@@ -8,7 +8,7 @@ platform:
   - Any CPU
 
 configuration:
-  - Release
+  - Debug
  
 build_script:
   - cmd: nuget restore
