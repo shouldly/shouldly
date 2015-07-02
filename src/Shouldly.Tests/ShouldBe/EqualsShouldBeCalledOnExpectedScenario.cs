@@ -39,5 +39,11 @@ Some additional context";
         {
             return EqualsResult;
         }
+
+        public override int GetHashCode()
+        {
+            // Just to stop build warning
+            return 0;
+        }
     }
 }

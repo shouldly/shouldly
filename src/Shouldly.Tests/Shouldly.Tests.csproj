@@ -38,7 +38,7 @@
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.CSharp" Condition="'$(TargetFrameworkVersion)' == 'v4.0'" />
     <Reference Include="nunit.core">
       <HintPath>..\..\packages\NUnitTestAdapter.2.0.0-beta\lib\nunit.core.dll</HintPath>
       <Private>False</Private>
