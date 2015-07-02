@@ -117,6 +117,7 @@
     <Compile Include="Internals\ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="Internals\ShouldlyMethodsAttribute.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldNotThrowTaskAsyncExtensions.cs" />
     <Compile Include="ShouldStaticClasses\ShouldThrowTaskAsyncExtensions.cs" />
     <Compile Include="ShouldStaticClasses\ShouldThrowTaskExtensions.cs" />
     <Compile Include="ShouldStaticClasses\ShouldThrowExtensions.cs" />

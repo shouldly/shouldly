@@ -136,6 +136,7 @@
     <Compile Include="ShouldNotContain\PredicateObjectScenario.cs" />
     <Compile Include="ShouldNotContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldNotContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
+    <Compile Include="ShouldNotThrowAsync\FuncOfTaskAsyncScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
