@@ -118,6 +118,7 @@
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="Internals\ShouldlyMethodsAttribute.cs" />
     <Compile Include="ShouldStaticClasses\ShouldThrowTaskAsyncExtensions.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldThrowTaskAsyncExtensionsOverloads.cs" />
     <Compile Include="ShouldStaticClasses\ShouldThrowTaskExtensions.cs" />
     <Compile Include="ShouldStaticClasses\ShouldThrowExtensions.cs" />
     <Compile Include="Internals\StringHelpers.cs" />
@@ -126,6 +127,8 @@
     <Compile Include="Internals\TaskExtensions.cs" />
     <Compile Include="Internals\Tolerance.cs" />
     <Compile Include="Internals\ToleranceMode.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldThrowExtensionsOverloads.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldThrowTaskExtensionsOverloads.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
