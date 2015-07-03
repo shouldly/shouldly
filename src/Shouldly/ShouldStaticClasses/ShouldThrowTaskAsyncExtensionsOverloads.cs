@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if net40
+using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
@@ -35,3 +36,4 @@ namespace Shouldly
         }
     }
 }
+#endif
