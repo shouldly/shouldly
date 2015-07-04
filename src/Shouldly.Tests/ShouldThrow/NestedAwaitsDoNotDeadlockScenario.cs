@@ -17,13 +17,14 @@ namespace Shouldly.Tests.ShouldThrow
             SynchronizationContext.SetSynchronizationContext(synchronizationContext);
             SynchronizationContext.Current.ShouldNotBe(null);
 
-            // ReSharper disable once RedundantDelegateCreation
-            Should.Throw<InvalidOperationException>(new Func<Task>(() =>
+            var task = new Func<Task>(() =>
             {
                 SynchronizationContext.Current.ShouldBe(null);
 
                 throw new InvalidOperationException();
-            }));
+            });
+
+            task.ShouldThrow<InvalidOperationException>();
         }
     }
 }

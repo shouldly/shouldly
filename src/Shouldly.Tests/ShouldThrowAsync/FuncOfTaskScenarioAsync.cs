@@ -14,13 +14,12 @@ namespace Shouldly.Tests.ShouldThrowAsync
         {
             try
             {
-                Should.ThrowAsync<InvalidOperationException>(() =>
-                {
-                    var task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
+                Task task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
                         CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
-                    return task;
-                }, "Some additional context").Wait();
+
+                var result = task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
+                result.Wait();
             }
             catch (AggregateException e)
             {
@@ -36,13 +35,12 @@ namespace Shouldly.Tests.ShouldThrowAsync
         [Test]
         public void ShouldPass()
         {
-            Should.ThrowAsync<InvalidOperationException>(() =>
-            {
-                var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
-                return task;
-            }).Wait();
+            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+
+            var result = task.ShouldThrowAsync<InvalidOperationException>();
+            result.Wait();
         }
     }
 }

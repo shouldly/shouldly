@@ -7,6 +7,7 @@ namespace Shouldly
 {
     public static partial class Should
     {
+        /*** Should.ThrowAsync(Task) ***/
         public static Task<TException> ThrowAsync<TException>(Task task) where TException : Exception
         {
             return ThrowAsync<TException>(task, () => null);
@@ -15,12 +16,12 @@ namespace Shouldly
         {
             return ThrowAsync<TException>(task, () => customMessage);
         }
-
-        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string> customMessage)
-            where TException : Exception
+        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return ThrowAsync<TException>(() => task, customMessage);
         }
+
+        /*** Should.ThrowAsync(Func<Task>) ***/
         public static Task<TException> ThrowAsync<TException>(Func<Task> actual) where TException : Exception
         {
             return ThrowAsync<TException>(actual, () => null);

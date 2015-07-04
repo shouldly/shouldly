@@ -8,6 +8,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class Should
     {
+        /*** Should.Throw(Action) ***/
         public static TException Throw<TException>([InstantHandle] Action actual) where TException : Exception
         {
             return Throw<TException>(actual, () => null);
@@ -34,6 +35,7 @@ namespace Shouldly
             throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage).ToString());
         }
 
+        /*** Should.NotThrow(Action) ***/
         public static void NotThrow([InstantHandle] Action action)
         {
             NotThrow(action, () => null);
@@ -54,6 +56,7 @@ namespace Shouldly
             }
         }
 
+        /*** Should.NotThrow(Func<T>) ***/
         public static T NotThrow<T>([InstantHandle] Func<T> action)
         {
             return NotThrow(action, () => null);

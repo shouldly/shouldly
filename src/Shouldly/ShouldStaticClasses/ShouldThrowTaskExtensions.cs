@@ -37,31 +37,25 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Task, TimeSpan) ***/
-        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter)
-            where TException : Exception
+        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter) where TException : Exception
         {
             return Throw<TException>(actual, timeoutAfter, () => null);            
         }
-        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string customMessage)
-            where TException : Exception
+        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
             return Throw<TException>(actual, timeoutAfter, () => customMessage);
         }
-
-        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
-            where TException : Exception
+        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return Throw<TException>(() => actual, timeoutAfter, customMessage);            
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter)
-            where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
         {
             return Throw<TException>(actual, timeoutAfter, () => null);            
         }
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string customMessage)
-            where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
             return Throw<TException>(actual, timeoutAfter, () => customMessage);
         }
