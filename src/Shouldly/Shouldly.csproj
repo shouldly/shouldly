@@ -117,18 +117,18 @@
     <Compile Include="Internals\ShouldlyCoreExtensions.cs" />
     <Compile Include="ShouldlyMessage.cs" />
     <Compile Include="Internals\ShouldlyMethodsAttribute.cs" />
-    <Compile Include="ShouldStaticClasses\ShouldThrowTaskAsyncExtensions.cs" />
-    <Compile Include="ShouldStaticClasses\ShouldThrowTaskAsyncExtensionsOverloads.cs" />
-    <Compile Include="ShouldStaticClasses\ShouldThrowTaskExtensions.cs" />
-    <Compile Include="ShouldStaticClasses\ShouldThrowExtensions.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldThrowTaskAsync.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldThrowTaskAsyncExtensions.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldThrowTask.cs" />
+    <Compile Include="ShouldStaticClasses\ShouldThrow.cs" />
     <Compile Include="Internals\StringHelpers.cs" />
     <Compile Include="ChuckedAWobbly.cs" />
     <Compile Include="Internals\ShouldlyAssertionContext.cs" />
     <Compile Include="Internals\TaskExtensions.cs" />
     <Compile Include="Internals\Tolerance.cs" />
     <Compile Include="Internals\ToleranceMode.cs" />
-    <Compile Include="ShouldStaticClasses\ShouldThrowExtensionsOverloads.cs" />
-    <Compile Include="ShouldStaticClasses\ShouldThrowTaskExtensionsOverloads.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldThrowExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldThrowTaskExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
