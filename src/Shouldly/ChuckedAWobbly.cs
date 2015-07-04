@@ -2,9 +2,9 @@
 
 namespace Shouldly
 {
-    [Obsolete("This class is only kept here for backwards compatibility. Please use ShouldAssertException instead.")]
     [Serializable]
-    internal class ChuckedAWobbly : Exception
+    [Obsolete("This class is only kept here for backwards compatibility. Please use ShouldAssertException instead.")]
+    public class ChuckedAWobbly : Exception
     {
         public ChuckedAWobbly(string message) : base(message)
         {

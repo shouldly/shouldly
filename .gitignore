@@ -17,3 +17,5 @@ test-results
 *.orig
 Shouldly.sln.ide/
 packages/
+ShouldlyConvention.Tests/obj/
+ShouldlyConvention.Tests/bin/
