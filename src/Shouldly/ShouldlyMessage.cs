@@ -107,14 +107,15 @@ namespace Shouldly
     {
         private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
-            new ShouldBeNullOrEmptyMessageGenerator(),  
-            new ShouldBeEmptyMessageGenerator(), 
-            new ShouldAllBeMessageGenerator(), 
+            new ShouldBeNullOrEmptyMessageGenerator(),
+            new ShouldBeNullOrWhiteSpaceMessageGenerator(),
+            new ShouldBeEmptyMessageGenerator(),
+            new ShouldAllBeMessageGenerator(),
     #if net40
             new DynamicShouldMessageGenerator(),
             new ShouldCompleteInMessageGenerator(),
     #endif
-            new DictionaryShouldOrNotContainKeyMessageGenerator(), 
+            new DictionaryShouldOrNotContainKeyMessageGenerator(),
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
