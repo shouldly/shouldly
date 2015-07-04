@@ -64,8 +64,10 @@
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
+    <Compile Include="MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrEmptyTestExtensions.cs" />
+    <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrWhiteSpaceTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringStartEndTestExtensions.cs" />
     <Compile Include="ShouldCompleteInException.cs" />
     <Compile Include="ShouldStaticClasses\DynamicShould.cs" />
