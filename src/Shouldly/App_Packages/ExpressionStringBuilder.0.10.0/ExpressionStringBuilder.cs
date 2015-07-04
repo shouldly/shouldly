@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable CheckNamespace
+#if net40
 namespace ExpressionToString
 {
     class ExpressionStringBuilder : ExpressionVisitor
@@ -281,3 +282,4 @@ namespace ExpressionToString
         }
     }
 }
+#endif
