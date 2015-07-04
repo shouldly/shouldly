@@ -1,5 +1,4 @@
-﻿#if net40
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -238,7 +237,7 @@ namespace ExpressionToString
                 case ExpressionType.And:
                     return "&";
                 case ExpressionType.AndAlso:
-                    return "AndAlso";
+                    return "&&";
                 case ExpressionType.Divide:
                     return "/";
                 case ExpressionType.Equal:
@@ -264,9 +263,13 @@ namespace ExpressionToString
                 case ExpressionType.Or:
                     return "|";
                 case ExpressionType.OrElse:
-                    return "OrElse";
+                    return "||";
                 case ExpressionType.Subtract:
                     return "-";
+                case ExpressionType.Coalesce:
+                    return "??";
+                case ExpressionType.ExclusiveOr:
+                    return "^";
                 default:
                     throw new NotImplementedException();
             }
@@ -278,4 +281,3 @@ namespace ExpressionToString
         }
     }
 }
-#endif
