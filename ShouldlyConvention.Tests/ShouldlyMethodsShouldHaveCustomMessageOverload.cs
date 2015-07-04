@@ -14,8 +14,7 @@ namespace ShouldlyConvention.Tests
                 from shouldlyClasses in data
                 from shouldlyMethods in shouldlyClasses.GetMethods()
                 where typeof (object).GetMethods().All(m => m.Name != shouldlyMethods.Name)
-                group shouldlyMethods by CreateKey(shouldlyMethods)
-                into shouldlyMethod
+                group shouldlyMethods by FormatKey(shouldlyMethods) into shouldlyMethod
                 where HasNoCustomMessageOverload(shouldlyMethod)
                 select shouldlyMethod.Key;
 
@@ -24,29 +23,9 @@ namespace ShouldlyConvention.Tests
                 failingTypes);
         }
 
-        private static string CreateKey(MethodInfo shouldlyMethods)
+        private string FormatKey(MethodInfo shouldlyMethods)
         {
-            var parameters = shouldlyMethods.GetParameters();
-            var parameterType = FormatParameter(parameters[0].ParameterType);
-            if (shouldlyMethods.IsGenericMethod)
-            {
-                return string.Format("{0}(this {1})", shouldlyMethods.Name, parameterType);
-            }
-            return string.Format("{0}(this {1})", shouldlyMethods.Name, parameterType);
-        }
-
-        private static string FormatParameter(Type parameterType)
-        {
-            if (parameterType.IsGenericType)
-            {
-                var genericTypeParams = parameterType.GetGenericArguments();
-                return string.Format(
-                    "{0}<{1}>", 
-                    parameterType.Name.Trim('<', '>'),
-                    string.Join("", genericTypeParams.Select(FormatParameter)));
-            }
-
-            return parameterType.ToString();
+            return shouldlyMethods.FormatMethod(true);
         }
 
         private bool HasNoCustomMessageOverload(IGrouping<string, MethodInfo> shouldlyMethod)

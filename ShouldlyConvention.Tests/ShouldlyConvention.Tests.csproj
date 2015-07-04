@@ -90,6 +90,8 @@
     <Compile Include="ShouldlyMethodsShouldHaveCustomMessageOverload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldlyConventions.cs" />
+    <Compile Include="ShouldThrowMatchesExtensions.cs" />
+    <Compile Include="ShouldThrowMethod.cs" />
     <Compile Include="TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
