@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
+#if net40
 namespace Shouldly
 {
     public static partial class ShouldBeStringTestExtensions
@@ -38,3 +39,4 @@ namespace Shouldly
         }
     }
 }
+#endif

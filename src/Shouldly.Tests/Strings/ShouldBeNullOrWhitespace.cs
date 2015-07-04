@@ -1,5 +1,6 @@
 ﻿using Shouldly.Tests.TestHelpers;
 
+#if net40
 namespace Shouldly.Tests.Strings
 {
     public class ShouldBeNullOrWhiteSpace : ShouldlyShouldTestScenario
@@ -26,3 +27,4 @@ namespace Shouldly.Tests.Strings
         }
     }
 }
+#endif

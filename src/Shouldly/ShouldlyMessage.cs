@@ -108,12 +108,12 @@ namespace Shouldly
         private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
             new ShouldBeNullOrEmptyMessageGenerator(),
-            new ShouldBeNullOrWhiteSpaceMessageGenerator(),
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
     #if net40
             new DynamicShouldMessageGenerator(),
             new ShouldCompleteInMessageGenerator(),
+            new ShouldBeNullOrWhiteSpaceMessageGenerator(),
     #endif
             new DictionaryShouldOrNotContainKeyMessageGenerator(),
             new DictionaryShouldContainKeyAndValueMessageGenerator(), 

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
+#if net40
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeNullOrWhiteSpaceMessageGenerator : ShouldlyMessageGenerator
@@ -21,9 +21,10 @@ namespace Shouldly.MessageGenerators
 
             var isNegatedAssertion = context.ShouldMethod.Contains("Not");
             if (isNegatedAssertion)
-                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced());
+                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced());
 
-            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced());
+            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced());
         }
     }
 }
+#endif
