@@ -31,7 +31,7 @@ namespace ShouldlyConvention.Tests
         private bool HasNoCustomMessageOverload(IGrouping<string, MethodInfo> shouldlyMethod)
         {
             var hasFuncStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<Func<string>>));
-            var hasStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<Func<string>>));
+            var hasStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<string>));
 
             return !hasFuncStringOverload && !hasStringOverload;
         }
