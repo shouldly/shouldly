@@ -63,14 +63,11 @@
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
-    <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeBooleanMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeBooleanExtensions.cs" />
-    <Compile Include="App_Packages\ExpressionStringBuilder.0.9.1\ExpressionStringBuilder.cs" />
-    <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
     <Compile Include="Internals\ShouldNotThrowAssertionContext.cs" />
     <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
     <Compile Include="MessageGenerators\ShouldNotThrowMessageGenerator.cs" />
