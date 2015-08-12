@@ -7,17 +7,16 @@ namespace Shouldly.Tests.ShouldNotThrow
     {
         protected override void ShouldThrowAWobbly()
         {
-            var action = new Action(() => { throw new InvalidOperationException(); });
-            action.ShouldNotThrow("Some additional context");
+            Should.NotThrow(new Action(() => { throw new InvalidOperationException(); }), "Some additional context");            
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get
             {
-                return @"action should not throw System.InvalidOperationException but does
-Additional Info:
-Some additional context";
+                return "new Action(() => { throw new InvalidOperationException(); }) should not throw but threw System.InvalidOperationException with message \"Operation is not valid due to the current state of the object.\"" +
+                        "Additional Info:" +
+                        "Some additional context";
             }
         }
 

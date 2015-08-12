@@ -52,7 +52,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyNotThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
@@ -73,7 +73,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyNotThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
     }

@@ -63,8 +63,10 @@
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
-    <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
+    <Compile Include="Internals\ShouldNotThrowAssertionContext.cs" />
+    <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
+    <Compile Include="MessageGenerators\ShouldNotThrowMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrEmptyTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrWhiteSpaceTestExtensions.cs" />
