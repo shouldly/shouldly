@@ -24,7 +24,7 @@ namespace Shouldly.Tests.ShouldNotThrow
             get
             {
                 return
-                    "() => { if (true) { throw new Exception(\"Dummy message.\"); } } should not throw but threw System.Exception";
+                    "() => { if (true) { throw new Exception(\"Dummy message.\"); } } should not throw but threw System.Exception with message \"Dummy message.\"";
             }
         }
     }
