@@ -147,6 +147,8 @@
     <Compile Include="ShouldNotThrow\FuncOfTaskScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="ShouldNotThrow\NestedBlockLambdaWithoutAdditionalInformationsScenario.cs" />
+    <Compile Include="ShouldNotThrow\NestedBlockLambdaScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskOfTScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskOfTWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskScenario.cs" />

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -111,9 +112,68 @@ namespace Shouldly
                 var indexOf = codeLines.IndexOf(ShouldMethod);
                 if (indexOf > 0)
                     codePart = codeLines.Substring(0, indexOf - 1).Trim();
+
+                // When the static method is used instead of the extension method,
+                // the code part will be "Should".
+                if (codePart == "Should")
+                {
+                    codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
+                }
+
+
             }
             return codePart;
         }
 
+        private string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
+        {
+            var indexOfParameters =
+                indexOfMethod +
+                ShouldMethod.Length +
+                1;
+
+            var parameterString = codeLines.Substring(indexOfParameters);
+
+            var parantheses = new Dictionary<char, char>
+            {
+                {'{', '}'},
+                {'(', ')'},
+                {'[', ']'}
+            };
+
+            var parameterFinishedKeys = new[] {',', ')'};
+
+            var openParentheses = new List<char>();
+
+            var found = false;
+            var i = 0;
+            while (!found && parameterString.Length > i)
+            {
+                var currentChar = parameterString[i];
+
+                if (openParentheses.Count == 0 && parameterFinishedKeys.Contains(currentChar))
+                {
+                    found = true;
+                    continue;
+                }
+
+                if (parantheses.ContainsKey(currentChar))
+                {
+                    openParentheses.Add(parantheses[currentChar]);
+                }
+                else if (openParentheses.Count > 0 && openParentheses.Last() == currentChar)
+                {
+                    openParentheses.RemoveAt(openParentheses.Count - 1);
+                }
+
+                i++;
+            }
+
+            if (found)
+            {
+                codePart = parameterString.Substring(0, i);
+            }
+            return codePart;
+        }
     }
 }
