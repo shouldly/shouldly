@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
 {
@@ -24,7 +20,7 @@ namespace Shouldly.MessageGenerators
             const string format = @"{0} should not throw but threw {1}";
             string errorMessage = string.Format(format, codePart, expectedValue);
 
-            var notThrowAssertionContext = context as ShouldNotThrowAssertionContext;
+            var notThrowAssertionContext = context as ShouldThrowAssertionContext;
             errorMessage += (notThrowAssertionContext != null) ? string.Format(" with message \"{0}\"", notThrowAssertionContext.ExceptionMessage) : string.Empty;
 
             return errorMessage;

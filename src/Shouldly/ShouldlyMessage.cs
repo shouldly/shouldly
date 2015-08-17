@@ -80,11 +80,11 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedShouldlyNotThrowMessage : ShouldlyMessage
+    internal class ExpectedShouldlyThrowMessage : ShouldlyMessage
     {
-        public ExpectedShouldlyNotThrowMessage(object expected, string exceptionMessage, Func<string> customMessage)
+        public ExpectedShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldNotThrowAssertionContext(expected, null, exceptionMessage);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
@@ -106,7 +106,7 @@ namespace Shouldly
     {
         public ShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception);
+            ShouldlyAssertionContext = new ShouldThrowAsyncAssertionContext(exception);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }

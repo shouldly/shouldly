@@ -4,9 +4,9 @@ using System;
 namespace Shouldly
 {
 
-    internal class ShouldThrowAssertionContext : ShouldlyAssertionContext
+    internal class ShouldThrowAsyncAssertionContext : ShouldlyAssertionContext
     {
-        public ShouldThrowAssertionContext(Type exception) : base("Should", "Throw", exception)
+        public ShouldThrowAsyncAssertionContext(Type exception) : base("Should", "Throw", exception)
         {
         }
     }
