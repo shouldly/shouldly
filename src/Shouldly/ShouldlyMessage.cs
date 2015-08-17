@@ -125,7 +125,9 @@ namespace Shouldly
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
-            new ShouldBeSubsetOfMessageGenerator()
+            new ShouldBeSubsetOfMessageGenerator(),
+            new ShouldBeBooleanMessageGenerator(),
+            new ShouldBeNullMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 

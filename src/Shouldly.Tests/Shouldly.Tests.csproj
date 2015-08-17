@@ -91,6 +91,10 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
     <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
     <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
+    <Compile Include="ShouldBeBoolean\FalseScenario.cs" />
+    <Compile Include="ShouldBeBoolean\TrueScenario.cs" />
+    <Compile Include="ShouldBeNull\NotNullScenario.cs" />
+    <Compile Include="ShouldBeNull\NullScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario2.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseIEnumerableMethodYieldBreak.cs" />
