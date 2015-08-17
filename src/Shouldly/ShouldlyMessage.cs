@@ -87,6 +87,21 @@ namespace Shouldly
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
+
+        public ExpectedShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual)
+            {
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+
+        public ExpectedShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
     }
 
 #if net40
@@ -137,6 +152,7 @@ namespace Shouldly
             new ShouldBeSubsetOfMessageGenerator(),
             new ShouldBeBooleanMessageGenerator(),
             new ShouldNotThrowMessageGenerator(),
+            new ShouldThrowMessageGenerator(),
             new ShouldBeNullMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;

@@ -78,10 +78,10 @@ namespace Shouldly
                 if (e is TException)
                     return (TException)e;
 
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
 
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(typeof(TException), customMessage).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -176,7 +176,7 @@ namespace Shouldly
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string customMessage)
         {
-            return NotThrow(action, () => customMessage);            
+            return NotThrow(action, () => customMessage);
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, [InstantHandle] Func<string> customMessage)
         {

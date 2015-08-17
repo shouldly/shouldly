@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -13,6 +12,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         {
             Should.NotThrow(() => methodCall());
         }
+
         [Test]
         [ExpectedException(ExpectedMessage = "() => noThrowMethodCall() should throw System.Exception but did not")]
         public void ExtractsCodeCorrectly2()

@@ -129,10 +129,13 @@ namespace Shouldly
         {
             var indexOfParameters =
                 indexOfMethod +
-                ShouldMethod.Length +
-                1;
+                ShouldMethod.Length;
 
             var parameterString = codeLines.Substring(indexOfParameters);
+            // Remove generic parameter if need be
+            parameterString = parameterString.StartsWith("<") 
+                ? parameterString.Substring(parameterString.IndexOf(">", StringComparison.Ordinal) + 2)
+                : parameterString.Substring(1);
 
             var parantheses = new Dictionary<char, char>
             {

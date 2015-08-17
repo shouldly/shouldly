@@ -71,6 +71,7 @@
     <Compile Include="Internals\ShouldNotThrowAssertionContext.cs" />
     <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
     <Compile Include="MessageGenerators\ShouldNotThrowMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldThrowMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrEmptyTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringNullOrWhiteSpaceTestExtensions.cs" />
