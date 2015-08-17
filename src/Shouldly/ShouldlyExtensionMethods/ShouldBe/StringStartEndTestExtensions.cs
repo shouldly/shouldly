@@ -10,7 +10,7 @@ namespace Shouldly
         {
             ShouldStartWith(actual, expected, () => null);
         }
-        
+
         public static void ShouldStartWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldStartWith(actual, expected, () => null, caseSensitivity);

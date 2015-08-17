@@ -33,7 +33,7 @@ namespace Shouldly.Tests.ConventionTests
             var hasFuncStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<Func<string>>));
             var hasStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<string>));
 
-            return !hasFuncStringOverload && !hasStringOverload;
+            return !hasFuncStringOverload || !hasStringOverload;
         }
 
         private static bool IsCustomMessageParameter<T>(ParameterInfo p)

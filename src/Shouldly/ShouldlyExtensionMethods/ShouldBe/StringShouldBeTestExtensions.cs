@@ -10,7 +10,7 @@ namespace Shouldly
     public static partial class ShouldBeStringTestExtensions
     {
         /// <summary>
-        /// Perform a case sensitive string comparison
+        /// Perform a string comparison, specifying the desired case sensitivity
         /// </summary>
         [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
@@ -95,6 +95,7 @@ namespace Shouldly
             var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
             ExecuteAssertion(assertion, customMessage);
         }
+
         static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, Func<string> customMessage)
         {
             try
