@@ -1,27 +1,26 @@
-using System.Text.RegularExpressions;
-
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldThrowMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("Throw", RegexOptions.Compiled);
-
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(context.ShouldMethod);
+            return context is ShouldThrowAssertionContext && !context.IsNegatedAssertion;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
+            var throwContext = (ShouldThrowAssertionContext)context;
+            var isExtensionMethod = context.ShouldMethod.StartsWith("ShouldThrow");
             var codePart = context.CodePart;
-            
+
             var expectedValue = context.Expected.ToStringAwesomely();
 
-            const string format = @"{0} should throw {1} but did not";
-            string errorMessage = string.Format(format, codePart, expectedValue);
+            var maybeInvokeMethod = isExtensionMethod && !throwContext.IsAsync ? "()" : string.Empty;
+            var errorMessage = context.HasRelevantActual 
+                ? string.Format(@"`{0}{3}` should throw {1} but threw {2}", codePart, expectedValue, context.Actual, maybeInvokeMethod)
+                : string.Format(@"`{0}{2}` should throw {1} but did not", codePart, expectedValue, maybeInvokeMethod);
 
-            var notThrowAssertionContext = context as ShouldThrowAssertionContext;
-            errorMessage += (notThrowAssertionContext != null) ? string.Format(" with message \"{0}\"", notThrowAssertionContext.ExceptionMessage) : string.Empty;
+            errorMessage += (throwContext.ExceptionMessage != null) ? string.Format(" with message \"{0}\"", throwContext.ExceptionMessage) : string.Empty;
 
             return errorMessage;
         }

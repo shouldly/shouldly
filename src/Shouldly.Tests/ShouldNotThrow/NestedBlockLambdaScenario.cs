@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -23,8 +20,8 @@ namespace Shouldly.Tests.ShouldNotThrow
         {
             get
             {
-                return
-                    "() => { if (true) { throw new Exception(\"Dummy message.\"); } } should not throw but threw System.Exception with message \"Dummy message.\" Additional Info: Additional info";
+                return "`if (true) { throw new Exception(\"Dummy message.\"); }` " +
+                       "should not throw but threw System.Exception with message \"Dummy message.\" Additional Info: Additional info";
             }
         }
     }

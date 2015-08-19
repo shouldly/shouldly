@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
@@ -48,9 +49,9 @@ namespace Shouldly
             Actual = actual;
         }
 
-        internal ShouldlyAssertionContext(object expected, object actual = null)
+        internal ShouldlyAssertionContext(object expected, object actual = null, StackTrace stackTrace = null)
         {
-            var stackTrace = new StackTrace(true);
+            stackTrace = stackTrace ?? new StackTrace(true);
             var i = 0;
             var currentFrame = stackTrace.GetFrame(i);
 
@@ -115,12 +116,15 @@ namespace Shouldly
 
                 // When the static method is used instead of the extension method,
                 // the code part will be "Should".
-                if (codePart == "Should")
+                // Using Endswith to cater for being inside a lambda
+                if (codePart.EndsWith("Should"))
                 {
                     codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
                 }
-
-
+                else
+                {
+                    codePart = codePart.RemoveVariableAssignment().RemoveBlock();
+                }
             }
             return codePart;
         }
@@ -176,7 +180,11 @@ namespace Shouldly
             {
                 codePart = parameterString.Substring(0, i);
             }
-            return codePart;
+            return codePart
+                .StripLambdaExpressionSyntax()
+                .CollapseWhitespace()
+                .RemoveBlock()
+                .Trim();
         }
     }
 }

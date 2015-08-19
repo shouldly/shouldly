@@ -69,7 +69,6 @@
     <Compile Include="ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeBooleanExtensions.cs" />
     <Compile Include="Internals\ShouldNotThrowAssertionContext.cs" />
-    <Compile Include="Internals\ShouldThrowAssertionContext.cs" />
     <Compile Include="MessageGenerators\ShouldNotThrowMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldThrowMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBe\StringContainsTestExtensions.cs" />

@@ -1,24 +1,27 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Shouldly.MessageGenerators
+﻿namespace Shouldly.MessageGenerators
 {
     internal class ShouldNotThrowMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("NotThrow", RegexOptions.Compiled);
-
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(context.ShouldMethod);
+            return context is ShouldThrowAssertionContext && context.IsNegatedAssertion;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
+            var throwContext = (ShouldThrowAssertionContext)context;
+            var isExtensionMethod = context.ShouldMethod == "ShouldNotThrow";
             var codePart = context.CodePart;
-            
+
             var expectedValue = context.Expected.ToStringAwesomely();
 
-            const string format = @"{0} should not throw but threw {1}";
-            string errorMessage = string.Format(format, codePart, expectedValue);
+            string errorMessage;
+            if (isExtensionMethod && !throwContext.IsAsync)
+                errorMessage = string.Format("`{0}()` should not throw but threw {1}", codePart, expectedValue);
+            else if (isExtensionMethod && throwContext.IsAsync)
+                errorMessage = string.Format("Task `{0}` should not throw but threw {1}", codePart, expectedValue);
+            else
+                errorMessage = string.Format("`{0}` should not throw but threw {1}", codePart, expectedValue);
 
             var notThrowAssertionContext = context as ShouldThrowAssertionContext;
             errorMessage += (notThrowAssertionContext != null) ? string.Format(" with message \"{0}\"", notThrowAssertionContext.ExceptionMessage) : string.Empty;

@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.ShouldSatisfyAllConditions
 {

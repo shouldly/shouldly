@@ -29,10 +29,10 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
 
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage).ToString());
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage).ToString());
         }
 
         /*** Should.NotThrow(Action) ***/
@@ -52,7 +52,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
@@ -73,7 +73,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
     }

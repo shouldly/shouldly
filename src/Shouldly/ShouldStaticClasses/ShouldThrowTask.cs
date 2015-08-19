@@ -47,13 +47,13 @@ namespace Shouldly
         }
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Throw<TException>(() => actual, timeoutAfter, customMessage);            
+            return Throw<TException>(() => actual, timeoutAfter, customMessage);
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
         {
-            return Throw<TException>(actual, timeoutAfter, () => null);            
+            return Throw<TException>(actual, timeoutAfter, () => null);
         }
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
@@ -78,10 +78,10 @@ namespace Shouldly
                 if (e is TException)
                     return (TException)e;
 
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
 
-            throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -161,11 +161,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
@@ -225,11 +225,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
