@@ -26,7 +26,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
                 var inner = e.Flatten().InnerException;
                 var ex = inner.ShouldBeOfType<ShouldAssertException>();
                 ex.Message.ShouldContainWithoutWhitespace(@"
-                            Should throw System.InvalidOperationException but does not
+                            `task` should throw System.InvalidOperationException but did not
                             Additional Info:
                             Some additional context");
             }

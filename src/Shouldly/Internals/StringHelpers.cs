@@ -86,9 +86,28 @@ namespace Shouldly
             return Regex.Replace(input, @"[\r\n\t\s]", "");
         }
 
+        internal static string CollapseWhitespace(this string input)
+        {
+            var collapseWhitespace = Regex.Replace(input, @"[\r\n\t\s]+", " ");
+            return collapseWhitespace;
+        }
+
         internal static string StripLambdaExpressionSyntax(this string input)
         {
-            var result = Regex.Replace(input, @"\(*\s*\)*\s*=>\s*", "");
+            var result = Regex.Replace(input, @"^\(*\s*\)*\s*=>\s*", "");
+            return result;
+        }
+
+        internal static string RemoveVariableAssignment(this string input)
+        {
+            var collapseWhitespace = Regex.Replace(input, @"^\w*\s+\w*\s*=[^>]\s*", "");
+            collapseWhitespace = Regex.Replace(collapseWhitespace, @"\(\)\s*=\>\s*", "");
+            return collapseWhitespace;
+        }
+
+        internal static string RemoveBlock(this string input)
+        {
+            var result = Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
             return result;
         }
 
@@ -112,7 +131,7 @@ namespace Shouldly
 
         internal static string ToSafeString(this char c)
         {
-            if (Char.IsControl(c) || Char.IsWhiteSpace(c))
+            if (Char.IsControl(c) || char.IsWhiteSpace(c))
             {
                 switch (c)
                 {
@@ -131,11 +150,10 @@ namespace Shouldly
                     case ' ':
                         return @"\s";
                     default:
-                        return String.Format("\\u{0:X};", (int)c);
+                        return string.Format("\\u{0:X};", (int)c);
                 }
             }
             return c.ToString(CultureInfo.InvariantCulture);
         }
-
     }
 }

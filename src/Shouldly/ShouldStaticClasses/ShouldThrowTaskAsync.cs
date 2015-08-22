@@ -1,5 +1,6 @@
 ﻿#if net40
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
@@ -32,21 +33,22 @@ namespace Shouldly
         }
         public static Task<TException> ThrowAsync<TException>(Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
+            var stackTrace = new StackTrace(true);
             return actual().ContinueWith(t =>
             {
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new ShouldlyThrowShouldlyMessage(typeof(TException), customMessage).ToString());
+                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
 
                     return HandleAggregateException<TException>(t.Exception, customMessage);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new ShouldlyThrowShouldlyMessage(typeof(TException), customMessage).ToString()
+                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString()
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new ShouldlyThrowShouldlyMessage(typeof(TException), customMessage).ToString());
+                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
             });
         }
     }
