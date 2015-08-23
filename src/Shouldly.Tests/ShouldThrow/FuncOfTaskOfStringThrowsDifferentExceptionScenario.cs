@@ -25,7 +25,7 @@ namespace Shouldly.Tests.ShouldThrow
         {
             get
             {
-                return @"action should throw System.InvalidOperationException but was System.RankException
+                return @"`action()` should throw System.InvalidOperationException but threw System.RankException
 Additional Info:
 Some additional context";
             }

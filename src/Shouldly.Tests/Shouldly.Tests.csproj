@@ -91,6 +91,10 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
     <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
     <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
+    <Compile Include="ShouldBeBoolean\FalseScenario.cs" />
+    <Compile Include="ShouldBeBoolean\TrueScenario.cs" />
+    <Compile Include="ShouldBeNull\NotNullScenario.cs" />
+    <Compile Include="ShouldBeNull\NullScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringIsInsensitiveScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringIsSensitiveScenario.cs" />
@@ -139,12 +143,15 @@
     <Compile Include="ShouldNotContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldNotContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="ShouldNotThrow\ActionDelegateScenario.cs" />
+    <Compile Include="ShouldNotThrow\ExtractsCodeScenarios.cs" />
     <Compile Include="ShouldNotThrow\FuncDelegateScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfStringScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskOfTWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskScenario.cs" />
     <Compile Include="ShouldNotThrow\FuncOfTaskWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
+    <Compile Include="ShouldNotThrow\NestedBlockLambdaWithoutAdditionalInformationsScenario.cs" />
+    <Compile Include="ShouldNotThrow\NestedBlockLambdaScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskOfTScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskOfTWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskScenario.cs" />

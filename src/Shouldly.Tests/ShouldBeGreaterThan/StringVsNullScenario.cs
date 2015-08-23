@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ShouldBeGreaterThan
         protected override string ChuckedAWobblyErrorMessage
         {
             get {
-                return "((string) null) should be greater than \"b\" but was null" +
+                return "(string) null should be greater than \"b\" but was null" +
                        "Additional Info: " +
                        "Some additional context";
             }
