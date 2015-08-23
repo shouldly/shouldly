@@ -246,8 +246,13 @@ namespace Shouldly
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
 
-                if (!expectedHasData && !actualHasData)
+                var bothListsProcessed = !expectedHasData && !actualHasData;
+                if (bothListsProcessed)
                     return true;
+
+                var listsHaveDifferentLengths = !expectedHasData || !actualHasData;
+                if (listsHaveDifferentLengths)
+                    return false;
 
                 if (!StringEqualWithCaseSensitivity(actualEnum.Current, expectedEnum.Current, caseSensitivity))
                 {
