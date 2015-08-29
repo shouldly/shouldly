@@ -18,7 +18,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         {
             get
             {
-                return "new[] { \"foo\" } should be [\"FoO\"] but was [\"foo\"] difference [*\"foo\"*]" +
+                return "new[] { \"foo\" } should be [\"FoO\"] (case sensitive comparison) but was [\"foo\"] difference [*\"foo\"*]" +
                            "Additional Info: Some additional context";
             }
         }

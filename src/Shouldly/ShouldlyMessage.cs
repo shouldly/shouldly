@@ -174,6 +174,7 @@ namespace Shouldly
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 
+            new ShouldBeEnumerableCaseSensitiveMessageGenerator(), 
             new ShouldContainMessageGenerator(), 
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
