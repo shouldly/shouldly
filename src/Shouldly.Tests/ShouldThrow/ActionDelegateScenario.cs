@@ -15,7 +15,7 @@ namespace Shouldly.Tests.ShouldThrow
         {
             get
             {
-                return @"action should throw System.NotImplementedException but does not
+                return @"`action()` should throw System.NotImplementedException but did not
 Additional Info:
 Some additional context";
             }

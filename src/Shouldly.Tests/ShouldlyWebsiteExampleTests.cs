@@ -30,7 +30,7 @@ namespace Shouldly.Tests
 
                 TestHelpers.Should.Error(
                     () => contestant.Points.ShouldBe(1337),
-                    "() => contestant.Points should be 1337 but was 0");
+                    "contestant.Points should be 1337 but was 0");
             }
 
             [Test]
@@ -78,7 +78,7 @@ namespace Shouldly.Tests
 
                 TestHelpers.Should.Error(
                     () => map.IndexOf("boo").ShouldBe(2),
-                    "() => map.IndexOf(\"boo\") should be 2 but was 1");
+                    "map.IndexOf(\"boo\") should be 2 but was 1");
             }
 
             [Test]
@@ -97,7 +97,7 @@ namespace Shouldly.Tests
             {
                 TestHelpers.Should.Error(
                     () => (new[] {1, 2, 3}).ShouldBe(new[] {1, 2, 4}),
-                    "() => (new[] {1, 2, 3}) should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
+                    "new[] {1, 2, 3} should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
             }
 
             [Test]
@@ -132,7 +132,7 @@ namespace Shouldly.Tests
 
                 TestHelpers.Should.Error(
                     () => Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-2)),
-                    "() => Should throw System.ArgumentOutOfRangeException but was System.InvalidOperationException");
+                    "`widget.Twist(-2)` should throw System.ArgumentOutOfRangeException but threw System.InvalidOperationException");
             }
 
             [Test]
@@ -142,7 +142,7 @@ namespace Shouldly.Tests
 
                 TestHelpers.Should.Error(
                     () => Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(5)),
-                    "() => Should throw System.ArgumentOutOfRangeException but does not");
+                    "`widget.Twist(5)` should throw System.ArgumentOutOfRangeException but did not");
             }
 
             private class Widget

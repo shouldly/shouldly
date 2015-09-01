@@ -236,6 +236,31 @@ namespace Shouldly
             return StringComparer.InvariantCulture.Equals(actual, expected);
         }
 
+        public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
+        {
+            var expectedEnum = expected.GetEnumerator();
+            var actualEnum = actual.GetEnumerator();
+
+            for (; ; )
+            {
+                var expectedHasData = expectedEnum.MoveNext();
+                var actualHasData = actualEnum.MoveNext();
+
+                var bothListsProcessed = !expectedHasData && !actualHasData;
+                if (bothListsProcessed)
+                    return true;
+
+                var listsHaveDifferentLengths = !expectedHasData || !actualHasData;
+                if (listsHaveDifferentLengths)
+                    return false;
+
+                if (!StringEqualWithCaseSensitivity(actualEnum.Current, expectedEnum.Current, caseSensitivity))
+                {
+                    return false;
+                }
+            }
+        }
+
         public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, T expected)
         {
             return Compare(comparable, expected) >= 0;

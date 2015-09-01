@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldBe
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "((object)12) should be \"string\" but was 12"; }
+            get { return "(object)12 should be \"string\" but was 12"; }
         }
     }
 }

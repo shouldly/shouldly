@@ -47,13 +47,13 @@ namespace Shouldly
         }
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Throw<TException>(() => actual, timeoutAfter, customMessage);            
+            return Throw<TException>(() => actual, timeoutAfter, customMessage);
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
         {
-            return Throw<TException>(actual, timeoutAfter, () => null);            
+            return Throw<TException>(actual, timeoutAfter, () => null);
         }
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
@@ -78,10 +78,10 @@ namespace Shouldly
                 if (e is TException)
                     return (TException)e;
 
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
 
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(TException), customMessage).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -161,11 +161,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
@@ -176,7 +176,7 @@ namespace Shouldly
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string customMessage)
         {
-            return NotThrow(action, () => customMessage);            
+            return NotThrow(action, () => customMessage);
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, [InstantHandle] Func<string> customMessage)
         {
@@ -225,11 +225,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.InnerException.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(ex.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
             }
         }
 
@@ -253,8 +253,7 @@ namespace Shouldly
             if (innerException is TException)
                 return (TException)innerException;
 
-            throw new ShouldAssertException(
-                new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
         }
     }
 }

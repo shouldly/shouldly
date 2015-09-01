@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
@@ -80,7 +81,56 @@ namespace Shouldly
         }
     }
 
+    internal class ShouldlyThrowMessage : ShouldlyMessage
+    {
+        public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+
+        public ShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual)
+            {
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+
+        public ShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
 #if net40
+
+    internal class TaskShouldlyThrowMessage : ShouldlyMessage
+    {
+        public TaskShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, isAsync: true);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+
+        public TaskShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true)
+            {
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+
+        public TaskShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, isAsync: true);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class CompleteInShouldlyMessage : ShouldlyMessage
     {
         public CompleteInShouldlyMessage(string what, TimeSpan timeout, [InstantHandle] Func<string> customMessage)
@@ -93,11 +143,14 @@ namespace Shouldly
         }
     }
 
-    internal class ShouldlyThrowShouldlyMessage : ShouldlyMessage
+    /// <summary>
+    /// Async methods need stacktrace before we get asynchronous
+    /// </summary>
+    internal class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
     {
-        public ShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage)
+        public AsyncShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage, StackTrace stackTrace)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
@@ -121,11 +174,16 @@ namespace Shouldly
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 
+            new ShouldBeEnumerableCaseSensitiveMessageGenerator(), 
             new ShouldContainMessageGenerator(), 
             new ShouldContainPredicateMessageGenerator(), 
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
-            new ShouldBeSubsetOfMessageGenerator()
+            new ShouldBeSubsetOfMessageGenerator(),
+            new ShouldBeBooleanMessageGenerator(),
+            new ShouldNotThrowMessageGenerator(),
+            new ShouldThrowMessageGenerator(),
+            new ShouldBeNullMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 

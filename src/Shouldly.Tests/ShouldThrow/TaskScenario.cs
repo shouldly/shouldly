@@ -19,7 +19,7 @@ namespace Shouldly.Tests.ShouldThrow
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return @"task should throw System.InvalidOperationException but does not
+            get { return @"`task` should throw System.InvalidOperationException but did not
 Additional Info:
 Some additional context"; }
         }

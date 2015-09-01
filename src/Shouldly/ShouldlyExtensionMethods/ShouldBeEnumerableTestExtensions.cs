@@ -196,6 +196,27 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(new List<T>(), duplicates, customMessage).ToString());
         }
 
+        public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
+        {
+            ShouldBe(actual, expected, caseSensitivity, () => null);
+        }
+
+        public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, string customMessage)
+        {
+            ShouldBe(actual, expected, caseSensitivity, () => customMessage);
+        }
+
+        public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, [InstantHandle] Func<string> customMessage)
+        {
+            actual.AssertAwesomelyWithCaseSensitivity(
+                v => Is.EnumerableStringEqualWithCaseSensitivity(v, expected, caseSensitivity),
+                actual,
+                expected,
+                caseSensitivity,
+                customMessage);
+                
+        }
+
         static List<object> GetDuplicates<T>(IEnumerable<T> items)
         {
             var list = new List<object>();
