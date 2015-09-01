@@ -13,6 +13,6 @@
     </releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
-    <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>
+    <tags>test unit testing TDD AAA should testunit rspec assert assertion framework</tags>
   </metadata>
 </package>
