@@ -6,6 +6,7 @@ Shouldly
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/shouldly/shouldly?branch=master&svg=true)](https://ci.appveyor.com/project/shouldly/shouldly) 
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) 
 [![NuGet](https://img.shields.io/nuget/vpre/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
+[![Documentation Status](https://readthedocs.org/projects/shouldly/badge/?version=latest)](http://shouldly.readthedocs.org/en/latest/?badge=latest)
 
 [![Join the chat at https://gitter.im/shouldly/shouldly](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/shouldly/shouldly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
@@ -43,7 +44,7 @@ Read more about Shouldly and it's features at [http://docs.shouldly-lib.net/](ht
  * [Forking a GitHub repository](http://help.github.com/fork-a-repo/)
  * [The simple guide to GIT guide](http://rogerdudler.github.com/git-guide/)
  * [Open an issue](https://github.com/shouldly/shouldly/issues) if you encounter a bug or have a suggestion for improvements/features
- * [Submit documentation improvements](http://docs.shouldly-lib.net) by clicking 'Suggest edit' on any docs
+ * [Submit documentation improvements](http://shouldly.readthedocs.org/en/latest) by submitting pull requests, the docs are in the `docs` folder in this repo
 
 Once you're familiar with Git and GitHub, clone the repository and start contributing.
 
