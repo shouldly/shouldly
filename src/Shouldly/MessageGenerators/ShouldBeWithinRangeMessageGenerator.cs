@@ -16,13 +16,13 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             const string format = @"
-        {0}
-    should {1}be within
-        {2}
-    of
-        {3}
-    but was 
-        {4}";
+    {0}
+       should {1}be within
+    {2}
+        of
+    {3}
+        but was 
+    {4}";
 
             var codePart = context.CodePart;
             var tolerance = context.Tolerance.ToStringAwesomely();
