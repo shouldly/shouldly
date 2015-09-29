@@ -142,22 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="shouldly.nuspec" />
+    <None Include="..\shouldly.nuspec" />
     <None Include="sn.snk" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-
-  <Target Name="AfterBuild">
-    <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
-      <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
-    </CreateItem>
-    <exec command="&quot;$(MSBuildProjectDirectory)\..\..\lib\Ilmerge\ILMerge.exe&quot; /internalize /out:@(MainAssembly) &quot;@(IntermediateAssembly)&quot; $(MSBuildProjectDirectory)\..\..\lib\NUnit\bin\net-2.0\nunit.framework.dll" />
-    <delete files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
-  </Target>
-  -->
 </Project>
