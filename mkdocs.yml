@@ -1,0 +1,11 @@
+site_name: Shouldly
+theme: readthedocs
+repo_url: https://github.com/shouldly/shouldly
+
+pages:
+- Home: index.md
+- Example Classes: exampleClasses.md
+
+- Assertions:
+  - ShouldBe: assertions/shouldBe.md
+  - ShouldNotBe: assertions/shouldNotBe.md

@@ -97,6 +97,7 @@
     <Compile Include="ShouldBeNull\NotNullScenario.cs" />
     <Compile Include="ShouldBeNull\NullScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
+    <Compile Include="ShouldBe\EnumerableType\DocsExample.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringIsInsensitiveScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringIsSensitiveScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario2.cs" />
