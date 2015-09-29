@@ -96,7 +96,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Shouldly\Shouldly.csproj">
+    <ProjectReference Include="..\Shouldly\Shouldly.csproj">
       <Project>{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}</Project>
       <Name>Shouldly</Name>
     </ProjectReference>
