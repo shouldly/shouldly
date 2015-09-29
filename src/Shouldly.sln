@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98BEEAB2-B420-4638-B574-38BDE532DB5E}"
-	ProjectSection(SolutionItems) = preProject
-		BREAKING CHANGES.txt = BREAKING CHANGES.txt
-		GitVersionConfig.yaml = GitVersionConfig.yaml
-		README.markdown = README.markdown
-		ReleaseNotes.md = ReleaseNotes.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly", "Shouldly\Shouldly.csproj", "{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Tests", "Shouldly.Tests\Shouldly.Tests.csproj", "{7E798127-21FE-4F49-A221-53B53B40D6BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShouldlyConvention.Tests", "ShouldlyConvention.Tests\ShouldlyConvention.Tests.csproj", "{07257249-BECF-42CA-ACE9-DDA024B376D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70055B25-BE01-4932-84F1-A0BE47A93BFC}"
+	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+		..\GitVersionConfig.yaml = ..\GitVersionConfig.yaml
+		..\mkdocs.yml = ..\mkdocs.yml
+		..\README.md = ..\README.md
+		..\ReleaseNotes.md = ..\ReleaseNotes.md
+		..\shouldly.nuspec = ..\shouldly.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

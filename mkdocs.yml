@@ -5,6 +5,7 @@ repo_url: https://github.com/shouldly/shouldly
 pages:
 - Home: index.md
 - Example Classes: exampleClasses.md
+- Configuration: configuration.md
 
 - Assertions:
   - ShouldBe: assertions/shouldBe.md
