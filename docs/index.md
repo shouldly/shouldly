@@ -1,6 +1,6 @@
 ### How asserting *Should* be
 
-**NOTE: ** These docs are in progress! Get involved at [on GitHub](https://github.com/shouldly/shouldly/issues/308), contributions welcome! First time contributors welcome, we are happy to help you get started
+**NOTE: ** These docs are in progress! Get involved at [on GitHub](https://github.com/shouldly/shouldly/issues/308), contributions welcome! First time contributors welcome, we are happy to help you get started.
 
 This is the old *Assert* way:
 
@@ -38,4 +38,4 @@ and it fails because they're different, it'll show you the differences between t
         difference
     [1, 2, *3*]
 
-Shouldly has plenty of different assertions, have a look under the assertions folder for all the options
+Shouldly has plenty of different assertions, have a look under the assertions folder for all the options.
