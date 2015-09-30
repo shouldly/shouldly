@@ -7,7 +7,9 @@
 var theSimpsonsCat = new Cat() { Name = "Santas little helper" };
 theSimpsonsCat.Name.ShouldNotBe("Santas little helper");
 ```
-> ```
+
+Exception:
+```
 theSimpsonsCat.Name
     should not be
 "Santas little helper"

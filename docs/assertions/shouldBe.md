@@ -5,7 +5,9 @@
 var theSimpsonsCat = new Cat() { Name = "Santas little helper" };
 theSimpsonsCat.Name.ShouldBe("Snowball 2");
 ```
-> ```
+
+Exception:
+```
 theSimpsonsCat.Name
     should be
 "Snowball 2"
@@ -21,7 +23,8 @@ const decimal pi = (decimal)Math.PI;
 pi.ShouldBe(3.24m, 0.01m);
 ```
 
-> ```
+Exception:
+```
 pi
    should be within
 0.01
@@ -39,7 +42,8 @@ var date = new DateTime(2000, 6, 1);
 date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
 ```
 
-> ```
+Exception:
+```
 date
    should be within
 01:00:00
@@ -57,7 +61,8 @@ var timeSpan = TimeSpan.FromHours(1);
 timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1));
 ```
 
-> ```
+Exception:
+```
 timeSpan
    should be within
 01:00:00
@@ -81,7 +86,8 @@ var theBeSharps = new List<Person>() { homer, skinner, barney };
 theBeSharps.ShouldBe(new[] {apu, homer, skinner, barney});
 ```
 
-> ```
+Exception:
+```
 theBeSharps
     should be
 [Apu, Homer, Skinner, Barney]
@@ -100,7 +106,8 @@ var secondSet = new[] { 1.4301m, 2.34m, 3.45m };
 firstSet.ShouldBe(secondSet, 0.1m);
 ```
 
-> ```
+Exception:
+```
 firstSet
    should be within
 0.1
