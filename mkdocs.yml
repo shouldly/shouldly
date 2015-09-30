@@ -7,6 +7,6 @@ pages:
 - Example Classes: exampleClasses.md
 - Configuration: configuration.md
 
-- Assertions:
+- Equality:
   - ShouldBe: assertions/shouldBe.md
   - ShouldNotBe: assertions/shouldNotBe.md
