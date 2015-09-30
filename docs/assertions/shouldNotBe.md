@@ -31,8 +31,6 @@ Exception:
 one should not be 1 but was 1
 ```
 
-
-
 ``` csharp
 const long aLong = 1L;
 aLong.ShouldNotBe(1);
@@ -41,4 +39,22 @@ aLong.ShouldNotBe(1);
 Exception:
 ```
 aLong should not be 1 but was 1
+```
+## DateTime(Offset)
+`ShouldNotBe` DateTime overloads are similar to the numeric overloads and also support tolerances.
+
+``` csharp
+var date = new DateTime(2000, 6, 1);
+date.ShouldNotBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5));
+```
+
+Exception:
+```
+date
+    should not be within
+01:30:00
+    of
+01/06/2000 01:00:01
+    but was 
+01/06/2000 00:00:00
 ```
