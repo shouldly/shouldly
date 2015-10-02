@@ -19,7 +19,7 @@ namespace Shouldly.Tests.ShouldNotBe
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "ThisString should not be \"this string\" but was \"this string\""; }
+            get { return "ThisString should not be \"this string\" but was"; }
         }
     }
 }
