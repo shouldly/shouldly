@@ -58,3 +58,25 @@ date
     but was 
 01/06/2000 00:00:00
 ```
+
+## Timespan
+
+TimeSpan also has tolerance overloads
+
+```
+var timeSpan = TimeSpan.FromHours(1);
+timeSpan.ShouldNotBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d));
+```
+
+Exception:
+```
+timeSpan 
+    should not be within
+01:30:00
+    of
+02:06:00
+    but was
+01:00:00
+```
+
+Want to improve shouldy? We have an open issue at [#303](https://github.com/shouldly/shouldly/issues/303) to improve this error message!
