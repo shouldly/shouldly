@@ -183,7 +183,8 @@ namespace Shouldly
             new ShouldBeBooleanMessageGenerator(),
             new ShouldNotThrowMessageGenerator(),
             new ShouldThrowMessageGenerator(),
-            new ShouldBeNullMessageGenerator()
+            new ShouldBeNullMessageGenerator(),
+            new ShouldBeMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 
@@ -199,8 +200,8 @@ namespace Shouldly
             if (_shouldlyAssertionContext.CustomMessage != null)
             {
                 message += string.Format(@"
-                Additional Info:
-                {0}", _shouldlyAssertionContext.CustomMessage);
+    Additional Info:
+    {0}", _shouldlyAssertionContext.CustomMessage);
             }
             return message;
         }
@@ -225,10 +226,10 @@ namespace Shouldly
         public string CreateExpectedErrorMessage()
         {
             var format = @"
-            {0}
-                {1} {2}
-            {3}
-            but does{4}";
+    {0}
+        {1} {2}
+    {3}
+        but does{4}";
 
             var codePart = _shouldlyAssertionContext.CodePart;
             var isNegatedAssertion = _shouldlyAssertionContext.ShouldMethod.Contains("Not");
@@ -241,20 +242,20 @@ namespace Shouldly
         {
             var codePart = context.CodePart;
             var message = string.Format(@"
-            {0}
-                {1}
-            {2}
-                but was
-            {3}",
+    {0}
+        {1}
+    {2}
+        but was
+    {3}",
                 codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(),
-                context.ShouldMethod == "ShouldNotBe" ? string.Empty : context.Actual.ToStringAwesomely());
+                context.Actual.ToStringAwesomely());
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
                 message += string.Format(@"
-                difference
-            {0}",
-                    DifferenceHighlighter.HighlightDifferences(context));
+        difference
+    {0}",
+                DifferenceHighlighter.HighlightDifferences(context));
             }
             return message;
         }
