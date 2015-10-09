@@ -37,6 +37,12 @@ It might be easy to underestimate how useful this is. Another example, side by s
 
 Read more about Shouldly and it's features at [http://docs.shouldly-lib.net/](http://docs.shouldly-lib.net/)
 
+## Installation
+
+You can install Shouldly by copying and pasting the following command into your Package Manager Console within Visual Studio (Tools > NuGet Package Manager > Package Manager Console).
+
+`Install-Package Shouldly`
+
 ## Contributing
 **Getting started with Git and GitHub**
 
