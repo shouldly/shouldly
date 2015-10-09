@@ -20,7 +20,7 @@ Exception::
       but was
   "Santas little helper"
 
-Want to contribute to Shouldly? `304 <https://github.com/shouldly/shouldly/issues/303>`_ makes this error message better!
+Want to contribute to Shouldly? `#304 <https://github.com/shouldly/shouldly/issues/304>`_ makes this error message better!
 
 Numeric
 -------
@@ -62,3 +62,25 @@ Exception::
   01/06/2000 01:00:01
       but was
   01/06/2000 00:00:00
+
+TimeSpan
+--------
+
+``TimeSpan`` also has tolerance overloads
+
+.. code-block:: c#
+
+  var timeSpan = TimeSpan.FromHours(1);
+  timeSpan.ShouldNotBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d));
+
+Exception::
+
+  timeSpan
+      should not be within
+  01:30:00
+      of
+  02:06:00
+      but was
+  01:00:00
+
+Want to contribute to Shouldly? `#303 <https://github.com/shouldly/shouldly/issues/303>`_ makes this error message better!

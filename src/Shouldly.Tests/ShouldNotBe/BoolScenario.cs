@@ -19,7 +19,7 @@ namespace Shouldly.Tests.ShouldNotBe
         {
             get
             {
-                return "myFalseValue should not be False but was False" +
+                return "myFalseValue should not be False but was" +
                        "Additional Info:" +
                        "Some additional context";
             }

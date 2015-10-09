@@ -65,6 +65,7 @@
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="MessageGenerators\ShouldBeEnumerableCaseSensitiveMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeBooleanMessageGenerator.cs" />
