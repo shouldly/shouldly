@@ -180,6 +180,7 @@
     <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseSensitive.cs" />
     <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseInSensitive.cs" />
+    <Compile Include="Strings\ShouldNotMatch.cs" />
     <Compile Include="Strings\ShouldNotStartWith\BasicScenarioCaseSensitive.cs" />
     <Compile Include="Strings\ShouldNotStartWith\BasicScenarioCaseInSensitive.cs" />
     <Compile Include="Strings\ShouldStartWith\BasicScenarioCaseSensitive.cs" />
