@@ -2,7 +2,7 @@
 
 namespace Shouldly.Tests.Strings
 {
-    class ShouldNotMatch : ShouldlyShouldTestScenario
+    public class ShouldNotMatch : ShouldlyShouldTestScenario
     {
         protected override void ShouldThrowAWobbly()
         {
