@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -14,7 +15,12 @@ namespace Shouldly
 
         public static void ShouldBePositive(this decimal actual, string customMessage)
         {
-            ShouldBeGreaterThan(actual, default(decimal), () => customMessage);
+            ShouldBeGreaterThan(actual, default(decimal), customMessage);
+        }
+
+        public static void ShouldBePositive(this decimal actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeGreaterThan(actual, default(decimal), customMessage);
         }
 
         public static void ShouldBeNegative(this decimal actual)
@@ -24,7 +30,12 @@ namespace Shouldly
 
         public static void ShouldBeNegative(this decimal actual, string customMessage)
         {
-            ShouldBeLessThan(actual, default(decimal), () => customMessage);
+            ShouldBeLessThan(actual, default(decimal), customMessage);
+        }
+
+        public static void ShouldBeNegative(this decimal actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeLessThan(actual, default(decimal), customMessage);
         }
 
         /// <summary>
@@ -37,7 +48,12 @@ namespace Shouldly
 
         public static void ShouldBePositive(this double actual, string customMessage)
         {
-            ShouldBeGreaterThan(actual, default(double), () => customMessage);
+            ShouldBeGreaterThan(actual, default(double), customMessage);
+        }
+
+        public static void ShouldBePositive(this double actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeGreaterThan(actual, default(double), customMessage);
         }
 
         public static void ShouldBeNegative(this double actual)
@@ -47,7 +63,12 @@ namespace Shouldly
 
         public static void ShouldBeNegative(this double actual, string customMessage)
         {
-            ShouldBeLessThan(actual, default(double), () => customMessage);
+            ShouldBeLessThan(actual, default(double), customMessage);
+        }
+
+        public static void ShouldBeNegative(this double actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeLessThan(actual, default(double), customMessage);
         }
 
         /// <summary>
@@ -60,7 +81,12 @@ namespace Shouldly
 
         public static void ShouldBePositive(this float actual, string customMessage)
         {
-            ShouldBeGreaterThan(actual, default(float), () => customMessage);
+            ShouldBeGreaterThan(actual, default(float), customMessage);
+        }
+
+        public static void ShouldBePositive(this float actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeGreaterThan(actual, default(float), customMessage);
         }
 
         public static void ShouldBeNegative(this float actual)
@@ -70,7 +96,12 @@ namespace Shouldly
 
         public static void ShouldBeNegative(this float actual, string customMessage)
         {
-            ShouldBeLessThan(actual, default(float), () => customMessage);
+            ShouldBeLessThan(actual, default(float), customMessage);
+        }
+
+        public static void ShouldBeNegative(this float actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeLessThan(actual, default(float), customMessage);
         }
 
         /// <summary>
@@ -83,7 +114,12 @@ namespace Shouldly
 
         public static void ShouldBePositive(this int actual, string customMessage)
         {
-            ShouldBeGreaterThan(actual, default(int), () => customMessage);
+            ShouldBeGreaterThan(actual, default(int), customMessage);
+        }
+
+        public static void ShouldBePositive(this int actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeGreaterThan(actual, default(int), customMessage);
         }
 
         public static void ShouldBeNegative(this int actual)
@@ -93,7 +129,12 @@ namespace Shouldly
 
         public static void ShouldBeNegative(this int actual, string customMessage)
         {
-            ShouldBeLessThan(actual, default(int), () => customMessage);
+            ShouldBeLessThan(actual, default(int), customMessage);
+        }
+
+        public static void ShouldBeNegative(this int actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeLessThan(actual, default(int), customMessage);
         }
 
         /// <summary>
@@ -106,7 +147,12 @@ namespace Shouldly
 
         public static void ShouldBePositive(this long actual, string customMessage)
         {
-            ShouldBeGreaterThan(actual, default(long), () => customMessage);
+            ShouldBeGreaterThan(actual, default(long), customMessage);
+        }
+
+        public static void ShouldBePositive(this long actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeGreaterThan(actual, default(long), customMessage);
         }
 
         public static void ShouldBeNegative(this long actual)
@@ -116,7 +162,12 @@ namespace Shouldly
 
         public static void ShouldBeNegative(this long actual, string customMessage)
         {
-            ShouldBeLessThan(actual, default(long), () => customMessage);
+            ShouldBeLessThan(actual, default(long), customMessage);
+        }
+
+        public static void ShouldBeNegative(this long actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeLessThan(actual, default(long), customMessage);
         }
 
         /// <summary>
@@ -129,7 +180,12 @@ namespace Shouldly
 
         public static void ShouldBePositive(this short actual, string customMessage)
         {
-            ShouldBeGreaterThan(actual, default(short), () => customMessage);
+            ShouldBeGreaterThan(actual, default(short), customMessage);
+        }
+
+        public static void ShouldBePositive(this short actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeGreaterThan(actual, default(short), customMessage);
         }
 
         public static void ShouldBeNegative(this short actual)
@@ -139,7 +195,12 @@ namespace Shouldly
 
         public static void ShouldBeNegative(this short actual, string customMessage)
         {
-            ShouldBeLessThan(actual, default(short), () => customMessage);
+            ShouldBeLessThan(actual, default(short), customMessage);
+        }
+
+        public static void ShouldBeNegative(this short actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeLessThan(actual, default(short), customMessage);
         }
     }
 }
