@@ -24,7 +24,7 @@ namespace Shouldly.Tests.ShouldBe
             {
                 return @"ThisString should be ""this other string"" but was ""this string""
                             difference
-                            Case Sensitive Comparison
+                            Case and Line Ending Sensitive Comparison
                             Difference     |                           |         |    |    |    |    |    |    |    |    |    |   
                                            |                          \|/       \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
                             Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   

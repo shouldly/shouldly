@@ -175,6 +175,9 @@
     <Compile Include="ShouldThrow\NestedAwaitsDoNotDeadlockScenario.cs" />
     <Compile Include="ShouldThrow\TaskWithTimeoutScenario.cs" />
     <Compile Include="Strings\ShouldBeNullOrWhiteSpace.cs" />
+    <Compile Include="Strings\ShouldBe\CaseAndLineEndingInsensitiveScenario.cs" />
+    <Compile Include="Strings\ShouldBe\InsensitiveToLineEndingsScenario.cs" />
+    <Compile Include="Strings\ShouldBe\SensitiveToLineEndingsScenario.cs" />
     <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseInSensitive.cs" />
     <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseSensitive.cs" />
     <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />

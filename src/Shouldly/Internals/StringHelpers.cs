@@ -155,5 +155,11 @@ namespace Shouldly
             }
             return c.ToString(CultureInfo.InvariantCulture);
         }
+
+        internal static string NormalizeLineEndings(this string s)
+        {
+            if (s == null) return null;
+            return Regex.Replace(s, @"\r\n?", "\n");
+        }
     }
 }

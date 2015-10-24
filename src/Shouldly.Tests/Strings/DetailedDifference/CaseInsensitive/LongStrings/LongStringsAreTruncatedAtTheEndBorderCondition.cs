@@ -10,7 +10,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
             "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v", 
-             Case.Insensitive);
+             ShouldBeStringOptions.IgnoreCase);
         }
 
         protected override void ShouldThrowAWobbly()
@@ -18,7 +18,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1w,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v", 
-             Case.Insensitive);
+             ShouldBeStringOptions.IgnoreCase);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -31,7 +31,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
                         but was
                     ""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
                         difference
-                    Case Insensitive Comparison
+                    Case Insensitive and Line Ending Sensitive Comparison
                     Difference     |                                                    |                                                                                                                                                                                                                                                                  
                                    |                                                   \|/                                                                                                                                                                                                                                                                 
                     Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   ...
