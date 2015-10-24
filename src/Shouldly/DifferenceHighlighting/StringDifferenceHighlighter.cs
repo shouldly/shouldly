@@ -28,7 +28,10 @@ namespace Shouldly.DifferenceHighlighting
 
             var output = new StringBuilder();
             var caseSensitivity = context.CaseSensitivity ?? Case.Sensitive;
-            output.AppendLine(string.Format("{0}", caseSensitivity == Case.Insensitive ? "Case Insensitive Comparison" : "Case Sensitive Comparison"));
+            output.AppendLine(
+                caseSensitivity == Case.Insensitive ? 
+                "Case Insensitive and Line Ending Sensitive Comparison" :
+                "Case and Line Ending Sensitive Comparison");
 
             if (maxLengthOfStrings < maxDiffLength)
             {
