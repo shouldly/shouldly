@@ -68,14 +68,14 @@ namespace Shouldly.DifferenceHighlighting
 
                     if (startIndexOfDiffString < expectedValue.Length)
                     {
-                       if(expectedValue.Length >= startIndexOfDiffString + maxDiffLength)
+                        if(expectedValue.Length >= startIndexOfDiffString + maxDiffLength)
                         {
                             trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString, maxDiffLength);
                         }
-                       else
-                       {
+                        else
+                        {
                             trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString);
-                       }
+                        }
                     }
 
                     var prefixWithDots = startIndexOfDiffString != 0;
@@ -83,7 +83,8 @@ namespace Shouldly.DifferenceHighlighting
                     var formattedDetailedDiffString  = new FormattedDetailedDifferenceString(trimmedActualValue, trimmedExpectedValue, caseSensitivity, startIndexOfDiffString, prefixWithDots, suffixWithDots);
                     output.Append(formattedDetailedDiffString);
                 }
-                    return output.ToString();
+
+                return output.ToString();
             }
         }
 
@@ -117,6 +118,5 @@ namespace Shouldly.DifferenceHighlighting
 
             return indicesOfAlldifferences;
         }
-
     }
 }
