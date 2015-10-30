@@ -7,13 +7,13 @@ namespace Shouldly.Internals.Assertions
     {
         private string _expected, _actual;
         private Func<string, string, bool> _compare;
-        private IActualCodeTextGetter _codeTextGetter;
+        private ICodeTextGetter _codeTextGetter;
         private IStringDifferenceHighlighter _diffHighlighter;
 
         public StringShouldBeAssertion(
             string expected, string actual,
             Func<string, string, bool> compare,
-            IActualCodeTextGetter codeTextGetter,
+            ICodeTextGetter codeTextGetter,
             IStringDifferenceHighlighter diffHighlighter)
         {
             _expected = expected;
