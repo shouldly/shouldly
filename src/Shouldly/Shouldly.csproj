@@ -70,7 +70,7 @@
     <Compile Include="Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
     <Compile Include="Internals\Assertions\IAssertion.cs" />
     <Compile Include="Internals\Assertions\StringShouldBeAssertion.cs" />
-    <Compile Include="Internals\IActualCodeTextGetter.cs" />
+    <Compile Include="Internals\ICodeTextGetter.cs" />
     <Compile Include="MessageGenerators\ShouldBeEnumerableCaseSensitiveMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullMessageGenerator.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Internals
 {
-    internal interface IActualCodeTextGetter
+    internal interface ICodeTextGetter
     {
         string GetCodeText();
     }
