@@ -22,6 +22,9 @@ namespace Shouldly.DifferenceHighlighting2
         }
         public string HighlightDifferences(string expected, string actual)
         {
+            if (expected == null) throw new ArgumentNullException("expected");
+            if (actual == null) throw new ArgumentNullException("actual");
+
             expected = _transform(expected);
             actual = _transform(actual);
             int maxLengthOfStrings = Math.Max(actual.Length, expected.Length);
