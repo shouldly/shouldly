@@ -6,12 +6,12 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
     {
         protected override void ShouldPass()
         {
-            "StringOne".ShouldBe("StringOne", Case.Sensitive);
+            "StringOne".ShouldBe("StringOne", ShouldBeStringOptions.None);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            "Stringone".ShouldBe("StringOne", Case.Sensitive);
+            "Stringone".ShouldBe("StringOne", ShouldBeStringOptions.None);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -24,7 +24,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
                         but was
                     ""Stringone""
                         difference
-                    Case Sensitive Comparison
+                    Case and Line Ending Sensitive Comparison
                     Difference     |                                |             
                                    |                               \|/             
                     Index          | 0    1    2    3    4    5    6    7    8    

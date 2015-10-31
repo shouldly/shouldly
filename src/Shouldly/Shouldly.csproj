@@ -61,14 +61,22 @@
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.10.0\ExpressionStringBuilder.cs" />
     <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
+    <Compile Include="DifferenceHighlighting2\IDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting2\StringDifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
+    <Compile Include="Internals\ActualCodeTextGetter.cs" />
+    <Compile Include="Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
+    <Compile Include="Internals\Assertions\IAssertion.cs" />
+    <Compile Include="Internals\Assertions\StringShouldBeAssertion.cs" />
+    <Compile Include="Internals\ICodeTextGetter.cs" />
     <Compile Include="MessageGenerators\ShouldBeEnumerableCaseSensitiveMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeBooleanMessageGenerator.cs" />
+    <Compile Include="ShouldBeStringOptions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeBooleanExtensions.cs" />
     <Compile Include="Internals\ShouldNotThrowAssertionContext.cs" />
