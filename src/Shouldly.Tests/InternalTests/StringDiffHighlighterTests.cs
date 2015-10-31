@@ -18,13 +18,13 @@ namespace Shouldly.Tests.InternalTests
         [ExpectedException(typeof(ArgumentNullException))]
         public static void Should_throw_exception_when_expected_arg_is_null()
         {
-            _sut.HighlightDifferences("not null", null);
+            _sut.HighlightDifferences(null, "not null");
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public static void Should_throw_exception_when_actual_arg_is_null()
         {
-            _sut.HighlightDifferences(null, "not null");
+            _sut.HighlightDifferences("not null", null);
         }
     }
 }
