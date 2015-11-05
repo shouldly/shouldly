@@ -324,6 +324,24 @@ namespace Shouldly
             where T : System.IComparable<> { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where T : System.IComparable<> { }
+        public static void ShouldBeNegative(this decimal actual) { }
+        public static void ShouldBeNegative(this decimal actual, string customMessage) { }
+        public static void ShouldBeNegative(this decimal actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeNegative(this double actual) { }
+        public static void ShouldBeNegative(this double actual, string customMessage) { }
+        public static void ShouldBeNegative(this double actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeNegative(this float actual) { }
+        public static void ShouldBeNegative(this float actual, string customMessage) { }
+        public static void ShouldBeNegative(this float actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeNegative(this int actual) { }
+        public static void ShouldBeNegative(this int actual, string customMessage) { }
+        public static void ShouldBeNegative(this int actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeNegative(this long actual) { }
+        public static void ShouldBeNegative(this long actual, string customMessage) { }
+        public static void ShouldBeNegative(this long actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeNegative(this short actual) { }
+        public static void ShouldBeNegative(this short actual, string customMessage) { }
+        public static void ShouldBeNegative(this short actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static T ShouldBeOfType<T>(this object actual) { }
         public static T ShouldBeOfType<T>(this object actual, string customMessage) { }
         public static T ShouldBeOfType<T>(this object actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -333,6 +351,24 @@ namespace Shouldly
         public static void ShouldBeOneOf<T>(this T actual, params T[] expected) { }
         public static void ShouldBeOneOf<T>(this T actual, T[] expected, string customMessage) { }
         public static void ShouldBeOneOf<T>(this T actual, T[] expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBePositive(this decimal actual) { }
+        public static void ShouldBePositive(this decimal actual, string customMessage) { }
+        public static void ShouldBePositive(this decimal actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBePositive(this double actual) { }
+        public static void ShouldBePositive(this double actual, string customMessage) { }
+        public static void ShouldBePositive(this double actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBePositive(this float actual) { }
+        public static void ShouldBePositive(this float actual, string customMessage) { }
+        public static void ShouldBePositive(this float actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBePositive(this int actual) { }
+        public static void ShouldBePositive(this int actual, string customMessage) { }
+        public static void ShouldBePositive(this int actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBePositive(this long actual) { }
+        public static void ShouldBePositive(this long actual, string customMessage) { }
+        public static void ShouldBePositive(this long actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBePositive(this short actual) { }
+        public static void ShouldBePositive(this short actual, string customMessage) { }
+        public static void ShouldBePositive(this short actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldBeSameAs(this object actual, object expected) { }
         public static void ShouldBeSameAs(this object actual, object expected, string customMessage) { }
         public static void ShouldBeSameAs(this object actual, object expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }

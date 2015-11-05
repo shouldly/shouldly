@@ -184,7 +184,9 @@ namespace Shouldly
             new ShouldNotThrowMessageGenerator(),
             new ShouldThrowMessageGenerator(),
             new ShouldBeNullMessageGenerator(),
-            new ShouldBeMessageGenerator()
+            new ShouldBeMessageGenerator(),
+            new ShouldBePositiveMessageGenerator(),
+            new ShouldBeNegativeMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 
