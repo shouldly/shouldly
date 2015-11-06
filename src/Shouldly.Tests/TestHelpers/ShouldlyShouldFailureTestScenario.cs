@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Threading;
 using NUnit.Framework;
 
 namespace Shouldly.Tests.TestHelpers
@@ -7,6 +9,12 @@ namespace Shouldly.Tests.TestHelpers
     {
         protected abstract void ShouldThrowAWobbly();
         protected abstract string ChuckedAWobblyErrorMessage { get; }
+
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
+        }
 
         [Test]
         public void ShouldMethodShouldThrowAWobbly()
