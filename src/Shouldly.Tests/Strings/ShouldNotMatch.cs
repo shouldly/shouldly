@@ -13,7 +13,7 @@ namespace Shouldly.Tests.Strings
         {
             get
             {
-                return "\"Cheese\" should not match \"\\w+\" but was \"Cheese\" " +
+                return "\"Cheese\" should not match \"\\w+\" but did " +
                        "Additional Info: " +
                        "Some additional context";
             }

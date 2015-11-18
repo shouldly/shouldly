@@ -71,6 +71,7 @@
     <Compile Include="MessageGenerators\ShouldBeBooleanMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNegativeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBePositiveMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldNotMatchMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBePositiveNegativeTestExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeBooleanExtensions.cs" />

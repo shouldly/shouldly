@@ -243,6 +243,9 @@ namespace Shouldly
         public static void ShouldNotEndWith(this string actual, string expected, Shouldly.Case caseSensitivity) { }
         public static void ShouldNotEndWith(this string actual, string expected, string customMessage, Shouldly.Case caseSensitivity = 1) { }
         public static void ShouldNotEndWith(this string actual, string expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, Shouldly.Case caseSensitivity = 1) { }
+        public static void ShouldNotMatch(this string actual, string regexPattern) { }
+        public static void ShouldNotMatch(this string actual, string regexPattern, string customMessage) { }
+        public static void ShouldNotMatch(this string actual, string regexPattern, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldNotStartWith(this string actual, string expected) { }
         public static void ShouldNotStartWith(this string actual, string expected, Shouldly.Case caseSensitivity) { }
         public static void ShouldNotStartWith(this string actual, string expected, string customMessage, Shouldly.Case caseSensitivity = 1) { }
