@@ -182,6 +182,7 @@ namespace Shouldly
             new ShouldBeSubsetOfMessageGenerator(),
             new ShouldBeBooleanMessageGenerator(),
             new ShouldNotThrowMessageGenerator(),
+            new ShouldNotMatchMessageGenerator(),
             new ShouldThrowMessageGenerator(),
             new ShouldBeNullMessageGenerator(),
             new ShouldBeMessageGenerator(),
