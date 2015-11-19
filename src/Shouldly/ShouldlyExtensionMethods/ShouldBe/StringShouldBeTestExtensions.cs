@@ -35,8 +35,18 @@ namespace Shouldly
         /// </summary>
         public static void ShouldBe(
             this string actual,
+            string expected)
+        {
+            // ReSharper disable once IntroduceOptionalParameters.Global
+            ShouldBe(actual, expected, ShouldBeStringOptions.None);
+        }
+        /// <summary>
+        /// Perform a string comparison with sensitivity options
+        /// </summary>
+        public static void ShouldBe(
+            this string actual,
             string expected,
-            ShouldBeStringOptions options = ShouldBeStringOptions.None)
+            ShouldBeStringOptions options)
         {
             ShouldBe(actual, expected, () => null, options);
         }

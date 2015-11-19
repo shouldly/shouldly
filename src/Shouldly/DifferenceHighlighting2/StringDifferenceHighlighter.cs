@@ -8,12 +8,13 @@ namespace Shouldly.DifferenceHighlighting2
 {
     internal class StringDifferenceHighlighter : IStringDifferenceHighlighter
     {
-        private int maxDiffLength = 21;
-        private int maxNumberOfDiffs = 10;
+        int maxDiffLength = 21;
+        int maxNumberOfDiffs = 10;
 
-        private string _comparison;
-        private Case _sensitivity;
-        private Func<string, string> _transform;
+        readonly string _comparison;
+        readonly Case _sensitivity;
+        readonly Func<string, string> _transform;
+
         public StringDifferenceHighlighter(string comparison, Case sensitivity, Func<string, string> transform = null)
         {
             _comparison = comparison;
@@ -22,8 +23,8 @@ namespace Shouldly.DifferenceHighlighting2
         }
         public string HighlightDifferences(string expected, string actual)
         {
-            if (expected == null) throw new ArgumentNullException("expected");
-            if (actual == null) throw new ArgumentNullException("actual");
+            if (expected == null) expected = "null";
+            if (actual == null) actual = "null";
 
             expected = _transform(expected);
             actual = _transform(actual);

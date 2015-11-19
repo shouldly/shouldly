@@ -92,7 +92,6 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
     <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
     <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
-    <Compile Include="InternalTests\StringDiffHighlighterTests.cs" />
     <Compile Include="InternalTests\StringShouldBeAssertionTests.cs" />
     <Compile Include="ShouldBeBoolean\FalseScenario.cs" />
     <Compile Include="ShouldBeBoolean\TrueScenario.cs" />
