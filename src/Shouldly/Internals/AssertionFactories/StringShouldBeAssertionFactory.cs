@@ -6,11 +6,11 @@ namespace Shouldly.Internals.AssertionFactories
 {
     internal static class StringShouldBeAssertionFactory
     {
-        public static IAssertion Create(string expected, string actual, ShouldBeStringOptions options)
+        public static IAssertion Create(string expected, string actual, StringCompareShould options)
         {
             switch (options)
             {
-                case ShouldBeStringOptions.None:
+                case 0:
                     return new StringShouldBeAssertion(
                         expected, actual,
                         StringComparer.InvariantCulture.Equals,
@@ -18,7 +18,7 @@ namespace Shouldly.Internals.AssertionFactories
                         new StringDifferenceHighlighter(
                             "Case and Line Ending Sensitive Comparison",
                             Case.Sensitive));
-                case ShouldBeStringOptions.IgnoreCase:
+                case StringCompareShould.IgnoreCase:
                     return new StringShouldBeAssertion(
                         expected, actual,
                         StringComparer.InvariantCultureIgnoreCase.Equals,
@@ -26,7 +26,7 @@ namespace Shouldly.Internals.AssertionFactories
                         new StringDifferenceHighlighter(
                             "Case Insensitive and Line Ending Sensitive Comparison",
                             Case.Insensitive));
-                case ShouldBeStringOptions.IgnoreLineEndings:
+                case StringCompareShould.IgnoreLineEndings:
                     return new StringShouldBeAssertion(
                         expected, actual,
                         (a, e) => StringComparer.InvariantCulture.Equals(
@@ -35,7 +35,7 @@ namespace Shouldly.Internals.AssertionFactories
                         new StringDifferenceHighlighter(
                             "Case Sensitive and Line Ending Insensitive Comparison",
                             Case.Sensitive, s => s.NormalizeLineEndings()));
-                case ShouldBeStringOptions.IgnoreCase | ShouldBeStringOptions.IgnoreLineEndings:
+                case StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings:
                     return new StringShouldBeAssertion(
                         expected, actual,
                         (a, e) => StringComparer.InvariantCultureIgnoreCase.Equals(

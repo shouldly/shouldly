@@ -3,9 +3,8 @@
 namespace Shouldly
 {
     [Flags]
-    public enum ShouldBeStringOptions
+    public enum StringCompareShould
     {
-        None = 0,
         IgnoreCase = 1,
         IgnoreLineEndings = 2
     }

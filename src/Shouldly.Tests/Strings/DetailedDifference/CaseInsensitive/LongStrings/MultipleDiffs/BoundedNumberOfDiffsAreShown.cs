@@ -25,7 +25,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.
               7a,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7s,7t,7u,7v,7w,7x,7y,7z,
               8a,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8s,8t,8u,8v,8w,8x,8y,8z,
               9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z".Replace("\r\n", "\n"),
-             ShouldBeStringOptions.IgnoreCase);
+             StringCompareShould.IgnoreCase);
         }
 
         protected override void ShouldThrowAWobbly()
@@ -49,7 +49,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.
               7b,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7w,7t,7u,7v,7w,7x,7y,7z,
               8b,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8w,8t,8u,8v,8w,8x,8y,8z,
               9b,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9w,9t,9u,9v,9w,9x,9y,9z".Replace("\r\n", "\n"),
-             ShouldBeStringOptions.IgnoreCase);
+             StringCompareShould.IgnoreCase);
         }
 
         protected override string ChuckedAWobblyErrorMessage

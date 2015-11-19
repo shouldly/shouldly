@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            "line1\nline2".ShouldBe("line1\r\nLine3", () => "Some additional context", ShouldBeStringOptions.IgnoreLineEndings);
+            "line1\nline2".ShouldBe("line1\r\nLine3", () => "Some additional context", StringCompareShould.IgnoreLineEndings);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -30,7 +30,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
 
         protected override void ShouldPass()
         {
-            "line1\nline2".ShouldBe("line1\r\nline2", ShouldBeStringOptions.IgnoreLineEndings);
+            "line1\nline2".ShouldBe("line1\r\nline2", StringCompareShould.IgnoreLineEndings);
         }
     }
 }

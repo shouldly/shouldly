@@ -6,12 +6,12 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
     {
         protected override void ShouldPass()
         {
-            "StringOne\tTab".ShouldBe("Stringone\tTab", ShouldBeStringOptions.IgnoreCase);
+            "StringOne\tTab".ShouldBe("Stringone\tTab", StringCompareShould.IgnoreCase);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            "StringOne\tTab".ShouldBe("Stringone Tab", ShouldBeStringOptions.IgnoreCase);
+            "StringOne\tTab".ShouldBe("Stringone Tab", StringCompareShould.IgnoreCase);
         }
 
         protected override string ChuckedAWobblyErrorMessage

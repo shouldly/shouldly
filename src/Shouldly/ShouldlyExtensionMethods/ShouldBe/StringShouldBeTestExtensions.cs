@@ -12,22 +12,25 @@ namespace Shouldly
         /// <summary>
         /// Perform a case sensitive string comparison
         /// </summary>
-        [Obsolete("Use the ShouldBeStringOptions instead of the Case enum")]
+        [Obsolete("Use the StringCompareShould instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
         {
-            ShouldBe(actual, expected, () => null, caseSensitivity.ToOptions());
+            ShouldBe(actual, expected, caseSensitivity, () => null);
         }
 
-        [Obsolete("Use the ShouldBeStringOptions instead of the Case enum")]
+        [Obsolete("Use the StringCompareShould instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity, string customMessage)
         {
-            ShouldBe(actual, expected, () => customMessage, caseSensitivity.ToOptions());
+            ShouldBe(actual, expected, caseSensitivity, () => customMessage);
         }
 
-        [Obsolete("Use the ShouldBeStringOptions instead of the Case enum")]
+        [Obsolete("Use the StringCompareShould instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity, [InstantHandle] Func<string> customMessage)
         {
-            ShouldBe(actual, expected, customMessage, caseSensitivity.ToOptions());
+            if (caseSensitivity == Case.Sensitive)
+                ShouldBe(actual, expected, customMessage);
+            else
+                ShouldBe(actual, expected, customMessage, StringCompareShould.IgnoreCase);
         }
 
         /// <summary>
@@ -38,7 +41,31 @@ namespace Shouldly
             string expected)
         {
             // ReSharper disable once IntroduceOptionalParameters.Global
-            ShouldBe(actual, expected, ShouldBeStringOptions.None);
+            ShouldBe(actual, expected, (StringCompareShould)0);
+        }
+
+        /// <summary>
+        /// Perform a string comparison with sensitivity options
+        /// </summary>
+        public static void ShouldBe(
+            this string actual,
+            string expected,
+            string customMessage)
+        {
+            // ReSharper disable once IntroduceOptionalParameters.Global
+            ShouldBe(actual, expected, () => customMessage, 0);
+        }
+
+        /// <summary>
+        /// Perform a string comparison with sensitivity options
+        /// </summary>
+        public static void ShouldBe(
+            this string actual,
+            string expected,
+            Func<string> customMessage)
+        {
+            // ReSharper disable once IntroduceOptionalParameters.Global
+            ShouldBe(actual, expected, customMessage, 0);
         }
         /// <summary>
         /// Perform a string comparison with sensitivity options
@@ -46,7 +73,7 @@ namespace Shouldly
         public static void ShouldBe(
             this string actual,
             string expected,
-            ShouldBeStringOptions options)
+            StringCompareShould options)
         {
             ShouldBe(actual, expected, () => null, options);
         }
@@ -54,15 +81,15 @@ namespace Shouldly
             this string actual,
             string expected,
             string customMessage,
-            ShouldBeStringOptions options = ShouldBeStringOptions.None)
+            StringCompareShould option)
         {
-            ShouldBe(actual, expected, () => customMessage, options);
+            ShouldBe(actual, expected, () => customMessage, option);
         }
         public static void ShouldBe(
             this string actual,
             string expected,
             Func<string> customMessage,
-            ShouldBeStringOptions options = ShouldBeStringOptions.None)
+            StringCompareShould options)
         {
             var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
             ExecuteAssertion(assertion, customMessage);

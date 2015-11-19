@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            "SamplE".ShouldBe("different", "Some additional context", ShouldBeStringOptions.IgnoreCase);
+            "SamplE".ShouldBe("different", "Some additional context", StringCompareShould.IgnoreCase);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -30,7 +30,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
 
         protected override void ShouldPass()
         {
-            "SamplE".ShouldBe("sAMPLe", ShouldBeStringOptions.IgnoreCase);
+            "SamplE".ShouldBe("sAMPLe", StringCompareShould.IgnoreCase);
         }
     }
 }

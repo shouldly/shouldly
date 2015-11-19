@@ -24,8 +24,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.Mu
               6a,6b,6c,6d,6e,6f,6g,6h,6i,6j,6k,6l,6m,6n,6o,6p,6q,6r,6s,6t,6u,6v,6w,6x,6y,6z,
               7a,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7s,7t,7u,7v,7w,7x,7y,7z,
               8a,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8s,8t,8u,8v,8w,8x,8y,8z,
-              9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z".Replace("\r\n", "\n"),
-             ShouldBeStringOptions.None);
+              9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z".Replace("\r\n", "\n"));
         }
 
         protected override void ShouldThrowAWobbly()
@@ -48,8 +47,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.Mu
               6A,6b,6c,6d,6e,6f,6g,6h,6i,6j,6k,6l,6m,6n,6o,6p,6q,6r,6s,6t,6u,6v,6w,6x,6y,6z,
               7A,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7s,7t,7u,7v,7w,7x,7y,7z,
               8A,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8s,8t,8u,8v,8w,8x,8y,8z,
-              9A,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z".Replace("\r\n", "\n"),
-             ShouldBeStringOptions.None);
+              9A,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z".Replace("\r\n", "\n"));
         }
 
         protected override string ChuckedAWobblyErrorMessage
