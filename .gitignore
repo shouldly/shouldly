@@ -19,3 +19,4 @@ Shouldly.sln.ide/
 packages/
 ShouldlyConvention.Tests/obj/
 ShouldlyConvention.Tests/bin/
+docs/_build/

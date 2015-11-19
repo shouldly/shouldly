@@ -11,6 +11,7 @@
     <AssemblyName>ShouldlyConvention.Tests</AssemblyName>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -91,12 +92,16 @@
     <Compile Include="ShouldThrowMatchesExtensions.cs" />
     <Compile Include="ShouldThrowMethod.cs" />
     <Compile Include="TypeExtensions.cs" />
+    <Compile Include="ApprovePublicAPI.cs" />
+    <Compile Include="App_Packages\ApiApprover.3.0.1\PublicApiApprover.cs" />
+    <Compile Include="App_Packages\ApiApprover.3.0.1\PublicApiGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Shouldly\Shouldly.csproj">
+    <ProjectReference Include="..\Shouldly\Shouldly.csproj">
       <Project>{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}</Project>
       <Name>Shouldly</Name>
     </ProjectReference>

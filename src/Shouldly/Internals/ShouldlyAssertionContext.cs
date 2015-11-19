@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
@@ -104,7 +103,8 @@ namespace Shouldly
 
         private string GetCodePart()
         {
-            var codePart = "The provided expression";
+            var codePart = "Shouldly uses your source code to generate it's great error messages, build your test project with full debug information to get better error messages" +
+                           "\nThe provided expression";
 
             if (DeterminedOriginatingFrame)
             {

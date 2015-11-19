@@ -15,7 +15,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         {
             get 
             {
-                return String.Format("date should be within {0} of {1} but was {2}" +
+                return string.Format("date should be within {0} of {1} but was {2}" +
                                      "Additional Info:" +
                                      "Some additional context",
                     TimeSpan.FromHours(1), new DateTime(2000, 6, 1, 1, 0, 1), new DateTime(2000, 6, 1)); 
