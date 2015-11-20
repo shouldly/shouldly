@@ -1,8 +1,8 @@
 ﻿namespace Shouldly.Tests.TestHelpers
 {
-    class UncomparableClass
+    internal class UncomparableClass
     {
-        private readonly string _description;
+        readonly string _description;
 
         public UncomparableClass(string description)
         {

@@ -5,9 +5,9 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class SameInstanceInDifferentInterfaceCollectionTypes
     {
-        private interface IFoo { }
+        interface IFoo { }
 
-        private class Foo : IFoo { }
+        class Foo : IFoo { }
 
         [Test]
         public void WhenFoo()

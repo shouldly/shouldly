@@ -46,11 +46,13 @@ namespace Shouldly.Tests.InternalTests
 
             Assert.AreEqual(expected, actual);
         }
-        private class MockCodeTextGetter : ICodeTextGetter
+
+        class MockCodeTextGetter : ICodeTextGetter
         {
             public string GetCodeText() { return "SomeCodeText"; }
         }
-        private class MockDiffHighlighter : IStringDifferenceHighlighter
+
+        class MockDiffHighlighter : IStringDifferenceHighlighter
         {
             public string HighlightDifferences(string expected, string actual)
             {

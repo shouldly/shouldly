@@ -5,8 +5,8 @@ namespace Shouldly.Tests.ShouldBe
 {
     public class StringScenario : ShouldlyShouldTestScenario
     {
-        private const string ThisOtherString = "this other string";
-        private const string ThisString = "this string";
+        const string ThisOtherString = "this other string";
+        const string ThisString = "this string";
 
         protected override void ShouldPass()
         {

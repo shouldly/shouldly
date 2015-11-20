@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Shouldly.Tests.TestHelpers
 {
-    class Strange : IEnumerable<Strange>
+    internal class Strange : IEnumerable<Strange>
     {
-        private readonly string _thing;
+        readonly string _thing;
 
         public Strange()
         {
         }
 
-        private Strange(string thing)
+        Strange(string thing)
         {
             _thing = thing;
         }

@@ -1,4 +1,4 @@
 ﻿namespace Shouldly.Tests.TestHelpers
 {
-    class MyBase { }
+    internal class MyBase { }
 }

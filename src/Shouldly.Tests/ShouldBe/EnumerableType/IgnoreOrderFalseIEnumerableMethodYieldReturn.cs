@@ -25,7 +25,7 @@ Some additional context";
             }
         }
 
-        private static IEnumerable<int> GetEnumerable()
+        static IEnumerable<int> GetEnumerable()
         {
             yield return 1;
         }

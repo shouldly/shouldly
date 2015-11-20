@@ -6,13 +6,13 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKey
 {
     public class GuidScenario : ShouldlyShouldTestScenario
     {
-        private readonly Dictionary<Guid, Guid> _dictionary = new Dictionary<Guid, Guid>
+        readonly Dictionary<Guid, Guid> _dictionary = new Dictionary<Guid, Guid>
         {
             { GuidKey, Guid.NewGuid()}
         };
 
-        private static readonly Guid GuidKey = Guid.NewGuid();
-        private readonly Guid _missingGuid = new Guid("5250646b-4c46-4b0e-86d8-e1421f2a0ea2");
+        static readonly Guid GuidKey = Guid.NewGuid();
+        readonly Guid _missingGuid = new Guid("5250646b-4c46-4b0e-86d8-e1421f2a0ea2");
 
         protected override void ShouldThrowAWobbly()
         {

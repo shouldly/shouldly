@@ -58,26 +58,26 @@ namespace Shouldly.Tests.ShouldNotThrow
                 @"`if (methodCall1()) { methodCall2(); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
         }
 
-        private void noThrowMethodCall()
+        void noThrowMethodCall()
         {
         }
 
-        private void methodCallWithParameters(int i, int i1)
-        {
-            throw new Exception();
-        }
-
-        private void methodCall2()
+        void methodCallWithParameters(int i, int i1)
         {
             throw new Exception();
         }
 
-        private bool methodCall1()
+        void methodCall2()
+        {
+            throw new Exception();
+        }
+
+        bool methodCall1()
         {
             return true;
         }
 
-        private void methodCall()
+        void methodCall()
         {
             throw new Exception();
         }

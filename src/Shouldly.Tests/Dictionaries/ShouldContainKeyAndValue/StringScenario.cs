@@ -5,7 +5,7 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
 {
     public class StringScenario : ShouldlyShouldTestScenario
     {
-        private readonly Dictionary<string, string> _dictionary = new Dictionary<string, string>
+        readonly Dictionary<string, string> _dictionary = new Dictionary<string, string>
         {
             { "Foo", "Bar"}
         };

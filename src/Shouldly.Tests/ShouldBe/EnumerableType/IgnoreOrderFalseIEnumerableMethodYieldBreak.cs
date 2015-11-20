@@ -25,7 +25,7 @@ Some additional context";
             }
         }
 
-        private static IEnumerable<int> GetEmptyEnumerable()
+        static IEnumerable<int> GetEmptyEnumerable()
         {
             yield break;
         }
