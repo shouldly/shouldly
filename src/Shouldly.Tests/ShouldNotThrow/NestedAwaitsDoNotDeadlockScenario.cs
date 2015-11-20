@@ -2,13 +2,13 @@
 using System;
 using System.Threading.Tasks;
 using System.Threading;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class NestedAwaitsDoNotDeadlockScenario
     {
-        [Test]
+        [Fact]
         public void DelegateShouldDropSynchronisationContext()
         {
             // The await keyword will automatically capture synchronisation context

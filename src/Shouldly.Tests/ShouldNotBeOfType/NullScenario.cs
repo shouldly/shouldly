@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Shouldly.Tests.ShouldNotBeOfType
 {
     public class NullIsNotOfType
     {
-        [Test]
+        [Fact]
         public void AndShouldNotThrow()
         {
             object o = null;
