@@ -1,13 +1,12 @@
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.TestHelpers
 {
-    [TestFixture]
     public abstract class ShouldlyShouldTestScenario : ShouldlyShouldFailureTestScenario
     {
         protected abstract void ShouldPass();
 
-        [Test]
+        [Fact]
         public void ShouldMethodShouldNotFail()
         {
             Should.NotError(ShouldPass);

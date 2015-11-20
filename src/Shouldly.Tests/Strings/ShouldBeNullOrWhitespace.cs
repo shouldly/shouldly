@@ -1,6 +1,6 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿#if net40
+using Shouldly.Tests.TestHelpers;
 
-#if net40
 namespace Shouldly.Tests.Strings
 {
     public class ShouldBeNullOrWhiteSpace : ShouldlyShouldTestScenario
@@ -10,14 +10,10 @@ namespace Shouldly.Tests.Strings
             "a".ShouldBeNullOrWhiteSpace("Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "\"a\" should be null or white space " +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
+        protected override string ChuckedAWobblyErrorMessage =>
+            "\"a\" should be null or white space " +
+            "Additional Info: " +
+            "Some additional context";
 
         protected override void ShouldPass()
         {

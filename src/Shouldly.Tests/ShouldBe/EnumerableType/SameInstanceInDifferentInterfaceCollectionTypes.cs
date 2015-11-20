@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         class Foo : IFoo { }
 
-        [Test]
+        [Fact]
         public void WhenFoo()
         {
             var foo = new Foo();

@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Shouldly.Tests.ShouldBeAssignableTo
 {
     public class GenericOverloadReturnsValue
     {
-        [Test]
+        [Fact]
         public void ValueShouldBeReturnedWhenSuccessful()
         {
             object val = "Foo";

@@ -1,11 +1,10 @@
-using NUnit.Framework;
 using Shouldly;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
+using Xunit;
 
 namespace ShouldlyConvention.Tests
 {
-    [TestFixture]
     public class ShouldlyConventions
     {
         private readonly Types _shouldlyMethodClasses;
@@ -17,13 +16,13 @@ namespace ShouldlyConvention.Tests
                 t => t.HasAttribute("Shouldly.ShouldlyMethodsAttribute"));
         }
 
-        [Test]
+        [Fact]
         public void ShouldHaveCustomMessageOverloads()
         {
             Convention.Is(new ShouldlyMethodsShouldHaveCustomMessageOverload(), _shouldlyMethodClasses);
         }
 
-        [Test]
+        [Fact]
         public void ShouldThrowMethodsShouldHaveExtensions()
         {
             Convention.Is(new ShouldThrowMatchesExtensionsConvention(), _shouldlyMethodClasses);
