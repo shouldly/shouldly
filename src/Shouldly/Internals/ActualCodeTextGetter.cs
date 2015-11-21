@@ -74,27 +74,22 @@ namespace Shouldly.Internals
             var codePart = "Shouldly uses your source code to generate it's great error messages, build your test project with full debug information to get better error messages" +
                            "\nThe provided expression";
 
-            if (DeterminedOriginatingFrame)
+            if (!DeterminedOriginatingFrame) return codePart;
+
+            var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
+
+            var indexOf = codeLines.IndexOf(ShouldMethod);
+            if (indexOf > 0)
+                codePart = codeLines.Substring(0, indexOf - 1).Trim();
+
+            // When the static method is used instead of the extension method,
+            // the code part will be "Should".
+            // Using Endswith to cater for being inside a lambda
+            if (codePart.EndsWith("Should"))
             {
-                var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
-
-                var indexOf = codeLines.IndexOf(ShouldMethod);
-                if (indexOf > 0)
-                    codePart = codeLines.Substring(0, indexOf - 1).Trim();
-
-                // When the static method is used instead of the extension method,
-                // the code part will be "Should".
-                // Using Endswith to cater for being inside a lambda
-                if (codePart.EndsWith("Should"))
-                {
-                    codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
-                }
-                else
-                {
-                    codePart = codePart.RemoveVariableAssignment().RemoveBlock();
-                }
+                return GetCodePartFromParameter(indexOf, codeLines, codePart);
             }
-            return codePart;
+            return codePart.RemoveVariableAssignment().RemoveBlock();
         }
 
         private string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
