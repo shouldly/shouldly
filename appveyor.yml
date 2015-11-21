@@ -11,11 +11,11 @@ configuration:
   - Debug
  
 build_script:
-  - cmd: nuget restore
+  - cmd: nuget restore src\
   - cmd: gitversion /l console /output buildserver /updateAssemblyInfo
   
-  - cmd: msbuild Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%;TargetFrameworkVersion=v3.5"
-  - cmd: msbuild Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%;TargetFrameworkVersion=v4.0"
+  - cmd: msbuild src\Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%;TargetFrameworkVersion=v3.5"
+  - cmd: msbuild src\Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%;TargetFrameworkVersion=v4.0"
   
   - cmd: ECHO nuget pack Shouldly.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - cmd: nuget pack Shouldly.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"

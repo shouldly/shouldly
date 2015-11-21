@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Shouldly.Tests.TestHelpers
 {
@@ -7,7 +8,10 @@ namespace Shouldly.Tests.TestHelpers
     {
         public static void Error(Action action, string errorMessage)
         {
-            Shouldly.Should.Throw<ShouldAssertException>(action).Message.ShouldContainWithoutWhitespace(errorMessage);
+            var message = Shouldly.Should.Throw<ShouldAssertException>(action).Message;
+            message.ShouldContainWithoutWhitespace(errorMessage);
+            Trace.WriteLine("Error message:");
+            Trace.WriteLine(message);
         }
 
         public static void NotError(Action action)

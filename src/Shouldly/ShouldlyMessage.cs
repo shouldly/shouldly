@@ -182,8 +182,12 @@ namespace Shouldly
             new ShouldBeSubsetOfMessageGenerator(),
             new ShouldBeBooleanMessageGenerator(),
             new ShouldNotThrowMessageGenerator(),
+            new ShouldNotMatchMessageGenerator(),
             new ShouldThrowMessageGenerator(),
-            new ShouldBeNullMessageGenerator()
+            new ShouldBeNullMessageGenerator(),
+            new ShouldBeMessageGenerator(),
+            new ShouldBePositiveMessageGenerator(),
+            new ShouldBeNegativeMessageGenerator()
         };
         private IShouldlyAssertionContext _shouldlyAssertionContext;
 
@@ -240,13 +244,14 @@ namespace Shouldly
         private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            string message = string.Format(@"
+            var message = string.Format(@"
     {0}
         {1}
     {2}
         but was
     {3}",
-                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), context.Actual.ToStringAwesomely());
+                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(),
+                context.Actual.ToStringAwesomely());
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
