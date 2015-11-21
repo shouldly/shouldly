@@ -23,7 +23,7 @@ namespace Shouldly
             var strippedActual = actual.Quotify().StripWhitespace();
             var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
 
-            strippedActual.AssertAwesomely(v => Is.Equal(v, strippedExpected), actual, expected, customMessage);
+            strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage);
         }
 
         public static void ShouldContain(this string actual, string expected)
