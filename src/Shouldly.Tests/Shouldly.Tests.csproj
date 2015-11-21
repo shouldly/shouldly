@@ -105,6 +105,7 @@
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderIEnumerableMethodYieldReturn.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario.cs" />
+    <Compile Include="ShouldBe\NumericTypeSuffixInMessage.cs" />
     <Compile Include="ShouldBe\StringListScenario.cs" />
     <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
     <Compile Include="ShouldBe\WithTolerance\DateTimeOffsetScenario.cs" />

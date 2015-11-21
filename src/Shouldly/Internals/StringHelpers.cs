@@ -34,6 +34,24 @@ namespace Shouldly
             if (value is string)
                 return "\"" + value + "\"";
 
+            if (value is decimal)
+                return value + "M";
+
+            if (value is double)
+                return value + "D";
+
+            if (value is float)
+                return value + "F";
+
+            if (value is long)
+                return value + "L";
+
+            if (value is uint)
+                return value + "U";
+
+            if (value is ulong)
+                return value + "UL";
+
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();
