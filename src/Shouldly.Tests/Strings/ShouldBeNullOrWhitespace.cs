@@ -1,24 +1,66 @@
-﻿#if net40
-using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
+#if net40
 namespace Shouldly.Tests.Strings
 {
-    public class ShouldBeNullOrWhiteSpace : ShouldlyShouldTestScenario
+    public class ShouldBeNullOrWhiteSpace
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringWithOneLetterShouldFail()
         {
-            "a".ShouldBeNullOrWhiteSpace("Some additional context");
+            Verify.ShouldFail(
+            () =>
+"a".ShouldBeNullOrWhiteSpace("Some additional context"),
+
+@"""a""
+    should be null or white space
+
+Additional Info:
+    Some additional context",
+
+@"""a""
+    should be null or white space
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage =>
-            "\"a\" should be null or white space " +
-            "Additional Info: " +
-            "Some additional context";
+        [Fact]
+        public void StringWithOneLetterAsVariableShouldFail()
+        {
+            var oneLetter = "a";
+            Verify.ShouldFail(
+            () =>
+oneLetter.ShouldBeNullOrWhiteSpace("Some additional context"),
 
-        protected override void ShouldPass()
+@"oneLetter (""a"")
+    should be null or white space
+
+Additional Info:
+    Some additional context",
+
+@"""a""
+    should be null or white space
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void NullShouldPass()
         {
             ((string)null).ShouldBeNullOrWhiteSpace();
+        }
+
+        [Fact]
+        public void EmptyStringShouldPass()
+        {
             string.Empty.ShouldBeNullOrWhiteSpace();
+        }
+
+        [Fact]
+        public void SpacesShouldPass()
+        {
             "   ".ShouldBeNullOrWhiteSpace();
         }
     }

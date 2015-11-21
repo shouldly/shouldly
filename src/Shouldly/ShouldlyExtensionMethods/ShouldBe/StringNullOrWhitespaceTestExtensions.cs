@@ -19,7 +19,7 @@ namespace Shouldly
         public static void ShouldBeNullOrWhiteSpace(this string actual, [InstantHandle] Func<string> customMessage)
         {
             if (!string.IsNullOrWhiteSpace(actual))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+                throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage).ToString());
         }
 
         public static void ShouldNotBeNullOrWhiteSpace(this string actual)

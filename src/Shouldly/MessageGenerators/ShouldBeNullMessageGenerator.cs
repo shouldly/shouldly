@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeNullMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("Should(Not)?BeNull", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("Should(Not)?BeNull", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
