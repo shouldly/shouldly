@@ -2,20 +2,19 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests
 {
-    [TestFixture]
     public class ShouldCompleteInTests
     {
-        [Test]
+        [Fact]
         public void ShouldCompleteIn_WhenFinishBeforeTimeout()
         {
             Should.NotThrow(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(0.5)), TimeSpan.FromSeconds(2)));
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<TimeoutException>(() => 
@@ -29,7 +28,7 @@ namespace Shouldly.Tests
     Some additional context");
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteInTask_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<TimeoutException>(() => 
@@ -45,13 +44,13 @@ namespace Shouldly.Tests
     Some additional context");
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteIn_WhenThrowsNonTimeoutException()
         {
             Should.Throw<NotImplementedException>(() => Should.CompleteIn(() => { throw new NotImplementedException(); }, TimeSpan.FromSeconds(1)));
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteInT_WhenFinishBeforeTimeout()
         {
             Should.NotThrow(() => Should.CompleteIn(() =>
@@ -61,7 +60,7 @@ namespace Shouldly.Tests
             }, TimeSpan.FromSeconds(2)));
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteInT_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
@@ -79,7 +78,7 @@ namespace Shouldly.Tests
     Some additional context");
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteInTaskT_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
@@ -100,7 +99,7 @@ namespace Shouldly.Tests
     Some additional context");
         }
 
-        [Test]
+        [Fact]
         public void ShouldCompleteInT_WhenThrowsNonTimeoutException()
         {
             Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => { throw new NotImplementedException(); }), TimeSpan.FromSeconds(1)));

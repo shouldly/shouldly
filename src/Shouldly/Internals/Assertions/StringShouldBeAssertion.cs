@@ -5,10 +5,11 @@ namespace Shouldly.Internals.Assertions
 {
     internal class StringShouldBeAssertion : IAssertion
     {
-        private string _expected, _actual;
-        private Func<string, string, bool> _compare;
-        private ICodeTextGetter _codeTextGetter;
-        private IStringDifferenceHighlighter _diffHighlighter;
+        readonly string _expected;
+        readonly string _actual;
+        readonly Func<string, string, bool> _compare;
+        readonly ICodeTextGetter _codeTextGetter;
+        readonly IStringDifferenceHighlighter _diffHighlighter;
 
         public StringShouldBeAssertion(
             string expected, string actual,
@@ -22,10 +23,11 @@ namespace Shouldly.Internals.Assertions
             _codeTextGetter = codeTextGetter;
             _diffHighlighter = diffHighlighter;
         }
+
         public string GenerateMessage(string customMessage)
         {
-            var message = string.Format(@"
-    {0}
+            var message = string.Format(
+@"    {0}
         {1}
     {2}
         but was
@@ -41,7 +43,8 @@ namespace Shouldly.Internals.Assertions
             if (customMessage != null)
             {
                 message += string.Format(@"
-    Additional Info:
+
+Additional Info:
     {0}", customMessage);
             }
             return message;

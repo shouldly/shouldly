@@ -31,5 +31,6 @@ namespace Shouldly
         bool IsNegatedAssertion { get; }
         string CustomMessage { get; set; }
         Case? CaseSensitivity { get; set; }
+        bool CodePartMatchesActual { get; }
     }
 }

@@ -22,6 +22,7 @@ namespace Shouldly
         public object Actual { get; set; }
         public object Tolerance { get; set; }
         public Case? CaseSensitivity { get; set; }
+        public bool CodePartMatchesActual { get { return CodePart == Actual.ToStringAwesomely(); } }
         public TimeSpan? Timeout { get; set; }
 
         public bool IgnoreOrder { get; set; }
@@ -37,19 +38,15 @@ namespace Shouldly
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
         public string CustomMessage { get; set; }
 
-        /// <summary>
-        /// Manually specify the parts of the context, default format is {codePart} {shouldMethod}....
-        /// </summary>
-        protected ShouldlyAssertionContext(string codePart, string shouldMethod, object expected, object actual = null)
+        internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null, StackTrace stackTrace = null)
         {
-            CodePart = codePart;
-            ShouldMethod = shouldMethod;
             Expected = expected;
             Actual = actual;
-        }
+            ShouldMethod = shouldlyMethod;
+            CodePart = actual.ToStringAwesomely();
 
-        internal ShouldlyAssertionContext(object expected, object actual = null, StackTrace stackTrace = null)
-        {
+            if (ShouldlyConfiguration.IsSourceDisabledInErrors()) return;
+
             stackTrace = stackTrace ?? new StackTrace(true);
             var i = 0;
             var currentFrame = stackTrace.GetFrame(i);
@@ -87,8 +84,6 @@ namespace Shouldly
            FileName = fileName;
            LineNumber = originatingFrame.GetFileLineNumber() - 1;
            OriginatingFrame = originatingFrame;
-           Expected = expected;
-           Actual = actual;
            CodePart = GetCodePart();
         }
 
@@ -186,5 +181,13 @@ namespace Shouldly
                 .RemoveBlock()
                 .Trim();
         }
+    }
+}
+
+
+namespace System.Runtime.CompilerServices
+{
+    internal class CallerMemberNameAttribute : Attribute
+    {
     }
 }

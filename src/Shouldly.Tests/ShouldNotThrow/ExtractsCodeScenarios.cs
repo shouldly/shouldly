@@ -1,12 +1,11 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
-    [TestFixture]
     public class ExtractsCodeScenarios
     {
-        [Test]
+        [Fact]
         public void ExtractsCodeCorrectly1()
         {
             TestHelpers.Should.Error(() =>
@@ -14,7 +13,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                 "`methodCall()` should not throw but threw System.Exception with message \"Exception of type 'System.Exception' was thrown.\"");
         }
 
-        [Test]
+        [Fact]
         public void ExtractsCodeCorrectly2()
         {
             TestHelpers.Should.Error(() =>
@@ -22,7 +21,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                 "`noThrowMethodCall()` should throw System.Exception but did not");
         }
 
-        [Test]
+        [Fact]
         public void ExtractsCodeCorrectly3()
         {
             TestHelpers.Should.Error(() =>
@@ -30,7 +29,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                 "`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message \"Exception of type 'System.Exception' was thrown.\"");
         }
 
-        [Test]
+        [Fact]
         public void ExtractsCodeCorrectly4()
         {
             TestHelpers.Should.Error(
@@ -44,7 +43,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                 @"`if (methodCall1()) { methodCallWithParameters(1, 2); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
         }
 
-        [Test]
+        [Fact]
         public void ExtractsCodeCorrectly5()
         {
             TestHelpers.Should.Error(() => 

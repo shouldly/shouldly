@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.TestHelpers;
 
 namespace Shouldly.Tests.Strings.ShouldEndWith
 {

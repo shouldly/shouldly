@@ -1,15 +1,14 @@
-﻿using NUnit.Framework;
-using Shouldly.DifferenceHighlighting;
+﻿using Shouldly.DifferenceHighlighting;
 using Shouldly.Tests.TestHelpers;
+using Xunit;
 
 namespace Shouldly.Tests.InternalTests
 {
-    [TestFixture]
     public class StringDifferenceHighlighterTests
     {
         readonly StringDifferenceHighlighter _highlighter = new StringDifferenceHighlighter();
 
-        [Test]
+        [Fact]
         public void CanProcessTwoNotNullStringsAndAShouldBeAssertionMethod()
         {
             _highlighter
@@ -17,7 +16,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessTwoNotNullStringsAndANotShouldBeAssertionMethod()
         {
             _highlighter
@@ -25,7 +24,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessNullAndString()
         {
             _highlighter
@@ -33,7 +32,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessStringAndNull()
         {
             _highlighter

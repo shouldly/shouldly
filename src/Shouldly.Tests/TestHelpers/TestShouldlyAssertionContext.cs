@@ -23,11 +23,12 @@ namespace Shouldly.Tests.TestHelpers
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }
 
-        public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+        public bool IsNegatedAssertion => ShouldMethod.Contains("Not");
 
         public string CustomMessage { get; set; }
 
         public Case? CaseSensitivity { get; set; }
+        public bool CodePartMatchesActual => CodePart == Actual.ToStringAwesomely();
 
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {

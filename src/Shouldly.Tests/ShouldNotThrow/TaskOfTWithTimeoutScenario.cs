@@ -2,13 +2,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class TaskOfTWithTimeoutScenario
     {
-        [Test]
+        [Fact]
         public void ShouldThrowAWobbly()
         {
             var task = Task.Factory.StartNew(() =>
@@ -24,20 +24,14 @@ namespace Shouldly.Tests.ShouldNotThrow
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
-        protected string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"Task
+        string ChuckedAWobblyErrorMessage => @"Task
         should complete in
     00:00:00.5000000
         but did not
     Additional Info:
     Some additional context";
-            }
-        }
 
-        [Test]
+        [Fact]
         public void ShouldPass()
         {
             var task = Task.Factory.StartNew(() => "foo",
