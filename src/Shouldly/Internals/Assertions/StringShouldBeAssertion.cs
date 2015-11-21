@@ -23,10 +23,11 @@ namespace Shouldly.Internals.Assertions
             _codeTextGetter = codeTextGetter;
             _diffHighlighter = diffHighlighter;
         }
+
         public string GenerateMessage(string customMessage)
         {
-            var message = string.Format(@"
-    {0}
+            var message = string.Format(
+@"    {0}
         {1}
     {2}
         but was
@@ -42,7 +43,8 @@ namespace Shouldly.Internals.Assertions
             if (customMessage != null)
             {
                 message += string.Format(@"
-    Additional Info:
+
+Additional Info:
     {0}", customMessage);
             }
             return message;

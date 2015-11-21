@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Shouldly
 {
@@ -15,7 +16,10 @@ namespace Shouldly
         /// <param name="actual"></param>
         /// <param name="exceptionMessage"></param>
         /// <param name="stackTrace">Only pass if asynchronous</param>
-        internal ShouldThrowAssertionContext(object expected, object actual = null, string exceptionMessage = null, bool isAsync = false, StackTrace stackTrace = null) : base(expected, actual, stackTrace)
+        internal ShouldThrowAssertionContext(object expected, object actual = null, string exceptionMessage = null,
+            bool isAsync = false,
+            StackTrace stackTrace = null,
+            [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual, stackTrace)
         {
             ExceptionMessage = exceptionMessage;
             IsAsync = isAsync;

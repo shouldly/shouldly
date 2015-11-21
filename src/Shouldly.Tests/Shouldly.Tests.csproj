@@ -277,6 +277,7 @@
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Strings\Verify.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />

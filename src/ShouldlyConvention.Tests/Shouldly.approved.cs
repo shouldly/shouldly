@@ -432,6 +432,8 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
+        public static System.IDisposable DisableSourceInErrors() { }
+        public static bool IsSourceDisabledInErrors() { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldSatisfyAllConditionsTestExtensions
