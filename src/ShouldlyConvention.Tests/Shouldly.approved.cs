@@ -201,11 +201,11 @@ namespace Shouldly
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeStringTestExtensions
     {
-        [System.ObsoleteAttribute("Use the StringCompareShould instead of the Case enum")]
+        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity) { }
-        [System.ObsoleteAttribute("Use the StringCompareShould instead of the Case enum")]
+        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, string customMessage) { }
-        [System.ObsoleteAttribute("Use the StringCompareShould instead of the Case enum")]
+        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldBe(this string actual, string expected) { }
         public static void ShouldBe(this string actual, string expected, string customMessage) { }

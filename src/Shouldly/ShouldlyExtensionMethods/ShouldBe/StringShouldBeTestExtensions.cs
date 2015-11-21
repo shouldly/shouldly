@@ -12,19 +12,19 @@ namespace Shouldly
         /// <summary>
         /// Perform a case sensitive string comparison
         /// </summary>
-        [Obsolete("Use the StringCompareShould instead of the Case enum")]
+        [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
         {
             ShouldBe(actual, expected, caseSensitivity, () => null);
         }
 
-        [Obsolete("Use the StringCompareShould instead of the Case enum")]
+        [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity, string customMessage)
         {
             ShouldBe(actual, expected, caseSensitivity, () => customMessage);
         }
 
-        [Obsolete("Use the StringCompareShould instead of the Case enum")]
+        [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Case caseSensitivity, [InstantHandle] Func<string> customMessage)
         {
             if (caseSensitivity == Case.Sensitive)
