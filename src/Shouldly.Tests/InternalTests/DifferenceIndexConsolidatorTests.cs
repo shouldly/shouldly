@@ -18,7 +18,7 @@ namespace Shouldly.Tests.InternalTests
             outputFromConsolidator.ShouldBe(expectedConsolidatedOutputIndices);
         }
 
-        public static object[] IndexConsolidationTestCases { get; private set; } =
+        public static IEnumerable<object[]> IndexConsolidationTestCases { get; private set; } = new[]
             {
                 // indicesOfAllDifferences,  expectedConsolidatedOutputIndices
                 // Simple cases, no consolidation so far. Each diff index is > maxDiffLength from the next.
