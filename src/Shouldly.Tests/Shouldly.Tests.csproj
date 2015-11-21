@@ -92,6 +92,7 @@
     <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
     <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
     <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
+    <Compile Include="InternalTests\StringShouldBeAssertionTests.cs" />
     <Compile Include="ShouldBeBoolean\FalseScenario.cs" />
     <Compile Include="ShouldBeBoolean\TrueScenario.cs" />
     <Compile Include="ShouldBeNegative\ZeroDecimalWithFunctionContextScenario.cs" />
@@ -212,6 +213,9 @@
     <Compile Include="ShouldThrow\TaskWithTimeoutScenario.cs" />
     <Compile Include="Strings\ShouldBeNullOrWhiteSpace.cs" />
     <Compile Include="Strings\ShouldContainWithoutWhitespaceSubset.cs" />
+    <Compile Include="Strings\ShouldBe\CaseAndLineEndingInsensitiveScenario.cs" />
+    <Compile Include="Strings\ShouldBe\InsensitiveToLineEndingsScenario.cs" />
+    <Compile Include="Strings\ShouldBe\SensitiveToLineEndingsScenario.cs" />
     <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseInSensitive.cs" />
     <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseSensitive.cs" />
     <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />

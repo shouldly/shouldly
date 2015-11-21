@@ -201,10 +201,18 @@ namespace Shouldly
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeStringTestExtensions
     {
-        public static void ShouldBe(this string actual, string expected) { }
+        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity) { }
+        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, string customMessage) { }
+        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
         public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBe(this string actual, string expected) { }
+        public static void ShouldBe(this string actual, string expected, string customMessage) { }
+        public static void ShouldBe(this string actual, string expected, System.Func<string> customMessage) { }
+        public static void ShouldBe(this string actual, string expected, Shouldly.StringCompareShould options) { }
+        public static void ShouldBe(this string actual, string expected, string customMessage, Shouldly.StringCompareShould option) { }
+        public static void ShouldBe(this string actual, string expected, System.Func<string> customMessage, Shouldly.StringCompareShould options) { }
         public static void ShouldBeNullOrEmpty(this string actual) { }
         public static void ShouldBeNullOrEmpty(this string actual, string customMessage) { }
         public static void ShouldBeNullOrEmpty(this string actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -515,5 +523,11 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+    }
+    [System.FlagsAttribute()]
+    public enum StringCompareShould
+    {
+        IgnoreCase = 1,
+        IgnoreLineEndings = 2,
     }
 }

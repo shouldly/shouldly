@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
     {
         protected override void ShouldThrowAWobbly()
         {
-            "SamplE".ShouldBe("sAMPLe", Case.Sensitive, () => "Some additional context");
+            "SamplE".ShouldBe("sAMPLe", () => "Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -15,7 +15,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
             { 
                 return @"'SamplE' should be 'sAMPLe' but was 'SamplE'
                           difference
-                          Case Sensitive Comparison
+                          Case and Line Ending Sensitive Comparison
                           Difference     |  |    |    |    |    |    |   
                                          | \|/  \|/  \|/  \|/  \|/  \|/  
                           Index          | 0    1    2    3    4    5    
@@ -31,7 +31,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
 
         protected override void ShouldPass()
         {
-            "SamplE".ShouldBe("SamplE", Case.Sensitive);
+            "SamplE".ShouldBe("SamplE");
         }
     }
 }
