@@ -5,10 +5,11 @@ namespace Shouldly.Internals.Assertions
 {
     internal class StringShouldBeAssertion : IAssertion
     {
-        private string _expected, _actual;
-        private Func<string, string, bool> _compare;
-        private ICodeTextGetter _codeTextGetter;
-        private IStringDifferenceHighlighter _diffHighlighter;
+        readonly string _expected;
+        readonly string _actual;
+        readonly Func<string, string, bool> _compare;
+        readonly ICodeTextGetter _codeTextGetter;
+        readonly IStringDifferenceHighlighter _diffHighlighter;
 
         public StringShouldBeAssertion(
             string expected, string actual,
