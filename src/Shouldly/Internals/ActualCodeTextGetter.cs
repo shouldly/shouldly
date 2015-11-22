@@ -17,11 +17,11 @@ namespace Shouldly.Internals
 
         public string GetCodeText()
         {
-            dostuff();
+            SetSourceCodeInfo();
             return GetCodePart();
         }
 
-        private void dostuff()
+        private void SetSourceCodeInfo()
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
