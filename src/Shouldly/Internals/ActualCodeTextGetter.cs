@@ -54,11 +54,11 @@ namespace Shouldly.Internals
 
             var fileName = originatingFrame.GetFileName();
 
-           DeterminedOriginatingFrame = fileName != null && File.Exists(fileName);
-           ShouldMethod = shouldlyFrame.GetMethod().Name;
-           UnderlyingShouldMethod = shouldlyFrame.GetMethod();
-           FileName = fileName;
-           LineNumber = originatingFrame.GetFileLineNumber() - 1;
+            DeterminedOriginatingFrame = fileName != null && File.Exists(fileName);
+            ShouldMethod = shouldlyFrame.GetMethod().Name;
+            UnderlyingShouldMethod = shouldlyFrame.GetMethod();
+            FileName = fileName;
+            LineNumber = originatingFrame.GetFileLineNumber() - 1;
         }
         private bool IsShouldlyMethod(MethodBase method)
         {
