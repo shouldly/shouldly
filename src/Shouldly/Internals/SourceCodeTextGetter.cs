@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Shouldly.Internals
 {
-    internal class ActualCodeTextGetter : ICodeTextGetter
+    internal class SourceCodeTextGetter : ICodeTextGetter
     {
         private bool DeterminedOriginatingFrame;
         private string ShouldMethod;
