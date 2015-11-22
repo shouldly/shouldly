@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Shouldly.Internals
 {
-    internal class ActualCodeTextGetter : ICodeTextGetter
+    internal class SourceCodeTextGetter : ICodeTextGetter
     {
         private bool DeterminedOriginatingFrame;
         private string ShouldMethod;
@@ -17,11 +17,11 @@ namespace Shouldly.Internals
 
         public string GetCodeText()
         {
-            dostuff();
+            SetSourceCodeInfo();
             return GetCodePart();
         }
 
-        private void dostuff()
+        private void SetSourceCodeInfo()
         {
             var stackTrace = new StackTrace(true);
             var i = 0;
@@ -54,12 +54,13 @@ namespace Shouldly.Internals
 
             var fileName = originatingFrame.GetFileName();
 
-           DeterminedOriginatingFrame = fileName != null && File.Exists(fileName);
-           ShouldMethod = shouldlyFrame.GetMethod().Name;
-           UnderlyingShouldMethod = shouldlyFrame.GetMethod();
-           FileName = fileName;
-           LineNumber = originatingFrame.GetFileLineNumber() - 1;
+            DeterminedOriginatingFrame = fileName != null && File.Exists(fileName);
+            UnderlyingShouldMethod = shouldlyFrame.GetMethod();
+            ShouldMethod = UnderlyingShouldMethod.Name;
+            FileName = fileName;
+            LineNumber = originatingFrame.GetFileLineNumber() - 1;
         }
+
         private bool IsShouldlyMethod(MethodBase method)
         {
             if (method.DeclaringType == null)
@@ -74,27 +75,22 @@ namespace Shouldly.Internals
             var codePart = "Shouldly uses your source code to generate it's great error messages, build your test project with full debug information to get better error messages" +
                            "\nThe provided expression";
 
-            if (DeterminedOriginatingFrame)
+            if (!DeterminedOriginatingFrame) return codePart;
+
+            var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
+
+            var indexOf = codeLines.IndexOf(ShouldMethod);
+            if (indexOf > 0)
+                codePart = codeLines.Substring(0, indexOf - 1).Trim();
+
+            // When the static method is used instead of the extension method,
+            // the code part will be "Should".
+            // Using Endswith to cater for being inside a lambda
+            if (codePart.EndsWith("Should"))
             {
-                var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
-
-                var indexOf = codeLines.IndexOf(ShouldMethod);
-                if (indexOf > 0)
-                    codePart = codeLines.Substring(0, indexOf - 1).Trim();
-
-                // When the static method is used instead of the extension method,
-                // the code part will be "Should".
-                // Using Endswith to cater for being inside a lambda
-                if (codePart.EndsWith("Should"))
-                {
-                    codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
-                }
-                else
-                {
-                    codePart = codePart.RemoveVariableAssignment().RemoveBlock();
-                }
+                return GetCodePartFromParameter(indexOf, codeLines, codePart);
             }
-            return codePart;
+            return codePart.RemoveVariableAssignment().RemoveBlock();
         }
 
         private string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)

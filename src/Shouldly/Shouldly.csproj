@@ -66,7 +66,7 @@
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
-    <Compile Include="Internals\ActualCodeTextGetter.cs" />
+    <Compile Include="Internals\SourceCodeTextGetter.cs" />
     <Compile Include="Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
     <Compile Include="Internals\Assertions\IAssertion.cs" />
     <Compile Include="Internals\Assertions\StringShouldBeAssertion.cs" />

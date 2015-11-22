@@ -14,7 +14,7 @@ namespace Shouldly.Internals.AssertionFactories
                     return new StringShouldBeAssertion(
                         expected, actual,
                         StringComparer.InvariantCulture.Equals,
-                        new ActualCodeTextGetter(),
+                        new SourceCodeTextGetter(),
                         new StringDifferenceHighlighter(
                             "Case and Line Ending Sensitive Comparison",
                             Case.Sensitive));
@@ -22,7 +22,7 @@ namespace Shouldly.Internals.AssertionFactories
                     return new StringShouldBeAssertion(
                         expected, actual,
                         StringComparer.InvariantCultureIgnoreCase.Equals,
-                        new ActualCodeTextGetter(),
+                        new SourceCodeTextGetter(),
                         new StringDifferenceHighlighter(
                             "Case Insensitive and Line Ending Sensitive Comparison",
                             Case.Insensitive));
@@ -31,7 +31,7 @@ namespace Shouldly.Internals.AssertionFactories
                         expected, actual,
                         (a, e) => StringComparer.InvariantCulture.Equals(
                             a.NormalizeLineEndings(), e.NormalizeLineEndings()),
-                        new ActualCodeTextGetter(),
+                        new SourceCodeTextGetter(),
                         new StringDifferenceHighlighter(
                             "Case Sensitive and Line Ending Insensitive Comparison",
                             Case.Sensitive, s => s.NormalizeLineEndings()));
@@ -40,7 +40,7 @@ namespace Shouldly.Internals.AssertionFactories
                         expected, actual,
                         (a, e) => StringComparer.InvariantCultureIgnoreCase.Equals(
                             a.NormalizeLineEndings(), e.NormalizeLineEndings()),
-                        new ActualCodeTextGetter(),
+                        new SourceCodeTextGetter(),
                         new StringDifferenceHighlighter(
                             "Case and Line Ending Insensitive Comparison",
                             Case.Insensitive, s => s.NormalizeLineEndings()));
