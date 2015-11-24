@@ -35,22 +35,22 @@ namespace Shouldly
                 return "\"" + value + "\"";
 
             if (value is decimal)
-                return value + "M";
+                return value + "m";
 
             if (value is double)
-                return value + "D";
+                return value + "d";
 
             if (value is float)
-                return value + "F";
+                return value + "f";
 
             if (value is long)
                 return value + "L";
 
             if (value is uint)
-                return value + "U";
+                return value + "u";
 
             if (value is ulong)
-                return value + "UL";
+                return value + "uL";
 
             if (value is IEnumerable)
             {

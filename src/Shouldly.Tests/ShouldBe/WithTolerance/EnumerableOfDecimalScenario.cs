@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
             get
             {
                 return
-                    "firstSet should be within 0.1 of [1.4301, 2.34, 3.45] but was [1.23, 2.34, 3.45001] difference [*1.23*, 2.34, *3.45001*]" +
+                    "firstSet should be within 0.1m of [1.4301m, 2.34m, 3.45m] but was [1.23m, 2.34m, 3.45001m] difference [*1.23m*, 2.34m, *3.45001m*]" +
                     "Additional Info:" +
                     "Some additional context";
             }

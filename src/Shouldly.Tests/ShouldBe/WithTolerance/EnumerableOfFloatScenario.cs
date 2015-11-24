@@ -14,9 +14,9 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         {
             get {
                 return "new[] { (float)Math.PI, (float)Math.PI } " +
-                       "should be within 0.01 of [3.24, 3.24] " +
-                       "but was[3.141593, 3.141593] " +
-                       "difference [*3.141593*, *3.141593*] " +
+                       "should be within 0.01d of [3.24f, 3.24f] " +
+                       "but was[3.141593f, 3.141593f] " +
+                       "difference [*3.141593f*, *3.141593f*] " +
                        "Additional Info: " +
                        "Some additional context";
             }

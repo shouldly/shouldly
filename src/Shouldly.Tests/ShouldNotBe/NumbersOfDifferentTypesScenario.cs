@@ -17,7 +17,7 @@ namespace Shouldly.Tests.ShouldNotBe
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "aLong should not be 1 but was"; }
+            get { return "aLong should not be 1L but was"; }
         }
     }
 }

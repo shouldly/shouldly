@@ -15,7 +15,7 @@ namespace Shouldly.Tests.ShouldBe
         {
             get
             {
-                return @"a should be 0.1 but was 0
+                return @"a should be 0.1d but was 0
 Additional Info:
 Some additional context";
             }

@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
         {
             get
             {
-                return "new[] { 1m, 2m, 5m } should be subset of  [2, 3, 4] but [1, 5] are outside subset" +
+                return "new[] { 1m, 2m, 5m } should be subset of  [2m, 3m, 4m] but [1m, 5m] are outside subset" +
                        "Additional Info:" +
                        "Some additional context";
             }

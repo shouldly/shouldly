@@ -19,7 +19,7 @@ namespace Shouldly.Tests.ShouldBe
         {
             get
             {
-                return @"aLong should be 1 but was 2
+                return @"aLong should be 1L but was 2L
 Additional Info:
 Some additional context";
             }

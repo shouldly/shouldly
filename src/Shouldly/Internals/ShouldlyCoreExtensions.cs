@@ -18,7 +18,6 @@ namespace Shouldly
             {
                 throw new ShouldAssertException(ex.Message, ex);
             }
-
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage).ToString());
         }
 

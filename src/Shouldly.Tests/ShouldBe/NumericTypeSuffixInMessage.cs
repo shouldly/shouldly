@@ -19,7 +19,7 @@ namespace Shouldly.Tests.ShouldBe
         {
             get
             {
-                return @"uLong should be 3UL but was 2UL";
+                return @"uLong should be 3uL but was 2uL";
             }
         }
     }

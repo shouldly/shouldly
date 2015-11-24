@@ -14,7 +14,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         protected override string ChuckedAWobblyErrorMessage
         {
             get {
-                return "pi should be within 0.01 of 3.24 but was 3.141593 " +
+                return "pi should be within 0.01d of 3.24f but was 3.141593f " +
                        "Additional Info: " +
                        "Some additional context";
             }
