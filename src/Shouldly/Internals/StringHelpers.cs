@@ -49,9 +49,7 @@ namespace Shouldly
                 return value.As<Enum>().ToStringAwesomely();
 
             if (value is ConstantExpression)
-            {
                 return value.As<ConstantExpression>().Value.ToStringAwesomely();
-            }
 
             if (value is MemberExpression)
             {
@@ -68,7 +66,7 @@ namespace Shouldly
             }
 #endif
 
-            return value == null ? "null" : value.ToString();
+            return value.ToString();
         }
 
         internal static string PascalToSpaced(this string pascal)
@@ -131,7 +129,7 @@ namespace Shouldly
 
         internal static string ToSafeString(this char c)
         {
-            if (Char.IsControl(c) || char.IsWhiteSpace(c))
+            if (Char.IsControl(c) || Char.IsWhiteSpace(c))
             {
                 switch (c)
                 {
@@ -158,8 +156,7 @@ namespace Shouldly
 
         internal static string NormalizeLineEndings(this string s)
         {
-            if (s == null) return null;
-            return Regex.Replace(s, @"\r\n?", "\n");
+            return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
         }
     }
 }
