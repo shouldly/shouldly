@@ -41,14 +41,14 @@ namespace Shouldly
             }
         }
 
-        private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
+        static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
         {
             var errorCount = 1;
             var sb = new StringBuilder();
             foreach (var errorMessage in errorMessages)
             {
-                sb.AppendLine(string.Format("--------------- Error {0} ---------------", errorCount));
-                sb.AppendLine(errorMessage.Message.StripLambdaExpressionSyntax());
+                sb.AppendLine($"--------------- Error {errorCount} ---------------");
+                sb.AppendLine(errorMessage.ToString());
                 sb.AppendLine();
                 errorCount++;
             }

@@ -29,7 +29,7 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString(), e);
             }
 
             throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage).ToString());
