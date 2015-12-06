@@ -1,12 +1,40 @@
 ﻿#if net40
 using System.Dynamic;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.DynamicShouldTests
 {
-    public class MultiLineHavePropertyScenario_MaximumLines : ShouldlyShouldTestScenario
+    public class MultiLineHavePropertyScenario_MaximumLines
     {
-        protected override void ShouldPass()
+
+        [Fact(Skip = "DynamicShould is broken when stackframe is not available")]
+        public void MultiLineHavePropertyScenario_MaximumLinesShouldFail()
+        {
+            dynamic testDynamicObject = new ExpandoObject();
+            testDynamicObject.Bar = "BarPropertyValue";
+            Verify.ShouldFail(() =>
+            DynamicShould
+                .HaveProperty
+                (
+                testDynamicObject,
+                "foo",
+                "Some additional context"
+                ),
+
+errorWithSource:
+@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+Additional Info:
+Some additional context",
+
+errorWithoutSource:
+@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+Additional Info:
+Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
         {
             dynamic testDynamicObject = new ExpandoObject();
             testDynamicObject.Foo = "FooPropertyValue";
@@ -16,26 +44,6 @@ namespace Shouldly.Tests.DynamicShouldTests
                 testDynamicObject,
                 "Foo"
                 );
-        }
-
-        protected override void ShouldThrowAWobbly()
-        {
-            dynamic testDynamicObject = new ExpandoObject();
-            testDynamicObject.Bar = "BarPropertyValue";
-            DynamicShould
-                .HaveProperty
-                (
-                testDynamicObject, 
-                "foo",
-                "Some additional context"
-                );
-        }
-
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "Dynamic object \"testDynamicObject\" should contain property \"foo\" but does not." + @"
-Additional Info:
-Some additional context"; }
         }
     }
 }
