@@ -1,30 +1,35 @@
 ﻿using System;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe
 {
-    public class BadEquatibleClassScenario : ShouldlyShouldTestScenario
+    public class BadEquatibleClassScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void BadEquatibleClassScenarioShouldFail()
         {
-            new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context");
-        }
+            Verify.ShouldFail(() =>
+    new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"new BadEquatable() should be Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable 
-                        but was Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable
+    errorWithSource:
+@"new BadEquatable()
+    should be
+Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable (000000)
+    but was
+Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable (000000)
+
 Additional Info:
-Some additional context";
-            }
-        }
+    Some additional context",
 
-        protected override void ShouldPass()
-        {
-            var instance = new BadEquatable();
-            instance.ShouldBe(instance);
+    errorWithoutSource:
+@"Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable (000000)
+    should be
+Shouldly.Tests.ShouldBe.BadEquatibleClassScenario+BadEquatable (000000)
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
         public class BadEquatable : IEquatable<BadEquatable>
@@ -33,6 +38,13 @@ Some additional context";
             {
                 return false;
             }
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            var instance = new BadEquatable();
+            instance.ShouldBe(instance);
         }
     }
 }
