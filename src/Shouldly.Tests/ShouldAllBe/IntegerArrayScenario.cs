@@ -1,27 +1,44 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldAllBe
 {
-    public class IntegerArrayScenario : ShouldlyShouldTestScenario
+    public class IntegerArrayScenario
     {
-        protected override void ShouldThrowAWobbly()
+
+        [Fact]
+        public void IntegerArrayScenarioShouldFail()
         {
-            new[] {1, 2, 3}.ShouldAllBe(x => x < 2, "Some additional context");
+            Verify.ShouldFail(() =>
+new[] { 1, 2, 3 }.ShouldAllBe(x => x < 2, "Some additional context"),
+
+errorWithSource:
+@"new[] { 1, 2, 3 }
+    should satisfy the condition
+(x < 2)
+    but
+[2, 3]
+    do not
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 3]
+    should satisfy the condition
+(x < 2)
+    but
+[2, 3]
+    do not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return "new[] { 1, 2, 3 } should satisfy the condition (x < 2) but [2,3] do not" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
-        {
-            new[] {1, 2, 3}.ShouldAllBe(x => x < 4);
+            new[] { 1, 2, 3 }.ShouldAllBe(x => x < 4);
         }
     }
 }
