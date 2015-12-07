@@ -8,7 +8,6 @@ namespace Shouldly.Tests.InternalTests
 {
     public class DifferenceHighlighterHelpersTests
     {
-
         [Fact]
         public void HighlightDifferencesBetween_IntegerListsSameExceptOne_HighlightsDifference()
         {

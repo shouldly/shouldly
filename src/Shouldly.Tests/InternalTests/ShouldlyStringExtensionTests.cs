@@ -4,8 +4,10 @@ using Xunit.Extensions;
 namespace Shouldly.Tests.InternalTests
 {
     public class ShouldlyStringExtensionTests
+   
     {
-        [Fact]
+
+    [Fact]
         public void Clip_ShouldNotReduceTheSizeOfAStringSmallerThanTheMaximumLength()
         {
             "small".ShouldMatch("small".Clip(10));
