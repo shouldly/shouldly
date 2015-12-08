@@ -1,24 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
 {
-    public class StringScenario : ShouldlyShouldTestScenario
+    public class StringScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringScenarioShouldFail()
         {
-            "a".ShouldBeGreaterThanOrEqualTo("b", "Some additional context");
+            var aVar = "a";
+            Verify.ShouldFail(() =>
+aVar.ShouldBeGreaterThanOrEqualTo("b", "Some additional context"),
+
+errorWithSource:
+@"aVar
+    should be greater than or equal to
+""b""
+    but was
+""a""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"""a""
+    should be greater than or equal to
+""b""
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "\"a\" should be greater than or equal to \"b\" but was \"a\"" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "a".ShouldBeGreaterThanOrEqualTo("a");
         }
