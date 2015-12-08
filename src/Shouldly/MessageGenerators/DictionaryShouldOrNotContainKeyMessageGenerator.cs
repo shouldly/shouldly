@@ -1,32 +1,31 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
 {
     internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("Should(Not)?ContainKey", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("Should(Not)?ContainKey", RegexOptions.Compiled);
+
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
+            return Validator.IsMatch(context.ShouldMethod);
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-    Dictionary
-        ""{0}""
+            const string format = 
+@"{0}
     {1}
-        ""{2}""
-    but does {3}";
+{2}
+    but does{3}";
 
-            var codePart = context.CodePart;
+            var codePart = context.CodePart ?? context.Actual.ToStringAwesomely();
             var expectedValue = context.Expected.ToStringAwesomely();
 
             if (context.IsNegatedAssertion)
-                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected, "");
+                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue, "");
 
-            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue.Trim('"'), "not");
+            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue, " not");
         }
     }
 }

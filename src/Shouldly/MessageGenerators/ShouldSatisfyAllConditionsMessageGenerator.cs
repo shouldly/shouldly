@@ -5,7 +5,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldSatisfyAllConditionsMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldSatisfyAllConditions", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("ShouldSatisfyAllConditions", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -22,7 +22,7 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToString();
 
-            return String.Format(format, codePart, expectedValue);
+            return string.Format(format, codePart, expectedValue);
         }
     }
 }

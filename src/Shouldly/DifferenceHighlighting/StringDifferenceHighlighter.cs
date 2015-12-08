@@ -39,59 +39,56 @@ namespace Shouldly.DifferenceHighlighting
                 output.Append(formattedDetailedDiffString);
                 return output.ToString();
             }
-            else
+
+            var indicesOfAllDiffs = GetIndicesOfAllDifferences(actualValue, expectedValue, caseSensitivity);
+            var differenceIndexConsolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDiffs);
+            var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices();
+
+            if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
             {
-                var indicesOfAllDiffs = GetIndicesOfAllDifferences(actualValue, expectedValue, caseSensitivity);
-                var differenceIndexConsolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDiffs);
-                var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices();
-
-                if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
-                {
-                    output.AppendLine(string.Format("Showing some of the {0} differences", indicesOfAllDiffs.Count));
-                    startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
-                }
-
-                foreach (var startIndexOfDiffString in startIndicesOfAllDiffs)
-                {
-
-                    string trimmedActualValue = "";
-                    string trimmedExpectedValue = "";
-
-                    if (startIndexOfDiffString < actualValue.Length)
-                    {
-                       if(actualValue.Length >= startIndexOfDiffString + maxDiffLength)
-                        {
-                            trimmedActualValue = actualValue.Substring(startIndexOfDiffString, maxDiffLength);
-                        }
-                       else
-                       {
-                            trimmedActualValue = actualValue.Substring(startIndexOfDiffString);
-                       }
-                    }
-
-                    if (startIndexOfDiffString < expectedValue.Length)
-                    {
-                        if(expectedValue.Length >= startIndexOfDiffString + maxDiffLength)
-                        {
-                            trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString, maxDiffLength);
-                        }
-                        else
-                        {
-                            trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString);
-                        }
-                    }
-
-                    var prefixWithDots = startIndexOfDiffString != 0;
-                    var suffixWithDots = startIndexOfDiffString + maxDiffLength < maxLengthOfStrings;
-                    var formattedDetailedDiffString  = new FormattedDetailedDifferenceString(trimmedActualValue, trimmedExpectedValue, caseSensitivity, startIndexOfDiffString, prefixWithDots, suffixWithDots);
-                    output.Append(formattedDetailedDiffString);
-                }
-
-                return output.ToString();
+                output.AppendLine($"Showing some of the {indicesOfAllDiffs.Count} differences");
+                startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
             }
+
+            foreach (var startIndexOfDiffString in startIndicesOfAllDiffs)
+            {
+                var trimmedActualValue = "";
+                var trimmedExpectedValue = "";
+
+                if (startIndexOfDiffString < actualValue.Length)
+                {
+                    if(actualValue.Length >= startIndexOfDiffString + maxDiffLength)
+                    {
+                        trimmedActualValue = actualValue.Substring(startIndexOfDiffString, maxDiffLength);
+                    }
+                    else
+                    {
+                        trimmedActualValue = actualValue.Substring(startIndexOfDiffString);
+                    }
+                }
+
+                if (startIndexOfDiffString < expectedValue.Length)
+                {
+                    if(expectedValue.Length >= startIndexOfDiffString + maxDiffLength)
+                    {
+                        trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString, maxDiffLength);
+                    }
+                    else
+                    {
+                        trimmedExpectedValue = expectedValue.Substring(startIndexOfDiffString);
+                    }
+                }
+
+                var prefixWithDots = startIndexOfDiffString != 0;
+                var suffixWithDots = startIndexOfDiffString + maxDiffLength < maxLengthOfStrings;
+                var formattedDetailedDiffString  = new FormattedDetailedDifferenceString(trimmedActualValue, trimmedExpectedValue, caseSensitivity, startIndexOfDiffString, prefixWithDots, suffixWithDots);
+                output.Append(formattedDetailedDiffString);
+            }
+
+            return output.ToString();
         }
 
-        private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue, Case? caseSensitivity)
+        List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue, Case? caseSensitivity)
         {
             var indicesOfAlldifferences = new List<int>();
             int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);

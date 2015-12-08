@@ -8,7 +8,7 @@ namespace Shouldly.MessageGenerators
         {
             return context.ShouldMethod.StartsWith("Should")
                    && context.ShouldMethod.Contains("Contain")
-                   && context.UnderlyingShouldMethod.GetParameters().Any(p => p.Name == "tolerance");
+                   && context.Tolerance != null;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)

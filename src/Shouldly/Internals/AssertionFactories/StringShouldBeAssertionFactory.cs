@@ -1,6 +1,7 @@
 ﻿using Shouldly.DifferenceHighlighting2;
 using Shouldly.Internals.Assertions;
 using System;
+using System.Collections.Generic;
 
 namespace Shouldly.Internals.AssertionFactories
 {
@@ -8,45 +9,34 @@ namespace Shouldly.Internals.AssertionFactories
     {
         public static IAssertion Create(string expected, string actual, StringCompareShould options)
         {
-            switch (options)
+            List<string> optionsList = new List<string>();
+            if ((options & StringCompareShould.IgnoreLineEndings) != 0)
             {
-                case 0:
-                    return new StringShouldBeAssertion(
-                        expected, actual,
-                        StringComparer.InvariantCulture.Equals,
-                        new SourceCodeTextGetter(),
-                        new StringDifferenceHighlighter(
-                            "Case and Line Ending Sensitive Comparison",
-                            Case.Sensitive));
-                case StringCompareShould.IgnoreCase:
-                    return new StringShouldBeAssertion(
-                        expected, actual,
-                        StringComparer.InvariantCultureIgnoreCase.Equals,
-                        new SourceCodeTextGetter(),
-                        new StringDifferenceHighlighter(
-                            "Case Insensitive and Line Ending Sensitive Comparison",
-                            Case.Insensitive));
-                case StringCompareShould.IgnoreLineEndings:
-                    return new StringShouldBeAssertion(
-                        expected, actual,
-                        (a, e) => StringComparer.InvariantCulture.Equals(
-                            a.NormalizeLineEndings(), e.NormalizeLineEndings()),
-                        new SourceCodeTextGetter(),
-                        new StringDifferenceHighlighter(
-                            "Case Sensitive and Line Ending Insensitive Comparison",
-                            Case.Sensitive, s => s.NormalizeLineEndings()));
-                case StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings:
-                    return new StringShouldBeAssertion(
-                        expected, actual,
-                        (a, e) => StringComparer.InvariantCultureIgnoreCase.Equals(
-                            a.NormalizeLineEndings(), e.NormalizeLineEndings()),
-                        new SourceCodeTextGetter(),
-                        new StringDifferenceHighlighter(
-                            "Case and Line Ending Insensitive Comparison",
-                            Case.Insensitive, s => s.NormalizeLineEndings()));
-                default:
-                    throw new InvalidOperationException();
+                expected = expected.NormalizeLineEndings();
+                actual = actual.NormalizeLineEndings();
+                optionsList.Add("Ignoring line endings");
             }
+
+            Case sensitivity;
+            Func<string, string, bool> stringComparer;
+            if ((options & StringCompareShould.IgnoreCase) == 0)
+            {
+                sensitivity = Case.Sensitive;
+                stringComparer = StringComparer.InvariantCulture.Equals;
+                optionsList.Add("Ignoring case");
+            }
+            else
+            {
+                sensitivity = Case.Insensitive;
+                stringComparer = StringComparer.InvariantCultureIgnoreCase.Equals;
+            }
+
+                    return new StringShouldBeAssertion(
+                        expected, actual,
+                        stringComparer,
+                        new ActualCodeTextGetter(),
+                        new StringDifferenceHighlighter(sensitivity),
+                        string.Join(", ", optionsList));
         }
     }
 }

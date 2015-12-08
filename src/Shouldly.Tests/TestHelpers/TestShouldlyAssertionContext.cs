@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Shouldly.Tests.TestHelpers
@@ -29,6 +30,7 @@ namespace Shouldly.Tests.TestHelpers
 
         public Case? CaseSensitivity { get; set; }
         public bool CodePartMatchesActual => CodePart == Actual.ToStringAwesomely();
+        public Expression Filter { get; set; }
 
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {

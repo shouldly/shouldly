@@ -7,23 +7,25 @@ using System.Reflection;
 
 namespace Shouldly.Internals
 {
-    internal class SourceCodeTextGetter : ICodeTextGetter
+    internal class ActualCodeTextGetter : ICodeTextGetter
     {
-        private bool DeterminedOriginatingFrame;
-        private string ShouldMethod;
-        private MethodBase UnderlyingShouldMethod;
-        private string FileName;
-        private int LineNumber;
+        bool _determinedOriginatingFrame;
+        string _shouldMethod;
+        string _fileName;
+        int _lineNumber;
 
-        public string GetCodeText()
+        public string GetCodeText(object actual, StackTrace stackTrace)
         {
-            SetSourceCodeInfo();
+            ParseStackTrace(stackTrace);
+
+            if (ShouldlyConfiguration.IsSourceDisabledInErrors())
+                return actual.ToStringAwesomely();
             return GetCodePart();
         }
 
-        private void SetSourceCodeInfo()
+        void ParseStackTrace(StackTrace trace)
         {
-            var stackTrace = new StackTrace(true);
+            var stackTrace = trace ?? new StackTrace(true);
             var i = 0;
             var currentFrame = stackTrace.GetFrame(i);
 
@@ -54,14 +56,13 @@ namespace Shouldly.Internals
 
             var fileName = originatingFrame.GetFileName();
 
-            DeterminedOriginatingFrame = fileName != null && File.Exists(fileName);
-            UnderlyingShouldMethod = shouldlyFrame.GetMethod();
-            ShouldMethod = UnderlyingShouldMethod.Name;
-            FileName = fileName;
-            LineNumber = originatingFrame.GetFileLineNumber() - 1;
+           _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
+           _shouldMethod = shouldlyFrame.GetMethod().Name;
+           _fileName = fileName;
+           _lineNumber = originatingFrame.GetFileLineNumber() - 1;
         }
 
-        private bool IsShouldlyMethod(MethodBase method)
+        bool IsShouldlyMethod(MethodBase method)
         {
             if (method.DeclaringType == null)
                 return false;
@@ -70,34 +71,39 @@ namespace Shouldly.Internals
                || (method.DeclaringType.DeclaringType !=null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
 
-        private string GetCodePart()
+        string GetCodePart()
         {
             var codePart = "Shouldly uses your source code to generate it's great error messages, build your test project with full debug information to get better error messages" +
                            "\nThe provided expression";
 
-            if (!DeterminedOriginatingFrame) return codePart;
-
-            var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
-
-            var indexOf = codeLines.IndexOf(ShouldMethod);
-            if (indexOf > 0)
-                codePart = codeLines.Substring(0, indexOf - 1).Trim();
-
-            // When the static method is used instead of the extension method,
-            // the code part will be "Should".
-            // Using Endswith to cater for being inside a lambda
-            if (codePart.EndsWith("Should"))
+            if (_determinedOriginatingFrame)
             {
-                return GetCodePartFromParameter(indexOf, codeLines, codePart);
+                var codeLines = string.Join("\n", File.ReadAllLines(_fileName).Skip(_lineNumber).ToArray());
+
+                var indexOf = codeLines.IndexOf(_shouldMethod);
+                if (indexOf > 0)
+                    codePart = codeLines.Substring(0, indexOf - 1).Trim();
+
+                // When the static method is used instead of the extension method,
+                // the code part will be "Should".
+                // Using Endswith to cater for being inside a lambda
+                if (codePart.EndsWith("Should"))
+                {
+                    codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
+                }
+                else
+                {
+                    codePart = codePart.RemoveVariableAssignment().RemoveBlock();
+                }
             }
-            return codePart.RemoveVariableAssignment().RemoveBlock();
+            return codePart;
         }
 
         private string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
         {
             var indexOfParameters =
                 indexOfMethod +
-                ShouldMethod.Length;
+                _shouldMethod.Length;
 
             var parameterString = codeLines.Substring(indexOfParameters);
             // Remove generic parameter if need be

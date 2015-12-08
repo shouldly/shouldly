@@ -7,37 +7,36 @@ namespace Shouldly.MessageGenerators
     {
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.StartsWith("Should")
+            return context.ShouldMethod.StartsWith("ShouldBe")
                    && !context.ShouldMethod.Contains("Contain")
-                   && context.UnderlyingShouldMethod != null
-                   && context.UnderlyingShouldMethod.GetParameters().Any(p => p.Name == "tolerance");
+                   && context.Tolerance != null;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-    {0}
-       should {1}be within
-    {2}
-        of
-    {3}
-        but was 
-    {4}";
-
             var codePart = context.CodePart;
             var tolerance = context.Tolerance.ToStringAwesomely();
             var expectedValue = context.Expected.ToStringAwesomely();
             var actualValue = context.Actual.ToStringAwesomely();
+            string actual;
+            if (codePart == actualValue) actual = " not";
+            else actual = $@"
+{actualValue}";
             var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
-            var message = string.Format(format, codePart, negated, tolerance, expectedValue, actualValue);
+            var message =
+$@"{codePart}
+    should {negated}be within
+{tolerance}
+    of
+{expectedValue}
+    but was{actual}";
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
-                message += string.Format(@"
-        difference
-    {0}",
-                    DifferenceHighlighter.HighlightDifferences(context));
+                message += $@"
+    difference
+{DifferenceHighlighter.HighlightDifferences(context)}";
             }
 
             return message;

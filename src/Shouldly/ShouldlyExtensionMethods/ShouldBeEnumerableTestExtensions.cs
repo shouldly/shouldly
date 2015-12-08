@@ -92,7 +92,7 @@ namespace Shouldly
             var condition = elementPredicate.Compile();
             var actualResults = actual.Where(part => !condition(part));
             if (actualResults.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actualResults, customMessage).ToString());
+                throw new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage).ToString());
         }
 
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual)

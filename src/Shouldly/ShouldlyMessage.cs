@@ -41,6 +41,18 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
+    internal class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
+    {
+        public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object result, object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, result, actual)
+            {
+                HasRelevantActual = true,
+                Filter = filter
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
 
     internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
@@ -183,18 +195,18 @@ namespace Shouldly
 
     internal abstract class ShouldlyMessage
     {
-        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
+        static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
             new ShouldBeNullOrEmptyMessageGenerator(),
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
     #if net40
-            new DynamicShouldMessageGenerator(),
+            // new DynamicShouldMessageGenerator(), TODO Make worth without stacktraces
             new ShouldCompleteInMessageGenerator(),
             new ShouldBeNullOrWhiteSpaceMessageGenerator(),
     #endif
+            new DictionaryShouldContainKeyAndValueMessageGenerator(),
             new DictionaryShouldOrNotContainKeyMessageGenerator(),
-            new DictionaryShouldContainKeyAndValueMessageGenerator(), 
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
@@ -214,77 +226,74 @@ namespace Shouldly
             new ShouldBePositiveMessageGenerator(),
             new ShouldBeNegativeMessageGenerator()
         };
-        private IShouldlyAssertionContext _shouldlyAssertionContext;
 
-        protected IShouldlyAssertionContext ShouldlyAssertionContext
-        {
-            get { return _shouldlyAssertionContext; }
-            set { _shouldlyAssertionContext = value; }
-        }
+        protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }
 
         public override string ToString()
         {
             var message = GenerateShouldMessage();
-            if (_shouldlyAssertionContext.CustomMessage != null)
+            if (ShouldlyAssertionContext.CustomMessage != null)
             {
-                message += string.Format(@"
+                message += $@"
 
 Additional Info:
-    {0}", _shouldlyAssertionContext.CustomMessage);
+    {ShouldlyAssertionContext.CustomMessage}";
             }
             return message;
         }
 
         string GenerateShouldMessage()
         {
-            var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(_shouldlyAssertionContext));
+            var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(ShouldlyAssertionContext));
             if (messageGenerator != null)
             {
-                var message = messageGenerator.GenerateErrorMessage(_shouldlyAssertionContext);
+                var message = messageGenerator.GenerateErrorMessage(ShouldlyAssertionContext);
                 return message;
             }
 
-            if (_shouldlyAssertionContext.HasRelevantActual)
+            if (ShouldlyAssertionContext.HasRelevantActual)
             {
-                return CreateActualVsExpectedMessage(_shouldlyAssertionContext);
+                return CreateActualVsExpectedMessage(ShouldlyAssertionContext);
             }
 
             return CreateExpectedErrorMessage();
         }
 
-        public string CreateExpectedErrorMessage()
+        string CreateExpectedErrorMessage()
         {
-            var format = 
-@"{0}
-    {1} {2}
-{3}
-    but does{4}";
+            var codePart = ShouldlyAssertionContext.CodePart;
+            var isNegatedAssertion = ShouldlyAssertionContext.ShouldMethod.Contains("Not");
 
-            var codePart = _shouldlyAssertionContext.CodePart;
-            var isNegatedAssertion = _shouldlyAssertionContext.ShouldMethod.Contains("Not");
-
-            const string elementSatifyingTheConditionString = "an element satisfying the condition";
-            return string.Format(format, codePart, _shouldlyAssertionContext.ShouldMethod.PascalToSpaced(), _shouldlyAssertionContext.Expected is BinaryExpression ? elementSatifyingTheConditionString : "", _shouldlyAssertionContext.Expected.ToStringAwesomely(), isNegatedAssertion ? "" : " not");
+            var shouldMethod = ShouldlyAssertionContext.ShouldMethod.PascalToSpaced();
+            var expected = ShouldlyAssertionContext.Expected.ToStringAwesomely();
+            var conditionString = ShouldlyAssertionContext.Expected is BinaryExpression
+                ? "an element satisfying the condition"
+                : "";
+            return
+$@"{codePart}
+    {shouldMethod} {conditionString}
+{expected}
+    but does{(isNegatedAssertion ? "" : " not")}";
         }
 
-        private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
+        static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var message = string.Format(
-@"{0}
-    {1}
-{2}
-    but was
-{3}",
-                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(),
-                context.Actual.ToStringAwesomely());
+            var actual = context.Actual.ToStringAwesomely();
+            var actualString = codePart == actual ? " not" : $@"
+{actual}";
+
+            var message =
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()}
+{context.Expected.ToStringAwesomely()}
+    but was{actualString}";
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
-                message += string.Format(@"
+                message += $@"
     difference
-{0}",
-                DifferenceHighlighter.HighlightDifferences(context));
+{DifferenceHighlighter.HighlightDifferences(context)}";
             }
             return message;
         }

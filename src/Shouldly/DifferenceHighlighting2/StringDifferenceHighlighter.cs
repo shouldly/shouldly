@@ -10,14 +10,12 @@ namespace Shouldly.DifferenceHighlighting2
     {
         int maxDiffLength = 21;
         int maxNumberOfDiffs = 10;
-
-        readonly string _comparison;
+        
         readonly Case _sensitivity;
         readonly Func<string, string> _transform;
 
-        public StringDifferenceHighlighter(string comparison, Case sensitivity, Func<string, string> transform = null)
+        public StringDifferenceHighlighter(Case sensitivity, Func<string, string> transform = null)
         {
-            _comparison = comparison;
             _sensitivity = sensitivity;
             _transform = transform ?? (s => s);
         }
@@ -31,7 +29,6 @@ namespace Shouldly.DifferenceHighlighting2
             int maxLengthOfStrings = Math.Max(actual.Length, expected.Length);
 
             var output = new StringBuilder();
-            output.AppendLine(_comparison);
 
             if (maxLengthOfStrings < maxDiffLength)
             {
