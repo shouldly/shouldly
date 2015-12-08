@@ -6,15 +6,16 @@ namespace Shouldly.Tests.ShouldBeNegative
     {
         protected override void ShouldThrowAWobbly()
         {
-           0.ShouldBeNegative("Some additional context");
+            var zeroInt = 0;
+            zeroInt.ShouldBeNegative("Some additional context");
         }
 
         protected override string ChuckedAWobblyErrorMessage
         {
             get {
-                return "0 was 0 and should be negative but wasn't" +
-                       "Additional Info: " +
-                       "Some additional context";
+                return @"zeroInt should be negative but 0 is positive
+Additional Info:
+    Some additional context";
             }
         }
     }

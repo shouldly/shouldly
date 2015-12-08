@@ -12,9 +12,9 @@ namespace Shouldly.Tests.ShouldBePositive
         protected override string ChuckedAWobblyErrorMessage
         {
             get {
-                return "0m was 0 and should be positive but wasn't" +
-                       "Additional Info: " +
-                       "Some additional context";
+                return @"0m should be positive but 0 is negative
+Additional Info:
+    Some additional context";
             }
         }
     }

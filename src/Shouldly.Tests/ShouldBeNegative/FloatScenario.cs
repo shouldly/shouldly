@@ -1,24 +1,36 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeNegative
 {
-    public class FloatScenario : ShouldlyShouldTestScenario
+    public class FloatScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void FloatScenarioShouldFail()
         {
-            3f.ShouldBeNegative("Some additional context");
+            var @float = 3f;
+            Verify.ShouldFail(() =>
+@float.ShouldBeNegative("Some additional context"),
+
+errorWithSource:
+@"@float
+    should be negative but
+3
+    is positive
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"3
+    should be negative but is positive
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "3f was 3 and should be negative but wasn't" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             (-7f).ShouldBeNegative();
         }
