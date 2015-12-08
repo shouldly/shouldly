@@ -224,7 +224,8 @@ namespace Shouldly
             new ShouldBeNullMessageGenerator(),
             new ShouldBeMessageGenerator(),
             new ShouldBePositiveMessageGenerator(),
-            new ShouldBeNegativeMessageGenerator()
+            new ShouldBeNegativeMessageGenerator(),
+            new ShouldBeTypeMessageGenerator()
         };
 
         protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }

@@ -15,9 +15,11 @@ namespace Shouldly.Tests.ShouldBeOfType
             get
             {
                 return
-                    "myThing should be of type Shouldly.Tests.TestHelpers.MyBase but was Shouldly.Tests.TestHelpers.MyThing" +
-                    "Additional Info: " +
-                    "Some additional context";
+                    @"myThing should be of type Shouldly.Tests.TestHelpers.MyBase
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+Additional Info:
+    Some additional context";
             }
         }
     }

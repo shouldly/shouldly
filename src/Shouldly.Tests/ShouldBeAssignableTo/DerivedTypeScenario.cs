@@ -24,10 +24,11 @@ Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"Shouldly.Tests.TestHelpers.MyThing
+@"Shouldly.Tests.TestHelpers.MyThing (000000)
     should be assignable to
 System.String
-    but was not
+    but was
+Shouldly.Tests.TestHelpers.MyThing
 
 Additional Info:
     Some additional context");
