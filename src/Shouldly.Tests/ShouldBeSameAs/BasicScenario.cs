@@ -1,29 +1,40 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeSameAs
 {
-    public class BasicScenario : ShouldlyShouldTestScenario
+    public class BasicScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void BasicScenarioShouldFail()
         {
             var zulu = new object();
             var tutsie = new object();
+            Verify.ShouldFail(() =>
+zulu.ShouldBeSameAs(tutsie, "Some additional context"),
 
-            zulu.ShouldBeSameAs(tutsie, "Some additional context");
+errorWithSource:
+@"zulu
+    should be same as
+System.Object (000000)
+    but was
+System.Object (000000)
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"System.Object (000000)
+    should be same as
+System.Object (000000)
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                //TODO maybe include GetHashCode?
-                return "zulu should be same as System.Object but was System.Object" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var zulu = new object();
 

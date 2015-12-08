@@ -14,7 +14,9 @@ namespace Shouldly.Tests.ShouldBeSameAs
 
         protected override string ChuckedAWobblyErrorMessage
         {
-            get { return "list should be same as [1, 2, 3] but was [1, 2, 3] difference [1, 2, 3]"; }
+            get { return @"list should be same as [1, 2, 3]
+    but was
+[1, 2, 3] difference [1, 2, 3]"; }
         }
     }
 }

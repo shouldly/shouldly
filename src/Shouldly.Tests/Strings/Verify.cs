@@ -5,7 +5,7 @@ namespace Shouldly.Tests.Strings
 {
     public static class Verify
     {
-        static readonly Regex MatchGetHashCode = new Regex("\\(\\d{6,8}\\)", RegexOptions.Compiled);
+        static readonly Regex MatchGetHashCode = new Regex("\\(\\d{5,8}\\)", RegexOptions.Compiled);
         public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource)
         {
             action
