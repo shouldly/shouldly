@@ -1,24 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeLessThan
 {
-    public class StringScenario : ShouldlyShouldTestScenario
+    public class StringScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringScenarioShouldFail()
         {
-            "b".ShouldBeLessThan("a", "Some additional context");
+            var beeeee = "b";
+            Verify.ShouldFail(() =>
+beeeee.ShouldBeLessThan("a", "Some additional context"),
+
+errorWithSource:
+@"beeeee
+    should be less than
+""a""
+    but was
+""b""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"""b""
+    should be less than
+""a""
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "\"b\" should be less than \"a\" but was \"b\"" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "a".ShouldBeLessThan("b");
         }
