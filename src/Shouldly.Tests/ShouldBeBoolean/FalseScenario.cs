@@ -1,28 +1,41 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeBoolean
 {
-    public class FalseScenario : ShouldlyShouldTestScenario
+    public class FalseScenario
     {
-        protected override void ShouldPass()
-        {
-            false.ShouldBeFalse();
-        }
-
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void FalseScenarioShouldFail()
         {
             const bool myValue = true;
-            myValue.ShouldBeFalse("Some additional context");
+            Verify.ShouldFail(() =>
+                myValue.ShouldBeFalse("Some additional context"),
+
+errorWithSource:
+@"myValue
+    should be
+False
+    but was
+True
+
+Additional Info:
+    Some additional context",
+
+    errorWithoutSource:
+@"True
+    should be
+False
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return @"myValue should be False but was True
-Additional Info:
-Some additional context";
-            }
+            false.ShouldBeFalse();
         }
     }
 }
