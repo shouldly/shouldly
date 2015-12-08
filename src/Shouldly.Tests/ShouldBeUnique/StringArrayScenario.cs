@@ -1,28 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeUnique
 {
-    public class StringArrayScenario : ShouldlyShouldTestScenario
+    public class StringArrayScenario
     {
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void StringArrayScenarioShouldFail()
         {
-            get
-            {
-                return "new string[] { \"string2\", \"string1\", \"string42\", \"string2\" } " +
-                       "should be unique but [\"string2\"] was duplicated" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
+            Verify.ShouldFail(() =>
+    new[] { "string2", "string1", "string42", "string2" }.ShouldBeUnique("Some additional context"),
+
+errorWithSource:
+@"new[] { ""string2"", ""string1"", ""string42"", ""string2"" }
+    should be unique but
+[""string2""]
+    was duplicated
+
+Additional Info:
+    Some additional context",
+
+    errorWithoutSource:
+@"[""string2"", ""string1"", ""string42"", ""string2""]
+    should be unique but
+[""string2""]
+    was duplicated
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShouldPass()
         {
-            new string[] {"string2", "string1", "string42", "string2"}.ShouldBeUnique("Some additional context");
-        }
-
-        protected override void ShouldPass()
-        {
-            new string[] {"string2", "string1", "string42", "string53"}.ShouldBeUnique();
+            new string[] { "string2", "string1", "string42", "string53" }.ShouldBeUnique();
         }
     }
 }

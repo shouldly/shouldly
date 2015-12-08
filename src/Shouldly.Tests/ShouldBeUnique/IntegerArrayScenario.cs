@@ -1,27 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeUnique
 {
-    public class IntegerArrayScenario : ShouldlyShouldTestScenario
+    public class IntegerArrayScenario
     {
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void IntegerArrayScenarioShouldFail()
         {
-            get
-            {
-                return "new [] { 1, 2, 2 } should be unique but [2] was duplicated" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
+            Verify.ShouldFail(() =>
+new[] { 1, 2, 2 }.ShouldBeUnique("Some additional context"),
+
+errorWithSource:
+@"new[] { 1, 2, 2 }
+    should be unique but
+[2]
+    was duplicated
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 2]
+    should be unique but
+[2]
+    was duplicated
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShouldPass()
         {
-            new[] {1, 2, 2}.ShouldBeUnique("Some additional context");
-        }
-
-        protected override void ShouldPass()
-        {
-            new[] {1, 2, 3}.ShouldBeUnique();
+            new[] { 1, 2, 3 }.ShouldBeUnique();
         }
     }
 }
