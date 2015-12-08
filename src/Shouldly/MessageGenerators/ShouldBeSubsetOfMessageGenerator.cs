@@ -6,7 +6,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldBeSubsetOf", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("ShouldBeSubsetOf", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -15,14 +15,21 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"{0} should be subset of {1} but {2} {3} outside subset";
-
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToStringAwesomely();
+            var actualEnumerable = (context.Actual ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>();
+            var expectedEnumerable = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>();
 
-            var count = (context.Actual ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
+            var missing = actualEnumerable.Except(expectedEnumerable).ToList();
+            var count = missing.Count();
 
-            return string.Format(format, codePart, expectedValue, context.Actual.ToStringAwesomely(), count > 1 ? "are" : "is");
+            return
+$@"{codePart}
+    should be subset of
+{expectedValue}
+    but
+{missing.ToStringAwesomely()}
+    {(count > 1 ? "are" : "is")} outside subset";
         }
     }
 }

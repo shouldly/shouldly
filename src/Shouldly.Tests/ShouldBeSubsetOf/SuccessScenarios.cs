@@ -3,8 +3,10 @@
 namespace Shouldly.Tests.ShouldBeSubsetOf
 {
     public class SuccessScenarios
+   
     {
-        [Fact]
+
+    [Fact]
         public void ArrayIsSubsetOfSelf()
         {
             var arr = new[] { 1 };
