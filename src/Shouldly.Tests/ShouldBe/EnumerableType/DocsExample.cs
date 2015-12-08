@@ -4,8 +4,10 @@ using Xunit;
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class DocsExample
+   
     {
-        [Fact]
+
+    [Fact]
         public void Docs()
         {
             var apu = new Person { Name = "Apu" };

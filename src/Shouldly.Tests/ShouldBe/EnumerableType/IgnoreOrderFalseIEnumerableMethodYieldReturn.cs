@@ -1,28 +1,45 @@
 ﻿using System.Collections.Generic;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class IgnoreOrderFalseIEnumerableMethodYieldReturn : ShouldlyShouldTestScenario
+    public class IgnoreOrderFalseIEnumerableMethodYieldReturn
     {
-        protected override void ShouldPass()
+        [Fact]
+        public void IgnoreOrderFalseIEnumerableMethodYieldReturnShouldFail()
         {
-            GetEnumerable().ShouldBe(new[] {1}, false);
-        }
+            Verify.ShouldFail(() =>
+GetEnumerable().ShouldBe(new[] { 1, 2 }, false, "Some additional context"),
 
-        protected override void ShouldThrowAWobbly()
-        {
-            GetEnumerable().ShouldBe(new[] { 1, 2 }, false, "Some additional context");
-        }
+errorWithSource:
+@"GetEnumerable()
+    should be
+[1, 2]
+    but was
+[1]
+    difference
+[1, *]
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"GetEnumerable() should be [1, 2] but was [1] difference [1, *]
 Additional Info:
-Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"[1]
+    should be
+[1, 2]
+    but was not
+    difference
+[1, *]
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            GetEnumerable().ShouldBe(new[] { 1 }, false);
         }
 
         static IEnumerable<int> GetEnumerable()
