@@ -14,10 +14,13 @@ namespace Shouldly.Tests.ShouldContain
         {
             get
             {
-                return "target should contain 1 but was actually" +
-                        "[]"  +
-                       "Additional Info:" +
-                       "Some additional context";
+                return @"target should contain 1
+    but was
+actually
+[]
+
+Additional Info:
+    Some additional context";
             }
         }
     }
