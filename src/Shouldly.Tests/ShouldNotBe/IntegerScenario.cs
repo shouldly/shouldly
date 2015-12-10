@@ -1,23 +1,35 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotBe
 {
-    public class IntegerScenario : ShouldlyShouldTestScenario
+    public class IntegerScenario
     {
-        protected override void ShouldPass()
-        {
-            1.ShouldNotBe(2);
-        }
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void IntegerScenarioShouldFail()
         {
             const int one = 1;
-            one.ShouldNotBe(1);
+            Verify.ShouldFail(() =>
+one.ShouldNotBe(1),
+
+errorWithSource:
+@"one
+    should not be
+1
+    but was",
+
+errorWithoutSource:
+@"1
+    should not be
+1
+    but was");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get { return "one should not be 1 but was"; }
+            1.ShouldNotBe(2);
         }
     }
 }
