@@ -13,9 +13,9 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
         {
             get
             {
-                return "(string)null should be empty but was null" +
-                       "Additional Info:" +
-                       "Some additional context";
+                return @"(string)null should be empty but was null
+Additional Info:
+    Some additional context";
             }
         }
     }

@@ -1,25 +1,30 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings
 {
-    public class ShouldNotMatch : ShouldlyShouldTestScenario
+    public class ShouldNotMatch
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShouldNotMatchShouldFail()
         {
-            "Cheese".ShouldNotMatch(@"\w+", "Some additional context");
+            Verify.ShouldFail(() =>
+"Cheese".ShouldNotMatch(@"\w+", "Some additional context"),
+
+errorWithSource:
+@"""Cheese"" should not match ""\\w+\"" but did
+
+Additional Info:
+Some additional context",
+
+errorWithoutSource:
+@"""Cheese"" should not match ""\\w+\"" but did
+
+Additional Info:
+Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "\"Cheese\" should not match \"\\w+\" but did " +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "Cheese".ShouldNotMatch(@"Cat");
         }

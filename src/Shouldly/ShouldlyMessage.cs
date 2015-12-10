@@ -281,7 +281,7 @@ $@"{codePart}
         {
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();
-            var actualString = codePart == actual ? " not" : $@"
+            var actualString = codePart == actual ? (context.IsNegatedAssertion ? string.Empty : " not") : $@"
 {actual}";
 
             var message =

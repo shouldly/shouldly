@@ -2,33 +2,41 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class FuncOfTaskOfStringScenario : ShouldlyShouldTestScenario
+    public class FuncOfTaskOfStringScenario
     {
-        protected override void ShouldThrowAWobbly()
+
+        [Fact]
+        public void FuncOfTaskOfStringScenarioShouldFail()
         {
             var task = Task.Factory.StartNew(() => "Foo",
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                            CancellationToken.None, TaskCreationOptions.None,
+                            TaskScheduler.Default);
 
-            task.ShouldThrow<InvalidOperationException>("Some additional context");
-        }
+            Verify.ShouldFail(() =>
+            task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return @"`task` should throw System.InvalidOperationException but did not
+errorWithSource:
+@"`task` should throw System.InvalidOperationException but did not
 Additional Info:
-Some additional context"; }
+Some additional context",
+
+errorWithoutSource:
+@"`task` should throw System.InvalidOperationException but did not
+Additional Info:
+Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default);
 
             var ex = task.ShouldThrow<InvalidOperationException>();
 

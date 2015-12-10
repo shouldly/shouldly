@@ -10,7 +10,9 @@
 
     //    protected override string ChuckedAWobblyErrorMessage
     //    {
-    //        get { return "new[]{1d, 2d, 3d} should contain 1.91 but was [1, 2, 3]"; }
+    //        get { return "new[]{1d, 2d, 3d} should contain 1.91
+//    but was
+//[1, 2, 3]"; }
     //    }
 
     //    protected override void ShouldPass()

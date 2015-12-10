@@ -1,24 +1,33 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
 {
-    public class CaseInsensitiveShouldBeScenario : ShouldlyShouldTestScenario
+    public class CaseInsensitiveShouldBeScenario
     {
-        protected override void ShouldPass()
+        [Fact]
+        public void CaseInsensitiveShouldBeScenarioShouldFail()
         {
-            "StringOne".ShouldBe("Stringone", StringCompareShould.IgnoreCase);
-        }
+            Verify.ShouldFail(() =>
+    "StringOneX".ShouldBe("Stringone", StringCompareShould.IgnoreCase),
 
-        protected override void ShouldThrowAWobbly()
-        {
-            "StringOneX".ShouldBe("Stringone", StringCompareShould.IgnoreCase);
-        }
+    errorWithSource:
+    @"""StringOneX""
+        should be
+    ""Stringone""
+        but was
+    ""StringOneX""
+        difference
+    Case Insensitive and Line Ending Sensitive Comparison
+    Difference     |                                               |   
+                    |                                              \|/   
+    Index          | 0    1    2    3    4    5    6    7    8    9    
+    Expected Value | S    t    r    i    n    g    o    n    e         
+    Actual Value   | S    t    r    i    n    g    O    n    e    X    
+    Expected Code  | 83   116  114  105  110  103  111  110  101       
+    Actual Code    | 83   116  114  105  110  103  79   110  101  88   ",
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get 
-            {
-                return @"""StringOneX""
+    errorWithoutSource:
+    @"""StringOneX""
                         should be
                     ""Stringone""
                         but was
@@ -31,10 +40,13 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
                     Expected Value | S    t    r    i    n    g    o    n    e         
                     Actual Value   | S    t    r    i    n    g    O    n    e    X    
                     Expected Code  | 83   116  114  105  110  103  111  110  101       
-                    Actual Code    | 83   116  114  105  110  103  79   110  101  88   "
-                    ;
-                }
+                    Actual Code    | 83   116  114  105  110  103  79   110  101  88   ");
         }
 
+        [Fact]
+        public void ShouldPass()
+        {
+            "StringOne".ShouldBe("Stringone", StringCompareShould.IgnoreCase);
+        }
     }
 }

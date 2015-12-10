@@ -7,8 +7,10 @@ using Xunit;
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class FuncOfTaskWithTimeoutScenario
+   
     {
-        [Fact]
+
+    [Fact]
         public void ShouldThrowAWobbly()
         {
             var task = Task.Factory.StartNew(() => { Thread.Sleep(5000); },

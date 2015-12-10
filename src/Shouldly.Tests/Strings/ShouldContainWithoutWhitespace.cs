@@ -1,28 +1,43 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings
 {
-    public class ShouldContainWithoutWhitespace : ShouldlyShouldTestScenario
+    public class ShouldContainWithoutWhitespace
     {
-        protected override void ShouldThrowAWobbly()
+
+        [Fact]
+        public void ShouldContainWithoutWhitespaceShouldFail()
         {
-            "Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and missing quotes", "Some additional context");
+            Verify.ShouldFail(() =>
+"Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and missing quotes", "Some additional context"),
+
+errorWithSource:
+@"""Fun   with space   and \\""quotes\\""
+    should contain without whitespace
+""Fun with space and missing quotes""
+   
+    but was
+actually
+""Fun   with space   and ""quotes""""
+
+Additional Info:
+Some additional context",
+
+errorWithoutSource:
+@"""Fun   with space   and \\""quotes\\""
+    should contain without whitespace
+""Fun with space and missing quotes""
+   
+    but was
+actually
+""Fun   with space   and ""quotes""""
+
+Additional Info:
+Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "\"Fun   with space   and \\\"quotes\\\"\" " +
-                       "should contain without whitespace \"Fun with space and missing quotes\" " +
-                       "but was actually" +
-                       "\"Fun   with space   and \"quotes\"\"" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and 'quotes'");
         }

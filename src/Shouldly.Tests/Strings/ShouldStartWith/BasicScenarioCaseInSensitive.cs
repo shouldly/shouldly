@@ -1,20 +1,32 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings.ShouldStartWith
 {
-    public class BasicScenarioCaseInSensitive : ShouldlyShouldTestScenario
+    public class BasicScenarioCaseInSensitive
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void BasicScenarioCaseInSensitiveShouldFail()
         {
-            "Cheese".ShouldStartWith("Ce", Case.Insensitive);
+            Verify.ShouldFail(() =>
+    "Cheese".ShouldStartWith("Ce", Case.Insensitive),
+
+errorWithSource:
+@"""Cheese""
+    should start with
+""Ce""
+    but was
+""Cheese""",
+
+    errorWithoutSource:
+@"""Cheese""
+    should start with
+""Ce""
+    but was
+""Cheese""");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "\"Cheese\" should start with \"Ce\" but was \"Cheese\""; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "Cheese".ShouldStartWith("CH", Case.Insensitive);
         }

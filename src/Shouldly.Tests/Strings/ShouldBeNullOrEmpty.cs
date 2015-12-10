@@ -3,18 +3,20 @@
 namespace Shouldly.Tests.Strings
 {
     public class ShouldBeNullOrEmpty
+   
     {
-        [Fact]
+
+    [Fact]
         public void SingleLetterShouldFail()
         {
             Verify.ShouldFail(() => 
 "a".ShouldBeNullOrEmpty("Some additional context"),
-@"""a""
+errorWithSource: @"""a""
     should be null or empty
 
 Additional Info:
     Some additional context",
-@"""a""
+errorWithoutSource: @"""a""
     should be null or empty
 
 Additional Info:
@@ -28,12 +30,12 @@ Additional Info:
 
             Verify.ShouldFail(() =>
 singleLetter.ShouldBeNullOrEmpty("Some additional context"),
-@"singleLetter (""a"")
+errorWithSource: @"singleLetter (""a"")
     should be null or empty
 
 Additional Info:
     Some additional context",
-@"""a""
+errorWithoutSource: @"""a""
     should be null or empty
 
 Additional Info:

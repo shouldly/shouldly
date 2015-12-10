@@ -7,8 +7,10 @@ using Xunit;
 namespace Shouldly.Tests.ShouldThrowAsync
 {  
     public class FuncOfTaskScenarioAsync
+   
     {
-        [Fact]
+
+    [Fact]
         public void ShouldThrowAWobbly()
         {
             try

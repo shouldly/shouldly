@@ -6,8 +6,10 @@ using Xunit;
 namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskWhichThrowsDirectlyScenario
+   
     {
-        [Fact]
+
+    [Fact]
         public void ShouldPass()
         {
             // ReSharper disable once RedundantDelegateCreation

@@ -22,10 +22,12 @@ namespace Shouldly.MessageGenerators
 
             if (context.IsNegatedAssertion)
             {
+                if (codePart == "null")
+                    codePart = expectedValue;
+
                 return
 $@"{codePart}
-    {shouldMethod}
-but was {(context.Expected == null ? "null" : "")}";
+    {shouldMethod} but was{(context.Expected == null ? " null" : "")}";
             }
 
             var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();

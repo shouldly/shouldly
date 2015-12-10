@@ -1,25 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests
 {
-    public class ShouldNotBeInRangeTests : ShouldlyShouldTestScenario
+    public class ShouldNotBeInRangeTests
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShouldNotBeInRangeTestsShouldFail()
         {
-            1.5m.ShouldNotBeInRange(1.4m, 1.6m, "Some additional context");
-        }
+            var @decimal = 1.5m;
+            Verify.ShouldFail(() =>
+@decimal.ShouldNotBeInRange(1.4m, 1.6m, "Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get 
-            { 
-                return @"1.5m should not be in range { from = 1.4, to = 1.6 } but was 1.5
+errorWithSource:
+@"@decimal
+    should not be in range
+{ from = 1.4, to = 1.6 }
+    but was
+1.5
+
 Additional Info:
-Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"1.5
+    should not be in range
+{ from = 1.4, to = 1.6 }
+    but was
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             1.5m.ShouldNotBeInRange(1.6m, 1.7m);
         }

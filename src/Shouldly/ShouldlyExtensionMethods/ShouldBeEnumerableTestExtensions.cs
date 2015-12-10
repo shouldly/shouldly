@@ -57,7 +57,7 @@ namespace Shouldly
         {
             var condition = elementPredicate.Compile();
             if (!actual.Any(condition))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)
@@ -176,7 +176,7 @@ namespace Shouldly
 
             var missing = actual.Except(expected);
             if (missing.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual)
@@ -193,7 +193,7 @@ namespace Shouldly
         {
             var duplicates = GetDuplicates(actual);
             if (duplicates.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(new List<T>(), duplicates, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
         }
 
         public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)

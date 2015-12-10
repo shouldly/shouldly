@@ -7,8 +7,10 @@ using Xunit;
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class NestedAwaitsDoNotDeadlockScenario
+   
     {
-        [Fact]
+
+    [Fact]
         public void DelegateShouldDropSynchronisationContext()
         {
             // The await keyword will automatically capture synchronisation context

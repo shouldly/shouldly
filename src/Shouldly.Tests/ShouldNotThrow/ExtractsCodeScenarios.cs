@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         {
             TestHelpers.Should.Error(() =>
                 Should.NotThrow(() => methodCall()),
-                "`methodCall()` should not throw but threw System.Exception with message \"Exception of type 'System.Exception' was thrown.\"");
+                @"`methodCall()` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         {
             TestHelpers.Should.Error(() =>
                 Should.NotThrow(() => { methodCallWithParameters(1, 2); }),
-                "`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message \"Exception of type 'System.Exception' was thrown.\"");
+                @"`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         [Fact]
         public void ExtractsCodeCorrectly5()
         {
-            TestHelpers.Should.Error(() => 
+            TestHelpers.Should.Error(() =>
                 Should.NotThrow(() =>
                 {
                     if (methodCall1())

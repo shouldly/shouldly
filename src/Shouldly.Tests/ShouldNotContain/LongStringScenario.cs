@@ -1,29 +1,36 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class LongStringScenario : ShouldlyShouldTestScenario
+    public class LongStringScenario
     {
-        protected string target = new string('a', 110) + "zzzz";
+        readonly string _target = new string('a', 110) + "zzzz";
 
-        protected override void ShouldThrowAWobbly()
-        {
-            target.ShouldNotContain("zzzz");
-        }
+    [Fact]
+    public void LongStringScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+_target.ShouldNotContain("zzzz"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "target should not contain \"zzzz\" (case insensitive comparison) " +
-                       "but was actually \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
-                       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...\"";
-            }
-        }
+errorWithSource:
+@"_target
+    should not contain (case insensitive comparison)
+""zzzz""
+    but was actually
+""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""",
 
-        protected override void ShouldPass()
-        {
-            target.ShouldNotContain("fff");
-        }
+errorWithoutSource:
+@"""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""
+    should not contain (case insensitive comparison)
+""zzzz""
+    but did");
     }
+
+    [Fact]
+    public void ShouldPass()
+    {
+        _target.ShouldNotContain("fff");
+    }
+}
 }

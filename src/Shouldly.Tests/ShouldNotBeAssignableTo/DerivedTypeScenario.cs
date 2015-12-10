@@ -14,14 +14,17 @@ namespace Shouldly.Tests.ShouldNotBeAssignableTo
 myThing.ShouldNotBeAssignableTo<MyThing>("Some additional context"),
 
 errorWithSource:
-@"myThing should not be assignable to Shouldly.Tests.TestHelpers.MyThing
+@"myThing
+    should not be assignable to
+Shouldly.Tests.TestHelpers.MyThing
     but was
-Shouldly.Tests.TestHelpers.MyThing",
+Shouldly.Tests.TestHelpers.MyThing (000000)",
 
 errorWithoutSource:
-@"myThing should not be assignable to Shouldly.Tests.TestHelpers.MyThing
-    but was
-Shouldly.Tests.TestHelpers.MyThing");
+@"Shouldly.Tests.TestHelpers.MyThing (000000)
+    should not be assignable to
+Shouldly.Tests.TestHelpers.MyThing
+    but was");
         }
 
         [Fact]

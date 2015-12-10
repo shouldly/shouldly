@@ -1,25 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotBeOfType
 {
-    public class BasicTypesScenario : ShouldlyShouldTestScenario
+    public class BasicTypesScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void BasicTypesScenarioShouldFail()
         {
-            1.ShouldNotBeOfType<int>("Some additional context");
+            var one = 1;
+            Verify.ShouldFail(() =>
+one.ShouldNotBeOfType<int>("Some additional context"),
+
+errorWithSource:
+@"one
+    should not be of type
+System.Int32
+    but was
+1
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"1
+    should not be of type
+System.Int32
+    but was
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "1 should not be of type System.Int32 but was 1" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             1.ShouldNotBeOfType<string>();
         }

@@ -1,25 +1,33 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings.ShouldBeEmpty
 {
-    public class ShouldBeEmptyBasicScenario : ShouldlyShouldTestScenario
+    public class ShouldBeEmptyBasicScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShouldBeEmptyBasicScenarioShouldFail()
         {
-            "a".ShouldBeEmpty("Some additional context");
+            Verify.ShouldFail(() =>
+    "a".ShouldBeEmpty("Some additional context"),
+
+    errorWithSource:
+    @"""a"" should be empty
+    but was
+""a""
+
+Additional Info:
+Some additional context",
+
+    errorWithoutSource:
+    @"""a"" should be empty
+    but was
+""a""
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "\"a\" should be empty but was \"a\"" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "".ShouldBeEmpty();
         }

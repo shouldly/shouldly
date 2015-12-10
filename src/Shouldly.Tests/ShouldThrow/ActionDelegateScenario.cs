@@ -1,27 +1,32 @@
 ﻿using System;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class ActionDelegateScenario : ShouldlyShouldTestScenario
+    public class ActionDelegateScenario
     {
-        protected override void ShouldThrowAWobbly()
+
+        [Fact]
+        public void ActionDelegateScenarioShouldFail()
         {
             Action action = () => { };
-            action.ShouldThrow<NotImplementedException>("Some additional context");
-        }
+            Verify.ShouldFail(() =>
+                action.ShouldThrow<NotImplementedException>("Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"`action()` should throw System.NotImplementedException but did not
+    errorWithSource:
+    @"`action()` should throw System.NotImplementedException but did not
 Additional Info:
-Some additional context";
-            }
+Some additional context",
+
+    errorWithoutSource:
+    @"`action()` should throw System.NotImplementedException but did not
+Additional Info:
+Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var action = new Action(() => { throw new NotImplementedException(); });
 

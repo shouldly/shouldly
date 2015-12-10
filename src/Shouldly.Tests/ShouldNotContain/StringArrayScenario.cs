@@ -1,27 +1,35 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class StringArrayScenario : ShouldlyShouldTestScenario
+    public class StringArrayScenario
     {
         protected string[] target = new[] { "a", "b", "c" };
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringArrayScenarioShouldFail()
         {
-            target.ShouldNotContain("c", "Some additional context");
+            Verify.ShouldFail(() =>
+    target.ShouldNotContain("c", "Some additional context"),
+
+    errorWithSource:
+    @"target should not contain ""c""
+    but was
+actually [""a"", ""b"", ""c""]
+Additional Info:
+    Some additional context",
+
+    errorWithoutSource:
+    @"target should not contain ""c""
+    but was
+actually [""a"", ""b"", ""c""]
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "target should not contain \"c\" but was actually [\"a\", \"b\", \"c\"]" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             target.ShouldNotContain("d");
         }

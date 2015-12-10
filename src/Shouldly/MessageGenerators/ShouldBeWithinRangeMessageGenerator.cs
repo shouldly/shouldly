@@ -1,4 +1,3 @@
-using System.Linq;
 using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.MessageGenerators
@@ -7,7 +6,7 @@ namespace Shouldly.MessageGenerators
     {
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.StartsWith("ShouldBe")
+            return (context.ShouldMethod.StartsWith("ShouldBe") || context.ShouldMethod.StartsWith("ShouldNotBe"))
                    && !context.ShouldMethod.Contains("Contain")
                    && context.Tolerance != null;
         }

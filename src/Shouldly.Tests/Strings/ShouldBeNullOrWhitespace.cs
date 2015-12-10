@@ -4,20 +4,24 @@
 namespace Shouldly.Tests.Strings
 {
     public class ShouldBeNullOrWhiteSpace
+   
     {
-        [Fact]
+
+    [Fact]
         public void StringWithOneLetterShouldFail()
         {
             Verify.ShouldFail(
             () =>
 "a".ShouldBeNullOrWhiteSpace("Some additional context"),
 
+errorWithSource: 
 @"""a""
     should be null or white space
 
 Additional Info:
     Some additional context",
 
+errorWithoutSource:
 @"""a""
     should be null or white space
 
@@ -33,12 +37,14 @@ Additional Info:
             () =>
 oneLetter.ShouldBeNullOrWhiteSpace("Some additional context"),
 
+errorWithSource:
 @"oneLetter (""a"")
     should be null or white space
 
 Additional Info:
     Some additional context",
 
+errorWithoutSource:
 @"""a""
     should be null or white space
 

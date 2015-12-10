@@ -2,40 +2,44 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
-    public class FuncOfTaskOfStringScenario : ShouldlyShouldTestScenario
+    public class FuncOfTaskOfStringScenario
     {
-        protected override void ShouldThrowAWobbly()
+
+    [Fact]
+    public void FuncOfTaskOfStringScenarioShouldFail()
         {
             var task = Task.Factory.StartNew<string>(() => { throw new RankException(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                            CancellationToken.None, TaskCreationOptions.None,
+                            TaskScheduler.Default);
+            Verify.ShouldFail(() =>
+            task.ShouldNotThrow("Some additional context"),
 
-            task.ShouldNotThrow("Some additional context");
-        }
-
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "Task `task` should not throw but threw System.RankException with message \"Attempted to operate on an array with the incorrect number of dimensions.\"" +
+errorWithSource:
+@"Task `task` should not throw but threw System.RankException with message ""Attempted to operate on an array with the incorrect number of dimensions.""" +
                         " Additional Info:" +
-                        " Some additional context";
-            }
-        }
+                        " Some additional context",
 
-        protected override void ShouldPass()
-        {
-            Task<string> task = Task.Factory.StartNew(() => "Foo",
+errorWithoutSource:
+@"Task `task` should not throw but threw System.RankException with message ""Attempted to operate on an array with the incorrect number of dimensions.""" +
+                        " Additional Info:" +
+                        " Some additional context");
+    }
+
+    [Fact]
+    public void ShouldPass()
+    {
+        Task<string> task = Task.Factory.StartNew(() => "Foo",
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
             var result = task.ShouldNotThrow();
             result.ShouldBe("Foo");
-        }
     }
+}
 }
 #endif

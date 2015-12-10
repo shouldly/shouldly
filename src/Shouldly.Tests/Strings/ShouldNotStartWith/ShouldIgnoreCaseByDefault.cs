@@ -1,26 +1,40 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings.ShouldNotStartWith
 {
-    public class ShouldIgnoreCaseByDefault : ShouldlyShouldTestScenario
+    public class ShouldIgnoreCaseByDefault
     {
-
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShouldIgnoreCaseByDefaultShouldFail()
         {
-            "Cheese".ShouldNotStartWith("cH", "Some additional context");
+            Verify.ShouldFail(() =>
+"Cheese".ShouldNotStartWith("cH", "Some additional context"),
+
+errorWithSource:
+@"""Cheese""
+    should not start with
+""cH""
+   
+    but was
+""Cheese""
+
+Additional Info:
+Some additional context",
+
+errorWithoutSource:
+@"""Cheese""
+    should not start with
+""cH""
+   
+    but was
+""Cheese""
+
+Additional Info:
+Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "\"Cheese\" should not start with \"cH\" but was \"Cheese\"" +
-                "Additional Info: " +
-                "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "Cheese".ShouldNotStartWith("Ce");
         }
