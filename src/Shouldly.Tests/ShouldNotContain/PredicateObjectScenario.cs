@@ -26,7 +26,7 @@ Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"new[] { a, b, c }
+@"[System.Object (000000), System.Object (000000), System.Object (000000)]
     should not contain an element satisfying the condition
 o.GetType().FullName.Equals(""System.Object"")
     but does

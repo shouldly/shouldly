@@ -74,7 +74,7 @@ namespace Shouldly
         {
             var condition = elementPredicate.Compile();
             if (actual.Any(condition))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(elementPredicate.Body, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
         }
 
         public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)

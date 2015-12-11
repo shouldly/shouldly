@@ -12,13 +12,19 @@ namespace Shouldly.Tests.ShouldNotContain
 new[] { 1, 2, 3 }.ShouldNotContain(i => i < 4, "Some additional context"),
 
 errorWithSource:
-@"new[] { 1, 2, 3 } should not contain an element satisfying the condition (i < 4) but does
+@"new[] { 1, 2, 3 }
+    should not contain an element satisfying the condition
+(i < 4)
+    but does
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"new[] { 1, 2, 3 } should not contain an element satisfying the condition (i < 4) but does
+@"[1, 2, 3]
+    should not contain an element satisfying the condition
+(i < 4)
+    but does
 
 Additional Info:
     Some additional context");

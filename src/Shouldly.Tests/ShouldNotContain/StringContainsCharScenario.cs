@@ -5,25 +5,30 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class StringContainsCharScenario
     {
-        protected string target = "Foo";
+        const string Target = "Foo";
 
         [Fact]
         public void StringContainsCharScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-    target.ShouldNotContain('F', "Some additional context"),
+Target.ShouldNotContain('F', "Some additional context"),
 
-    errorWithSource:
-    @"target should not contain F
-    but was
-actually ""Foo""
+errorWithSource:
+@"Target
+    should not contain
+F
+    but was actually
+""Foo""
+
 Additional Info:
     Some additional context",
 
-    errorWithoutSource:
-    @"target should not contain F
-    but was
-actually ""Foo""
+errorWithoutSource:
+@"""Foo""
+    should not contain
+F
+    but did
+
 Additional Info:
     Some additional context");
         }
@@ -31,7 +36,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            target.ShouldNotContain('B');
+            Target.ShouldNotContain('B');
         }
     }
 }

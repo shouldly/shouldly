@@ -11,17 +11,20 @@ namespace Shouldly.Tests.ShouldNotContain
         {
             const string target = "Shouldly is legendary";
             Verify.ShouldFail(() =>
-                target.ShouldNotContain("LEGENDARY", Case.Insensitive),
+target.ShouldNotContain("LEGENDARY", Case.Insensitive),
 
-    errorWithSource:
-    @"target should not contain ""LEGENDARY"" (case insensitive comparison)
-    but was
-actually ""Shouldly is legendary""",
+errorWithSource:
+@"target
+    should not contain (case insensitive comparison)
+""LEGENDARY""
+    but was actually
+""Shouldly is legendary""",
 
-    errorWithoutSource:
-    @"target should not contain ""LEGENDARY"" (case insensitive comparison)
-    but was
-actually ""Shouldly is legendary""");
+errorWithoutSource:
+@"""Shouldly is legendary""
+    should not contain (case insensitive comparison)
+""LEGENDARY""
+    but did");
         }
 
         [Fact]

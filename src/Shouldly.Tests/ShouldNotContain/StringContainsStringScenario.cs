@@ -5,29 +5,32 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class StringContainsStringScenario
     {
-        protected string target = "Shouldly is legendary";
+        const string Target = "Shouldly is legendary";
 
         [Fact]
         public void StringContainsStringScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-    target.ShouldNotContain("legendary"),
+Target.ShouldNotContain("legendary"),
 
-    errorWithSource:
-    @"target should not contain ""legendary"" (case insensitive comparison)
-    but was
-actually ""Shouldly is legendary""",
+errorWithSource:
+@"Target
+    should not contain (case insensitive comparison)
+""legendary""
+    but was actually
+""Shouldly is legendary""",
 
-    errorWithoutSource:
-    @"target should not contain ""legendary"" (case insensitive comparison)
-    but was
-actually ""Shouldly is legendary""");
+errorWithoutSource:
+@"""Shouldly is legendary""
+    should not contain (case insensitive comparison)
+""legendary""
+    but did");
         }
 
         [Fact]
         public void ShouldPass()
         {
-            target.ShouldNotContain("legend-wait for it-ary");
+            Target.ShouldNotContain("legend-wait for it-ary");
         }
     }
 }

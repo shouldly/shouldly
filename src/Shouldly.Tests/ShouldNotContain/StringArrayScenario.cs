@@ -5,25 +5,30 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class StringArrayScenario
     {
-        protected string[] target = new[] { "a", "b", "c" };
+        readonly string[] _target = new[] { "a", "b", "c" };
 
         [Fact]
         public void StringArrayScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-    target.ShouldNotContain("c", "Some additional context"),
+_target.ShouldNotContain("c", "Some additional context"),
 
-    errorWithSource:
-    @"target should not contain ""c""
-    but was
-actually [""a"", ""b"", ""c""]
+errorWithSource:
+@"_target
+    should not contain
+""c""
+    but was actually
+[""a"", ""b"", ""c""]
+
 Additional Info:
     Some additional context",
 
-    errorWithoutSource:
-    @"target should not contain ""c""
-    but was
-actually [""a"", ""b"", ""c""]
+errorWithoutSource:
+@"[""a"", ""b"", ""c""]
+    should not contain
+""c""
+    but did
+
 Additional Info:
     Some additional context");
         }
@@ -31,7 +36,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            target.ShouldNotContain("d");
+            _target.ShouldNotContain("d");
         }
     }
 }
