@@ -11,20 +11,22 @@ namespace Shouldly.Tests.Strings.ShouldStartWith
     "Cheese".ShouldStartWith("Ce", "Some additional context"),
 
 errorWithSource:
-@"""Cheese"" should start with ""Ce""
-    but was
-""Cheese""
+@"""Cheese""
+    should start with
+""Ce""
+    but was not
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"""Cheese"" should start with ""Ce""
-    but was
-""Cheese""
+@"""Cheese""
+    should start with
+""Ce""
+    but was not
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]
