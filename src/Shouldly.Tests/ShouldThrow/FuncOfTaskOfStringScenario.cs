@@ -9,7 +9,6 @@ namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskOfStringScenario
     {
-
         [Fact]
         public void FuncOfTaskOfStringScenarioShouldFail()
         {
@@ -18,17 +17,25 @@ namespace Shouldly.Tests.ShouldThrow
                             TaskScheduler.Default);
 
             Verify.ShouldFail(() =>
-            task.ShouldThrow<InvalidOperationException>("Some additional context"),
+task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
 errorWithSource:
-@"`task` should throw System.InvalidOperationException but did not
+@"Task `task`
+    should throw
+System.InvalidOperationException
+    but did not
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"`task` should throw System.InvalidOperationException but did not
+@"Task
+    should throw
+System.InvalidOperationException
+    but did not
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

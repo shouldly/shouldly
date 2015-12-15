@@ -21,14 +21,22 @@ namespace Shouldly.Tests.ShouldThrow
             task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
 errorWithSource:
-@"`task` should throw System.InvalidOperationException but did not
+@"Task `task`
+    should throw
+System.InvalidOperationException
+    but did not
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"`task` should throw System.InvalidOperationException but did not
+@"Task
+    should throw
+System.InvalidOperationException
+    but did not
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

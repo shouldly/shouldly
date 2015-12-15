@@ -12,17 +12,25 @@ namespace Shouldly.Tests.ShouldThrow
         {
             Action action = () => { };
             Verify.ShouldFail(() =>
-                action.ShouldThrow<NotImplementedException>("Some additional context"),
+action.ShouldThrow<NotImplementedException>("Some additional context"),
 
-    errorWithSource:
-    @"`action()` should throw System.NotImplementedException but did not
+errorWithSource:
+@"`action()`
+    should throw
+System.NotImplementedException
+    but did not
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
     errorWithoutSource:
-    @"`action()` should throw System.NotImplementedException but did not
+@"delegate
+    should throw
+System.NotImplementedException
+    but did not
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

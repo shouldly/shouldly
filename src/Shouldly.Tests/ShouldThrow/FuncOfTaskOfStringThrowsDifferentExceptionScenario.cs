@@ -13,26 +13,33 @@ namespace Shouldly.Tests.ShouldThrow
         [Fact]
         public void FuncOfTaskOfStringThrowsDifferentExceptionScenarioShouldFail()
         {
-            Action action = () =>
+            var action = new Func<Task<string>>(() =>
             {
-                new Func<Task<string>>(() =>
-                {
-                    throw new RankException();
-                }).Invoke();
-            };
+                throw new RankException();
+            });
 
             Verify.ShouldFail(() =>
-            action.ShouldThrow<InvalidOperationException>("Some additional context"),
+action.ShouldThrow<InvalidOperationException>("Some additional context"),
 
 errorWithSource:
-@"`action()` should throw System.InvalidOperationException but threw System.RankException
+@"Task `action`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"`action()` should throw System.InvalidOperationException but threw System.RankException
+@"Task
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

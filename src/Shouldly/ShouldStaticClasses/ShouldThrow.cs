@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace Shouldly
@@ -19,6 +20,11 @@ namespace Shouldly
         }
         public static TException Throw<TException>([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
+            return ThrowInternal<TException>(actual, customMessage);
+        }
+        internal static TException ThrowInternal<TException>([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null) where TException : Exception
+        {
             try
             {
                 actual();
@@ -29,10 +35,10 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e);
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.NotThrow(Action) ***/
@@ -46,13 +52,18 @@ namespace Shouldly
         }
         public static void NotThrow([InstantHandle] Action action, [InstantHandle] Func<string> customMessage)
         {
+            NotThrowInternal(action, customMessage);
+        }
+        internal static void NotThrowInternal([InstantHandle] Action action, [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
             try
             {
                 action();
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
 
@@ -67,13 +78,22 @@ namespace Shouldly
         }
         public static T NotThrow<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string> customMessage)
         {
+            return NotThrowInternal(action, customMessage);
+        }
+
+        /// <summary>
+        /// Used to differentiate between the extension methods and the static methods
+        /// </summary>
+        internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
             try
             {
                 return action();
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
     }

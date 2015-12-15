@@ -16,14 +16,24 @@ namespace Shouldly.Tests.ShouldThrow
 task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
 errorWithSource:
-@"`task` should throw System.InvalidOperationException but threw System.RankException
+@"Task `task`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"`task` should throw System.InvalidOperationException but threw System.RankException
+@"Task
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

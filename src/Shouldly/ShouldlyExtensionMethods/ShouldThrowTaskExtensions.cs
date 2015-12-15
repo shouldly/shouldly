@@ -13,169 +13,169 @@ namespace Shouldly
         /*** ShouldThrow(Task) ***/
         public static TException ShouldThrow<TException>(this Task actual) where TException : Exception
         {
-            return Should.Throw<TException>(actual);
+            return ShouldThrow<TException>(() => actual);
         }
         public static TException ShouldThrow<TException>(this Task actual, string customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, customMessage);
+            return ShouldThrow<TException>(() => actual, customMessage);
         }
         public static TException ShouldThrow<TException>(this Task actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, customMessage);
+            return ShouldThrow<TException>(() => actual, customMessage);
         }
 
         /*** ShouldThrow(Func<Task>) ***/
         public static TException ShouldThrow<TException>(this Func<Task> actual) where TException : Exception
         {
-            return Should.Throw<TException>(actual);
+            return ShouldThrow<TException>(actual, () => null);
         }
         public static TException ShouldThrow<TException>(this Func<Task> actual, string customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, customMessage);
+            return ShouldThrow<TException>(actual, () => customMessage);
         }
         public static TException ShouldThrow<TException>(this Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, customMessage);
+            return ShouldThrow<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** ShouldThrow(Task, TimeSpan) ***/
         public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter) where TException : Exception
         {
-            return Should.Throw<TException>(actual, timeoutAfter);
+            return ShouldThrow<TException>(() => actual, timeoutAfter);
         }
         public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, timeoutAfter, customMessage);
+            return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
         }
         public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, timeoutAfter, customMessage);
+            return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
         }
 
         /*** ShouldThrow(Func<Task>, TimeSpan) ***/
         public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
         {
-            return Should.Throw<TException>(actual, timeoutAfter);
+            return ShouldThrow<TException>(actual, timeoutAfter, () => null);
         }
         public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, timeoutAfter, customMessage);
+            return ShouldThrow<TException>(actual, timeoutAfter, () => customMessage);
         }
         public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, timeoutAfter, customMessage);
+            return Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
         }
 
         /*** ShouldNotThrow(Task) ***/
         public static void ShouldNotThrow(this Task action)
         {
-            Should.NotThrow(action);
+            ShouldNotThrow(action, () => null);
         }
         public static void ShouldNotThrow(this Task action, string customMessage)
         {
-            Should.NotThrow(action, customMessage);
+            ShouldNotThrow(action, () => customMessage);
         }
         public static void ShouldNotThrow(this Task action, [InstantHandle] Func<string> customMessage)
         {
-            Should.NotThrow(action, customMessage);
+            ShouldNotThrow(() => action, customMessage);
         }
 
         /*** ShouldNotThrow(Task<T>) ***/
         public static T ShouldNotThrow<T>(this Task<T> action)
         {
-            return Should.NotThrow(action);
+            return ShouldNotThrow(() => action);
         }
         public static T ShouldNotThrow<T>(this Task<T> action, string customMessage)
         {
-            return Should.NotThrow(action, customMessage);
+            return ShouldNotThrow(() => action, customMessage);
         }
         public static T ShouldNotThrow<T>(this Task<T> action, [InstantHandle] Func<string> customMessage)
         {
-            return Should.NotThrow(action, customMessage);
+            return ShouldNotThrow(() => action, customMessage);
         }
 
         /*** ShouldNotThrow(Func<Task>) ***/
         public static void ShouldNotThrow(this Func<Task> action)
         {
-            Should.NotThrow(action);
+            ShouldNotThrow(action, () => null);
         }
         public static void ShouldNotThrow(this Func<Task> action, string customMessage)
         {
-            Should.NotThrow(action, customMessage);
+            ShouldNotThrow(action, () => customMessage);
         }
         public static void ShouldNotThrow(this Func<Task> action, [InstantHandle] Func<string> customMessage)
         {
-            Should.NotThrow(action, customMessage);
+            ShouldNotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** ShouldNotThrow(Task, TimeSpan) ***/
         public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter)
         {
-            Should.NotThrow(action, timeoutAfter);
+            ShouldNotThrow(() => action, timeoutAfter);
         }
         public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter, string customMessage)
         {
-            Should.NotThrow(action, timeoutAfter, customMessage);
+            ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
         public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
-            Should.NotThrow(action, timeoutAfter, customMessage);
+            ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
 
         /*** ShouldNotThrow(Func<Task>, TimeSpan) ***/
         public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter)
         {
-            Should.NotThrow(action, timeoutAfter);
+            ShouldNotThrow(action, timeoutAfter, () => null);
         }
         public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, string customMessage)
         {
-            Should.NotThrow(action, timeoutAfter, customMessage);
+            ShouldNotThrow(action, timeoutAfter, () => customMessage);
         }
         public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
-            Should.NotThrow(action, timeoutAfter, customMessage);
+            Should.NotThrowInternal(action, timeoutAfter, customMessage);
         }
 
         /*** ShouldNotThrow(Func<Task<T>>) ***/
         public static T ShouldNotThrow<T>(this Func<Task<T>> action)
         {
-            return Should.NotThrow(action);
+            return ShouldNotThrow(action, () => null);
         }
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, string customMessage)
         {
-            return Should.NotThrow(action, customMessage);
+            return ShouldNotThrow(action, () => customMessage);
         }
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, [InstantHandle] Func<string> customMessage)
         {
-            return Should.NotThrow(action, customMessage);
+            return ShouldNotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** ShouldNotThrow(Task<T>, TimeSpan) ***/
         public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter)
         {
-            return Should.NotThrow(action, timeoutAfter);
+            return ShouldNotThrow(() => action, timeoutAfter);
         }
         public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter, string customMessage)
         {
-            return Should.NotThrow(action, timeoutAfter, customMessage);
+            return ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
         public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
-            return Should.NotThrow(action, timeoutAfter, customMessage);
+            return ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
 
         /*** ShouldNotThrow(Func<Task<T>>, TimeSpan) ***/
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter)
         {
-            return Should.NotThrow(action, timeoutAfter);
+            return ShouldNotThrow(action, timeoutAfter, () => null);
         }
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, string customMessage)
         {
-            return Should.NotThrow(action, timeoutAfter, customMessage);
+            return ShouldNotThrow(action, timeoutAfter, () => customMessage);
         }
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
-            return Should.NotThrow(action, timeoutAfter, customMessage);
+            return Should.NotThrowInternal(action, timeoutAfter, customMessage);
         }
     }
 }

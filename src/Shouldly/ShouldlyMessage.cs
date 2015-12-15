@@ -118,24 +118,27 @@ namespace Shouldly
 
     internal class ShouldlyThrowMessage : ShouldlyMessage
     {
-        public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage)
+        public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
 
-        public ShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
+        public ShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual)
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, shouldlyMethod: shouldlyMethod)
             {
                 HasRelevantActual = true
             };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
 
-        public ShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage)
+        public ShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
@@ -144,24 +147,24 @@ namespace Shouldly
 
     internal class TaskShouldlyThrowMessage : ShouldlyMessage
     {
-        public TaskShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage)
+        public TaskShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, isAsync: true);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, isAsync: true, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
 
-        public TaskShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage)
+        public TaskShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true)
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true, shouldlyMethod: shouldlyMethod)
             {
                 HasRelevantActual = true
             };
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
 
-        public TaskShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage)
+        public TaskShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, isAsync: true);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, isAsync: true, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
