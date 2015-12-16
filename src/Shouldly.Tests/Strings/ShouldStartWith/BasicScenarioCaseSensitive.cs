@@ -14,15 +14,13 @@ errorWithSource:
 @"""Cheese""
     should start with
 ""cH""
-    but was
-""Cheese""",
+    but was not",
 
 errorWithoutSource:
 @"""Cheese""
     should start with
 ""cH""
-    but was
-""Cheese""");
+    but was not");
         }
 
         [Fact]

@@ -11,20 +11,22 @@ namespace Shouldly.Tests.Strings
 "Cheese".ShouldMatch(@"\d+", "Some additional context"),
 
 errorWithSource:
-@"""Cheese"" should match ""\\d+""
-    but was
-""Cheese""
+@"""Cheese""
+    should match
+""\d+""
+    but was not
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"""Cheese"" should match ""\\d+""
-    but was
-""Cheese""
+@"""Cheese""
+    should match
+""\d+""
+    but was not
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

@@ -8,21 +8,25 @@ namespace Shouldly.Tests.Strings.ShouldNotEndWith
         public void BasicScenarioCaseSensitiveShouldFail()
         {
             Verify.ShouldFail(() =>
-"Cheese".ShouldNotEndWith("se", Case.Sensitive),
+"Cheese".ShouldNotEndWith("se", "Some additional context", Case.Sensitive),
 
 errorWithSource:
 @"""Cheese""
     should not end with
 ""se""
     but was
-""Cheese""",
+
+Additional Info:
+    Some additional context",
 
 errorWithoutSource:
 @"""Cheese""
     should not end with
 ""se""
     but was
-""Cheese""");
+
+Additional Info:
+    Some additional context");
         }
 
         [Fact]

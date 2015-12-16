@@ -14,23 +14,19 @@ errorWithSource:
 @"""Cheese""
     should not start with
 ""cH""
-   
     but was
-""Cheese""
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
 @"""Cheese""
     should not start with
 ""cH""
-   
     but was
-""Cheese""
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

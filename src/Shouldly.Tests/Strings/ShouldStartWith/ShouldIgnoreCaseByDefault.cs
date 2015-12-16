@@ -11,18 +11,16 @@ namespace Shouldly.Tests.Strings.ShouldStartWith
     "Cheese".ShouldStartWith("Ce"),
 
 errorWithSource:
-@"""Cheese"" 
+@"""Cheese""
     should start with
 ""Ce""
-    but was
-""Cheese""",
+    but was not",
 
 errorWithoutSource:
-@"""Cheese"" 
+@"""Cheese""
     should start with
 ""Ce""
-    but was
-""Cheese""");
+    but was not");
         }
 
         [Fact]

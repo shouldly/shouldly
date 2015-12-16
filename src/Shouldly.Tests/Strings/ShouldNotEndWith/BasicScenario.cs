@@ -11,20 +11,22 @@ namespace Shouldly.Tests.Strings.ShouldNotEndWith
 "Cheese".ShouldNotEndWith("se", "Some additional context"),
 
 errorWithSource:
-@"""Cheese"" should not end with ""se""
+@"""Cheese""
+    should not end with
+""se""
     but was
-""Cheese""
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"""Cheese"" should not end with ""se""
+@"""Cheese""
+    should not end with
+""se""
     but was
-""Cheese""
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]
