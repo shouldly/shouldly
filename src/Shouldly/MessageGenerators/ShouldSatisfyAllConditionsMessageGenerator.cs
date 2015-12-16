@@ -9,20 +9,19 @@ namespace Shouldly.MessageGenerators
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
+            return Validator.IsMatch(context.ShouldMethod);
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-        {0} should satisfy all the conditions specified, but does not.
-        The following errors were found ...
-{1}";
-
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToString();
 
-            return string.Format(format, codePart, expectedValue);
+            return
+$@"{codePart}
+    should satisfy all the conditions specified, but does not.
+The following errors were found ...
+{expectedValue}";
         }
     }
 }

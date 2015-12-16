@@ -11,64 +11,69 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
         {
             int result = 4;
             Verify.ShouldFail(() =>
-                result.ShouldSatisfyAllConditions
-                        (
-                            "Some additional context",
-                            () => result.ShouldBeOfType<float>("Some additional context"),
-                            () => result.ShouldBeGreaterThan(5, "Some additional context")
-                        ),
+result.ShouldSatisfyAllConditions
+    (
+        "Some additional context",
+        () => result.ShouldBeOfType<float>("Some additional context"),
+        () => result.ShouldBeGreaterThan(5, "Some additional context")
+    ),
 
-    errorWithSource:
-    @"result should satisfy all the conditions specified, but does not.
-        The following errors were found ...
-        --------------- Error 1 ---------------
-
+errorWithSource:
+@"result
+    should satisfy all the conditions specified, but does not.
+The following errors were found ...
+--------------- Error 1 ---------------
     result
         should be of type
     System.Single
         but was
     System.Int32
-    Additional Info:
-    Some additional context
---------------- Error 2 ---------------
 
+    Additional Info:
+        Some additional context
+
+--------------- Error 2 ---------------
     result
         should be greater than
     5
         but was
     4
+
     Additional Info:
-    Some additional context
+        Some additional context
+
 -----------------------------------------
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
-    errorWithoutSource:
-    @"result should satisfy all the conditions specified, but does not.
-        The following errors were found ...
-        --------------- Error 1 ---------------
-
-    result
+errorWithoutSource:
+@"4
+    should satisfy all the conditions specified, but does not.
+The following errors were found ...
+--------------- Error 1 ---------------
+    4
         should be of type
     System.Single
         but was
     System.Int32
-    Additional Info:
-    Some additional context
---------------- Error 2 ---------------
 
-    result
+    Additional Info:
+        Some additional context
+
+--------------- Error 2 ---------------
+    4
         should be greater than
     5
-        but was
-    4
+        but was not
+
     Additional Info:
-    Some additional context
+        Some additional context
+
 -----------------------------------------
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]
