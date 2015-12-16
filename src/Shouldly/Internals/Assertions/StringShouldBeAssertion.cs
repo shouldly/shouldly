@@ -47,6 +47,7 @@ $@"{codeText}
             if (customMessage != null)
             {
                 message += $@"
+
 Additional Info:
     {customMessage}";
             }
