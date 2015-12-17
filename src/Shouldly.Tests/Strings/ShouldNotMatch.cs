@@ -11,16 +11,16 @@ namespace Shouldly.Tests.Strings
 "Cheese".ShouldNotMatch(@"\w+", "Some additional context"),
 
 errorWithSource:
-@"""Cheese"" should not match ""\\w+\"" but did
+@"""Cheese"" should not match ""\w+"" but did
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"""Cheese"" should not match ""\\w+\"" but did
+@"""Cheese"" should not match ""\w+"" but did
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

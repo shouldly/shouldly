@@ -8,22 +8,16 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
         public void ShouldBeEmptyBasicScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-    "a".ShouldBeEmpty("Some additional context"),
+    "a".ShouldBeEmpty(),
 
     errorWithSource:
-    @"""a"" should be empty
-    but was
-""a""
-
-Additional Info:
-Some additional context",
+    @"""a""
+    should be empty but was
+""a""",
 
     errorWithoutSource:
-    @"""a"" should be empty
-    but was
-""a""
-Additional Info:
-    Some additional context");
+    @"""a""
+    should be empty but was not empty");
         }
 
         [Fact]
