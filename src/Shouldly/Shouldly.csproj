@@ -60,11 +60,10 @@
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.10.0\ExpressionStringBuilder.cs" />
     <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
-    <Compile Include="DifferenceHighlighting2\IDifferenceHighlighter.cs" />
-    <Compile Include="DifferenceHighlighting2\StringDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting\IStringDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
-    <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="Internals\SourceCodeTextGetter.cs" />
     <Compile Include="Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
     <Compile Include="Internals\Assertions\IAssertion.cs" />

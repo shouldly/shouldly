@@ -1,5 +1,5 @@
-﻿using Shouldly.DifferenceHighlighting2;
-using System;
+﻿using System;
+using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.Internals.Assertions
 {

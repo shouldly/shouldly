@@ -1,7 +1,7 @@
-﻿using Shouldly.DifferenceHighlighting2;
-using Shouldly.Internals.Assertions;
+﻿using Shouldly.Internals.Assertions;
 using System;
 using System.Collections.Generic;
+using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.Internals.AssertionFactories
 {
