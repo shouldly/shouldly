@@ -1,27 +1,34 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldContain
 {
-    public class EmptyArrayScenario : ShouldlyShouldFailureTestScenario
+    public class EmptyArrayScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void EmptyArrayScenarioShouldFail()
         {
             var target = new int[0];
-            target.ShouldContain(1, "Some additional context");
-        }
+            Verify.ShouldFail(() =>
+target.ShouldContain(1, "Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"target should contain 1
+errorWithSource:
+@"target should contain 1
     but was
 actually
 []
 
 Additional Info:
-    Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"target should contain 1
+    but was
+actually
+[]
+
+Additional Info:
+    Some additional context");
         }
     }
 }

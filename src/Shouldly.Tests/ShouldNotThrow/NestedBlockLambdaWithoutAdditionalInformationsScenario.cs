@@ -1,27 +1,30 @@
 ﻿using System;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
-    public class NestedBlockLambdaWithoutAdditionalInformationsScenario  : ShouldlyShouldFailureTestScenario
+    public class NestedBlockLambdaWithoutAdditionalInformationsScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail()
         {
-            Should.NotThrow(() =>
+            Verify.ShouldFail(() =>
             {
-                if (true)
+                Should.NotThrow(() =>
                 {
-                    throw new Exception("Dummy message.");
-                }
-            });
-        }
+                    if (true)
+                    {
+                        throw new Exception("Dummy message.");
+                    }
+                });
+            },
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "`if (true) { throw new Exception(\"Dummy message.\"); }` should not throw but threw System.Exception with message \"Dummy message.\"";
-            }
+errorWithSource:
+@"`if (true) { throw new Exception(""Dummy message.""); }` should not throw but threw System.Exception with message ""Dummy message.""",
+
+errorWithoutSource:
+@"`if (true) { throw new Exception(""Dummy message.""); }` should not throw but threw System.Exception with message ""Dummy message.""");
         }
     }
 } 

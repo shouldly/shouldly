@@ -1,26 +1,38 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeOfType
 {
-    public class DerivedTypeScenario : ShouldlyShouldFailureTestScenario
+    public class DerivedTypeScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void DerivedTypeScenarioShouldFail()
         {
             var myThing = new MyThing();
-            myThing.ShouldBeOfType<MyBase>("Some additional context");
-        }
+            // ReSharper disable once ExpressionIsAlwaysNull
+            Verify.ShouldFail(() =>
+myThing.ShouldBeOfType<MyBase>("Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return
-                    @"myThing should be of type Shouldly.Tests.TestHelpers.MyBase
+errorWithSource:
+@"myThing
+    should be of type
+Shouldly.Tests.TestHelpers.MyBase
     but was
 Shouldly.Tests.TestHelpers.MyThing
+
 Additional Info:
-    Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"myThing
+    should be of type
+Shouldly.Tests.TestHelpers.MyBase
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+
+Additional Info:
+    Some additional context");
         }
     }
 }

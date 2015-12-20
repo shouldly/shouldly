@@ -327,8 +327,6 @@
     <Compile Include="ShouldBe\WithTolerance\DecimalScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\EnumerableOfFloatScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\EnumerableOfDecimalScenario.cs" />
-    <Compile Include="TestHelpers\ShouldlyShouldFailureTestScenario.cs" />
-    <Compile Include="TestHelpers\ShouldlyShouldTestScenario.cs" />
     <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
