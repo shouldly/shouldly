@@ -1,5 +1,4 @@
 ﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeNegative
@@ -24,9 +23,7 @@ Additional Info:
 
 errorWithoutSource:
 @"0
-    should be negative but
-0
-    is positive
+    should be negative but is positive
 
 Additional Info:
     Some additional context");

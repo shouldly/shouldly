@@ -13,19 +13,20 @@ namespace Shouldly.Tests.ShouldContain
 target.ShouldContain(1, "Some additional context"),
 
 errorWithSource:
-@"target should contain 1
-    but was
-actually
+@"target
+    should contain
+1
+    but was actually
 []
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"target should contain 1
-    but was
-actually
-[]
+@"[]
+    should contain
+1
+    but did not
 
 Additional Info:
     Some additional context");

@@ -14,14 +14,24 @@ namespace Shouldly.Tests.ShouldThrow
 action.ShouldThrow<InvalidOperationException>("Some additional context"),
 
 errorWithSource:
-@"`action()` should throw System.InvalidOperationException but threw System.RankException
+@"`action()`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"`action()` should throw System.InvalidOperationException but threw System.RankException
+@"delegate
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -22,10 +21,24 @@ namespace Shouldly.Tests.ShouldNotThrow
             },
 
 errorWithSource:
-@"`if (true) { throw new Exception(""Dummy message.""); }` should not throw but threw System.Exception with message ""Dummy message."" Additional Info: Additional info",
+@"`if (true) { throw new Exception(""Dummy message.""); }`
+    should not throw but threw
+System.Exception
+    with message
+""Dummy message.""
+
+Additional Info:
+    Additional info",
 
 errorWithoutSource:
-@"`if (true) { throw new Exception(""Dummy message.""); }` should not throw but threw System.Exception with message ""Dummy message."" Additional Info: Additional info");
+@"Task
+    should not throw but threw
+System.Exception
+    with message
+""Dummy message.""
+
+Additional Info:
+    Additional info");
         }
     }
 } 

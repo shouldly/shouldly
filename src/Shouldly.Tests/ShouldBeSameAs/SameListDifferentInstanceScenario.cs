@@ -15,14 +15,21 @@ namespace Shouldly.Tests.ShouldBeSameAs
 list.ShouldBeSameAs(equalListWithDifferentRef),
 
 errorWithSource:
-@"list should be same as [1, 2, 3]
+@"list
+    should be same as
+[1, 2, 3]
     but was
-[1, 2, 3] difference [1, 2, 3]",
+[1, 2, 3]
+    difference
+[1, 2, 3]",
 
 errorWithoutSource:
-@"list should be same as [1, 2, 3]
-    but was
-[1, 2, 3] difference [1, 2, 3]");
+@"[1, 2, 3]
+    should be same as
+[1, 2, 3]
+    but was not
+    difference
+[1, 2, 3]");
         }
     }
 }

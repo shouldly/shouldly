@@ -8,16 +8,23 @@ namespace Shouldly.Tests.ShouldBeNegative
         [Fact]
         public void ZeroDecimalScenarioShouldFail()
         {
+            var val = 0m;
             Verify.ShouldFail(() =>
-0m.ShouldBeNegative("Some additional context"),
+val.ShouldBeNegative("Some additional context"),
 
 errorWithSource:
-@"0m should be negative but 0 is positive
+@"val
+    should be negative but
+0
+    is positive
+
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"0m should be negative but 0 is positive
+@"0
+    should be negative but is positive
+
 Additional Info:
     Some additional context");
         }

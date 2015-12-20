@@ -25,7 +25,7 @@ Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"myThing
+@"Shouldly.Tests.TestHelpers.MyThing (000000)
     should be of type
 Shouldly.Tests.TestHelpers.MyBase
     but was

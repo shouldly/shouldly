@@ -22,10 +22,8 @@ Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"0.0
-    should be negative but
-0
-    is positive
+@"0
+    should be negative but is positive
 
 Additional Info:
     Some additional context");

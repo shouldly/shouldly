@@ -21,10 +21,18 @@ namespace Shouldly.Tests.ShouldNotThrow
             },
 
 errorWithSource:
-@"`if (true) { throw new Exception(""Dummy message.""); }` should not throw but threw System.Exception with message ""Dummy message.""",
+@"`if (true) { throw new Exception(""Dummy message.""); }`
+    should not throw but threw
+System.Exception
+    with message
+""Dummy message.""",
 
 errorWithoutSource:
-@"`if (true) { throw new Exception(""Dummy message.""); }` should not throw but threw System.Exception with message ""Dummy message.""");
+@"Task
+    should not throw but threw
+System.Exception
+    with message
+""Dummy message.""");
         }
     }
 } 

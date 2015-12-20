@@ -14,12 +14,18 @@ namespace Shouldly.Tests.ShouldBePositive
 val.ShouldBePositive("Some additional context"),
 
 errorWithSource:
-@"-val should be positive but -3 is negative
+@"val
+    should be positive but
+-3
+    is negative
+
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"-3L should be positive but -3 is negative
+@"-3
+    should be positive but is negative
+
 Additional Info:
     Some additional context");
         }

@@ -7,16 +7,22 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
         [Fact]
         public void ActualIsNullShouldFail()
         {
+            var str = ((string)null);
             Verify.ShouldFail(() =>
-((string)null).ShouldBeEmpty("Some additional context"),
+str.ShouldBeEmpty("Some additional context"),
 
 errorWithSource:
-@"(string)null should be empty but was null
+@"str
+    should be empty but was
+null
+
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"(string)null should be empty but was null
+@"null
+    should be empty but was not empty
+
 Additional Info:
     Some additional context");
         }
