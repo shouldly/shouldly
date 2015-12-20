@@ -211,6 +211,7 @@ namespace Shouldly
             new DictionaryShouldContainKeyAndValueMessageGenerator(),
             new DictionaryShouldOrNotContainKeyMessageGenerator(),
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
+            new ShouldBeginEndWithMessageGenerator(), 
             new ShouldBeWithinRangeMessageGenerator(), 
             new ShouldContainWithinRangeMessageGenerator(),
             new ShouldBeUniqueMessageGenerator(), 

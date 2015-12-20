@@ -23,12 +23,12 @@ namespace Shouldly.Internals.AssertionFactories
             {
                 sensitivity = Case.Sensitive;
                 stringComparer = StringComparer.InvariantCulture.Equals;
-                optionsList.Add("Ignoring case");
             }
             else
             {
                 sensitivity = Case.Insensitive;
                 stringComparer = StringComparer.InvariantCultureIgnoreCase.Equals;
+                optionsList.Add("Ignoring case");
             }
 
                     return new StringShouldBeAssertion(

@@ -13,7 +13,7 @@ str.ShouldBe("Stringone", StringCompareShould.IgnoreCase),
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""Stringone""
     but was
 ""StringOneX""
@@ -28,7 +28,7 @@ Actual Code    | 83   116  114  105  110  103  79   110  101  88   ",
 
 errorWithoutSource:
 @"""StringOneX""
-    should be
+    should be with options: Ignoring case
 ""Stringone""
     but was not
     difference

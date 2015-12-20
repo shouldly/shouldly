@@ -13,24 +13,23 @@ namespace Shouldly.Tests.Strings
 cheeseVar.ShouldEndWith("ze", "Some additional context", Case.Insensitive),
 
 errorWithSource:
-@"""Cheese""
+@"cheeseVar
     should end with
 ""ze""
     but was
 ""Cheese""
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
 @"""Cheese""
     should end with
 ""ze""
-    but was
-""Cheese""
+    but did not
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]
@@ -41,24 +40,23 @@ Some additional context");
 cheeseVar.ShouldEndWith("Se", "Some additional context", Case.Sensitive),
 
 errorWithSource:
-@"""Cheese""
+@"cheeseVar
     should end with
 ""Se""
     but was
 ""Cheese""
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
 @"""Cheese""
     should end with
 ""Se""
-    but was
-""Cheese""
+    but did not
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

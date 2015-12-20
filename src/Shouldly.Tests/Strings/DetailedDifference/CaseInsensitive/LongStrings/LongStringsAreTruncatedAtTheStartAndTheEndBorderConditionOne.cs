@@ -15,7 +15,7 @@ str.ShouldBe("1a,1b,1c,1d.1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""1a,1b,1c,1d.1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
     but was
 ""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
@@ -30,7 +30,7 @@ Actual Code    | ...  97   44   49   98   44   49   99   44   49   100  44   49 
 
 errorWithoutSource:
 @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
-    should be
+    should be with options: Ignoring case
 ""1a,1b,1c,1d.1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
     but was not
     difference

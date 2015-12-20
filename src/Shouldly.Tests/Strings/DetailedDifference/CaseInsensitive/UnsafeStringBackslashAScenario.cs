@@ -13,7 +13,7 @@ str.ShouldBe("Stringone BackslashA", StringCompareShould.IgnoreCase),
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""Stringone BackslashA""
     but was
 ""StringOne" + "\a" + @"BackslashA""
@@ -28,7 +28,7 @@ Actual Code    | 83   116  114  105  110  103  79   110  101  7    66   97   99 
 
 errorWithoutSource:
 @"""StringOne" + "\a" + @"BackslashA""
-    should be
+    should be with options: Ignoring case
 ""Stringone BackslashA""
     but was not
     difference

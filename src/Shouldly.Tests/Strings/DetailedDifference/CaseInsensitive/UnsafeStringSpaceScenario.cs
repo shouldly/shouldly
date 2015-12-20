@@ -13,7 +13,7 @@ str.ShouldBe("Stringone\tSpace", StringCompareShould.IgnoreCase),
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""Stringone" + "\t" + @"Space""
     but was
 ""StringOne Space""
@@ -28,7 +28,7 @@ Actual Code    | 83   116  114  105  110  103  79   110  101  32   83   112  97 
 
 errorWithoutSource:
 @"""StringOne Space""
-    should be
+    should be with options: Ignoring case
 ""Stringone" + "\t" + @"Space""
     but was not
     difference

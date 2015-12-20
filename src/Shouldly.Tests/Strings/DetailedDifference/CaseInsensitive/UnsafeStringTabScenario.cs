@@ -13,7 +13,7 @@ str.ShouldBe("Stringone Tab", StringCompareShould.IgnoreCase),
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""Stringone Tab""
     but was
 ""StringOne" + "\t" + @"Tab""
@@ -28,7 +28,7 @@ Actual Code    | 83   116  114  105  110  103  79   110  101  9    84   97   98 
 
 errorWithoutSource:
 @"""StringOne" + "\t" + @"Tab""
-    should be
+    should be with options: Ignoring case
 ""Stringone Tab""
     but was not
     difference

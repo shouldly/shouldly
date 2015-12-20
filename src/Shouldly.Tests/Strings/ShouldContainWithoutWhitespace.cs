@@ -8,32 +8,28 @@ namespace Shouldly.Tests.Strings
         [Fact]
         public void ShouldContainWithoutWhitespaceShouldFail()
         {
+            var str = "Fun   with space   and \"quotes\"";
             Verify.ShouldFail(() =>
-"Fun   with space   and \"quotes\"".ShouldContainWithoutWhitespace("Fun with space and missing quotes", "Some additional context"),
+str.ShouldContainWithoutWhitespace("Fun with space and missing quotes", "Some additional context"),
 
 errorWithSource:
-@"""Fun   with space   and \\""quotes\\""
+@"str
     should contain without whitespace
 ""Fun with space and missing quotes""
-   
-    but was
-actually
+    but was actually
 ""Fun   with space   and ""quotes""""
 
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"""Fun   with space   and \\""quotes\\""
+@"""Fun   with space   and ""quotes""""
     should contain without whitespace
 ""Fun with space and missing quotes""
-   
-    but was
-actually
-""Fun   with space   and ""quotes""""
+    but did not
 
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

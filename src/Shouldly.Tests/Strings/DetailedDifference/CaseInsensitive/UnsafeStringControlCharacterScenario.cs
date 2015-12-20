@@ -13,7 +13,7 @@ str.ShouldBe("Stringone\u0001ControlChar", StringCompareShould.IgnoreCase),
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""Stringone" + "\u0001" + @"ControlChar""
     but was
 ""StringOne" + "\u0000" + @"ControlChar""
@@ -28,7 +28,7 @@ Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110
 
 errorWithoutSource:
 @"""StringOne" + "\u0000" + @"ControlChar""
-    should be
+    should be with options: Ignoring case
 ""Stringone" + "\u0001" + @"ControlChar""
     but was not
     difference

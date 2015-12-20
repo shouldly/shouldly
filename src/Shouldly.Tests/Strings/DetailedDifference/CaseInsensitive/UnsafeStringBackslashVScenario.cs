@@ -13,7 +13,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
 
 errorWithSource:
 @"str
-    should be
+    should be with options: Ignoring case
 ""Stringone BackslashV""
     but was
 ""StringOne" + "\v" + @"BackslashV""
@@ -28,7 +28,7 @@ Actual Code    | 83   116  114  105  110  103  79   110  101  11   66   97   99 
 
 errorWithoutSource:
 @"""StringOne" + "\v" + @"BackslashV""
-    should be
+    should be with options: Ignoring case
 ""Stringone BackslashV""
     but was not
     difference

@@ -178,7 +178,7 @@ nullString.ShouldBe(string.Empty, "Some additional context"),
 
 errorWithSource:
 @"nullString
-    should be with options: Ignoring case
+    should be
 """"
     but was
 null
@@ -196,7 +196,7 @@ Additional Info:
 
 errorWithoutSource:
 @"null
-    should be with options: Ignoring case
+    should be
 """"
     but was not
     difference
@@ -362,7 +362,7 @@ ThisString.ShouldBe(ThisOtherString, "Some additional context"),
 
 errorWithSource:
 @"ThisString
-    should be with options: Ignoring case
+    should be
 ""this other string""
     but was
 ""this string""
@@ -380,7 +380,7 @@ Additional Info:
 
 errorWithoutSource:
 @"""this string""
-    should be with options: Ignoring case
+    should be
 ""this other string""
     but was not
     difference

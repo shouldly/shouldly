@@ -7,40 +7,38 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
         [Fact]
         public void ShouldBeScenarioShouldFail()
         {
+            var str = "Stringone";
             Verify.ShouldFail(() =>
-"Stringone".ShouldBe("StringOne"),
+str.ShouldBe("StringOne"),
 
 errorWithSource:
-@"""Stringone""
+@"str
     should be
 ""StringOne""
     but was
 ""Stringone""
     difference
-Case and Line Ending Sensitive Comparison
 Difference     |                                |             
-               |                               \|/             
+               |                               \|/            
 Index          | 0    1    2    3    4    5    6    7    8    
 Expected Value | S    t    r    i    n    g    O    n    e    
 Actual Value   | S    t    r    i    n    g    o    n    e    
 Expected Code  | 83   116  114  105  110  103  79   110  101  
-Actual Code    | 83   116  114  105  110  103  111  110  101",
+Actual Code    | 83   116  114  105  110  103  111  110  101  ",
 
 errorWithoutSource:
 @"""Stringone""
     should be
 ""StringOne""
-    but was
-""Stringone""
+    but was not
     difference
-Case and Line Ending Sensitive Comparison
 Difference     |                                |             
-               |                               \|/             
+               |                               \|/            
 Index          | 0    1    2    3    4    5    6    7    8    
 Expected Value | S    t    r    i    n    g    O    n    e    
 Actual Value   | S    t    r    i    n    g    o    n    e    
 Expected Code  | 83   116  114  105  110  103  79   110  101  
-Actual Code    | 83   116  114  105  110  103  111  110  101");
+Actual Code    | 83   116  114  105  110  103  111  110  101  ");
         }
 
         [Fact]

@@ -7,14 +7,16 @@ namespace Shouldly.Tests.Strings.ShouldNotEndWith
         [Fact]
         public void BasicScenarioShouldFail()
         {
+            var str = "Cheese";
             Verify.ShouldFail(() =>
-"Cheese".ShouldNotEndWith("se", "Some additional context"),
+str.ShouldNotEndWith("se", "Some additional context"),
 
 errorWithSource:
-@"""Cheese""
+@"str
     should not end with
 ""se""
     but was
+""Cheese""
 
 Additional Info:
     Some additional context",
@@ -23,7 +25,7 @@ errorWithoutSource:
 @"""Cheese""
     should not end with
 ""se""
-    but was
+    but did
 
 Additional Info:
     Some additional context");
