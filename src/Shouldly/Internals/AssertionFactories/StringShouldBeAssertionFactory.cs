@@ -36,7 +36,7 @@ namespace Shouldly.Internals.AssertionFactories
                         stringComparer,
                         new ActualCodeTextGetter(),
                         new StringDifferenceHighlighter(sensitivity),
-                        string.Join(", ", optionsList));
+                string.Join(", ", optionsList.ToArray()));
         }
     }
 }

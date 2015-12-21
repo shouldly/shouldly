@@ -1,25 +1,20 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings
 {
-    public class ShouldNotBeNullOrEmpty : ShouldlyShouldTestScenario
+    public class ShouldNotBeNullOrEmpty
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void SingleLetterShouldFail()
         {
-            "".ShouldNotBeNullOrEmpty(() => "Some additional context");
+            Verify.ShouldFail(() =>
+"".ShouldNotBeNullOrEmpty(() => "Some additional context"),
+errorWithSource: @""""" should not be null or empty Additional Info: Some additional context",
+errorWithoutSource: @""""" should not be null or empty Additional Info: Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "\"\" should not be null or empty " +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             " ".ShouldNotBeNullOrEmpty();
         }

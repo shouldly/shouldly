@@ -3,13 +3,11 @@
 namespace Shouldly.Tests.Strings
 {
     public class ShouldBeNullOrEmpty
-   
     {
-
-    [Fact]
+        [Fact]
         public void SingleLetterShouldFail()
         {
-            Verify.ShouldFail(() => 
+            Verify.ShouldFail(() =>
 "a".ShouldBeNullOrEmpty("Some additional context"),
 errorWithSource: @"""a""
     should be null or empty
