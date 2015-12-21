@@ -16,15 +16,45 @@
             var expectedValue = context.Expected.ToStringAwesomely();
 
             string errorMessage;
-            if (isExtensionMethod && !throwContext.IsAsync)
-                errorMessage = string.Format("`{0}()` should not throw but threw {1}", codePart, expectedValue);
+            if (codePart == "null" && !throwContext.IsAsync)
+            {
+                errorMessage = 
+$@"delegate
+    should not throw but threw
+{expectedValue}";
+            }
+            else if (codePart == "null" && throwContext.IsAsync)
+            {
+                errorMessage =
+$@"Task
+    should not throw but threw
+{expectedValue}";
+            }
+            else if (isExtensionMethod && !throwContext.IsAsync)
+            {
+                errorMessage = 
+$@"`{codePart}()`
+    should not throw but threw
+{expectedValue}";
+            }
             else if (isExtensionMethod && throwContext.IsAsync)
-                errorMessage = string.Format("Task `{0}` should not throw but threw {1}", codePart, expectedValue);
+            {
+                errorMessage =
+$@"Task `{codePart}`
+    should not throw but threw
+{expectedValue}";
+            }
             else
-                errorMessage = string.Format("`{0}` should not throw but threw {1}", codePart, expectedValue);
-
-            var notThrowAssertionContext = context as ShouldThrowAssertionContext;
-            errorMessage += (notThrowAssertionContext != null) ? string.Format(" with message \"{0}\"", notThrowAssertionContext.ExceptionMessage) : string.Empty;
+            {
+                errorMessage = 
+$@"`{codePart}`
+    should not throw but threw
+{expectedValue}";
+            }
+            
+            errorMessage += $@"
+    with message
+""{throwContext.ExceptionMessage}""";
 
             return errorMessage;
         }

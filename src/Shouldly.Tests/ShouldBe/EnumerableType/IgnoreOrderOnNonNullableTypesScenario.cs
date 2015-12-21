@@ -1,44 +1,74 @@
 using System.Collections.Generic;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class IgnoreOrderOnNonNullableTypesScenario : ShouldlyShouldTestScenario
+    public class IgnoreOrderOnNonNullableTypesScenario
     {
-        // testing against non-ICollection IEnumerable, so we're not falling into the ICollection.Count short-circuit
         public IEnumerable<NonNullableType> Actual
         {
-            get { yield return new NonNullableType(1); yield return new NonNullableType(2); }
+            get
+            {
+                yield return new NonNullableType(1);
+                yield return new NonNullableType(2);
+            }
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void IgnoreOrderOnNonNullableTypesScenarioShouldFail()
         {
             var expected = new[]
             {
-                new NonNullableType(2), 
+                new NonNullableType(2),
+                new NonNullableType(3),
+            };
+            Verify.ShouldFail(() =>
+Actual.ShouldBe(expected, true, "Some additional context"),
+
+errorWithSource:
+@"Actual
+    should be (ignoring order)
+[2, 3]
+    but
+Actual
+    is missing
+[3]
+    and
+[2, 3]
+    is missing
+[1]
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2]
+    should be (ignoring order)
+[2, 3]
+    but
+[1, 2]
+    is missing
+[3]
+    and
+[2, 3]
+    is missing
+[1]
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            var expected = new[]
+            {
+                new NonNullableType(2),
                 new NonNullableType(1)
             };
 
             Actual.ShouldBe(expected, ignoreOrder: true);
-        }
-
-        protected override void ShouldThrowAWobbly()
-        {
-            var expected = new[] 
-            {
-                new NonNullableType(2), 
-                new NonNullableType(3), 
-            };
-
-            Actual.ShouldBe(expected, true, "Some additional context");
-        }
-
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return @"Actual should be [2, 3] (ignoring order) but Actual is missing [3] and [2, 3] is missing [1]
-Additional Info:
-Some additional context";
-            }
         }
 
         public struct NonNullableType

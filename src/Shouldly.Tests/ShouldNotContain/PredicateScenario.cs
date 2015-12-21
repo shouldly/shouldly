@@ -1,27 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class PredicateScenario : ShouldlyShouldTestScenario
+    public class PredicateScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void PredicateScenarioShouldFail()
         {
-            new[] {1, 2, 3}.ShouldNotContain(i => i < 4, "Some additional context");
+            Verify.ShouldFail(() =>
+new[] { 1, 2, 3 }.ShouldNotContain(i => i < 4, "Some additional context"),
+
+errorWithSource:
+@"new[] { 1, 2, 3 }
+    should not contain an element satisfying the condition
+(i < 4)
+    but does
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 3]
+    should not contain an element satisfying the condition
+(i < 4)
+    but does
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return "new[] { 1, 2, 3 } should not contain an element satisfying the condition (i < 4) but does" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
-        {
-            new[] {1, 2, 3}.ShouldNotContain(i => i > 3);
+            new[] { 1, 2, 3 }.ShouldNotContain(i => i > 3);
         }
     }
 }

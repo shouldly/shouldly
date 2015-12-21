@@ -1,15 +1,14 @@
-﻿using NUnit.Framework;
-using Shouldly.DifferenceHighlighting;
+﻿using Shouldly.DifferenceHighlighting;
 using Shouldly.Tests.TestHelpers;
+using Xunit;
 
 namespace Shouldly.Tests.InternalTests
 {
-    [TestFixture]
     public class EnumerableHighlighterTests
     {
         readonly EnumerableDifferenceHighlighter _highlighter = new EnumerableDifferenceHighlighter();
 
-        [Test]
+        [Fact]
         public void CanProcessTwoEnumerables()
         {
             _highlighter
@@ -17,7 +16,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessEnumerableActualAndIntExpected()
         {
             _highlighter
@@ -25,7 +24,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessEnumerableActualAndStringExpected()
         {
             _highlighter
@@ -33,7 +32,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessStringActualAndStringExpected()
         {
             _highlighter
@@ -41,7 +40,7 @@ namespace Shouldly.Tests.InternalTests
                 .ShouldBe(false);
         }
 
-        [Test]
+        [Fact]
         public void CannotProcessTwoInts()
         {
             _highlighter

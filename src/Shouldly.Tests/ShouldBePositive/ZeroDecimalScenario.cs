@@ -1,21 +1,33 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBePositive
 {
-    public class ZeroDecimalScenario : ShouldlyShouldFailureTestScenario
+    public class ZeroDecimalScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ZeroDecimalScenarioShouldFail()
         {
-           0m.ShouldBePositive("Some additional context");
-        }
+            var val = 0m;
+            Verify.ShouldFail(() =>
+val.ShouldBePositive("Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "0m was 0 and should be positive but wasn't" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
+// TODO is zero negative?
+errorWithSource:
+@"val
+    should be positive but
+0
+    is negative
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"0
+    should be positive but is negative
+
+Additional Info:
+    Some additional context");
         }
     }
 }

@@ -15,19 +15,15 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : string.Empty;
-            const string format = @"
-    {0}
-        {1}
-    {2}{3}
-        but was actually
-    {4}";
+            var actual = context.Actual.ToStringAwesomely();
+            var but = codePart == actual ? (context.IsNegatedAssertion ? "did" : "did not") : $@"was actually
+{actual}";
 
-            return string.Format(format,
-                    codePart,
-                    context.ShouldMethod.PascalToSpaced(),
-                    context.Expected.ToStringAwesomely(),
-                    caseSensitivity,
-                    context.Actual.ToStringAwesomely());
+            return
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()}{caseSensitivity}
+{context.Expected.ToStringAwesomely()}
+    but {but}";
         }
     }
 }

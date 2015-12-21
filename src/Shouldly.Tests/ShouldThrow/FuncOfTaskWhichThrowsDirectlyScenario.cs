@@ -1,13 +1,15 @@
 ﻿#if net40
 using System;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskWhichThrowsDirectlyScenario
+   
     {
-        [Test]
+
+    [Fact]
         public void ShouldPass()
         {
             // ReSharper disable once RedundantDelegateCreation

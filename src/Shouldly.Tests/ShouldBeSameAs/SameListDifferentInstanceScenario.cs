@@ -1,20 +1,35 @@
 ﻿using System.Collections.Generic;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeSameAs
 {
-    public class SameListDifferentInstanceScenario : ShouldlyShouldFailureTestScenario
+    public class SameListDifferentInstanceScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void SameListDifferentInstanceScenarioShouldFail()
         {
             var list = new List<int> { 1, 2, 3 };
             var equalListWithDifferentRef = new List<int> { 1, 2, 3 };
-            list.ShouldBeSameAs(equalListWithDifferentRef);
-        }
+            Verify.ShouldFail(() =>
+list.ShouldBeSameAs(equalListWithDifferentRef),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "list should be same as [1, 2, 3] but was [1, 2, 3] difference [1, 2, 3]"; }
+errorWithSource:
+@"list
+    should be same as
+[1, 2, 3]
+    but was
+[1, 2, 3]
+    difference
+[1, 2, 3]",
+
+errorWithoutSource:
+@"[1, 2, 3]
+    should be same as
+[1, 2, 3]
+    but was not
+    difference
+[1, 2, 3]");
         }
     }
 }

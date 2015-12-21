@@ -92,7 +92,7 @@ namespace Shouldly.DifferenceHighlighting
             {
                 if (_caseSensitivity == Case.Insensitive)
                 {
-                    isEqual = StringComparer.InvariantCultureIgnoreCase.Equals(_actualValue[index].ToString(), _expectedValue[index].ToString());
+                    isEqual = StringComparer.OrdinalIgnoreCase.Equals(_actualValue[index].ToString(), _expectedValue[index].ToString());
                 }
                 else
                 {
@@ -102,7 +102,7 @@ namespace Shouldly.DifferenceHighlighting
             return isEqual;
         }
 
-        private string GetFormattedString()
+        string GetFormattedString()
         {
             var output = new StringBuilder();
             output.AppendLine("Difference     | " + differenceStringLineOneBuilder);
@@ -111,8 +111,7 @@ namespace Shouldly.DifferenceHighlighting
             output.AppendLine("Expected Value | " + expectedValueStringBuilder);
             output.AppendLine("Actual Value   | " + actualValueStringBuilder);
             output.AppendLine("Expected Code  | " + expectedCodeStringBuilder);
-            output.AppendLine("Actual Code    | " + actualCodeStringBuilder);
-            output.AppendLine();
+            output.Append    ("Actual Code    | " + actualCodeStringBuilder);
 
             var outputString = output.ToString();
             return outputString;

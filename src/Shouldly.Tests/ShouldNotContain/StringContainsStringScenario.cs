@@ -1,24 +1,36 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class StringContainsStringScenario : ShouldlyShouldTestScenario
+    public class StringContainsStringScenario
     {
-        protected string target = "Shouldly is legendary";
+        const string Target = "Shouldly is legendary";
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringContainsStringScenarioShouldFail()
         {
-            target.ShouldNotContain("legendary");
+            Verify.ShouldFail(() =>
+Target.ShouldNotContain("legendary"),
+
+errorWithSource:
+@"Target
+    should not contain (case insensitive comparison)
+""legendary""
+    but was actually
+""Shouldly is legendary""",
+
+errorWithoutSource:
+@"""Shouldly is legendary""
+    should not contain (case insensitive comparison)
+""legendary""
+    but did");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get { return "target should not contain \"legendary\" (case insensitive comparison) but was actually \"Shouldly is legendary\""; } 
-        }
-
-        protected override void ShouldPass()
-        {
-            target.ShouldNotContain("legend-wait for it-ary");
+            Target.ShouldNotContain("legend-wait for it-ary");
         }
     }
 }

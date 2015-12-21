@@ -5,8 +5,8 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeMessageGenerator: ShouldlyMessageGenerator
     {
-        private const string ShouldBeAssertion = "ShouldBe";
-        private const string ShouldNotBeAssertion = "ShouldNotBe";
+        const string ShouldBeAssertion = "ShouldBe";
+        const string ShouldNotBeAssertion = "ShouldNotBe";
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -17,21 +17,32 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var message = string.Format(@"
-    {0}
-        {1}
-    {2}
-        but was
-    {3}",
-                codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(),
-                context.IsNegatedAssertion ? string.Empty : context.Actual.ToStringAwesomely());
+            var expected = context.Expected.ToStringAwesomely();
+            var actualValue = context.Actual.ToStringAwesomely();
+            string actual;
+            if (context.IsNegatedAssertion)
+            {
+                actual = string.Empty;
+            }
+            else if (codePart == actualValue)
+            {
+                actual = " not";
+            }
+            else
+            {
+                actual = $"\r\n{actualValue}";
+            }
+            var message =
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()}
+{expected}
+    but was{actual}";
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
-                message += string.Format(@"
-        difference
-    {0}",
-                DifferenceHighlighter.HighlightDifferences(context));
+                message += $@"
+    difference
+{DifferenceHighlighter.HighlightDifferences(context)}";
             }
             return message;
         }

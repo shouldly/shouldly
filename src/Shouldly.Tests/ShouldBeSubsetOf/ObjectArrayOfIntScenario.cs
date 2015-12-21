@@ -1,28 +1,45 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeSubsetOf
 {
-    public class ObjectArrayOfIntScenario : ShouldlyShouldTestScenario
+    public class ObjectArrayOfIntScenario
     {
-        protected override void ShouldThrowAWobbly()
+
+        [Fact]
+        public void ObjectArrayOfIntScenarioShouldFail()
         {
             var arr = new object[] { 1, 2, 3 };
             var arr2 = new object[] { 1, 2 };
 
-            arr.ShouldBeSubsetOf(arr2, "Some additional context");
+            Verify.ShouldFail(() =>
+arr.ShouldBeSubsetOf(arr2, "Some additional context"),
+
+errorWithSource:
+@"arr
+    should be subset of
+[1, 2]
+    but
+[3]
+    is outside subset
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 3]
+    should be subset of
+[1, 2]
+    but
+[3]
+    is outside subset
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "arr should be subset of [1, 2] but [3] is outside subset" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var arr = new object[] { 1, 2, 3 };
             var arr2 = new object[] { 1, 2, 3, 4 };

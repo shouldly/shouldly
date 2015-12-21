@@ -1,24 +1,36 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBePositive
 {
-    public class DecimalScenario : ShouldlyShouldTestScenario
+    public class DecimalScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void DecimalScenarioShouldFail()
         {
-            (-3.5m).ShouldBePositive("Some additional context");
+            var @decimal = (-3.5m);
+            Verify.ShouldFail(() =>
+@decimal.ShouldBePositive("Some additional context"),
+
+errorWithSource:
+@"@decimal
+    should be positive but
+-3.5
+    is negative
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"-3.5
+    should be positive but is negative
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "-3.5m was -3.5 and should be positive but wasn't" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             7.5m.ShouldBePositive();
         }

@@ -1,21 +1,37 @@
 ﻿using System;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class ActionDelegateThrowsDifferentExceptionScenario : ShouldlyShouldFailureTestScenario
+    public class ActionDelegateThrowsDifferentExceptionScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail()
         {
             Action action = () => { throw new RankException(); };
-            action.ShouldThrow<InvalidOperationException>("Some additional context");
-        }
+            Verify.ShouldFail(() =>
+action.ShouldThrow<InvalidOperationException>("Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return @"`action()` should throw System.InvalidOperationException but threw System.RankException
+errorWithSource:
+@"`action()`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context"; }
+    Some additional context",
+
+errorWithoutSource:
+@"delegate
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
+Additional Info:
+    Some additional context");
         }
     }
 }

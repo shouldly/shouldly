@@ -1,86 +1,84 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 using Shouldly.DifferenceHighlighting;
 using Shouldly.Tests.TestHelpers;
+using Xunit;
 
 namespace Shouldly.Tests.InternalTests
 {
-    [TestFixture]
     public class DifferenceHighlighterHelpersTests
     {
-
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_IntegerListsSameExceptOne_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { 1, 2, 3 }, new[] { 2, 2, 3 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[*2*, 2, 3]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ListsSame_DisplaysActualWithoutHighlight()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { 1, 2, 3 }, new[] { 1, 2, 3 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[1, 2, 3]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ListsActualHasMoreElements_HighlightsMissingElements()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { 1 }, new[] { 1, 2, 3 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[1, *2*, *3*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ListsActualHasLessElements_HighlightsMissingElements()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { 1, 2, 3 }, new[] { 1 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[1, *, *]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_DifferentTypes_DisplaysActualWithoutHighlight()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { 1, 2 }, new[] { "hi", "mum" });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[*\"hi\"*, *\"mum\"*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_NotEnumerables_DisplaysActualWithoutHighlight()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext("goodbye", "hello");
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("\"hello\"");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ListsSameElementsInDifferentOrder_HighlightAllAsDifferent()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { 1, 2, 3 }, new[] { 2, 3, 1 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[*2*, *3*, *1*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_StringLists_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { "rita", "sue", "bob" }, new[] { "rita", "sue", "betty" });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[\"rita\", \"sue\", *\"betty\"*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_EnumLists_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { Weapons.Chainsaw, Weapons.Axe }, new[] { Weapons.Screwdriver, Weapons.Axe });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[*Weapons.Screwdriver*, Weapons.Axe]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_BoolLists_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new[] { true, false, true }, new[] { true, true, false });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[True, *True*, *False*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ListOfObjectWithEqualsDefined_HighlightsDifference()
         {
 
@@ -92,7 +90,7 @@ namespace Shouldly.Tests.InternalTests
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[t1, *t3*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ListOfObjectWithoutEqualsDefined_HighlightsEverythingAsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(
@@ -102,28 +100,28 @@ namespace Shouldly.Tests.InternalTests
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[*t1*, *t2*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_GenericList_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new List<int> { 1, 2, 3 }, new List<int> { 1, 4, 3 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[1, *4*, 3]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_ArrayList_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new ArrayList { 9, 8, 7 }, new ArrayList { 9, 7, 8 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[9, *7*, *8*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_PureEnumerable_HighlightsDifference()
         {
             var testShouldlyAssertionContext = new TestShouldlyAssertionContext(new PureEnumerable { 9, 8, 7 }, new PureEnumerable { 9, 8, 6 });
             DifferenceHighlighter.HighlightDifferences(testShouldlyAssertionContext).ShouldBe("[9, 8, *6*]");
         }
 
-        [Test]
+        [Fact]
         public void HighlightDifferencesBetween_BigList_ShowsLimitedNumberOfElements()
         {
             var actualList = new int[2000];

@@ -2,7 +2,9 @@
 
 namespace Shouldly
 {
+#if !DOTNET5_4
     [Serializable]
+#endif
     [Obsolete("This class is only kept here for backwards compatibility. Please use ShouldAssertException instead.")]
     public class ChuckedAWobbly : Exception
     {

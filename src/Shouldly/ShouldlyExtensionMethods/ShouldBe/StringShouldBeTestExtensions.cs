@@ -85,6 +85,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, () => customMessage, option);
         }
+
         public static void ShouldBe(
             this string actual,
             string expected,

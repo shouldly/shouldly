@@ -1,25 +1,40 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeOneOf
 {
-    public class EnumScenario : ShouldlyShouldTestScenario
+    public class EnumScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void EnumScenarioShouldFail()
         {
-            SomeFlags.Val1.ShouldBeOneOf(new[] { SomeFlags.Val2 }, "Some additional context");
-        }
+            var someFlags = SomeFlags.Val1;
+            Verify.ShouldFail(() =>
+someFlags.ShouldBeOneOf(new[] { SomeFlags.Val2 }, "Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"SomeFlags.Val1 should be one of [SomeFlags.Val2] but was SomeFlags.Val1
+errorWithSource:
+@"someFlags
+    should be one of
+[SomeFlags.Val2]
+    but was
+SomeFlags.Val1
+
 Additional Info:
-Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"SomeFlags.Val1
+    should be one of
+[SomeFlags.Val2]
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             SomeFlags.Val1.ShouldBeOneOf(SomeFlags.Val1, SomeFlags.Val2);
         }

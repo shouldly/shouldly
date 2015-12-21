@@ -1,28 +1,37 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeNull
 {
-    public class NotNullScenario : ShouldlyShouldTestScenario
+    public class NotNullScenario
     {
-        protected override void ShouldPass()
-        {
-            "Hello World".ShouldNotBeNull();
-        }
-
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void NotNullScenarioShouldFail()
         {
             string myNullRef = null;
-            myNullRef.ShouldNotBeNull("Some additional context");
+            // ReSharper disable once ExpressionIsAlwaysNull
+            Verify.ShouldFail(() =>
+myNullRef.ShouldNotBeNull("Some additional context"),
+
+errorWithSource:
+@"myNullRef
+    should not be null but was
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"null
+    should not be null but was
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return @"myNullRef should not be null but was null
-Additional Info:
-Some additional context";
-            }
+            "Hello World".ShouldNotBeNull();
         }
     }
 }

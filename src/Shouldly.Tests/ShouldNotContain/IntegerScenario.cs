@@ -1,29 +1,42 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class IntegerScenario : ShouldlyShouldTestScenario
+    public class IntegerScenario
     {
-        protected int[] target = new[] { 1, 2, 3, 4, 5 };
+        readonly int[] _target = { 1, 2, 3, 4, 5 };
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void IntegerScenarioShouldFail()
         {
-            target.ShouldNotContain(3, "Some additional context");
+            Verify.ShouldFail(() =>
+    _target.ShouldNotContain(3, "Some additional context"),
+
+errorWithSource:
+@"_target
+    should not contain
+3
+    but was actually
+[1, 2, 3, 4, 5]
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 3, 4, 5]
+    should not contain
+3
+    but did
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return "target should not contain 3 but was actually [1, 2, 3, 4, 5]" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
-        {
-            target.ShouldNotContain(7);
+            _target.ShouldNotContain(7);
         }
     }
 }

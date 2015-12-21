@@ -1,33 +1,46 @@
-﻿using Shouldly.Tests.TestHelpers;
-using System;
+﻿using System;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldContain
 {
-    public class ObjectScenario : ShouldlyShouldTestScenario
+    public class ObjectScenario
     {
-        protected override void ShouldThrowAWobbly()
+
+        [Fact]
+        public void ObjectScenarioShouldFail()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
-            var d = new Object();
+            var a = new object();
+            var b = new object();
+            var c = new object();
+            var d = new object();
             var target = new[] { a, b, c };
-            target.ShouldContain(d, "Some additional context");
+
+            Verify.ShouldFail(() =>
+target.ShouldContain(d, "Some additional context"),
+
+errorWithSource:
+@"target
+    should contain
+System.Object (000000)
+    but was actually
+[System.Object (000000), System.Object (000000), System.Object (000000)]
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[System.Object (000000), System.Object (000000), System.Object (000000)]
+    should contain
+System.Object (000000)
+    but did not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return @"
-    target
-        should contain
-    System.Object
-        but was actually
-    [System.Object, System.Object, System.Object]
-    Additional Info:
-    Some additional context"; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var a = new Object();
             var b = new Object();

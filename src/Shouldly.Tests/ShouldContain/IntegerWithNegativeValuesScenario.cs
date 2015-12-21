@@ -1,31 +1,42 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldContain
 {
-    public class IntegerWithNegativeValuesScenario : ShouldlyShouldTestScenario
+    public class IntegerWithNegativeValuesScenario
     {
-        protected int[] target = new int[] { 2, 3, 4, 5, 4, 123665, 11234, -13562377 };
+        readonly int[] _target = { 2, 3, 4, 5, 4, 123665, 11234, -13562377 };
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void IntegerWithNegativeValuesScenarioShouldFail()
         {
-            target.ShouldContain(6, "Some additional context");
+            Verify.ShouldFail(() =>
+_target.ShouldContain(6, "Some additional context"),
+
+errorWithSource:
+@"_target
+    should contain
+6
+    but was actually
+[2, 3, 4, 5, 4, 123665, 11234, -13562377]
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[2, 3, 4, 5, 4, 123665, 11234, -13562377]
+    should contain
+6
+    but did not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return "target should contain 6 " +
-                       "but was actually" +
-                       "[2, 3, 4, 5, 4, 123665, 11234, -13562377]" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
-        {
-            target.ShouldContain(-13562377);
+            _target.ShouldContain(-13562377);
         }
     }
 }

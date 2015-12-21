@@ -1,23 +1,34 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotBe
 {
-    public class NumbersOfDifferentTypesScenario : ShouldlyShouldTestScenario
+    public class NumbersOfDifferentTypesScenario
     {
-        protected override void ShouldPass()
-        {
-            1L.ShouldNotBe(2);
-        }
-
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void NumbersOfDifferentTypesScenarioShouldFail()
         {
             const long aLong = 1L;
-            aLong.ShouldNotBe(1);
+            Verify.ShouldFail(() =>
+aLong.ShouldNotBe(1),
+
+errorWithSource:
+@"aLong
+    should not be
+1
+    but was",
+
+errorWithoutSource:
+@"1
+    should not be
+1
+    but was");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get { return "aLong should not be 1 but was"; }
+            1L.ShouldNotBe(2);
         }
     }
 }

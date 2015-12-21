@@ -1,11 +1,12 @@
-﻿using System;
+﻿#if !NET35
+using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable CheckNamespace
-#if net40
 namespace ExpressionToString
 {
     class ExpressionStringBuilder : ExpressionVisitor
@@ -94,13 +95,22 @@ namespace ExpressionToString
             return node;
         }
 
-        private static bool CheckIfAnonymousType(Type type)
+        static bool CheckIfAnonymousType(Type type)
         {
+#if DOTNET5_4
+            // hack: the only way to detect anonymous types right now
+            var typeInfo = type.GetTypeInfo();
+            var isDefined = typeInfo.IsDefined(typeof(CompilerGeneratedAttribute), false);
+            return isDefined
+                && (typeInfo.IsGenericType && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
+                && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"));
+#else
             // hack: the only way to detect anonymous types right now
             var isDefined = type.IsDefined(typeof(CompilerGeneratedAttribute), false);
             return isDefined
                 && (type.IsGenericType && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
                 && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"));
+#endif
         }
 
         protected override Expression VisitConstant(ConstantExpression node)

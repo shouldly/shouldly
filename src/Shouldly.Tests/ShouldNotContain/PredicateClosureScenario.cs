@@ -1,28 +1,36 @@
 ﻿#if net40
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class PredicateClosureScenario : ShouldlyShouldFailureTestScenario
+    public class PredicateClosureScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void PredicateClosureScenarioShouldFail()
         {
             var capturedOuterVar = 4;
-            new[] {1, 2, 3}.ShouldNotContain(i => i < capturedOuterVar, "Some additional context");
-        }
+            var arr = new[] { 1, 2, 3 };
+            Verify.ShouldFail(() =>
+arr.ShouldNotContain(i => i < capturedOuterVar, "Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"
-        new[] { 1, 2, 3 }
-                should not contain an element satisfying the condition
-            (i < capturedOuterVar)
-                but does
-        Additional Info:
-        Some additional context";
-            }
+errorWithSource:
+@"arr
+    should not contain an element satisfying the condition
+(i < capturedOuterVar)
+    but does
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 3]
+    should not contain an element satisfying the condition
+(i < capturedOuterVar)
+    but does
+
+Additional Info:
+    Some additional context");
         }
     }
 }

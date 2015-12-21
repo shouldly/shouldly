@@ -7,7 +7,6 @@ using JetBrains.Annotations;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
     [ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
     {
@@ -37,24 +36,24 @@ namespace Shouldly
             if (errorMessages.Any())
             {
                 var errorMessageString = BuildErrorMessageString(errorMessages);
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString());
             }
         }
 
-        private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
+        static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
         {
             var errorCount = 1;
             var sb = new StringBuilder();
             foreach (var errorMessage in errorMessages)
             {
-                sb.AppendLine(string.Format("--------------- Error {0} ---------------", errorCount));
-                sb.AppendLine(errorMessage.Message.StripLambdaExpressionSyntax());
+                sb.AppendLine($"--------------- Error {errorCount} ---------------");
+                sb.AppendLine(string.Join("\r\n", errorMessage.Message.Replace("\r\n", "\n").Split('\n').Select(l => string.IsNullOrEmpty(l) ? l : "    " + l).ToArray()));
                 sb.AppendLine();
                 errorCount++;
             }
             sb.AppendLine("-----------------------------------------");
 
-            return sb.ToString();
+            return sb.ToString().TrimEnd();
         }
     }
 }

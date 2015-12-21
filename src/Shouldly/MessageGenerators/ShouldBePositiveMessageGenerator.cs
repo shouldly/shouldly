@@ -5,7 +5,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBePositiveMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldBePositive", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("ShouldBePositive", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -14,15 +14,15 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-    {0} was {1} and
-            {2}
-    but wasn't";
-
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();
+            var actualValue = codePart != actual ? $@"
+{actual}
+    " : " ";
 
-            return String.Format(format, codePart, actual, context.ShouldMethod.PascalToSpaced());
+            return
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()} but{actualValue}is negative";
         }
     }
 }

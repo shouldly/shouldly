@@ -13,12 +13,17 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"{0} should be {1} but was {2}";
-
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToStringAwesomely();
 
-            return string.Format(format, codePart, expectedValue, context.Actual.ToStringAwesomely());
+            var actual = context.Actual.ToStringAwesomely();
+            var actualString = codePart == actual ? " not" : $@"
+{actual}";
+
+            return $@"{codePart}
+    should be
+{expectedValue}
+    but was{actualString}";
         }
     }
 }

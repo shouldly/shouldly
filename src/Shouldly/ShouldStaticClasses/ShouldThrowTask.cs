@@ -1,5 +1,6 @@
 ﻿#if net40
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -61,6 +62,13 @@ namespace Shouldly
         }
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
+            return ThrowInternal<TException>(actual, timeoutAfter, customMessage);
+        }
+        internal static TException ThrowInternal<TException>(
+            [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
+            [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null) where TException : Exception
+        {
             try
             {
                 RunAndWait(actual, timeoutAfter, customMessage);
@@ -78,10 +86,10 @@ namespace Shouldly
                 if (e is TException)
                     return (TException)e;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString());
             }
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -151,6 +159,13 @@ namespace Shouldly
         }
         public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
+            NotThrowInternal(action, timeoutAfter, customMessage);
+        }
+        internal static void NotThrowInternal(
+            [InstantHandle] Func<Task> action, TimeSpan timeoutAfter,
+            [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
             try
             {
                 RunAndWait(action, timeoutAfter, customMessage);
@@ -161,11 +176,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
 
@@ -208,6 +223,13 @@ namespace Shouldly
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage)
         {
+            return NotThrowInternal(action, timeoutAfter, customMessage);
+        }
+        internal static T NotThrowInternal<T>(
+            [InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter,
+            [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
             try
             {
                 // Drop the sync context so continuations will not post to it, causing a deadlock
@@ -225,11 +247,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod).ToString());
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
 

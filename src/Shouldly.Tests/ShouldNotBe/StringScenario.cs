@@ -1,25 +1,36 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotBe
 {
-    public class StringScenario : ShouldlyShouldTestScenario
+    public class StringScenario
     {
         const string ThisOtherString = "this other string";
         const string ThisString = "this string";
 
-        protected override void ShouldPass()
+        [Fact]
+        public void StringScenarioShouldFail()
+        {
+            Verify.ShouldFail(() =>
+ThisString.ShouldNotBe(ThisString),
+
+errorWithSource:
+@"ThisString
+    should not be
+""this string""
+    but was",
+
+errorWithoutSource:
+@"""this string""
+    should not be
+""this string""
+    but was");
+        }
+
+        [Fact]
+        public void ShouldPass()
         {
             ThisString.ShouldNotBe(ThisOtherString);
-        }
-
-        protected override void ShouldThrowAWobbly()
-        {
-            ThisString.ShouldNotBe(ThisString);
-        }
-
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "ThisString should not be \"this string\" but was"; }
         }
     }
 }

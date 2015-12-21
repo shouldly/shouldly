@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Shouldly
@@ -188,7 +189,7 @@ namespace Shouldly
             if (actual == null)
                 return false;
 
-            return actual.IndexOf(expected, StringComparison.InvariantCultureIgnoreCase) != -1;
+            return actual.IndexOf(expected, StringComparison.OrdinalIgnoreCase) != -1;
         }
 
         public static bool StringContainingUsingCaseSensitivity(string actual, string expected)
@@ -196,7 +197,7 @@ namespace Shouldly
             if (actual == null)
                 return false;
 
-            return actual.IndexOf(expected, StringComparison.InvariantCulture) != -1;
+            return actual.IndexOf(expected, StringComparison.Ordinal) != -1;
         }
 
 
@@ -207,7 +208,7 @@ namespace Shouldly
 
             if (caseSensitivity == Case.Insensitive)
             {
-                return actual.EndsWith(expected, StringComparison.InvariantCultureIgnoreCase);
+                return actual.EndsWith(expected, StringComparison.OrdinalIgnoreCase);
             }
 
             return actual.EndsWith(expected);
@@ -220,7 +221,7 @@ namespace Shouldly
 
             if (caseSensitivity == Case.Insensitive)
             {
-                return actual.StartsWith(expected, StringComparison.InvariantCultureIgnoreCase);
+                return actual.StartsWith(expected, StringComparison.OrdinalIgnoreCase);
             }
 
             return actual.StartsWith(expected);
@@ -230,10 +231,10 @@ namespace Shouldly
         {
             if (caseSensitivity == Case.Insensitive)
             {
-                return StringComparer.InvariantCultureIgnoreCase.Equals(actual, expected);
+                return StringComparer.OrdinalIgnoreCase.Equals(actual, expected);
             }
 
-            return StringComparer.InvariantCulture.Equals(actual, expected);
+            return StringComparer.Ordinal.Equals(actual, expected);
         }
 
         public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
@@ -281,9 +282,13 @@ namespace Shouldly
             return Compare(comparable, expected) < 0;
         }
 
-        private static decimal Compare<T>(IComparable<T> comparable, T expected)
+        static decimal Compare<T>(IComparable<T> comparable, T expected)
         {
+#if DOTNET5_4
+            if (!typeof(T).GetTypeInfo().IsValueType)
+#else
             if (!typeof(T).IsValueType)
+#endif
             {
                 // ReSharper disable CompareNonConstrainedGenericWithNull
                 if (comparable == null)

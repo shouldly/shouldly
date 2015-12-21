@@ -1,22 +1,30 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings.ShouldBeEmpty
 {
-    public class ActualIsNull : ShouldlyShouldFailureTestScenario
+    public class ActualIsNull
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ActualIsNullShouldFail()
         {
-            ((string) null).ShouldBeEmpty("Some additional context");
-        }
+            var str = ((string)null);
+            Verify.ShouldFail(() =>
+str.ShouldBeEmpty("Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "(string)null should be empty but was null" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
+errorWithSource:
+@"str
+    should be empty but was
+null
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"null
+    should be empty but was not empty
+
+Additional Info:
+    Some additional context");
         }
     }
 }

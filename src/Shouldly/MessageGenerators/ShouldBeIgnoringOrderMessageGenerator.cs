@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 
 namespace Shouldly.MessageGenerators
@@ -22,23 +20,32 @@ namespace Shouldly.MessageGenerators
             var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(e, a))).ToArray();
             var missingFromActual = expected.Where(e => !actual.Any(a => Is.Equal(e, a))).ToArray();
 
-            var actualMissingMessage = missingFromActual.Any() ? string.Format("{0} is missing {1}", codePart,
-                missingFromActual.ToStringAwesomely()) : string.Empty;
-            var expectedMissingMessage = missingFromExpected.Any() ? string.Format("{0} is missing {1}", expectedFormattedValue,
-                missingFromExpected.ToStringAwesomely()) : string.Empty;
+            var actualMissingMessage = missingFromActual.Any() ?
+                $@"{codePart}
+    is missing
+{missingFromActual.ToStringAwesomely()}"
+                : string.Empty;
+            var expectedMissingMessage = missingFromExpected.Any() ?
+                $@"{expected.ToStringAwesomely()}
+    is missing
+{missingFromExpected.ToStringAwesomely()}"
+                : string.Empty;
 
             //"first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 
-            const string format = @"
-    {0}
-            {1}
-    {2} (ignoring order)
-            but
-    {3}";
+            const string format =
+@"{0}
+    {1} (ignoring order)
+{2}
+    but
+{3}";
 
-            string missingMessage = !string.IsNullOrEmpty(actualMissingMessage) && !string.IsNullOrEmpty(expectedMissingMessage)
-                ? string.Format("{0} and {1}", actualMissingMessage, expectedMissingMessage)
-                : string.Format("{0}{1}", actualMissingMessage, expectedMissingMessage);
+            var hasBothActualAndExpectedMissingItems = !string.IsNullOrEmpty(actualMissingMessage) && !string.IsNullOrEmpty(expectedMissingMessage);
+            var missingMessage = hasBothActualAndExpectedMissingItems
+                ? $@"{actualMissingMessage}
+    and
+{expectedMissingMessage}"
+                : $"{actualMissingMessage}{expectedMissingMessage}";
             return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedFormattedValue, missingMessage);
         }
     }
