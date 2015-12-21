@@ -92,7 +92,7 @@ namespace Shouldly.DifferenceHighlighting
             {
                 if (_caseSensitivity == Case.Insensitive)
                 {
-                    isEqual = StringComparer.InvariantCultureIgnoreCase.Equals(_actualValue[index].ToString(), _expectedValue[index].ToString());
+                    isEqual = StringComparer.OrdinalIgnoreCase.Equals(_actualValue[index].ToString(), _expectedValue[index].ToString());
                 }
                 else
                 {

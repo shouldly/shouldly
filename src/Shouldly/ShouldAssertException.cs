@@ -2,10 +2,12 @@
 
 namespace Shouldly
 {
+#if !DOTNET5_4
     [Serializable]
-    #pragma warning disable 618
+#endif
+#pragma warning disable 618
     public class ShouldAssertException : ChuckedAWobbly
-    #pragma warning restore 618
+#pragma warning restore 618
     {
         public ShouldAssertException(string message) : base(message)
         {

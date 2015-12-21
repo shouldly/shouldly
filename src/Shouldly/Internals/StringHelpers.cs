@@ -61,14 +61,19 @@ namespace Shouldly
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
-#if net40
+#if !NET35
             if (value is BinaryExpression)
             {
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 #endif
 
+#if DOTNET5_4
+            var typeInfo = type.GetTypeInfo();
+            if (typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+#else
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+#endif
             {
                 var key = type.GetProperty("Key").GetValue(value, null);
                 var v = type.GetProperty("Value").GetValue(value, null);
@@ -164,7 +169,7 @@ namespace Shouldly
                         return string.Format("\\u{0:X};", (int)c);
                 }
             }
-            return c.ToString(CultureInfo.InvariantCulture);
+            return c.ToString();
         }
 
         internal static string NormalizeLineEndings(this string s)

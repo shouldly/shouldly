@@ -12,7 +12,6 @@ namespace Shouldly.Tests.TestHelpers
         public string FileName { get; set; }
         public int LineNumber { get; set; }
         public string CodePart { get; set; }
-        public StackFrame OriginatingFrame { get; set; }
         public MethodBase UnderlyingShouldMethod { get; set; }
         public object Key { get; set; }
         public object Expected { get; set; }

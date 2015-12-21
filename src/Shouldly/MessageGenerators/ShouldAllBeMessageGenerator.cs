@@ -1,6 +1,5 @@
 using System;
 using System.Text.RegularExpressions;
-using ExpressionToString;
 
 namespace Shouldly.MessageGenerators
 {
@@ -17,8 +16,8 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToStringAwesomely();
-#if net40
-            var expression = ExpressionStringBuilder.ToString(context.Filter);
+#if !NET35
+            var expression = ExpressionToString.ExpressionStringBuilder.ToString(context.Filter);
 #else
             var expression = context.Filter;
 #endif

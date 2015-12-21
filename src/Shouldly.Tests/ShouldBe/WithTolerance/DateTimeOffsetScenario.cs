@@ -11,7 +11,11 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         [Fact]
         public void DateTimeOffsetScenarioShouldFail()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
+#if DNX451
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
+#elif DNXCORE50
+            CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+#endif
             var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
             var exptected = new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero);
             Verify.ShouldFail(() =>

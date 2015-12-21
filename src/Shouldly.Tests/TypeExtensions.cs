@@ -8,12 +8,12 @@ namespace ShouldlyConvention.Tests
     {
         public static bool HasAttribute<TAttribute>(this Type type)
         {
-            return type.GetCustomAttributes(typeof(TAttribute), true).Any();
+            return type.GetTypeInfo().GetCustomAttributes(typeof(TAttribute), true).Any();
         }
 
         public static bool HasAttribute(this Type type, string attributeName)
         {
-            return type.GetCustomAttributes(true).Cast<Attribute>().Any(a => a.GetType().FullName == attributeName);
+            return type.GetTypeInfo().GetCustomAttributes(true).Any(a => a.GetType().FullName == attributeName);
         }
 
         public static string FormatMethod(this MethodInfo shouldlyMethods, bool onlyIncludeFirstParam = false)
@@ -34,7 +34,7 @@ namespace ShouldlyConvention.Tests
 
         public static string FormatType(this Type type)
         {
-            if (type.IsGenericType)
+            if (type.GetTypeInfo().IsGenericType)
             {
                 var genericTypeParams = type.GetGenericArguments();
                 return string.Format(

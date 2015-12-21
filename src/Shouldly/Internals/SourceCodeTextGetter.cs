@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-
-namespace Shouldly.Internals
+﻿namespace Shouldly.Internals
 {
+#if DOTNET5_4
+    internal class ActualCodeTextGetter : ICodeTextGetter
+    {
+        public string GetCodeText(object actual)
+        {
+            return actual.ToStringAwesomely();
+        }
+    }
+#else
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
         bool _determinedOriginatingFrame;
@@ -157,4 +166,5 @@ namespace Shouldly.Internals
                 .Trim();
         }
     }
+#endif
 }

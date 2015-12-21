@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace Shouldly
 {
     public static class ShouldlyConfiguration
     {
+#if DOTNET5_4
+        static readonly AsyncLocal<bool?> DisableSourceInErrorsSetting = new AsyncLocal<bool?>();
+#endif
         static ShouldlyConfiguration()
         {
             CompareAsObjectTypes = new List<string>
@@ -22,20 +25,32 @@ namespace Shouldly
         /// </summary>
         public static IDisposable DisableSourceInErrors()
         {
-            CallContext.SetData("ShouldlyDisableSourceInErrors", true);
+#if DOTNET5_4
+            DisableSourceInErrorsSetting.Value = true;
+#else
+            System.Runtime.Remoting.Messaging.CallContext.SetData("ShouldlyDisableSourceInErrors", true);
+#endif
             return new EnableSourceInErrorsDisposable();
         }
 
         public static bool IsSourceDisabledInErrors()
         {
-            return (bool?) CallContext.GetData("ShouldlyDisableSourceInErrors") == true;
+#if DOTNET5_4
+            return DisableSourceInErrorsSetting.Value == true;
+#else
+            return (bool?) System.Runtime.Remoting.Messaging.CallContext.GetData("ShouldlyDisableSourceInErrors") == true;
+#endif
         }
 
         class EnableSourceInErrorsDisposable : IDisposable
         {
             public void Dispose()
             {
-                CallContext.SetData("ShouldlyDisableSourceInErrors", null);
+#if DOTNET5_4
+                DisableSourceInErrorsSetting.Value = null;
+#else
+                System.Runtime.Remoting.Messaging.CallContext.SetData("ShouldlyDisableSourceInErrors", null);
+#endif
             }
         }
 

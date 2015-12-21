@@ -22,20 +22,20 @@ namespace Shouldly.Internals.AssertionFactories
             if ((options & StringCompareShould.IgnoreCase) == 0)
             {
                 sensitivity = Case.Sensitive;
-                stringComparer = StringComparer.InvariantCulture.Equals;
+                stringComparer = StringComparer.Ordinal.Equals;
             }
             else
             {
                 sensitivity = Case.Insensitive;
-                stringComparer = StringComparer.InvariantCultureIgnoreCase.Equals;
+                stringComparer = StringComparer.OrdinalIgnoreCase.Equals;
                 optionsList.Add("Ignoring case");
             }
 
-                    return new StringShouldBeAssertion(
-                        expected, actual,
-                        stringComparer,
-                        new ActualCodeTextGetter(),
-                        new StringDifferenceHighlighter(sensitivity),
+            return new StringShouldBeAssertion(
+                expected, actual,
+                stringComparer,
+                new ActualCodeTextGetter(),
+                new StringDifferenceHighlighter(sensitivity),
                 string.Join(", ", optionsList.ToArray()));
         }
     }

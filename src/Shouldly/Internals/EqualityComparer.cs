@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework.Constraints;
 
 namespace Shouldly
@@ -31,12 +32,17 @@ namespace Shouldly
                 return true;
 
             // Null?
+#if DOTNET5_4
+            var typeInfo = type.GetTypeInfo();
+            if (!typeInfo.IsValueType || (typeInfo.IsGenericType && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
+#else
             if (!type.IsValueType || (type.IsGenericType && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
+#endif
             {
-                if (Object.Equals(x, default(T)))
-                    return Object.Equals(y, default(T));
+                if (object.Equals(x, default(T)))
+                    return object.Equals(y, default(T));
 
-                if (Object.Equals(y, default(T)))
+                if (object.Equals(y, default(T)))
                     return false;
             }
 

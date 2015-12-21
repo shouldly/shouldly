@@ -32,6 +32,17 @@ namespace Shouldly
         public string CustomMessage { get; set; }
         public Expression Filter { get; set; }
 
+#if DOTNET5_4
+        internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null)
+        {
+            var actualCodeGetter = new ActualCodeTextGetter();
+            Expected = expected;
+            Actual = actual;
+            ShouldMethod = shouldlyMethod;
+
+           CodePart = actualCodeGetter.GetCodeText(actual);
+        }
+#else
         internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null, StackTrace stackTrace = null)
         {
             var actualCodeGetter = new ActualCodeTextGetter();
@@ -41,13 +52,6 @@ namespace Shouldly
 
            CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
         }
-    }
-}
-
-
-namespace System.Runtime.CompilerServices
-{
-    internal class CallerMemberNameAttribute : Attribute
-    {
+#endif
     }
 }

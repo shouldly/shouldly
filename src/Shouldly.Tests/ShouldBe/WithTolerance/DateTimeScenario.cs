@@ -11,7 +11,11 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         [Fact]
         public void DateTimeScenarioShouldFail()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
+#if DNX451
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
+#elif DNXCORE50
+            CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+#endif
             var date = new DateTime(2000, 6, 1);
             var expected = new DateTime(2000, 6, 1, 1, 0, 1);
             Verify.ShouldFail(() =>

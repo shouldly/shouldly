@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace Shouldly
 {
@@ -9,20 +8,26 @@ namespace Shouldly
 
         public bool IsAsync { get; private set; }
 
+#if DOTNET5_4
         /// <summary>
-        /// 
+        /// Only pass stacktrace if asynchronous
         /// </summary>
-        /// <param name="expected"></param>
-        /// <param name="actual"></param>
-        /// <param name="exceptionMessage"></param>
-        /// <param name="stackTrace">Only pass if asynchronous</param>
         internal ShouldThrowAssertionContext(object expected, object actual = null, string exceptionMessage = null,
             bool isAsync = false,
-            StackTrace stackTrace = null,
+            [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual)
+        {
+            ExceptionMessage = exceptionMessage;
+            IsAsync = isAsync;
+        }
+#else
+        internal ShouldThrowAssertionContext(object expected, object actual = null, string exceptionMessage = null,
+            bool isAsync = false,
+            System.Diagnostics.StackTrace stackTrace = null,
             [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual, stackTrace)
         {
             ExceptionMessage = exceptionMessage;
             IsAsync = isAsync;
         }
+#endif
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Shouldly.DifferenceHighlighting;
+using Xunit;
 using Xunit.Extensions;
 
 namespace Shouldly.Tests.InternalTests
@@ -10,7 +11,7 @@ namespace Shouldly.Tests.InternalTests
         const int MaxLengthOfStrings = 21;
 
         [Theory]
-        [PropertyData("IndexConsolidationTestCases")]
+        [MemberData("IndexConsolidationTestCases")]
         public void ShouldConsolidate_Indices_Correctly_GivenInput(List<int> indicesOfAllDifferences, List<int> expectedConsolidatedOutputIndices)
         {
             var consolidator = new DifferenceIndexConsolidator(MaxDiffLength, MaxLengthOfStrings, indicesOfAllDifferences);
