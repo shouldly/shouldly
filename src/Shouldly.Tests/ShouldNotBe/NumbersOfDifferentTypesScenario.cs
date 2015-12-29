@@ -15,13 +15,13 @@ aLong.ShouldNotBe(1),
 errorWithSource:
 @"aLong
     should not be
-1
+1L
     but was",
 
 errorWithoutSource:
-@"1
+@"1L
     should not be
-1
+1L
     but was");
         }
 

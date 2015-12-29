@@ -15,14 +15,14 @@ namespace Shouldly.Tests.ShouldBeNegative
 errorWithSource:
 @"@decimal
     should be negative but
-3.5
+3.5m
     is positive
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"3.5
+@"3.5m
     should be negative but is positive
 
 Additional Info:

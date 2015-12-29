@@ -14,21 +14,21 @@ new[] { 1f, 2f, 3f }.ShouldContain(1.8f, 0.1d, "Some additional context"),
 errorWithSource:
 @"new[] { 1f, 2f, 3f }
     should contain
-1.8
+1.8f
     within
-0.1
+0.1d
     but was
-[1, 2, 3]
+[1f, 2f, 3f]
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"[1, 2, 3]
+@"[1f, 2f, 3f]
     should contain
-1.8
+1.8f
     within
-0.1
+0.1d
     but was not
 
 Additional Info:

@@ -36,6 +36,24 @@ namespace Shouldly
 
             var type = value.GetType();
 
+            if (value is decimal)
+                return value + "m";
+
+            if (value is double)
+                return value + "d";
+
+            if (value is float)
+                return value + "f";
+
+            if (value is long)
+                return value + "L";
+
+            if (value is uint)
+                return value + "u";
+
+            if (value is ulong)
+                return value + "uL";
+
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();

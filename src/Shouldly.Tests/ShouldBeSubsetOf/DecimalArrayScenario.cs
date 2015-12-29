@@ -14,20 +14,20 @@ new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] { 2m, 3m, 4m }, "Some additional con
 errorWithSource:
 @"new[] { 1m, 2m, 5m }
     should be subset of
-[2, 3, 4]
+[2m, 3m, 4m]
     but
-[1, 5]
+[1m, 5m]
     are outside subset
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"[1, 2, 5]
+@"[1m, 2m, 5m]
     should be subset of
-[2, 3, 4]
+[2m, 3m, 4m]
     but
-[1, 5]
+[1m, 5m]
     are outside subset
 
 Additional Info:

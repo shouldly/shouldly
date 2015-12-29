@@ -15,14 +15,14 @@ namespace Shouldly.Tests.ShouldBeNegative
 errorWithSource:
 @"@long
     should be negative but
-3
+3L
     is positive
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"3
+@"3L
     should be negative but is positive
 
 Additional Info:

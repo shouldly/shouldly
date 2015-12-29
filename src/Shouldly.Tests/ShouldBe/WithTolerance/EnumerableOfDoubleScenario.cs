@@ -16,26 +16,26 @@ new[] { Math.PI, Math.PI }.ShouldBe(new[] { 3.24, 3.24 }, 0.01, "Some additional
 errorWithSource:
 @"new[] { Math.PI, Math.PI }
     should be within
-0.01
+0.01d
     of
-[3.24, 3.24]
+[3.24d, 3.24d]
     but was
-[3.14159265358979, 3.14159265358979]
+[3.14159265358979d, 3.14159265358979d]
     difference
-[*3.14159265358979*, *3.14159265358979*]
+[*3.14159265358979d*, *3.14159265358979d*]
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"[3.14159265358979, 3.14159265358979]
+@"[3.14159265358979d, 3.14159265358979d]
     should be within
-0.01
+0.01d
     of
-[3.24, 3.24]
+[3.24d, 3.24d]
     but was not
     difference
-[*3.14159265358979*, *3.14159265358979*]
+[*3.14159265358979d*, *3.14159265358979d*]
 
 Additional Info:
     Some additional context");

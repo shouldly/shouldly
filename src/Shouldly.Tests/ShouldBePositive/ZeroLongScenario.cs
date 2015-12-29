@@ -16,14 +16,14 @@ val.ShouldBePositive("Some additional context"),
 errorWithSource:
 @"val
     should be positive but
-0
+0L
     is negative
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"0
+@"0L
     should be positive but is negative
 
 Additional Info:

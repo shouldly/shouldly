@@ -17,13 +17,13 @@ errorWithSource:
     should not be in range
 { from = 1.4, to = 1.6 }
     but was
-1.5
+1.5m
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"1.5
+@"1.5m
     should not be in range
 { from = 1.4, to = 1.6 }
     but was

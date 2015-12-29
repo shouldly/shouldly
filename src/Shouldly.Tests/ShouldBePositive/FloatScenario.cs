@@ -16,14 +16,14 @@ namespace Shouldly.Tests.ShouldBePositive
 errorWithSource:
 @"@float
     should be positive but
--3
+-3f
     is negative
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"-3
+@"-3f
     should be positive but is negative
 
 Additional Info:

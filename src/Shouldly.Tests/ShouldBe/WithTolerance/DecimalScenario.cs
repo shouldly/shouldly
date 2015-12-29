@@ -16,21 +16,21 @@ pi.ShouldBe(3.24m, 0.01m, "Some additional context"),
 errorWithSource:
 @"pi
     should be within
-0.01
+0.01m
     of
-3.24
+3.24m
     but was
-3.14159265358979
+3.14159265358979m
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"3.14159265358979
+@"3.14159265358979m
     should be within
-0.01
+0.01m
     of
-3.24
+3.24m
     but was not
 
 Additional Info:

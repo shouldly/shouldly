@@ -16,14 +16,14 @@ namespace Shouldly.Tests.ShouldBePositive
 errorWithSource:
 @"@double
     should be positive but
--3.5
+-3.5d
     is negative
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"-3.5
+@"-3.5d
     should be positive but is negative
 
 Additional Info:

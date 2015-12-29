@@ -9,21 +9,22 @@ namespace Shouldly.Tests.ShouldBeInRange
     [Fact]
     public void DecimalScenaroShouldFail()
     {
+        var val = 1.5m;
         Verify.ShouldFail(() =>
-1.5m.ShouldBeInRange(1.6m, 1.7m, "Some additional context"),
+val.ShouldBeInRange(1.6m, 1.7m, "Some additional context"),
 
 errorWithSource:
-@"1.5m
+@"val
     should be in range
 { from = 1.6, to = 1.7 }
     but was
-1.5
+1.5m
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"1.5
+@"1.5m
     should be in range
 { from = 1.6, to = 1.7 }
     but was not
@@ -32,7 +33,7 @@ Additional Info:
     Some additional context");
     }
 
-    [Fact]
+        [Fact]
     public void ShouldPass()
     {
         1.5m.ShouldBeInRange(1.4m, 1.6m);

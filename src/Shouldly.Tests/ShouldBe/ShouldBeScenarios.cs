@@ -46,7 +46,7 @@ a.ShouldBe(b, "Some additional context"),
 errorWithSource:
 @"a
     should be
-0.1
+0.1d
     but was
 0
 
@@ -56,7 +56,7 @@ Additional Info:
 errorWithoutSource:
 @"0
     should be
-0.1
+0.1d
     but was not
 
 Additional Info:
@@ -311,17 +311,17 @@ aLong.ShouldBe(1, "Some additional context"),
 errorWithSource:
 @"aLong
     should be
-1
+1L
     but was
-2
+2L
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"2
+@"2L
     should be
-1
+1L
     but was not
 
 Additional Info:

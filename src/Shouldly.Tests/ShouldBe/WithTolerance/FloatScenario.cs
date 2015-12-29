@@ -16,21 +16,21 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
 errorWithSource:
 @"pi
     should be within
-0.01
+0.01d
     of
-3.24
+3.24f
     but was
-3.141593
+3.141593f
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"3.141593
+@"3.141593f
     should be within
-0.01
+0.01d
     of
-3.24
+3.24f
     but was not
 
 Additional Info:
