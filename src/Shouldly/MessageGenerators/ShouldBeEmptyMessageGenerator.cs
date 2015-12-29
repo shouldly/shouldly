@@ -7,7 +7,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("Should(Not)?BeEmpty", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("Should(Not)?BeEmpty", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -16,23 +16,42 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-    {0}
-            {1}
-        but{2} was {3}";
-
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToStringAwesomely();
+            var shouldMethod = context.ShouldMethod.PascalToSpaced();
 
             if (context.IsNegatedAssertion)
-                return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), string.Empty, context.Expected == null ? "null" : "");
+            {
+                if (codePart == "null")
+                    codePart = expectedValue;
+
+                return
+$@"{codePart}
+    {shouldMethod} but was{(context.Expected == null ? " null" : "")}";
+            }
 
             var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
-            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(),
-                !(context.Expected is string) && context.Expected is IEnumerable
-                ? string.Format(" had {0} item{1} and", count, count == 1 ? string.Empty : "s")
-                    : string.Empty,
-                expectedValue);
+            string details;
+            if (!(context.Expected is string) && context.Expected is IEnumerable)
+            {
+                details = $@" had
+{count}
+    item{(count == 1 ? string.Empty : "s")} and";
+            }
+            else
+                details = string.Empty;
+            string expectedString;
+            if (codePart == "null")
+            {
+                codePart = expectedValue;
+                expectedString = " not empty";
+            }
+            else expectedString = $@"
+{expectedValue}";
+
+            return
+$@"{codePart}
+    {shouldMethod} but{details} was{expectedString}";
         }
     }
 }

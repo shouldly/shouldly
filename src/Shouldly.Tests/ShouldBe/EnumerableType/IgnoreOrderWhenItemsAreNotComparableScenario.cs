@@ -1,46 +1,76 @@
 ﻿using System.Collections.Generic;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class IgnoreOrderWhenItemsAreNotComparableScenario : ShouldlyShouldTestScenario
+    public class IgnoreOrderWhenItemsAreNotComparableScenario
     {
         // testing against non-ICollection IEnumerable, so we're not falling into the ICollection.Count short-circuit
         public IEnumerable<YourAverageNonComparableType> Actual
         {
-            get { yield return new YourAverageNonComparableType(1); yield return new YourAverageNonComparableType(2); }
+            get
+            {
+                yield return new YourAverageNonComparableType(1);
+                yield return new YourAverageNonComparableType(2);
+            }
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void IgnoreOrderWhenItemsAreNotComparableScenarioShouldFail()
         {
             var expected = new[]
             {
-                new YourAverageNonComparableType(2), 
-                new YourAverageNonComparableType(1)
-            };
-
-            Actual.ShouldBe(expected, ignoreOrder: true);
-        }
-
-        protected override void ShouldThrowAWobbly()
-        {
-            var expected = new[] 
-            {
-                new YourAverageNonComparableType(2), 
+                new YourAverageNonComparableType(2),
                 new YourAverageNonComparableType(3)
             };
+            Verify.ShouldFail(() =>
 
-            Actual.ShouldBe(expected, true, "Some additional context");
+Actual.ShouldBe(expected, true, "Some additional context"),
+
+errorWithSource:
+@"Actual
+    should be (ignoring order)
+[2, 3]
+    but
+Actual
+    is missing
+[3]
+    and
+[2, 3]
+    is missing
+[1]
+
+Additional Info:
+    Some additional context",
+
+
+errorWithoutSource:
+@"[1, 2]
+    should be (ignoring order)
+[2, 3]
+    but
+[1, 2]
+    is missing
+[3]
+    and
+[2, 3]
+    is missing
+[1]
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
+            var expected = new[]
             {
-                return @"Actual should be [2, 3] (ignoring order) but Actual is missing [3] and [2, 3] is missing [1]
-Additional Info:
-Some additional context";
-            }
+                new YourAverageNonComparableType(2),
+                new YourAverageNonComparableType(1)
+            };
+            Actual.ShouldBe(expected, ignoreOrder: true);
         }
 
         public class YourAverageNonComparableType

@@ -5,7 +5,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldBeUnique", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("ShouldBeUnique", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -14,16 +14,17 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-    {0}
-            {1}
-    but {2}
-            was duplicated";
-
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();
 
-            return String.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), actual);
+            if (codePart == actual)
+                codePart = context.Expected.ToStringAwesomely();
+
+            return
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()} but
+{actual}
+    was duplicated";
         }
     }
 }

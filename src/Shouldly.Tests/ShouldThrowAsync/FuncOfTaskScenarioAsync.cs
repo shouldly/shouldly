@@ -2,14 +2,15 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrowAsync
 {  
-    [TestFixture]
     public class FuncOfTaskScenarioAsync
+   
     {
-        [Test]
+
+    [Fact]
         public void ShouldThrowAWobbly()
         {
             try
@@ -32,7 +33,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
             }
         }
 
-        [Test]
+        [Fact]
         public void ShouldPass()
         {
             var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },

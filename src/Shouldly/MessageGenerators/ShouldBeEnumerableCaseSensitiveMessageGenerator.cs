@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.MessageGenerators
@@ -8,34 +9,45 @@ namespace Shouldly.MessageGenerators
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.ShouldMethod.Equals("ShouldBe") && !(context.Expected is Expression) &&
-                   context.UnderlyingShouldMethod.ReflectedType == typeof(ShouldBeEnumerableTestExtensions);
+                   context.Actual is IEnumerable<string>;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            string codePart = context.CodePart;
-            string caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : "(case sensitive comparison)";
-            string format = @"
-    {0}
-        {1}
-    {2}{3}
-        but was
-    {4}";
+            var codePart = context.CodePart;
+            var caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : " (case sensitive comparison)";
+            var actualValue = context.Actual.ToStringAwesomely();
+            string actual;
+            if (context.IsNegatedAssertion)
+            {
+                actual = string.Empty;
+            }
+            else if (codePart == actualValue)
+            {
+                actual = $" not{caseSensitivity}";
+                caseSensitivity = string.Empty;
+            }
+            else
+            {
+                actual = $"\r\n{actualValue}";
+            }
+
+            var expected = context.Expected.ToStringAwesomely();
+            var format =
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()}
+{expected}
+    but was{caseSensitivity}{actual}";
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))
             {
-                format += string.Format(@"
-        difference
-    {0}",
-                DifferenceHighlighter.HighlightDifferences(context));
+                format +=
+$@"
+    difference
+{DifferenceHighlighter.HighlightDifferences(context)}";
             }
 
-            return string.Format(format,
-                    codePart,
-                    context.ShouldMethod.PascalToSpaced(),
-                    context.Expected.ToStringAwesomely(),
-                    caseSensitivity,
-                    context.Actual.ToStringAwesomely());
+            return format;
         }
     }
 }

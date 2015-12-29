@@ -1,27 +1,43 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeSubsetOf
 {
-    public class DecimalArrayScenario : ShouldlyShouldTestScenario
+    public class DecimalArrayScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void DecimalArrayScenarioShouldFail()
         {
-            new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] {2m, 3m, 4m}, "Some additional context");
+            Verify.ShouldFail(() =>
+new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] { 2m, 3m, 4m }, "Some additional context"),
+
+errorWithSource:
+@"new[] { 1m, 2m, 5m }
+    should be subset of
+[2, 3, 4]
+    but
+[1, 5]
+    are outside subset
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[1, 2, 5]
+    should be subset of
+[2, 3, 4]
+    but
+[1, 5]
+    are outside subset
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return "new[] { 1m, 2m, 5m } should be subset of  [2, 3, 4] but [1, 5] are outside subset" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
-        {
-            new[] {1m}.ShouldBeSubsetOf(new[] {1m, 2m, 3m});
+            new[] { 1m }.ShouldBeSubsetOf(new[] { 1m, 2m, 3m });
         }
     }
 }

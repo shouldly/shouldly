@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.InternalTests
 {
@@ -11,7 +11,7 @@ namespace Shouldly.Tests.InternalTests
          * at https://github.com/xunit/xunit/blob/master/test/test.xunit2.assert/Asserts/EqualityAssertsTests.cs
          */
 
-        [Test]
+        [Fact]
         public void EqualityComparer_WhenGivenEqualLists_ShouldBeTrue()
         {
             var x = new List<object> { new List<object> { new List<object> { new List<object>() } } };
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.InternalTests
             comparer.Equals(x,y).ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void EqualityComparer_WhenGivenNonComaprableObject_ShouldBeTrue()
         {
             var nco1 = new NonComparableObject();
@@ -31,7 +31,7 @@ namespace Shouldly.Tests.InternalTests
             comparer.Equals(nco1, nco2).ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void EqualityComparer_WhenGivenComparableObject_ShouldBeTrue()
         {
             var co1 = new SpyComparable();
@@ -41,7 +41,7 @@ namespace Shouldly.Tests.InternalTests
             comparer.Equals(co1, co2).ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void EqualityComparer_WhenGivenComparableGeneric_ShouldBeTrue()
         {
            var co1 = new SpyComparableGeneric(); 
@@ -52,7 +52,7 @@ namespace Shouldly.Tests.InternalTests
            co1.CompareCalled.ShouldBe(true);
         }
 
-        [Test]
+        [Fact]
         public void EqualityComparer_WhenGivenOverriddenEquatable_ShouldBeTrue()
         {
            var eq1 = new SpyEquatable(); 

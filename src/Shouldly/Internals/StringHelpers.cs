@@ -23,7 +23,7 @@ namespace Shouldly
 
         private static string ToStringAwesomely(this Enum value)
         {
-            return value.GetType().Name +"."+ value;
+            return value.GetType().Name + "." + value;
         }
 
         internal static string ToStringAwesomely(this object value)
@@ -34,11 +34,13 @@ namespace Shouldly
             if (value is string)
                 return "\"" + value + "\"";
 
+            var type = value.GetType();
+
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();
                 var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
-                if (inspect == "[]" && value.ToString() != value.GetType().FullName)
+                if (inspect == "[]" && value.ToString() != type.FullName)
                 {
                     inspect += " (" + value + ")";
                 }
@@ -66,7 +68,18 @@ namespace Shouldly
             }
 #endif
 
-            return value.ToString();
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+            {
+                var key = type.GetProperty("Key").GetValue(value, null);
+                var v = type.GetProperty("Value").GetValue(value, null);
+                return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
+            }
+
+            var toString = value.ToString();
+            if (toString == type.FullName)
+                return $"{value} ({value.GetHashCode()})";
+
+            return toString;
         }
 
         internal static string PascalToSpaced(this string pascal)

@@ -1,27 +1,43 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeAssignableTo
 {
-    public class BasicTypesScenario : ShouldlyShouldTestScenario
+    public class BasicTypesScenario
     {
-        protected override void ShouldThrowAWobbly()
-        {
-            2.ShouldBeAssignableTo<double>("Some additional context");
-        }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "2 should be assignable to System.Double but was System.Int32" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
+    [Fact]
+    public void BasicTypesScenarioShouldFail()
+    {
+        var two = 2;
+        Verify.ShouldFail(() =>
+two.ShouldBeAssignableTo<double>("Some additional context"),
 
-        protected override void ShouldPass()
-        {
-            1.ShouldBeAssignableTo<int>();
-        }
+errorWithSource:
+@"two
+    should be assignable to
+System.Double
+    but was
+System.Int32
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"2
+    should be assignable to
+System.Double
+    but was
+System.Int32
+
+Additional Info:
+    Some additional context");
     }
+
+        [Fact]
+    public void ShouldPass()
+    {
+        1.ShouldBeAssignableTo<int>();
+    }
+}
 }

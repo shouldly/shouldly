@@ -1,28 +1,43 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class MultiDimentionalArrayScenario : ShouldlyShouldTestScenario
+    public class MultiDimentionalArrayScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void MultiDimentionalArrayScenarioShouldFail()
         {
-            new[,] { { "1", "2" }, { "3", "5" } }.ShouldBe(new[,] { { "1", "2" }, { "3", "4" } }, "Some additional context");
-        }
+            Verify.ShouldFail(() =>
+    new[,] { { "1", "2" }, { "3", "5" } }.ShouldBe(new[,] { { "1", "2" }, { "3", "4" } }, "Some additional context"),
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "new[,] {{\"1\", \"2\"}, {\"3\", \"5\"}} " +
-                       "should be [\"1\", \"2\", \"3\", \"4\"] " +
-                       "but was [\"1\", \"2\", \"3\", \"5\"] " +
-                       "difference [\"1\", \"2\", \"3\", *\"5\"*]" + @"
+    // TODO Multidimentional arrays are not outputted correctly?
+errorWithSource:
+@"new[,] { { ""1"", ""2"" }, { ""3"", ""5"" } }
+    should be
+[""1"", ""2"", ""3"", ""4""]
+    but was
+[""1"", ""2"", ""3"", ""5""]
+    difference
+[""1"", ""2"", ""3"", *""5""*]
+
 Additional Info:
-Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"[""1"", ""2"", ""3"", ""5""]
+    should be
+[""1"", ""2"", ""3"", ""4""]
+    but was not
+    difference
+[""1"", ""2"", ""3"", *""5""*]
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             new[,] { { "1", "2" }, { "3", "4" } }.ShouldBe(new[,] { { "1", "2" }, { "3", "4" } });
         }

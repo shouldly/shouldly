@@ -1,34 +1,46 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldContain
 {
-    public class PredicateObjectScenario : ShouldlyShouldTestScenario
+    public class PredicateObjectScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void PredicateObjectScenarioShouldFail()
         {
             var a = new object();
             var b = new object();
             var c = new object();
-            new[] {a, b, c}.ShouldContain(o => o.GetType().FullName.Equals(""), "Some additional context");
+
+            Verify.ShouldFail(() =>
+new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals(""), "Some additional context"),
+
+errorWithSource:
+@"new[] { a, b, c }
+    should contain an element satisfying the condition
+o.GetType().FullName.Equals("""")
+    but does not
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[System.Object (000000), System.Object (000000), System.Object (000000)]
+    should contain an element satisfying the condition
+o.GetType().FullName.Equals("""")
+    but does not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return @"
-    new[] { a, b, c }
-        should contain an element satisfying the condition
-    o.GetType().FullName.Equals("""")
-        but does not
-    Additional Info:
-    Some additional context"; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var a = new object();
             var b = new object();
             var c = new object();
-            new[] {a, b, c}.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
+            new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
         }
     }
 }

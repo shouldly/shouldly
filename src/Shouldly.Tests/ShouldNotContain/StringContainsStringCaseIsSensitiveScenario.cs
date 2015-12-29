@@ -1,21 +1,33 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
-    public class StringContainsStringCaseIsSensitiveScenario : ShouldlyShouldTestScenario
+    public class StringContainsStringCaseIsSensitiveScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringContainsStringCaseIsSensitiveScenarioShouldFail()
         {
             const string target = "Shouldly is legendary";
-            target.ShouldNotContain("legendary", Case.Sensitive);
+            Verify.ShouldFail(() =>
+target.ShouldNotContain("legendary", Case.Sensitive),
+
+errorWithSource:
+@"target
+    should not contain
+""legendary""
+    but was actually
+""Shouldly is legendary""",
+
+errorWithoutSource:
+@"""Shouldly is legendary""
+    should not contain
+""legendary""
+    but did");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "target should not contain \"legendary\" but was actually \"Shouldly is legendary\""; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "Shouldly is legendary".ShouldNotContain("LEGENDARY", Case.Sensitive);
         }

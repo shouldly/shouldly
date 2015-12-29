@@ -11,43 +11,43 @@ namespace Shouldly
         /*** ShouldThrow(Action) ***/
         public static TException ShouldThrow<TException>(this Action actual) where TException : Exception
         {
-            return Should.Throw<TException>(actual);
+            return ShouldThrow<TException>(actual, () => null);
         }
         public static TException ShouldThrow<TException>(this Action actual, string customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, customMessage);
+            return ShouldThrow<TException>(actual, () => customMessage);
         }
         public static TException ShouldThrow<TException>(this Action actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-            return Should.Throw<TException>(actual, customMessage);
+            return Should.ThrowInternal<TException>(actual, customMessage);
         }
 
         /*** ShouldNotThrow(Action) ***/
         public static void ShouldNotThrow(this Action action)
         {
-            Should.NotThrow(action);
+            ShouldNotThrow(action, () => null);
         }
         public static void ShouldNotThrow(this Action action, string customMessage)
         {
-            Should.NotThrow(action, customMessage);
+            ShouldNotThrow(action, () => customMessage);
         }
         public static void ShouldNotThrow(this Action action, [InstantHandle] Func<string> customMessage)
         {
-            Should.NotThrow(action, customMessage);
+            Should.NotThrowInternal(action, customMessage);
         }
 
         /*** ShouldNotThrow(Func<T>) ***/
         public static T ShouldNotThrow<T>(this Func<T> action)
         {
-            return Should.NotThrow(action);
+            return ShouldNotThrow(action, () => null);
         }
         public static T ShouldNotThrow<T>(this Func<T> action, string customMessage)
         {
-            return Should.NotThrow(action, customMessage);
+            return ShouldNotThrow(action, () => customMessage);
         }
         public static T ShouldNotThrow<T>(this Func<T> action, [InstantHandle] Func<string> customMessage)
         {
-            return Should.NotThrow(action, customMessage);
+            return Should.NotThrowInternal(action, customMessage);
         }
     }
 }

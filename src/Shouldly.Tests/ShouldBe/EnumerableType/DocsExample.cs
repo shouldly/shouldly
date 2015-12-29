@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class DocsExample
+   
     {
-        [Test]
+
+    [Fact]
         public void Docs()
         {
             var apu = new Person { Name = "Apu" };

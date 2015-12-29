@@ -1,11 +1,11 @@
-﻿using System;
+﻿#if net40
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable CheckNamespace
-#if net40
 namespace ExpressionToString
 {
     class ExpressionStringBuilder : ExpressionVisitor

@@ -1,20 +1,38 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Xunit;
 
 namespace Shouldly.Tests.Strings.ShouldNotEndWith
 {
-    public class BasicScenarioCaseInSensitive : ShouldlyShouldTestScenario
+    public class BasicScenarioCaseInSensitive
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void BasicScenarioCaseInSensitiveShouldFail()
         {
-            "Cheese".ShouldNotEndWith("SE", Case.Insensitive);
+            var str = "Cheese";
+            Verify.ShouldFail(() =>
+str.ShouldNotEndWith("SE", "Some additional context", Case.Insensitive),
+
+errorWithSource:
+@"str
+    should not end with
+""SE""
+    but was
+""Cheese""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"""Cheese""
+    should not end with
+""SE""
+    but did
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "\"Cheese\" should not end with \"SE\" but was \"Cheese\""; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "Cheese".ShouldNotEndWith("ze", Case.Insensitive);
         }

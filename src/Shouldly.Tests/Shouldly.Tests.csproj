@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,8 +12,10 @@
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0</TargetFrameworkVersion>
     <NuGetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == 'v4.0'">net40</NuGetFrameworkVersion>
     <NuGetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == 'v3.5'">net35</NuGetFrameworkVersion>
-    <LangVersion>5</LangVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,25 +43,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" Condition="'$(TargetFrameworkVersion)' == 'v4.0'" />
-    <Reference Include="nunit.core">
-      <HintPath>..\packages\NUnitTestAdapter.2.0.0-beta\lib\nunit.core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.core.interfaces">
-      <HintPath>..\packages\NUnitTestAdapter.2.0.0-beta\lib\nunit.core.interfaces.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.util">
-      <HintPath>..\packages\NUnitTestAdapter.2.0.0-beta\lib\nunit.util.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NUnit.VisualStudio.TestAdapter">
-      <HintPath>..\packages\NUnitTestAdapter.2.0.0-beta\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -71,36 +55,28 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.extensions, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\ClassScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario_OnlyValueMatches.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario_OnlyKeyMatches.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\GuidScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyKeyMatches.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\OnlyValueMatches.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\ValueIsNull.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\ValueIsNull.cs" />
+    <Compile Include="Dictionaries\ShouldContainKey.cs" />
+    <Compile Include="Dictionaries\ShouldContainKeyAndValue.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainKey.cs" />
+    <Compile Include="Dictionaries\ShouldNotContainValueForKey.cs" />
     <Compile Include="DynamicShould\HavePropertyNonDynamicScenario.cs" />
     <Compile Include="DynamicShould\MultiLineHavePropertyScenario_MaximumLines.cs" />
     <Compile Include="DynamicShould\MultiLineHavePropertyScenario.cs" />
     <Compile Include="DynamicShould\HavePropertyScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKeyAndValue\StringScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_KeyAndValueExist.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\KeyAndValueExist.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario_NoKeyExists.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\NoKeyExists.cs" />
     <Compile Include="InternalTests\DifferenceIndexConsolidatorTests.cs" />
-    <Compile Include="InternalTests\StringDifferenceHighlighterTests.cs" />
-    <Compile Include="InternalTests\StringShouldBeAssertionTests.cs" />
+    <Compile Include="ModuleInitializer.cs" />
     <Compile Include="ShouldBeBoolean\FalseScenario.cs" />
     <Compile Include="ShouldBeBoolean\TrueScenario.cs" />
-    <Compile Include="ShouldBeNegative\ZeroDecimalWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBeNegative\ZeroDoubleWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBeNegative\ZeroFloatWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBeNegative\ZeroIntWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBeNegative\ZeroLongWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBeNegative\ZeroShortWithFunctionContextScenario.cs" />
     <Compile Include="ShouldBeNull\NotNullScenario.cs" />
     <Compile Include="ShouldBeNull\NullScenario.cs" />
     <Compile Include="ShouldBeNegative\DecimalScenario.cs" />
@@ -120,12 +96,6 @@
     <Compile Include="ShouldBePositive\FloatScenario.cs" />
     <Compile Include="ShouldBePositive\LongScenario.cs" />
     <Compile Include="ShouldBePositive\ShortScenario.cs" />
-    <Compile Include="ShouldBePositive\ZeroDecimalWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBePositive\ZeroDoubleWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBePositive\ZeroFloatWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBePositive\ZeroIntWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBePositive\ZeroLongWithFunctionContextScenario.cs" />
-    <Compile Include="ShouldBePositive\ZeroShortWithFunctionContextScenario.cs" />
     <Compile Include="ShouldBePositive\ZeroShortScenario.cs" />
     <Compile Include="ShouldBePositive\ZeroLongScenario.cs" />
     <Compile Include="ShouldBePositive\ZeroFloatScenario.cs" />
@@ -133,7 +103,6 @@
     <Compile Include="ShouldBePositive\ZeroDecimalScenario.cs" />
     <Compile Include="ShouldBePositive\ZeroIntScenario.cs" />
     <Compile Include="ShouldBePositive\IntScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromExpectedScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\DocsExample.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringIsInsensitiveScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringIsSensitiveScenario.cs" />
@@ -144,27 +113,16 @@
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderIEnumerableMethodYieldReturn.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderOnNonNullableTypesScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderFalseScenario.cs" />
-    <Compile Include="ShouldBe\StringListScenario.cs" />
-    <Compile Include="ShouldBe\BadEquatibleImplementation.cs" />
+    <Compile Include="ShouldBe\ShouldBeEnumerableTypeScenarios.cs" />
+    <Compile Include="ShouldBe\ShouldBeScenarios.cs" />
     <Compile Include="ShouldBe\WithTolerance\DateTimeOffsetScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\DateTimeScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\TimeSpanScenario.cs" />
     <Compile Include="ShouldCompleteInTests.cs" />
-    <Compile Include="Dictionaries\ShouldContainKey\ClassScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKey\GuidScenario.cs" />
-    <Compile Include="Dictionaries\ShouldContainKey\StringScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\ClassScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\GuidScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainValueForKey\StringScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainKey\ClassScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainKey\GuidScenario.cs" />
-    <Compile Include="Dictionaries\ShouldNotContainKey\StringScenario.cs" />
     <Compile Include="InternalTests\DifferenceHighlighterHelpersTests.cs" />
     <Compile Include="ShouldBeSameAs\BasicScenario.cs" />
     <Compile Include="ShouldBeSameAs\BoxedIntScenario.cs" />
     <Compile Include="ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
-    <Compile Include="ShouldBe\BoxedComparableScenario.cs" />
-    <Compile Include="ShouldBe\EqualsShouldBeCalledOnExpectedScenario.cs" />
     <Compile Include="ShouldContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="ShouldContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="ShouldContain\ObjectScenario.cs" />
@@ -195,7 +153,6 @@
     <Compile Include="ShouldNotThrow\TaskOfTWithTimeoutScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskScenario.cs" />
     <Compile Include="ShouldNotThrow\TaskWithTimeoutScenario.cs" />
-    <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MixShoudlyAssertsWithNUnitAsserts.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MultiLine2.cs" />
     <Compile Include="ShouldSatisfyAllConditions\MultipleConditionsScenario_MultiLine.cs" />
@@ -216,8 +173,7 @@
     <Compile Include="Strings\ShouldBe\CaseAndLineEndingInsensitiveScenario.cs" />
     <Compile Include="Strings\ShouldBe\InsensitiveToLineEndingsScenario.cs" />
     <Compile Include="Strings\ShouldBe\SensitiveToLineEndingsScenario.cs" />
-    <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseInSensitive.cs" />
-    <Compile Include="Strings\ShouldEndWith\BasicScenarioCaseSensitive.cs" />
+    <Compile Include="Strings\ShouldEndWithScenarios.cs" />
     <Compile Include="Strings\ShouldNotEndWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseSensitive.cs" />
     <Compile Include="Strings\ShouldNotEndWith\BasicScenarioCaseInSensitive.cs" />
@@ -288,6 +244,7 @@
     <Compile Include="Strings\DetailedDifference\CaseInsensitive\LongStrings\MultipleDiffs\ShortStringVsLongStringScenario.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Strings\Verify.cs" />
     <Compile Include="TestHelpers\SomeFlags.cs" />
     <Compile Include="ShouldBeOneOf\EnumScenario.cs" />
     <Compile Include="ShouldBeOneOf\IntScenario.cs" />
@@ -355,37 +312,21 @@
     <Compile Include="ShouldBeOfType\GenericOverloadReturnsValue.cs" />
     <Compile Include="ShouldBeOfType\ActualIsNullScenario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShouldBe\ActualIsNullScenario.cs" />
-    <Compile Include="ShouldBe\BoolScenario.cs" />
-    <Compile Include="ShouldBe\BoxedIntScenario.cs" />
     <Compile Include="Strings\ShouldBeEmpty\ActualIsNull.cs" />
     <Compile Include="Strings\ShouldBeEmpty\ShouldBeEmptyBasicScenario.cs" />
     <Compile Include="Strings\ShouldBeNullOrEmpty.cs" />
     <Compile Include="Strings\ShouldBe\CaseIsInsensitiveScenario.cs" />
     <Compile Include="Strings\ShouldBe\CaseIsSensitiveScenario.cs" />
-    <Compile Include="ShouldBe\ComparingBaseWithDerivedTypeShouldFail.cs" />
-    <Compile Include="ShouldBe\ComparingObjectWithString.cs" />
-    <Compile Include="ShouldBe\EnumerableType\ActualIsNullScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderWhenItemsAreNotComparableScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemFromBothScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\DifferentOrderWithMissingItemScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfComplexTypeScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\EnumerableOfStringScenario.cs" />
     <Compile Include="ShouldBe\EnumerableType\IgnoreOrderScenario.cs" />
-    <Compile Include="ShouldBe\EnumerableType\DifferentCollectionTypeScenario.cs" />
-    <Compile Include="ShouldBe\JTokenScenario.cs" />
-    <Compile Include="ShouldBe\NumbersOfDifferentTypesScenario.cs" />
-    <Compile Include="ShouldBe\IntegerScenario.cs" />
-    <Compile Include="ShouldBe\StringScenario.cs" />
-    <Compile Include="ShouldBe\UncomparableClassScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\EnumerableOfDoubleScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\DoubleScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\FloatScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\DecimalScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\EnumerableOfFloatScenario.cs" />
     <Compile Include="ShouldBe\WithTolerance\EnumerableOfDecimalScenario.cs" />
-    <Compile Include="TestHelpers\ShouldlyShouldFailureTestScenario.cs" />
-    <Compile Include="TestHelpers\ShouldlyShouldTestScenario.cs" />
     <Compile Include="InternalTests\ShouldlyStringExtensionTests.cs" />
     <Compile Include="ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="ShouldNotBeInRangeTests.cs" />
@@ -399,8 +340,6 @@
     <Compile Include="Strings\ShouldNotEndWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldNotStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldNotStartWith\ShouldIgnoreCaseByDefault.cs" />
-    <Compile Include="Strings\ShouldEndWith\BasicScenario.cs" />
-    <Compile Include="Strings\ShouldEndWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="Strings\ShouldStartWith\BasicScenario.cs" />
     <Compile Include="Strings\ShouldStartWith\ShouldIgnoreCaseByDefault.cs" />
     <Compile Include="TestHelpers\TestShouldlyAssertionContext.cs" />
@@ -417,7 +356,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="sn.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -431,5 +372,15 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
+  </Target>
 </Project>

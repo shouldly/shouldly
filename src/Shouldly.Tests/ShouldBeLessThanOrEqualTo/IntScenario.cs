@@ -1,24 +1,39 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeLessThanOrEqualTo
 {
-    public class IntScenario : ShouldlyShouldTestScenario
+    public class IntScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void IntScenarioShouldFail()
         {
-            7.ShouldBeLessThanOrEqualTo(1, "Some additional context");
+            var seven = 7;
+            Verify.ShouldFail(() =>
+seven.ShouldBeLessThanOrEqualTo(1, "Some additional context"),
+
+errorWithSource:
+@"seven
+    should be less than or equal to
+1
+    but was
+7
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"7
+    should be less than or equal to
+1
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "7 should be less than or equal to 1 but was 7" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             1.ShouldBeLessThanOrEqualTo(1);
         }

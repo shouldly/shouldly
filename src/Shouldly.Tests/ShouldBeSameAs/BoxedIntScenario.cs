@@ -1,23 +1,35 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeSameAs
 {
-    public class BoxedIntScenario : ShouldlyShouldTestScenario
+    public class BoxedIntScenario
     {
         readonly object _boxedInt = 1;
         readonly object _differentBoxedInt = 1;
 
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void BoxedIntScenarioShouldFail()
         {
-            _boxedInt.ShouldBeSameAs(_differentBoxedInt);
+            Verify.ShouldFail(() =>
+_boxedInt.ShouldBeSameAs(_differentBoxedInt),
+
+errorWithSource:
+@"_boxedInt
+    should be same as
+1
+    but was
+1",
+
+errorWithoutSource:
+@"1
+    should be same as
+1
+    but was not");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "_boxedInt should be same as 1 but was 1"; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             _boxedInt.ShouldBeSameAs(_boxedInt);
         }

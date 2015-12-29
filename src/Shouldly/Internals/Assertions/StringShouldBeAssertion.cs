@@ -1,48 +1,55 @@
-﻿using Shouldly.DifferenceHighlighting2;
-using System;
+﻿using System;
+using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.Internals.Assertions
 {
     internal class StringShouldBeAssertion : IAssertion
     {
-        private string _expected, _actual;
-        private Func<string, string, bool> _compare;
-        private ICodeTextGetter _codeTextGetter;
-        private IStringDifferenceHighlighter _diffHighlighter;
+        readonly string _expected;
+        readonly string _actual;
+        readonly Func<string, string, bool> _compare;
+        readonly ICodeTextGetter _codeTextGetter;
+        readonly IStringDifferenceHighlighter _diffHighlighter;
+        readonly string _options;
 
         public StringShouldBeAssertion(
             string expected, string actual,
             Func<string, string, bool> compare,
             ICodeTextGetter codeTextGetter,
-            IStringDifferenceHighlighter diffHighlighter)
+            IStringDifferenceHighlighter diffHighlighter,
+            string options)
         {
             _expected = expected;
             _actual = actual;
             _compare = compare;
             _codeTextGetter = codeTextGetter;
             _diffHighlighter = diffHighlighter;
+            _options = options;
         }
+
         public string GenerateMessage(string customMessage)
         {
-            var message = string.Format(@"
-    {0}
-        {1}
-    {2}
-        but was
-    {3}
-        difference
-    {4}",
-            _codeTextGetter.GetCodeText(),
-            "should be",
-            _expected.ToStringAwesomely(),
-            _actual.ToStringAwesomely(),
-            _diffHighlighter.HighlightDifferences(_expected, _actual));
+            var codeText = _codeTextGetter.GetCodeText(_actual);
+            var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
+            var actualValue = _actual.ToStringAwesomely();
+            var expectedValue = _expected.ToStringAwesomely();
+
+            var actual = codeText == actualValue ? " not" : $@"
+{actualValue}";
+            var message =
+$@"{codeText}
+    {"should be"}{withOption}
+{expectedValue}
+    but was{actual}
+    difference
+{_diffHighlighter.HighlightDifferences(_expected, _actual)}";
 
             if (customMessage != null)
             {
-                message += string.Format(@"
-    Additional Info:
-    {0}", customMessage);
+                message += $@"
+
+Additional Info:
+    {customMessage}";
             }
             return message;
         }

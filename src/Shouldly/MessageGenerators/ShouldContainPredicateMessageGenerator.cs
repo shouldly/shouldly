@@ -13,15 +13,21 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            var codePart = context.CodePart;
-            const string format = @"
-    {0}
-        {1} an element satisfying the condition
-    {2}
-        but does{3}";
+            var codePart = context.CodePart == "null" ? context.Actual.ToStringAwesomely() : context.CodePart;
             if (context.IsNegatedAssertion)
-                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), "");
-            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Expected.ToStringAwesomely(), " not");
+            {
+                return
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()} an element satisfying the condition
+{context.Expected.ToStringAwesomely()}
+    but does{""}";
+            }
+
+            return
+$@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()} an element satisfying the condition
+{context.Expected.ToStringAwesomely()}
+    but does not";
         }
     }
 }

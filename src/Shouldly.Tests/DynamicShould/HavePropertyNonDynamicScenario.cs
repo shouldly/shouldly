@@ -1,34 +1,42 @@
 ﻿#if net40
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.DynamicShouldTests
 {
-    public class HavePropertyNonDynamicScenario : ShouldlyShouldTestScenario
+    public class HavePropertyNonDynamicScenario
     {
         class Foo
         {
             public string Bar { get; set; }
         }
 
-        protected override void ShouldPass()
-        {
-            dynamic testDynamicObject = new Foo();
-            DynamicShould.HaveProperty(testDynamicObject, "Bar");
-        }
-
-        protected override void ShouldThrowAWobbly()
+        [Fact(Skip = "Dynamic object is broken if no stackframe is available")]
+        public void HavePropertyNonDynamicScenarioShouldFail()
         {
             dynamic testDynamicObject = new Foo();
             testDynamicObject.Bar = "BarPropertyValue";
+
+            Verify.ShouldFail(() =>
             DynamicShould
-                .HaveProperty(testDynamicObject, "foo", "Some additional context");
+                .HaveProperty(testDynamicObject, "foo", "Some additional context"),
+
+errorWithSource:
+@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+Additional Info:
+Some additional context",
+
+errorWithoutSource:
+@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+Additional Info:
+Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get { return "Dynamic object \"testDynamicObject\" should contain property \"foo\" but does not." + @"
-Additional Info:
-Some additional context"; }
+            dynamic testDynamicObject = new Foo();
+            DynamicShould.HaveProperty(testDynamicObject, "Bar");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Shouldly.Tests.TestHelpers
@@ -23,11 +24,13 @@ namespace Shouldly.Tests.TestHelpers
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }
 
-        public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+        public bool IsNegatedAssertion => ShouldMethod.Contains("Not");
 
         public string CustomMessage { get; set; }
 
         public Case? CaseSensitivity { get; set; }
+        public bool CodePartMatchesActual => CodePart == Actual.ToStringAwesomely();
+        public Expression Filter { get; set; }
 
         internal TestShouldlyAssertionContext(object expected, object actual = null)
         {

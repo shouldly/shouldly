@@ -14,7 +14,6 @@
     <NuGetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == 'v4.0'">net40</NuGetFrameworkVersion>
     <NuGetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == 'v3.5'">net35</NuGetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,17 +60,17 @@
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.10.0\ExpressionStringBuilder.cs" />
     <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
-    <Compile Include="DifferenceHighlighting2\IDifferenceHighlighter.cs" />
-    <Compile Include="DifferenceHighlighting2\StringDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting\IStringDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
-    <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
     <Compile Include="Internals\SourceCodeTextGetter.cs" />
     <Compile Include="Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
     <Compile Include="Internals\Assertions\IAssertion.cs" />
     <Compile Include="Internals\Assertions\StringShouldBeAssertion.cs" />
     <Compile Include="Internals\ICodeTextGetter.cs" />
     <Compile Include="MessageGenerators\ShouldBeEnumerableCaseSensitiveMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeginEndWithMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="MessageGenerators\ShouldBeNegativeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBePositiveMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldNotMatchMessageGenerator.cs" />
+    <Compile Include="MessageGenerators\ShouldBeTypeMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBePositiveNegativeTestExtensions.cs" />
     <Compile Include="StringCompareShould.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />

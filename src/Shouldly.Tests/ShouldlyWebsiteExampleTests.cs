@@ -1,29 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 namespace Shouldly.Tests
 {
-    [TestFixture]
     public class ShouldlyWebsiteExampleTests
     {
         // Tests for the examples shown on http://shouldly.github.io/ (https://github.com/shouldly/shouldly.github.com)
 
         public class ContestantPoints
         {
-            [Test]
-            public void NUnit_ContestantPointsShouldBe1337()
-            {
-                var contestant = new Contestant {Points = 0};
-
-                var exception =
-                    Should.Throw<Exception>(
-                        () => Assert.That(contestant.Points, NUnit.Framework.Is.EqualTo(1337)));
-
-                exception.Message.ShouldContainWithoutWhitespace("Expected: 1337 But was: 0");
-            }
-
-            [Test]
+            [Fact]
             public void Shouldly_ContestantPointsShouldBe1337()
             {
                 var contestant = new Contestant {Points = 0};
@@ -33,7 +20,7 @@ namespace Shouldly.Tests
                     "contestant.Points should be 1337 but was 0");
             }
 
-            [Test]
+            [Fact]
             public void Shouldly_ContestantPointsShouldBe1337_HappyPath()
             {
                 var contestant = new Contestant {Points = 0};
@@ -41,7 +28,7 @@ namespace Shouldly.Tests
                 contestant.Points.ShouldBe(0);
             }
 
-            private class Contestant
+            class Contestant
             {
                 public int Points { get; set; }
             }
@@ -59,19 +46,7 @@ namespace Shouldly.Tests
                 };
             }
 
-            [Test]
-            public void NUnit_IndexOfBoo()
-            {
-                var map = GetMap();
-
-                var exception =
-                    Should.Throw<Exception>(
-                        () => Assert.That(map.IndexOf("boo"), NUnit.Framework.Is.EqualTo(2)));
-
-                exception.Message.ShouldContainWithoutWhitespace("Expected: 2 But was: 1");
-            }
-
-            [Test]
+            [Fact]
             public void Shouldly_IndexOfBoo()
             {
                 var map = GetMap();
@@ -81,7 +56,7 @@ namespace Shouldly.Tests
                     "map.IndexOf(\"boo\") should be 2 but was 1");
             }
 
-            [Test]
+            [Fact]
             public void Shouldly_IndexOfBoo_HappyPath()
             {
                 var map = GetMap();
@@ -92,24 +67,24 @@ namespace Shouldly.Tests
 
         public class CompareTwoCollections
         {
-            [Test]
+            [Fact]
             public void Shouldly_CompareTwoCollections()
             {
                 TestHelpers.Should.Error(
-                    () => (new[] {1, 2, 3}).ShouldBe(new[] {1, 2, 4}),
+                    () => new[] {1, 2, 3}.ShouldBe(new[] {1, 2, 4}),
                     "new[] {1, 2, 3} should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
             }
 
-            [Test]
+            [Fact]
             public void Shouldly_CompareTwoCollections_HappyPath()
             {
-                (new[] {1, 2, 3}).ShouldBe(new[] {1, 2, 3});
+                new[] {1, 2, 3}.ShouldBe(new[] {1, 2, 3});
             }
         }
 
         public class ShouldThrowException
         {
-            [Test]
+            [Fact]
             public void Shouldly_ShouldThrowException()
             {
                 var widget = new Widget();
@@ -117,7 +92,7 @@ namespace Shouldly.Tests
                 Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-1));
             }
 
-            [Test]
+            [Fact]
             public void Shouldly_ShouldNotThrowException()
             {
                 var widget = new Widget();
@@ -125,7 +100,7 @@ namespace Shouldly.Tests
                 Should.NotThrow(() => widget.Twist(5));
             }
 
-            [Test]
+            [Fact]
             public void Shouldly_ShouldErrorIfCatchingExceptionOfWrongType()
             {
                 var widget = new Widget();
@@ -135,7 +110,7 @@ namespace Shouldly.Tests
                     "`widget.Twist(-2)` should throw System.ArgumentOutOfRangeException but threw System.InvalidOperationException");
             }
 
-            [Test]
+            [Fact]
             public void Shouldly_ShouldErrorIfNoExceptionWasThrown()
             {
                 var widget = new Widget();

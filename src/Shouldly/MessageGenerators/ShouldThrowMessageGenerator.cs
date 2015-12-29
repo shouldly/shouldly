@@ -11,16 +11,42 @@ namespace Shouldly.MessageGenerators
         {
             var throwContext = (ShouldThrowAssertionContext)context;
             var isExtensionMethod = context.ShouldMethod.StartsWith("ShouldThrow");
-            var codePart = context.CodePart;
+            var maybeInvokeMethod = isExtensionMethod && !throwContext.IsAsync ? "()" : string.Empty;
+            string codePart;
+            if (context.CodePart == "null" || context.CodePartMatchesActual)
+            {
+                codePart = throwContext.IsAsync ? "Task" : "delegate";
+            }
+            else
+            {
+                codePart = $"`{context.CodePart}{maybeInvokeMethod}`";
+                if (throwContext.IsAsync)
+                    codePart = "Task " + codePart;
+            }
 
             var expectedValue = context.Expected.ToStringAwesomely();
 
-            var maybeInvokeMethod = isExtensionMethod && !throwContext.IsAsync ? "()" : string.Empty;
-            var errorMessage = context.HasRelevantActual 
-                ? string.Format(@"`{0}{3}` should throw {1} but threw {2}", codePart, expectedValue, context.Actual, maybeInvokeMethod)
-                : string.Format(@"`{0}{2}` should throw {1} but did not", codePart, expectedValue, maybeInvokeMethod);
+            string errorMessage;
+            if (context.HasRelevantActual)
+            {
+                errorMessage = string.Format($@"{codePart}
+    should throw
+{expectedValue}
+    but threw
+{context.Actual}", codePart, expectedValue, context.Actual, maybeInvokeMethod);
+            }
+            else
+            {
+                errorMessage = $@"{codePart}
+    should throw
+{expectedValue}
+    but did not";
+            }
 
-            errorMessage += (throwContext.ExceptionMessage != null) ? string.Format(" with message \"{0}\"", throwContext.ExceptionMessage) : string.Empty;
+            errorMessage += (throwContext.ExceptionMessage != null) ?
+                $@" with message
+""{throwContext.ExceptionMessage}"""
+                : string.Empty;
 
             return errorMessage;
         }

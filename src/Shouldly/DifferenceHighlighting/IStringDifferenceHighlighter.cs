@@ -1,4 +1,4 @@
-﻿namespace Shouldly.DifferenceHighlighting2
+﻿namespace Shouldly.DifferenceHighlighting
 {
     interface IStringDifferenceHighlighter
     {

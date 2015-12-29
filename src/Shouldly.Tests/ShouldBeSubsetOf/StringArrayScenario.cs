@@ -1,27 +1,43 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeSubsetOf
 {
-    public class StringArrayScenario : ShouldlyShouldTestScenario
+    public class StringArrayScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringArrayScenarioShouldFail()
         {
-            new[] {"1", "2", "3"}.ShouldBeSubsetOf(new[] {"1", "2"}, "Some additional context");
+            Verify.ShouldFail(() =>
+new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2" }, "Some additional context"),
+
+errorWithSource:
+@"new[] { ""1"", ""2"", ""3"" }
+    should be subset of
+[""1"", ""2""]
+    but
+[""3""]
+    is outside subset
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[""1"", ""2"", ""3""]
+    should be subset of
+[""1"", ""2""]
+    but
+[""3""]
+    is outside subset
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return "new[] { \"1\", \"2\", \"3\" } should be subset of [\"1\", \"2\"] but [\"3\"] is outside subset" +
-                       "Additional Info:" +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
-        {
-            new[] {"1", "2", "3"}.ShouldBeSubsetOf(new[] {"1", "2", "3", "4"});
+            new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4" });
         }
     }
 }

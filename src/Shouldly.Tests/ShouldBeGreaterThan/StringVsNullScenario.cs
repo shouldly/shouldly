@@ -1,24 +1,38 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeGreaterThan
 {
-    public class StringVsNullScenario : ShouldlyShouldTestScenario
+    public class StringVsNullScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void StringVsNullScenarioShouldFail()
         {
-            ((string) null).ShouldBeGreaterThan("b", "Some additional context");
+            Verify.ShouldFail(() =>
+((string)null).ShouldBeGreaterThan("b", "Some additional context"),
+
+errorWithSource:
+@"(string)null
+    should be greater than
+""b""
+    but was
+null
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"null
+    should be greater than
+""b""
+    but was not
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "(string) null should be greater than \"b\" but was null" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             "b".ShouldBeGreaterThan(null);
         }

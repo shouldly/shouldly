@@ -1,20 +1,33 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeOneOf
 {
-    public class IntScenario : ShouldlyShouldTestScenario
+    public class IntScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void IntScenarioShouldFail()
         {
-            1.ShouldBeOneOf(4, 5, 6);
+            var one = 1;
+            Verify.ShouldFail(() =>
+one.ShouldBeOneOf(4, 5, 6),
+
+errorWithSource:
+@"one
+    should be one of
+[4, 5, 6]
+    but was
+1",
+
+errorWithoutSource:
+@"1
+    should be one of
+[4, 5, 6]
+    but was not");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return "1 should be one of [4, 5, 6] but was 1"; }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             1.ShouldBeOneOf(1, 2, 3);
         }

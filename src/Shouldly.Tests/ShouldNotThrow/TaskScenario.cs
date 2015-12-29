@@ -2,37 +2,50 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
 {
-    public class TaskScenario : ShouldlyShouldTestScenario
+    public class TaskScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void TaskScenarioShouldFail()
         {
             var task = Task.Factory.StartNew(() => { throw new RankException(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                            CancellationToken.None, TaskCreationOptions.None,
+                            TaskScheduler.Default);
 
-            task.ShouldNotThrow("Some additional context");
+            Verify.ShouldFail(() =>
+task.ShouldNotThrow("Some additional context"),
+
+errorWithSource:
+@"Task `task`
+    should not throw but threw
+System.RankException
+    with message
+""Attempted to operate on an array with the incorrect number of dimensions.""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Task
+    should not throw but threw
+System.RankException
+    with message
+""Attempted to operate on an array with the incorrect number of dimensions.""
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return @"Task `task` should not throw but threw System.RankException" +
-                        @"with message ""Attempted to operate on an array with the incorrect number of dimensions."""+
-                        "Additional Info:" +
-                        "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var task = Task.Factory.StartNew(() => { },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default);
 
             task.ShouldNotThrow();
         }

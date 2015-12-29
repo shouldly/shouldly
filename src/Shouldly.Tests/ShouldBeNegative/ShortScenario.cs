@@ -1,24 +1,36 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeNegative
 {
-    public class ShortScenario : ShouldlyShouldTestScenario
+    public class ShortScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void ShortScenarioShouldFail()
         {
-            ((short)3).ShouldBeNegative("Some additional context");
+            var @short = ((short)3);
+            Verify.ShouldFail(() =>
+@short.ShouldBeNegative("Some additional context"),
+
+errorWithSource:
+@"@short
+    should be negative but
+3
+    is positive
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"3
+    should be negative but is positive
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get {
-                return "(short)3 was 3 and should be negative but wasn't" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             ((short)-7).ShouldBeNegative();
         }

@@ -2,40 +2,52 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class FuncOfTaskOfStringThrowsDifferentExceptionScenario : ShouldlyShouldTestScenario
+    public class FuncOfTaskOfStringThrowsDifferentExceptionScenario
     {
-        protected override void ShouldThrowAWobbly()
-        {
-            // ReSharper disable once RedundantDelegateCreation
-            Action action = () =>
-            {
-                new Func<Task<string>>(() => {
-                    throw new RankException();
-                }).Invoke();
-            };
 
-            action.ShouldThrow<InvalidOperationException>("Some additional context");
-        }
-
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void FuncOfTaskOfStringThrowsDifferentExceptionScenarioShouldFail()
         {
-            get
+            var action = new Func<Task<string>>(() =>
             {
-                return @"`action()` should throw System.InvalidOperationException but threw System.RankException
+                throw new RankException();
+            });
+
+            Verify.ShouldFail(() =>
+action.ShouldThrow<InvalidOperationException>("Some additional context"),
+
+errorWithSource:
+@"Task `action`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
 Additional Info:
-Some additional context";
-            }
+    Some additional context",
+
+errorWithoutSource:
+@"Task
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default);
 
             var ex = task.ShouldThrow<InvalidOperationException>();
 

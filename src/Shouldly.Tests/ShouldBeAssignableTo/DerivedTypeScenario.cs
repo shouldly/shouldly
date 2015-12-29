@@ -1,26 +1,41 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeAssignableTo
 {
-    public class DerivedTypeScenario : ShouldlyShouldTestScenario
+    public class DerivedTypeScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void DerivedTypeScenarioShouldFail()
         {
             var myThing = new MyThing();
-            myThing.ShouldBeAssignableTo<string>("Some additional context");
+            Verify.ShouldFail(() =>
+myThing.ShouldBeAssignableTo<string>("Some additional context"),
+
+errorWithSource:
+@"myThing
+    should be assignable to
+System.String
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Shouldly.Tests.TestHelpers.MyThing (000000)
+    should be assignable to
+System.String
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "myThing should be assignable to System.String but was Shouldly.Tests.TestHelpers.MyThing" +
-                       "Additional Info: " +
-                       "Some additional context";
-            }
-        }
-
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var myThing = new MyThing();
             myThing.ShouldBeAssignableTo<MyBase>();

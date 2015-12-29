@@ -1,26 +1,44 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class EnumerableOfStringIsInsensitiveScenario : ShouldlyShouldTestScenario
+    public class EnumerableOfStringIsInsensitiveScenario
     {
-        protected override void ShouldPass()
+        [Fact]
+        public void EnumerableOfStringIsInsensitiveScenarioShouldFail()
+        {
+            Verify.ShouldFail(() =>
+new[] { "foo" }.ShouldBe(new[] { "different" }, Case.Insensitive, () => "Some additional context"),
+
+errorWithSource:
+@"new[] { ""foo"" }
+    should be
+[""different""]
+    but was (case insensitive comparison)
+[""foo""]
+    difference
+[*""foo""*]
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[""foo""]
+    should be
+[""different""]
+    but was not (case insensitive comparison)
+    difference
+[*""foo""*]
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
         {
             new[] { "foo" }.ShouldBe(new[] { "FOo" }, Case.Insensitive);
-        }
-
-        protected override void ShouldThrowAWobbly()
-        {
-            new[] { "foo" }.ShouldBe(new[] { "different" }, Case.Insensitive, () => "Some additional context");
-        }
-
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get
-            {
-                return "new[] { \"foo\" } should be [\"different\"] (case insensitive comparison) but was [\"foo\"] difference [*\"foo\"*]" +
-                           "Additional Info: Some additional context";
-            }
         }
     }
 }

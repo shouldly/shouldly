@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
 {
     internal class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldContainKeyAndValue", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("ShouldContainKeyAndValue", RegexOptions.Compiled);
+
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
             return Validator.IsMatch(context.ShouldMethod);
@@ -13,32 +15,30 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"
-    Dictionary
-        ""{0}""
+            const string format =
+@"{0}
     should contain key
-        ""{1}""
+{1}
     with value
-        ""{2}""
-    {3}";
+{2}
+{3}";
 
             var codePart = context.CodePart;
+            var dictionary = (IDictionary)context.Actual;
+            var keyExists = dictionary.Contains(context.Key);
             var expectedValue = context.Expected.ToStringAwesomely();
-            var actualValue = context.Actual.ToStringAwesomely();
             var keyValue = context.Key.ToStringAwesomely();
 
-            if (context.HasRelevantKey)
+            if (keyExists)
             {
-                var actualValueString = context.Actual == null
-                    ? actualValue
-                    : string.Format("\"{0}\"", actualValue.Trim('"'));
-                var valueString = string.Format("but value was {0}", actualValueString);
-                return String.Format(format, codePart, keyValue.Trim('"'), expectedValue.Trim('"'), valueString);
+                var actualValueString = dictionary[context.Key].ToStringAwesomely();
+                var valueString = 
+$@"    but value was
+{actualValueString}";
+                return string.Format(format, codePart, keyValue, expectedValue, valueString);
             }
-            else
-            {
-                return String.Format(format, codePart, actualValue.Trim('"'), expectedValue.Trim('"'), "but the key does not exist");
-            }
+
+            return string.Format(format, codePart, keyValue, expectedValue, "    but the key does not exist");
         }
     }
 }

@@ -1,28 +1,37 @@
-﻿using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeNull
 {
-    public class NullScenario : ShouldlyShouldTestScenario
+    public class NullScenario
     {
-        protected override void ShouldPass()
-        {
-            ((string)null).ShouldBeNull();
-        }
-
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void NullScenarioShouldFail()
         {
             string myNullRef = "Hello World";
-            myNullRef.ShouldBeNull("Some additional context");
+            Verify.ShouldFail(() =>
+myNullRef.ShouldBeNull("Some additional context"),
+
+errorWithSource:
+@"myNullRef
+    should be null but was
+""Hello World""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"""Hello World""
+    should be null but was
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override string ChuckedAWobblyErrorMessage
+        [Fact]
+        public void ShouldPass()
         {
-            get
-            {
-                return @"myNullRef should be null but was ""Hello World""
-Additional Info:
-Some additional context";
-            }
+            ((string)null).ShouldBeNull();
         }
     }
 }

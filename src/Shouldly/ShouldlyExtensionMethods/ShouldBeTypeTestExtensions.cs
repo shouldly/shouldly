@@ -33,7 +33,7 @@ namespace Shouldly
 
         public static void ShouldBeAssignableTo(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual == null ? null : actual.GetType(), expected, customMessage);
+            actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual, expected, customMessage);
         }
 
         public static T ShouldBeOfType<T>(this object actual)
@@ -64,8 +64,7 @@ namespace Shouldly
 
         public static void ShouldBeOfType(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual == null ? null : actual.GetType(),
-                expected, customMessage);
+            actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage);
         }
 
         public static void ShouldNotBeAssignableTo<T>(this object actual)

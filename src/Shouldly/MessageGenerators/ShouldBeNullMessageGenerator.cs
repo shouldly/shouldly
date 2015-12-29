@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeNullMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("Should(Not)?BeNull", RegexOptions.Compiled);
+        static readonly Regex Validator = new Regex("Should(Not)?BeNull", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -13,12 +13,13 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = @"{0} {1} but was {2}";
+            var expected = context.Expected.ToStringAwesomely();
+            var codePart = context.CodePart == "null" ? expected : context.CodePart;
+            var expectedValue = context.IsNegatedAssertion || expected == codePart ? string.Empty : $@"
+{expected}";
 
-            var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
-
-            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue);
+            return $@"{codePart}
+    {context.ShouldMethod.PascalToSpaced()} but was{expectedValue}";
         }
     }
 }

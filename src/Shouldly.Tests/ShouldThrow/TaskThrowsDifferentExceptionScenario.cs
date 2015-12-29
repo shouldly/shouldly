@@ -1,27 +1,43 @@
 ﻿#if net40
 using System;
 using System.Threading.Tasks;
-using Shouldly.Tests.TestHelpers;
+using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow
 {
-    public class TaskThrowsDifferentExceptionScenario : ShouldlyShouldTestScenario
+    public class TaskThrowsDifferentExceptionScenario
     {
-        protected override void ShouldThrowAWobbly()
+        [Fact]
+        public void TaskThrowsDifferentExceptionScenarioShouldFail()
         {
             var task = Task.Factory.StartNew(() => { throw new RankException(); });
+            Verify.ShouldFail(() =>
+task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
-            task.ShouldThrow<InvalidOperationException>("Some additional context");
-        }
+errorWithSource:
+@"Task `task`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
 
-        protected override string ChuckedAWobblyErrorMessage
-        {
-            get { return @"`task` should throw System.InvalidOperationException but threw System.RankException
 Additional Info:
-Some additional context"; }
+    Some additional context",
+
+errorWithoutSource:
+@"Task
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
+Additional Info:
+    Some additional context");
         }
 
-        protected override void ShouldPass()
+        [Fact]
+        public void ShouldPass()
         {
             var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); });
 
