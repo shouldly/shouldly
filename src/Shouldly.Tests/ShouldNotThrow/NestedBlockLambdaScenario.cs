@@ -31,6 +31,7 @@ Additional Info:
     Additional info",
 
 errorWithoutSource:
+#if net40
 @"Task
     should not throw but threw
 System.Exception
@@ -39,6 +40,16 @@ System.Exception
 
 Additional Info:
     Additional info");
+#else
+@"delegate
+    should not throw but threw
+System.Exception
+    with message
+""Dummy message.""
+
+Additional Info:
+    Additional info");
+#endif
         }
     }
 } 

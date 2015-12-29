@@ -1,4 +1,5 @@
-﻿using ApiApprover;
+﻿#if net40
+using ApiApprover;
 using ApprovalTests.Reporters;
 using Shouldly;
 using Xunit;
@@ -15,3 +16,4 @@ namespace ShouldlyConvention.Tests
         } 
     }
 }
+#endif

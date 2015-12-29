@@ -28,11 +28,19 @@ System.Exception
 ""Dummy message.""",
 
 errorWithoutSource:
+#if net40
 @"Task
     should not throw but threw
 System.Exception
     with message
 ""Dummy message.""");
+#else
+@"delegate
+    should not throw but threw
+System.Exception
+    with message
+""Dummy message.""");
+#endif
         }
     }
 } 
