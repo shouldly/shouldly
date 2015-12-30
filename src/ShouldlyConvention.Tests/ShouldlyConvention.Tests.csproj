@@ -90,9 +90,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shouldly\Shouldly.csproj">
+    <ProjectReference Include="..\Shouldly.net40\Shouldly.net40.csproj">
       <Project>{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}</Project>
-      <Name>Shouldly</Name>
+      <Name>Shouldly.net40</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

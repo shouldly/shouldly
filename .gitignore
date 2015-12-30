@@ -21,3 +21,4 @@ ShouldlyConvention.Tests/obj/
 ShouldlyConvention.Tests/bin/
 docs/_build/
 *.received.cs
+src/.vs
