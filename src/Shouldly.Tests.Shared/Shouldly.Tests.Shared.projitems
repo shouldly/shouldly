@@ -130,6 +130,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\StringContainsStringScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyWebsiteExampleTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldMatchApproved\ShouldMatchApprovedScenarios.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotBeAssignableTo\BasicTypesScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotBeAssignableTo\DerivedTypeScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotBeEmpty\ArrayScenario.cs" />

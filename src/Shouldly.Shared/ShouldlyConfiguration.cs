@@ -17,8 +17,9 @@ namespace Shouldly
         }
 
         public static List<string> CompareAsObjectTypes { get; private set; }
-
 #if !PORTABLE
+        public static DiffToolConfiguration DiffTools { get; private set; } = new DiffToolConfiguration();
+
         /// <summary>
         /// When set to true shouldly will not try and create better error messages using your source code
         /// </summary>

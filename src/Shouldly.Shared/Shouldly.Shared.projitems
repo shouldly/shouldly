@@ -6,7 +6,7 @@
     <SharedGUID>ce521bb7-d8f8-48d4-94e2-fc7ad21c8bf1</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Shouldly.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Shouldly</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
@@ -20,6 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\IStringDifferenceHighlighter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\ItemDifferenceHighlighter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\StringDifferenceHighlighter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffTool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiffToolConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\Assertions\IAssertion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\Assertions\StringShouldBeAssertion.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBe\StringShouldBeTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBe\StringStartEndTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldCompleteInExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldMatchApprovedTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldSatisfyAllConditionsTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowTaskAsyncExtensions.cs" />

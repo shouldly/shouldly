@@ -22,8 +22,8 @@ namespace Shouldly.Internals
     {
         bool _determinedOriginatingFrame;
         string _shouldMethod;
-        string _fileName;
-        int _lineNumber;
+        public string FileName { get; private set; }
+        public int LineNumber { get; private set; }
 
         public string GetCodeText(object actual, StackTrace stackTrace)
         {
@@ -69,8 +69,8 @@ namespace Shouldly.Internals
 
            _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
            _shouldMethod = shouldlyFrame.GetMethod().Name;
-           _fileName = fileName;
-           _lineNumber = originatingFrame.GetFileLineNumber() - 1;
+           FileName = fileName;
+           LineNumber = originatingFrame.GetFileLineNumber() - 1;
         }
 
         bool IsShouldlyMethod(MethodBase method)
@@ -89,7 +89,7 @@ namespace Shouldly.Internals
 
             if (_determinedOriginatingFrame)
             {
-                var codeLines = string.Join("\n", File.ReadAllLines(_fileName).Skip(_lineNumber).ToArray());
+                var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
 
                 var indexOf = codeLines.IndexOf(_shouldMethod);
                 if (indexOf > 0)
