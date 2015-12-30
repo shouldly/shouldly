@@ -16,12 +16,56 @@ namespace Shouldly
         public ChuckedAWobbly(string message) { }
         public ChuckedAWobbly(string message, System.Exception innerException) { }
     }
+    public class DiffTool
+    {
+        public DiffTool(string name, string path, System.Func<string, string, string> argGenerator) { }
+        public string Name { get; }
+        public void Open(string receivedPath, string approvedPath) { }
+    }
+    public class DiffToolConfiguration
+    {
+        public DiffToolConfiguration() { }
+        public void AddDoNotLaunchStrategy(Shouldly.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
+        public Shouldly.DiffTool GetDiffTool() { }
+        public void RegisterDiffTool(Shouldly.DiffTool diffTool) { }
+        public void SetDiffToolPriorities(params Shouldly.DiffTool[] diffTools) { }
+        public bool ShouldOpenDiffTool() { }
+        public class static KnownDiffTools
+        {
+            public static readonly Shouldly.DiffTool KDiff3;
+        }
+        public class static KnownDoNoLaunchStrategies
+        {
+            public static readonly Shouldly.IShouldNotLaunchDiffTool AppVeyor;
+            public static readonly Shouldly.IShouldNotLaunchDiffTool NCrunch;
+            public static readonly Shouldly.IShouldNotLaunchDiffTool TeamCity;
+        }
+    }
+    public class DoNotLaunchEnvVariable : Shouldly.IShouldNotLaunchDiffTool
+    {
+        public DoNotLaunchEnvVariable(string environmentalVariable) { }
+        public bool ShouldNotLaunch() { }
+    }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static DynamicShould
     {
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName) { }
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, string customMessage) { }
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+    }
+    public class FirstNonShouldlyMethodFinder : Shouldly.ITestMethodFinder
+    {
+        public FirstNonShouldlyMethodFinder() { }
+        public int Offset { get; set; }
+        public Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
+    }
+    public interface IShouldNotLaunchDiffTool
+    {
+        bool ShouldNotLaunch();
+    }
+    public interface ITestMethodFinder
+    {
+        Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static Should
@@ -44,6 +88,12 @@ namespace Shouldly
         public static T CompleteIn<T>(System.Threading.Tasks.Task<T> actual, System.TimeSpan timeout) { }
         public static T CompleteIn<T>(System.Threading.Tasks.Task<T> actual, System.TimeSpan timeout, string customMessage) { }
         public static T CompleteIn<T>(System.Threading.Tasks.Task<T> actual, System.TimeSpan timeout, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void NotThrow([JetBrains.Annotations.InstantHandleAttribute()] System.Action action) { }
+        public static void NotThrow([JetBrains.Annotations.InstantHandleAttribute()] System.Action action, string customMessage) { }
+        public static void NotThrow([JetBrains.Annotations.InstantHandleAttribute()] System.Action action, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<T> action) { }
+        public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<T> action, string customMessage) { }
+        public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<T> action, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void NotThrow(System.Threading.Tasks.Task action) { }
         public static void NotThrow(System.Threading.Tasks.Task action, string customMessage) { }
         public static void NotThrow(System.Threading.Tasks.Task action, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -68,12 +118,12 @@ namespace Shouldly
         public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter) { }
         public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, string customMessage) { }
         public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-        public static void NotThrow([JetBrains.Annotations.InstantHandleAttribute()] System.Action action) { }
-        public static void NotThrow([JetBrains.Annotations.InstantHandleAttribute()] System.Action action, string customMessage) { }
-        public static void NotThrow([JetBrains.Annotations.InstantHandleAttribute()] System.Action action, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-        public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<T> action) { }
-        public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<T> action, string customMessage) { }
-        public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<T> action, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual)
+            where TException : System.Exception { }
+        public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, string customMessage)
+            where TException : System.Exception { }
+        public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
+            where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, string customMessage)
@@ -97,12 +147,6 @@ namespace Shouldly
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage)
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
-            where TException : System.Exception { }
-        public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual)
-            where TException : System.Exception { }
-        public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, string customMessage)
-            where TException : System.Exception { }
-        public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Threading.Tasks.Task task)
             where TException : System.Exception { }
@@ -275,6 +319,15 @@ namespace Shouldly
         public static void ShouldBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance) { }
         public static void ShouldBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance, string customMessage) { }
         public static void ShouldBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBe<T>(this T actual, T expected) { }
+        public static void ShouldBe<T>(this T actual, T expected, string customMessage) { }
+        public static void ShouldBe<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder = False) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder, string customMessage) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance) { }
+        public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance, string customMessage) { }
+        public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldBe(this float actual, float expected, double tolerance) { }
         public static void ShouldBe(this float actual, float expected, double tolerance, string customMessage) { }
         public static void ShouldBe(this float actual, float expected, double tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -290,15 +343,6 @@ namespace Shouldly
         public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance) { }
         public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance, string customMessage) { }
         public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-        public static void ShouldBe<T>(this T actual, T expected) { }
-        public static void ShouldBe<T>(this T actual, T expected, string customMessage) { }
-        public static void ShouldBe<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder = False) { }
-        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder, string customMessage) { }
-        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-        public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance) { }
-        public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance, string customMessage) { }
-        public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static T ShouldBeAssignableTo<T>(this object actual) { }
         public static T ShouldBeAssignableTo<T>(this object actual, string customMessage) { }
         public static T ShouldBeAssignableTo<T>(this object actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -432,8 +476,43 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
+        public static Shouldly.DiffToolConfiguration DiffTools { get; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
+    }
+    public class ShouldlyMethodsAttribute : System.Attribute
+    {
+        public ShouldlyMethodsAttribute() { }
+    }
+    [Shouldly.ShouldlyMethodsAttribute()]
+    public class static ShouldMatchApprovedTestExtensions
+    {
+        public static void ShouldMatchApproved(this string actual) { }
+        public static void ShouldMatchApproved(this string actual, string customMessage) { }
+        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.ShouldMatchConfigurationBuilder> configureOptions) { }
+        public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.ShouldMatchConfigurationBuilder> configureOptions) { }
+        public static void ShouldMatchApproved(this string actual, System.Func<string> customMessage, System.Action<Shouldly.ShouldMatchConfigurationBuilder> configureOptions) { }
+    }
+    public class ShouldMatchConfiguration
+    {
+        public ShouldMatchConfiguration() { }
+        public string FileExtension { get; set; }
+        public string FilenameDescriminator { get; set; }
+        public bool PreventDiff { get; set; }
+        public Shouldly.StringCompareShould StringCompareOptions { get; set; }
+        public Shouldly.ITestMethodFinder TestMethodFinder { get; set; }
+    }
+    public class ShouldMatchConfigurationBuilder
+    {
+        public ShouldMatchConfigurationBuilder() { }
+        public Shouldly.ShouldMatchConfiguration Build() { }
+        public Shouldly.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.ShouldMatchConfiguration> configure) { }
+        public Shouldly.ShouldMatchConfigurationBuilder IgnoreLineEndings() { }
+        public Shouldly.ShouldMatchConfigurationBuilder NoDiff() { }
+        public Shouldly.ShouldMatchConfigurationBuilder UseCallerLocation() { }
+        public Shouldly.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
+        public Shouldly.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
+        public Shouldly.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldSatisfyAllConditionsTestExtensions
@@ -531,5 +610,11 @@ namespace Shouldly
     {
         IgnoreCase = 1,
         IgnoreLineEndings = 2,
+    }
+    public class TestMethodInfo
+    {
+        public TestMethodInfo(System.Diagnostics.StackFrame callingFrame) { }
+        public string MethodName { get; }
+        public string SourceFileDirectory { get; }
     }
 }

@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 #endif
 
 namespace Shouldly.Internals
@@ -22,11 +19,11 @@ namespace Shouldly.Internals
 #else
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
-        static readonly Regex AnonMethod = new Regex(@"<(\w|_)+>b_.+");
         bool _determinedOriginatingFrame;
         string _shouldMethod;
-        public StackFrame CallingFrame { get; private set; }
+
         public StackFrame ShouldlyFrame { get; private set; }
+        public int ShouldlyFrameIndex { get; private set; }
         public string FileName { get; private set; }
         public int LineNumber { get; private set; }
 
@@ -48,9 +45,9 @@ namespace Shouldly.Internals
             if (currentFrame == null) throw new Exception("Unable to find test method");
 
             ShouldlyFrame = default(StackFrame);
-            while (ShouldlyFrame == null || IsShouldlyMethod(currentFrame.GetMethod()))
+            while (ShouldlyFrame == null || currentFrame.GetMethod().IsShouldlyMethod())
             {
-                if (IsShouldlyMethod(currentFrame.GetMethod()))
+                if (currentFrame.GetMethod().IsShouldlyMethod())
                     ShouldlyFrame = currentFrame;
 
                 currentFrame = stackTrace.GetFrame(++i);
@@ -69,33 +66,15 @@ namespace Shouldly.Internals
             }
 
             var originatingFrame = currentFrame;
+            ShouldlyFrameIndex = i - 1;
 
             var fileName = originatingFrame.GetFileName();
-            
-            do
-            {
-                CallingFrame = stackTrace.GetFrame(i++);
-            } while (IsShouldlyMethod(CallingFrame.GetMethod()) || IsCompilerGenerated(CallingFrame.GetMethod()));
-
             _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
             _shouldMethod = ShouldlyFrame.GetMethod().Name;
             FileName = fileName;
             LineNumber = originatingFrame.GetFileLineNumber() - 1;
         }
 
-        static bool IsCompilerGenerated(MethodBase method)
-        {
-            return method.GetCustomAttributes(typeof (CompilerGeneratedAttribute), true).Any() || AnonMethod.IsMatch(method.Name);
-        }
-
-        static bool IsShouldlyMethod(MethodBase method)
-        {
-            if (method.DeclaringType == null)
-                return false;
-
-            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
-               || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
-        }
 
         string GetCodePart()
         {
