@@ -44,6 +44,14 @@ namespace Shouldly.Configuration
         }
 
         /// <summary>
+        /// Places the .approved and .received files into a subfolder
+        /// </summary>
+        public ShouldMatchConfigurationBuilder SubFolder(string subfolder)
+        {
+            return Configure(c => c.ApprovalFileSubFolder = subfolder);
+        }
+
+        /// <summary>
         /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
         /// </summary>
         public ShouldMatchConfigurationBuilder UseCallerLocation()
