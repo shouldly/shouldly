@@ -128,9 +128,9 @@ Exception::
 
 Bools
 -----
-.. literalinclude:: /../src/Shouldly.Tests/ShouldBe/BoolScenario.cs
+.. literalinclude:: /../src/DocumentationExamples/CodeExamples/BooleanExample.codeSample.approved.txt
 	:language: c#
-	:linenos:
-	:lines: 7-16
-	:dedent: 8
-	:emphasize-lines: 3,9
+
+**Exception**
+
+.. literalinclude:: /../src/DocumentationExamples/CodeExamples/BooleanExample.exceptionText.approved.txt

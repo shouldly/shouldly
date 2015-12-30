@@ -44,8 +44,15 @@ namespace Shouldly
             var config = configurationBuilder.Build();
             var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameIndex);
             var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
-            var approvedFile = Path.Combine(testMethodInfo.SourceFileDirectory, $"{testMethodInfo.MethodName}{descriminator}.approved.{config.FileExtension}");
-            var receivedFile = Path.Combine(testMethodInfo.SourceFileDirectory, $"{testMethodInfo.MethodName}{descriminator}.received.{config.FileExtension}");
+            var outputFolder = testMethodInfo.SourceFileDirectory;
+            if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
+            {
+                outputFolder = Path.Combine(outputFolder, config.ApprovalFileSubFolder);
+                Directory.CreateDirectory(outputFolder);
+            }
+
+            var approvedFile = Path.Combine(outputFolder, $"{testMethodInfo.MethodName}{descriminator}.approved.{config.FileExtension}");
+            var receivedFile = Path.Combine(outputFolder, $"{testMethodInfo.MethodName}{descriminator}.received.{config.FileExtension}");
             File.WriteAllText(receivedFile, actual);
 
             if (!File.Exists(approvedFile))
