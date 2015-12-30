@@ -13,7 +13,7 @@ namespace Shouldly
 
         public static class KnownDiffTools
         {
-            public static readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"C:\Program Files\KDiff3\kdiff3.exe", (approved, received) => $"\"{received}\" \"{approved}\"");
+            public static readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"C:\Program Files\KDiff3\kdiff3.exe", (received, approved) => $"\"{received}\" \"{approved}\" -o \"{approved}\"");
         }
 
         public static class KnownDoNoLaunchStrategies
