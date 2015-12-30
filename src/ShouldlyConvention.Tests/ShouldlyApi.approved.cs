@@ -34,7 +34,7 @@ namespace Shouldly
         {
             public static readonly Shouldly.DiffTool KDiff3;
         }
-        public class static KnownDoNoLaunchStrategies
+        public class static KnownDoNotLaunchStrategies
         {
             public static readonly Shouldly.IShouldNotLaunchDiffTool AppVeyor;
             public static readonly Shouldly.IShouldNotLaunchDiffTool NCrunch;

@@ -16,7 +16,7 @@ namespace Shouldly
             public static readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"C:\Program Files\KDiff3\kdiff3.exe", (received, approved) => $"\"{received}\" \"{approved}\" -o \"{approved}\"");
         }
 
-        public static class KnownDoNoLaunchStrategies
+        public static class KnownDoNotLaunchStrategies
         {
             public static readonly IShouldNotLaunchDiffTool NCrunch = new DoNotLaunchEnvVariable("NCRUNCH");
             public static readonly IShouldNotLaunchDiffTool TeamCity = new DoNotLaunchEnvVariable("TeamCity");
@@ -31,9 +31,9 @@ namespace Shouldly
             };
             _knownShouldNotLaunchDiffToolReasons = new List<IShouldNotLaunchDiffTool>
             {
-                KnownDoNoLaunchStrategies.AppVeyor,
-                KnownDoNoLaunchStrategies.NCrunch,
-                KnownDoNoLaunchStrategies.TeamCity
+                KnownDoNotLaunchStrategies.AppVeyor,
+                KnownDoNotLaunchStrategies.NCrunch,
+                KnownDoNotLaunchStrategies.TeamCity
             };
         }
 
