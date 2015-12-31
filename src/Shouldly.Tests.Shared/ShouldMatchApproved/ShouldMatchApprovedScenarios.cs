@@ -1,5 +1,7 @@
 ﻿#if !PORTABLE
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Shouldly.Configuration;
@@ -55,7 +57,7 @@ str.ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator)),
 
 errorWithSource:
 @"str
-    should match approved
+    should match approved with options: Ignoring line endings
 ""Bar""
     but was
 ""Foo""
@@ -70,7 +72,7 @@ Actual Code    | 70   111  111  ",
 
 errorWithoutSource:
 @"""Foo""
-    should match approved
+    should match approved with options: Ignoring line endings
 ""Bar""
     but was not
     difference
@@ -111,7 +113,14 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         [Fact]
         public void IgnoresLineEndingsByDefault()
         {
-            
+            var stacktrace = new StackTrace(true);
+            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
+            var approved = Path.Combine(sourceFileDir, $"IgnoresLineEndingsByDefault.{targetDescriminator}.approved.txt");
+            File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
+
+            "Different\r\nStyle\r\nLine\r\nBreaks".ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator));
+
+            File.Delete(approved);
         }
 
 #if net45

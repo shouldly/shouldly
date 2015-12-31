@@ -612,7 +612,7 @@ namespace Shouldly.Configuration
         public ShouldMatchConfigurationBuilder() { }
         public Shouldly.Configuration.ShouldMatchConfiguration Build() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder IgnoreLineEndings() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
