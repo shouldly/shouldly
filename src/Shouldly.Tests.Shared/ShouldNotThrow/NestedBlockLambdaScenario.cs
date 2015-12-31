@@ -31,7 +31,7 @@ Additional Info:
     Additional info",
 
 errorWithoutSource:
-#if net40
+#if net40 || net45
 @"Task
     should not throw but threw
 System.Exception

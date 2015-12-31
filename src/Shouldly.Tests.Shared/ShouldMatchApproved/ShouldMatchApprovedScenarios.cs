@@ -3,14 +3,20 @@ using System.Text.RegularExpressions;
 using Shouldly.Tests.Strings;
 using Xunit;
 
+#if net45
+using System.Threading.Tasks;
+#endif
+
 namespace Shouldly.Tests.Shared.ShouldMatchApproved
 {
     public class ShouldMatchApprovedScenarios
     {
 #if net35
         string targetDescriminator = "net35";
-#else
+#elif net40
         string targetDescriminator = "net40";
+#elif net45
+        string targetDescriminator = "net45";
 #endif
 
         [Fact]
@@ -76,6 +82,16 @@ Actual Code    | 70   111  111  ",
 messageScrubber:
 s => Regex.Replace(s, @"Approval file .+\\", "Approval file ...\\"));
         }
+
+#if net45
+        [Fact]
+        public async Task HandlesAsync()
+        {
+            await Task.Delay(200);
+
+            "Foo".ShouldMatchApproved();
+        }
+#endif
     }
 }
 #endif
