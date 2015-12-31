@@ -14,7 +14,7 @@ namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
-        static ConcurrentDictionary<string, List<MethodDeclarationSyntax>> _fileMethodsLookup = 
+        static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup = 
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -25,7 +25,7 @@ namespace DocumentationExamples
             var callerFileName = caller.GetFileName();
             var callerMethod = caller.GetMethod();
 
-            var testMethod = _fileMethodsLookup.GetOrAdd(callerFileName, fn =>
+            var testMethod = FileMethodsLookup.GetOrAdd(callerFileName, fn =>
             {
                 var callerFile = File.ReadAllText(fn);
                 var syntaxTree = CSharpSyntaxTree.ParseText(callerFile);

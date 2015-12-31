@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using Shouldly;
 using Simpsons;
 using Xunit;
@@ -31,6 +33,7 @@ namespace DocumentationExamples
         [Fact]
         public void DateTime()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-AU");
             DocExampleWriter.Document(() =>
             {
                 var date = new DateTime(2000, 6, 1);
