@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,19 +14,25 @@ namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
+        static ConcurrentDictionary<string, List<MethodDeclarationSyntax>> _fileMethodsLookup = 
+            new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
+
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void Document(Action shouldMethod)
         {
             var stackTrace = new StackTrace(true);
             var caller = stackTrace.GetFrame(1);
             var callerFileName = caller.GetFileName();
-            var callerFile = File.ReadAllText(callerFileName);
             var callerMethod = caller.GetMethod();
-            var syntaxTree = CSharpSyntaxTree.ParseText(callerFile);
-            var testMethod = syntaxTree.GetRoot()
-                .DescendantNodes()
-                .OfType<MethodDeclarationSyntax>()
-                .Single(m => m.Identifier.ValueText == callerMethod.Name);
+
+            var testMethod = _fileMethodsLookup.GetOrAdd(callerFileName, fn =>
+            {
+                var callerFile = File.ReadAllText(fn);
+                var syntaxTree = CSharpSyntaxTree.ParseText(callerFile);
+                return syntaxTree.GetRoot()
+                    .DescendantNodes()
+                    .OfType<MethodDeclarationSyntax>().ToList();
+            }).Single(m => m.Identifier.ValueText == callerMethod.Name);
 
             var documentCall = testMethod.DescendantNodes()
                 .OfType<InvocationExpressionSyntax>()
