@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using Shouldly.Configuration;
 using Shouldly.Internals;
 using Shouldly.Internals.AssertionFactories;
 

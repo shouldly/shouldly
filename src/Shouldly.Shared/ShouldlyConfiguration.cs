@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 #if !PORTABLE
+using Shouldly.Configuration;
 using System.Runtime.Remoting.Messaging;
 #endif
 namespace Shouldly

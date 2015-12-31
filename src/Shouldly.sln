@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shouldly.Tests", "Shouldly.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Tests.net45", "Shouldly.Tests.net45\Shouldly.Tests.net45.csproj", "{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDiffTools", "TestDiffTools\TestDiffTools.csproj", "{CD424503-D11E-4F2D-AE5F-5482C627C737}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shouldly.Tests.Shared\Shouldly.Tests.Shared.projitems*{71a324d0-c32a-419c-8a1e-34bccd39a9df}*SharedItemsImports = 4
@@ -86,6 +88,10 @@ Global
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +107,6 @@ Global
 		{71A324D0-C32A-419C-8A1E-34BCCD39A9DF} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
 		{2E68F917-3D56-4497-B2FF-2159333AD988} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
+		{CD424503-D11E-4F2D-AE5F-5482C627C737} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
 	EndGlobalSection
 EndGlobal

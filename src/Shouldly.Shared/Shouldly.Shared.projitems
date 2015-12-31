@@ -12,6 +12,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Case.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ChuckedAWobbly.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffTool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffToolConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\FirstNonShouldlyMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ITestMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShouldMatchConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShouldMatchConfigurationBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\TestMethodInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\EnumerableDifferenceHighlighter.cs" />
@@ -20,9 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\IStringDifferenceHighlighter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\ItemDifferenceHighlighter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\StringDifferenceHighlighter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DiffTool.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DiffToolConfiguration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FirstNonShouldlyMethodFinder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\Assertions\IAssertion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\Assertions\StringShouldBeAssertion.cs" />
@@ -45,7 +49,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Internals\TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\Tolerance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals\ToleranceMode.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ITestMethodFinder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\DictionaryShouldContainKeyAndValueMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\DictionaryShouldNotContainValueForKeyMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\DictionaryShouldOrNotContainKeyMessageGenerator.cs" />
@@ -101,13 +104,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowTaskAsyncExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowTaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyMessage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ShouldMatchConfiguration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ShouldMatchConfigurationBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\DynamicShould.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\ShouldThrow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\ShouldThrowTask.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\ShouldThrowTaskAsync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringCompareShould.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TestMethodInfo.cs" />
   </ItemGroup>
 </Project>
