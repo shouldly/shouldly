@@ -1,5 +1,4 @@
-﻿ // ReSharper disable once CheckNamespace
-namespace Simpsons
+﻿namespace Simpsons
 {
     public abstract class Pet
     {

@@ -1,8 +1,8 @@
 myValue
     should be
-true
+True
     but was
-false
+False
 
 Additional Info:
     Some additional context

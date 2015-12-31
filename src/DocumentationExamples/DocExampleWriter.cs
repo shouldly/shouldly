@@ -3,8 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using ApprovalTests;
-using ApprovalUtilities.Utilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,7 +13,7 @@ namespace DocumentationExamples
     public static class DocExampleWriter
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void Document(Action shouldMethod, string exception)
+        public static void Document(Action shouldMethod)
         {
             var stackTrace = new StackTrace(true);
             var caller = stackTrace.GetFrame(1);
@@ -39,14 +37,8 @@ namespace DocumentationExamples
             var enumerable = blockSyntax
                 .Statements
                 .Select(s => s.WithoutLeadingTrivia().ToFullString());
-            var body = enumerable
-                .JoinStringsWith(s => s, string.Empty);
-            var exceptionText = documentCall.ArgumentList.Arguments[1]
-                .DescendantNodes()
-                .OfType<LiteralExpressionSyntax>()
-                .First()
-                .Token
-                .ValueText;
+            var body = string.Join(string.Empty, enumerable);
+            var exceptionText = Should.Throw<ShouldAssertException>(shouldMethod).Message;
 
             try
             {
