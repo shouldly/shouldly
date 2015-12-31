@@ -1,13 +1,14 @@
 ﻿using Shouldly.Internals.Assertions;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.Internals.AssertionFactories
 {
     internal static class StringShouldBeAssertionFactory
     {
-        public static IAssertion Create(string expected, string actual, StringCompareShould options)
+        public static IAssertion Create(string expected, string actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null)
         {
             List<string> optionsList = new List<string>();
             if ((options & StringCompareShould.IgnoreLineEndings) != 0)
@@ -31,12 +32,13 @@ namespace Shouldly.Internals.AssertionFactories
                 optionsList.Add("Ignoring case");
             }
 
-                    return new StringShouldBeAssertion(
-                        expected, actual,
-                        stringComparer,
-                        new ActualCodeTextGetter(),
-                        new StringDifferenceHighlighter(sensitivity),
-                string.Join(", ", optionsList.ToArray()));
+            return new StringShouldBeAssertion(
+                expected, actual,
+                stringComparer,
+                new ActualCodeTextGetter(),
+                new StringDifferenceHighlighter(sensitivity),
+                string.Join(", ", optionsList.ToArray()),
+                shouldlyMethod.PascalToSpaced());
         }
     }
 }

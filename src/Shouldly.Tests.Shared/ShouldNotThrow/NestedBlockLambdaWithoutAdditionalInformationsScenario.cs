@@ -28,7 +28,7 @@ System.Exception
 ""Dummy message.""",
 
 errorWithoutSource:
-#if net40
+#if net40 || net45
 @"Task
     should not throw but threw
 System.Exception

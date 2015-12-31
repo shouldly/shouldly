@@ -11,13 +11,15 @@ namespace Shouldly.Internals.Assertions
         readonly ICodeTextGetter _codeTextGetter;
         readonly IStringDifferenceHighlighter _diffHighlighter;
         readonly string _options;
+        readonly string _shouldlyMethod;
 
         public StringShouldBeAssertion(
             string expected, string actual,
             Func<string, string, bool> compare,
             ICodeTextGetter codeTextGetter,
             IStringDifferenceHighlighter diffHighlighter,
-            string options)
+            string options,
+            string shouldlyMethod)
         {
             _expected = expected;
             _actual = actual;
@@ -25,6 +27,7 @@ namespace Shouldly.Internals.Assertions
             _codeTextGetter = codeTextGetter;
             _diffHighlighter = diffHighlighter;
             _options = options;
+            _shouldlyMethod = shouldlyMethod;
         }
 
         public string GenerateMessage(string customMessage)
@@ -38,7 +41,7 @@ namespace Shouldly.Internals.Assertions
 {actualValue}";
             var message =
 $@"{codeText}
-    {"should be"}{withOption}
+    {_shouldlyMethod}{withOption}
 {expectedValue}
     but was{actual}
     difference

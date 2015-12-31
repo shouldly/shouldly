@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using ApprovalTests;
-using ApprovalTests.Namers;
 using Mono.Cecil;
+using Shouldly;
 
 namespace ApiApprover
 {
@@ -20,24 +19,9 @@ namespace ApiApprover
             });
 
             var publicApi = PublicApiGenerator.CreatePublicApiForAssembly(asm);
-            var writer = new ApprovalTextWriter(publicApi, "cs");
-            var approvalNamer = new AssemblyPathNamer(assemblyPath);
-            ApprovalTests.Approvals.Verify(writer, approvalNamer, ApprovalTests.Approvals.GetReporter());
-        }
-
-        private class AssemblyPathNamer : UnitTestFrameworkNamer
-        {
-            private readonly string name;
-
-            public AssemblyPathNamer(string assemblyPath)
-            {
-                name = Path.GetFileNameWithoutExtension(assemblyPath);
-            }
-
-            public override string Name
-            {
-                get { return name; }
-            }
+            publicApi.ShouldMatchApproved(c => c
+                .WithFileExtension(".cs")
+                .UseCallerLocation());
         }
     }
 }
