@@ -58,6 +58,7 @@ Shouldly has plenty of different assertions, have a look under the assertions fo
    assertions/shouldNotBe
    exampleClasses
    contributing
+   configuration
 
 
 Indices and tables
