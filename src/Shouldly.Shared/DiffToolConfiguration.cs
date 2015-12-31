@@ -13,7 +13,7 @@ namespace Shouldly
 
         public static class KnownDiffTools
         {
-            public static readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"C:\Program Files\KDiff3\kdiff3.exe", (received, approved) => $"\"{received}\" \"{approved}\" -o \"{approved}\"");
+            public static readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"KDiff3\kdiff3.exe", (received, approved, approvedExists) => approvedExists ? $"\"{received}\" \"{approved}\" -o \"{approved}\"" : $"\"{received}\" -o \"{approved}\"");
         }
 
         public static class KnownDoNotLaunchStrategies
@@ -66,8 +66,16 @@ namespace Shouldly
 
         public DiffTool GetDiffTool()
         {
-            // TODO Fallback?
-            return _diffToolPriority.FirstOrDefault() ?? _diffTools.FirstOrDefault();
+            var diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists()) ??
+                           _diffTools.FirstOrDefault(d => d.Exists());
+            if (diffTool == null)
+            {
+                throw new ShouldAssertException(@"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
+
+In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add your own");
+            }
+
+            return diffTool;
         }
     }
 

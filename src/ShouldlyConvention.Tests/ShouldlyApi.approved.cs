@@ -18,9 +18,11 @@ namespace Shouldly
     }
     public class DiffTool
     {
-        public DiffTool(string name, string path, System.Func<string, string, string> argGenerator) { }
+        public DiffTool(string name, string path, Shouldly.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
-        public void Open(string receivedPath, string approvedPath) { }
+        public bool Exists() { }
+        public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
+        public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
     }
     public class DiffToolConfiguration
     {
