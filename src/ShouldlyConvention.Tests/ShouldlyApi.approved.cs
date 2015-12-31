@@ -16,58 +16,12 @@ namespace Shouldly
         public ChuckedAWobbly(string message) { }
         public ChuckedAWobbly(string message, System.Exception innerException) { }
     }
-    public class DiffTool
-    {
-        public DiffTool(string name, string path, Shouldly.DiffTool.ArgumentGenerator argGenerator) { }
-        public string Name { get; }
-        public bool Exists() { }
-        public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
-        public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
-    }
-    public class DiffToolConfiguration
-    {
-        public DiffToolConfiguration() { }
-        public void AddDoNotLaunchStrategy(Shouldly.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
-        public Shouldly.DiffTool GetDiffTool() { }
-        public void RegisterDiffTool(Shouldly.DiffTool diffTool) { }
-        public void SetDiffToolPriorities(params Shouldly.DiffTool[] diffTools) { }
-        public bool ShouldOpenDiffTool() { }
-        public class static KnownDiffTools
-        {
-            public static readonly Shouldly.DiffTool KDiff3;
-        }
-        public class static KnownDoNotLaunchStrategies
-        {
-            public static readonly Shouldly.IShouldNotLaunchDiffTool AppVeyor;
-            public static readonly Shouldly.IShouldNotLaunchDiffTool NCrunch;
-            public static readonly Shouldly.IShouldNotLaunchDiffTool TeamCity;
-        }
-    }
-    public class DoNotLaunchEnvVariable : Shouldly.IShouldNotLaunchDiffTool
-    {
-        public DoNotLaunchEnvVariable(string environmentalVariable) { }
-        public bool ShouldNotLaunch() { }
-    }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static DynamicShould
     {
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName) { }
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, string customMessage) { }
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-    }
-    public class FirstNonShouldlyMethodFinder : Shouldly.ITestMethodFinder
-    {
-        public FirstNonShouldlyMethodFinder() { }
-        public int Offset { get; set; }
-        public Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
-    }
-    public interface IShouldNotLaunchDiffTool
-    {
-        bool ShouldNotLaunch();
-    }
-    public interface ITestMethodFinder
-    {
-        Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static Should
@@ -478,7 +432,7 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
-        public static Shouldly.DiffToolConfiguration DiffTools { get; }
+        public static Shouldly.Configuration.DiffToolConfiguration DiffTools { get; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }
@@ -491,30 +445,9 @@ namespace Shouldly
     {
         public static void ShouldMatchApproved(this string actual) { }
         public static void ShouldMatchApproved(this string actual, string customMessage) { }
-        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, System.Func<string> customMessage, System.Action<Shouldly.ShouldMatchConfigurationBuilder> configureOptions) { }
-    }
-    public class ShouldMatchConfiguration
-    {
-        public ShouldMatchConfiguration() { }
-        public string FileExtension { get; set; }
-        public string FilenameDescriminator { get; set; }
-        public bool PreventDiff { get; set; }
-        public Shouldly.StringCompareShould StringCompareOptions { get; set; }
-        public Shouldly.ITestMethodFinder TestMethodFinder { get; set; }
-    }
-    public class ShouldMatchConfigurationBuilder
-    {
-        public ShouldMatchConfigurationBuilder() { }
-        public Shouldly.ShouldMatchConfiguration Build() { }
-        public Shouldly.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.ShouldMatchConfiguration> configure) { }
-        public Shouldly.ShouldMatchConfigurationBuilder IgnoreLineEndings() { }
-        public Shouldly.ShouldMatchConfigurationBuilder NoDiff() { }
-        public Shouldly.ShouldMatchConfigurationBuilder UseCallerLocation() { }
-        public Shouldly.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
-        public Shouldly.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
-        public Shouldly.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
+        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
+        public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
+        public static void ShouldMatchApproved(this string actual, System.Func<string> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldSatisfyAllConditionsTestExtensions
@@ -612,6 +545,79 @@ namespace Shouldly
     {
         IgnoreCase = 1,
         IgnoreLineEndings = 2,
+    }
+}
+namespace Shouldly.Configuration
+{
+    
+    public class DiffTool
+    {
+        public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
+        public string Name { get; }
+        public bool Exists() { }
+        public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
+        public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
+    }
+    public class DiffToolConfiguration
+    {
+        public DiffToolConfiguration() { }
+        public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
+        public Shouldly.Configuration.DiffTool GetDiffTool() { }
+        public void RegisterDiffTool(Shouldly.Configuration.DiffTool diffTool) { }
+        public void SetDiffToolPriorities(params Shouldly.Configuration.DiffTool[] diffTools) { }
+        public bool ShouldOpenDiffTool() { }
+        public class static KnownDiffTools
+        {
+            public static readonly Shouldly.Configuration.DiffTool BeyondCompare3;
+            public static readonly Shouldly.Configuration.DiffTool BeyondCompare4;
+            public static readonly Shouldly.Configuration.DiffTool KDiff3;
+        }
+        public class static KnownDoNotLaunchStrategies
+        {
+            public static readonly Shouldly.Configuration.IShouldNotLaunchDiffTool AppVeyor;
+            public static readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
+            public static readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
+        }
+    }
+    public class DoNotLaunchEnvVariable : Shouldly.Configuration.IShouldNotLaunchDiffTool
+    {
+        public DoNotLaunchEnvVariable(string environmentalVariable) { }
+        public bool ShouldNotLaunch() { }
+    }
+    public class FirstNonShouldlyMethodFinder : Shouldly.Configuration.ITestMethodFinder
+    {
+        public FirstNonShouldlyMethodFinder() { }
+        public int Offset { get; set; }
+        public Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
+    }
+    public interface IShouldNotLaunchDiffTool
+    {
+        bool ShouldNotLaunch();
+    }
+    public interface ITestMethodFinder
+    {
+        Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
+    }
+    public class ShouldMatchConfiguration
+    {
+        public ShouldMatchConfiguration() { }
+        public string FileExtension { get; set; }
+        public string FilenameDescriminator { get; set; }
+        public bool PreventDiff { get; set; }
+        public Shouldly.StringCompareShould StringCompareOptions { get; set; }
+        public Shouldly.Configuration.ITestMethodFinder TestMethodFinder { get; set; }
+    }
+    public class ShouldMatchConfigurationBuilder
+    {
+        public ShouldMatchConfigurationBuilder() { }
+        public Shouldly.Configuration.ShouldMatchConfiguration Build() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder IgnoreLineEndings() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
     }
     public class TestMethodInfo
     {

@@ -1,7 +1,7 @@
 #if !PORTABLE
 using System;
 
-namespace Shouldly
+namespace Shouldly.Configuration
 {
     public class ShouldMatchConfigurationBuilder
     {
@@ -32,6 +32,9 @@ namespace Shouldly
             return Configure(c => c.StringCompareOptions = c.StringCompareOptions | StringCompareShould.IgnoreLineEndings);
         }
 
+        /// <summary>
+        /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
+        /// </summary>
         public ShouldMatchConfigurationBuilder UseCallerLocation()
         {
             return Configure(c => c.TestMethodFinder = new FirstNonShouldlyMethodFinder

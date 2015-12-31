@@ -1,5 +1,5 @@
 ﻿#if !PORTABLE
-namespace Shouldly
+namespace Shouldly.Configuration
 {
     public class ShouldMatchConfiguration
     {

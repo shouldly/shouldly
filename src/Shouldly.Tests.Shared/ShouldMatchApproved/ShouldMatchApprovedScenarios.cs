@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Shouldly.Configuration;
 using Shouldly.Tests.Strings;
 using Xunit;
 
@@ -105,6 +106,12 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
             {
                 diffToolsCollection.AddRange(currentDiffTools);
             }
+        }
+
+        [Fact]
+        public void IgnoresLineEndingsByDefault()
+        {
+            
         }
 
 #if net45

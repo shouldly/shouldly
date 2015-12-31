@@ -24,3 +24,4 @@ docs/_build/
 src/.vs
 *.user
 *.received.txt
+src/TestResults/
