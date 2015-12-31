@@ -2,10 +2,26 @@
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
+#if !PORTABLE
+using System.Linq;
+using System.Reflection;
+#endif
+
 namespace Shouldly
 {
     internal static class ShouldlyCoreExtensions
     {
+#if !PORTABLE
+        internal static bool IsShouldlyMethod(this MethodBase method)
+        {
+            if (method.DeclaringType == null)
+                return false;
+
+            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
+               || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
+        }
+#endif
+
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
             object originalActual, object originalExpected,

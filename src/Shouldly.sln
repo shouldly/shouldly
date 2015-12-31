@@ -35,12 +35,17 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shouldly.Tests.Shared", "Sh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shouldly.Tests", "Shouldly.Tests", "{FA4AED79-E0F1-4843-BE35-84C25295D467}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Tests.net45", "Shouldly.Tests.net45\Shouldly.Tests.net45.csproj", "{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDiffTools", "TestDiffTools\TestDiffTools.csproj", "{CD424503-D11E-4F2D-AE5F-5482C627C737}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shouldly.Tests.Shared\Shouldly.Tests.Shared.projitems*{71a324d0-c32a-419c-8a1e-34bccd39a9df}*SharedItemsImports = 4
 		Shouldly.Shared\Shouldly.Shared.projitems*{cf49e8a3-57e1-4f43-b2dc-7092d2b7677f}*SharedItemsImports = 4
 		Shouldly.Shared\Shouldly.Shared.projitems*{ce521bb7-d8f8-48d4-94e2-fc7ad21c8bf1}*SharedItemsImports = 13
 		Shouldly.Tests.Shared\Shouldly.Tests.Shared.projitems*{7e798127-21fe-4f49-a221-53b53b40d6be}*SharedItemsImports = 4
+		Shouldly.Tests.Shared\Shouldly.Tests.Shared.projitems*{42ff1c23-5ef4-4ecc-8e00-38bcbfcc5c4d}*SharedItemsImports = 4
 		Shouldly.Shared\Shouldly.Shared.projitems*{5ab38df3-f95e-4b6a-b8e7-8e5270c24dfb}*SharedItemsImports = 4
 		Shouldly.Tests.Shared\Shouldly.Tests.Shared.projitems*{2e68f917-3d56-4497-b2ff-2159333ad988}*SharedItemsImports = 13
 		Shouldly.Shared\Shouldly.Shared.projitems*{556fc50d-4da6-4f98-a8a4-4ba27a5f04ec}*SharedItemsImports = 4
@@ -79,6 +84,14 @@ Global
 		{71A324D0-C32A-419C-8A1E-34BCCD39A9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71A324D0-C32A-419C-8A1E-34BCCD39A9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71A324D0-C32A-419C-8A1E-34BCCD39A9DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +106,7 @@ Global
 		{B1040972-D07A-4524-AEE7-081E48D53345} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
 		{71A324D0-C32A-419C-8A1E-34BCCD39A9DF} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
 		{2E68F917-3D56-4497-B2FF-2159333AD988} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
+		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
+		{CD424503-D11E-4F2D-AE5F-5482C627C737} = {FA4AED79-E0F1-4843-BE35-84C25295D467}
 	EndGlobalSection
 EndGlobal

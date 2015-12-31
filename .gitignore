@@ -22,3 +22,5 @@ ShouldlyConvention.Tests/bin/
 docs/_build/
 *.received.cs
 src/.vs
+*.user
+*.received.txt

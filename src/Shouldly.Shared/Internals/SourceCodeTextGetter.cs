@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 #endif
 
 namespace Shouldly.Internals
@@ -22,8 +21,11 @@ namespace Shouldly.Internals
     {
         bool _determinedOriginatingFrame;
         string _shouldMethod;
-        string _fileName;
-        int _lineNumber;
+
+        public StackFrame ShouldlyFrame { get; private set; }
+        public int ShouldlyFrameIndex { get; private set; }
+        public string FileName { get; private set; }
+        public int LineNumber { get; private set; }
 
         public string GetCodeText(object actual, StackTrace stackTrace)
         {
@@ -42,11 +44,11 @@ namespace Shouldly.Internals
 
             if (currentFrame == null) throw new Exception("Unable to find test method");
 
-            var shouldlyFrame = default(StackFrame);
-            while (shouldlyFrame == null || IsShouldlyMethod(currentFrame.GetMethod()))
+            ShouldlyFrame = default(StackFrame);
+            while (ShouldlyFrame == null || currentFrame.GetMethod().IsShouldlyMethod())
             {
-                if (IsShouldlyMethod(currentFrame.GetMethod()))
-                    shouldlyFrame = currentFrame;
+                if (currentFrame.GetMethod().IsShouldlyMethod())
+                    ShouldlyFrame = currentFrame;
 
                 currentFrame = stackTrace.GetFrame(++i);
 
@@ -56,7 +58,7 @@ namespace Shouldly.Internals
                 // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
                 // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
                 // scanarios. Alternately, it could be replaced with a more robust implementation.
-                while ( currentFrame.GetMethod().DeclaringType == null ||
+                while (currentFrame.GetMethod().DeclaringType == null ||
                         currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
                 {
                     currentFrame = stackTrace.GetFrame(++i);
@@ -64,23 +66,15 @@ namespace Shouldly.Internals
             }
 
             var originatingFrame = currentFrame;
+            ShouldlyFrameIndex = i - 1;
 
             var fileName = originatingFrame.GetFileName();
-
-           _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
-           _shouldMethod = shouldlyFrame.GetMethod().Name;
-           _fileName = fileName;
-           _lineNumber = originatingFrame.GetFileLineNumber() - 1;
+            _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
+            _shouldMethod = ShouldlyFrame.GetMethod().Name;
+            FileName = fileName;
+            LineNumber = originatingFrame.GetFileLineNumber() - 1;
         }
 
-        bool IsShouldlyMethod(MethodBase method)
-        {
-            if (method.DeclaringType == null)
-                return false;
-           
-            return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
-               || (method.DeclaringType.DeclaringType !=null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
-        }
 
         string GetCodePart()
         {
@@ -89,7 +83,7 @@ namespace Shouldly.Internals
 
             if (_determinedOriginatingFrame)
             {
-                var codeLines = string.Join("\n", File.ReadAllLines(_fileName).Skip(_lineNumber).ToArray());
+                var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
 
                 var indexOf = codeLines.IndexOf(_shouldMethod);
                 if (indexOf > 0)
@@ -110,7 +104,7 @@ namespace Shouldly.Internals
             return codePart;
         }
 
-        private string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
+        string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
         {
             var indexOfParameters =
                 indexOfMethod +
@@ -118,7 +112,7 @@ namespace Shouldly.Internals
 
             var parameterString = codeLines.Substring(indexOfParameters);
             // Remove generic parameter if need be
-            parameterString = parameterString.StartsWith("<") 
+            parameterString = parameterString.StartsWith("<")
                 ? parameterString.Substring(parameterString.IndexOf(">", StringComparison.Ordinal) + 2)
                 : parameterString.Substring(1);
 
@@ -129,7 +123,7 @@ namespace Shouldly.Internals
                 {'[', ']'}
             };
 
-            var parameterFinishedKeys = new[] {',', ')'};
+            var parameterFinishedKeys = new[] { ',', ')' };
 
             var openParentheses = new List<char>();
 

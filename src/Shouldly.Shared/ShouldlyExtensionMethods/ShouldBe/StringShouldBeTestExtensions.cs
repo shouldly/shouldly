@@ -95,7 +95,7 @@ namespace Shouldly
             var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
             ExecuteAssertion(assertion, customMessage);
         }
-        private static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, Func<string> customMessage)
+        static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, Func<string> customMessage)
         {
             try
             {

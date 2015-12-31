@@ -6,12 +6,19 @@
     <SharedGUID>ce521bb7-d8f8-48d4-94e2-fc7ad21c8bf1</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Shouldly.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Shouldly</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Case.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ChuckedAWobbly.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffTool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffToolConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\FirstNonShouldlyMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ITestMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShouldMatchConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShouldMatchConfigurationBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\TestMethodInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\DifferenceHighlighter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DifferenceHighlighting\EnumerableDifferenceHighlighter.cs" />
@@ -91,6 +98,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBe\StringShouldBeTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBe\StringStartEndTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldCompleteInExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldMatchApprovedTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldSatisfyAllConditionsTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowTaskAsyncExtensions.cs" />
