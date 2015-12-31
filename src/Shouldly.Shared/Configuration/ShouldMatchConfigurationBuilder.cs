@@ -5,7 +5,10 @@ namespace Shouldly.Configuration
 {
     public class ShouldMatchConfigurationBuilder
     {
-        readonly ShouldMatchConfiguration _config = new ShouldMatchConfiguration();
+        readonly ShouldMatchConfiguration _config = new ShouldMatchConfiguration
+        {
+            StringCompareOptions = StringCompareShould.IgnoreLineEndings
+        };
 
         public ShouldMatchConfigurationBuilder WithStringCompareOptions(StringCompareShould stringCompareOptions)
         {
@@ -27,9 +30,17 @@ namespace Shouldly.Configuration
             return Configure(c => c.FileExtension = fileExtension.TrimStart('.'));
         }
 
-        public ShouldMatchConfigurationBuilder IgnoreLineEndings()
+        /// <summary>
+        /// Default is to ignore line endings
+        /// </summary>
+        public ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings()
         {
-            return Configure(c => c.StringCompareOptions = c.StringCompareOptions | StringCompareShould.IgnoreLineEndings);
+            return Configure(c =>
+            {
+                if ((c.StringCompareOptions & StringCompareShould.IgnoreLineEndings) ==
+                    StringCompareShould.IgnoreLineEndings)
+                    c.StringCompareOptions &= ~StringCompareShould.IgnoreLineEndings;
+            });
         }
 
         /// <summary>
