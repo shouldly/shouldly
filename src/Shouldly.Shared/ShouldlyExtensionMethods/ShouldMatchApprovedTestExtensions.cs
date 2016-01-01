@@ -39,9 +39,13 @@ namespace Shouldly
             var stackTrace = new StackTrace(true);
             codeGetter.GetCodeText(actual, stackTrace);
 
-            var configurationBuilder = new ShouldMatchConfigurationBuilder();
+            var configurationBuilder = new ShouldMatchConfigurationBuilder(ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build());
             configureOptions(configurationBuilder);
             var config = configurationBuilder.Build();
+
+            if (config.Scrubber != null)
+                actual = config.Scrubber(actual);
+
             var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameIndex);
             var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
             var outputFolder = testMethodInfo.SourceFileDirectory;
@@ -60,8 +64,8 @@ namespace Shouldly
                 if (ConfigurationAllowsDiff(config))
                     ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, false);
 
-                throw new ShouldAssertException($@"Approval file {approvedFile}
-    does not exist");
+                throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
+    does not exist", receivedFile, approvedFile);
             }
 
             var approvedFileContents = File.ReadAllText(approvedFile);
@@ -74,7 +78,7 @@ namespace Shouldly
                 ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, true);
 
             if (!contentsMatch)
-                throw new ShouldAssertException(assertion.GenerateMessage(customMessage()));
+                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage()), receivedFile, approvedFile);
             File.Delete(receivedFile);
         }
 

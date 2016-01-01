@@ -14,8 +14,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)ChuckedAWobbly.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffTool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffToolConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\DoNotLaunchWhenEnvVariableIsPresent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\FirstNonShouldlyMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\IShouldNotLaunchDiffTool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ITestMethodFinder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\KnownDiffTools.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\KnownDoNotLaunchStrategies.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShouldMatchConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ShouldMatchConfigurationBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\TestMethodInfo.cs" />
@@ -104,6 +108,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowTaskAsyncExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldThrowTaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldMatchApprovedException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\DynamicShould.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\ShouldThrow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldStaticClasses\ShouldThrowTask.cs" />

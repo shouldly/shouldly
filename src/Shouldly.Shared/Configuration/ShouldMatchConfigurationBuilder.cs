@@ -5,10 +5,12 @@ namespace Shouldly.Configuration
 {
     public class ShouldMatchConfigurationBuilder
     {
-        readonly ShouldMatchConfiguration _config = new ShouldMatchConfiguration
+        readonly ShouldMatchConfiguration _config;
+
+        public ShouldMatchConfigurationBuilder(ShouldMatchConfiguration initialConfig)
         {
-            StringCompareOptions = StringCompareShould.IgnoreLineEndings
-        };
+            _config = new ShouldMatchConfiguration(initialConfig);
+        }
 
         public ShouldMatchConfigurationBuilder WithStringCompareOptions(StringCompareShould stringCompareOptions)
         {
@@ -59,6 +61,20 @@ namespace Shouldly.Configuration
             return Configure(c => c.TestMethodFinder = new FirstNonShouldlyMethodFinder
             {
                 Offset = 1
+            });
+        }
+
+        public ShouldMatchConfigurationBuilder WithScrubber(Func<string, string> scrubber)
+        {
+            return Configure(c =>
+            {
+                if (c.Scrubber == null)
+                    c.Scrubber = scrubber;
+                else
+                {
+                    var existing = c.Scrubber;
+                    c.Scrubber = s => existing(scrubber(s));
+                }
             });
         }
 

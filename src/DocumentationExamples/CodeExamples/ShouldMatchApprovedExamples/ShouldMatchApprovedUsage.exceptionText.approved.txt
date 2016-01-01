@@ -1,0 +1,2 @@
+Approval file D:\_code\shouldly\src\DocumentationExamples\Document.approved.txt
+    does not exist

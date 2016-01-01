@@ -21,6 +21,14 @@ namespace Shouldly
 #if !PORTABLE
         public static DiffToolConfiguration DiffTools { get; private set; } = new DiffToolConfiguration();
 
+        public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; private set; } =
+            new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration
+            {
+                StringCompareOptions = StringCompareShould.IgnoreLineEndings,
+                TestMethodFinder = new FirstNonShouldlyMethodFinder(),
+                FileExtension = "txt"
+            });
+
         /// <summary>
         /// When set to true shouldly will not try and create better error messages using your source code
         /// </summary>

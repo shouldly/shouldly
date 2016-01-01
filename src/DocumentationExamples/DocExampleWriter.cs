@@ -5,21 +5,23 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Shouldly;
+using Shouldly.Configuration;
 using Xunit.Abstractions;
 
 namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
-        static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup = 
+        static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup =
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper)
+        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder> additionConfig = null)
         {
             var stackTrace = new StackTrace(true);
             var caller = stackTrace.GetFrame(1);
@@ -58,21 +60,33 @@ namespace DocumentationExamples
             testOutputHelper.WriteLine("");
             testOutputHelper.WriteLine(exceptionText);
 
-
             var approvedFileFolder = $"CodeExamples/{callerMethod.DeclaringType.Name}";
+            Func<string, string> scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
             try
             {
-                body.ShouldMatchApproved(c => c
-                    .WithDescriminator("codeSample")
-                    .UseCallerLocation()
-                    .SubFolder(approvedFileFolder));
+                body.ShouldMatchApproved(configurationBuilder =>
+                {
+                    configurationBuilder
+                        .WithDescriminator("codeSample")
+                        .UseCallerLocation()
+                        .SubFolder(approvedFileFolder)
+                        .WithScrubber(scrubber);
+
+                    additionConfig?.Invoke(configurationBuilder);
+                });
             }
             finally
             {
-                exceptionText.ShouldMatchApproved(c => c
-                    .WithDescriminator("exceptionText")
-                    .UseCallerLocation()
-                    .SubFolder(approvedFileFolder));
+                exceptionText.ShouldMatchApproved(configurationBuilder =>
+                {
+                    configurationBuilder
+                        .WithDescriminator("exceptionText")
+                        .UseCallerLocation()
+                        .SubFolder(approvedFileFolder)
+                        .WithScrubber(scrubber);
+
+                    additionConfig?.Invoke(configurationBuilder);
+                });
             }
         }
     }

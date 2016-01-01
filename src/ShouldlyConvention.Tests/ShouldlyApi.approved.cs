@@ -433,12 +433,17 @@ namespace Shouldly
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
         public static Shouldly.Configuration.DiffToolConfiguration DiffTools { get; }
+        public static Shouldly.Configuration.ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }
     public class ShouldlyMethodsAttribute : System.Attribute
     {
         public ShouldlyMethodsAttribute() { }
+    }
+    public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
+    {
+        public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldMatchApprovedTestExtensions
@@ -561,27 +566,17 @@ namespace Shouldly.Configuration
     public class DiffToolConfiguration
     {
         public DiffToolConfiguration() { }
+        public Shouldly.Configuration.KnownDiffTools KnownDiffTools { get; }
+        public Shouldly.Configuration.KnownDoNotLaunchStrategies KnownDoNotLaunchStrategies { get; }
         public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
         public Shouldly.Configuration.DiffTool GetDiffTool() { }
         public void RegisterDiffTool(Shouldly.Configuration.DiffTool diffTool) { }
         public void SetDiffToolPriorities(params Shouldly.Configuration.DiffTool[] diffTools) { }
         public bool ShouldOpenDiffTool() { }
-        public class static KnownDiffTools
-        {
-            public static readonly Shouldly.Configuration.DiffTool BeyondCompare3;
-            public static readonly Shouldly.Configuration.DiffTool BeyondCompare4;
-            public static readonly Shouldly.Configuration.DiffTool KDiff3;
-        }
-        public class static KnownDoNotLaunchStrategies
-        {
-            public static readonly Shouldly.Configuration.IShouldNotLaunchDiffTool AppVeyor;
-            public static readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
-            public static readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
-        }
     }
-    public class DoNotLaunchEnvVariable : Shouldly.Configuration.IShouldNotLaunchDiffTool
+    public class DoNotLaunchWhenEnvVariableIsPresent : Shouldly.Configuration.IShouldNotLaunchDiffTool
     {
-        public DoNotLaunchEnvVariable(string environmentalVariable) { }
+        public DoNotLaunchWhenEnvVariableIsPresent(string environmentalVariable) { }
         public bool ShouldNotLaunch() { }
     }
     public class FirstNonShouldlyMethodFinder : Shouldly.Configuration.ITestMethodFinder
@@ -598,19 +593,42 @@ namespace Shouldly.Configuration
     {
         Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
     }
+    public class KnownDiffTools
+    {
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.DiffTool BeyondCompare3;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.DiffTool BeyondCompare4;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.DiffTool KDiff3;
+        public KnownDiffTools() { }
+        public static Shouldly.Configuration.KnownDiffTools Instance { get; }
+    }
+    public class KnownDoNotLaunchStrategies
+    {
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool AppVeyor;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
+        public KnownDoNotLaunchStrategies() { }
+    }
     public class ShouldMatchConfiguration
     {
         public ShouldMatchConfiguration() { }
+        public ShouldMatchConfiguration(Shouldly.Configuration.ShouldMatchConfiguration initialConfig) { }
         public string ApprovalFileSubFolder { get; set; }
         public string FileExtension { get; set; }
         public string FilenameDescriminator { get; set; }
         public bool PreventDiff { get; set; }
+        public System.Func<string, string> Scrubber { get; set; }
         public Shouldly.StringCompareShould StringCompareOptions { get; set; }
         public Shouldly.Configuration.ITestMethodFinder TestMethodFinder { get; set; }
     }
     public class ShouldMatchConfigurationBuilder
     {
-        public ShouldMatchConfigurationBuilder() { }
+        public ShouldMatchConfigurationBuilder(Shouldly.Configuration.ShouldMatchConfiguration initialConfig) { }
         public Shouldly.Configuration.ShouldMatchConfiguration Build() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
@@ -619,6 +637,7 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithScrubber(System.Func<string, string> scrubber) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
     }
     public class TestMethodInfo
