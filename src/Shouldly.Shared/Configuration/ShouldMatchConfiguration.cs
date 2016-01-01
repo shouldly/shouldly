@@ -1,12 +1,23 @@
-﻿#if !PORTABLE
+﻿using System;
+
+#if !PORTABLE
 namespace Shouldly.Configuration
 {
     public class ShouldMatchConfiguration
     {
         public ShouldMatchConfiguration()
         {
-            TestMethodFinder = new FirstNonShouldlyMethodFinder();
-            FileExtension = "txt";
+        }
+
+        public ShouldMatchConfiguration(ShouldMatchConfiguration initialConfig)
+        {
+            StringCompareOptions = initialConfig.StringCompareOptions;
+            FilenameDescriminator = initialConfig.FilenameDescriminator;
+            PreventDiff = initialConfig.PreventDiff;
+            FileExtension = initialConfig.FileExtension;
+            TestMethodFinder = initialConfig.TestMethodFinder;
+            ApprovalFileSubFolder = initialConfig.ApprovalFileSubFolder;
+            Scrubber = initialConfig.Scrubber;
         }
 
         public StringCompareShould StringCompareOptions { get; set; }
@@ -19,6 +30,12 @@ namespace Shouldly.Configuration
 
         public ITestMethodFinder TestMethodFinder { get; set; }
         public string ApprovalFileSubFolder { get; set; }
+        /// <summary>
+        /// Scrubbers allow you to alter the received document before comparing it to approved.
+        /// 
+        /// This is useful for replacing dates or dynamic data with fixed data
+        /// </summary>
+        public Func<string, string> Scrubber { get; set; }
     }
 }
 #endif

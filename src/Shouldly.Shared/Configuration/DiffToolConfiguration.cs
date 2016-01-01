@@ -11,48 +11,14 @@ namespace Shouldly.Configuration
         readonly List<DiffTool> _diffToolPriority = new List<DiffTool>();
         readonly List<DiffTool> _diffTools;
 
-        public static class KnownDiffTools
-        {
-            public static readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"KDiff3\kdiff3.exe", KDiffArgs);
-            public static readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", @"Beyond Compare 3\BCompare.exe", BeyondCompareArgs);
-            public static readonly DiffTool BeyondCompare4 = new DiffTool("Beyond Compare 4", @"Beyond Compare 4\BCompare.exe", BeyondCompareArgs);
-
-            static string BeyondCompareArgs(string received, string approved, bool approvedExists)
-            {
-                return approvedExists
-                    ? $"\"{received}\" \"{approved}\" /mergeoutput=\"{approved}\""
-                    : $"\"{received}\" /mergeoutput=\"{approved}\"";
-            }
-
-            static string KDiffArgs(string received, string approved, bool approvedExists)
-            {
-                return approvedExists
-                    ? $"\"{received}\" \"{approved}\" -o \"{approved}\""
-                    : $"\"{received}\" -o \"{approved}\"";
-            }
-        }
-
-        public static class KnownDoNotLaunchStrategies
-        {
-            public static readonly IShouldNotLaunchDiffTool NCrunch = new DoNotLaunchEnvVariable("NCRUNCH");
-            public static readonly IShouldNotLaunchDiffTool TeamCity = new DoNotLaunchEnvVariable("TeamCity");
-            public static readonly IShouldNotLaunchDiffTool AppVeyor = new DoNotLaunchEnvVariable("AppVeyor");
-        }
+        public KnownDiffTools KnownDiffTools { get; } = KnownDiffTools.Instance;
+        public KnownDoNotLaunchStrategies KnownDoNotLaunchStrategies { get; } = new KnownDoNotLaunchStrategies();
 
         public DiffToolConfiguration()
         {
-            _diffTools = new List<DiffTool>
-            {
-                KnownDiffTools.KDiff3,
-                KnownDiffTools.BeyondCompare3,
-                KnownDiffTools.BeyondCompare4
-            };
-            _knownShouldNotLaunchDiffToolReasons = new List<IShouldNotLaunchDiffTool>
-            {
-                KnownDoNotLaunchStrategies.AppVeyor,
-                KnownDoNotLaunchStrategies.NCrunch,
-                KnownDoNotLaunchStrategies.TeamCity
-            };
+            _diffTools = typeof (KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)).ToList();
+            _knownShouldNotLaunchDiffToolReasons = typeof (KnownDoNotLaunchStrategies).GetFields()
+                .Select(f => (IShouldNotLaunchDiffTool) f.GetValue(KnownDoNotLaunchStrategies)).ToList();
         }
 
         public void RegisterDiffTool(DiffTool diffTool)
@@ -95,30 +61,6 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
 
             return diffTool;
         }
-    }
-
-    public class DoNotLaunchEnvVariable : IShouldNotLaunchDiffTool
-    {
-        readonly string _environmentalVariable;
-
-        public DoNotLaunchEnvVariable(string environmentalVariable)
-        {
-            _environmentalVariable = environmentalVariable;
-        }
-
-        public bool ShouldNotLaunch()
-        {
-            return (
-                Environment.GetEnvironmentVariable(_environmentalVariable) ??
-                Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.User) ??
-                Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.Machine)
-                ) != null;
-        }
-    }
-
-    public interface IShouldNotLaunchDiffTool
-    {
-        bool ShouldNotLaunch();
     }
 }
 #endif

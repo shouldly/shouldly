@@ -1,4 +1,5 @@
 ﻿#if !PORTABLE
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -24,6 +25,8 @@ namespace Shouldly.Tests.Shared.ShouldMatchApproved
         string targetDescriminator = "net45";
 #endif
 
+        readonly Func<string, string> _scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
+
         [Fact]
         public void Simple()
         {
@@ -33,19 +36,18 @@ namespace Shouldly.Tests.Shared.ShouldMatchApproved
         [Fact]
         public void MissingApprovedFile()
         {
+            var errorMsg = $@"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\MissingApprovedFile.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\MissingApprovedFile.{targetDescriminator}.approved.txt""
+----------------------------
+
+Approval file C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\MissingApprovedFile.{targetDescriminator}.approved.txt
+    does not exist";
             Verify.ShouldFail(() =>
 "Bar".ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator).NoDiff()),
 
-errorWithSource:
-$@"Approval file ...\MissingApprovedFile.{targetDescriminator}.approved.txt
-    does not exist",
-
-errorWithoutSource:
-$@"Approval file ...\MissingApprovedFile.{targetDescriminator}.approved.txt
-    does not exist",
-
-messageScrubber:
-s => Regex.Replace(s, @"Approval file .+\\", "Approval file ...\\"));
+errorWithSource: errorMsg,
+errorWithoutSource: errorMsg,
+messageScrubber: _scrubber);
         }
 
         [Fact]
@@ -53,10 +55,14 @@ s => Regex.Replace(s, @"Approval file .+\\", "Approval file ...\\"));
         {
             var str = "Foo";
             Verify.ShouldFail(() =>
-str.ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator)),
+str.ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator).NoDiff()),
 
 errorWithSource:
-@"str
+$@"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.approved.txt""
+----------------------------
+
+str
     should match approved with options: Ignoring line endings
 ""Bar""
     but was
@@ -71,7 +77,11 @@ Expected Code  | 66   97   114
 Actual Code    | 70   111  111  ",
 
 errorWithoutSource:
-@"""Foo""
+$@"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.approved.txt""
+----------------------------
+
+""Foo""
     should match approved with options: Ignoring line endings
 ""Bar""
     but was not
@@ -85,7 +95,7 @@ Expected Code  | 66   97   114
 Actual Code    | 70   111  111  ",
 
 messageScrubber:
-s => Regex.Replace(s, @"Approval file .+\\", "Approval file ...\\"));
+_scrubber);
         }
 
         [Fact]
@@ -121,6 +131,14 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
             "Different\r\nStyle\r\nLine\r\nBreaks".ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator));
 
             File.Delete(approved);
+        }
+
+        [Fact]
+        public void ChangingInstanceConfigDoesntChangeGlobal()
+        {
+            Should.Throw<ShouldMatchApprovedException>(() => "".ShouldMatchApproved(c => c.NoDiff()));
+
+            ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(false);
         }
 
 #if net45

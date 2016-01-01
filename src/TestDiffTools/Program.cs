@@ -14,11 +14,11 @@ namespace TestDiffTools
         static void Main()
         {
             Console.WriteLine("This utility makes it easy to test different difftools");
-            var diffTools = typeof(DiffToolConfiguration.KnownDiffTools)
-                .GetFields(BindingFlags.Static | BindingFlags.Public)
+            var diffTools = typeof(KnownDiffTools)
+                .GetFields()
                 .Select((f, i) => new
                 {
-                    DiffTool = (DiffTool)f.GetValue(null),
+                    DiffTool = (DiffTool)f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools),
                     Index = i
                 }).ToList();
 
