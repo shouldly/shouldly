@@ -69,13 +69,10 @@ namespace DocumentationExamples
             }
             finally
             {
-                exceptionText.ShouldMatchApproved(c =>
-                {
-                    c
-                        .WithDescriminator("exceptionText")
-                        .UseCallerLocation()
-                        .SubFolder(approvedFileFolder);
-                });
+                exceptionText.ShouldMatchApproved(c => c
+                    .WithDescriminator("exceptionText")
+                    .UseCallerLocation()
+                    .SubFolder(approvedFileFolder));
             }
         }
     }
