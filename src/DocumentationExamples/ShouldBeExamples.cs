@@ -5,19 +5,27 @@ using System.Threading;
 using Shouldly;
 using Simpsons;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace DocumentationExamples
 {
     public class ShouldBeExamples
     {
+        readonly ITestOutputHelper _testOutputHelper;
+
+        public ShouldBeExamples(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         [Fact]
         public void Objects()
         {
             DocExampleWriter.Document(() =>
-                {
-                    var theSimpsonsCat = new Cat { Name = "Santas little helper" };
-                    theSimpsonsCat.Name.ShouldBe("Snowball 2");
-                });
+            {
+                var theSimpsonsCat = new Cat { Name = "Santas little helper" };
+                theSimpsonsCat.Name.ShouldBe("Snowball 2");
+            }, _testOutputHelper);
         }
 
         [Fact]
@@ -27,7 +35,7 @@ namespace DocumentationExamples
             {
                 const decimal pi = (decimal)Math.PI;
                 pi.ShouldBe(3.24m, 0.01m);
-            });
+            }, _testOutputHelper);
         }
 
         [Fact]
@@ -38,7 +46,7 @@ namespace DocumentationExamples
             {
                 var date = new DateTime(2000, 6, 1);
                 date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
-            });
+            }, _testOutputHelper);
         }
 
         [Fact]
@@ -48,7 +56,7 @@ namespace DocumentationExamples
             {
                 var timeSpan = TimeSpan.FromHours(1);
                 timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1));
-            });
+            }, _testOutputHelper);
         }
 
         [Fact]
@@ -63,7 +71,7 @@ namespace DocumentationExamples
                 var theBeSharps = new List<Person> { homer, skinner, barney };
 
                 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
-            });
+            }, _testOutputHelper);
         }
 
         [Fact]
@@ -74,7 +82,7 @@ namespace DocumentationExamples
                 var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
                 var secondSet = new[] { 1.4301m, 2.34m, 3.45m };
                 firstSet.ShouldBe(secondSet, 0.1m);
-            });
+            }, _testOutputHelper);
         }
 
         [Fact]
@@ -84,7 +92,7 @@ namespace DocumentationExamples
             {
                 const bool myValue = false;
                 myValue.ShouldBe(true, "Some additional context");
-            });
+            }, _testOutputHelper);
         }
     }
 }

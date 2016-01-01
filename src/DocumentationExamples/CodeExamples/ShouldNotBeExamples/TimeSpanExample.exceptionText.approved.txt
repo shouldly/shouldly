@@ -1,0 +1,7 @@
+timeSpan
+    should not be within
+01:30:00
+    of
+02:06:00
+    but was
+01:00:00

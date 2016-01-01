@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Shouldly;
+using Xunit.Abstractions;
 
 namespace DocumentationExamples
 {
@@ -18,7 +19,7 @@ namespace DocumentationExamples
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void Document(Action shouldMethod)
+        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper)
         {
             var stackTrace = new StackTrace(true);
             var caller = stackTrace.GetFrame(1);
@@ -48,19 +49,33 @@ namespace DocumentationExamples
             var body = string.Join(string.Empty, enumerable);
             var exceptionText = Should.Throw<ShouldAssertException>(shouldMethod).Message;
 
+            testOutputHelper.WriteLine("Docs body:");
+            testOutputHelper.WriteLine("");
+            testOutputHelper.WriteLine(body);
+            testOutputHelper.WriteLine("");
+            testOutputHelper.WriteLine("");
+            testOutputHelper.WriteLine("Exception text:");
+            testOutputHelper.WriteLine("");
+            testOutputHelper.WriteLine(exceptionText);
+
+
+            var approvedFileFolder = $"CodeExamples/{callerMethod.DeclaringType.Name}";
             try
             {
                 body.ShouldMatchApproved(c => c
                     .WithDescriminator("codeSample")
                     .UseCallerLocation()
-                    .SubFolder("CodeExamples"));
+                    .SubFolder(approvedFileFolder));
             }
             finally
             {
-                exceptionText.ShouldMatchApproved(c => c
-                    .WithDescriminator("exceptionText")
-                    .UseCallerLocation()
-                    .SubFolder("CodeExamples"));
+                exceptionText.ShouldMatchApproved(c =>
+                {
+                    c
+                        .WithDescriminator("exceptionText")
+                        .UseCallerLocation()
+                        .SubFolder(approvedFileFolder);
+                });
             }
         }
     }
