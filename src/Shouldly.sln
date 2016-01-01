@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shouldly.Tests", "Shouldly.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Tests.net45", "Shouldly.Tests.net45\Shouldly.Tests.net45.csproj", "{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentationExamples", "DocumentationExamples\DocumentationExamples.csproj", "{D11AD3D5-9973-4105-A129-48176B6910EE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDiffTools", "TestDiffTools\TestDiffTools.csproj", "{CD424503-D11E-4F2D-AE5F-5482C627C737}"
 EndProject
 Global
@@ -88,6 +90,10 @@ Global
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42FF1C23-5EF4-4ECC-8E00-38BCBFCC5C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11AD3D5-9973-4105-A129-48176B6910EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11AD3D5-9973-4105-A129-48176B6910EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11AD3D5-9973-4105-A129-48176B6910EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11AD3D5-9973-4105-A129-48176B6910EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD424503-D11E-4F2D-AE5F-5482C627C737}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -18,6 +18,7 @@ namespace Shouldly.Configuration
         public string FileExtension { get; set; }
 
         public ITestMethodFinder TestMethodFinder { get; set; }
+        public string ApprovalFileSubFolder { get; set; }
     }
 }
 #endif

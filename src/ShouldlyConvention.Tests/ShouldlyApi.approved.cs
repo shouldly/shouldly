@@ -601,6 +601,7 @@ namespace Shouldly.Configuration
     public class ShouldMatchConfiguration
     {
         public ShouldMatchConfiguration() { }
+        public string ApprovalFileSubFolder { get; set; }
         public string FileExtension { get; set; }
         public string FilenameDescriminator { get; set; }
         public bool PreventDiff { get; set; }
@@ -614,6 +615,7 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
