@@ -9,6 +9,8 @@ namespace Shouldly
     {
         public string ShouldMethod { get; set; }
         public string CodePart { get; set; }
+        public string FileName { get; set; }
+        public int LineNumber { get; set; }
 
         public object Key { get; set; }
         public object Expected { get; set; }
@@ -51,6 +53,8 @@ namespace Shouldly
             ShouldMethod = shouldlyMethod;
 
            CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
+            FileName = actualCodeGetter.FileName;
+            LineNumber = actualCodeGetter.LineNumber;
         }
 #endif
     }
