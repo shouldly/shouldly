@@ -1,0 +1,2 @@
+bool myValue = true;
+myValue.ShouldBeFalse();
