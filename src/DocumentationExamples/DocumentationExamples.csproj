@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocExampleWriter.cs" />
+    <Compile Include="ShouldBeNullNotNullExamples.cs" />
     <Compile Include="ShouldBeTrueFalseExamples.cs" />
     <Compile Include="ShouldMatchApprovedExamples.cs" />
     <Compile Include="ShouldNotBeExamples.cs" />

@@ -1,0 +1,2 @@
+myRef
+    should not be null but was
