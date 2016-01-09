@@ -58,6 +58,7 @@ Shouldly has plenty of different assertions, have a look under the assertions fo
    assertions/shouldNotBe
    assertions/shouldMatchApproved
    assertions/shouldBeTrueFalse
+   assertions/shouldBeNullShouldNotBeNull
    exampleClasses
    contributing
    configuration
