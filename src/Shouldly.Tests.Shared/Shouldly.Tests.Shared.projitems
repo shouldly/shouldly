@@ -114,6 +114,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBe\WithTolerance\FloatScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBe\WithTolerance\TimeSpanScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldCompleteInTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\CollectionPredicateWithCountScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\DoubleWithToleranceScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\EmptyArrayScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\FloatWithToleranceScenario.cs" />

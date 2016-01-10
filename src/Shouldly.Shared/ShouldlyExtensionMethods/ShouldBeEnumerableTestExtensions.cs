@@ -47,6 +47,15 @@ namespace Shouldly
         {
             ShouldContain(actual, elementPredicate, () => null);
         }
+        public static void ShouldContainMatchingCount<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount)
+        {
+            var condition = elementPredicate.Compile();
+            var actualCount = actual.Count(condition);
+            if (actualCount != expectedCount)
+            {
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedCount, actual, () => null).ToString());
+            }
+        }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string customMessage)
         {
