@@ -13,10 +13,11 @@ namespace Shouldly.Tests.Shared.ShouldContain
             collection.ShouldContainMatchingCount(x => x == "c", 5),
 
 errorWithSource:
-@"[""a"", ""b"", ""c"", ""c""]
+@"collection
     should contain matching count
 5
-    but did not",
+    but was actually
+[""a"", ""b"", ""c"", ""c""]",
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""c""]
     should contain matching count
