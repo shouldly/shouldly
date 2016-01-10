@@ -10,17 +10,17 @@ namespace Shouldly.Tests.Shared.ShouldContain
         {
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
-            collection.ShouldContainMatchingCount(x => x == "c", 5),
+            collection.ShouldContain(x => x == "c", 5),
 
 errorWithSource:
 @"collection
-    should contain matching count
+    should contain
 5
     but was actually
 [""a"", ""b"", ""c"", ""c""]",
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""c""]
-    should contain matching count
+    should contain
 5
     but did not");
         }
@@ -30,11 +30,11 @@ errorWithoutSource:
         {
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
-            collection.ShouldContainMatchingCount(x => x == "c", 5, "custom message"),
+            collection.ShouldContain(x => x == "c", 5, "custom message"),
 
 errorWithSource:
 @"collection
-    should contain matching count
+    should contain
 5
     but was actually
 [""a"", ""b"", ""c"", ""c""]
@@ -43,7 +43,7 @@ Additional Info:
     custom message",
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""c""]
-    should contain matching count
+    should contain
 5
     but did not
 
@@ -54,7 +54,7 @@ Additional Info:
         [Fact]
         public void CollectionWithTheSpecifiedCountOfMatchingPredicatesSucceeds()
         {
-            new[] { "a","b","c","c"}.ShouldContainMatchingCount(x => x == "c", 2);
+            new[] { "a","b","c","c"}.ShouldContain(x => x == "c", 2);
         }
     }
 }
