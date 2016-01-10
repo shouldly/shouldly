@@ -31,6 +31,7 @@ namespace Shouldly
         public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
         public string CustomMessage { get; set; }
         public Expression Filter { get; set; }
+        public int? MatchCount { get; set; }
 
 #if PORTABLE
         internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null)

@@ -29,5 +29,6 @@ namespace Shouldly
         Case? CaseSensitivity { get; set; }
         bool CodePartMatchesActual { get; }
         Expression Filter { get; set; }
+        int? MatchCount { get; set; }
     }
 }

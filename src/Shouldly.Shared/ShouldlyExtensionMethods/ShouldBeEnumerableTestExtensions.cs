@@ -64,7 +64,7 @@ namespace Shouldly
             var actualCount = actual.Count(condition);
             if (actualCount != expectedCount)
             {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedCount, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
             }
         }
 

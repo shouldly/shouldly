@@ -14,15 +14,14 @@ namespace Shouldly.Tests.Shared.ShouldContain
 
 errorWithSource:
 @"collection
-    should contain
-5
-    but was actually
-[""a"", ""b"", ""c"", ""c""]",
+    should contain 5 element(s) satisfying the condition
+(x == ""c"")
+    but does not",
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""c""]
-    should contain
-5
-    but did not");
+    should contain 5 element(s) satisfying the condition
+(x == ""c"")
+    but does not");
         }
 
         [Fact]
@@ -34,18 +33,17 @@ errorWithoutSource:
 
 errorWithSource:
 @"collection
-    should contain
-5
-    but was actually
-[""a"", ""b"", ""c"", ""c""]
+    should contain 5 element(s) satisfying the condition
+(x == ""c"")
+    but does not
 
 Additional Info:
     custom message",
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""c""]
-    should contain
-5
-    but did not
+    should contain 5 element(s) satisfying the condition
+(x == ""c"")
+    but does not
 
 Additional Info:
     custom message");
@@ -60,18 +58,17 @@ Additional Info:
 
 errorWithSource:
 @"collection
-    should contain
-5
-    but was actually
-[""a"", ""b"", ""c"", ""c""]
+    should contain 5 element(s) satisfying the condition
+(x == ""c"")
+    but does not
 
 Additional Info:
     custom message",
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""c""]
-    should contain
-5
-    but did not
+    should contain 5 element(s) satisfying the condition
+(x == ""c"")
+    but does not
 
 Additional Info:
     custom message");
