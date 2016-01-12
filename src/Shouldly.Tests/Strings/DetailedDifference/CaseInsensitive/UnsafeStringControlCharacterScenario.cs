@@ -6,12 +6,12 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
     {
         protected override void ShouldPass()
         {
-            "StringOne\u0000ControlChar".ShouldBe("Stringone\u0000ControlChar", Case.Insensitive);
+            "StringOne\u0000ControlChar".ShouldBe("Stringone\u0000ControlChar", StringCompareShould.IgnoreCase);
         }
 
         protected override void ShouldThrowAWobbly()
         {
-            "StringOne\u0000ControlChar".ShouldBe("Stringone\u0001ControlChar", Case.Insensitive);
+            "StringOne\u0000ControlChar".ShouldBe("Stringone\u0001ControlChar", StringCompareShould.IgnoreCase);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -24,7 +24,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
                             "but was" +
                             "\"StringOne\u0000ControlChar\"" +
                             @"difference
-                          Case Insensitive Comparison
+                          Case Insensitive and Line Ending Sensitive Comparison
                           Difference     |                                               |                                                                                   
                                          |                                              \|/                                                                                  
                           Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   

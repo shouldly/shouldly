@@ -7,7 +7,7 @@ namespace Shouldly.Tests.InternalTests
     [TestFixture]
     public class EnumerableHighlighterTests
     {
-        private readonly EnumerableDifferenceHighlighter _highlighter = new EnumerableDifferenceHighlighter();
+        readonly EnumerableDifferenceHighlighter _highlighter = new EnumerableDifferenceHighlighter();
 
         [Test]
         public void CanProcessTwoEnumerables()

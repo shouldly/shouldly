@@ -7,7 +7,7 @@ namespace Shouldly.Tests.InternalTests
     [TestFixture]
     public class StringDifferenceHighlighterTests
     {
-        private readonly StringDifferenceHighlighter _highlighter = new StringDifferenceHighlighter();
+        readonly StringDifferenceHighlighter _highlighter = new StringDifferenceHighlighter();
 
         [Test]
         public void CanProcessTwoNotNullStringsAndAShouldBeAssertionMethod()

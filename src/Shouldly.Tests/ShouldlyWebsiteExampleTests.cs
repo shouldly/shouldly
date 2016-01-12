@@ -49,7 +49,7 @@ namespace Shouldly.Tests
 
         public class MapIndexOfBoo
         {
-            private IList<string> GetMap()
+            IList<string> GetMap()
             {
                 return new[]
                 {
@@ -145,7 +145,7 @@ namespace Shouldly.Tests
                     "`widget.Twist(5)` should throw System.ArgumentOutOfRangeException but did not");
             }
 
-            private class Widget
+            class Widget
             {
                 public void Twist(int i)
                 {

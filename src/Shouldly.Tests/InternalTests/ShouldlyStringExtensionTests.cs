@@ -42,6 +42,17 @@ namespace Shouldly.Tests.InternalTests
         }
 
         [Test]
+        [TestCase(null, Result = null)]
+        [TestCase("oneline", Result = "oneline")]
+        [TestCase("line1\nline2", Result = "line1\nline2")]
+        [TestCase("line1\r\nline2", Result = "line1\nline2")]
+        [TestCase("line1\rline2", Result = "line1\nline2")]
+        public string NormalizeLineEndingsTests(string input)
+        {
+            return input.NormalizeLineEndings();
+        }
+
+        [Test]
         [TestCase("() => result")]
         [TestCase("( ) => result")]
         [TestCase("( ) =>result")]

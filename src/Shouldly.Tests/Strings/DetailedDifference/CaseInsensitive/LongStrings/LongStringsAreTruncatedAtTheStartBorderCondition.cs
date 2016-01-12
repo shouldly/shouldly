@@ -10,7 +10,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
             "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v", 
-             Case.Insensitive);
+             StringCompareShould.IgnoreCase);
         }
 
         protected override void ShouldThrowAWobbly()
@@ -18,7 +18,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
              .ShouldBe(
             "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,2s,1t,1u,1v", 
-             Case.Insensitive);
+             StringCompareShould.IgnoreCase);
         }
 
         protected override string ChuckedAWobblyErrorMessage
@@ -31,7 +31,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
                         but was
                     ""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
                         difference
-                    Case Insensitive Comparison
+                    Case Insensitive and Line Ending Sensitive Comparison
                     Difference     |                                                         |                                                   
                                    |                                                        \|/                                                  
                     Index          | ...  44   45   46   47   48   49   50   51   52   53   54   55   56   57   58   59   60   61   62   63   64   

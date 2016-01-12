@@ -61,9 +61,16 @@
   <ItemGroup>
     <Compile Include="App_Packages\ExpressionStringBuilder.0.10.0\ExpressionStringBuilder.cs" />
     <Compile Include="App_Packages\JetBrainsAnnotations\JetBrainsAnnotations.cs" />
+    <Compile Include="DifferenceHighlighting2\IDifferenceHighlighter.cs" />
+    <Compile Include="DifferenceHighlighting2\StringDifferenceHighlighter.cs" />
     <Compile Include="DifferenceHighlighting\FormattedDetailedDifferenceString.cs" />
     <Compile Include="DifferenceHighlighting\DifferenceIndexConsolidator.cs" />
     <Compile Include="DifferenceHighlighting\StringDifferenceHighlighter.cs" />
+    <Compile Include="Internals\SourceCodeTextGetter.cs" />
+    <Compile Include="Internals\AssertionFactories\StringShouldBeAssertionFactory.cs" />
+    <Compile Include="Internals\Assertions\IAssertion.cs" />
+    <Compile Include="Internals\Assertions\StringShouldBeAssertion.cs" />
+    <Compile Include="Internals\ICodeTextGetter.cs" />
     <Compile Include="MessageGenerators\ShouldBeEnumerableCaseSensitiveMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldBeNullMessageGenerator.cs" />
@@ -73,6 +80,7 @@
     <Compile Include="MessageGenerators\ShouldBePositiveMessageGenerator.cs" />
     <Compile Include="MessageGenerators\ShouldNotMatchMessageGenerator.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBePositiveNegativeTestExtensions.cs" />
+    <Compile Include="StringCompareShould.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />
     <Compile Include="ShouldlyExtensionMethods\ShouldBeBooleanExtensions.cs" />
     <Compile Include="Internals\ShouldNotThrowAssertionContext.cs" />

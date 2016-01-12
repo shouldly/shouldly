@@ -3,7 +3,7 @@
 namespace Shouldly.Tests.TestHelpers
 {
     [Flags]
-    enum SomeFlags
+    internal enum SomeFlags
     {
         Val1,
         Val2,

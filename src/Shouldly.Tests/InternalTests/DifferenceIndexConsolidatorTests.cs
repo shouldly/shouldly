@@ -7,8 +7,8 @@ namespace Shouldly.Tests.InternalTests
     [TestFixture]
     public class DifferenceIndexConsolidatorTests
     {
-        private const int MaxDiffLength = 5;
-        private const int MaxLengthOfStrings = 21;
+        const int MaxDiffLength = 5;
+        const int MaxLengthOfStrings = 21;
 
         [Test, TestCaseSource("IndexConsolidationTestCases")]
         public void ShouldConsolidate_Indices_Correctly_GivenInput(List<int> indicesOfAllDifferences, List<int> expectedConsolidatedOutputIndices)

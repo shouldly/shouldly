@@ -10,8 +10,8 @@ namespace Shouldly.Tests.Dictionaries.ShouldContainKeyAndValue
             {ThingKey, ThingValue}
         };
 
-        private static readonly MyThing ThingKey = new MyThing();
-        private static readonly MyThing ThingValue = null;
+        static readonly MyThing ThingKey = new MyThing();
+        static readonly MyThing ThingValue = null;
 
         protected override void ShouldThrowAWobbly()
         {

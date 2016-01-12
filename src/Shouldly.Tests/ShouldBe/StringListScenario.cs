@@ -5,8 +5,8 @@ namespace Shouldly.Tests.ShouldBe
 {
     public class StringListScenario : ShouldlyShouldTestScenario
     {
-        private readonly List<string> _thisOtherStringList = new List<string>{ "1", "3" };
-        private readonly List<string> _thisString = new List<string> { "1", "2" };
+        readonly List<string> _thisOtherStringList = new List<string>{ "1", "3" };
+        readonly List<string> _thisString = new List<string> { "1", "2" };
 
         protected override void ShouldPass()
         {

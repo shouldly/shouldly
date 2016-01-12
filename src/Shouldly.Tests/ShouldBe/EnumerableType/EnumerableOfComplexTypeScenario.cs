@@ -5,8 +5,8 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class EnumerableOfComplexTypeScenario : ShouldlyShouldTestScenario
     {
-        private readonly IEnumerable<Widget> _aEnumerable = new Widget { Name = "Joe", Enabled = true }.ToEnumerable();
-        private readonly Widget[] _bArray = {new Widget {Name = "Joeyjojoshabadoo Jr", Enabled = true}};
+        readonly IEnumerable<Widget> _aEnumerable = new Widget { Name = "Joe", Enabled = true }.ToEnumerable();
+        readonly Widget[] _bArray = {new Widget {Name = "Joeyjojoshabadoo Jr", Enabled = true}};
 
         protected override void ShouldThrowAWobbly()
         {
