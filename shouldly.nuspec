@@ -10,7 +10,7 @@
     <iconUrl>https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
-    <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>
+    <tags>test unit testing TDD AAA should testunit rspec assert assertion framework</tags>
     <dependencies>
       <group targetFramework="dotnet">
         <dependency id="System.Collections" version="4.0.0" />
