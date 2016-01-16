@@ -8,7 +8,6 @@ namespace Shouldly.Tests.DynamicShouldTests
     public class MultiLineHavePropertyScenario_MaximumLines
     {
 
-        //[Fact(Skip = "DynamicShould is broken when stackframe is not available")]
         [Fact]
         public void MultiLineHavePropertyScenario_MaximumLinesShouldFail()
         {
@@ -30,7 +29,7 @@ Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+@"Dynamic object should contain property ""foo"" but does not." + @"
 
 Additional Info:
     Some additional context");
