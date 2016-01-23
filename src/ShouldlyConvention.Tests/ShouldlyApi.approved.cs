@@ -647,3 +647,16 @@ namespace Shouldly.Configuration
         public string SourceFileDirectory { get; }
     }
 }
+namespace Shouldly.ShouldlyExtensionMethods
+{
+    
+    public class static ShouldHaveEnumExtensions
+    {
+        public static void ShouldHaveFlag(this System.Enum actual, System.Enum expectedFlag) { }
+        public static void ShouldHaveFlag(this System.Enum actual, System.Enum expectedFlag, string customMessage) { }
+        public static void ShouldHaveFlag(this System.Enum actual, System.Enum expectedFlag, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldNotHaveFlag(this System.Enum actual, System.Enum expectedFlag) { }
+        public static void ShouldNotHaveFlag(this System.Enum actual, System.Enum expectedFlag, string customMessage) { }
+        public static void ShouldNotHaveFlag(this System.Enum actual, System.Enum expectedFlag, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+    }
+}
