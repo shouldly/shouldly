@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿#define PORTABLE
+
+using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace Shouldly.ShouldlyExtensionMethods
 {
-    public static class ShouldBeEnumExtensions
+    public static class ShouldHaveEnumExtensions
     {
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag) 
             => ShouldHaveFlag(actual, expectedFlag, () => null);
@@ -15,6 +17,7 @@ namespace Shouldly.ShouldlyExtensionMethods
         
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, [InstantHandle] Func<string> customMessage)
         {
+            CheckEnumHasFlagAttribute(actual);
 #if net35
             if (!actual.HasFlag(expectedFlag))
 #elif net40
@@ -34,6 +37,7 @@ namespace Shouldly.ShouldlyExtensionMethods
         public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag,
             [InstantHandle] Func<string> customMessage)
         {
+            CheckEnumHasFlagAttribute(actual);
 #if net35
             if (actual.HasFlag(expectedFlag))
 #elif net40
@@ -42,6 +46,14 @@ namespace Shouldly.ShouldlyExtensionMethods
             {
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
             }    
+        }
+
+        private static void CheckEnumHasFlagAttribute(Enum actual)
+        {
+            if (!actual.GetType().IsDefined(typeof(FlagsAttribute), false))
+            {
+                throw new ArgumentException("Enum doesn't have Flags attribute", nameof(actual));
+            }
         }
 
 #if net35
