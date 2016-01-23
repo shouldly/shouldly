@@ -77,7 +77,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldContainMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldContainPredicateMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldContainWithinRangeMessageGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldHaveFlagMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldlyMessageGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldNotHaveFlagMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldNotMatchMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldNotThrowMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldSatisfyAllConditionsMessageGenerator.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBeBooleanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBeDictionaryTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBeEnumerableTestExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBeEnumExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBeGtLtTestExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBeNullExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyExtensionMethods\ShouldBePositiveNegativeTestExtensions.cs" />
