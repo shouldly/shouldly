@@ -36,6 +36,15 @@ Additional Info:
         }
 
         [Fact]
+        public void ShouldThrowException()
+        {
+            var actual = TestEnumWithoutFlagAttribute.FlagOne;
+            var value = TestEnumWithoutFlagAttribute.FlagTwo;
+
+            Assert.Throws<ArgumentException>(() => actual.ShouldNotHaveFlag(value));
+        }
+
+        [Fact]
         public void ShouldPassOneFlagSet()
         {
             var actual = TestEnum.FlagOne;
@@ -60,5 +69,12 @@ Additional Info:
         FlagOne = 1,
         FlagTwo = 2,
         FlagThree = 4
+    }
+
+    public enum TestEnumWithoutFlagAttribute
+    {
+        FlagOne,
+        FlagTwo,
+        FlagThree
     }
 }
