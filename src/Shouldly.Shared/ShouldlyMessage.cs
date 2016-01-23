@@ -200,6 +200,8 @@ namespace Shouldly
     {
         static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
+            new ShouldHaveFlagMessageGenerator(),
+            new ShouldNotHaveFlagMessageGenerator(),
             new ShouldBeNullOrEmptyMessageGenerator(),
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
