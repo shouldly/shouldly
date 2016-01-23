@@ -1,9 +1,9 @@
-﻿#define PORTABLE
-
-using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System;
 using JetBrains.Annotations;
+
+#if PORTABLE
+using System.Reflection;
+#endif
 
 namespace Shouldly.ShouldlyExtensionMethods
 {
@@ -48,9 +48,13 @@ namespace Shouldly.ShouldlyExtensionMethods
             }    
         }
 
-        private static void CheckEnumHasFlagAttribute(Enum actual)
+        static void CheckEnumHasFlagAttribute(Enum actual)
         {
+#if PORTABLE
+            if (!actual.GetType().GetTypeInfo().IsDefined(typeof(FlagsAttribute), false))
+#else
             if (!actual.GetType().IsDefined(typeof(FlagsAttribute), false))
+#endif
             {
                 throw new ArgumentException("Enum doesn't have Flags attribute", nameof(actual));
             }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Shouldly.ShouldlyExtensionMethods;
 using Shouldly.Tests.Strings;
 using Xunit;
@@ -41,7 +39,7 @@ Additional Info:
             var actual = TestEnumWithoutFlagAttribute.FlagOne;
             var value = TestEnumWithoutFlagAttribute.FlagTwo;
 
-            Assert.Throws<ArgumentException>(() => actual.ShouldNotHaveFlag(value));
+            Should.Throw<ArgumentException>(() => actual.ShouldNotHaveFlag(value));
         }
 
         [Fact]
