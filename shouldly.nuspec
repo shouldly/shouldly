@@ -12,6 +12,8 @@
     <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
     <tags>test unit testing TDD AAA should testunit rspec assert assertion framework</tags>
     <dependencies>
+      <group targetFramework="net40" />
+      <group targetFramework="net35" />
       <group targetFramework="dotnet">
         <dependency id="System.Collections" version="4.0.0" />
         <dependency id="System.Diagnostics.Debug" version="4.0.0" />
