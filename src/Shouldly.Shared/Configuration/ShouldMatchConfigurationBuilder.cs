@@ -32,6 +32,11 @@ namespace Shouldly.Configuration
             return Configure(c => c.FileExtension = fileExtension.TrimStart('.'));
         }
 
+        public ShouldMatchConfigurationBuilder WithFilenameGenerator(FilenameGenerator filenameGenerator)
+        {
+            return Configure(c => c.FilenameGenerator = filenameGenerator);
+        }
+
         /// <summary>
         /// Default is to ignore line endings
         /// </summary>

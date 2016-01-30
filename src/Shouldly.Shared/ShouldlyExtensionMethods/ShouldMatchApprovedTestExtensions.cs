@@ -55,8 +55,8 @@ namespace Shouldly
                 Directory.CreateDirectory(outputFolder);
             }
 
-            var approvedFile = Path.Combine(outputFolder, $"{testMethodInfo.MethodName}{descriminator}.approved.{config.FileExtension}");
-            var receivedFile = Path.Combine(outputFolder, $"{testMethodInfo.MethodName}{descriminator}.received.{config.FileExtension}");
+            var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "approved", config.FileExtension));
+            var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "received", config.FileExtension));
             File.WriteAllText(receivedFile, actual);
 
             if (!File.Exists(approvedFile))
