@@ -7,25 +7,24 @@ namespace Shouldly.Tests.DynamicShouldTests
 {
     public class HavePropertyScenario
     {
-
-        [Fact(Skip = "DynamicShould is broken when stackframe is not available")]
+        [Fact]
         public void HavePropertyScenarioShouldFail()
         {
             dynamic testDynamicObject = new ExpandoObject();
             testDynamicObject.Bar = "BarPropertyValue";
-            Verify.ShouldFail(() =>
-            DynamicShould
-                .HaveProperty(testDynamicObject, "foo", "Some additional context"),
+            Verify.ShouldFail(() => DynamicShould.HaveProperty(testDynamicObject, "foo", "Some additional context"),
 
 errorWithSource:
 @"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+
 Additional Info:
-Some additional context",
+    Some additional context",
 
 errorWithoutSource:
-@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+@"Dynamic object should contain property ""foo"" but does not." + @"
+
 Additional Info:
-Some additional context");
+    Some additional context");
         }
 
         [Fact]

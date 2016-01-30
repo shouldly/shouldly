@@ -29,10 +29,9 @@ namespace Shouldly.Internals
 
         public string GetCodeText(object actual, StackTrace stackTrace)
         {
-            ParseStackTrace(stackTrace);
-
             if (ShouldlyConfiguration.IsSourceDisabledInErrors())
                 return actual.ToStringAwesomely();
+            ParseStackTrace(stackTrace);
             return GetCodePart();
         }
 
