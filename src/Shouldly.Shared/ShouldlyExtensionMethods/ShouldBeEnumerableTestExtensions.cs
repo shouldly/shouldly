@@ -48,6 +48,26 @@ namespace Shouldly
             ShouldContain(actual, elementPredicate, () => null);
         }
 
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount)
+        {
+            ShouldContain(actual, elementPredicate, expectedCount, () => null);
+        }
+
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string customMessage)
+        {
+            ShouldContain(actual, elementPredicate, expectedCount, () => customMessage);
+        }
+
+        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, Func<string> customMessage)
+        {
+            var condition = elementPredicate.Compile();
+            var actualCount = actual.Count(condition);
+            if (actualCount != expectedCount)
+            {
+                throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
+            }
+        }
+
         public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string customMessage)
         {
             ShouldContain(actual, elementPredicate, () => customMessage);
