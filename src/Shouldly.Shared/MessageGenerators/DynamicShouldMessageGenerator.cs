@@ -25,7 +25,7 @@ namespace Shouldly.MessageGenerators
 
             if (testFileName != null && assertionLineNumber != null)
             {
-                var codeLine = string.Join("", File.ReadAllLines(testFileName).ToArray().Skip(assertionLineNumber - 1).Select(s => s.Trim()));
+                var codeLine = string.Join("", File.ReadAllLines(testFileName).ToArray().Skip(assertionLineNumber.Value - 1).Select(s => s.Trim()));
                 var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
 
                 const string format = @"Dynamic object ""{0}"" should contain property ""{1}"" but does not.";
