@@ -37,10 +37,10 @@ namespace Shouldly.Tests.Shared.ShouldMatchApproved
         public void MissingApprovedFile()
         {
             var errorMsg = $@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\MissingApprovedFile.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\MissingApprovedFile.{targetDescriminator}.approved.txt""
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.{targetDescriminator}.approved.txt""
 ----------------------------
 
-Approval file C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\MissingApprovedFile.{targetDescriminator}.approved.txt
+Approval file C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.{targetDescriminator}.approved.txt
     does not exist";
             Verify.ShouldFail(() =>
 "Bar".ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator).NoDiff()),
@@ -59,7 +59,7 @@ str.ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator).NoDiff()),
 
 errorWithSource:
 $@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.approved.txt""
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.{targetDescriminator}.approved.txt""
 ----------------------------
 
 str
@@ -78,7 +78,7 @@ Actual Code    | 70   111  111  ",
 
 errorWithoutSource:
 $@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\DifferencesUseShouldlyMessages.{targetDescriminator}.approved.txt""
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.{targetDescriminator}.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.{targetDescriminator}.approved.txt""
 ----------------------------
 
 ""Foo""
@@ -125,12 +125,17 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         {
             var stacktrace = new StackTrace(true);
             var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
-            var approved = Path.Combine(sourceFileDir, $"IgnoresLineEndingsByDefault.{targetDescriminator}.approved.txt");
+            var approved = Path.Combine(sourceFileDir, $"ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.{targetDescriminator}.approved.txt");
             File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
 
-            "Different\r\nStyle\r\nLine\r\nBreaks".ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator));
-
-            File.Delete(approved);
+            try
+            {
+                "Different\r\nStyle\r\nLine\r\nBreaks".ShouldMatchApproved(c => c.WithDescriminator(targetDescriminator));
+            }
+            finally
+            {
+                File.Delete(approved);
+            }
         }
 
         [Fact]

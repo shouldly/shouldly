@@ -11,7 +11,9 @@ namespace Shouldly.Configuration
         public TestMethodInfo(StackFrame callingFrame)
         {
             SourceFileDirectory = Path.GetDirectoryName(callingFrame.GetFileName());
-            MethodName = GetRealMethod(callingFrame.GetMethod()).Name;
+            var realMethod = GetRealMethod(callingFrame.GetMethod());
+            MethodName = realMethod.Name;
+            DeclaringTypeName = realMethod.DeclaringType?.Name;
         }
 
         static MethodBase GetRealMethod(MethodBase method)
@@ -58,6 +60,7 @@ namespace Shouldly.Configuration
 
         public string SourceFileDirectory { get; private set; }
         public string MethodName { get; private set; }
+        public string DeclaringTypeName { get; private set; }
     }
 }
 #endif

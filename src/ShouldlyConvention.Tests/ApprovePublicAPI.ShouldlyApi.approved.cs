@@ -582,6 +582,7 @@ namespace Shouldly.Configuration
         public DoNotLaunchWhenEnvVariableIsPresent(string environmentalVariable) { }
         public bool ShouldNotLaunch() { }
     }
+    public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
     public class FirstNonShouldlyMethodFinder : Shouldly.Configuration.ITestMethodFinder
     {
         public FirstNonShouldlyMethodFinder() { }
@@ -624,6 +625,7 @@ namespace Shouldly.Configuration
         public string ApprovalFileSubFolder { get; set; }
         public string FileExtension { get; set; }
         public string FilenameDescriminator { get; set; }
+        public Shouldly.Configuration.FilenameGenerator FilenameGenerator { get; set; }
         public bool PreventDiff { get; set; }
         public System.Func<string, string> Scrubber { get; set; }
         public Shouldly.StringCompareShould StringCompareOptions { get; set; }
@@ -640,12 +642,14 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFilenameGenerator(Shouldly.Configuration.FilenameGenerator filenameGenerator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithScrubber(System.Func<string, string> scrubber) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
     }
     public class TestMethodInfo
     {
         public TestMethodInfo(System.Diagnostics.StackFrame callingFrame) { }
+        public string DeclaringTypeName { get; }
         public string MethodName { get; }
         public string SourceFileDirectory { get; }
     }

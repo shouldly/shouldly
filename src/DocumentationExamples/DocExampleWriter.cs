@@ -60,7 +60,6 @@ namespace DocumentationExamples
             testOutputHelper.WriteLine("");
             testOutputHelper.WriteLine(exceptionText);
 
-            var approvedFileFolder = $"CodeExamples/{callerMethod.DeclaringType.Name}";
             Func<string, string> scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
             try
             {
@@ -69,7 +68,7 @@ namespace DocumentationExamples
                     configurationBuilder
                         .WithDescriminator("codeSample")
                         .UseCallerLocation()
-                        .SubFolder(approvedFileFolder)
+                        .SubFolder("CodeExamples")
                         .WithScrubber(scrubber);
 
                     additionConfig?.Invoke(configurationBuilder);
@@ -82,7 +81,7 @@ namespace DocumentationExamples
                     configurationBuilder
                         .WithDescriminator("exceptionText")
                         .UseCallerLocation()
-                        .SubFolder(approvedFileFolder)
+                        .SubFolder("CodeExamples")
                         .WithScrubber(scrubber);
 
                     additionConfig?.Invoke(configurationBuilder);
