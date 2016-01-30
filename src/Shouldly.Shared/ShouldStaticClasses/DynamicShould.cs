@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
+    //[DebuggerStepThrough]
     [ShouldlyMethods]
     public static class DynamicShould
     {

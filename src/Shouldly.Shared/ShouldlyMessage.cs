@@ -204,7 +204,7 @@ namespace Shouldly
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
     #if net40
-            // new DynamicShouldMessageGenerator(), TODO Make worth without stacktraces
+            new DynamicShouldMessageGenerator(), //TODO Make worth without stacktraces
             new ShouldCompleteInMessageGenerator(),
             new ShouldBeNullOrWhiteSpaceMessageGenerator(),
     #endif
