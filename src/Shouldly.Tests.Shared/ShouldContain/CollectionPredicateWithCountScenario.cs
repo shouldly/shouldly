@@ -11,6 +11,18 @@ namespace Shouldly.Tests.Shared.ShouldContain
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
             collection.ShouldContain(x => x == "c", 5),
+#if net35
+errorWithSource:
+@"collection
+    should contain 5 element(s) satisfying the condition
+(x = ""c"")
+    but does not",
+errorWithoutSource:
+@"[""a"", ""b"", ""c"", ""c""]
+    should contain 5 element(s) satisfying the condition
+(x = ""c"")
+    but does not");
+#else
 
 errorWithSource:
 @"collection
@@ -22,6 +34,7 @@ errorWithoutSource:
     should contain 5 element(s) satisfying the condition
 (x == ""c"")
     but does not");
+#endif
         }
 
         [Fact]
@@ -30,7 +43,24 @@ errorWithoutSource:
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
             collection.ShouldContain(x => x == "c", 5, "custom message"),
+#if net35
+errorWithSource:
+@"collection
+    should contain 5 element(s) satisfying the condition
+(x = ""c"")
+    but does not
 
+Additional Info:
+    custom message",
+errorWithoutSource:
+@"[""a"", ""b"", ""c"", ""c""]
+    should contain 5 element(s) satisfying the condition
+(x = ""c"")
+    but does not
+
+Additional Info:
+    custom message");
+#else
 errorWithSource:
 @"collection
     should contain 5 element(s) satisfying the condition
@@ -47,6 +77,7 @@ errorWithoutSource:
 
 Additional Info:
     custom message");
+#endif
         }
 
         [Fact]
@@ -55,6 +86,24 @@ Additional Info:
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
             collection.ShouldContain(x => x == "c", 5, () => "custom message"),
+#if net35
+errorWithSource:
+@"collection
+    should contain 5 element(s) satisfying the condition
+(x = ""c"")
+    but does not
+
+Additional Info:
+    custom message",
+errorWithoutSource:
+@"[""a"", ""b"", ""c"", ""c""]
+    should contain 5 element(s) satisfying the condition
+(x = ""c"")
+    but does not
+
+Additional Info:
+    custom message");
+#else
 
 errorWithSource:
 @"collection
@@ -72,6 +121,7 @@ errorWithoutSource:
 
 Additional Info:
     custom message");
+#endif
         }
 
         [Fact]

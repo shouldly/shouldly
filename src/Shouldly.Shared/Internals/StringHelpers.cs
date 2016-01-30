@@ -63,7 +63,7 @@ namespace Shouldly
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
-#if net40
+#if !net35
             if (value is BinaryExpression)
             {
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
