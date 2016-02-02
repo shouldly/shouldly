@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffTool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffToolConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\DoNotLaunchWhenEnvVariableIsPresent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration\FindMethodUsingAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\FirstNonShouldlyMethodFinder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\IShouldNotLaunchDiffTool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\ITestMethodFinder.cs" />
