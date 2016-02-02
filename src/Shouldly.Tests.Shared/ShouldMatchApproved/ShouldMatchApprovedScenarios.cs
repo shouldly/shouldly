@@ -146,6 +146,22 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
             ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(false);
         }
 
+        [Fact]
+        public void CanFindTestAttribute()
+        {
+            FirstInCallStackToAsser();
+        }
+
+        void FirstInCallStackToAsser()
+        {
+            AnotherInCallStack();
+        }
+
+        void AnotherInCallStack()
+        {
+            "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
+        }
+
 #if net45
         [Fact]
         public async Task HandlesAsync()
