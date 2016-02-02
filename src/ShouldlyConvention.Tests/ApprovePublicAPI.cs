@@ -1,5 +1,4 @@
-﻿using ApiApprover;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace ShouldlyConvention.Tests
@@ -9,7 +8,9 @@ namespace ShouldlyConvention.Tests
         [Fact]
         public void ShouldlyApi()
         {
-            PublicApiApprover.ApprovePublicApi(typeof (Should).Assembly.Location);
+            var publicApi = PublicApiGenerator.PublicApiGenerator.GetPublicApi(typeof (Should).Assembly);
+
+            publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
         } 
     }
 }

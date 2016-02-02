@@ -583,6 +583,12 @@ namespace Shouldly.Configuration
         public bool ShouldNotLaunch() { }
     }
     public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
+    public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
+        where T : System.Attribute
+    {
+        public FindMethodUsingAttribute() { }
+        public Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
+    }
     public class FirstNonShouldlyMethodFinder : Shouldly.Configuration.ITestMethodFinder
     {
         public FirstNonShouldlyMethodFinder() { }
@@ -637,6 +643,8 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfiguration Build() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
+            where T : System.Attribute { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
