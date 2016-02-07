@@ -1,6 +1,7 @@
 ﻿using System;
 using Shouldly.ShouldlyExtensionMethods;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.Shared.ShouldNotHaveFlag
