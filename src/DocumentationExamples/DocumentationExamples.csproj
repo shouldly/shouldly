@@ -81,7 +81,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ShouldSatisfyAllConditionsExamples.cs" />
+    <Compile Include="ShouldNotThrowExamples.cs" />
+    <Compile Include="ShouldCompleteInExamples.cs" />
+    <Compile Include="ShouldThrowExamples.cs" />
+    <Compile Include="DictionaryShouldContainKeyAndValueExamples.cs" />
     <Compile Include="DocExampleWriter.cs" />
+    <Compile Include="DictionaryShouldContainKeyExamples.cs" />
+    <Compile Include="EnumerableShouldNotContainExamples.cs" />
+    <Compile Include="EnumerableShouldContainExamples.cs" />
+    <Compile Include="EnumerableShouldBeUniqueExamples.cs" />
+    <Compile Include="EnumerableShouldBeSubsetOfExamples.cs" />
+    <Compile Include="EnumerableShouldBeEmptyExamples.cs" />
+    <Compile Include="EnumerableShouldAllBeExamples.cs" />
+    <Compile Include="EnumerableShouldBeExamples.cs" />
+    <Compile Include="ShouldBeAssignableToExamples.cs" />
+    <Compile Include="ShouldBeOfTypeExamples.cs" />
+    <Compile Include="ShouldBeInRange.cs" />
+    <Compile Include="ShouldBeGreater_LessThanExamples.cs" />
+    <Compile Include="ShouldBeSameAsExamples.cs" />
+    <Compile Include="ShouldBeOneOfExamples.cs" />
+    <Compile Include="DynamicShouldExamples.cs" />
     <Compile Include="ShouldBeNullNotNullExamples.cs" />
     <Compile Include="ShouldBeTrueFalseExamples.cs" />
     <Compile Include="ShouldMatchApprovedExamples.cs" />
