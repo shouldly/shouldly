@@ -1,0 +1,1 @@
+﻿DNX Tooling does not yet support adding references to shared projects. Until then we need a portable project which DNX can reference

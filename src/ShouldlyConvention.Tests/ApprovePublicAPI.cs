@@ -1,14 +1,12 @@
 ﻿using ApiApprover;
-using ApprovalTests.Reporters;
-using NUnit.Framework;
 using Shouldly;
+using Xunit;
 
 namespace ShouldlyConvention.Tests
 {
     public class ApprovePublicAPI
     {
-        [Test]
-        [UseReporter(typeof(DiffReporter))]
+        [Fact]
         public void ShouldlyApi()
         {
             PublicApiApprover.ApprovePublicApi(typeof (Should).Assembly.Location);

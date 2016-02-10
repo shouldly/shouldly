@@ -1,0 +1,2 @@
+var simpsonsQuote = "Hi Super Nintendo Chalmers";
+simpsonsQuote.ShouldMatchApproved(c => c.NoDiff());

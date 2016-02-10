@@ -1,0 +1,2 @@
+const decimal pi = (decimal)Math.PI;
+pi.ShouldBe(3.24m, 0.01m);

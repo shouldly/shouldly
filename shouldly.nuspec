@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
-<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata>
     <id>Shouldly</id>
     <version>0.0.0</version>
     <authors>Dave Newman, Xerxes Battiwalla, Anthony Egerton, Peter van der Woude, Jake Ginnivan</authors>
@@ -10,10 +10,29 @@
     <iconUrl>https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
-    <tags>testing unit testing TDD AAA shoulda testunit rspec</tags>
+    <tags>test unit testing TDD AAA should testunit rspec assert assertion framework</tags>
+    <dependencies>
+      <group targetFramework="dotnet">
+        <dependency id="System.Collections" version="4.0.0" />
+        <dependency id="System.Diagnostics.Debug" version="4.0.0" />
+        <dependency id="System.Linq" version="4.0.0" />
+        <dependency id="System.Linq.Expressions" version="4.0.0" />
+        <dependency id="System.Reflection" version="4.0.0" />
+        <dependency id="System.Reflection.Extensions" version="4.0.0" />
+        <dependency id="System.Runtime" version="4.0.0" />
+        <dependency id="System.Runtime.Extensions" version="4.0.0" />
+        <dependency id="System.Text.RegularExpressions" version="4.0.0" />
+      </group>
+    </dependencies>
   </metadata>
   <files>
     <file src="output\$target$\net40\Shouldly.dll" target="lib\net40\Shouldly.dll" />
+    <file src="output\$target$\net40\Shouldly.pdb" target="lib\net40\Shouldly.pdb" />
     <file src="output\$target$\net35\Shouldly.dll" target="lib\net35\Shouldly.dll" />
+    <file src="output\$target$\net35\Shouldly.pdb" target="lib\net35\Shouldly.pdb" />
+    <file src="output\$target$\portable-net45+netcore45+wp8+wpa81\Shouldly.dll" target="lib\portable-net45+netcore45+wp8+wpa81\Shouldly.dll" />
+    <file src="output\$target$\portable-net45+netcore45+wp8+wpa81\Shouldly.pdb" target="lib\portable-net45+netcore45+wp8+wpa81\Shouldly.pdb" />
+    <file src="output\$target$\portable-net45+netcore45+wp8+wpa81\Shouldly.dll" target="lib\dotnet\Shouldly.dll" />
+    <file src="output\$target$\portable-net45+netcore45+wp8+wpa81\Shouldly.pdb" target="lib\dotnet\Shouldly.pdb" />
   </files>
 </package>

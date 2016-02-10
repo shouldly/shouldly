@@ -1,0 +1,50 @@
+﻿using System;
+using Shouldly.Tests.Strings;
+using Xunit;
+
+namespace Shouldly.Tests.ShouldBe.WithTolerance
+{
+    public class DateTimeOffsetScenario
+    {
+        [Fact]
+        public void DateTimeOffsetScenarioShouldFail()
+        {
+            var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
+            var dateString = date.ToString();
+            var exptected = new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero);
+            var expectedDate = exptected.ToString();
+            Verify.ShouldFail(() =>
+date.ShouldBe(exptected, TimeSpan.FromHours(1), "Some additional context"),
+
+errorWithSource:
+$@"date
+    should be within
+01:00:00
+    of
+{expectedDate}
+    but was
+{dateString}
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+$@"{dateString}
+    should be within
+01:00:00
+    of
+{expectedDate}
+    but was not
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
+            date.ShouldBe(new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero), TimeSpan.FromHours(1.5));
+        }
+    }
+}

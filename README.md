@@ -35,7 +35,7 @@ It might be easy to underestimate how useful this is. Another example, side by s
 
 **Shouldly** uses the code before the *ShouldBe* statement to report on errors, which makes diagnosing easier.
 
-Read more about Shouldly and it's features at [http://docs.shouldly-lib.net/](http://docs.shouldly-lib.net/)
+Read more about Shouldly and its features at [http://docs.shouldly-lib.net/](http://docs.shouldly-lib.net/)
 
 ## Installation
 
@@ -60,6 +60,10 @@ If you need inspiration for which issue to pick up have a look for the [Jump-In]
 Shouldly uses the source code to make its error messages better. Hence, on the build server you will need to have the "full" pdb files available where the tests are being run. 
 
 What is meant by "full" is that when you set up your "release" configuration in Visual Studio and you go to Project Properties > Build > Advanced > Debug, you should set it to "full" rather than "pdb-only". 
+
+## History Change
+A test results database (~50mb) got accidently commited in a972872888925205c9655cb540455d23d1891148, we removed this from history.
+The commit was only in master for <24 hours but if you happened to pull then you may need to reset master to get back in line
 
 ## Icon
 [Star](https://thenounproject.com/term/star/20931/) created by [Luboš Volkov](https://thenounproject.com/Lubo%C5%A1%20Volkov/) from The Noun Project
