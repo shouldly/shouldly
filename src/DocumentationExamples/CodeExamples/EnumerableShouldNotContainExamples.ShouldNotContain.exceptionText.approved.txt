@@ -1,0 +1,5 @@
+clubOfNoHomers
+    should not contain
+Homer
+    but was actually
+[Homer, Homer, Lenny, carl]

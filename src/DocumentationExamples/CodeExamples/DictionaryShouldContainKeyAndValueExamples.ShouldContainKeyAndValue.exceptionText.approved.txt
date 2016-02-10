@@ -1,0 +1,7 @@
+websters
+    should contain key
+"Cromulent"
+    with value
+"Fine, acceptable."
+    but value was
+"I never heard the word before moving to Springfield."

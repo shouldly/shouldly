@@ -1,0 +1,2 @@
+var homer = new Person() { Name = "Homer", Salary = 30001 };
+homer.Salary.ShouldBeLessThanOrEqualTo(30000);

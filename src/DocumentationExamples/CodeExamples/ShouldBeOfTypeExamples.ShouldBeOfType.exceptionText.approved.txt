@@ -1,0 +1,5 @@
+theSimpsonsDog
+    should be of type
+Simpsons.Dog
+    but was
+Simpsons.Cat

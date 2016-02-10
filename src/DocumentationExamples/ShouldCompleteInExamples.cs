@@ -21,13 +21,8 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person() { Name = "Homer", Salary = 30000 };
-                var denominator = 1;
-                Should.CompleteIn(() =>
-                {
-                    Thread.Sleep(2000);
-                    var y = homer.Salary / denominator;
-                }, TimeSpan.FromSeconds(1));
+                Should.Throw<TimeoutException>(() => 
+                    Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(2)), TimeSpan.FromSeconds(1), "Some additional context"));
             }, _testOutputHelper);
         }
     }

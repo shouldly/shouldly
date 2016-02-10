@@ -1,0 +1,6 @@
+simpsonsKids
+    should be subset of
+[Lisa, Bart, Maggie, Homer, Marge]
+    but
+[Ralph]
+    is outside subset

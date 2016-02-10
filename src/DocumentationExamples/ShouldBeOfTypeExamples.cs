@@ -30,7 +30,7 @@ namespace DocumentationExamples
             DocExampleWriter.Document(() =>
             {
                 var theSimpsonsDog = new Cat() { Name = "Santas little helper" };
-                theSimpsonsDog.ShouldBeOfType<Cat>();
+                theSimpsonsDog.ShouldNotBeOfType<Cat>();
             }, _testOutputHelper);
         }
 

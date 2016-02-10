@@ -1,0 +1,5 @@
+theSimpsonsDog
+    should be assignable to
+Simpsons.Pet
+    but was
+Simpsons.Person

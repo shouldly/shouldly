@@ -1,0 +1,5 @@
+powerPlantOnTheWeekend
+    should be empty but had
+1
+    item and was
+[Homer]
