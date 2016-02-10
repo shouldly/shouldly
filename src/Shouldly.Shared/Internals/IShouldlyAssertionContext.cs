@@ -9,6 +9,8 @@ namespace Shouldly
     {
         string ShouldMethod { get; set; }
         string CodePart { get; set; }
+        string FileName { get; set; }
+        int? LineNumber { get; set; }
         object Key { get; set; }
         object Expected { get; set; }
         object Actual { get; set; }
@@ -29,5 +31,6 @@ namespace Shouldly
         Case? CaseSensitivity { get; set; }
         bool CodePartMatchesActual { get; }
         Expression Filter { get; set; }
+        int? MatchCount { get; set; }
     }
 }

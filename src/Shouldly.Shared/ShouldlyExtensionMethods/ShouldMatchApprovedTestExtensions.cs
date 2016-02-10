@@ -49,14 +49,16 @@ namespace Shouldly
             var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameIndex);
             var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
             var outputFolder = testMethodInfo.SourceFileDirectory;
+            if (string.IsNullOrEmpty(outputFolder))
+                throw new Exception($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
             if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
             {
                 outputFolder = Path.Combine(outputFolder, config.ApprovalFileSubFolder);
                 Directory.CreateDirectory(outputFolder);
             }
 
-            var approvedFile = Path.Combine(outputFolder, $"{testMethodInfo.MethodName}{descriminator}.approved.{config.FileExtension}");
-            var receivedFile = Path.Combine(outputFolder, $"{testMethodInfo.MethodName}{descriminator}.received.{config.FileExtension}");
+            var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "approved", config.FileExtension));
+            var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "received", config.FileExtension));
             File.WriteAllText(receivedFile, actual);
 
             if (!File.Exists(approvedFile))

@@ -1,6 +1,0 @@
-To approve the changes run this command:
-copy /Y "C:\PathToCode\shouldly\src\DocumentationExamples\Document.received.txt" "C:\PathToCode\shouldly\src\DocumentationExamples\ApprovedFileDoesNotExist.approved.txt"
-----------------------------
-
-Approval file C:\PathToCode\shouldly\src\DocumentationExamples\ApprovedFileDoesNotExist.approved.txt
-    does not exist

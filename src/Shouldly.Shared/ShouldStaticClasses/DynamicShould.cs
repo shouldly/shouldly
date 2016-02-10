@@ -1,14 +1,12 @@
 ﻿#if net40
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using JetBrains.Annotations;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
     [ShouldlyMethods]
     public static class DynamicShould
     {

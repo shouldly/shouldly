@@ -143,6 +143,19 @@ namespace Shouldly
         }
     }
 
+    internal class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
+    {
+        public ShouldContainWithCountShouldlyMessage(object expected, object actual, int matchCount, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
+            {
+                HasRelevantActual = true,
+                MatchCount = matchCount
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
 #if net40
 
     internal class TaskShouldlyThrowMessage : ShouldlyMessage
@@ -206,7 +219,7 @@ namespace Shouldly
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
     #if net40
-            // new DynamicShouldMessageGenerator(), TODO Make worth without stacktraces
+            new DynamicShouldMessageGenerator(),
             new ShouldCompleteInMessageGenerator(),
             new ShouldBeNullOrWhiteSpaceMessageGenerator(),
     #endif

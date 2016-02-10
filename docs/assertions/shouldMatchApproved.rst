@@ -107,6 +107,18 @@ This setting tells shouldly to walk one more frame, this is really handy when yo
 
   // -> MyTest.received.txt - without UseCallerLocation() the file would be called SomeUtilityMethod.received.txt
 
+LocateTestMethodUsingAttribute
+`````````````````
+If you want to locate your test method using an attribute that is easy too!
+
+.. code-block:: c#
+
+  // XUnit
+  "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
+  // NUnit
+  "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<TestAttribute>());
+
+
 WithScrubber
 ````````````
 Scrubbers allow you to remove dynamic content, such as the current date

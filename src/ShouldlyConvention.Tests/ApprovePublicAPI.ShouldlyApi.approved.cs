@@ -170,6 +170,9 @@ namespace Shouldly
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, string customMessage) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, System.Func<string> customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<float> actual, float expected, double tolerance) { }
@@ -579,6 +582,13 @@ namespace Shouldly.Configuration
         public DoNotLaunchWhenEnvVariableIsPresent(string environmentalVariable) { }
         public bool ShouldNotLaunch() { }
     }
+    public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
+    public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
+        where T : System.Attribute
+    {
+        public FindMethodUsingAttribute() { }
+        public Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
+    }
     public class FirstNonShouldlyMethodFinder : Shouldly.Configuration.ITestMethodFinder
     {
         public FirstNonShouldlyMethodFinder() { }
@@ -621,6 +631,7 @@ namespace Shouldly.Configuration
         public string ApprovalFileSubFolder { get; set; }
         public string FileExtension { get; set; }
         public string FilenameDescriminator { get; set; }
+        public Shouldly.Configuration.FilenameGenerator FilenameGenerator { get; set; }
         public bool PreventDiff { get; set; }
         public System.Func<string, string> Scrubber { get; set; }
         public Shouldly.StringCompareShould StringCompareOptions { get; set; }
@@ -632,17 +643,21 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfiguration Build() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
+            where T : System.Attribute { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFilenameGenerator(Shouldly.Configuration.FilenameGenerator filenameGenerator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithScrubber(System.Func<string, string> scrubber) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
     }
     public class TestMethodInfo
     {
         public TestMethodInfo(System.Diagnostics.StackFrame callingFrame) { }
+        public string DeclaringTypeName { get; }
         public string MethodName { get; }
         public string SourceFileDirectory { get; }
     }

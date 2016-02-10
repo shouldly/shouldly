@@ -32,6 +32,11 @@ namespace Shouldly.Configuration
             return Configure(c => c.FileExtension = fileExtension.TrimStart('.'));
         }
 
+        public ShouldMatchConfigurationBuilder WithFilenameGenerator(FilenameGenerator filenameGenerator)
+        {
+            return Configure(c => c.FilenameGenerator = filenameGenerator);
+        }
+
         /// <summary>
         /// Default is to ignore line endings
         /// </summary>
@@ -62,6 +67,14 @@ namespace Shouldly.Configuration
             {
                 Offset = 1
             });
+        }
+
+        /// <summary>
+        /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
+        /// </summary>
+        public ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>() where T : Attribute
+        {
+            return Configure(c => c.TestMethodFinder = new FindMethodUsingAttribute<T>());
         }
 
         public ShouldMatchConfigurationBuilder WithScrubber(Func<string, string> scrubber)
