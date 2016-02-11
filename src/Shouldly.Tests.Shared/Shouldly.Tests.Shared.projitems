@@ -130,6 +130,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldContain\StringContainsStringScenario.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldHaveFlag\ShouldHaveFlagScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldlyWebsiteExampleTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldMatchApproved\ShouldMatchApprovedScenarios.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotBeAssignableTo\BasicTypesScenario.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotContain\StringContainsStringCaseIsInsensitiveScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotContain\StringContainsStringCaseIsSensitiveScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotContain\StringContainsStringScenario.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldNotHaveFlag\ShouldNotHaveFlagScenarios.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotThrow\ActionDelegateScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotThrow\ExtractsCodeScenarios.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldNotThrow\FuncDelegateScenario.cs" />

@@ -1,0 +1,5 @@
+shouldMethod
+    should have flag
+TestEnum.FlagOne
+    but had
+TestEnum.FlagTwo

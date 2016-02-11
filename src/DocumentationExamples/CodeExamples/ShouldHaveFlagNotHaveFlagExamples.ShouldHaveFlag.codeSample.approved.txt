@@ -1,0 +1,3 @@
+var actual = TestEnum.FlagTwo;
+var value = TestEnum.FlagOne;
+actual.ShouldHaveFlag(value);
