@@ -77,7 +77,7 @@ namespace Shouldly.Internals
 
         string GetCodePart()
         {
-            var codePart = "Shouldly uses your source code to generate it's great error messages, build your test project with full debug information to get better error messages" +
+            var codePart = "Shouldly uses your source code to generate its great error messages, build your test project with full debug information to get better error messages" +
                            "\nThe provided expression";
 
             if (_determinedOriginatingFrame)
