@@ -49,7 +49,7 @@ namespace DocumentationExamples
                 .Statements
                 .Select(s => s.WithoutLeadingTrivia().ToFullString());
             var body = string.Join(string.Empty, enumerable);
-            var exceptionText = Should.Throw<ShouldAssertException>(shouldMethod).Message;
+            var exceptionText = Should.Throw<Exception>(shouldMethod).Message;
 
             testOutputHelper.WriteLine("Docs body:");
             testOutputHelper.WriteLine("");
