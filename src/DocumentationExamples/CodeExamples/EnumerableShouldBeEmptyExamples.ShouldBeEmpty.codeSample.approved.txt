@@ -1,0 +1,3 @@
+var homer = new Person() { Name = "Homer" };
+var powerPlantOnTheWeekend = new List<Person>() { homer };
+powerPlantOnTheWeekend.ShouldBeEmpty();

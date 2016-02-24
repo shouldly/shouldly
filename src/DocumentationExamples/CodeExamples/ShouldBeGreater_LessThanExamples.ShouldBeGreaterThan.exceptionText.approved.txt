@@ -1,0 +1,5 @@
+mrBurns.Salary
+    should be greater than
+300000000
+    but was
+30000
