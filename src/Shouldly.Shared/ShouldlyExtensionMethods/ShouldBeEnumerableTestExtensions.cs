@@ -127,7 +127,7 @@ namespace Shouldly
 
         public static void ShouldBeEmpty<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
-            if (actual == null || (actual != null && actual.Count() != 0))
+            if (actual == null || actual.Any())
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
@@ -143,7 +143,7 @@ namespace Shouldly
 
         public static void ShouldNotBeEmpty<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
-            if (actual == null || actual != null && !actual.Any())
+            if (actual == null || !actual.Any())
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
@@ -159,7 +159,7 @@ namespace Shouldly
 
         public static T ShouldHaveSingleItem<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
-            if (actual == null || (actual != null && actual.Count() != 1))
+            if (actual == null || actual.Count() != 1)
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
 
             return actual.Single();
