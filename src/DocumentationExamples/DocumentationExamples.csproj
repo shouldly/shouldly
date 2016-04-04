@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerableShouldHaveSingleItemExamples.cs" />
     <Compile Include="ShouldSatisfyAllConditionsExamples.cs" />
     <Compile Include="ShouldNotThrowExamples.cs" />
     <Compile Include="ShouldCompleteInExamples.cs" />

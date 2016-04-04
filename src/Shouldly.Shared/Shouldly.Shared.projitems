@@ -70,6 +70,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldBeNullOrEmptyMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldBeNullOrWhiteSpaceMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldBePositiveMessageGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldHaveSingleItemMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldBeSubsetOfMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldBeTypeMessageGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageGenerators\ShouldBeUniqueMessageGenerator.cs" />

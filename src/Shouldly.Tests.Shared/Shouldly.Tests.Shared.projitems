@@ -75,6 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBeSameAs\BasicScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBeSameAs\BoxedIntScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBeSameAs\SameListDifferentInstanceScenario.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShouldHaveSingleItem\ArrayScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBeSubsetOf\DecimalArrayScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBeSubsetOf\FloatArrayScenario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShouldBeSubsetOf\IntegerArrayScenario.cs" />

@@ -1,4 +1,4 @@
-﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"Shouldly.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100e3aa2a20de74f360af7742a2b21b409d570722b14ec3d14283a0d89e8147855d1097fbf084d7b3a8bbd1bfe50a589254ce50ee70bf530f23e280e13eeeff3813a6863a8dffa604f6a749628fc82f449e8a5717a4a70787a3f55547f1a2ad8fffafe8945f327dc7a66887b81c7bb5b8f06651f51a7e640e150a7c4cf1049041ca")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute(@"Shouldly.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100e3aa2a20de74f360af7742a2b21b409d570722b14ec3d14283a0d89e8147855d1097fbf084d7b3a8bbd1bfe50a589254ce50ee70bf530f23e280e13eeeff3813a6863a8dffa604f6a749628fc82f449e8a5717a4a70787a3f55547f1a2ad8fffafe8945f327dc7a66887b81c7bb5b8f06651f51a7e640e150a7c4cf1049041ca")]
 [assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.0", FrameworkDisplayName=".NET Framework 4")]
 
 namespace Shouldly
@@ -181,6 +181,9 @@ namespace Shouldly
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<double> actual, double expected, double tolerance) { }
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<double> actual, double expected, double tolerance, string customMessage) { }
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<double> actual, double expected, double tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
+        public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
+        public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldNotBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
         public static void ShouldNotBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
         public static void ShouldNotBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }

@@ -236,6 +236,7 @@ namespace Shouldly
             new ShouldBeIgnoringOrderMessageGenerator(), 
             new ShouldSatisfyAllConditionsMessageGenerator(),
             new ShouldBeSubsetOfMessageGenerator(),
+            new ShouldHaveSingleItemMessageGenerator(),
             new ShouldBeBooleanMessageGenerator(),
             new ShouldNotThrowMessageGenerator(),
             new ShouldNotMatchMessageGenerator(),
