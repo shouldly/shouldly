@@ -46,5 +46,17 @@ Additional Info:
             var date = new DateTime(2000, 6, 1);
             date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5d));
         }
+
+        [Fact]
+        public void Test()
+        {
+            var date = new DateTime(234234234);
+
+            var date1 = Convert.ToDateTime("2016-04-12T22:00:14.2100000");
+            var date2 = Convert.ToDateTime("2016-04-12T22:00:14.2096734Z");
+
+            date1.ShouldBe(date2);
+        }
+
     }
 }
