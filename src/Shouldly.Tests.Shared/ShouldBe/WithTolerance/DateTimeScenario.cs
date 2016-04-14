@@ -41,14 +41,13 @@ Additional Info:
         }
 
         [Fact]
-        public void DateTimeFromTicksScenarioShouldFailAndShowDateDifference()
+        public void DateTimeFromTicksScenarioShouldFailAndShowDetailedDateDifference()
         {
             var date = new DateTime(635961688375100000);
             var dateString = date.ToString("o");
             var expected = new DateTime(635961688375106000);
             var expectedString = expected.ToString("o");
-            //date.ShouldBe(expected, "Some additional context");
-
+            
             Verify.ShouldFail(() =>
 date.ShouldBe(expected, "Some additional context"),
 
