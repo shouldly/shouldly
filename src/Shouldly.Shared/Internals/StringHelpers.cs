@@ -38,6 +38,7 @@ namespace Shouldly
             if (value is ulong)
                 return value + "uL";
 
+
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();
@@ -51,6 +52,9 @@ namespace Shouldly
 
             if (value is Enum)
                 return value.As<Enum>().ToStringAwesomely();
+
+            if (value is DateTime)
+                return value.As<DateTime>().ToStringAwesomely();
 
             if (value is ConstantExpression)
                 return value.As<ConstantExpression>().Value.ToStringAwesomely();
@@ -198,5 +202,10 @@ namespace Shouldly
         {
             return value.GetType().Name + "." + value;
         }
+
+        static string ToStringAwesomely(this DateTime value)
+        {
+            return value.ToString("o");
+        }        
     }
 }
