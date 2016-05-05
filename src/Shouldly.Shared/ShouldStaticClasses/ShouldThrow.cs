@@ -41,6 +41,39 @@ namespace Shouldly
             throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
         }
 
+        /*** Should.Throw(Action) ***/
+        public static Exception Throw([InstantHandle] Action actual, Type exceptionType)
+        {
+            return Throw(actual, () => null, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Action actual, string customMessage, Type exceptionType)
+        {
+            return Throw(actual, () => customMessage, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return ThrowInternal(actual, customMessage, exceptionType);
+        }
+        internal static Exception ThrowInternal([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage, Type exceptionType,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
+            try
+            {
+                actual();
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == exceptionType)
+                {
+                    return e;
+                }
+
+                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+            }
+
+            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
+        }
+
         /*** Should.NotThrow(Action) ***/
         public static void NotThrow([InstantHandle] Action action)
         {

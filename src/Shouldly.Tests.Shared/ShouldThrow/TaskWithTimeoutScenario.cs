@@ -21,6 +21,17 @@ namespace Shouldly.Tests.ShouldThrow
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
+[Fact]
+        public void ShouldThrowAWobbly_ExceptionTypePassedIn()
+        {
+            var task = Task.Factory.StartNew(() => { Thread.Sleep(5000); },
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+
+            var ex = Should.Throw(() => task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"), typeof(ShouldCompleteInException));
+            ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
+        }
+
         string ChuckedAWobblyErrorMessage => @"
     Task
         should complete in
@@ -37,6 +48,18 @@ namespace Shouldly.Tests.ShouldThrow
                 TaskScheduler.Default);
 
             var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(2));
+            ex.ShouldNotBe(null);
+            ex.ShouldBeOfType<InvalidOperationException>();
+        }
+
+[Fact]
+        public void ShouldPass_ExceptionTypePassedIn()
+        {
+            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
+
+            var ex = task.ShouldThrow(TimeSpan.FromSeconds(2), typeof(InvalidOperationException));
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
         }
