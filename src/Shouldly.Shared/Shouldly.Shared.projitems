@@ -9,7 +9,7 @@
     <Import_RootNamespace>Shouldly</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Case.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ChuckedAWobbly.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configuration\DiffTool.cs" />
