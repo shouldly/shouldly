@@ -29,7 +29,7 @@ namespace Shouldly.MessageGenerators
             string errorMessage;
             if (context.HasRelevantActual)
             {
-                errorMessage = string.Format($@"{codePart}
+                errorMessage = string.Format($@"{codePart.Replace("{", "{{").Replace("}", "}}")}
     should throw
 {expectedValue}
     but threw
