@@ -59,7 +59,6 @@ namespace Shouldly.Configuration
             var userPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
             var machinePath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
             var values = $"{processPath};{userPath};{machinePath}";
-            
             return values.Split(';')
                 .Where(p => !string.IsNullOrEmpty(p))
                 .Select(path => path.Trim('"'))
