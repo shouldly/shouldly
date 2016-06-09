@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shouldly.net40\Shouldly.net40.csproj">
-      <Project>{cf49e8a3-57e1-4f43-b2dc-7092d2b7677f}</Project>
-      <Name>Shouldly.net40</Name>
+    <ProjectReference Include="..\Shouldly\Shouldly\Shouldly.xproj">
+      <Project>{a578799e-85f2-49f9-bf1d-c9a4d155e255}</Project>
+      <Name>Shouldly</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,17 @@
+﻿{
+    "dependencies": {
+        "dotnet-test-xunit": "1.0.0-rc3-build10019",
+        "Shouldly": "1.0.0-*",
+        "xunit": "2.1.0"
+    },
+    "frameworks": {
+        "net452": {
+            "frameworkAssemblies": {
+                "System.Runtime": { "type": "build" },
+                "System.Threading.Tasks": { "type": "build" }
+            }
+        }
+    },
+    "testRunner": "xunit",
+    "version": "1.0.0-*"
+}
