@@ -200,7 +200,11 @@ namespace Shouldly
 
         static string ToStringAwesomely(this Enum value)
         {
-            return value.GetType().Name + "." + value;
+            #if PORTABLE
+                        return value.GetType().GetTypeInfo().Name + "." + value;
+            #else
+                        return value.GetType().Name + "." + value;
+            #endif
         }
 
         static string ToStringAwesomely(this DateTime value)
