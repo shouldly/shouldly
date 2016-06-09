@@ -68,12 +68,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shouldly.net40\Shouldly.net40.csproj">
-      <Project>{CF49E8A3-57E1-4F43-B2DC-7092D2B7677F}</Project>
-      <Name>Shouldly.net40</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
