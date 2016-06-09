@@ -1,4 +1,6 @@
-﻿namespace Shouldly
+﻿using System.Reflection;
+
+namespace Shouldly
 {
 #if !PORTABLE
     [System.Serializable]
@@ -31,7 +33,11 @@
 
         public override int GetHashCode()
         {
-            return GetType().Name.GetHashCode();
+            #if PORTABLE
+                return GetType().GetTypeInfo().Name.GetHashCode();
+            #else
+                return GetType().Name.GetHashCode();
+            #endif
         }
     }
 }
