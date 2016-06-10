@@ -4,7 +4,7 @@ using System.Reflection;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
-namespace ShouldlyConvention.Tests
+namespace Shouldly.Tests.ConventionTests
 {
     public class ShouldlyMethodsShouldHaveCustomMessageOverload : IConvention<Types>
     {

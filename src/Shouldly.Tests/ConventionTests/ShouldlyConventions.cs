@@ -1,9 +1,8 @@
-using Shouldly;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 using Xunit;
 
-namespace ShouldlyConvention.Tests
+namespace Shouldly.Tests.ConventionTests
 {
     public class ShouldlyConventions
     {

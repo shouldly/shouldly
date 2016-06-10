@@ -230,6 +230,15 @@
           "lib/net45/NuGet.Versioning.dll": {}
         }
       },
+      "PublicApiGenerator/4.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40/PublicApiGenerator.dll": {}
+        },
+        "runtime": {
+          "lib/net40/PublicApiGenerator.dll": {}
+        }
+      },
       "System.Collections.Immutable/1.2.0-rc2-24027": {
         "type": "package",
         "compile": {
@@ -249,6 +258,15 @@
         },
         "runtime": {
           "lib/portable-net45+win8/System.Reflection.Metadata.dll": {}
+        }
+      },
+      "TestStack.ConventionTests/3.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40/TestStack.ConventionTests.dll": {}
+        },
+        "runtime": {
+          "lib/net40/TestStack.ConventionTests.dll": {}
         }
       },
       "xunit/2.1.0": {
@@ -545,6 +563,16 @@
         "lib/netstandard1.0/NuGet.Versioning.xml"
       ]
     },
+    "PublicApiGenerator/4.0.1": {
+      "sha512": "4rWlKS8Stjv16ADaF85dbF8t/iDnMpaVQgnLjvrqIEbYtB/L1K3krRsx9Oqezo/RajRvMNTB7D63vp7VktfuuA==",
+      "type": "package",
+      "files": [
+        "PublicApiGenerator.4.0.1.nupkg.sha512",
+        "PublicApiGenerator.nuspec",
+        "lib/net40/PublicApiGenerator.dll",
+        "lib/net40/PublicApiGenerator.pdb"
+      ]
+    },
     "System.Collections.Immutable/1.2.0-rc2-24027": {
       "sha512": "bn4jDP6DOvUHTlpUVa4ehecoz+V4YL4gdL6yOXdruc/3XHRVL2j/ZIggusM8f90uUSQhg7bgvBuLmQCGG3cZtg==",
       "type": "package",
@@ -573,6 +601,17 @@
         "lib/netstandard1.1/System.Reflection.Metadata.xml",
         "lib/portable-net45+win8/System.Reflection.Metadata.dll",
         "lib/portable-net45+win8/System.Reflection.Metadata.xml"
+      ]
+    },
+    "TestStack.ConventionTests/3.0.1": {
+      "sha512": "sz9bFXMh6BRtREUA8rLrIYirnnl381mOnQoxNgpnWXaelcS6IkjXkA8J6afI9ru8kOu39KZeJ7mapuDsKci6gw==",
+      "type": "package",
+      "files": [
+        "TestStack.ConventionTests.3.0.1.nupkg.sha512",
+        "TestStack.ConventionTests.nuspec",
+        "lib/net40/TestStack.ConventionTests.dll",
+        "lib/net40/TestStack.ConventionTests.pdb",
+        "lib/net40/TestStack.ConventionTests.xml"
       ]
     },
     "xunit/2.1.0": {
@@ -733,7 +772,9 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "PublicApiGenerator >= 4.0.1",
       "Shouldly >= 1.0.0-*",
+      "TestStack.ConventionTests >= 3.0.1",
       "dotnet-test-xunit >= 1.0.0-rc3-build10019",
       "xunit >= 2.1.0"
     ],

@@ -1,9 +1,8 @@
-﻿using Shouldly;
-using Xunit;
+﻿using Xunit;
 
-namespace ShouldlyConvention.Tests
+namespace Shouldly.Tests.ConventionTests
 {
-    public class ApprovePublicAPI
+    public class ApprovePublicApi
     {
         [Fact]
         public void ShouldlyApi()

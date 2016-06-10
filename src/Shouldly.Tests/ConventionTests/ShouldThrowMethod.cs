@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace ShouldlyConvention.Tests
+namespace Shouldly.Tests.ConventionTests
 {
     public class ShouldThrowMethod
     {
