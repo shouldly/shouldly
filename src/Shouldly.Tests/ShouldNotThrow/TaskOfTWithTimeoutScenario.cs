@@ -6,10 +6,10 @@ using Xunit;
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class TaskOfTWithTimeoutScenario
-   
+
     {
 
-    [Fact]
+        [Fact]
         public void ShouldThrowAWobbly()
         {
             var task = Task.Factory.StartNew(() =>
@@ -39,7 +39,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            var result = task.ShouldNotThrow(TimeSpan.FromSeconds(0.5));
+            var result = task.ShouldNotThrow(TimeSpan.FromSeconds(2));
             result.ShouldBe("foo");
         }
     }

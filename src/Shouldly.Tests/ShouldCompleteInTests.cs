@@ -84,7 +84,7 @@ namespace Shouldly.Tests
             {
                 return Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(TimeSpan.FromSeconds(2));
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
                     return "";
                 });
             }, TimeSpan.FromSeconds(1), "Some additional context"));
