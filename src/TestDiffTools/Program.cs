@@ -9,23 +9,23 @@ using Shouldly.Configuration;
 
 namespace TestDiffTools
 {
-    class Program
+    public class Program
     {
-        static void Main()
+        public static void Main(string[] args)
         {
             Console.WriteLine("This utility makes it easy to test different difftools");
             var diffTools = typeof(KnownDiffTools)
                 .GetFields()
                 .Select((f, i) => new
                 {
-                    DiffTool = (DiffTool)f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools),
+                    DiffTool = (DiffTool) f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools),
                     Index = i
                 }).ToList();
 
 
             while (true)
             {
-                var diffToolsCollection = (List<DiffTool>)ShouldlyConfiguration.DiffTools.GetType()
+                var diffToolsCollection = (List<DiffTool>) ShouldlyConfiguration.DiffTools.GetType()
                     .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)
                     .GetValue(ShouldlyConfiguration.DiffTools);
                 diffToolsCollection.Clear();
@@ -65,7 +65,8 @@ namespace TestDiffTools
                 ShouldlyConfiguration.DiffTools.RegisterDiffTool(selectedDiffTool.DiffTool);
                 var stacktrace = new StackTrace(true);
 
-                var approved = Path.Combine(Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName()), "Main.approved.txt");
+                var approved = Path.Combine(Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName()),
+                    "Main.approved.txt");
                 switch (selectedOption)
                 {
                     case 1:
