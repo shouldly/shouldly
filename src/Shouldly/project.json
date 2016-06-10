@@ -6,10 +6,10 @@
                 "keyFile": "sn.snk",
                 "define": [
                     "ShouldMatchApproved",
-                    "HasStackTraceSupport",
-                    "OldReflectionApi",
-                    "NoExpressionTrees",
-                    "SupportsSerializable"
+                    "StackTrace",
+                    "Serializable",
+                    "CallerMemberNamePolyfill",
+                    "ZipPolyfill"
                 ]
             }
         },
@@ -18,11 +18,12 @@
                 "keyFile": "sn.snk",
                 "define": [
                     "ShouldMatchApproved",
-                    "HasStackTraceSupport",
-                    "OldReflectionApi",
-                    "SupportsDynamic",
-                    "SupportsSerializable",
-                    "SupportsAsync"
+                    "StackTrace",
+                    "Dynamic",
+                    "Serializable",
+                    "Async",
+                    "ExpressionTrees",
+                    "CallerMemberNamePolyfill"
                 ]
             }
         },
@@ -41,8 +42,10 @@
         "netstandard1.3": {
             "buildOptions": {
                 "define": [
-                    "SupportsAsync",
-                    "SupportsDynamic"
+                    "Async",
+                    "Dynamic",
+                    "NewReflection",
+                    "ExpressionTrees"
                 ]
             },
             "dependencies": {

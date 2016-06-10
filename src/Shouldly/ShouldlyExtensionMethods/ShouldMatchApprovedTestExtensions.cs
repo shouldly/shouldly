@@ -1,4 +1,4 @@
-﻿// TODO Try and get this working with PCL
+﻿// TODO Try and get this working with Core
 #if ShouldMatchApproved
 using System;
 using System.Diagnostics;

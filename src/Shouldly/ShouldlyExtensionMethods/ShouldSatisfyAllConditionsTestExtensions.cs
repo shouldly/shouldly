@@ -46,7 +46,10 @@ namespace Shouldly
             foreach (var errorMessage in errorMessages)
             {
                 sb.AppendLine($"--------------- Error {errorCount} ---------------");
-                sb.AppendLine(string.Join("\r\n", errorMessage.Message.Replace("\r\n", "\n").Split('\n').Select(l => string.IsNullOrEmpty(l) ? l : "    " + l).ToArray()));
+                var lines = errorMessage.Message.Replace("\r\n", "\n").Split('\n');
+                var paddedLines = lines.Select(l => string.IsNullOrEmpty(l) ? l : "    " + l);
+                var value = string.Join("\r\n", paddedLines.ToArray());
+                sb.AppendLine(value);
                 sb.AppendLine();
                 errorCount++;
             }

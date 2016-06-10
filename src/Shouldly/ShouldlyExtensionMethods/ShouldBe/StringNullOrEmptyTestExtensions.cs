@@ -34,7 +34,7 @@ namespace Shouldly
         public static void ShouldNotBeNullOrEmpty(this string actual, [InstantHandle] Func<string> customMessage)
         {
             if (string.IsNullOrEmpty(actual))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+                throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage).ToString());
         } 
     }
 }

@@ -1,4 +1,4 @@
-#if NET35 || NET40
+#if CallerMemberNamePolyfill
 // ReSharper disable once CheckNamespace
 namespace System.Runtime.CompilerServices
 {

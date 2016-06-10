@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-#if !OldReflectionApi
+using System.Text.RegularExpressions;
+
+#if NewReflection
 using System.Reflection;
 #endif
-using System.Text.RegularExpressions;
 
 namespace Shouldly
 {
@@ -178,7 +179,7 @@ namespace Shouldly
         {
             if (o == null)
                 return false;
-#if !OldReflectionApi
+#if NewReflection
             return expected.GetTypeInfo().IsAssignableFrom(o.GetType().GetTypeInfo());
 #else
             return expected.IsInstanceOfType(o);
@@ -290,7 +291,7 @@ namespace Shouldly
 
         static decimal Compare<T>(IComparable<T> comparable, T expected)
         {
-#if !OldReflectionApi
+#if NewReflection
             if (!typeof(T).GetTypeInfo().IsValueType)
 #else
                 if (!typeof(T).IsValueType)

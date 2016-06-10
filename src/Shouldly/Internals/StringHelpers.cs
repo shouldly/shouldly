@@ -67,14 +67,14 @@ namespace Shouldly
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
-#if !NoExpressionTrees
+#if ExpressionTrees
             if (value is BinaryExpression)
             {
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 #endif
 
-#if !OldReflectionApi
+#if NewReflection
             var typeInfo = type.GetTypeInfo();
             if (typeInfo.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
             {
@@ -183,6 +183,15 @@ namespace Shouldly
             return c.ToString();
         }
 
+        internal static bool IsNullOrWhiteSpace(this string s)
+        {
+#if NET35
+            return string.IsNullOrEmpty(s.Trim());
+#else
+            return string.IsNullOrWhiteSpace(s);
+#endif
+        }
+
         internal static string NormalizeLineEndings(this string s)
         {
             return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
@@ -195,7 +204,7 @@ namespace Shouldly
 
         static string DelimitWith<T>(this IEnumerable<T> enumerable, string separator) where T : class
         {
-            return String.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
+            return string.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
         }
 
         static string ToStringAwesomely(this Enum value)

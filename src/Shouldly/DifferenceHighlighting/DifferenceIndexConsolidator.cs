@@ -71,7 +71,7 @@ namespace Shouldly.DifferenceHighlighting
         }
     }
 
-#if NET35
+#if ZipPolyfill
     static class ZipPolyfill
     {
         public static IEnumerable<TResult> Zip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)

@@ -1,11 +1,11 @@
-﻿#if SupportsDynamic
+﻿#if Dynamic
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using JetBrains.Annotations;
 
-#if !OldReflectionApi
+#if NewReflection
 using System.Reflection;
 #endif
 

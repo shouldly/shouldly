@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-#if !OldReflectionApi
+#if NewReflection
 using System.Reflection;
 #endif
 
@@ -42,7 +42,7 @@ namespace Shouldly.ShouldlyExtensionMethods
 
         static void CheckEnumHasFlagAttribute(Enum actual)
         {
-#if !OldReflectionApi
+#if NewReflection
             if (!actual.GetType().GetTypeInfo().IsDefined(typeof(FlagsAttribute), false))
 #else
             if (!actual.GetType().IsDefined(typeof(FlagsAttribute), false))

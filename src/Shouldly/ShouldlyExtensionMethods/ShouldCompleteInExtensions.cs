@@ -1,4 +1,4 @@
-﻿#if SupportsAsync
+﻿#if Async
 using System.Threading;
 using System;
 using System.Threading.Tasks;
@@ -136,7 +136,7 @@ namespace Shouldly
         private static void PreserveStackTrace(Exception exception)
         {
             // TODO Need to sort this out for core
-#if OldReflectionApi
+#if !NewReflection
             System.Reflection.MethodInfo preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
               System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 

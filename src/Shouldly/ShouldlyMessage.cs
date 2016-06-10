@@ -156,7 +156,7 @@ namespace Shouldly
         }
     }
 
-#if SupportsAsync
+#if Async
     internal class TaskShouldlyThrowMessage : ShouldlyMessage
     {
         public TaskShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
@@ -195,7 +195,7 @@ namespace Shouldly
         }
     }
 
-#if HasStackTraceSupport
+#if StackTrace
     /// <summary>
     /// Async methods need stacktrace before we get asynchronous
     /// </summary>
@@ -219,13 +219,13 @@ namespace Shouldly
             new ShouldBeNullOrEmptyMessageGenerator(),
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
-#if SupportsDynamic
+#if Dynamic
             new DynamicShouldMessageGenerator(),
 #endif
-#if !NET35
+#if Async
             new ShouldCompleteInMessageGenerator(),
-            new ShouldBeNullOrWhiteSpaceMessageGenerator(),
 #endif
+            new ShouldBeNullOrWhiteSpaceMessageGenerator(),
             new DictionaryShouldContainKeyAndValueMessageGenerator(),
             new DictionaryShouldOrNotContainKeyMessageGenerator(),
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),

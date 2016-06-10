@@ -1,5 +1,4 @@
-﻿#if !NET35
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
 {
@@ -31,4 +30,3 @@ namespace Shouldly.MessageGenerators
         }
     }
 }
-#endif

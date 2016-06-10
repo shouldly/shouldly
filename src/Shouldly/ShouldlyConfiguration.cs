@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+
 #if ShouldMatchApproved
 using Shouldly.Configuration;
 using System.Runtime.Remoting.Messaging;
 #endif
+
 namespace Shouldly
 {
     public static class ShouldlyConfiguration

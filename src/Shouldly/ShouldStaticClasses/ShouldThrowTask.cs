@@ -1,4 +1,4 @@
-﻿#if SupportsAsync
+﻿#if Async
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;

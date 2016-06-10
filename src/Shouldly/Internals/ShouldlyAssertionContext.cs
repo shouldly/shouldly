@@ -29,22 +29,12 @@ namespace Shouldly
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }
 
-        public bool IsNegatedAssertion { get { return ShouldMethod.Contains("Not"); } }
+        public bool IsNegatedAssertion => ShouldMethod.Contains("Not");
         public string CustomMessage { get; set; }
         public Expression Filter { get; set; }
         public int? MatchCount { get; set; }
 
-#if !HasStackTraceSupport
-        internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null)
-        {
-            var actualCodeGetter = new ActualCodeTextGetter();
-            Expected = expected;
-            Actual = actual;
-            ShouldMethod = shouldlyMethod;
-
-            CodePart = actualCodeGetter.GetCodeText(actual);
-        }
-#else
+#if StackTrace
         internal ShouldlyAssertionContext(
             string shouldlyMethod, object expected = null, object actual = null,
             System.Diagnostics.StackTrace stackTrace = null)
@@ -54,9 +44,19 @@ namespace Shouldly
             Actual = actual;
             ShouldMethod = shouldlyMethod;
 
-           CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
+            CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
             FileName = actualCodeGetter.FileName;
             LineNumber = actualCodeGetter.LineNumber;
+        }
+#else
+        internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null)
+        {
+            var actualCodeGetter = new ActualCodeTextGetter();
+            Expected = expected;
+            Actual = actual;
+            ShouldMethod = shouldlyMethod;
+
+            CodePart = actualCodeGetter.GetCodeText(actual);
         }
 #endif
     }

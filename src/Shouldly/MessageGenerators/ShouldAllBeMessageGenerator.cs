@@ -15,10 +15,10 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToStringAwesomely();
-#if NoExpressionTrees
-            var expression = context.Filter;
-#else
+#if ExpressionTrees
             var expression = ExpressionToString.ExpressionStringBuilder.ToString(context.Filter);
+#else
+            var expression = context.Filter;
 #endif
             return $@"{codePart}
     should satisfy the condition

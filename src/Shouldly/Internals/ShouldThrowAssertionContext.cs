@@ -8,13 +8,14 @@ namespace Shouldly
 
         public bool IsAsync { get; private set; }
 
-#if !HasStackTraceSupport
+#if StackTrace
         /// <summary>
         /// Only pass stacktrace if asynchronous
         /// </summary>
         internal ShouldThrowAssertionContext(object expected, object actual = null, string exceptionMessage = null,
             bool isAsync = false,
-            [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual)
+            System.Diagnostics.StackTrace stackTrace = null,
+            [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual, stackTrace)
         {
             ExceptionMessage = exceptionMessage;
             IsAsync = isAsync;
@@ -25,8 +26,7 @@ namespace Shouldly
         /// </summary>
         internal ShouldThrowAssertionContext(object expected, object actual = null, string exceptionMessage = null,
             bool isAsync = false,
-            System.Diagnostics.StackTrace stackTrace = null,
-            [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual, stackTrace)
+            [CallerMemberName] string shouldlyMethod = null) : base(shouldlyMethod, expected, actual)
         {
             ExceptionMessage = exceptionMessage;
             IsAsync = isAsync;

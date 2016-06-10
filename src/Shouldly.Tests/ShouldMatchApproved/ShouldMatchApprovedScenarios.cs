@@ -24,11 +24,11 @@ namespace Shouldly.Tests.ShouldMatchApproved
         [Fact]
         public void MissingApprovedFile()
         {
-            var errorMsg = $@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
+            var errorMsg = @"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
 ----------------------------
 
-Approval file C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
+Approval file C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
     does not exist";
             Verify.ShouldFail(() =>
 "Bar".ShouldMatchApproved(c => c.NoDiff()),
@@ -46,8 +46,8 @@ messageScrubber: _scrubber);
 str.ShouldMatchApproved(c => c.NoDiff()),
 
 errorWithSource:
-$@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""
+@"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""
 ----------------------------
 
 str
@@ -65,8 +65,8 @@ Expected Code  | 66   97   114
 Actual Code    | 70   111  111  ",
 
 errorWithoutSource:
-$@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests.Shared\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""
+@"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""
 ----------------------------
 
 ""Foo""

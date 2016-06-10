@@ -64,7 +64,7 @@ namespace Shouldly.Tests
         {
             var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
             {
-                Thread.Sleep(TimeSpan.FromSeconds(2));
+                Thread.Sleep(TimeSpan.FromSeconds(5));
                 return "";
             }, TimeSpan.FromSeconds(1), "Some additional context"));
 

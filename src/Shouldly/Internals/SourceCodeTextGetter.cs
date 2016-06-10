@@ -1,4 +1,4 @@
-﻿#if HasStackTraceSupport
+﻿#if StackTrace
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Shouldly.Internals
 {
-#if !HasStackTraceSupport
+#if !StackTrace
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
         public string GetCodeText(object actual)

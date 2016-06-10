@@ -2,7 +2,7 @@
 
 namespace Shouldly
 {
-#if SupportsSerializable
+#if Serializable
     [Serializable]
 #endif
 #pragma warning disable 618

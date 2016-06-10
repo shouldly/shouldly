@@ -2,7 +2,7 @@
 
 namespace Shouldly
 {
-#if !NETSTANDARD1_0 && !NETSTANDARD1_3
+#if Serializable
     [Serializable]
 #endif
     [Obsolete("This class is only kept here for backwards compatibility. Please use ShouldAssertException instead.")]

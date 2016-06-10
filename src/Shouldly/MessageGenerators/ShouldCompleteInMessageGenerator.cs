@@ -9,11 +9,11 @@
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            return string.Format(@"
-    {0}
-        should complete in
-    {1}
-        but did not", context.Expected, context.Timeout);
+        return $@"
+{context.Expected}
+    should complete in
+{context.Timeout}
+    but did not";
         }
     }
 }

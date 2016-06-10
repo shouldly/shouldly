@@ -1,4 +1,4 @@
-﻿#if !NoExpressionTrees
+﻿#if ExpressionTrees
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -223,7 +223,7 @@ namespace ExpressionToString
 
         static bool CheckIfAnonymousType(Type type)
         {
-#if NETSTANDARD1_0 || NETSTANDARD1_3
+#if NewReflection
             // hack: the only way to detect anonymous types right now
             var typeInfo = type.GetTypeInfo();
             var isDefined = typeInfo.IsDefined(typeof(CompilerGeneratedAttribute), false);

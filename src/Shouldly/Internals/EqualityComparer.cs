@@ -32,7 +32,7 @@ namespace Shouldly
                 return true;
 
             // Null?
-#if NETSTANDARD1_0 || NETSTANDARD1_3
+#if NewReflection
             var typeInfo = type.GetTypeInfo();
             if (!typeInfo.IsValueType || (typeInfo.IsGenericType && type.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(NullableType.GetTypeInfo())))
 #else

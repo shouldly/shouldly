@@ -1,4 +1,4 @@
-﻿#if SupportsAsync
+﻿#if Async
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -34,7 +34,7 @@ namespace Shouldly
 
         public static Task<TException> ThrowAsync<TException>(Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
-#if HasStackTraceSupport
+#if StackTrace
             var stackTrace = new StackTrace(true);
             return actual().ContinueWith(t =>
             {

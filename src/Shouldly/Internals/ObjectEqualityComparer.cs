@@ -1,6 +1,6 @@
 ﻿namespace Shouldly
 {
-#if SupportsSerializable
+#if Serializable
     [System.Serializable]
 #endif
     class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
