@@ -17,9 +17,11 @@ Task("Restore")
 
 Task("Version")
     .Does(() => {
-        var versionInfo = GitVersion(new GitVersionSettings {
-            UpdateAssemblyInfo = true
+        GitVersion(new GitVersionSettings{
+            UpdateAssemblyInfo = true,
+            OutputType = GitVersionOutput.BuildServer
         });
+        var versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
         // Update project.json
         var updatedProjectJson = System.IO.File.ReadAllText(shouldlyProj)
             .Replace("1.0.0-*", versionInfo.NuGetVersion);
