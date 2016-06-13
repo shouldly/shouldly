@@ -8,4 +8,4 @@ configuration:
   - Debug
  
 build_script:
-  - powershell: ./build.ps1
+  - ps: ./build.ps1
