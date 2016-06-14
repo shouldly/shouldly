@@ -68,8 +68,8 @@
         "iconUrl": "https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png",
         "projectUrl": "http://shouldly.github.com",
         "licenseUrl": "https://github.com/shouldly/shouldly/blob/master/LICENSE.txt",
-        "authors": [ "Dave Newman", "Xerxes Battiwalla", "Anthony Egerton", "Peter van der Woude", "Jake Ginnivan" ],
-        "owners": [ "Dave Newman", "Xerxes Battiwalla", "Anthony Egerton", "Jake Ginnivan" ]
+        "authors": [ "Shouldly Contributors" ],
+        "owners": [ "Shouldly Contributors" ]
     },
     "version": "1.0.0-*"
 }

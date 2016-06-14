@@ -1,4 +1,4 @@
-var target = Argument("target", "Default");
+﻿var target = Argument("target", "Default");
 var shouldlyProj = "./src/Shouldly/project.json";
 var outputDir = "./artifacts/";
 
@@ -52,7 +52,12 @@ Task("Package")
             NoBuild = true
         };
     
-        DotNetCorePack(shouldlyProj, settings);
+        var output = DotNetCorePack(shouldlyProj, settings);
+
+        if (AppVeyor.IsRunningOnAppVeyor)
+        {
+            AppVeyor.UploadArtifact(output)​;
+        }
     });
 
 Task("Default")
