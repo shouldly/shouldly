@@ -10,14 +10,14 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteIn_WhenFinishBeforeTimeout()
         {
-            Should.NotThrow(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(0.5)), TimeSpan.FromSeconds(2)));
+            Should.NotThrow(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(0.5)), TimeSpan.FromSeconds(5)));
         }
 
         [Fact]
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<TimeoutException>(() => 
-                Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(2)), TimeSpan.FromSeconds(1), "Some additional context"));
+                Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(5)), TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Delegate
         should complete in
@@ -32,7 +32,7 @@ namespace Shouldly.Tests
         {
             var ex = Should.Throw<TimeoutException>(() => 
                 Should.CompleteIn(
-                    () => Task.Factory.StartNew(() => Thread.Sleep(TimeSpan.FromSeconds(2))), 
+                    () => Task.Factory.StartNew(() => Thread.Sleep(TimeSpan.FromSeconds(5))), 
                     TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Task
@@ -56,7 +56,7 @@ namespace Shouldly.Tests
             {
                 Thread.Sleep(TimeSpan.FromSeconds(1));
                 return "";
-            }, TimeSpan.FromSeconds(2)));
+            }, TimeSpan.FromSeconds(5)));
         }
 
         [Fact]
