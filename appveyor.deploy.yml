@@ -1,0 +1,13 @@
+assembly_info:
+  patch: false
+
+platform:
+  - Any CPU
+
+configuration:
+  - Debug
+ 
+build_script:
+  - ps: ./deploy.ps1
+
+test: off
