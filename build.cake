@@ -52,11 +52,12 @@ Task("Package")
             NoBuild = true
         };
     
-        var output = DotNetCorePack(shouldlyProj, settings);
+        DotNetCorePack(shouldlyProj, settings);
 
         if (AppVeyor.IsRunningOnAppVeyor)
         {
-            AppVeyor.UploadArtifact(output)​;
+            foreach (var file in GetFiles(outputDir + "**/*.*"))
+                AppVeyor.UploadArtifact(file.FullPath);
         }
     });
 
