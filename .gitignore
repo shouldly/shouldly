@@ -30,3 +30,4 @@ tools/Cake/
 tools/Addins/
 tools/GitReleaseNotes/
 artifacts/
+*.lock.json
