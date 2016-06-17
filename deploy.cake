@@ -28,8 +28,8 @@ Task("EnsureRequirements")
            throw new Exception("Deployment should happen via appveyor");
         
         var isTag =
-           buildSystem.AppVeyor.Environment.Repository.Tag.IsTag &&
-           !string.IsNullOrWhiteSpace(buildSystem.AppVeyor.Environment.Repository.Tag.Name);
+           AppVeyor.Environment.Repository.Tag.IsTag &&
+           !string.IsNullOrWhiteSpace(AppVeyor.Environment.Repository.Tag.Name);
         if (!isTag)
            throw new Exception("Deployment should happen from a published GitHub release");
     });
@@ -40,7 +40,7 @@ Task("UpdateVersionInfo")
     .IsDependentOn("EnsureRequirements")
     .Does(() =>
     {
-        tag = buildSystem.AppVeyor.Environment.Repository.Tag.Name;
+        tag = AppVeyor.Environment.Repository.Tag.Name;
         AppVeyor.UpdateBuildVersion(tag);
     });
 
@@ -68,7 +68,7 @@ Task("DeployNuget")
             .ToDictionary(v => v[0], v => v[1]);
 
         NuGetPush("./releaseArtifacts/" + fileLookup["nuget"], new NuGetPushSettings {
-            ApiKey = GetEnvironmentString("NuGetApiKey")
+            ApiKey = EnvironmentVariable("NuGetApiKey")
         });
     });
 
@@ -76,5 +76,10 @@ Task("Deploy");
 
 Task("Default")
     .IsDependentOn("Deploy");
+
+Task("Verify")
+    .Does(() => {
+        // Nothing, used to make sure the script compiles
+    });
 
 RunTarget(target);
