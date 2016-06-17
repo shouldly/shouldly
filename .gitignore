@@ -26,3 +26,8 @@ src/.vs
 *.received.txt
 src/TestResults/
 src/TestDiffTools/Main.approved.txt
+tools/Cake/
+tools/Addins/
+tools/GitReleaseNotes/
+artifacts/
+*.lock.json

@@ -1,6 +1,3 @@
-install:
-  - choco install gitversion.portable -pre -y
-
 assembly_info:
   patch: false
 
@@ -11,11 +8,7 @@ configuration:
   - Debug
  
 build_script:
-  - cmd: nuget restore src\
-  - cmd: gitversion /l console /output buildserver /updateAssemblyInfo
-  
-  - cmd: msbuild src\Shouldly.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%"
-  
-  - cmd: ECHO nuget pack Shouldly.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-  - cmd: nuget pack Shouldly.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-  - cmd: appveyor PushArtifact "Shouldly.%GitVersion_NuGetVersion%.nupkg"
+  - ps: ./build.ps1
+
+test: off
+skip_tags: true

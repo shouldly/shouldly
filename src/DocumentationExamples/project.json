@@ -1,0 +1,28 @@
+﻿{
+    "buildOptions": {
+        "compile": {
+            "exclude": [
+                "**/*.approved.cs",
+                "**/*.received.cs"
+            ]
+        }
+    },
+    "dependencies": {
+        "dotnet-test-xunit": "1.0.0-rc3-build10019",
+        "Shouldly": { "target": "project" },
+        "xunit": "2.1.0",
+        "PublicApiGenerator": "4.0.1",
+        "TestStack.ConventionTests": "3.0.1",
+        "Microsoft.CodeAnalysis.CSharp": "2.0.0-beta1"
+    },
+    "frameworks": {
+        "net452": {
+            "frameworkAssemblies": {
+                "System.Runtime": { "type": "build" },
+                "System.Threading.Tasks": { "type": "build" }
+            }
+        }
+    },
+    "testRunner": "xunit",
+    "version": "1.0.0-*"
+}

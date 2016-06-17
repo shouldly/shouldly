@@ -67,3 +67,16 @@ The commit was only in master for <24 hours but if you happened to pull then you
 
 ## Icon
 [Star](https://thenounproject.com/term/star/20931/) created by [Luboš Volkov](https://thenounproject.com/Lubo%C5%A1%20Volkov/) from The Noun Project
+
+## Currently maintained by
+ - [Jake Ginnivan](https://github.com/JakeGinnivan)
+ - [Joseph Woodward](https://github.com/JosephWoodward)
+
+If you are interested in helping out, jump on gitter and have a chat
+
+## Brought to you by
+ - Dave Newman
+ - Xerxes Battiwalla
+ - Anthony Egerton
+ - Peter van der Woude
+ - Jake Ginnivan

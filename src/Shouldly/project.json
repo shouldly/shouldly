@@ -1,0 +1,75 @@
+﻿{
+    "description": "Shouldly - Assertion framework for .NET. The way asserting *Should* be",
+    "frameworks": {
+        "net35": {
+            "buildOptions": {
+                "keyFile": "sn.snk",
+                "define": [
+                    "ShouldMatchApproved",
+                    "StackTrace",
+                    "Serializable",
+                    "CallerMemberNamePolyfill",
+                    "ZipPolyfill"
+                ]
+            }
+        },
+        "net40": {
+            "buildOptions": {
+                "keyFile": "sn.snk",
+                "define": [
+                    "ShouldMatchApproved",
+                    "StackTrace",
+                    "Dynamic",
+                    "Serializable",
+                    "Async",
+                    "ExpressionTrees",
+                    "CallerMemberNamePolyfill"
+                ]
+            }
+        },
+        //"netstandard1.0": {
+        //    "buildOptions": {
+
+        //    },
+        //    "dependencies": {
+        //        "NETStandard.Library": "1.5.0-rc2-24027",
+        //        "System.Dynamic.Runtime": "4.0.11-rc2-24027",
+        //        "System.Linq": "4.1.0-rc2-24027",
+        //        "System.Linq.Expressions": "4.0.11-rc2-24027",
+        //        "System.Reflection": "4.1.0-rc2-24027"
+        //    }
+        //},
+        "netstandard1.3": {
+            "buildOptions": {
+                "define": [
+                    "Async",
+                    "Dynamic",
+                    "NewReflection",
+                    "ExpressionTrees"
+                ]
+            },
+            "dependencies": {
+                "NETStandard.Library": "1.5.0-rc2-24027",
+                "System.Diagnostics.Process": "4.1.0-rc2-24027",
+                "System.Diagnostics.StackTrace": "4.0.1-rc2-24027",
+                "System.Dynamic.Runtime": "4.0.11-rc2-24027",
+                "System.IO.FileSystem": "4.0.1-rc2-24027",
+                "System.Linq": "4.1.0-rc2-24027",
+                "System.Linq.Expressions": "4.0.11-rc2-24027",
+                "System.Reflection": "4.1.0-rc2-24027",
+                "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
+                "System.Threading.Timer": "4.0.1-rc2-24027",
+                "Microsoft.CSharp": "4.0.1-rc2-24027"
+            }
+        }
+    },
+    "packOptions": {
+        "tags": [ "test", "unit", "testing", "TDD", "AAA", "should", "testunit", "rspec", "assert", "assertion", "framework" ],
+        "iconUrl": "https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png",
+        "projectUrl": "http://shouldly.github.com",
+        "licenseUrl": "https://github.com/shouldly/shouldly/blob/master/LICENSE.txt",
+        "authors": [ "Shouldly Contributors" ],
+        "owners": [ "Shouldly Contributors" ]
+    },
+    "version": "1.0.0-*"
+}
