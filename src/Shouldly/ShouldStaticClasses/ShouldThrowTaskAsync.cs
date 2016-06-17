@@ -96,6 +96,7 @@ namespace Shouldly
         }
         public static Task<Exception> ThrowAsync(Func<Task> actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
         {
+#if StackTrace
             var stackTrace = new StackTrace(true);
             return actual().ContinueWith(t =>
             {
@@ -113,6 +114,24 @@ namespace Shouldly
 
                 throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
             });
+#else
+            return actual().ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
+                    if (t.Exception == null)
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
+
+                    return HandleAggregateException(t.Exception, customMessage, exceptionType);
+                }
+
+                if (t.IsCanceled)
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString()
+                        , new TaskCanceledException("Task is cancelled"));
+
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
+            });
+#endif
         }
     }
 }

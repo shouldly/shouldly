@@ -80,42 +80,63 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, System.Type exceptionType) { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, string customMessage)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual)
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, string customMessage)
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string customMessage)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter)
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage)
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Type exceptionType) { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Threading.Tasks.Task task)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Threading.Tasks.Task task, string customMessage)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Threading.Tasks.Task task, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, string customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Func<System.Threading.Tasks.Task> actual)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Func<System.Threading.Tasks.Task> actual, string customMessage)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
     }
     public class ShouldAssertException : Shouldly.ChuckedAWobbly
     {
@@ -476,12 +497,18 @@ namespace Shouldly
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Threading.Tasks.Task task, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, string customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Func<System.Threading.Tasks.Task> actual)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Func<System.Threading.Tasks.Task> actual, string customMessage)
             where TException : System.Exception { }
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldThrowExtensions
@@ -498,6 +525,9 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Action actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Action actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Action actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldThrowTaskExtensions
@@ -532,24 +562,36 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Threading.Tasks.Task actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception ShouldThrow(this System.Threading.Tasks.Task actual, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Threading.Tasks.Task actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Threading.Tasks.Task actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual, string customMessage)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException ShouldThrow<TException>(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string customMessage)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception ShouldThrow(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
     }
     [System.FlagsAttribute()]
     public enum StringCompareShould
