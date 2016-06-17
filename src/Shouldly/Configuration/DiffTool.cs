@@ -61,6 +61,7 @@ namespace Shouldly.Configuration
             var values = $"{processPath};{userPath};{machinePath}";
             return values.Split(';')
                 .Where(p => !string.IsNullOrEmpty(p))
+                .Select(path => path.Trim('"'))
                 .Select(path => Path.Combine(path, fileName))
                 .FirstOrDefault(File.Exists);
         }
