@@ -69,7 +69,7 @@ Task("Package")
 
         if (releaseNotesExitCode != 0) throw new Exception("Failed to generate release notes");
 
-        System.IO.File.WriteAllLines(outputDir + ".artifacts", new[]{
+        System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
             "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
             "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
             "releaseNotes:releasenotes.md"

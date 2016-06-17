@@ -63,7 +63,7 @@ Task("DeployNuget")
     {
         // Turns .artifacts file into a lookup
         var fileLookup = System.IO.File
-            .ReadAllLines("./releaseArtifacts/.artifacts")
+            .ReadAllLines("./releaseArtifacts/artifacts")
             .Select(l => l.Split(':'))
             .ToDictionary(v => v[0], v => v[1]);
 
