@@ -72,7 +72,8 @@ Task("DeployNuget")
         });
     });
 
-Task("Deploy");
+Task("Deploy")
+    .IsDependentOn("DeployNuget");
 
 Task("Default")
     .IsDependentOn("Deploy");
