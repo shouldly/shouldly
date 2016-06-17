@@ -23,6 +23,20 @@ namespace Shouldly
             return Throw<TException>(() => actual, customMessage);
         }
 
+        /*** Should.Throw(Task) ***/
+        public static Exception Throw(Task actual, Type exceptionType)
+        {
+            return Throw(actual, () => null, exceptionType);
+        }
+        public static Exception Throw(Task actual, string customMessage, Type exceptionType)
+        {
+            return Throw(actual, () => customMessage, exceptionType);
+        }
+        public static Exception Throw(Task actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return Throw(() => actual, customMessage, exceptionType);
+        }
+
         /*** Should.Throw(Func<Task>) ***/
         public static TException Throw<TException>([InstantHandle] Func<Task> actual) where TException : Exception
         {
@@ -37,6 +51,20 @@ namespace Shouldly
             return Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
+        /*** Should.Throw(Func<Task>) ***/
+        public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType)
+        {
+            return Throw(actual, () => null, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Func<Task> actual, string customMessage, Type exceptionType)
+        {
+            return Throw(actual, () => customMessage, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Func<Task> actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return Throw(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
+        }
+
         /*** Should.Throw(Task, TimeSpan) ***/
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter) where TException : Exception
         {
@@ -49,6 +77,20 @@ namespace Shouldly
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
             return Throw<TException>(() => actual, timeoutAfter, customMessage);
+        }
+
+        /*** Should.Throw(Task, TimeSpan) ***/
+        public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType)
+        {
+            return Throw(actual, timeoutAfter, () => null, exceptionType);            
+        }
+        public static Exception Throw(Task actual, TimeSpan timeoutAfter, string customMessage, Type exceptionType)
+        {
+            return Throw(actual, timeoutAfter, () => customMessage, exceptionType);
+        }
+        public static Exception Throw(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return Throw(() => actual, timeoutAfter, customMessage, exceptionType);
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
@@ -90,6 +132,51 @@ namespace Shouldly
             }
 
             throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
+        }
+
+        /*** Should.Throw(Func<Task>, TimeSpan) ***/
+        public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType)
+        {
+            return Throw(actual, timeoutAfter, () => null, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string customMessage, Type exceptionType)
+        {
+            return Throw(actual, timeoutAfter, () => customMessage, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
+        }
+
+        internal static Exception ThrowInternal(
+            [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
+            [InstantHandle] Func<string> customMessage,
+            Type exceptionType,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
+            try
+            {
+                RunAndWait(actual, timeoutAfter, customMessage);
+            }
+            catch (TimeoutException)
+            {
+                throw;
+            }
+            catch (AggregateException e)
+            {
+                return HandleAggregateException(e, customMessage, exceptionType);
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == exceptionType)
+                {
+                    return e;
+                }
+
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString());
+            }
+
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -276,6 +363,15 @@ namespace Shouldly
                 return (TException)innerException;
 
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
+        }
+
+        private static Exception HandleAggregateException(AggregateException e, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            var innerException = e.InnerException;
+            if (innerException.GetType() == exceptionType)
+                return innerException;
+
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, innerException.GetType(), customMessage).ToString());
         }
     }
 }

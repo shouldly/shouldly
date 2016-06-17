@@ -22,6 +22,20 @@ namespace Shouldly
             return Should.ThrowInternal<TException>(actual, customMessage);
         }
 
+        /*** ShouldThrow(Action) ***/
+        public static Exception ShouldThrow(this Action actual, Type exceptionType)
+        {
+            return ShouldThrow(actual, () => null, exceptionType);
+        }
+        public static Exception ShouldThrow(this Action actual, string customMessage, Type exceptionType)
+        {
+            return ShouldThrow(actual, () => customMessage, exceptionType);
+        }
+        public static Exception ShouldThrow(this Action actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return Should.ThrowInternal(actual, customMessage, exceptionType);
+        }
+
         /*** ShouldNotThrow(Action) ***/
         public static void ShouldNotThrow(this Action action)
         {
