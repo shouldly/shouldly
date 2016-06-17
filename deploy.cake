@@ -67,9 +67,12 @@ Task("DeployNuget")
             .Select(l => l.Split(':'))
             .ToDictionary(v => v[0], v => v[1]);
 
-        NuGetPush("./releaseArtifacts/" + fileLookup["nuget"], new NuGetPushSettings {
-            ApiKey = EnvironmentVariable("NuGetApiKey")
-        });
+        NuGetPush(
+            "./releaseArtifacts/" + fileLookup["nuget"],
+            new NuGetPushSettings {
+                ApiKey = EnvironmentVariable("NuGetApiKey"),
+                Source = "https://www.nuget.org/api/v2/package"
+            });
     });
 
 Task("Deploy")
