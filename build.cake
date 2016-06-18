@@ -65,7 +65,8 @@ Task("Package")
         var releaseNotesExitCode = StartProcess(
             @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
             new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
-
+        if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
+            System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
         if (releaseNotesExitCode != 0) throw new Exception("Failed to generate release notes");
 
