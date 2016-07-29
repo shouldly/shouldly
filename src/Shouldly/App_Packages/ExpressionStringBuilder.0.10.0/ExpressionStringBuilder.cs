@@ -67,6 +67,12 @@ namespace ExpressionToString
             return node;
         }
 
+        protected override Expression VisitTypeBinary(TypeBinaryExpression node)
+        {
+            Out(node.ToString());
+            return node;
+        }
+
         protected override Expression VisitParameter(ParameterExpression node)
         {
             Out(node.Name);
