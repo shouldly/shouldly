@@ -1,4 +1,4 @@
-﻿{
+{
     "description": "Shouldly - Assertion framework for .NET. The way asserting *Should* be",
     "frameworks": {
         "net35": {
@@ -24,6 +24,19 @@
                     "Async",
                     "ExpressionTrees",
                     "CallerMemberNamePolyfill"
+                ]
+            }
+        },
+        "net451": {
+            "buildOptions": {
+                "keyFile": "sn.snk",
+                "define": [
+                    "ShouldMatchApproved",
+                    "StackTrace",
+                    "Dynamic",
+                    "Serializable",
+                    "Async",
+                    "ExpressionTrees"
                 ]
             }
         },
