@@ -1,4 +1,5 @@
 #tool "nuget:?package=GitReleaseNotes"
+#tool nuget:?package=GitVersion.CommandLine
 
 var target = Argument("target", "Default");
 var shouldlyProj = "./src/Shouldly/project.json";
@@ -14,7 +15,9 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        NuGetRestore("./src/Shouldly.sln");
+        NuGetRestore("./src/Shouldly.sln", new NuGetRestoreSettings{
+            MSBuildVersion = NuGetMSBuildVersion.MSBuild14
+        });
     });
 
 GitVersion versionInfo = null;
