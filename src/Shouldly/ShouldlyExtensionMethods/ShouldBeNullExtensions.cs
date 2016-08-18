@@ -24,16 +24,19 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
+        [ContractAnnotation("actual:null => halt")]
         public static void ShouldNotBeNull<T>(this T actual)
         {
             ShouldNotBeNull(actual, () => null);
         }
 
+        [ContractAnnotation("actual:null => halt")]
         public static void ShouldNotBeNull<T>(this T actual, string customMessage)
         {
             ShouldNotBeNull(actual, () => customMessage);
         }
 
+        [ContractAnnotation("actual:null => halt")]
         public static void ShouldNotBeNull<T>(this T actual, [InstantHandle]Func<string> customMessage)
         {
             if (actual == null)
