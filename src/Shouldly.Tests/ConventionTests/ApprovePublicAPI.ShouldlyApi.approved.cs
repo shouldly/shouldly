@@ -221,8 +221,11 @@ namespace Shouldly
         public static void ShouldBeNull<T>(this T actual) { }
         public static void ShouldBeNull<T>(this T actual, string customMessage) { }
         public static void ShouldBeNull<T>(this T actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        [JetBrains.Annotations.ContractAnnotationAttribute("actual:null => halt")]
         public static void ShouldNotBeNull<T>(this T actual) { }
+        [JetBrains.Annotations.ContractAnnotationAttribute("actual:null => halt")]
         public static void ShouldNotBeNull<T>(this T actual, string customMessage) { }
+        [JetBrains.Annotations.ContractAnnotationAttribute("actual:null => halt")]
         public static void ShouldNotBeNull<T>(this T actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
