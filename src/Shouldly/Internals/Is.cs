@@ -284,11 +284,20 @@ namespace Shouldly
             return Compare(comparable, expected) > 0;
         }
 
+        public static bool GreaterThan<T>(T actual, T expected, IComparer<T> comparer)
+        {
+            return Compare(actual, expected, comparer) > 0;
+        }
+
         public static bool LessThan<T>(IComparable<T> comparable, T expected)
         {
             return Compare(comparable, expected) < 0;
         }
 
+        static decimal Compare<T>(T actual, T expected, IComparer<T> comparer)
+        {
+            return comparer.Compare(actual, expected);
+        }
         static decimal Compare<T>(IComparable<T> comparable, T expected)
         {
 #if NewReflection

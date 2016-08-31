@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using System.Collections.Generic;
 
 namespace Shouldly
 {
@@ -10,6 +11,20 @@ namespace Shouldly
             ShouldBeGreaterThan(actual, expected, () => null);
         }
 
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, IComparer<T> comparer)
+        {
+            ShouldBeGreaterThan(actual, expected, comparer, () => null);
+        }
+
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, IComparer<T> comparer, string customMessage)
+        {
+            ShouldBeGreaterThan(actual, expected, comparer, () => customMessage);
+        }
+
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, IComparer<T> comparer, Func<string> customMessage)
+        {
+            actual.AssertAwesomely(v => Is.GreaterThan(actual, expected, comparer), actual, expected, customMessage);
+        }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, string customMessage) where T : IComparable<T>
         {
             ShouldBeGreaterThan(actual, expected, () => customMessage);
