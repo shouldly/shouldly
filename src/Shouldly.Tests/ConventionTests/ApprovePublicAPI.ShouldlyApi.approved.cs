@@ -337,6 +337,9 @@ namespace Shouldly
         public static void ShouldBeAssignableTo(this object actual, System.Type expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected)
             where T : System.IComparable<> { }
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, string customMessage)
             where T : System.IComparable<> { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
