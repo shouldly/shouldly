@@ -348,6 +348,9 @@ namespace Shouldly
             where T : System.IComparable<> { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, string customMessage)
             where T : System.IComparable<> { }
+        public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
+        public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where T : System.IComparable<> { }
         public static void ShouldBeInRange<T>(this T actual, T from, T to)
@@ -360,12 +363,18 @@ namespace Shouldly
             where T : System.IComparable<> { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, string customMessage)
             where T : System.IComparable<> { }
+        public static void ShouldBeLessThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
+        public static void ShouldBeLessThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeLessThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where T : System.IComparable<> { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected)
             where T : System.IComparable<> { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, string customMessage)
             where T : System.IComparable<> { }
+        public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
+        public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage)
             where T : System.IComparable<> { }
         public static void ShouldBeNegative(this decimal actual) { }

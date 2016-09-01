@@ -274,9 +274,19 @@ namespace Shouldly
             return Compare(comparable, expected) >= 0;
         }
 
+        public static bool GreaterThanOrEqualTo<T>(T actual, T expected, IComparer<T> comparer)
+        {
+            return Compare(actual, expected, comparer) >= 0;
+        }
+
         public static bool LessThanOrEqualTo<T>(IComparable<T> comparable, T expected)
         {
             return Compare(comparable, expected) <= 0;
+        }
+
+        public static bool LessThanOrEqualTo<T>(T actual, T expected, IComparer<T> comparer)
+        {
+            return Compare(actual, expected, comparer) <= 0;
         }
 
         public static bool GreaterThan<T>(IComparable<T> comparable, T expected)
@@ -292,6 +302,11 @@ namespace Shouldly
         public static bool LessThan<T>(IComparable<T> comparable, T expected)
         {
             return Compare(comparable, expected) < 0;
+        }
+
+        public static bool LessThan<T>(T actual, T expected, IComparer<T> comparer)
+        {
+            return Compare(actual, expected, comparer) < 0;
         }
 
         static decimal Compare<T>(T actual, T expected, IComparer<T> comparer)
