@@ -39,9 +39,9 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            CustomAB customA = new CustomA { Val = 1 };
-            CustomAB customB = new CustomB { Val = 1 };
-            var comparer = new CustomComparer<CustomAB>();
+            Custom customA = new Custom { Val = 1 };
+            Custom customB = new Custom { Val = 1 };
+            var comparer = new CustomComparer<Custom>();
             customA.ShouldBeLessThanOrEqualTo(customB, comparer);
         }
     }
