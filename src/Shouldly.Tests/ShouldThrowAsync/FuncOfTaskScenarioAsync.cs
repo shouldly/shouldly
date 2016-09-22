@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
    
     {
 
-    [Fact]
+        [Fact]
         public void ShouldThrowAWobbly()
         {
             try
@@ -32,7 +32,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
             }
         }
 
-[Fact]
+        [Fact]
         public void ShouldThrowAWobbly_ExceptionTypePassedIn()
         {
             try
@@ -66,7 +66,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
             result.Wait();
         }
 
-[Fact]
+        [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
             var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
@@ -74,6 +74,17 @@ namespace Shouldly.Tests.ShouldThrowAsync
                 TaskScheduler.Default);
 
             var result = task.ShouldThrowAsync(typeof(InvalidOperationException));
+            result.Wait();
+        }
+
+        [Fact]
+        public void ShouldPassWithExceptionMessage()
+        {
+            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException("My Exception Message"); },
+               CancellationToken.None, TaskCreationOptions.None,
+               TaskScheduler.Default);
+
+            var result = task.ShouldThrowWithMessageAsync<InvalidOperationException>("My Exception Message");
             result.Wait();
         }
     }
