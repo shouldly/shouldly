@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -21,7 +22,12 @@ namespace Shouldly.Tests.ConventionTests
 
         protected bool Equals(ShouldThrowMethod other)
         {
-            return string.Equals(Name, other.Name) && Parameters.All(p => other.Parameters.Any(op => p.Name == op.Name && p.ParameterType == op.ParameterType));
+            return string.Equals(Name, other.Name) && Parameters.All(p => other.Parameters.Any(op => p.Name == op.Name && TypeEqual(p.ParameterType, op.ParameterType)));
+        }
+
+        private static bool TypeEqual(Type pt1, Type pt2)
+        {
+            return pt1.FormatType() == pt2.FormatType();
         }
 
         public override bool Equals(object obj)
