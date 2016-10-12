@@ -18,13 +18,19 @@ errorWithSource:
     should not be assignable to
 System.Int32
     but was
-2",
+2
+
+Additional Info:
+    Some additional context",
 
 errorWithoutSource:
 @"2
     should not be assignable to
 System.Int32
-    but was");
+    but was
+
+Additional Info:
+    Some additional context");
         }
 
         [Fact]
