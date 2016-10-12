@@ -596,6 +596,11 @@ namespace Shouldly
         public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage, System.Type exceptionType) { }
     }
+    public enum SortDirection
+    {
+        Ascending = 0,
+        Descending = 1,
+    }
     [System.FlagsAttribute()]
     public enum StringCompareShould
     {
