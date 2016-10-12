@@ -252,10 +252,62 @@ namespace Shouldly
                 expected,
                 caseSensitivity,
                 customMessage);
-                
         }
 
-        static List<object> GetDuplicates<T>(IEnumerable<T> items)
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual)
+        {
+            ShouldBeInOrder(actual, SortDirection.Ascending);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, string customMessage)
+        {
+            ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection)
+        {
+            ShouldBeInOrder(actual, expectedSortDirection, (IComparer<T>)null);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, string customMessage)
+        {
+            ShouldBeInOrder(actual, expectedSortDirection, null, customMessage);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeInOrder(actual, expectedSortDirection, (IComparer<T>)null, customMessage);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T> customComparer)
+        {
+            ShouldBeInOrder(actual, expectedSortDirection, customComparer, () => null);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T> customComparer, string customMessage)
+        {
+            ShouldBeInOrder(actual, expectedSortDirection, customComparer, () => customMessage);
+        }
+
+        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T> customComparer, [InstantHandle] Func<string> customMessage)
+        {
+            if (customComparer == null)
+                customComparer = Comparer<T>.Default;
+
+            var isOutOfOrder = expectedSortDirection == SortDirection.Ascending
+                ? (Func<int, bool>)
+                  (r => r > 0)   // If 'ascending', the previous value should never be greater than the current value
+                : (r => r < 0);  // If 'descending', the previous value should never be less than the current value
+
+            ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
+        }
+
+        private static List<object> GetDuplicates<T>(IEnumerable<T> items)
         {
             var list = new List<object>();
             var duplicates = new List<object>();
@@ -267,6 +319,24 @@ namespace Shouldly
             }
 
             return duplicates;
+        }
+
+        private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, Func<string> customMessage)
+        {
+            var previousItem = default(T);
+            var currentIndex = -1;
+
+            foreach (var currentItem in actual)
+            {
+                if (++currentIndex > 0 // We only need to start comparing once we've passed the first item in the list
+                    && isOutOfOrder(previousItem, currentItem))
+                {
+                    throw new ShouldAssertException(
+                        new ExpectedActualKeyShouldlyMessage(expectedSortDirection, actual, currentIndex, customMessage).ToString());
+                }
+
+                previousItem = currentItem;
+            }
         }
     }
 

@@ -56,7 +56,7 @@ namespace Shouldly
 
     internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual, 
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual,
             Case? caseSensitivity,
             [InstantHandle] Func<string> customMessage,
             [CallerMemberName] string shouldlyMethod = null)
@@ -229,14 +229,14 @@ namespace Shouldly
             new DictionaryShouldContainKeyAndValueMessageGenerator(),
             new DictionaryShouldOrNotContainKeyMessageGenerator(),
             new DictionaryShouldNotContainValueForKeyMessageGenerator(),
-            new ShouldBeginEndWithMessageGenerator(), 
-            new ShouldBeWithinRangeMessageGenerator(), 
+            new ShouldBeginEndWithMessageGenerator(),
+            new ShouldBeWithinRangeMessageGenerator(),
             new ShouldContainWithinRangeMessageGenerator(),
-            new ShouldBeUniqueMessageGenerator(), 
-            new ShouldBeEnumerableCaseSensitiveMessageGenerator(), 
-            new ShouldContainMessageGenerator(), 
-            new ShouldContainPredicateMessageGenerator(), 
-            new ShouldBeIgnoringOrderMessageGenerator(), 
+            new ShouldBeUniqueMessageGenerator(),
+            new ShouldBeEnumerableCaseSensitiveMessageGenerator(),
+            new ShouldContainMessageGenerator(),
+            new ShouldContainPredicateMessageGenerator(),
+            new ShouldBeIgnoringOrderMessageGenerator(),
             new ShouldSatisfyAllConditionsMessageGenerator(),
             new ShouldBeSubsetOfMessageGenerator(),
             new ShouldHaveSingleItemMessageGenerator(),
@@ -248,7 +248,8 @@ namespace Shouldly
             new ShouldBeMessageGenerator(),
             new ShouldBePositiveMessageGenerator(),
             new ShouldBeNegativeMessageGenerator(),
-            new ShouldBeTypeMessageGenerator()
+            new ShouldBeTypeMessageGenerator(),
+            new ShouldBeInOrderMessageGenerator()
         };
 
         protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }

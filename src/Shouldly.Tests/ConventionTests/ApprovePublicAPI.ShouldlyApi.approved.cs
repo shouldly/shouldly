@@ -181,6 +181,15 @@ namespace Shouldly
         public static void ShouldBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
         public static void ShouldBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
         public static void ShouldBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, string customMessage) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T> customComparer) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T> customComparer, string customMessage) { }
+        public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T> customComparer, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
