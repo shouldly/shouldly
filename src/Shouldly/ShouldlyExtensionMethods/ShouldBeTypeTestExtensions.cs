@@ -94,7 +94,7 @@ namespace Shouldly
 
         public static void ShouldNotBeAssignableTo(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected);
+            actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldNotBeOfType<T>(this object actual)
@@ -125,6 +125,6 @@ namespace Shouldly
         public static void ShouldNotBeOfType(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
             actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage);
-        } 
+        }
     }
 }

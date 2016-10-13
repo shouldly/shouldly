@@ -18,13 +18,19 @@ errorWithSource:
     should not be assignable to
 Shouldly.Tests.TestHelpers.MyThing
     but was
-Shouldly.Tests.TestHelpers.MyThing (000000)",
+Shouldly.Tests.TestHelpers.MyThing (000000)
+
+Additional Info:
+    Some additional context",
 
 errorWithoutSource:
 @"Shouldly.Tests.TestHelpers.MyThing (000000)
     should not be assignable to
 Shouldly.Tests.TestHelpers.MyThing
-    but was");
+    but was
+
+Additional Info:
+    Some additional context");
         }
 
         [Fact]
