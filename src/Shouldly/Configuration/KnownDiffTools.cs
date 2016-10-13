@@ -11,6 +11,10 @@ namespace Shouldly.Configuration
         public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", @"Beyond Compare 3\BCompare.exe", BeyondCompareArgs);
         [UsedImplicitly]
         public readonly DiffTool BeyondCompare4 = new DiffTool("Beyond Compare 4", @"Beyond Compare 4\BCompare.exe", BeyondCompareArgs);
+        [UsedImplicitly]
+        public readonly DiffTool CodeCompare = new DiffTool("Code Compare", @"Devart\Code Compare\CodeMerge.exe", CodeCompareArgs);
+        [UsedImplicitly]
+        public readonly DiffTool P4Merge = new DiffTool("P4Merge", @"Perforce\p4merge.exe", P4MergeArgs);
 
         public static KnownDiffTools Instance { get; } = new KnownDiffTools();
 
@@ -26,6 +30,20 @@ namespace Shouldly.Configuration
             return approvedExists
                 ? $"\"{received}\" \"{approved}\" -o \"{approved}\""
                 : $"\"{received}\" -o \"{approved}\"";
+        }
+
+        static string CodeCompareArgs(string received, string approved, bool approvedExists)
+        {
+            return approvedExists
+                ? $"/MF=\"{received}\" /TF=\"{approved}\" /RF=\"{approved}\""
+                : $"/MF=\"{received}\" /TF=\"\" /RF=\"{approved}\"";
+        }
+
+        static string P4MergeArgs(string received, string approved, bool approvedExists)
+        {
+            return approvedExists
+                ? $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\""
+                : $"\"\" \"\" \"{received}\" \"{approved}\"";
         }
     }
 }
