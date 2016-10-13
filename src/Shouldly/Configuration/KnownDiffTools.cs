@@ -41,9 +41,7 @@ namespace Shouldly.Configuration
         static string P4MergeArgs(string received, string approved, bool approvedExists)
         {
             if (!approvedExists)
-                using (var file = File.Create(approved))
-                {
-                }
+                File.AppendAllText(approved, string.Empty);
 
                 return $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\"";
         }
