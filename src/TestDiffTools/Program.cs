@@ -65,8 +65,11 @@ namespace TestDiffTools
                 ShouldlyConfiguration.DiffTools.RegisterDiffTool(selectedDiffTool.DiffTool);
                 var stacktrace = new StackTrace(true);
 
-                var approved = Path.Combine(Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName()),
-                    "Main.approved.txt");
+                var currentFrame = stacktrace.GetFrame(0);
+                var approved = Path.Combine(
+                    Path.GetDirectoryName(currentFrame.GetFileName()),
+                    $"{Path.GetFileNameWithoutExtension(currentFrame.GetFileName())}.{currentFrame.GetMethod().Name}.approved.txt");
+
                 switch (selectedOption)
                 {
                     case 1:
