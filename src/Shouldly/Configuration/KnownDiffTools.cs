@@ -1,4 +1,5 @@
 #if ShouldMatchApproved
+using System.IO;
 using JetBrains.Annotations;
 
 namespace Shouldly.Configuration
@@ -34,16 +35,17 @@ namespace Shouldly.Configuration
 
         static string CodeCompareArgs(string received, string approved, bool approvedExists)
         {
-            return approvedExists
-                ? $"/MF=\"{received}\" /TF=\"{approved}\" /RF=\"{approved}\""
-                : $"/MF=\"{received}\" /TF=\"\" /RF=\"{approved}\"";
+            return $"/BF=\"{approved}\" /TF=\"{approved}\" /MF=\"{received}\" /RF=\"{approved}\"";
         }
 
         static string P4MergeArgs(string received, string approved, bool approvedExists)
         {
-            return approvedExists
-                ? $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\""
-                : $"\"\" \"\" \"{received}\" \"{approved}\"";
+            if (!approvedExists)
+                using (var file = File.Create(approved))
+                {
+                }
+
+                return $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\"";
         }
     }
 }
