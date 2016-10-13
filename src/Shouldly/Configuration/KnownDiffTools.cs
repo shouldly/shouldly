@@ -43,7 +43,7 @@ namespace Shouldly.Configuration
             if (!approvedExists)
                 File.AppendAllText(approved, string.Empty);
 
-                return $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\"";
+            return $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\"";
         }
     }
 }
