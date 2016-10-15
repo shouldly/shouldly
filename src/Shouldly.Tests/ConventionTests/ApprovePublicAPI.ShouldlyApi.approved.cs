@@ -658,7 +658,11 @@ namespace Shouldly.Configuration
         [JetBrains.Annotations.UsedImplicitlyAttribute()]
         public readonly Shouldly.Configuration.DiffTool BeyondCompare4;
         [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.DiffTool CodeCompare;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
         public readonly Shouldly.Configuration.DiffTool KDiff3;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.DiffTool P4Merge;
         public KnownDiffTools() { }
         public static Shouldly.Configuration.KnownDiffTools Instance { get; }
     }
