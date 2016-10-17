@@ -21,9 +21,9 @@ namespace Shouldly
 
         public bool IgnoreOrder { get; set; }
 
-        // For now, this property cannot just check to see if "Actual != null". The term is overloaded. 
+        // For now, this property cannot just check to see if "Actual != null". The term is overloaded.
         // In some cases it means the "Actual" value is not relevant (eg: "dictionary.ContainsKey(key)") and in some
-        // cases it means that the value is relevant, but during execution we got a null. (eg: Foo.ShouldBe(bar) where 
+        // cases it means that the value is relevant, but during execution we got a null. (eg: Foo.ShouldBe(bar) where
         // Foo is null). So for now, it is a flag needs to be set externally to determine whether or not the "Actual" value
         // is relevant.
         public bool HasRelevantActual { get; set; }
@@ -33,6 +33,9 @@ namespace Shouldly
         public string CustomMessage { get; set; }
         public Expression Filter { get; set; }
         public int? MatchCount { get; set; }
+        public SortDirection SortDirection { get; set; }
+        public int OutOfOrderIndex { get; set; }
+        public object OutOfOrderObject { get; set; }
 
 #if StackTrace
         internal ShouldlyAssertionContext(

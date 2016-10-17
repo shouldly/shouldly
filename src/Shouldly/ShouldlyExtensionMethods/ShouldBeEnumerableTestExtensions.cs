@@ -332,7 +332,7 @@ namespace Shouldly
                     && isOutOfOrder(previousItem, currentItem))
                 {
                     throw new ShouldAssertException(
-                        new ExpectedActualKeyShouldlyMessage(expectedSortDirection, actual, currentIndex, customMessage).ToString());
+                        new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage).ToString());
                 }
 
                 previousItem = currentItem;

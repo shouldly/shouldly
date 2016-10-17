@@ -116,6 +116,22 @@ namespace Shouldly
         }
     }
 
+    internal class ExpectedOrderShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedOrderShouldlyMessage(object actual, SortDirection expectedDirection, int outOfOrderIndex, object outOfOrderObject,
+            [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, actual: actual)
+            {
+                SortDirection = expectedDirection,
+                OutOfOrderIndex = outOfOrderIndex,
+                OutOfOrderObject = outOfOrderObject
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class ShouldlyThrowMessage : ShouldlyMessage
     {
         public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage,

@@ -17,16 +17,18 @@ _descendingTarget.ShouldBeInOrder("Some additional context"),
 
 errorWithSource:
 @"_descendingTarget
-    should be in ascending order
-    but item at index 1 was not.
+    should be in ascending order but was not.
+    The first out-of-order item was found at index 1:
+d
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
 @"[""e"", ""d"", ""c"", ""b"", ""a""]
-    should be in ascending order
-    but item at index 1 was not.
+    should be in ascending order but was not.
+    The first out-of-order item was found at index 1:
+d
 
 Additional Info:
     Some additional context");
@@ -40,16 +42,18 @@ _descendingTarget.ShouldBeInOrder(SortDirection.Ascending, "Some additional cont
 
 errorWithSource:
 @"_descendingTarget
-    should be in ascending order
-    but item at index 1 was not.
+    should be in ascending order but was not.
+    The first out-of-order item was found at index 1:
+d
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
 @"[""e"", ""d"", ""c"", ""b"", ""a""]
-    should be in ascending order
-    but item at index 1 was not.
+    should be in ascending order but was not.
+    The first out-of-order item was found at index 1:
+d
 
 Additional Info:
     Some additional context");
@@ -63,16 +67,18 @@ _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, "Some additional cont
 
 errorWithSource:
 @"_ascendingTarget
-    should be in descending order
-    but item at index 1 was not.
+    should be in descending order but was not.
+    The first out-of-order item was found at index 1:
+b
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""d"", ""e""]
-    should be in descending order
-    but item at index 1 was not.
+    should be in descending order but was not.
+    The first out-of-order item was found at index 1:
+b
 
 Additional Info:
     Some additional context");
@@ -86,16 +92,18 @@ _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, Comparer<string>.Defa
 
 errorWithSource:
 @"_ascendingTarget
-    should be in descending order
-    but item at index 1 was not.
+    should be in descending order but was not.
+    The first out-of-order item was found at index 1:
+b
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
 @"[""a"", ""b"", ""c"", ""d"", ""e""]
-    should be in descending order
-    but item at index 1 was not.
+    should be in descending order but was not.
+    The first out-of-order item was found at index 1:
+b
 
 Additional Info:
     Some additional context");

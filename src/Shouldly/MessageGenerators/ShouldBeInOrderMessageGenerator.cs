@@ -11,8 +11,9 @@ namespace Shouldly.MessageGenerators
         {
             return
 $@"{context.CodePart}
-    should be in {context.Expected.ToString().ToLower()} order
-    but item at index {context.Key} was not.";
+    should be in {context.SortDirection.ToString().ToLower()} order but was not.
+    The first out-of-order item was found at index {context.OutOfOrderIndex}:
+{context.OutOfOrderObject}";
         }
     }
 }
