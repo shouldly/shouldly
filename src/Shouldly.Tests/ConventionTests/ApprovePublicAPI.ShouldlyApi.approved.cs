@@ -474,9 +474,9 @@ namespace Shouldly
         public static void ShouldNotBeSameAs(this object actual, object expected, string customMessage) { }
         public static void ShouldNotBeSameAs(this object actual, object expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
     }
-    public class ShouldCompleteInException : System.TimeoutException
+    public class ShouldCompleteInException : Shouldly.ShouldlyTimeoutException
     {
-        public ShouldCompleteInException(string message, System.TimeoutException inner) { }
+        public ShouldCompleteInException(string message, Shouldly.ShouldlyTimeoutException inner) { }
     }
     public class static ShouldlyConfiguration
     {
@@ -491,6 +491,11 @@ namespace Shouldly
     public class ShouldlyMethodsAttribute : System.Attribute
     {
         public ShouldlyMethodsAttribute() { }
+    }
+    public class ShouldlyTimeoutException : System.Exception
+    {
+        public ShouldlyTimeoutException() { }
+        public ShouldlyTimeoutException(string message, Shouldly.ShouldlyTimeoutException inner) { }
     }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {

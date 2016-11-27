@@ -120,7 +120,7 @@ namespace Shouldly
                     throw;
 
                 var inner = flattened.InnerException;
-                var exception = inner as TimeoutException;
+                var exception = inner as ShouldlyTimeoutException;
                 // When exception is a timeout exception we can provide a better error, otherwise rethrow
                 if (exception != null)
                 {

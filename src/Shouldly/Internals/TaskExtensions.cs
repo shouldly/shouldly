@@ -37,8 +37,8 @@ namespace Shouldly
             // Set up a timer to complete after the specified timeout period
             var timer = new Timer(_ =>
             {
-                // Fault our proxy Task with a TimeoutException
-                tcs.TrySetException(new TimeoutException());
+                // Fault our proxy Task with a ShouldlyTimeoutException
+                tcs.TrySetException(new ShouldlyTimeoutException());
             }, null, (int)timeout.TotalMilliseconds, Timeout.Infinite);
 
             // Wire up the logic for what happens when source task completes

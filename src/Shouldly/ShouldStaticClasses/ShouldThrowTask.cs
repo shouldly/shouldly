@@ -115,7 +115,7 @@ namespace Shouldly
             {
                 RunAndWait(actual, timeoutAfter, customMessage);
             }
-            catch (TimeoutException)
+            catch (ShouldlyTimeoutException)
             {
                 throw;
             }
@@ -158,7 +158,7 @@ namespace Shouldly
             {
                 RunAndWait(actual, timeoutAfter, customMessage);
             }
-            catch (TimeoutException)
+            catch (ShouldlyTimeoutException)
             {
                 throw;
             }
@@ -257,7 +257,7 @@ namespace Shouldly
             {
                 RunAndWait(action, timeoutAfter, customMessage);
             }
-            catch (TimeoutException)
+            catch (ShouldlyTimeoutException)
             {
                 throw;
             }
@@ -328,7 +328,7 @@ namespace Shouldly
 
                 return CompleteIn(action, timeoutAfter, customMessage);
             }
-            catch (TimeoutException)
+            catch (ShouldlyTimeoutException)
             {
                 throw;
             }
