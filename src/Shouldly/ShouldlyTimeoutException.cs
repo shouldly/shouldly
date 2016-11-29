@@ -2,7 +2,7 @@
 
 namespace Shouldly
 {
-    public class ShouldlyTimeoutException : Exception
+    public class ShouldlyTimeoutException : TimeoutException
     {
         public ShouldlyTimeoutException() : base()
         {

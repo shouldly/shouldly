@@ -492,7 +492,7 @@ namespace Shouldly
     {
         public ShouldlyMethodsAttribute() { }
     }
-    public class ShouldlyTimeoutException : System.Exception
+    public class ShouldlyTimeoutException : System.TimeoutException
     {
         public ShouldlyTimeoutException() { }
         public ShouldlyTimeoutException(string message, Shouldly.ShouldlyTimeoutException inner) { }
