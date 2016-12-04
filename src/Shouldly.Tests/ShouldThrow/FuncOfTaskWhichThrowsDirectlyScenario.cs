@@ -23,5 +23,37 @@ namespace Shouldly.Tests.ShouldThrow
             var task = new Func<Task>(() => { throw new InvalidOperationException(); });
             task.ShouldThrow(typeof(InvalidOperationException));
         }
+
+
+        [Fact]
+        public void ShouldPassTimeoutException()
+        {
+            var task = new Func<Task>(() => { throw new TimeoutException(); });
+            task.ShouldThrow<TimeoutException>();
+        }
+
+
+        [Fact]
+        public void ShouldPassTimeoutException_ExceptionTypePassedIn()
+        {
+            var task = new Func<Task>(() => { throw new TimeoutException(); });
+            task.ShouldThrow(typeof(TimeoutException));
+        }
+
+        
+        [Fact]
+        public void ShouldPassTimeoutExceptionAsync()
+        {
+            var task = new Func<Task>(async () => { throw new TimeoutException(); });
+            task.ShouldThrow<TimeoutException>();
+        }
+
+       
+        [Fact]
+        public void ShouldPassTimeoutExceptionAsync_ExceptionTypePassedIn()
+        {
+            var task = new Func<Task>(async () => { throw new TimeoutException(); });
+            task.ShouldThrow(typeof(TimeoutException));
+        }
     }
 }

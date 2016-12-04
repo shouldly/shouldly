@@ -16,7 +16,7 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
-            var ex = Should.Throw<TimeoutException>(() => 
+            var ex = Should.Throw<ShouldlyTimeoutException>(() => 
                 Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(5)), TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Delegate
@@ -30,7 +30,7 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteInTask_WhenFinishAfterTimeout()
         {
-            var ex = Should.Throw<TimeoutException>(() => 
+            var ex = Should.Throw<ShouldlyTimeoutException>(() => 
                 Should.CompleteIn(
                     () => Task.Factory.StartNew(() => Thread.Sleep(TimeSpan.FromSeconds(5))), 
                     TimeSpan.FromSeconds(1), "Some additional context"));
@@ -62,7 +62,7 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteInT_WhenFinishAfterTimeout()
         {
-            var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
+            var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
             {
                 Thread.Sleep(TimeSpan.FromSeconds(5));
                 return "";
@@ -80,7 +80,7 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteInTaskT_WhenFinishAfterTimeout()
         {
-            var ex = Should.Throw<TimeoutException>(() => Should.CompleteIn(() =>
+            var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
             {
                 return Task.Factory.StartNew(() =>
                 {
