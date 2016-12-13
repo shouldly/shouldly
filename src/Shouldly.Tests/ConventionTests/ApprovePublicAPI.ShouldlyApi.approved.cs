@@ -211,6 +211,9 @@ namespace Shouldly
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<double> actual, double expected, double tolerance) { }
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<double> actual, double expected, double tolerance, string customMessage) { }
         public static void ShouldContain(this System.Collections.Generic.IEnumerable<double> actual, double expected, double tolerance, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldEndWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
+        public static void ShouldEndWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
+        public static void ShouldEndWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -223,6 +226,9 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
+        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
+        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeNullExtensions
