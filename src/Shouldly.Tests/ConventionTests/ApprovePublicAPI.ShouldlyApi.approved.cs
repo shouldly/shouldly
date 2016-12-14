@@ -181,6 +181,9 @@ namespace Shouldly
         public static void ShouldBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
         public static void ShouldBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
         public static void ShouldBeEmpty<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static void ShouldBeginWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
+        public static void ShouldBeginWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
+        public static void ShouldBeginWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
@@ -226,9 +229,6 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
-        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
-        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
-        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeNullExtensions

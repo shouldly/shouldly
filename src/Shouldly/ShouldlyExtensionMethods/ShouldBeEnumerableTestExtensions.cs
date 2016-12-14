@@ -43,22 +43,20 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldStartWith<T>(this IEnumerable<T> actual, T expected)
+        public static void ShouldBeginWith<T>(this IEnumerable<T> actual, T expected)
         {
-            ShouldStartWith(actual, expected, () => null);
+            ShouldBeginWith(actual, expected, () => null);
         }
 
-        public static void ShouldStartWith<T>(this IEnumerable<T> actual, T expected, string customMessage)
+        public static void ShouldBeginWith<T>(this IEnumerable<T> actual, T expected, string customMessage)
         {
-            ShouldStartWith(actual, expected, () => customMessage);
+            ShouldBeginWith(actual, expected, () => customMessage);
         }
 
-        public static void ShouldStartWith<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
+        public static void ShouldBeginWith<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
         {
-            var value = actual.First();
-
-            if (!value.Equals(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, value, customMessage).ToString());
+            if (!actual.First().Equals(expected))
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldEndWith<T>(this IEnumerable<T> actual, T expected)
@@ -73,10 +71,8 @@ namespace Shouldly
 
         public static void ShouldEndWith<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
         {
-            var value = actual.Last();
-
-            if (!value.Equals(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, value, customMessage).ToString());
+            if (!actual.Last().Equals(expected))
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)
