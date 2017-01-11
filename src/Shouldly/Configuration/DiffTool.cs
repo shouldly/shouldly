@@ -16,7 +16,7 @@ namespace Shouldly.Configuration
         public DiffTool(string name, string path, ArgumentGenerator argGenerator)
         {
             Name = name;
-            _path = Path.IsPathRooted(path) && File.Exists(path) ? path : Discover(path);
+            _path = path == null ? null : (Path.IsPathRooted(path) && File.Exists(path) ? path : Discover(path));
             _argGenerator = argGenerator;
         }
 
