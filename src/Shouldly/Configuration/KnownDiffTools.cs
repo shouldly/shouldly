@@ -16,6 +16,10 @@ namespace Shouldly.Configuration
         public readonly DiffTool CodeCompare = new DiffTool("Code Compare", @"Devart\Code Compare\CodeMerge.exe", CodeCompareArgs);
         [UsedImplicitly]
         public readonly DiffTool P4Merge = new DiffTool("P4Merge", @"Perforce\p4merge.exe", P4MergeArgs);
+        [UsedImplicitly]
+        public readonly DiffTool TortoiseGitMerge = new DiffTool("Tortoise Git Merge", @"TortoiseGit\bin\TortoiseGitMerge.exe", TortoiseGitMergeArgs);
+        [UsedImplicitly]
+        public readonly DiffTool CurrentVisualStudio = new CurrentlyRunningVisualStudioDiffTool();
 
         public static KnownDiffTools Instance { get; } = new KnownDiffTools();
 
@@ -44,6 +48,14 @@ namespace Shouldly.Configuration
                 File.AppendAllText(approved, string.Empty);
 
             return $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\"";
+        }
+
+        static string TortoiseGitMergeArgs(string received, string approved, bool approvedExists)
+        {
+            if (!approvedExists)
+                File.AppendAllText(approved, string.Empty);
+
+            return $"\"{received}\" \"{approved}\"";
         }
     }
 }
