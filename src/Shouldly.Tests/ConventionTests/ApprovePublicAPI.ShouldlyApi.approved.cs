@@ -706,9 +706,19 @@ namespace Shouldly.Configuration
         [JetBrains.Annotations.UsedImplicitlyAttribute()]
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool AppVeyor;
         [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool GitLabCI;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool Jenkins;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool MyGet;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
         [JetBrains.Annotations.UsedImplicitlyAttribute()]
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
+        [JetBrains.Annotations.UsedImplicitlyAttribute()]
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
         public KnownDoNotLaunchStrategies() { }
     }
     public class ShouldMatchConfiguration
