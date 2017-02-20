@@ -52,26 +52,33 @@ namespace Shouldly.Configuration
 
         static string GetFullPath(string fileName)
         {
+            if (File.Exists(fileName))
+                return Path.GetFullPath(fileName);
+
+            var processPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+            var userPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
+            var machinePath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
+            var values = $"{processPath};{userPath};{machinePath}";
+            return values.Split(';')
+                .Where(p => !string.IsNullOrEmpty(p))
+                .Select(path => path.Trim('"'))
+                .Select(path => TryCombine(fileName, path))
+                .FirstOrDefault(File.Exists);
+        }
+
+        private static string TryCombine(string fileName, string path)
+        {
             try
             {
-                if (File.Exists(fileName))
-                    return Path.GetFullPath(fileName);
-
-                var processPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
-                var userPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
-                var machinePath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
-                var values = $"{processPath};{userPath};{machinePath}";
-                return values.Split(';')
-                    .Where(p => !string.IsNullOrEmpty(p))
-                    .Select(path => path.Trim('"'))
-                    .Select(path => Path.Combine(path, fileName))
-                    .FirstOrDefault(File.Exists);
+                return Path.Combine(path, fileName);
             }
             catch (Exception)
             {
                 return null;
             }
         }
+
     }
 }
+
 #endif
