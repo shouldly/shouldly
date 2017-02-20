@@ -62,9 +62,23 @@ namespace Shouldly.Configuration
             return values.Split(';')
                 .Where(p => !string.IsNullOrEmpty(p))
                 .Select(path => path.Trim('"'))
-                .Select(path => Path.Combine(path, fileName))
+                .Select(path => TryCombine(fileName, path))
                 .FirstOrDefault(File.Exists);
         }
+
+        private static string TryCombine(string fileName, string path)
+        {
+            try
+            {
+                return Path.Combine(path, fileName);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }
+
 #endif
