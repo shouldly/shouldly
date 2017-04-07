@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using JetBrains.Annotations;
 
 namespace Shouldly
@@ -33,7 +34,18 @@ namespace Shouldly
 
         public static void ShouldBeAssignableTo(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => Is.InstanceOf(v, expected), actual, expected, customMessage);
+            actual.AssertAwesomely(v =>
+            {
+#if NewReflection
+                if (actual == null && !expected.GetTypeInfo().IsValueType)
+                    return true;
+#else
+                if (actual == null && !expected.IsValueType)
+                    return true;
+#endif
+
+                return Is.InstanceOf(v, expected);
+            }, actual, expected, customMessage);
         }
 
         public static T ShouldBeOfType<T>(this object actual)
