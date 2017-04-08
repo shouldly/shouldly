@@ -74,6 +74,12 @@ namespace Shouldly
         public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter) { }
         public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, string customMessage) { }
         public static T NotThrow<T>([JetBrains.Annotations.InstantHandleAttribute()] System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual)
             where TException : System.Exception { }
         public static TException Throw<TException>([JetBrains.Annotations.InstantHandleAttribute()] System.Action actual, string customMessage)
@@ -509,6 +515,16 @@ namespace Shouldly
         public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
         public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
         public static void ShouldMatchApproved(this string actual, System.Func<string> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
+    }
+    [Shouldly.ShouldlyMethodsAttribute()]
+    public class static ShouldNotThrowTaskAsyncExtensions
+    {
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, string customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, [JetBrains.Annotations.InstantHandleAttribute()] System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldSatisfyAllConditionsTestExtensions

@@ -217,9 +217,22 @@ namespace Shouldly
     /// </summary>
     internal class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
     {
-        public AsyncShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage, StackTrace stackTrace)
+        public AsyncShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage, StackTrace stackTrace,
+            [CallerMemberName] string shouldlyMethod = null)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true);
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+    /// <summary>
+    /// Async methods need stacktrace before we get asynchronous
+    /// </summary>
+    internal class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
+    {
+        public AsyncShouldlyNotThrowShouldlyMessage(Type exception,[InstantHandle] Func<string> customMessage, StackTrace stackTrace,string exceptionMessage,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true,shouldlyMethod:shouldlyMethod,actual:null,exceptionMessage: exceptionMessage);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
