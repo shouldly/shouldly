@@ -2,7 +2,7 @@
 #tool nuget:?package=GitVersion.CommandLine
 
 var target = Argument("target", "Default");
-var shouldlyProj = "./src/Shouldly/project.json";
+var shouldlyProj = "./src/Shouldly/Shouldly.csproj";
 var outputDir = "./artifacts/";
 
 Task("Clean")
@@ -15,16 +15,14 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        NuGetRestore("./src/Shouldly.sln", new NuGetRestoreSettings{
-            MSBuildVersion = NuGetMSBuildVersion.MSBuild14
-        });
+        NuGetRestore("./src/Shouldly.sln");
     });
 
 GitVersion versionInfo = null;
 Task("Version")
     .Does(() => {
         GitVersion(new GitVersionSettings{
-            UpdateAssemblyInfo = true,
+            UpdateAssemblyInfo = false,
             OutputType = GitVersionOutput.BuildServer
         });
         versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
@@ -46,7 +44,7 @@ Task("Build")
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        DotNetCoreTest("./src/Shouldly.Tests");
+        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
     });
 
 Task("Package")
