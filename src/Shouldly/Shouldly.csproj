@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
-    <TargetFrameworks>net35;net40;net451;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net35;net451;netstandard1.3</TargetFrameworks>
     <AssemblyName>Shouldly</AssemblyName>
     <PackageId>Shouldly</PackageId>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
@@ -30,7 +30,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net35' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net35' "> 
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;Serializable;CallerMemberNamePolyfill;ZipPolyfill</DefineConstants>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -38,11 +38,15 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <DefineConstants>$(DefineConstants);Dynamic;Async;ExpressionTrees</DefineConstants>
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;Dynamic;Serializable;Async;ExpressionTrees;CallerMemberNamePolyfill</DefineConstants>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;Dynamic;Serializable;Async;ExpressionTrees</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);NewReflection</DefineConstants>
+    <DefineConstants>$(DefineConstants);Async;Dynamic;NewReflection;ExpressionTrees</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">

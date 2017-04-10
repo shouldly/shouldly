@@ -2,7 +2,7 @@
 #tool nuget:?package=GitVersion.CommandLine
 
 var target = Argument("target", "Default");
-var shouldlyProj = "./src/Shouldly/project.json";
+var shouldlyProj = "./src/Shouldly/Shouldly.csproj";
 var outputDir = "./artifacts/";
 
 Task("Clean")
