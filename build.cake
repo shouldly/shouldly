@@ -15,8 +15,8 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        NuGetRestore("./src/Shouldly.sln", new NuGetRestoreSettings{
-            MSBuildVersion = NuGetMSBuildVersion.MSBuild14
+        NuGetRestore("./Shouldly.sln", new NuGetRestoreSettings{
+            MSBuildVersion = NuGetMSBuildVersion.MSBuild15
         });
     });
 
@@ -40,7 +40,7 @@ Task("Build")
     .IsDependentOn("Version")
     .IsDependentOn("Restore")
     .Does(() => {
-        MSBuild("./src/Shouldly.sln");
+        MSBuild("./Shouldly.sln");
     });
 
 Task("Test")
