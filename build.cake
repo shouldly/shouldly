@@ -15,9 +15,7 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        NuGetRestore("./Shouldly.sln", new NuGetRestoreSettings{
-            MSBuildVersion = NuGetMSBuildVersion.MSBuild14
-        });
+        NuGetRestore("./Shouldly.sln");
     });
 
 GitVersion versionInfo = null;
