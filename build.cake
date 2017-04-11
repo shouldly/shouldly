@@ -15,7 +15,7 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        NuGetRestore("./Shouldly.sln");
+        NuGetRestore("./src/Shouldly.sln");
     });
 
 GitVersion versionInfo = null;
