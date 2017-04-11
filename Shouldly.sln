@@ -5,27 +5,27 @@ VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70055B25-BE01-4932-84F1-A0BE47A93BFC}"
 	ProjectSection(SolutionItems) = preProject
-		..\appveyor.deploy.yml = ..\appveyor.deploy.yml
-		..\appveyor.yml = ..\appveyor.yml
-		..\build.cake = ..\build.cake
-		..\build.ps1 = ..\build.ps1
-		..\deploy.cake = ..\deploy.cake
-		..\deploy.ps1 = ..\deploy.ps1
-		..\GitVersionConfig.yaml = ..\GitVersionConfig.yaml
-		..\global.json = ..\global.json
-		..\mkdocs.yml = ..\mkdocs.yml
-		..\NuGet.config = ..\NuGet.config
-		..\README.md = ..\README.md
-		..\ReleaseNotes.md = ..\ReleaseNotes.md
+		appveyor.deploy.yml = appveyor.deploy.yml
+		appveyor.yml = appveyor.yml
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		deploy.cake = deploy.cake
+		deploy.ps1 = deploy.ps1
+		GitVersionConfig.yaml = GitVersionConfig.yaml
+		global.json = global.json
+		mkdocs.yml = mkdocs.yml
+		NuGet.config = NuGet.config
+		README.md = README.md
+		ReleaseNotes.md = ReleaseNotes.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly", "Shouldly\Shouldly.csproj", "{9440E071-488A-49AC-96D7-E72BEBC38418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly", "src\Shouldly\Shouldly.csproj", "{9440E071-488A-49AC-96D7-E72BEBC38418}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly.Tests", "Shouldly.Tests\Shouldly.Tests.csproj", "{70F31200-AE2B-42A9-9C56-200EED6235BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly.Tests", "src\Shouldly.Tests\Shouldly.Tests.csproj", "{70F31200-AE2B-42A9-9C56-200EED6235BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDiffTools", "TestDiffTools\TestDiffTools.csproj", "{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDiffTools", "src\TestDiffTools\TestDiffTools.csproj", "{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "DocumentationExamples\DocumentationExamples.csproj", "{D5990C0D-729B-4A88-9783-36F6D1898E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "src\DocumentationExamples\DocumentationExamples.csproj", "{D5990C0D-729B-4A88-9783-36F6D1898E38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
