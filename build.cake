@@ -16,7 +16,7 @@ Task("Clean")
 Task("Restore")
     .Does(() => {
         NuGetRestore("./Shouldly.sln", new NuGetRestoreSettings{
-            MSBuildVersion = NuGetMSBuildVersion.MSBuild15
+            MSBuildVersion = NuGetMSBuildVersion.MSBuild14
         });
     });
 
