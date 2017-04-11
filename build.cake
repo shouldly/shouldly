@@ -44,7 +44,7 @@ Task("Build")
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        DotNetCoreTest("./src/Shouldly.Tests");
+        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
     });
 
 Task("Package")
