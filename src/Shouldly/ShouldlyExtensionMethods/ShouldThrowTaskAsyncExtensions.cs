@@ -11,6 +11,12 @@ namespace Shouldly
     public static class ShouldThrowAsyncExtensions
     {
         /*** ShouldThrowAsync(Task) ***/
+        public static Task<TException> ShouldThrowWithMessageAsync<TException>(this Task task, string expectedExceptionMessage) where TException : Exception
+        {
+            var result = Should.ThrowAsync<TException>(task);
+            result.Result.Message.ShouldBe(expectedExceptionMessage);
+            return result;
+        }
         public static Task<TException> ShouldThrowAsync<TException>(this Task task) where TException : Exception
         {
             return Should.ThrowAsync<TException>(task);
