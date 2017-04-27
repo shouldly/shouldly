@@ -38,7 +38,7 @@ Task("Build")
     .IsDependentOn("Version")
     .IsDependentOn("Restore")
     .Does(() => {
-        MSBuild("./Shouldly.sln");
+        MSBuild("./src/Shouldly.sln");
     });
 
 Task("Test")
