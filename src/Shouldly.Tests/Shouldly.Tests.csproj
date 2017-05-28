@@ -8,7 +8,7 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
