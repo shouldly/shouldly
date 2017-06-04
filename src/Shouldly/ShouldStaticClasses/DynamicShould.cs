@@ -1,5 +1,4 @@
-﻿#if Dynamic
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -38,9 +37,9 @@ namespace Shouldly
                 }
             }
             else
-            {
+            { 
                 var dynamicAsObject = (object)dynamicTestObject;
-                var properties = dynamicAsObject.GetType().GetProperties();
+                var properties = dynamicAsObject.GetType().GetTypeInfo().DeclaredProperties;
                 if (!properties.Select(x => x.Name).Contains(propertyName))
                 {
                     throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
@@ -49,4 +48,3 @@ namespace Shouldly
         }
     }
 }
-#endif
