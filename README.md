@@ -41,7 +41,15 @@ Read more about Shouldly and its features at [http://docs.shouldly-lib.net/](htt
 
 You can install Shouldly by copying and pasting the following command into your Package Manager Console within Visual Studio (Tools > NuGet Package Manager > Package Manager Console).
 
-`Install-Package Shouldly`
+```bash
+Install-Package Shouldly
+```
+
+Alternatively if you're using .NET Core then you can install Shouldly via the command line interface with the following command:
+
+```bash
+dotnet add package Shouldly
+```
 
 ## Contributing
 Contributions to Shouldly are very welcome. For guidance, please see [CONTRIBUTING.md](CONTRIBUTING.md)
