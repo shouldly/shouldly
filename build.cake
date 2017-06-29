@@ -50,13 +50,13 @@ Task("Test")
 Task("Package")
     .IsDependentOn("Test")
     .Does(() => {
-        var settings = new DotNetCorePackSettings
-        {
-            OutputDirectory = outputDir,
-            NoBuild = true
-        };
+        // var settings = new DotNetCorePackSettings
+        // {
+        //     OutputDirectory = outputDir,
+        //     NoBuild = true
+        // };
 
-        DotNetCorePack(shouldlyProj, settings);
+        // DotNetCorePack(shouldlyProj, settings);
 
         // TODO not sure why this isn't working
         // GitReleaseNotes("outputDir/releasenotes.md", new GitReleaseNotesSettings {
