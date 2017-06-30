@@ -10,7 +10,11 @@
     <PackageProjectUrl>http://shouldly.github.com</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</PackageLicenseUrl>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
+    
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSymbols>True</IncludeSymbols>
+    <IncludeSource>True</IncludeSource>
+
     <ComVisible>false</ComVisible>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
