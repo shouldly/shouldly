@@ -37,15 +37,13 @@ namespace Shouldly
                 }
             }
             else
-            {
-                /*
-                 * TODO: Fix
-                 * var dynamicAsObject = (object)dynamicTestObject;
+            { 
+                var dynamicAsObject = (object)dynamicTestObject;
                 var properties = dynamicAsObject.GetType().GetTypeInfo().DeclaredProperties;
                 if (!properties.Select(x => x.Name).Contains(propertyName))
                 {
                     throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
-                }*/
+                }
             }
         }
     }
