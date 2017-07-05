@@ -31,3 +31,7 @@ tools/Addins/
 tools/GitReleaseNotes/
 artifacts/
 *.lock.json
+*/.vscode
+.vscode
+src/.idea
+src/.idea.*
