@@ -21,7 +21,15 @@ namespace Shouldly
 
         public static List<string> CompareAsObjectTypes { get; private set; }
 #if ShouldMatchApproved
-        public static DiffToolConfiguration DiffTools { get; private set; } = new DiffToolConfiguration();
+        private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
+        public static DiffToolConfiguration DiffTools {
+            get {
+                return _lazyDiffTools.Value;
+            }
+            private set {
+                _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => value);
+            }
+        }
 
         public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; private set; } =
             new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration

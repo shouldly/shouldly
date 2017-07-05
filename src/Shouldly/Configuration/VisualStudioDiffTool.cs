@@ -38,12 +38,10 @@ namespace Shouldly.Configuration
         // https://github.com/approvals/ApprovalTests.Net/blob/master/ApprovalTests/Reporters/VisualStudioReporter.cs
         private static string GetPath()
         {
-            var processAndParent = ParentProcessUtils.CurrentProcessWithAncestors().ToArray();
-
             Process process = null;
-
             try
             {
+                var processAndParent = ParentProcessUtils.CurrentProcessWithAncestors();
                 process = processAndParent.FirstOrDefault(x => x.MainModule.FileName.EndsWith("devenv.exe"));
             }
             catch (Exception)
