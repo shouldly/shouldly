@@ -1,5 +1,4 @@
-﻿#if Async
-using System.Threading;
+﻿using System.Threading;
 using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -145,4 +144,3 @@ namespace Shouldly
         }
     }
 }
-#endif
