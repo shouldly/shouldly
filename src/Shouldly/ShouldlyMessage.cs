@@ -172,7 +172,6 @@ namespace Shouldly
         }
     }
 
-#if Async
     internal class TaskShouldlyThrowMessage : ShouldlyMessage
     {
         public TaskShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
@@ -224,7 +223,6 @@ namespace Shouldly
         }
     }
 #endif
-#endif
 
     internal abstract class ShouldlyMessage
     {
@@ -235,12 +233,8 @@ namespace Shouldly
             new ShouldBeNullOrEmptyMessageGenerator(),
             new ShouldBeEmptyMessageGenerator(),
             new ShouldAllBeMessageGenerator(),
-#if Dynamic
             new DynamicShouldMessageGenerator(),
-#endif
-#if Async
             new ShouldCompleteInMessageGenerator(),
-#endif
             new ShouldBeNullOrWhiteSpaceMessageGenerator(),
             new DictionaryShouldContainKeyAndValueMessageGenerator(),
             new DictionaryShouldOrNotContainKeyMessageGenerator(),
