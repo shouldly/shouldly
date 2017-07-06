@@ -74,22 +74,11 @@ namespace Shouldly
             }
 #endif
 
-#if NewReflection
-            var typeInfo = type.GetTypeInfo();
-            if (typeInfo.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-            {
-                var key = type.GetRuntimeProperty("Key").GetValue(value, null);
-                var v = type.GetRuntimeProperty("Value").GetValue(value, null);
-                return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
-            }
-#else
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
+            if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
                 var key = type.GetProperty("Key").GetValue(value, null);
                 var v = type.GetProperty("Value").GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
             }
-#endif
-
 
             var toString = value.ToString();
             if (toString == type.FullName)

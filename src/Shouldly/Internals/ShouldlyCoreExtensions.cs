@@ -13,14 +13,9 @@ namespace Shouldly
         {
             if (method.DeclaringType == null)
                 return false;
-#if NewReflection
-            var declaringType = method.DeclaringType.GetTypeInfo();
-            return declaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
-               || (method.DeclaringType.DeclaringType != null && declaringType.DeclaringType.GetTypeInfo().GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
-#else
+            
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
                || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
-#endif
         }
 #endif
 

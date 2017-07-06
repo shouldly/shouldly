@@ -32,12 +32,7 @@ namespace Shouldly
                 return true;
 
             // Null?
-#if NewReflection
-            var typeInfo = type.GetTypeInfo();
-            if (!typeInfo.IsValueType || (typeInfo.IsGenericType && type.GetGenericTypeDefinition().GetTypeInfo().IsAssignableFrom(NullableType.GetTypeInfo())))
-#else
-                if (!type.IsValueType || (type.IsGenericType && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
-#endif
+            if (!type.IsValueType() || (type.IsGenericType() && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
             {
                 if (object.Equals(x, default(T)))
                     return object.Equals(y, default(T));
