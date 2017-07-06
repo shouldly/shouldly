@@ -36,13 +36,8 @@ namespace Shouldly
         {
             actual.AssertAwesomely(v =>
             {
-#if NewReflection
-                if (actual == null && !expected.GetTypeInfo().IsValueType)
+                if (actual == null && !expected.IsValueType())
                     return true;
-#else
-                if (actual == null && !expected.IsValueType)
-                    return true;
-#endif
 
                 return Is.InstanceOf(v, expected);
             }, actual, expected, customMessage);

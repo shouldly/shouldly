@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
-#if NewReflection
 using System.Reflection;
-#endif
 
 namespace Shouldly
 {
@@ -177,13 +174,7 @@ namespace Shouldly
 
         public static bool InstanceOf(object o, Type expected)
         {
-            if (o == null)
-                return false;
-#if NewReflection
-            return expected.GetTypeInfo().IsAssignableFrom(o.GetType().GetTypeInfo());
-#else
-            return expected.IsInstanceOfType(o);
-#endif
+            return o != null ? expected.IsInstanceOfType(o) : false; 
         }
 
         public static bool StringMatchingRegex(string actual, string regexPattern)
@@ -315,11 +306,7 @@ namespace Shouldly
         }
         static decimal Compare<T>(IComparable<T> comparable, T expected)
         {
-#if NewReflection
-            if (!typeof(T).GetTypeInfo().IsValueType)
-#else
-                if (!typeof(T).IsValueType)
-#endif
+            if (!typeof(T).IsValueType())
             {
                 // ReSharper disable CompareNonConstrainedGenericWithNull
                 if (comparable == null)

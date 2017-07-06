@@ -3,11 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using JetBrains.Annotations;
-
-#if NewReflection
 using System.Reflection;
-#endif
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
