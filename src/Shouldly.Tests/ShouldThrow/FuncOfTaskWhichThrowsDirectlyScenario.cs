@@ -5,10 +5,9 @@ using Xunit;
 namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskWhichThrowsDirectlyScenario
-   
     {
 
-    [Fact]
+        [Fact]
         public void ShouldPass()
         {
             // ReSharper disable once RedundantDelegateCreation
@@ -16,14 +15,13 @@ namespace Shouldly.Tests.ShouldThrow
             task.ShouldThrow<InvalidOperationException>();
         }
 
-[Fact]
+        [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
             // ReSharper disable once RedundantDelegateCreation
             var task = new Func<Task>(() => { throw new InvalidOperationException(); });
             task.ShouldThrow(typeof(InvalidOperationException));
         }
-
 
         [Fact]
         public void ShouldPassTimeoutException()
@@ -32,14 +30,12 @@ namespace Shouldly.Tests.ShouldThrow
             task.ShouldThrow<TimeoutException>();
         }
 
-
         [Fact]
         public void ShouldPassTimeoutException_ExceptionTypePassedIn()
         {
             var task = new Func<Task>(() => { throw new TimeoutException(); });
             task.ShouldThrow(typeof(TimeoutException));
         }
-
         
         [Fact]
         public void ShouldPassTimeoutExceptionAsync()
@@ -47,7 +43,6 @@ namespace Shouldly.Tests.ShouldThrow
             var task = new Func<Task>(async () => { throw new TimeoutException(); });
             task.ShouldThrow<TimeoutException>();
         }
-
        
         [Fact]
         public void ShouldPassTimeoutExceptionAsync_ExceptionTypePassedIn()
