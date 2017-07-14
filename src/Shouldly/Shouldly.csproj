@@ -17,6 +17,9 @@
     <IncludeSource>True</IncludeSource>
 
     <ComVisible>false</ComVisible>
+
+    <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
