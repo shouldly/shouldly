@@ -1,5 +1,4 @@
-﻿#if ExpressionTrees
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -290,4 +289,3 @@ namespace ExpressionToString
         }
     }
 }
-#endif

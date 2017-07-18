@@ -67,12 +67,10 @@ namespace Shouldly
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
-#if ExpressionTrees
             if (value is BinaryExpression)
             {
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
-#endif
 
             if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
                 var key = type.GetProperty("Key").GetValue(value, null);

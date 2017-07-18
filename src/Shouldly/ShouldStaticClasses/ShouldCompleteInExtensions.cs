@@ -1,5 +1,4 @@
-﻿#if Async
-using System.Threading;
+﻿using System.Threading;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -144,4 +143,3 @@ namespace Shouldly
         }
     }
 }
-#endif
