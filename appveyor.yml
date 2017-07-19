@@ -1,15 +1,5 @@
-image: Visual Studio 2017
-assembly_info:
-  patch: false
-
-platform:
-  - Any CPU
-
-configuration:
-  - Debug
- 
+version: 1.0.{build}
+image: Visual Studio 2015
 build_script:
-  - ps: ./build.ps1
-
+- cmd: PowerShell -Version 2.0 .\build.ps1
 test: off
-skip_tags: true
