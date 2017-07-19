@@ -1,4 +1,3 @@
-#tool "nuget:?package=xunit.runner.console"
 #tool "nuget:?package=GitReleaseNotes"
 #tool nuget:?package=GitVersion.CommandLine
 
@@ -58,10 +57,17 @@ Task("Build")
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        if(IsRunningOnWindows())
+        // if(IsRunningOnWindows())
+        // {
+        //     DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+        // }
+
+        var settings = new DotNetCoreTestSettings
         {
-            DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
-        }
+            Configuration = "Release"
+        };
+        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj", settings);
+
     });
 
 Task("Package")
