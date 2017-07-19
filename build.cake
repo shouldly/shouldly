@@ -10,6 +10,7 @@ Task("Clean")
         if (DirectoryExists(outputDir))
         {
             DeleteDirectory(outputDir, recursive:true);
+            
         }
     });
 
@@ -44,7 +45,10 @@ Task("Build")
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+        if(IsRunningOnWindows())
+        {
+            DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+        }
     });
 
 Task("Package")
