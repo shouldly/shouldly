@@ -1,3 +1,4 @@
+#tool "nuget:?package=xunit.runner.console"
 #tool "nuget:?package=GitReleaseNotes"
 #tool nuget:?package=GitVersion.CommandLine
 
@@ -36,10 +37,22 @@ Task("Version")
 
 Task("Build")
     .IsDependentOn("Clean")
-    .IsDependentOn("Version")
+    // .IsDependentOn("Version")
     .IsDependentOn("Restore")
     .Does(() => {
         MSBuild("./src/Shouldly.sln");
+
+        // if(IsRunningOnWindows())
+        // {
+        //     MSBuild("./src/Shouldly.sln", settings =>
+        //     settings.SetConfiguration(configuration));
+        // }
+        // else
+        // {
+        //     XBuild("./src/Shouldly.sln", settings =>
+        //     settings.SetConfiguration(configuration));
+        // }
+
     });
 
 Task("Test")
