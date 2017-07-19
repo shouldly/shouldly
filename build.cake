@@ -10,6 +10,7 @@ Task("Clean")
         if (DirectoryExists(outputDir))
         {
             DeleteDirectory(outputDir, recursive:true);
+            
         }
     });
 
@@ -35,16 +36,36 @@ Task("Version")
 
 Task("Build")
     .IsDependentOn("Clean")
-    .IsDependentOn("Version")
+    // .IsDependentOn("Version")
     .IsDependentOn("Restore")
     .Does(() => {
         MSBuild("./src/Shouldly.sln");
+
+        // if(IsRunningOnWindows())
+        // {
+        //     MSBuild("./src/Shouldly.sln", settings =>
+        //     settings.SetConfiguration(configuration));
+        // }
+        // else
+        // {
+        //     XBuild("./src/Shouldly.sln", settings =>
+        //     settings.SetConfiguration(configuration));
+        // }
+
     });
 
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
+
+        NuGetRestore("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+        // if(IsRunningOnWindows())
+        // {
+        //     DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+        // }
+
         DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+
     });
 
 Task("Package")
