@@ -57,16 +57,14 @@ Task("Build")
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
+
+        NuGetRestore("./src/Shouldly.Tests/Shouldly.Tests.csproj");
         // if(IsRunningOnWindows())
         // {
         //     DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
         // }
 
-        var settings = new DotNetCoreTestSettings
-        {
-            Configuration = "Release"
-        };
-        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj", settings);
+        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
 
     });
 
