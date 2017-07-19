@@ -29,6 +29,7 @@ src/TestDiffTools/Main.approved.txt
 tools/*
 !tools/packages.config
 artifacts/
+src/*.Tests/report.xml
 *.lock.json
 */.vscode
 .vscode
