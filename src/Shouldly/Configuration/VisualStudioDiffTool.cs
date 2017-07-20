@@ -38,7 +38,7 @@ namespace Shouldly.Configuration
         // https://github.com/approvals/ApprovalTests.Net/blob/master/ApprovalTests/Reporters/VisualStudioReporter.cs
         private static string GetPath()
         {
-            Process process = null;
+            Process process;
             try
             {
                 var processAndParent = ParentProcessUtils.CurrentProcessWithAncestors();
