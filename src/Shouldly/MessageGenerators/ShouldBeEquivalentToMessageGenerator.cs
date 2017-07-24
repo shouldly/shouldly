@@ -33,10 +33,11 @@ $@"Comparing object equivalence, at path:
 #endif
             if (context.Path != null)
             {
-                for (var i = 0; i < context.Path.Count; i++)
+                var i = 0;
+                foreach (var part in context.Path)
                 {
-                    result.Append(new string(' ', i * IndentSize));
-                    result.AppendLine(context.Path[i]);
+                    result.Append(new string(' ', i++ * IndentSize));
+                    result.AppendLine(part);
                 }
             }
 

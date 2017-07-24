@@ -34,6 +34,6 @@ namespace Shouldly
         SortDirection SortDirection { get; set; }
         int OutOfOrderIndex { get; set; }
         object OutOfOrderObject { get; set; }
-        IList<string> Path { get; set; }
+        IEnumerable<string> Path { get; set; }
     }
 }

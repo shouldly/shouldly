@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
@@ -64,14 +66,14 @@ namespace Shouldly
             return actualType;
         }
 
-        private static void CompareValueTypes(ValueType actual, ValueType expected, IList<string> path,
+        private static void CompareValueTypes(ValueType actual, ValueType expected, IEnumerable<string> path,
             [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             if (!actual.Equals(expected))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
         }
 
-        private static void CompareReferenceTypes(object actual, object expected, Type type, IList<string> path,
+        private static void CompareReferenceTypes(object actual, object expected, Type type, IEnumerable<string> path,
             [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             if (ReferenceEquals(actual, expected))
@@ -81,9 +83,13 @@ namespace Shouldly
             {
                 CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
             }
+            else if (typeof(IEnumerable).IsAssignableFrom(type))
+            {
+                CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, customMessage, shouldlyMethod);
+            }
         }
 
-        private static bool BothValuesAreNull(object actual, object expected, IList<string> path,
+        private static bool BothValuesAreNull(object actual, object expected, IEnumerable<string> path,
             [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             if (expected == null)
@@ -101,14 +107,29 @@ namespace Shouldly
             return false;
         }
 
-        private static void CompareStrings(string actual, string expected, IList<string> path,
+        private static void CompareStrings(string actual, string expected, IEnumerable<string> path,
             [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             if (!actual.Equals(expected, StringComparison.Ordinal))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
         }
 
-        private static void ThrowException(object actual, object expected, IList<string> path,
+        private static void CompareEnumerables(IEnumerable actual, IEnumerable expected, IEnumerable<string> path,
+            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            var expectedList = expected.Cast<object>().ToList();
+            var actualList = actual.Cast<object>().ToList();
+
+            if (actualList.Count != expectedList.Count)
+                ThrowException(actualList.Count, expectedList.Count, path.Concat(new[] { "Count" }), customMessage, shouldlyMethod);
+
+            for (var i = 0; i < actualList.Count; i++)
+            {
+                CompareObjects(actualList[i], expectedList[i], path.Concat(new[] { $"Element [{i}]" }).ToList(), customMessage, shouldlyMethod);
+            }
+        }
+
+        private static void ThrowException(object actual, object expected, IEnumerable<string> path,
             [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             throw new ShouldAssertException(

@@ -134,7 +134,7 @@ namespace Shouldly
 
     internal class ExpectedEquvalenceShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedEquvalenceShouldlyMessage(object expected, object actual, IList<string> path, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedEquvalenceShouldlyMessage(object expected, object actual, IEnumerable<string> path, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
