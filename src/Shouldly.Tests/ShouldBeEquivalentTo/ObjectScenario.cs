@@ -13,9 +13,6 @@ namespace Shouldly.Tests.ShouldBeEquivalentTo
             subject.ShouldBeEquivalentTo(expected);
         }
 
-
-
-
         [Fact]
         public void ShouldFailWhenIdDoesNotMatch()
         {
@@ -154,6 +151,75 @@ Additional Info:
         }
 
         [Fact]
+        public void ShouldFailWhenObjectContainsInfiniteLoop()
+        {
+            var subject = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" },
+                Child = new FakeObject
+                {
+                    Id = 6,
+                    Name = "Sally",
+                    Adjectives = new[] { "beautiful", "intelligent" },
+                    Colors = new[] { "purple", "orange" }
+                }
+            };
+            subject.Child.Child = subject;
+
+            var expected = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" },
+                Child = new FakeObject
+                {
+                    Id = 6,
+                    Name = "Sally",
+                    Adjectives = new[] { "beautiful", "dumb" },
+                    Colors = new[] { "purple", "orange" }
+                }
+            };
+            expected.Child.Child = expected;
+
+            Verify.ShouldFail(() =>
+subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+
+errorWithSource:
+@"Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+        Adjectives [System.String[]]
+            Element [1] [System.String]
+
+    Expected value to be
+""dumb""
+    but was
+""intelligent""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+        Adjectives [System.String[]]
+            Element [1] [System.String]
+
+    Expected value to be
+""dumb""
+    but was
+""intelligent""
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
         public void ShouldPass()
         {
             const string subject = "Hello";
@@ -192,6 +258,30 @@ Additional Info:
                     Colors = new[] { "purple", "orange" }
                 }
             };
+
+            subject.ShouldBeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void ShouldPassWhenObjectContainsInfiniteLoop()
+        {
+            var subject = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" }
+            };
+            subject.Child = subject;
+
+            var expected = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" }
+            };
+            expected.Child = expected;
 
             subject.ShouldBeEquivalentTo(expected);
         }
