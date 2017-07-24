@@ -132,6 +132,18 @@ namespace Shouldly
         }
     }
 
+    internal class ExpectedEquvalenceShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedEquvalenceShouldlyMessage(object expected, object actual, IList<string> path, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
+            {
+                Path = path
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class ShouldlyThrowMessage : ShouldlyMessage
     {
         public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage,
@@ -259,7 +271,8 @@ namespace Shouldly
             new ShouldBePositiveMessageGenerator(),
             new ShouldBeNegativeMessageGenerator(),
             new ShouldBeTypeMessageGenerator(),
-            new ShouldBeInOrderMessageGenerator()
+            new ShouldBeInOrderMessageGenerator(),
+            new ShouldBeEquivalentToMessageGenerator()
         };
 
         protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }
