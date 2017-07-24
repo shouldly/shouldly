@@ -87,6 +87,11 @@ namespace Shouldly
             {
                 CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, customMessage, shouldlyMethod);
             }
+            else
+            {
+                var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                CompareProperties(actual, expected, properties, path, customMessage, shouldlyMethod);
+            }
         }
 
         private static bool BothValuesAreNull(object actual, object expected, IEnumerable<string> path,
@@ -121,11 +126,28 @@ namespace Shouldly
             var actualList = actual.Cast<object>().ToList();
 
             if (actualList.Count != expectedList.Count)
-                ThrowException(actualList.Count, expectedList.Count, path.Concat(new[] { "Count" }), customMessage, shouldlyMethod);
+            {
+                var newPath = path.Concat(new[] { "Count" });
+                ThrowException(actualList.Count, expectedList.Count, newPath, customMessage, shouldlyMethod);
+            }
 
             for (var i = 0; i < actualList.Count; i++)
             {
-                CompareObjects(actualList[i], expectedList[i], path.Concat(new[] { $"Element [{i}]" }).ToList(), customMessage, shouldlyMethod);
+                var newPath = path.Concat(new[] { $"Element [{i}]" });
+                CompareObjects(actualList[i], expectedList[i], newPath.ToList(), customMessage, shouldlyMethod);
+            }
+        }
+
+        private static void CompareProperties(object actual, object expected, IEnumerable<PropertyInfo> properties, IEnumerable<string> path,
+            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            foreach (var property in properties)
+            {
+                var actualValue = property.GetValue(actual, new object[0]);
+                var expectedValue = property.GetValue(expected, new object[0]);
+
+                var newPath = path.Concat(new[] { property.Name });
+                CompareObjects(actualValue, expectedValue, newPath.ToList(), customMessage, shouldlyMethod);
             }
         }
 

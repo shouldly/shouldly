@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Shouldly.Tests.Strings;
+using Xunit;
 
 namespace Shouldly.Tests.ShouldBeEquivalentTo
 {
@@ -9,6 +10,189 @@ namespace Shouldly.Tests.ShouldBeEquivalentTo
         {
             var subject = new FakeObject();
             var expected = subject;
+            subject.ShouldBeEquivalentTo(expected);
+        }
+
+
+
+
+        [Fact]
+        public void ShouldFailWhenIdDoesNotMatch()
+        {
+            var subject = new FakeObject { Id = 5, Name = "Bob" };
+            var expected = new FakeObject { Id = 6, Name = "Bob" };
+            Verify.ShouldFail(() =>
+subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+
+errorWithSource:
+@"Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Id [System.Int32]
+
+    Expected value to be
+6
+    but was
+5
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Id [System.Int32]
+
+    Expected value to be
+6
+    but was
+5
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldFailWhenNameDoesNotMatch()
+        {
+            var subject = new FakeObject { Id = 5, Name = "Bob" };
+            var expected = new FakeObject { Id = 5, Name = "Sally" };
+            Verify.ShouldFail(() =>
+subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+
+errorWithSource:
+@"Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Name [System.String]
+
+    Expected value to be
+""Sally""
+    but was
+""Bob""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Name [System.String]
+
+    Expected value to be
+""Sally""
+    but was
+""Bob""
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldFailWhenObjectIsComplex()
+        {
+            var subject = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" },
+                Child = new FakeObject
+                {
+                    Id = 6,
+                    Name = "Sally",
+                    Adjectives = new[] { "ugly", "intelligent" },
+                    Colors = new[] { "purple", "orange" }
+                }
+            };
+
+            var expected = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" },
+                Child = new FakeObject
+                {
+                    Id = 6,
+                    Name = "Sally",
+                    Adjectives = new[] { "beautiful", "intelligent" },
+                    Colors = new[] { "purple", "orange" }
+                }
+            };
+
+            Verify.ShouldFail(() =>
+subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+
+errorWithSource:
+@"Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+        Adjectives [System.String[]]
+            Element [0] [System.String]
+
+    Expected value to be
+""beautiful""
+    but was
+""ugly""
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+        Adjectives [System.String[]]
+            Element [0] [System.String]
+
+    Expected value to be
+""beautiful""
+    but was
+""ugly""
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            const string subject = "Hello";
+            subject.ShouldBeEquivalentTo("Hello");
+        }
+
+        [Fact]
+        public void ShouldPassWhenObjectIsComplex()
+        {
+            var subject = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" },
+                Child = new FakeObject
+                {
+                    Id = 6,
+                    Name = "Sally",
+                    Adjectives = new[] { "beautiful", "intelligent" },
+                    Colors = new[] { "purple", "orange" }
+                }
+            };
+
+            var expected = new FakeObject
+            {
+                Id = 5,
+                Name = "Bob",
+                Adjectives = new[] { "funny", "wise" },
+                Colors = new[] { "red", "blue" },
+                Child = new FakeObject
+                {
+                    Id = 6,
+                    Name = "Sally",
+                    Adjectives = new[] { "beautiful", "intelligent" },
+                    Colors = new[] { "purple", "orange" }
+                }
+            };
+
             subject.ShouldBeEquivalentTo(expected);
         }
     }
