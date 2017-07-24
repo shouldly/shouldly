@@ -42,7 +42,7 @@ namespace Shouldly
             }
             else
             {
-                CompareReferenceTypes(actual, expected);
+                CompareReferenceTypes(actual, expected, type, path, customMessage, shouldlyMethod);
             }
         }
 
@@ -71,10 +71,16 @@ namespace Shouldly
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
         }
 
-        private static void CompareReferenceTypes(object actual, object expected)
+        private static void CompareReferenceTypes(object actual, object expected, Type type, IList<string> path,
+            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
         {
             if (ReferenceEquals(actual, expected))
                 return;
+
+            if (type == typeof(string))
+            {
+                CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
+            }
         }
 
         private static bool BothValuesAreNull(object actual, object expected, IList<string> path,
@@ -93,6 +99,13 @@ namespace Shouldly
             }
 
             return false;
+        }
+
+        private static void CompareStrings(string actual, string expected, IList<string> path,
+            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            if (!actual.Equals(expected, StringComparison.Ordinal))
+                ThrowException(actual, expected, path, customMessage, shouldlyMethod);
         }
 
         private static void ThrowException(object actual, object expected, IList<string> path,
