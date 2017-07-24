@@ -40,6 +40,10 @@ namespace Shouldly
             {
                 CompareValueTypes((ValueType)actual, (ValueType)expected, path, customMessage, shouldlyMethod);
             }
+            else
+            {
+                CompareReferenceTypes(actual, expected);
+            }
         }
 
         private static Type GetTypeToCompare(object actual, object expected, IList<string> path,
@@ -65,6 +69,12 @@ namespace Shouldly
         {
             if (!actual.Equals(expected))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
+        }
+
+        private static void CompareReferenceTypes(object actual, object expected)
+        {
+            if (ReferenceEquals(actual, expected))
+                return;
         }
 
         private static bool BothValuesAreNull(object actual, object expected, IList<string> path,
