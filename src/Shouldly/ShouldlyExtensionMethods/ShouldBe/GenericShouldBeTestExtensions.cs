@@ -96,34 +96,21 @@ namespace Shouldly
         }
         public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder = false)
         {
-            throw new NotImplementedException();
-
             ShouldBe(actual, expected, comparer, ignoreOrder, () => null);
         }
         public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder, string customMessage)
         {
-            throw new NotImplementedException();
-
             ShouldBe(actual, expected, comparer, ignoreOrder, () => customMessage);
         }
         public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder, [InstantHandle] Func<string> customMessage)
         {
-            throw new NotImplementedException("Need to implement here");
-
-            if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName))
+            if (ignoreOrder)
             {
-                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>>()), actual, expected, customMessage);
+                actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected, comparer), actual, expected, customMessage);
             }
             else
             {
-                if (ignoreOrder)
-                {
-                    actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected, customMessage);
-                }
-                else
-                {
-                    actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
-                }
+                actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
             }
         }
 
