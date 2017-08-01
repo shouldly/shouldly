@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #if ShouldMatchApproved
 using Shouldly.Configuration;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 #endif
 
 namespace Shouldly
@@ -21,6 +21,7 @@ namespace Shouldly
 
         public static List<string> CompareAsObjectTypes { get; private set; }
 #if ShouldMatchApproved
+        private static AsyncLocal<bool> ShouldlyDisableSourceInErrors = new AsyncLocal<bool>();
         private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
         public static DiffToolConfiguration DiffTools {
             get => _lazyDiffTools.Value;
@@ -44,20 +45,20 @@ namespace Shouldly
         /// </summary>
         public static IDisposable DisableSourceInErrors()
         {
-            CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", true);
+            ShouldlyDisableSourceInErrors.Value = true;
             return new EnableSourceInErrorsDisposable();
         }
 
         public static bool IsSourceDisabledInErrors()
         {
-            return (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
+            return ShouldlyDisableSourceInErrors.Value == true;
         }
 
         class EnableSourceInErrorsDisposable : IDisposable
         {
             public void Dispose()
             {
-                CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
+                ShouldlyDisableSourceInErrors.Value = false;
             }
         }
 #endif
