@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
-    <TargetFrameworks>net451;net40;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net451;net40;netstandard1.3;netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard1.3</TargetFrameworks>
     <AssemblyName>Shouldly</AssemblyName>
     <PackageId>Shouldly</PackageId>
@@ -22,6 +22,15 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.StackTrace" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
+  </ItemGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,4 +54,7 @@
     <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;NewReflection;ExpressionTrees</DefineConstants>
+  </PropertyGroup>
 </Project>
