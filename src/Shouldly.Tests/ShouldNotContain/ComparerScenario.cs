@@ -1,6 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
-using System.Linq;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.ShouldNotContain
