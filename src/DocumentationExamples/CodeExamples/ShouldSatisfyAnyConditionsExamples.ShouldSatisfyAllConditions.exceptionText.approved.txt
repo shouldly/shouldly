@@ -1,0 +1,23 @@
+mrBurns
+    should satisfy any of the conditions specified, but does not.
+The following errors were found ...
+--------------- Error 1 ---------------
+    mrBurns.Name (null)
+        should not be null or empty
+
+--------------- Error 2 ---------------
+    mrBurns.Name
+        should be
+    "Mr.Burns"
+        but was
+    null
+        difference
+    Difference     |  |    |    |    |    |    |    |    |   
+                   | \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
+    Index          | 0    1    2    3    4    5    6    7    
+    Expected Value | M    r    .    B    u    r    n    s    
+    Actual Value   | n    u    l    l                        
+    Expected Code  | 77   114  46   66   117  114  110  115  
+    Actual Code    | 110  117  108  108                      
+
+-----------------------------------------

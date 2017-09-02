@@ -1,0 +1,6 @@
+var mrBurns = new Person() { Name = null };
+mrBurns.ShouldSatisfyAnyConditions
+                    (
+                        () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
+                        () => mrBurns.Name.ShouldBe("Mr.Burns")
+                    );

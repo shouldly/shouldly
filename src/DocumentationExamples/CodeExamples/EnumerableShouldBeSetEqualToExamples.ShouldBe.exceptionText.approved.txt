@@ -1,0 +1,7 @@
+theBeSharps
+    should be (ignoring order)
+[Apu, Homer, Skinner, Barney]
+    but
+[Homer, Skinner, Barney]
+    is missing
+[Apu]

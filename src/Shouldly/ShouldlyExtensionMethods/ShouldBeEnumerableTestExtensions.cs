@@ -11,6 +11,36 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeEnumerableTestExtensions
     {
+        public static void ShouldBeSetEqualTo<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
+        {
+            ShouldBeSetEqualTo(actual, expected, () => null);
+        }
+
+        public static void ShouldBeSetEqualTo<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string customMessage)
+        {
+            ShouldBeSetEqualTo(actual, expected, () => customMessage);
+        }
+
+        public static void ShouldBeSetEqualTo<T>(this IEnumerable<T> actual, IEnumerable<T> expected, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeTestExtensions.ShouldBe(actual, expected, true, customMessage);
+        }
+
+        public static void ShouldBeSequenceEqualTo<T>(this IEnumerable<T> actual, IEnumerable<T> expected)
+        {
+            ShouldBeSequenceEqualTo(actual, expected, () => null);
+        }
+
+        public static void ShouldBeSequenceEqualTo<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string customMessage)
+        {
+            ShouldBeSequenceEqualTo(actual, expected, () => customMessage);
+        }
+
+        public static void ShouldBeSequenceEqualTo<T>(this IEnumerable<T> actual, IEnumerable<T> expected, [InstantHandle] Func<string> customMessage)
+        {
+            ShouldBeTestExtensions.ShouldBe(actual, expected, false, customMessage);
+        }
+
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected)
         {
             ShouldContain(actual, expected, () => null);

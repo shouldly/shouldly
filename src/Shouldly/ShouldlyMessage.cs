@@ -248,6 +248,7 @@ namespace Shouldly
             new ShouldContainPredicateMessageGenerator(),
             new ShouldBeIgnoringOrderMessageGenerator(),
             new ShouldSatisfyAllConditionsMessageGenerator(),
+            new ShouldSatisfyAnyConditionsMessageGenerator(),
             new ShouldBeSubsetOfMessageGenerator(),
             new ShouldHaveSingleItemMessageGenerator(),
             new ShouldBeBooleanMessageGenerator(),

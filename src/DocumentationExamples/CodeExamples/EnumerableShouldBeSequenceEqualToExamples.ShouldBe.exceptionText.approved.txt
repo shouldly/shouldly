@@ -1,0 +1,7 @@
+theBeSharps
+    should be
+[Apu, Homer, Skinner, Barney]
+    but was
+[Barney, Skinner, Homer, Apu]
+    difference
+[*Barney*, *Skinner*, *Homer*, *Apu*]
