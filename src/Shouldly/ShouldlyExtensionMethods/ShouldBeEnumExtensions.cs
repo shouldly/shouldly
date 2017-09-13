@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace Shouldly.ShouldlyExtensionMethods
 {
+    [ShouldlyMethods]
     public static class ShouldHaveEnumExtensions
     {
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag)
