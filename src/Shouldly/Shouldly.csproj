@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
-    <TargetFrameworks>net451;net40;netstandard1.3;netstandard2.0</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net451;net40;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0</TargetFrameworks>
     <AssemblyName>Shouldly</AssemblyName>
     <PackageId>Shouldly</PackageId>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
@@ -49,13 +49,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees</DefineConstants>
+    <DefineConstants>$(DefineConstants);NewReflection;CallContextPolyfill;ExpressionTrees</DefineConstants>
   </PropertyGroup>
-<<<<<<< HEAD
-
-=======
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;NewReflection;ExpressionTrees</DefineConstants>
+    <DefineConstants>$(DefineConstants);StackTrace;CallContextPolyfill;NewReflection;ExpressionTrees</DefineConstants>
   </PropertyGroup>
->>>>>>> Update to NetStandard 2.0, enable ShouldMatchApproved (yay)
 </Project>

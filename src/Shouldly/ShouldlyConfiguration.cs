@@ -4,6 +4,7 @@ using System.Collections.Generic;
 #if ShouldMatchApproved
 using Shouldly.Configuration;
 using System.Threading;
+using System.Runtime.Remoting.Messaging;
 #endif
 
 namespace Shouldly
@@ -20,7 +21,9 @@ namespace Shouldly
         }
 
         public static List<string> CompareAsObjectTypes { get; private set; }
-#if ShouldMatchApproved
+
+        #if ShouldMatchApproved
+
         private static AsyncLocal<bool> ShouldlyDisableSourceInErrors = new AsyncLocal<bool>();
         private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
         public static DiffToolConfiguration DiffTools {
@@ -40,28 +43,29 @@ namespace Shouldly
                     => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
             });
 
+        #endif
+
         /// <summary>
         /// When set to true shouldly will not try and create better error messages using your source code
         /// </summary>
         public static IDisposable DisableSourceInErrors()
         {
-            ShouldlyDisableSourceInErrors.Value = true;
+            CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", true);
             return new EnableSourceInErrorsDisposable();
         }
 
         public static bool IsSourceDisabledInErrors()
         {
-            return ShouldlyDisableSourceInErrors.Value == true;
+            return (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
         }
 
         class EnableSourceInErrorsDisposable : IDisposable
         {
             public void Dispose()
             {
-                ShouldlyDisableSourceInErrors.Value = false;
+                CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
             }
         }
-#endif
 
         public static double DefaultFloatingPointTolerance = 0.0d;
         public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);
