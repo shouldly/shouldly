@@ -124,7 +124,7 @@ namespace Shouldly.Configuration
                     return null;
                 }
 
-                var procInfo = new PROCESSENTRY32 { dwSize = (uint)Marshal.SizeOf(typeof(PROCESSENTRY32)) };
+                var procInfo = new PROCESSENTRY32 { dwSize = (uint)Marshal.SizeOf<PROCESSENTRY32>() };
 
 
                 // Read first
