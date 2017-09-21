@@ -12,7 +12,7 @@ namespace Shouldly.Configuration
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool AppVeyor = new DoNotLaunchWhenEnvVariableIsPresent("AppVeyor");
         [UsedImplicitly]
-        public readonly IShouldNotLaunchDiffTool VSTS = new DoNotLaunchWhenEnvVariableIsPresent("IF_BUILD");
+        public readonly IShouldNotLaunchDiffTool VSTS = new DoNotLaunchWhenEnvVariableIsPresent("TF_BUILD");
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool GitLabCI = new DoNotLaunchWhenEnvVariableIsPresent("GITLAB_CI");
         [UsedImplicitly]
