@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Shouldly.Configuration
 {
@@ -28,7 +29,7 @@ namespace Shouldly.Configuration
 
         public void SetDiffToolPriorities(params DiffTool[] diffTools)
         {
-            var notRegistered = diffTools.Except(_diffTools);
+            var notRegistered = diffTools.Except(_diffTools).ToArray();
             if (notRegistered.Any())
             {
                 var notRegisteredNames = string.Join(", ", notRegistered.Select(r => r.Name).ToArray());

@@ -37,7 +37,43 @@ namespace Shouldly.Internals
 
         void ParseStackTrace(StackTrace trace)
         {
-            var stackTrace = trace ?? new StackTrace(true);
+            var stackTrace = trace ?? new StackTrace(null, true);
+#if NETSTANDARD2_0
+            ShouldlyFrame = default(StackFrame);
+            var frames = stackTrace.GetFrames();
+            var index = 0;
+            foreach (var frame in frames)
+            {
+                // Required to support the DynamicShould.HaveProperty method that takes in a dynamic as a parameter.
+                // Having a method that takes a dynamic really stuffs up the stack trace because the runtime binder
+                // has to inject a whole heap of methods. Our normal way of just taking the next frame doesn't work.
+                // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
+                // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
+                // scanarios. Alternately, it could be replaced with a more robust implementation.
+                if (frame.GetMethod().DeclaringType == null || frame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
+                {
+                    index++;
+                    continue;
+                }
+
+                if (frame.GetMethod().IsShouldlyMethod())
+                    ShouldlyFrame = frame;
+
+                index++;
+            }
+
+            if (ShouldlyFrame == null)
+                throw new Exception("Unable to find test method");
+
+            var originatingFrame = ShouldlyFrame;
+            ShouldlyFrameIndex = index - 1;
+
+            var fileName = originatingFrame.GetFileName();
+            _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
+            _shouldMethod = ShouldlyFrame.GetMethod().Name;
+            FileName = fileName;
+            LineNumber = originatingFrame.GetFileLineNumber() - 1;
+#else
             var i = 0;
             var currentFrame = stackTrace.GetFrame(i);
 
@@ -72,8 +108,8 @@ namespace Shouldly.Internals
             _shouldMethod = ShouldlyFrame.GetMethod().Name;
             FileName = fileName;
             LineNumber = originatingFrame.GetFileLineNumber() - 1;
+#endif
         }
-
 
         string GetCodePart()
         {
@@ -162,4 +198,4 @@ namespace Shouldly.Internals
         }
     }
 #endif
-}
+        }

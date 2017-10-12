@@ -1,5 +1,4 @@
-﻿// TODO Try and get this working with Core
-#if ShouldMatchApproved
+﻿#if ShouldMatchApproved
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -36,7 +35,7 @@ namespace Shouldly
         public static void ShouldMatchApproved(this string actual, Func<string> customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
             var codeGetter = new ActualCodeTextGetter();
-            var stackTrace = new StackTrace(true);
+            var stackTrace = new StackTrace(null, true);
             codeGetter.GetCodeText(actual, stackTrace);
 
             var configurationBuilder = new ShouldMatchConfigurationBuilder(ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build());

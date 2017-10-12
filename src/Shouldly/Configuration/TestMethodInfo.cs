@@ -23,6 +23,16 @@ namespace Shouldly.Configuration
             {
                 return method;
             }
+#if NETSTANDARD2_0
+            if (!ContainsAttribute(declaringType.GetTypeInfo().GetCustomAttributes(false) as object[], "System.Runtime.CompilerServices.CompilerGeneratedAttribute"))
+            {
+                return method;
+            }
+            if (declaringType.GetTypeInfo().GetInterface("System.Runtime.CompilerServices.IAsyncStateMachine") == null)
+            {
+                return method;
+            }
+#else
             if (!ContainsAttribute(declaringType.GetCustomAttributes(false), "System.Runtime.CompilerServices.CompilerGeneratedAttribute"))
             {
                 return method;
@@ -31,6 +41,7 @@ namespace Shouldly.Configuration
             {
                 return method;
             }
+#endif
             if (!declaringType.Name.Contains("<") || !declaringType.Name.Contains(">"))
             {
                 return method;

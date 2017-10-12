@@ -50,6 +50,7 @@ namespace Shouldly.Configuration
                 return null;
             }
 
+#if !NETSTANDARD2_0
             if (process != null)
             {
                 var processModule = process.MainModule;
@@ -59,6 +60,7 @@ namespace Shouldly.Configuration
                     return processModule.FileName;
                 }
             }
+#endif
 
             return null;
         }
