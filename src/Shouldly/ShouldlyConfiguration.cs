@@ -24,7 +24,6 @@ namespace Shouldly
 
         #if ShouldMatchApproved
 
-        private static AsyncLocal<bool> ShouldlyDisableSourceInErrors = new AsyncLocal<bool>();
         private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
         public static DiffToolConfiguration DiffTools {
             get => _lazyDiffTools.Value;
