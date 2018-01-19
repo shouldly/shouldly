@@ -1,6 +1,4 @@
-![Icon](https://raw.github.com/shouldly/shouldly/master/package_icon.png)
-
-Shouldly
+![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)  
 ========
 
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/shouldly/shouldly?branch=master&svg=true)](https://ci.appveyor.com/project/shouldly/shouldly) 
