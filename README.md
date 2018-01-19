@@ -57,13 +57,6 @@ Shouldly uses the source code to make its error messages better. Hence, on the b
 
 What is meant by "full" is that when you set up your "release" configuration in Visual Studio and you go to Project Properties > Build > Advanced > Debug, you should set it to "full" rather than "pdb-only". 
 
-## History Change
-A test results database (~50mb) got accidentally committed in a972872888925205c9655cb540455d23d1891148, we removed this from history.
-The commit was only in master for <24 hours but if you happened to pull then you may need to reset master to get back in line.
-
-## Icon
-[Star](https://thenounproject.com/term/star/20931/) created by [Luboš Volkov](https://thenounproject.com/Lubo%C5%A1%20Volkov/) from The Noun Project.
-
 ## Currently maintained by
  - [Jake Ginnivan](https://github.com/JakeGinnivan)
  - [Joseph Woodward](https://github.com/JosephWoodward)
