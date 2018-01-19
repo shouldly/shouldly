@@ -7,7 +7,7 @@
     <AssemblyName>Shouldly</AssemblyName>
     <PackageId>Shouldly</PackageId>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
-    <PackageIconUrl>https://raw.github.com/shouldly/shouldly/master/Icons/package_icon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_128x128.png</PackageIconUrl>
     <PackageProjectUrl>http://shouldly.github.com</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</PackageLicenseUrl>
     <IncludeSymbols>true</IncludeSymbols>
