@@ -39,7 +39,7 @@ Read more about Shouldly and its features at [http://docs.shouldly-lib.net/](htt
 
 ## Installation
 
-You can install Shouldly by copying and pasting the following command into your Package Manager Console within Visual Studio (Tools > NuGet Package Manager > Package Manager Console).
+Shouldly can be [found here on NuGet](https://www.nuget.org/packages/Shouldly/) and can be installed by copying and pasting the following command into your Package Manager Console within Visual Studio (Tools > NuGet Package Manager > Package Manager Console).
 
 ```bash
 Install-Package Shouldly
