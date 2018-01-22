@@ -14,7 +14,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         {
             var task = Task.Factory.StartNew(() =>
             {
-                Thread.Sleep(5000);
+                Task.Delay(5000).Wait();
                 return "foo";
             },
                 CancellationToken.None, TaskCreationOptions.None,
