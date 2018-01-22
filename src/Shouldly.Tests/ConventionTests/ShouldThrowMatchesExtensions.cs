@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿#if FullFramework
+using System.Linq;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
@@ -34,3 +35,4 @@ namespace Shouldly.Tests.ConventionTests
         }
     }
 }
+#endif

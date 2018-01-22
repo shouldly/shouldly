@@ -1,3 +1,4 @@
+#if FullFramework
 using System;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
@@ -54,3 +55,4 @@ namespace Shouldly.Tests.ConventionTests
         public static void ShouldAlsoFail(this object foo, int param, Func<string> customMessage) { }
     }
 }
+#endif

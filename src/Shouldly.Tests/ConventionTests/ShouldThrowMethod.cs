@@ -1,3 +1,4 @@
+#if FullFramework
 using System;
 using System.Linq;
 using System.Reflection;
@@ -52,3 +53,4 @@ namespace Shouldly.Tests.ConventionTests
         }
     }
 }
+#endif
