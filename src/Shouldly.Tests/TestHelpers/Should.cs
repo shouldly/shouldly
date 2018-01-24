@@ -8,10 +8,8 @@ namespace Shouldly.Tests.TestHelpers
         {
             var message = Shouldly.Should.Throw<ShouldAssertException>(action).Message;
             message.ShouldContainWithoutWhitespace(errorMessage);
-            #if FullFramework
             System.Diagnostics.Trace.WriteLine("Error message:");
             System.Diagnostics.Trace.WriteLine(message);
-            #endif
         }
     }
 }
