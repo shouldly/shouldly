@@ -50,6 +50,7 @@ namespace Shouldly.Configuration
                 return null;
             }
 
+#if !NETSTANDARD2_0
             if (process != null)
             {
                 var processModule = process.MainModule;
@@ -59,6 +60,7 @@ namespace Shouldly.Configuration
                     return processModule.FileName;
                 }
             }
+#endif
 
             return null;
         }
@@ -124,7 +126,7 @@ namespace Shouldly.Configuration
                     return null;
                 }
 
-                var procInfo = new PROCESSENTRY32 { dwSize = (uint)Marshal.SizeOf(typeof(PROCESSENTRY32)) };
+                var procInfo = new PROCESSENTRY32 { dwSize = (uint)Marshal.SizeOf<PROCESSENTRY32>() };
 
 
                 // Read first

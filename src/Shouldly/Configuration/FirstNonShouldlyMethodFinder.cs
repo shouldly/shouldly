@@ -1,4 +1,5 @@
 #if ShouldMatchApproved
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -21,14 +22,30 @@ namespace Shouldly.Configuration
 
         public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
         {
+            StackFrame callingFrame = null;
+#if NETSTANDARD2_0
+            var frames = stackTrace.GetFrames().Skip(Offset + startAt);
+            foreach (var frame in frames)
+            {
+                if (frame.GetMethod().IsShouldlyMethod() || IsCompilerGenerated(frame.GetMethod()))
+                {
+                    callingFrame = frame;
+                    break;
+                }
+            }
+
+            if (callingFrame == null)
+                throw new Exception("Unable to find test method");
+
+#else
             var i = startAt;
-            StackFrame callingFrame;
             do
             {
                 callingFrame = stackTrace.GetFrame(i++);
             } while (callingFrame.GetMethod().IsShouldlyMethod() || IsCompilerGenerated(callingFrame.GetMethod()));
 
             callingFrame = stackTrace.GetFrame(i + Offset - 1);
+#endif
             return new TestMethodInfo(callingFrame);
         }
 

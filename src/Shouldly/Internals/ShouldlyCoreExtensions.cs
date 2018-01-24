@@ -8,12 +8,21 @@ namespace Shouldly
 {
     internal static class ShouldlyCoreExtensions
     {
-#if StackTrace
+#if NETSTANDARD2_0
         internal static bool IsShouldlyMethod(this MethodBase method)
         {
             if (method.DeclaringType == null)
                 return false;
-            
+
+            return method.DeclaringType.GetTypeInfo().GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
+               || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetTypeInfo().GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
+        }
+#else
+        internal static bool IsShouldlyMethod(this MethodBase method)
+        {
+            if (method.DeclaringType == null)
+                return false;
+
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
                || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }

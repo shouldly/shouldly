@@ -47,9 +47,9 @@ namespace Shouldly
         public static Task<TException> ThrowAsync<TException>(Func<Task> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
         {
 #if StackTrace
-            var stackTrace = new StackTrace(true);
             return actual().ContinueWith(t =>
             {
+                var stackTrace = new StackTrace(t.Exception, true);
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
@@ -96,9 +96,9 @@ namespace Shouldly
         public static Task<Exception> ThrowAsync(Func<Task> actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
         {
 #if StackTrace
-            var stackTrace = new StackTrace(true);
             return actual().ContinueWith(t =>
             {
+                var stackTrace = new StackTrace(t.Exception, true);
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
