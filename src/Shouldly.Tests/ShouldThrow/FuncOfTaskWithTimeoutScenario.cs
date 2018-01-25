@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ShouldThrow
     [Fact]
         public void ShouldThrowAWobbly()
         {
-            var task = Task.Factory.StartNew(() => { Thread.Sleep(5000); },
+            var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
@@ -24,7 +24,7 @@ namespace Shouldly.Tests.ShouldThrow
 [Fact]
         public void ShouldThrowAWobbly_ExceptionTypePassedIn()
         {
-            var task = Task.Factory.StartNew(() => { Thread.Sleep(5000); },
+            var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 

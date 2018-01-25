@@ -26,8 +26,12 @@ src/.vs
 *.received.txt
 src/TestResults/
 src/TestDiffTools/Main.approved.txt
-tools/Cake/
-tools/Addins/
-tools/GitReleaseNotes/
+tools/*
+!tools/packages.config
 artifacts/
+src/*.Tests/report.xml
 *.lock.json
+*/.vscode
+.vscode
+src/.idea
+src/.idea.*

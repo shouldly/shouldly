@@ -1,13 +1,9 @@
-﻿#if Dynamic
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using JetBrains.Annotations;
-
-#if NewReflection
 using System.Reflection;
-#endif
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -38,7 +34,7 @@ namespace Shouldly
                 }
             }
             else
-            {
+            { 
                 var dynamicAsObject = (object)dynamicTestObject;
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))
@@ -49,4 +45,3 @@ namespace Shouldly
         }
     }
 }
-#endif

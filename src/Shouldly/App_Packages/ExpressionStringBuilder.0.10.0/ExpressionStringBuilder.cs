@@ -1,10 +1,10 @@
-﻿#if ExpressionTrees
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Shouldly;
 
 // ReSharper disable CheckNamespace
 namespace ExpressionToString
@@ -229,20 +229,11 @@ namespace ExpressionToString
 
         static bool CheckIfAnonymousType(Type type)
         {
-#if NewReflection
-            // hack: the only way to detect anonymous types right now
-            var typeInfo = type.GetTypeInfo();
-            var isDefined = typeInfo.IsDefined(typeof(CompilerGeneratedAttribute), false);
-            return isDefined
-                   && (typeInfo.IsGenericType && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
-                   && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"));
-#else
             // hack: the only way to detect anonymous types right now
             var isDefined = type.IsDefined(typeof(CompilerGeneratedAttribute), false);
             return isDefined
-                   && (type.IsGenericType && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
+                   && (type.IsGenericType() && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
                    && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"));
-#endif
         }
 
         static string ToString(ExpressionType type)
@@ -298,4 +289,3 @@ namespace ExpressionToString
         }
     }
 }
-#endif

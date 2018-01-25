@@ -1,12 +1,10 @@
 ﻿using System;
-using JetBrains.Annotations;
-
-#if NewReflection
 using System.Reflection;
-#endif
+using JetBrains.Annotations;
 
 namespace Shouldly.ShouldlyExtensionMethods
 {
+    [ShouldlyMethods]
     public static class ShouldHaveEnumExtensions
     {
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag)
@@ -42,11 +40,7 @@ namespace Shouldly.ShouldlyExtensionMethods
 
         static void CheckEnumHasFlagAttribute(Enum actual)
         {
-#if NewReflection
-            if (!actual.GetType().GetTypeInfo().IsDefined(typeof(FlagsAttribute), false))
-#else
             if (!actual.GetType().IsDefined(typeof(FlagsAttribute), false))
-#endif
             {
                 throw new ArgumentException("Enum doesn't have Flags attribute", nameof(actual));
             }

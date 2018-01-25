@@ -1,6 +1,6 @@
-﻿#if Async
-using System.Threading;
+﻿using System.Threading;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
@@ -136,13 +136,10 @@ namespace Shouldly
         private static void PreserveStackTrace(Exception exception)
         {
             // TODO Need to sort this out for core
-#if !NewReflection
-            System.Reflection.MethodInfo preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
-              System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var preserveStackTrace = typeof(Exception).GetMethod("InternalPreserveStackTrace",
+              BindingFlags.Instance | BindingFlags.NonPublic);
 
             preserveStackTrace?.Invoke(exception, null);
-#endif
         }
     }
 }
-#endif

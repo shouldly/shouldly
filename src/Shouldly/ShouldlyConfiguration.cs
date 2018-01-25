@@ -21,7 +21,13 @@ namespace Shouldly
 
         public static List<string> CompareAsObjectTypes { get; private set; }
 #if ShouldMatchApproved
-        public static DiffToolConfiguration DiffTools { get; private set; } = new DiffToolConfiguration();
+        private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
+        public static DiffToolConfiguration DiffTools {
+            get => _lazyDiffTools.Value;
+            private set {
+                _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => value);
+            }
+        }
 
         public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; private set; } =
             new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration
@@ -32,6 +38,7 @@ namespace Shouldly
                 FilenameGenerator = (testMethodInfo, descriminator, type, extension)
                     => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
             });
+#endif
 
         /// <summary>
         /// When set to true shouldly will not try and create better error messages using your source code
@@ -54,7 +61,6 @@ namespace Shouldly
                 CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
             }
         }
-#endif
 
         public static double DefaultFloatingPointTolerance = 0.0d;
         public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);
