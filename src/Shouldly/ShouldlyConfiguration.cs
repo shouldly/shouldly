@@ -38,6 +38,7 @@ namespace Shouldly
                 FilenameGenerator = (testMethodInfo, descriminator, type, extension)
                     => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
             });
+#endif
 
         /// <summary>
         /// When set to true shouldly will not try and create better error messages using your source code
@@ -60,7 +61,6 @@ namespace Shouldly
                 CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
             }
         }
-#endif
 
         public static double DefaultFloatingPointTolerance = 0.0d;
         public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);

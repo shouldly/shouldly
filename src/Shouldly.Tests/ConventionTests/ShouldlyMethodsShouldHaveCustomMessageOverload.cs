@@ -41,9 +41,6 @@ namespace Shouldly.Tests.ConventionTests
             return p.Name == "customMessage" && p.ParameterType == typeof(T);
         }
 
-        public string ConventionReason
-        {
-            get { return "API Consistency"; }
-        }
+        public string ConventionReason => "API Consistency";
     }
 }
