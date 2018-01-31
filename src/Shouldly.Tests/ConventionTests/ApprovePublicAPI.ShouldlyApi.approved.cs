@@ -148,9 +148,15 @@ namespace Shouldly
         public static void ShouldBeFalse(this bool actual) { }
         public static void ShouldBeFalse(this bool actual, string customMessage) { }
         public static void ShouldBeFalse(this bool actual, System.Func<string> customMessage) { }
+        public static void ShouldBeFalse(this System.Nullable<bool> actual) { }
+        public static void ShouldBeFalse(this System.Nullable<bool> actual, string customMessage) { }
+        public static void ShouldBeFalse(this System.Nullable<bool> actual, System.Func<string> customMessage) { }
         public static void ShouldBeTrue(this bool actual) { }
         public static void ShouldBeTrue(this bool actual, string customMessage) { }
         public static void ShouldBeTrue(this bool actual, System.Func<string> customMessage) { }
+        public static void ShouldBeTrue(this System.Nullable<bool> actual) { }
+        public static void ShouldBeTrue(this System.Nullable<bool> actual, string customMessage) { }
+        public static void ShouldBeTrue(this System.Nullable<bool> actual, System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeDictionaryTestExtensions

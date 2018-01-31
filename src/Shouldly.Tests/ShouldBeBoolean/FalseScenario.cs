@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBeBoolean
         {
             const bool myValue = true;
             Verify.ShouldFail(() =>
-                myValue.ShouldBeFalse("Some additional context"),
+myValue.ShouldBeFalse("Some additional context"),
 
 errorWithSource:
 @"myValue
@@ -36,6 +36,38 @@ Additional Info:
         public void ShouldPass()
         {
             false.ShouldBeFalse();
+        }
+
+        [Fact]
+        public void NullableFalseScenarioShouldFail() {
+            bool? myValue = true;
+            Verify.ShouldFail(() =>
+myValue.ShouldBeFalse("Some additional context"),
+
+errorWithSource:
+@"myValue
+    should be
+False
+    but was
+True
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"True
+    should be
+False
+    but was not
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void NullableShouldPass() {
+            bool? value = false;
+            value.ShouldBeFalse();
         }
     }
 }
