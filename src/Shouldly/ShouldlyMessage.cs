@@ -332,5 +332,10 @@ $@"{codePart}
             }
             return message;
         }
+
+        public static implicit operator string(ShouldlyMessage message)
+        {
+            return message.ToString();
+        }
     }
 }
