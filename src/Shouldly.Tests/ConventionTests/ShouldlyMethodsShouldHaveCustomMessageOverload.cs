@@ -16,6 +16,7 @@ namespace Shouldly.Tests.ConventionTests
                 where typeof (object).GetMethods().All(m => m.Name != shouldlyMethods.Name)
                 group shouldlyMethods by FormatKey(shouldlyMethods) into shouldlyMethod
                 where HasNoCustomMessageOverload(shouldlyMethod)
+                orderby shouldlyMethod.Key ascending 
                 select shouldlyMethod.Key;
 
             result.Is(
