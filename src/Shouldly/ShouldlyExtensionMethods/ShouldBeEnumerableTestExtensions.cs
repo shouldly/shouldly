@@ -24,7 +24,26 @@ namespace Shouldly
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
         {
             if (!actual.Contains(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage));
+        }
+
+        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, [NotNull] IEqualityComparer<T> comparer)
+        {
+            ShouldContain(actual, expected, comparer, () => null);
+        }
+
+        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, [NotNull] IEqualityComparer<T> comparer, string customMessage)
+        {
+            ShouldContain(actual, expected, comparer, () => customMessage);
+        }
+
+        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, [NotNull] IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        {
+            comparer.ShouldNotBeNull();
+            if (!actual.Contains(expected, comparer))
+            {
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage));
+            }
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected)
@@ -41,6 +60,25 @@ namespace Shouldly
         {
             if (actual.Contains(expected))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+        }
+
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, [NotNull] IEqualityComparer<T> comparer)
+        {
+            ShouldNotContain(actual, expected, comparer, () => null);
+        }
+
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, [NotNull] IEqualityComparer<T> comparer, string customMessage)
+        {
+            ShouldNotContain(actual, expected, comparer, () => customMessage);
+        }
+
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, [NotNull] IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        {
+            comparer.ShouldNotBeNull();
+            if (actual.Contains(expected, comparer))
+            {
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage));
+            }
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)

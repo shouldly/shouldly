@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -41,6 +42,11 @@ namespace Shouldly
 
         public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected)
         {
+            return Equal(actual, expected, GetEqualityComparer<T>());
+        }
+
+        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, [NotNull] IEqualityComparer<T> comparer)
+        {
             if (actual == null && expected == null)
                 return true;
             if (actual == null || expected == null)
@@ -57,14 +63,20 @@ namespace Shouldly
                 if (!expectedHasData && !actualHasData)
                     return true;
 
-                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current))
+                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current, comparer))
                 {
                     return false;
                 }
             }
+
         }
 
         public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+        {
+            return EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
+        }
+
+        public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, [NotNull] IEqualityComparer<T> comparer)
         {
             if (actual == null && expected == null)
                 return true;
@@ -79,7 +91,7 @@ namespace Shouldly
             var expectedList = expected.ToList();
             foreach (var actualElement in actual)
             {
-                var match = expectedList.FirstOrDefault(x => Equal(x, actualElement));
+                var match = expectedList.FirstOrDefault(x => Equal(x, actualElement, comparer));
                 if (!expectedList.Remove(match))
                     return false;
             }
@@ -197,8 +209,7 @@ namespace Shouldly
 
             return actual.IndexOf(expected, StringComparison.Ordinal) != -1;
         }
-
-
+        
         public static bool EndsWithUsingCaseSensitivity(string actual, string expected, Case caseSensitivity)
         {
             if (actual == null)
@@ -304,6 +315,7 @@ namespace Shouldly
         {
             return comparer.Compare(actual, expected);
         }
+
         static decimal Compare<T>(IComparable<T> comparable, T expected)
         {
             if (!typeof(T).IsValueType())

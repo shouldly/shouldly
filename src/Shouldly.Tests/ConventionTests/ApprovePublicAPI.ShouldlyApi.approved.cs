@@ -204,6 +204,9 @@ namespace Shouldly
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string> customMessage) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, string customMessage) { }
@@ -225,6 +228,9 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string> customMessage) { }
+        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
+        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, System.Func<string> customMessage) { }
@@ -319,9 +325,15 @@ namespace Shouldly
         public static void ShouldBe<T>(this T actual, T expected) { }
         public static void ShouldBe<T>(this T actual, T expected, string customMessage) { }
         public static void ShouldBe<T>(this T actual, T expected, System.Func<string> customMessage) { }
+        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
+        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder = False) { }
         public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder, string customMessage) { }
         public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, bool ignoreOrder, System.Func<string> customMessage) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder = False) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder, string customMessage) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder, System.Func<string> customMessage) { }
         public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance) { }
         public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance, string customMessage) { }
         public static void ShouldBe(this System.Collections.Generic.IEnumerable<decimal> actual, System.Collections.Generic.IEnumerable<decimal> expected, decimal tolerance, System.Func<string> customMessage) { }
@@ -448,6 +460,9 @@ namespace Shouldly
         public static void ShouldNotBe<T>(this T actual, T expected) { }
         public static void ShouldNotBe<T>(this T actual, T expected, string customMessage) { }
         public static void ShouldNotBe<T>(this T actual, T expected, System.Func<string> customMessage) { }
+        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
+        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldNotBeAssignableTo<T>(this object actual) { }
         public static void ShouldNotBeAssignableTo<T>(this object actual, string customMessage) { }
         public static void ShouldNotBeAssignableTo<T>(this object actual, System.Func<string> customMessage) { }
