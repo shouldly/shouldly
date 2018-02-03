@@ -17,7 +17,7 @@ namespace Shouldly
         public static void ShouldBeOneOf<T>(this T actual, T[] expected, [InstantHandle] Func<string> customMessage)
         {
             if (!expected.Contains(actual))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage));
         }
 
         public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected)
@@ -31,7 +31,7 @@ namespace Shouldly
         public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, [InstantHandle] Func<string> customMessage)
         {
             if (expected.Contains(actual))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage));
         }
 
         public static void ShouldBeInRange<T>(this T actual, T from, T to) where T : IComparable<T>

@@ -36,7 +36,7 @@ namespace Shouldly
             {
                 throw new ShouldAssertException(ex.Message, ex);
             }
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod));
         }
 
         internal static void AssertAwesomelyWithCaseSensitivity<T>(
@@ -55,7 +55,7 @@ namespace Shouldly
             }
 
             var message = new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod);
-            throw new ShouldAssertException(message.ToString());
+            throw new ShouldAssertException(message);
         }
 
         internal static void AssertAwesomelyIgnoringOrder<T>(
@@ -76,7 +76,7 @@ namespace Shouldly
                 throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod));
         }
 
         internal static void AssertAwesomely<T>(
@@ -97,7 +97,7 @@ namespace Shouldly
                 throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod));
         }
 
         internal static void AssertAwesomely<T>(
@@ -118,7 +118,7 @@ namespace Shouldly
                 throw new ShouldAssertException(ex.Message, ex);
             }
 
-            throw new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod));
         }
     }
 }

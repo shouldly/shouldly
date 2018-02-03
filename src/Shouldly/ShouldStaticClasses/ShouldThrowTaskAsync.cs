@@ -53,16 +53,16 @@ namespace Shouldly
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
+                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace));
 
                     return HandleAggregateException<TException>(t.Exception, customMessage);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString()
+                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace)
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
+                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace));
             });
 #else
             return actual().ContinueWith(t =>
@@ -70,16 +70,16 @@ namespace Shouldly
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage));
 
                     return HandleAggregateException<TException>(t.Exception, customMessage);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString()
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage)
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage));
             });
 #endif
         }
@@ -102,16 +102,16 @@ namespace Shouldly
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
+                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace));
 
                     return HandleAggregateException(t.Exception, customMessage, exceptionType);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString()
+                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace)
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
+                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace));
             });
 #else
             return actual().ContinueWith(t =>
@@ -119,16 +119,16 @@ namespace Shouldly
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage));
 
                     return HandleAggregateException(t.Exception, customMessage, exceptionType);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString()
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage)
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage));
             });
 #endif
         }

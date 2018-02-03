@@ -127,10 +127,10 @@ namespace Shouldly
                 if (e is TException)
                     return (TException)e;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod));
             }
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod));
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
@@ -172,10 +172,10 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod));
             }
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod));
         }
 
         /*** Should.NotThrow(Task) ***/
@@ -262,11 +262,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod));
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod));
             }
         }
 
@@ -333,11 +333,11 @@ namespace Shouldly
             }
             catch (AggregateException ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod));
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod));
             }
         }
 
@@ -361,7 +361,7 @@ namespace Shouldly
             if (innerException is TException)
                 return (TException)innerException;
 
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage));
         }
 
         private static Exception HandleAggregateException(AggregateException e, [InstantHandle] Func<string> customMessage, Type exceptionType)
@@ -370,7 +370,7 @@ namespace Shouldly
             if (innerException.GetType() == exceptionType)
                 return innerException;
 
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, innerException.GetType(), customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, innerException.GetType(), customMessage));
         }
     }
 }

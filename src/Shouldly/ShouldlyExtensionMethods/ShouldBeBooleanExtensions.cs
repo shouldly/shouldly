@@ -21,7 +21,7 @@ namespace Shouldly
         public static void ShouldBeTrue(this bool actual, [InstantHandle]Func<string> customMessage)
         {
             if (!actual)
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage));
         }
 
         public static void ShouldBeTrue(this bool? actual)
@@ -37,7 +37,7 @@ namespace Shouldly
         public static void ShouldBeTrue(this bool? actual, [InstantHandle]Func<string> customMessage)
         {
             if (!actual.HasValue || !actual.GetValueOrDefault()) {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage));
             }
         }
 
@@ -54,7 +54,7 @@ namespace Shouldly
         public static void ShouldBeFalse(this bool actual, [InstantHandle]Func<string> customMessage)
         {
             if (actual)
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage));
         }
 
         public static void ShouldBeFalse(this bool? actual)
@@ -70,7 +70,7 @@ namespace Shouldly
         public static void ShouldBeFalse(this bool? actual, [InstantHandle]Func<string> customMessage)
         {
             if (!actual.HasValue || actual.GetValueOrDefault()) {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage));
             }
         }
     }

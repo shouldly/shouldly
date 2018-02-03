@@ -30,7 +30,7 @@ namespace Shouldly
 
                 if (!dynamicAsDictionary.ContainsKey(propertyName))
                 {
-                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage));
                 }
             }
             else
@@ -39,7 +39,7 @@ namespace Shouldly
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))
                 {
-                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage));
                 }
             }
         }

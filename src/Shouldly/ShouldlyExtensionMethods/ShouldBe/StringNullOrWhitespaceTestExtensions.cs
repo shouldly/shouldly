@@ -21,7 +21,7 @@ namespace Shouldly
         public static void ShouldBeNullOrWhiteSpace(this string actual, [InstantHandle] Func<string> customMessage)
         {
             if (!actual.IsNullOrWhiteSpace())
-                throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage).ToString());
+                throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage));
         }
 
         [ContractAnnotation("actual:null => halt")]
@@ -45,7 +45,7 @@ namespace Shouldly
 #else
             if (string.IsNullOrWhiteSpace(actual))
 #endif
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage));
         }
     }
 }

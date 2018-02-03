@@ -24,7 +24,7 @@ namespace Shouldly
         public static void ShouldBeNull<T>(this T actual, [InstantHandle]Func<string> customMessage)
         {
             if (actual != null)
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage));
         }
 
         [ContractAnnotation("actual:null => halt")]
@@ -43,7 +43,7 @@ namespace Shouldly
         public static void ShouldNotBeNull<T>(this T actual, [InstantHandle]Func<string> customMessage)
         {
             if (actual == null)
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage));
         }
     }
 }

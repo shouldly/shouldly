@@ -18,7 +18,7 @@ namespace Shouldly.ShouldlyExtensionMethods
             CheckEnumHasFlagAttribute(actual);
             if (!actual.HasFlag(expectedFlag))
             {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage));
             }
         }
 
@@ -34,7 +34,7 @@ namespace Shouldly.ShouldlyExtensionMethods
             CheckEnumHasFlagAttribute(actual);
             if (actual.HasFlag(expectedFlag))
             {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage));
             }
         }
 
