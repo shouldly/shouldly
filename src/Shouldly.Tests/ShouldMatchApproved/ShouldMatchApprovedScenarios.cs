@@ -14,7 +14,7 @@ namespace Shouldly.Tests.ShouldMatchApproved
 {
     public class ShouldMatchApprovedScenarios
     {
-        readonly Func<string, string> _scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
+        readonly Func<string, string> _scrubber = v => Regex.Replace(v, @"\w:.+?[Ss]houldly\\src", "C:\\PathToCode\\shouldly\\src");
 
         [Fact]
         public void Simple()
