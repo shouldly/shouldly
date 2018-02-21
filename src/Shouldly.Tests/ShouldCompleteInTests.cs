@@ -10,14 +10,14 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteIn_WhenFinishBeforeTimeout()
         {
-            Should.NotThrow(() => Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(0.5)), TimeSpan.FromSeconds(5)));
+            Should.NotThrow(() => Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(0.5)).Wait(), TimeSpan.FromSeconds(5)));
         }
 
         [Fact]
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
             var ex = Should.Throw<ShouldlyTimeoutException>(() => 
-                Should.CompleteIn(() => Thread.Sleep(TimeSpan.FromSeconds(5)), TimeSpan.FromSeconds(1), "Some additional context"));
+                Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait(), TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Delegate
         should complete in
@@ -32,7 +32,7 @@ namespace Shouldly.Tests
         {
             var ex = Should.Throw<ShouldlyTimeoutException>(() => 
                 Should.CompleteIn(
-                    () => Task.Factory.StartNew(() => Thread.Sleep(TimeSpan.FromSeconds(5))), 
+                    () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()), 
                     TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Task
@@ -54,7 +54,7 @@ namespace Shouldly.Tests
         {
             Should.NotThrow(() => Should.CompleteIn(() =>
             {
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Task.Delay(TimeSpan.FromSeconds(1)).Wait();
                 return "";
             }, TimeSpan.FromSeconds(5)));
         }
@@ -64,7 +64,7 @@ namespace Shouldly.Tests
         {
             var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
             {
-                Thread.Sleep(TimeSpan.FromSeconds(5));
+                Task.Delay(TimeSpan.FromSeconds(5)).Wait();                
                 return "";
             }, TimeSpan.FromSeconds(1), "Some additional context"));
 
@@ -84,7 +84,7 @@ namespace Shouldly.Tests
             {
                 return Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    Task.Delay(TimeSpan.FromSeconds(5)).Wait();
                     return "";
                 });
             }, TimeSpan.FromSeconds(1), "Some additional context"));

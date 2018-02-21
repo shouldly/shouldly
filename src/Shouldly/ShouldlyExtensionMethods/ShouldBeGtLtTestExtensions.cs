@@ -25,6 +25,7 @@ namespace Shouldly
         {
             actual.AssertAwesomely(v => Is.GreaterThan(actual, expected, comparer), actual, expected, customMessage);
         }
+
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, string customMessage) where T : IComparable<T>
         {
             ShouldBeGreaterThan(actual, expected, () => customMessage);

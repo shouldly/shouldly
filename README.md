@@ -1,6 +1,4 @@
-![Icon](https://raw.github.com/shouldly/shouldly/master/package_icon.png)
-
-Shouldly
+![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)  
 ========
 
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/shouldly/shouldly?branch=master&svg=true)](https://ci.appveyor.com/project/shouldly/shouldly) 
@@ -39,7 +37,7 @@ Read more about Shouldly and its features at [http://docs.shouldly-lib.net/](htt
 
 ## Installation
 
-You can install Shouldly by copying and pasting the following command into your Package Manager Console within Visual Studio (Tools > NuGet Package Manager > Package Manager Console).
+Shouldly can be [found here on NuGet](https://www.nuget.org/packages/Shouldly/) and can be installed by copying and pasting the following command into your Package Manager Console within Visual Studio (Tools > NuGet Package Manager > Package Manager Console).
 
 ```bash
 Install-Package Shouldly
@@ -58,13 +56,6 @@ Contributions to Shouldly are very welcome. For guidance, please see [CONTRIBUTI
 Shouldly uses the source code to make its error messages better. Hence, on the build server you will need to have the "full" pdb files available where the tests are being run. 
 
 What is meant by "full" is that when you set up your "release" configuration in Visual Studio and you go to Project Properties > Build > Advanced > Debug, you should set it to "full" rather than "pdb-only". 
-
-## History Change
-A test results database (~50mb) got accidentally committed in a972872888925205c9655cb540455d23d1891148, we removed this from history.
-The commit was only in master for <24 hours but if you happened to pull then you may need to reset master to get back in line.
-
-## Icon
-[Star](https://thenounproject.com/term/star/20931/) created by [Luboš Volkov](https://thenounproject.com/Lubo%C5%A1%20Volkov/) from The Noun Project.
 
 ## Currently maintained by
  - [Jake Ginnivan](https://github.com/JakeGinnivan)

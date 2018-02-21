@@ -2,8 +2,11 @@
 #tool nuget:?package=GitVersion.CommandLine
 
 var target = Argument("target", "Default");
+var configuration = Argument("configuration", "Release");
 var shouldlyProj = "./src/Shouldly/Shouldly.csproj";
 var outputDir = "./artifacts/";
+var isAppVeyor = BuildSystem.IsRunningOnAppVeyor;
+var isWindows = IsRunningOnWindows();
 
 Task("Clean")
     .Does(() => {
@@ -15,10 +18,14 @@ Task("Clean")
 
 Task("Restore")
     .Does(() => {
-        NuGetRestore("./src/Shouldly.sln");
+        DotNetCoreRestore("./src/Shouldly.sln", new DotNetCoreRestoreSettings{
+            Verbosity = DotNetCoreVerbosity.Minimal,
+        });
     });
 
 GitVersion versionInfo = null;
+DotNetCoreMSBuildSettings msBuildSettings = null;
+
 Task("Version")
     .Does(() => {
         GitVersion(new GitVersionSettings{
@@ -26,11 +33,11 @@ Task("Version")
             OutputType = GitVersionOutput.BuildServer
         });
         versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
-        // Update project.json
-        var updatedProjectJson = System.IO.File.ReadAllText(shouldlyProj)
-            .Replace("1.0.0-*", versionInfo.NuGetVersion);
-
-        System.IO.File.WriteAllText(shouldlyProj, updatedProjectJson);
+        
+        msBuildSettings = new DotNetCoreMSBuildSettings()
+                            .WithProperty("Version", versionInfo.NuGetVersion)
+                            .WithProperty("AssemblyVersion", versionInfo.AssemblySemVer)
+                            .WithProperty("FileVersion", versionInfo.AssemblySemVer);
     });
 
 Task("Build")
@@ -38,18 +45,30 @@ Task("Build")
     .IsDependentOn("Version")
     .IsDependentOn("Restore")
     .Does(() => {
-        MSBuild("./src/Shouldly.sln");
+        DotNetCoreBuild("./src/Shouldly.sln", new DotNetCoreBuildSettings()
+        {
+            Configuration = configuration,
+            MSBuildSettings = msBuildSettings
+        });
     });
 
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj");
+        DotNetCoreTool("./src/Shouldly.Tests/Shouldly.Tests.csproj", "xunit", "-configuration Debug");
     });
 
 Task("Package")
     .IsDependentOn("Test")
     .Does(() => {
+        DotNetCorePack(shouldlyProj, new DotNetCorePackSettings
+        {
+            Configuration = configuration,
+            OutputDirectory = outputDir,
+            MSBuildSettings = msBuildSettings
+        });
+
+        if (!isWindows) return;
 
         // TODO not sure why this isn't working
         // GitReleaseNotes("outputDir/releasenotes.md", new GitReleaseNotesSettings {
@@ -57,25 +76,25 @@ Task("Package")
         //     AllTags                  = false
         // });
 
-        // var releaseNotesExitCode = StartProcess(
-        //     @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
-        //     new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
-        // if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
-        //     System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
+        var releaseNotesExitCode = StartProcess(
+            @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
+            new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
+        if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
+            System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
-        // if (releaseNotesExitCode != 0) throw new Exception("Failed to generate release notes");
+        if (releaseNotesExitCode != 0) throw new Exception("Failed to generate release notes");
 
-        // System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
-        //     "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
-        //     "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
-        //     "releaseNotes:releasenotes.md"
-        // });
+        System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
+            "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
+            "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
+            "releaseNotes:releasenotes.md"
+        });
 
-        // if (AppVeyor.IsRunningOnAppVeyor)
-        // {
-        //     foreach (var file in GetFiles(outputDir + "**/*"))
-        //         AppVeyor.UploadArtifact(file.FullPath);
-        // }
+        if (isAppVeyor)
+        {
+            foreach (var file in GetFiles(outputDir + "**/*"))
+                AppVeyor.UploadArtifact(file.FullPath);
+        }
     });
 
 Task("Default")

@@ -115,7 +115,7 @@ namespace Shouldly.Internals
                 ? parameterString.Substring(parameterString.IndexOf(">", StringComparison.Ordinal) + 2)
                 : parameterString.Substring(1);
 
-            var parantheses = new Dictionary<char, char>
+            var parentheses = new Dictionary<char, char>
             {
                 {'{', '}'},
                 {'(', ')'},
@@ -138,9 +138,9 @@ namespace Shouldly.Internals
                     continue;
                 }
 
-                if (parantheses.ContainsKey(currentChar))
+                if (parentheses.ContainsKey(currentChar))
                 {
-                    openParentheses.Add(parantheses[currentChar]);
+                    openParentheses.Add(parentheses[currentChar]);
                 }
                 else if (openParentheses.Count > 0 && openParentheses.Last() == currentChar)
                 {
