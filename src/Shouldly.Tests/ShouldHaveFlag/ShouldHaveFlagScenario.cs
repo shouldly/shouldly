@@ -13,9 +13,10 @@ namespace Shouldly.Tests.ShouldHaveFlag
             var actual = TestEnum.FlagTwo;
             var value = TestEnum.FlagOne;
 
-            Verify.ShouldFail(() => actual.ShouldHaveFlag(value, "Some additional context"), 
+            Verify.ShouldFail(() =>
+actual.ShouldHaveFlag(value, "Some additional context"), 
                 errorWithSource: 
-@"Verify
+@"actual
     should have flag
 TestEnum.FlagOne
     but had
