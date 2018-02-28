@@ -81,7 +81,7 @@ namespace ExpressionToString
 
         protected override Expression VisitMember(MemberExpression node)
         {
-            if (node.Expression.NodeType == ExpressionType.Constant)
+            if (node.Expression?.NodeType == ExpressionType.Constant)
             {
                 Visit(node.Expression);
                 if (skipDot)
