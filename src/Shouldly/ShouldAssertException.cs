@@ -1,4 +1,5 @@
 ﻿using System;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -16,5 +17,11 @@ namespace Shouldly
         public ShouldAssertException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+#if StackTrace
+        private string stackTrace;
+
+        public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref stackTrace);
+#endif
     }
 }

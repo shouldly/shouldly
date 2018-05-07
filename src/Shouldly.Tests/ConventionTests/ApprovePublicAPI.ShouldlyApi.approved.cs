@@ -141,6 +141,7 @@ namespace Shouldly
     {
         public ShouldAssertException(string message) { }
         public ShouldAssertException(string message, System.Exception innerException) { }
+        public override string StackTrace { get; }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeBooleanExtensions
@@ -489,6 +490,7 @@ namespace Shouldly
     {
         public ShouldlyTimeoutException() { }
         public ShouldlyTimeoutException(string message, Shouldly.ShouldlyTimeoutException inner) { }
+        public override string StackTrace { get; }
     }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
