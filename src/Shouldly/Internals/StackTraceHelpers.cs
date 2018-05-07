@@ -31,7 +31,7 @@ namespace Shouldly.Internals
                 {
                     if (startIndex == 0)
                     {
-                        builder.Append(stackTrace);
+                        builder.Append(stackTrace.ToString().TrimEnd());
                     }
                     else
                     {
@@ -41,6 +41,7 @@ namespace Shouldly.Internals
                         for (var i = 0; i < lines.Length; i++)
                         {
                             var line = new StackTrace(stackTrace.GetFrame(i + startIndex)).ToString();
+                            if (i == lines.Length - 1) line = line.TrimEnd();
                             lines[i] = line;
                             neededCapacity += line.Length;
                         }
