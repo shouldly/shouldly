@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 #if ShouldMatchApproved
 using Shouldly.Configuration;
+//using System.Runtime.Remoting.Messaging;
+#endif
+#if NET451
+using System.Runtime.Remoting.Messaging;
+#endif
+#if NET40
 using System.Runtime.Remoting.Messaging;
 #endif
 

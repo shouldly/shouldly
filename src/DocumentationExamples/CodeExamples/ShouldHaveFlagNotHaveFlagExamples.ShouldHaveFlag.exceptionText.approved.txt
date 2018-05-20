@@ -1,4 +1,4 @@
-shouldMethod
+actual
     should have flag
 TestEnum.FlagOne
     but had
