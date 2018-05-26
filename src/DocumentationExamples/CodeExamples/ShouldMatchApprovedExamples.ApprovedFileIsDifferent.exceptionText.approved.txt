@@ -1,5 +1,5 @@
 To approve the changes run this command:
-copy /Y "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
+copy /Y "C:\Users\OsamaLone\source\repos\shouldlyosama\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "C:\Users\OsamaLone\source\repos\shouldlyosama\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
 ----------------------------
 
 simpsonsQuote
