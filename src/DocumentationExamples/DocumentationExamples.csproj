@@ -4,6 +4,7 @@
     <TargetFramework>net452</TargetFramework>
     <AssemblyName>DocumentationExamples</AssemblyName>
     <PackageId>DocumentationExamples</PackageId>
+    <DebugType>full</DebugType>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
