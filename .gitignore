@@ -35,3 +35,4 @@ src/*.Tests/report.xml
 .vscode
 src/.idea
 src/.idea.*
+/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
