@@ -114,7 +114,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         {
             var stacktrace = new StackTrace(true);
             var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
-            var approved = Path.Combine(sourceFileDir, $"ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
+            var approved = Path.Combine(sourceFileDir, "ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
             File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
 
             try
