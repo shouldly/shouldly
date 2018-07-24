@@ -29,12 +29,15 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
     <Reference Include="System.Collections.NonGeneric" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;</DefineConstants>
   </PropertyGroup>
-    
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved;</DefineConstants>
+  </PropertyGroup>
 </Project>
