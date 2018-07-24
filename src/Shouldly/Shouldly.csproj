@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
-    <TargetFrameworks>net451;net40;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net451;net40;netstandard1.3</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard1.3;netstandard2.0</TargetFrameworks>
     <AssemblyName>Shouldly</AssemblyName>
     <PackageId>Shouldly</PackageId>
@@ -44,6 +44,6 @@
     <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;CallContextPolyfill</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill</DefineConstants>
+    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill;ShouldMatchApproved</DefineConstants>
   </PropertyGroup>
 </Project>
