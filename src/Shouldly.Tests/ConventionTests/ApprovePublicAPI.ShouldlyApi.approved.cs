@@ -684,6 +684,7 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.DiffTool KDiff3;
         public readonly Shouldly.Configuration.DiffTool P4Merge;
         public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
+        public readonly Shouldly.Configuration.DiffTool WinMerge;
         public KnownDiffTools() { }
         public static Shouldly.Configuration.KnownDiffTools Instance { get; }
     }
