@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 
@@ -71,7 +72,7 @@ namespace Shouldly
 
         public static void ShouldBeOfType(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage);
+            actual.AssertAwesomely(v => v != null && TypeComparison(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldNotBeAssignableTo<T>(this object actual)
@@ -131,7 +132,24 @@ namespace Shouldly
 
         public static void ShouldNotBeOfType(this object actual, Type expected, [InstantHandle] Func<string> customMessage)
         {
-            actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage);
+            actual.AssertAwesomely(v => v == null || !TypeComparison(v, expected), actual, expected, customMessage);
+        }
+
+        private static bool TypeComparison(object actual, Type expected)
+        {
+            var objectType = actual.GetType();
+#if NewReflection
+            if (expected.GetTypeInfo().IsInterface)
+            {
+                return System.Reflection.TypeExtensions.GetInterfaces(objectType).Any(x => x == expected);
+            }
+#else
+            if (expected.IsInterface)
+            {
+                return objectType.GetInterfaces().Any(x => x == expected);
+            }
+#endif
+            return objectType == expected;
         }
     }
 }
