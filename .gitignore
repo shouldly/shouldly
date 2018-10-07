@@ -35,3 +35,5 @@ src/*.Tests/report.xml
 .vscode
 src/.idea
 src/.idea.*
+UpgradeLog*.htm
+UpgradeLog*.XML
