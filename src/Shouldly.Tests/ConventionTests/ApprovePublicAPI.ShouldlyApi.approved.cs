@@ -82,6 +82,15 @@ namespace Shouldly
         public static System.Exception Throw(System.Action actual, System.Type exceptionType) { }
         public static System.Exception Throw(System.Action actual, string customMessage, System.Type exceptionType) { }
         public static System.Exception Throw(System.Action actual, System.Func<string> customMessage, System.Type exceptionType) { }
+        public static TException Throw<TException>(System.Func<object> actual)
+            where TException : System.Exception { }
+        public static TException Throw<TException>(System.Func<object> actual, string customMessage)
+            where TException : System.Exception { }
+        public static TException Throw<TException>(System.Func<object> actual, System.Func<string> customMessage)
+            where TException : System.Exception { }
+        public static System.Exception Throw(System.Func<object> actual, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Func<object> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Func<object> actual, System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, string customMessage)
@@ -549,9 +558,18 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Action actual, System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static TException ShouldThrow<TException>(this System.Func<object> actual)
+            where TException : System.Exception { }
+        public static TException ShouldThrow<TException>(this System.Func<object> actual, string customMessage)
+            where TException : System.Exception { }
+        public static TException ShouldThrow<TException>(this System.Func<object> actual, System.Func<string> customMessage)
+            where TException : System.Exception { }
         public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Action actual, string customMessage, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Action actual, System.Func<string> customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object> actual, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object> actual, System.Func<string> customMessage, System.Type exceptionType) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldThrowTaskExtensions
