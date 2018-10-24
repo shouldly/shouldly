@@ -9,7 +9,7 @@ namespace Shouldly.DifferenceHighlighting
     {
         int maxDiffLength = 21;
         int maxNumberOfDiffs = 10;
-        
+
         readonly Case _sensitivity;
         readonly Func<string, string> _transform;
 
@@ -20,8 +20,7 @@ namespace Shouldly.DifferenceHighlighting
         }
         public string HighlightDifferences(string expected, string actual)
         {
-            if (expected == null) expected = "null";
-            if (actual == null) actual = "null";
+            if (expected == null || actual == null) return null;
 
             expected = _transform(expected);
             actual = _transform(actual);
