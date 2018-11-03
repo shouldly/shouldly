@@ -12,7 +12,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>Latest</LangVersion>
+    <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
     <Optimize>false</Optimize>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
