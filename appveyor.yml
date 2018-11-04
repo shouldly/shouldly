@@ -4,6 +4,9 @@ image:
 assembly_info:
   patch: false
 
+environment:
+  APPVEYOR_YML_DISABLE_PS_LINUX: true
+
 platform:
   - Any CPU
 
@@ -12,6 +15,7 @@ configuration:
  
 build_script:
   - pwsh: ./build.ps1
+  - sh: ./build.sh
 
 test: off
 skip_tags: true
