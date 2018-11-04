@@ -19,7 +19,7 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
+    <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
