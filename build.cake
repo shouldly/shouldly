@@ -76,9 +76,15 @@ Task("Package")
         //     AllTags                  = false
         // });
 
-        var releaseNotesExitCode = StartProcess(
-            @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
-            new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
+        var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
+
+        var releaseNotesExitCode = 
+            StartProcess(gitReleaseNotesTool,
+                         new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" },
+                         out var redirectedOutput);
+
+        Information(string.Join("\n", redirectedOutput));
+
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
