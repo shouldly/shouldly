@@ -76,39 +76,32 @@ Task("Package")
         //     AllTags                  = false
         // });
 
-        // var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
+        var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
 
-        // var releaseNotesExitCode = 
-        //     StartProcess(gitReleaseNotesTool,
-        //                  new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" },
-        //                  out var redirectedOutput);
+        var releaseNotesExitCode = 
+            StartProcess(gitReleaseNotesTool,
+                         new ProcessSettings { Arguments = ". /OutputFile artifacts/releasenotes.md", RedirectStandardOutput = true },
+                         out var redirectedOutput);
 
-        // Information(string.Join("\n", redirectedOutput));
-        // Information($"Exists(\"./artifacts/releasenotes.md\") = { FileExists("./artifacts/releasenotes.md") }");
+        Information(string.Join("\n", redirectedOutput));
+        Information($"Exists(\"./artifacts/releasenotes.md\") = { FileExists("./artifacts/releasenotes.md") }");
 
-        // if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
-        //     System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
+        if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
+            System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
-        // Information("Release notes produced.");
+        Information("Release notes produced.");
 
-        // if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
+        if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
 
-        // Information("No errors.");
+        Information("No errors.");
 
-        // System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
-        //     "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
-        //     "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
-        //     "releaseNotes:releasenotes.md"
-        // });
-
-        // Information("Written artifacts file.");
-
-        GitReleaseNotes("releasenotes.md", new GitReleaseNotesSettings {
-            AllTags = true,
-            AllLabels = true,
-            WorkingDirectory = outputDir,
-            Verbose = true
+        System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
+            "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
+            "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
+            "releaseNotes:releasenotes.md"
         });
+
+        Information("Written artifacts file.");
 
         if (isAppVeyor)
         {
