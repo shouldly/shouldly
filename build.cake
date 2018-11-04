@@ -84,24 +84,16 @@ Task("Package")
                          out var redirectedOutput);
 
         Information(string.Join("\n", redirectedOutput));
-        Information($"Exists(\"./artifacts/releasenotes.md\") = { FileExists("./artifacts/releasenotes.md") }");
-
+        
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
-        Information("Release notes produced.");
-
         if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
-
-        Information("No errors.");
 
         System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
             "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
-            "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
             "releaseNotes:releasenotes.md"
         });
-
-        Information("Written artifacts file.");
 
         if (isAppVeyor)
         {
