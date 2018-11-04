@@ -14,7 +14,7 @@ configuration:
   - Debug
  
 build_script:
-  - pwsh: ./build.ps1
+  - ps: ./build.ps1
   - sh: ./build.sh
 
 test: off
