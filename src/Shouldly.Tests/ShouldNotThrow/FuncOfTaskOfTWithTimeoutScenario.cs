@@ -12,13 +12,11 @@ namespace Shouldly.Tests.ShouldNotThrow
         [Fact]
         public void ShouldThrowAWobbly()
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(async () =>
             {
-                Task.Delay(5000).Wait();
+                await Task.Delay(TimeSpan.FromSeconds(5));
                 return "foo";
-            },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+            });
 
             var ex = Should.Throw<ShouldCompleteInException>(() =>
                 task.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
