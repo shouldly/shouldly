@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <TargetFramework Condition=" '$(OS)' == 'Windows_NT' ">net452</TargetFramework>
+    <TargetFramework Condition=" '$(OS)' == 'Windows_NT' ">net472</TargetFramework>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
@@ -10,7 +10,7 @@
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
