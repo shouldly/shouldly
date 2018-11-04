@@ -88,7 +88,11 @@ Task("Package")
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
+        Information("Release notes produced.");
+
         if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
+
+        Information("No errors.");
 
         System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
             "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
@@ -96,8 +100,11 @@ Task("Package")
             "releaseNotes:releasenotes.md"
         });
 
+        Information("Written artifacts file.");
+
         if (isAppVeyor)
         {
+            Information("Uploading artifacts to AppVeyor.");
             foreach (var file in GetFiles(outputDir + "**/*"))
                 AppVeyor.UploadArtifact(file.FullPath);
         }
