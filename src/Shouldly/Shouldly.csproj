@@ -3,14 +3,10 @@
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
     <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net451;net40;</TargetFrameworks>
-    <AssemblyName>Shouldly</AssemblyName>
-    <PackageId>Shouldly</PackageId>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_128x128.png</PackageIconUrl>
     <PackageProjectUrl>http://shouldly.github.com</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IncludeSource>true</IncludeSource>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
@@ -23,7 +19,7 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
+    <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
@@ -49,6 +45,6 @@
     <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;CallContextPolyfill</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill</DefineConstants>
+    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill;ShouldMatchApproved</DefineConstants>
   </PropertyGroup>
 </Project>

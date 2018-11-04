@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net452;</TargetFrameworks>
-    <AssemblyName>Shouldly.Tests</AssemblyName>
-    <PackageId>Shouldly.Tests</PackageId>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <DebugType>full</DebugType>
+    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net472;</TargetFrameworks>
     <LangVersion>latest</LangVersion>
+    <Optimize>false</Optimize>
+    <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
+    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">2.1.3</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
@@ -17,23 +14,20 @@
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
-    <PackageReference Include="xunit" Version="2.3.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="PublicApiGenerator" Version="6.5.0" />
     <PackageReference Include="TestStack.ConventionTests" Version="3.0.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <Reference Include="System.Runtime" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <Reference Include="System.Collections.NonGeneric" />
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net452' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;</DefineConstants>
   </PropertyGroup>
 </Project>
