@@ -84,6 +84,7 @@ Task("Package")
                          out var redirectedOutput);
 
         Information(string.Join("\n", redirectedOutput));
+        Information($"Exists(\"./artifacts/releasenotes.md\") = { FileExists("./artifacts/releasenotes.md") }");
 
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
