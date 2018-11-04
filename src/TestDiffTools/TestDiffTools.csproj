@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
-    <AssemblyName>TestDiffTools</AssemblyName>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework Condition=" '$(OS)' == 'Windows_NT' ">net452</TargetFramework>
     <OutputType>Exe</OutputType>
-    <PackageId>TestDiffTools</PackageId>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
   <ItemGroup>

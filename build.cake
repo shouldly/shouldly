@@ -60,6 +60,7 @@ Task("Test")
 
 Task("Package")
     .IsDependentOn("Test")
+    .WithCriteria(() => isWindows)
     .Does(() => {
         DotNetCorePack(shouldlyProj, new DotNetCorePackSettings
         {
@@ -67,8 +68,6 @@ Task("Package")
             OutputDirectory = outputDir,
             MSBuildSettings = msBuildSettings
         });
-
-        if (!isWindows) return;
 
         // TODO not sure why this isn't working
         // GitReleaseNotes("outputDir/releasenotes.md", new GitReleaseNotesSettings {
