@@ -88,7 +88,7 @@ Task("Package")
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
-        if (releaseNotesExitCode != 0) throw new Exception("Failed to generate release notes");
+        if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
 
         System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
             "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
