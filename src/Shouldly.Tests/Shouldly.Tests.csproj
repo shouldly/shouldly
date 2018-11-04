@@ -9,6 +9,7 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
+    <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
