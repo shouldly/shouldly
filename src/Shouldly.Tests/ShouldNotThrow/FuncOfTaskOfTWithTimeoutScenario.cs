@@ -6,9 +6,7 @@ using Xunit;
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class FuncOfTaskOfTWithTimeoutScenario
-
     {
-
         [Fact]
         public void ShouldThrowAWobbly()
         {
