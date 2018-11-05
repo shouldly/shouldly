@@ -43,9 +43,12 @@ namespace Shouldly.Internals.Assertions
 $@"{codeText}
     {_shouldlyMethod}{withOption}
 {expectedValue}
-    but was{actual}
-    difference
-{_diffHighlighter.HighlightDifferences(_expected, _actual)}";
+    but was{actual}";
+            if (!ShouldlyConfiguration.IsDifferenceHighlightingDisabled())
+            {
+                message += $@"difference
+                {_diffHighlighter.HighlightDifferences(_expected, _actual)}";                
+            }
 
             if (customMessage != null)
             {

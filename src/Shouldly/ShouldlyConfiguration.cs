@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 #if ShouldMatchApproved
 using Shouldly.Configuration;
 #endif
@@ -38,13 +37,31 @@ namespace Shouldly
                 StringCompareOptions = StringCompareShould.IgnoreLineEndings,
                 TestMethodFinder = new FirstNonShouldlyMethodFinder(),
                 FileExtension = "txt",
-                FilenameGenerator = (testMethodInfo, descriminator, type, extension)
-                    => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
+                FilenameGenerator = (testMethodInfo, discriminator, type, extension)
+                    => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
             });
 #endif
 
         /// <summary>
-        /// When set to true shouldly will not try and create better error messages using your source code
+        /// When set to true Shouldly will not show the difference between asserted values
+        /// </summary>
+        public static IDisposable DisableDifferenceHighlighting()
+        {
+            CallContext.LogicalSetData("DisableDifferenceHighlighting", true);
+            return new DisableDifferenceHighlightingDisposable();
+        }
+
+        public static bool IsDifferenceHighlightingDisabled()
+            => (bool?) CallContext.LogicalGetData("DisableDifferenceHighlighting") == true;
+
+        private class DisableDifferenceHighlightingDisposable : IDisposable
+        {
+            public void Dispose()
+                => CallContext.LogicalSetData("DisableDifferenceHighlighting", false);
+        } 
+        
+        /// <summary>
+        /// When set to true Shouldly will not try and create better error messages using your source code
         /// </summary>
         public static IDisposable DisableSourceInErrors()
         {
@@ -53,16 +70,12 @@ namespace Shouldly
         }
 
         public static bool IsSourceDisabledInErrors()
-        {
-            return (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
-        }
+            => (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
 
-        class EnableSourceInErrorsDisposable : IDisposable
+        private class EnableSourceInErrorsDisposable : IDisposable
         {
             public void Dispose()
-            {
-                CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
-            }
+                => CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
         }
 
         public static double DefaultFloatingPointTolerance = 0.0d;
