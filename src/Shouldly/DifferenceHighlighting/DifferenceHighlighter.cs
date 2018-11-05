@@ -16,23 +16,13 @@ namespace Shouldly.DifferenceHighlighting
         public static string HighlightDifferences(IShouldlyAssertionContext context)
         {
             var validDifferenceHighlighter = GetDifferenceHighlighterFor(context);
-
-            if (validDifferenceHighlighter == null)
-            {
-                return context.Actual.ToStringAwesomely();
-            }
-
-            return validDifferenceHighlighter.HighlightDifferences(context);
+            return validDifferenceHighlighter == null ? context.Actual.ToStringAwesomely() : validDifferenceHighlighter.HighlightDifferences(context);
         }
 
         public static bool CanHighlightDifferences(IShouldlyAssertionContext context)
-        {
-            return GetDifferenceHighlighterFor(context) != null;
-        }
+            => !ShouldlyConfiguration.IsDifferenceHighlightingDisabled() && GetDifferenceHighlighterFor(context) != null;
 
-        static IDifferenceHighlighter GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
-        {
-            return _differenceHighlighters.FirstOrDefault(x => x.CanProcess(context));
-        }
+        private static IDifferenceHighlighter GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
+            => _differenceHighlighters.FirstOrDefault(x => x.CanProcess(context));
     }
 }
