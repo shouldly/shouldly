@@ -45,31 +45,5 @@ namespace Shouldly.ShouldlyExtensionMethods
                 throw new ArgumentException("Enum doesn't have Flags attribute", nameof(actual));
             }
         }
-
-#if NET35
-        /* If the .NET Framework doesn't have a HasFlag, patch in our own version. 
-            Made by decompiling the HasFlag function on enum in .NET Framework version 4.5.1 */
-        static bool HasFlag(this Enum enumeration, Enum value)
-        {
-            if (enumeration == null)
-            {
-                return false;
-            }
-
-            if (value == null)
-            {
-                throw new ArgumentException(nameof(value));
-            }
-
-            if (!Enum.IsDefined(enumeration.GetType(), value))
-            {
-                throw new ArgumentException($"Enumeration type mismatch. The flag is of type '{value.GetType()}', was expecting {enumeration.GetType()}");
-            }
-
-            var longValue = Convert.ToUInt64(value);
-
-            return (Convert.ToUInt64(enumeration) & longValue) == longValue;
-        }
-#endif
     }
 }

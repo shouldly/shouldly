@@ -172,11 +172,7 @@ namespace Shouldly
 
         internal static bool IsNullOrWhiteSpace(this string s)
         {
-#if NET35
-            return string.IsNullOrEmpty(s.Trim());
-#else
             return string.IsNullOrWhiteSpace(s);
-#endif
         }
 
         internal static string NormalizeLineEndings(this string s)
