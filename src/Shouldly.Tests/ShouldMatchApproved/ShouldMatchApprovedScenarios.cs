@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Shouldly.Configuration;
@@ -25,12 +26,27 @@ namespace Shouldly.Tests.ShouldMatchApproved
         [Fact]
         public void MissingApprovedFile()
         {
-            var errorMsg = @"To approve the changes run this command:
+            var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+            string errorMsg = string.Empty;
+            if (isWindows)
+            {
+                errorMsg = @"To approve the changes run this command:
+copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
+----------------------------
+
+Approval file C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
+    does not exist";                
+            }
+            else
+            {
+                errorMsg = @"To approve the changes run this command:
 copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
 ----------------------------
 
 Approval file C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
     does not exist";
+            }
             Verify.ShouldFail(() =>
 "Bar".ShouldMatchApproved(c => c.NoDiff()),
 

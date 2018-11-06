@@ -30,4 +30,7 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved;</DefineConstants>
+  </PropertyGroup>
 </Project>

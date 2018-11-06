@@ -45,7 +45,8 @@ namespace Shouldly.Configuration
 
         public bool ShouldOpenDiffTool()
         {
-            return !_knownShouldNotLaunchDiffToolReasons.Any(r => r.ShouldNotLaunch());
+            var result = !_knownShouldNotLaunchDiffToolReasons.Any(r => r.ShouldNotLaunch());
+            return result;
         }
 
         public DiffTool GetDiffTool()
