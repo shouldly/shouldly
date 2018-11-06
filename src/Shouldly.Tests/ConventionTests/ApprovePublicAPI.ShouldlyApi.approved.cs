@@ -674,6 +674,11 @@ namespace Shouldly.Configuration
         public DoNotLaunchWhenEnvVariableIsPresent(string environmentalVariable) { }
         public bool ShouldNotLaunch() { }
     }
+    public class DoNotLaunchWhenPlatformIsNotWindows : Shouldly.Configuration.IShouldNotLaunchDiffTool
+    {
+        public DoNotLaunchWhenPlatformIsNotWindows() { }
+        public bool ShouldNotLaunch() { }
+    }
     public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
     public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
         where T : System.Attribute
@@ -715,6 +720,7 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool Jenkins;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool MyGet;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NotWindows;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
