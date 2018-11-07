@@ -6,13 +6,19 @@ namespace Shouldly.Configuration
 {
     public class KnownDiffTools
     {
+        /*
         [UsedImplicitly]
         public readonly DiffTool KDiff3 = new DiffTool("KDiff3", @"KDiff3\kdiff3.exe", KDiffArgs);
         [UsedImplicitly]
-        public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", @"Beyond Compare 3\BCompare.exe", BeyondCompareArgs);
+        public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", @"Beyond Compare 3\BCompare.exe", BeyondCompareArgs);*/
         [UsedImplicitly]
-        public readonly DiffTool BeyondCompare4 = new DiffTool("Beyond Compare 4", @"Beyond Compare 4\BCompare.exe", BeyondCompareArgs);
-        [UsedImplicitly]
+        public readonly DiffTool BeyondCompare4 = new DiffTool("Beyond Compare 4", new DiffToolPath
+        { 
+            Windows = @"Beyond Compare 4\BCompare.exe",
+            Mac = @"Beyond Compare.app/Contents/MacOS/bcomp"
+        }, BeyondCompareArgs);
+        
+/*      [UsedImplicitly]
         public readonly DiffTool CodeCompare = new DiffTool("Code Compare", @"Devart\Code Compare\CodeMerge.exe", CodeCompareArgs);
         [UsedImplicitly]
         public readonly DiffTool P4Merge = new DiffTool("P4Merge", @"Perforce\p4merge.exe", P4MergeArgs);
@@ -21,7 +27,7 @@ namespace Shouldly.Configuration
         [UsedImplicitly]
         public readonly DiffTool WinMerge = new DiffTool("WinMerge", @"WinMerge\WinMergeU.exe", WinMergeArgs);
         [UsedImplicitly]
-        public readonly DiffTool CurrentVisualStudio = new CurrentlyRunningVisualStudioDiffTool();
+        public readonly DiffTool CurrentVisualStudio = new CurrentlyRunningVisualStudioDiffTool();*/
 
         public static KnownDiffTools Instance { get; } = new KnownDiffTools();
 

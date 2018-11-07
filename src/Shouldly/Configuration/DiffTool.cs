@@ -3,9 +3,25 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Shouldly.Configuration
 {
+    public class DiffToolPath
+    {
+        public string Windows { private get; set; }
+
+        public string Mac { private get; set; }
+
+        public string TruePath
+        {
+            get
+            {
+                return RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? Windows : Mac;                
+            }
+        }
+    }
+    
     public class DiffTool
     {
         readonly string _path;
@@ -20,6 +36,13 @@ namespace Shouldly.Configuration
             _argGenerator = argGenerator;
         }
 
+        public DiffTool(string name, DiffToolPath path, ArgumentGenerator argGenerator)
+        {
+            Name = name;
+            _path = path == null ? null : (Path.IsPathRooted(path.TruePath) && File.Exists(path.TruePath) ? path.TruePath : Discover(path.TruePath));
+            _argGenerator = argGenerator;
+        }
+        
         public string Name { get; }
 
         public bool Exists()
@@ -39,6 +62,21 @@ namespace Shouldly.Configuration
             if (!string.IsNullOrEmpty(fullPathFromPathEnv))
                 return fullPathFromPathEnv;
 
+            
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                var home = "/Applications/";
+                var result = new[]
+                    {
+                        home
+                    }
+                    .Where(p => p != null)
+                    .Select(pf => Path.Combine(pf, path))
+                    .FirstOrDefault(File.Exists);
+                    
+                return result;
+            }
+            
             return new[]
                 {
                     Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
@@ -47,7 +85,7 @@ namespace Shouldly.Configuration
                 }
                 .Where(p => p != null)
                 .Select(pf => Path.Combine(pf, path))
-                .FirstOrDefault(File.Exists);
+                .FirstOrDefault(File.Exists); 
         }
 
         static string GetFullPath(string fileName)
