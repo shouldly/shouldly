@@ -1,5 +1,4 @@
 #if ShouldMatchApproved
-using System;
 
 namespace Shouldly.Configuration
 {
@@ -7,7 +6,7 @@ namespace Shouldly.Configuration
     {
         public bool ShouldNotLaunch()
         {
-            return Environment.OSVersion.Platform != PlatformID.Win32NT;
+            return !ShouldlyEnvironmentContext.IsWindows();
         }
     }
 }

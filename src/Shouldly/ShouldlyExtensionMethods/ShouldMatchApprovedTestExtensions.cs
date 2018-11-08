@@ -1,5 +1,4 @@
-﻿// TODO Try and get this working with Core
-#if ShouldMatchApproved
+﻿#if ShouldMatchApproved
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -65,9 +64,12 @@ namespace Shouldly
             {
                 if (ConfigurationAllowsDiff(config))
                     ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, false);
-
-                throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
-    does not exist", receivedFile, approvedFile);
+                throw new ShouldMatchApprovedException(new ShouldMatchApprovedExceptionContext
+                {
+                    Approved = approvedFile,
+                    Received = receivedFile,
+                    Message = $@"Approval file {approvedFile} does not exist" 
+                });
             }
 
             var approvedFileContents = File.ReadAllText(approvedFile);
@@ -80,7 +82,13 @@ namespace Shouldly
                 ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, true);
 
             if (!contentsMatch)
-                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage()), receivedFile, approvedFile);
+                throw new ShouldMatchApprovedException(new ShouldMatchApprovedExceptionContext
+                {
+                    Message = assertion.GenerateMessage(customMessage()),
+                    Approved = approvedFile,
+                    Received = receivedFile
+                });
+            
             File.Delete(receivedFile);
         }
 
