@@ -34,8 +34,8 @@ namespace Shouldly.Configuration
         static string BeyondCompareArgs(string received, string approved, bool approvedExists)
         {
             return approvedExists
-                ? $"\"{received}\" \"{approved}\" /mergeoutput=\"{approved}\""
-                : $"\"{received}\" /mergeoutput=\"{approved}\"";
+                ? $"\"{received}\" \"{approved}\" " + (ShouldlyEnvironmentContext.IsWindows() ? "/" :"-") + $"mergeoutput=\"{approved}\""
+                : $"\"{received}\" " + (ShouldlyEnvironmentContext.IsWindows() ? "/" :"-") + $"mergeoutput=\"{approved}\"";
         }
 
         static string KDiffArgs(string received, string approved, bool approvedExists)
