@@ -20,14 +20,13 @@ copy /Y ""{Received}"" ""{Approved}""";
             else
             {
                 message += $@"
-cp ""{Received}"" ""{Approved}""";    
+cp ""{Received}"" ""{Approved}""";
             }
            
             message += $@"
-            
 ----------------------------
 
-{Message}""";
+{Message}";
 
             return message;
         }

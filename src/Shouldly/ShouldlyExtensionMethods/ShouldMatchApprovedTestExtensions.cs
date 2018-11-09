@@ -68,7 +68,8 @@ namespace Shouldly
                 {
                     Approved = approvedFile,
                     Received = receivedFile,
-                    Message = $@"Approval file {approvedFile} does not exist" 
+                    Message = $@"Approval file {approvedFile}
+    does not exist"
                 });
             }
 

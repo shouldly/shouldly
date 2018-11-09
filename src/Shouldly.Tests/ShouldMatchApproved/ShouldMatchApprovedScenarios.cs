@@ -15,66 +15,32 @@ namespace Shouldly.Tests.ShouldMatchApproved
 {
     public class ShouldMatchApprovedScenarios
     {
-       readonly Func<string, string> _scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
+        private readonly Func<string, string> _scrubber = v => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src")
+            : Regex.Replace(v, @"\/([U,u]sers|[H,h]ome).+?shouldly\/src", "/PathToCode/shouldly/src");
 
         [Fact]
         public void Simple()
         {
-            "Bar2".ShouldMatchApproved();
+            "Bar".ShouldMatchApproved();
         }
 
         [Fact]
         public void MissingApprovedFile()
         {
-            var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-
-            Func<string, string> localScrubber = v => Regex.Replace(v, @"\/\w.+?shouldly\/src", "/PathToCode/shouldly/src");
-            /*string errorMsg = string.Empty;
-            if (isWindows)
-            {
-                errorMsg = @"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
-----------------------------
-
-Approval file C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
-    does not exist";                
-            }
-            else
-            {*/
-                var errorMsg = @"To approve the changes run this command:
+            var errorMsg = @"To approve the changes run this command:
 cp ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
 ----------------------------
 
 Approval file /PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
     does not exist";
-            /*}*/
-            Verify.ShouldFail(() =>
-                    "Bar".ShouldMatchApproved(c => c.NoDiff()),
-
-                errorWithSource: errorMsg,
-                errorWithoutSource: errorMsg,
-                messageScrubber: localScrubber);
-        }
-
-
-        [Fact]
-        public void MissingApprovedFile2()
-        {
-            /*Func<string, string> localScrubber =
-                v => Regex.Replace(v, @"\/\w.+?shouldly\/src", "/PathToCode/shouldly/src");*/
-            var errorMsg = @"To approve the changes run this command:
-cp ""/Users/josephwoodward/Dev/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile2.received.txt"" ""/Users/josephwoodward/Dev/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile2.approved.txt""
-----------------------------
-
-Approval file /Users/josephwoodward/Dev/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile2.approved.txt
-    does not exist";
 
             Verify.ShouldFail(() =>
                     "Bar".ShouldMatchApproved(c => c.NoDiff()),
 
                 errorWithSource: errorMsg,
                 errorWithoutSource: errorMsg,
-                null);
+                _scrubber);
         }
 
         [Fact]

@@ -20,7 +20,13 @@ namespace Shouldly.Tests.Strings
             else
             {
                 var scrubber = messageScrubber;
-                messageScrubber = v => MatchGetHashCode.Replace(scrubber(v), "(000000)");
+                messageScrubber = v =>
+                {
+                    var msg = scrubber(v);
+                    var res = MatchGetHashCode.Replace(msg, "(000000)");
+                    return res;
+
+                };
             }
 
             action
