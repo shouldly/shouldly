@@ -12,7 +12,7 @@ namespace ApprovedTests
         {
             // var diffTool = new DiffTool("Beyond Compare", @"/Applications/Beyond Compare.app/Contents/MacOS/bcomp", (received, approved, approvedExists) =>
             // /Applications/Beyond Compare.app/Contents/MacOS
-            "Bar2".ShouldMatchApproved();
+            "Bar3".ShouldMatchApproved();
         }
     }
 }

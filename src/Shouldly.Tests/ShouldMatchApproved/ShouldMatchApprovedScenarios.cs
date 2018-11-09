@@ -15,12 +15,12 @@ namespace Shouldly.Tests.ShouldMatchApproved
 {
     public class ShouldMatchApprovedScenarios
     {
-        readonly Func<string, string> _scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
+       readonly Func<string, string> _scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
 
         [Fact]
         public void Simple()
         {
-            "Bar".ShouldMatchApproved();
+            "Bar2".ShouldMatchApproved();
         }
 
         [Fact]
@@ -28,7 +28,8 @@ namespace Shouldly.Tests.ShouldMatchApproved
         {
             var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
-            string errorMsg = string.Empty;
+            Func<string, string> localScrubber = v => Regex.Replace(v, @"\/\w.+?shouldly\/src", "/PathToCode/shouldly/src");
+            /*string errorMsg = string.Empty;
             if (isWindows)
             {
                 errorMsg = @"To approve the changes run this command:
@@ -39,20 +40,41 @@ Approval file C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\Shou
     does not exist";                
             }
             else
-            {
-                errorMsg = @"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
+            {*/
+                var errorMsg = @"To approve the changes run this command:
+cp ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
 ----------------------------
 
-Approval file C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
+Approval file /PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
     does not exist";
-            }
+            /*}*/
             Verify.ShouldFail(() =>
-"Bar".ShouldMatchApproved(c => c.NoDiff()),
+                    "Bar".ShouldMatchApproved(c => c.NoDiff()),
 
-errorWithSource: errorMsg,
-errorWithoutSource: errorMsg,
-messageScrubber: _scrubber);
+                errorWithSource: errorMsg,
+                errorWithoutSource: errorMsg,
+                messageScrubber: localScrubber);
+        }
+
+
+        [Fact]
+        public void MissingApprovedFile2()
+        {
+            /*Func<string, string> localScrubber =
+                v => Regex.Replace(v, @"\/\w.+?shouldly\/src", "/PathToCode/shouldly/src");*/
+            var errorMsg = @"To approve the changes run this command:
+cp ""/Users/josephwoodward/Dev/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile2.received.txt"" ""/Users/josephwoodward/Dev/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile2.approved.txt""
+----------------------------
+
+Approval file /Users/josephwoodward/Dev/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile2.approved.txt
+    does not exist";
+
+            Verify.ShouldFail(() =>
+                    "Bar".ShouldMatchApproved(c => c.NoDiff()),
+
+                errorWithSource: errorMsg,
+                errorWithoutSource: errorMsg,
+                null);
         }
 
         [Fact]
@@ -154,10 +176,10 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         [Fact]
         public void CanFindTestAttribute()
         {
-            FirstInCallStackToAsser();
+            FirstInCallStackToAssert();
         }
 
-        void FirstInCallStackToAsser()
+        void FirstInCallStackToAssert()
         {
             AnotherInCallStack();
         }
