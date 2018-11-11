@@ -28,11 +28,19 @@ namespace Shouldly.Tests.ShouldMatchApproved
         [Fact]
         public void MissingApprovedFile()
         {
-            var errorMsg = @"To approve the changes run this command:
-cp ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.received.txt"" ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt""
+            var approvalPath = IsWindows()
+                ? @"C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile"
+                : @"/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
+            
+            var cmd = IsWindows()
+                ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"
+                : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
+            
+            var errorMsg = $@"To approve the changes run this command:
+{cmd}
 ----------------------------
 
-Approval file /PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile.approved.txt
+Approval file {approvalPath}.approved.txt
     does not exist";
 
             Verify.ShouldFail(() =>
@@ -42,17 +50,21 @@ Approval file /PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/Should
                 errorWithoutSource: errorMsg,
                 _scrubber);
         }
-
+        
         [Fact]
         public void DifferencesUseShouldlyMessages()
         {
+            var cmd = IsWindows()
+                ? @"copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt"""
+                : @"cp ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""";
+
             var str = "Foo";
             Verify.ShouldFail(() =>
-str.ShouldMatchApproved(c => c.NoDiff()),
+                    str.ShouldMatchApproved(c => c.NoDiff()),
 
-errorWithSource:
-@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""
+                errorWithSource:
+                $@"To approve the changes run this command:
+{cmd}
 ----------------------------
 
 str
@@ -69,9 +81,9 @@ Actual Value   | F    o    o
 Expected Code  | 66   97   114  
 Actual Code    | 70   111  111  ",
 
-errorWithoutSource:
-@"To approve the changes run this command:
-copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""
+                errorWithoutSource:
+                $@"To approve the changes run this command:
+{cmd}
 ----------------------------
 
 ""Foo""
@@ -87,9 +99,10 @@ Actual Value   | F    o    o
 Expected Code  | 66   97   114  
 Actual Code    | 70   111  111  ",
 
-messageScrubber:
-_scrubber);
+                messageScrubber:
+                _scrubber);
         }
+
 
         [Fact]
         public void NoDiffToolsFound()
@@ -118,7 +131,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         {
             var stacktrace = new StackTrace(true);
             var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
-            var approved = Path.Combine(sourceFileDir, $"ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
+            var approved = Path.Combine(sourceFileDir, "ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
             File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
 
             try
@@ -162,6 +175,9 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
 
             "Foo".ShouldMatchApproved();
         }
+        
+        public static bool IsWindows()
+            => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
 }
 #endif
