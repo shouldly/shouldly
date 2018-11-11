@@ -158,12 +158,12 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
             FirstInCallStackToAssert();
         }
 
-        void FirstInCallStackToAssert()
+        private static void FirstInCallStackToAssert()
         {
             AnotherInCallStack();
         }
 
-        void AnotherInCallStack()
+        private static void AnotherInCallStack()
         {
             "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
         }
