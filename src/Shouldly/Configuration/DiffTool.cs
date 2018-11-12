@@ -63,7 +63,7 @@ namespace Shouldly.Configuration
                 return fullPathFromPathEnv;
 
             
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            if (ShouldlyEnvironmentContext.IsMac())
             {
                 var home = "/Applications/";
                 var result = new[]

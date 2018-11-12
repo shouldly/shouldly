@@ -42,9 +42,9 @@
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;Serializable</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;CallContextPolyfill</DefineConstants>
+    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;CallContextPolyfill;NetStandard</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill;ShouldMatchApproved</DefineConstants>
+    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill;ShouldMatchApproved;NetStandard</DefineConstants>
   </PropertyGroup>
 </Project>
