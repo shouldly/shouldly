@@ -9,15 +9,15 @@ namespace Shouldly.Configuration
 {
     public class DiffToolPath
     {
-        public string Windows { private get; set; }
+        public string WindowsPath { private get; set; }
 
-        public string Mac { private get; set; }
+        public string MacPath { private get; set; }
 
         public string TruePath
         {
             get
             {
-                return RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? Windows : Mac;                
+                return ShouldlyEnvironmentContext.IsWindows() ? WindowsPath : MacPath;                
             }
         }
     }
