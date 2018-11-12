@@ -503,7 +503,15 @@ namespace Shouldly
     }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
-        public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) { }
+        public ShouldMatchApprovedException(Shouldly.ShouldMatchApprovedExceptionContext context) { }
+    }
+    public class ShouldMatchApprovedExceptionContext
+    {
+        public ShouldMatchApprovedExceptionContext() { }
+        public string Approved { set; }
+        public string Message { set; }
+        public string Received { set; }
+        public string GenerateMessage() { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldMatchApprovedTestExtensions
@@ -653,6 +661,7 @@ namespace Shouldly.Configuration
     public class DiffTool
     {
         public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
+        public DiffTool(string name, Shouldly.Configuration.DiffToolPath path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
         public bool Exists() { }
         public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
@@ -663,11 +672,18 @@ namespace Shouldly.Configuration
         public DiffToolConfiguration() { }
         public Shouldly.Configuration.KnownDiffTools KnownDiffTools { get; }
         public Shouldly.Configuration.KnownDoNotLaunchStrategies KnownDoNotLaunchStrategies { get; }
-        public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
+        public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotLaunchStrategy) { }
         public Shouldly.Configuration.DiffTool GetDiffTool() { }
         public void RegisterDiffTool(Shouldly.Configuration.DiffTool diffTool) { }
         public void SetDiffToolPriorities(params Shouldly.Configuration.DiffTool[] diffTools) { }
         public bool ShouldOpenDiffTool() { }
+    }
+    public class DiffToolPath
+    {
+        public DiffToolPath() { }
+        public string MacPath { set; }
+        public string TruePath { get; }
+        public string WindowsPath { set; }
     }
     public class DoNotLaunchWhenEnvVariableIsPresent : Shouldly.Configuration.IShouldNotLaunchDiffTool
     {
@@ -720,7 +736,6 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool Jenkins;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool MyGet;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NotWindows;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
