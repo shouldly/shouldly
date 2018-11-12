@@ -3,43 +3,30 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace Shouldly.Configuration
 {
-    public class DiffToolPath
+    public class DiffToolConfig
     {
-        public string WindowsPath { private get; set; }
+        public string WindowsPath { get; set; }
 
-        public string MacPath { private get; set; }
+        public string MacPath {get; set; }
 
         public string TruePath
-        {
-            get
-            {
-                return ShouldlyEnvironmentContext.IsWindows() ? WindowsPath : MacPath;                
-            }
-        }
+            => ShouldlyEnvironmentContext.IsWindows() ? WindowsPath : MacPath;
     }
     
     public class DiffTool
     {
-        readonly string _path;
-        readonly ArgumentGenerator _argGenerator;
+        private readonly string _path;
+        private readonly ArgumentGenerator _argGenerator;
 
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
 
-        public DiffTool(string name, string path, ArgumentGenerator argGenerator)
+        public DiffTool(string name, DiffToolConfig path, ArgumentGenerator argGenerator)
         {
             Name = name;
-            _path = path == null ? null : (Path.IsPathRooted(path) && File.Exists(path) ? path : Discover(path));
-            _argGenerator = argGenerator;
-        }
-
-        public DiffTool(string name, DiffToolPath path, ArgumentGenerator argGenerator)
-        {
-            Name = name;
-            _path = path == null ? null : (Path.IsPathRooted(path.TruePath) && File.Exists(path.TruePath) ? path.TruePath : Discover(path.TruePath));
+            _path = path == null ? null : Path.IsPathRooted(path.TruePath) && File.Exists(path.TruePath) ? path.TruePath : Discover(path.TruePath);
             _argGenerator = argGenerator;
         }
         
@@ -55,40 +42,38 @@ namespace Shouldly.Configuration
             Process.Start(_path, _argGenerator(receivedPath, approvedPath, approvedExists));
         }
 
-        string Discover(string path)
+        private static string Discover(string path)
         {
             var exeName = Path.GetFileName(path);
             var fullPathFromPathEnv = GetFullPath(exeName);
             if (!string.IsNullOrEmpty(fullPathFromPathEnv))
                 return fullPathFromPathEnv;
-
             
             if (ShouldlyEnvironmentContext.IsMac())
             {
-                var home = "/Applications/";
                 var result = new[]
-                    {
-                        home
-                    }
-                    .Where(p => p != null)
-                    .Select(pf => Path.Combine(pf, path))
-                    .FirstOrDefault(File.Exists);
+                {
+                    "/Applications/"
+                }
+                .Where(p => p != null)
+                .Select(pf => Path.Combine(pf, path))
+                .FirstOrDefault(File.Exists);
                     
                 return result;
             }
             
             return new[]
-                {
-                    Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
-                    Environment.GetEnvironmentVariable("ProgramFiles"),
-                    Environment.GetEnvironmentVariable("ProgramW6432")
-                }
-                .Where(p => p != null)
-                .Select(pf => Path.Combine(pf, path))
-                .FirstOrDefault(File.Exists); 
+{
+    Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
+    Environment.GetEnvironmentVariable("ProgramFiles"),
+    Environment.GetEnvironmentVariable("ProgramW6432")
+}
+.Where(p => p != null)
+.Select(pf => Path.Combine(pf, path))
+.FirstOrDefault(File.Exists); 
         }
 
-        static string GetFullPath(string fileName)
+        private static string GetFullPath(string fileName)
         {
             if (File.Exists(fileName))
                 return Path.GetFullPath(fileName);
