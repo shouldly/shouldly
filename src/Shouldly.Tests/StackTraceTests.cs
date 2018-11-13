@@ -63,7 +63,7 @@ namespace Shouldly.Tests
                     throwInShouldlyAssembly: FailingUserCode_CompleteIn)
 
                 .Add<ShouldMatchApprovedException>(
-                    throwDirectly: () => throw new ShouldMatchApprovedException(null),
+                    throwDirectly: () => throw new ShouldMatchApprovedException(null, null, null),
                     reasonNotThrowingFromShouldlyAssembly: "Don’t want to actually create a file on disk")
 
                 .Build()

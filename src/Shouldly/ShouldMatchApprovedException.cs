@@ -1,41 +1,33 @@
 namespace Shouldly
 {
-    public class ShouldMatchApprovedExceptionContext
+    public class ShouldMatchApprovedException : ShouldAssertException
     {
-        public string Message { private get; set; }
-        
-        public string Received { private get; set; }
-        
-        public string Approved { private get; set; }
-
-        public string GenerateMessage()
+        public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) : base(
+            GenerateMessage(message, receivedFile, approvedFile))
         {
-            var message = @"To approve the changes run this command:";
+        }
+
+        private static string GenerateMessage(string message, string receivedFile, string approvedFile)
+        {
+            var msg = @"To approve the changes run this command:";
 
             if (ShouldlyEnvironmentContext.IsWindows())
             {
-                message += $@"
-copy /Y ""{Received}"" ""{Approved}""";
+                msg += $@"
+copy /Y ""{receivedFile}"" ""{approvedFile}""";
             }
             else
             {
-                message += $@"
-cp ""{Received}"" ""{Approved}""";
+                msg += $@"
+cp ""{receivedFile}"" ""{approvedFile}""";
             }
            
-            message += $@"
+            msg += $@"
 ----------------------------
 
-{Message}";
+{message}";
 
-            return message;
-        }
-    } 
-    
-    public class ShouldMatchApprovedException : ShouldAssertException
-    {
-        public ShouldMatchApprovedException(ShouldMatchApprovedExceptionContext context) : base(context.GenerateMessage())
-        {
+            return msg;
         }
     }
 }

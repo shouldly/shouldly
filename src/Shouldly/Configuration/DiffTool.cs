@@ -23,10 +23,10 @@ namespace Shouldly.Configuration
 
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
 
-        public DiffTool(string name, DiffToolConfig path, ArgumentGenerator argGenerator)
+        public DiffTool(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
         {
             Name = name;
-            _path = path == null ? null : Path.IsPathRooted(path.TruePath) && File.Exists(path.TruePath) ? path.TruePath : Discover(path.TruePath);
+            _path = config == null ? null : Path.IsPathRooted(config.TruePath) && File.Exists(config.TruePath) ? config.TruePath : Discover(config.TruePath);
             _argGenerator = argGenerator;
         }
         
@@ -44,7 +44,10 @@ namespace Shouldly.Configuration
 
         private static string Discover(string path)
         {
-            var exeName = Path.GetFileName(path);
+            if (path == null)
+                return null;
+            
+            var exeName= Path.GetFileName(path);
             var fullPathFromPathEnv = GetFullPath(exeName);
             if (!string.IsNullOrEmpty(fullPathFromPathEnv))
                 return fullPathFromPathEnv;
@@ -55,9 +58,17 @@ namespace Shouldly.Configuration
                 {
                     "/Applications/"
                 }
-                .Where(p => p != null)
-                .Select(pf => Path.Combine(pf, path))
-                .FirstOrDefault(File.Exists);
+                .Where(p =>
+                {
+                    return p != null;
+                    
+                })
+                .Select(pf =>
+                {
+                    var r = Path.Combine(pf, path);
+                        return r;
+                    })
+                    .FirstOrDefault(File.Exists);
                     
                 return result;
             }
@@ -82,7 +93,8 @@ namespace Shouldly.Configuration
             var userPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
             var machinePath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
             var values = $"{processPath};{userPath};{machinePath}";
-            return values.Split(';')
+            var separator = ShouldlyEnvironmentContext.IsWindows() ? ';' : ':';
+            return values.Split(separator)
                 .Where(p => !string.IsNullOrEmpty(p))
                 .Select(path => path.Trim('"'))
                 .Select(path => TryCombine(fileName, path))

@@ -48,7 +48,7 @@ Approval file {approvalPath}.approved.txt
 
                 errorWithSource: errorMsg,
                 errorWithoutSource: errorMsg,
-                _scrubber);
+                messageScrubber: _scrubber);
         }
         
         [Fact]

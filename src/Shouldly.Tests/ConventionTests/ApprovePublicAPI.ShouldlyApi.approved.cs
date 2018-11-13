@@ -1,8 +1,13 @@
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.5.1", FrameworkDisplayName=".NET Framework 4.5.1")]
+[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETStandard,Version=v2.0", FrameworkDisplayName="")]
 
 namespace Shouldly
 {
     
+    public class static CallContext
+    {
+        public static object LogicalGetData(string name) { }
+        public static void LogicalSetData(string name, object data) { }
+    }
     public enum Case
     {
         Sensitive = 0,
@@ -503,15 +508,7 @@ namespace Shouldly
     }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
-        public ShouldMatchApprovedException(Shouldly.ShouldMatchApprovedExceptionContext context) { }
-    }
-    public class ShouldMatchApprovedExceptionContext
-    {
-        public ShouldMatchApprovedExceptionContext() { }
-        public string Approved { set; }
-        public string Message { set; }
-        public string Received { set; }
-        public string GenerateMessage() { }
+        public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldMatchApprovedTestExtensions
@@ -660,12 +657,18 @@ namespace Shouldly.Configuration
     
     public class DiffTool
     {
-        public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
-        public DiffTool(string name, Shouldly.Configuration.DiffToolPath path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
+        public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
         public bool Exists() { }
         public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
+    }
+    public class DiffToolConfig
+    {
+        public DiffToolConfig() { }
+        public string MacPath { get; set; }
+        public string TruePath { get; }
+        public string WindowsPath { get; set; }
     }
     public class DiffToolConfiguration
     {
@@ -677,13 +680,6 @@ namespace Shouldly.Configuration
         public void RegisterDiffTool(Shouldly.Configuration.DiffTool diffTool) { }
         public void SetDiffToolPriorities(params Shouldly.Configuration.DiffTool[] diffTools) { }
         public bool ShouldOpenDiffTool() { }
-    }
-    public class DiffToolPath
-    {
-        public DiffToolPath() { }
-        public string MacPath { set; }
-        public string TruePath { get; }
-        public string WindowsPath { set; }
     }
     public class DoNotLaunchWhenEnvVariableIsPresent : Shouldly.Configuration.IShouldNotLaunchDiffTool
     {
@@ -720,12 +716,6 @@ namespace Shouldly.Configuration
     {
         public readonly Shouldly.Configuration.DiffTool BeyondCompare3;
         public readonly Shouldly.Configuration.DiffTool BeyondCompare4;
-        public readonly Shouldly.Configuration.DiffTool CodeCompare;
-        public readonly Shouldly.Configuration.DiffTool CurrentVisualStudio;
-        public readonly Shouldly.Configuration.DiffTool KDiff3;
-        public readonly Shouldly.Configuration.DiffTool P4Merge;
-        public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
-        public readonly Shouldly.Configuration.DiffTool WinMerge;
         public KnownDiffTools() { }
         public static Shouldly.Configuration.KnownDiffTools Instance { get; }
     }

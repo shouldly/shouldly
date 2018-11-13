@@ -64,13 +64,9 @@ namespace Shouldly
             {
                 if (ConfigurationAllowsDiff(config))
                     ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, false);
-                throw new ShouldMatchApprovedException(new ShouldMatchApprovedExceptionContext
-                {
-                    Approved = approvedFile,
-                    Received = receivedFile,
-                    Message = $@"Approval file {approvedFile}
-    does not exist"
-                });
+
+                throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
+    does not exist", receivedFile, approvedFile);
             }
 
             var approvedFileContents = File.ReadAllText(approvedFile);
@@ -83,13 +79,7 @@ namespace Shouldly
                 ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, true);
 
             if (!contentsMatch)
-                throw new ShouldMatchApprovedException(new ShouldMatchApprovedExceptionContext
-                {
-                    Message = assertion.GenerateMessage(customMessage()),
-                    Approved = approvedFile,
-                    Received = receivedFile
-                });
-            
+                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage()), receivedFile, approvedFile);
             File.Delete(receivedFile);
         }
 
