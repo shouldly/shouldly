@@ -6,11 +6,11 @@ namespace Shouldly.Configuration
 {
     public class KnownDiffTools
     {
-/*        [UsedImplicitly]
+        [UsedImplicitly]
         public readonly DiffTool KDiff3 = new DiffTool("KDiff3", new DiffToolConfig
         {
             WindowsPath = @"KDiff3\kdiff3.exe"
-        },KDiffArgs);*/
+        },KDiffArgs);
         
         [UsedImplicitly]
         public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", new DiffToolConfig
@@ -25,7 +25,7 @@ namespace Shouldly.Configuration
             MacPath = @"Beyond Compare.app/Contents/MacOS/bcomp"
         }, BeyondCompareArgs);
         
-        /*[UsedImplicitly]
+        [UsedImplicitly]
         public readonly DiffTool CodeCompare = new DiffTool("Code Compare", new DiffToolConfig
         {
             WindowsPath = @"Devart\Code Compare\CodeMerge.exe"
@@ -47,7 +47,7 @@ namespace Shouldly.Configuration
         public readonly DiffTool WinMerge = new DiffTool("WinMerge", new DiffToolConfig
         {
             WindowsPath = @"WinMerge\WinMergeU.exe"
-        },  WinMergeArgs);*/
+        },  WinMergeArgs);
         
         #if IsWindows
         [UsedImplicitly]
