@@ -1,8 +1,13 @@
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.5.1", FrameworkDisplayName=".NET Framework 4.5.1")]
+[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETStandard,Version=v2.0", FrameworkDisplayName="")]
 
 namespace Shouldly
 {
     
+    public class static CallContext
+    {
+        public static object LogicalGetData(string name) { }
+        public static void LogicalSetData(string name, object data) { }
+    }
     public enum Case
     {
         Sensitive = 0,
@@ -712,7 +717,6 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.DiffTool BeyondCompare3;
         public readonly Shouldly.Configuration.DiffTool BeyondCompare4;
         public readonly Shouldly.Configuration.DiffTool CodeCompare;
-        public readonly Shouldly.Configuration.DiffTool CurrentVisualStudio;
         public readonly Shouldly.Configuration.DiffTool KDiff3;
         public readonly Shouldly.Configuration.DiffTool P4Merge;
         public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
