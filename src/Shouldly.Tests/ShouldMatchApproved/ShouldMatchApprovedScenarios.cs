@@ -33,7 +33,7 @@ namespace Shouldly.Tests.ShouldMatchApproved
                 : @"/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
             
             var cmd = IsWindows()
-                ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"
+                ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
                 : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
             
             var errorMsg = $@"To approve the changes run this command:
