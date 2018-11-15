@@ -49,10 +49,8 @@ namespace Shouldly.Configuration
             WindowsPath = @"WinMerge\WinMergeU.exe"
         },  WinMergeArgs);
         
-        #if IsWindows
         [UsedImplicitly]
         public readonly DiffTool CurrentVisualStudio = new CurrentlyRunningVisualStudioDiffTool();
-        #endif 
 
         public static KnownDiffTools Instance { get; } = new KnownDiffTools();
 

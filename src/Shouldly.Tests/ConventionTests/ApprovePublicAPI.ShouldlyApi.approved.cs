@@ -717,6 +717,7 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.DiffTool BeyondCompare3;
         public readonly Shouldly.Configuration.DiffTool BeyondCompare4;
         public readonly Shouldly.Configuration.DiffTool CodeCompare;
+        public readonly Shouldly.Configuration.DiffTool CurrentVisualStudio;
         public readonly Shouldly.Configuration.DiffTool KDiff3;
         public readonly Shouldly.Configuration.DiffTool P4Merge;
         public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
