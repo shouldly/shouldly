@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-using Xunit;
+﻿using Xunit;
 
 namespace Shouldly.Tests.ConventionTests
 {
@@ -9,9 +8,7 @@ namespace Shouldly.Tests.ConventionTests
         public void ShouldlyApi()
         {
             var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly);
-
             publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
         }  
     }
 }
-#endif

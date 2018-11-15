@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -180,4 +179,3 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
             => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
 }
-#endif
