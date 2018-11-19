@@ -21,8 +21,6 @@ namespace Shouldly.Configuration
                 Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.Machine)
                 ) != null;
             
-            Trace.WriteLine("Joe - environment var is present:" + res.ToString());
-
             return res;
         }
     }
