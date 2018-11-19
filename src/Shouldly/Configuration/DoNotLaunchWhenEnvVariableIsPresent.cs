@@ -1,5 +1,6 @@
 #if ShouldMatchApproved
 using System;
+using System.Diagnostics;
 
 namespace Shouldly.Configuration
 {
@@ -14,11 +15,15 @@ namespace Shouldly.Configuration
 
         public bool ShouldNotLaunch()
         {
-            return (
+            bool res = (
                 Environment.GetEnvironmentVariable(_environmentalVariable) ??
                 Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.User) ??
                 Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.Machine)
                 ) != null;
+            
+            Trace.WriteLine("Joe - environment var is present:" + res.ToString());
+
+            return res;
         }
     }
 }
