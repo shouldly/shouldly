@@ -10,10 +10,21 @@ namespace Shouldly.Configuration
     {
         public string WindowsPath { get; set; }
 
-        public string MacPath {get; set; }
+        public string MacPath { get; set; }
 
-        public string TruePath
-            => ShouldlyEnvironmentContext.IsWindows() ? WindowsPath : MacPath;
+        public string LinuxPath { get; set; }
+
+        public string ResolvePath()
+        {
+            if (ShouldlyEnvironmentContext.IsWindows())
+                return WindowsPath;
+            if (ShouldlyEnvironmentContext.IsMac())
+                return MacPath;
+            if (ShouldlyEnvironmentContext.IsLinux())
+                return LinuxPath;
+
+            return string.Empty;
+        }
     }
     
     public class DiffTool
@@ -26,7 +37,7 @@ namespace Shouldly.Configuration
         public DiffTool(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
         {
             Name = name;
-            _path = config == null ? null : Path.IsPathRooted(config.TruePath) && File.Exists(config.TruePath) ? config.TruePath : Discover(config.TruePath);
+            _path = config == null ? null : Path.IsPathRooted(config.ResolvePath()) && File.Exists(config.ResolvePath()) ? config.ResolvePath() : Discover(config.ResolvePath());
             _argGenerator = argGenerator;
         }
         

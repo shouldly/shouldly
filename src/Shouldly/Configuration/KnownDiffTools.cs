@@ -22,7 +22,8 @@ namespace Shouldly.Configuration
         public readonly DiffTool BeyondCompare4 = new DiffTool("Beyond Compare 4", new DiffToolConfig
         { 
             WindowsPath = @"Beyond Compare 4\BCompare.exe",
-            MacPath = @"Beyond Compare.app/Contents/MacOS/bcomp"
+            MacPath = @"Beyond Compare.app/Contents/MacOS/bcomp",
+            LinuxPath = @"bcompare"
         }, BeyondCompareArgs);
         
         [UsedImplicitly]
