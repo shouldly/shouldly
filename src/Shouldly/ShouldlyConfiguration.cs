@@ -20,6 +20,9 @@ namespace Shouldly
                 "Newtonsoft.Json.Linq.JToken",
                 "Shouldly.Tests.TestHelpers.Strange"
             };
+            
+            // Needs to be called in the case of running on .NETFramework 4.7.1 and below
+            AppContext.SetSwitch("Switch.System.Diagnostics.IgnorePortablePDBsInStackTraces", false);
         }
 
         public static List<string> CompareAsObjectTypes { get; private set; }

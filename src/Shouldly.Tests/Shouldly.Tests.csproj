@@ -4,7 +4,6 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net472;</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
-    <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
     <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">2.1.3</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
