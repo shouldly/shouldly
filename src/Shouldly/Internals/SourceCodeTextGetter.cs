@@ -27,6 +27,14 @@ namespace Shouldly.Internals
         public string FileName { get; private set; }
         public int LineNumber { get; private set; }
 
+        static ActualCodeTextGetter()
+        {
+#if NET46
+            // Needs to be called in the case of running on .NETFramework 4.7.1 and below
+            AppContext.SetSwitch("Switch.System.Diagnostics.IgnorePortablePDBsInStackTraces", false);
+#endif
+        }
+
         public string GetCodeText(object actual, StackTrace stackTrace)
         {
             if (ShouldlyConfiguration.IsSourceDisabledInErrors())
