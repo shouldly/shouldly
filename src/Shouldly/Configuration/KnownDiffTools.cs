@@ -11,7 +11,7 @@ namespace Shouldly.Configuration
         {
             WindowsPath = @"KDiff3\kdiff3.exe",
             MacPath = "kdiff3.app/Contents/MacOS/kdiff3"
-        },KDiffArgs);
+        }, KDiffArgs);
         
         [UsedImplicitly]
         public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", new DiffToolConfig

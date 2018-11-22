@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ConventionTests
             }
         }
         
-        private bool IsAppVeyor()
+        private static bool IsAppVeyor()
             => Environment.GetEnvironmentVariable("APPVEYOR") != null;
     }
 }
