@@ -15,13 +15,11 @@ namespace Shouldly.Configuration
 
         public bool ShouldNotLaunch()
         {
-            bool res = (
+            return (
                 Environment.GetEnvironmentVariable(_environmentalVariable) ??
                 Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.User) ??
                 Environment.GetEnvironmentVariable(_environmentalVariable, EnvironmentVariableTarget.Machine)
                 ) != null;
-            
-            return res;
         }
     }
 }
