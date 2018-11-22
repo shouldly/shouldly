@@ -1,8 +1,5 @@
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETStandard,Version=v2.0", FrameworkDisplayName="")]
-
 namespace Shouldly
 {
-    
     public class static CallContext
     {
         public static object LogicalGetData(string name) { }
@@ -654,7 +651,6 @@ namespace Shouldly
 }
 namespace Shouldly.Configuration
 {
-    
     public class DiffTool
     {
         public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
@@ -780,7 +776,6 @@ namespace Shouldly.Configuration
 }
 namespace Shouldly.ShouldlyExtensionMethods
 {
-    
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldHaveEnumExtensions
     {

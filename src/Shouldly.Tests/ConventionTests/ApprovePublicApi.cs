@@ -1,14 +1,14 @@
+using Xunit;
+
 namespace Shouldly.Tests.ConventionTests
 {
     public class ApprovePublicApi
     {
-        #if NETCOREAPP
-        [IgnoreOnAppVeyorLinuxFact]
+        [Fact]
         public void ShouldlyApi()
         {
-            var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly);
+            var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly, null,false);
             publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
         }
-        #endif
     }
 }
