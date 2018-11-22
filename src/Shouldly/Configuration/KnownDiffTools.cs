@@ -67,8 +67,8 @@ namespace Shouldly.Configuration
         private static string KDiffArgs(string received, string approved, bool approvedExists)
         {
             return approvedExists
-                ? $"\"{received}\" \"{approved}\" -o \"{approved}\""
-                : $"\"{received}\" -o \"{approved}\"";
+                ? $"\"{received}\" \"{approved}\" -o \"{approved}\" --cs CreateBakFiles=0"
+                : $"\"{received}\" -o \"{approved}\" --cs CreateBakFiles=0";
         }
 
         private static string CodeCompareArgs(string received, string approved, bool approvedExists)

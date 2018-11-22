@@ -45,6 +45,6 @@
     <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;CallContextPolyfill</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill;ShouldMatchApproved</DefineConstants>
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved;dNewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill</DefineConstants>
   </PropertyGroup>
 </Project>
