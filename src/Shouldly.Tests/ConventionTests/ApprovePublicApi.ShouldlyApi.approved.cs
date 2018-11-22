@@ -1,10 +1,5 @@
 namespace Shouldly
 {
-    public class static CallContext
-    {
-        public static object LogicalGetData(string name) { }
-        public static void LogicalSetData(string name, object data) { }
-    }
     public enum Case
     {
         Sensitive = 0,

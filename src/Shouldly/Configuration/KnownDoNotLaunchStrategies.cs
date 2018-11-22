@@ -21,8 +21,6 @@ namespace Shouldly.Configuration
         public readonly IShouldNotLaunchDiffTool MyGet = new DoNotLaunchWhenEnvVariableIsPresent("BuildRunner");
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool TravisCI = new DoNotLaunchWhenEnvVariableIsPresent("TRAVIS");
-        //[UsedImplicitly]
-        // public readonly IShouldNotLaunchDiffTool NotWindows = new DoNotLaunchWhenPlatformIsNotWindows();
     }
 }
 #endif
