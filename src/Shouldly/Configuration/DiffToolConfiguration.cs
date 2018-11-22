@@ -38,9 +38,9 @@ namespace Shouldly.Configuration
             _diffToolPriority.AddRange(diffTools);
         }
 
-        public void AddDoNotLaunchStrategy(IShouldNotLaunchDiffTool shouldNotLaunchStrategy)
+        public void AddDoNotLaunchStrategy(IShouldNotLaunchDiffTool shouldNotlaunchStrategy)
         {
-            _knownShouldNotLaunchDiffToolReasons.Add(shouldNotLaunchStrategy);
+            _knownShouldNotLaunchDiffToolReasons.Add(shouldNotlaunchStrategy);
         }
 
         public bool ShouldOpenDiffTool()
@@ -51,8 +51,7 @@ namespace Shouldly.Configuration
 
         public DiffTool GetDiffTool()
         {
-            DiffTool diffTool;
-            diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists());
+            var diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists());
             if (diffTool == null)
                 diffTool = _diffTools.FirstOrDefault(d => d.Exists());
             

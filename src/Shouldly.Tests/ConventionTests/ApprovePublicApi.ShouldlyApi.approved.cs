@@ -676,7 +676,7 @@ namespace Shouldly.Configuration
         public DiffToolConfiguration() { }
         public Shouldly.Configuration.KnownDiffTools KnownDiffTools { get; }
         public Shouldly.Configuration.KnownDoNotLaunchStrategies KnownDoNotLaunchStrategies { get; }
-        public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotLaunchStrategy) { }
+        public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
         public Shouldly.Configuration.DiffTool GetDiffTool() { }
         public void RegisterDiffTool(Shouldly.Configuration.DiffTool diffTool) { }
         public void SetDiffToolPriorities(params Shouldly.Configuration.DiffTool[] diffTools) { }
@@ -762,7 +762,7 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
-        [System.ObsoleteAttribute("Use WithDiscriminator instead")]
+        [System.ObsoleteAttribute("Use WithDiscriminator(...) instead")]
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
