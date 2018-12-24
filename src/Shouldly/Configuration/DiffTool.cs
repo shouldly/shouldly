@@ -34,6 +34,12 @@ namespace Shouldly.Configuration
 
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
 
+        [Obsolete("This constructor will be deprecated in future versions, please migrate to the cross platform focused overloaded version")]
+        public DiffTool(string name, string path, ArgumentGenerator argGenerator)
+            : this(name, new DiffToolConfig { WindowsPath = path }, argGenerator)
+        {
+        }
+
         public DiffTool(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
         {
             Name = name;
