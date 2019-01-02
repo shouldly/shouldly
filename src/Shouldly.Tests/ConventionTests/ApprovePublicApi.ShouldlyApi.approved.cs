@@ -648,6 +648,9 @@ namespace Shouldly.Configuration
 {
     public class DiffTool
     {
+        [System.ObsoleteAttribute("This constructor will be deprecated in future versions, please migrate to the cro" +
+            "ss platform focused overloaded version")]
+        public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
         public bool Exists() { }
