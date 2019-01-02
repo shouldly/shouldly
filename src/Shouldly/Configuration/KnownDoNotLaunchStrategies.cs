@@ -10,7 +10,7 @@ namespace Shouldly.Configuration
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool TeamCity = new DoNotLaunchWhenEnvVariableIsPresent("TeamCity");
         [UsedImplicitly]
-        public readonly IShouldNotLaunchDiffTool AppVeyor = new DoNotLaunchWhenEnvVariableIsPresent("AppVeyor");
+        public readonly IShouldNotLaunchDiffTool AppVeyor = new DoNotLaunchWhenEnvVariableIsPresent("APPVEYOR");
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool VSTS = new DoNotLaunchWhenEnvVariableIsPresent("TF_BUILD");
         [UsedImplicitly]
@@ -21,8 +21,6 @@ namespace Shouldly.Configuration
         public readonly IShouldNotLaunchDiffTool MyGet = new DoNotLaunchWhenEnvVariableIsPresent("BuildRunner");
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool TravisCI = new DoNotLaunchWhenEnvVariableIsPresent("TRAVIS");
-        [UsedImplicitly]
-        public readonly IShouldNotLaunchDiffTool NotWindows = new DoNotLaunchWhenPlatformIsNotWindows();
     }
 }
 #endif

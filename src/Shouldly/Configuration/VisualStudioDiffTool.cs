@@ -10,7 +10,10 @@ namespace Shouldly.Configuration
 {
     internal class CurrentlyRunningVisualStudioDiffTool : DiffTool
     {
-        public CurrentlyRunningVisualStudioDiffTool() : base("Current Visual Studio", GetPath(), VisualStudioArgs) {}
+        public CurrentlyRunningVisualStudioDiffTool() : base("Current Visual Studio", new DiffToolConfig
+        {
+           WindowsPath = GetPath()
+        }, VisualStudioArgs) {}
 
         static string VisualStudioArgs(string received, string approved, bool approvedExists)
         {

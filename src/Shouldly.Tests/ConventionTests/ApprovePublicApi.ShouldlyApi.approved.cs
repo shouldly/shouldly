@@ -1,8 +1,5 @@
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.5.1", FrameworkDisplayName=".NET Framework 4.5.1")]
-
 namespace Shouldly
 {
-    
     public enum Case
     {
         Sensitive = 0,
@@ -649,14 +646,24 @@ namespace Shouldly
 }
 namespace Shouldly.Configuration
 {
-    
     public class DiffTool
     {
+        [System.ObsoleteAttribute("This constructor will be deprecated in future versions, please migrate to the cro" +
+            "ss platform focused overloaded version")]
         public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
+        public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
         public bool Exists() { }
         public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
+    }
+    public class DiffToolConfig
+    {
+        public DiffToolConfig() { }
+        public string LinuxPath { get; set; }
+        public string MacPath { get; set; }
+        public string WindowsPath { get; set; }
+        public string ResolvePath() { }
     }
     public class DiffToolConfiguration
     {
@@ -720,7 +727,6 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool Jenkins;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool MyGet;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NotWindows;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
@@ -750,7 +756,9 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
+        [System.ObsoleteAttribute("Use WithDiscriminator(...) instead")]
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFilenameGenerator(Shouldly.Configuration.FilenameGenerator filenameGenerator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithScrubber(System.Func<string, string> scrubber) { }
@@ -766,7 +774,6 @@ namespace Shouldly.Configuration
 }
 namespace Shouldly.ShouldlyExtensionMethods
 {
-    
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldHaveEnumExtensions
     {
