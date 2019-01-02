@@ -13,6 +13,12 @@ namespace Shouldly.Configuration
             MacPath = "kdiff3.app/Contents/MacOS/kdiff3"
         }, KDiffArgs);
         
+/*        [UsedImplicitly]
+        public readonly DiffTool VisualStudioCode = new DiffTool("Visual Studio Code", new DiffToolConfig
+        {
+            MacPath = "Visual Studio Code.app/Contents/MacOS/Electron"
+        }, VsCodeDiffArgs);*/
+        
         [UsedImplicitly]
         public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", new DiffToolConfig
         {
@@ -57,13 +63,18 @@ namespace Shouldly.Configuration
 
         public static KnownDiffTools Instance { get; } = new KnownDiffTools();
 
-        static string BeyondCompareArgs(string received, string approved, bool approvedExists)
+        private static string BeyondCompareArgs(string received, string approved, bool approvedExists)
         {
             return approvedExists
                 ? $"\"{received}\" \"{approved}\" " + (ShouldlyEnvironmentContext.IsWindows() ? "/" :"-") + $"mergeoutput=\"{approved}\""
                 : $"\"{received}\" " + (ShouldlyEnvironmentContext.IsWindows() ? "/" :"-") + $"mergeoutput=\"{approved}\"";
         }
 
+        private static string VsCodeDiffArgs(string received, string approved, bool approvedExists)
+        {
+            return $"--diff \"{received}\" \"{approved}\"";
+        }
+        
         private static string KDiffArgs(string received, string approved, bool approvedExists)
         {
             return approvedExists
@@ -92,7 +103,7 @@ namespace Shouldly.Configuration
             return $"\"{received}\" \"{approved}\"";
         }
 
-        static string WinMergeArgs(string received, string approved, bool approvedExists)
+        private static string WinMergeArgs(string received, string approved, bool approvedExists)
         {
             if (!approvedExists)
                 File.AppendAllText(approved, string.Empty);
