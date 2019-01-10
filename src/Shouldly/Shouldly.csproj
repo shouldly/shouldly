@@ -8,6 +8,7 @@
     <PackageProjectUrl>http://shouldly.github.com</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</PackageLicenseUrl>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
+    <VersionPrefix>4.0.0-beta</VersionPrefix>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <RepositoryType>git</RepositoryType>
