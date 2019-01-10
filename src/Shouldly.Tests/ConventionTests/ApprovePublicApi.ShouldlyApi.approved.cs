@@ -686,6 +686,11 @@ namespace Shouldly.Configuration
         public DoNotLaunchWhenPlatformIsNotWindows() { }
         public bool ShouldNotLaunch() { }
     }
+    public class DoNotLaunchWhenTypeIsLoaded : Shouldly.Configuration.IShouldNotLaunchDiffTool
+    {
+        public DoNotLaunchWhenTypeIsLoaded(string typeName) { }
+        public bool ShouldNotLaunch() { }
+    }
     public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
     public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
         where T : System.Attribute
@@ -729,6 +734,7 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VisualStudioLiveUnitTesting;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
         public KnownDoNotLaunchStrategies() { }
     }
