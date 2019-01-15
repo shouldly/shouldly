@@ -74,6 +74,71 @@ namespace Shouldly
             throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
         }
 
+        /*** Should.Throw(Func<T>) ***/
+        public static TException Throw<TException>([InstantHandle] Func<object> actual) where TException : Exception
+        {
+            return Throw<TException>(actual, () => null);
+        }
+        public static TException Throw<TException>([InstantHandle] Func<object> actual, string customMessage) where TException : Exception
+        {
+            return Throw<TException>(actual, () => customMessage);
+        }
+        public static TException Throw<TException>([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
+        {
+            return ThrowInternal<TException>(actual, customMessage);
+        }
+        internal static TException ThrowInternal<TException>([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage,
+            [CallerMemberName] string shouldlyMethod = null) where TException : Exception
+        {
+            try
+            {
+                _ = actual();
+            }
+            catch (TException e)
+            {
+                return e;
+            }
+            catch (Exception e)
+            {
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+            }
+
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
+        }
+
+        /*** Should.Throw(Func<T>) ***/
+        public static Exception Throw([InstantHandle] Func<object> actual, Type exceptionType)
+        {
+            return Throw(actual, () => null, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Func<object> actual, string customMessage, Type exceptionType)
+        {
+            return Throw(actual, () => customMessage, exceptionType);
+        }
+        public static Exception Throw([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return ThrowInternal(actual, customMessage, exceptionType);
+        }
+        internal static Exception ThrowInternal([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage, Type exceptionType,
+            [CallerMemberName] string shouldlyMethod = null)
+        {
+            try
+            {
+                _ = actual();
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == exceptionType)
+                {
+                    return e;
+                }
+
+                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+            }
+
+            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
+        }
+
         /*** Should.NotThrow(Action) ***/
         public static void NotThrow([InstantHandle] Action action)
         {

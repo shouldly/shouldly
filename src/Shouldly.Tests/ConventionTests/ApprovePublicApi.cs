@@ -1,17 +1,12 @@
-﻿#if ShouldMatchApproved
-using Xunit;
-
 namespace Shouldly.Tests.ConventionTests
 {
     public class ApprovePublicApi
     {
-        [Fact]
+        [IgnoreOnAppVeyorLinuxFact]
         public void ShouldlyApi()
         {
-            var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly);
-
+            var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly, null,false);
             publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
-        }  
+        }
     }
 }
-#endif

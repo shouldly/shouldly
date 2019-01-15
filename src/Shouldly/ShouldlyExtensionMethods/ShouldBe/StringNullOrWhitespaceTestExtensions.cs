@@ -40,11 +40,7 @@ namespace Shouldly
         public static void ShouldNotBeNullOrWhiteSpace(this string actual, [InstantHandle] Func<string> customMessage)
         {
             // TODO make this an extension method (str.IsNullOrWhitespace())
-#if NET35
-            if (string.IsNullOrEmpty(actual.Trim()))
-#else
             if (string.IsNullOrWhiteSpace(actual))
-#endif
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
     }

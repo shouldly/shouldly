@@ -16,14 +16,12 @@ namespace Shouldly.Tests.ConventionTests
                 t => t.HasAttribute("Shouldly.ShouldlyMethodsAttribute"));
         }
 
-        #if ShouldMatchApproved
         [Fact]
         public void ShouldHaveCustomMessageOverloads()
         {
             Convention.GetFailures(new ShouldlyMethodsShouldHaveCustomMessageOverload(), _shouldlyMethodClasses)
                 .ShouldMatchApproved();
         }
-        #endif
 
         [Fact]
         public void VerifyItWorks()

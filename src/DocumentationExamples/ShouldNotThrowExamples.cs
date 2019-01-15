@@ -34,6 +34,16 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
+                string name = null;
+                Should.NotThrow(() => new Person(name));
+            }, _testOutputHelper);
+        }
+
+        [Fact]
+        public void ShouldNotThrowFuncOfTask()
+        {
+            DocExampleWriter.Document(() =>
+            {
                 var homer = new Person() { Name = "Homer", Salary = 30000 };
                 var denominator = 0;
                 Should.NotThrow(() =>

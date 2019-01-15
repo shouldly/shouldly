@@ -32,7 +32,7 @@ namespace Shouldly.Configuration
             if (notRegistered.Any())
             {
                 var notRegisteredNames = string.Join(", ", notRegistered.Select(r => r.Name).ToArray());
-                throw new InvalidOperationException($"The following diff tools are not registed: {notRegisteredNames}");
+                throw new InvalidOperationException($"The following diff tools are not registered: {notRegisteredNames}");
             }
             _diffToolPriority.Clear();
             _diffToolPriority.AddRange(diffTools);
@@ -45,13 +45,16 @@ namespace Shouldly.Configuration
 
         public bool ShouldOpenDiffTool()
         {
-            return !_knownShouldNotLaunchDiffToolReasons.Any(r => r.ShouldNotLaunch());
+            var result = !_knownShouldNotLaunchDiffToolReasons.Any(r => r.ShouldNotLaunch());
+            return result;
         }
 
         public DiffTool GetDiffTool()
         {
-            var diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists()) ??
-                           _diffTools.FirstOrDefault(d => d.Exists());
+            var diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists());
+            if (diffTool == null)
+                diffTool = _diffTools.FirstOrDefault(d => d.Exists());
+            
             if (diffTool == null)
             {
                 throw new ShouldAssertException(@"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
