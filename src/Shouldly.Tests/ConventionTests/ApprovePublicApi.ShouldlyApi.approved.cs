@@ -20,6 +20,13 @@ namespace Shouldly
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
+    public class static ObjectGraphTestExtensions
+    {
+        public static void ShouldBeEquivalentTo(this object actual, object expected) { }
+        public static void ShouldBeEquivalentTo(this object actual, object expected, string customMessage) { }
+        public static void ShouldBeEquivalentTo(this object actual, object expected, System.Func<string> customMessage) { }
+    }
+    [Shouldly.ShouldlyMethodsAttribute()]
     public class static Should
     {
         public static void CompleteIn(System.Action action, System.TimeSpan timeout) { }
