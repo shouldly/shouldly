@@ -66,7 +66,7 @@ namespace DocumentationExamples
                 body.ShouldMatchApproved(configurationBuilder =>
                 {
                     configurationBuilder
-                        .WithDescriminator("codeSample")
+                        .WithDiscriminator("codeSample")
                         .UseCallerLocation()
                         .SubFolder("CodeExamples")
                         .WithScrubber(scrubber);
@@ -79,7 +79,7 @@ namespace DocumentationExamples
                 exceptionText.ShouldMatchApproved(configurationBuilder =>
                 {
                     configurationBuilder
-                        .WithDescriminator("exceptionText")
+                        .WithDiscriminator("exceptionText")
                         .UseCallerLocation()
                         .SubFolder("CodeExamples")
                         .WithScrubber(scrubber);
