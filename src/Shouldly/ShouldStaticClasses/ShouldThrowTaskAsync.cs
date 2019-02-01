@@ -74,11 +74,11 @@ namespace Shouldly
                         catch (Exception e)
                         {
                             if (e is TException)
-                                return Task.Run(() => (TException)e);
+                                return Task.FromResult((TException)e);
 
                             throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace).ToString());
                         }
-            #else
+#else
             try
             {
                 return actual().ContinueWith(t =>
@@ -105,7 +105,7 @@ namespace Shouldly
             catch (Exception e)
             {
                 if (e is TException)
-                    return Task.Run(() => (TException)e);
+                    return Task.FromResult((TException)e);
 
                 throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
