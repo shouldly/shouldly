@@ -233,6 +233,15 @@ namespace Shouldly
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
+
+        public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, [InstantHandle] Func<string> customMessage, StackTrace stackTrace)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
+            {
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
     }
 #endif
 
