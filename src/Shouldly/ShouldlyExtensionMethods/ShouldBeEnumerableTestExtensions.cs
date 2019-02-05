@@ -93,8 +93,24 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, [InstantHandle] Func<string> customMessage)
         {
             var condition = elementPredicate.Compile();
-            if (actual.Any(condition))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+
+            var failedElements = new Dictionary<int, object>();
+            int elementIndex = 0;
+            foreach (T element in actual)
+            {
+                if (condition(element))
+                {
+                    failedElements.Add(elementIndex, element);
+                }
+
+                ++elementIndex;
+            }
+
+            if (failedElements.Any())
+            {
+                throw new ShouldAssertException(
+                    new ExpectedActualWithListedFailuresShouldlyMessage(elementPredicate.Body, actual, failedElements, customMessage).ToString());
+            }
         }
 
         public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate)

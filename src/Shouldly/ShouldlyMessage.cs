@@ -41,6 +41,21 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
+
+    internal class ExpectedActualWithListedFailuresShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedActualWithListedFailuresShouldlyMessage(object expected, object actual, Dictionary<int, object> failures, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
+            {
+                ListedFailures = failures,
+                HasRelevantActual = true,
+                HasListedFailures = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
     {
         public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object result, object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)

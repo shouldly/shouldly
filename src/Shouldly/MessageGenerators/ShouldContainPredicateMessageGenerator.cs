@@ -25,14 +25,17 @@ namespace Shouldly.MessageGenerators
 $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()} {elementPhrase} satisfying the condition
 {context.Expected.ToStringAwesomely()}
-    but does{""}";
+    but does{""}{(!context.HasListedFailures ? "" : $@"
+        {context.ListedFailures.ToStringAwesomely()}")}";
             }
 
             return
 $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()} {elementPhrase} satisfying the condition
 {context.Expected.ToStringAwesomely()}
-    but does not";
+    but does not{(!context.HasListedFailures ? "" : $@"
+        {context.ListedFailures.ToStringAwesomely()}")}";
+
         }
     }
 }

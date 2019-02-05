@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldNotContain
         [Fact]
         public void PredicateClosureScenarioShouldFail()
         {
-            var capturedOuterVar = 4;
+            var capturedOuterVar = 3;
             var arr = new[] { 1, 2, 3 };
             Verify.ShouldFail(() =>
 arr.ShouldNotContain(i => i < capturedOuterVar, "Some additional context"),
@@ -18,6 +18,7 @@ errorWithSource:
     should not contain an element satisfying the condition
 (i < capturedOuterVar)
     but does
+        [[0 => 1], [1 => 2]]
 
 Additional Info:
     Some additional context",
@@ -27,6 +28,7 @@ errorWithoutSource:
     should not contain an element satisfying the condition
 (i < capturedOuterVar)
     but does
+        [[0 => 1], [1 => 2]]
 
 Additional Info:
     Some additional context");
