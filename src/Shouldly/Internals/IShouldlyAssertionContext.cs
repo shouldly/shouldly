@@ -24,6 +24,8 @@ namespace Shouldly
         // is relevant.
         bool HasRelevantActual { get; set; }
         bool HasRelevantKey { get; set; }
+        bool HasListedFailures { get; set; }
+        Dictionary<int, object> ListedFailures { get; set; }
 
         bool IsNegatedAssertion { get; }
         string CustomMessage { get; set; }
