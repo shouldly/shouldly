@@ -31,6 +31,21 @@ namespace Shouldly.Tests.ShouldThrowAsync
                             Some additional context");
             }
         }
+        
+        [Fact]
+        public async Task ShouldThrowAWobbly_WhenATaskIsCancelled()
+        {
+            // Arrange.
+            // Cancel this calling code after 5 seconds.
+            var cancellationTokenSource = new CancellationTokenSource(5);
+            var task = Task.Delay(TimeSpan.FromSeconds(10), cancellationTokenSource.Token);
+
+            // Act.
+            var result = await Should.ThrowAsync<TaskCanceledException>(() => task);
+
+            // Assert.
+            result.ShouldNotBeNull();
+        }
 
 [Fact]
         public void ShouldThrowAWobbly_ExceptionTypePassedIn()
