@@ -338,6 +338,24 @@ namespace Shouldly
                 previousItem = currentItem;
             }
         }
+
+        public static List<T> ShouldHaveValue<T>(this IEnumerable<T> actual)
+        {
+            return ShouldHaveValue(actual, () => null);
+        }
+
+        public static List<T> ShouldHaveValue<T>(this IEnumerable<T> actual, string customMessage)
+        {
+            return ShouldHaveValue(actual, () => customMessage);
+        }
+
+        public static List<T> ShouldHaveValue<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
+        {
+            if (actual == null || actual.Count() > 0)
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+
+            return actual.ToList();
+        }
     }
 
 }
