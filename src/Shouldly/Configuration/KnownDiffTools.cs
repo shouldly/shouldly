@@ -13,11 +13,12 @@ namespace Shouldly.Configuration
             MacPath = "kdiff3.app/Contents/MacOS/kdiff3"
         }, KDiffArgs);
         
-/*        [UsedImplicitly]
+        [UsedImplicitly]
         public readonly DiffTool VisualStudioCode = new DiffTool("Visual Studio Code", new DiffToolConfig
         {
+            WindowsPath = @"%ProgramFiles%\Microsoft VS Code\bin\code",
             MacPath = "Visual Studio Code.app/Contents/MacOS/Electron"
-        }, VsCodeDiffArgs);*/
+        }, VsCodeDiffArgs);
         
         [UsedImplicitly]
         public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", new DiffToolConfig
