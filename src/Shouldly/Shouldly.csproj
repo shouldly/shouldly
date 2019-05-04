@@ -2,7 +2,6 @@
   <PropertyGroup>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
-    <RestoreAdditionalProjectSources>https://dotnet.myget.org/F/dotnet-core/api/v3/index.json</RestoreAdditionalProjectSources>
     <AssemblyName>Shouldly</AssemblyName>
     <PackageId>Shouldly</PackageId>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
@@ -21,7 +20,7 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'== 'net451'">
-      <FrameworkPathOverride>$(NuGetPackageRoot)microsoft.targetingpack.netframework.v4.5.1/1.0.1/lib/net451/</FrameworkPathOverride>
+      <FrameworkPathOverride>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net451/1.0.0-preview.1/build/.NETFramework/v4.5.1</FrameworkPathOverride>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
@@ -34,7 +33,7 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="Microsoft.TargetingPack.NETFramework.v4.5.1" Version="1.0.1" ExcludeAssets="All" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net451" Version="1.0.0-preview.1" PrivateAssets="All" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;Serializable</DefineConstants>
