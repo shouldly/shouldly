@@ -57,8 +57,7 @@ namespace Shouldly
                                     if (t.Exception == null)
                                         throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
 
-                                    var expectedException = t.Exception.InnerException as TException;
-                                    if (expectedException != null)
+                                    if (t.Exception.InnerException is TException expectedException)
                                         return expectedException;
 
                                     throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage, stackTrace).ToString());
@@ -88,8 +87,7 @@ namespace Shouldly
                         if (t.Exception == null)
                             throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
 
-                        var expectedException = t.Exception.InnerException as TException;
-                        if (expectedException != null)
+                        if (t.Exception.InnerException is TException expectedException)
                             return expectedException;
 
                         throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage).ToString());

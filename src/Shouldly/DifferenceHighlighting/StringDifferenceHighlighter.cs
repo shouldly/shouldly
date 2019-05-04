@@ -7,8 +7,8 @@ namespace Shouldly.DifferenceHighlighting
 {
     internal class StringDifferenceHighlighter : IStringDifferenceHighlighter
     {
-        int maxDiffLength = 21;
-        int maxNumberOfDiffs = 10;
+        const int maxDiffLength = 21;
+        const int maxNumberOfDiffs = 10;
 
         readonly Case _sensitivity;
         readonly Func<string, string> _transform;

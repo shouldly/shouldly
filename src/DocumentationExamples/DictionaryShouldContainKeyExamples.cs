@@ -20,8 +20,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var websters = new Dictionary<string, string>();
-                websters.Add("Embiggen", "To empower or embolden.");
+                var websters = new Dictionary<string, string> { { "Embiggen", "To empower or embolden." } };
                 websters.ShouldContainKey("Cromulent");
             }, _testOutputHelper);
         }
@@ -31,8 +30,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var websters = new Dictionary<string, string>();
-                websters.Add("Chazzwazzers", "What Australians would have called a bull frog.");
+                var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
 
                 websters.ShouldNotContainKey("Chazzwazzers");
             }, _testOutputHelper);
