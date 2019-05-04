@@ -43,7 +43,7 @@ namespace Shouldly.Internals
 
             if (currentFrame == null) throw new Exception("Unable to find test method");
 
-            ShouldlyFrame = default(StackFrame);
+            ShouldlyFrame = default;
             while (ShouldlyFrame == null || currentFrame.GetMethod().IsShouldlyMethod())
             {
                 if (currentFrame.GetMethod().IsShouldlyMethod())

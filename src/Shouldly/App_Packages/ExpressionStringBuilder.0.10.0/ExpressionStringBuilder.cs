@@ -114,8 +114,7 @@ namespace ExpressionToString
             }
             else
             {
-                var stringValue = node.Value as string;
-                if (stringValue != null)
+                if (node.Value is string stringValue)
                 {
                     Out("\"" + stringValue + "\"");
                 }
