@@ -23,11 +23,7 @@
             return obj.GetHashCode();
         }
 
-        public override bool Equals(object obj)
-        {
-            var objectEqualityComparer = obj as ObjectEqualityComparer<T>;
-            return objectEqualityComparer != null;
-        }
+        public override bool Equals(object obj) => obj is ObjectEqualityComparer<T>;
 
         public override int GetHashCode()
         {

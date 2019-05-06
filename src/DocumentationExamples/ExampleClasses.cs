@@ -1,4 +1,6 @@
-﻿namespace Simpsons
+﻿using System;
+
+namespace Simpsons
 {
     public abstract class Pet
     {
@@ -22,6 +24,15 @@
 
     public class Person
     {
+        public Person()
+        {
+        }
+
+        public Person(string name)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+        }
+
         public string Name { get; set; }
         public int Salary { get; set; }
 

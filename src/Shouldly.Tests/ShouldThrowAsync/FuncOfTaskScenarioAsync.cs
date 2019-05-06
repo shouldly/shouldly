@@ -76,5 +76,45 @@ namespace Shouldly.Tests.ShouldThrowAsync
             var result = task.ShouldThrowAsync(typeof(InvalidOperationException));
             result.Wait();
         }
+
+        [Fact] // Issue 554
+        public async Task ShouldThrowAssertException()
+        {
+            try
+            {
+                Func<Task> doSomething = () => throw new DivideByZeroException();
+                await Should.ThrowAsync<TimeoutException>(() => doSomething());
+            }
+            catch (Exception e)
+            {
+                var ex = e.ShouldBeOfType<ShouldAssertException>();
+                ex.Message.ShouldContainWithoutWhitespace(@"
+                    Task `doSomething()`
+                    should throw 
+                    System.TimeoutException
+                    but threw
+                    System.DivideByZeroException");
+            }
+        }
+
+        [Fact] // Issue 554
+        public async Task AsyncShouldThrowAssertException()
+        {
+            try
+            {
+                Func<Task> doSomething = () => throw new DivideByZeroException();
+                await Should.ThrowAsync<TimeoutException>(async () => await doSomething());
+            }
+            catch (Exception e)
+            {
+                var ex = e.ShouldBeOfType<ShouldAssertException>();
+                ex.Message.ShouldContainWithoutWhitespace(@"
+                    Task `async () => await doSomething()`
+                    should throw 
+                    System.TimeoutException
+                    but threw
+                    System.DivideByZeroException");
+            }
+        }        
     }
 }

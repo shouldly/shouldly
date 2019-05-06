@@ -128,12 +128,7 @@ namespace NUnit.Framework.Constraints
         /// <returns>
         ///     The memory contents of the floating point value interpreted as an integer
         /// </returns>
-        public static int ReinterpretAsInt(float value)
-        {
-            var union = new FloatIntUnion();
-            union.Float = value;
-            return union.Int;
-        }
+        public static int ReinterpretAsInt(float value) => new FloatIntUnion { Float = value }.Int;
 
         /// <summary>
         ///     Reinterprets the memory contents of a double precision floating point
@@ -146,12 +141,7 @@ namespace NUnit.Framework.Constraints
         ///     The memory contents of the double precision floating point value
         ///     interpreted as an integer
         /// </returns>
-        public static long ReinterpretAsLong(double value)
-        {
-            var union = new DoubleLongUnion();
-            union.Double = value;
-            return union.Long;
-        }
+        public static long ReinterpretAsLong(double value) => new DoubleLongUnion { Double = value }.Long;
 
         /// <summary>
         ///     Reinterprets the memory contents of an integer as a floating point value
@@ -160,12 +150,7 @@ namespace NUnit.Framework.Constraints
         /// <returns>
         ///     The memory contents of the integer value interpreted as a floating point value
         /// </returns>
-        public static float ReinterpretAsFloat(int value)
-        {
-            var union = new FloatIntUnion();
-            union.Int = value;
-            return union.Float;
-        }
+        public static float ReinterpretAsFloat(int value) => new FloatIntUnion { Int = value }.Float;
 
         /// <summary>
         ///     Reinterprets the memory contents of an integer value as a double precision
@@ -176,12 +161,7 @@ namespace NUnit.Framework.Constraints
         ///     The memory contents of the integer interpreted as a double precision
         ///     floating point value
         /// </returns>
-        public static double ReinterpretAsDouble(long value)
-        {
-            var union = new DoubleLongUnion();
-            union.Long = value;
-            return union.Double;
-        }
+        public static double ReinterpretAsDouble(long value) => new DoubleLongUnion { Long = value }.Double;
 
         /// <summary>Union of a double precision floating point variable and a long</summary>
         [StructLayout(LayoutKind.Explicit)]

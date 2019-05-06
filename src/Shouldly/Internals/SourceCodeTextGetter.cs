@@ -43,7 +43,7 @@ namespace Shouldly.Internals
 
             if (currentFrame == null) throw new Exception("Unable to find test method");
 
-            ShouldlyFrame = default(StackFrame);
+            ShouldlyFrame = default;
             while (ShouldlyFrame == null || currentFrame.GetMethod().IsShouldlyMethod())
             {
                 if (currentFrame.GetMethod().IsShouldlyMethod())
@@ -56,7 +56,7 @@ namespace Shouldly.Internals
                 // has to inject a whole heap of methods. Our normal way of just taking the next frame doesn't work.
                 // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to 
                 // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
-                // scanarios. Alternately, it could be replaced with a more robust implementation.
+                // scenarios. Alternately, it could be replaced with a more robust implementation.
                 while (currentFrame.GetMethod().DeclaringType == null ||
                         currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
                 {
@@ -90,7 +90,7 @@ namespace Shouldly.Internals
 
                 // When the static method is used instead of the extension method,
                 // the code part will be "Should".
-                // Using Endswith to cater for being inside a lambda
+                // Using EndsWith to cater for being inside a lambda
                 if (codePart.EndsWith("Should"))
                 {
                     codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);

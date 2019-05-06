@@ -28,8 +28,8 @@ Which is just syntax, so far, but check out the message when it fails:
 
 It might be easy to underestimate how useful this is. Another example, side by side:
 ```cs
-Assert.That(map.IndexOfValue("boo"), Is.EqualTo(2));    // -> Expected 2 but was 1
-map.IndexOfValue("boo").ShouldBe(2);                    // -> map.IndexOfValue("boo") should be 2 but was 1
+Assert.That(map.IndexOfValue("boo"), Is.EqualTo(2));    // -> Expected 2 but was -1
+map.IndexOfValue("boo").ShouldBe(2);                    // -> map.IndexOfValue("boo") should be 2 but was -1
 ```
 **Shouldly** uses the code before the *ShouldBe* statement to report on errors, which makes diagnosing easier.
 

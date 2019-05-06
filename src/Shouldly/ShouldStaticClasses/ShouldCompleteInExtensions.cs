@@ -120,9 +120,8 @@ namespace Shouldly
                     throw;
 
                 var inner = flattened.InnerException;
-                var exception = inner as ShouldlyTimeoutException;
                 // When exception is a timeout exception we can provide a better error, otherwise rethrow
-                if (exception != null)
+                if (inner is ShouldlyTimeoutException exception)
                 {
                     var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
                     throw new ShouldCompleteInException(message, exception);

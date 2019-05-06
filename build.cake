@@ -60,6 +60,7 @@ Task("Test")
 
 Task("Package")
     .IsDependentOn("Test")
+    .WithCriteria(() => isWindows)
     .Does(() => {
         DotNetCorePack(shouldlyProj, new DotNetCorePackSettings
         {
@@ -68,30 +69,34 @@ Task("Package")
             MSBuildSettings = msBuildSettings
         });
 
-        if (!isWindows) return;
-
         // TODO not sure why this isn't working
         // GitReleaseNotes("outputDir/releasenotes.md", new GitReleaseNotesSettings {
         //     WorkingDirectory         = ".",
         //     AllTags                  = false
         // });
 
-        var releaseNotesExitCode = StartProcess(
-            @"tools\GitReleaseNotes\tools\gitreleasenotes.exe", 
-            new ProcessSettings { Arguments = ". /o artifacts/releasenotes.md" });
+        var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
+
+        var releaseNotesExitCode = 
+            StartProcess(gitReleaseNotesTool,
+                         new ProcessSettings { Arguments = ". /OutputFile artifacts/releasenotes.md", RedirectStandardOutput = true },
+                         out var redirectedOutput);
+
+        Information(string.Join("\n", redirectedOutput));
+        
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
-        if (releaseNotesExitCode != 0) throw new Exception("Failed to generate release notes");
+        if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
 
         System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
             "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
-            "nugetSymbols:Shouldly." + versionInfo.NuGetVersion + ".symbols.nupkg",
             "releaseNotes:releasenotes.md"
         });
 
         if (isAppVeyor)
         {
+            Information("Uploading artifacts to AppVeyor.");
             foreach (var file in GetFiles(outputDir + "**/*"))
                 AppVeyor.UploadArtifact(file.FullPath);
         }

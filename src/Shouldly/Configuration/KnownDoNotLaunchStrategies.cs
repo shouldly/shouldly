@@ -8,9 +8,11 @@ namespace Shouldly.Configuration
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool NCrunch = new DoNotLaunchWhenEnvVariableIsPresent("NCRUNCH");
         [UsedImplicitly]
+        public readonly IShouldNotLaunchDiffTool VisualStudioLiveUnitTesting = new DoNotLaunchWhenTypeIsLoaded("Microsoft.CodeAnalysis.LiveUnitTesting.Runtime");
+        [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool TeamCity = new DoNotLaunchWhenEnvVariableIsPresent("TeamCity");
         [UsedImplicitly]
-        public readonly IShouldNotLaunchDiffTool AppVeyor = new DoNotLaunchWhenEnvVariableIsPresent("AppVeyor");
+        public readonly IShouldNotLaunchDiffTool AppVeyor = new DoNotLaunchWhenEnvVariableIsPresent("APPVEYOR");
         [UsedImplicitly]
         public readonly IShouldNotLaunchDiffTool VSTS = new DoNotLaunchWhenEnvVariableIsPresent("TF_BUILD");
         [UsedImplicitly]

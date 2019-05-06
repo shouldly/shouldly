@@ -37,15 +37,22 @@ namespace Shouldly.Internals.Assertions
             var actualValue = _actual.ToStringAwesomely();
             var expectedValue = _expected.ToStringAwesomely();
 
+            var differences = _diffHighlighter.HighlightDifferences(_expected, _actual);
+
             var actual = codeText == actualValue ? " not" : $@"
 {actualValue}";
             var message =
 $@"{codeText}
     {_shouldlyMethod}{withOption}
 {expectedValue}
-    but was{actual}
+    but was{actual}";
+
+            if (differences != null)
+            {
+                message += $@"
     difference
-{_diffHighlighter.HighlightDifferences(_expected, _actual)}";
+{differences}";
+            }
 
             if (customMessage != null)
             {

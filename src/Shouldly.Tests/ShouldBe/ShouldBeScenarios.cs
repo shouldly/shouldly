@@ -181,14 +181,6 @@ errorWithSource:
 """"
     but was
 null
-    difference
-Difference     |  |    |    |    |   
-               | \|/  \|/  \|/  \|/  
-Index          | 0    1    2    3    
-Expected Value |                     
-Actual Value   | n    u    l    l    
-Expected Code  |                     
-Actual Code    | 110  117  108  108  
 
 Additional Info:
     Some additional context",
@@ -198,14 +190,6 @@ errorWithoutSource:
     should be
 """"
     but was not
-    difference
-Difference     |  |    |    |    |   
-               | \|/  \|/  \|/  \|/  
-Index          | 0    1    2    3    
-Expected Value |                     
-Actual Value   | n    u    l    l    
-Expected Code  |                     
-Actual Code    | 110  117  108  108  
 
 Additional Info:
     Some additional context");
