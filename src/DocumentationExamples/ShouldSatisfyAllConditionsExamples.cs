@@ -29,5 +29,20 @@ namespace DocumentationExamples
                     );
             }, _testOutputHelper);
         }
+
+        [Fact]
+        public void GenericShouldSatisfyAllConditions()
+        {
+            DocExampleWriter.Document(() =>
+            {
+              var mrBurns = new Person() { Name = null };
+              mrBurns.ShouldSatisfyAllConditions
+                  (
+                      mrB => mrB.Name.ShouldNotBeNullOrEmpty(),
+                      mrB => mrB.Name.ShouldBe("Mr.Burns")
+                  );
+            },
+            _testOutputHelper);
+        }
     }
 }

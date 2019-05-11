@@ -39,6 +39,25 @@ namespace Shouldly
             }
         }
 
+        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
+        {
+            ShouldSatisfyAllConditions(actual, () => null, conditions);
+        }
+
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string customMessage, [InstantHandle] params Action<T>[] conditions)
+        {
+            ShouldSatisfyAllConditions(actual, () => customMessage, conditions);
+        }
+
+        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Func<string> customMessage, [InstantHandle] params Action<T>[] conditions)
+        {
+            var convertedConditions = conditions
+                            .Select(a => new Action(() => a(actual)))
+                            .ToArray();
+
+            ShouldSatisfyAllConditions(customMessage, customMessage, convertedConditions);
+        }
+
         static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
         {
             var errorCount = 1;
