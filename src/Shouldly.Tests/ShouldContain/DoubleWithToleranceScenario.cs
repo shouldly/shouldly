@@ -1,4 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldContain
@@ -7,6 +8,7 @@ namespace Shouldly.Tests.ShouldContain
     {
 
     [Fact]
+    [UseCulture("en-US")]
     public void DoubleWithToleranceScenarioShouldFail()
     {
         Verify.ShouldFail(() =>

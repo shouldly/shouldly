@@ -1,4 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeInRange
@@ -7,6 +8,7 @@ namespace Shouldly.Tests.ShouldBeInRange
     {
 
     [Fact]
+    [UseCulture("en-US")]
     public void DecimalScenaroShouldFail()
     {
         var val = 1.5m;
@@ -33,7 +35,7 @@ Additional Info:
     Some additional context");
     }
 
-        [Fact]
+    [Fact]
     public void ShouldPass()
     {
         1.5m.ShouldBeInRange(1.4m, 1.6m);
