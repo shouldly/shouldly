@@ -1,5 +1,6 @@
 ﻿using System;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -8,6 +9,7 @@ namespace Shouldly.Tests.ShouldNotThrow
     {
 
         [Fact]
+        [UseCulture("en-US")]
         public void FuncDelegateScenarioShouldFail()
         {
             var action = new Func<int>(() => { throw new InvalidOperationException(); });
