@@ -8,6 +8,7 @@ namespace Shouldly.Tests.ShouldBe
     public class ShouldBeScenarios
     {
         [Fact]
+        [UseCulture("en-US")]
         public void BoolFailure()
         {
             const bool myValue = false;
@@ -35,6 +36,7 @@ Additional Info:
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void BoxedComparableFailureScenario()
         {
             object a = 0;

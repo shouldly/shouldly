@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeInOrder
-{
+{ 
     public class DoubleArrayScenario
     {
         private readonly double[] _ascendingTarget = { 1.1, 1.2, 1.3, 1.4, 1.5 };
         private readonly double[] _descendingTarget = { 1.5, 1.4, 1.3, 1.2, 1.1 };
 
         [Fact]
+        [UseCulture("en-US")]
         public void ShouldFailWithDefaultDirection()
         {
             Verify.ShouldFail(() =>
@@ -35,6 +37,7 @@ Additional Info:
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void ShouldFailWhenAscendingIsSpecified()
         {
             Verify.ShouldFail(() =>
@@ -60,6 +63,7 @@ Additional Info:
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void ShouldFailWhenDescendingIsSpecified()
         {
             Verify.ShouldFail(() =>
@@ -85,6 +89,7 @@ Additional Info:
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void ShouldFailWhenDescendingIsSpecifiedAndComparerIsGiven()
         {
             Verify.ShouldFail(() =>
