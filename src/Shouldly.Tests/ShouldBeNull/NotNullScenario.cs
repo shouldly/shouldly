@@ -31,7 +31,10 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            "Hello World".ShouldNotBeNull();
+            string myRef = "Hello World";
+            
+            myRef.ShouldNotBeNull()
+                .ShouldBeSameAs(myRef);
         }
     }
 }

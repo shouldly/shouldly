@@ -243,9 +243,9 @@ namespace Shouldly
         public static void ShouldBeNull<T>(this T actual) { }
         public static void ShouldBeNull<T>(this T actual, string customMessage) { }
         public static void ShouldBeNull<T>(this T actual, System.Func<string> customMessage) { }
-        public static void ShouldNotBeNull<T>(this T actual) { }
-        public static void ShouldNotBeNull<T>(this T actual, string customMessage) { }
-        public static void ShouldNotBeNull<T>(this T actual, System.Func<string> customMessage) { }
+        public static T ShouldNotBeNull<T>(this T actual) { }
+        public static T ShouldNotBeNull<T>(this T actual, string customMessage) { }
+        public static T ShouldNotBeNull<T>(this T actual, System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeStringTestExtensions
