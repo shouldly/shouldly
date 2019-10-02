@@ -14,9 +14,7 @@ This is the old *Assert* way:
 ```cs
 Assert.That(contestant.Points, Is.EqualTo(1337));
 ```
-For your troubles, you get this message, when it fails:
 
-    Expected 1337 but was 0
 
 How it **Should** be:
 ```cs
