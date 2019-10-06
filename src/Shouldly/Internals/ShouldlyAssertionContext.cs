@@ -8,14 +8,14 @@ namespace Shouldly
     internal class ShouldlyAssertionContext : IShouldlyAssertionContext
     {
         public string ShouldMethod { get; set; }
-        public string CodePart { get; set; }
-        public string FileName { get; set; }
+        public string? CodePart { get; set; }
+        public string? FileName { get; set; }
         public int? LineNumber { get; set; }
 
-        public object Key { get; set; }
-        public object Expected { get; set; }
-        public object Actual { get; set; }
-        public object Tolerance { get; set; }
+        public object? Key { get; set; }
+        public object? Expected { get; set; }
+        public object? Actual { get; set; }
+        public object? Tolerance { get; set; }
         public Case? CaseSensitivity { get; set; }
         public bool CodePartMatchesActual { get { return CodePart == Actual.ToStringAwesomely(); } }
         public TimeSpan? Timeout { get; set; }
@@ -31,18 +31,18 @@ namespace Shouldly
         public bool HasRelevantKey { get; set; }
 
         public bool IsNegatedAssertion => ShouldMethod.Contains("Not");
-        public string CustomMessage { get; set; }
-        public Expression Filter { get; set; }
+        public string? CustomMessage { get; set; }
+        public Expression? Filter { get; set; }
         public int? MatchCount { get; set; }
         public SortDirection SortDirection { get; set; }
         public int OutOfOrderIndex { get; set; }
-        public object OutOfOrderObject { get; set; }
-        public IEnumerable<string> Path { get; set; }
+        public object? OutOfOrderObject { get; set; }
+        public IEnumerable<string>? Path { get; set; }
 
 #if StackTrace
         internal ShouldlyAssertionContext(
-            string shouldlyMethod, object expected = null, object actual = null,
-            System.Diagnostics.StackTrace stackTrace = null)
+            string shouldlyMethod, object? expected = null, object? actual = null,
+            System.Diagnostics.StackTrace? stackTrace = null)
         {
             var actualCodeGetter = new ActualCodeTextGetter();
             Expected = expected;
@@ -54,7 +54,7 @@ namespace Shouldly
             LineNumber = actualCodeGetter.LineNumber;
         }
 #else
-        internal ShouldlyAssertionContext(string shouldlyMethod, object expected = null, object actual = null)
+        internal ShouldlyAssertionContext(string shouldlyMethod, object? expected = null, object? actual = null)
         {
             var actualCodeGetter = new ActualCodeTextGetter();
             Expected = expected;

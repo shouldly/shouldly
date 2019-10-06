@@ -18,7 +18,7 @@ namespace TestDiffTools
                 .GetFields()
                 .Select((f, i) => new
                 {
-                    DiffTool = (DiffTool) f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools),
+                    DiffTool = (DiffTool) f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools)!,
                     Index = i
                 }).ToList();
 
@@ -26,8 +26,8 @@ namespace TestDiffTools
             while (true)
             {
                 var diffToolsCollection = (List<DiffTool>) ShouldlyConfiguration.DiffTools.GetType()
-                    .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetValue(ShouldlyConfiguration.DiffTools);
+                    .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)!
+                    .GetValue(ShouldlyConfiguration.DiffTools)!;
                 diffToolsCollection.Clear();
 
                 Console.WriteLine("Select difftool:");
@@ -63,10 +63,10 @@ namespace TestDiffTools
                 ShouldlyConfiguration.DiffTools.RegisterDiffTool(selectedDiffTool.DiffTool);
                 var stacktrace = new StackTrace(true);
 
-                var currentFrame = stacktrace.GetFrame(0);
+                var currentFrame = stacktrace.GetFrame(0)!;
                 var approved = Path.Combine(
-                    Path.GetDirectoryName(currentFrame.GetFileName()),
-                    $"{Path.GetFileNameWithoutExtension(currentFrame.GetFileName())}.{currentFrame.GetMethod().Name}.approved.txt");
+                    Path.GetDirectoryName(currentFrame.GetFileName())!,
+                    $"{Path.GetFileNameWithoutExtension(currentFrame.GetFileName())}.{currentFrame.GetMethod()!.Name}.approved.txt");
 
                 switch (selectedOption)
                 {

@@ -2,12 +2,12 @@ namespace Shouldly
 {
     public class ShouldMatchApprovedException : ShouldAssertException
     {
-        public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) : base(
+        public ShouldMatchApprovedException(string? message, string? receivedFile, string? approvedFile) : base(
             GenerateMessage(message, receivedFile, approvedFile))
         {
         }
 
-        private static string GenerateMessage(string message, string receivedFile, string approvedFile)
+        private static string GenerateMessage(string? message, string? receivedFile, string? approvedFile)
         {
             var msg = @"To approve the changes run this command:";
 
@@ -21,7 +21,7 @@ copy /Y ""{receivedFile}"" ""{approvedFile}""";
                 msg += $@"
 cp ""{receivedFile}"" ""{approvedFile}""";
             }
-           
+
             msg += $@"
 ----------------------------
 

@@ -107,8 +107,8 @@ Actual Code    | 70   111  111  ",
         public void NoDiffToolsFound()
         {
             var diffTools = ShouldlyConfiguration.DiffTools.GetType()
-                .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic);
-            var diffToolsCollection = (List<DiffTool>)diffTools.GetValue(ShouldlyConfiguration.DiffTools);
+                .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            var diffToolsCollection = (List<DiffTool>)diffTools.GetValue(ShouldlyConfiguration.DiffTools)!;
             var currentDiffTools = new List<DiffTool>(diffToolsCollection);
 
             try
@@ -129,7 +129,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         public void IgnoresLineEndingsByDefault()
         {
             var stacktrace = new StackTrace(true);
-            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
+            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0)!.GetFileName())!;
             var approved = Path.Combine(sourceFileDir, "ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
             File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
 

@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldContain
             var c = new object();
 
             Verify.ShouldFail(() =>
-new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals(""), "Some additional context"),
+new[] { a, b, c }.ShouldContain(o => o.GetType().FullName!.Equals(""), "Some additional context"),
 
 errorWithSource:
 @"new[] { a, b, c }
@@ -40,7 +40,7 @@ Additional Info:
             var a = new object();
             var b = new object();
             var c = new object();
-            new[] { a, b, c }.ShouldContain(o => o.GetType().FullName.Equals("System.Object"));
+            new[] { a, b, c }.ShouldContain(o => o.GetType().FullName!.Equals("System.Object"));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Shouldly
         {
             if (method.DeclaringType == null)
                 return false;
-            
+
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
                || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
@@ -21,9 +21,9 @@ namespace Shouldly
 
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected,
-            [InstantHandle] Func<string> customMessage = null,
-            [CallerMemberName] string shouldlyMethod = null)
+            object? originalActual, object? originalExpected,
+            [InstantHandle] Func<string?>? customMessage = null,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             if (customMessage == null)
                 customMessage = () => null;
@@ -40,10 +40,10 @@ namespace Shouldly
         }
 
         internal static void AssertAwesomelyWithCaseSensitivity<T>(
-            this T actual, Func<T, bool> specifiedConstraint, 
-            object originalActual, object originalExpected, 
-            Case caseSensitivity, Func<string> customMessage = null,
-            [CallerMemberName] string shouldlyMethod = null)
+            this T actual, Func<T, bool> specifiedConstraint,
+            object? originalActual, object? originalExpected,
+            Case caseSensitivity, Func<string?>? customMessage = null,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             try
             {
@@ -60,9 +60,9 @@ namespace Shouldly
 
         internal static void AssertAwesomelyIgnoringOrder<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected,
-            Func<string> customMessage = null,
-            [CallerMemberName] string shouldlyMethod = null)
+            object? originalActual, object? originalExpected,
+            Func<string?>? customMessage = null,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             if (customMessage == null)
                 customMessage = () => null;
@@ -81,9 +81,9 @@ namespace Shouldly
 
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected, object tolerance,
-            [InstantHandle] Func<string> customMessage = null,
-            [CallerMemberName] string shouldlyMethod = null)
+            object? originalActual, object? originalExpected, object tolerance,
+            [InstantHandle] Func<string?>? customMessage = null,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             if (customMessage == null)
                 customMessage = () => null;
@@ -102,9 +102,9 @@ namespace Shouldly
 
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected, Case caseSensitivity,
-            [InstantHandle] Func<string> customMessage = null,
-            [CallerMemberName] string shouldlyMethod = null)
+            object? originalActual, object? originalExpected, Case caseSensitivity,
+            [InstantHandle] Func<string?>? customMessage = null,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             if (customMessage == null)
                 customMessage = () => null;

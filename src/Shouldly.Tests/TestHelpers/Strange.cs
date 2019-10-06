@@ -5,7 +5,7 @@ namespace Shouldly.Tests.TestHelpers
 {
     internal class Strange : IEnumerable<Strange>
     {
-        readonly string _thing;
+        readonly string? _thing;
 
         public Strange()
         {
@@ -36,7 +36,7 @@ namespace Shouldly.Tests.TestHelpers
             return string.Equals(_thing, other._thing);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

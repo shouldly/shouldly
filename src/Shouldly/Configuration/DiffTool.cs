@@ -8,13 +8,13 @@ namespace Shouldly.Configuration
 {
     public class DiffToolConfig
     {
-        public string WindowsPath { get; set; }
+        public string? WindowsPath { get; set; }
 
-        public string MacPath { get; set; }
+        public string? MacPath { get; set; }
 
-        public string LinuxPath { get; set; }
+        public string? LinuxPath { get; set; }
 
-        public string ResolvePath()
+        public string? ResolvePath()
         {
             if (ShouldlyEnvironmentContext.IsWindows())
                 return WindowsPath;
@@ -29,7 +29,7 @@ namespace Shouldly.Configuration
 
     public class DiffTool
     {
-        private readonly string _path;
+        private readonly string? _path;
         private readonly ArgumentGenerator _argGenerator;
 
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
@@ -53,7 +53,7 @@ namespace Shouldly.Configuration
             Process.Start(_path, _argGenerator(receivedPath, approvedPath, approvedExists));
         }
 
-        private static string Discover(string path)
+        private static string? Discover(string? path)
         {
             if (path == null)
                 return null;
@@ -91,11 +91,11 @@ namespace Shouldly.Configuration
     Environment.GetEnvironmentVariable("ProgramW6432")
 }
 .Where(p => p != null)
-.Select(pf => Path.Combine(pf, path))
+.Select(pf => Path.Combine(pf!, path))
 .FirstOrDefault(File.Exists);
         }
 
-        private static string GetFullPath(string fileName)
+        private static string? GetFullPath(string fileName)
         {
             if (File.Exists(fileName))
                 return Path.GetFullPath(fileName);
@@ -112,7 +112,7 @@ namespace Shouldly.Configuration
                 .FirstOrDefault(File.Exists);
         }
 
-        private static string TryCombine(string fileName, string path)
+        private static string? TryCombine(string fileName, string path)
         {
             try
             {

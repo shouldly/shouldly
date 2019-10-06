@@ -14,16 +14,16 @@ namespace Shouldly
         {
             return Throw<TException>(actual, () => null);
         }
-        public static TException Throw<TException>([InstantHandle] Action actual, string customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage) where TException : Exception
         {
             return Throw<TException>(actual, () => customMessage);
         }
-        public static TException Throw<TException>([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage) where TException : Exception
         {
             return ThrowInternal<TException>(actual, customMessage);
         }
-        internal static TException ThrowInternal<TException>([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null) where TException : Exception
+        internal static TException ThrowInternal<TException>([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
             try
             {
@@ -46,16 +46,16 @@ namespace Shouldly
         {
             return Throw(actual, () => null, exceptionType);
         }
-        public static Exception Throw([InstantHandle] Action actual, string customMessage, Type exceptionType)
+        public static Exception Throw([InstantHandle] Action actual, string? customMessage, Type exceptionType)
         {
             return Throw(actual, () => customMessage, exceptionType);
         }
-        public static Exception Throw([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        public static Exception Throw([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
         {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
-        internal static Exception ThrowInternal([InstantHandle] Action actual, [InstantHandle] Func<string> customMessage, Type exceptionType,
-            [CallerMemberName] string shouldlyMethod = null)
+        internal static Exception ThrowInternal([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             try
             {
@@ -75,20 +75,20 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<T>) ***/
-        public static TException Throw<TException>([InstantHandle] Func<object> actual) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<object?> actual) where TException : Exception
         {
             return Throw<TException>(actual, () => null);
         }
-        public static TException Throw<TException>([InstantHandle] Func<object> actual, string customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage) where TException : Exception
         {
             return Throw<TException>(actual, () => customMessage);
         }
-        public static TException Throw<TException>([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage) where TException : Exception
         {
             return ThrowInternal<TException>(actual, customMessage);
         }
-        internal static TException ThrowInternal<TException>([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null) where TException : Exception
+        internal static TException ThrowInternal<TException>([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
             try
             {
@@ -107,20 +107,20 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<T>) ***/
-        public static Exception Throw([InstantHandle] Func<object> actual, Type exceptionType)
+        public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType)
         {
             return Throw(actual, () => null, exceptionType);
         }
-        public static Exception Throw([InstantHandle] Func<object> actual, string customMessage, Type exceptionType)
+        public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType)
         {
             return Throw(actual, () => customMessage, exceptionType);
         }
-        public static Exception Throw([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        public static Exception Throw([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
         {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
-        internal static Exception ThrowInternal([InstantHandle] Func<object> actual, [InstantHandle] Func<string> customMessage, Type exceptionType,
-            [CallerMemberName] string shouldlyMethod = null)
+        internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             try
             {
@@ -144,16 +144,16 @@ namespace Shouldly
         {
             NotThrow(action, () => null);
         }
-        public static void NotThrow([InstantHandle] Action action, string customMessage)
+        public static void NotThrow([InstantHandle] Action action, string? customMessage)
         {
             NotThrow(action, () => customMessage);
         }
-        public static void NotThrow([InstantHandle] Action action, [InstantHandle] Func<string> customMessage)
+        public static void NotThrow([InstantHandle] Action action, [InstantHandle] Func<string?>? customMessage)
         {
             NotThrowInternal(action, customMessage);
         }
-        internal static void NotThrowInternal([InstantHandle] Action action, [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        internal static void NotThrowInternal([InstantHandle] Action action, [InstantHandle] Func<string?>? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             try
             {
@@ -170,11 +170,11 @@ namespace Shouldly
         {
             return NotThrow(action, () => null);
         }
-        public static T NotThrow<T>([InstantHandle] Func<T> action, string customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage)
         {
             return NotThrow(action, () => customMessage);
         }
-        public static T NotThrow<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string> customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string?>? customMessage)
         {
             return NotThrowInternal(action, customMessage);
         }
@@ -182,8 +182,8 @@ namespace Shouldly
         /// <summary>
         /// Used to differentiate between the extension methods and the static methods
         /// </summary>
-        internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string?>? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             try
             {

@@ -1,6 +1,7 @@
 using Shouldly.Internals.AssertionFactories;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly
 {
@@ -12,8 +13,8 @@ namespace Shouldly
         /// Perform a string comparison with sensitivity options
         /// </summary>
         public static void ShouldBe(
-            this string actual,
-            string expected)
+            [NotNullIfNotNull("expected")] this string? actual,
+            [NotNullIfNotNull("actual")] string? expected)
         {
             // ReSharper disable once IntroduceOptionalParameters.Global
             ShouldBe(actual, expected, (StringCompareShould)0);
@@ -23,8 +24,8 @@ namespace Shouldly
         /// Perform a string comparison with sensitivity options
         /// </summary>
         public static void ShouldBe(
-            this string actual,
-            string expected,
+            [NotNullIfNotNull("expected")] this string? actual,
+            [NotNullIfNotNull("actual")] string? expected,
             string customMessage)
         {
             // ReSharper disable once IntroduceOptionalParameters.Global
@@ -35,9 +36,9 @@ namespace Shouldly
         /// Perform a string comparison with sensitivity options
         /// </summary>
         public static void ShouldBe(
-            this string actual,
-            string expected,
-            Func<string> customMessage)
+            [NotNullIfNotNull("expected")] this string? actual,
+            [NotNullIfNotNull("actual")] string? expected,
+            Func<string?> customMessage)
         {
             // ReSharper disable once IntroduceOptionalParameters.Global
             ShouldBe(actual, expected, customMessage, 0);
@@ -46,15 +47,15 @@ namespace Shouldly
         /// Perform a string comparison with sensitivity options
         /// </summary>
         public static void ShouldBe(
-            this string actual,
-            string expected,
+            [NotNullIfNotNull("expected")] this string? actual,
+            [NotNullIfNotNull("actual")] string? expected,
             StringCompareShould options)
         {
             ShouldBe(actual, expected, () => null, options);
         }
         public static void ShouldBe(
-            this string actual,
-            string expected,
+            [NotNullIfNotNull("expected")] this string? actual,
+            [NotNullIfNotNull("actual")] string? expected,
             string customMessage,
             StringCompareShould option)
         {
@@ -62,16 +63,16 @@ namespace Shouldly
         }
 
         public static void ShouldBe(
-            this string actual,
-            string expected,
-            Func<string> customMessage,
+            [NotNullIfNotNull("expected")] this string? actual,
+            [NotNullIfNotNull("actual")] string? expected,
+            Func<string?> customMessage,
             StringCompareShould options)
         {
             var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
             ExecuteAssertion(assertion, customMessage);
         }
 
-        static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, Func<string> customMessage)
+        static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, Func<string?> customMessage)
         {
             try
             {

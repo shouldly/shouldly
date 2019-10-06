@@ -6,6 +6,6 @@ namespace Shouldly.DifferenceHighlighting
     internal interface IDifferenceHighlighter
     {
         bool CanProcess(IShouldlyAssertionContext context);
-        string HighlightDifferences(IShouldlyAssertionContext context);
+        string? HighlightDifferences(IShouldlyAssertionContext context);
     }
 }

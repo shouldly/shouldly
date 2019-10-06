@@ -8,7 +8,7 @@ namespace Shouldly.Internals.AssertionFactories
 {
     internal static class StringShouldBeAssertionFactory
     {
-        public static IAssertion Create(string expected, string actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null)
+        public static IAssertion Create(string? expected, string? actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null!)
         {
             List<string> optionsList = new List<string>();
             if ((options & StringCompareShould.IgnoreLineEndings) != 0)
@@ -19,7 +19,7 @@ namespace Shouldly.Internals.AssertionFactories
             }
 
             Case sensitivity;
-            Func<string, string, bool> stringComparer;
+            Func<string?, string?, bool> stringComparer;
             if ((options & StringCompareShould.IgnoreCase) == 0)
             {
                 sensitivity = Case.Sensitive;

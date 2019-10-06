@@ -153,12 +153,12 @@ internal sealed class InvokerParameterNameAttribute : Attribute { }
 internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
   {
     public NotifyPropertyChangedInvocatorAttribute() { }
-    public NotifyPropertyChangedInvocatorAttribute(string parameterName)
+    public NotifyPropertyChangedInvocatorAttribute(string? parameterName)
     {
       ParameterName = parameterName;
     }
 
-    public string ParameterName { get; private set; }
+    public string? ParameterName { get; private set; }
   }
 
   /// <summary>
@@ -197,7 +197,7 @@ internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
   /// // A method that returns null if the parameter is null,
   /// // and not null if the parameter is not null
   /// [ContractAnnotation("null => null; notnull => notnull")]
-  /// public object Transform(object data) 
+  /// public object Transform(object data)
   /// </code></item>
   /// <item><code>
   /// [ContractAnnotation("s:null=>false; =>true,result:notnull; =>false, result:null")]
@@ -377,12 +377,12 @@ internal enum ImplicitUseTargetFlags
 internal sealed class PublicAPIAttribute : Attribute
   {
     public PublicAPIAttribute() { }
-    public PublicAPIAttribute([NotNull] string comment)
+    public PublicAPIAttribute([NotNull] string? comment)
     {
       Comment = comment;
     }
 
-    public string Comment { get; private set; }
+    public string? Comment { get; private set; }
   }
 
   /// <summary>
@@ -415,12 +415,12 @@ internal sealed class PureAttribute : Attribute { }
 internal sealed class PathReferenceAttribute : Attribute
   {
     public PathReferenceAttribute() { }
-    public PathReferenceAttribute([PathReference] string basePath)
+    public PathReferenceAttribute([PathReference] string? basePath)
     {
       BasePath = basePath;
     }
 
-    public string BasePath { get; private set; }
+    public string? BasePath { get; private set; }
   }
 
   /// <summary>
@@ -484,7 +484,7 @@ internal sealed class MacroAttribute : Attribute
     /// Allows specifying a macro that will be executed for a <see cref="SourceTemplateAttribute">source template</see>
     /// parameter when the template is expanded.
     /// </summary>
-    public string Expression { get; set; }
+    public string? Expression { get; set; }
 
     /// <summary>
     /// Allows specifying which occurrence of the target parameter becomes editable when the template is deployed.
@@ -500,7 +500,7 @@ internal sealed class MacroAttribute : Attribute
     /// Identifies the target parameter of a <see cref="SourceTemplateAttribute">source template</see> if the
     /// <see cref="MacroAttribute"/> is applied on a template method.
     /// </summary>
-    public string Target { get; set; }
+    public string? Target { get; set; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -579,12 +579,12 @@ internal sealed class AspMvcViewLocationFormatAttribute : Attribute
 internal sealed class AspMvcActionAttribute : Attribute
   {
     public AspMvcActionAttribute() { }
-    public AspMvcActionAttribute(string anonymousProperty)
+    public AspMvcActionAttribute(string? anonymousProperty)
     {
       AnonymousProperty = anonymousProperty;
     }
 
-    public string AnonymousProperty { get; private set; }
+    public string? AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -596,12 +596,12 @@ internal sealed class AspMvcActionAttribute : Attribute
 internal sealed class AspMvcAreaAttribute : Attribute
   {
     public AspMvcAreaAttribute() { }
-    public AspMvcAreaAttribute(string anonymousProperty)
+    public AspMvcAreaAttribute(string? anonymousProperty)
     {
       AnonymousProperty = anonymousProperty;
     }
 
-    public string AnonymousProperty { get; private set; }
+    public string? AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -614,12 +614,12 @@ internal sealed class AspMvcAreaAttribute : Attribute
 internal sealed class AspMvcControllerAttribute : Attribute
   {
     public AspMvcControllerAttribute() { }
-    public AspMvcControllerAttribute(string anonymousProperty)
+    public AspMvcControllerAttribute(string? anonymousProperty)
     {
       AnonymousProperty = anonymousProperty;
     }
 
-    public string AnonymousProperty { get; private set; }
+    public string? AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -653,7 +653,7 @@ internal sealed class AspMvcSupressViewErrorAttribute : Attribute { }
 
   /// <summary>
   /// ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
-  /// Use this attribute for custom wrappers similar to 
+  /// Use this attribute for custom wrappers similar to
   /// <c>System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)</c>.
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter)]
@@ -702,12 +702,12 @@ internal sealed class AspMvcActionSelectorAttribute : Attribute { }
 internal sealed class HtmlElementAttributesAttribute : Attribute
   {
     public HtmlElementAttributesAttribute() { }
-    public HtmlElementAttributesAttribute(string name)
+    public HtmlElementAttributesAttribute(string? name)
     {
       Name = name;
     }
 
-    public string Name { get; private set; }
+    public string? Name { get; private set; }
   }
 
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
@@ -723,7 +723,7 @@ internal sealed class HtmlAttributeValueAttribute : Attribute
 
   /// <summary>
   /// Razor attribute. Indicates that a parameter or a method is a Razor section.
-  /// Use this attribute for custom wrappers similar to 
+  /// Use this attribute for custom wrappers similar to
   /// <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>.
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
@@ -758,7 +758,7 @@ internal enum CollectionAccessType
 
   /// <summary>
   /// Indicates that the marked method is assertion method, i.e. it halts control flow if
-  /// one of the conditions is satisfied. To set the condition, mark one of the parameters with 
+  /// one of the conditions is satisfied. To set the condition, mark one of the parameters with
   /// <see cref="AssertionConditionAttribute"/> attribute.
   /// </summary>
   [AttributeUsage(AttributeTargets.Method)]

@@ -7,7 +7,7 @@ namespace Shouldly.Tests.DynamicShould
     {
         class Foo
         {
-            public string Bar { get; set; }
+            public string? Bar { get; set; }
         }
 
         [Fact]

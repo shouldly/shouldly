@@ -12,11 +12,11 @@ namespace Shouldly.Configuration
         {
             SourceFileDirectory = Path.GetDirectoryName(callingFrame.GetFileName());
             var realMethod = GetRealMethod(callingFrame.GetMethod());
-            MethodName = realMethod.Name;
-            DeclaringTypeName = realMethod.DeclaringType?.Name;
+            MethodName = realMethod?.Name;
+            DeclaringTypeName = realMethod?.DeclaringType?.Name;
         }
 
-        static MethodBase GetRealMethod(MethodBase method)
+        static MethodBase? GetRealMethod(MethodBase method)
         {
             var declaringType = method.DeclaringType;
             if (declaringType == null || declaringType.IsByRef)
@@ -36,7 +36,7 @@ namespace Shouldly.Configuration
                 return method;
             }
             var trueMethodName = declaringType.Name.TrimStart('<').Split('>').First();
-            MethodInfo methodInfo;
+            MethodInfo? methodInfo;
             var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
             try
             {
@@ -54,13 +54,13 @@ namespace Shouldly.Configuration
         static bool ContainsAttribute(object[] attributes, string attributeName)
         {
             {
-                return attributes.Any(a => a.GetType().FullName.StartsWith(attributeName));
+                return attributes.Any(a => a.GetType().FullName?.StartsWith(attributeName) ?? false);
             }
         }
 
-        public string SourceFileDirectory { get; private set; }
-        public string MethodName { get; private set; }
-        public string DeclaringTypeName { get; private set; }
+        public string? SourceFileDirectory { get; private set; }
+        public string? MethodName { get; private set; }
+        public string? DeclaringTypeName { get; private set; }
     }
 }
 #endif

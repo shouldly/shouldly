@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Shouldly;
 
 namespace NUnit.Framework.Constraints
@@ -14,7 +15,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a numeric type</returns>
-        public static bool IsNumericType(Object obj)
+        public static bool IsNumericType([NotNullWhen(true)] object? obj)
         {
             return IsFloatingPointNumeric(obj) || IsFixedPointNumeric(obj);
         }
@@ -25,7 +26,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a floating point numeric type</returns>
-        public static bool IsFloatingPointNumeric(Object obj)
+        public static bool IsFloatingPointNumeric([NotNullWhen(true)] object? obj)
         {
             if (null != obj)
             {
@@ -41,7 +42,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a fixed point numeric type</returns>
-        public static bool IsFixedPointNumeric(Object obj)
+        public static bool IsFixedPointNumeric([NotNullWhen(true)] object? obj)
         {
             if (null != obj)
             {
@@ -98,7 +99,7 @@ namespace NUnit.Framework.Constraints
             if (double.IsNaN(expected) && double.IsNaN(actual))
                 return true;
 
-            // Handle infinity specially since subtracting two infinite values gives 
+            // Handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails. mono also needs NaN to be handled
             // specially although ms.net could use either method. Also, handle
             // situation where no tolerance is used.
@@ -137,7 +138,7 @@ namespace NUnit.Framework.Constraints
             if (float.IsNaN(expected) && float.IsNaN(actual))
                 return true;
 
-            // handle infinity specially since subtracting two infinite values gives 
+            // handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails. mono also needs NaN to be handled
             // specially although ms.net could use either method.
             if (float.IsInfinity(expected) || float.IsNaN(expected) || float.IsNaN(actual))

@@ -16,9 +16,9 @@ namespace Shouldly.Configuration
 
         public DiffToolConfiguration()
         {
-            _diffTools = typeof (KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)).ToList();
+            _diffTools = typeof (KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)!).ToList();
             _knownShouldNotLaunchDiffToolReasons = typeof (KnownDoNotLaunchStrategies).GetFields()
-                .Select(f => (IShouldNotLaunchDiffTool) f.GetValue(KnownDoNotLaunchStrategies)).ToList();
+                .Select(f => (IShouldNotLaunchDiffTool) f.GetValue(KnownDoNotLaunchStrategies)!).ToList();
         }
 
         public void RegisterDiffTool(DiffTool diffTool)
@@ -54,7 +54,7 @@ namespace Shouldly.Configuration
             var diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists());
             if (diffTool == null)
                 diffTool = _diffTools.FirstOrDefault(d => d.Exists());
-            
+
             if (diffTool == null)
             {
                 throw new ShouldAssertException(@"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
