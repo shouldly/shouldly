@@ -260,7 +260,7 @@ namespace Shouldly
             }
         }
 
-        public static bool GreaterThanOrEqualTo<T>(IComparable<T>? comparable, [AllowNull] T expected)
+        public static bool GreaterThanOrEqualTo<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) >= 0;
         }
@@ -270,7 +270,7 @@ namespace Shouldly
             return Compare(actual, expected, comparer) >= 0;
         }
 
-        public static bool LessThanOrEqualTo<T>(IComparable<T>? comparable, [AllowNull] T expected)
+        public static bool LessThanOrEqualTo<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) <= 0;
         }
@@ -280,7 +280,7 @@ namespace Shouldly
             return Compare(actual, expected, comparer) <= 0;
         }
 
-        public static bool GreaterThan<T>(IComparable<T>? comparable, [AllowNull] T expected)
+        public static bool GreaterThan<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) > 0;
         }
@@ -290,7 +290,7 @@ namespace Shouldly
             return Compare(actual, expected, comparer) > 0;
         }
 
-        public static bool LessThan<T>(IComparable<T>? comparable, [AllowNull] T expected)
+        public static bool LessThan<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) < 0;
         }
@@ -304,7 +304,8 @@ namespace Shouldly
         {
             return comparer.Compare(actual, expected);
         }
-        static decimal Compare<T>(IComparable<T>? comparable, [AllowNull] T expected)
+
+        static decimal Compare<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             if (!typeof(T).IsValueType())
             {
@@ -316,7 +317,7 @@ namespace Shouldly
                 // ReSharper restore CompareNonConstrainedGenericWithNull
             }
 
-            return comparable.CompareTo(expected);
+            return comparable!.CompareTo(expected);
         }
     }
 }
