@@ -67,7 +67,7 @@ namespace Shouldly
         /*** Should.Throw(Task, TimeSpan) ***/
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter) where TException : Exception
         {
-            return Throw<TException>(actual, timeoutAfter, () => null);            
+            return Throw<TException>(actual, timeoutAfter, () => null);
         }
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage) where TException : Exception
         {
@@ -81,7 +81,7 @@ namespace Shouldly
         /*** Should.Throw(Task, TimeSpan) ***/
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType)
         {
-            return Throw(actual, timeoutAfter, () => null, exceptionType);            
+            return Throw(actual, timeoutAfter, () => null, exceptionType);
         }
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
@@ -118,12 +118,10 @@ namespace Shouldly
             {
                 throw;
             }
-            catch (AggregateException e)
-            {
-                return HandleAggregateException<TException>(e, customMessage);
-            }
             catch (Exception e)
             {
+                e = (e as AggregateException)?.InnerException ?? e;
+
                 if (e is TException)
                     return (TException)e;
 
@@ -161,12 +159,10 @@ namespace Shouldly
             {
                 throw;
             }
-            catch (AggregateException e)
-            {
-                return HandleAggregateException(e, customMessage, exceptionType);
-            }
             catch (Exception e)
             {
+                e = (e as AggregateException)?.InnerException ?? e;
+
                 if (e.GetType() == exceptionType)
                 {
                     return e;
@@ -260,12 +256,10 @@ namespace Shouldly
             {
                 throw;
             }
-            catch (AggregateException ex)
-            {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod).ToString());
-            }
             catch (Exception ex)
             {
+                ex = (ex as AggregateException)?.InnerException ?? ex;
+
                 throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
@@ -273,7 +267,7 @@ namespace Shouldly
         /*** Should.NotThrow(Func<Task<T>>) ***/
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action)
         {
-            return NotThrow(action, () => null);  
+            return NotThrow(action, () => null);
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string? customMessage)
         {
@@ -331,12 +325,10 @@ namespace Shouldly
             {
                 throw;
             }
-            catch (AggregateException ex)
-            {
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.InnerException.GetType(), ex.InnerException.Message, customMessage, shouldlyMethod).ToString());
-            }
             catch (Exception ex)
             {
+                ex = (ex as AggregateException)?.InnerException ?? ex;
+
                 throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
@@ -353,15 +345,6 @@ namespace Shouldly
             {
                 CompleteIn(actual, timeoutAfter, customMessage);
             }
-        }
-
-        private static TException HandleAggregateException<TException>(AggregateException e, [InstantHandle] Func<string?>? customMessage) where TException : Exception
-        {
-            var innerException = e.InnerException;
-            if (innerException is TException)
-                return (TException)innerException;
-
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(TException), innerException.GetType(), customMessage).ToString());
         }
 
         private static Exception HandleAggregateException(AggregateException e, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
