@@ -1,3 +1,2 @@
-var websters = new Dictionary<string, string>();
-websters.Add("Embiggen", "To empower or embolden.");
+var websters = new Dictionary<string, string> { { "Embiggen", "To empower or embolden." } };
 websters.ShouldContainKey("Cromulent");
