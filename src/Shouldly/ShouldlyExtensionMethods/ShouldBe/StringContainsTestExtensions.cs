@@ -21,7 +21,7 @@ namespace Shouldly
         public static void ShouldContainWithoutWhitespace(this string actual, object? expected, [InstantHandle] Func<string?>? customMessage)
         {
             var strippedActual = actual.Quotify().StripWhitespace();
-            var strippedExpected = (expected ?? "NULL").ToString().Quotify().StripWhitespace();
+            var strippedExpected = (expected?.ToString() ?? "NULL").Quotify().StripWhitespace();
 
             strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage);
         }
