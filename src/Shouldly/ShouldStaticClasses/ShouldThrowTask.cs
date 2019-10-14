@@ -313,13 +313,10 @@ namespace Shouldly
             try
             {
                 // Drop the sync context so continuations will not post to it, causing a deadlock
-                if (SynchronizationContext.Current != null)
+                using (Utils.WithSynchronizationContext(null))
                 {
-                    return CompleteIn(Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default).Unwrap(), timeoutAfter, customMessage);
+                    return CompleteIn(action, timeoutAfter, customMessage);
                 }
-
-                return CompleteIn(action, timeoutAfter, customMessage);
             }
             catch (ShouldlyTimeoutException)
             {
@@ -336,12 +333,7 @@ namespace Shouldly
         private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
         {
             // Drop the sync context so continuations will not post to it, causing a deadlock
-            if (SynchronizationContext.Current != null)
-            {
-                CompleteIn(Task.Factory.StartNew(actual, CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default).Unwrap(), timeoutAfter, customMessage);
-            }
-            else
+            using (Utils.WithSynchronizationContext(null))
             {
                 CompleteIn(actual, timeoutAfter, customMessage);
             }
