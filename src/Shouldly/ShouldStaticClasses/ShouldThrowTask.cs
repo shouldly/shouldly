@@ -339,9 +339,11 @@ namespace Shouldly
             }
         }
 
-        private static Exception HandleAggregateException(AggregateException e, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
+        private static Exception HandleTaskAggregateException(AggregateException exceptionFromTask, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
         {
-            var innerException = e.InnerException;
+            var innerException = exceptionFromTask.InnerException
+                ?? throw new ArgumentException("The specified exception is not from Task.Exception or it would have at least one inner exception.", nameof(exceptionFromTask));
+
             if (innerException.GetType() == exceptionType)
                 return innerException;
 

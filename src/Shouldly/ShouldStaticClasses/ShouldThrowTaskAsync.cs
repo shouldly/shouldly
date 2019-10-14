@@ -160,7 +160,7 @@ namespace Shouldly
                     if (t.Exception == null)
                         throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
 
-                    return HandleAggregateException(t.Exception, customMessage, exceptionType);
+                    return HandleTaskAggregateException(t.Exception, customMessage, exceptionType);
                 }
 
                 if (t.IsCanceled)
@@ -177,7 +177,7 @@ namespace Shouldly
                     if (t.Exception == null)
                         throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
 
-                    return HandleAggregateException(t.Exception, customMessage, exceptionType);
+                    return HandleTaskAggregateException(t.Exception, customMessage, exceptionType);
                 }
 
                 if (t.IsCanceled)
