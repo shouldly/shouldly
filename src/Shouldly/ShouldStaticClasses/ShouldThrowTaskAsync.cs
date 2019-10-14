@@ -55,13 +55,11 @@ namespace Shouldly
                         {
                             if (t.IsFaulted)
                             {
-                                if (t.Exception == null)
-                                    return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
-
-                                if (t.Exception.InnerException is TException expectedException)
+                                if (t.Exception!.InnerException is TException expectedException)
                                     return expectedException;
 
-                                return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage, stackTrace).ToString());
+                                // If Task.IsFaulted is true, there is at least one inner exception.
+                                return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), t.Exception.InnerException!.GetType(), customMessage, stackTrace).ToString());
                             }
 
                             if (t.IsCanceled)
@@ -99,13 +97,11 @@ namespace Shouldly
                         {
                             if (t.IsFaulted)
                             {
-                                if (t.Exception == null)
-                                    return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
-
-                                if (t.Exception.InnerException is TException expectedException)
+                                if (t.Exception!.InnerException is TException expectedException)
                                     return expectedException;
 
-                                return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage).ToString());
+                                // If Task.IsFaulted is true, there is at least one inner exception.
+                                return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException!.GetType(), customMessage).ToString());
                             }
 
                             if (t.IsCanceled)
