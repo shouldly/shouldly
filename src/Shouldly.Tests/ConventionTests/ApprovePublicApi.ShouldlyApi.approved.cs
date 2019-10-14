@@ -747,13 +747,13 @@ namespace Shouldly.Configuration
         public ShouldMatchConfiguration() { }
         public ShouldMatchConfiguration(Shouldly.Configuration.ShouldMatchConfiguration initialConfig) { }
         public string? ApprovalFileSubFolder { get; set; }
-        public string? FileExtension { get; set; }
+        public string FileExtension { get; set; }
         public string? FilenameDescriminator { get; set; }
-        public Shouldly.Configuration.FilenameGenerator? FilenameGenerator { get; set; }
+        public Shouldly.Configuration.FilenameGenerator FilenameGenerator { get; set; }
         public bool PreventDiff { get; set; }
         public System.Func<string, string>? Scrubber { get; set; }
         public Shouldly.StringCompareShould StringCompareOptions { get; set; }
-        public Shouldly.Configuration.ITestMethodFinder? TestMethodFinder { get; set; }
+        public Shouldly.Configuration.ITestMethodFinder TestMethodFinder { get; set; }
     }
     public class ShouldMatchConfigurationBuilder
     {

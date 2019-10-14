@@ -1,6 +1,5 @@
 ﻿#if ShouldMatchApproved
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly.Configuration
 {
@@ -18,25 +17,23 @@ namespace Shouldly.Configuration
             StringCompareOptions = initialConfig.StringCompareOptions;
             FilenameDescriminator = initialConfig.FilenameDescriminator;
             PreventDiff = initialConfig.PreventDiff;
-            FileExtension = initialConfig.FileExtension!;
-            TestMethodFinder = initialConfig.TestMethodFinder!;
+            FileExtension = initialConfig.FileExtension;
+            TestMethodFinder = initialConfig.TestMethodFinder;
             ApprovalFileSubFolder = initialConfig.ApprovalFileSubFolder;
             Scrubber = initialConfig.Scrubber;
-            FilenameGenerator = initialConfig.FilenameGenerator!;
+            FilenameGenerator = initialConfig.FilenameGenerator;
         }
 
-        public StringCompareShould StringCompareOptions { get; set; }
+        public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
         public string? FilenameDescriminator { get; set; }
         public bool PreventDiff { get; set; }
 
         /// <summary>
         /// File extension without the .
         /// </summary>
-        [DisallowNull]
-        public string? FileExtension { get; set; }
+        public string FileExtension { get; set; } = "txt";
 
-        [DisallowNull]
-        public ITestMethodFinder? TestMethodFinder { get; set; }
+        public ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
         public string? ApprovalFileSubFolder { get; set; }
 
         /// <summary>
@@ -46,8 +43,9 @@ namespace Shouldly.Configuration
         /// </summary>
         public Func<string, string>? Scrubber { get; set; }
 
-        [DisallowNull]
-        public FilenameGenerator? FilenameGenerator { get; set; }
+        public FilenameGenerator FilenameGenerator { get; set; } =
+            (testMethodInfo, descriminator, type, extension)
+                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}";
     }
 }
 
