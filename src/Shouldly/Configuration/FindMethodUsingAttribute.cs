@@ -12,11 +12,9 @@ namespace Shouldly.Configuration
             StackFrame callingFrame;
             do
             {
-                if (i >= stackTrace.FrameCount)
-                {
-                    throw new Exception($"Cannot find method in call stack with attribute {typeof(T).FullName}");
-                }
-                callingFrame = stackTrace.GetFrame(i++)!;
+                callingFrame = stackTrace.GetFrame(i++)
+                    ?? throw new Exception($"Cannot find method in call stack with attribute {typeof(T).FullName}.");
+
             } while (!callingFrame.GetMethod().IsDefined(typeof(T), true));
 
             return new TestMethodInfo(callingFrame);
