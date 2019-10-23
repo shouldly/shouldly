@@ -64,6 +64,10 @@ Shouldly has plenty of different assertions, have a look under the assertions fo
    contributing
    configuration
 
+Getting started
+^^^^^^^^^^^^^^^
+
+To setup a project with Shouldly check out our :ref:`gettingStarted`.
 
 Indices and tables
 ==================
