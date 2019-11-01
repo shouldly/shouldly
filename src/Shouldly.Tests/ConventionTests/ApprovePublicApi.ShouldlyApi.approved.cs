@@ -342,47 +342,47 @@ namespace Shouldly
         public static void ShouldBeAssignableTo(this object actual, System.Type expected, string customMessage) { }
         public static void ShouldBeAssignableTo(this object actual, System.Type expected, System.Func<string> customMessage) { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, string customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Func<string> customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, string customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Func<string> customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeInRange<T>(this T actual, T from, T to)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeInRange<T>(this T actual, T from, T to, string customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeInRange<T>(this T actual, T from, T to, System.Func<string> customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeLessThan<T>(this T actual, T expected)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, string customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeLessThan<T>(this T actual, T expected, System.Func<string> customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, string customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer) { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, string customMessage) { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string> customMessage) { }
         public static void ShouldBeLessThanOrEqualTo<T>(this T actual, T expected, System.Func<string> customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldBeNegative(this decimal actual) { }
         public static void ShouldBeNegative(this decimal actual, string customMessage) { }
         public static void ShouldBeNegative(this decimal actual, System.Func<string> customMessage) { }
@@ -450,11 +450,11 @@ namespace Shouldly
         public static void ShouldNotBeAssignableTo(this object actual, System.Type expected, string customMessage) { }
         public static void ShouldNotBeAssignableTo(this object actual, System.Type expected, System.Func<string> customMessage) { }
         public static void ShouldNotBeInRange<T>(this T actual, T from, T to)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldNotBeInRange<T>(this T actual, T from, T to, string customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldNotBeInRange<T>(this T actual, T from, T to, System.Func<string> customMessage)
-            where T : System.IComparable<> { }
+            where T : System.IComparable<T> { }
         public static void ShouldNotBeOfType<T>(this object actual) { }
         public static void ShouldNotBeOfType<T>(this object actual, string customMessage) { }
         public static void ShouldNotBeOfType<T>(this object actual, System.Func<string> customMessage) { }
