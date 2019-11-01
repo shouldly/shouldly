@@ -472,26 +472,6 @@ namespace Shouldly
     {
         public ShouldCompleteInException(string message, Shouldly.ShouldlyTimeoutException inner) { }
     }
-    public class static ShouldlyConfiguration
-    {
-        public static double DefaultFloatingPointTolerance;
-        public static System.TimeSpan DefaultTaskTimeout;
-        public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
-        public static Shouldly.Configuration.DiffToolConfiguration DiffTools { get; }
-        public static Shouldly.Configuration.ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; }
-        public static System.IDisposable DisableSourceInErrors() { }
-        public static bool IsSourceDisabledInErrors() { }
-    }
-    public class ShouldlyMethodsAttribute : System.Attribute
-    {
-        public ShouldlyMethodsAttribute() { }
-    }
-    public class ShouldlyTimeoutException : System.TimeoutException
-    {
-        public ShouldlyTimeoutException() { }
-        public ShouldlyTimeoutException(string message, Shouldly.ShouldlyTimeoutException inner) { }
-        public override string StackTrace { get; }
-    }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
         public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) { }
@@ -626,6 +606,26 @@ namespace Shouldly
         public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Func<string> customMessage, System.Type exceptionType) { }
     }
+    public class static ShouldlyConfiguration
+    {
+        public static double DefaultFloatingPointTolerance;
+        public static System.TimeSpan DefaultTaskTimeout;
+        public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
+        public static Shouldly.Configuration.DiffToolConfiguration DiffTools { get; }
+        public static Shouldly.Configuration.ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; }
+        public static System.IDisposable DisableSourceInErrors() { }
+        public static bool IsSourceDisabledInErrors() { }
+    }
+    public class ShouldlyMethodsAttribute : System.Attribute
+    {
+        public ShouldlyMethodsAttribute() { }
+    }
+    public class ShouldlyTimeoutException : System.TimeoutException
+    {
+        public ShouldlyTimeoutException() { }
+        public ShouldlyTimeoutException(string message, Shouldly.ShouldlyTimeoutException inner) { }
+        public override string StackTrace { get; }
+    }
     public enum SortDirection
     {
         Ascending = 0,
@@ -726,8 +726,8 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VisualStudioLiveUnitTesting;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VisualStudioLiveUnitTesting;
         public KnownDoNotLaunchStrategies() { }
     }
     public class ShouldMatchConfiguration
