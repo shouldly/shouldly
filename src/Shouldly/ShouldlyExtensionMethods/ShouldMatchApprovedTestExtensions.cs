@@ -45,7 +45,7 @@ namespace Shouldly
             if (config.Scrubber != null)
                 actual = config.Scrubber(actual);
 
-            var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameIndex);
+            var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
             var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
             var outputFolder = testMethodInfo.SourceFileDirectory;
             if (string.IsNullOrEmpty(outputFolder))

@@ -17,6 +17,20 @@ namespace Shouldly
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
                || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
+
+        /// <summary>
+        /// Required to support the <see cref="DynamicShould.HaveProperty"/> method that takes in a <see
+        /// langword="dynamic"/> as a parameter. Having a method that takes a dynamic really stuffs up the stack trace
+        /// because the runtime binder has to inject a whole heap of methods. Our normal way of just taking the next
+        /// frame doesn't work. The following two lines seem to work for now, but this feels like a hack. The conditions
+        /// to be able to walk up stack trace until we get to the calling method might have to be updated regularly as
+        /// we find more scenarios. Alternately, it could be replaced with a more robust implementation.
+        /// </summary>
+        internal static bool IsSystemDynamicMachinery(this MethodBase method)
+        {
+            return method.DeclaringType is null
+                || (method.DeclaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
+        }
 #endif
 
         internal static void AssertAwesomely<T>(
