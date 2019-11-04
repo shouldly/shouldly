@@ -8,16 +8,15 @@ namespace Shouldly.Configuration
     {
         public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
         {
-            var i = startAt;
-            StackFrame callingFrame;
-            do
+            for (var i = startAt; stackTrace.GetFrame(i) is { } frame; i++)
             {
-                callingFrame = stackTrace.GetFrame(i++)
-                    ?? throw new Exception($"Cannot find method in call stack with attribute {typeof(T).FullName}.");
+                if (frame.GetMethod() is { } method && method.IsDefined(typeof(T), inherit: true))
+                {
+                    return new TestMethodInfo(frame);
+                }
+            }
 
-            } while (!callingFrame.GetMethod().IsDefined(typeof(T), true));
-
-            return new TestMethodInfo(callingFrame);
+            throw new InvalidOperationException($"Cannot find a method in the stack trace with attribute {typeof(T).FullName}.");
         }
     }
 }
