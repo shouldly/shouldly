@@ -5,22 +5,22 @@ namespace Shouldly
         Sensitive = 0,
         Insensitive = 1,
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static DynamicShould
+    [Shouldly.ShouldlyMethods]
+    public static class DynamicShould
     {
-        public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName) { }
-        public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, string customMessage) { }
-        public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, System.Func<string> customMessage) { }
+        public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName) { }
+        public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, string customMessage) { }
+        public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, System.Func<string> customMessage) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ObjectGraphTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ObjectGraphTestExtensions
     {
         public static void ShouldBeEquivalentTo(this object actual, object expected) { }
         public static void ShouldBeEquivalentTo(this object actual, object expected, string customMessage) { }
         public static void ShouldBeEquivalentTo(this object actual, object expected, System.Func<string> customMessage) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static Should
+    [Shouldly.ShouldlyMethods]
+    public static class Should
     {
         public static void CompleteIn(System.Action action, System.TimeSpan timeout) { }
         public static void CompleteIn(System.Action action, System.TimeSpan timeout, string customMessage) { }
@@ -149,8 +149,8 @@ namespace Shouldly
         public ShouldAssertException(string message, System.Exception innerException) { }
         public override string StackTrace { get; }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldBeBooleanExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldBeBooleanExtensions
     {
         public static void ShouldBeFalse(this bool actual) { }
         public static void ShouldBeFalse(this bool actual, string customMessage) { }
@@ -159,8 +159,8 @@ namespace Shouldly
         public static void ShouldBeTrue(this bool actual, string customMessage) { }
         public static void ShouldBeTrue(this bool actual, System.Func<string> customMessage) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldBeDictionaryTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldBeDictionaryTestExtensions
     {
         public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key) { }
         public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, string customMessage) { }
@@ -175,8 +175,8 @@ namespace Shouldly
         public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string customMessage) { }
         public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue val, System.Func<string> customMessage) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldBeEnumerableTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldBeEnumerableTestExtensions
     {
         public static void ShouldAllBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate) { }
         public static void ShouldAllBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
@@ -230,8 +230,8 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, System.Func<string> customMessage) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldBeNullExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldBeNullExtensions
     {
         public static void ShouldBeNull<T>(this T actual) { }
         public static void ShouldBeNull<T>(this T actual, string customMessage) { }
@@ -240,8 +240,8 @@ namespace Shouldly
         public static void ShouldNotBeNull<T>(this T actual, string customMessage) { }
         public static void ShouldNotBeNull<T>(this T actual, System.Func<string> customMessage) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldBeStringTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldBeStringTestExtensions
     {
         public static void ShouldBe(this string actual, string expected) { }
         public static void ShouldBe(this string actual, string expected, string customMessage) { }
@@ -299,8 +299,8 @@ namespace Shouldly
         public static void ShouldStartWith(this string actual, string expected, string customMessage, Shouldly.Case caseSensitivity = 1) { }
         public static void ShouldStartWith(this string actual, string expected, System.Func<string> customMessage, Shouldly.Case caseSensitivity = 1) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldBeTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldBeTestExtensions
     {
         public static void ShouldBe(this System.DateTime actual, System.DateTime expected, System.TimeSpan tolerance) { }
         public static void ShouldBe(this System.DateTime actual, System.DateTime expected, System.TimeSpan tolerance, string customMessage) { }
@@ -476,8 +476,8 @@ namespace Shouldly
     {
         public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldMatchApprovedTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldMatchApprovedTestExtensions
     {
         public static void ShouldMatchApproved(this string actual) { }
         public static void ShouldMatchApproved(this string actual, string customMessage) { }
@@ -485,15 +485,15 @@ namespace Shouldly
         public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
         public static void ShouldMatchApproved(this string actual, System.Func<string> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldSatisfyAllConditionsTestExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldSatisfyAllConditionsTestExtensions
     {
         public static void ShouldSatisfyAllConditions(this object actual, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions(this object actual, string customMessage, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions(this object actual, System.Func<string> customMessage, params System.Action[] conditions) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldThrowAsyncExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldThrowAsyncExtensions
     {
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Threading.Tasks.Task task)
             where TException : System.Exception { }
@@ -514,8 +514,8 @@ namespace Shouldly
         public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
         public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string> customMessage, System.Type exceptionType) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldThrowExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldThrowExtensions
     {
         public static void ShouldNotThrow(this System.Action action) { }
         public static void ShouldNotThrow(this System.Action action, string customMessage) { }
@@ -542,8 +542,8 @@ namespace Shouldly
         public static System.Exception ShouldThrow(this System.Func<object> actual, string customMessage, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Func<object> actual, System.Func<string> customMessage, System.Type exceptionType) { }
     }
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldThrowTaskExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldThrowTaskExtensions
     {
         public static void ShouldNotThrow(this System.Threading.Tasks.Task action) { }
         public static void ShouldNotThrow(this System.Threading.Tasks.Task action, string customMessage) { }
@@ -606,7 +606,7 @@ namespace Shouldly
         public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string customMessage, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Func<string> customMessage, System.Type exceptionType) { }
     }
-    public class static ShouldlyConfiguration
+    public static class ShouldlyConfiguration
     {
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
@@ -631,7 +631,7 @@ namespace Shouldly
         Ascending = 0,
         Descending = 1,
     }
-    [System.FlagsAttribute()]
+    [System.Flags]
     public enum StringCompareShould
     {
         IgnoreCase = 1,
@@ -770,8 +770,8 @@ namespace Shouldly.Configuration
 }
 namespace Shouldly.ShouldlyExtensionMethods
 {
-    [Shouldly.ShouldlyMethodsAttribute()]
-    public class static ShouldHaveEnumExtensions
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldHaveEnumExtensions
     {
         public static void ShouldHaveFlag(this System.Enum actual, System.Enum expectedFlag) { }
         public static void ShouldHaveFlag(this System.Enum actual, System.Enum expectedFlag, string customMessage) { }
