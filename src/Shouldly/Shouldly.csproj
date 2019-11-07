@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Authors>Jake Ginnivan, Joseph Woodward</Authors>
-    <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Optimize>false</Optimize>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  
+    <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
+    <Authors>Jake Ginnivan, Joseph Woodward</Authors>    
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
     <PackageIcon>assets/logo_128x128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/shouldly/shouldly</PackageProjectUrl>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
-    <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
-    <LangVersion>latest</LangVersion>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <Optimize>false</Optimize>
+    
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
