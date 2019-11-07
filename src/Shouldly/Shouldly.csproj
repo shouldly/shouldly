@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Authors>Jake Ginnivan, Joseph Woodward</Authors>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <AssemblyName>Shouldly</AssemblyName>
