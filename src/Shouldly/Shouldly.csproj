@@ -4,7 +4,7 @@
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_128x128.png</PackageIconUrl>
+    <PackageIcon>assets/logo_128x128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/shouldly/shouldly</PackageProjectUrl>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
@@ -40,4 +40,7 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);ShouldMatchApproved;dNewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
+  </ItemGroup>
 </Project>
