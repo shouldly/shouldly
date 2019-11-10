@@ -36,7 +36,7 @@ namespace Shouldly.Configuration
         public DiffTool(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
         {
             Name = name;
-            _path = config == null ? null : Path.IsPathRooted(config.ResolvePath()) && File.Exists(config.ResolvePath()) ? config.ResolvePath() : Discover(config.ResolvePath());
+            _path = GetPath(config);
             _argGenerator = argGenerator;
         }
 
@@ -52,6 +52,25 @@ namespace Shouldly.Configuration
             Process.Start(_path, _argGenerator(receivedPath, approvedPath, approvedExists));
         }
 
+        protected static void CreateEmptyFileIfNotExists(string path)
+        {
+            if (!File.Exists(path))
+                File.AppendAllText(path, string.Empty);
+        }
+
+        private string GetPath(DiffToolConfig config)
+        {
+            if (config == null)
+                return null;
+
+            var resolvedPath = config.ResolvePath();
+
+            if (Path.IsPathRooted(resolvedPath) && File.Exists(resolvedPath))
+                return resolvedPath;
+
+            return Discover(resolvedPath);
+        }
+
         private static string? Discover(string? path)
         {
             if (path == null)
@@ -59,6 +78,7 @@ namespace Shouldly.Configuration
 
             var exeName = Path.GetFileName(path);
             var fullPathFromPathEnv = GetFullPath(exeName);
+
             if (!string.IsNullOrEmpty(fullPathFromPathEnv))
                 return fullPathFromPathEnv;
 
@@ -68,30 +88,22 @@ namespace Shouldly.Configuration
                 {
                     "/Applications/"
                 }
-                .Where(p =>
-                {
-                    return p != null;
-
-                })
-                .Select(pf =>
-                {
-                    var r = Path.Combine(pf, path);
-                    return r;
-                })
-                    .FirstOrDefault(File.Exists);
+                .Where(p => p != null)
+                .Select(pf => Path.Combine(pf, path))
+                .FirstOrDefault(File.Exists);
 
                 return result;
             }
 
             return new[]
-{
-    Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
-    Environment.GetEnvironmentVariable("ProgramFiles"),
-    Environment.GetEnvironmentVariable("ProgramW6432")
-}
-.Where(p => p != null)
-.Select(pf => Path.Combine(pf!, path))
-.FirstOrDefault(File.Exists);
+            {
+                Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
+                Environment.GetEnvironmentVariable("ProgramFiles"),
+                Environment.GetEnvironmentVariable("ProgramW6432")
+            }
+            .Where(p => p != null)
+            .Select(pf => Path.Combine(pf, path))
+            .FirstOrDefault(File.Exists);
         }
 
         private static string? GetFullPath(string fileName)
@@ -122,6 +134,5 @@ namespace Shouldly.Configuration
                 return null;
             }
         }
-
     }
 }

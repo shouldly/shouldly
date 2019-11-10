@@ -1,114 +1,40 @@
-using System.IO;
 using JetBrains.Annotations;
+using Shouldly.Configuration.DiffTools;
 
 namespace Shouldly.Configuration
 {
     public class KnownDiffTools
     {
         [UsedImplicitly]
-        public readonly DiffTool KDiff3 = new DiffTool("KDiff3", new DiffToolConfig
-        {
-            WindowsPath = @"KDiff3\kdiff3.exe",
-            MacPath = "kdiff3.app/Contents/MacOS/kdiff3"
-        }, KDiffArgs);
+        public readonly DiffTool KDiff3 = new KDiff3();
 
         [UsedImplicitly]
-        public readonly DiffTool BeyondCompare3 = new DiffTool("Beyond Compare 3", new DiffToolConfig
-        {
-            WindowsPath = @"Beyond Compare 3\BCompare.exe",
-            LinuxPath = @"bcompare"
-        }, BeyondCompareArgs);
+        public readonly DiffTool BeyondCompare3 = new BeyondCompare3();
 
         [UsedImplicitly]
-        public readonly DiffTool BeyondCompare4 = new DiffTool("Beyond Compare 4", new DiffToolConfig
-        { 
-            WindowsPath = @"Beyond Compare 4\BCompare.exe",
-            MacPath = @"Beyond Compare.app/Contents/MacOS/bcomp",
-            LinuxPath = @"bcompare"
-        }, BeyondCompareArgs);
+        public readonly DiffTool BeyondCompare4 = new BeyondCompare4();
 
         [UsedImplicitly]
-        public readonly DiffTool CodeCompare = new DiffTool("Code Compare", new DiffToolConfig
-        {
-            WindowsPath = @"Devart\Code Compare\CodeMerge.exe"
-        }, CodeCompareArgs);
+        public readonly DiffTool CodeCompare = new CodeCompare();
 
         [UsedImplicitly]
-        public readonly DiffTool P4Merge = new DiffTool("P4Merge", new DiffToolConfig
-        {
-            WindowsPath = @"Perforce\p4merge.exe"
-        }, P4MergeArgs);
+        public readonly DiffTool P4Merge = new P4Merge();
 
         [UsedImplicitly]
-        public readonly DiffTool TortoiseGitMerge = new DiffTool("Tortoise Git Merge", new DiffToolConfig
-        {
-            WindowsPath = @"TortoiseGit\bin\TortoiseGitMerge.exe"
-        }, TortoiseGitMergeArgs);
+        public readonly DiffTool TortoiseGitMerge = new TortoiseGitMerge();
 
         [UsedImplicitly]
-        public readonly DiffTool WinMerge = new DiffTool("WinMerge", new DiffToolConfig
-        {
-            WindowsPath = @"WinMerge\WinMergeU.exe"
-        },  WinMergeArgs);
+        public readonly DiffTool WinMerge = new WinMerge();
 
         [UsedImplicitly]
-        public readonly DiffTool VisualStudioCode = new DiffTool("Visual Studio Code", new DiffToolConfig
-        {
-            WindowsPath = @"%ProgramFiles%\Microsoft VS Code\bin\code",
-            MacPath = "Visual Studio Code.app/Contents/MacOS/Electron"
-        }, VsCodeDiffArgs);
+        public readonly DiffTool VisualStudioCode = new VisualStudioCode();
 
         [UsedImplicitly]
-        public readonly DiffTool CurrentVisualStudio = new CurrentlyRunningVisualStudioDiffTool();
+        public readonly DiffTool VimDiff = new VimDiff();
+
+        [UsedImplicitly]
+        public readonly DiffTool CurrentVisualStudio = new CurrentlyRunningVisualStudio();
 
         public static KnownDiffTools Instance { get; } = new KnownDiffTools();
-
-        private static string BeyondCompareArgs(string received, string approved, bool approvedExists)
-        {
-            return approvedExists
-                ? $"\"{received}\" \"{approved}\" " + (ShouldlyEnvironmentContext.IsWindows() ? "/" :"-") + $"mergeoutput=\"{approved}\""
-                : $"\"{received}\" " + (ShouldlyEnvironmentContext.IsWindows() ? "/" :"-") + $"mergeoutput=\"{approved}\"";
-        }
-
-        private static string VsCodeDiffArgs(string received, string approved, bool approvedExists)
-        {
-            return $"--diff \"{received}\" \"{approved}\"";
-        }
-
-        private static string KDiffArgs(string received, string approved, bool approvedExists)
-        {
-            return approvedExists
-                ? $"\"{received}\" \"{approved}\" -o \"{approved}\" --cs CreateBakFiles=0"
-                : $"\"{received}\" -o \"{approved}\" --cs CreateBakFiles=0";
-        }
-
-        private static string CodeCompareArgs(string received, string approved, bool approvedExists)
-        {
-            return $"/BF=\"{approved}\" /TF=\"{approved}\" /MF=\"{received}\" /RF=\"{approved}\"";
-        }
-
-        private static string P4MergeArgs(string received, string approved, bool approvedExists)
-        {
-            if (!approvedExists)
-                File.AppendAllText(approved, string.Empty);
-
-            return $"\"{approved}\" \"{approved}\" \"{received}\" \"{approved}\"";
-        }
-
-        private static string TortoiseGitMergeArgs(string received, string approved, bool approvedExists)
-        {
-            if (!approvedExists)
-                File.AppendAllText(approved, string.Empty);
-
-            return $"\"{received}\" \"{approved}\"";
-        }
-
-        private static string WinMergeArgs(string received, string approved, bool approvedExists)
-        {
-            if (!approvedExists)
-                File.AppendAllText(approved, string.Empty);
-
-            return $"/u /wl \"{received}\" \"{approved}\" \"{approved}\"";
-        }
     }
 }

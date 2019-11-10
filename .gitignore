@@ -25,7 +25,8 @@ docs/_build/
 *.user
 *.received.txt
 src/TestResults/
-src/TestDiffTools/Main.approved.txt
+src/TestDiffTools/*.approved.*
+src/TestDiffTools/*.received.*
 tools/*
 !tools/packages.config
 artifacts/

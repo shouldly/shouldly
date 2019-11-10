@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace Shouldly.Configuration
+namespace Shouldly.Configuration.DiffTools
 {
-    internal class CurrentlyRunningVisualStudioDiffTool : DiffTool
+    internal class CurrentlyRunningVisualStudio : DiffTool
     {
-        public CurrentlyRunningVisualStudioDiffTool() : base("Current Visual Studio", new DiffToolConfig
+        public CurrentlyRunningVisualStudio() : base("Current Visual Studio", new DiffToolConfig
         {
            WindowsPath = GetPath()
         }, VisualStudioArgs) {}
@@ -19,7 +19,7 @@ namespace Shouldly.Configuration
             if (!approvedExists)
                 File.AppendAllText(approved, string.Empty);
 
-            return $"/diff \"{received}\" \"{approved}\"";
+            return $"/diff \"{approved}\" \"{received}\"";
         }
 
         /*

@@ -851,6 +851,7 @@ namespace Shouldly.Configuration
     {
         public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
+        protected static void CreateEmptyFileIfNotExists(string path) { }
         public bool Exists() { }
         public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
@@ -919,6 +920,7 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.DiffTool KDiff3;
         public readonly Shouldly.Configuration.DiffTool P4Merge;
         public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
+        public readonly Shouldly.Configuration.DiffTool VimDiff;
         public readonly Shouldly.Configuration.DiffTool VisualStudioCode;
         public readonly Shouldly.Configuration.DiffTool WinMerge;
         public KnownDiffTools() { }
