@@ -8,9 +8,9 @@ namespace Shouldly.Configuration.DiffTools
             WindowsPath = @"Devart\Code Compare\CodeMerge.exe"
         }, CodeCompareArgs) { }
 
-        private static string CodeCompareArgs(string received, string approved, bool approvedExists)
+        private static string CodeCompareArgs(string received, string approved)
         {
-            return $"/BF=\"{approved}\" /TF=\"{approved}\" /MF=\"{received}\" /RF=\"{approved}\"";
+            return $"/TF=\"{received}\" /MF=\"{approved}\" /RF=\"{approved}\"";
         }
     }
 }

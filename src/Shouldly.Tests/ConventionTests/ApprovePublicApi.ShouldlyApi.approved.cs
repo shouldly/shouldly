@@ -853,8 +853,8 @@ namespace Shouldly.Configuration
         public string Name { get; }
         protected static void CreateEmptyFileIfNotExists(string path) { }
         public bool Exists() { }
-        public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
-        public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
+        public void Open(string receivedPath, string approvedPath) { }
+        public delegate string ArgumentGenerator(string received, string approved);
     }
     public class DiffToolConfig
     {

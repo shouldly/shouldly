@@ -6,7 +6,7 @@ namespace Shouldly.Configuration.DiffTools
         public BeyondCompare(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
             : base(name, config, argGenerator) { }
 
-        protected static string BeyondCompareArgs(string received, string approved, bool approvedExists)
+        protected static string BeyondCompareArgs(string received, string approved)
         {
             CreateEmptyFileIfNotExists(approved);
 

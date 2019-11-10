@@ -14,10 +14,9 @@ namespace Shouldly.Configuration.DiffTools
            WindowsPath = GetPath()
         }, VisualStudioArgs) {}
 
-        static string VisualStudioArgs(string received, string approved, bool approvedExists)
+        static string VisualStudioArgs(string received, string approved)
         {
-            if (!approvedExists)
-                File.AppendAllText(approved, string.Empty);
+            CreateEmptyFileIfNotExists(approved);
 
             return $"/diff \"{approved}\" \"{received}\"";
         }

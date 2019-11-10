@@ -8,7 +8,10 @@ namespace Shouldly.Configuration.DiffTools
             WindowsPath = @"vim.bat",
         }, VimDiffArgs) { }
 
-        private static string VimDiffArgs(string received, string approved, bool approvedExists) => $"-d \"{approved}\" \"{received}\"";
+        private static string VimDiffArgs(string received, string approved)
+        {
+            return $"-d \"{approved}\" \"{received}\"";
+        }
     }
 }
 #endif

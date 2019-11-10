@@ -8,7 +8,7 @@ namespace Shouldly.Configuration.DiffTools
             WindowsPath = @"Perforce\p4merge.exe"
         }, P4MergeArgs) { }
 
-        private static string P4MergeArgs(string received, string approved, bool approvedExists)
+        private static string P4MergeArgs(string received, string approved)
         {
             CreateEmptyFileIfNotExists(approved);
 

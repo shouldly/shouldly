@@ -31,7 +31,7 @@ namespace Shouldly.Configuration
         private readonly string? _path;
         private readonly ArgumentGenerator _argGenerator;
 
-        public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
+        public delegate string ArgumentGenerator(string received, string approved);
 
         public DiffTool(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
         {
@@ -47,9 +47,9 @@ namespace Shouldly.Configuration
             return _path != null;
         }
 
-        public void Open(string receivedPath, string approvedPath, bool approvedExists)
+        public void Open(string receivedPath, string approvedPath)
         {
-            Process.Start(_path, _argGenerator(receivedPath, approvedPath, approvedExists));
+            Process.Start(_path, _argGenerator(receivedPath, approvedPath));
         }
 
         protected static void CreateEmptyFileIfNotExists(string path)

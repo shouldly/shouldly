@@ -8,7 +8,7 @@ namespace Shouldly.Configuration.DiffTools
             WindowsPath = @"WinMerge\WinMergeU.exe"
         }, WinMergeArgs) { }
 
-        private static string WinMergeArgs(string received, string approved, bool approvedExists)
+        private static string WinMergeArgs(string received, string approved)
         {
             CreateEmptyFileIfNotExists(approved);
 

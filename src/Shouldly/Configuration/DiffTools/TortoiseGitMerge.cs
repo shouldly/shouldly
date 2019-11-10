@@ -8,7 +8,7 @@ namespace Shouldly.Configuration.DiffTools
             WindowsPath = @"TortoiseGit\bin\TortoiseGitMerge.exe"
         }, TortoiseGitMergeArgs) { }
 
-        private static string TortoiseGitMergeArgs(string received, string approved, bool approvedExists)
+        private static string TortoiseGitMergeArgs(string received, string approved)
         {
             CreateEmptyFileIfNotExists(approved);
 

@@ -9,7 +9,7 @@ namespace Shouldly.Configuration.DiffTools
             MacPath = "kdiff3.app/Contents/MacOS/kdiff3"
         }, KDiffArgs) { }
 
-        private static string KDiffArgs(string received, string approved, bool approvedExists)
+        private static string KDiffArgs(string received, string approved)
         {
             CreateEmptyFileIfNotExists(approved);
 

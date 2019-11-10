@@ -9,7 +9,7 @@ namespace Shouldly.Configuration.DiffTools
             MacPath = "Visual Studio Code.app/Contents/MacOS/Electron"
         }, VsCodeDiffArgs) { }
 
-        private static string VsCodeDiffArgs(string received, string approved, bool approvedExists)
+        private static string VsCodeDiffArgs(string received, string approved)
         {
             CreateEmptyFileIfNotExists(approved);
 
