@@ -1,7 +1,6 @@
+using Shouldly.Internals.AssertionFactories;
 using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
-using Shouldly.Internals.AssertionFactories;
 
 namespace Shouldly
 {
@@ -9,30 +8,6 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class ShouldBeStringTestExtensions
     {
-        /// <summary>
-        /// Perform a string comparison, specifying the desired case sensitivity
-        /// </summary>
-        [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Case caseSensitivity)
-        {
-            ShouldBe(actual, expected, caseSensitivity, () => null);
-        }
-
-        [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Case caseSensitivity, string customMessage)
-        {
-            ShouldBe(actual, expected, caseSensitivity, () => customMessage);
-        }
-
-        [Obsolete("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Case caseSensitivity, [InstantHandle] Func<string> customMessage)
-        {
-            if (caseSensitivity == Case.Sensitive)
-                ShouldBe(actual, expected, customMessage);
-            else
-                ShouldBe(actual, expected, customMessage, StringCompareShould.IgnoreCase);
-        }
-
         /// <summary>
         /// Perform a string comparison with sensitivity options
         /// </summary>

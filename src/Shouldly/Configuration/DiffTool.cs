@@ -26,7 +26,7 @@ namespace Shouldly.Configuration
             return string.Empty;
         }
     }
-    
+
     public class DiffTool
     {
         private readonly string _path;
@@ -34,19 +34,13 @@ namespace Shouldly.Configuration
 
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
 
-        [Obsolete("This constructor will be deprecated in future versions, please migrate to the cross platform focused overloaded version")]
-        public DiffTool(string name, string path, ArgumentGenerator argGenerator)
-            : this(name, new DiffToolConfig { WindowsPath = path }, argGenerator)
-        {
-        }
-
         public DiffTool(string name, DiffToolConfig config, ArgumentGenerator argGenerator)
         {
             Name = name;
             _path = config == null ? null : Path.IsPathRooted(config.ResolvePath()) && File.Exists(config.ResolvePath()) ? config.ResolvePath() : Discover(config.ResolvePath());
             _argGenerator = argGenerator;
         }
-        
+
         public string Name { get; }
 
         public bool Exists()
@@ -63,12 +57,12 @@ namespace Shouldly.Configuration
         {
             if (path == null)
                 return null;
-            
+
             var exeName= Path.GetFileName(path);
             var fullPathFromPathEnv = GetFullPath(exeName);
             if (!string.IsNullOrEmpty(fullPathFromPathEnv))
                 return fullPathFromPathEnv;
-            
+
             if (ShouldlyEnvironmentContext.IsMac())
             {
                 var result = new[]
@@ -78,7 +72,7 @@ namespace Shouldly.Configuration
                 .Where(p =>
                 {
                     return p != null;
-                    
+
                 })
                 .Select(pf =>
                 {
@@ -86,10 +80,10 @@ namespace Shouldly.Configuration
                         return r;
                     })
                     .FirstOrDefault(File.Exists);
-                    
+
                 return result;
             }
-            
+
             return new[]
 {
     Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
@@ -98,7 +92,7 @@ namespace Shouldly.Configuration
 }
 .Where(p => p != null)
 .Select(pf => Path.Combine(pf, path))
-.FirstOrDefault(File.Exists); 
+.FirstOrDefault(File.Exists);
         }
 
         private static string GetFullPath(string fileName)
