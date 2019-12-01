@@ -114,4 +114,5 @@ if [ ! -f "$CAKE_EXE" ]; then
 fi
 
 # Start Cake
+mono "$CAKE_EXE" $SCRIPT --bootstrap
 exec mono "$CAKE_EXE" $SCRIPT "${CAKE_ARGUMENTS[@]}"
