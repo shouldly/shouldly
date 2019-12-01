@@ -1,5 +1,8 @@
-#tool "nuget:?package=GitReleaseNotes"
-#tool nuget:?package=GitVersion.CommandLine
+// Enable Cake aliases to execute .NET global tools
+#module nuget:?package=Cake.DotNetTool.Module&version=0.4.0
+
+#tool nuget:?package=GitReleaseNotes&version=0.7.1
+#tool dotnet:?package=GitVersion.Tool&version=5.1.2
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
