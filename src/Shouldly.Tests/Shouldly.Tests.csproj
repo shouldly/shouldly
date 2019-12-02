@@ -5,7 +5,6 @@
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
     <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
-    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">2.0.9</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
