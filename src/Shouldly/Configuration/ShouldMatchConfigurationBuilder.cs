@@ -17,10 +17,6 @@ namespace Shouldly.Configuration
             return Configure(c => c.StringCompareOptions = stringCompareOptions);
         }
 
-       [Obsolete("Use WithDiscriminator(...) instead")]
-        public ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator)
-            => WithDiscriminator(fileDescriminator);
-        
         public ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator)
         {
             return Configure(c => c.FilenameDescriminator = fileDiscriminator);

@@ -40,12 +40,6 @@ namespace Shouldly.Tests
         public static IEnumerable<object[]> ExceptionThrowers()
         {
             return new ExceptionThrowerCollectionBuilder()
-#pragma warning disable 618
-                .Add<ChuckedAWobbly>(
-                    throwDirectly: () => throw new ChuckedAWobbly(null),
-                    reasonNotThrowingFromShouldlyAssembly: "Exact type not thrown in Shouldly assembly")
-#pragma warning restore 618
-
                 .Add<ShouldAssertException>(
                     throwDirectly: () => throw new ShouldAssertException(null),
                     throwInShouldlyAssembly: new Action[]
