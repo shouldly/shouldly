@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace Shouldly
@@ -11,6 +12,8 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeEnumerableTestExtensions
     {
+
+
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected)
         {
             ShouldContain(actual, expected, () => null);
@@ -226,12 +229,35 @@ namespace Shouldly
         {
             ShouldBeUnique(actual, () => customMessage);
         }
-
+    
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
         {
             var duplicates = GetDuplicates(actual);
             if (duplicates.Any())
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
+        }
+
+        public static void ShouldAllBeEqual<T>(this IEnumerable<T> actual)
+        {
+            ShouldAllBeEqual(actual, "");
+        }
+
+        public static void ShouldAllBeEqual<T>(this IEnumerable<T> actual, string customMessage)
+        {
+            string customMsg;
+            isEqual(actual, out customMsg);
+            customMessage = $"{customMessage} {customMsg}";
+            ShouldAllBeEqual(actual, () => customMessage);
+        }
+
+        public static void ShouldAllBeEqual<T>(this IEnumerable<T> actual, [InstantHandle] Func<string> customMessage)
+        {
+            string customMsg;
+            var AllBeEqual = isEqual(actual, out customMsg);
+            if (AllBeEqual.Count > 1)
+            {
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, AllBeEqual, customMessage).ToString());
+            }
         }
 
         public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
@@ -319,6 +345,33 @@ namespace Shouldly
             }
 
             return duplicates;
+        }
+
+        //private static List<object> GetGroupedEnumerable<T>(IEnumerable<T> items)
+        //{
+        //    var list = new List<object>();
+        //    var ActualGroupedEnumerable = new List<object>();
+
+        //    foreach (object o1 in items)
+        //    {
+        //        ActualGroupedEnumerable.AddRange(list.Where(o2 => o1 != null && o1.Equals(o2)));
+        //        list.Add(o1);
+        //    }
+        //    return ActualGroupedEnumerable;
+        //}
+
+        private static List<T> isEqual<T>(IEnumerable<T> items, out string customeMessage)
+        {
+            var ActualGroupedEnumerable = items.GroupBy(i => i);
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var grp in ActualGroupedEnumerable)
+            {
+                var str = String.Format("{0} occurance{1} {2}", grp.Count(), grp.Count() == 1 ? " of item" : "s of item", grp.Key);
+                sb.AppendLine(str);
+            }
+            customeMessage = sb.ToString();
+            return ActualGroupedEnumerable.Select(_ => _.Key).ToList();
         }
 
         private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, Func<string> customMessage)

@@ -1,0 +1,6 @@
+simpsonsKids
+    should satisfy the condition
+
+    but
+[Bart, Lisa, Maggie, Maggie]
+    do not

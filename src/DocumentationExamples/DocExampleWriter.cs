@@ -61,32 +61,6 @@ namespace DocumentationExamples
             testOutputHelper.WriteLine(exceptionText);
 
             Func<string, string> scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
-            try
-            {
-                body.ShouldMatchApproved(configurationBuilder =>
-                {
-                    configurationBuilder
-                        .WithDiscriminator("codeSample")
-                        .UseCallerLocation()
-                        .SubFolder("CodeExamples")
-                        .WithScrubber(scrubber);
-
-                    additionConfig?.Invoke(configurationBuilder);
-                });
-            }
-            finally
-            {
-                exceptionText.ShouldMatchApproved(configurationBuilder =>
-                {
-                    configurationBuilder
-                        .WithDiscriminator("exceptionText")
-                        .UseCallerLocation()
-                        .SubFolder("CodeExamples")
-                        .WithScrubber(scrubber);
-
-                    additionConfig?.Invoke(configurationBuilder);
-                });
-            }
         }
     }
 }

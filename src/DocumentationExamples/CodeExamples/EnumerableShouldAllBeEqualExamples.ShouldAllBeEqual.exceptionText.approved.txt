@@ -1,0 +1,5 @@
+simpsonsKids
+    should have all items equal but had:
+1 occurrence of [Bart]
+1 occurrence of [Lisa]
+2 occurrences of [Maggie]
