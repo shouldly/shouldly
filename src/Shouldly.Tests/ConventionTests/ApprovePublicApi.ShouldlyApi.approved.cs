@@ -1,19 +1,9 @@
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.5.1", FrameworkDisplayName=".NET Framework 4.5.1")]
-
 namespace Shouldly
 {
-    
     public enum Case
     {
         Sensitive = 0,
         Insensitive = 1,
-    }
-    [System.ObsoleteAttribute("This class is only kept here for backwards compatibility. Please use ShouldAssert" +
-        "Exception instead.")]
-    public class ChuckedAWobbly : System.Exception
-    {
-        public ChuckedAWobbly(string message) { }
-        public ChuckedAWobbly(string message, System.Exception innerException) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static DynamicShould
@@ -21,6 +11,13 @@ namespace Shouldly
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName) { }
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, string customMessage) { }
         public static void HaveProperty([System.Runtime.CompilerServices.DynamicAttribute()] object dynamicTestObject, string propertyName, System.Func<string> customMessage) { }
+    }
+    [Shouldly.ShouldlyMethodsAttribute()]
+    public class static ObjectGraphTestExtensions
+    {
+        public static void ShouldBeEquivalentTo(this object actual, object expected) { }
+        public static void ShouldBeEquivalentTo(this object actual, object expected, string customMessage) { }
+        public static void ShouldBeEquivalentTo(this object actual, object expected, System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static Should
@@ -82,6 +79,15 @@ namespace Shouldly
         public static System.Exception Throw(System.Action actual, System.Type exceptionType) { }
         public static System.Exception Throw(System.Action actual, string customMessage, System.Type exceptionType) { }
         public static System.Exception Throw(System.Action actual, System.Func<string> customMessage, System.Type exceptionType) { }
+        public static TException Throw<TException>(System.Func<object> actual)
+            where TException : System.Exception { }
+        public static TException Throw<TException>(System.Func<object> actual, string customMessage)
+            where TException : System.Exception { }
+        public static TException Throw<TException>(System.Func<object> actual, System.Func<string> customMessage)
+            where TException : System.Exception { }
+        public static System.Exception Throw(System.Func<object> actual, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Func<object> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Func<object> actual, System.Func<string> customMessage, System.Type exceptionType) { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, string customMessage)
@@ -137,10 +143,11 @@ namespace Shouldly
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Func<string> customMessage, System.Type exceptionType) { }
     }
-    public class ShouldAssertException : Shouldly.ChuckedAWobbly
+    public class ShouldAssertException : System.Exception
     {
         public ShouldAssertException(string message) { }
         public ShouldAssertException(string message, System.Exception innerException) { }
+        public override string StackTrace { get; }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeBooleanExtensions
@@ -236,12 +243,6 @@ namespace Shouldly
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeStringTestExtensions
     {
-        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity) { }
-        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, string customMessage) { }
-        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, System.Func<string> customMessage) { }
         public static void ShouldBe(this string actual, string expected) { }
         public static void ShouldBe(this string actual, string expected, string customMessage) { }
         public static void ShouldBe(this string actual, string expected, System.Func<string> customMessage) { }
@@ -489,6 +490,7 @@ namespace Shouldly
     {
         public ShouldlyTimeoutException() { }
         public ShouldlyTimeoutException(string message, Shouldly.ShouldlyTimeoutException inner) { }
+        public override string StackTrace { get; }
     }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
@@ -547,9 +549,18 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Action actual, System.Func<string> customMessage)
             where TException : System.Exception { }
+        public static TException ShouldThrow<TException>(this System.Func<object> actual)
+            where TException : System.Exception { }
+        public static TException ShouldThrow<TException>(this System.Func<object> actual, string customMessage)
+            where TException : System.Exception { }
+        public static TException ShouldThrow<TException>(this System.Func<object> actual, System.Func<string> customMessage)
+            where TException : System.Exception { }
         public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Action actual, string customMessage, System.Type exceptionType) { }
         public static System.Exception ShouldThrow(this System.Action actual, System.Func<string> customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object> actual, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object> actual, string customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object> actual, System.Func<string> customMessage, System.Type exceptionType) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldThrowTaskExtensions
@@ -629,14 +640,21 @@ namespace Shouldly
 }
 namespace Shouldly.Configuration
 {
-    
     public class DiffTool
     {
-        public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
+        public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
         public bool Exists() { }
         public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
         public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
+    }
+    public class DiffToolConfig
+    {
+        public DiffToolConfig() { }
+        public string LinuxPath { get; set; }
+        public string MacPath { get; set; }
+        public string WindowsPath { get; set; }
+        public string ResolvePath() { }
     }
     public class DiffToolConfiguration
     {
@@ -652,6 +670,16 @@ namespace Shouldly.Configuration
     public class DoNotLaunchWhenEnvVariableIsPresent : Shouldly.Configuration.IShouldNotLaunchDiffTool
     {
         public DoNotLaunchWhenEnvVariableIsPresent(string environmentalVariable) { }
+        public bool ShouldNotLaunch() { }
+    }
+    public class DoNotLaunchWhenPlatformIsNotWindows : Shouldly.Configuration.IShouldNotLaunchDiffTool
+    {
+        public DoNotLaunchWhenPlatformIsNotWindows() { }
+        public bool ShouldNotLaunch() { }
+    }
+    public class DoNotLaunchWhenTypeIsLoaded : Shouldly.Configuration.IShouldNotLaunchDiffTool
+    {
+        public DoNotLaunchWhenTypeIsLoaded(string typeName) { }
         public bool ShouldNotLaunch() { }
     }
     public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
@@ -684,6 +712,8 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.DiffTool KDiff3;
         public readonly Shouldly.Configuration.DiffTool P4Merge;
         public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
+        public readonly Shouldly.Configuration.DiffTool VisualStudioCode;
+        public readonly Shouldly.Configuration.DiffTool WinMerge;
         public KnownDiffTools() { }
         public static Shouldly.Configuration.KnownDiffTools Instance { get; }
     }
@@ -696,6 +726,7 @@ namespace Shouldly.Configuration
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
+        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VisualStudioLiveUnitTesting;
         public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
         public KnownDoNotLaunchStrategies() { }
     }
@@ -723,7 +754,7 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
+        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFilenameGenerator(Shouldly.Configuration.FilenameGenerator filenameGenerator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithScrubber(System.Func<string, string> scrubber) { }
@@ -739,7 +770,6 @@ namespace Shouldly.Configuration
 }
 namespace Shouldly.ShouldlyExtensionMethods
 {
-    
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldHaveEnumExtensions
     {

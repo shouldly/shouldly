@@ -6,7 +6,6 @@ using NUnit.Framework.Constraints;
 
 namespace Shouldly
 {
-
     /* 
      * Code heavily influenced by code from xunit assert equality comparer
      * at https://github.com/xunit/xunit/blob/master/src/xunit2.assert/Asserts/Sdk/AssertEqualityComparer.cs
@@ -43,23 +42,20 @@ namespace Shouldly
 
             if (Numerics.IsNumericType(x) && Numerics.IsNumericType(y))
             {
-                var tollerance = Tolerance.Empty;
-                return Numerics.AreEqual(x, y, ref tollerance);
+                var tolerance = Tolerance.Empty;
+                return Numerics.AreEqual(x, y, ref tolerance);
             }
 
             // Implements IEquatable<T>?
-            var equatable = x as IEquatable<T>;
-            if (equatable != null)
+            if (x is IEquatable<T> equatable)
                 return equatable.Equals(y);
 
             // Implements IComparable<T>?
-            var comparableGeneric = x as IComparable<T>;
-            if (comparableGeneric != null)
+            if (x is IComparable<T> comparableGeneric)
                 return comparableGeneric.CompareTo(y) == 0;
 
             // Implements IComparable?
-            var comparable = x as IComparable;
-            if (comparable != null)
+            if (x is IComparable comparable)
             {
                 try
                 {
@@ -72,10 +68,7 @@ namespace Shouldly
             }
 
             // Enumerable?
-            var enumerableX = x as IEnumerable;
-            var enumerableY = y as IEnumerable;
-
-            if (enumerableX != null && enumerableY != null)
+            if (x is IEnumerable enumerableX && y is IEnumerable enumerableY)
             {
                 var enumeratorX = enumerableX.GetEnumerator();
                 var enumeratorY = enumerableY.GetEnumerator();
@@ -95,12 +88,10 @@ namespace Shouldly
             }
 
             // Last case, rely on Object.Equals
-            return Object.Equals(x, y);
+            return object.Equals(x, y);
         }
 
         public int GetHashCode(T obj)
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
     }
 }

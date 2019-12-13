@@ -25,7 +25,7 @@ namespace ExpressionToString
         /// A nicely formatted ToString of an expression
         /// </summary>
         /// <param name="expression">The expression to format</param>
-        /// <param name="trimLongArgumentList">If true will replace large (>3) argument lists with an elipsis</param>
+        /// <param name="trimLongArgumentList">If true will replace large (>3) argument lists with an ellipsis</param>
         /// <returns></returns>
         public static string ToString(Expression expression, bool trimLongArgumentList = false)
         {
@@ -114,8 +114,7 @@ namespace ExpressionToString
             }
             else
             {
-                var stringValue = node.Value as string;
-                if (stringValue != null)
+                if (node.Value is string stringValue)
                 {
                     Out("\"" + stringValue + "\"");
                 }

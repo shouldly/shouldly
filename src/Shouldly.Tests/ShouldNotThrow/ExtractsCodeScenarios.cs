@@ -1,4 +1,5 @@
 ﻿using System;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -6,6 +7,7 @@ namespace Shouldly.Tests.ShouldNotThrow
     public class ExtractsCodeScenarios
     {
         [Fact]
+        [UseCulture("en-US")]
         public void ExtractsCodeCorrectly1()
         {
             TestHelpers.Should.Error(() =>
@@ -22,6 +24,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void ExtractsCodeCorrectly3()
         {
             TestHelpers.Should.Error(() =>
@@ -30,6 +33,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void ExtractsCodeCorrectly4()
         {
             TestHelpers.Should.Error(
@@ -44,6 +48,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void ExtractsCodeCorrectly5()
         {
             TestHelpers.Should.Error(() =>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -6,7 +7,7 @@ namespace Shouldly
     [Serializable]
 #endif
 #pragma warning disable 618
-    public class ShouldAssertException : ChuckedAWobbly
+    public class ShouldAssertException : Exception
 #pragma warning restore 618
     {
         public ShouldAssertException(string message) : base(message)
@@ -16,5 +17,11 @@ namespace Shouldly
         public ShouldAssertException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+#if StackTrace
+        private string stackTrace;
+
+        public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref stackTrace);
+#endif
     }
 }

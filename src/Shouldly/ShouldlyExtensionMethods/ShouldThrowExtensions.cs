@@ -22,6 +22,20 @@ namespace Shouldly
             return Should.ThrowInternal<TException>(actual, customMessage);
         }
 
+        /*** ShouldThrow(Func<T>) ***/
+        public static TException ShouldThrow<TException>(this Func<object> actual) where TException : Exception
+        {
+            return ShouldThrow<TException>(actual, () => null);
+        }
+        public static TException ShouldThrow<TException>(this Func<object> actual, string customMessage) where TException : Exception
+        {
+            return ShouldThrow<TException>(actual, () => customMessage);
+        }
+        public static TException ShouldThrow<TException>(this Func<object> actual, [InstantHandle] Func<string> customMessage) where TException : Exception
+        {
+            return Should.ThrowInternal<TException>(actual, customMessage);
+        }
+
         /*** ShouldThrow(Action) ***/
         public static Exception ShouldThrow(this Action actual, Type exceptionType)
         {
@@ -32,6 +46,20 @@ namespace Shouldly
             return ShouldThrow(actual, () => customMessage, exceptionType);
         }
         public static Exception ShouldThrow(this Action actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
+        {
+            return Should.ThrowInternal(actual, customMessage, exceptionType);
+        }
+
+        /*** ShouldThrow(Func<T>) ***/
+        public static Exception ShouldThrow(this Func<object> actual, Type exceptionType)
+        {
+            return ShouldThrow(actual, () => null, exceptionType);
+        }
+        public static Exception ShouldThrow(this Func<object> actual, string customMessage, Type exceptionType)
+        {
+            return ShouldThrow(actual, () => customMessage, exceptionType);
+        }
+        public static Exception ShouldThrow(this Func<object> actual, [InstantHandle] Func<string> customMessage, Type exceptionType)
         {
             return Should.ThrowInternal(actual, customMessage, exceptionType);
         }

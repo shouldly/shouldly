@@ -1,5 +1,6 @@
 #if ShouldMatchApproved
 using System;
+using System.Diagnostics;
 
 namespace Shouldly.Configuration
 {

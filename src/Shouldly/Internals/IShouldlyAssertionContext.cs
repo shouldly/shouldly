@@ -1,7 +1,6 @@
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Shouldly
 {
@@ -35,5 +34,6 @@ namespace Shouldly
         SortDirection SortDirection { get; set; }
         int OutOfOrderIndex { get; set; }
         object OutOfOrderObject { get; set; }
+        IEnumerable<string> Path { get; set; }
     }
 }

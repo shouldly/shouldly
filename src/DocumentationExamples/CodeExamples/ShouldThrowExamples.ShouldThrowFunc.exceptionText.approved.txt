@@ -1,0 +1,4 @@
+`new Person("Homer")`
+    should throw
+System.ArgumentNullException
+    but did not
