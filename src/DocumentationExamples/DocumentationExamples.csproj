@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <DebugType>full</DebugType>
     <TargetFramework Condition=" '$(OS)' == 'Windows_NT' ">net472</TargetFramework>
   </PropertyGroup>
 
