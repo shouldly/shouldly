@@ -1,5 +1,6 @@
 ﻿using System;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -7,6 +8,7 @@ namespace Shouldly.Tests.ShouldNotThrow
     public class ActionDelegateScenario
     {
         [Fact]
+        [UseCulture("en-US")]
         public void ActionDelegateScenarioShouldFail()
         {
             Verify.ShouldFail(() =>

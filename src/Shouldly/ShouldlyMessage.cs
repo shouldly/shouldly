@@ -132,6 +132,18 @@ namespace Shouldly
         }
     }
 
+    internal class ExpectedEquvalenceShouldlyMessage : ShouldlyMessage
+    {
+        public ExpectedEquvalenceShouldlyMessage(object expected, object actual, IEnumerable<string> path, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        {
+            ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
+            {
+                Path = path
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
+    }
+
     internal class ShouldlyThrowMessage : ShouldlyMessage
     {
         public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage,
@@ -222,6 +234,14 @@ namespace Shouldly
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
+        public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, [InstantHandle] Func<string> customMessage, StackTrace stackTrace)
+        {
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
+            {
+                HasRelevantActual = true
+            };
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+        }
     }
     /// <summary>
     /// Async methods need stacktrace before we get asynchronous
@@ -272,7 +292,8 @@ namespace Shouldly
             new ShouldBePositiveMessageGenerator(),
             new ShouldBeNegativeMessageGenerator(),
             new ShouldBeTypeMessageGenerator(),
-            new ShouldBeInOrderMessageGenerator()
+            new ShouldBeInOrderMessageGenerator(),
+            new ShouldBeEquivalentToMessageGenerator()
         };
 
         protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }

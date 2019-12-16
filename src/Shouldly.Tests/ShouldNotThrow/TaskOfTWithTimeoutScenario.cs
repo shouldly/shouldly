@@ -39,7 +39,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            var result = task.ShouldNotThrow(TimeSpan.FromSeconds(2));
+            var result = task.ShouldNotThrow(TimeSpan.FromSeconds(3));
             result.ShouldBe("foo");
         }
     }

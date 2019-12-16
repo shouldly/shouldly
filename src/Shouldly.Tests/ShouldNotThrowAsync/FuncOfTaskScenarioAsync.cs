@@ -49,8 +49,12 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
                 var inner = e.Flatten().InnerException;
                 var ex = inner.ShouldBeOfType<ShouldAssertException>();
                 ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task` should not throw but threw System.AggregateException with message ""One or more errors occurred.""
-                            Additional Info: Some additional context");
+                            `task`
+                            should not throw but threw
+                            System.AggregateException");
+                ex.Message.ShouldContainWithoutWhitespace(@"
+                            Additional Info:
+                            Some additional context");
             }
         }
 

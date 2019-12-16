@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow
@@ -9,6 +10,7 @@ namespace Shouldly.Tests.ShouldNotThrow
     public class TaskScenario
     {
         [Fact]
+        [UseCulture("en-US")]
         public void TaskScenarioShouldFail()
         {
             var task = Task.Factory.StartNew(() => { throw new RankException(); },

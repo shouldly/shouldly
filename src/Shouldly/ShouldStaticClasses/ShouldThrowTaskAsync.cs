@@ -49,39 +49,95 @@ namespace Shouldly
         {
 #if StackTrace
             var stackTrace = new StackTrace(true);
-            return actual().ContinueWith(t =>
+            try
             {
-                if (t.IsFaulted)
-                {
-                    if (t.Exception == null)
-                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
+                return actual()
+                    .ContinueWith(new Func<Task, Exception>(t =>
+                        {
+                            if (t.IsFaulted)
+                            {
+                                if (t.Exception == null)
+                                    return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
 
-                    return HandleAggregateException<TException>(t.Exception, customMessage);
+                                if (t.Exception.InnerException is TException expectedException)
+                                    return expectedException;
+
+                                return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage, stackTrace).ToString());
+                            }
+
+                            if (t.IsCanceled)
+                            {
+                                return new TaskCanceledException(t);
+                            }
+
+                            return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
+                        }))
+                    .ContinueWith(x =>
+                        {
+                            switch (x.Result)
+                            {
+                                case TException expectedException:
+                                    return expectedException;
+                                case ShouldAssertException assert:
+                                    throw assert;
+                                default:
+                                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);                                    
+                            }
+                        });
                 }
+                catch (Exception e)
+                {
+                    if (e is TException)
+                        return Task.FromResult((TException)e);
 
-                if (t.IsCanceled)
-                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString()
-                        , new TaskCanceledException("Task is cancelled"));
-
-                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
-            });
+                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace).ToString());
+                }
 #else
-            return actual().ContinueWith(t =>
+            try
             {
-                if (t.IsFaulted)
-                {
-                    if (t.Exception == null)
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+                return actual()
+                    .ContinueWith(new Func<Task, Exception>(t =>
+                        {
+                            if (t.IsFaulted)
+                            {
+                                if (t.Exception == null)
+                                    return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
 
-                    return HandleAggregateException<TException>(t.Exception, customMessage);
-                }
+                                if (t.Exception.InnerException is TException expectedException)
+                                    return expectedException;
+        
+                                return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage).ToString());
+                            }
+        
+                            if (t.IsCanceled)
+                            {
+                                return new TaskCanceledException(t);
+                            }
+        
+                            return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
+                        }))
+                    .ContinueWith(x =>
+                    {
+                        switch (x.Result)
+                        {
+                            case TException expectedException:
+                                return expectedException;
+                            case ShouldAssertException assert:
+                                throw assert;
+                            default:
+                                throw new ShouldAssertException(
+                                    new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString()
+                                    , x.Result);
+                        }
+                    });
+            }
+            catch (Exception e)
+            {
+                if (e is TException)
+                    return Task.FromResult((TException)e);
 
-                if (t.IsCanceled)
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString()
-                        , new TaskCanceledException("Task is cancelled"));
-
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
-            });
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
+            }
 #endif
         }
 

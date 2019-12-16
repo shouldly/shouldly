@@ -209,8 +209,7 @@ Additional Info:
         {
             var foo = new Foo();
 
-            IList<IFoo> a = new List<IFoo>();
-            a.Add(foo);
+            IList<IFoo> a = new List<IFoo> { foo };
 
             a.ShouldBe(new IFoo[] { foo });
         }

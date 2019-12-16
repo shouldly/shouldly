@@ -1,4 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBePositive
@@ -7,6 +8,7 @@ namespace Shouldly.Tests.ShouldBePositive
     {
 
         [Fact]
+        [UseCulture("en-US")]
         public void DoubleScenarioShouldFail()
         {
             var @double = (-3.5);

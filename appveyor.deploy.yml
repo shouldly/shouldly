@@ -8,7 +8,7 @@ configuration:
   - Debug
  
 build_script:
-  - ps: ./deploy.ps1
+  - ps: ./builds.ps1 -Script deploy.cake
 
 test: off
 skip_non_tags: true

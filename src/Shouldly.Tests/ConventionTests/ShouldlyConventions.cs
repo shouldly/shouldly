@@ -1,4 +1,5 @@
 using System;
+using Shouldly.Tests.TestHelpers;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 using Xunit;
@@ -16,14 +17,13 @@ namespace Shouldly.Tests.ConventionTests
                 t => t.HasAttribute("Shouldly.ShouldlyMethodsAttribute"));
         }
 
-        #if ShouldMatchApproved
         [Fact]
+        [UseCulture("en-US")]
         public void ShouldHaveCustomMessageOverloads()
         {
             Convention.GetFailures(new ShouldlyMethodsShouldHaveCustomMessageOverload(), _shouldlyMethodClasses)
                 .ShouldMatchApproved();
         }
-        #endif
 
         [Fact]
         public void VerifyItWorks()

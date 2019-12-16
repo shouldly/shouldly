@@ -34,11 +34,11 @@ namespace DocumentationExamples
             DocExampleWriter.Document(() =>
             {
                 var simpsonsQuote = "Me fail english? That's unpossible";
-                simpsonsQuote.ShouldMatchApproved(c => c.NoDiff().WithDescriminator("Different"));
+                simpsonsQuote.ShouldMatchApproved(c => c.NoDiff().WithDiscriminator("Different"));
             }, _testOutputHelper, c =>
             {
                 // Scrubbing the generated docs is easier than altering the infrastructure to support this scenario
-                c.WithScrubber(s => s.Replace("c => c.NoDiff().WithDescriminator(\"Different\")", string.Empty));
+                c.WithScrubber(s => s.Replace("c => c.NoDiff().WithDiscriminator(\"Different\")", string.Empty));
                 c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"));
                 c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.received.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt"));
             });

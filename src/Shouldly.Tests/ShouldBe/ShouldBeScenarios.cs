@@ -8,6 +8,7 @@ namespace Shouldly.Tests.ShouldBe
     public class ShouldBeScenarios
     {
         [Fact]
+        [UseCulture("en-US")]
         public void BoolFailure()
         {
             const bool myValue = false;
@@ -35,6 +36,7 @@ Additional Info:
         }
 
         [Fact]
+        [UseCulture("en-US")]
         public void BoxedComparableFailureScenario()
         {
             object a = 0;
@@ -181,14 +183,6 @@ errorWithSource:
 """"
     but was
 null
-    difference
-Difference     |  |    |    |    |   
-               | \|/  \|/  \|/  \|/  
-Index          | 0    1    2    3    
-Expected Value |                     
-Actual Value   | n    u    l    l    
-Expected Code  |                     
-Actual Code    | 110  117  108  108  
 
 Additional Info:
     Some additional context",
@@ -198,14 +192,6 @@ errorWithoutSource:
     should be
 """"
     but was not
-    difference
-Difference     |  |    |    |    |   
-               | \|/  \|/  \|/  \|/  
-Index          | 0    1    2    3    
-Expected Value |                     
-Actual Value   | n    u    l    l    
-Expected Code  |                     
-Actual Code    | 110  117  108  108  
 
 Additional Info:
     Some additional context");
