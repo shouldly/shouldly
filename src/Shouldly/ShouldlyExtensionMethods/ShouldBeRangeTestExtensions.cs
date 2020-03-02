@@ -17,7 +17,8 @@ namespace Shouldly
         }
         public static void ShouldBeOneOf<T>([AllowNull] this T actual, T[] expected, [InstantHandle] Func<string?>? customMessage)
         {
-            if (!expected.Contains(actual))
+            // Enumerable.Contains on an array always tolerates null.
+            if (!expected.Contains(actual!))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
@@ -31,7 +32,8 @@ namespace Shouldly
         }
         public static void ShouldNotBeOneOf<T>([AllowNull] this T actual, T[] expected, [InstantHandle] Func<string?>? customMessage)
         {
-            if (expected.Contains(actual))
+            // Enumerable.Contains on an array always tolerates null.
+            if (expected.Contains(actual!))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 

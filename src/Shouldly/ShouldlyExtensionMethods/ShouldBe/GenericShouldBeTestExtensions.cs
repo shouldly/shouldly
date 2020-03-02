@@ -32,9 +32,9 @@ namespace Shouldly
             [InstantHandle] Func<string?>? customMessage)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
-                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
+                actual!.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
             else
-                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
+                actual!.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
@@ -50,7 +50,7 @@ namespace Shouldly
         [ContractAnnotation("actual:null,expected:null => halt")]
         public static void ShouldNotBe<T>([AllowNull] this T actual, [AllowNull] T expected, [InstantHandle] Func<string?>? customMessage)
         {
-            actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
+            actual!.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldBe<T>(
