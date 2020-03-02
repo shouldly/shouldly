@@ -70,6 +70,12 @@ namespace Shouldly
         public static T NotThrow<T>(System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, string? customMessage) { }
         public static T NotThrow<T>(System.Threading.Tasks.Task<T> action, System.TimeSpan timeoutAfter, System.Func<string?>? customMessage) { }
         public static T NotThrow<T>(System.Threading.Tasks.Task<T> action, System.TimeSpan timeoutAfter, string? customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string? customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, System.Func<string?>? customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string? customMessage) { }
         public static System.Exception Throw(System.Action actual, System.Type exceptionType) { }
         public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
         public static System.Exception Throw(System.Func<object?> actual, System.Type exceptionType) { }
@@ -496,6 +502,16 @@ namespace Shouldly
         public static void ShouldMatchApproved(this string actual, string? customMessage) { }
         public static void ShouldMatchApproved(this string actual, System.Func<string?> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
         public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
+    }
+    [Shouldly.ShouldlyMethods]
+    public static class ShouldNotThrowTaskAsyncExtensions
+    {
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, System.Func<string?>? customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, string? customMessage) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
