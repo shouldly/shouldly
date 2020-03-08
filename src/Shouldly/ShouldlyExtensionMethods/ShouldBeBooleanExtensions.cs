@@ -6,28 +6,6 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeDecoratedExtensions
-    {
-        public static void ShouldBeDecoratedWith<T>(this Type actual) where T : class
-        {
-            if (actual.HasAttribute(nameof(T)))
-                actual.ShouldBeDecoratedWith<FlagsAttribute>();
-        }
-
-        public static bool HasAttribute<TAttribute>(this Type type)
-        {
-            return type.GetCustomAttributes(typeof(TAttribute), true).Any();
-        }
-
-        public static bool HasAttribute(this Type type, string attributeName)
-        {
-            return type.GetCustomAttributes(true).Cast<Attribute>().Any(a => a.GetType().FullName == attributeName);
-        }
-
-    }
-
-    [DebuggerStepThrough]
-    [ShouldlyMethods]
     public static class ShouldBeBooleanExtensions
     {
         public static void ShouldBeTrue(this bool actual)
