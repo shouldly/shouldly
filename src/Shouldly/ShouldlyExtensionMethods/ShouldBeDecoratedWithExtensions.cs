@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Shouldly
 {
-    [DebuggerStepThrough]
+    //[DebuggerStepThrough]
     [ShouldlyMethods]
     public static class ShouldBeDecoratedWithExtensions
     {
@@ -17,7 +17,7 @@ namespace Shouldly
         public static void ShouldBeDecoratedWith<T>(this Type actual, string customMessage) where T : class
         {
             if (!actual.HasAttribute(typeof(T)))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(nameof(T), actual, () => customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(typeof(T).FullName, actual, () => customMessage).ToString());
         }
 
         public static bool HasAttribute(this Type type, Type attributeType)
