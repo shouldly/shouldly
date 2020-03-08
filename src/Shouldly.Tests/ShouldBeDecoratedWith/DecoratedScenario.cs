@@ -3,13 +3,12 @@ using Xunit;
 
 namespace Shouldly.Tests.ShouldBeDecoratedWith
 {
-    public class DerivedTypeScenario
+    public class DecoratedScenario
     {
         [Fact]
         public void DerivedTypeScenarioShouldPass()
         {
-            var myDecoratedThing = typeof(MyDecoratedThing);
-
+            var myDecoratedThing = typeof(MyDecoratedBase);
             myDecoratedThing.ShouldBeDecoratedWith<UseCultureAttribute>();
         }
     }

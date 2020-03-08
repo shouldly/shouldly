@@ -4,10 +4,10 @@ using Xunit;
 
 namespace Shouldly.Tests.ShouldBeDecoratedWith
 {
-    public class ActualIsNullScenario
+    public class ActualIsNotDecoratedScenario
     {
         [Fact]
-        public void ActualIsNullScenarioShouldFail()
+        public void ActualIsNotDecoratedScenarioShouldFail()
         {
             var myThingType = typeof(MyThing);
 
