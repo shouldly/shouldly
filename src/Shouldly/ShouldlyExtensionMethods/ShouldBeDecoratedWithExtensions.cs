@@ -24,6 +24,5 @@ namespace Shouldly
         {
             return type.GetTypeInfo().GetCustomAttributes(attributeType, true).Any();
         }
-
     }
 }
