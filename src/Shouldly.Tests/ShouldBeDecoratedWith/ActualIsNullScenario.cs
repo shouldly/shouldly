@@ -12,22 +12,19 @@ namespace Shouldly.Tests.ShouldBeDecoratedWith
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
 typeof(MyThing).ShouldBeDecoratedWith<UseCultureAttribute>("Some additional context"),
-
 errorWithSource:
-@"Shouldly.Tests.TestHelpers.MyThing
-    should be decorated with
-Shouldly.Tests.TestHelpers.UseCultureAttribute
-    but was
-not
+@"typeof(MyThing)
+    should be decorated with 
+""UseCultureAttribute""
+    but does not
 
 Additional Info:
     Some additional context",
-
 errorWithoutSource:
 @"null
-    should be of type
-Shouldly.Tests.TestHelpers.MyBase
-    but was not
+    should be decorated with 
+""UseCultureAttribute""
+    but does not
 
 Additional Info:
     Some additional context");
