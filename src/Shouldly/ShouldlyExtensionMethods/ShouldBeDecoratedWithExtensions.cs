@@ -20,7 +20,7 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).GetTypeInfo().Name, () => customMessage).ToString());
         }
 
-        public static bool HasAttribute(this Type type, Type attributeType)
+        private static bool HasAttribute(this Type type, Type attributeType)
         {
             return type.GetTypeInfo().GetCustomAttributes(attributeType, true).Any();
         }
