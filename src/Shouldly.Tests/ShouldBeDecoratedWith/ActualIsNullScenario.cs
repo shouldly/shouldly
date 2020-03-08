@@ -9,11 +9,13 @@ namespace Shouldly.Tests.ShouldBeDecoratedWith
         [Fact]
         public void ActualIsNullScenarioShouldFail()
         {
+            var myThingType = typeof(MyThing);
+
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
-typeof(MyThing).ShouldBeDecoratedWith<UseCultureAttribute>("Some additional context"),
+myThingType.ShouldBeDecoratedWith<UseCultureAttribute>("Some additional context"),
 errorWithSource:
-@"typeof(MyThing)
+@"myThingType
     should be decorated with 
 ""UseCultureAttribute""
     but does not
