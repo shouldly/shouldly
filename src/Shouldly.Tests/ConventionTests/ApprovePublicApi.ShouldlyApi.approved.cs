@@ -166,6 +166,14 @@ namespace Shouldly
         public static void ShouldBeTrue(this bool actual, System.Func<string> customMessage) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
+    public class static ShouldBeDecoratedWithExtensions
+    {
+        public static void ShouldBeDecoratedWith<T>(this System.Type actual)
+            where T :  class { }
+        public static void ShouldBeDecoratedWith<T>(this System.Type actual, string customMessage)
+            where T :  class { }
+    }
+    [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeDictionaryTestExtensions
     {
         public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key) { }

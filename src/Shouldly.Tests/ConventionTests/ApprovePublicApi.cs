@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ConventionTests
         [IgnoreOnAppVeyorLinuxFact]
         public void ShouldlyApi()
         {
-            var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly, null,false);
+            var publicApi = PublicApiGenerator.ApiGenerator.GeneratePublicApi(typeof(Should).Assembly, null, false);
             publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
         }
     }
