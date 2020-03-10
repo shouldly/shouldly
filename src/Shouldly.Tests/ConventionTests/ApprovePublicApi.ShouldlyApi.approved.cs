@@ -5,13 +5,6 @@ namespace Shouldly
         Sensitive = 0,
         Insensitive = 1,
     }
-    [System.ObsoleteAttribute("This class is only kept here for backwards compatibility. Please use ShouldAssert" +
-        "Exception instead.")]
-    public class ChuckedAWobbly : System.Exception
-    {
-        public ChuckedAWobbly(string message) { }
-        public ChuckedAWobbly(string message, System.Exception innerException) { }
-    }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static DynamicShould
     {
@@ -77,6 +70,12 @@ namespace Shouldly
         public static T NotThrow<T>(System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter) { }
         public static T NotThrow<T>(System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, string customMessage) { }
         public static T NotThrow<T>(System.Func<System.Threading.Tasks.Task<T>> action, System.TimeSpan timeoutAfter, System.Func<string> customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, System.Func<string> customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string customMessage) { }
+        public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Func<string> customMessage) { }
         public static TException Throw<TException>(System.Action actual)
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Action actual, string customMessage)
@@ -150,7 +149,7 @@ namespace Shouldly
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string customMessage, System.Type exceptionType) { }
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Func<string> customMessage, System.Type exceptionType) { }
     }
-    public class ShouldAssertException : Shouldly.ChuckedAWobbly
+    public class ShouldAssertException : System.Exception
     {
         public ShouldAssertException(string message) { }
         public ShouldAssertException(string message, System.Exception innerException) { }
@@ -250,12 +249,6 @@ namespace Shouldly
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeStringTestExtensions
     {
-        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity) { }
-        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, string customMessage) { }
-        [System.ObsoleteAttribute("Use the StringCompareShould enum instead of the Case enum")]
-        public static void ShouldBe(this string actual, string expected, Shouldly.Case caseSensitivity, System.Func<string> customMessage) { }
         public static void ShouldBe(this string actual, string expected) { }
         public static void ShouldBe(this string actual, string expected, string customMessage) { }
         public static void ShouldBe(this string actual, string expected, System.Func<string> customMessage) { }
@@ -519,6 +512,16 @@ namespace Shouldly
         public static void ShouldMatchApproved(this string actual, System.Func<string> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
+    public class static ShouldNotThrowTaskAsyncExtensions
+    {
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, string customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, System.Func<string> customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string customMessage) { }
+        public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string> customMessage) { }
+    }
+    [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldSatisfyAllConditionsTestExtensions
     {
         public static void ShouldSatisfyAllConditions(this object actual, params System.Action[] conditions) { }
@@ -655,9 +658,6 @@ namespace Shouldly.Configuration
 {
     public class DiffTool
     {
-        [System.ObsoleteAttribute("This constructor will be deprecated in future versions, please migrate to the cro" +
-            "ss platform focused overloaded version")]
-        public DiffTool(string name, string path, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
         public bool Exists() { }
@@ -770,8 +770,6 @@ namespace Shouldly.Configuration
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
-        [System.ObsoleteAttribute("Use WithDiscriminator(...) instead")]
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
         public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFilenameGenerator(Shouldly.Configuration.FilenameGenerator filenameGenerator) { }

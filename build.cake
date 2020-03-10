@@ -1,5 +1,8 @@
-#tool "nuget:?package=GitReleaseNotes"
-#tool nuget:?package=GitVersion.CommandLine
+// Enable Cake aliases to execute .NET global tools
+#module nuget:?package=Cake.DotNetTool.Module&version=0.4.0
+
+#tool nuget:?package=GitReleaseNotes&version=0.7.1
+#tool dotnet:?package=GitVersion.Tool&version=5.1.2
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -33,7 +36,7 @@ Task("Version")
             OutputType = GitVersionOutput.BuildServer
         });
         versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
-        
+
         msBuildSettings = new DotNetCoreMSBuildSettings()
                             .WithProperty("Version", versionInfo.NuGetVersion)
                             .WithProperty("AssemblyVersion", versionInfo.AssemblySemVer)
@@ -55,7 +58,10 @@ Task("Build")
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        DotNetCoreTool("./src/Shouldly.Tests/Shouldly.Tests.csproj", "xunit", "-configuration Debug");
+        DotNetCoreTest("./src/Shouldly.Tests/Shouldly.Tests.csproj", new DotNetCoreTestSettings
+        {
+            Configuration = "Debug"
+        });
     });
 
 Task("Package")
@@ -77,13 +83,13 @@ Task("Package")
 
         var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
 
-        var releaseNotesExitCode = 
+        var releaseNotesExitCode =
             StartProcess(gitReleaseNotesTool,
                          new ProcessSettings { Arguments = ". /OutputFile artifacts/releasenotes.md", RedirectStandardOutput = true },
                          out var redirectedOutput);
 
         Information(string.Join("\n", redirectedOutput));
-        
+
         if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
             System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 

@@ -7,7 +7,7 @@ namespace Shouldly
     [Serializable]
 #endif
 #pragma warning disable 618
-    public class ShouldAssertException : ChuckedAWobbly
+    public class ShouldAssertException : Exception
 #pragma warning restore 618
     {
         public ShouldAssertException(string message) : base(message)
