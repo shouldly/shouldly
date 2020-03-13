@@ -11,13 +11,18 @@ namespace Shouldly
     {
         public static void ShouldBeDecoratedWith<T>(this Type actual) where T : class
         {
-            ShouldBeDecoratedWith<T>(actual, "");
+            ShouldBeDecoratedWith<T>(actual, () => "");
         }
 
         public static void ShouldBeDecoratedWith<T>(this Type actual, string customMessage) where T : class
         {
+            ShouldBeDecoratedWith<T>(actual, () => customMessage);
+        }
+
+        public static void ShouldBeDecoratedWith<T>(this Type actual, Func<string> customMessage) where T : class
+        {
             if (!actual.HasAttribute(typeof(T)))
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).GetTypeInfo().Name, () => customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).GetTypeInfo().Name, customMessage).ToString());
         }
 
         private static bool HasAttribute(this Type type, Type attributeType)

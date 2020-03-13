@@ -7,5 +7,4 @@
 	ShouldEndWith(this System.String actual, System.String expected)
 	ShouldNotStartWith(this System.String actual, System.String expected)
 	ShouldNotEndWith(this System.String actual, System.String expected)
-	ShouldBeDecoratedWith<T>(this System.Type actual)
 	ShouldMatchApproved(this System.String actual)
