@@ -169,11 +169,11 @@ namespace Shouldly
     public class static ShouldBeDecoratedWithExtensions
     {
         public static void ShouldBeDecoratedWith<T>(this System.Type actual)
-            where T :  class { }
+            where T : System.Attribute { }
         public static void ShouldBeDecoratedWith<T>(this System.Type actual, string customMessage)
-            where T :  class { }
+            where T : System.Attribute { }
         public static void ShouldBeDecoratedWith<T>(this System.Type actual, System.Func<string> customMessage)
-            where T :  class { }
+            where T : System.Attribute { }
     }
     [Shouldly.ShouldlyMethodsAttribute()]
     public class static ShouldBeDictionaryTestExtensions
