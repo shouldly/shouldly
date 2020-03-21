@@ -7,12 +7,12 @@ Approved File does not exist
 ----------------------------
 When you first run a :code:`ShouldMatchApproved` test, you will be presented with a diff viewer and a failing test.
 
-.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples/ApprovedFileDoesNotExist.codeSample.approved.txt
+.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.txt
 	:language: c#
 
 **Exception**
 
-.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples/ApprovedFileDoesNotExist.exceptionText.approved.txt
+.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.exceptionText.approved.txt
 
 **Screenshot**
 
@@ -22,12 +22,12 @@ Approved File does not match received
 -------------------------------------
 After you have approved the text, when it changes you get a different experience.
 
-.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples/ApprovedFileIsDifferent.codeSample.approved.txt
+.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.txt
 	:language: c#
 
 **Exception**
 
-.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples/ApprovedFileIsDifferent.exceptionText.approved.txt
+.. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.exceptionText.approved.txt
 
 **Screenshot**
 
@@ -108,7 +108,7 @@ This setting tells shouldly to walk one more frame, this is really handy when yo
   // -> MyTest.received.txt - without UseCallerLocation() the file would be called SomeUtilityMethod.received.txt
 
 LocateTestMethodUsingAttribute
-`````````````````
+``````````````````````````````
 If you want to locate your test method using an attribute that is easy too!
 
 .. code-block:: c#
@@ -142,9 +142,9 @@ So Shouldly doesn't support your favorite difftool yet. No worries, it's easy to
 .. code-block:: c#
 
   var diffomatic3000 = new DiffTool(
-    "Diffomatic3000",
-    @"diffomatic3000\diffomatic3000.exe",
-    (received, approved, approvedExists) => $"\{received}\" \"{approved}\"")
+      "Diffomatic3000",
+      @"diffomatic3000\diffomatic3000.exe",
+      (received, approved, approvedExists) => string.Format("\"{0}\" \"{1}\"", received, approved));
   ShouldlyConfiguration.DiffTools.RegisterDiffTool(diffomatic3000);
 
 This will discover diffomatic3000.exe if it's in your PATH or if it exists in any Program Files directory under diffomatic3000\diffomatic3000.exe
