@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NUnit.Framework.Constraints;
 
@@ -25,7 +26,7 @@ namespace Shouldly
 
         public bool Equals(T x, T y)
         {
-            var type = typeof (T);
+            var type = typeof(T);
 
             if (ReferenceEquals(x, y))
                 return true;
@@ -67,8 +68,8 @@ namespace Shouldly
                 }
             }
 
-            // Enumerable?
-            if (x is IEnumerable enumerableX && y is IEnumerable enumerableY)
+            // Enumerable? 
+            if (TryGetEnumerable(x, out var enumerableX) && TryGetEnumerable(y, out var enumerableY))
             {
                 var enumeratorX = enumerableX.GetEnumerator();
                 var enumeratorY = enumerableY.GetEnumerator();
@@ -91,6 +92,44 @@ namespace Shouldly
             return object.Equals(x, y);
         }
 
+        private static bool TryGetEnumerable(object obj, out IEnumerable enumerable)
+        {
+            enumerable = obj as IEnumerable;
+
+            if (enumerable == null && obj != null)
+            {
+                var type = obj.GetType();
+                if (type.IsMemory(out var elementType))
+                {
+                    var readOnlyMemory = type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                        .SingleOrDefault(method =>
+                            method.Name == "op_Implicit"
+                            && method.GetParameters()[0].ParameterType == type
+                            && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
+                            && returnElementType == elementType)
+                        ?.Invoke(null, new[] { obj });
+
+                    if (readOnlyMemory != null)
+                    {
+                        enumerable = ToEnumerable(readOnlyMemory, elementType);
+                    }
+                }
+                else if (type.IsReadOnlyMemory(out elementType))
+                {
+                    enumerable = ToEnumerable(obj, elementType);
+                }
+            }
+
+            return enumerable != null;
+        }
+
+        private static IEnumerable ToEnumerable(object readOnlyMemory, Type elementType)
+        {
+            return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
+                ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                ?.MakeGenericMethod(elementType)
+                .Invoke(null, new[] { readOnlyMemory });
+        }
         public int GetHashCode(T obj)
             => throw new NotImplementedException();
     }
