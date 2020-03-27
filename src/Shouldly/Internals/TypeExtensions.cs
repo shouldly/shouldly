@@ -25,7 +25,7 @@ namespace Shouldly
 
         public static bool IsMemory(this Type type, out Type elementType)
         {
-            if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+            if (type.IsGenericType() && type.GetGenericTypeDefinition()?.FullName == "System.Memory`1")
             {
                 elementType = type.GetGenericArguments()[0];
                 return true;
@@ -37,7 +37,7 @@ namespace Shouldly
 
         public static bool IsReadOnlyMemory(this Type type, out Type elementType)
         {
-            if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
+            if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
             {
                 elementType = type.GetGenericArguments()[0];
                 return true;

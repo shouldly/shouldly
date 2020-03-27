@@ -130,6 +130,7 @@ namespace Shouldly
                 ?.MakeGenericMethod(elementType)
                 .Invoke(null, new[] { readOnlyMemory });
         }
+
         public int GetHashCode(T obj)
             => throw new NotImplementedException();
     }
