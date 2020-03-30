@@ -18,8 +18,6 @@ namespace Shouldly
             if (value is string)
                 return "\"" + value + "\"";
 
-            var type = value.GetType();
-
             if (value is decimal)
                 return value + "m";
 
@@ -38,12 +36,23 @@ namespace Shouldly
             if (value is ulong)
                 return value + "uL";
 
+            var objectType = value.GetType();
+
+            if (objectType.IsMemory(out var genericParameterType))
+            {
+                var readOnlyMemory = value.ToReadOnlyMemory(objectType, genericParameterType);
+                value = readOnlyMemory.ToEnumerable(genericParameterType);
+            }
+            else if (objectType.IsReadOnlyMemory(out genericParameterType))
+            {
+                value = value.ToEnumerable(genericParameterType);
+            }
 
             if (value is IEnumerable)
             {
                 var objects = value.As<IEnumerable>().Cast<object>();
                 var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
-                if (inspect == "[]" && value.ToString() != type.FullName)
+                if (inspect == "[]" && value.ToString() != objectType.FullName)
                 {
                     inspect += " (" + value + ")";
                 }
@@ -72,14 +81,15 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 
-            if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
-                var key = type.GetProperty("Key").GetValue(value, null);
-                var v = type.GetProperty("Value").GetValue(value, null);
+            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+            {
+                var key = objectType.GetProperty("Key").GetValue(value, null);
+                var v = objectType.GetProperty("Value").GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
             }
 
             var toString = value.ToString();
-            if (toString == type.FullName)
+            if (toString == objectType.FullName)
                 return $"{value} ({value.GetHashCode()})";
 
             return toString;
@@ -198,6 +208,6 @@ namespace Shouldly
         static string ToStringAwesomely(this DateTime value)
         {
             return value.ToString("o");
-        }        
+        }
     }
 }

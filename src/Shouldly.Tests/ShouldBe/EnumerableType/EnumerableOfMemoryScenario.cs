@@ -18,17 +18,17 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 errorWithSource:
 @"foo
     should be
-System.Memory<Byte>[2]
+[1, 2]
     but was
-System.Memory<Byte>[3]
+[1, 2, 3]
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"System.Memory<Byte>[3]
+@"[1, 2, 3]
     should be
-System.Memory<Byte>[2]
+[1, 2]
     but was not
 
 Additional Info:

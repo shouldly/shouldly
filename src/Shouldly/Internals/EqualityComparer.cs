@@ -98,39 +98,24 @@ namespace Shouldly
 
             if (enumerable == null && obj != null)
             {
-                var type = obj.GetType();
-                if (type.IsMemory(out var elementType))
+                var objectType = obj.GetType();
+                if (objectType.IsMemory(out var genericParameterType))
                 {
-                    var readOnlyMemory = type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                        .SingleOrDefault(method =>
-                            method.Name == "op_Implicit"
-                            && method.GetParameters()[0].ParameterType == type
-                            && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
-                            && returnElementType == elementType)
-                        ?.Invoke(null, new[] { obj });
+                    var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
 
                     if (readOnlyMemory != null)
                     {
-                        enumerable = ToEnumerable(readOnlyMemory, elementType);
+                        enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
                     }
                 }
-                else if (type.IsReadOnlyMemory(out elementType))
+                else if (objectType.IsReadOnlyMemory(out genericParameterType))
                 {
-                    enumerable = ToEnumerable(obj, elementType);
+                    enumerable = obj.ToEnumerable(genericParameterType);
                 }
             }
 
             return enumerable != null;
         }
-
-        private static IEnumerable ToEnumerable(object readOnlyMemory, Type elementType)
-        {
-            return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
-                ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                ?.MakeGenericMethod(elementType)
-                .Invoke(null, new[] { readOnlyMemory });
-        }
-
         public int GetHashCode(T obj)
             => throw new NotImplementedException();
     }
