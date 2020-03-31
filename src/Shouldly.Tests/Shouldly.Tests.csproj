@@ -1,29 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net472;</TargetFrameworks>
-        <LangVersion>latest</LangVersion>
-        <Optimize>false</Optimize>
-        <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
-    </PropertyGroup>
-    <ItemGroup>
-        <Compile Remove="**\*.approved.cs;**\*.received.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-        <PackageReference Include="xunit" Version="2.4.1" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-        <PackageReference Include="PublicApiGenerator" Version="8.0.1" />
-        <PackageReference Include="TestStack.ConventionTests" Version="3.0.1" />
-    </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
-        <Reference Include="System.Runtime" />
-        <Reference Include="System.Threading.Tasks" />
-        <Reference Include="System" />
-        <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System.Memory" Version="4.5.3" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net472;</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Optimize>false</Optimize>
+    <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="**\*.approved.cs;**\*.received.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="PublicApiGenerator" Version="8.0.1" />
+    <PackageReference Include="TestStack.ConventionTests" Version="3.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Memory" Version="4.5.3" />
+  </ItemGroup>
 </Project>
