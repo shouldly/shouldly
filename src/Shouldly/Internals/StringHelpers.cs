@@ -38,24 +38,15 @@ namespace Shouldly
 
             var objectType = value.GetType();
 
-            if (objectType.IsMemory(out var genericParameterType))
+            if (value.TryGetEnumerable(out var enumerable))
             {
-                var readOnlyMemory = value.ToReadOnlyMemory(objectType, genericParameterType);
-                value = readOnlyMemory.ToEnumerable(genericParameterType);
-            }
-            else if (objectType.IsReadOnlyMemory(out genericParameterType))
-            {
-                value = value.ToEnumerable(genericParameterType);
-            }
-
-            if (value is IEnumerable)
-            {
-                var objects = value.As<IEnumerable>().Cast<object>();
+                var objects = enumerable.Cast<object>();
                 var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
                 if (inspect == "[]" && value.ToString() != objectType.FullName)
                 {
                     inspect += " (" + value + ")";
                 }
+
                 return inspect;
             }
 

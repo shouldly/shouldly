@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using NUnit.Framework.Constraints;
 
@@ -69,7 +68,7 @@ namespace Shouldly
             }
 
             // Enumerable? 
-            if (TryGetEnumerable(x, out var enumerableX) && TryGetEnumerable(y, out var enumerableY))
+            if (x.TryGetEnumerable(out var enumerableX) && y.TryGetEnumerable(out var enumerableY))
             {
                 var enumeratorX = enumerableX.GetEnumerator();
                 var enumeratorY = enumerableY.GetEnumerator();
@@ -92,30 +91,6 @@ namespace Shouldly
             return object.Equals(x, y);
         }
 
-        private static bool TryGetEnumerable(object obj, out IEnumerable enumerable)
-        {
-            enumerable = obj as IEnumerable;
-
-            if (enumerable == null && obj != null)
-            {
-                var objectType = obj.GetType();
-                if (objectType.IsMemory(out var genericParameterType))
-                {
-                    var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
-
-                    if (readOnlyMemory != null)
-                    {
-                        enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
-                    }
-                }
-                else if (objectType.IsReadOnlyMemory(out genericParameterType))
-                {
-                    enumerable = obj.ToEnumerable(genericParameterType);
-                }
-            }
-
-            return enumerable != null;
-        }
         public int GetHashCode(T obj)
             => throw new NotImplementedException();
     }

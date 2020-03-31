@@ -25,7 +25,32 @@ namespace Shouldly
             type.GetTypeInfo().IsDefined(attributeType, inherit);
 #endif
 
-        public static bool IsMemory(this Type type, out Type elementType)
+        public static bool TryGetEnumerable(this object obj, out IEnumerable enumerable)
+        {
+            enumerable = obj as IEnumerable;
+
+            if (enumerable == null && obj != null)
+            {
+                var objectType = obj.GetType();
+                if (objectType.IsMemory(out var genericParameterType))
+                {
+                    var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
+
+                    if (readOnlyMemory != null)
+                    {
+                        enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
+                    }
+                }
+                else if (objectType.IsReadOnlyMemory(out genericParameterType))
+                {
+                    enumerable = obj.ToEnumerable(genericParameterType);
+                }
+            }
+
+            return enumerable != null;
+        }
+
+        private static bool IsMemory(this Type type, out Type elementType)
         {
             if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
             {
@@ -37,7 +62,7 @@ namespace Shouldly
             return false;
         }
 
-        public static bool IsReadOnlyMemory(this Type type, out Type elementType)
+        private static bool IsReadOnlyMemory(this Type type, out Type elementType)
         {
             if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
             {
@@ -49,7 +74,7 @@ namespace Shouldly
             return false;
         }
 
-        public static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
+        private static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
         {
             return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
                 ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
@@ -57,7 +82,7 @@ namespace Shouldly
                 .Invoke(null, new[] { readOnlyMemory });
         }
 
-        public static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
+        private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
         {
             var readOnlyMemory = objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
                 .SingleOrDefault(method =>
@@ -68,7 +93,5 @@ namespace Shouldly
                 ?.Invoke(null, new[] { obj });
             return readOnlyMemory;
         }
-
-
     }
 }
