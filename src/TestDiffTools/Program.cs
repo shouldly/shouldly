@@ -9,9 +9,9 @@ using Shouldly.Configuration;
 
 namespace TestDiffTools
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             Console.WriteLine("This utility makes it easy to test different difftools");
             var diffTools = typeof(KnownDiffTools)
@@ -21,7 +21,6 @@ namespace TestDiffTools
                     DiffTool = (DiffTool) f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools),
                     Index = i
                 }).ToList();
-
 
             while (true)
             {

@@ -3,6 +3,7 @@ using Shouldly.Internals;
 
 namespace Shouldly
 {
+    [Serializable]
     public class ShouldlyTimeoutException : TimeoutException
     {
         public ShouldlyTimeoutException() : base()

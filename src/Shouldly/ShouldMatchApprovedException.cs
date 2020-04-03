@@ -1,5 +1,6 @@
 namespace Shouldly
 {
+    [System.Serializable]
     public class ShouldMatchApprovedException : ShouldAssertException
     {
         public ShouldMatchApprovedException(string message, string receivedFile, string approvedFile) : base(
