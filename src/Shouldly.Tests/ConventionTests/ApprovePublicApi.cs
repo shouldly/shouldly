@@ -7,9 +7,8 @@ namespace Shouldly.Tests.ConventionTests
         [IgnoreOnAppVeyorLinuxFact]
         public void ShouldlyApi()
         {
-            var options = new ApiGeneratorOptions()
+            var options = new ApiGeneratorOptions
             {
-                IncludeTypes = null,
                 IncludeAssemblyAttributes = false
             };
             var publicApi = typeof(Should).Assembly.GeneratePublicApi(options);
