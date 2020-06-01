@@ -307,16 +307,14 @@ namespace Shouldly
             ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
         }
 
-        private static List<object> GetDuplicates<T>(IEnumerable<T> items)
+        private static List<T> GetDuplicates<T>(IEnumerable<T> items)
         {
-            var list = new List<object>();
-            var duplicates = new List<object>();
+            var uniqueItems = new HashSet<T>();
+            var duplicates = new List<T>();
 
-            foreach (object o1 in items)
-            {
-                duplicates.AddRange(list.Where(o2 => o1 != null && o1.Equals(o2)));
-                list.Add(o1);
-            }
+            foreach (var item in items)
+                if (!uniqueItems.Add(item))
+                    duplicates.Add(item);
 
             return duplicates;
         }
