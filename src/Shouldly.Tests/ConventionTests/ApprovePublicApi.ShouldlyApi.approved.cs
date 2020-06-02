@@ -223,6 +223,9 @@ namespace Shouldly
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, System.Func<string> customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, string customMessage) { }
+        public static void ShouldEndWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
+        public static void ShouldEndWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string> customMessage) { }
+        public static void ShouldEndWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual) { }
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Func<string> customMessage) { }
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T> actual, string customMessage) { }
@@ -235,6 +238,9 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string> customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
+        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected) { }
+        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string> customMessage) { }
+        public static void ShouldStartWith<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string customMessage) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeNullExtensions

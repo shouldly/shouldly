@@ -307,6 +307,38 @@ namespace Shouldly
             ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
         }
 
+        public static void ShouldStartWith<T>(this IEnumerable<T> actual, T expected)
+        {
+            ShouldStartWith(actual, expected, () => null);
+        }
+
+        public static void ShouldStartWith<T>(this IEnumerable<T> actual, T expected, string customMessage)
+        {
+            ShouldStartWith(actual, expected, () => customMessage);
+        }
+
+        public static void ShouldStartWith<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
+        {
+            if (!actual.First().Equals(expected))
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+        }
+
+        public static void ShouldEndWith<T>(this IEnumerable<T> actual, T expected)
+        {
+            ShouldEndWith(actual, expected, () => null);
+        }
+
+        public static void ShouldEndWith<T>(this IEnumerable<T> actual, T expected, string customMessage)
+        {
+            ShouldEndWith(actual, expected, () => customMessage);
+        }
+
+        public static void ShouldEndWith<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string> customMessage)
+        {
+            if (!actual.Last().Equals(expected))
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+        }
+
         private static List<T> GetDuplicates<T>(IEnumerable<T> items)
         {
             var uniqueItems = new HashSet<T>();
