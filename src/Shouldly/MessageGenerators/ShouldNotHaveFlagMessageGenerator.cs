@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shouldly.MessageGenerators
+﻿namespace Shouldly.MessageGenerators
 {
     internal class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
     {

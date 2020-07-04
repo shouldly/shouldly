@@ -34,7 +34,7 @@ namespace Shouldly
                 }
             }
             else
-            { 
+            {
                 var dynamicAsObject = (object)dynamicTestObject;
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))

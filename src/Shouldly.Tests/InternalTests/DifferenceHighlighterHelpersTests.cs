@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Shouldly.DifferenceHighlighting;
-using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.InternalTests

@@ -68,7 +68,7 @@ namespace Shouldly
         {
             if (actual == null && expected == null)
                 return true;
-            
+
             if (actual == null || expected == null)
                 return false;
 
@@ -173,7 +173,7 @@ namespace Shouldly
 
         public static bool InstanceOf(object o, Type expected)
         {
-            return o != null ? expected.IsInstanceOfType(o) : false; 
+            return o != null ? expected.IsInstanceOfType(o) : false;
         }
 
         public static bool StringMatchingRegex(string actual, string regexPattern)
