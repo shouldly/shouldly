@@ -166,13 +166,13 @@ namespace Shouldly
         public static void ShouldBeTrue(this bool actual, string customMessage) { }
     }
     [Shouldly.ShouldlyMethods]
-    public class static ShouldBeDecoratedWithExtensions
+    public static class ShouldBeDecoratedWithExtensions
     {
         public static void ShouldBeDecoratedWith<T>(this System.Type actual)
             where T : System.Attribute { }
-        public static void ShouldBeDecoratedWith<T>(this System.Type actual, string customMessage)
-            where T : System.Attribute { }
         public static void ShouldBeDecoratedWith<T>(this System.Type actual, System.Func<string> customMessage)
+            where T : System.Attribute { }
+        public static void ShouldBeDecoratedWith<T>(this System.Type actual, string customMessage)
             where T : System.Attribute { }
     }
     [Shouldly.ShouldlyMethods]
