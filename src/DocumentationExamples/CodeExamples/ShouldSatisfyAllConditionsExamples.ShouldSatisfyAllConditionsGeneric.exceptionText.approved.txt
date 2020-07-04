@@ -11,13 +11,5 @@ The following errors were found ...
     "Mr.Burns"
         but was
     null
-        difference
-    Difference     |  |    |    |    |    |    |    |    |   
-                   | \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
-    Index          | 0    1    2    3    4    5    6    7    
-    Expected Value | M    r    .    B    u    r    n    s    
-    Actual Value   | n    u    l    l                        
-    Expected Code  | 77   114  46   66   117  114  110  115  
-    Actual Code    | 110  117  108  108                      
 
 -----------------------------------------
