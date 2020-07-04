@@ -510,6 +510,9 @@ namespace Shouldly
         public static void ShouldSatisfyAllConditions(this object actual, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions(this object actual, System.Func<string> customMessage, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions(this object actual, string customMessage, params System.Action[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, params System.Action<>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Func<string> customMessage, params System.Action<>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string customMessage, params System.Action<>[] conditions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions

@@ -9,6 +9,18 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
     {
+        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
+        {
+          ShouldSatisfyAllConditions(actual, () => null, CreateParameterlessActions(actual, conditions));
+        }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string customMessage, [InstantHandle] params Action<T>[] conditions)
+        {
+          ShouldSatisfyAllConditions(actual, () => customMessage, CreateParameterlessActions(actual, conditions));
+        }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Func<string> customMessage, [InstantHandle] params Action<T>[] conditions)
+        {
+          ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
+        }
         public static void ShouldSatisfyAllConditions(this object actual, [InstantHandle] params Action[] conditions)
         {
             ShouldSatisfyAllConditions(actual, () => null, conditions);
@@ -37,6 +49,10 @@ namespace Shouldly
                 var errorMessageString = BuildErrorMessageString(errorMessages);
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString());
             }
+        }
+
+        static Action[] CreateParameterlessActions<T>(T parameter, params Action<T>[] actions) {
+          return actions.Select(a => new Action(() => a(parameter))).ToArray();
         }
 
         static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)

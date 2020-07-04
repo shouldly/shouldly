@@ -1,0 +1,15 @@
+mrBurns
+    should satisfy all the conditions specified, but does not.
+The following errors were found ...
+--------------- Error 1 ---------------
+    p => p.Name (null)
+        should not be null or empty
+
+--------------- Error 2 ---------------
+    p => p.Name
+        should be
+    "Mr.Burns"
+        but was
+    null
+
+-----------------------------------------
