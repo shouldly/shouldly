@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Shouldly.Internals;
 
@@ -36,6 +37,7 @@ namespace Shouldly
         public SortDirection SortDirection { get; set; }
         public int OutOfOrderIndex { get; set; }
         public object OutOfOrderObject { get; set; }
+        public IEnumerable<string> Path { get; set; }
 
 #if StackTrace
         internal ShouldlyAssertionContext(

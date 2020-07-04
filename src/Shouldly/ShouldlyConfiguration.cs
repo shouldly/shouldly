@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 #if ShouldMatchApproved
 using Shouldly.Configuration;
+#endif
+
+#if ShouldMatchApproved && !CallContextPolyfill
 using System.Runtime.Remoting.Messaging;
 #endif
 

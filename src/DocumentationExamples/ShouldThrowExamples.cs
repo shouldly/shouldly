@@ -31,6 +31,15 @@ namespace DocumentationExamples
         }
 
         [Fact]
+        public void ShouldThrowFunc()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                Should.Throw<ArgumentNullException>(() => new Person("Homer"));
+            }, _testOutputHelper);
+        }
+
+        [Fact]
         public void ShouldThrowFuncOfTask()
         {
             DocExampleWriter.Document(() =>

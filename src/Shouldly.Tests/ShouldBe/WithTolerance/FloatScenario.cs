@@ -1,5 +1,6 @@
 ﻿using System;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.WithTolerance
@@ -7,6 +8,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
     public class FloatScenario
     {
         [Fact]
+        [UseCulture("en-US")]
         public void FloatScenarioShouldFail()
         {
             const float pi = (float)Math.PI;

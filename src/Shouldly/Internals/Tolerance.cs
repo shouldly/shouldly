@@ -18,7 +18,7 @@ namespace NUnit.Framework.Constraints
         private readonly ToleranceMode mode;
 
         /// <summary>
-        ///     Constructs a linear tolerance of a specdified amount
+        ///     Constructs a linear tolerance of a specified amount
         /// </summary>
         public Tolerance(object amount) : this(amount, ToleranceMode.Linear)
         {

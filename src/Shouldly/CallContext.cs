@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Shouldly
 {
-    public static class CallContext
+    internal static class CallContext
     {
         private static ConcurrentDictionary<string, AsyncLocal<object>> state = new ConcurrentDictionary<string, AsyncLocal<object>>();
 

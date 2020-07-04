@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
             Verify.ShouldFail(() =>
     new[,] { { "1", "2" }, { "3", "5" } }.ShouldBe(new[,] { { "1", "2" }, { "3", "4" } }, "Some additional context"),
 
-    // TODO Multidimentional arrays are not outputted correctly?
+    // TODO Multidimensional arrays are not outputted correctly?
 errorWithSource:
 @"new[,] { { ""1"", ""2"" }, { ""3"", ""5"" } }
     should be

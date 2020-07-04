@@ -17,9 +17,9 @@ namespace Shouldly.Configuration
             return Configure(c => c.StringCompareOptions = stringCompareOptions);
         }
 
-        public ShouldMatchConfigurationBuilder WithDescriminator(string fileDescriminator)
+        public ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator)
         {
-            return Configure(c => c.FilenameDescriminator = fileDescriminator);
+            return Configure(c => c.FilenameDescriminator = fileDiscriminator);
         }
 
         public ShouldMatchConfigurationBuilder NoDiff()
