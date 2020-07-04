@@ -58,7 +58,7 @@ namespace Shouldly.Configuration
             if (path == null)
                 return null;
 
-            var exeName= Path.GetFileName(path);
+            var exeName = Path.GetFileName(path);
             var fullPathFromPathEnv = GetFullPath(exeName);
             if (!string.IsNullOrEmpty(fullPathFromPathEnv))
                 return fullPathFromPathEnv;
@@ -77,8 +77,8 @@ namespace Shouldly.Configuration
                 .Select(pf =>
                 {
                     var r = Path.Combine(pf, path);
-                        return r;
-                    })
+                    return r;
+                })
                     .FirstOrDefault(File.Exists);
 
                 return result;

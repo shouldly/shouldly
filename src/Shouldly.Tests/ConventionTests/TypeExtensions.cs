@@ -23,7 +23,7 @@ namespace Shouldly.Tests.ConventionTests
             var parameters = shouldlyMethod.GetParameters();
             var maybeFilteredParameters = removeCustomMessage ? parameters.Where(p => p.Name != "customMessage") : parameters;
             var argList = string.Join(", ", maybeFilteredParameters.Select(p => string.Format("{0} {1}", p.ParameterType.FormatType(), p.Name)));
-            var extensionMethodText = shouldlyMethod.IsDefined(typeof (ExtensionAttribute), true)
+            var extensionMethodText = shouldlyMethod.IsDefined(typeof(ExtensionAttribute), true)
                 ? "this "
                 : string.Empty;
             if (shouldlyMethod.IsGenericMethod)

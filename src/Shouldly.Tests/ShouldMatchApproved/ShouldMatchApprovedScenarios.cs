@@ -30,11 +30,11 @@ namespace Shouldly.Tests.ShouldMatchApproved
             var approvalPath = IsWindows()
                 ? @"C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile"
                 : @"/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
-            
+
             var cmd = IsWindows()
                 ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
                 : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
-            
+
             var errorMsg = $@"To approve the changes run this command:
 {cmd}
 ----------------------------
@@ -49,7 +49,7 @@ Approval file {approvalPath}.approved.txt
                 errorWithoutSource: errorMsg,
                 messageScrubber: _scrubber);
         }
-        
+
         [Fact]
         public void DifferencesUseShouldlyMessages()
         {
@@ -174,7 +174,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
 
             "Foo".ShouldMatchApproved();
         }
-        
+
         public static bool IsWindows()
             => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
