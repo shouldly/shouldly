@@ -336,6 +336,20 @@ namespace Shouldly
                 previousItem = currentItem;
             }
         }
-    }
 
+        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, params Type[] expected)
+        {
+            ShouldBeOfTypes(actual, expected, () => null);
+        }
+
+        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string customMessage)
+        {
+            ShouldBeOfTypes(actual, expected, () => customMessage);
+        }
+
+        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, [InstantHandle] Func<string> customMessage)
+        {
+            actual.Select(x => x.GetType()).ToArray().ShouldBe(expected, customMessage);
+        }
+    }
 }
