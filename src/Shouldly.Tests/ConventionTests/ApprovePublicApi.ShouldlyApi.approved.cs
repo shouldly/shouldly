@@ -252,12 +252,18 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeNullExtensions
     {
-        public static void ShouldBeNull<T>(this T actual) { }
-        public static void ShouldBeNull<T>(this T actual, System.Func<string> customMessage) { }
-        public static void ShouldBeNull<T>(this T actual, string customMessage) { }
-        public static void ShouldNotBeNull<T>(this T actual) { }
-        public static void ShouldNotBeNull<T>(this T actual, System.Func<string> customMessage) { }
-        public static void ShouldNotBeNull<T>(this T actual, string customMessage) { }
+        public static void ShouldBeNull<T>(this T actual)
+            where T :  class { }
+        public static void ShouldBeNull<T>(this T actual, System.Func<string> customMessage)
+            where T :  class { }
+        public static void ShouldBeNull<T>(this T actual, string customMessage)
+            where T :  class { }
+        public static void ShouldNotBeNull<T>(this T actual)
+            where T :  class { }
+        public static void ShouldNotBeNull<T>(this T actual, System.Func<string> customMessage)
+            where T :  class { }
+        public static void ShouldNotBeNull<T>(this T actual, string customMessage)
+            where T :  class { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeStringTestExtensions
