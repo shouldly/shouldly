@@ -1,6 +1,7 @@
 image:
   - Visual Studio 2019
   - Ubuntu
+  - macos
 assembly_info:
   patch: false
 
