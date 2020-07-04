@@ -11,11 +11,22 @@ namespace Shouldly.Tests.Strings
         public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string> messageScrubber = null)
         {
             if (messageScrubber == null)
-                messageScrubber = v => MatchGetHashCode.Replace(v, "(000000)");
+                messageScrubber = v =>
+                {
+                    
+                    var msg = MatchGetHashCode.Replace(v, "(000000)");
+                    return msg;
+                };
             else
             {
                 var scrubber = messageScrubber;
-                messageScrubber = v => MatchGetHashCode.Replace(scrubber(v), "(000000)");
+                messageScrubber = v =>
+                {
+                    var msg = scrubber(v);
+                    var res = MatchGetHashCode.Replace(msg, "(000000)");
+                    return res;
+
+                };
             }
 
             action

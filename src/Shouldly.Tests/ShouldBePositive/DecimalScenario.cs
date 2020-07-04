@@ -1,8 +1,10 @@
 ﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBePositive
 {
+    [UseCulture("en-US")]
     public class DecimalScenario
     {
         [Fact]

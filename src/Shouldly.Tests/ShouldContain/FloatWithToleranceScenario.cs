@@ -1,4 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldContain
@@ -6,6 +7,7 @@ namespace Shouldly.Tests.ShouldContain
     public class FloatWithToleranceScenario
     {
         [Fact]
+        [UseCulture("en-US")]
         public void FloatWithToleranceScenarioShouldFail()
         {
             Verify.ShouldFail(() =>

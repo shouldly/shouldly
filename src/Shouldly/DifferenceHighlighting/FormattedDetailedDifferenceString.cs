@@ -17,8 +17,8 @@ namespace Shouldly.DifferenceHighlighting
         private StringBuilder actualValueStringBuilder;
         private StringBuilder expectedCodeStringBuilder;
 
-        private bool _prefixWithDots;
-        private bool _suffixWithDots;
+        private readonly bool _prefixWithDots;
+        private readonly bool _suffixWithDots;
 
         internal FormattedDetailedDifferenceString(string actualValue, string expectedValue, Case? caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
         {

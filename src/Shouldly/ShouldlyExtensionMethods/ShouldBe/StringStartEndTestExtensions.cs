@@ -52,7 +52,7 @@ namespace Shouldly
         {
             ShouldNotStartWith(actual, expected, () => null);
         }
-public static void ShouldNotStartWith(this string actual, string expected, Case caseSensitivity)
+        public static void ShouldNotStartWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldNotStartWith(actual, expected, () => null, caseSensitivity);
         }
@@ -72,7 +72,7 @@ public static void ShouldNotStartWith(this string actual, string expected, Case 
         {
             ShouldNotEndWith(actual, expected, () => null);
         }
-public static void ShouldNotEndWith(this string actual, string expected, Case caseSensitivity)
+        public static void ShouldNotEndWith(this string actual, string expected, Case caseSensitivity)
         {
             ShouldNotEndWith(actual, expected, () => null, caseSensitivity);
         }

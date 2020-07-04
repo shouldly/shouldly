@@ -1,5 +1,4 @@
-﻿// TODO Try and get this working with Core
-#if ShouldMatchApproved
+﻿#if ShouldMatchApproved
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -26,7 +25,7 @@ namespace Shouldly
             actual.ShouldMatchApproved(() => null, configureOptions);
         }
 
-        public static void ShouldMatchApproved(this string actual, 
+        public static void ShouldMatchApproved(this string actual,
             string customMessage,
             Action<ShouldMatchConfigurationBuilder> configureOptions)
         {

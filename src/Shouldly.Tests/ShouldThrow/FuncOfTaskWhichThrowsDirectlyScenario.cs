@@ -38,17 +38,17 @@ namespace Shouldly.Tests.ShouldThrow
         }
         
         [Fact]
-        public void ShouldPassTimeoutExceptionAsync()
+        public async Task ShouldPassTimeoutExceptionAsync()
         {
-            var task = new Func<Task>(async () => { throw new TimeoutException(); });
-            task.ShouldThrow<TimeoutException>();
+            var task = new Func<Task>(async () => { await Task.FromException(new TimeoutException()); });
+            await Task.FromResult(task.ShouldThrow<TimeoutException>());
         }
        
         [Fact]
-        public void ShouldPassTimeoutExceptionAsync_ExceptionTypePassedIn()
+        public async Task ShouldPassTimeoutExceptionAsync_ExceptionTypePassedIn()
         {
-            var task = new Func<Task>(async () => { throw new TimeoutException(); });
-            task.ShouldThrow(typeof(TimeoutException));
+            var task = new Func<Task>(async () => { await Task.FromException(new TimeoutException()); });
+            await Task.FromResult(task.ShouldThrow(typeof(TimeoutException)));
         }
     }
 }

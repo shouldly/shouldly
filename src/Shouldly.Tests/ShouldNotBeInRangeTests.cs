@@ -1,4 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests
@@ -6,6 +7,7 @@ namespace Shouldly.Tests
     public class ShouldNotBeInRangeTests
     {
         [Fact]
+        [UseCulture("en-US")]
         public void ShouldNotBeInRangeTestsShouldFail()
         {
             var @decimal = 1.5m;

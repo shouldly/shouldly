@@ -1,5 +1,6 @@
 ﻿using System;
 using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.WithTolerance
@@ -7,6 +8,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
     public class DoubleScenario
     {
         [Fact]
+        [UseCulture("en-US")]
         public void DoubleScenarioShouldFail()
         {
             const double pi = Math.PI;
