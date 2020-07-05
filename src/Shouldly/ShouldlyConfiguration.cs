@@ -33,7 +33,14 @@ namespace Shouldly
         }
 
         public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; private set; } =
-            new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration());
+            new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration
+            {
+                StringCompareOptions = StringCompareShould.IgnoreLineEndings,
+                TestMethodFinder = new FirstNonShouldlyMethodFinder(),
+                FileExtension = "txt",
+                FilenameGenerator = (testMethodInfo, descriminator, type, extension)
+                    => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
+            });
 #endif
 
         /// <summary>
