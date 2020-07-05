@@ -9,7 +9,7 @@ namespace Shouldly.Tests.TestHelpers
 
         public override string ToString()
         {
-            return String.Format("Name({0}) Enabled({1})", Name, Enabled);
+            return string.Format("Name({0}) Enabled({1})", Name, Enabled);
         }    
     }
 }

@@ -42,9 +42,9 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
+            var a = new object();
+            var b = new object();
+            var c = new object();
             var target = new[] { a, b, c };
             target.ShouldContain(b);
         }

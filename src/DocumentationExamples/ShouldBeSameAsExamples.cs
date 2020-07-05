@@ -19,8 +19,8 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var principleSkinner = new Person() { Name = "Armin Tamzarian"};
-                var symourSkinner = new Person() { Name = "Seymour Skinner" };
+                var principleSkinner = new Person { Name = "Armin Tamzarian"};
+                var symourSkinner = new Person { Name = "Seymour Skinner" };
 
                 principleSkinner.ShouldBeSameAs(symourSkinner);
             }, _testOutputHelper);

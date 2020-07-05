@@ -14,7 +14,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a numeric type</returns>
-        public static bool IsNumericType(Object obj)
+        public static bool IsNumericType(object obj)
         {
             return IsFloatingPointNumeric(obj) || IsFixedPointNumeric(obj);
         }
@@ -25,12 +25,12 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a floating point numeric type</returns>
-        public static bool IsFloatingPointNumeric(Object obj)
+        public static bool IsFloatingPointNumeric(object obj)
         {
             if (null != obj)
             {
-                if (obj is Double) return true;
-                if (obj is Single) return true;
+                if (obj is double) return true;
+                if (obj is float) return true;
             }
             return false;
         }
@@ -41,19 +41,19 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a fixed point numeric type</returns>
-        public static bool IsFixedPointNumeric(Object obj)
+        public static bool IsFixedPointNumeric(object obj)
         {
             if (null != obj)
             {
-                if (obj is Byte) return true;
-                if (obj is SByte) return true;
-                if (obj is Decimal) return true;
-                if (obj is Int32) return true;
-                if (obj is UInt32) return true;
-                if (obj is Int64) return true;
-                if (obj is UInt64) return true;
-                if (obj is Int16) return true;
-                if (obj is UInt16) return true;
+                if (obj is byte) return true;
+                if (obj is sbyte) return true;
+                if (obj is decimal) return true;
+                if (obj is int) return true;
+                if (obj is uint) return true;
+                if (obj is long) return true;
+                if (obj is ulong) return true;
+                if (obj is short) return true;
+                if (obj is ushort) return true;
             }
             return false;
         }

@@ -1,4 +1,4 @@
-﻿'The following shouldly methods are missing one or more of the custom message overloads' for 'Types in Shouldly extension classes'
+'The following shouldly methods are missing one or more of the custom message overloads' for 'Types in Shouldly extension classes'
 ----------------------------------------------------------------------------------------------------------------------------------
 
 	ShouldBe(this System.String actual, System.String expected, Shouldly.StringCompareShould options)

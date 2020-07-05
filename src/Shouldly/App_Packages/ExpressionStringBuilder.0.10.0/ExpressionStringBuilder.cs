@@ -40,7 +40,7 @@ namespace ExpressionToString
             if (node.Parameters.Any())
             {
                 Out("(");
-                Out(String.Join(",", node.Parameters.Select(n => n.Name)));
+                Out(string.Join(",", node.Parameters.Select(n => n.Name)));
                 Out(") => ");
             }
             Visit(node.Body);

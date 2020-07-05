@@ -20,8 +20,8 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person() { Name = "Homer" };
-                var powerPlantOnTheWeekend = new List<Person>() { homer };
+                var homer = new Person { Name = "Homer" };
+                var powerPlantOnTheWeekend = new List<Person> { homer };
                 powerPlantOnTheWeekend.ShouldBeEmpty();
             }, _testOutputHelper);
         }
@@ -31,7 +31,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var moesTavernOnTheWeekend = new List<Person>() { };
+                var moesTavernOnTheWeekend = new List<Person> { };
                 moesTavernOnTheWeekend.ShouldNotBeEmpty();
             }, _testOutputHelper);
         }

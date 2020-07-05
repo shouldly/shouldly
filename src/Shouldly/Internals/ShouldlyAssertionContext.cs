@@ -17,7 +17,8 @@ namespace Shouldly
         public object Actual { get; set; }
         public object Tolerance { get; set; }
         public Case? CaseSensitivity { get; set; }
-        public bool CodePartMatchesActual { get { return CodePart == Actual.ToStringAwesomely(); } }
+        public bool CodePartMatchesActual => CodePart == Actual.ToStringAwesomely();
+
         public TimeSpan? Timeout { get; set; }
 
         public bool IgnoreOrder { get; set; }

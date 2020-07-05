@@ -19,7 +19,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var mrBurns = new Person() { Name = null };
+                var mrBurns = new Person { Name = null };
                 mrBurns.ShouldSatisfyAllConditions
                     (
                         () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
@@ -33,7 +33,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var mrBurns = new Person() { Name = null };
+                var mrBurns = new Person { Name = null };
                 mrBurns.ShouldSatisfyAllConditions
                     (
                         p => p.Name.ShouldNotBeNullOrEmpty(),

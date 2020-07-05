@@ -38,9 +38,9 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
+            var a = new object();
+            var b = new object();
+            var c = new object();
             new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName.Equals(""));
         }
     }

@@ -1,4 +1,4 @@
-var mrBurns = new Person() { Name = null };
+var mrBurns = new Person { Name = null };
 mrBurns.ShouldSatisfyAllConditions
                     (
                         p => p.Name.ShouldNotBeNullOrEmpty(),

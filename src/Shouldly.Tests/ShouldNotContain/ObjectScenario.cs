@@ -40,10 +40,10 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
-            var d = new Object();
+            var a = new object();
+            var b = new object();
+            var c = new object();
+            var d = new object();
             var target = new[] { a, b, c };
             target.ShouldNotContain(d);
         }

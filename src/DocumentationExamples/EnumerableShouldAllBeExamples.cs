@@ -20,10 +20,10 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var mrBurns = new Person() { Name = "Mr.Burns", Salary = 3000000 };
-                var kentBrockman = new Person() { Name = "Homer", Salary = 3000000 };
-                var homer = new Person() { Name = "Homer", Salary = 30000 };
-                var millionares = new List<Person>() { mrBurns, kentBrockman, homer };
+                var mrBurns = new Person { Name = "Mr.Burns", Salary = 3000000 };
+                var kentBrockman = new Person { Name = "Homer", Salary = 3000000 };
+                var homer = new Person { Name = "Homer", Salary = 30000 };
+                var millionares = new List<Person> { mrBurns, kentBrockman, homer };
 
                 millionares.ShouldAllBe(m => m.Salary > 1000000);
             }, _testOutputHelper);
