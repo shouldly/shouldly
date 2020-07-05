@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         [UseCulture("en-US")]
         public void DoubleScenarioShouldFail()
         {
-            const double pi = Math.PI;
+            const double pi = MathEx.PI;
             Verify.ShouldFail(() =>
 pi.ShouldBe(3.24d, 0.01d, "Some additional context"),
 
@@ -22,13 +22,13 @@ errorWithSource:
     of
 3.24d
     but was
-3.14159265358979d
+3.14159d
 
 Additional Info:
     Some additional context",
 
     errorWithoutSource:
-@"3.14159265358979d
+@"3.14159d
     should be within
 0.01d
     of
@@ -42,7 +42,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            const double pi = Math.PI;
+            const double pi = MathEx.PI;
             pi.ShouldBe(3.14d, 0.01d);
         }
     }

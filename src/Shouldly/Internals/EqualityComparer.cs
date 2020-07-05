@@ -40,10 +40,32 @@ namespace Shouldly
                     return false;
             }
 
-            if (Numerics.IsNumericType(x) && Numerics.IsNumericType(y))
+            if (Numerics.IsNumericType(x) &&
+                Numerics.IsNumericType(y))
             {
                 var tolerance = Tolerance.Empty;
                 return Numerics.AreEqual(x, y, ref tolerance);
+            }
+
+            // Enumerable?
+            if (x.TryGetEnumerable(out var enumerableX) &&
+                y.TryGetEnumerable(out var enumerableY))
+            {
+                var enumeratorX = enumerableX.GetEnumerator();
+                var enumeratorY = enumerableY.GetEnumerator();
+                var equalityComparer = _innerComparerFactory();
+
+                while (true)
+                {
+                    var hasNextX = enumeratorX.MoveNext();
+                    var hasNextY = enumeratorY.MoveNext();
+
+                    if (!hasNextX || !hasNextY)
+                        return (hasNextX == hasNextY);
+
+                    if (!equalityComparer.Equals(enumeratorX.Current, enumeratorY.Current))
+                        return false;
+                }
             }
 
             // Implements IEquatable<T>?
@@ -64,26 +86,6 @@ namespace Shouldly
                 catch (ArgumentException)
                 {
                     // Thrown when two comparable types are not compatible, i.e string and int
-                }
-            }
-
-            // Enumerable? 
-            if (x.TryGetEnumerable(out var enumerableX) && y.TryGetEnumerable(out var enumerableY))
-            {
-                var enumeratorX = enumerableX.GetEnumerator();
-                var enumeratorY = enumerableY.GetEnumerator();
-                var equalityComparer = _innerComparerFactory();
-
-                while (true)
-                {
-                    var hasNextX = enumeratorX.MoveNext();
-                    var hasNextY = enumeratorY.MoveNext();
-
-                    if (!hasNextX || !hasNextY)
-                        return (hasNextX == hasNextY);
-
-                    if (!equalityComparer.Equals(enumeratorX.Current, enumeratorY.Current))
-                        return false;
                 }
             }
 
