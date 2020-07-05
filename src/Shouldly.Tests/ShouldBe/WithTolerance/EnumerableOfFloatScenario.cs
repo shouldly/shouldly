@@ -13,31 +13,31 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
     public void EnumerableOfFloatScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { (float)Math.PI, (float)Math.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, "Some additional context"),
+new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, "Some additional context"),
 
 errorWithSource:
-@"new[] { (float)Math.PI, (float)Math.PI }
+@"new[] { (float)MathEx.PI, (float)MathEx.PI }
     should be within
 0.01d
     of
 [3.24f, 3.24f]
     but was
-[3.141593f, 3.141593f]
+[3.14159f, 3.14159f]
     difference
-[*3.141593f*, *3.141593f*]
+[*3.14159f*, *3.14159f*]
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"[3.141593f, 3.141593f]
+@"[3.14159f, 3.14159f]
     should be within
 0.01d
     of
 [3.24f, 3.24f]
     but was not
     difference
-[*3.141593f*, *3.141593f*]
+[*3.14159f*, *3.14159f*]
 
 Additional Info:
     Some additional context");
@@ -46,7 +46,7 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        new[] { (float)Math.PI, (float)Math.PI }.ShouldBe(new[] { 3.14f, 3.14f }, 0.01);
+        new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.14f, 3.14f }, 0.01);
     }
 }
 }

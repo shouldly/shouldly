@@ -11,12 +11,13 @@ namespace Shouldly.Tests.Strings
         public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string> messageScrubber = null)
         {
             if (messageScrubber == null)
+            {
                 messageScrubber = v =>
                 {
-                    
                     var msg = MatchGetHashCode.Replace(v, "(000000)");
                     return msg;
                 };
+            }
             else
             {
                 var scrubber = messageScrubber;
