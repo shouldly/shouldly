@@ -42,7 +42,7 @@ namespace Shouldly.DifferenceHighlighting
 
                 if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
                 {
-                    output.AppendLine(string.Format("Showing some of the {0} differences", indicesOfAllDiffs.Count));
+                    output.AppendLine($"Showing some of the {indicesOfAllDiffs.Count} differences");
                     startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
                 }
 

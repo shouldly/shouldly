@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -165,7 +164,7 @@ namespace Shouldly
                     case ' ':
                         return @"\s";
                     default:
-                        return string.Format("\\u{0:X};", (int)c);
+                        return $"\\u{(int) c:X};";
                 }
             }
             return c.ToString();

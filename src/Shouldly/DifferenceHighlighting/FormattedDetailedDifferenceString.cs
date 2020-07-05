@@ -57,13 +57,13 @@ namespace Shouldly.DifferenceHighlighting
             {
                 var isEqual = CheckEquality(index, minLenOfStrings);
 
-                differenceStringLineOneBuilder.Append(string.Format("{0,-5}", isEqual ? " " : @" | " ));
-                differenceStringLineTwoBuilder.Append(string.Format("{0,-5}", isEqual ? " " : @"\|/" ));
-                indexStringBuilder.Append(string.Format("{0,-5}", index + _indexOffset));
-                expectedValueStringBuilder.Append(string.Format("{0,-5}", index < _expectedValue.Length ? _expectedValue[index].ToSafeString() : ""));
-                actualValueStringBuilder.Append(string.Format("{0,-5}", index < _actualValue.Length ? _actualValue[index].ToSafeString() : ""));
-                expectedCodeStringBuilder.Append(string.Format("{0,-5}", index < _expectedValue.Length ? ((int)_expectedValue[index]).ToString() : ""));
-                actualCodeStringBuilder.Append(string.Format("{0,-5}", index < _actualValue.Length ? ((int)_actualValue[index]).ToString() : ""));
+                differenceStringLineOneBuilder.Append($"{(isEqual ? " " : @" | "),-5}");
+                differenceStringLineTwoBuilder.Append($"{(isEqual ? " " : @"\|/"),-5}");
+                indexStringBuilder.Append($"{index + _indexOffset,-5}");
+                expectedValueStringBuilder.Append($"{(index < _expectedValue.Length ? _expectedValue[index].ToSafeString() : ""),-5}");
+                actualValueStringBuilder.Append($"{(index < _actualValue.Length ? _actualValue[index].ToSafeString() : ""),-5}");
+                expectedCodeStringBuilder.Append($"{(index < _expectedValue.Length ? ((int) _expectedValue[index]).ToString() : ""),-5}");
+                actualCodeStringBuilder.Append($"{(index < _actualValue.Length ? ((int) _actualValue[index]).ToString() : ""),-5}");
             }
 
             if (_suffixWithDots)

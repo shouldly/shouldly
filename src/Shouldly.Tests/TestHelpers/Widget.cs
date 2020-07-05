@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers
 {
     public class Widget
     {
@@ -9,7 +7,7 @@ namespace Shouldly.Tests.TestHelpers
 
         public override string ToString()
         {
-            return string.Format("Name({0}) Enabled({1})", Name, Enabled);
-        }    
+            return $"Name({Name}) Enabled({Enabled})";
+        }
     }
 }
