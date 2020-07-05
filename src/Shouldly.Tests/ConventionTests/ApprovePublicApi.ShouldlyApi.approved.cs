@@ -851,9 +851,9 @@ namespace Shouldly.Configuration
     {
         public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
         public string Name { get; }
-        protected static void CreateEmptyFileIfNotExists(string path) { }
         public bool Exists() { }
         public void Open(string receivedPath, string approvedPath) { }
+        protected static void CreateEmptyFileIfNotExists(string path) { }
         public delegate string ArgumentGenerator(string received, string approved);
     }
     public class DiffToolConfig
