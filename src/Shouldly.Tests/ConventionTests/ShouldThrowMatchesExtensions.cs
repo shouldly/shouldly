@@ -28,9 +28,7 @@ namespace Shouldly.Tests.ConventionTests
                 secondSetFailureData);
         }
 
-        public string ConventionReason
-        {
-            get { return "Keep Should.Throw methods in sync with the extension methods"; }
-        }
+        public string ConventionReason =>
+            "Keep Should.Throw methods in sync with the extension methods";
     }
 }

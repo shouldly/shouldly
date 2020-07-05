@@ -13,31 +13,31 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
     public void EnumerableOfDoubleScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { Math.PI, Math.PI }.ShouldBe(new[] { 3.24, 3.24 }, 0.01, "Some additional context"),
+new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.24, 3.24 }, 0.01, "Some additional context"),
 
 errorWithSource:
-@"new[] { Math.PI, Math.PI }
+@"new[] { MathEx.PI, MathEx.PI }
     should be within
 0.01d
     of
 [3.24d, 3.24d]
     but was
-[3.14159265358979d, 3.14159265358979d]
+[3.14159d, 3.14159d]
     difference
-[*3.14159265358979d*, *3.14159265358979d*]
+[*3.14159d*, *3.14159d*]
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"[3.14159265358979d, 3.14159265358979d]
+@"[3.14159d, 3.14159d]
     should be within
 0.01d
     of
 [3.24d, 3.24d]
     but was not
     difference
-[*3.14159265358979d*, *3.14159265358979d*]
+[*3.14159d*, *3.14159d*]
 
 Additional Info:
     Some additional context");
@@ -46,7 +46,7 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        new[] { Math.PI, Math.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
+        new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
     }
 }
 }
