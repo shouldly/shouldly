@@ -71,9 +71,9 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 
-            if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
-                var key = type.GetProperty("Key")!.GetValue(value, null);
-                var v = type.GetProperty("Value")!.GetValue(value, null);
+            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
+                var key = objectType.GetProperty("Key")!.GetValue(value, null);
+                var v = objectType.GetProperty("Value")!.GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
             }
 
