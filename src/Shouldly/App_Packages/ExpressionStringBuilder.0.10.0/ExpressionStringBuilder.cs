@@ -212,7 +212,7 @@ namespace ExpressionToString
 
         void VisitArguments(Expression[] arguments)
         {
-            int argindex = 0;
+            var argindex = 0;
             while (argindex < arguments.Length)
             {
                 Visit(arguments[argindex]);

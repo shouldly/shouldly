@@ -122,7 +122,7 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0.0)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs((expected - actual)/expected);
+                    var relativeError = Math.Abs((expected - actual)/expected);
                     return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
                 case ToleranceMode.Ulps:
                     return FloatingPointNumerics.AreAlmostEqualUlps(
@@ -159,7 +159,7 @@ namespace NUnit.Framework.Constraints
                 case ToleranceMode.Percent:
                     if (expected == 0.0f)
                         return expected.Equals(actual);
-                    float relativeError = Math.Abs((expected - actual)/expected);
+                    var relativeError = Math.Abs((expected - actual)/expected);
                     return (relativeError <= Convert.ToSingle(tolerance.Value)/100.0f);
                 case ToleranceMode.Ulps:
                     return FloatingPointNumerics.AreAlmostEqualUlps(
@@ -178,7 +178,7 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    decimal decimalTolerance = Convert.ToDecimal(tolerance.Value);
+                    var decimalTolerance = Convert.ToDecimal(tolerance.Value);
                     if (decimalTolerance > 0m)
                         return Math.Abs(expected - actual) <= decimalTolerance;
 
@@ -188,7 +188,7 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0m)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs(
+                    var relativeError = Math.Abs(
                         (double) (expected - actual)/(double) expected);
                     return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
 
@@ -205,10 +205,10 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    ulong ulongTolerance = Convert.ToUInt64(tolerance.Value);
+                    var ulongTolerance = Convert.ToUInt64(tolerance.Value);
                     if (ulongTolerance > 0ul)
                     {
-                        ulong diff = expected >= actual ? expected - actual : actual - expected;
+                        var diff = expected >= actual ? expected - actual : actual - expected;
                         return diff <= ulongTolerance;
                     }
 
@@ -219,8 +219,8 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     // Can't do a simple Math.Abs() here since it's unsigned
-                    ulong difference = Math.Max(expected, actual) - Math.Min(expected, actual);
-                    double relativeError = Math.Abs(difference/(double) expected);
+                    var difference = Math.Max(expected, actual) - Math.Min(expected, actual);
+                    var relativeError = Math.Abs(difference/(double) expected);
                     return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
 
                 default:
@@ -236,7 +236,7 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    long longTolerance = Convert.ToInt64(tolerance.Value);
+                    var longTolerance = Convert.ToInt64(tolerance.Value);
                     if (longTolerance > 0L)
                         return Math.Abs(expected - actual) <= longTolerance;
 
@@ -246,7 +246,7 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0L)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs(
+                    var relativeError = Math.Abs(
                         (expected - actual)/(double) expected);
                     return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
 
@@ -263,10 +263,10 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    uint uintTolerance = Convert.ToUInt32(tolerance.Value);
+                    var uintTolerance = Convert.ToUInt32(tolerance.Value);
                     if (uintTolerance > 0)
                     {
-                        uint diff = expected >= actual ? expected - actual : actual - expected;
+                        var diff = expected >= actual ? expected - actual : actual - expected;
                         return diff <= uintTolerance;
                     }
 
@@ -277,8 +277,8 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     // Can't do a simple Math.Abs() here since it's unsigned
-                    uint difference = Math.Max(expected, actual) - Math.Min(expected, actual);
-                    double relativeError = Math.Abs(difference/(double) expected);
+                    var difference = Math.Max(expected, actual) - Math.Min(expected, actual);
+                    var relativeError = Math.Abs(difference/(double) expected);
                     return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
 
                 default:
@@ -294,7 +294,7 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    int intTolerance = Convert.ToInt32(tolerance.Value);
+                    var intTolerance = Convert.ToInt32(tolerance.Value);
                     if (intTolerance > 0)
                         return Math.Abs(expected - actual) <= intTolerance;
 
@@ -304,7 +304,7 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs(
+                    var relativeError = Math.Abs(
                         (expected - actual)/(double) expected);
                     return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
 

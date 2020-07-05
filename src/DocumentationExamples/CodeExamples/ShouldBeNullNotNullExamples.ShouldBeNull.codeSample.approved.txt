@@ -1,2 +1,2 @@
-string myRef = "Hello World";
+var myRef = "Hello World";
 myRef.ShouldBeNull();

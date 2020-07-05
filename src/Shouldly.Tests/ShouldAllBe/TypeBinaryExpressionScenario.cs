@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldAllBe
         [Fact]
         public void TypeBinaryExpressionScenarioShouldFail()
         {
-            List<object> objects = new List<object> { "1", 1 };
+            var objects = new List<object> { "1", 1 };
                         
             Verify.ShouldFail(() => 
 objects.ShouldAllBe(x => x is string, "Some additional context"),

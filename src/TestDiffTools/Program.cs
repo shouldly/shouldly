@@ -36,7 +36,7 @@ namespace TestDiffTools
                     Console.WriteLine($"{diffTool.Index}. {diffTool.DiffTool.Name}");
                 }
 
-                if (!int.TryParse(Console.ReadLine(), out int selectedTool))
+                if (!int.TryParse(Console.ReadLine(), out var selectedTool))
                 {
                     Console.WriteLine("You must choose a number");
                     continue;
@@ -54,7 +54,7 @@ namespace TestDiffTools
                 Console.WriteLine("1. When there is no approved file");
                 Console.WriteLine("2. When the approved file does not match");
 
-                if (!int.TryParse(Console.ReadLine(), out int selectedOption))
+                if (!int.TryParse(Console.ReadLine(), out var selectedOption))
                 {
                     Console.WriteLine("You must choose a number");
                     continue;

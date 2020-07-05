@@ -35,7 +35,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            int result = new[] { 1 }.ShouldHaveSingleItem();
+            var result = new[] { 1 }.ShouldHaveSingleItem();
             result.ShouldBe(1);
         }
     }

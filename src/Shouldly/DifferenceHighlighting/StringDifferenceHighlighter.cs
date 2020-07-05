@@ -24,7 +24,7 @@ namespace Shouldly.DifferenceHighlighting
 
             expected = _transform(expected);
             actual = _transform(actual);
-            int maxLengthOfStrings = Math.Max(actual.Length, expected.Length);
+            var maxLengthOfStrings = Math.Max(actual.Length, expected.Length);
 
             var output = new StringBuilder();
 
@@ -46,7 +46,7 @@ namespace Shouldly.DifferenceHighlighting
                     startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
                 }
 
-                for (int index = 0; index < startIndicesOfAllDiffs.Count; index++)
+                for (var index = 0; index < startIndicesOfAllDiffs.Count; index++)
                 {
                     var startIndexOfDiffString = startIndicesOfAllDiffs[index];
                     var trimmedActualValue = TrimmedValue(actual, startIndexOfDiffString);
@@ -82,9 +82,9 @@ namespace Shouldly.DifferenceHighlighting
         private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue)
         {
             var indicesOfAlldifferences = new List<int>();
-            int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
+            var maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
 
-            for (int index = 0; index < maxLengthOfStrings; index++)
+            for (var index = 0; index < maxLengthOfStrings; index++)
             {
                 if (!CharAtIndexIsEqual(actualValue, expectedValue, index))
                     indicesOfAlldifferences.Add(index);

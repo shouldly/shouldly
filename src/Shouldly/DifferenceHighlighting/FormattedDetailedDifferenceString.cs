@@ -45,15 +45,15 @@ namespace Shouldly.DifferenceHighlighting
 
         public string GenerateFormattedString()
         {
-            int maxLengthOfStrings = Math.Max(_actualValue.Length, _expectedValue.Length);
-            int minLenOfStrings = Math.Min(_actualValue.Length, _expectedValue.Length);
+            var maxLengthOfStrings = Math.Max(_actualValue.Length, _expectedValue.Length);
+            var minLenOfStrings = Math.Min(_actualValue.Length, _expectedValue.Length);
 
             if (_prefixWithDots)
             {
                 AddDots();
             }
 
-            for (int index = 0; index < maxLengthOfStrings; index++)
+            for (var index = 0; index < maxLengthOfStrings; index++)
             {
                 var isEqual = CheckEquality(index, minLenOfStrings);
 
@@ -87,7 +87,7 @@ namespace Shouldly.DifferenceHighlighting
 
         private bool CheckEquality(int index, int minLengthOfStrings)
         {
-            bool isEqual = false;
+            var isEqual = false;
             if (index < minLengthOfStrings)
             {
                 if (_caseSensitivity == Case.Insensitive)

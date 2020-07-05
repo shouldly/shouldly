@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
         {
             try
             {
-                Task task = Task.Factory.StartNew(() => { throw new InvalidOperationException("exception message"); },
+                var task = Task.Factory.StartNew(() => { throw new InvalidOperationException("exception message"); },
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
 

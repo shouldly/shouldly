@@ -9,8 +9,8 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         [Fact]
         public void EnumerableOfMemoryScenarioShouldFail()
         {
-            Memory<byte> foo = new byte[] { 1, 2, 3 }.AsMemory();
-            Memory<byte> bar = new byte[] { 1, 2 }.AsMemory();
+            var foo = new byte[] { 1, 2, 3 }.AsMemory();
+            var bar = new byte[] { 1, 2 }.AsMemory();
 
             Verify.ShouldFail(() =>
                     foo.ShouldBe(bar, "Some additional context"),
@@ -38,7 +38,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            Memory<byte> foo = new byte[] { 1, 2, 3 }.AsMemory();
+            var foo = new byte[] { 1, 2, 3 }.AsMemory();
             foo.ShouldBe(new byte[] { 1, 2, 3 });
         }
     }

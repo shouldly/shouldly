@@ -10,7 +10,7 @@ namespace Shouldly.Internals.AssertionFactories
     {
         public static IAssertion Create(string expected, string actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null)
         {
-            List<string> optionsList = new List<string>();
+            var optionsList = new List<string>();
             if ((options & StringCompareShould.IgnoreLineEndings) != 0)
             {
                 expected = expected.NormalizeLineEndings();

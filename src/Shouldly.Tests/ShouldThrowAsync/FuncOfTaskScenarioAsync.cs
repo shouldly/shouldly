@@ -14,7 +14,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
         {
             try
             {
-                Task task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
+                var task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
                         CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
 
@@ -52,7 +52,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
         {
             try
             {
-                Task task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
+                var task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
                         CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
 
