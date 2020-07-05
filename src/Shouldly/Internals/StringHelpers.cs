@@ -9,7 +9,7 @@ namespace Shouldly
 {
     internal static class StringHelpers
     {
-        internal static string ToStringAwesomely(this object value)
+        internal static string? ToStringAwesomely(this object? value)
         {
             if (value == null)
                 return "null";
@@ -71,10 +71,9 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 
-            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-            {
-                var key = objectType.GetProperty("Key").GetValue(value, null);
-                var v = objectType.GetProperty("Value").GetValue(value, null);
+            if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
+                var key = type.GetProperty("Key")!.GetValue(value, null);
+                var v = type.GetProperty("Value")!.GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
             }
 
@@ -170,24 +169,24 @@ namespace Shouldly
             return c.ToString();
         }
 
-        internal static bool IsNullOrWhiteSpace(this string s)
+        internal static bool IsNullOrWhiteSpace(this string? s)
         {
             return string.IsNullOrWhiteSpace(s);
         }
 
-        internal static string NormalizeLineEndings(this string s)
+        internal static string? NormalizeLineEndings(this string? s)
         {
             return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
         }
 
-        static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class
+        static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
         {
             return enumerable.DelimitWith(", ");
         }
 
-        static string DelimitWith<T>(this IEnumerable<T> enumerable, string separator) where T : class
+        static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
         {
-            return string.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
+            return string.Join(separator, enumerable.Select(i => Equals(i, null) ? null : i.ToString()).ToArray());
         }
 
         static string ToStringAwesomely(this Enum value)

@@ -6,7 +6,7 @@ using Xunit;
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class NestedAwaitsDoNotDeadlockScenario
-   
+
     {
 
     [Fact]
@@ -17,12 +17,12 @@ namespace Shouldly.Tests.ShouldNotThrow
             var synchronizationContext = new SynchronizationContext();
             SynchronizationContext.SetSynchronizationContext(synchronizationContext);
             SynchronizationContext.Current.ShouldNotBe(null);
-            
-            var syncFunc1 = new Func<Task<object>>(() =>
+
+            var syncFunc1 = new Func<Task<object?>>(() =>
             {
                 SynchronizationContext.Current.ShouldBe(null);
 
-                var taskCompletionSource = new TaskCompletionSource<object>();
+                var taskCompletionSource = new TaskCompletionSource<object?>();
                 taskCompletionSource.SetResult(null);
                 return taskCompletionSource.Task;
             });
@@ -32,7 +32,7 @@ namespace Shouldly.Tests.ShouldNotThrow
             {
                 SynchronizationContext.Current.ShouldBe(null);
 
-                var taskCompletionSource = new TaskCompletionSource<object>();
+                var taskCompletionSource = new TaskCompletionSource<object?>();
                 taskCompletionSource.SetResult(null);
                 return taskCompletionSource.Task;
             });

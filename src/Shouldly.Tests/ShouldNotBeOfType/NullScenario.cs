@@ -3,13 +3,13 @@
 namespace Shouldly.Tests.ShouldNotBeOfType
 {
     public class NullIsNotOfType
-   
+
     {
 
     [Fact]
         public void AndShouldNotThrow()
         {
-            object o = null;
+            object? o = null;
             o.ShouldNotBeOfType<int>("Some additional context");
         }
 

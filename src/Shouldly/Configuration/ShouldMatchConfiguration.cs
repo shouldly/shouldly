@@ -4,7 +4,7 @@ using System;
 namespace Shouldly.Configuration
 {
     public delegate string FilenameGenerator(
-        TestMethodInfo testMethodInfo, string descriminator, string fileType, string fileExtension);
+        TestMethodInfo testMethodInfo, string? descriminator, string fileType, string fileExtension);
 
     public class ShouldMatchConfiguration
     {
@@ -24,26 +24,28 @@ namespace Shouldly.Configuration
             FilenameGenerator = initialConfig.FilenameGenerator;
         }
 
-        public StringCompareShould StringCompareOptions { get; set; }
-        public string FilenameDescriminator { get; set; }
+        public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
+        public string? FilenameDescriminator { get; set; }
         public bool PreventDiff { get; set; }
 
         /// <summary>
         /// File extension without the .
         /// </summary>
-        public string FileExtension { get; set; }
+        public string FileExtension { get; set; } = "txt";
 
-        public ITestMethodFinder TestMethodFinder { get; set; }
-        public string ApprovalFileSubFolder { get; set; }
+        public ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
+        public string? ApprovalFileSubFolder { get; set; }
 
         /// <summary>
         /// Scrubbers allow you to alter the received document before comparing it to approved.
-        /// 
+        ///
         /// This is useful for replacing dates or dynamic data with fixed data
         /// </summary>
-        public Func<string, string> Scrubber { get; set; }
+        public Func<string, string>? Scrubber { get; set; }
 
-        public FilenameGenerator FilenameGenerator { get; set; }
+        public FilenameGenerator FilenameGenerator { get; set; } =
+            (testMethodInfo, descriminator, type, extension)
+                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}";
     }
 }
 

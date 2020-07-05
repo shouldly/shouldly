@@ -4,7 +4,7 @@ namespace Shouldly.DifferenceHighlighting
     {
         public const string HighlightCharacter = "*";
 
-        public string HighlightItem(string item)
+        public string HighlightItem(string? item)
         {
             return HighlightCharacter + item + HighlightCharacter;
         }

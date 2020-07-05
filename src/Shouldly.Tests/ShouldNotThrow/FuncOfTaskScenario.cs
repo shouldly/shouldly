@@ -51,5 +51,31 @@ Additional Info:
 
             task.ShouldNotThrow();
         }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void ShouldHandleAggregateExceptionWithNoInnerExceptions(bool withSynchronizationContext)
+        {
+            var func = new Func<Task>(() => throw new AggregateException("Message from thrown exception"));
+
+            if (!withSynchronizationContext)
+                SynchronizationContext.SetSynchronizationContext(null);
+
+            Verify.ShouldFail(
+                () => func.ShouldNotThrow(),
+                errorWithSource:
+@"Task `func`
+    should not throw but threw
+System.AggregateException
+    with message
+""Message from thrown exception""",
+                errorWithoutSource:
+@"Task
+    should not throw but threw
+System.AggregateException
+    with message
+""Message from thrown exception""");
+        }
     }
 }

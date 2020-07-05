@@ -5,17 +5,17 @@ namespace Shouldly.Internals.Assertions
 {
     internal class StringShouldBeAssertion : IAssertion
     {
-        readonly string _expected;
-        readonly string _actual;
-        readonly Func<string, string, bool> _compare;
+        readonly string? _expected;
+        readonly string? _actual;
+        readonly Func<string?, string?, bool> _compare;
         readonly ICodeTextGetter _codeTextGetter;
         readonly IStringDifferenceHighlighter _diffHighlighter;
         readonly string _options;
         readonly string _shouldlyMethod;
 
         public StringShouldBeAssertion(
-            string expected, string actual,
-            Func<string, string, bool> compare,
+            string? expected, string? actual,
+            Func<string?, string?, bool> compare,
             ICodeTextGetter codeTextGetter,
             IStringDifferenceHighlighter diffHighlighter,
             string options,
@@ -30,7 +30,7 @@ namespace Shouldly.Internals.Assertions
             _shouldlyMethod = shouldlyMethod;
         }
 
-        public string GenerateMessage(string customMessage)
+        public string? GenerateMessage(string? customMessage)
         {
             var codeText = _codeTextGetter.GetCodeText(_actual);
             var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";

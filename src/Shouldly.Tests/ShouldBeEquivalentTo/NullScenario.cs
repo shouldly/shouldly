@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBeEquivalentTo
         [Fact]
         public void ShouldFailWhenActualIsNull()
         {
-            string subject = null;
+            string? subject = null;
             Verify.ShouldFail(() =>
 subject.ShouldBeEquivalentTo("Hello", "Some additional context"),
 
@@ -72,7 +72,7 @@ Additional Info:
         [Fact]
         public void ShouldPassWhenBothAreNull()
         {
-            string subject = null;
+            string? subject = null;
             subject.ShouldBeEquivalentTo(null);
         }
     }

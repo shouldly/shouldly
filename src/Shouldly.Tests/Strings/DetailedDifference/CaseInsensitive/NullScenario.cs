@@ -7,7 +7,7 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
         [Fact]
         public static void ShouldNotShowDifferenceWhenActualIsMissing()
         {
-            var str = (string)null;
+            var str = (string?)null;
             Verify.ShouldFail(() =>
 str.ShouldBe("null", StringCompareShould.IgnoreCase),
 

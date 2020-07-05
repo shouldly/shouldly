@@ -7,7 +7,8 @@ namespace Shouldly.Tests.Strings.ShouldBeEmpty
         [Fact]
         public void ActualIsNullShouldFail()
         {
-            var str = ((string)null);
+            var str = (string?)null;
+
             Verify.ShouldFail(() =>
 str.ShouldBeEmpty("Some additional context"),
 

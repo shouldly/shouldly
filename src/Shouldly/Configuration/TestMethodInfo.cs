@@ -1,4 +1,5 @@
 #if ShouldMatchApproved
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,56 +12,59 @@ namespace Shouldly.Configuration
         public TestMethodInfo(StackFrame callingFrame)
         {
             SourceFileDirectory = Path.GetDirectoryName(callingFrame.GetFileName());
-            var realMethod = GetRealMethod(callingFrame.GetMethod());
-            MethodName = realMethod.Name;
-            DeclaringTypeName = realMethod.DeclaringType?.Name;
+
+            var method = callingFrame.GetMethod();
+            var originalMethodInfo = GetOriginalMethodInfoForStateMachineMethod(method);
+
+            MethodName = originalMethodInfo?.MethodName ?? method?.Name;
+            DeclaringTypeName = (originalMethodInfo?.DeclaringType ?? method?.DeclaringType)?.Name;
         }
 
-        static MethodBase GetRealMethod(MethodBase method)
+        private readonly struct OriginalMethodInfo
         {
-            var declaringType = method.DeclaringType;
-            if (declaringType == null || declaringType.IsByRef)
+            public OriginalMethodInfo(string methodName, Type declaringType)
             {
-                return method;
+                MethodName = methodName;
+                DeclaringType = declaringType;
             }
-            if (!ContainsAttribute(declaringType.GetCustomAttributes(false), "System.Runtime.CompilerServices.CompilerGeneratedAttribute"))
-            {
-                return method;
-            }
-            if (declaringType.GetInterface("System.Runtime.CompilerServices.IAsyncStateMachine") == null)
-            {
-                return method;
-            }
-            if (!declaringType.Name.Contains("<") || !declaringType.Name.Contains(">"))
-            {
-                return method;
-            }
-            var trueMethodName = declaringType.Name.TrimStart('<').Split('>').First();
-            MethodInfo methodInfo;
-            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
-            try
-            {
-                methodInfo = declaringType.DeclaringType.GetMethod(trueMethodName, bindingFlags);
-            }
-            catch (AmbiguousMatchException)
-            {
-                //TODO: Should this throw??
-                //var message = string.Format("Could not derive root method for async method '{0}' since there are multiple methods named '{1}'.", method.Name, trueMethodName);
-                return method;
-            }
-            return methodInfo;
+
+            public string MethodName { get; }
+            public Type DeclaringType { get; }
         }
 
-        static bool ContainsAttribute(object[] attributes, string attributeName)
+        static OriginalMethodInfo? GetOriginalMethodInfoForStateMachineMethod(MethodBase? method)
         {
+            if (method?.DeclaringType is { IsByRef: false } declaringType
+                && declaringType.DeclaringType is { } originalMethodDeclaringType
+                && ContainsAttribute(declaringType, "System.Runtime.CompilerServices.CompilerGeneratedAttribute")
+                && declaringType.GetInterface("System.Runtime.CompilerServices.IAsyncStateMachine") is object)
             {
-                return attributes.Any(a => a.GetType().FullName.StartsWith(attributeName));
+                var stateMachineTypeName = declaringType.Name;
+                var openingAngleBracket = stateMachineTypeName.IndexOf('<');
+                if (openingAngleBracket != -1)
+                {
+                    var closingAngleBracket = stateMachineTypeName.IndexOf('>', openingAngleBracket + 1);
+                    if (closingAngleBracket != -1)
+                    {
+                        var originalMethodName = stateMachineTypeName.Substring(openingAngleBracket + 1, closingAngleBracket - (openingAngleBracket + 1));
+
+                        return new OriginalMethodInfo(originalMethodName, originalMethodDeclaringType);
+                    }
+                }
             }
+
+            return null;
         }
 
-        public string SourceFileDirectory { get; private set; }
-        public string MethodName { get; private set; }
-        public string DeclaringTypeName { get; private set; }
+        static bool ContainsAttribute(MemberInfo member, string attributeName)
+        {
+            return member.CustomAttributes.Any(a =>
+                a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
+        }
+
+        public string? SourceFileDirectory { get; private set; }
+        public string? MethodName { get; private set; }
+        public string? DeclaringTypeName { get; private set; }
     }
 }
 #endif

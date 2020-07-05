@@ -1,4 +1,4 @@
-`new Person(name)`
+`new Person(name!)`
     should not throw but threw
 System.ArgumentNullException
     with message

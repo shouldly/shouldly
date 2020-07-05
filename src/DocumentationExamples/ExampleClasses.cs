@@ -4,9 +4,9 @@ namespace Simpsons
 {
     public abstract class Pet
     {
-        public abstract string Name { get; set; }
+        public abstract string? Name { get; set; }
 
-        public override string ToString()
+        public override string? ToString()
         {
             return Name;
         }
@@ -14,12 +14,12 @@ namespace Simpsons
 
     public class Cat : Pet
     {
-        public override string Name { get; set; }
+        public override string? Name { get; set; }
     }
 
     public class Dog : Pet
     {
-        public override string Name { get; set; }
+        public override string? Name { get; set; }
     }
 
     public class Person
@@ -33,11 +33,11 @@ namespace Simpsons
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int Salary { get; set; }
 
 
-        public override string ToString()
+        public override string? ToString()
         {
             return Name;
         }

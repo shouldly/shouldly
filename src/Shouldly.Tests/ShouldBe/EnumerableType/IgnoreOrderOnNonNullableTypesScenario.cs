@@ -85,7 +85,7 @@ Additional Info:
                 return identity == other.identity;
             }
 
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 if (ReferenceEquals(null, obj)) return false;
                 return obj is NonNullableType && Equals((NonNullableType) obj);

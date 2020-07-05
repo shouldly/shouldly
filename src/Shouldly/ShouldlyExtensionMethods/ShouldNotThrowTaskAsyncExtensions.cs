@@ -14,11 +14,11 @@ namespace Shouldly
         {
             return Should.NotThrowAsync(task, () => null);
         }
-        public static Task ShouldNotThrowAsync(this Task task, string customMessage)
+        public static Task ShouldNotThrowAsync(this Task task, string? customMessage)
         {
             return Should.NotThrowAsync(task, customMessage);
         }
-        public static Task ShouldNotThrowAsync(this Task task, [InstantHandle] Func<string> customMessage)
+        public static Task ShouldNotThrowAsync(this Task task, [InstantHandle] Func<string?>? customMessage)
         {
             return Should.NotThrowAsync(task, customMessage);
         }
@@ -28,11 +28,11 @@ namespace Shouldly
         {
             return Should.NotThrowAsync(actual);
         }
-        public static Task ShouldNotThrowAsync(this Func<Task> actual, string customMessage)
+        public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage)
         {
             return Should.NotThrowAsync(actual, customMessage);
         }
-        public static Task ShouldNotThrowAsync(this Func<Task> actual, [InstantHandle] Func<string> customMessage)
+        public static Task ShouldNotThrowAsync(this Func<Task> actual, [InstantHandle] Func<string?>? customMessage)
         {
             return Should.NotThrowAsync(actual, customMessage);
         }

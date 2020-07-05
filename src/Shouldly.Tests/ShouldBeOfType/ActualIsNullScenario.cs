@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeOfType
         [Fact]
         public void ActualIsNullScenarioShouldFail()
         {
-            MyThing myThing = null;
+            MyThing? myThing = null;
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
 myThing.ShouldBeOfType<MyBase>("Some additional context"),

@@ -12,17 +12,17 @@ namespace Shouldly
     {
         public static void HaveProperty(dynamic dynamicTestObject, string propertyName)
         {
-            Func<string> customMessage = () => null;
+            Func<string?> customMessage = () => null;
             HaveProperty(dynamicTestObject, propertyName, customMessage);
         }
 
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string customMessage)
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage)
         {
-            Func<string> message = () => customMessage;
+            Func<string?> message = () => customMessage;
             HaveProperty(dynamicTestObject, propertyName, message);
         }
 
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, [InstantHandle] Func<string> customMessage)
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, [InstantHandle] Func<string?>? customMessage)
         {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
