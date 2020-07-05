@@ -32,7 +32,7 @@ namespace Shouldly
         public static void ShouldSatisfyAllConditions(this object actual, [InstantHandle] Func<string> customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
-            foreach (var action in conditions) 
+            foreach (var action in conditions)
             {
                 try
                 {

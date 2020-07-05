@@ -13,7 +13,7 @@ namespace Shouldly
         {
             if (method.DeclaringType == null)
                 return false;
-            
+
             return method.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any()
                || (method.DeclaringType.DeclaringType != null && method.DeclaringType.DeclaringType.GetCustomAttributes(typeof(ShouldlyMethodsAttribute), true).Any());
         }
@@ -40,8 +40,8 @@ namespace Shouldly
         }
 
         internal static void AssertAwesomelyWithCaseSensitivity<T>(
-            this T actual, Func<T, bool> specifiedConstraint, 
-            object originalActual, object originalExpected, 
+            this T actual, Func<T, bool> specifiedConstraint,
+            object originalActual, object originalExpected,
             Case caseSensitivity, Func<string> customMessage = null,
             [CallerMemberName] string shouldlyMethod = null)
         {

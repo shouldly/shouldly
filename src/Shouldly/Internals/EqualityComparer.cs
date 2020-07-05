@@ -25,7 +25,7 @@ namespace Shouldly
 
         public bool Equals(T x, T y)
         {
-            var type = typeof (T);
+            var type = typeof(T);
 
             if (ReferenceEquals(x, y))
                 return true;
@@ -67,8 +67,8 @@ namespace Shouldly
                 }
             }
 
-            // Enumerable?
-            if (x is IEnumerable enumerableX && y is IEnumerable enumerableY)
+            // Enumerable? 
+            if (x.TryGetEnumerable(out var enumerableX) && y.TryGetEnumerable(out var enumerableY))
             {
                 var enumeratorX = enumerableX.GetEnumerator();
                 var enumeratorY = enumerableY.GetEnumerator();

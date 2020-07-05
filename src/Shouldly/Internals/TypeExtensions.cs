@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 using System.Reflection;
 
 namespace Shouldly
@@ -22,5 +24,74 @@ namespace Shouldly
         public static bool IsDefined(this Type type, Type attributeType, bool inherit) =>
             type.GetTypeInfo().IsDefined(attributeType, inherit);
 #endif
+
+        public static bool TryGetEnumerable(this object obj, out IEnumerable enumerable)
+        {
+            enumerable = obj as IEnumerable;
+
+            if (enumerable == null && obj != null)
+            {
+                var objectType = obj.GetType();
+                if (objectType.IsMemory(out var genericParameterType))
+                {
+                    var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
+
+                    if (readOnlyMemory != null)
+                    {
+                        enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
+                    }
+                }
+                else if (objectType.IsReadOnlyMemory(out genericParameterType))
+                {
+                    enumerable = obj.ToEnumerable(genericParameterType);
+                }
+            }
+
+            return enumerable != null;
+        }
+
+        private static bool IsMemory(this Type type, out Type elementType)
+        {
+            if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+            {
+                elementType = type.GetGenericArguments()[0];
+                return true;
+            }
+
+            elementType = null;
+            return false;
+        }
+
+        private static bool IsReadOnlyMemory(this Type type, out Type elementType)
+        {
+            if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
+            {
+                elementType = type.GetGenericArguments()[0];
+                return true;
+            }
+
+            elementType = null;
+            return false;
+        }
+
+        private static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
+        {
+            return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
+                ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                ?.MakeGenericMethod(elementType)
+                .Invoke(null, new[] { readOnlyMemory });
+        }
+
+        private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
+        {
+            var readOnlyMemory = objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .SingleOrDefault(method =>
+                    method.Name == "op_Implicit"
+                    && method.GetParameters()[0].ParameterType == objectType
+                    && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
+                    && returnElementType == genericParameterType)
+                ?.Invoke(null, new[] { obj });
+            return readOnlyMemory;
+        }
     }
 }
