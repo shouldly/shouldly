@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
 
-namespace Shouldly 
+namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeDictionaryTestExtensions 
+    public static class ShouldBeDictionaryTestExtensions
     {
         public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
@@ -41,7 +41,7 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
         }
 
-        public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val) 
+        public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val)
         {
             ShouldContainKeyAndValue(dictionary, key, val, () => null);
         }
