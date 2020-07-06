@@ -80,7 +80,7 @@ namespace Shouldly
                                 case ShouldAssertException assert:
                                     throw assert;
                                 default:
-                                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);                                    
+                                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);
                             }
                         });
                 }
@@ -104,15 +104,15 @@ namespace Shouldly
 
                                 if (t.Exception.InnerException is TException expectedException)
                                     return expectedException;
-        
+
                                 return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException.GetType(), customMessage).ToString());
                             }
-        
+
                             if (t.IsCanceled)
                             {
                                 return new TaskCanceledException(t);
                             }
-        
+
                             return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
                         }))
                     .ContinueWith(x =>
