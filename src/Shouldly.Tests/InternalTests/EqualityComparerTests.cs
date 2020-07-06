@@ -10,7 +10,6 @@ namespace Shouldly.Tests.InternalTests
          * Code heavily influenced by code from xunit assertion tests
          * at https://github.com/xunit/xunit/blob/master/test/test.xunit2.assert/Asserts/EqualityAssertsTests.cs
          */
-
         [Fact]
         public void EqualityComparer_WhenGivenEqualLists_ShouldBeTrue()
         {
