@@ -13,7 +13,6 @@ namespace Shouldly.Configuration
 
         /// <summary>
         /// Increasing the offset will move past the first non-shouldly method
-        /// 
         /// Anonymous methods are not counted in the offset.
         /// This is useful when you have created a reusable method which is calling ShouldMatchApproved
         /// </summary>
