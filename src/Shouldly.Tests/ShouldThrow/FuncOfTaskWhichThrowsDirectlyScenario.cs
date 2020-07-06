@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskWhichThrowsDirectlyScenario
     {
-
         [Fact]
         public void ShouldPass()
         {
@@ -36,14 +35,14 @@ namespace Shouldly.Tests.ShouldThrow
             var task = new Func<Task>(() => { throw new TimeoutException(); });
             task.ShouldThrow(typeof(TimeoutException));
         }
-        
+
         [Fact]
         public async Task ShouldPassTimeoutExceptionAsync()
         {
             var task = new Func<Task>(async () => { await Task.FromException(new TimeoutException()); });
             await Task.FromResult(task.ShouldThrow<TimeoutException>());
         }
-       
+
         [Fact]
         public async Task ShouldPassTimeoutExceptionAsync_ExceptionTypePassedIn()
         {
