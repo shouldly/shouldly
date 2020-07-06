@@ -98,7 +98,7 @@ namespace NUnit.Framework.Constraints
             if (double.IsNaN(expected) && double.IsNaN(actual))
                 return true;
 
-            // Handle infinity specially since subtracting two infinite values gives 
+            // Handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails. mono also needs NaN to be handled
             // specially although ms.net could use either method. Also, handle
             // situation where no tolerance is used.
@@ -137,7 +137,7 @@ namespace NUnit.Framework.Constraints
             if (float.IsNaN(expected) && float.IsNaN(actual))
                 return true;
 
-            // handle infinity specially since subtracting two infinite values gives 
+            // handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails. mono also needs NaN to be handled
             // specially although ms.net could use either method.
             if (float.IsInfinity(expected) || float.IsNaN(expected) || float.IsNaN(actual))
