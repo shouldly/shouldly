@@ -149,6 +149,7 @@ namespace Shouldly
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Threading.Tasks.Task task, string? customMessage)
             where TException : System.Exception { }
     }
+    [System.Serializable]
     public class ShouldAssertException : System.Exception
     {
         public ShouldAssertException(string? message) { }
