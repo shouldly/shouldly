@@ -9,11 +9,12 @@ namespace Shouldly.Tests.ShouldNotThrow
 {
     public class TaskOfTScenario
     {
+
         [Fact]
         [UseCulture("en-US")]
         public void TaskOfTScenarioShouldFail()
         {
-            var task = Task.Factory.StartNew<string>(() => throw new RankException(),
+            var task = Task.Factory.StartNew<string>(() => { throw new RankException(); },
                             CancellationToken.None, TaskCreationOptions.None,
                             TaskScheduler.Default);
 

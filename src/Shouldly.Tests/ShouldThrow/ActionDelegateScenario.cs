@@ -61,7 +61,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var action = new Action(() => throw new NotImplementedException());
+            var action = new Action(() => { throw new NotImplementedException(); });
 
             var ex = action.ShouldThrow<NotImplementedException>();
             ex.ShouldBeOfType<NotImplementedException>();
@@ -71,7 +71,7 @@ Additional Info:
         [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
-            var action = new Action(() => throw new NotImplementedException());
+            var action = new Action(() => { throw new NotImplementedException(); });
 
             var ex = action.ShouldThrow(typeof(NotImplementedException));
             ex.ShouldBeOfType<NotImplementedException>();

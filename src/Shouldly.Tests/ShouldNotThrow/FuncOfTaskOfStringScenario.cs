@@ -14,7 +14,7 @@ namespace Shouldly.Tests.ShouldNotThrow
         [UseCulture("en-US")]
         public void FuncOfTaskOfStringScenarioShouldFail()
         {
-            var task = Task.Factory.StartNew<string>(() => throw new RankException(),
+            var task = Task.Factory.StartNew<string>(() => { throw new RankException(); },
                             CancellationToken.None, TaskCreationOptions.None,
                             TaskScheduler.Default);
             Verify.ShouldFail(() =>

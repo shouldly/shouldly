@@ -66,29 +66,33 @@ namespace Shouldly.Configuration
             if (ShouldlyEnvironmentContext.IsMac())
             {
                 var result = new[]
-                    {
-                        "/Applications/"
-                    }
-                    .Where(p => p != null)
-                    .Select(pf =>
-                    {
-                        var r = Path.Combine(pf, path);
-                        return r;
-                    })
+                {
+                    "/Applications/"
+                }
+                .Where(p =>
+                {
+                    return p != null;
+
+                })
+                .Select(pf =>
+                {
+                    var r = Path.Combine(pf, path);
+                    return r;
+                })
                     .FirstOrDefault(File.Exists);
 
                 return result;
             }
 
             return new[]
-                {
-                    Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
-                    Environment.GetEnvironmentVariable("ProgramFiles"),
-                    Environment.GetEnvironmentVariable("ProgramW6432")
-                }
-                .Where(p => p != null)
-                .Select(pf => Path.Combine(pf!, path))
-                .FirstOrDefault(File.Exists);
+{
+    Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
+    Environment.GetEnvironmentVariable("ProgramFiles"),
+    Environment.GetEnvironmentVariable("ProgramW6432")
+}
+.Where(p => p != null)
+.Select(pf => Path.Combine(pf!, path))
+.FirstOrDefault(File.Exists);
         }
 
         private static string? GetFullPath(string fileName)
@@ -119,6 +123,8 @@ namespace Shouldly.Configuration
                 return null;
             }
         }
+
     }
 }
+
 #endif
