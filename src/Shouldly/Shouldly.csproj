@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
     <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="System.Memory" Version="4.5.3" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
