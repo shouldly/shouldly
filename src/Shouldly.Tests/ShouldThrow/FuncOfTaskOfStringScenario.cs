@@ -69,7 +69,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew<string>(() => throw new InvalidOperationException(),
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
 
@@ -82,7 +82,7 @@ Additional Info:
         [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
-            var task = Task.Factory.StartNew<string>(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew<string>(() => throw new InvalidOperationException(),
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
 
