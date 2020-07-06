@@ -313,8 +313,12 @@ namespace Shouldly
             var duplicates = new List<T>();
 
             foreach (var item in items)
+            {
                 if (!uniqueItems.Add(item))
+                {
                     duplicates.Add(item);
+                }
+            }
 
             return duplicates;
         }
