@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -25,7 +26,7 @@ namespace Shouldly
             type.GetTypeInfo().IsDefined(attributeType, inherit);
 #endif
 
-        public static bool TryGetEnumerable(this object obj, out IEnumerable enumerable)
+        public static bool TryGetEnumerable(this object obj,  [NotNullWhen(true)] out IEnumerable? enumerable)
         {
             enumerable = obj as IEnumerable;
 
@@ -50,7 +51,7 @@ namespace Shouldly
             return enumerable != null;
         }
 
-        private static bool IsMemory(this Type type, out Type elementType)
+        private static bool IsMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
         {
             if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
             {
@@ -62,7 +63,7 @@ namespace Shouldly
             return false;
         }
 
-        private static bool IsReadOnlyMemory(this Type type, out Type elementType)
+        private static bool IsReadOnlyMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
         {
             if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
             {
@@ -79,19 +80,18 @@ namespace Shouldly
             return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
                 ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
                 ?.MakeGenericMethod(elementType)
-                .Invoke(null, new[] { readOnlyMemory });
+                .Invoke(null, new[] { readOnlyMemory })!;
         }
 
         private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
         {
-            var readOnlyMemory = objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+            return objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
                 .SingleOrDefault(method =>
                     method.Name == "op_Implicit"
                     && method.GetParameters()[0].ParameterType == objectType
                     && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
                     && returnElementType == genericParameterType)
-                ?.Invoke(null, new[] { obj });
-            return readOnlyMemory;
+                ?.Invoke(null, new[] { obj })!;
         }
     }
 }

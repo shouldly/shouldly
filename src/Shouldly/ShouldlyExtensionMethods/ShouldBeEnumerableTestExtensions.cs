@@ -352,9 +352,9 @@ namespace Shouldly
             ShouldBeOfTypes(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, [InstantHandle] Func<string> customMessage)
+        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, [InstantHandle] Func<string?>? customMessage)
         {
-            actual.Select(x => x.GetType()).ToArray().ShouldBe(expected, customMessage);
+            actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, customMessage);
         }
     }
 }

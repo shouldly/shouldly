@@ -225,7 +225,7 @@ namespace Shouldly
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T>? customComparer, System.Func<string?>? customMessage) { }
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T>? customComparer, string? customMessage) { }
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, params System.Type[] expected) { }
-        public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, System.Func<string> customMessage) { }
+        public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Func<string?>? customMessage) { }
@@ -264,17 +264,17 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeNullExtensions
     {
-        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T actual)
+        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual)
             where T :  class { }
-        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T actual, System.Func<string?>? customMessage)
+        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual, System.Func<string?>? customMessage)
             where T :  class { }
-        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T actual, string? customMessage)
+        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual, string? customMessage)
             where T :  class { }
-        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T actual)
+        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T? actual)
             where T :  class { }
-        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T actual, System.Func<string?>? customMessage)
+        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T? actual, System.Func<string?>? customMessage)
             where T :  class { }
-        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T actual, string? customMessage)
+        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T? actual, string? customMessage)
             where T :  class { }
     }
     [Shouldly.ShouldlyMethods]

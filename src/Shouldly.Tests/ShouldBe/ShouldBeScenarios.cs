@@ -407,7 +407,7 @@ Additional Info:
 
         public class BadEquatable : IEquatable<BadEquatable>
         {
-            public bool Equals(BadEquatable other)
+            public bool Equals(BadEquatable? other)
             {
                 return false;
             }

@@ -9,7 +9,7 @@ namespace Shouldly
 {
     internal static class StringHelpers
     {
-        internal static string? ToStringAwesomely(this object? value)
+        internal static string ToStringAwesomely(this object? value)
         {
             if (value == null)
                 return "null";

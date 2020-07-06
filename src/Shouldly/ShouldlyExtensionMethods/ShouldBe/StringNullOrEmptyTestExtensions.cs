@@ -40,7 +40,7 @@ namespace Shouldly
         [ContractAnnotation("actual:null => halt")]
         public static void ShouldNotBeNullOrEmpty([NotNull] this string? actual, [InstantHandle] Func<string?>? customMessage)
         {
-            if (string.IsNullOrEmpty(actual))
+            if (actual == null || string.IsNullOrEmpty(actual))
                 throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage).ToString());
         }
     }
