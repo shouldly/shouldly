@@ -32,7 +32,7 @@ System.RankException
 
 Additional Info:
     Some additional context");
-        }    
+        }
 
     [Fact]
     public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail_ExceptionTypePassedIn()

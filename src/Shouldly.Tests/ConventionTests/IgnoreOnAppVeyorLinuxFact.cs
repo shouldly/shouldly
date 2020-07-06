@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ConventionTests
                 Skip = "Ignored on Linux";
             }
         }
-        
+
         private static bool IsAppVeyor()
             => Environment.GetEnvironmentVariable("APPVEYOR") != null;
     }

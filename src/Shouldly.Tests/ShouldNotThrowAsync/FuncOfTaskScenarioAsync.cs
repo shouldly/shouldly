@@ -66,7 +66,6 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
                 TaskScheduler.Default);
 
             task.ShouldNotThrowAsync().Wait();
-            
         }
     }
 }

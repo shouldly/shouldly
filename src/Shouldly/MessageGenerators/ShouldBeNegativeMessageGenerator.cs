@@ -19,8 +19,7 @@ namespace Shouldly.MessageGenerators
 {actual}
     " : " ";
 
-
-            return 
+            return
 $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()} but{actualValue}is positive";
         }

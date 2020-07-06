@@ -79,6 +79,6 @@ namespace Shouldly
         public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance, [InstantHandle] Func<string?>? customMessage)
         {
             actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage);
-        } 
+        }
     }
 }

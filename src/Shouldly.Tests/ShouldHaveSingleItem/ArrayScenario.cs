@@ -29,7 +29,7 @@ errorWithoutSource:
     items
 
 Additional Info:
-    Some additional context");            
+    Some additional context");
         }
 
         [Fact]

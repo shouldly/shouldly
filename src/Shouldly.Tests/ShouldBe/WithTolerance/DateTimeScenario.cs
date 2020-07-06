@@ -47,10 +47,9 @@ Additional Info:
             var dateString = date.ToString("o");
             var expected = new DateTime(635961688375106000);
             var expectedString = expected.ToString("o");
-            
+
             Verify.ShouldFail(() =>
 date.ShouldBe(expected, "Some additional context"),
-
 
 errorWithSource:
 $@"date
@@ -72,13 +71,11 @@ Additional Info:
     Some additional context");
         }
 
-
         [Fact]
         public void ShouldPass()
         {
             var date = new DateTime(2000, 6, 1);
             date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5d));
-        }          
-
+        }
     }
 }

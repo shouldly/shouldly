@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldThrow
         public void ShouldPass()
         {
             // ReSharper disable once RedundantDelegateCreation
-            var task = new Func<Task>(() => { throw new InvalidOperationException(); });
+            var task = new Func<Task>(() => throw new InvalidOperationException());
             task.ShouldThrow<InvalidOperationException>();
         }
 
@@ -18,21 +18,21 @@ namespace Shouldly.Tests.ShouldThrow
         public void ShouldPass_ExceptionTypePassedIn()
         {
             // ReSharper disable once RedundantDelegateCreation
-            var task = new Func<Task>(() => { throw new InvalidOperationException(); });
+            var task = new Func<Task>(() => throw new InvalidOperationException());
             task.ShouldThrow(typeof(InvalidOperationException));
         }
 
         [Fact]
         public void ShouldPassTimeoutException()
         {
-            var task = new Func<Task>(() => { throw new TimeoutException(); });
+            var task = new Func<Task>(() => throw new TimeoutException());
             task.ShouldThrow<TimeoutException>();
         }
 
         [Fact]
         public void ShouldPassTimeoutException_ExceptionTypePassedIn()
         {
-            var task = new Func<Task>(() => { throw new TimeoutException(); });
+            var task = new Func<Task>(() => throw new TimeoutException());
             task.ShouldThrow(typeof(TimeoutException));
         }
 

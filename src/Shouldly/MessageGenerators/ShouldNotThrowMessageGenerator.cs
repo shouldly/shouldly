@@ -18,7 +18,7 @@
             string errorMessage;
             if (codePart == "null" && !throwContext.IsAsync)
             {
-                errorMessage = 
+                errorMessage =
 $@"delegate
     should not throw but threw
 {expectedValue}";
@@ -32,7 +32,7 @@ $@"Task
             }
             else if (isExtensionMethod && !throwContext.IsAsync)
             {
-                errorMessage = 
+                errorMessage =
 $@"`{codePart}()`
     should not throw but threw
 {expectedValue}";
@@ -46,7 +46,7 @@ $@"Task `{codePart}`
             }
             else
             {
-                errorMessage = 
+                errorMessage =
 $@"`{codePart}`
     should not throw but threw
 {expectedValue}";

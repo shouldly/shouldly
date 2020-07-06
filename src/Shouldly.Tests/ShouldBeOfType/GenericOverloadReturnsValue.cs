@@ -3,10 +3,8 @@
 namespace Shouldly.Tests.ShouldBeOfType
 {
     public class GenericOverloadReturnsValue
-   
     {
-
-    [Fact]
+        [Fact]
         public void ValueShouldBeReturnedWhenSuccessful()
         {
             object val = "Foo";

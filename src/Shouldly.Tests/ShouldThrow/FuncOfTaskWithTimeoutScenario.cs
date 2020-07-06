@@ -6,10 +6,8 @@ using Xunit;
 namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskWithTimeoutScenario
-   
     {
-
-    [Fact]
+        [Fact]
         public void ShouldThrowAWobbly()
         {
             var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
@@ -21,7 +19,7 @@ namespace Shouldly.Tests.ShouldThrow
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
-[Fact]
+        [Fact]
         public void ShouldThrowAWobbly_ExceptionTypePassedIn()
         {
             var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
@@ -43,7 +41,7 @@ namespace Shouldly.Tests.ShouldThrow
         [Fact]
         public void ShouldPass()
         {
-            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
@@ -53,10 +51,10 @@ namespace Shouldly.Tests.ShouldThrow
             ex.ShouldBeOfType<InvalidOperationException>();
         }
 
-[Fact]
+        [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
-            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 

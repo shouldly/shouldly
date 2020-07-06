@@ -11,7 +11,7 @@
         {
             var codePart = context.CodePart;
             var expectedValue = context.Expected.ToStringAwesomely();
-            
+
             var actual = context.Actual.ToStringAwesomely();
             var actualString = codePart == actual ? " did not" : $@" had
 {actual}";

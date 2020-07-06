@@ -1,6 +1,6 @@
 namespace Shouldly
 {
-    #if NETSTANDARD 
+    #if NETSTANDARD
     internal static class ShouldlyEnvironmentContext
     {
         public static bool IsWindows()
@@ -8,7 +8,7 @@ namespace Shouldly
 
         public static bool IsMac()
             => System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX);
-        
+
         public static bool IsLinux()
            => System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux);
     }
@@ -20,9 +20,9 @@ namespace Shouldly
 
         public static bool IsMac()
             => System.Environment.OSVersion.Platform == System.PlatformID.MacOSX;
-        
+
         public static bool IsLinux()
             => System.Environment.OSVersion.Platform == System.PlatformID.Unix;
     }
-    #endif    
+    #endif
 }
