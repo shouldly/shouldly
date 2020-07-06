@@ -30,6 +30,8 @@ namespace Shouldly
         // is relevant.
         public bool HasRelevantActual { get; set; }
         public bool HasRelevantKey { get; set; }
+        public bool HasListedFailures { get; set; }
+        public Dictionary<int, object> ListedFailures { get; set; } = new Dictionary<int, object>();
 
         public bool IsNegatedAssertion => ShouldMethod.Contains("Not");
         public string CustomMessage { get; set; }

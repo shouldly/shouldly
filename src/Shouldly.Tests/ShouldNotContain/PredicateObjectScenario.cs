@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldNotContain
         public void PredicateObjectScenarioShouldFail()
         {
             var a = new object();
-            var b = new object();
+            var b = "string";
             var c = new object();
             Verify.ShouldFail(() =>
 new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName.Equals("System.Object"),
@@ -21,15 +21,17 @@ errorWithSource:
     should not contain an element satisfying the condition
 o.GetType().FullName.Equals(""System.Object"")
     but does
+        [[0 => System.Object (000000)], [2 => System.Object (000000)]]
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"[System.Object (000000), System.Object (000000), System.Object (000000)]
+@"[System.Object (000000), ""string"", System.Object (000000)]
     should not contain an element satisfying the condition
 o.GetType().FullName.Equals(""System.Object"")
     but does
+        [[0 => System.Object (000000)], [2 => System.Object (000000)]]
 
 Additional Info:
     Some additional context");
