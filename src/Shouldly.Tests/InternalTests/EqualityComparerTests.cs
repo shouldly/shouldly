@@ -6,11 +6,10 @@ namespace Shouldly.Tests.InternalTests
 {
     public class EqualityComparerTests
     {
-        /* 
+        /*
          * Code heavily influenced by code from xunit assertion tests
          * at https://github.com/xunit/xunit/blob/master/test/test.xunit2.assert/Asserts/EqualityAssertsTests.cs
          */
-
         [Fact]
         public void EqualityComparer_WhenGivenEqualLists_ShouldBeTrue()
         {
@@ -53,7 +52,7 @@ namespace Shouldly.Tests.InternalTests
         {
             var eq1 = new SpyEquatable();
             var eq2 = new SpyEquatable();
-            
+
             eq1.ShouldBe(eq2);
             eq2.EqualsCalled.ShouldBe(true);
             eq2.EqualsOther.ShouldBeSameAs(eq1);
