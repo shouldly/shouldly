@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-using System;
+﻿using System;
 
 namespace Shouldly.Configuration
 {
@@ -48,5 +47,3 @@ namespace Shouldly.Configuration
                 => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}";
     }
 }
-
-#endif

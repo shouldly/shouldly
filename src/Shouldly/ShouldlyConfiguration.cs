@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
-
-#if ShouldMatchApproved
 using Shouldly.Configuration;
-#endif
-
-#if ShouldMatchApproved && !CallContextPolyfill
-using System.Runtime.Remoting.Messaging;
-#endif
 
 namespace Shouldly
 {
@@ -23,7 +16,6 @@ namespace Shouldly
         }
 
         public static List<string> CompareAsObjectTypes { get; private set; }
-#if ShouldMatchApproved
         private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
         public static DiffToolConfiguration DiffTools {
             get => _lazyDiffTools.Value;
@@ -41,7 +33,6 @@ namespace Shouldly
                 FilenameGenerator = (testMethodInfo, descriminator, type, extension)
                     => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
             });
-#endif
 
         /// <summary>
         /// When set to true shouldly will not try and create better error messages using your source code

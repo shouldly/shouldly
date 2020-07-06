@@ -1,5 +1,3 @@
-#if ShouldMatchApproved
-
 namespace Shouldly.Configuration
 {
     public class DoNotLaunchWhenPlatformIsNotWindows : IShouldNotLaunchDiffTool
@@ -10,4 +8,3 @@ namespace Shouldly.Configuration
         }
     }
 }
-#endif

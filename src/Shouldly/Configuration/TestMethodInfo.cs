@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -61,4 +60,3 @@ namespace Shouldly.Configuration
         public string? DeclaringTypeName { get; private set; }
     }
 }
-#endif

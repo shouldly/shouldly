@@ -1,5 +1,4 @@
-﻿#if CallContextPolyfill
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Threading;
 
 namespace Shouldly
@@ -25,4 +24,3 @@ namespace Shouldly
             state.TryGetValue(name, out AsyncLocal<object?>? data) ? data.Value : null;
     }
 }
-#endif

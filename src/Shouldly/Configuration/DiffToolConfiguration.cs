@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,4 +65,3 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         }
     }
 }
-#endif

@@ -1,22 +1,11 @@
-﻿#if StackTrace
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-#endif
 
 namespace Shouldly.Internals
 {
-#if !StackTrace
-    internal class ActualCodeTextGetter : ICodeTextGetter
-    {
-        public string? GetCodeText(object? actual)
-        {
-            return actual.ToStringAwesomely();
-        }
-    }
-#else
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
         bool _determinedOriginatingFrame;
@@ -161,5 +150,4 @@ namespace Shouldly.Internals
                 .Trim();
         }
     }
-#endif
 }

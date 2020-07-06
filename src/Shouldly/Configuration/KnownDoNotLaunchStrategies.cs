@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using JetBrains.Annotations;
 
 namespace Shouldly.Configuration
@@ -25,4 +24,3 @@ namespace Shouldly.Configuration
         public readonly IShouldNotLaunchDiffTool TravisCI = new DoNotLaunchWhenEnvVariableIsPresent("TRAVIS");
     }
 }
-#endif

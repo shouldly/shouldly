@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System;
 using System.Linq;
 
@@ -19,4 +18,3 @@ namespace Shouldly.Configuration
         }
     }
 }
-#endif
