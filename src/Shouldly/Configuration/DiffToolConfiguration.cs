@@ -54,7 +54,7 @@ namespace Shouldly.Configuration
             var diffTool = _diffToolPriority.FirstOrDefault(d => d.Exists());
             if (diffTool == null)
                 diffTool = _diffTools.FirstOrDefault(d => d.Exists());
-            
+
             if (diffTool == null)
             {
                 throw new ShouldAssertException(@"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
