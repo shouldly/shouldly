@@ -8,7 +8,6 @@ namespace Shouldly.Tests.ShouldThrow
 {
     public class FuncOfTaskWhichThrowsDirectlyScenario
     {
-
         [Fact]
         public void ShouldPass()
         {
