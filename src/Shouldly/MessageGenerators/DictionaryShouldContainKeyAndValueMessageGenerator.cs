@@ -31,7 +31,7 @@ namespace Shouldly.MessageGenerators
             if (keyExists)
             {
                 var actualValueString = dictionary[context.Key].ToStringAwesomely();
-                var valueString = 
+                var valueString =
 $@"    but value was
 {actualValueString}";
                 return string.Format(format, codePart, keyValue, expectedValue, valueString);
