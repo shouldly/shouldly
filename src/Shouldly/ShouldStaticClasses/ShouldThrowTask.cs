@@ -122,8 +122,8 @@ namespace Shouldly
             {
                 e = (e as AggregateException)?.InnerException ?? e;
 
-                if (e is TException)
-                    return (TException)e;
+                if (e is TException exception)
+                    return exception;
 
                 throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString());
             }

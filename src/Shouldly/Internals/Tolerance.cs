@@ -39,36 +39,23 @@ namespace NUnit.Framework.Constraints
         ///     in an exact match but for floats and doubles a
         ///     default tolerance may be used.
         /// </summary>
-        public static Tolerance Empty
-        {
-            get { return new Tolerance(0, ToleranceMode.None); }
-        }
+        public static Tolerance Empty => new Tolerance(0, ToleranceMode.None);
 
         /// <summary>
         ///     Returns a zero Tolerance object, equivalent to
         ///     specifying an exact match.
         /// </summary>
-        public static Tolerance Zero
-        {
-            get { return new Tolerance(0, ToleranceMode.Linear); }
-        }
+        public static Tolerance Zero => new Tolerance(0, ToleranceMode.Linear);
 
         /// <summary>
         ///     Gets the ToleranceMode for the current Tolerance
         /// </summary>
-        public ToleranceMode Mode
-        {
-            get { return mode; }
-        }
-
+        public ToleranceMode Mode => mode;
 
         /// <summary>
         ///     Gets the value of the current Tolerance instance.
         /// </summary>
-        public object Value
-        {
-            get { return amount; }
-        }
+        public object Value => amount;
 
         /// <summary>
         ///     Returns a new tolerance, using the current amount as a percentage.
@@ -175,10 +162,7 @@ namespace NUnit.Framework.Constraints
         /// <summary>
         ///     Returns true if the current tolerance is empty.
         /// </summary>
-        public bool IsEmpty
-        {
-            get { return mode == ToleranceMode.None; }
-        }
+        public bool IsEmpty => mode == ToleranceMode.None;
 
         /// <summary>
         ///     Tests that the current Tolerance is linear with a

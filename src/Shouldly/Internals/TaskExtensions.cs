@@ -20,8 +20,7 @@ namespace Shouldly
                     proxy.TrySetCanceled();
                     break;
                 case TaskStatus.RanToCompletion:
-                    var castedSource = source as Task<TResult>;
-                    proxy.TrySetResult(castedSource == null
+                    proxy.TrySetResult(!(source is Task<TResult> castedSource)
                         ? default! // source is a Task
                         : castedSource.Result); // source is a Task<TResult>
                     break;

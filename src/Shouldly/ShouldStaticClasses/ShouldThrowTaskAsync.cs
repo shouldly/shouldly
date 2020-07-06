@@ -140,8 +140,8 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                if (e is TException)
-                    return Task.FromResult((TException) e);
+                if (e is TException exception)
+                    return Task.FromResult(exception);
 
                 throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
             }
