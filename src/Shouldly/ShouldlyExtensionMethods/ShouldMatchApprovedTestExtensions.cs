@@ -32,7 +32,7 @@ namespace Shouldly
             actual.ShouldMatchApproved(() => customMessage, configureOptions);
         }
 
-        public static void ShouldMatchApproved(this string actual, Func<string> customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
+        public static void ShouldMatchApproved(this string actual, Func<string?> customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
             var codeGetter = new ActualCodeTextGetter();
             var stackTrace = new StackTrace(true);
