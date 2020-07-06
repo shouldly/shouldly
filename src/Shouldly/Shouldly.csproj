@@ -7,9 +7,9 @@
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  
+
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
-    <Authors>Jake Ginnivan, Joseph Woodward</Authors>    
+    <Authors>Jake Ginnivan, Joseph Woodward</Authors>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
     <PackageIcon>assets/logo_128x128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/shouldly/shouldly</PackageProjectUrl>
@@ -17,7 +17,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    
+
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
