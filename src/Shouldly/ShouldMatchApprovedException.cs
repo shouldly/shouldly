@@ -21,7 +21,7 @@ copy /Y ""{receivedFile}"" ""{approvedFile}""";
                 msg += $@"
 cp ""{receivedFile}"" ""{approvedFile}""";
             }
-           
+
             msg += $@"
 ----------------------------
 
