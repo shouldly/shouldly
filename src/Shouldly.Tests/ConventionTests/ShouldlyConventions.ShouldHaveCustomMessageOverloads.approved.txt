@@ -2,8 +2,8 @@
 ----------------------------------------------------------------------------------------------------------------------------------
 
 	ShouldBe(this System.String actual, System.String expected, Shouldly.StringCompareShould options)
-	ShouldStartWith(this System.String actual, System.String expected)
 	ShouldBe(this System.String actual, System.String expected, Shouldly.StringCompareShould option)
+	ShouldStartWith(this System.String actual, System.String expected)
 	ShouldEndWith(this System.String actual, System.String expected)
 	ShouldNotStartWith(this System.String actual, System.String expected)
 	ShouldNotEndWith(this System.String actual, System.String expected)
