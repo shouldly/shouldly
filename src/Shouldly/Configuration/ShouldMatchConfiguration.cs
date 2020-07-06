@@ -29,7 +29,7 @@ namespace Shouldly.Configuration
         public bool PreventDiff { get; set; }
 
         /// <summary>
-        /// File extension without the .
+        /// File extension without the.
         /// </summary>
         public string FileExtension { get; set; } = "txt";
 
