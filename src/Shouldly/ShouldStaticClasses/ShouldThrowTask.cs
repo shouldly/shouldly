@@ -67,7 +67,7 @@ namespace Shouldly
         /*** Should.Throw(Task, TimeSpan) ***/
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter) where TException : Exception
         {
-            return Throw<TException>(actual, timeoutAfter, () => null);            
+            return Throw<TException>(actual, timeoutAfter, () => null);
         }
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string customMessage) where TException : Exception
         {
@@ -81,7 +81,7 @@ namespace Shouldly
         /*** Should.Throw(Task, TimeSpan) ***/
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType)
         {
-            return Throw(actual, timeoutAfter, () => null, exceptionType);            
+            return Throw(actual, timeoutAfter, () => null, exceptionType);
         }
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, string customMessage, Type exceptionType)
         {
@@ -273,7 +273,7 @@ namespace Shouldly
         /*** Should.NotThrow(Func<Task<T>>) ***/
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action)
         {
-            return NotThrow(action, () => null);  
+            return NotThrow(action, () => null);
         }
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string customMessage)
         {
