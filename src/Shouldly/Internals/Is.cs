@@ -73,7 +73,9 @@ namespace Shouldly
             if (actual == null || expected == null)
                 return false;
 
-            if (actual is ICollection actualCollection && expected is ICollection && actualCollection.Count != ((ICollection)expected).Count)
+            if (actual is ICollection actualCollection &&
+                expected is ICollection collection &&
+                actualCollection.Count != collection.Count)
                 return false;
 
             var expectedList = expected.ToList();

@@ -34,10 +34,10 @@ namespace Shouldly
             // Null?
             if (!type.IsValueType() || (type.IsGenericType() && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
             {
-                if (object.Equals(x, null))
-                    return object.Equals(y, null);
+                if (Equals(x, null))
+                    return Equals(y, null);
 
-                if (object.Equals(y, null))
+                if (Equals(y, null))
                     return false;
             }
 

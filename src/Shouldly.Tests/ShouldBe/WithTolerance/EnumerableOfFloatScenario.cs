@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
 using Xunit;
 

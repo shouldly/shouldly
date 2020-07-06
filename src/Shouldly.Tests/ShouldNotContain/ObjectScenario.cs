@@ -1,12 +1,10 @@
-﻿using System;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
 {
     public class ObjectScenario
     {
-
         [Fact]
         public void ObjectScenarioShouldFail()
         {

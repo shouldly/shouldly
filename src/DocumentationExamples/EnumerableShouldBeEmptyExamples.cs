@@ -31,7 +31,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var moesTavernOnTheWeekend = new List<Person> { };
+                var moesTavernOnTheWeekend = new List<Person>();
                 moesTavernOnTheWeekend.ShouldNotBeEmpty();
             }, _testOutputHelper);
         }

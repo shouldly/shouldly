@@ -88,7 +88,8 @@ Additional Info:
             public override bool Equals(object? obj)
             {
                 if (ReferenceEquals(null, obj)) return false;
-                return obj is NonNullableType && Equals((NonNullableType) obj);
+                return obj is NonNullableType type &&
+                       Equals(type);
             }
 
             public override int GetHashCode()

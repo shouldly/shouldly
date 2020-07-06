@@ -86,7 +86,7 @@ Additional Info:
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return string.Equals(identity, other.identity);
+                return Equals(identity, other.identity);
             }
 
             public override bool Equals(object? obj)
