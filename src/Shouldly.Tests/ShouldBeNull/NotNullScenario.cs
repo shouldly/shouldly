@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBeNull
         [Fact]
         public void NotNullScenarioShouldFail()
         {
-            string myNullRef = null;
+            string? myNullRef = null;
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
 myNullRef.ShouldNotBeNull("Some additional context"),

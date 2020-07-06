@@ -171,7 +171,7 @@ Additional Info:
         [Fact]
         public void ActualIsNullScenario()
         {
-            string nullString = null;
+            string? nullString = null;
 
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
@@ -407,7 +407,7 @@ Additional Info:
 
         public class BadEquatable : IEquatable<BadEquatable>
         {
-            public bool Equals(BadEquatable other)
+            public bool Equals(BadEquatable? other)
             {
                 return false;
             }
@@ -421,7 +421,7 @@ Additional Info:
             public bool EqualsResult { private get; set; }
 
             // ReSharper disable once CSharpWarnings::CS0659
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 return EqualsResult;
             }

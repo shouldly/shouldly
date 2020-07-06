@@ -3,6 +3,6 @@
     internal interface IAssertion
     {
         bool IsSatisfied();
-        string GenerateMessage(string customMessage);
+        string? GenerateMessage(string? customMessage);
     }
 }

@@ -12,9 +12,9 @@ namespace Shouldly.Tests
         [MemberData(nameof(ExceptionThrowers))]
         public static void Top_stack_frame_is_user_code(ExceptionThrower exceptionThrower)
         {
-            var exception = exceptionThrower.Catch();
+            var exception = exceptionThrower.Catch()!;
 
-            var stackTraceLines = exception.StackTrace.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var stackTraceLines = exception.StackTrace!.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             stackTraceLines.First().ShouldContain(exceptionThrower.ThrowingAction.Method.Name);
         }
@@ -23,11 +23,11 @@ namespace Shouldly.Tests
         [MemberData(nameof(ExceptionThrowers))]
         public static void Stack_trace_is_trimmed_the_same_as_default_exception_stack_traces(ExceptionThrower exceptionThrower)
         {
-            var shouldlyException = exceptionThrower.Catch();
-            var defaultException = new ExceptionThrower(typeof(Exception), false, () => throw new Exception()).Catch();
+            var shouldlyException = exceptionThrower.Catch()!;
+            var defaultException = new ExceptionThrower(typeof(Exception), false, () => throw new Exception()).Catch()!;
 
-            var shouldlyEndingWhitespace = GetEndingWhitespace(shouldlyException.StackTrace);
-            var defaultEndingWhitespace = GetEndingWhitespace(defaultException.StackTrace);
+            var shouldlyEndingWhitespace = GetEndingWhitespace(shouldlyException.StackTrace!);
+            var defaultEndingWhitespace = GetEndingWhitespace(defaultException.StackTrace!);
 
             shouldlyEndingWhitespace.ShouldBe(defaultEndingWhitespace);
         }

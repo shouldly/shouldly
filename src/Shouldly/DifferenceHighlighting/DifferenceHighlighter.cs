@@ -13,7 +13,7 @@ namespace Shouldly.DifferenceHighlighting
         /// Compares an actual value against an expected one and creates
         /// a string with the differences highlighted
         /// </summary>
-        public static string HighlightDifferences(IShouldlyAssertionContext context)
+        public static string? HighlightDifferences(IShouldlyAssertionContext context)
         {
             var validDifferenceHighlighter = GetDifferenceHighlighterFor(context);
 
@@ -30,7 +30,7 @@ namespace Shouldly.DifferenceHighlighting
             return GetDifferenceHighlighterFor(context) != null;
         }
 
-        static IDifferenceHighlighter GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
+        static IDifferenceHighlighter? GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
         {
             return _differenceHighlighters.FirstOrDefault(x => x.CanProcess(context));
         }

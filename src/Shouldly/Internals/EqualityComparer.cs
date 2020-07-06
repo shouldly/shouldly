@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using NUnit.Framework.Constraints;
 
@@ -17,13 +18,13 @@ namespace Shouldly
 
         readonly Func<IEqualityComparer> _innerComparerFactory;
 
-        public EqualityComparer(IEqualityComparer innerComparer = null)
+        public EqualityComparer(IEqualityComparer? innerComparer = null)
         {
             // Use a thunk to delay evaluation of DefaultInnerComparer
             _innerComparerFactory = () => innerComparer ?? DefaultInnerComparer;
         }
 
-        public bool Equals(T x, T y)
+        public bool Equals([AllowNull] T x, [AllowNull] T y)
         {
             var type = typeof(T);
 
@@ -33,10 +34,10 @@ namespace Shouldly
             // Null?
             if (!type.IsValueType() || (type.IsGenericType() && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
             {
-                if (object.Equals(x, default(T)))
-                    return object.Equals(y, default(T));
+                if (object.Equals(x, null))
+                    return object.Equals(y, null);
 
-                if (object.Equals(y, default(T)))
+                if (object.Equals(y, null))
                     return false;
             }
 
@@ -48,8 +49,8 @@ namespace Shouldly
             }
 
             // Enumerable?
-            if (x.TryGetEnumerable(out var enumerableX) &&
-                y.TryGetEnumerable(out var enumerableY))
+            if (x!.TryGetEnumerable(out var enumerableX) &&
+                y!.TryGetEnumerable(out var enumerableY))
             {
                 var enumeratorX = enumerableX.GetEnumerator();
                 var enumeratorY = enumerableY.GetEnumerator();
@@ -70,11 +71,11 @@ namespace Shouldly
 
             // Implements IEquatable<T>?
             if (x is IEquatable<T> equatable)
-                return equatable.Equals(y);
+                return equatable.Equals(y!);
 
             // Implements IComparable<T>?
             if (x is IComparable<T> comparableGeneric)
-                return comparableGeneric.CompareTo(y) == 0;
+                return comparableGeneric.CompareTo(y!) == 0;
 
             // Implements IComparable?
             if (x is IComparable comparable)
@@ -93,7 +94,7 @@ namespace Shouldly
             return object.Equals(x, y);
         }
 
-        public int GetHashCode(T obj)
+        public int GetHashCode([DisallowNull] T obj)
             => throw new NotImplementedException();
     }
 }

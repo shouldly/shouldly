@@ -34,8 +34,8 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                string name = null;
-                Should.NotThrow(() => new Person(name));
+                string? name = null;
+                Should.NotThrow(() => new Person(name!));
             }, _testOutputHelper);
         }
 

@@ -6,8 +6,8 @@ namespace Shouldly.Tests.TestHelpers
     {
         public int Compare(T x, T y)
         {
-            var x1 = x as Custom;
-            var x2 = y as Custom;
+            Custom x1 = (Custom)(object)x!;
+            Custom x2 = (Custom)(object)y!;
             if (x1.Val == x2.Val)
                 return 0;
             return x1.Val > x2.Val ? 1 : -1;

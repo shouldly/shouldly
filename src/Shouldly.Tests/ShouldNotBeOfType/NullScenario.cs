@@ -7,7 +7,7 @@ namespace Shouldly.Tests.ShouldNotBeOfType
         [Fact]
         public void AndShouldNotThrow()
         {
-            object o = null;
+            object? o = null;
             o.ShouldNotBeOfType<int>("Some additional context");
         }
 

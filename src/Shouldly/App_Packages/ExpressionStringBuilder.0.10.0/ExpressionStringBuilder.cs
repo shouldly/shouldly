@@ -26,7 +26,7 @@ namespace ExpressionToString
         /// <param name="expression">The expression to format</param>
         /// <param name="trimLongArgumentList">If true will replace large (>3) argument lists with an ellipsis</param>
         /// <returns></returns>
-        public static string ToString(Expression expression, bool trimLongArgumentList = false)
+        public static string ToString(Expression? expression, bool trimLongArgumentList = false)
         {
             var visitor = new ExpressionStringBuilder(trimLongArgumentList);
             visitor.Visit(expression);
@@ -121,7 +121,7 @@ namespace ExpressionToString
                 {
                     if (node.Value is bool)
                     {
-                        Out(node.Value.ToString().ToLower());
+                        Out(node.Value.ToString()?.ToLower());
                     }
                     else
                     {
@@ -281,7 +281,7 @@ namespace ExpressionToString
             }
         }
 
-        private void Out(string s)
+        private void Out(string? s)
         {
             builder.Append(s);
         }

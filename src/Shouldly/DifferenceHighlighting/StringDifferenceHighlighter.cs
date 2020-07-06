@@ -13,12 +13,12 @@ namespace Shouldly.DifferenceHighlighting
         readonly Case _sensitivity;
         readonly Func<string, string> _transform;
 
-        public StringDifferenceHighlighter(Case sensitivity, Func<string, string> transform = null)
+        public StringDifferenceHighlighter(Case sensitivity, Func<string, string>? transform = null)
         {
             _sensitivity = sensitivity;
             _transform = transform ?? (s => s);
         }
-        public string HighlightDifferences(string expected, string actual)
+        public string? HighlightDifferences(string? expected, string? actual)
         {
             if (expected == null || actual == null) return null;
 

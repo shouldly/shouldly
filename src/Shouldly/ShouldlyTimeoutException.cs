@@ -9,12 +9,12 @@ namespace Shouldly
         {
         }
 
-        public ShouldlyTimeoutException(string message, ShouldlyTimeoutException inner) : base(message, inner)
+        public ShouldlyTimeoutException(string? message, ShouldlyTimeoutException? inner) : base(message, inner)
         {
         }
 
 #if StackTrace
-        private string stackTrace;
+        private string? stackTrace;
 
         public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref stackTrace);
 #endif

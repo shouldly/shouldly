@@ -9,7 +9,6 @@ namespace Shouldly.Tests.Strings
         {
             Verify.ShouldFail(
                 () => "a".ShouldBeNullOrWhiteSpace("Some additional context"),
-
                 errorWithSource:
                 @"""a""
     should be null or white space
@@ -50,7 +49,7 @@ Additional Info:
         [Fact]
         public void NullShouldPass()
         {
-            ((string) null).ShouldBeNullOrWhiteSpace();
+            ((string?)null).ShouldBeNullOrWhiteSpace();
         }
 
         [Fact]

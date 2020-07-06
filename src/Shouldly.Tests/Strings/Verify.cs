@@ -8,7 +8,7 @@ namespace Shouldly.Tests.Strings
     {
         static readonly Regex MatchGetHashCode = new Regex("\\(\\d{5,8}\\)");
 
-        public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string> messageScrubber = null)
+        public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string>? messageScrubber = null)
         {
             if (messageScrubber == null)
             {

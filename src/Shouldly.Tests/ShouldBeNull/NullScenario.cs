@@ -31,7 +31,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            ((string)null).ShouldBeNull();
+            ((string?)null).ShouldBeNull();
         }
     }
 }

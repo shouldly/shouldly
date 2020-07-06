@@ -1,2 +1,2 @@
-string myRef = null;
+string? myRef = null;
 myRef.ShouldNotBeNull();

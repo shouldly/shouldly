@@ -16,9 +16,9 @@ namespace Shouldly.Configuration
 
         public DiffToolConfiguration()
         {
-            _diffTools = typeof (KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)).ToList();
+            _diffTools = typeof (KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)!).ToList();
             _knownShouldNotLaunchDiffToolReasons = typeof (KnownDoNotLaunchStrategies).GetFields()
-                .Select(f => (IShouldNotLaunchDiffTool) f.GetValue(KnownDoNotLaunchStrategies)).ToList();
+                .Select(f => (IShouldNotLaunchDiffTool) f.GetValue(KnownDoNotLaunchStrategies)!).ToList();
         }
 
         public void RegisterDiffTool(DiffTool diffTool)

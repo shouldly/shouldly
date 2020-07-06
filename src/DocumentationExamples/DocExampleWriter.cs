@@ -21,12 +21,12 @@ namespace DocumentationExamples
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder> additionConfig = null)
+        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder>? additionConfig = null)
         {
             var stackTrace = new StackTrace(true);
-            var caller = stackTrace.GetFrame(1);
-            var callerFileName = caller.GetFileName();
-            var callerMethod = caller.GetMethod();
+            var caller = stackTrace.GetFrame(1)!;
+            var callerFileName = caller.GetFileName()!;
+            var callerMethod = caller.GetMethod()!;
 
             var testMethod = FileMethodsLookup.GetOrAdd(callerFileName, fn =>
             {

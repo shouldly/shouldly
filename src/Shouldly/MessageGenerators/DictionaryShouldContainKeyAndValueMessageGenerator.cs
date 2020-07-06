@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -14,6 +15,9 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
+            Debug.Assert(context.Actual is IDictionary);
+            Debug.Assert(context.Key is object);
+
             const string format =
 @"{0}
     should contain key
@@ -23,7 +27,7 @@ namespace Shouldly.MessageGenerators
 {3}";
 
             var codePart = context.CodePart;
-            var dictionary = (IDictionary)context.Actual;
+            var dictionary = (IDictionary)context.Actual!;
             var keyExists = dictionary.Contains(context.Key);
             var expectedValue = context.Expected.ToStringAwesomely();
             var keyValue = context.Key.ToStringAwesomely();

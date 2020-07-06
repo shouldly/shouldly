@@ -21,15 +21,15 @@ namespace Shouldly
         {
           ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
         }
-        public static void ShouldSatisfyAllConditions(this object actual, [InstantHandle] params Action[] conditions)
+        public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
         {
             ShouldSatisfyAllConditions(actual, () => null, conditions);
         }
-        public static void ShouldSatisfyAllConditions(this object actual, string customMessage, [InstantHandle] params Action[] conditions)
+        public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
         {
             ShouldSatisfyAllConditions(actual, () => customMessage, conditions);
         }
-        public static void ShouldSatisfyAllConditions(this object actual, [InstantHandle] Func<string> customMessage, [InstantHandle] params Action[] conditions)
+        public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] Func<string?>? customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
             foreach (var action in conditions)

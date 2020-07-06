@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -11,24 +12,36 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ObjectGraphTestExtensions
     {
-        public static void ShouldBeEquivalentTo(this object actual, object expected)
+        public static void ShouldBeEquivalentTo(
+            [NotNullIfNotNull("expected")] this object? actual,
+            [NotNullIfNotNull("actual")] object? expected)
         {
             ShouldBeEquivalentTo(actual, expected, () => null);
         }
 
-        public static void ShouldBeEquivalentTo(this object actual, object expected, string customMessage)
+        public static void ShouldBeEquivalentTo(
+            [NotNullIfNotNull("expected")] this object? actual,
+            [NotNullIfNotNull("actual")] object? expected,
+            string? customMessage)
         {
             ShouldBeEquivalentTo(actual, expected, () => customMessage);
         }
 
-        public static void ShouldBeEquivalentTo(this object actual, object expected, [InstantHandle] Func<string> customMessage)
+        public static void ShouldBeEquivalentTo(
+            [NotNullIfNotNull("expected")] this object? actual,
+            [NotNullIfNotNull("actual")] object? expected,
+            [InstantHandle] Func<string?>? customMessage)
         {
-            CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object>>(), customMessage);
+            CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
         }
 
-        private static void CompareObjects(object actual, object expected,
-            IList<string> path, IDictionary<object, IList<object>> previousComparisons,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        private static void CompareObjects(
+            [NotNullIfNotNull("expected")] this object? actual,
+            [NotNullIfNotNull("actual")] object? expected,
+            IList<string> path,
+            IDictionary<object, IList<object?>> previousComparisons,
+            [InstantHandle] Func<string?>? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             if (BothValuesAreNull(actual, expected, path, customMessage, shouldlyMethod))
                 return;
@@ -49,8 +62,12 @@ namespace Shouldly
             }
         }
 
-        private static bool BothValuesAreNull(object actual, object expected, IEnumerable<string> path,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        private static bool BothValuesAreNull(
+            [NotNullWhen(false)] object? actual,
+            [NotNullWhen(false)] object? expected,
+            IEnumerable<string> path,
+            [InstantHandle] Func<string?>? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             if (expected == null)
             {
@@ -68,7 +85,7 @@ namespace Shouldly
         }
 
         private static Type GetTypeToCompare(object actual, object expected, IList<string> path,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             var expectedType = expected.GetType();
             var actualType = actual.GetType();
@@ -86,15 +103,15 @@ namespace Shouldly
         }
 
         private static void CompareValueTypes(ValueType actual, ValueType expected, IEnumerable<string> path,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (!actual.Equals(expected))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
         }
 
         private static void CompareReferenceTypes(object actual, object expected, Type type,
-            IEnumerable<string> path, IDictionary<object, IList<object>> previousComparisons,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (ReferenceEquals(actual, expected) ||
                 previousComparisons.Contains(actual, expected))
@@ -118,18 +135,18 @@ namespace Shouldly
         }
 
         private static void CompareStrings(string actual, string expected, IEnumerable<string> path,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (!actual.Equals(expected, StringComparison.Ordinal))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
         }
 
         private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
-            IEnumerable<string> path, IDictionary<object, IList<object>> previousComparisons,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
-            var expectedList = expected.Cast<object>().ToList();
-            var actualList = actual.Cast<object>().ToList();
+            var expectedList = expected.Cast<object?>().ToList();
+            var actualList = actual.Cast<object?>().ToList();
 
             if (actualList.Count != expectedList.Count)
             {
@@ -145,8 +162,8 @@ namespace Shouldly
         }
 
         private static void CompareProperties(object actual, object expected, IEnumerable<PropertyInfo> properties,
-            IEnumerable<string> path, IDictionary<object, IList<object>> previousComparisons,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             foreach (var property in properties)
             {
@@ -158,26 +175,26 @@ namespace Shouldly
             }
         }
 
-        private static void ThrowException(object actual, object expected, IEnumerable<string> path,
-            [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        private static void ThrowException(object? actual, object? expected, IEnumerable<string> path,
+            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             throw new ShouldAssertException(
                 new ExpectedEquvalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());
         }
 
-        private static bool Contains(this IDictionary<object, IList<object>> comparisons, object actual, object expected)
+        private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)
         {
-            return comparisons.TryGetValue(actual, out var list)
+            return comparisons.TryGetValue(actual, out IList<object?>? list)
                    && list.Contains(expected);
         }
 
-        private static void Record(this IDictionary<object, IList<object>> comparisons, object actual,
-            object expected)
+        private static void Record(this IDictionary<object, IList<object?>> comparisons, object actual,
+            object? expected)
         {
-            if (comparisons.TryGetValue(actual, out var list))
+            if (comparisons.TryGetValue(actual, out IList<object?>? list))
                 list.Add(expected);
             else
-                comparisons.Add(actual, new List<object>(new[] { expected }));
+                comparisons.Add(actual, new List<object?>(new[] { expected }));
         }
     }
 }

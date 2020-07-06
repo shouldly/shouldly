@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Shouldly;
 
 namespace NUnit.Framework.Constraints
@@ -14,7 +15,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a numeric type</returns>
-        public static bool IsNumericType(object obj)
+        public static bool IsNumericType([NotNullWhen(true)] object? obj)
         {
             return IsFloatingPointNumeric(obj) || IsFixedPointNumeric(obj);
         }
@@ -25,7 +26,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a floating point numeric type</returns>
-        public static bool IsFloatingPointNumeric(object obj)
+        public static bool IsFloatingPointNumeric([NotNullWhen(true)] object? obj)
         {
             if (null != obj)
             {
@@ -41,7 +42,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a fixed point numeric type</returns>
-        public static bool IsFixedPointNumeric(object obj)
+        public static bool IsFixedPointNumeric([NotNullWhen(true)] object? obj)
         {
             if (null != obj)
             {

@@ -9,10 +9,10 @@ namespace Shouldly.Tests.ShouldBeGreaterThan
         public void StringVsNullScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-((string)null).ShouldBeGreaterThan("b", "Some additional context"),
+((string?)null).ShouldBeGreaterThan("b", "Some additional context"),
 
 errorWithSource:
-@"(string)null
+@"(string?)null
     should be greater than
 ""b""
     but was

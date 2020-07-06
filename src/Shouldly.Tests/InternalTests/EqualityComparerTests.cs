@@ -60,7 +60,7 @@ namespace Shouldly.Tests.InternalTests
 
         class NonComparableObject
         {
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 return true;
             }
@@ -73,7 +73,7 @@ namespace Shouldly.Tests.InternalTests
 
         class SpyComparable : IComparable
         {
-            public int CompareTo(object obj)
+            public int CompareTo(object? obj)
             {
                 return 0;
             }
@@ -83,7 +83,7 @@ namespace Shouldly.Tests.InternalTests
         {
             public bool CompareCalled;
 
-            public int CompareTo(SpyComparableGeneric other)
+            public int CompareTo(SpyComparableGeneric? other)
             {
                 CompareCalled = true;
                 return 0;
@@ -93,9 +93,9 @@ namespace Shouldly.Tests.InternalTests
         public class SpyEquatable : IEquatable<SpyEquatable>
         {
             public bool EqualsCalled;
-            public SpyEquatable EqualsOther;
+            public SpyEquatable? EqualsOther;
 
-            public bool Equals(SpyEquatable other)
+            public bool Equals(SpyEquatable? other)
             {
                 EqualsCalled = true;
                 EqualsOther = other;

@@ -11,7 +11,7 @@ namespace Shouldly.Internals
 #if !StackTrace
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
-        public string GetCodeText(object actual)
+        public string? GetCodeText(object? actual)
         {
             return actual.ToStringAwesomely();
         }
@@ -20,14 +20,14 @@ namespace Shouldly.Internals
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
         bool _determinedOriginatingFrame;
-        string _shouldMethod;
+        string _shouldMethod = null!;
 
-        public StackFrame ShouldlyFrame { get; private set; }
+        public StackFrame ShouldlyFrame { get; private set; } = null!;
         public int ShouldlyFrameIndex { get; private set; }
-        public string FileName { get; private set; }
+        public string? FileName { get; private set; }
         public int LineNumber { get; private set; }
 
-        public string GetCodeText(object actual, StackTrace stackTrace)
+        public string GetCodeText(object? actual, StackTrace? stackTrace)
         {
             if (ShouldlyConfiguration.IsSourceDisabledInErrors())
                 return actual.ToStringAwesomely();
@@ -35,7 +35,7 @@ namespace Shouldly.Internals
             return GetCodePart();
         }
 
-        void ParseStackTrace(StackTrace trace)
+        void ParseStackTrace(StackTrace? trace)
         {
             var stackTrace = trace ?? new StackTrace(true);
             var i = 0;
@@ -43,7 +43,7 @@ namespace Shouldly.Internals
 
             if (currentFrame == null) throw new Exception("Unable to find test method");
 
-            ShouldlyFrame = default;
+            ShouldlyFrame = default!;
             while (ShouldlyFrame == null || currentFrame.GetMethod().IsShouldlyMethod())
             {
                 if (currentFrame.GetMethod().IsShouldlyMethod())

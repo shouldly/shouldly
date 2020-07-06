@@ -56,9 +56,9 @@ namespace Shouldly.Configuration
             return attributes.Any(a => a.GetType().FullName.StartsWith(attributeName));
         }
 
-        public string SourceFileDirectory { get; private set; }
-        public string MethodName { get; private set; }
-        public string DeclaringTypeName { get; private set; }
+        public string? SourceFileDirectory { get; private set; }
+        public string? MethodName { get; private set; }
+        public string? DeclaringTypeName { get; private set; }
     }
 }
 #endif

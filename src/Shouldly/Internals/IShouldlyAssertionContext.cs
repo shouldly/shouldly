@@ -7,13 +7,13 @@ namespace Shouldly
     internal interface IShouldlyAssertionContext
     {
         string ShouldMethod { get; set; }
-        string CodePart { get; set; }
-        string FileName { get; set; }
+        string? CodePart { get; set; }
+        string? FileName { get; set; }
         int? LineNumber { get; set; }
-        object Key { get; set; }
-        object Expected { get; set; }
-        object Actual { get; set; }
-        object Tolerance { get; set; }
+        object? Key { get; set; }
+        object? Expected { get; set; }
+        object? Actual { get; set; }
+        object? Tolerance { get; set; }
         TimeSpan? Timeout { get; set; }
         bool IgnoreOrder { get; set; }
 
@@ -26,14 +26,14 @@ namespace Shouldly
         bool HasRelevantKey { get; set; }
 
         bool IsNegatedAssertion { get; }
-        string CustomMessage { get; set; }
+        string? CustomMessage { get; set; }
         Case? CaseSensitivity { get; set; }
         bool CodePartMatchesActual { get; }
-        Expression Filter { get; set; }
+        Expression? Filter { get; set; }
         int? MatchCount { get; set; }
         SortDirection SortDirection { get; set; }
         int OutOfOrderIndex { get; set; }
-        object OutOfOrderObject { get; set; }
-        IEnumerable<string> Path { get; set; }
+        object? OutOfOrderObject { get; set; }
+        IEnumerable<string>? Path { get; set; }
     }
 }

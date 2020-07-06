@@ -9,10 +9,10 @@ namespace Shouldly.ShouldlyExtensionMethods
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag)
             => ShouldHaveFlag(actual, expectedFlag, () => null);
 
-        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string customMessage)
+        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage)
             => ShouldHaveFlag(actual, expectedFlag, () => customMessage);
 
-        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, [InstantHandle] Func<string> customMessage)
+        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, [InstantHandle] Func<string?>? customMessage)
         {
             CheckEnumHasFlagAttribute(actual);
             if (!actual.HasFlag(expectedFlag))
@@ -24,11 +24,11 @@ namespace Shouldly.ShouldlyExtensionMethods
         public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag)
             => ShouldNotHaveFlag(actual, expectedFlag, () => null);
 
-        public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string customMessage)
+        public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage)
             => ShouldNotHaveFlag(actual, expectedFlag, () => customMessage);
 
         public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag,
-            [InstantHandle] Func<string> customMessage)
+            [InstantHandle] Func<string?>? customMessage)
         {
             CheckEnumHasFlagAttribute(actual);
             if (actual.HasFlag(expectedFlag))
