@@ -29,7 +29,7 @@ namespace Shouldly.Configuration
         public bool PreventDiff { get; set; }
 
         /// <summary>
-        /// File extension without the .
+        /// File extension without the.
         /// </summary>
         public string FileExtension { get; set; }
 
@@ -38,7 +38,7 @@ namespace Shouldly.Configuration
 
         /// <summary>
         /// Scrubbers allow you to alter the received document before comparing it to approved.
-        /// 
+        ///
         /// This is useful for replacing dates or dynamic data with fixed data
         /// </summary>
         public Func<string, string> Scrubber { get; set; }
