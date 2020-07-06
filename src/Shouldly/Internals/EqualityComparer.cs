@@ -94,7 +94,6 @@ namespace Shouldly
             return object.Equals(x, y);
         }
 
-        public int GetHashCode([DisallowNull] T obj)
-            => throw new NotImplementedException();
+        public int GetHashCode(T obj) => throw new NotImplementedException();
     }
 }
