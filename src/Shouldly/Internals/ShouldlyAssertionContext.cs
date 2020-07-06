@@ -5,7 +5,7 @@ using Shouldly.Internals;
 
 namespace Shouldly
 {
-    internal class ShouldlyAssertionContext : IShouldlyAssertionContext
+    public class ShouldlyAssertionContext : IShouldlyAssertionContext
     {
         public string ShouldMethod { get; set; }
         public string? CodePart { get; set; }
@@ -41,7 +41,7 @@ namespace Shouldly
         public IEnumerable<string>? Path { get; set; }
 
 #if StackTrace
-        internal ShouldlyAssertionContext(
+        public ShouldlyAssertionContext(
             string shouldlyMethod, object? expected = null, object? actual = null,
             System.Diagnostics.StackTrace? stackTrace = null)
         {
@@ -55,7 +55,7 @@ namespace Shouldly
             LineNumber = actualCodeGetter.LineNumber;
         }
 #else
-        internal ShouldlyAssertionContext(string shouldlyMethod, object? expected = null, object? actual = null)
+        public ShouldlyAssertionContext(string shouldlyMethod, object? expected = null, object? actual = null)
         {
             var actualCodeGetter = new ActualCodeTextGetter();
             Expected = expected;

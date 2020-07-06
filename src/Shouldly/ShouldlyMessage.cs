@@ -10,7 +10,7 @@ using Shouldly.MessageGenerators;
 
 namespace Shouldly
 {
-    internal class ExpectedShouldlyMessage : ShouldlyMessage
+    public class ExpectedShouldlyMessage : ShouldlyMessage
     {
         public ExpectedShouldlyMessage(object? expected, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -18,7 +18,8 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
-    internal class ActualShouldlyMessage : ShouldlyMessage
+
+    public class ActualShouldlyMessage : ShouldlyMessage
     {
         public ActualShouldlyMessage(object? actual, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -30,7 +31,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedActualShouldlyMessage : ShouldlyMessage
+    public class ExpectedActualShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualShouldlyMessage(object? expected, object? actual, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -41,7 +42,8 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
-    internal class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
+
+    public class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
     {
         public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object? result, object? actual, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -54,7 +56,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
+    public class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualWithCaseSensitivityShouldlyMessage(object? expected, object? actual,
             Case? caseSensitivity,
@@ -70,7 +72,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
+    public class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualToleranceShouldlyMessage(object? expected, object? actual, object tolerance,
             [InstantHandle] Func<string?>? customMessage,
@@ -85,7 +87,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
+    public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual,
             [InstantHandle] Func<string?>? customMessage,
@@ -100,7 +102,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
+    public class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     {
         public ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key,
             [InstantHandle] Func<string?>? customMessage,
@@ -116,7 +118,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedOrderShouldlyMessage : ShouldlyMessage
+    public class ExpectedOrderShouldlyMessage : ShouldlyMessage
     {
         public ExpectedOrderShouldlyMessage(object? actual, SortDirection expectedDirection, int outOfOrderIndex, object? outOfOrderObject,
             [InstantHandle] Func<string?>? customMessage,
@@ -132,7 +134,7 @@ namespace Shouldly
         }
     }
 
-    internal class ExpectedEquvalenceShouldlyMessage : ShouldlyMessage
+    public class ExpectedEquvalenceShouldlyMessage : ShouldlyMessage
     {
         public ExpectedEquvalenceShouldlyMessage(object? expected, object? actual, IEnumerable<string> path, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -144,7 +146,7 @@ namespace Shouldly
         }
     }
 
-    internal class ShouldlyThrowMessage : ShouldlyMessage
+    public class ShouldlyThrowMessage : ShouldlyMessage
     {
         public ShouldlyThrowMessage(object? expected, string exceptionMessage, Func<string?>? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
@@ -171,7 +173,7 @@ namespace Shouldly
         }
     }
 
-    internal class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
+    public class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
     {
         public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -184,7 +186,7 @@ namespace Shouldly
         }
     }
 
-    internal class TaskShouldlyThrowMessage : ShouldlyMessage
+    public class TaskShouldlyThrowMessage : ShouldlyMessage
     {
         public TaskShouldlyThrowMessage(object? expected, string exceptionMessage, Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -208,7 +210,7 @@ namespace Shouldly
         }
     }
 
-    internal class CompleteInShouldlyMessage : ShouldlyMessage
+    public class CompleteInShouldlyMessage : ShouldlyMessage
     {
         public CompleteInShouldlyMessage(string what, TimeSpan timeout,
             [InstantHandle] Func<string?>? customMessage,
@@ -226,7 +228,7 @@ namespace Shouldly
     /// <summary>
     /// Async methods need stacktrace before we get asynchronous
     /// </summary>
-    internal class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
+    public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
     {
         public AsyncShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string?>? customMessage, StackTrace stackTrace,
             [CallerMemberName] string shouldlyMethod = null!)
@@ -234,6 +236,7 @@ namespace Shouldly
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
+
         public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, [InstantHandle] Func<string?>? customMessage, StackTrace stackTrace)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
@@ -243,10 +246,11 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
         }
     }
+
     /// <summary>
     /// Async methods need stacktrace before we get asynchronous
     /// </summary>
-    internal class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
+    public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
     {
         public AsyncShouldlyNotThrowShouldlyMessage(Type exception, [InstantHandle] Func<string?>? customMessage, StackTrace stackTrace, string exceptionMessage,
             [CallerMemberName] string shouldlyMethod = null!)
@@ -257,7 +261,7 @@ namespace Shouldly
     }
 #endif
 
-    internal abstract class ShouldlyMessage
+    public abstract class ShouldlyMessage
     {
         static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
@@ -308,6 +312,7 @@ namespace Shouldly
 Additional Info:
     {ShouldlyAssertionContext.CustomMessage}";
             }
+
             return message;
         }
 
@@ -339,7 +344,7 @@ Additional Info:
                 ? "an element satisfying the condition"
                 : "";
             return
-$@"{codePart}
+                $@"{codePart}
     {shouldMethod} {conditionString}
 {expected}
     but does{(isNegatedAssertion ? "" : " not")}";
@@ -349,11 +354,13 @@ $@"{codePart}
         {
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();
-            var actualString = codePart == actual ? (context.IsNegatedAssertion ? string.Empty : " not") : $@"
+            var actualString = codePart == actual
+                ? (context.IsNegatedAssertion ? string.Empty : " not")
+                : $@"
 {actual}";
 
             var message =
-$@"{codePart}
+                $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()}
 {context.Expected.ToStringAwesomely()}
     but was{actualString}";
@@ -364,6 +371,7 @@ $@"{codePart}
     difference
 {DifferenceHighlighter.HighlightDifferences(context)}";
             }
+
             return message;
         }
     }
