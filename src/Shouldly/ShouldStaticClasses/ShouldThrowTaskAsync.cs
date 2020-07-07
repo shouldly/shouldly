@@ -13,28 +13,17 @@ namespace Shouldly
         public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
             where TException : Exception
         {
-            return ThrowAsync<TException>(task, () => customMessage);
-        }
-
-        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string?>? customMessage)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(() => task, customMessage);
+            return ThrowAsync<TException>(() => task, () => customMessage);
         }
 
         public static Task<Exception> ThrowAsync(Task task, Type exceptionType)
         {
-            return ThrowAsync(task, () => null, exceptionType);
+            return ThrowAsync(task, null, exceptionType);
         }
 
         public static Task<Exception> ThrowAsync(Task task, string? customMessage, Type exceptionType)
         {
-            return ThrowAsync(task, () => customMessage, exceptionType);
-        }
-
-        public static Task<Exception> ThrowAsync(Task task, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
-        {
-            return ThrowAsync(() => task, customMessage, exceptionType);
+            return ThrowAsync(() => task, () => customMessage, exceptionType);
         }
 
         /*** Should.ThrowAsync(Func<Task>) ***/
@@ -192,23 +181,13 @@ namespace Shouldly
         /*** Should.NotThrowAsync(Task) ***/
         public static Task NotThrowAsync(Task task, string? customMessage = null)
         {
-            return NotThrowAsync(task, () => customMessage);
-        }
-
-        public static Task NotThrowAsync(Task task, [InstantHandle] Func<string?>? customMessage)
-        {
-            return NotThrowAsync(() => task, customMessage);
+            return NotThrowAsyncInternal(() => task, () => customMessage);
         }
 
         /*** Should.NotThrowAsync(Func<Task>) ***/
         public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null)
         {
-            return NotThrowAsync(actual, () => customMessage);
-        }
-
-        public static Task NotThrowAsync(Func<Task> actual, [InstantHandle] Func<string?>? customMessage)
-        {
-            return NotThrowAsyncInternal(actual, customMessage);
+            return NotThrowAsyncInternal(actual, () => customMessage);
         }
 
         internal static Task NotThrowAsyncInternal(

@@ -12,19 +12,13 @@ namespace Shouldly
     {
         public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
         {
-            Func<string?> message = () => customMessage;
-            HaveProperty(dynamicTestObject, propertyName, message);
-        }
-
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, [InstantHandle] Func<string?>? customMessage)
-        {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
                 var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
 
                 if (!dynamicAsDictionary.ContainsKey(propertyName))
                 {
-                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, () => customMessage).ToString());
                 }
             }
             else
@@ -33,7 +27,7 @@ namespace Shouldly
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))
                 {
-                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, () => customMessage).ToString());
                 }
             }
         }

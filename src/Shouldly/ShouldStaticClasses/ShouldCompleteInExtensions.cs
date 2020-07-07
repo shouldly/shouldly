@@ -11,67 +11,42 @@ namespace Shouldly
         /*** CompleteIn(Action) ***/
         public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage = null)
         {
-            CompleteIn(action, timeout, () => customMessage);
-        }
-        public static void CompleteIn(Action action, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage)
-        {
             var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
-            CompleteIn(actual, timeout, customMessage, "Delegate");
+            CompleteIn(actual, timeout, () => customMessage, "Delegate");
         }
 
         /*** CompleteIn(Func<T>) ***/
         public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, string? customMessage = null)
         {
-            return CompleteIn(function, timeout, () => customMessage);
-        }
-        public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage)
-        {
             var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
                         TaskScheduler.Default);
 
-            return CompleteIn(actual, timeout, customMessage, "Delegate");
+            return CompleteIn(actual, timeout, () => customMessage, "Delegate");
         }
 
         /*** CompleteIn(Func<Task>) ***/
         public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null)
         {
-            CompleteIn(actual, timeout, () => customMessage);
-        }
-        public static void CompleteIn(Func<Task> actual, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage)
-        {
-            CompleteIn(actual(), timeout, customMessage, "Task");
+            CompleteIn(actual(), timeout, () => customMessage, "Task");
         }
 
         /*** CompleteIn(Func<Task<T>>) ***/
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
         {
-            return CompleteIn(actual, timeout, () => customMessage);
-        }
-        public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage)
-        {
-            return CompleteIn(actual(), timeout, customMessage, "Task");
+            return CompleteIn(actual(), timeout, () => customMessage, "Task");
         }
 
         /*** CompleteIn(Task<T>) ***/
         public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null)
         {
-            CompleteIn(actual, timeout, () => customMessage);
-        }
-        public static void CompleteIn(Task actual, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage)
-        {
-            CompleteIn(actual, timeout, customMessage, "Task");
+            CompleteIn(actual, timeout, () => customMessage, "Task");
         }
 
         /*** CompleteIn(Task<T>) ***/
         public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
         {
-            CompleteIn(actual, timeout, () => customMessage);
-            return actual.Result;
-        }
-        public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage)
-        {
-            return CompleteIn(actual, timeout, customMessage, "Task");
+            return CompleteIn(actual, timeout, () => customMessage, "Task");
         }
 
         private static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, [InstantHandle] Func<string?>? customMessage, string what)

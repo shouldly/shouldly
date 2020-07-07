@@ -267,7 +267,7 @@ namespace Shouldly
                 // Drop the sync context so continuations will not post to it, causing a deadlock
                 using (Utils.WithSynchronizationContext(null))
                 {
-                    return CompleteIn(action, timeoutAfter, customMessage);
+                    return CompleteIn(action, timeoutAfter, customMessage?.Invoke());
                 }
             }
             catch (ShouldlyTimeoutException)
@@ -287,7 +287,7 @@ namespace Shouldly
             // Drop the sync context so continuations will not post to it, causing a deadlock
             using (Utils.WithSynchronizationContext(null))
             {
-                CompleteIn(actual, timeoutAfter, customMessage);
+                CompleteIn(actual, timeoutAfter, customMessage?.Invoke());
             }
         }
 
