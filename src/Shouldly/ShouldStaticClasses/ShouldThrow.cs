@@ -150,9 +150,9 @@ namespace Shouldly
         }
         public static void NotThrow([InstantHandle] Action action, [InstantHandle] Func<string?>? customMessage)
         {
-            NotThrowInternal(action, customMessage);
+            NotThrowInternal(action, customMessage?.Invoke());
         }
-        internal static void NotThrowInternal([InstantHandle] Action action, [InstantHandle] Func<string?>? customMessage,
+        internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             try
@@ -161,7 +161,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
 
@@ -176,13 +176,13 @@ namespace Shouldly
         }
         public static T NotThrow<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string?>? customMessage)
         {
-            return NotThrowInternal(action, customMessage);
+            return NotThrowInternal(action, customMessage?.Invoke());
         }
 
         /// <summary>
         /// Used to differentiate between the extension methods and the static methods
         /// </summary>
-        internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string?>? customMessage,
+        internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             try
@@ -191,7 +191,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
     }
