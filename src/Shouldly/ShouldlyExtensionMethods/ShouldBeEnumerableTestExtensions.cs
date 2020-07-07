@@ -14,38 +14,23 @@ namespace Shouldly
     {
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
         {
-            ShouldContain(actual, expected, () => customMessage);
-        }
-
-        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string?>? customMessage)
-        {
             if (!actual.Contains(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, () => customMessage).ToString());
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
         {
-            ShouldNotContain(actual, expected, () => customMessage);
-        }
-
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, [InstantHandle] Func<string?>? customMessage)
-        {
             if (actual.Contains(expected))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, () => customMessage).ToString());
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
-        {
-            ShouldContain(actual, elementPredicate, expectedCount, () => customMessage);
-        }
-
-        public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, Func<string?>? customMessage)
         {
             var condition = elementPredicate.Compile();
             var actualCount = actual.Count(condition);
             if (actualCount != expectedCount)
             {
-                throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage?.Invoke()).ToString());
+                throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
             }
         }
 

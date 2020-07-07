@@ -11,24 +11,14 @@ namespace Shouldly
     {
         public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual, string? customMessage = null)
         {
-            ShouldBeTrue(actual, () => customMessage);
-        }
-
-        public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual, [InstantHandle] Func<string?>? customMessage)
-        {
             if (!actual)
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, () => customMessage).ToString());
         }
 
         public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool actual, string? customMessage = null)
         {
-            ShouldBeFalse(actual, () => customMessage);
-        }
-
-        public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool actual, [InstantHandle] Func<string?>? customMessage)
-        {
             if (actual)
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, () => customMessage).ToString());
         }
     }
 }
