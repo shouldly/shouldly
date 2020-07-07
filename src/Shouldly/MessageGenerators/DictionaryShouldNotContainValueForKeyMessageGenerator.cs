@@ -27,7 +27,7 @@ namespace Shouldly.MessageGenerators
     {3}";
 
             var codePart = context.CodePart;
-            var dictionary = (IDictionary)context.Actual!;
+            var dictionary = (IDictionary)context.Actual;
             var keyExists = dictionary.Contains(context.Key);
             var expectedValue = context.Expected.ToStringAwesomely();
             var keyValue = context.Key.ToStringAwesomely();

@@ -71,11 +71,11 @@ namespace Shouldly
 
             // Implements IEquatable<T>?
             if (x is IEquatable<T> equatable)
-                return equatable.Equals(y!);
+                return equatable.Equals(y);
 
             // Implements IComparable<T>?
             if (x is IComparable<T> comparableGeneric)
-                return comparableGeneric.CompareTo(y!) == 0;
+                return comparableGeneric.CompareTo(y) == 0;
 
             // Implements IComparable?
             if (x is IComparable comparable)
