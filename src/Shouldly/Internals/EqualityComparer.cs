@@ -14,7 +14,6 @@ namespace Shouldly
     internal class EqualityComparer<T> : IEqualityComparer<T>
     {
         static readonly IEqualityComparer DefaultInnerComparer = new EqualityComparerAdapter<object>(new EqualityComparer<object>());
-        static readonly Type NullableType = typeof(Nullable<>);
 
         readonly Func<IEqualityComparer> _innerComparerFactory;
 
@@ -26,20 +25,11 @@ namespace Shouldly
 
         public bool Equals([AllowNull] T x, [AllowNull] T y)
         {
-            var type = typeof(T);
-
             if (ReferenceEquals(x, y))
                 return true;
 
-            // Null?
-            if (!type.IsValueType() || (type.IsGenericType() && type.GetGenericTypeDefinition().IsAssignableFrom(NullableType)))
-            {
-                if (Equals(x, null))
-                    return Equals(y, null);
-
-                if (Equals(y, null))
-                    return false;
-            }
+            if (x is null || y is null)
+                return false;
 
             if (Numerics.IsNumericType(x) &&
                 Numerics.IsNumericType(y))
@@ -49,8 +39,8 @@ namespace Shouldly
             }
 
             // Enumerable?
-            if (x!.TryGetEnumerable(out var enumerableX) &&
-                y!.TryGetEnumerable(out var enumerableY))
+            if (x.TryGetEnumerable(out var enumerableX) &&
+                y.TryGetEnumerable(out var enumerableY))
             {
                 var enumeratorX = enumerableX.GetEnumerator();
                 var enumeratorY = enumerableY.GetEnumerator();
