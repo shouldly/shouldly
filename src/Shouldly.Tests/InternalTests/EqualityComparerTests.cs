@@ -20,7 +20,7 @@ namespace Shouldly.Tests.InternalTests
         }
 
         [Fact]
-        public void EqualityComparer_WhenGivenNonComaprableObject_ShouldBeTrue()
+        public void EqualityComparer_WhenGivenNonComparableObject_ShouldBeTrue()
         {
             var nco1 = new NonComparableObject();
             var nco2 = new NonComparableObject();

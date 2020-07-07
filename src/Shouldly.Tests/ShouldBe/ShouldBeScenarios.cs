@@ -91,7 +91,7 @@ Additional Info:
         }
 
         [Fact]
-        public void BadEquatibleClassScenarioShouldFail()
+        public void BadEquatableClassScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
 new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context"),

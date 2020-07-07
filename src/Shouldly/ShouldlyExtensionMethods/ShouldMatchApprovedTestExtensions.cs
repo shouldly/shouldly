@@ -46,7 +46,7 @@ namespace Shouldly
                 actual = config.Scrubber(actual);
 
             var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
-            var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
+            var discriminator = config.FilenameDiscriminator == null ? null : "." + config.FilenameDiscriminator;
             var outputFolder = testMethodInfo.SourceFileDirectory;
             if (string.IsNullOrEmpty(outputFolder))
                 throw new Exception($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
@@ -56,8 +56,8 @@ namespace Shouldly
                 Directory.CreateDirectory(outputFolder);
             }
 
-            var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "approved", config.FileExtension));
-            var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "received", config.FileExtension));
+            var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "approved", config.FileExtension));
+            var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "received", config.FileExtension));
             File.WriteAllText(receivedFile, actual);
 
             if (!File.Exists(approvedFile))

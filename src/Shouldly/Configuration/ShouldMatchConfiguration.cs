@@ -4,7 +4,7 @@ using System;
 namespace Shouldly.Configuration
 {
     public delegate string FilenameGenerator(
-        TestMethodInfo testMethodInfo, string? descriminator, string fileType, string fileExtension);
+        TestMethodInfo testMethodInfo, string? discriminator, string fileType, string fileExtension);
 
     public class ShouldMatchConfiguration
     {
@@ -15,7 +15,7 @@ namespace Shouldly.Configuration
         public ShouldMatchConfiguration(ShouldMatchConfiguration initialConfig)
         {
             StringCompareOptions = initialConfig.StringCompareOptions;
-            FilenameDescriminator = initialConfig.FilenameDescriminator;
+            FilenameDiscriminator = initialConfig.FilenameDiscriminator;
             PreventDiff = initialConfig.PreventDiff;
             FileExtension = initialConfig.FileExtension;
             TestMethodFinder = initialConfig.TestMethodFinder;
@@ -25,7 +25,7 @@ namespace Shouldly.Configuration
         }
 
         public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
-        public string? FilenameDescriminator { get; set; }
+        public string? FilenameDiscriminator { get; set; }
         public bool PreventDiff { get; set; }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace Shouldly.Configuration
         public Func<string, string>? Scrubber { get; set; }
 
         public FilenameGenerator FilenameGenerator { get; set; } =
-            (testMethodInfo, descriminator, type, extension)
-                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}";
+            (testMethodInfo, discriminator, type, extension)
+                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}";
     }
 }
 

@@ -1,4 +1,4 @@
-millionares
+millionaires
     should contain
 Mr.Burns
     but was actually

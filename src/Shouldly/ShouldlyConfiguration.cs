@@ -38,8 +38,8 @@ namespace Shouldly
                 StringCompareOptions = StringCompareShould.IgnoreLineEndings,
                 TestMethodFinder = new FirstNonShouldlyMethodFinder(),
                 FileExtension = "txt",
-                FilenameGenerator = (testMethodInfo, descriminator, type, extension)
-                    => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{descriminator}.{type}.{extension}"
+                FilenameGenerator = (testMethodInfo, discriminator, type, extension)
+                    => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
             });
 #endif
 

@@ -179,7 +179,7 @@ namespace Shouldly
             [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             throw new ShouldAssertException(
-                new ExpectedEquvalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());
+                new ExpectedEquivalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());
         }
 
         private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)

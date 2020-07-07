@@ -733,7 +733,7 @@ namespace Shouldly.Configuration
         public DoNotLaunchWhenTypeIsLoaded(string typeName) { }
         public bool ShouldNotLaunch() { }
     }
-    public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string? descriminator, string fileType, string fileExtension);
+    public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string? discriminator, string fileType, string fileExtension);
     public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
         where T : System.Attribute
     {
@@ -787,7 +787,7 @@ namespace Shouldly.Configuration
         public ShouldMatchConfiguration(Shouldly.Configuration.ShouldMatchConfiguration initialConfig) { }
         public string? ApprovalFileSubFolder { get; set; }
         public string FileExtension { get; set; }
-        public string? FilenameDescriminator { get; set; }
+        public string? FilenameDiscriminator { get; set; }
         public Shouldly.Configuration.FilenameGenerator FilenameGenerator { get; set; }
         public bool PreventDiff { get; set; }
         public System.Func<string, string>? Scrubber { get; set; }

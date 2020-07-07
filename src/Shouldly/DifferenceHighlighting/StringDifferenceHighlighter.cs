@@ -81,15 +81,15 @@ namespace Shouldly.DifferenceHighlighting
 
         private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue)
         {
-            var indicesOfAlldifferences = new List<int>();
+            var indicesOfAllDifferences = new List<int>();
             var maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
 
             for (var index = 0; index < maxLengthOfStrings; index++)
             {
                 if (!CharAtIndexIsEqual(actualValue, expectedValue, index))
-                    indicesOfAlldifferences.Add(index);
+                    indicesOfAllDifferences.Add(index);
             }
-            return indicesOfAlldifferences;
+            return indicesOfAllDifferences;
         }
 
         private bool CharAtIndexIsEqual(string actual, string expected, int index)

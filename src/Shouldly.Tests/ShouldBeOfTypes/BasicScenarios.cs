@@ -61,7 +61,7 @@ Additional Info:
 
 
         [Fact]
-        public void FailsIfAcualAndExpectedAreDifferentLengths()
+        public void FailsIfActualAndExpectedAreDifferentLengths()
         {
             Verify.ShouldFail(() =>
 new object[] { new Added(), new Changed() }.ShouldBeOfTypes(new[] { typeof(Added) }, "Some additional context"),

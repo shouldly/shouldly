@@ -11,17 +11,17 @@ namespace Shouldly.Tests.ShouldContain
         public void LongStringScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-    _target.ShouldContain("fff"),
+                    _target.ShouldContain("fff"),
 
-    errorWithSource:
-@"_target
+                errorWithSource:
+                @"_target
     should contain (case insensitive comparison)
 ""fff""
     but was actually
 ""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""",
 
-    errorWithoutSource:
-@"""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""
+                errorWithoutSource:
+                @"""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""
     should contain (case insensitive comparison)
 ""fff""
     but did not");
