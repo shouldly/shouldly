@@ -51,8 +51,7 @@ namespace Shouldly.Tests.ConventionTests
 
         public static void ShouldAlsoFail(this object foo) { }
         public static void ShouldAlsoFail(this object foo, string customMessage) { }
-        public static void ShouldAlsoFail(this object foo, Func<string> customMessage) { }
         public static void ShouldAlsoFail(this object foo, int param) { }
-        public static void ShouldAlsoFail(this object foo, int param, Func<string> customMessage) { }
+        public static void ShouldAlsoFail(this object foo, int param, string customMessage) { }
     }
 }
