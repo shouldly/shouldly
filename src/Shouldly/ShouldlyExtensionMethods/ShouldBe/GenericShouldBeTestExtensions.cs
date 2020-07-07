@@ -81,11 +81,7 @@ namespace Shouldly
 
         public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, string? customMessage = null)
         {
-            ShouldBe(actual, expected, tolerance, () => customMessage);
-        }
-        public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, [InstantHandle] Func<string?>? customMessage)
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, () => customMessage);
         }
 
         public static void ShouldBeSameAs(
