@@ -163,11 +163,11 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public ShouldlyThrowMessage(object? expected, [InstantHandle] Func<string?>? customMessage,
+        public ShouldlyThrowMessage(object? expected, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 

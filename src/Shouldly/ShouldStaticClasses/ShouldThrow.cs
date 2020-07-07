@@ -12,13 +12,9 @@ namespace Shouldly
         /*** Should.Throw(Action) ***/
         public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null) where TException : Exception
         {
-            return Throw<TException>(actual, () => customMessage);
-        }
-        public static TException Throw<TException>([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage) where TException : Exception
-        {
             return ThrowInternal<TException>(actual, customMessage);
         }
-        internal static TException ThrowInternal<TException>([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage,
+        internal static TException ThrowInternal<TException>([InstantHandle] Action actual, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
             try
@@ -31,26 +27,22 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e);
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.Throw(Action) ***/
         public static Exception Throw([InstantHandle] Action actual, Type exceptionType)
         {
-            return Throw(actual, () => null, exceptionType);
+            return ThrowInternal(actual, null, exceptionType);
         }
         public static Exception Throw([InstantHandle] Action actual, string? customMessage, Type exceptionType)
         {
-            return Throw(actual, () => customMessage, exceptionType);
-        }
-        public static Exception Throw([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
-        {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
-        internal static Exception ThrowInternal([InstantHandle] Action actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType,
+        internal static Exception ThrowInternal([InstantHandle] Action actual, string? customMessage, Type exceptionType,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             try
@@ -64,22 +56,18 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.Throw(Func<T>) ***/
         public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null) where TException : Exception
         {
-            return Throw<TException>(actual, () => customMessage);
-        }
-        public static TException Throw<TException>([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage) where TException : Exception
-        {
             return ThrowInternal<TException>(actual, customMessage);
         }
-        internal static TException ThrowInternal<TException>([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage,
+        internal static TException ThrowInternal<TException>([InstantHandle] Func<object?> actual, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
             try
@@ -92,26 +80,22 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage: customMessage, shouldlyMethod).ToString(), e);
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.Throw(Func<T>) ***/
         public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType)
         {
-            return Throw(actual, () => null, exceptionType);
+            return ThrowInternal(actual, null, exceptionType);
         }
         public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType)
         {
-            return Throw(actual, () => customMessage, exceptionType);
-        }
-        public static Exception Throw([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
-        {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
-        internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType,
+        internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             try
@@ -125,10 +109,10 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.NotThrow(Action) ***/
