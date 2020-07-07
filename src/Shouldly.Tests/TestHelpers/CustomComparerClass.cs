@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly.Tests.TestHelpers
 {
     internal class CustomComparer<T> : IComparer<T>
     {
-        public int Compare(T x, T y)
+        public int Compare([AllowNull] T x, [AllowNull] T y)
         {
             Custom x1 = (Custom)(object)x!;
             Custom x2 = (Custom)(object)y!;
