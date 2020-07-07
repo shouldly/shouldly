@@ -173,7 +173,7 @@ namespace Shouldly
             {
                 ex = (ex as AggregateException)?.InnerException ?? ex;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage?.Invoke(), shouldlyMethod).ToString());
             }
         }
 
@@ -215,7 +215,7 @@ namespace Shouldly
             {
                 ex = (ex as AggregateException)?.InnerException ?? ex;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod).ToString());
             }
         }
 

@@ -210,10 +210,10 @@ namespace Shouldly
                     if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                     {
                         var inner = flattened.InnerException;
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(inner.GetType(), inner.Message, customMessage, shouldlyMethod).ToString());
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(inner.GetType(), inner, customMessage, shouldlyMethod).ToString());
                     }
 
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(t.Exception.GetType(), t.Exception.Message, customMessage, shouldlyMethod).ToString());
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(t.Exception.GetType(), t.Exception, customMessage, shouldlyMethod).ToString());
                 }
             });
 #endif
