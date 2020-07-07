@@ -146,21 +146,21 @@ namespace Shouldly
 
     internal class ShouldlyThrowMessage : ShouldlyMessage
     {
-        public ShouldlyThrowMessage(object? expected, string exceptionMessage, Func<string?>? customMessage,
+        public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public ShouldlyThrowMessage(object? expected, object? actual, [InstantHandle] Func<string?>? customMessage,
+        public ShouldlyThrowMessage(object? expected, object? actual, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, shouldlyMethod: shouldlyMethod)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
         public ShouldlyThrowMessage(object? expected, [InstantHandle] Func<string?>? customMessage,
@@ -173,14 +173,14 @@ namespace Shouldly
 
     internal class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
     {
-        public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+        public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 HasRelevantActual = true,
                 MatchCount = matchCount
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 

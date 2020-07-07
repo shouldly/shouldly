@@ -35,7 +35,7 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
             }
 
             throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
@@ -68,7 +68,7 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
             }
 
             throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
@@ -100,7 +100,7 @@ namespace Shouldly
             }
             catch (Exception e)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
             }
 
             throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
@@ -133,7 +133,7 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+                throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString(), e);
             }
 
             throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
@@ -161,7 +161,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
             }
         }
 
@@ -191,7 +191,7 @@ namespace Shouldly
             }
             catch (Exception ex)
             {
-                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
             }
         }
     }
