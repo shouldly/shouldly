@@ -17,7 +17,7 @@ namespace Shouldly.Configuration
                 {
                     throw new Exception($"Cannot find method in call stack with attribute {typeof(T).FullName}");
                 }
-                callingFrame = stackTrace.GetFrame(i++);
+                callingFrame = stackTrace.GetFrame(i++)!;
             } while (!callingFrame.GetMethod().GetCustomAttributes(typeof(T), true).Any());
 
             return new TestMethodInfo(callingFrame);
