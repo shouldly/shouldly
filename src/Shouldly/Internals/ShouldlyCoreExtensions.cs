@@ -55,7 +55,7 @@ namespace Shouldly
 
         internal static void AssertAwesomelyWithCaseSensitivity<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected,
+            object? originalActual, object? originalExpected,
             Case caseSensitivity, Func<string?>? customMessage = null,
             [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -95,7 +95,7 @@ namespace Shouldly
 
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected, object tolerance,
+            object? originalActual, object? originalExpected, object tolerance,
             [InstantHandle] Func<string?>? customMessage = null,
             [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -116,7 +116,7 @@ namespace Shouldly
 
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
-            object originalActual, object originalExpected, Case caseSensitivity,
+            object? originalActual, object? originalExpected, Case caseSensitivity,
             [InstantHandle] Func<string?>? customMessage = null,
             [CallerMemberName] string shouldlyMethod = null!)
         {

@@ -15,7 +15,7 @@ namespace Shouldly
         {
             actual.ShouldMatchApproved(() => null, c => { });
         }
-        public static void ShouldMatchApproved(this string actual, string customMessage)
+        public static void ShouldMatchApproved(this string actual, string? customMessage)
         {
             actual.ShouldMatchApproved(() => customMessage, c => { });
         }
@@ -26,7 +26,7 @@ namespace Shouldly
         }
 
         public static void ShouldMatchApproved(this string actual,
-            string customMessage,
+            string? customMessage,
             Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
             actual.ShouldMatchApproved(() => customMessage, configureOptions);

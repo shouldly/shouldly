@@ -171,9 +171,9 @@ namespace Shouldly
     {
         public static void ShouldBeDecoratedWith<T>(this System.Type actual)
             where T : System.Attribute { }
-        public static void ShouldBeDecoratedWith<T>(this System.Type actual, System.Func<string> customMessage)
+        public static void ShouldBeDecoratedWith<T>(this System.Type actual, System.Func<string?>? customMessage)
             where T : System.Attribute { }
-        public static void ShouldBeDecoratedWith<T>(this System.Type actual, string customMessage)
+        public static void ShouldBeDecoratedWith<T>(this System.Type actual, string? customMessage)
             where T : System.Attribute { }
     }
     [Shouldly.ShouldlyMethods]
@@ -227,7 +227,7 @@ namespace Shouldly
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T>? customComparer, string? customMessage) { }
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, params System.Type[] expected) { }
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, System.Func<string?>? customMessage) { }
-        public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string customMessage) { }
+        public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string? customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage) { }
@@ -519,9 +519,9 @@ namespace Shouldly
     {
         public static void ShouldMatchApproved(this string actual) { }
         public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string customMessage) { }
+        public static void ShouldMatchApproved(this string actual, string? customMessage) { }
         public static void ShouldMatchApproved(this string actual, System.Func<string?> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
+        public static void ShouldMatchApproved(this string actual, string? customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldNotThrowTaskAsyncExtensions
@@ -540,8 +540,8 @@ namespace Shouldly
         public static void ShouldSatisfyAllConditions(this object? actual, System.Func<string?>? customMessage, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions<T>(this T actual, params System.Action<>[] conditions) { }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Func<string> customMessage, params System.Action<>[] conditions) { }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, string customMessage, params System.Action<>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Func<string?>? customMessage, params System.Action<>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, params System.Action<>[] conditions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions

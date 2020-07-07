@@ -13,11 +13,11 @@ namespace Shouldly
         {
           ShouldSatisfyAllConditions(actual, () => null, CreateParameterlessActions(actual, conditions));
         }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, string customMessage, [InstantHandle] params Action<T>[] conditions)
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
           ShouldSatisfyAllConditions(actual, () => customMessage, CreateParameterlessActions(actual, conditions));
         }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Func<string> customMessage, [InstantHandle] params Action<T>[] conditions)
+        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Func<string?>? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
           ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
         }
