@@ -27,7 +27,7 @@ namespace Shouldly.Internals
         public string? FileName { get; private set; }
         public int LineNumber { get; private set; }
 
-        public string GetCodeText(object? actual, StackTrace? stackTrace)
+        public string? GetCodeText(object? actual, StackTrace? stackTrace)
         {
             if (ShouldlyConfiguration.IsSourceDisabledInErrors())
                 return actual.ToStringAwesomely();
