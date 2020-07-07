@@ -14,25 +14,10 @@ namespace Shouldly
     {
         public static void ShouldBeEquivalentTo(
             [NotNullIfNotNull("expected")] this object? actual,
-            [NotNullIfNotNull("actual")] object? expected)
-        {
-            ShouldBeEquivalentTo(actual, expected, () => null);
-        }
-
-        public static void ShouldBeEquivalentTo(
-            [NotNullIfNotNull("expected")] this object? actual,
             [NotNullIfNotNull("actual")] object? expected,
-            string? customMessage)
+            string? customMessage = null)
         {
-            ShouldBeEquivalentTo(actual, expected, () => customMessage);
-        }
-
-        public static void ShouldBeEquivalentTo(
-            [NotNullIfNotNull("expected")] this object? actual,
-            [NotNullIfNotNull("actual")] object? expected,
-            [InstantHandle] Func<string?>? customMessage)
-        {
-            CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
+            CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), () => customMessage);
         }
 
         private static void CompareObjects(

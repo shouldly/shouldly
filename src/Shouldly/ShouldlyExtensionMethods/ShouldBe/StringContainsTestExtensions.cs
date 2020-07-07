@@ -35,12 +35,7 @@ namespace Shouldly
         {
             ShouldContain(actual, expected, () => customMessage, caseSensitivity);
         }
-
-        public static void ShouldContain(this string actual, string expected, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldContain(actual, expected, customMessage, Case.Insensitive);
-        }
-
+        
         public static void ShouldContain(this string actual, string expected, [InstantHandle] Func<string?>? customMessage, Case caseSensitivity)
         {
             actual.AssertAwesomely(
@@ -66,11 +61,6 @@ namespace Shouldly
             ShouldNotContain(actual, expected, () => customMessage, caseSensitivity);
         }
 
-        public static void ShouldNotContain(this string actual, string expected, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldNotContain(actual, expected, customMessage, Case.Insensitive);
-        }
-
         public static void ShouldNotContain(this string actual, string expected, [InstantHandle] Func<string?>? customMessage, Case caseSensitivity)
         {
             actual.AssertAwesomely(v =>
@@ -82,22 +72,12 @@ namespace Shouldly
 
         public static void ShouldMatch(this string actual, string regexPattern, string? customMessage = null)
         {
-            ShouldMatch(actual, regexPattern, () => customMessage);
-        }
-
-        public static void ShouldMatch(this string actual, string regexPattern, [InstantHandle] Func<string?>? customMessage)
-        {
-            actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
+            actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, () => customMessage);
         }
 
         public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null)
         {
-            ShouldNotMatch(actual, regexPattern, () => customMessage);
-        }
-
-        public static void ShouldNotMatch(this string actual, string regexPattern, [InstantHandle] Func<string?>? customMessage)
-        {
-            actual.AssertAwesomely(v => !Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
+            actual.AssertAwesomely(v => !Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, () => customMessage);
         }
     }
 }

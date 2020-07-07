@@ -50,9 +50,5 @@ namespace Shouldly
         {
             return Should.NotThrowInternal(action, customMessage);
         }
-        public static T ShouldNotThrow<T>(this Func<T> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            return Should.NotThrowInternal(action, customMessage?.Invoke());
-        }
     }
 }
