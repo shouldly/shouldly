@@ -13,9 +13,11 @@ namespace Shouldly.Tests.ConventionTests
             var failingTypes =
                 from shouldlyClasses in data
                 from shouldlyMethods in shouldlyClasses.GetMethods()
-                where typeof(object).GetMethods().OrderBy(x=>x.Name).All(m => m.Name != shouldlyMethods.Name)
-                group shouldlyMethods by FormatKey(shouldlyMethods) into shouldlyMethod
+                where typeof(object).GetMethods().All(m => m.Name != shouldlyMethods.Name)
+                group shouldlyMethods by FormatKey(shouldlyMethods)
+                into shouldlyMethod
                 where HasNoCustomMessageOverload(shouldlyMethod)
+                orderby shouldlyMethod.Key
                 select shouldlyMethod.Key;
 
             result.Is(
