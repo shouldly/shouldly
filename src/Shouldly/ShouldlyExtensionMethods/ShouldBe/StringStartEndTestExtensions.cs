@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
@@ -25,6 +26,7 @@ namespace Shouldly
         public static void ShouldStartWith([NotNull] this string? actual, string expected, [InstantHandle] Func<string?>? customMessage, Case caseSensitivity = Case.Insensitive)
         {
             actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
+            Debug.Assert(actual != null);
         }
 
         /*** ShouldEndWith ***/
@@ -46,6 +48,7 @@ namespace Shouldly
         public static void ShouldEndWith([NotNull] this string? actual, string expected, [InstantHandle] Func<string?>? customMessage, Case caseSensitivity = Case.Insensitive)
         {
             actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
+            Debug.Assert(actual != null);
         }
 
         /*** ShouldNotStartWith ***/
