@@ -58,7 +58,7 @@ namespace Shouldly.Internals
                 // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
                 // scenarios. Alternately, it could be replaced with a more robust implementation.
                 while (currentFrame.GetMethod().DeclaringType == null ||
-                        (currentFrame.GetMethod().DeclaringType.FullName?.StartsWith("System.Dynamic") ?? false))
+                        (currentFrame.GetMethod().DeclaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false))
                 {
                     currentFrame = stackTrace.GetFrame(++i);
                 }
