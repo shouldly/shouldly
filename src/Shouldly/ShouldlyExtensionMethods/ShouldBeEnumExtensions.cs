@@ -6,10 +6,7 @@ namespace Shouldly.ShouldlyExtensionMethods
     [ShouldlyMethods]
     public static class ShouldHaveEnumExtensions
     {
-        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag)
-            => ShouldHaveFlag(actual, expectedFlag, () => null);
-
-        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage)
+        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
             => ShouldHaveFlag(actual, expectedFlag, () => customMessage);
 
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, [InstantHandle] Func<string?>? customMessage)
@@ -21,10 +18,7 @@ namespace Shouldly.ShouldlyExtensionMethods
             }
         }
 
-        public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag)
-            => ShouldNotHaveFlag(actual, expectedFlag, () => null);
-
-        public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage)
+        public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
             => ShouldNotHaveFlag(actual, expectedFlag, () => customMessage);
 
         public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag,

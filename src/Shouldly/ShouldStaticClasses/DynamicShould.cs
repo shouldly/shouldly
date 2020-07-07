@@ -10,13 +10,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class DynamicShould
     {
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName)
-        {
-            Func<string?> customMessage = () => null;
-            HaveProperty(dynamicTestObject, propertyName, customMessage);
-        }
-
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage)
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
         {
             Func<string?> message = () => customMessage;
             HaveProperty(dynamicTestObject, propertyName, message);

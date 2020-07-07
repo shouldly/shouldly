@@ -8,12 +8,7 @@ namespace Shouldly
         /// <summary>
         /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
         /// </summary>
-        public static void ShouldContainWithoutWhitespace(this string actual, object? expected)
-        {
-            ShouldContainWithoutWhitespace(actual, expected, () => null);
-        }
-
-        public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage)
+        public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage = null)
         {
             ShouldContainWithoutWhitespace(actual, expected, () => customMessage);
         }
@@ -26,17 +21,12 @@ namespace Shouldly
             strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage);
         }
 
-        public static void ShouldContain(this string actual, string expected)
-        {
-            ShouldContain(actual, expected, () => null, Case.Insensitive);
-        }
-
         public static void ShouldContain(this string actual, string expected, Case caseSensitivity)
         {
             ShouldContain(actual, expected, () => null, caseSensitivity);
         }
 
-        public static void ShouldContain(this string actual, string expected, string? customMessage)
+        public static void ShouldContain(this string actual, string expected, string? customMessage = null)
         {
             ShouldContain(actual, expected, () => customMessage, Case.Insensitive);
         }
@@ -61,17 +51,12 @@ namespace Shouldly
                 customMessage);
         }
 
-        public static void ShouldNotContain(this string actual, string expected)
-        {
-            ShouldNotContain(actual, expected, () => null, Case.Insensitive);
-        }
-
         public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity)
         {
             ShouldNotContain(actual, expected, () => null, caseSensitivity);
         }
 
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage)
+        public static void ShouldNotContain(this string actual, string expected, string? customMessage = null)
         {
             ShouldNotContain(actual, expected, () => customMessage, Case.Insensitive);
         }
@@ -95,12 +80,7 @@ namespace Shouldly
             }, actual.Clip(100, "..."), expected, caseSensitivity, customMessage);
         }
 
-        public static void ShouldMatch(this string actual, string regexPattern)
-        {
-            ShouldMatch(actual, regexPattern, () => null);
-        }
-
-        public static void ShouldMatch(this string actual, string regexPattern, string? customMessage)
+        public static void ShouldMatch(this string actual, string regexPattern, string? customMessage = null)
         {
             ShouldMatch(actual, regexPattern, () => customMessage);
         }
@@ -110,12 +90,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
         }
 
-        public static void ShouldNotMatch(this string actual, string regexPattern)
-        {
-            ShouldNotMatch(actual, regexPattern, () => null);
-        }
-
-        public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage)
+        public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null)
         {
             ShouldNotMatch(actual, regexPattern, () => customMessage);
         }

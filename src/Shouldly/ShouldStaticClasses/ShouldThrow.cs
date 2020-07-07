@@ -10,11 +10,7 @@ namespace Shouldly
     public static partial class Should
     {
         /*** Should.Throw(Action) ***/
-        public static TException Throw<TException>([InstantHandle] Action actual) where TException : Exception
-        {
-            return Throw<TException>(actual, () => null);
-        }
-        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null) where TException : Exception
         {
             return Throw<TException>(actual, () => customMessage);
         }
@@ -75,11 +71,7 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<T>) ***/
-        public static TException Throw<TException>([InstantHandle] Func<object?> actual) where TException : Exception
-        {
-            return Throw<TException>(actual, () => null);
-        }
-        public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null) where TException : Exception
         {
             return Throw<TException>(actual, () => customMessage);
         }
@@ -140,11 +132,7 @@ namespace Shouldly
         }
 
         /*** Should.NotThrow(Action) ***/
-        public static void NotThrow([InstantHandle] Action action)
-        {
-            NotThrow(action, null);
-        }
-        public static void NotThrow([InstantHandle] Action action, string? customMessage)
+        public static void NotThrow([InstantHandle] Action action, string? customMessage = null)
         {
             NotThrowInternal(action, customMessage);
         }
@@ -162,11 +150,7 @@ namespace Shouldly
         }
 
         /*** Should.NotThrow(Func<T>) ***/
-        public static T NotThrow<T>([InstantHandle] Func<T> action)
-        {
-            return NotThrow(action, () => null);
-        }
-        public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage)
+        public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null)
         {
             return NotThrow(action, () => customMessage);
         }

@@ -37,11 +37,7 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to) where T : IComparable<T>
-        {
-            ShouldBeInRange(actual, from, to, () => null);
-        }
-        public static void ShouldBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to, string? customMessage) where T : IComparable<T>
+        public static void ShouldBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to, string? customMessage = null) where T : IComparable<T>
         {
             ShouldBeInRange(actual, from, to, () => customMessage);
         }
@@ -50,11 +46,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }
 
-        public static void ShouldNotBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to) where T : IComparable<T>
-        {
-            ShouldNotBeInRange(actual, from, to, () => null);
-        }
-        public static void ShouldNotBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to, string? customMessage) where T : IComparable<T>
+        public static void ShouldNotBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to, string? customMessage = null) where T : IComparable<T>
         {
             ShouldNotBeInRange(actual, from, to, () => customMessage);
         }

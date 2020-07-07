@@ -9,13 +9,7 @@ namespace Shouldly
     public static partial class Should
     {
         /*** CompleteIn(Action) ***/
-        public static void CompleteIn(Action action, TimeSpan timeout)
-        {
-            var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default);
-            CompleteIn(actual, timeout, () => null);
-        }
-        public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage)
+        public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage = null)
         {
             CompleteIn(action, timeout, () => customMessage);
         }
@@ -27,11 +21,7 @@ namespace Shouldly
         }
 
         /*** CompleteIn(Func<T>) ***/
-        public static T CompleteIn<T>(Func<T> function, TimeSpan timeout)
-        {
-            return CompleteIn(function, timeout, () => null);
-        }
-        public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, string? customMessage)
+        public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, string? customMessage = null)
         {
             return CompleteIn(function, timeout, () => customMessage);
         }
@@ -44,11 +34,7 @@ namespace Shouldly
         }
 
         /*** CompleteIn(Func<Task>) ***/
-        public static void CompleteIn(Func<Task> actual, TimeSpan timeout)
-        {
-            CompleteIn(actual, timeout, () => null);
-        }
-        public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage)
+        public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null)
         {
             CompleteIn(actual, timeout, () => customMessage);
         }
@@ -58,11 +44,7 @@ namespace Shouldly
         }
 
         /*** CompleteIn(Func<Task<T>>) ***/
-        public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout)
-        {
-            return CompleteIn(actual, timeout, () => null);
-        }
-        public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage)
+        public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
         {
             return CompleteIn(actual, timeout, () => customMessage);
         }
@@ -72,11 +54,7 @@ namespace Shouldly
         }
 
         /*** CompleteIn(Task<T>) ***/
-        public static void CompleteIn(Task actual, TimeSpan timeout)
-        {
-            CompleteIn(actual, timeout, () => null);
-        }
-        public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage)
+        public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null)
         {
             CompleteIn(actual, timeout, () => customMessage);
         }
@@ -86,12 +64,7 @@ namespace Shouldly
         }
 
         /*** CompleteIn(Task<T>) ***/
-        public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout)
-        {
-            CompleteIn(actual, timeout, () => null);
-            return actual.Result;
-        }
-        public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage)
+        public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
         {
             CompleteIn(actual, timeout, () => customMessage);
             return actual.Result;

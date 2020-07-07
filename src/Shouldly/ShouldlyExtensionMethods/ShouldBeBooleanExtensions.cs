@@ -9,12 +9,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeBooleanExtensions
     {
-        public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual)
-        {
-            ShouldBeTrue(actual, () => null);
-        }
-
-        public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual, string? customMessage)
+        public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual, string? customMessage = null)
         {
             ShouldBeTrue(actual, () => customMessage);
         }
@@ -25,12 +20,7 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString());
         }
 
-        public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool actual)
-        {
-            ShouldBeFalse(actual, () => null);
-        }
-
-        public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool actual, string? customMessage)
+        public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool actual, string? customMessage = null)
         {
             ShouldBeFalse(actual, () => customMessage);
         }

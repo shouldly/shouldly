@@ -8,12 +8,7 @@ namespace Shouldly
         /// <summary>
         /// decimal
         /// </summary>
-        public static void ShouldBePositive(this decimal actual)
-        {
-            ShouldBePositive(actual, () => null);
-        }
-
-        public static void ShouldBePositive(this decimal actual, string? customMessage)
+        public static void ShouldBePositive(this decimal actual, string? customMessage = null)
         {
             ShouldBePositive(actual, () => customMessage);
         }
@@ -24,12 +19,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBeNegative(this decimal actual)
-        {
-            ShouldBeNegative(actual, () => null);
-        }
-
-        public static void ShouldBeNegative(this decimal actual, string? customMessage)
+        public static void ShouldBeNegative(this decimal actual, string? customMessage = null)
         {
             ShouldBeNegative(actual, () => customMessage);
         }
@@ -43,12 +33,7 @@ namespace Shouldly
         /// <summary>
         /// double
         /// </summary>
-        public static void ShouldBePositive(this double actual)
-        {
-            ShouldBePositive(actual, () => null);
-        }
-
-        public static void ShouldBePositive(this double actual, string? customMessage)
+        public static void ShouldBePositive(this double actual, string? customMessage = null)
         {
             ShouldBePositive(actual, () => customMessage);
         }
@@ -59,12 +44,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBeNegative(this double actual)
-        {
-            ShouldBeNegative(actual, () => null);
-        }
-
-        public static void ShouldBeNegative(this double actual, string? customMessage)
+        public static void ShouldBeNegative(this double actual, string? customMessage = null)
         {
             ShouldBeNegative(actual, () => customMessage);
         }
@@ -78,12 +58,7 @@ namespace Shouldly
         /// <summary>
         /// float
         /// </summary>
-        public static void ShouldBePositive(this float actual)
-        {
-            ShouldBePositive(actual, () => null);
-        }
-
-        public static void ShouldBePositive(this float actual, string? customMessage)
+        public static void ShouldBePositive(this float actual, string? customMessage = null)
         {
             ShouldBePositive(actual, () => customMessage);
         }
@@ -94,12 +69,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBeNegative(this float actual)
-        {
-            ShouldBeNegative(actual, () => null);
-        }
-
-        public static void ShouldBeNegative(this float actual, string? customMessage)
+        public static void ShouldBeNegative(this float actual, string? customMessage = null)
         {
             ShouldBeNegative(actual, () => customMessage);
         }
@@ -113,12 +83,7 @@ namespace Shouldly
         /// <summary>
         /// int
         /// </summary>
-        public static void ShouldBePositive(this int actual)
-        {
-            ShouldBePositive(actual, () => null);
-        }
-
-        public static void ShouldBePositive(this int actual, string? customMessage)
+        public static void ShouldBePositive(this int actual, string? customMessage = null)
         {
             ShouldBePositive(actual, () => customMessage);
         }
@@ -129,12 +94,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBeNegative(this int actual)
-        {
-            ShouldBeNegative(actual, () => null);
-        }
-
-        public static void ShouldBeNegative(this int actual, string? customMessage)
+        public static void ShouldBeNegative(this int actual, string? customMessage = null)
         {
             ShouldBeNegative(actual, () => customMessage);
         }
@@ -148,12 +108,7 @@ namespace Shouldly
         /// <summary>
         /// long
         /// </summary>
-        public static void ShouldBePositive(this long actual)
-        {
-            ShouldBePositive(actual, () => null);
-        }
-
-        public static void ShouldBePositive(this long actual, string? customMessage)
+        public static void ShouldBePositive(this long actual, string? customMessage = null)
         {
             ShouldBePositive(actual, () => customMessage);
         }
@@ -164,12 +119,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBeNegative(this long actual)
-        {
-            ShouldBeNegative(actual, () => null);
-        }
-
-        public static void ShouldBeNegative(this long actual, string? customMessage)
+        public static void ShouldBeNegative(this long actual, string? customMessage = null)
         {
             ShouldBeNegative(actual, () => customMessage);
         }
@@ -183,12 +133,7 @@ namespace Shouldly
         /// <summary>
         /// short
         /// </summary>
-        public static void ShouldBePositive(this short actual)
-        {
-            ShouldBePositive(actual, () => null);
-        }
-
-        public static void ShouldBePositive(this short actual, string? customMessage)
+        public static void ShouldBePositive(this short actual, string? customMessage = null)
         {
             ShouldBePositive(actual, () => customMessage);
         }
@@ -199,12 +144,7 @@ namespace Shouldly
             actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBeNegative(this short actual)
-        {
-            ShouldBeNegative(actual, () => null);
-        }
-
-        public static void ShouldBeNegative(this short actual, string? customMessage)
+        public static void ShouldBeNegative(this short actual, string? customMessage = null)
         {
             ShouldBeNegative(actual, () => customMessage);
         }

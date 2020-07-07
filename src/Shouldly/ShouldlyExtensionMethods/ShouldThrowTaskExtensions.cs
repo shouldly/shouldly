@@ -10,11 +10,7 @@ namespace Shouldly
     public static class ShouldThrowTaskExtensions
     {
         /*** ShouldThrow(Task) ***/
-        public static TException ShouldThrow<TException>(this Task actual) where TException : Exception
-        {
-            return ShouldThrow<TException>(() => actual);
-        }
-        public static TException ShouldThrow<TException>(this Task actual, string? customMessage) where TException : Exception
+        public static TException ShouldThrow<TException>(this Task actual, string? customMessage = null) where TException : Exception
         {
             return ShouldThrow<TException>(() => actual, customMessage);
         }
@@ -38,11 +34,7 @@ namespace Shouldly
         }
 
         /*** ShouldThrow(Func<Task>) ***/
-        public static TException ShouldThrow<TException>(this Func<Task> actual) where TException : Exception
-        {
-            return ShouldThrow<TException>(actual, () => null);
-        }
-        public static TException ShouldThrow<TException>(this Func<Task> actual, string? customMessage) where TException : Exception
+        public static TException ShouldThrow<TException>(this Func<Task> actual, string? customMessage = null) where TException : Exception
         {
             return ShouldThrow<TException>(actual, () => customMessage);
         }
@@ -66,11 +58,7 @@ namespace Shouldly
         }
 
         /*** ShouldThrow(Task, TimeSpan) ***/
-        public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter) where TException : Exception
-        {
-            return ShouldThrow<TException>(() => actual, timeoutAfter);
-        }
-        public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string? customMessage) where TException : Exception
+        public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
         {
             return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
         }
@@ -94,11 +82,7 @@ namespace Shouldly
         }
 
         /*** ShouldThrow(Func<Task>, TimeSpan) ***/
-        public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter) where TException : Exception
-        {
-            return ShouldThrow<TException>(actual, timeoutAfter, () => null);
-        }
-        public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage) where TException : Exception
+        public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
         {
             return ShouldThrow<TException>(actual, timeoutAfter, () => customMessage);
         }
@@ -122,11 +106,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Task) ***/
-        public static void ShouldNotThrow(this Task action)
-        {
-            ShouldNotThrow(action, () => null);
-        }
-        public static void ShouldNotThrow(this Task action, string? customMessage)
+        public static void ShouldNotThrow(this Task action, string? customMessage = null)
         {
             ShouldNotThrow(action, () => customMessage);
         }
@@ -136,11 +116,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Task<T>) ***/
-        public static T ShouldNotThrow<T>(this Task<T> action)
-        {
-            return ShouldNotThrow(() => action);
-        }
-        public static T ShouldNotThrow<T>(this Task<T> action, string? customMessage)
+        public static T ShouldNotThrow<T>(this Task<T> action, string? customMessage = null)
         {
             return ShouldNotThrow(() => action, customMessage);
         }
@@ -150,11 +126,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Func<Task>) ***/
-        public static void ShouldNotThrow(this Func<Task> action)
-        {
-            ShouldNotThrow(action, () => null);
-        }
-        public static void ShouldNotThrow(this Func<Task> action, string? customMessage)
+        public static void ShouldNotThrow(this Func<Task> action, string? customMessage = null)
         {
             ShouldNotThrow(action, () => customMessage);
         }
@@ -164,11 +136,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Task, TimeSpan) ***/
-        public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter)
-        {
-            ShouldNotThrow(() => action, timeoutAfter);
-        }
-        public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter, string? customMessage)
+        public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter, string? customMessage = null)
         {
             ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
@@ -178,11 +146,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Func<Task>, TimeSpan) ***/
-        public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter)
-        {
-            ShouldNotThrow(action, timeoutAfter, () => null);
-        }
-        public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, string? customMessage)
+        public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
             ShouldNotThrow(action, timeoutAfter, () => customMessage);
         }
@@ -192,11 +156,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Func<Task<T>>) ***/
-        public static T ShouldNotThrow<T>(this Func<Task<T>> action)
-        {
-            return ShouldNotThrow(action, () => null);
-        }
-        public static T ShouldNotThrow<T>(this Func<Task<T>> action, string? customMessage)
+        public static T ShouldNotThrow<T>(this Func<Task<T>> action, string? customMessage = null)
         {
             return ShouldNotThrow(action, () => customMessage);
         }
@@ -206,11 +166,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Task<T>, TimeSpan) ***/
-        public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter)
-        {
-            return ShouldNotThrow(() => action, timeoutAfter);
-        }
-        public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter, string? customMessage)
+        public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
             return ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
@@ -220,11 +176,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrow(Func<Task<T>>, TimeSpan) ***/
-        public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter)
-        {
-            return ShouldNotThrow(action, timeoutAfter, () => null);
-        }
-        public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage)
+        public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
             return ShouldNotThrow(action, timeoutAfter, () => customMessage);
         }

@@ -11,14 +11,7 @@ namespace Shouldly
     public static class ShouldBeNullExtensions
     {
         [ContractAnnotation("actual:notnull => halt")]
-        public static void ShouldBeNull<T>([MaybeNull] this T? actual)
-            where T : class
-        {
-            ShouldBeNull(actual, () => null);
-        }
-
-        [ContractAnnotation("actual:notnull => halt")]
-        public static void ShouldBeNull<T>([MaybeNull] this T? actual, string? customMessage)
+        public static void ShouldBeNull<T>([MaybeNull] this T? actual, string? customMessage = null)
             where T : class
         {
             ShouldBeNull(actual, () => customMessage);
@@ -33,14 +26,7 @@ namespace Shouldly
         }
 
         [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNull<T>([NotNull] this T? actual)
-            where T : class
-        {
-            ShouldNotBeNull(actual, () => null);
-        }
-
-        [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage)
+        public static void ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
             where T : class
         {
             ShouldNotBeNull(actual, () => customMessage);

@@ -9,13 +9,8 @@ namespace Shouldly
     public static partial class Should
     {
         /*** Should.ThrowAsync(Task) ***/
-        public static Task<TException> ThrowAsync<TException>(Task task)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(task, () => null);
-        }
 
-        public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage)
+        public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
             where TException : Exception
         {
             return ThrowAsync<TException>(task, () => customMessage);
@@ -43,13 +38,8 @@ namespace Shouldly
         }
 
         /*** Should.ThrowAsync(Func<Task>) ***/
-        public static Task<TException> ThrowAsync<TException>(Func<Task> actual)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(actual, () => null);
-        }
 
-        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage)
+        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null)
             where TException : Exception
         {
             return ThrowAsync<TException>(actual, () => customMessage);
@@ -200,12 +190,7 @@ namespace Shouldly
         }
 
         /*** Should.NotThrowAsync(Task) ***/
-        public static Task NotThrowAsync(Task task)
-        {
-            return NotThrowAsync(task, () => null);
-        }
-
-        public static Task NotThrowAsync(Task task, string? customMessage)
+        public static Task NotThrowAsync(Task task, string? customMessage = null)
         {
             return NotThrowAsync(task, () => customMessage);
         }
@@ -216,12 +201,7 @@ namespace Shouldly
         }
 
         /*** Should.NotThrowAsync(Func<Task>) ***/
-        public static Task NotThrowAsync(Func<Task> actual)
-        {
-            return NotThrowAsync(actual, () => null);
-        }
-
-        public static Task NotThrowAsync(Func<Task> actual, string? customMessage)
+        public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null)
         {
             return NotThrowAsync(actual, () => customMessage);
         }

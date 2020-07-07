@@ -10,11 +10,7 @@ namespace Shouldly
     public static class ShouldNotThrowTaskAsyncExtensions
     {
         /*** ShouldNotThrowAsync(Task) ***/
-        public static Task ShouldNotThrowAsync(this Task task)
-        {
-            return Should.NotThrowAsync(task, () => null);
-        }
-        public static Task ShouldNotThrowAsync(this Task task, string? customMessage)
+        public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null)
         {
             return Should.NotThrowAsync(task, customMessage);
         }
@@ -24,11 +20,7 @@ namespace Shouldly
         }
 
         /*** ShouldNotThrowAsync(Func<Task>) ***/
-        public static Task ShouldNotThrowAsync(this Func<Task> actual)
-        {
-            return Should.NotThrowAsync(actual);
-        }
-        public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage)
+        public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage = null)
         {
             return Should.NotThrowAsync(actual, customMessage);
         }

@@ -9,12 +9,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldBeDecoratedWithExtensions
     {
-        public static void ShouldBeDecoratedWith<T>(this Type actual) where T : Attribute
-        {
-            ShouldBeDecoratedWith<T>(actual, () => "");
-        }
-
-        public static void ShouldBeDecoratedWith<T>(this Type actual, string? customMessage) where T : Attribute
+        public static void ShouldBeDecoratedWith<T>(this Type actual, string? customMessage = null) where T : Attribute
         {
             ShouldBeDecoratedWith<T>(actual, () => customMessage);
         }

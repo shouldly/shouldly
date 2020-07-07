@@ -7,13 +7,7 @@ namespace Shouldly
     public static partial class ShouldBeStringTestExtensions
     {
         [ContractAnnotation("actual:notnull => halt")]
-        public static void ShouldBeNullOrEmpty(this string? actual)
-        {
-            ShouldBeNullOrEmpty(actual, () => null);
-        }
-
-        [ContractAnnotation("actual:notnull => halt")]
-        public static void ShouldBeNullOrEmpty(this string? actual, string? customMessage)
+        public static void ShouldBeNullOrEmpty(this string? actual, string? customMessage = null)
         {
             ShouldBeNullOrEmpty(actual, () => customMessage);
         }
@@ -26,13 +20,7 @@ namespace Shouldly
         }
 
         [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNullOrEmpty([NotNull] this string? actual)
-        {
-            ShouldNotBeNullOrEmpty(actual, () => null);
-        }
-
-        [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNullOrEmpty([NotNull] this string? actual, string? customMessage)
+        public static void ShouldNotBeNullOrEmpty([NotNull] this string? actual, string? customMessage = null)
         {
             ShouldNotBeNullOrEmpty(actual, () => customMessage);
         }

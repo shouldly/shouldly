@@ -11,11 +11,7 @@ namespace Shouldly
     [ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
     {
-        public static void ShouldMatchApproved(this string actual)
-        {
-            actual.ShouldMatchApproved(() => null, c => { });
-        }
-        public static void ShouldMatchApproved(this string actual, string? customMessage)
+        public static void ShouldMatchApproved(this string actual, string? customMessage = null)
         {
             actual.ShouldMatchApproved(() => customMessage, c => { });
         }
