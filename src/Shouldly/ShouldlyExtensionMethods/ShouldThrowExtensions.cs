@@ -67,15 +67,11 @@ namespace Shouldly
         /*** ShouldNotThrow(Action) ***/
         public static void ShouldNotThrow(this Action action)
         {
-            ShouldNotThrow(action, () => null);
+            Should.NotThrowInternal(action, null);
         }
         public static void ShouldNotThrow(this Action action, string? customMessage)
         {
-            ShouldNotThrow(action, customMessage);
-        }
-        public static void ShouldNotThrow(this Action action, [InstantHandle] Func<string?>? customMessage)
-        {
-            Should.NotThrowInternal(action, customMessage?.Invoke());
+            Should.NotThrowInternal(action, customMessage);
         }
 
         /*** ShouldNotThrow(Func<T>) ***/

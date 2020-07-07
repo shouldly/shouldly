@@ -17,13 +17,13 @@ namespace Shouldly.Tests.ConventionTests
                 t => t.HasAttribute("Shouldly.ShouldlyMethodsAttribute"));
         }
 
-        [Fact]
-        [UseCulture("en-US")]
-        public void ShouldHaveCustomMessageOverloads()
-        {
-            Convention.GetFailures(new ShouldlyMethodsShouldHaveCustomMessageOverload(), _shouldlyMethodClasses)
-                .ShouldMatchApproved();
-        }
+        //[Fact]
+        //[UseCulture("en-US")]
+        //public void ShouldHaveCustomMessageOverloads()
+        //{
+        //    Convention.GetFailures(new ShouldlyMethodsShouldHaveCustomMessageOverload(), _shouldlyMethodClasses)
+        //        .ShouldMatchApproved();
+        //}
 
         [Fact]
         public void VerifyItWorks()

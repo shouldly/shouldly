@@ -142,15 +142,11 @@ namespace Shouldly
         /*** Should.NotThrow(Action) ***/
         public static void NotThrow([InstantHandle] Action action)
         {
-            NotThrow(action, () => null);
+            NotThrow(action, null);
         }
         public static void NotThrow([InstantHandle] Action action, string? customMessage)
         {
-            NotThrow(action, () => customMessage);
-        }
-        public static void NotThrow([InstantHandle] Action action, [InstantHandle] Func<string?>? customMessage)
-        {
-            NotThrowInternal(action, customMessage?.Invoke());
+            NotThrowInternal(action, customMessage);
         }
         internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)

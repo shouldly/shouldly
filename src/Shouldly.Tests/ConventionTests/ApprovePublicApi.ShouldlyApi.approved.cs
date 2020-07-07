@@ -43,7 +43,6 @@ namespace Shouldly
         public static void NotThrow(System.Action action) { }
         public static void NotThrow(System.Func<System.Threading.Tasks.Task> action) { }
         public static void NotThrow(System.Threading.Tasks.Task action) { }
-        public static void NotThrow(System.Action action, System.Func<string?>? customMessage) { }
         public static void NotThrow(System.Action action, string? customMessage) { }
         public static void NotThrow(System.Func<System.Threading.Tasks.Task> action, System.Func<string?>? customMessage) { }
         public static void NotThrow(System.Func<System.Threading.Tasks.Task> action, System.TimeSpan timeoutAfter) { }
