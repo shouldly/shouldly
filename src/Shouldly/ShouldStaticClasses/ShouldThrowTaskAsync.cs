@@ -113,7 +113,7 @@ namespace Shouldly
                                 return expectedException;
 
                             // If Task.IsFaulted is true, there is at least one inner exception.
-                            return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException!.GetType(), customMessage).ToString());
+                            return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), t.Exception.InnerException!.GetType(), customMessage?.Invoke()).ToString());
                         }
 
                         if (t.IsCanceled)
@@ -143,7 +143,7 @@ namespace Shouldly
                 if (e is TException exception)
                     return Task.FromResult(exception);
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke()).ToString());
             }
 #endif
         }
@@ -262,10 +262,10 @@ namespace Shouldly
                     if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                     {
                         var inner = flattened.InnerException;
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(inner.GetType(), inner.Message, customMessage, shouldlyMethod).ToString());
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(inner.GetType(), inner.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
                     }
 
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(t.Exception.GetType(), t.Exception.Message, customMessage, shouldlyMethod).ToString());
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(t.Exception.GetType(), t.Exception.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
                 }
             });
 #endif

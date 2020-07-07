@@ -186,19 +186,19 @@ namespace Shouldly
 
     internal class TaskShouldlyThrowMessage : ShouldlyMessage
     {
-        public TaskShouldlyThrowMessage(object? expected, string exceptionMessage, Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+        public TaskShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, isAsync: true, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public TaskShouldlyThrowMessage(object? expected, object? actual, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+        public TaskShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true, shouldlyMethod: shouldlyMethod)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
         public TaskShouldlyThrowMessage(object? expected, [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)

@@ -125,7 +125,7 @@ namespace Shouldly
                 if (e is TException exception)
                     return exception;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString());
             }
 
             throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
@@ -168,7 +168,7 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString());
             }
 
             throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
@@ -260,7 +260,7 @@ namespace Shouldly
             {
                 ex = (ex as AggregateException)?.InnerException ?? ex;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
             }
         }
 
@@ -326,7 +326,7 @@ namespace Shouldly
             {
                 ex = (ex as AggregateException)?.InnerException ?? ex;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
             }
         }
 
