@@ -136,11 +136,7 @@ namespace Shouldly
         /*** Should.NotThrow(Func<T>) ***/
         public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null)
         {
-            return NotThrow(action, () => customMessage);
-        }
-        public static T NotThrow<T>([InstantHandle] Func<T> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            return NotThrowInternal(action, customMessage?.Invoke());
+            return NotThrowInternal(action, customMessage);
         }
 
         /// <summary>

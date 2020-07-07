@@ -11,33 +11,21 @@ namespace Shouldly
         /*** Should.Throw(Task) ***/
         public static TException Throw<TException>(Task actual, string? customMessage = null) where TException : Exception
         {
-            return Throw<TException>(actual, () => customMessage);
-        }
-        public static TException Throw<TException>(Task actual, [InstantHandle] Func<string?>? customMessage) where TException : Exception
-        {
-            return Throw<TException>(() => actual, customMessage);
+            return Throw<TException>(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** Should.Throw(Task) ***/
         public static Exception Throw(Task actual, Type exceptionType)
         {
-            return Throw(actual, () => null, exceptionType);
+            return Throw(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, () => null, exceptionType);
         }
         public static Exception Throw(Task actual, string? customMessage, Type exceptionType)
         {
-            return Throw(actual, () => customMessage, exceptionType);
-        }
-        public static Exception Throw(Task actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
-        {
-            return Throw(() => actual, customMessage, exceptionType);
+            return Throw(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage, exceptionType);
         }
 
         /*** Should.Throw(Func<Task>) ***/
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, string? customMessage = null) where TException : Exception
-        {
-            return Throw<TException>(actual, () => customMessage);
-        }
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, [InstantHandle] Func<string?>? customMessage) where TException : Exception
         {
             return Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -45,23 +33,15 @@ namespace Shouldly
         /*** Should.Throw(Func<Task>) ***/
         public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType)
         {
-            return Throw(actual, () => null, exceptionType);
+            return Throw(actual, ShouldlyConfiguration.DefaultTaskTimeout, () => null, exceptionType);
         }
         public static Exception Throw([InstantHandle] Func<Task> actual, string? customMessage, Type exceptionType)
         {
-            return Throw(actual, () => customMessage, exceptionType);
-        }
-        public static Exception Throw([InstantHandle] Func<Task> actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
-        {
-            return Throw(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
+            return Throw(actual, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage, exceptionType);
         }
 
         /*** Should.Throw(Task, TimeSpan) ***/
         public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
-        {
-            return Throw<TException>(actual, timeoutAfter, () => customMessage);
-        }
-        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage) where TException : Exception
         {
             return Throw<TException>(() => actual, timeoutAfter, customMessage);
         }
@@ -69,25 +49,17 @@ namespace Shouldly
         /*** Should.Throw(Task, TimeSpan) ***/
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType)
         {
-            return Throw(actual, timeoutAfter, () => null, exceptionType);
+            return Throw(() => actual, timeoutAfter, () => null, exceptionType);
         }
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
-            return Throw(actual, timeoutAfter, () => customMessage, exceptionType);
-        }
-        public static Exception Throw(Task actual, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
-        {
-            return Throw(() => actual, timeoutAfter, customMessage, exceptionType);
+            return Throw(() => actual, timeoutAfter, () => customMessage, exceptionType);
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
         {
-            return Throw<TException>(actual, timeoutAfter, () => customMessage);
-        }
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage) where TException : Exception
-        {
-            return ThrowInternal<TException>(actual, timeoutAfter, customMessage);
+            return ThrowInternal<TException>(actual, timeoutAfter, () => customMessage);
         }
         internal static TException ThrowInternal<TException>(
             [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
