@@ -10,40 +10,30 @@ namespace Shouldly
         /// </summary>
         public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage = null)
         {
-            ShouldContainWithoutWhitespace(actual, expected, () => customMessage);
-        }
-
-        public static void ShouldContainWithoutWhitespace(this string actual, object? expected, [InstantHandle] Func<string?>? customMessage)
-        {
             var strippedActual = actual.Quotify().StripWhitespace();
             var strippedExpected = (expected?.ToString() ?? "NULL").Quotify().StripWhitespace();
 
-            strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage);
+            strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, () => customMessage);
         }
 
         public static void ShouldContain(this string actual, string expected, Case caseSensitivity)
         {
-            ShouldContain(actual, expected, () => null, caseSensitivity);
+            ShouldContain(actual, expected, null, caseSensitivity);
         }
 
         public static void ShouldContain(this string actual, string expected, string? customMessage = null)
         {
-            ShouldContain(actual, expected, () => customMessage, Case.Insensitive);
+            ShouldContain(actual, expected, customMessage, Case.Insensitive);
         }
 
         public static void ShouldContain(this string actual, string expected, string? customMessage, Case caseSensitivity)
-        {
-            ShouldContain(actual, expected, () => customMessage, caseSensitivity);
-        }
-        
-        public static void ShouldContain(this string actual, string expected, [InstantHandle] Func<string?>? customMessage, Case caseSensitivity)
         {
             actual.AssertAwesomely(
                 v => (caseSensitivity == Case.Sensitive) ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected),
                 actual.Clip(100, "..."),
                 expected,
                 caseSensitivity,
-                customMessage);
+                () => customMessage);
         }
 
         public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity)

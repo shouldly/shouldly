@@ -90,17 +90,12 @@ namespace Shouldly
 
         public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null)
         {
-            ShouldBeSubsetOf(actual, expected, () => customMessage);
-        }
-
-        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, [InstantHandle] Func<string?>? customMessage)
-        {
             if (actual.Equals(expected))
                 return;
 
             var missing = actual.Except(expected);
             if (missing.Any())
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, () => customMessage).ToString());
         }
 
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null)
