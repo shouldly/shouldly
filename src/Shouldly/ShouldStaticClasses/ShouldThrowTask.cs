@@ -129,11 +129,7 @@ namespace Shouldly
         /*** Should.NotThrow(Task) ***/
         public static void NotThrow(Task action, string? customMessage = null)
         {
-            NotThrow(action, () => customMessage);
-        }
-        public static void NotThrow(Task action, [InstantHandle] Func<string?>? customMessage)
-        {
-            NotThrow(() => action, customMessage);
+            NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
         }
 
         /*** Should.NotThrow(Task<T>) ***/
@@ -145,32 +141,21 @@ namespace Shouldly
         /*** Should.NotThrow(Func<Task>) ***/
         public static void NotThrow([InstantHandle] Func<Task> action, string? customMessage = null)
         {
-            NotThrow(action, () => customMessage);
-        }
-        public static void NotThrow([InstantHandle] Func<Task> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+            NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
         }
 
         /*** Should.NotThrow(Task, TimeSpan) ***/
         public static void NotThrow(Task action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            NotThrow(action, timeoutAfter, () => customMessage);
-        }
-        public static void NotThrow(Task action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
-            NotThrow(() => action, timeoutAfter, customMessage);
+            NotThrowInternal(() => action, timeoutAfter, () => customMessage);
         }
 
         /*** Should.NotThrow(Func<Task>, TimeSpan) ***/
         public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            NotThrow(action, timeoutAfter, () => customMessage);
+            NotThrowInternal(action, timeoutAfter, () => customMessage);
         }
-        public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
-            NotThrowInternal(action, timeoutAfter, customMessage);
-        }
+
         internal static void NotThrowInternal(
             [InstantHandle] Func<Task> action, TimeSpan timeoutAfter,
             [InstantHandle] Func<string?>? customMessage,
