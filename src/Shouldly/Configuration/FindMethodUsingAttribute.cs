@@ -1,7 +1,6 @@
 #if ShouldMatchApproved
 using System;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Shouldly.Configuration
 {
@@ -18,7 +17,7 @@ namespace Shouldly.Configuration
                     throw new Exception($"Cannot find method in call stack with attribute {typeof(T).FullName}");
                 }
                 callingFrame = stackTrace.GetFrame(i++)!;
-            } while (!callingFrame.GetMethod().GetCustomAttributes(typeof(T), true).Any());
+            } while (!callingFrame.GetMethod().IsDefined(typeof(T), true));
 
             return new TestMethodInfo(callingFrame);
         }
