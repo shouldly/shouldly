@@ -59,16 +59,16 @@ namespace Shouldly
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
         public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
         {
-            return ThrowInternal<TException>(actual, timeoutAfter, () => customMessage);
+            return ThrowInternal<TException>(actual, timeoutAfter, customMessage);
         }
         internal static TException ThrowInternal<TException>(
             [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
-            [InstantHandle] Func<string?>? customMessage,
+            string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
             try
             {
-                RunAndWait(actual, timeoutAfter, customMessage);
+                RunAndWait(actual, timeoutAfter, () => customMessage);
             }
             catch (ShouldlyTimeoutException)
             {
@@ -81,10 +81,10 @@ namespace Shouldly
                 if (e is TException exception)
                     return exception;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString());
             }
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), () => customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
@@ -143,11 +143,7 @@ namespace Shouldly
         /*** Should.NotThrow(Task<T>) ***/
         public static T NotThrow<T>(Task<T> action, string? customMessage = null)
         {
-            return NotThrow(action, () => customMessage);
-        }
-        public static T NotThrow<T>(Task<T> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            return NotThrow(() => action, customMessage);
+            return NotThrow(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** Should.NotThrow(Func<Task>) ***/
@@ -203,19 +199,11 @@ namespace Shouldly
         /*** Should.NotThrow(Func<Task<T>>) ***/
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string? customMessage = null)
         {
-            return NotThrow(action, () => customMessage);
-        }
-        public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, [InstantHandle] Func<string?>? customMessage)
-        {
             return NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** Should.NotThrow(Task<T>, TimeSpan) ***/
         public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, string? customMessage = null)
-        {
-            return NotThrow(action, timeoutAfter, () => customMessage);
-        }
-        public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
         {
             return NotThrow(() => action, timeoutAfter, customMessage);
         }
@@ -223,15 +211,11 @@ namespace Shouldly
         /*** Should.NotThrow(Func<Task<T>>, TimeSpan) ***/
         public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            return NotThrow(action, timeoutAfter, () => customMessage);
-        }
-        public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
             return NotThrowInternal(action, timeoutAfter, customMessage);
         }
         internal static T NotThrowInternal<T>(
             [InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter,
-            [InstantHandle] Func<string?>? customMessage,
+            [InstantHandle] string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             try
@@ -239,7 +223,7 @@ namespace Shouldly
                 // Drop the sync context so continuations will not post to it, causing a deadlock
                 using (Utils.WithSynchronizationContext(null))
                 {
-                    return CompleteIn(action, timeoutAfter, customMessage?.Invoke());
+                    return CompleteIn(action, timeoutAfter, customMessage);
                 }
             }
             catch (ShouldlyTimeoutException)
@@ -250,7 +234,7 @@ namespace Shouldly
             {
                 ex = (ex as AggregateException)?.InnerException ?? ex;
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage?.Invoke(), shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
             }
         }
 

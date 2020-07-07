@@ -60,7 +60,7 @@ namespace Shouldly
         /*** ShouldThrow(Func<Task>, TimeSpan) ***/
         public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
         {
-            return Should.ThrowInternal<TException>(actual, timeoutAfter, () => customMessage);
+            return Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
         }
 
         /*** ShouldThrow(Func<Task>, TimeSpan) ***/
@@ -106,7 +106,7 @@ namespace Shouldly
         /*** ShouldNotThrow(Func<Task<T>>) ***/
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, string? customMessage = null)
         {
-            return Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
+            return Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** ShouldNotThrow(Task<T>, TimeSpan) ***/
@@ -118,7 +118,7 @@ namespace Shouldly
         /*** ShouldNotThrow(Func<Task<T>>, TimeSpan) ***/
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            return Should.NotThrowInternal(action, timeoutAfter, () => customMessage);
+            return Should.NotThrowInternal(action, timeoutAfter, customMessage);
         }
     }
 }
