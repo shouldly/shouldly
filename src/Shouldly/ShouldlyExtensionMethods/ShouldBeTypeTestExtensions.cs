@@ -21,7 +21,7 @@ namespace Shouldly
                     return true;
 
                 return Is.InstanceOf(v, expected);
-            }, actual, expected, () => customMessage);
+            }, actual, expected, customMessage);
         }
 
         public static T ShouldBeOfType<T>([NotNull] this object? actual, string? customMessage = null)
@@ -32,7 +32,7 @@ namespace Shouldly
 
         public static void ShouldBeOfType([NotNull] this object? actual, Type expected, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, () => customMessage);
+            actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage);
             Debug.Assert(actual != null);
         }
 
@@ -43,7 +43,7 @@ namespace Shouldly
 
         public static void ShouldNotBeAssignableTo(this object? actual, Type expected, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected, () => customMessage);
+            actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null)
@@ -53,7 +53,7 @@ namespace Shouldly
 
         public static void ShouldNotBeOfType(this object? actual, Type expected, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, () => customMessage);
+            actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage);
         }
     }
 }

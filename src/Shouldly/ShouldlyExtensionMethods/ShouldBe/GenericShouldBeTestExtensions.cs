@@ -17,15 +17,15 @@ namespace Shouldly
             , string? customMessage = null)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
-                actual!.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, () => customMessage);
+                actual!.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
             else
-                actual!.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, () => customMessage);
+                actual!.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
         public static void ShouldNotBe<T>([AllowNull] this T actual, [AllowNull] T expected, string? customMessage = null)
         {
-            actual!.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, () => customMessage);
+            actual!.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldBe<T>(
@@ -43,24 +43,24 @@ namespace Shouldly
         {
             if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
             {
-                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, () => customMessage);
+                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, customMessage);
             }
             else
             {
                 if (ignoreOrder)
                 {
-                    actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected, () => customMessage);
+                    actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected, customMessage);
                 }
                 else
                 {
-                    actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, () => customMessage);
+                    actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
                 }
             }
         }
 
         public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, () => customMessage);
+            actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage);
         }
 
         public static void ShouldBeSameAs(
@@ -74,12 +74,12 @@ namespace Shouldly
             [NotNullIfNotNull("actual")] object? expected,
             string? customMessage)
         {
-            actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, () => customMessage);
+            actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, customMessage);
         }
 
         public static void ShouldNotBeSameAs(this object? actual, object? expected, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => !Is.Same(v, expected), actual, expected, () => customMessage);
+            actual.AssertAwesomely(v => !Is.Same(v, expected), actual, expected, customMessage);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Shouldly
             where T : class
         {
             if (actual != null)
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, () => customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
         [ContractAnnotation("actual:null => halt")]
@@ -23,7 +23,7 @@ namespace Shouldly
             where T : class
         {
             if (actual == null)
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, () => customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
     }
 }

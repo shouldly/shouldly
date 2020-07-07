@@ -15,7 +15,7 @@ namespace Shouldly
         {
             // Enumerable.Contains on an array always tolerates null.
             if (!expected.Contains(actual!))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, () => customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldNotBeOneOf<T>([AllowNull] this T actual, params T[] expected)
@@ -26,17 +26,17 @@ namespace Shouldly
         {
             // Enumerable.Contains on an array always tolerates null.
             if (expected.Contains(actual!))
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, () => customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
         public static void ShouldBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to, string? customMessage = null) where T : IComparable<T>
         {
-            actual.AssertAwesomely(v => Is.InRange<T>(v, @from, to), actual, new { @from, to }, () => customMessage);
+            actual.AssertAwesomely(v => Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }
 
         public static void ShouldNotBeInRange<T>([DisallowNull] this T actual, [AllowNull] T from, [AllowNull] T to, string? customMessage = null) where T : IComparable<T>
         {
-            actual.AssertAwesomely(v => !Is.InRange<T>(v, @from, to), actual, new { @from, to }, () => customMessage);
+            actual.AssertAwesomely(v => !Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Shouldly
                                 return expectedException;
 
                             // If Task.IsFaulted is true, there is at least one inner exception.
-                            return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), t.Exception.InnerException!.GetType(), () => customMessage, stackTrace).ToString());
+                            return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), t.Exception.InnerException!.GetType(), customMessage, stackTrace).ToString());
                         }
 
                         if (t.IsCanceled)
@@ -52,7 +52,7 @@ namespace Shouldly
                             return new TaskCanceledException(t);
                         }
 
-                        return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), () => customMessage, stackTrace).ToString());
+                        return new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace).ToString());
                     }))
                     .ContinueWith(x =>
                     {
@@ -63,7 +63,7 @@ namespace Shouldly
                             case ShouldAssertException assert:
                                 throw assert;
                             default:
-                                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), () => customMessage, stackTrace).ToString(), x.Result);
+                                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);
                         }
                     });
             }
@@ -72,7 +72,7 @@ namespace Shouldly
                 if (e is TException exception)
                     return Task.FromResult(exception);
 
-                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), () => customMessage, stackTrace).ToString());
+                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace).ToString());
             }
 #else
             try
@@ -94,7 +94,7 @@ namespace Shouldly
                             return new TaskCanceledException(t);
                         }
 
-                        return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), () => customMessage).ToString());
+                        return new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString());
                     }))
                     .ContinueWith(x =>
                     {
@@ -106,7 +106,7 @@ namespace Shouldly
                                 throw assert;
                             default:
                                 throw new ShouldAssertException(
-                                    new TaskShouldlyThrowMessage(typeof(TException), () => customMessage).ToString()
+                                    new TaskShouldlyThrowMessage(typeof(TException), customMessage).ToString()
                                     , x.Result);
                         }
                     });
@@ -136,16 +136,16 @@ namespace Shouldly
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, () => customMessage, stackTrace).ToString());
+                        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
 
-                    return HandleTaskAggregateException(t.Exception, () => customMessage, exceptionType);
+                    return HandleTaskAggregateException(t.Exception, customMessage, exceptionType);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, () => customMessage, stackTrace).ToString()
+                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString()
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, () => customMessage, stackTrace).ToString());
+                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
             });
 #else
             return actual().ContinueWith(t =>
@@ -153,16 +153,16 @@ namespace Shouldly
                 if (t.IsFaulted)
                 {
                     if (t.Exception == null)
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, () => customMessage).ToString());
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
 
-                    return HandleTaskAggregateException(t.Exception, () => customMessage, exceptionType);
+                    return HandleTaskAggregateException(t.Exception, customMessage, exceptionType);
                 }
 
                 if (t.IsCanceled)
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, () => customMessage).ToString()
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString()
                         , new TaskCanceledException("Task is cancelled"));
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, () => customMessage).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage).ToString());
             });
 #endif
         }
@@ -194,10 +194,10 @@ namespace Shouldly
                     if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                     {
                         var inner = flattened.InnerException;
-                        throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), () => customMessage, stackTrace, inner.Message, shouldlyMethod).ToString());
+                        throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), customMessage, stackTrace, inner.Message, shouldlyMethod).ToString());
                     }
 
-                    throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(t.Exception.GetType(), () => customMessage, stackTrace, t.Exception.Message, shouldlyMethod).ToString());
+                    throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(t.Exception.GetType(), customMessage, stackTrace, t.Exception.Message, shouldlyMethod).ToString());
                 }
             });
 

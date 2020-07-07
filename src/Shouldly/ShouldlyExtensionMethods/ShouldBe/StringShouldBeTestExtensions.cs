@@ -29,20 +29,9 @@ namespace Shouldly
             string customMessage)
         {
             // ReSharper disable once IntroduceOptionalParameters.Global
-            ShouldBe(actual, expected, () => customMessage, 0);
-        }
-
-        /// <summary>
-        /// Perform a string comparison with sensitivity options
-        /// </summary>
-        public static void ShouldBe(
-            [NotNullIfNotNull("expected")] this string? actual,
-            [NotNullIfNotNull("actual")] string? expected,
-            Func<string?> customMessage)
-        {
-            // ReSharper disable once IntroduceOptionalParameters.Global
             ShouldBe(actual, expected, customMessage, 0);
         }
+
         /// <summary>
         /// Perform a string comparison with sensitivity options
         /// </summary>
@@ -51,28 +40,20 @@ namespace Shouldly
             [NotNullIfNotNull("actual")] string? expected,
             StringCompareShould options)
         {
-            ShouldBe(actual, expected, () => null, options);
-        }
-        public static void ShouldBe(
-            [NotNullIfNotNull("expected")] this string? actual,
-            [NotNullIfNotNull("actual")] string? expected,
-            string customMessage,
-            StringCompareShould option)
-        {
-            ShouldBe(actual, expected, () => customMessage, option);
+            ShouldBe(actual, expected, null, options);
         }
 
         public static void ShouldBe(
             [NotNullIfNotNull("expected")] this string? actual,
             [NotNullIfNotNull("actual")] string? expected,
-            Func<string?> customMessage,
+            string? customMessage,
             StringCompareShould options)
         {
             var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
             ExecuteAssertion(assertion, customMessage);
         }
 
-        static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, Func<string?> customMessage)
+        static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage)
         {
             try
             {
@@ -82,7 +63,7 @@ namespace Shouldly
             {
                 throw new ShouldAssertException(ex.Message, ex);
             }
-            throw new ShouldAssertException(assertion.GenerateMessage(customMessage()));
+            throw new ShouldAssertException(assertion.GenerateMessage(customMessage));
         }
     }
 }

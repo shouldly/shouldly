@@ -68,7 +68,7 @@ namespace Shouldly
                 // When exception is a timeout exception we can provide a better error, otherwise rethrow
                 if (inner is ShouldlyTimeoutException exception)
                 {
-                    var message = new CompleteInShouldlyMessage(what, timeout, () => customMessage).ToString();
+                    var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
                     throw new ShouldCompleteInException(message, exception);
                 }
 

@@ -76,7 +76,7 @@ namespace Shouldly
         /*** ShouldNotThrow(Task) ***/
         public static void ShouldNotThrow(this Task action, string? customMessage = null)
         {
-            Should.NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
+            Should.NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** ShouldNotThrow(Task<T>) ***/
@@ -88,7 +88,7 @@ namespace Shouldly
         /*** ShouldNotThrow(Func<Task>) ***/
         public static void ShouldNotThrow(this Func<Task> action, string? customMessage = null)
         {
-            Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
+            Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
         /*** ShouldNotThrow(Task, TimeSpan) ***/
@@ -100,7 +100,7 @@ namespace Shouldly
         /*** ShouldNotThrow(Func<Task>, TimeSpan) ***/
         public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            Should.NotThrowInternal(action, timeoutAfter, () => customMessage);
+            Should.NotThrowInternal(action, timeoutAfter, customMessage);
         }
 
         /*** ShouldNotThrow(Func<Task<T>>) ***/
