@@ -11,25 +11,17 @@ namespace Shouldly
     {
         public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
         {
-          ShouldSatisfyAllConditions(actual, () => null, CreateParameterlessActions(actual, conditions));
+          ShouldSatisfyAllConditions(actual, null, CreateParameterlessActions(actual, conditions));
         }
         public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
-        {
-          ShouldSatisfyAllConditions(actual, () => customMessage, CreateParameterlessActions(actual, conditions));
-        }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Func<string?>? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
           ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
         }
         public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
         {
-            ShouldSatisfyAllConditions(actual, () => null, conditions);
+            ShouldSatisfyAllConditions(actual, null, conditions);
         }
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
-        {
-            ShouldSatisfyAllConditions(actual, () => customMessage, conditions);
-        }
-        public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] Func<string?>? customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
             foreach (var action in conditions)
@@ -47,7 +39,7 @@ namespace Shouldly
             if (errorMessages.Any())
             {
                 var errorMessageString = BuildErrorMessageString(errorMessages);
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, () => customMessage).ToString());
             }
         }
 
