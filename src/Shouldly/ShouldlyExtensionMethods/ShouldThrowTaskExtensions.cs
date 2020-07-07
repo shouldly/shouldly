@@ -76,11 +76,7 @@ namespace Shouldly
         /*** ShouldNotThrow(Task) ***/
         public static void ShouldNotThrow(this Task action, string? customMessage = null)
         {
-            ShouldNotThrow(action, () => customMessage);
-        }
-        public static void ShouldNotThrow(this Task action, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldNotThrow(() => action, customMessage);
+            Should.NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
         }
 
         /*** ShouldNotThrow(Task<T>) ***/
@@ -88,19 +84,11 @@ namespace Shouldly
         {
             return ShouldNotThrow(() => action, customMessage);
         }
-        public static T ShouldNotThrow<T>(this Task<T> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            return ShouldNotThrow(() => action, customMessage);
-        }
 
         /*** ShouldNotThrow(Func<Task>) ***/
         public static void ShouldNotThrow(this Func<Task> action, string? customMessage = null)
         {
-            ShouldNotThrow(action, () => customMessage);
-        }
-        public static void ShouldNotThrow(this Func<Task> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldNotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+            Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
         }
 
         /*** ShouldNotThrow(Task, TimeSpan) ***/
@@ -108,29 +96,17 @@ namespace Shouldly
         {
             ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
-        public static void ShouldNotThrow(this Task action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldNotThrow(() => action, timeoutAfter, customMessage);
-        }
 
         /*** ShouldNotThrow(Func<Task>, TimeSpan) ***/
         public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            ShouldNotThrow(action, timeoutAfter, () => customMessage);
-        }
-        public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
-            Should.NotThrowInternal(action, timeoutAfter, customMessage);
+            Should.NotThrowInternal(action, timeoutAfter, () => customMessage);
         }
 
         /*** ShouldNotThrow(Func<Task<T>>) ***/
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, string? customMessage = null)
         {
-            return ShouldNotThrow(action, () => customMessage);
-        }
-        public static T ShouldNotThrow<T>(this Func<Task<T>> action, [InstantHandle] Func<string?>? customMessage)
-        {
-            return ShouldNotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+            return Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage);
         }
 
         /*** ShouldNotThrow(Task<T>, TimeSpan) ***/
@@ -138,19 +114,11 @@ namespace Shouldly
         {
             return ShouldNotThrow(() => action, timeoutAfter, customMessage);
         }
-        public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
-            return ShouldNotThrow(() => action, timeoutAfter, customMessage);
-        }
 
         /*** ShouldNotThrow(Func<Task<T>>, TimeSpan) ***/
         public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null)
         {
-            return ShouldNotThrow(action, timeoutAfter, () => customMessage);
-        }
-        public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage)
-        {
-            return Should.NotThrowInternal(action, timeoutAfter, customMessage);
+            return Should.NotThrowInternal(action, timeoutAfter, () => customMessage);
         }
     }
 }
