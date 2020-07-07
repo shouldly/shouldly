@@ -140,27 +140,12 @@ namespace Shouldly
             ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
         }
 
-        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
-        }
-
         public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, string? customMessage = null)
         {
             ShouldBeInOrder(actual, expectedSortDirection, null, customMessage);
         }
 
-        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, [InstantHandle] Func<string?>? customMessage)
-        {
-            ShouldBeInOrder(actual, expectedSortDirection, (IComparer<T>?)null, customMessage);
-        }
-
         public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T>? customComparer, string? customMessage = null)
-        {
-            ShouldBeInOrder(actual, expectedSortDirection, customComparer, () => customMessage);
-        }
-
-        public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T>? customComparer, [InstantHandle] Func<string?>? customMessage)
         {
             if (customComparer == null)
                 customComparer = Comparer<T>.Default;
@@ -170,7 +155,7 @@ namespace Shouldly
                   (r => r > 0)   // If 'ascending', the previous value should never be greater than the current value
                 : (r => r < 0);  // If 'descending', the previous value should never be less than the current value
 
-            ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
+            ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), () => customMessage);
         }
 
         private static List<T> GetDuplicates<T>(IEnumerable<T> items)

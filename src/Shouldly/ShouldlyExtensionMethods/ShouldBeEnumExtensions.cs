@@ -7,27 +7,20 @@ namespace Shouldly.ShouldlyExtensionMethods
     public static class ShouldHaveEnumExtensions
     {
         public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
-            => ShouldHaveFlag(actual, expectedFlag, () => customMessage);
-
-        public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, [InstantHandle] Func<string?>? customMessage)
         {
             CheckEnumHasFlagAttribute(actual);
             if (!actual.HasFlag(expectedFlag))
             {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, () => customMessage).ToString());
             }
         }
 
         public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
-            => ShouldNotHaveFlag(actual, expectedFlag, () => customMessage);
-
-        public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag,
-            [InstantHandle] Func<string?>? customMessage)
         {
             CheckEnumHasFlagAttribute(actual);
             if (actual.HasFlag(expectedFlag))
             {
-                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, () => customMessage).ToString());
             }
         }
 
