@@ -17,11 +17,11 @@ namespace Shouldly
         /*** Should.Throw(Task) ***/
         public static Exception Throw(Task actual, Type exceptionType)
         {
-            return Throw(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, () => null, exceptionType);
+            return ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, null, exceptionType);
         }
         public static Exception Throw(Task actual, string? customMessage, Type exceptionType)
         {
-            return Throw(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage, exceptionType);
+            return ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
         }
 
         /*** Should.Throw(Func<Task>) ***/
@@ -33,11 +33,11 @@ namespace Shouldly
         /*** Should.Throw(Func<Task>) ***/
         public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType)
         {
-            return Throw(actual, ShouldlyConfiguration.DefaultTaskTimeout, () => null, exceptionType);
+            return ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, null, exceptionType);
         }
         public static Exception Throw([InstantHandle] Func<Task> actual, string? customMessage, Type exceptionType)
         {
-            return Throw(actual, ShouldlyConfiguration.DefaultTaskTimeout, () => customMessage, exceptionType);
+            return ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
         }
 
         /*** Should.Throw(Task, TimeSpan) ***/
@@ -49,11 +49,11 @@ namespace Shouldly
         /*** Should.Throw(Task, TimeSpan) ***/
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType)
         {
-            return Throw(() => actual, timeoutAfter, () => null, exceptionType);
+            return ThrowInternal(() => actual, timeoutAfter, null, exceptionType);
         }
         public static Exception Throw(Task actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
-            return Throw(() => actual, timeoutAfter, () => customMessage, exceptionType);
+            return ThrowInternal(() => actual, timeoutAfter, customMessage, exceptionType);
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
@@ -90,26 +90,22 @@ namespace Shouldly
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
         public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType)
         {
-            return Throw(actual, timeoutAfter, () => null, exceptionType);
+            return ThrowInternal(actual, timeoutAfter, null, exceptionType);
         }
         public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
-        {
-            return Throw(actual, timeoutAfter, () => customMessage, exceptionType);
-        }
-        public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
         {
             return ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
         }
 
         internal static Exception ThrowInternal(
             [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
-            [InstantHandle] Func<string?>? customMessage,
+            string? customMessage,
             Type exceptionType,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             try
             {
-                RunAndWait(actual, timeoutAfter, customMessage);
+                RunAndWait(actual, timeoutAfter, ()=>customMessage);
             }
             catch (ShouldlyTimeoutException)
             {
@@ -124,10 +120,10 @@ namespace Shouldly
                     return e;
                 }
 
-                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage?.Invoke(), shouldlyMethod).ToString());
+                throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString());
             }
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, ()=>customMessage, shouldlyMethod).ToString());
         }
 
         /*** Should.NotThrow(Task) ***/

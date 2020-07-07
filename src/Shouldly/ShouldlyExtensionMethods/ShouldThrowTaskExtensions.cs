@@ -70,7 +70,7 @@ namespace Shouldly
         }
         public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
-            return Should.ThrowInternal(actual, timeoutAfter, () => customMessage,exceptionType);
+            return Should.ThrowInternal(actual, timeoutAfter, customMessage,exceptionType);
         }
 
         /*** ShouldNotThrow(Task) ***/
