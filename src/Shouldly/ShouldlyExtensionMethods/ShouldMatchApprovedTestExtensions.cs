@@ -15,7 +15,7 @@ namespace Shouldly
         {
             actual.ShouldMatchApproved(() => null, c => { });
         }
-        public static void ShouldMatchApproved(this string actual, string customMessage)
+        public static void ShouldMatchApproved(this string actual, string? customMessage)
         {
             actual.ShouldMatchApproved(() => customMessage, c => { });
         }
@@ -26,7 +26,7 @@ namespace Shouldly
         }
 
         public static void ShouldMatchApproved(this string actual,
-            string customMessage,
+            string? customMessage,
             Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
             actual.ShouldMatchApproved(() => customMessage, configureOptions);
@@ -45,7 +45,7 @@ namespace Shouldly
             if (config.Scrubber != null)
                 actual = config.Scrubber(actual);
 
-            var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameIndex);
+            var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
             var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
             var outputFolder = testMethodInfo.SourceFileDirectory;
             if (string.IsNullOrEmpty(outputFolder))

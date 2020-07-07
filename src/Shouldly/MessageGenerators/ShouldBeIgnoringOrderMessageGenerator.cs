@@ -16,8 +16,8 @@ namespace Shouldly.MessageGenerators
             Debug.Assert(context.Expected is IEnumerable);
             Debug.Assert(context.Actual is IEnumerable);
 
-            var expected = ((IEnumerable)context.Expected!).Cast<object>().ToArray();
-            var actual = ((IEnumerable)context.Actual!).Cast<object>().ToArray();
+            var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
+            var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();
             var codePart = context.CodePart;
             var expectedFormattedValue = expected.ToStringAwesomely();
 

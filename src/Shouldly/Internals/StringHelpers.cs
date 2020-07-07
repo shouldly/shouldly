@@ -9,7 +9,7 @@ namespace Shouldly
 {
     internal static class StringHelpers
     {
-        internal static string ToStringAwesomely(this object? value)
+        internal static string? ToStringAwesomely(this object? value)
         {
             if (value == null)
                 return "null";
@@ -81,7 +81,7 @@ namespace Shouldly
             if (toString == objectType.FullName)
                 return $"{value} ({value.GetHashCode()})";
 
-            return toString;
+            return toString; // ToString() may return null.
         }
 
         internal static string PascalToSpaced(this string pascal)

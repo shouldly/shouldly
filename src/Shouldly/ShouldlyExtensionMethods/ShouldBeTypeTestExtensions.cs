@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
@@ -72,6 +73,7 @@ namespace Shouldly
         public static void ShouldBeOfType([NotNull] this object? actual, Type expected, [InstantHandle] Func<string?>? customMessage)
         {
             actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage);
+            Debug.Assert(actual != null);
         }
 
         public static void ShouldNotBeAssignableTo<T>(this object? actual)

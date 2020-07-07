@@ -347,7 +347,7 @@ namespace Shouldly
             ShouldBeOfTypes(actual, expected, () => null);
         }
 
-        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string customMessage)
+        public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage)
         {
             ShouldBeOfTypes(actual, expected, () => customMessage);
         }
