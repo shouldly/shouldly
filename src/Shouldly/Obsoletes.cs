@@ -10,7 +10,7 @@ namespace Shouldly
 {
     class ObsoleteMessages
     {
-        public const string FuncCustomMessage = "Func based customMessage overloads have been removed. Passin in a string for the cursomt message.";
+        public const string FuncCustomMessage = "Func based customMessage overloads have been removed. Pass in a string for the cusomMessage.";
     }
 
     public static partial class DynamicShould
