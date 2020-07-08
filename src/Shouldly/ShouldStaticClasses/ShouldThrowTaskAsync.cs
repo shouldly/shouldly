@@ -9,19 +9,8 @@ namespace Shouldly
     public static partial class Should
     {
         /*** Should.ThrowAsync(Task) ***/
-        public static Task<TException> ThrowAsync<TException>(Task task)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(task, () => null);
-        }
 
-        public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(task, () => customMessage);
-        }
-
-        public static Task<TException> ThrowAsync<TException>(Task task, [InstantHandle] Func<string?>? customMessage)
+        public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
             where TException : Exception
         {
             return ThrowAsync<TException>(() => task, customMessage);
@@ -29,33 +18,17 @@ namespace Shouldly
 
         public static Task<Exception> ThrowAsync(Task task, Type exceptionType)
         {
-            return ThrowAsync(task, () => null, exceptionType);
+            return ThrowAsync(task, (string?)null, exceptionType);
         }
 
         public static Task<Exception> ThrowAsync(Task task, string? customMessage, Type exceptionType)
-        {
-            return ThrowAsync(task, () => customMessage, exceptionType);
-        }
-
-        public static Task<Exception> ThrowAsync(Task task, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
         {
             return ThrowAsync(() => task, customMessage, exceptionType);
         }
 
         /*** Should.ThrowAsync(Func<Task>) ***/
-        public static Task<TException> ThrowAsync<TException>(Func<Task> actual)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(actual, () => null);
-        }
 
-        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage)
-            where TException : Exception
-        {
-            return ThrowAsync<TException>(actual, () => customMessage);
-        }
-
-        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, [InstantHandle] Func<string?>? customMessage)
+        public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null)
             where TException : Exception
         {
 #if StackTrace
@@ -151,15 +124,10 @@ namespace Shouldly
         /*** Should.ThrowAsync(Func<Task>) ***/
         public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType)
         {
-            return ThrowAsync(actual, () => null, exceptionType);
+            return ThrowAsync(actual, (string?)null, exceptionType);
         }
 
         public static Task<Exception> ThrowAsync(Func<Task> actual, string? customMessage, Type exceptionType)
-        {
-            return ThrowAsync(actual, () => customMessage, exceptionType);
-        }
-
-        public static Task<Exception> ThrowAsync(Func<Task> actual, [InstantHandle] Func<string?>? customMessage, Type exceptionType)
         {
 #if StackTrace
             var stackTrace = new StackTrace(true);
@@ -200,40 +168,20 @@ namespace Shouldly
         }
 
         /*** Should.NotThrowAsync(Task) ***/
-        public static Task NotThrowAsync(Task task)
+        public static Task NotThrowAsync(Task task, string? customMessage = null)
         {
-            return NotThrowAsync(task, () => null);
-        }
-
-        public static Task NotThrowAsync(Task task, string? customMessage)
-        {
-            return NotThrowAsync(task, () => customMessage);
-        }
-
-        public static Task NotThrowAsync(Task task, [InstantHandle] Func<string?>? customMessage)
-        {
-            return NotThrowAsync(() => task, customMessage);
+            return NotThrowAsyncInternal(() => task, customMessage);
         }
 
         /*** Should.NotThrowAsync(Func<Task>) ***/
-        public static Task NotThrowAsync(Func<Task> actual)
-        {
-            return NotThrowAsync(actual, () => null);
-        }
-
-        public static Task NotThrowAsync(Func<Task> actual, string? customMessage)
-        {
-            return NotThrowAsync(actual, () => customMessage);
-        }
-
-        public static Task NotThrowAsync(Func<Task> actual, [InstantHandle] Func<string?>? customMessage)
+        public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null)
         {
             return NotThrowAsyncInternal(actual, customMessage);
         }
 
         internal static Task NotThrowAsyncInternal(
             [InstantHandle] Func<Task> actual,
-            [InstantHandle] Func<string?>? customMessage,
+            string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
 #if StackTrace
@@ -262,10 +210,10 @@ namespace Shouldly
                     if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                     {
                         var inner = flattened.InnerException;
-                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(inner.GetType(), inner.Message, customMessage, shouldlyMethod).ToString());
+                        throw new ShouldAssertException(new TaskShouldlyThrowMessage(inner.GetType(), inner, customMessage, shouldlyMethod).ToString());
                     }
 
-                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(t.Exception.GetType(), t.Exception.Message, customMessage, shouldlyMethod).ToString());
+                    throw new ShouldAssertException(new TaskShouldlyThrowMessage(t.Exception.GetType(), t.Exception, customMessage, shouldlyMethod).ToString());
                 }
             });
 #endif

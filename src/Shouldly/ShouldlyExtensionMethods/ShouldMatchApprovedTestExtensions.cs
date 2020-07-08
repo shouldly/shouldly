@@ -9,30 +9,19 @@ using Shouldly.Internals.AssertionFactories;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class ShouldMatchApprovedTestExtensions
+    public static partial class ShouldMatchApprovedTestExtensions
     {
-        public static void ShouldMatchApproved(this string actual)
+        public static void ShouldMatchApproved(this string actual, string? customMessage = null)
         {
-            actual.ShouldMatchApproved(() => null, c => { });
-        }
-        public static void ShouldMatchApproved(this string actual, string? customMessage)
-        {
-            actual.ShouldMatchApproved(() => customMessage, c => { });
+            actual.ShouldMatchApproved(customMessage, c => { });
         }
 
         public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
-            actual.ShouldMatchApproved(() => null, configureOptions);
+            actual.ShouldMatchApproved((string?)null, configureOptions);
         }
 
-        public static void ShouldMatchApproved(this string actual,
-            string? customMessage,
-            Action<ShouldMatchConfigurationBuilder> configureOptions)
-        {
-            actual.ShouldMatchApproved(() => customMessage, configureOptions);
-        }
-
-        public static void ShouldMatchApproved(this string actual, Func<string?> customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
+        public static void ShouldMatchApproved(this string actual, string? customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
             var codeGetter = new ActualCodeTextGetter();
             var stackTrace = new StackTrace(true);
@@ -79,7 +68,7 @@ namespace Shouldly
                 ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, true);
 
             if (!contentsMatch)
-                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage()), receivedFile, approvedFile);
+                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
             File.Delete(receivedFile);
         }
 

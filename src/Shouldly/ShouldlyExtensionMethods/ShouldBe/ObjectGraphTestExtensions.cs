@@ -10,27 +10,12 @@ using JetBrains.Annotations;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class ObjectGraphTestExtensions
+    public static partial class ObjectGraphTestExtensions
     {
         public static void ShouldBeEquivalentTo(
             [NotNullIfNotNull("expected")] this object? actual,
-            [NotNullIfNotNull("actual")] object? expected)
-        {
-            ShouldBeEquivalentTo(actual, expected, () => null);
-        }
-
-        public static void ShouldBeEquivalentTo(
-            [NotNullIfNotNull("expected")] this object? actual,
             [NotNullIfNotNull("actual")] object? expected,
-            string? customMessage)
-        {
-            ShouldBeEquivalentTo(actual, expected, () => customMessage);
-        }
-
-        public static void ShouldBeEquivalentTo(
-            [NotNullIfNotNull("expected")] this object? actual,
-            [NotNullIfNotNull("actual")] object? expected,
-            [InstantHandle] Func<string?>? customMessage)
+            string? customMessage = null)
         {
             CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
         }
@@ -40,7 +25,7 @@ namespace Shouldly
             [NotNullIfNotNull("actual")] object? expected,
             IList<string> path,
             IDictionary<object, IList<object?>> previousComparisons,
-            [InstantHandle] Func<string?>? customMessage,
+            string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             if (BothValuesAreNull(actual, expected, path, customMessage, shouldlyMethod))
@@ -66,7 +51,7 @@ namespace Shouldly
             [NotNullWhen(false)] object? actual,
             [NotNullWhen(false)] object? expected,
             IEnumerable<string> path,
-            [InstantHandle] Func<string?>? customMessage,
+            string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {
             if (expected == null)
@@ -85,7 +70,7 @@ namespace Shouldly
         }
 
         private static Type GetTypeToCompare(object actual, object expected, IList<string> path,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             var expectedType = expected.GetType();
             var actualType = actual.GetType();
@@ -103,7 +88,7 @@ namespace Shouldly
         }
 
         private static void CompareValueTypes(ValueType actual, ValueType expected, IEnumerable<string> path,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (!actual.Equals(expected))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
@@ -111,7 +96,7 @@ namespace Shouldly
 
         private static void CompareReferenceTypes(object actual, object expected, Type type,
             IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (ReferenceEquals(actual, expected) ||
                 previousComparisons.Contains(actual, expected))
@@ -135,7 +120,7 @@ namespace Shouldly
         }
 
         private static void CompareStrings(string actual, string expected, IEnumerable<string> path,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (!actual.Equals(expected, StringComparison.Ordinal))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
@@ -143,7 +128,7 @@ namespace Shouldly
 
         private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
             IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             var expectedList = expected.Cast<object?>().ToList();
             var actualList = actual.Cast<object?>().ToList();
@@ -163,7 +148,7 @@ namespace Shouldly
 
         private static void CompareProperties(object actual, object expected, IEnumerable<PropertyInfo> properties,
             IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             foreach (var property in properties)
             {
@@ -176,7 +161,7 @@ namespace Shouldly
         }
 
         private static void ThrowException(object? actual, object? expected, IEnumerable<string> path,
-            [InstantHandle] Func<string?>? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             throw new ShouldAssertException(
                 new ExpectedEquivalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());

@@ -7,29 +7,21 @@ using JetBrains.Annotations;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class ShouldSatisfyAllConditionsTestExtensions
+    public static partial class ShouldSatisfyAllConditionsTestExtensions
     {
         public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
         {
-          ShouldSatisfyAllConditions(actual, () => null, CreateParameterlessActions(actual, conditions));
+          ShouldSatisfyAllConditions(actual, (string?)null, CreateParameterlessActions(actual, conditions));
         }
         public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
-        {
-          ShouldSatisfyAllConditions(actual, () => customMessage, CreateParameterlessActions(actual, conditions));
-        }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Func<string?>? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
           ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
         }
         public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
         {
-            ShouldSatisfyAllConditions(actual, () => null, conditions);
+            ShouldSatisfyAllConditions(actual, (string?)null, conditions);
         }
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
-        {
-            ShouldSatisfyAllConditions(actual, () => customMessage, conditions);
-        }
-        public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] Func<string?>? customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
             foreach (var action in conditions)
