@@ -9,7 +9,7 @@ namespace Shouldly
     {
         public static void ShouldBeOneOf<T>([AllowNull] this T actual, params T[] expected)
         {
-            ShouldBeOneOf(actual, expected, null);
+            ShouldBeOneOf(actual, expected, (string?)null);
         }
         public static void ShouldBeOneOf<T>([AllowNull] this T actual, T[] expected, string? customMessage)
         {
@@ -20,7 +20,7 @@ namespace Shouldly
 
         public static void ShouldNotBeOneOf<T>([AllowNull] this T actual, params T[] expected)
         {
-            ShouldNotBeOneOf(actual, expected, null);
+            ShouldNotBeOneOf(actual, expected, (string?)null);
         }
         public static void ShouldNotBeOneOf<T>([AllowNull] this T actual, T[] expected, string? customMessage)
         {

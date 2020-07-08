@@ -7,7 +7,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldThrowAsyncExtensions
+    public static partial class ShouldThrowAsyncExtensions
     {
         /*** ShouldThrowAsync(Task) ***/
         public static Task<TException> ShouldThrowAsync<TException>(this Task task, string? customMessage = null) where TException : Exception

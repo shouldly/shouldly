@@ -8,7 +8,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeNullExtensions
+    public static partial class ShouldBeNullExtensions
     {
         [ContractAnnotation("actual:notnull => halt")]
         public static void ShouldBeNull<T>([MaybeNull] this T? actual, string? customMessage = null)

@@ -7,7 +7,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeBooleanExtensions
+    public static partial class ShouldBeBooleanExtensions
     {
         public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual, string? customMessage = null)
         {

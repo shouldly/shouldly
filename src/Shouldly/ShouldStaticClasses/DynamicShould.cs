@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class DynamicShould
+    public static partial class DynamicShould
     {
         public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
         {

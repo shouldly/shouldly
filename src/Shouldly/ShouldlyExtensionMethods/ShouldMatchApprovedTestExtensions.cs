@@ -9,7 +9,7 @@ using Shouldly.Internals.AssertionFactories;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class ShouldMatchApprovedTestExtensions
+    public static partial class ShouldMatchApprovedTestExtensions
     {
         public static void ShouldMatchApproved(this string actual, string? customMessage = null)
         {
@@ -18,7 +18,7 @@ namespace Shouldly
 
         public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
-            actual.ShouldMatchApproved(null, configureOptions);
+            actual.ShouldMatchApproved((string?)null, configureOptions);
         }
 
         public static void ShouldMatchApproved(this string actual, string? customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)

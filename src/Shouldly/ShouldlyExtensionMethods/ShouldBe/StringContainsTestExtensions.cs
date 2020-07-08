@@ -18,7 +18,7 @@ namespace Shouldly
 
         public static void ShouldContain(this string actual, string expected, Case caseSensitivity)
         {
-            ShouldContain(actual, expected, null, caseSensitivity);
+            ShouldContain(actual, expected, (string?)null, caseSensitivity);
         }
 
         public static void ShouldContain(this string actual, string expected, string? customMessage = null)
@@ -38,7 +38,7 @@ namespace Shouldly
 
         public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity)
         {
-            ShouldNotContain(actual, expected, null, caseSensitivity);
+            ShouldNotContain(actual, expected, (string?)null, caseSensitivity);
         }
 
         public static void ShouldNotContain(this string actual, string expected, string? customMessage = null)

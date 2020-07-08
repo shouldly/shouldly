@@ -7,7 +7,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldNotThrowTaskAsyncExtensions
+    public static partial class ShouldNotThrowTaskAsyncExtensions
     {
         /*** ShouldNotThrowAsync(Task) ***/
         public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null)

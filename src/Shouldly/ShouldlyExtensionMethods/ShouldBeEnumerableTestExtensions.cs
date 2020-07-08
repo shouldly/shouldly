@@ -10,7 +10,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeEnumerableTestExtensions
+    public static partial class ShouldBeEnumerableTestExtensions
     {
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
         {
@@ -174,7 +174,7 @@ namespace Shouldly
 
         public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, params Type[] expected)
         {
-            ShouldBeOfTypes(actual, expected, null);
+            ShouldBeOfTypes(actual, expected, (string?)null);
         }
 
         public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage)

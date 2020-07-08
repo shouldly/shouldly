@@ -40,7 +40,7 @@ namespace Shouldly
             [NotNullIfNotNull("actual")] string? expected,
             StringCompareShould options)
         {
-            ShouldBe(actual, expected, null, options);
+            ShouldBe(actual, expected, (string?)null, options);
         }
 
         public static void ShouldBe(

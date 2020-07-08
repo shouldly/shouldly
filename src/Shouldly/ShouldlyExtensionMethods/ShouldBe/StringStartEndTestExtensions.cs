@@ -10,7 +10,7 @@ namespace Shouldly
         /*** ShouldStartWith ***/
         public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity)
         {
-            ShouldStartWith(actual, expected, customMessage: null, caseSensitivity);
+            ShouldStartWith(actual, expected, customMessage: (string?)null, caseSensitivity);
         }
 
         public static void ShouldStartWith([NotNull] this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
@@ -22,7 +22,7 @@ namespace Shouldly
         /*** ShouldEndWith ***/
         public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity)
         {
-            ShouldEndWith(actual, expected, null, caseSensitivity);
+            ShouldEndWith(actual, expected, (string?)null, caseSensitivity);
         }
 
         public static void ShouldEndWith([NotNull] this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
@@ -35,7 +35,7 @@ namespace Shouldly
         /*** ShouldNotStartWith ***/
         public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity)
         {
-            ShouldNotStartWith(actual, expected, null, caseSensitivity);
+            ShouldNotStartWith(actual, expected, (string?)null, caseSensitivity);
         }
 
         public static void ShouldNotStartWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
@@ -46,7 +46,7 @@ namespace Shouldly
         /*** ShouldNotEndWith ***/
         public static void ShouldNotEndWith(this string? actual, string expected, Case caseSensitivity)
         {
-            ShouldNotEndWith(actual, expected, null, caseSensitivity);
+            ShouldNotEndWith(actual, expected, (string?)null, caseSensitivity);
         }
 
         public static void ShouldNotEndWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)

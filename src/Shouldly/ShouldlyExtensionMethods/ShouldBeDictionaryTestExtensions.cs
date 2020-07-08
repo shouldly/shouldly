@@ -7,7 +7,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeDictionaryTestExtensions
+    public static partial class ShouldBeDictionaryTestExtensions
     {
         public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null)
             where TKey : notnull

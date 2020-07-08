@@ -7,7 +7,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldBeDecoratedWithExtensions
+    public static partial class ShouldBeDecoratedWithExtensions
     {
         public static void ShouldBeDecoratedWith<T>(this Type actual, string? customMessage = null) where T : Attribute
         {

@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class ObjectGraphTestExtensions
+    public static partial class ObjectGraphTestExtensions
     {
         public static void ShouldBeEquivalentTo(
             [NotNullIfNotNull("expected")] this object? actual,

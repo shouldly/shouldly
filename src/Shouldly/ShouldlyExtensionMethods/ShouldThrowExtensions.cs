@@ -6,7 +6,7 @@ namespace Shouldly
 {
     [DebuggerStepThrough]
     [ShouldlyMethods]
-    public static class ShouldThrowExtensions
+    public static partial class ShouldThrowExtensions
     {
         /*** ShouldThrow(Action) ***/
         public static TException ShouldThrow<TException>(this Action actual, string? customMessage = null) where TException : Exception
