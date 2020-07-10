@@ -22,14 +22,6 @@ namespace Shouldly.Tests.ShouldBeOfTypes
         }
 
         [Fact]
-        public void ArrayTypesMatchExactlyWithLambdaContext()
-        {
-            var arr = new object[] { new Added(), new Changed(), new Removed() };
-
-            arr.ShouldBeOfTypes(new[] { typeof(Added), typeof(Changed), typeof(Removed)}, () => "additional context");
-        }
-
-        [Fact]
         public void FailsIfTypesDontMatchExactly()
         {
             Verify.ShouldFail(() =>
@@ -61,7 +53,7 @@ Additional Info:
 
 
         [Fact]
-        public void FailsIfAcualAndExpectedAreDifferentLengths()
+        public void FailsIfActualAndExpectedAreDifferentLengths()
         {
             Verify.ShouldFail(() =>
 new object[] { new Added(), new Changed() }.ShouldBeOfTypes(new[] { typeof(Added) }, "Some additional context"),

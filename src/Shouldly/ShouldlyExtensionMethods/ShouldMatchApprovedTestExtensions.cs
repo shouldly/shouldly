@@ -8,30 +8,19 @@ using Shouldly.Internals.AssertionFactories;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class ShouldMatchApprovedTestExtensions
+    public static partial class ShouldMatchApprovedTestExtensions
     {
-        public static void ShouldMatchApproved(this string actual)
+        public static void ShouldMatchApproved(this string actual, string? customMessage = null)
         {
-            actual.ShouldMatchApproved(() => null, c => { });
-        }
-        public static void ShouldMatchApproved(this string actual, string customMessage)
-        {
-            actual.ShouldMatchApproved(() => customMessage, c => { });
+            actual.ShouldMatchApproved(customMessage, c => { });
         }
 
         public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
-            actual.ShouldMatchApproved(() => null, configureOptions);
+            actual.ShouldMatchApproved((string?)null, configureOptions);
         }
 
-        public static void ShouldMatchApproved(this string actual,
-            string customMessage,
-            Action<ShouldMatchConfigurationBuilder> configureOptions)
-        {
-            actual.ShouldMatchApproved(() => customMessage, configureOptions);
-        }
-
-        public static void ShouldMatchApproved(this string actual, Func<string?> customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
+        public static void ShouldMatchApproved(this string actual, string? customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
         {
             var codeGetter = new ActualCodeTextGetter();
             var stackTrace = new StackTrace(true);
@@ -44,8 +33,8 @@ namespace Shouldly
             if (config.Scrubber != null)
                 actual = config.Scrubber(actual);
 
-            var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameIndex);
-            var descriminator = config.FilenameDescriminator == null ? null : "." + config.FilenameDescriminator;
+            var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
+            var discriminator = config.FilenameDiscriminator == null ? null : "." + config.FilenameDiscriminator;
             var outputFolder = testMethodInfo.SourceFileDirectory;
             if (string.IsNullOrEmpty(outputFolder))
                 throw new Exception($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
@@ -55,8 +44,8 @@ namespace Shouldly
                 Directory.CreateDirectory(outputFolder);
             }
 
-            var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "approved", config.FileExtension));
-            var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, descriminator, "received", config.FileExtension));
+            var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "approved", config.FileExtension));
+            var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "received", config.FileExtension));
             File.WriteAllText(receivedFile, actual);
 
             if (!File.Exists(approvedFile))
@@ -78,7 +67,7 @@ namespace Shouldly
                 ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, true);
 
             if (!contentsMatch)
-                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage()), receivedFile, approvedFile);
+                throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
             File.Delete(receivedFile);
         }
 

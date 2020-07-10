@@ -20,9 +20,9 @@ namespace DocumentationExamples
             DocExampleWriter.Document(() =>
             {
                 var principleSkinner = new Person { Name = "Armin Tamzarian"};
-                var symourSkinner = new Person { Name = "Seymour Skinner" };
+                var seymourSkinner = new Person { Name = "Seymour Skinner" };
 
-                principleSkinner.ShouldBeSameAs(symourSkinner);
+                principleSkinner.ShouldBeSameAs(seymourSkinner);
             }, _testOutputHelper);
         }
 

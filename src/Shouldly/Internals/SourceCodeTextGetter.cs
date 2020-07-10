@@ -9,14 +9,13 @@ namespace Shouldly.Internals
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
         bool _determinedOriginatingFrame;
-        string _shouldMethod = null!;
+        string? _shouldMethod;
 
-        public StackFrame ShouldlyFrame { get; private set; } = null!;
-        public int ShouldlyFrameIndex { get; private set; }
+        public int ShouldlyFrameOffset { get; private set; }
         public string? FileName { get; private set; }
         public int LineNumber { get; private set; }
 
-        public string GetCodeText(object? actual, StackTrace? stackTrace)
+        public string? GetCodeText(object? actual, StackTrace? stackTrace)
         {
             if (ShouldlyConfiguration.IsSourceDisabledInErrors())
                 return actual.ToStringAwesomely();
@@ -24,45 +23,35 @@ namespace Shouldly.Internals
             return GetCodePart();
         }
 
-        void ParseStackTrace(StackTrace? trace)
+        void ParseStackTrace(StackTrace? stackTrace)
         {
-            var stackTrace = trace ?? new StackTrace(true);
-            var i = 0;
-            var currentFrame = stackTrace.GetFrame(i);
+            stackTrace ??= new StackTrace(fNeedFileInfo: true);
 
-            if (currentFrame == null) throw new Exception("Unable to find test method");
+            var frames =
+                from index in Enumerable.Range(0, stackTrace.FrameCount)
+                let frame = stackTrace.GetFrame(index)!
+                let method = frame.GetMethod()
+                where method is object && !method.IsSystemDynamicMachinery()
+                select new { index, frame, method };
 
-            ShouldlyFrame = default!;
-            while (ShouldlyFrame == null || currentFrame.GetMethod().IsShouldlyMethod())
-            {
-                if (currentFrame.GetMethod().IsShouldlyMethod())
-                    ShouldlyFrame = currentFrame;
+            var shouldlyFrame = frames
+                .SkipWhile(f => !f.method.IsShouldlyMethod())
+                .TakeWhile(f => f.method.IsShouldlyMethod())
+                .LastOrDefault()
+                ?? throw new InvalidOperationException("The stack trace did not contain a Shouldly method.");
 
-                currentFrame = stackTrace.GetFrame(++i);
+            var originatingFrame = frames
+                .FirstOrDefault(f => f.index > shouldlyFrame.index)
+                ?? throw new InvalidOperationException("The stack trace did not contain the caller of the Shouldly method.");
 
-                // Required to support the DynamicShould.HaveProperty method that takes in a dynamic as a parameter.
-                // Having a method that takes a dynamic really stuffs up the stack trace because the runtime binder
-                // has to inject a whole heap of methods. Our normal way of just taking the next frame doesn't work.
-                // The following two lines seem to work for now, but this feels like a hack. The conditions to be able to
-                // walk up stack trace until we get to the calling method might have to be updated regularly as we find more
-                // scenarios. Alternately, it could be replaced with a more robust implementation.
-                while (currentFrame.GetMethod().DeclaringType == null ||
-                        currentFrame.GetMethod().DeclaringType.FullName.StartsWith("System.Dynamic"))
-                {
-                    currentFrame = stackTrace.GetFrame(++i);
-                }
-            }
+            ShouldlyFrameOffset = originatingFrame.index;
 
-            var originatingFrame = currentFrame;
-            ShouldlyFrameIndex = i - 1;
-
-            var fileName = originatingFrame.GetFileName();
+            var fileName = originatingFrame.frame.GetFileName();
             _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
-            _shouldMethod = ShouldlyFrame.GetMethod().Name;
+            _shouldMethod = shouldlyFrame.method.Name;
             FileName = fileName;
-            LineNumber = originatingFrame.GetFileLineNumber() - 1;
+            LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
         }
-
 
         string GetCodePart()
         {
@@ -73,7 +62,7 @@ namespace Shouldly.Internals
             {
                 var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
 
-                var indexOf = codeLines.IndexOf(_shouldMethod);
+                var indexOf = codeLines.IndexOf(_shouldMethod!);
                 if (indexOf > 0)
                     codePart = codeLines.Substring(0, indexOf - 1).Trim();
 
@@ -96,7 +85,7 @@ namespace Shouldly.Internals
         {
             var indexOfParameters =
                 indexOfMethod +
-                _shouldMethod.Length;
+                _shouldMethod!.Length;
 
             var parameterString = codeLines.Substring(indexOfParameters);
             // Remove generic parameter if need be
