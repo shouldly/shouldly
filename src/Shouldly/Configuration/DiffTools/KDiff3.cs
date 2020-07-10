@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-namespace Shouldly.Configuration.DiffTools
+﻿namespace Shouldly.Configuration.DiffTools
 {
     internal sealed class KDiff3 : DiffTool
     {
@@ -17,4 +16,3 @@ namespace Shouldly.Configuration.DiffTools
         }
     }
 }
-#endif

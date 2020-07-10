@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-namespace Shouldly.Configuration.DiffTools
+﻿namespace Shouldly.Configuration.DiffTools
 {
     internal sealed class P4Merge : DiffTool
     {
@@ -16,4 +15,3 @@ namespace Shouldly.Configuration.DiffTools
         }
     }
 }
-#endif

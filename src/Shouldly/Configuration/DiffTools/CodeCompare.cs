@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-namespace Shouldly.Configuration.DiffTools
+﻿namespace Shouldly.Configuration.DiffTools
 {
     internal sealed class CodeCompare : DiffTool
     {
@@ -14,4 +13,3 @@ namespace Shouldly.Configuration.DiffTools
         }
     }
 }
-#endif

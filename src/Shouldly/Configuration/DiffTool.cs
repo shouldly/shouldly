@@ -17,8 +17,10 @@ namespace Shouldly.Configuration
         {
             if (ShouldlyEnvironmentContext.IsWindows())
                 return WindowsPath;
+
             if (ShouldlyEnvironmentContext.IsMac())
                 return MacPath;
+
             if (ShouldlyEnvironmentContext.IsLinux())
                 return LinuxPath;
 
@@ -58,7 +60,7 @@ namespace Shouldly.Configuration
                 File.AppendAllText(path, string.Empty);
         }
 
-        private string GetPath(DiffToolConfig config)
+        private string? GetPath(DiffToolConfig config)
         {
             if (config == null)
                 return null;
@@ -102,7 +104,7 @@ namespace Shouldly.Configuration
                 Environment.GetEnvironmentVariable("ProgramW6432")
             }
             .Where(p => p != null)
-            .Select(pf => Path.Combine(pf, path))
+            .Select(pf => Path.Combine(pf ?? string.Empty, path))
             .FirstOrDefault(File.Exists);
         }
 

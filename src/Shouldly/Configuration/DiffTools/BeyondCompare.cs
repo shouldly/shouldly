@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-namespace Shouldly.Configuration.DiffTools
+﻿namespace Shouldly.Configuration.DiffTools
 {
     internal abstract class BeyondCompare : DiffTool
     {
@@ -33,4 +32,3 @@ namespace Shouldly.Configuration.DiffTools
         }, BeyondCompareArgs) { }
     }
 }
-#endif
