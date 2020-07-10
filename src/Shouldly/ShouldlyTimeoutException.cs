@@ -13,10 +13,8 @@ namespace Shouldly
         {
         }
 
-#if StackTrace
         private string? stackTrace;
 
         public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref stackTrace);
-#endif
     }
 }

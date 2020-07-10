@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System.Diagnostics;
 
 namespace Shouldly.Configuration
@@ -8,4 +7,3 @@ namespace Shouldly.Configuration
         TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0);
     }
 }
-#endif

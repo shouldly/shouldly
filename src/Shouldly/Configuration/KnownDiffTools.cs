@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System.IO;
 using JetBrains.Annotations;
 
@@ -113,4 +112,3 @@ namespace Shouldly.Configuration
         }
     }
 }
-#endif

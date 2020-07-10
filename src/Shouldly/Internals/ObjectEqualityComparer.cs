@@ -1,10 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly
 {
-#if Serializable
-    [System.Serializable]
-#endif
+    [Serializable]
     class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
     {
         public override bool Equals([AllowNull] T x, [AllowNull] T y)

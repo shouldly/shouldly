@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 namespace Shouldly.Configuration
 {
     public interface IShouldNotLaunchDiffTool
@@ -6,4 +5,3 @@ namespace Shouldly.Configuration
         bool ShouldNotLaunch();
     }
 }
-#endif

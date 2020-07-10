@@ -3,9 +3,7 @@ using Shouldly.Internals;
 
 namespace Shouldly
 {
-#if Serializable
     [Serializable]
-#endif
     public class ShouldAssertException : Exception
     {
         public ShouldAssertException(string? message) : base(message)
@@ -16,10 +14,8 @@ namespace Shouldly
         {
         }
 
-#if StackTrace
         private string? stackTrace;
 
         public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref stackTrace);
-#endif
     }
 }
