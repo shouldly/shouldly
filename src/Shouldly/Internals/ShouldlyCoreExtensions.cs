@@ -8,7 +8,6 @@ namespace Shouldly
 {
     internal static class ShouldlyCoreExtensions
     {
-#if StackTrace
         internal static bool IsShouldlyMethod(this MethodBase method)
         {
             if (method.DeclaringType == null)
@@ -31,7 +30,6 @@ namespace Shouldly
             return method.DeclaringType is null
                 || (method.DeclaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
         }
-#endif
 
         internal static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,

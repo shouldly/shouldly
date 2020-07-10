@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using Shouldly.Configuration;
@@ -78,4 +77,3 @@ namespace Shouldly
         }
     }
 }
-#endif

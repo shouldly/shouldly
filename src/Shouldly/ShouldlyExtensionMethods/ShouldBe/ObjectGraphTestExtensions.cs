@@ -33,11 +33,7 @@ namespace Shouldly
 
             var type = GetTypeToCompare(actual, expected, path, customMessage, shouldlyMethod);
 
-#if NewReflection
             if (type.GetTypeInfo().IsValueType)
-#else
-            if (type.IsValueType)
-#endif
             {
                 CompareValueTypes((ValueType)actual, (ValueType)expected, path, customMessage, shouldlyMethod);
             }

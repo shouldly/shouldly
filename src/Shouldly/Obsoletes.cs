@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-#if ShouldMatchApproved
 using Shouldly.Configuration;
-#endif
 
 namespace Shouldly
 {
@@ -836,7 +834,6 @@ namespace Shouldly
             throw new NotImplementedException();
         }
     }
-    #if ShouldMatchApproved
     public static partial class ShouldMatchApprovedTestExtensions
     {
         [Obsolete(ObsoleteMessages.FuncCustomMessage, true)]
@@ -845,7 +842,6 @@ namespace Shouldly
             throw new NotImplementedException();
         }
     }
-    #endif
 
     public static partial class ShouldNotThrowTaskAsyncExtensions
     {

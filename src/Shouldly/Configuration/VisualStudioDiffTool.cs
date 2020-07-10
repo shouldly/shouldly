@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -190,4 +189,3 @@ namespace Shouldly.Configuration
         }
     }
 }
-#endif

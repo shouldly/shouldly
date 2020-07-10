@@ -40,7 +40,6 @@ namespace Shouldly
         public object? OutOfOrderObject { get; set; }
         public IEnumerable<string>? Path { get; set; }
 
-#if StackTrace
         internal ShouldlyAssertionContext(
             string shouldlyMethod, object? expected = null, object? actual = null,
             System.Diagnostics.StackTrace? stackTrace = null)
@@ -54,16 +53,5 @@ namespace Shouldly
             FileName = actualCodeGetter.FileName;
             LineNumber = actualCodeGetter.LineNumber;
         }
-#else
-        internal ShouldlyAssertionContext(string shouldlyMethod, object? expected = null, object? actual = null)
-        {
-            var actualCodeGetter = new ActualCodeTextGetter();
-            Expected = expected;
-            Actual = actual;
-            ShouldMethod = shouldlyMethod;
-
-            CodePart = actualCodeGetter.GetCodeText(actual);
-        }
-#endif
     }
 }

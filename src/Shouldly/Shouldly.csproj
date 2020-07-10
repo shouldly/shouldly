@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -36,14 +36,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net451' ">
-    <DefineConstants>$(DefineConstants);ShouldMatchApproved;StackTrace;Serializable</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <DefineConstants>$(DefineConstants);NewReflection;ExpressionTrees;CallContextPolyfill</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);ShouldMatchApproved;NewReflection;ExpressionTrees;StackTrace;Serializable;CallContextPolyfill</DefineConstants>
+    <DefineConstants>$(DefineConstants);ShouldMatchApproved</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />

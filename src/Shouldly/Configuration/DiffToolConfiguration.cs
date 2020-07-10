@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +15,9 @@ namespace Shouldly.Configuration
 
         public DiffToolConfiguration()
         {
-            _diffTools = typeof (KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)!).ToList();
-            _knownShouldNotLaunchDiffToolReasons = typeof (KnownDoNotLaunchStrategies).GetFields()
+            _diffTools = typeof(KnownDiffTools).GetFields().Select(f => (DiffTool) f.GetValue(KnownDiffTools)!)
+                .ToList();
+            _knownShouldNotLaunchDiffToolReasons = typeof(KnownDoNotLaunchStrategies).GetFields()
                 .Select(f => (IShouldNotLaunchDiffTool) f.GetValue(KnownDoNotLaunchStrategies)!).ToList();
         }
 
@@ -32,8 +32,10 @@ namespace Shouldly.Configuration
             if (notRegistered.Any())
             {
                 var notRegisteredNames = string.Join(", ", notRegistered.Select(r => r.Name).ToArray());
-                throw new InvalidOperationException($"The following diff tools are not registered: {notRegisteredNames}");
+                throw new InvalidOperationException(
+                    $"The following diff tools are not registered: {notRegisteredNames}");
             }
+
             _diffToolPriority.Clear();
             _diffToolPriority.AddRange(diffTools);
         }
@@ -57,7 +59,8 @@ namespace Shouldly.Configuration
 
             if (diffTool == null)
             {
-                throw new ShouldAssertException(@"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
+                throw new ShouldAssertException(
+                    @"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
 
 In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add your own");
             }
@@ -66,4 +69,3 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         }
     }
 }
-#endif

@@ -222,7 +222,6 @@ namespace Shouldly
         }
     }
 
-#if StackTrace
     /// <summary>
     /// Async methods need stacktrace before we get asynchronous
     /// </summary>
@@ -255,7 +254,6 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
-#endif
 
     internal abstract class ShouldlyMessage
     {
