@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using DiffEngine;
 using Shouldly.Configuration;
 using Shouldly.Internals;
 using Shouldly.Internals.AssertionFactories;
@@ -50,8 +51,10 @@ namespace Shouldly
 
             if (!File.Exists(approvedFile))
             {
-                if (ConfigurationAllowsDiff(config))
-                    ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, false);
+                if (!config.PreventDiff)
+                {
+                    DiffRunner.Launch(receivedFile, approvedFile);
+                }
 
                 throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
     does not exist", receivedFile, approvedFile);
@@ -63,17 +66,16 @@ namespace Shouldly
                 .Create(approvedFileContents, receivedFileContents, config.StringCompareOptions);
             var contentsMatch = assertion.IsSatisfied();
 
-            if (!contentsMatch && ConfigurationAllowsDiff(config))
-                ShouldlyConfiguration.DiffTools.GetDiffTool().Open(receivedFile, approvedFile, true);
-
             if (!contentsMatch)
+            {
+                if (!config.PreventDiff)
+                {
+                    DiffRunner.Launch(receivedFile, approvedFile);
+                }
                 throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
-            File.Delete(receivedFile);
-        }
+            }
 
-        static bool ConfigurationAllowsDiff(ShouldMatchConfiguration config)
-        {
-            return ShouldlyConfiguration.DiffTools.ShouldOpenDiffTool() && !config.PreventDiff;
+            File.Delete(receivedFile);
         }
     }
 }

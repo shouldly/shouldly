@@ -818,7 +818,6 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
-        public static Shouldly.Configuration.DiffToolConfiguration DiffTools { get; }
         public static Shouldly.Configuration.ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
@@ -847,48 +846,6 @@ namespace Shouldly
 }
 namespace Shouldly.Configuration
 {
-    public class DiffTool
-    {
-        public DiffTool(string name, Shouldly.Configuration.DiffToolConfig config, Shouldly.Configuration.DiffTool.ArgumentGenerator argGenerator) { }
-        public string Name { get; }
-        public bool Exists() { }
-        public void Open(string receivedPath, string approvedPath, bool approvedExists) { }
-        public delegate string ArgumentGenerator(string received, string approved, bool approvedExists);
-    }
-    public class DiffToolConfig
-    {
-        public DiffToolConfig() { }
-        public string? LinuxPath { get; set; }
-        public string? MacPath { get; set; }
-        public string? WindowsPath { get; set; }
-        public string? ResolvePath() { }
-    }
-    public class DiffToolConfiguration
-    {
-        public DiffToolConfiguration() { }
-        public Shouldly.Configuration.KnownDiffTools KnownDiffTools { get; }
-        public Shouldly.Configuration.KnownDoNotLaunchStrategies KnownDoNotLaunchStrategies { get; }
-        public void AddDoNotLaunchStrategy(Shouldly.Configuration.IShouldNotLaunchDiffTool shouldNotlaunchStrategy) { }
-        public Shouldly.Configuration.DiffTool GetDiffTool() { }
-        public void RegisterDiffTool(Shouldly.Configuration.DiffTool diffTool) { }
-        public void SetDiffToolPriorities(params Shouldly.Configuration.DiffTool[] diffTools) { }
-        public bool ShouldOpenDiffTool() { }
-    }
-    public class DoNotLaunchWhenEnvVariableIsPresent : Shouldly.Configuration.IShouldNotLaunchDiffTool
-    {
-        public DoNotLaunchWhenEnvVariableIsPresent(string environmentalVariable) { }
-        public bool ShouldNotLaunch() { }
-    }
-    public class DoNotLaunchWhenPlatformIsNotWindows : Shouldly.Configuration.IShouldNotLaunchDiffTool
-    {
-        public DoNotLaunchWhenPlatformIsNotWindows() { }
-        public bool ShouldNotLaunch() { }
-    }
-    public class DoNotLaunchWhenTypeIsLoaded : Shouldly.Configuration.IShouldNotLaunchDiffTool
-    {
-        public DoNotLaunchWhenTypeIsLoaded(string typeName) { }
-        public bool ShouldNotLaunch() { }
-    }
     public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string? discriminator, string fileType, string fileExtension);
     public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
         where T : System.Attribute
@@ -902,40 +859,9 @@ namespace Shouldly.Configuration
         public int Offset { get; set; }
         public Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
     }
-    public interface IShouldNotLaunchDiffTool
-    {
-        bool ShouldNotLaunch();
-    }
     public interface ITestMethodFinder
     {
         Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
-    }
-    public class KnownDiffTools
-    {
-        public readonly Shouldly.Configuration.DiffTool BeyondCompare3;
-        public readonly Shouldly.Configuration.DiffTool BeyondCompare4;
-        public readonly Shouldly.Configuration.DiffTool CodeCompare;
-        public readonly Shouldly.Configuration.DiffTool CurrentVisualStudio;
-        public readonly Shouldly.Configuration.DiffTool KDiff3;
-        public readonly Shouldly.Configuration.DiffTool P4Merge;
-        public readonly Shouldly.Configuration.DiffTool TortoiseGitMerge;
-        public readonly Shouldly.Configuration.DiffTool VisualStudioCode;
-        public readonly Shouldly.Configuration.DiffTool WinMerge;
-        public KnownDiffTools() { }
-        public static Shouldly.Configuration.KnownDiffTools Instance { get; }
-    }
-    public class KnownDoNotLaunchStrategies
-    {
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool AppVeyor;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool GitLabCI;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool Jenkins;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool MyGet;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool NCrunch;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TeamCity;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool TravisCI;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VSTS;
-        public readonly Shouldly.Configuration.IShouldNotLaunchDiffTool VisualStudioLiveUnitTesting;
-        public KnownDoNotLaunchStrategies() { }
     }
     public class ShouldMatchConfiguration
     {

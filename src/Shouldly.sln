@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly", "Shouldly\Should
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly.Tests", "Shouldly.Tests\Shouldly.Tests.csproj", "{70F31200-AE2B-42A9-9C56-200EED6235BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDiffTools", "TestDiffTools\TestDiffTools.csproj", "{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "DocumentationExamples\DocumentationExamples.csproj", "{D5990C0D-729B-4A88-9783-36F6D1898E38}"
 EndProject
 Global
@@ -39,10 +37,6 @@ Global
 		{70F31200-AE2B-42A9-9C56-200EED6235BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70F31200-AE2B-42A9-9C56-200EED6235BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70F31200-AE2B-42A9-9C56-200EED6235BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BB4C03C-EACF-4778-A434-60E1EF90EC9A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D5990C0D-729B-4A88-9783-36F6D1898E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5990C0D-729B-4A88-9783-36F6D1898E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5990C0D-729B-4A88-9783-36F6D1898E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
