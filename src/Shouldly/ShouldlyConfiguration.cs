@@ -5,7 +5,7 @@ using Shouldly.Configuration;
 
 namespace Shouldly
 {
-    public static class ShouldlyConfiguration
+    public static partial class ShouldlyConfiguration
     {
         static ShouldlyConfiguration()
         {

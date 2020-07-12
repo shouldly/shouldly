@@ -26,7 +26,7 @@ namespace Shouldly.Configuration
 
         public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
         public string? FilenameDiscriminator { get; set; }
-        public bool PreventDiff { get; set; } = BuildServerDetector.Detected || ContinuousTestingDetector.Detected;
+        public bool PreventDiff { get; set; } = DiffRunner.Disabled;
 
         /// <summary>
         /// File extension without the.

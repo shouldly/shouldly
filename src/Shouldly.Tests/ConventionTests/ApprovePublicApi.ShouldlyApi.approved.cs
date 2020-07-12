@@ -846,6 +846,36 @@ namespace Shouldly
 }
 namespace Shouldly.Configuration
 {
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class DiffTool
+    {
+        public DiffTool() { }
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class DiffToolConfig
+    {
+        public DiffToolConfig() { }
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class DiffToolConfiguration
+    {
+        public DiffToolConfiguration() { }
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class DoNotLaunchWhenEnvVariableIsPresent
+    {
+        public DoNotLaunchWhenEnvVariableIsPresent() { }
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class DoNotLaunchWhenPlatformIsNotWindows
+    {
+        public DoNotLaunchWhenPlatformIsNotWindows() { }
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class DoNotLaunchWhenTypeIsLoaded
+    {
+        public DoNotLaunchWhenTypeIsLoaded() { }
+    }
     public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string? discriminator, string fileType, string fileExtension);
     public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
         where T : System.Attribute
@@ -862,6 +892,16 @@ namespace Shouldly.Configuration
     public interface ITestMethodFinder
     {
         Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class KnownDiffTools
+    {
+        public KnownDiffTools() { }
+    }
+    [System.Obsolete(@"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.\r\n * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.\r\n * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe seperated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.\r\n * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.\r\n\r\nDiff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.", true)]
+    public class KnownDoNotLaunchStrategies
+    {
+        public KnownDoNotLaunchStrategies() { }
     }
     public class ShouldMatchConfiguration
     {
