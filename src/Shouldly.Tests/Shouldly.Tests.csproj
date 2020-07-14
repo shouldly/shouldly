@@ -24,4 +24,5 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
+  <Import Project="..\Shouldly\build.targets" />
 </Project>

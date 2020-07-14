@@ -21,6 +21,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="build.targets" PackagePath="build\Shouldly.targets" />
+    <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Shouldly.targets" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
