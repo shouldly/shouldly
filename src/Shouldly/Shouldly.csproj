@@ -3,6 +3,8 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -16,13 +18,14 @@
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="build.targets" PackagePath="build\Shouldly.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Shouldly.targets" />
+    <PackageReference Include="GitVersionTask" Version="5.3.7" Condition="$(Configuration) == 'Release'" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
