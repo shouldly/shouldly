@@ -1,9 +1,30 @@
 namespace Shouldly
 {
+    public class ActualFilteredWithPredicateShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ActualFilteredWithPredicateShouldlyMessage(System.Linq.Expressions.Expression filter, object? result, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ActualShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ActualShouldlyMessage(object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class AsyncShouldlyNotThrowShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public AsyncShouldlyNotThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace stackTrace, string exceptionMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class AsyncShouldlyThrowShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public AsyncShouldlyThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace stackTrace, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public AsyncShouldlyThrowShouldlyMessage(System.Type expected, System.Type actual, string? customMessage, System.Diagnostics.StackTrace stackTrace) { }
+    }
     public enum Case
     {
         Sensitive = 0,
         Insensitive = 1,
+    }
+    public class CompleteInShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public CompleteInShouldlyMessage(string what, System.TimeSpan timeout, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class DynamicShould
@@ -12,6 +33,63 @@ namespace Shouldly
             "somMessage.", true)]
         public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, System.Func<string?>? customMessage) { }
         public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, string? customMessage = null) { }
+    }
+    public class ExpectedActualIgnoreOrderShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedActualKeyShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedActualShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedActualShouldlyMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedActualToleranceShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedActualToleranceShouldlyMessage(object? expected, object? actual, object tolerance, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedActualWithCaseSensitivityShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object? expected, object? actual, Shouldly.Case? caseSensitivity, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedEquivalenceShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedEquivalenceShouldlyMessage(object? expected, object? actual, System.Collections.Generic.IEnumerable<string> path, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedOrderShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedOrderShouldlyMessage(object? actual, Shouldly.SortDirection expectedDirection, int outOfOrderIndex, object? outOfOrderObject, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public class ExpectedShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ExpectedShouldlyMessage(object? expected, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public interface IShouldlyAssertionContext
+    {
+        object? Actual { get; set; }
+        Shouldly.Case? CaseSensitivity { get; set; }
+        string? CodePart { get; set; }
+        bool CodePartMatchesActual { get; }
+        string? CustomMessage { get; set; }
+        object? Expected { get; set; }
+        string? FileName { get; set; }
+        System.Linq.Expressions.Expression? Filter { get; set; }
+        bool HasRelevantActual { get; set; }
+        bool HasRelevantKey { get; set; }
+        bool IgnoreOrder { get; set; }
+        bool IsNegatedAssertion { get; }
+        object? Key { get; set; }
+        int? LineNumber { get; set; }
+        int? MatchCount { get; set; }
+        int OutOfOrderIndex { get; set; }
+        object? OutOfOrderObject { get; set; }
+        System.Collections.Generic.IEnumerable<string>? Path { get; set; }
+        string ShouldMethod { get; set; }
+        Shouldly.SortDirection SortDirection { get; set; }
+        System.TimeSpan? Timeout { get; set; }
+        object? Tolerance { get; set; }
     }
     [Shouldly.ShouldlyMethods]
     public static class ObjectGraphTestExtensions
@@ -634,6 +712,10 @@ namespace Shouldly
     {
         public ShouldCompleteInException(string? message, Shouldly.ShouldlyTimeoutException? inner) { }
     }
+    public class ShouldContainWithCountShouldlyMessage : Shouldly.ShouldlyMessage
+    {
+        public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
         public ShouldMatchApprovedException(string? message, string? receivedFile, string? approvedFile) { }
@@ -813,6 +895,32 @@ namespace Shouldly
         public static TException ShouldThrow<TException>(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string? customMessage = null)
             where TException : System.Exception { }
     }
+    public class ShouldlyAssertionContext : Shouldly.IShouldlyAssertionContext
+    {
+        public ShouldlyAssertionContext(string shouldlyMethod, object? expected = null, object? actual = null, System.Diagnostics.StackTrace? stackTrace = null) { }
+        public object? Actual { get; set; }
+        public Shouldly.Case? CaseSensitivity { get; set; }
+        public string? CodePart { get; set; }
+        public bool CodePartMatchesActual { get; }
+        public string? CustomMessage { get; set; }
+        public object? Expected { get; set; }
+        public string? FileName { get; set; }
+        public System.Linq.Expressions.Expression? Filter { get; set; }
+        public bool HasRelevantActual { get; set; }
+        public bool HasRelevantKey { get; set; }
+        public bool IgnoreOrder { get; set; }
+        public bool IsNegatedAssertion { get; }
+        public object? Key { get; set; }
+        public int? LineNumber { get; set; }
+        public int? MatchCount { get; set; }
+        public int OutOfOrderIndex { get; set; }
+        public object? OutOfOrderObject { get; set; }
+        public System.Collections.Generic.IEnumerable<string>? Path { get; set; }
+        public string ShouldMethod { get; set; }
+        public Shouldly.SortDirection SortDirection { get; set; }
+        public System.TimeSpan? Timeout { get; set; }
+        public object? Tolerance { get; set; }
+    }
     public static class ShouldlyConfiguration
     {
         public static double DefaultFloatingPointTolerance;
@@ -822,9 +930,29 @@ namespace Shouldly
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }
+    public static class ShouldlyCoreExtensions
+    {
+        public static void AssertAwesomely<T>(this T actual, System.Func<T, bool> specifiedConstraint, object? originalActual, object? originalExpected, string? customMessage = null, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public static void AssertAwesomely<T>(this T actual, System.Func<T, bool> specifiedConstraint, object? originalActual, object? originalExpected, Shouldly.Case caseSensitivity, string? customMessage = null, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public static void AssertAwesomely<T>(this T actual, System.Func<T, bool> specifiedConstraint, object? originalActual, object? originalExpected, object tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public static void AssertAwesomelyIgnoringOrder<T>(this T actual, System.Func<T, bool> specifiedConstraint, object? originalActual, object? originalExpected, string? customMessage = null, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public static void AssertAwesomelyWithCaseSensitivity<T>(this T actual, System.Func<T, bool> specifiedConstraint, object? originalActual, object? originalExpected, Shouldly.Case caseSensitivity, string? customMessage = null, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+    }
+    public abstract class ShouldlyMessage
+    {
+        protected ShouldlyMessage() { }
+        protected Shouldly.IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }
+        public override string ToString() { }
+    }
     public class ShouldlyMethodsAttribute : System.Attribute
     {
         public ShouldlyMethodsAttribute() { }
+    }
+    public class ShouldlyThrowMessage : Shouldly.ShouldlyMessage
+    {
+        public ShouldlyThrowMessage(object? expected, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public ShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
     public class ShouldlyTimeoutException : System.TimeoutException
     {
@@ -842,6 +970,12 @@ namespace Shouldly
     {
         IgnoreCase = 1,
         IgnoreLineEndings = 2,
+    }
+    public class TaskShouldlyThrowMessage : Shouldly.ShouldlyMessage
+    {
+        public TaskShouldlyThrowMessage(object? expected, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public TaskShouldlyThrowMessage(object? expected, System.Exception exception, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public TaskShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
 }
 namespace Shouldly.Configuration

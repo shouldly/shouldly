@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly.Tests", "Shouldly.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "DocumentationExamples\DocumentationExamples.csproj", "{D5990C0D-729B-4A88-9783-36F6D1898E38}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeterministicTests", "DeterministicTests\DeterministicTests.csproj", "{7EDC01F8-D021-4EF4-82A1-F18F22433F43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{D5990C0D-729B-4A88-9783-36F6D1898E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5990C0D-729B-4A88-9783-36F6D1898E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5990C0D-729B-4A88-9783-36F6D1898E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EDC01F8-D021-4EF4-82A1-F18F22433F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EDC01F8-D021-4EF4-82A1-F18F22433F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EDC01F8-D021-4EF4-82A1-F18F22433F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EDC01F8-D021-4EF4-82A1-F18F22433F43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

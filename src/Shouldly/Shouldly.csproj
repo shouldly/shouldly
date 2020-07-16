@@ -22,6 +22,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="4.4.0" />
+    <Content Include="build.targets" PackagePath="build\Shouldly.targets" />
+    <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Shouldly.targets" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
