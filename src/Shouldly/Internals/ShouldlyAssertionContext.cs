@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using Shouldly.Internals;
 
 namespace Shouldly
 {
-    internal class ShouldlyAssertionContext : IShouldlyAssertionContext
+    public class ShouldlyAssertionContext : IShouldlyAssertionContext
     {
         public string ShouldMethod { get; set; }
         public string? CodePart { get; set; }
@@ -40,9 +41,11 @@ namespace Shouldly
         public object? OutOfOrderObject { get; set; }
         public IEnumerable<string>? Path { get; set; }
 
-        internal ShouldlyAssertionContext(
-            string shouldlyMethod, object? expected = null, object? actual = null,
-            System.Diagnostics.StackTrace? stackTrace = null)
+        public  ShouldlyAssertionContext(
+            string shouldlyMethod,
+            object? expected = null,
+            object? actual = null,
+            StackTrace? stackTrace = null)
         {
             var actualCodeGetter = new ActualCodeTextGetter();
             Expected = expected;
