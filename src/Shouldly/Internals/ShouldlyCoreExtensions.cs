@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Shouldly
 {
-    internal static class ShouldlyCoreExtensions
+    public static class ShouldlyCoreExtensions
     {
         internal static bool IsShouldlyMethod(this MethodBase method)
         {
@@ -31,7 +31,7 @@ namespace Shouldly
                 || (method.DeclaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
         }
 
-        internal static void AssertAwesomely<T>(
+        public static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
             object? originalActual, object? originalExpected,
             string? customMessage = null,
@@ -48,7 +48,7 @@ namespace Shouldly
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod).ToString());
         }
 
-        internal static void AssertAwesomelyWithCaseSensitivity<T>(
+        public static void AssertAwesomelyWithCaseSensitivity<T>(
             this T actual, Func<T, bool> specifiedConstraint,
             object? originalActual, object? originalExpected,
             Case caseSensitivity, string? customMessage = null,
@@ -67,7 +67,7 @@ namespace Shouldly
             throw new ShouldAssertException(message.ToString());
         }
 
-        internal static void AssertAwesomelyIgnoringOrder<T>(
+        public static void AssertAwesomelyIgnoringOrder<T>(
             this T actual, Func<T, bool> specifiedConstraint,
             object? originalActual, object? originalExpected,
             string? customMessage = null,
@@ -85,7 +85,7 @@ namespace Shouldly
             throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod).ToString());
         }
 
-        internal static void AssertAwesomely<T>(
+        public static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
             object? originalActual, object? originalExpected, object tolerance,
             string? customMessage = null,
@@ -103,7 +103,7 @@ namespace Shouldly
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod).ToString());
         }
 
-        internal static void AssertAwesomely<T>(
+        public static void AssertAwesomely<T>(
             this T actual, Func<T, bool> specifiedConstraint,
             object? originalActual, object? originalExpected, Case caseSensitivity,
             string? customMessage = null,
