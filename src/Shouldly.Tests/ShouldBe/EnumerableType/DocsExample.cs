@@ -26,9 +26,9 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 
         class Person
         {
-            public string Name { get; set; }
+            public string? Name { get; set; }
 
-            public override string ToString()
+            public override string? ToString()
             {
                 return Name;
             }

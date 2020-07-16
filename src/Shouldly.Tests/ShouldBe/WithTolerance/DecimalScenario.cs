@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
 using Xunit;
 
@@ -11,7 +10,7 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         [UseCulture("en-US")]
         public void DecimalScenarioShouldFail()
         {
-            const decimal pi = (decimal)Math.PI;
+            const decimal pi = (decimal)MathEx.PI;
             Verify.ShouldFail(() =>
 pi.ShouldBe(3.24m, 0.01m, "Some additional context"),
 
@@ -22,13 +21,13 @@ errorWithSource:
     of
 3.24m
     but was
-3.14159265358979m
+3.14159m
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"3.14159265358979m
+@"3.14159m
     should be within
 0.01m
     of
@@ -42,7 +41,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            const decimal pi = (decimal)Math.PI;
+            const decimal pi = (decimal)MathEx.PI;
             pi.ShouldBe(3.14m, 0.01m);
         }
     }

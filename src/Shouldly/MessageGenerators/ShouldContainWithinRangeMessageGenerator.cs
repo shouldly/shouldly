@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldContainWithinRangeMessageGenerator : ShouldlyMessageGenerator

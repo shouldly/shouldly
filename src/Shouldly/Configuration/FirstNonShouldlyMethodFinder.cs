@@ -1,6 +1,5 @@
-#if ShouldMatchApproved
+using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -13,7 +12,6 @@ namespace Shouldly.Configuration
 
         /// <summary>
         /// Increasing the offset will move past the first non-shouldly method
-        /// 
         /// Anonymous methods are not counted in the offset.
         /// This is useful when you have created a reusable method which is calling ShouldMatchApproved
         /// </summary>
@@ -21,21 +19,23 @@ namespace Shouldly.Configuration
 
         public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
         {
-            var i = startAt;
-            StackFrame callingFrame;
-            do
+            for (var i = startAt; stackTrace.GetFrame(i) is { } frame; i++)
             {
-                callingFrame = stackTrace.GetFrame(i++);
-            } while (callingFrame.GetMethod().IsShouldlyMethod() || IsCompilerGenerated(callingFrame.GetMethod()));
+                if (frame.GetMethod() is { } method && !method.IsShouldlyMethod() && !IsCompilerGenerated(method))
+                {
+                    var callingFrame = stackTrace.GetFrame(i + Offset)
+                        ?? throw new InvalidOperationException("There is no stack frame at the specified offset from the first non-Shouldly stack frame.");
 
-            callingFrame = stackTrace.GetFrame(i + Offset - 1);
-            return new TestMethodInfo(callingFrame);
+                    return new TestMethodInfo(callingFrame);
+                }
+            }
+
+            throw new InvalidOperationException("Cannot find a non-Shouldly method in the stack trace.");
         }
 
         static bool IsCompilerGenerated(MethodBase method)
         {
-            return method.GetCustomAttributes(typeof(CompilerGeneratedAttribute), true).Any() || AnonMethod.IsMatch(method.Name);
+            return method.IsDefined(typeof(CompilerGeneratedAttribute), inherit: true) || AnonMethod.IsMatch(method.Name);
         }
     }
 }
-#endif

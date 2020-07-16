@@ -18,7 +18,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                bool myValue = false;
+                var myValue = false;
                 myValue.ShouldBeTrue();
             }, _testOutputHelper);
         }
@@ -28,7 +28,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                bool myValue = true;
+                var myValue = true;
                 myValue.ShouldBeFalse();
             }, _testOutputHelper);
         }

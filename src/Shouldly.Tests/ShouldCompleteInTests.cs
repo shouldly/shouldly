@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteIn_WhenFinishAfterTimeout()
         {
-            var ex = Should.Throw<ShouldlyTimeoutException>(() => 
+            var ex = Should.Throw<ShouldlyTimeoutException>(() =>
                 Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait(), TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Delegate
@@ -64,7 +63,7 @@ namespace Shouldly.Tests
         {
             var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
             {
-                Task.Delay(TimeSpan.FromSeconds(5)).Wait();                
+                Task.Delay(TimeSpan.FromSeconds(5)).Wait();
                 return "";
             }, TimeSpan.FromSeconds(1), "Some additional context"));
 

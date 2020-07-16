@@ -8,21 +8,9 @@ using JetBrains.Annotations;
 namespace Shouldly
 {
     [ShouldlyMethods]
-    public static class DynamicShould
+    public static partial class DynamicShould
     {
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName)
-        {
-            Func<string> customMessage = () => null;
-            HaveProperty(dynamicTestObject, propertyName, customMessage);
-        }
-
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string customMessage)
-        {
-            Func<string> message = () => customMessage;
-            HaveProperty(dynamicTestObject, propertyName, message);
-        }
-
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, [InstantHandle] Func<string> customMessage)
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
         {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
@@ -34,7 +22,7 @@ namespace Shouldly
                 }
             }
             else
-            { 
+            {
                 var dynamicAsObject = (object)dynamicTestObject;
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))

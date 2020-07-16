@@ -1,3 +1,4 @@
+#if(NETCOREAPP)
 using PublicApiGenerator;
 
 namespace Shouldly.Tests.ConventionTests
@@ -16,3 +17,4 @@ namespace Shouldly.Tests.ConventionTests
         }
     }
 }
+#endif

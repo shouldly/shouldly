@@ -9,7 +9,7 @@ namespace Shouldly.Tests.Strings.ShouldBe
         {
             var str = "SamplE";
             Verify.ShouldFail(() =>
-str.ShouldBe("sAMPLe", () => "Some additional context"),
+str.ShouldBe("sAMPLe", "Some additional context"),
 
 errorWithSource:
 @"str

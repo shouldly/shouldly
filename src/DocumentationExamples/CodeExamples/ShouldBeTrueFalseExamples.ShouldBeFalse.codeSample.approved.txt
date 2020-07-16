@@ -1,2 +1,2 @@
-bool myValue = true;
+var myValue = true;
 myValue.ShouldBeFalse();

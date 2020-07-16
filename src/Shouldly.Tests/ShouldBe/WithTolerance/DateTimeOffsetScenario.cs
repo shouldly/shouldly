@@ -11,10 +11,10 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
         {
             var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
             var dateString = date.ToString();
-            var exptected = new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero);
-            var expectedDate = exptected.ToString();
+            var expected = new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero);
+            var expectedDate = expected.ToString();
             Verify.ShouldFail(() =>
-date.ShouldBe(exptected, TimeSpan.FromHours(1), "Some additional context"),
+date.ShouldBe(expected, TimeSpan.FromHours(1), "Some additional context"),
 
 errorWithSource:
 $@"date

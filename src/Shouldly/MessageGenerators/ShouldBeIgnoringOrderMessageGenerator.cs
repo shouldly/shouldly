@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Shouldly.MessageGenerators
@@ -12,6 +13,9 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
+            Debug.Assert(context.Expected is IEnumerable);
+            Debug.Assert(context.Actual is IEnumerable);
+
             var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
             var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();
             var codePart = context.CodePart;

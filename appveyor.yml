@@ -13,7 +13,7 @@ platform:
 
 configuration:
   - Debug
- 
+
 build_script:
   - ps: ./build.ps1
   - sh: ./build.sh

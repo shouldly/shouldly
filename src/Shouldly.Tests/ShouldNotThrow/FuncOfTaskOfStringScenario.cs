@@ -44,7 +44,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            Task<string> task = Task.Factory.StartNew(() => "Foo",
+            var task = Task.Factory.StartNew(() => "Foo",
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
 

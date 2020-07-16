@@ -4,7 +4,7 @@ using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeInOrder
-{ 
+{
     public class DoubleArrayScenario
     {
         private readonly double[] _ascendingTarget = { 1.1, 1.2, 1.3, 1.4, 1.5 };

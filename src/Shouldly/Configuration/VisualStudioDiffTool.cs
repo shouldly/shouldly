@@ -1,5 +1,4 @@
-﻿#if ShouldMatchApproved
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -39,7 +38,7 @@ namespace Shouldly.Configuration
             and limitations under the License.
          */
         // https://github.com/approvals/ApprovalTests.Net/blob/master/ApprovalTests/Reporters/VisualStudioReporter.cs
-        private static string GetPath()
+        private static string? GetPath()
         {
             Process process;
             try
@@ -84,7 +83,7 @@ namespace Shouldly.Configuration
         // https://github.com/approvals/ApprovalTests.Net/blob/master/ApprovalTests/Utilities/ParentProcessUtils.cs
         static class ParentProcessUtils
         {
-            public static Process GetParentProcess(Process currentProcess)
+            public static Process? GetParentProcess(Process currentProcess)
             {
                 return ParentProcess(currentProcess);
             }
@@ -94,7 +93,7 @@ namespace Shouldly.Configuration
                 return GetSelfAndAncestors(Process.GetCurrentProcess());
             }
 
-            static IEnumerable<Process> GetSelfAndAncestors(Process self)
+            static IEnumerable<Process> GetSelfAndAncestors(Process? self)
             {
                 var processIds = new HashSet<int>();
 
@@ -115,7 +114,7 @@ namespace Shouldly.Configuration
             }
 
 
-            private static Process ParentProcess(Process process)
+            private static Process? ParentProcess(Process process)
             {
                 var parentPid = 0;
                 var processPid = process.Id;
@@ -190,4 +189,3 @@ namespace Shouldly.Configuration
         }
     }
 }
-#endif

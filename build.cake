@@ -81,24 +81,24 @@ Task("Package")
         //     AllTags                  = false
         // });
 
-        var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
+        // var gitReleaseNotesTool = Context.Tools.Resolve("GitReleaseNotes.exe");
 
-        var releaseNotesExitCode =
-            StartProcess(gitReleaseNotesTool,
-                         new ProcessSettings { Arguments = ". /OutputFile artifacts/releasenotes.md", RedirectStandardOutput = true },
-                         out var redirectedOutput);
+        // var releaseNotesExitCode =
+        //    StartProcess(gitReleaseNotesTool,
+        //                 new ProcessSettings { Arguments = ". /OutputFile artifacts/releasenotes.md", RedirectStandardOutput = true },
+        //                 out var redirectedOutput);
 
-        Information(string.Join("\n", redirectedOutput));
+        //Information(string.Join("\n", redirectedOutput));
 
-        if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
-            System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
+        //if (string.IsNullOrEmpty(System.IO.File.ReadAllText("./artifacts/releasenotes.md")))
+        //    System.IO.File.WriteAllText("./artifacts/releasenotes.md", "No issues closed since last release");
 
-        if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
+        //if (releaseNotesExitCode != 0) Error("Failed to generate release notes");
 
-        System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
-            "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
-            "releaseNotes:releasenotes.md"
-        });
+        //System.IO.File.WriteAllLines(outputDir + "artifacts", new[]{
+        //    "nuget:Shouldly." + versionInfo.NuGetVersion + ".nupkg",
+        //    "releaseNotes:releasenotes.md"
+        //});
 
         if (isAppVeyor)
         {

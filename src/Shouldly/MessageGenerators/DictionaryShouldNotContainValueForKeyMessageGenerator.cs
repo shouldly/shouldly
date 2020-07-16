@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -15,6 +15,9 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
+            Debug.Assert(context.Actual is IDictionary);
+            Debug.Assert(context.Key is object);
+
             const string format =
 @"{0}
     should not contain key

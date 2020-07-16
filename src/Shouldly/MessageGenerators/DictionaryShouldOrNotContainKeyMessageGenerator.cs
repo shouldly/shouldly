@@ -13,7 +13,7 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = 
+            const string format =
 @"{0}
     {1}
 {2}

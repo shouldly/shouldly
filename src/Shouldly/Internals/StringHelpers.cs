@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,15 +9,13 @@ namespace Shouldly
 {
     internal static class StringHelpers
     {
-        internal static string ToStringAwesomely(this object value)
+        internal static string? ToStringAwesomely(this object? value)
         {
             if (value == null)
                 return "null";
 
             if (value is string)
                 return "\"" + value + "\"";
-
-            var type = value.GetType();
 
             if (value is decimal)
                 return value + "m";
@@ -38,15 +35,17 @@ namespace Shouldly
             if (value is ulong)
                 return value + "uL";
 
+            var objectType = value.GetType();
 
-            if (value is IEnumerable)
+            if (value.TryGetEnumerable(out var enumerable))
             {
-                var objects = value.As<IEnumerable>().Cast<object>();
+                var objects = enumerable.Cast<object>();
                 var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
-                if (inspect == "[]" && value.ToString() != type.FullName)
+                if (inspect == "[]" && value.ToString() != objectType.FullName)
                 {
                     inspect += " (" + value + ")";
                 }
+
                 return inspect;
             }
 
@@ -72,17 +71,17 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
             }
 
-            if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
-                var key = type.GetProperty("Key").GetValue(value, null);
-                var v = type.GetProperty("Value").GetValue(value, null);
+            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
+                var key = objectType.GetProperty("Key")!.GetValue(value, null);
+                var v = objectType.GetProperty("Value")!.GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
             }
 
             var toString = value.ToString();
-            if (toString == type.FullName)
+            if (toString == objectType.FullName)
                 return $"{value} ({value.GetHashCode()})";
 
-            return toString;
+            return toString; // ToString() may return null.
         }
 
         internal static string PascalToSpaced(this string pascal)
@@ -164,30 +163,30 @@ namespace Shouldly
                     case ' ':
                         return @"\s";
                     default:
-                        return string.Format("\\u{0:X};", (int)c);
+                        return $"\\u{(int) c:X};";
                 }
             }
             return c.ToString();
         }
 
-        internal static bool IsNullOrWhiteSpace(this string s)
+        internal static bool IsNullOrWhiteSpace(this string? s)
         {
             return string.IsNullOrWhiteSpace(s);
         }
 
-        internal static string NormalizeLineEndings(this string s)
+        internal static string? NormalizeLineEndings(this string? s)
         {
             return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
         }
 
-        static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class
+        static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
         {
             return enumerable.DelimitWith(", ");
         }
 
-        static string DelimitWith<T>(this IEnumerable<T> enumerable, string separator) where T : class
+        static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
         {
-            return string.Join(separator, enumerable.Select(i => Equals(i, default(T)) ? null : i.ToString()).ToArray());
+            return string.Join(separator, enumerable.Select(i => Equals(i, null) ? null : i.ToString()).ToArray());
         }
 
         static string ToStringAwesomely(this Enum value)
@@ -198,6 +197,6 @@ namespace Shouldly
         static string ToStringAwesomely(this DateTime value)
         {
             return value.ToString("o");
-        }        
+        }
     }
 }

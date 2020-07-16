@@ -26,11 +26,7 @@ $@"Comparing object equivalence, at path:
 
         private static string FormatPath(IShouldlyAssertionContext context)
         {
-#if StackTrace
             var result = new StringBuilder(ShouldlyConfiguration.IsSourceDisabledInErrors() ? DefaultRootValue : context.CodePart);
-#else
-            var result = new StringBuilder(DefaultRootValue);
-#endif
             if (context.Path != null)
             {
                 var i = 0;

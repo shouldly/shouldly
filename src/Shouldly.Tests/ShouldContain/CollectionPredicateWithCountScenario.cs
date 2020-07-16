@@ -52,7 +52,7 @@ Additional Info:
         {
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
-            collection.ShouldContain(x => x == "c", 5, () => "custom message"),
+            collection.ShouldContain(x => x == "c", 5, "custom message"),
 errorWithSource:
 @"collection
     should contain 5 element(s) satisfying the condition

@@ -3,10 +3,10 @@ using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
-    public class MultiDimentionalArrayScenario
+    public class MultiDimensionalArrayScenario
     {
         [Fact]
-        public void MultiDimentionalArrayScenarioShouldFail()
+        public void MultiDimensionalArrayScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
     new[,] { { "1", "2" }, { "3", "5" } }.ShouldBe(new[,] { { "1", "2" }, { "3", "4" } }, "Some additional context"),

@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -15,7 +14,7 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToString();
+            var expectedValue = context.Expected?.ToString();
 
             return
 $@"{codePart}

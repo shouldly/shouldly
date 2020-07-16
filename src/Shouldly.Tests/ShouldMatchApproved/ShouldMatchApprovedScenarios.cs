@@ -30,11 +30,11 @@ namespace Shouldly.Tests.ShouldMatchApproved
             var approvalPath = IsWindows()
                 ? @"C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile"
                 : @"/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
-            
+
             var cmd = IsWindows()
                 ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
                 : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
-            
+
             var errorMsg = $@"To approve the changes run this command:
 {cmd}
 ----------------------------
@@ -49,7 +49,7 @@ Approval file {approvalPath}.approved.txt
                 errorWithoutSource: errorMsg,
                 messageScrubber: _scrubber);
         }
-        
+
         [Fact]
         public void DifferencesUseShouldlyMessages()
         {
@@ -107,8 +107,8 @@ Actual Code    | 70   111  111  ",
         public void NoDiffToolsFound()
         {
             var diffTools = ShouldlyConfiguration.DiffTools.GetType()
-                .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic);
-            var diffToolsCollection = (List<DiffTool>)diffTools.GetValue(ShouldlyConfiguration.DiffTools);
+                .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            var diffToolsCollection = (List<DiffTool>)diffTools.GetValue(ShouldlyConfiguration.DiffTools)!;
             var currentDiffTools = new List<DiffTool>(diffToolsCollection);
 
             try
@@ -129,7 +129,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         public void IgnoresLineEndingsByDefault()
         {
             var stacktrace = new StackTrace(true);
-            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
+            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0)!.GetFileName())!;
             var approved = Path.Combine(sourceFileDir, "ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
             File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
 
@@ -174,7 +174,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
 
             "Foo".ShouldMatchApproved();
         }
-        
+
         public static bool IsWindows()
             => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }

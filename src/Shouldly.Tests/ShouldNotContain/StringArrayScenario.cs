@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class StringArrayScenario
     {
-        readonly string[] _target = new[] { "a", "b", "c" };
+        readonly string[] _target = { "a", "b", "c" };
 
         [Fact]
         public void StringArrayScenarioShouldFail()

@@ -6,11 +6,10 @@ namespace Shouldly.Tests.InternalTests
 {
     public class EqualityComparerTests
     {
-        /* 
+        /*
          * Code heavily influenced by code from xunit assertion tests
          * at https://github.com/xunit/xunit/blob/master/test/test.xunit2.assert/Asserts/EqualityAssertsTests.cs
          */
-
         [Fact]
         public void EqualityComparer_WhenGivenEqualLists_ShouldBeTrue()
         {
@@ -21,7 +20,7 @@ namespace Shouldly.Tests.InternalTests
         }
 
         [Fact]
-        public void EqualityComparer_WhenGivenNonComaprableObject_ShouldBeTrue()
+        public void EqualityComparer_WhenGivenNonComparableObject_ShouldBeTrue()
         {
             var nco1 = new NonComparableObject();
             var nco2 = new NonComparableObject();
@@ -53,7 +52,7 @@ namespace Shouldly.Tests.InternalTests
         {
             var eq1 = new SpyEquatable();
             var eq2 = new SpyEquatable();
-            
+
             eq1.ShouldBe(eq2);
             eq2.EqualsCalled.ShouldBe(true);
             eq2.EqualsOther.ShouldBeSameAs(eq1);
@@ -61,7 +60,7 @@ namespace Shouldly.Tests.InternalTests
 
         class NonComparableObject
         {
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 return true;
             }
@@ -74,7 +73,7 @@ namespace Shouldly.Tests.InternalTests
 
         class SpyComparable : IComparable
         {
-            public int CompareTo(object obj)
+            public int CompareTo(object? obj)
             {
                 return 0;
             }
@@ -84,7 +83,7 @@ namespace Shouldly.Tests.InternalTests
         {
             public bool CompareCalled;
 
-            public int CompareTo(SpyComparableGeneric other)
+            public int CompareTo(SpyComparableGeneric? other)
             {
                 CompareCalled = true;
                 return 0;
@@ -94,9 +93,9 @@ namespace Shouldly.Tests.InternalTests
         public class SpyEquatable : IEquatable<SpyEquatable>
         {
             public bool EqualsCalled;
-            public SpyEquatable EqualsOther;
+            public SpyEquatable? EqualsOther;
 
-            public bool Equals(SpyEquatable other)
+            public bool Equals(SpyEquatable? other)
             {
                 EqualsCalled = true;
                 EqualsOther = other;

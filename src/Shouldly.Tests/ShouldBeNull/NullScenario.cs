@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBeNull
         [Fact]
         public void NullScenarioShouldFail()
         {
-            string myNullRef = "Hello World";
+            var myNullRef = "Hello World";
             Verify.ShouldFail(() =>
 myNullRef.ShouldBeNull("Some additional context"),
 
@@ -31,7 +31,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            ((string)null).ShouldBeNull();
+            ((string?)null).ShouldBeNull();
         }
     }
 }

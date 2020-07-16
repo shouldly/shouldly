@@ -43,7 +43,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            ((string)null).ShouldBeNullOrEmpty();
+            ((string?)null).ShouldBeNullOrEmpty();
             string.Empty.ShouldBeNullOrEmpty();
         }
     }

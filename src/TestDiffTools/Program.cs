@@ -18,7 +18,7 @@ namespace TestDiffTools
                 .GetFields()
                 .Select((f, i) => new
                 {
-                    DiffTool = (DiffTool) f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools),
+                    DiffTool = (DiffTool) f.GetValue(ShouldlyConfiguration.DiffTools.KnownDiffTools)!,
                     Index = i
                 }).ToList();
 
@@ -26,8 +26,8 @@ namespace TestDiffTools
             while (true)
             {
                 var diffToolsCollection = (List<DiffTool>) ShouldlyConfiguration.DiffTools.GetType()
-                    .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetValue(ShouldlyConfiguration.DiffTools);
+                    .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic)!
+                    .GetValue(ShouldlyConfiguration.DiffTools)!;
                 diffToolsCollection.Clear();
 
                 Console.WriteLine("Select difftool:");
@@ -36,7 +36,7 @@ namespace TestDiffTools
                     Console.WriteLine($"{diffTool.Index}. {diffTool.DiffTool.Name}");
                 }
 
-                if (!int.TryParse(Console.ReadLine(), out int selectedTool))
+                if (!int.TryParse(Console.ReadLine(), out var selectedTool))
                 {
                     Console.WriteLine("You must choose a number");
                     continue;
@@ -54,7 +54,7 @@ namespace TestDiffTools
                 Console.WriteLine("1. When there is no approved file");
                 Console.WriteLine("2. When the approved file does not match");
 
-                if (!int.TryParse(Console.ReadLine(), out int selectedOption))
+                if (!int.TryParse(Console.ReadLine(), out var selectedOption))
                 {
                     Console.WriteLine("You must choose a number");
                     continue;
@@ -63,10 +63,10 @@ namespace TestDiffTools
                 ShouldlyConfiguration.DiffTools.RegisterDiffTool(selectedDiffTool.DiffTool);
                 var stacktrace = new StackTrace(true);
 
-                var currentFrame = stacktrace.GetFrame(0);
+                var currentFrame = stacktrace.GetFrame(0)!;
                 var approved = Path.Combine(
-                    Path.GetDirectoryName(currentFrame.GetFileName()),
-                    $"{Path.GetFileNameWithoutExtension(currentFrame.GetFileName())}.{currentFrame.GetMethod().Name}.approved.txt");
+                    Path.GetDirectoryName(currentFrame.GetFileName())!,
+                    $"{Path.GetFileNameWithoutExtension(currentFrame.GetFileName())}.{currentFrame.GetMethod()!.Name}.approved.txt");
 
                 switch (selectedOption)
                 {

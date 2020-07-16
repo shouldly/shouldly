@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
 using Xunit;
 
@@ -10,7 +9,7 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
         [Fact]
         public void ShouldThrowWhenNullPassedToShouldBeAssignableValueType()
         {
-            MyThing myThing = null;            
+            MyThing? myThing = null;
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
             myThing.ShouldBeAssignableTo<int>("Some additional context"),
@@ -38,7 +37,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            MyThing myThing = null;
+            MyThing? myThing = null;
             myThing.ShouldBeAssignableTo<MyBase>("Some additional context");
         }
     }

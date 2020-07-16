@@ -6,7 +6,7 @@ platform:
 
 configuration:
   - Debug
- 
+
 build_script:
   - ps: ./builds.ps1 -Script deploy.cake
 

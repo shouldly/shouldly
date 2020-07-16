@@ -1,6 +1,6 @@
-﻿#if StackTrace
-using System;
+﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 
@@ -8,7 +8,7 @@ namespace Shouldly.Internals
 {
     internal static class StackTraceHelpers
     {
-        public static string GetStackTrace(Exception exception, ref string cachedValue)
+        public static string GetStackTrace(Exception exception, [NotNull] ref string? cachedValue)
         {
             if (cachedValue == null)
             {
@@ -26,8 +26,8 @@ namespace Shouldly.Internals
 
             for (var startIndex = 0; startIndex < stackTrace.FrameCount; startIndex++)
             {
-                var frame = stackTrace.GetFrame(startIndex);
-                if (frame.GetMethod().DeclaringType?.Assembly != shouldlyAssembly)
+                var frame = stackTrace.GetFrame(startIndex)!;
+                if (frame.GetMethod()?.DeclaringType?.Assembly != shouldlyAssembly)
                 {
                     if (startIndex == 0)
                     {
@@ -40,7 +40,7 @@ namespace Shouldly.Internals
 
                         for (var i = 0; i < lines.Length; i++)
                         {
-                            var line = new StackTrace(stackTrace.GetFrame(i + startIndex)).ToString();
+                            var line = new StackTrace(stackTrace.GetFrame(i + startIndex)!).ToString();
                             if (i == lines.Length - 1) line = line.TrimEnd();
                             lines[i] = line;
                             neededCapacity += line.Length;
@@ -58,4 +58,3 @@ namespace Shouldly.Internals
         }
     }
 }
-#endif

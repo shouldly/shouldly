@@ -19,7 +19,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var theSimpsonsDog = new Cat() { Name = "Santas little helper" };
+                var theSimpsonsDog = new Cat { Name = "Santas little helper" };
                 theSimpsonsDog.ShouldBeOfType<Dog>();
             }, _testOutputHelper);
         }
@@ -29,7 +29,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var theSimpsonsDog = new Cat() { Name = "Santas little helper" };
+                var theSimpsonsDog = new Cat { Name = "Santas little helper" };
                 theSimpsonsDog.ShouldNotBeOfType<Cat>();
             }, _testOutputHelper);
         }

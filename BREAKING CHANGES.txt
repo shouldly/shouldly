@@ -11,7 +11,7 @@ v1.0 -> v1.1 Breaking Changes
         FIX: Any code relying on Throw<T>() to return a string should update to call Message. Eg:
         Should.Throw<SomeException>(() => throw new OtherException()).Message.ShouldBe("Threw other exception"); 
    
-    # Rhino Mocks has been deprecated from Shouldly. 
+    # Rhino Mocks has been deprecated from Shouldly
         Won't break build as such, but please bear in mind that plans are to remove this functionality from Shouldly
         This also means the NuGet package has been updated to remove the explicit dependency on Rhino.Mocks.
         

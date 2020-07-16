@@ -82,14 +82,14 @@ Additional Info:
                 this.identity = identity;
             }
 
-            protected bool Equals(YourAverageNonComparableType other)
+            protected bool Equals(YourAverageNonComparableType? other)
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return string.Equals(identity, other.identity);
+                return Equals(identity, other.identity);
             }
 
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 return Equals(obj as YourAverageNonComparableType);
             }

@@ -1,4 +1,3 @@
-#if ShouldMatchApproved
 using System;
 
 namespace Shouldly.Configuration
@@ -19,7 +18,7 @@ namespace Shouldly.Configuration
 
         public ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator)
         {
-            return Configure(c => c.FilenameDescriminator = fileDiscriminator);
+            return Configure(c => c.FilenameDiscriminator = fileDiscriminator);
         }
 
         public ShouldMatchConfigurationBuilder NoDiff()
@@ -103,4 +102,3 @@ namespace Shouldly.Configuration
         }
     }
 }
-#endif

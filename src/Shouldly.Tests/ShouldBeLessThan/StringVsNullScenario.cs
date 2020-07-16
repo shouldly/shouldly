@@ -35,7 +35,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            ((string)null).ShouldBeLessThan("b");
+            ((string?)null).ShouldBeLessThan("b");
         }
     }
 }

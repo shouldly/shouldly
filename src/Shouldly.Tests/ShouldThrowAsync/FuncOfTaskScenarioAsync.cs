@@ -4,19 +4,21 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldThrowAsync
-{  
+{
     public class FuncOfTaskScenarioAsync
-   
     {
-
-    [Fact]
+        [Fact]
         public void ShouldThrowAWobbly()
         {
             try
             {
-                Task task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
-                        CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default);
+                var task = Task.Factory.StartNew(() =>
+                    {
+                        var a = 1 + 1;
+                        Console.WriteLine(a);
+                    },
+                    CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default);
 
                 var result = task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
                 result.Wait();
@@ -31,7 +33,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
                             Some additional context");
             }
         }
-        
+
         [Fact]
         public async Task ShouldThrowAWobbly_WhenATaskIsCancelled()
         {
@@ -47,14 +49,18 @@ namespace Shouldly.Tests.ShouldThrowAsync
             result.ShouldNotBeNull();
         }
 
-[Fact]
+        [Fact]
         public void ShouldThrowAWobbly_ExceptionTypePassedIn()
         {
             try
             {
-                Task task = Task.Factory.StartNew(() => { var a = 1 + 1; Console.WriteLine(a); },
-                        CancellationToken.None, TaskCreationOptions.None,
-                        TaskScheduler.Default);
+                var task = Task.Factory.StartNew(() =>
+                    {
+                        var a = 1 + 1;
+                        Console.WriteLine(a);
+                    },
+                    CancellationToken.None, TaskCreationOptions.None,
+                    TaskScheduler.Default);
 
                 var result = task.ShouldThrowAsync("Some additional context", typeof(InvalidOperationException));
                 result.Wait();
@@ -81,7 +87,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
             result.Wait();
         }
 
-[Fact]
+        [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
             var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
@@ -130,6 +136,6 @@ namespace Shouldly.Tests.ShouldThrowAsync
                     but threw
                     System.DivideByZeroException");
             }
-        }        
+        }
     }
 }

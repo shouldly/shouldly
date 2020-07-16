@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using Shouldly;
+﻿using Shouldly;
 using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
@@ -21,11 +19,25 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var mrBurns = new Person() { Name = null };
+                var mrBurns = new Person { Name = null };
                 mrBurns.ShouldSatisfyAllConditions
                     (
                         () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
                         () => mrBurns.Name.ShouldBe("Mr.Burns")
+                    );
+            }, _testOutputHelper);
+        }
+
+        [Fact]
+        public void ShouldSatisfyAllConditionsGeneric()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var mrBurns = new Person { Name = null };
+                mrBurns.ShouldSatisfyAllConditions
+                    (
+                        p => p.Name.ShouldNotBeNullOrEmpty(),
+                        p => p.Name.ShouldBe("Mr.Burns")
                     );
             }, _testOutputHelper);
         }

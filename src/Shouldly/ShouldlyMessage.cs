@@ -12,99 +12,99 @@ namespace Shouldly
 {
     internal class ExpectedShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedShouldlyMessage(object expected, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedShouldlyMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
     internal class ActualShouldlyMessage : ShouldlyMessage
     {
-        public ActualShouldlyMessage(object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ActualShouldlyMessage(object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, actual: actual)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ExpectedActualShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualShouldlyMessage(object expected, object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedActualShouldlyMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
     internal class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
     {
-        public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object result, object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object? result, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, result, actual)
             {
                 HasRelevantActual = true,
                 Filter = filter
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualWithCaseSensitivityShouldlyMessage(object expected, object actual,
+        public ExpectedActualWithCaseSensitivityShouldlyMessage(object? expected, object? actual,
             Case? caseSensitivity,
-            [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 HasRelevantActual = true,
                 CaseSensitivity = caseSensitivity
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualToleranceShouldlyMessage(object expected, object actual, object tolerance,
-            [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedActualToleranceShouldlyMessage(object? expected, object? actual, object tolerance,
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 Tolerance = tolerance,
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualIgnoreOrderShouldlyMessage(object expected, object actual,
-            [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual,
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 IgnoreOrder = true,
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedActualKeyShouldlyMessage(object expected, object actual, object key,
-            [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key,
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
@@ -112,15 +112,15 @@ namespace Shouldly
                 HasRelevantActual = true,
                 HasRelevantKey = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ExpectedOrderShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedOrderShouldlyMessage(object actual, SortDirection expectedDirection, int outOfOrderIndex, object outOfOrderObject,
-            [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedOrderShouldlyMessage(object? actual, SortDirection expectedDirection, int outOfOrderIndex, object? outOfOrderObject,
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, actual: actual)
             {
@@ -128,119 +128,118 @@ namespace Shouldly
                 OutOfOrderIndex = outOfOrderIndex,
                 OutOfOrderObject = outOfOrderObject
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
-    internal class ExpectedEquvalenceShouldlyMessage : ShouldlyMessage
+    internal class ExpectedEquivalenceShouldlyMessage : ShouldlyMessage
     {
-        public ExpectedEquvalenceShouldlyMessage(object expected, object actual, IEnumerable<string> path, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ExpectedEquivalenceShouldlyMessage(object? expected, object? actual, IEnumerable<string> path, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 Path = path
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ShouldlyThrowMessage : ShouldlyMessage
     {
-        public ShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public ShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ShouldlyThrowMessage(object? expected, object? actual, string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, shouldlyMethod: shouldlyMethod)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public ShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public ShouldlyThrowMessage(object? expected, string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
     {
-        public ShouldContainWithCountShouldlyMessage(object expected, object actual, int matchCount, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
             {
                 HasRelevantActual = true,
                 MatchCount = matchCount
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class TaskShouldlyThrowMessage : ShouldlyMessage
     {
-        public TaskShouldlyThrowMessage(object expected, string exceptionMessage, Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public TaskShouldlyThrowMessage(object? expected, Exception exception, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, isAsync: true, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exception.Message, isAsync: true, shouldlyMethod: shouldlyMethod);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public TaskShouldlyThrowMessage(object expected, object actual, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public TaskShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true, shouldlyMethod: shouldlyMethod)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
 
-        public TaskShouldlyThrowMessage(object expected, [InstantHandle] Func<string> customMessage, [CallerMemberName] string shouldlyMethod = null)
+        public TaskShouldlyThrowMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, isAsync: true, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
     internal class CompleteInShouldlyMessage : ShouldlyMessage
     {
         public CompleteInShouldlyMessage(string what, TimeSpan timeout,
-            [InstantHandle] Func<string> customMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, what)
             {
                 Timeout = timeout
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
 
-#if StackTrace
     /// <summary>
     /// Async methods need stacktrace before we get asynchronous
     /// </summary>
     internal class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
     {
-        public AsyncShouldlyThrowShouldlyMessage(Type exception, [InstantHandle] Func<string> customMessage, StackTrace stackTrace,
-            [CallerMemberName] string shouldlyMethod = null)
+        public AsyncShouldlyThrowShouldlyMessage(Type exception, string? customMessage, StackTrace stackTrace,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
-        public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, [InstantHandle] Func<string> customMessage, StackTrace stackTrace)
+        public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace stackTrace)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
             {
                 HasRelevantActual = true
             };
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
     /// <summary>
@@ -248,14 +247,13 @@ namespace Shouldly
     /// </summary>
     internal class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
     {
-        public AsyncShouldlyNotThrowShouldlyMessage(Type exception,[InstantHandle] Func<string> customMessage, StackTrace stackTrace,string exceptionMessage,
-            [CallerMemberName] string shouldlyMethod = null)
+        public AsyncShouldlyNotThrowShouldlyMessage(Type exception, string? customMessage, StackTrace stackTrace, string exceptionMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
-            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true,shouldlyMethod:shouldlyMethod,actual:null,exceptionMessage: exceptionMessage);
-            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage();
+            ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod, actual: null, exceptionMessage: exceptionMessage);
+            if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
-#endif
 
     internal abstract class ShouldlyMessage
     {
@@ -296,7 +294,7 @@ namespace Shouldly
             new ShouldBeEquivalentToMessageGenerator()
         };
 
-        protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }
+        protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
 
         public override string ToString()
         {

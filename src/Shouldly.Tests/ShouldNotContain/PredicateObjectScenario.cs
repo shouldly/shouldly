@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotContain
@@ -13,7 +12,7 @@ namespace Shouldly.Tests.ShouldNotContain
             var b = new object();
             var c = new object();
             Verify.ShouldFail(() =>
-new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName.Equals("System.Object"),
+new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName!.Equals("System.Object"),
                 "Some additional context"),
 
 errorWithSource:
@@ -38,10 +37,10 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var a = new Object();
-            var b = new Object();
-            var c = new Object();
-            new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName.Equals(""));
+            var a = new object();
+            var b = new object();
+            var c = new object();
+            new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName!.Equals(""));
         }
     }
 }

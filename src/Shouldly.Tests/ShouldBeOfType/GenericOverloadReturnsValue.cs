@@ -3,15 +3,13 @@
 namespace Shouldly.Tests.ShouldBeOfType
 {
     public class GenericOverloadReturnsValue
-   
     {
-
-    [Fact]
+        [Fact]
         public void ValueShouldBeReturnedWhenSuccessful()
         {
             object val = "Foo";
             // ReSharper disable once SuggestUseVarKeywordEvident
-            string returnedVal = val.ShouldBeOfType<string>("Some additional context");
+            var returnedVal = val.ShouldBeOfType<string>("Some additional context");
             returnedVal.ShouldBe("Foo");
         }
     }

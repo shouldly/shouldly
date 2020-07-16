@@ -6,15 +6,15 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
     public class LongStringsAreTruncatedAtTheStartBorderConditionBorderConditionTwo
     {
 
-    [Fact]
-    public void LongStringsAreTruncatedAtTheStartBorderConditionBorderConditionTwoShouldFail()
-    {
-        var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
-        Verify.ShouldFail(() =>
-str.ShouldBe("1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r.1s,1t,1u,1v", StringCompareShould.IgnoreCase),
+        [Fact]
+        public void LongStringsAreTruncatedAtTheStartBorderConditionBorderConditionTwoShouldFail()
+        {
+            var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
+            Verify.ShouldFail(() =>
+                    str.ShouldBe("1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r.1s,1t,1u,1v", StringCompareShould.IgnoreCase),
 
-errorWithSource:
-@"str
+                errorWithSource:
+                @"str
     should be with options: Ignoring case
 ""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r.1s,1t,1u,1v""
     but was
@@ -28,8 +28,8 @@ Actual Value   | ...  o    ,    1    p    ,    1    q    ,    1    r    ,    1  
 Expected Code  | ...  111  44   49   112  44   49   113  44   49   114  46   49   115  44   49   116  44   49   117  44   49   ...  
 Actual Code    | ...  111  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   ...  ",
 
-errorWithoutSource:
-@"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
+                errorWithoutSource:
+                @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
     should be with options: Ignoring case
 ""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r.1s,1t,1u,1v""
     but was not
@@ -41,15 +41,15 @@ Expected Value | ...  o    ,    1    p    ,    1    q    ,    1    r    .    1  
 Actual Value   | ...  o    ,    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    ...  
 Expected Code  | ...  111  44   49   112  44   49   113  44   49   114  46   49   115  44   49   116  44   49   117  44   49   ...  
 Actual Code    | ...  111  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   ...  ");
-    }
+        }
 
         [Fact]
-    public void ShouldPass()
-    {
-        "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
-             .ShouldBe(
-            "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v", 
-             StringCompareShould.IgnoreCase);
+        public void ShouldPass()
+        {
+            "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
+                .ShouldBe(
+                    "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v",
+                    StringCompareShould.IgnoreCase);
+        }
     }
-}
 }

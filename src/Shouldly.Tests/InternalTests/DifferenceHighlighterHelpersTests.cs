@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Shouldly.DifferenceHighlighting;
-using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.InternalTests
@@ -151,9 +149,10 @@ namespace Shouldly.Tests.InternalTests
                 return _description;
             }
 
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
-                return _description == ((EqualType)obj)._description;
+                return obj is EqualType other
+                    && _description == other._description;
             }
 
             public override int GetHashCode()

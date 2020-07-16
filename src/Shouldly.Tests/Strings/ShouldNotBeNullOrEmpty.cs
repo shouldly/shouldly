@@ -8,7 +8,7 @@ namespace Shouldly.Tests.Strings
         public void SingleLetterShouldFail()
         {
             Verify.ShouldFail(() =>
-"".ShouldNotBeNullOrEmpty(() => "Some additional context"),
+"".ShouldNotBeNullOrEmpty("Some additional context"),
 errorWithSource: @"""""
     should not be null or empty
 

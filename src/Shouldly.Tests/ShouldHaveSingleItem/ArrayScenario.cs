@@ -29,13 +29,13 @@ errorWithoutSource:
     items
 
 Additional Info:
-    Some additional context");            
+    Some additional context");
         }
 
         [Fact]
         public void ShouldPass()
         {
-            int result = new[] { 1 }.ShouldHaveSingleItem();
+            var result = new[] { 1 }.ShouldHaveSingleItem();
             result.ShouldBe(1);
         }
     }

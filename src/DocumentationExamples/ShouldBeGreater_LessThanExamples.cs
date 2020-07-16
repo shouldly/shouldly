@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Shouldly;
+﻿using Shouldly;
 using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,7 +19,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var mrBurns = new Person() { Name = "Mr. Burns", Salary = 30000 };
+                var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
                 mrBurns.Salary.ShouldBeGreaterThan(300000000);
             }, _testOutputHelper);
         }
@@ -30,7 +29,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person() { Name = "Homer", Salary = 300000000 };
+                var homer = new Person { Name = "Homer", Salary = 300000000 };
                 homer.Salary.ShouldBeLessThan(30000);
             }, _testOutputHelper);
         }
@@ -40,7 +39,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var mrBurns = new Person() { Name = "Mr. Burns", Salary = 299999999 };
+                var mrBurns = new Person { Name = "Mr. Burns", Salary = 299999999 };
                 mrBurns.Salary.ShouldBeGreaterThanOrEqualTo(300000000);
             }, _testOutputHelper);
         }
@@ -50,7 +49,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person() { Name = "Homer", Salary = 30001 };
+                var homer = new Person { Name = "Homer", Salary = 30001 };
                 homer.Salary.ShouldBeLessThanOrEqualTo(30000);
             }, _testOutputHelper);
         }

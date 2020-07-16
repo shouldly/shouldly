@@ -17,8 +17,8 @@ namespace Shouldly.Tests.TestHelpers
         private readonly Lazy<CultureInfo> _culture;
         private readonly Lazy<CultureInfo> _uiCulture;
 
-        private CultureInfo _originalCulture;
-        private CultureInfo _originalUiCulture;
+        private CultureInfo? _originalCulture;
+        private CultureInfo? _originalUiCulture;
 
         /// <summary>
         /// Replaces the culture and UI culture of the current thread with
@@ -78,8 +78,8 @@ namespace Shouldly.Tests.TestHelpers
         /// <param name="methodUnderTest">The method under test</param>
         public override void After(MethodInfo methodUnderTest)
         {
-            Thread.CurrentThread.CurrentCulture = _originalCulture;
-            Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
+            Thread.CurrentThread.CurrentCulture = _originalCulture!;
+            Thread.CurrentThread.CurrentUICulture = _originalUiCulture!;
         }
     }
 }

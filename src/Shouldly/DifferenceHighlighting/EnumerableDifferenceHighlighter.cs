@@ -14,7 +14,7 @@ namespace Shouldly.DifferenceHighlighting
         private const int MaxElementsToShow = 1000;
         private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter;
 
-        public EnumerableDifferenceHighlighter() 
+        public EnumerableDifferenceHighlighter()
         {
             _itemDifferenceHighlighter = new ItemDifferenceHighlighter();
         }
@@ -28,7 +28,7 @@ namespace Shouldly.DifferenceHighlighting
                    && !(context.Actual is string);
         }
 
-        public string HighlightDifferences(IShouldlyAssertionContext context)
+        public string? HighlightDifferences(IShouldlyAssertionContext context)
         {
             var actual = context.Actual as IEnumerable;
             var expected = context.Expected as IEnumerable;
@@ -68,7 +68,7 @@ namespace Shouldly.DifferenceHighlighting
             return returnMessage.Append("]").ToString();
         }
 
-        private string GetComparedItemString(IEnumerable<object> actualList, IEnumerable<object> expectedList, int itemPosition)
+        private string? GetComparedItemString(IEnumerable<object> actualList, IEnumerable<object> expectedList, int itemPosition)
         {
             if (expectedList.Count() <= itemPosition)
             {

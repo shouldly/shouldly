@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
         [Fact]
         public void MultipleConditionsScenario_MultiLine2ShouldFail()
         {
-            int result = 4;
+            var result = 4;
             Verify.ShouldFail(() =>
 result.ShouldSatisfyAllConditions
 (
@@ -72,7 +72,7 @@ The following errors were found ...
         [Fact]
         public void ShouldPass()
         {
-            int result = 4;
+            var result = 4;
             result.ShouldSatisfyAllConditions
                     (
                         ()

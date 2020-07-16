@@ -13,18 +13,18 @@ namespace Shouldly.DifferenceHighlighting
         readonly Case _sensitivity;
         readonly Func<string, string> _transform;
 
-        public StringDifferenceHighlighter(Case sensitivity, Func<string, string> transform = null)
+        public StringDifferenceHighlighter(Case sensitivity, Func<string, string>? transform = null)
         {
             _sensitivity = sensitivity;
             _transform = transform ?? (s => s);
         }
-        public string HighlightDifferences(string expected, string actual)
+        public string? HighlightDifferences(string? expected, string? actual)
         {
             if (expected == null || actual == null) return null;
 
             expected = _transform(expected);
             actual = _transform(actual);
-            int maxLengthOfStrings = Math.Max(actual.Length, expected.Length);
+            var maxLengthOfStrings = Math.Max(actual.Length, expected.Length);
 
             var output = new StringBuilder();
 
@@ -42,11 +42,11 @@ namespace Shouldly.DifferenceHighlighting
 
                 if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
                 {
-                    output.AppendLine(string.Format("Showing some of the {0} differences", indicesOfAllDiffs.Count));
+                    output.AppendLine($"Showing some of the {indicesOfAllDiffs.Count} differences");
                     startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
                 }
 
-                for (int index = 0; index < startIndicesOfAllDiffs.Count; index++)
+                for (var index = 0; index < startIndicesOfAllDiffs.Count; index++)
                 {
                     var startIndexOfDiffString = startIndicesOfAllDiffs[index];
                     var trimmedActualValue = TrimmedValue(actual, startIndexOfDiffString);
@@ -81,15 +81,15 @@ namespace Shouldly.DifferenceHighlighting
 
         private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue)
         {
-            var indicesOfAlldifferences = new List<int>();
-            int maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
+            var indicesOfAllDifferences = new List<int>();
+            var maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);
 
-            for (int index = 0; index < maxLengthOfStrings; index++)
+            for (var index = 0; index < maxLengthOfStrings; index++)
             {
                 if (!CharAtIndexIsEqual(actualValue, expectedValue, index))
-                    indicesOfAlldifferences.Add(index);
+                    indicesOfAllDifferences.Add(index);
             }
-            return indicesOfAlldifferences;
+            return indicesOfAllDifferences;
         }
 
         private bool CharAtIndexIsEqual(string actual, string expected, int index)

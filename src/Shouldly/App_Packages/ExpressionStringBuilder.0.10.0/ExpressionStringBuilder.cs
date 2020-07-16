@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Shouldly;
@@ -27,7 +26,7 @@ namespace ExpressionToString
         /// <param name="expression">The expression to format</param>
         /// <param name="trimLongArgumentList">If true will replace large (>3) argument lists with an ellipsis</param>
         /// <returns></returns>
-        public static string ToString(Expression expression, bool trimLongArgumentList = false)
+        public static string ToString(Expression? expression, bool trimLongArgumentList = false)
         {
             var visitor = new ExpressionStringBuilder(trimLongArgumentList);
             visitor.Visit(expression);
@@ -41,7 +40,7 @@ namespace ExpressionToString
             if (node.Parameters.Any())
             {
                 Out("(");
-                Out(String.Join(",", node.Parameters.Select(n => n.Name)));
+                Out(string.Join(",", node.Parameters.Select(n => n.Name)));
                 Out(") => ");
             }
             Visit(node.Body);
@@ -122,7 +121,7 @@ namespace ExpressionToString
                 {
                     if (node.Value is bool)
                     {
-                        Out(node.Value.ToString().ToLower());
+                        Out(node.Value.ToString()?.ToLower());
                     }
                     else
                     {
@@ -213,7 +212,7 @@ namespace ExpressionToString
 
         void VisitArguments(Expression[] arguments)
         {
-            int argindex = 0;
+            var argindex = 0;
             while (argindex < arguments.Length)
             {
                 Visit(arguments[argindex]);
@@ -282,7 +281,7 @@ namespace ExpressionToString
             }
         }
 
-        private void Out(string s)
+        private void Out(string? s)
         {
             builder.Append(s);
         }
