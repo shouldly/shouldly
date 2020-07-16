@@ -8,8 +8,12 @@ build_script:
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore
-on_failure:
-  - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+
 test: off
 artifacts:
 - path: nugets\*.nupkg
+
+skip_tags: true
+
+on_failure:
+  - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
