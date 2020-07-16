@@ -19,3 +19,6 @@ build_script:
 
 test: off
 skip_tags: true
+
+on_failure:
+  - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
