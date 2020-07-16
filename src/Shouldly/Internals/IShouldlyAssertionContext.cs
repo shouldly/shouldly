@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Shouldly
 {
-    internal interface IShouldlyAssertionContext
+    public interface IShouldlyAssertionContext
     {
         string ShouldMethod { get; set; }
         string? CodePart { get; set; }
