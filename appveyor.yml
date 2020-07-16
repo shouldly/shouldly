@@ -4,9 +4,9 @@ image:
 
 build_script:
 - ps: >-
-    dotnet build src --configuration Debug
+    dotnet build src --configuration Release
 
-    dotnet test src --configuration Debug --no-build --no-restore
+    dotnet test src --configuration Release --no-build --no-restore
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off
