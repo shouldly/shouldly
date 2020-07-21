@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DiffEngine;
 using Shouldly.Configuration;
 using Shouldly.Tests.Strings;
 using Xunit;
@@ -125,7 +126,7 @@ Actual Code    | 70   111  111  ",
         {
             Should.Throw<ShouldMatchApprovedException>(() => "".ShouldMatchApproved(c => c.NoDiff()));
 
-            ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(false);
+            ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(DiffRunner.Disabled);
         }
 
         [Fact]
