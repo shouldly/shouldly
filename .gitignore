@@ -17,6 +17,7 @@ test-results
 *.orig
 Shouldly.sln.ide/
 packages/
+nugets/
 ShouldlyConvention.Tests/obj/
 ShouldlyConvention.Tests/bin/
 docs/_build/
