@@ -6,9 +6,14 @@ namespace Shouldly.Tests.ConventionTests
 {
     public sealed class IgnoreOnAppVeyorLinuxFact : FactAttribute
     {
-        public IgnoreOnAppVeyorLinuxFact() {
-            if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && IsAppVeyor()) {
-                Skip = "Ignored on Linux";
+        public IgnoreOnAppVeyorLinuxFact()
+        {
+            if (IsAppVeyor())
+            {
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Skip = "Ignored on Linux";
+                }
             }
         }
 

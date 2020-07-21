@@ -5,16 +5,10 @@ VisualStudioVersion = 16.0.30128.36
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70055B25-BE01-4932-84F1-A0BE47A93BFC}"
 	ProjectSection(SolutionItems) = preProject
-		..\appveyor.deploy.yml = ..\appveyor.deploy.yml
 		..\appveyor.yml = ..\appveyor.yml
-		..\build.cake = ..\build.cake
-		..\build.ps1 = ..\build.ps1
-		..\deploy.cake = ..\deploy.cake
 		Directory.Build.props = Directory.Build.props
 		..\mkdocs.yml = ..\mkdocs.yml
 		..\README.md = ..\README.md
-		..\package\releasenotes.md = ..\package\releasenotes.md
-		..\ReleaseProcessReadme.md = ..\ReleaseProcessReadme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly", "Shouldly\Shouldly.csproj", "{9440E071-488A-49AC-96D7-E72BEBC38418}"
