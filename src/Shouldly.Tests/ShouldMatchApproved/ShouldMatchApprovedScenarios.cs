@@ -168,6 +168,14 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         }
 
         [Fact]
+        public async Task CanFindTestAttributeInAsync()
+        {
+            await Task.Delay(200);
+
+            "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
+        }
+
+        [Fact]
         public async Task HandlesAsync()
         {
             await Task.Delay(200);
