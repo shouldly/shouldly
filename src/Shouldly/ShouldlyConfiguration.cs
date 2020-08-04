@@ -5,7 +5,7 @@ using Shouldly.Configuration;
 
 namespace Shouldly
 {
-    public static class ShouldlyConfiguration
+    public static partial class ShouldlyConfiguration
     {
         static ShouldlyConfiguration()
         {
@@ -17,13 +17,6 @@ namespace Shouldly
         }
 
         public static List<string> CompareAsObjectTypes { get; private set; }
-        private static Lazy<DiffToolConfiguration> _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => new DiffToolConfiguration());
-        public static DiffToolConfiguration DiffTools {
-            get => _lazyDiffTools.Value;
-            private set {
-                _lazyDiffTools = new Lazy<DiffToolConfiguration>(() => value);
-            }
-        }
 
         public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; private set; } =
             new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration
