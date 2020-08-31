@@ -133,7 +133,7 @@ namespace Shouldly
             var isOutOfOrder = expectedSortDirection == SortDirection.Ascending
                 ? (Func<int, bool>)
                   (r => r > 0)   // If 'ascending', the previous value should never be greater than the current value
-                : (r => r < 0);  // If 'descending', the previous value should never be less than the current value
+                : r => r < 0;  // If 'descending', the previous value should never be less than the current value
 
             ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
         }

@@ -157,7 +157,7 @@ namespace Shouldly.Tests.InternalTests
 
             public override int GetHashCode()
             {
-                return (_description != null ? _description.GetHashCode() : 0);
+                return _description != null ? _description.GetHashCode() : 0;
             }
         }
 

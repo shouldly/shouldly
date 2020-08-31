@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using JetBrains.Annotations;
+﻿using System.Diagnostics;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly

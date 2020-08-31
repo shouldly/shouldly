@@ -1,5 +1,3 @@
-using System;
-using Shouldly.Tests.TestHelpers;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 using Xunit;

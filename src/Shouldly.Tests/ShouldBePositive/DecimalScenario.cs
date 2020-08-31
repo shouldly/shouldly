@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBePositive
         [Fact]
         public void DecimalScenarioShouldFail()
         {
-            var @decimal = (-3.5m);
+            var @decimal = -3.5m;
             Verify.ShouldFail(() =>
 @decimal.ShouldBePositive("Some additional context"),
 

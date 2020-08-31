@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly

@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 
 namespace Shouldly.ShouldlyExtensionMethods
 {

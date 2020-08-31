@@ -11,7 +11,7 @@ namespace Shouldly.Tests.ShouldBePositive
         [UseCulture("en-US")]
         public void DoubleScenarioShouldFail()
         {
-            var @double = (-3.5);
+            var @double = -3.5;
             Verify.ShouldFail(() =>
 @double.ShouldBePositive("Some additional context"),
 

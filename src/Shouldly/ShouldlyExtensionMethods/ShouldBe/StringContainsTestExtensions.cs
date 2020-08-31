@@ -1,7 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     public static partial class ShouldBeStringTestExtensions
     {
@@ -29,7 +26,7 @@ namespace Shouldly
         public static void ShouldContain(this string actual, string expected, string? customMessage, Case caseSensitivity)
         {
             actual.AssertAwesomely(
-                v => (caseSensitivity == Case.Sensitive) ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected),
+                v => caseSensitivity == Case.Sensitive ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected),
                 actual.Clip(100, "..."),
                 expected,
                 caseSensitivity,
@@ -50,7 +47,7 @@ namespace Shouldly
         {
             actual.AssertAwesomely(v =>
             {
-                var b = (caseSensitivity == Case.Sensitive) ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected);
+                var b = caseSensitivity == Case.Sensitive ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected);
                 return b;
             }, actual.Clip(100, "..."), expected, caseSensitivity, customMessage);
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using Shouldly.DifferenceHighlighting;
 using Shouldly.MessageGenerators;
 
@@ -348,7 +347,7 @@ $@"{codePart}
         {
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();
-            var actualString = codePart == actual ? (context.IsNegatedAssertion ? string.Empty : " not") : $@"
+            var actualString = codePart == actual ? context.IsNegatedAssertion ? string.Empty : " not" : $@"
 {actual}";
 
             var message =

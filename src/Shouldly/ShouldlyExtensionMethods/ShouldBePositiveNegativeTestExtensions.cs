@@ -1,7 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     public static partial class ShouldBeTestExtensions
     {
