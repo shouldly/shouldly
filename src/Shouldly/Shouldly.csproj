@@ -19,12 +19,12 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
-    <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'" >true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="5.0.1" />
+    <PackageReference Include="DiffEngine" Version="5.1.1" />
     <Content Include="build.targets" PackagePath="build\Shouldly.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Shouldly.targets" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
@@ -33,7 +33,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
-    <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.154" PrivateAssets="all" />
+    <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
     <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[3.1.0]" />
   </ItemGroup>
 </Project>
