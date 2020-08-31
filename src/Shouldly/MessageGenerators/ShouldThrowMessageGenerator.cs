@@ -43,7 +43,7 @@ namespace Shouldly.MessageGenerators
     but did not";
             }
 
-            errorMessage += (throwContext.ExceptionMessage != null) ?
+            errorMessage += throwContext.ExceptionMessage != null ?
                 $@" with message
 ""{throwContext.ExceptionMessage}"""
                 : string.Empty;

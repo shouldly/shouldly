@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using NUnit.Framework.Constraints;
 
 namespace Shouldly
@@ -52,7 +51,7 @@ namespace Shouldly
                     var hasNextY = enumeratorY.MoveNext();
 
                     if (!hasNextX || !hasNextY)
-                        return (hasNextX == hasNextY);
+                        return hasNextX == hasNextY;
 
                     if (!equalityComparer.Equals(enumeratorX.Current, enumeratorY.Current))
                         return false;
