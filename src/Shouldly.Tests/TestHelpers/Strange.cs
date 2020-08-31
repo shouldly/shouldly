@@ -46,7 +46,7 @@ namespace Shouldly.Tests.TestHelpers
 
         public override int GetHashCode()
         {
-            return (_thing != null ? _thing.GetHashCode() : 0);
+            return _thing != null ? _thing.GetHashCode() : 0;
         }
 
         public static bool operator ==(Strange left, Strange right)

@@ -22,9 +22,9 @@ namespace Shouldly.DifferenceHighlighting
         public bool CanProcess(IShouldlyAssertionContext context)
         {
             return context.Expected != null && context.Actual != null
-                   && (context.Expected is IEnumerable)
+                   && context.Expected is IEnumerable
                    && !(context.Expected is string)
-                   && (context.Actual is IEnumerable)
+                   && context.Actual is IEnumerable
                    && !(context.Actual is string);
         }
 
