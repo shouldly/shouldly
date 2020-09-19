@@ -2,7 +2,9 @@
 
 ![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/shouldly/shouldly?branch=master&svg=true)](https://ci.appveyor.com/project/shouldly/shouldly) [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) [![NuGet](https://img.shields.io/nuget/vpre/shouldly.svg)](https://www.nuget.org/packages/Shouldly) [![Documentation Status](https://readthedocs.org/projects/shouldly/badge/?version=latest)](https://shouldly.readthedocs.org/en/latest/?badge=latest)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/shouldly/shouldly?branch=master&svg=true)](https://ci.appveyor.com/project/shouldly/shouldly)
+[![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
+[![NuGet](https://img.shields.io/nuget/vpre/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
 
 [![Join the chat at https://gitter.im/shouldly/shouldly](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/shouldly/shouldly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -59,7 +61,7 @@ dotnet add package Shouldly
 
 ## Contributing
 
-Contributions to Shouldly are very welcome. For guidance, please see [CONTRIBUTING.md](https://github.com/shouldly/shouldly/tree/5cae79fd1d5d7733c5c6f17690e82eb10b38a264/documentation/CONTRIBUTING.md)
+Contributions to Shouldly are very welcome. For guidance, please see [CONTRIBUTING.md](https://github.com/shouldly/shouldly/blob/master/CONTRIBUTING.md)
 
 ## Prerequisites for running on build server
 
