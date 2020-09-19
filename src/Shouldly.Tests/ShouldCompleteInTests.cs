@@ -29,9 +29,9 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteInTask_WhenFinishAfterTimeout()
         {
-            var ex = Should.Throw<ShouldlyTimeoutException>(() => 
+            var ex = Should.Throw<ShouldlyTimeoutException>(() =>
                 Should.CompleteIn(
-                    () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()), 
+                    () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()),
                     TimeSpan.FromSeconds(1), "Some additional context"));
             ex.Message.ShouldContainWithoutWhitespace(@"
     Task
@@ -100,7 +100,7 @@ namespace Shouldly.Tests
         [Fact]
         public void ShouldCompleteInT_WhenThrowsNonTimeoutException()
         {
-            Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => { throw new NotImplementedException(); }), TimeSpan.FromSeconds(1)));
+            Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => { throw new NotImplementedException(); }), TimeSpan.FromSeconds(2)));
         }
     }
 }
