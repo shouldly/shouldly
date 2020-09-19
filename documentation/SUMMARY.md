@@ -6,6 +6,7 @@
 ## Documentation
 
 * [Getting Started](documentation/getting-started.md)
+* [Configuration](documentation/configuration.md)
 * [ShouldBe](documentation/shouldbe/README.md)
   * [Objects](documentation/shouldbe/objects.md)
   * [Numeric](documentation/shouldbe/numeric.md)
