@@ -65,7 +65,6 @@ In this part we will create the unit tests for the main program.
 
 ## Adding Shouldly
 
-
 Now comes the important part, when we actually add Shouldly.
 
 #. Go to the test folder and run `dotnet add package Shouldly`, to add Shouldly as a NuGet Package.
@@ -90,11 +89,13 @@ namespace Tests
 }
 ```
 
+
 ## Testing
 
 To test your project, in your root folder run `dotnet test`.
 
 And there you go, you have a basic project with unit tests using Shouldly.
+
 
 ## Summary
 
