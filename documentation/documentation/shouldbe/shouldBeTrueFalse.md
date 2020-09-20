@@ -6,7 +6,6 @@
 ## ShouldBeTrue
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.txt
-	:language: c#
 
 **Exception**
 
@@ -16,7 +15,6 @@
 ## ShouldBeFalse
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.txt
-	:language: c#
 
 **Exception**
 

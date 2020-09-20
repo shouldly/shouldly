@@ -6,7 +6,6 @@
 ## ShouldBeNull
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.txt
-	:language: c#
 
 **Exception**
 
@@ -16,7 +15,6 @@
 ## ShouldNotBeNull
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.txt
-	:language: c#
 
 **Exception**
 
