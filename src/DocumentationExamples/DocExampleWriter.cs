@@ -76,9 +76,6 @@ namespace DocumentationExamples
             }
             finally
             {
-                exceptionText = $@"```
-{exceptionText}
-```";
                 exceptionText.ShouldMatchApproved(configurationBuilder =>
                 {
                     configurationBuilder
