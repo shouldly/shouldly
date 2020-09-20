@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net48</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFramework);net48</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
     <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
