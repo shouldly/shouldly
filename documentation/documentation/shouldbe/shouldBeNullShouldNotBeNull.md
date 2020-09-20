@@ -1,10 +1,9 @@
-ShouldBeNull/NotBeNull
-======================
+# ShouldBeNull/NotBeNull
 
-``ShouldBeNull`` and ``ShouldNotBeNull`` allow you to check whether or not a type's reference is null.
+`ShouldBeNull` and `ShouldNotBeNull` allow you to check whether or not a type's reference is null.
 
-ShouldBeNull
-------------
+
+## ShouldBeNull
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.txt
 	:language: c#
@@ -13,8 +12,8 @@ ShouldBeNull
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.exceptionText.approved.txt
 
-ShouldNotBeNull
----------------
+
+## ShouldNotBeNull
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.txt
 	:language: c#

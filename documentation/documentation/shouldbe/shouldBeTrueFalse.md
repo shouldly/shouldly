@@ -1,10 +1,10 @@
-ShouldBeTrue/False
-==================
+# ShouldBeTrue/False
 
-``ShouldBeTrue`` and ``ShouldBeFalse`` work on boolean values.
+`ShouldBeTrue` and `ShouldBeFalse` work on boolean values.
 
-ShouldBeTrue
-------------
+
+## ShouldBeTrue
+
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.txt
 	:language: c#
 
@@ -12,8 +12,8 @@ ShouldBeTrue
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeTrue.exceptionText.approved.txt
 
-ShouldBeFalse
--------------
+
+## ShouldBeFalse
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.txt
 	:language: c#

@@ -1,11 +1,10 @@
-ShouldNotBe
-===========
+# ShouldNotBe
 
-``ShouldNotBe`` is the inverse of ``ShouldBe``.
+`ShouldNotBe` is the inverse of `ShouldBe`.
 
 Objects
 -------
-``ShouldNotBe`` works on all types and compares using ``.Equals``.
+`ShouldNotBe` works on all types and compares using ``.Equals``.
 
 .. literalinclude:: /../src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.Objects.codeSample.approved.txt
 	:language: c#
