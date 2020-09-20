@@ -31,7 +31,7 @@ Approval file C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprov
 
 **Screenshot**
 
-![ShouldMatchApprovedInitial.png](ShouldMatchApprovedInitial.png)
+![Initial diff.png](ShouldMatchApprovedInitial.png)
 
 
 ## Approved File does not match received
@@ -81,7 +81,7 @@ Actual Code    | ...  115  104  63   32   84   104  97   116  39   115  32   117
 
 **Screenshot**
 
-![ShouldMatchApprovedChanged.png](ShouldMatchApprovedChanged.png)
+![Changed diff.png](ShouldMatchApprovedChanged.png)
 
 
 ## Options and customisation
@@ -91,7 +91,7 @@ While the defaults should work fine, often you need to customise things easily. 
 
 ### Defaults
 
-The first thing to note is that by default **Shouldly ignores line endings**. This saves painful failures on the build server when git checks out the approved files with \n rather than \r\n which the received file has. You can opt out of this behaviour for a single call, or globally. For global defaults see the Configuration section.
+The first thing to note is that by default **Shouldly ignores line endings**. This saves painful failures on the build server when git checks out the approved files with `\n` rather than `\r\n` which the received file has. You can opt out of this behaviour for a single call, or globally. For global defaults see the Configuration section.
 
 
 ### Usage
@@ -127,7 +127,11 @@ toVerify.ShouldMatchApproved(c => c.WithStringCompareOptions(options))
 By default the approved and received files are named `${MethodName}.approved.txt`, `WithDescriminator` allows you to descriminate multiple files, useful for data driven tests which can have multiple executions of a single method. For example
 
 ```
-[Fact] void Simpsons() { toVerify.ShouldMatchApproved(c => c.WithDescriminator("Bart")) }
+[Fact]
+public void Simpsons()
+{
+  toVerify.ShouldMatchApproved(c => c.WithDescriminator("Bart"));
+}
 ```
 
 Will result in a approved file with the name `Simpsons.Bart.approved.txt`
