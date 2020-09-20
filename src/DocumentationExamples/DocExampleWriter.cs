@@ -11,7 +11,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Shouldly;
 using Shouldly.Configuration;
+using Xunit;
 using Xunit.Abstractions;
+
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerClass, DisableTestParallelization = true)]
 
 namespace DocumentationExamples
 {
@@ -69,7 +72,7 @@ namespace DocumentationExamples
                         .WithDiscriminator("codeSample")
                         .UseCallerLocation()
                         .SubFolder("CodeExamples")
-                        .WithScrubber(scrubber);
+                        .WithScrubber(scrubber).WithFileExtension(".cs");
 
                     additionConfig?.Invoke(configurationBuilder);
                 });
