@@ -11,7 +11,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Shouldly;
 using Shouldly.Configuration;
+using Xunit;
 using Xunit.Abstractions;
+
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerClass, DisableTestParallelization = true)]
 
 namespace DocumentationExamples
 {
@@ -48,7 +51,7 @@ namespace DocumentationExamples
             var enumerable = blockSyntax
                 .Statements
                 .Select(s => s.WithoutLeadingTrivia().ToFullString());
-            var body = string.Join(string.Empty, enumerable);
+            var body = string.Join(string.Empty, enumerable).Trim();
             var exceptionText = Should.Throw<Exception>(shouldMethod).Message;
 
             testOutputHelper.WriteLine("Docs body:");
@@ -69,13 +72,17 @@ namespace DocumentationExamples
                         .WithDiscriminator("codeSample")
                         .UseCallerLocation()
                         .SubFolder("CodeExamples")
-                        .WithScrubber(scrubber);
+                        .WithScrubber(scrubber).WithFileExtension(".cs");
 
                     additionConfig?.Invoke(configurationBuilder);
                 });
             }
             finally
             {
+                exceptionText = $@"```
+{exceptionText}
+```
+";
                 exceptionText.ShouldMatchApproved(configurationBuilder =>
                 {
                     configurationBuilder

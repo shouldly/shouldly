@@ -7,9 +7,11 @@
 
 * [Getting Started](documentation/getting-started.md)
 * [Configuration](documentation/configuration.md)
-* [ShouldBe](documentation/shouldbe/README.md)
-  * [Objects](documentation/shouldbe/objects.md)
-  * [Numeric](documentation/shouldbe/numeric.md)
-  * [DateTime\(offset\)](documentation/shouldbe/datetime-offset.md)
-  * [Enumerables](documentation/shouldbe/enumerables.md)
+* [Shoulds](documentation/shouldbe/README.md)
+  * [ShouldBe](documentation/shouldbe/objects.md)
+  * [ShouldNotBe](documentation/shouldbe/shouldNotBe.md)
+  * [Null](documentation/shouldbe/shouldBeNullShouldNotBeNull.md)
+  * [Bool](documentation/shouldbe/shouldBeTrueFalse.md)
+  * [Flags](documentation/shouldbe/shouldHaveFlagNotHaveFlag.md)
+  * [MatchApproved](documentation/shouldbe/shouldMatchApproved.md)
 

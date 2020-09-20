@@ -1,3 +1,4 @@
+```
 websters
     should contain key
 "Cromulent"
@@ -5,3 +6,4 @@ websters
 "Fine, acceptable."
     but value was
 "I never heard the word before moving to Springfield."
+```

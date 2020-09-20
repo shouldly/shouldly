@@ -1,1 +1,0 @@
-Should.Throw<ArgumentNullException>(() => new Person("Homer"));

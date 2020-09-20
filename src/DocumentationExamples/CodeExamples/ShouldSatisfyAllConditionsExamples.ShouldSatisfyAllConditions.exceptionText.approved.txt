@@ -1,3 +1,4 @@
+```
 mrBurns
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
@@ -13,3 +14,4 @@ The following errors were found ...
     null
 
 -----------------------------------------
+```

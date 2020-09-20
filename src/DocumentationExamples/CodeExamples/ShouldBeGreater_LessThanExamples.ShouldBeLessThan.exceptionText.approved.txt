@@ -1,5 +1,7 @@
+```
 homer.Salary
     should be less than
 30000
     but was
 300000000
+```
