@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
@@ -9,9 +9,8 @@
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
-    <Authors>Jake Ginnivan, Joseph Woodward</Authors>
+    <Authors>Jake Ginnivan, Joseph Woodward, Simon Cropp</Authors>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
     <PackageIcon>assets/logo_128x128.png</PackageIcon>
     <PackageProjectUrl>https://github.com/shouldly/shouldly</PackageProjectUrl>
@@ -22,12 +21,15 @@
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <Version>$(PackageVersion)</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="6.0.0" />
     <Content Include="build.targets" PackagePath="build\Shouldly.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Shouldly.targets" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="all" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
