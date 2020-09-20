@@ -4,7 +4,6 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/shouldly/shouldly?branch=master&svg=true)](https://ci.appveyor.com/project/shouldly/shouldly) 
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) 
 [![NuGet](https://img.shields.io/nuget/vpre/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
-
 [![Join the chat at https://gitter.im/shouldly/shouldly](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/shouldly/shouldly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
 Shouldly is an assertion framework which focuses on giving great error messages when the assertion fails while being simple and terse.
