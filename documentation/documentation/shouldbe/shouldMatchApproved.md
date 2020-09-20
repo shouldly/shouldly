@@ -1,6 +1,6 @@
 # ShouldMatchApproved
 
-Based on the awesome `ApprovalTest.Net <https://github.com/approvals/ApprovalTests.Net>`, Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuative and give great error messages.
+Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net), Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuitive and give great error messages.
 
 
 ## Approved File does not exist
