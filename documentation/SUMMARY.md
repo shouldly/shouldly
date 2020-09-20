@@ -13,5 +13,5 @@
   * [Null](documentation/shouldbe/shouldBeNullShouldNotBeNull.md)
   * [Bool](documentation/shouldbe/shouldBeTrueFalse.md)
   * [Flags](documentation/shouldbe/shouldHaveFlagNotHaveFlag.md)
-  * [MatchApproved](documentation/shouldbe/shouldMatchApproved.md)
+  * [ExampleClasses](documentation/shouldbe/exampleClasses.md)
 
