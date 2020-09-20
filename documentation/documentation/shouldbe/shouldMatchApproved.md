@@ -7,8 +7,14 @@ Based on the awesome `ApprovalTest.Net <https://github.com/approvals/ApprovalTes
 
 When you first run a `ShouldMatchApproved` test, you will be presented with a diff viewer and a failing test.
 
-.. literalinclude:: ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.txt
-	:language: c#
+<!-- snippet: ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs -->
+<a id='snippet-ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs'></a>
+```cs
+var simpsonsQuote = "Hi Super Nintendo Chalmers";
+simpsonsQuote.ShouldMatchApproved();
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs#L1-L2' title='File snippet `ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs' title='Navigate to start of snippet `ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs`'>anchor</a></sup>
+<!-- endSnippet -->
 
 **Exception**
 
@@ -25,15 +31,21 @@ Approval file C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprov
 
 **Screenshot**
 
-.. image:: images/ShouldMatchApprovedInitial.png
+![ShouldMatchApprovedInitial.png](ShouldMatchApprovedInitial.png)
 
 
 ## Approved File does not match received
 
 After you have approved the text, when it changes you get a different experience.
 
-.. literalinclude:: ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.txt
-	:language: c#
+<!-- snippet: ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs -->
+<a id='snippet-ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs'></a>
+```cs
+var simpsonsQuote = "Me fail english? That's unpossible";
+simpsonsQuote.ShouldMatchApproved();
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs#L1-L2' title='File snippet `ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs' title='Navigate to start of snippet `ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs`'>anchor</a></sup>
+<!-- endSnippet -->
 
 **Exception**
 
@@ -69,7 +81,7 @@ Actual Code    | ...  115  104  63   32   84   104  97   116  39   115  32   117
 
 **Screenshot**
 
-.. image:: images/ShouldMatchApprovedChanged.png
+![ShouldMatchApprovedChanged.png](ShouldMatchApprovedChanged.png)
 
 
 ## Options and customisation
