@@ -53,7 +53,7 @@ namespace Shouldly
             {
                 if (!config.PreventDiff)
                 {
-                    DiffRunner.Launch(receivedFile, approvedFile).GetAwaiter().GetResult();
+                    DiffRunner.Launch(receivedFile, approvedFile);
                 }
 
                 throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
@@ -70,7 +70,7 @@ namespace Shouldly
             {
                 if (!config.PreventDiff)
                 {
-                    DiffRunner.Launch(receivedFile, approvedFile).GetAwaiter().GetResult();
+                    DiffRunner.Launch(receivedFile, approvedFile);
                 }
                 throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
             }

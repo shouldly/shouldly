@@ -11,10 +11,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Shouldly;
 using Shouldly.Configuration;
-using Xunit;
 using Xunit.Abstractions;
-
-[assembly: CollectionBehavior(CollectionBehavior.CollectionPerClass, DisableTestParallelization = true)]
 
 namespace DocumentationExamples
 {
