@@ -48,7 +48,7 @@ namespace DocumentationExamples
             var enumerable = blockSyntax
                 .Statements
                 .Select(s => s.WithoutLeadingTrivia().ToFullString());
-            var body = string.Join(string.Empty, enumerable);
+            var body = string.Join(string.Empty, enumerable).Trim();
             var exceptionText = Should.Throw<Exception>(shouldMethod).Message;
 
             testOutputHelper.WriteLine("Docs body:");
@@ -78,7 +78,8 @@ namespace DocumentationExamples
             {
                 exceptionText = $@"```
 {exceptionText}
-```";
+```
+";
                 exceptionText.ShouldMatchApproved(configurationBuilder =>
                 {
                     configurationBuilder

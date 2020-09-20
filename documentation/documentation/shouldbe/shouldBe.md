@@ -16,7 +16,8 @@ theSimpsonsCat.Name.ShouldBe("Snowball 2");
 
 **Exception**
 
-theSimpsonsCat.Name <!-- include: ShouldBeExamples.Objects.exceptionText.approved.txt. path:  -->
+``` <!-- include: ShouldBeExamples.Objects.exceptionText.approved.txt. path:  -->
+theSimpsonsCat.Name
     should be
 "Snowball 2"
     but was
@@ -28,7 +29,8 @@ Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12 
 Expected Value | S    n    o    w    b    a    l    l    \s   2                                                      
 Actual Value   | S    a    n    t    a    s    \s   l    i    t    t    l    e    \s   h    e    l    p    e    r    
 Expected Code  | 83   110  111  119  98   97   108  108  32   50                                                     
-Actual Code    | 83   97   110  116  97   115  32   108  105  116  116  108  101  32   104  101  108  112  101  114   <!-- endInclude -->
+Actual Code    | 83   97   110  116  97   115  32   108  105  116  116  108  101  32   104  101  108  112  101  114  
+```
 
 
 ## Numeric
