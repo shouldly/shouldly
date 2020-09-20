@@ -24,7 +24,7 @@ docs/_build/
 *.received.cs
 **/.vs
 *.user
-*.received.txt
+*.received.*
 src/TestResults/
 src/TestDiffTools/Main.approved.txt
 tools/*
