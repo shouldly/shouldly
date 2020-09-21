@@ -20,7 +20,7 @@ We won't use Visual Studio, we will build our project bare bones with Dotnet CLI
 
 The project structure will be as follows:
 
-```
+```csharp
 /project-name
     project-name.sln
     /program
@@ -35,7 +35,7 @@ The project structure will be as follows:
  1. Rename *Class1.cs* to *Program.cs*.
  1. Add the following code to *Program.cs*:
 
-```
+```csharp
 using System;
 
 namespace project_name
@@ -70,7 +70,7 @@ Now comes the important part, when we actually add Shouldly.
 #. Go to the test folder and run `dotnet add package Shouldly`, to add Shouldly as a NuGet Package.
 #. Add the following code to *UnitTest1.cs*:
 
-```
+```csharp
 using NUnit.Framework;
 using project_name;
 using Shouldly;
