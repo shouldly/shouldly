@@ -406,12 +406,16 @@ namespace Shouldly
             where T :  class { }
         public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual, string? customMessage = null)
             where T :  class { }
+        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual, string? customMessage = null)
+            where T :  struct { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "somMessage.", true)]
         public static void ShouldNotBeNull<T>(this T? actual, System.Func<string?>? customMessage)
             where T :  class { }
         public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T? actual, string? customMessage = null)
             where T :  class { }
+        public static void ShouldNotBeNull<T>([System.Diagnostics.CodeAnalysis.NotNull] this T? actual, string? customMessage = null)
+            where T :  struct { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeStringTestExtensions
