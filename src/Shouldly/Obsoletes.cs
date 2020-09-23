@@ -421,15 +421,13 @@ Diff launching can be controlled at the test level using `ShouldMatchConfigurati
     public static partial class ShouldBeNullExtensions
     {
         [Obsolete(ObsoleteMessages.FuncCustomMessage, true)]
-        public static void ShouldBeNull<T>(this T? actual, Func<string?>? customMessage)
-            where T : class
+        public static void ShouldBeNull<T>(this T actual, Func<string?>? customMessage)
         {
             throw new NotImplementedException();
         }
 
         [Obsolete(ObsoleteMessages.FuncCustomMessage, true)]
-        public static void ShouldNotBeNull<T>(this T? actual, Func<string?>? customMessage)
-            where T : class
+        public static void ShouldNotBeNull<T>(this T actual, Func<string?>? customMessage)
         {
             throw new NotImplementedException();
         }

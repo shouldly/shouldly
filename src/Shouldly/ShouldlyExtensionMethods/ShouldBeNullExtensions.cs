@@ -10,16 +10,14 @@ namespace Shouldly
     public static partial class ShouldBeNullExtensions
     {
         [ContractAnnotation("actual:notnull => halt")]
-        public static void ShouldBeNull<T>([MaybeNull] this T? actual, string? customMessage = null)
-            where T : class
+        public static void ShouldBeNull<T>([MaybeNull] this T actual, string? customMessage = null)
         {
             if (actual != null)
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
         [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
-            where T : class
+        public static void ShouldNotBeNull<T>([NotNull] this T actual, string? customMessage = null)
         {
             if (actual == null)
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
