@@ -1,3 +1,4 @@
+# Overview
 ![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)  
 ========
 
@@ -14,7 +15,9 @@ Assert.That(contestant.Points, Is.EqualTo(1337));
 ```
 For your troubles, you get this message, when it fails:
 
-    Expected 1337 but was 0
+```cs
+Expected 1337 but was 0
+```
 
 How it **Should** be:
 ```cs
@@ -22,7 +25,9 @@ contestant.Points.ShouldBe(1337);
 ```
 Which is just syntax, so far, but check out the message when it fails:
 
-    contestant.Points should be 1337 but was 0
+```cs
+contestant.Points should be 1337 but was 0
+```
 
 It might be easy to underestimate how useful this is. Another example, side by side:
 ```cs
@@ -56,14 +61,16 @@ Contributions to [Shouldly](https://docs.shouldly.io/) are very welcome. For gui
 What is meant by "full" is that when you set up your "release" configuration in Visual Studio and you go to Project Properties > Build > Advanced > Debug, you should set it to "full" rather than "pdb-only". 
 
 ## Currently maintained by
- - [Jake Ginnivan](https://github.com/JakeGinnivan)
- - [Joseph Woodward](https://github.com/JosephWoodward)
+
+* [Jake Ginnivan](https://github.com/JakeGinnivan)
+* [Joseph Woodward](https://github.com/JosephWoodward)
 
 If you are interested in helping out, jump on [Gitter](https://gitter.im/shouldly/shouldly) and have a chat.
 
 ## Brought to you by
- - Dave Newman
- - Xerxes Battiwalla
- - Anthony Egerton
- - Peter van der Woude
- - Jake Ginnivan
+
+* Dave Newman
+* Xerxes Battiwalla
+* Anthony Egerton
+* Peter van der Woude
+* Jake Ginnivan
