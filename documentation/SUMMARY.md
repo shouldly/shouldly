@@ -25,6 +25,7 @@
 * [String](documentation/string/README.md)
   * [ShouldBe](documentation/string/shouldBe.md)
   * [Contain](documentation/string/contain.md)
+  * [Null and Empty](documentation/string/null.md)
   * [StartWith](documentation/string/startWith.md)
   * [EndWith](documentation/string/endWith.md)
 * [Enumerable](documentation/enumerable/README.md)

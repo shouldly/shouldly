@@ -84,12 +84,53 @@ namespace DocumentationExamples
         }
 
         [Fact]
+        public void ShouldNotBeEmpty()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "";
+                target.ShouldNotBeEmpty();
+            }, _testOutputHelper);
+        }
+
+        [Fact]
+        public void ShouldNotBeNull()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                string target = null;
+                target.ShouldNotBeNull();
+            }, _testOutputHelper);
+        }
+
+
+        [Fact]
+        public void ShouldBeNull()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Homer";
+                target.ShouldBeNull();
+            }, _testOutputHelper);
+        }
+
+        [Fact]
         public void ShouldBeNullOrEmpty()
         {
             DocExampleWriter.Document(() =>
             {
                 var target = "Homer";
                 target.ShouldBeNullOrEmpty();
+            }, _testOutputHelper);
+        }
+
+        [Fact]
+        public void ShouldBeEmpty()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Homer";
+                target.ShouldBeEmpty();
             }, _testOutputHelper);
         }
 

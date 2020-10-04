@@ -35,7 +35,6 @@ target.ShouldBe("Bart");
 
 **Exception**
 
-## ShouldNotBe
 <!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContain.exceptionText.approved.txt -->
 ```
 target
