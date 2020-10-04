@@ -1,4 +1,4 @@
-# ShouldBeOfType
+# BeOfType
 
 `ShouldBeOfType` is the inverse of `ShouldNotBeOfType`.
 

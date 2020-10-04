@@ -1,4 +1,4 @@
-# ShouldBeInRange / ShouldNotBeInRange
+# InRange
 
 `ShouldBeInRange` is the inverse of `ShouldNotBeInRange`.
 

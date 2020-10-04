@@ -1,4 +1,4 @@
-# ShouldBeOneOf/ShouldNotBeOneOf
+# BeOneOf
 
 `ShouldNotBeOneOf` is the inverse of `ShouldBeOneOf`.
 

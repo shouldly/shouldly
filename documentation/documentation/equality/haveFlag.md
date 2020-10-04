@@ -1,8 +1,9 @@
-# ShouldHaveFlag/NotHaveFlag
+# HaveFlag
 
 `ShouldHaveFlag` allows you to assert whether an object is an enum and has a flag specified.
 
 Conversely `ShouldNotHaveFlag` allows you to assert the opposite; that an object is an enum but does not have a flag specified.
+
 
 ## ShouldHaveFlag
 

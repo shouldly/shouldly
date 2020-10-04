@@ -1,4 +1,4 @@
-# ShouldBeGreaterThan/ShouldBeLessThan
+# GreaterThan / LessThan
 
 `ShouldBeGreaterThan` is the inverse of `ShouldBeLessThan`.
 

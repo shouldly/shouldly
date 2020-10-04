@@ -1,4 +1,4 @@
-# ShouldBeEmpty / ShouldNotBeEmpty
+# BeEmpty
 
 
 ## ShouldBeEmpty

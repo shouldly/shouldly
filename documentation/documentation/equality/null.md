@@ -1,4 +1,4 @@
-# ShouldBeNull/NotBeNull
+# BeNull
 
 `ShouldBeNull` and `ShouldNotBeNull` allow you to check whether or not a type's reference is null.
 

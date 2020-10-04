@@ -1,4 +1,4 @@
-# ShouldBeOneOf / ShouldNotBeOneOf
+# BeOneOf
 
 
 ## ShouldBeOneOf

@@ -1,4 +1,4 @@
-# ShouldBeTrue/False
+# True/False
 
 `ShouldBeTrue` and `ShouldBeFalse` work on boolean values.
 
