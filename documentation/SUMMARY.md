@@ -24,6 +24,7 @@
   * [ExampleClasses](documentation/equality/exampleClasses.md)
 * [String](documentation/string/README.md)
   * [ShouldBe](documentation/string/shouldBe.md)
+  * [Match](documentation/string/match.md)
   * [Contain](documentation/string/contain.md)
   * [Null and Empty](documentation/string/null.md)
   * [StartWith](documentation/string/startWith.md)

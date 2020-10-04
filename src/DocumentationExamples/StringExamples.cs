@@ -115,6 +115,26 @@ namespace DocumentationExamples
         }
 
         [Fact]
+        public void ShouldNotMatch()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Homer Simpson";
+                target.ShouldNotMatch("Homer .*");
+            }, _testOutputHelper);
+        }
+
+        [Fact]
+        public void ShouldMatch()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Homer Simpson";
+                target.ShouldMatch("Bart .*");
+            }, _testOutputHelper);
+        }
+
+        [Fact]
         public void ShouldBeNullOrEmpty()
         {
             DocExampleWriter.Document(() =>
