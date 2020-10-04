@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFramework);net48</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netcoreapp3.1;net48</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
     <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
@@ -9,7 +9,7 @@
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="21.1.0">
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="21.1.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -14,13 +14,13 @@ target.ShouldMatch("Bart .*");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldMatch.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldEndWith.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldMatch.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldMatch.exceptionText.approved.txt -->
 ```
 target
-    should end with
-"Bart"
+    should match
+"Bart .*"
     but was
-"Homer"
+"Homer Simpson"
 ```
 <!-- endInclude -->
 
@@ -38,12 +38,8 @@ target.ShouldNotMatch("Homer .*");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotMatch.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotEndWith.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotMatch.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotMatch.exceptionText.approved.txt -->
 ```
-target
-    should not end with
-"Simpson"
-    but was
-"Homer Simpson"
+target should not match "Homer .*" but did
 ```
 <!-- endInclude -->
