@@ -25,6 +25,30 @@ target
 <!-- endInclude -->
 
 
+## ShouldContainWithoutWhitespace
+
+<!-- snippet: StringExamples.ShouldContainWithoutWhitespace.codeSample.approved.cs -->
+<a id='snippet-StringExamples.ShouldContainWithoutWhitespace.codeSample.approved.cs'></a>
+```cs
+var target = "Homer Simpson";
+target.ShouldContainWithoutWhitespace(" Bart Simpson ");
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldContainWithoutWhitespace.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldContainWithoutWhitespace.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldContainWithoutWhitespace.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldContainWithoutWhitespace.codeSample.approved.cs`'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContain.exceptionText.approved.txt -->
+```
+target
+    should contain (case insensitive comparison)
+"Bart"
+    but was actually
+"Homer"
+```
+<!-- endInclude -->
+
+
 ## ShouldNotContain
 
 <!-- snippet: StringExamples.ShouldNotContain.codeSample.approved.cs -->

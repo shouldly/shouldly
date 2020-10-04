@@ -74,6 +74,16 @@ namespace DocumentationExamples
         }
 
         [Fact]
+        public void ShouldContainWithoutWhitespace()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Homer Simpson";
+                target.ShouldContainWithoutWhitespace(" Bart Simpson ");
+            }, _testOutputHelper);
+        }
+
+        [Fact]
         public void ShouldNotContain()
         {
             DocExampleWriter.Document(() =>
