@@ -26,19 +26,17 @@ namespace Shouldly
         }
 
         [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
+        public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
             where T : class
         {
-            if (actual == null)
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            return actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
 
         [ContractAnnotation("actual:null => halt")]
-        public static void ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
+        public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
             where T : struct
         {
-            if (actual == null)
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            return actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
         }
     }
 }
