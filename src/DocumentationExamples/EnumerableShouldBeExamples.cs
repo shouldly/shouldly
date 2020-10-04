@@ -29,6 +29,5 @@ namespace DocumentationExamples
                 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
             }, _testOutputHelper);
         }
-
     }
 }
