@@ -128,7 +128,7 @@ Should.NotThrow(() =>
 
 <!-- include: ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.exceptionText.approved.txt -->
 ```
-`var task = Task.Factory.StartNew(() => { var y = homer.Salary / denominator; }); return task;`
+`var task = Task.Factory.StartNew( () => { var y = homer.Salary / denominator; }); return task;`
     should not throw but threw
 System.DivideByZeroException
     with message

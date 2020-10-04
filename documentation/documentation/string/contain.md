@@ -38,13 +38,13 @@ target.ShouldContainWithoutWhitespace(" Bart Simpson ");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContain.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt -->
 ```
 target
-    should contain (case insensitive comparison)
-"Bart"
+    should contain without whitespace
+" Bart Simpson "
     but was actually
-"Homer"
+"Homer Simpson"
 ```
 <!-- endInclude -->
 

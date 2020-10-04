@@ -11,13 +11,21 @@ target.ShouldBe("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContain.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.exceptionText.approved.txt -->
 ```
 target
-    should contain (case insensitive comparison)
+    should be
 "Bart"
-    but was actually
+    but was
 "Homer"
+    difference
+Difference     |  |    |    |    |    |   
+               | \|/  \|/  \|/  \|/  \|/  
+Index          | 0    1    2    3    4    
+Expected Value | B    a    r    t         
+Actual Value   | H    o    m    e    r    
+Expected Code  | 66   97   114  116       
+Actual Code    | 72   111  109  101  114  
 ```
 <!-- endInclude -->
 
@@ -35,12 +43,20 @@ target.ShouldBe("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContain.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.exceptionText.approved.txt -->
 ```
 target
-    should contain (case insensitive comparison)
+    should be
 "Bart"
-    but was actually
+    but was
 "Homer"
+    difference
+Difference     |  |    |    |    |    |   
+               | \|/  \|/  \|/  \|/  \|/  
+Index          | 0    1    2    3    4    
+Expected Value | B    a    r    t         
+Actual Value   | H    o    m    e    r    
+Expected Code  | 66   97   114  116       
+Actual Code    | 72   111  109  101  114  
 ```
 <!-- endInclude -->

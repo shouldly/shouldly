@@ -123,7 +123,7 @@ Should.Throw<DivideByZeroException>(() =>
 
 <!-- include: ShouldThrowExamples.ShouldThrowFuncOfTask.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncOfTask.exceptionText.approved.txt -->
 ```
-Task `var task = Task.Factory.StartNew(() => { var y = homer.Salary / denominator; }); return task;`
+Task `var task = Task.Factory.StartNew( () => { var y = homer.Salary / denominator; }); return task;`
     should throw
 System.DivideByZeroException
     but did not
