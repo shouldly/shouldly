@@ -1,5 +1,7 @@
 # ShouldBeInRange / ShouldNotBeInRange
 
+`ShouldBeInRange` is the inverse of `ShouldNotBeInRange`.
+
 
 ## ShouldBeInRange
 

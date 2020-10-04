@@ -21,10 +21,13 @@
   * [MatchApproved](documentation/equality/shouldMatchApproved.md)
   * [ExampleClasses](documentation/equality/exampleClasses.md)
 * [Enumerable](documentation/enumerable/README.md)
+  * [ShouldBe](documentation/enumerable/shouldBe.md)
   * [All](documentation/enumerable/shouldAllBe.md)
   * [Empty](documentation/enumerable/shouldBeEmpty.md)
   * [All](documentation/enumerable/shouldAllBe.md)
   * [OneOf](documentation/enumerable/shouldBeOneOf.md)
   * [Contain](documentation/enumerable/shouldContain.md)
-  * [StartWith](documentation/enumerable/shouldStartWith.md)
+  * [Unique](documentation/enumerable/shouldBeUnique.md)
+  * [SubsetOf](documentation/enumerable/shouldBeSubsetOf.md)
+
 

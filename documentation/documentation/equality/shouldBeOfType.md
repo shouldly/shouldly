@@ -1,5 +1,7 @@
 # ShouldBeOfType
 
+`ShouldBeOfType` is the inverse of `ShouldNotBeOfType`.
+
 
 ## ShouldBeOfType
 
