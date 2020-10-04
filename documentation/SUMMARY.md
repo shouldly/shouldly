@@ -24,7 +24,6 @@
   * [ShouldBe](documentation/enumerable/shouldBe.md)
   * [All](documentation/enumerable/shouldAllBe.md)
   * [Empty](documentation/enumerable/shouldBeEmpty.md)
-  * [All](documentation/enumerable/shouldAllBe.md)
   * [OneOf](documentation/enumerable/shouldBeOneOf.md)
   * [Contain](documentation/enumerable/shouldContain.md)
   * [Unique](documentation/enumerable/shouldBeUnique.md)
