@@ -12,6 +12,7 @@ namespace Shouldly
         {
             return Should.ThrowInternal<TException>(actual, customMessage);
         }
+
         /*** ShouldThrow(Func<T>) ***/
         public static TException ShouldThrow<TException>(this Func<object?> actual, string? customMessage = null) where TException : Exception
         {
@@ -23,6 +24,7 @@ namespace Shouldly
         {
             return Should.ThrowInternal(actual, null, exceptionType);
         }
+
         public static Exception ShouldThrow(this Action actual, string? customMessage, Type exceptionType)
         {
             return Should.ThrowInternal(actual, customMessage, exceptionType);
@@ -33,6 +35,7 @@ namespace Shouldly
         {
             return Should.ThrowInternal(actual, null, exceptionType);
         }
+
         public static Exception ShouldThrow(this Func<object?> actual, string? customMessage, Type exceptionType)
         {
             return Should.ThrowInternal(actual, customMessage, exceptionType);

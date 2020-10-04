@@ -21,7 +21,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person { Name = "Homer", Salary = 30000 };
+                var homer = new Person {Name = "Homer", Salary = 30000};
                 var denominator = 1;
                 Should.Throw<DivideByZeroException>(() =>
                 {
@@ -35,7 +35,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person { Name = "Homer", Salary = 30000 };
+                var homer = new Person {Name = "Homer", Salary = 30000};
                 var denominator = 1;
                 Action action = () =>
                 {
@@ -48,11 +48,9 @@ namespace DocumentationExamples
         [Fact]
         public void ShouldThrowFunc()
         {
-            DocExampleWriter.Document(() =>
-            {
-                Should.Throw<ArgumentNullException>(() => new Person("Homer"));
-            }, _testOutputHelper);
+            DocExampleWriter.Document(() => { Should.Throw<ArgumentNullException>(() => new Person("Homer")); }, _testOutputHelper);
         }
+
         [Fact]
         public void ShouldThrowFuncExtension()
         {
@@ -68,7 +66,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var homer = new Person { Name = "Homer", Salary = 30000 };
+                var homer = new Person {Name = "Homer", Salary = 30000};
                 var denominator = 1;
                 Should.Throw<DivideByZeroException>(() =>
                 {
