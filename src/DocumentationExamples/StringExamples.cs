@@ -74,6 +74,26 @@ namespace DocumentationExamples
         }
 
         [Fact]
+        public void ShouldNotBeNullOrEmpty()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "";
+                target.ShouldNotBeNullOrEmpty();
+            }, _testOutputHelper);
+        }
+
+        [Fact]
+        public void ShouldBeNullOrEmpty()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Homer";
+                target.ShouldBeNullOrEmpty();
+            }, _testOutputHelper);
+        }
+
+        [Fact]
         public void ShouldContainWithoutWhitespace()
         {
             DocExampleWriter.Document(() =>
