@@ -27,6 +27,34 @@ System.DivideByZeroException
 <!-- endInclude -->
 
 
+## ShouldThrow Action Extension
+
+<!-- snippet: ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs -->
+<a id='snippet-ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs'></a>
+```cs
+var homer = new Person { Name = "Homer", Salary = 30000 };
+var denominator = 1;
+Action action = () =>
+                {
+                    var y = homer.Salary / denominator;
+                };
+action.ShouldThrow<DivideByZeroException>();
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs#L1-L7' title='File snippet `ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs' title='Navigate to start of snippet `ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs`'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldThrowExamples.ShouldThrowActionExtension.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowActionExtension.exceptionText.approved.txt -->
+```
+`action()`
+    should throw
+System.DivideByZeroException
+    but did not
+```
+<!-- endInclude -->
+
+
 ## ShouldThrowFunc
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowFunc.codeSample.approved.cs -->
@@ -48,6 +76,28 @@ System.ArgumentNullException
 ```
 <!-- endInclude -->
 
+## ShouldThrow Func Extension
+
+<!-- snippet: ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs -->
+<a id='snippet-ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs'></a>
+```cs
+Func<Person> func = () => new Person("Homer");
+func.ShouldThrow<ArgumentNullException>();
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs#L1-L2' title='File snippet `ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs' title='Navigate to start of snippet `ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs`'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldThrowExamples.ShouldThrowFuncExtension.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncExtension.exceptionText.approved.txt -->
+```
+`func()`
+    should throw
+System.ArgumentNullException
+    but did not
+```
+<!-- endInclude -->
+
 
 ## ShouldThrowFuncOfTask
 
@@ -58,11 +108,15 @@ var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 1;
 Should.Throw<DivideByZeroException>(() =>
                 {
-                    var task = Task.Factory.StartNew(() => { var y = homer.Salary / denominator; });
+                    var task = Task.Factory.StartNew(
+                        () =>
+                        {
+                            var y = homer.Salary / denominator;
+                        });
                     return task;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs#L1-L7' title='File snippet `ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs' title='Navigate to start of snippet `ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='File snippet `ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs' title='Navigate to start of snippet `ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs`'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

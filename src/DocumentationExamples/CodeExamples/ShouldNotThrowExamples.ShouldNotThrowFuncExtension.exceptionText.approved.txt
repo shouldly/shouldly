@@ -1,0 +1,7 @@
+```
+`func()`
+    should not throw but threw
+System.ArgumentNullException
+    with message
+"Value cannot be null. (Parameter 'name')"
+```

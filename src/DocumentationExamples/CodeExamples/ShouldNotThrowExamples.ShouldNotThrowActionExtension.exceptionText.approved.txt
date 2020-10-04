@@ -1,5 +1,5 @@
 ```
-`var task = Task.Factory.StartNew( () => { var y = homer.Salary / denominator; }); return task;`
+`action()`
     should not throw but threw
 System.DivideByZeroException
     with message

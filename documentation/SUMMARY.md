@@ -19,6 +19,7 @@
   * [Greater/Less Than](documentation/equality/greaterLessThan.md)
   * [InRange](documentation/equality/inRange.md)
   * [MatchApproved](documentation/equality/matchApproved.md)
+  * [Enumerable](documentation/enumerable/shouldBe.md)
   * [ExampleClasses](documentation/equality/exampleClasses.md)
 * [Enumerable](documentation/enumerable/README.md)
   * [ShouldBe](documentation/enumerable/shouldBe.md)
