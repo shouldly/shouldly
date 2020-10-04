@@ -9,7 +9,7 @@
 * [Configuration](documentation/configuration.md)
 * [Equality](documentation/equality/README.md)
   * [ShouldBe](documentation/equality/shouldBe.md)
-  * [ShouldNotBe](documentation/equality/notBe.md)
+  * [NotBe](documentation/equality/notBe.md)
   * [Null](documentation/equality/null.md)
   * [Bool](documentation/equality/trueFalse.md)
   * [Flags](documentation/equality/haveFlag.md)
@@ -31,5 +31,8 @@
 * [Dictionary](documentation/dictionary/README.md)
   * [ContainKey](documentation/dictionary/containKey.md)
   * [ContainKeyAndValue](documentation/dictionary/containKeyAndValue.md)
+* [Exceptions](documentation/exceptions/README.md)
+  * [Throw](documentation/exceptions/throw.md)
+  * [NotThrow](documentation/exceptions/notThrow.md)
 
 
