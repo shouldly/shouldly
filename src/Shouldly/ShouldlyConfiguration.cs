@@ -16,9 +16,9 @@ namespace Shouldly
             };
         }
 
-        public static List<string> CompareAsObjectTypes { get; private set; }
+        public static List<string> CompareAsObjectTypes { get; }
 
-        public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; private set; } =
+        public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; } =
             new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration
             {
                 StringCompareOptions = StringCompareShould.IgnoreLineEndings,

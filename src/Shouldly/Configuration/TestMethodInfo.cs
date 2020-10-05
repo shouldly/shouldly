@@ -61,8 +61,8 @@ namespace Shouldly.Configuration
                 a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
         }
 
-        public string? SourceFileDirectory { get; private set; }
-        public string? MethodName { get; private set; }
-        public string? DeclaringTypeName { get; private set; }
+        public string? SourceFileDirectory { get; }
+        public string? MethodName { get; }
+        public string? DeclaringTypeName { get; }
     }
 }

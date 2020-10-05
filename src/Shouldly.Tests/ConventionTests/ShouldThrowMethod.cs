@@ -16,9 +16,9 @@ namespace Shouldly.Tests.ConventionTests
             Parameters = throwMethod.GetParameters();
         }
 
-        public bool IsShouldlyExtension { get; private set; }
-        public string Name { get; private set; }
-        public ParameterInfo[] Parameters { get; private set; }
+        public bool IsShouldlyExtension { get; }
+        public string Name { get; }
+        public ParameterInfo[] Parameters { get; }
 
         protected bool Equals(ShouldThrowMethod other)
         {

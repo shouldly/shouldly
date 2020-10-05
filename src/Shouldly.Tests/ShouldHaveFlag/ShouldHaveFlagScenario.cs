@@ -23,7 +23,7 @@ TestEnum.FlagOne
 TestEnum.FlagTwo
 
 Additional Info:
-    Some additional context", 
+    Some additional context",
                 errorWithoutSource:
 @"TestEnum.FlagTwo
     should have flag
