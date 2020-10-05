@@ -23,10 +23,14 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
 
             var isNegatedAssertion = context.ShouldMethod.Contains("Not");
+            var should = context.ShouldMethod.PascalToSpaced();
+            var actual = context.Actual.ToStringAwesomely();
             if (isNegatedAssertion)
-                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Actual.ToStringAwesomely());
+            {
+                return string.Format(format, codePart, should, actual);
+            }
 
-            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), context.Actual.ToStringAwesomely());
+            return string.Format(format, codePart, should, actual);
         }
     }
 }

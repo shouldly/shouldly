@@ -13,24 +13,30 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
             var actualValue = context.Actual.ToStringAwesomely();
             string actual;
             if (codePart == actualValue)
             {
-                if(context.IsNegatedAssertion) actual = " did";
-                else actual = " did not";
+                if (context.IsNegatedAssertion)
+                {
+                    actual = " did";
+                }
+                else
+                {
+                    actual = " did not";
+                }
             }
-            else actual = $@" was
+            else
+            {
+                actual = $@" was
 {actualValue}";
+            }
 
-            var message =
-                $@"{codePart}
+            return $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()}
-{expectedValue}
+{expected}
     but{actual}";
-
-            return message;
         }
     }
 }

@@ -29,16 +29,15 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
             var dictionary = (IDictionary)context.Actual;
             var keyExists = dictionary.Contains(context.Key);
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
             var keyValue = context.Key.ToStringAwesomely();
 
             if (keyExists)
             {
-                var valueString = "but does";
-                return string.Format(format, codePart, keyValue, expectedValue, valueString);
+                return string.Format(format, codePart, keyValue, expected, "but does");
             }
 
-            return string.Format(format, codePart, keyValue, expectedValue, "but the key does not exist");
+            return string.Format(format, codePart, keyValue, expected, "but the key does not exist");
         }
     }
 }

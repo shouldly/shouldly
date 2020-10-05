@@ -19,19 +19,21 @@ namespace Shouldly.MessageGenerators
                 ? context.MatchCount.Value + " element(s)"
                 : "an element";
 
+            var should = context.ShouldMethod.PascalToSpaced();
+            var expected = context.Expected.ToStringAwesomely();
             if (context.IsNegatedAssertion)
             {
                 return
-$@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} {elementPhrase} satisfying the condition
-{context.Expected.ToStringAwesomely()}
+                    $@"{codePart}
+    {should} {elementPhrase} satisfying the condition
+{expected}
     but does{""}";
             }
 
             return
-$@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} {elementPhrase} satisfying the condition
-{context.Expected.ToStringAwesomely()}
+                $@"{codePart}
+    {should} {elementPhrase} satisfying the condition
+{expected}
     but does not";
         }
     }

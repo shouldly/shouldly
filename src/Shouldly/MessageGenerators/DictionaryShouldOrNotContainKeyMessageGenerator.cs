@@ -20,12 +20,15 @@ namespace Shouldly.MessageGenerators
     but does{3}";
 
             var codePart = context.CodePart ?? context.Actual.ToStringAwesomely();
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
 
+            var should = context.ShouldMethod.PascalToSpaced();
             if (context.IsNegatedAssertion)
-                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue, "");
+            {
+                return string.Format(format, codePart, should, expected, "");
+            }
 
-            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue, " not");
+            return string.Format(format, codePart, should, expected, " not");
         }
     }
 }

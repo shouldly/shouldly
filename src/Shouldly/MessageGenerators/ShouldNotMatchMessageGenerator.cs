@@ -16,9 +16,9 @@ namespace Shouldly.MessageGenerators
             const string format = @"{0} should not match {1} but did";
 
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
 
-            return string.Format(format, codePart, expectedValue);
+            return string.Format(format, codePart, expected);
         }
     }
 }

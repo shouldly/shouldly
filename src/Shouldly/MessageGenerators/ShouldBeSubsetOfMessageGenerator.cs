@@ -16,17 +16,17 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
             var actualEnumerable = (context.Actual ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>();
             var expectedEnumerable = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>();
 
             var missing = actualEnumerable.Except(expectedEnumerable).ToList();
-            var count = missing.Count();
+            var count = missing.Count;
 
             return
 $@"{codePart}
     should be subset of
-{expectedValue}
+{expected}
     but
 {missing.ToStringAwesomely()}
     {(count > 1 ? "are" : "is")} outside subset";

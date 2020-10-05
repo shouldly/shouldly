@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using ExpressionToString;
 
 namespace Shouldly.MessageGenerators
 {
@@ -14,13 +15,13 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
-            var expression = ExpressionToString.ExpressionStringBuilder.ToString(context.Filter);
+            var expected = context.Expected.ToStringAwesomely();
+            var expression = ExpressionStringBuilder.ToString(context.Filter);
             return $@"{codePart}
     should satisfy the condition
 {expression}
     but
-{expectedValue}
+{expected}
     do not";
         }
     }

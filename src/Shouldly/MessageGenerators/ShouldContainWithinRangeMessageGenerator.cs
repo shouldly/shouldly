@@ -13,7 +13,7 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var tolerance = context.Tolerance.ToStringAwesomely();
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
             var actualValue = context.Actual.ToStringAwesomely();
             var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
@@ -23,7 +23,7 @@ namespace Shouldly.MessageGenerators
             return
 $@"{codePart}
     should {negated}contain
-{expectedValue}
+{expected}
     within
 {tolerance}
     but was{actualValueString}";
