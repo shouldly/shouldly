@@ -1,7 +1,5 @@
 # ShouldSatisfyAllConditions
 
-`ShouldBeExamples` works on all types and compares using `.Equals`.
-
 <!-- snippet: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs -->
 <a id='snippet-ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs'></a>
 ```cs
@@ -40,8 +38,6 @@ The following errors were found ...
 
 
 ## Generic
-
-`ShouldBeExamples` works on all types and compares using `.Equals`.
 
 <!-- snippet: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs -->
 <a id='snippet-ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs'></a>

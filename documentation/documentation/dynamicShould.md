@@ -3,8 +3,6 @@
 
 ## HaveProperty
 
-`ShouldBeExamples` works on all types and compares using `.Equals`.
-
 <!-- snippet: DynamicShouldExamples.HaveProperty.codeSample.approved.cs -->
 <a id='snippet-DynamicShouldExamples.HaveProperty.codeSample.approved.cs'></a>
 ```cs

@@ -1,7 +1,5 @@
 # ShouldCompleteIn
 
-`ShouldBeExamples` works on all types and compares using `.Equals`.
-
 <!-- snippet: ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs -->
 <a id='snippet-ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs'></a>
 ```cs
