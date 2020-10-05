@@ -21,7 +21,6 @@
   * [MatchApproved](documentation/equality/matchApproved.md)
   * [Enumerable](documentation/enumerable/shouldBe.md)
   * [SameAs](documentation/enumerable/shouldBe.md)
-  * [SatisfyAllConditions](documentation/enumerable/satisfyAllConditions.md)
   * [String](documentation/string/shouldBe.md)
   * [ExampleClasses](documentation/equality/exampleClasses.md)
 * [String](documentation/string/README.md)
@@ -45,5 +44,7 @@
 * [Exceptions](documentation/exceptions/README.md)
   * [Throw](documentation/exceptions/throw.md)
   * [NotThrow](documentation/exceptions/notThrow.md)
+* [SatisfyAllConditions](documentation/satisfyAllConditions.md)
+* [CompleteIn](documentation/completeIn.md)
 
 
