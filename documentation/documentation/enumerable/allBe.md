@@ -9,7 +9,7 @@ var homer = new Person { Name = "Homer", Salary = 30000 };
 var millionaires = new List<Person> { mrBurns, kentBrockman, homer };
 millionaires.ShouldAllBe(m => m.Salary > 1000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldAllBeExamples.ShouldAllBe.codeSample.approved.cs#L1-L5' title='File snippet `EnumerableShouldAllBeExamples.ShouldAllBe.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldAllBeExamples.ShouldAllBe.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldAllBeExamples.ShouldAllBe.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldAllBeExamples.ShouldAllBe.codeSample.approved.cs#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldAllBeExamples.ShouldAllBe.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

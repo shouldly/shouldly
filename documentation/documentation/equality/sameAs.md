@@ -10,7 +10,7 @@ var principleSkinner = new Person {Name = "Armin Tamzarian"};
 var seymourSkinner = new Person {Name = "Seymour Skinner"};
 principleSkinner.ShouldBeSameAs(seymourSkinner);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeSameAsExamples.ShouldBeSameAs.codeSample.approved.cs#L1-L3' title='File snippet `ShouldBeSameAsExamples.ShouldBeSameAs.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeSameAsExamples.ShouldBeSameAs.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeSameAsExamples.ShouldBeSameAs.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeSameAsExamples.ShouldBeSameAs.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeSameAsExamples.ShouldBeSameAs.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -34,7 +34,7 @@ Armin Tamzarian
 var person = new Person {Name = "Armin Tamzarian"};
 person.ShouldNotBeSameAs(person);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeSameAsExamples.ShouldNotBeSameAs.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeSameAsExamples.ShouldNotBeSameAs.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeSameAsExamples.ShouldNotBeSameAs.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeSameAsExamples.ShouldNotBeSameAs.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeSameAsExamples.ShouldNotBeSameAs.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeSameAsExamples.ShouldNotBeSameAs.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

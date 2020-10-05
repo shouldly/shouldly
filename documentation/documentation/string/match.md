@@ -9,7 +9,7 @@
 var target = "Homer Simpson";
 target.ShouldMatch("Bart .*");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldMatch.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldMatch.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldMatch.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldMatch.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldMatch.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldMatch.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -33,7 +33,7 @@ target
 var target = "Homer Simpson";
 target.ShouldNotMatch("Homer .*");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotMatch.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldNotMatch.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotMatch.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldNotMatch.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotMatch.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotMatch.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

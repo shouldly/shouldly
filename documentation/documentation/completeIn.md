@@ -8,7 +8,7 @@ Should.CompleteIn(
                     timeout: TimeSpan.FromSeconds(1),
                     customMessage: "Some additional context");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs#L1-L4' title='File snippet `ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs' title='Navigate to start of snippet `ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldCompleteInExamples.ShouldCompleteIn.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

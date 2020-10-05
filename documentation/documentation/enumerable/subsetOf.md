@@ -13,7 +13,7 @@ var simpsonsKids = new List<Person> { bart, lisa, maggie, ralph };
 var simpsonsFamily = new List<Person> { lisa, bart, maggie, homer, marge };
 simpsonsKids.ShouldBeSubsetOf(simpsonsFamily);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.codeSample.approved.cs#L1-L9' title='File snippet `EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.codeSample.approved.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

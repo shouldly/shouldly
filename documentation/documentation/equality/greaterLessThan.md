@@ -11,7 +11,7 @@
 var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
 mrBurns.Salary.ShouldBeGreaterThan(300000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -35,7 +35,7 @@ mrBurns.Salary
 var mrBurns = new Person { Name = "Mr. Burns", Salary = 299999999 };
 mrBurns.Salary.ShouldBeGreaterThanOrEqualTo(300000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -59,7 +59,7 @@ mrBurns.Salary
 var homer = new Person { Name = "Homer", Salary = 300000000 };
 homer.Salary.ShouldBeLessThan(30000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -83,7 +83,7 @@ homer.Salary
 var homer = new Person { Name = "Homer", Salary = 30001 };
 homer.Salary.ShouldBeLessThanOrEqualTo(30000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

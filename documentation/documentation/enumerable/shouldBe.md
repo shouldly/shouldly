@@ -10,7 +10,7 @@ var barney = new Person { Name = "Barney" };
 var theBeSharps = new List<Person> { homer, skinner, barney };
 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeExamples.ShouldBe.codeSample.approved.cs#L1-L6' title='File snippet `EnumerableShouldBeExamples.ShouldBe.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldBeExamples.ShouldBe.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldBeExamples.ShouldBe.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeExamples.ShouldBe.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldBeExamples.ShouldBe.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

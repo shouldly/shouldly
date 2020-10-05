@@ -15,7 +15,7 @@ var barney = new Person { Name = "Barney" };
 var theBeSharps = new List<Person> { homer, skinner, barney };
 apu.ShouldBeOneOf(theBeSharps.ToArray());
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs#L1-L6' title='File snippet `ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -44,7 +44,7 @@ var wiggum = new Person { Name = "Wiggum" };
 var theBeSharps = new List<Person> { apu, homer, skinner, barney, wiggum };
 wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs#L1-L7' title='File snippet `ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

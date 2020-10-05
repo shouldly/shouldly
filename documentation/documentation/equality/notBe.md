@@ -13,7 +13,7 @@
 var theSimpsonsCat = new Cat { Name = "Santas little helper" };
 theSimpsonsCat.Name.ShouldNotBe("Santas little helper");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.Objects.codeSample.approved.cs#L1-L2' title='File snippet `ShouldNotBeExamples.Objects.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.Objects.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotBeExamples.Objects.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.Objects.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.Objects.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -41,7 +41,7 @@ theSimpsonsCat.Name
 const int one = 1;
 one.ShouldNotBe(1);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.NumericInt.codeSample.approved.cs#L1-L2' title='File snippet `ShouldNotBeExamples.NumericInt.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.NumericInt.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotBeExamples.NumericInt.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.NumericInt.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.NumericInt.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -64,7 +64,7 @@ one
 const long aLong = 1L;
 aLong.ShouldNotBe(1);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.NumericLong.codeSample.approved.cs#L1-L2' title='File snippet `ShouldNotBeExamples.NumericLong.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.NumericLong.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotBeExamples.NumericLong.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.NumericLong.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.NumericLong.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -89,7 +89,7 @@ aLong
 var date = new DateTime(2000, 6, 1);
 date.ShouldNotBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='File snippet `ShouldNotBeExamples.DateTime.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.DateTime.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotBeExamples.DateTime.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.DateTime.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -117,7 +117,7 @@ date
 var timeSpan = TimeSpan.FromHours(1);
 timeSpan.ShouldNotBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.TimeSpanExample.codeSample.approved.cs#L1-L2' title='File snippet `ShouldNotBeExamples.TimeSpanExample.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.TimeSpanExample.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotBeExamples.TimeSpanExample.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.TimeSpanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotBeExamples.TimeSpanExample.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

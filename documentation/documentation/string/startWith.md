@@ -9,7 +9,7 @@
 var target = "Homer";
 target.ShouldStartWith("Bart");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldStartWith.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldStartWith.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldStartWith.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldStartWith.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldStartWith.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldStartWith.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -33,7 +33,7 @@ target
 var target = "Homer Simpson";
 target.ShouldNotStartWith("Homer");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotStartWith.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldNotStartWith.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotStartWith.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldNotStartWith.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotStartWith.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotStartWith.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

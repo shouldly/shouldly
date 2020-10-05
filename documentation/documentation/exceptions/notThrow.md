@@ -13,7 +13,7 @@ Should.NotThrow(() =>
                     var y = homer.Salary / denominator;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs#L1-L6' title='File snippet `ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -41,7 +41,7 @@ Action action = () =>
                 };
 action.ShouldNotThrow();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs#L1-L7' title='File snippet `ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -64,7 +64,7 @@ System.DivideByZeroException
 string? name = null;
 Should.NotThrow(() => new Person(name!));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs#L1-L2' title='File snippet `ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -89,7 +89,7 @@ string? name = null;
 Func<Person> func = () => new Person(name!);
 func.ShouldNotThrow();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs#L1-L3' title='File snippet `ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -121,7 +121,7 @@ Should.NotThrow(() =>
                     return task;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='File snippet `ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs' title='Navigate to start of snippet `ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

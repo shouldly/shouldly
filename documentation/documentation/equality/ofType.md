@@ -11,7 +11,7 @@
 var theSimpsonsDog = new Cat { Name = "Santas little helper" };
 theSimpsonsDog.ShouldBeOfType<Dog>();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOfTypeExamples.ShouldBeOfType.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeOfTypeExamples.ShouldBeOfType.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeOfTypeExamples.ShouldBeOfType.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeOfTypeExamples.ShouldBeOfType.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOfTypeExamples.ShouldBeOfType.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeOfTypeExamples.ShouldBeOfType.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -35,7 +35,7 @@ Simpsons.Cat
 var theSimpsonsDog = new Cat { Name = "Santas little helper" };
 theSimpsonsDog.ShouldNotBeOfType<Cat>();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOfTypeExamples.ShouldNotBeOfType.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeOfTypeExamples.ShouldNotBeOfType.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeOfTypeExamples.ShouldNotBeOfType.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeOfTypeExamples.ShouldNotBeOfType.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOfTypeExamples.ShouldNotBeOfType.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeOfTypeExamples.ShouldNotBeOfType.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

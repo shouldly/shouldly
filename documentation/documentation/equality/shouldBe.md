@@ -11,7 +11,7 @@
 var theSimpsonsCat = new Cat { Name = "Santas little helper" };
 theSimpsonsCat.Name.ShouldBe("Snowball 2");
 ```
-<sup><a href='/src/DocumentationExamples/ShouldBeExamples.cs#L26-L31' title='File snippet `shouldbeobjects` was extracted from'>snippet source</a> | <a href='#snippet-shouldbeobjects' title='Navigate to start of snippet `shouldbeobjects`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ShouldBeExamples.cs#L26-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-shouldbeobjects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -45,7 +45,7 @@ Actual Code    | 83   97   110  116  97   115  32   108  105  116  116  108  101
 const decimal pi = (decimal)Math.PI;
 pi.ShouldBe(3.24m, 0.01m);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Numeric.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeExamples.Numeric.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Numeric.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeExamples.Numeric.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Numeric.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Numeric.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -73,7 +73,7 @@ DateTime overloads are similar to the numeric overloads and support tolerances.
 var date = new DateTime(2000, 6, 1);
 date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeExamples.DateTime.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeExamples.DateTime.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeExamples.DateTime.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.DateTime.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -101,7 +101,7 @@ TimeSpan also has tolerance overloads
 var timeSpan = TimeSpan.FromHours(1);
 timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.TimeSpanExample.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeExamples.TimeSpanExample.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeExamples.TimeSpanExample.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeExamples.TimeSpanExample.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.TimeSpanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.TimeSpanExample.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -133,7 +133,7 @@ var barney = new Person { Name = "Barney" };
 var theBeSharps = new List<Person> { homer, skinner, barney };
 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Enumerables.codeSample.approved.cs#L1-L6' title='File snippet `ShouldBeExamples.Enumerables.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeExamples.Enumerables.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Enumerables.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -162,7 +162,7 @@ var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
 var secondSet = new[] { 1.4301m, 2.34m, 3.45m };
 firstSet.ShouldBe(secondSet, 0.1m);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs#L1-L3' title='File snippet `ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -190,7 +190,7 @@ firstSet
 const bool myValue = false;
 myValue.ShouldBe(true, "Some additional context");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.BooleanExample.codeSample.approved.cs#L1-L2' title='File snippet `ShouldBeExamples.BooleanExample.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldBeExamples.BooleanExample.codeSample.approved.cs' title='Navigate to start of snippet `ShouldBeExamples.BooleanExample.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.BooleanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.BooleanExample.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

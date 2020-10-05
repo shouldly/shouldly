@@ -14,7 +14,7 @@ var actual = TestEnum.FlagTwo;
 var value = TestEnum.FlagOne;
 actual.ShouldHaveFlag(value);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs#L1-L3' title='File snippet `ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs' title='Navigate to start of snippet `ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -39,7 +39,7 @@ var actual = TestEnum.FlagOne;
 var value = TestEnum.FlagOne;
 actual.ShouldNotHaveFlag(value);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs#L1-L3' title='File snippet `ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs' title='Navigate to start of snippet `ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

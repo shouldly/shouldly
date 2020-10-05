@@ -9,7 +9,7 @@
 dynamic theFuture = new ExpandoObject();
 DynamicShould.HaveProperty(theFuture, "RobotTeachers");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/DynamicShouldExamples.HaveProperty.codeSample.approved.cs#L1-L2' title='File snippet `DynamicShouldExamples.HaveProperty.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-DynamicShouldExamples.HaveProperty.codeSample.approved.cs' title='Navigate to start of snippet `DynamicShouldExamples.HaveProperty.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/DynamicShouldExamples.HaveProperty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-DynamicShouldExamples.HaveProperty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

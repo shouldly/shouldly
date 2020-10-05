@@ -9,7 +9,7 @@
 var target = "Homer";
 target.ShouldBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldBeNull.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeNull.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldBeNull.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -31,7 +31,7 @@ target
 var target = "Homer";
 target.ShouldBeNullOrEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -52,7 +52,7 @@ target ("Homer")
 var target = "Homer";
 target.ShouldBeEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeEmpty.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldBeEmpty.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeEmpty.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldBeEmpty.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -74,7 +74,7 @@ target
 string target = null;
 target.ShouldNotBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldNotBeNull.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNull.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldNotBeNull.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -95,7 +95,7 @@ target
 var target = "";
 target.ShouldNotBeNullOrEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -116,7 +116,7 @@ target ("")
 var target = "";
 target.ShouldNotBeNullOrEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='File snippet `StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Navigate to start of snippet `StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

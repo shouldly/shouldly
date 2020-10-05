@@ -12,7 +12,7 @@ var homer = new Person { Name = "Homer", Salary = 30000 };
 var millionaires = new List<Person> { kentBrockman, homer };
 millionaires.ShouldContain(mrBurns);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldContainExamples.ShouldContain.codeSample.approved.cs#L1-L5' title='File snippet `EnumerableShouldContainExamples.ShouldContain.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldContainExamples.ShouldContain.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldContainExamples.ShouldContain.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldContainExamples.ShouldContain.codeSample.approved.cs#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldContainExamples.ShouldContain.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -39,7 +39,7 @@ var barney = new Person { Name = "Barney", Salary = 0 };
 var millionaires = new List<Person> { homer, moe, barney };
 millionaires.ShouldContain(m => m.Salary > 1000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldContainExamples.ShouldContain_Predicate.codeSample.approved.cs#L1-L5' title='File snippet `EnumerableShouldContainExamples.ShouldContain_Predicate.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldContainExamples.ShouldContain_Predicate.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldContainExamples.ShouldContain_Predicate.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldContainExamples.ShouldContain_Predicate.codeSample.approved.cs#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldContainExamples.ShouldContain_Predicate.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -66,7 +66,7 @@ var carl = new Person { Name = "carl" };
 var clubOfNoHomers = new List<Person> { homerSimpson, homerGlumplich, lenny, carl };
 clubOfNoHomers.ShouldNotContain(homerSimpson);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldNotContainExamples.ShouldNotContain.codeSample.approved.cs#L1-L6' title='File snippet `EnumerableShouldNotContainExamples.ShouldNotContain.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldNotContainExamples.ShouldNotContain.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldNotContainExamples.ShouldNotContain.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldNotContainExamples.ShouldNotContain.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldNotContainExamples.ShouldNotContain.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -93,7 +93,7 @@ var homer = new Person { Name = "Homer", Salary = 30000 };
 var millionaires = new List<Person> { mrBurns, kentBrockman, homer };
 millionaires.ShouldNotContain(m => m.Salary < 1000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.codeSample.approved.cs#L1-L5' title='File snippet `EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.codeSample.approved.cs` was extracted from'>snippet source</a> | <a href='#snippet-EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.codeSample.approved.cs' title='Navigate to start of snippet `EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.codeSample.approved.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.codeSample.approved.cs#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

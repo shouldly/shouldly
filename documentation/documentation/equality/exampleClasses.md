@@ -51,5 +51,5 @@ namespace Simpsons
     }
 }
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L45' title='File snippet `DocumentationExamples/ExampleClasses.cs` was extracted from'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Navigate to start of snippet `DocumentationExamples/ExampleClasses.cs`'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
