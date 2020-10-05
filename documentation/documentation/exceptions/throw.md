@@ -1,5 +1,6 @@
 # Throw
 
+
 ## ShouldThrowAction
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs -->
@@ -25,6 +26,28 @@ System.DivideByZeroException
     but did not
 ```
 <!-- endInclude -->
+
+
+## ShouldThrowAsync
+
+<!-- snippet: ShouldThrowAsync -->
+<a id='snippet-shouldthrowasync'></a>
+```cs
+Func<Task> doSomething = async () =>
+{
+    await Task.Delay(1);
+};
+var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
+```
+<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L106-L112' title='File snippet `shouldthrowasync` was extracted from'>snippet source</a> | <a href='#snippet-shouldthrowasync' title='Navigate to start of snippet `shouldthrowasync`'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+Task `doSomething()` <!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt. path: /src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
+    should throw
+System.DivideByZeroException
+    but did not <!-- endInclude -->
 
 
 ## ShouldThrow Action Extension
@@ -75,6 +98,7 @@ System.ArgumentNullException
     but did not
 ```
 <!-- endInclude -->
+
 
 ## ShouldThrow Func Extension
 

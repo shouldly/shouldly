@@ -98,6 +98,26 @@ namespace Shouldly.Tests.ShouldThrowAsync
             result.Wait();
         }
 
+        [Fact]
+        public async Task ShouldThrowAsync()
+        {
+            try
+            {
+                #region ShouldThrowAsync
+                Func<Task> doSomething = async () =>
+                {
+                    await Task.Delay(1);
+                };
+                var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
+                #endregion
+            }
+            catch (Exception e)
+            {
+                var ex = e.ShouldBeOfType<ShouldAssertException>();
+                ex.Message.ShouldMatchApproved();
+            }
+        }
+
         [Fact] // Issue 554
         public async Task ShouldThrowAssertException()
         {
