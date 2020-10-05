@@ -38,14 +38,11 @@ The project structure will be as follows:
 ```csharp
 using System;
 
-namespace project_name
+public static class Program
 {
-    public static class Program
+    public static string TestWorks()
     {
-        public static string testWorks()
-        {
-            return "Works";
-        }
+        return "Works";
     }
 }
 ```
@@ -72,19 +69,14 @@ Now comes the important part, when we actually add Shouldly.
 
 ```csharp
 using NUnit.Framework;
-using project_name;
 using Shouldly;
 
-namespace Tests
+public class Tests
 {
-    public class Tests
+    [Test]
+    public void Test1()
     {
-
-        [Test]
-        public void Test1()
-        {
-            Program.testWorks().ShouldBe("Works");
-        }
+        Program.TestWorks().ShouldBe("Works");
     }
 }
 ```
@@ -99,5 +91,4 @@ And there you go, you have a basic project with unit tests using Shouldly.
 
 ## Summary
 
-We created a classlib project using Dotnet CLI Tools,
-then added unit tests and added Shouldly as a NuGet package to be able to use Shouldly in our tests.
+We created a classlib project using Dotnet CLI Tools, then added unit tests and added Shouldly as a NuGet package to be able to use Shouldly in our tests.
