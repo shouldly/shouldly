@@ -67,8 +67,8 @@ In this part we will create the unit tests for the main program.
 
 Now comes the important part, when we actually add Shouldly.
 
-#. Go to the test folder and run `dotnet add package Shouldly`, to add Shouldly as a NuGet Package.
-#. Add the following code to *UnitTest1.cs*:
+ 1. Go to the test folder and run `dotnet add package Shouldly`, to add Shouldly as a NuGet Package.
+ 1. Add the following code to *UnitTest1.cs*:
 
 ```csharp
 using NUnit.Framework;
