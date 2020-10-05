@@ -1,12 +1,12 @@
 # ShouldBe
 
 <!-- snippet: StringExamples.ShouldBe.codeSample.approved.cs -->
-<a id='snippet-StringExamples.ShouldBe.codeSample.approved.cs'></a>
+<a id='0f46b9f0'></a>
 ```cs
 var target = "Homer";
 target.ShouldBe("Bart");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBe.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#0f46b9f0' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -33,12 +33,12 @@ Actual Code    | 72   111  109  101  114
 ## ShouldNotBe
 
 <!-- snippet: StringExamples.ShouldBe.codeSample.approved.cs -->
-<a id='snippet-StringExamples.ShouldBe.codeSample.approved.cs'></a>
+<a id='0f46b9f0'></a>
 ```cs
 var target = "Homer";
 target.ShouldBe("Bart");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBe.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#0f46b9f0' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

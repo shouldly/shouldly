@@ -8,13 +8,13 @@ Conversely `ShouldNotHaveFlag` allows you to assert the opposite; that an object
 ## ShouldHaveFlag
 
 <!-- snippet: ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs -->
-<a id='snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs'></a>
+<a id='d0903ef2'></a>
 ```cs
 var actual = TestEnum.FlagTwo;
 var value = TestEnum.FlagOne;
 actual.ShouldHaveFlag(value);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#d0903ef2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -33,13 +33,13 @@ TestEnum.FlagTwo
 ## ShouldNotHaveFlag
 
 <!-- snippet: ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs -->
-<a id='snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs'></a>
+<a id='e3c860fb'></a>
 ```cs
 var actual = TestEnum.FlagOne;
 var value = TestEnum.FlagOne;
 actual.ShouldNotHaveFlag(value);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#e3c860fb' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

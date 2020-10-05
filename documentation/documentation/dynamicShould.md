@@ -4,12 +4,12 @@
 ## HaveProperty
 
 <!-- snippet: DynamicShouldExamples.HaveProperty.codeSample.approved.cs -->
-<a id='snippet-DynamicShouldExamples.HaveProperty.codeSample.approved.cs'></a>
+<a id='7b868925'></a>
 ```cs
 dynamic theFuture = new ExpandoObject();
 DynamicShould.HaveProperty(theFuture, "RobotTeachers");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/DynamicShouldExamples.HaveProperty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-DynamicShouldExamples.HaveProperty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/DynamicShouldExamples.HaveProperty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#7b868925' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

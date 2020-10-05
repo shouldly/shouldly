@@ -4,12 +4,12 @@
 ## ShouldMatch
 
 <!-- snippet: StringExamples.ShouldMatch.codeSample.approved.cs -->
-<a id='snippet-StringExamples.ShouldMatch.codeSample.approved.cs'></a>
+<a id='5a9af5f5'></a>
 ```cs
 var target = "Homer Simpson";
 target.ShouldMatch("Bart .*");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldMatch.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldMatch.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldMatch.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#5a9af5f5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -28,12 +28,12 @@ target
 ## ShouldNotMatch
 
 <!-- snippet: StringExamples.ShouldNotMatch.codeSample.approved.cs -->
-<a id='snippet-StringExamples.ShouldNotMatch.codeSample.approved.cs'></a>
+<a id='7b306c38'></a>
 ```cs
 var target = "Homer Simpson";
 target.ShouldNotMatch("Homer .*");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotMatch.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotMatch.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotMatch.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#7b306c38' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

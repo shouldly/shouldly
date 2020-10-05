@@ -6,12 +6,12 @@
 ## ShouldBeTrue
 
 <!-- snippet: ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.cs -->
-<a id='snippet-ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.cs'></a>
+<a id='2fccec9b'></a>
 ```cs
 var myValue = false;
 myValue.ShouldBeTrue();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeTrue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#2fccec9b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -30,12 +30,12 @@ False
 ## ShouldBeFalse
 
 <!-- snippet: ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.cs -->
-<a id='snippet-ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.cs'></a>
+<a id='287b8d22'></a>
 ```cs
 var myValue = true;
 myValue.ShouldBeFalse();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeFalse.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#287b8d22' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

@@ -8,12 +8,12 @@ Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net),
 When you first run a `ShouldMatchApproved` test, you will be presented with a diff viewer and a failing test.
 
 <!-- snippet: ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs -->
-<a id='snippet-ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs'></a>
+<a id='6f75b223'></a>
 ```cs
 var simpsonsQuote = "Hi Super Nintendo Chalmers";
 simpsonsQuote.ShouldMatchApproved();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#6f75b223' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -39,12 +39,12 @@ Approval file C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprov
 After you have approved the text, when it changes you get a different experience.
 
 <!-- snippet: ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs -->
-<a id='snippet-ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs'></a>
+<a id='6215b756'></a>
 ```cs
 var simpsonsQuote = "Me fail english? That's unpossible";
 simpsonsQuote.ShouldMatchApproved();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#6215b756' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

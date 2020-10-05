@@ -6,12 +6,12 @@
 `ShouldBeExamples` works on all types and compares using `.Equals`.
 
 <!-- snippet: ShouldBeObjects -->
-<a id='snippet-shouldbeobjects'></a>
+<a id='eea0f4bf'></a>
 ```cs
 var theSimpsonsCat = new Cat { Name = "Santas little helper" };
 theSimpsonsCat.Name.ShouldBe("Snowball 2");
 ```
-<sup><a href='/src/DocumentationExamples/ShouldBeExamples.cs#L26-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-shouldbeobjects' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ShouldBeExamples.cs#L26-L31' title='Snippet source file'>snippet source</a> | <a href='#eea0f4bf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -40,12 +40,12 @@ Actual Code    | 83   97   110  116  97   115  32   108  105  116  116  108  101
 `ShouldBe` numeric overloads accept tolerances and has overloads for `float`, `double` and `decimal` types.
 
 <!-- snippet: ShouldBeExamples.Numeric.codeSample.approved.cs -->
-<a id='snippet-ShouldBeExamples.Numeric.codeSample.approved.cs'></a>
+<a id='bd103524'></a>
 ```cs
 const decimal pi = (decimal)Math.PI;
 pi.ShouldBe(3.24m, 0.01m);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Numeric.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Numeric.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Numeric.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#bd103524' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -68,12 +68,12 @@ pi
 DateTime overloads are similar to the numeric overloads and support tolerances.
 
 <!-- snippet: ShouldBeExamples.DateTime.codeSample.approved.cs -->
-<a id='snippet-ShouldBeExamples.DateTime.codeSample.approved.cs'></a>
+<a id='c0877fef'></a>
 ```cs
 var date = new DateTime(2000, 6, 1);
 date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.DateTime.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#c0877fef' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -96,12 +96,12 @@ date
 TimeSpan also has tolerance overloads
 
 <!-- snippet: ShouldBeExamples.TimeSpanExample.codeSample.approved.cs -->
-<a id='snippet-ShouldBeExamples.TimeSpanExample.codeSample.approved.cs'></a>
+<a id='0700c29d'></a>
 ```cs
 var timeSpan = TimeSpan.FromHours(1);
 timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.TimeSpanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.TimeSpanExample.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.TimeSpanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#0700c29d' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -124,7 +124,7 @@ timeSpan
 Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass.
 
 <!-- snippet: ShouldBeExamples.Enumerables.codeSample.approved.cs -->
-<a id='snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs'></a>
+<a id='72a1dd33'></a>
 ```cs
 var apu = new Person { Name = "Apu" };
 var homer = new Person { Name = "Homer" };
@@ -133,7 +133,7 @@ var barney = new Person { Name = "Barney" };
 var theBeSharps = new List<Person> { homer, skinner, barney };
 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Enumerables.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Enumerables.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#72a1dd33' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -156,13 +156,13 @@ theBeSharps
 If you have enumerables of `float`, `decimal` or `double` types then you can use the tolerance overloads, similar to the value extensions.
 
 <!-- snippet: ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs -->
-<a id='snippet-ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs'></a>
+<a id='3e83389c'></a>
 ```cs
 var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
 var secondSet = new[] { 1.4301m, 2.34m, 3.45m };
 firstSet.ShouldBe(secondSet, 0.1m);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfNumerics.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#3e83389c' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -185,12 +185,12 @@ firstSet
 ## Bools
 
 <!-- snippet: ShouldBeExamples.BooleanExample.codeSample.approved.cs -->
-<a id='snippet-ShouldBeExamples.BooleanExample.codeSample.approved.cs'></a>
+<a id='b79c0f55'></a>
 ```cs
 const bool myValue = false;
 myValue.ShouldBe(true, "Some additional context");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.BooleanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.BooleanExample.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.BooleanExample.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#b79c0f55' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

@@ -6,12 +6,12 @@
 ## ShouldBeNull
 
 <!-- snippet: ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs -->
-<a id='snippet-ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs'></a>
+<a id='17c561a5'></a>
 ```cs
 var myRef = "Hello World";
 myRef.ShouldBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#17c561a5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -28,12 +28,12 @@ myRef
 ## ShouldNotBeNull
 
 <!-- snippet: ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs -->
-<a id='snippet-ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs'></a>
+<a id='083920a2'></a>
 ```cs
 string? myRef = null;
 myRef.ShouldNotBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#083920a2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

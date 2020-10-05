@@ -4,7 +4,7 @@
 ## ShouldThrowAction
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs -->
-<a id='snippet-ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs'></a>
+<a id='55961712'></a>
 ```cs
 var homer = new Person {Name = "Homer", Salary = 30000};
 var denominator = 1;
@@ -13,7 +13,7 @@ Should.Throw<DivideByZeroException>(() =>
                     var y = homer.Salary / denominator;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#55961712' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -31,7 +31,7 @@ System.DivideByZeroException
 ## ShouldThrowAsync
 
 <!-- snippet: ShouldThrowAsync -->
-<a id='snippet-shouldthrowasync'></a>
+<a id='29d6a5af'></a>
 ```cs
 Func<Task> doSomething = async () =>
 {
@@ -39,7 +39,7 @@ Func<Task> doSomething = async () =>
 };
 var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
 ```
-<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L106-L112' title='Snippet source file'>snippet source</a> | <a href='#snippet-shouldthrowasync' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L106-L112' title='Snippet source file'>snippet source</a> | <a href='#29d6a5af' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -53,7 +53,7 @@ System.DivideByZeroException
 ## ShouldThrow Action Extension
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs -->
-<a id='snippet-ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs'></a>
+<a id='de1acfa0'></a>
 ```cs
 var homer = new Person {Name = "Homer", Salary = 30000};
 var denominator = 1;
@@ -63,7 +63,7 @@ Action action = () =>
                 };
 action.ShouldThrow<DivideByZeroException>();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#de1acfa0' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -81,11 +81,11 @@ System.DivideByZeroException
 ## ShouldThrowFunc
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowFunc.codeSample.approved.cs -->
-<a id='snippet-ShouldThrowExamples.ShouldThrowFunc.codeSample.approved.cs'></a>
+<a id='79612a9b'></a>
 ```cs
 Should.Throw<ArgumentNullException>(() => new Person("Homer"));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFunc.codeSample.approved.cs#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowFunc.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFunc.codeSample.approved.cs#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#79612a9b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -103,12 +103,12 @@ System.ArgumentNullException
 ## ShouldThrow Func Extension
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs -->
-<a id='snippet-ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs'></a>
+<a id='3dda9edc'></a>
 ```cs
 Func<Person> func = () => new Person("Homer");
 func.ShouldThrow<ArgumentNullException>();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncExtension.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#3dda9edc' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -126,7 +126,7 @@ System.ArgumentNullException
 ## ShouldThrowFuncOfTask
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs -->
-<a id='snippet-ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs'></a>
+<a id='c98370e9'></a>
 ```cs
 var homer = new Person {Name = "Homer", Salary = 30000};
 var denominator = 1;
@@ -140,7 +140,7 @@ Should.Throw<DivideByZeroException>(() =>
                     return task;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#c98370e9' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
