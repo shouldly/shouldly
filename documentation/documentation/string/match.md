@@ -14,7 +14,7 @@ target.ShouldMatch("Bart .*");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldMatch.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldMatch.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldMatch.exceptionText.approved.txt -->
 ```
 target
     should match
@@ -38,7 +38,7 @@ target.ShouldNotMatch("Homer .*");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotMatch.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotMatch.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotMatch.exceptionText.approved.txt -->
 ```
 target should not match "Homer .*" but did
 ```

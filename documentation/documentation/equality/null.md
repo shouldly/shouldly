@@ -16,7 +16,7 @@ myRef.ShouldBeNull();
 
 **Exception**
 
-<!-- include: ShouldBeNullNotNullExamples.ShouldBeNull.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.exceptionText.approved.txt -->
+<!-- include: ShouldBeNullNotNullExamples.ShouldBeNull.exceptionText.approved.txt -->
 ```
 myRef
     should be null but was
@@ -38,7 +38,7 @@ myRef.ShouldNotBeNull();
 
 **Exception**
 
-<!-- include: ShouldBeNullNotNullExamples.ShouldNotBeNull.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.exceptionText.approved.txt -->
+<!-- include: ShouldBeNullNotNullExamples.ShouldNotBeNull.exceptionText.approved.txt -->
 ```
 myRef
     should not be null but was

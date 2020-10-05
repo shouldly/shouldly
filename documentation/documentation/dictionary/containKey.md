@@ -13,7 +13,7 @@ websters.ShouldContainKey("Cromulent");
 
 **Exception**
 
-<!-- include: DictionaryShouldContainKeyExamples.ShouldContainKey.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyExamples.ShouldContainKey.exceptionText.approved.txt -->
+<!-- include: DictionaryShouldContainKeyExamples.ShouldContainKey.exceptionText.approved.txt -->
 ```
 websters
     should contain key
@@ -36,7 +36,7 @@ websters.ShouldNotContainKey("Chazzwazzers");
 
 **Exception**
 
-<!-- include: DictionaryShouldContainKeyExamples.ShouldNotContainKey.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyExamples.ShouldNotContainKey.exceptionText.approved.txt -->
+<!-- include: DictionaryShouldContainKeyExamples.ShouldNotContainKey.exceptionText.approved.txt -->
 ```
 websters
     should not contain key

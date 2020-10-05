@@ -14,7 +14,7 @@ target.ShouldContain("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldContain.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContain.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldContain.exceptionText.approved.txt -->
 ```
 target
     should contain (case insensitive comparison)
@@ -38,7 +38,7 @@ target.ShouldContainWithoutWhitespace(" Bart Simpson ");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldContainWithoutWhitespace.exceptionText.approved.txt -->
 ```
 target
     should contain without whitespace
@@ -62,7 +62,7 @@ target.ShouldNotContain("Home");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotContain.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotContain.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotContain.exceptionText.approved.txt -->
 ```
 target
     should not contain (case insensitive comparison)

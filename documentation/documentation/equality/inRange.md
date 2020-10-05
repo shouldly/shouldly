@@ -16,7 +16,7 @@ homer.Salary.ShouldBeInRange(30000, 40000);
 
 **Exception**
 
-<!-- include: ShouldBeInRangeExamples.ShouldBeInRange.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeInRangeExamples.ShouldBeInRange.exceptionText.approved.txt -->
+<!-- include: ShouldBeInRangeExamples.ShouldBeInRange.exceptionText.approved.txt -->
 ```
 homer.Salary
     should be in range
@@ -40,7 +40,7 @@ mrBurns.Salary.ShouldNotBeInRange(30000, 40000);
 
 **Exception**
 
-<!-- include: ShouldBeInRangeExamples.ShouldNotBeInRange.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeInRangeExamples.ShouldNotBeInRange.exceptionText.approved.txt -->
+<!-- include: ShouldBeInRangeExamples.ShouldNotBeInRange.exceptionText.approved.txt -->
 ```
 mrBurns.Salary
     should not be in range

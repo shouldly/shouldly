@@ -18,7 +18,7 @@ Should.NotThrow(() =>
 
 **Exception**
 
-<!-- include: ShouldNotThrowExamples.ShouldNotThrowAction.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowAction.exceptionText.approved.txt -->
+<!-- include: ShouldNotThrowExamples.ShouldNotThrowAction.exceptionText.approved.txt -->
 ```
 `var y = homer.Salary / denominator;`
     should not throw but threw
@@ -46,7 +46,7 @@ action.ShouldNotThrow();
 
 **Exception**
 
-<!-- include: ShouldNotThrowExamples.ShouldNotThrowActionExtension.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowActionExtension.exceptionText.approved.txt -->
+<!-- include: ShouldNotThrowExamples.ShouldNotThrowActionExtension.exceptionText.approved.txt -->
 ```
 `action()`
     should not throw but threw
@@ -69,7 +69,7 @@ Should.NotThrow(() => new Person(name!));
 
 **Exception**
 
-<!-- include: ShouldNotThrowExamples.ShouldNotThrowFunc.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFunc.exceptionText.approved.txt -->
+<!-- include: ShouldNotThrowExamples.ShouldNotThrowFunc.exceptionText.approved.txt -->
 ```
 `new Person(name!)`
     should not throw but threw
@@ -94,7 +94,7 @@ func.ShouldNotThrow();
 
 **Exception**
 
-<!-- include: ShouldNotThrowExamples.ShouldNotThrowFuncExtension.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncExtension.exceptionText.approved.txt -->
+<!-- include: ShouldNotThrowExamples.ShouldNotThrowFuncExtension.exceptionText.approved.txt -->
 ```
 `func()`
     should not throw but threw
@@ -126,7 +126,7 @@ Should.NotThrow(() =>
 
 **Exception**
 
-<!-- include: ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.exceptionText.approved.txt -->
+<!-- include: ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.exceptionText.approved.txt -->
 ```
 `var task = Task.Factory.StartNew( () => { var y = homer.Salary / denominator; }); return task;`
     should not throw but threw

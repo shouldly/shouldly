@@ -11,7 +11,7 @@ target.ShouldBe("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt -->
 ```
 target
     should be
@@ -43,7 +43,7 @@ target.ShouldBe("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBe.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBe.exceptionText.approved.txt -->
 ```
 target
     should be

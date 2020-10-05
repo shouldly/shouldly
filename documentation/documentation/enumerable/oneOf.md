@@ -18,7 +18,7 @@ apu.ShouldBeOneOf(theBeSharps.ToArray());
 
 **Exception**
 
-<!-- include: ShouldBeOneOfExamples.ShouldBeOneOf.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldBeOneOf.exceptionText.approved.txt -->
+<!-- include: ShouldBeOneOfExamples.ShouldBeOneOf.exceptionText.approved.txt -->
 ```
 apu
     should be one of
@@ -47,7 +47,7 @@ wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
 
 **Exception**
 
-<!-- include: ShouldBeOneOfExamples.ShouldNotBeOneOf.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldNotBeOneOf.exceptionText.approved.txt -->
+<!-- include: ShouldBeOneOfExamples.ShouldNotBeOneOf.exceptionText.approved.txt -->
 ```
 wiggum
     should not be one of

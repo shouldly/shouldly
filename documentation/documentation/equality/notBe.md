@@ -18,7 +18,7 @@ theSimpsonsCat.Name.ShouldNotBe("Santas little helper");
 
 **Exception**
 
-<!-- include: ShouldNotBeExamples.Objects.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.Objects.exceptionText.approved.txt -->
+<!-- include: ShouldNotBeExamples.Objects.exceptionText.approved.txt -->
 ```
 theSimpsonsCat.Name
     should not be
@@ -46,7 +46,7 @@ one.ShouldNotBe(1);
 
 **Exception**
 
-<!-- include: ShouldNotBeExamples.NumericInt.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.NumericInt.exceptionText.approved.txt -->
+<!-- include: ShouldNotBeExamples.NumericInt.exceptionText.approved.txt -->
 ```
 one
     should not be
@@ -69,7 +69,7 @@ aLong.ShouldNotBe(1);
 
 **Exception**
 
-<!-- include: ShouldNotBeExamples.NumericLong.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.NumericLong.exceptionText.approved.txt -->
+<!-- include: ShouldNotBeExamples.NumericLong.exceptionText.approved.txt -->
 ```
 aLong
     should not be
@@ -94,7 +94,7 @@ date.ShouldNotBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5));
 
 **Exception**
 
-<!-- include: ShouldNotBeExamples.DateTime.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.DateTime.exceptionText.approved.txt -->
+<!-- include: ShouldNotBeExamples.DateTime.exceptionText.approved.txt -->
 ```
 date
     should not be within
@@ -122,7 +122,7 @@ timeSpan.ShouldNotBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(
 
 **Exception**
 
-<!-- include: ShouldNotBeExamples.TimeSpanExample.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.TimeSpanExample.exceptionText.approved.txt -->
+<!-- include: ShouldNotBeExamples.TimeSpanExample.exceptionText.approved.txt -->
 ```
 timeSpan
     should not be within

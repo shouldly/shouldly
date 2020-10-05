@@ -14,7 +14,7 @@ websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
 
 **Exception**
 
-<!-- include: DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.exceptionText.approved.txt -->
+<!-- include: DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.exceptionText.approved.txt -->
 ```
 websters
     should contain key
@@ -40,7 +40,7 @@ websters.ShouldNotContainValueForKey("Chazzwazzers",  "What Australians would ha
 
 **Exception**
 
-<!-- include: DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.exceptionText.approved.txt -->
+<!-- include: DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.exceptionText.approved.txt -->
 ```
 websters
     should not contain key

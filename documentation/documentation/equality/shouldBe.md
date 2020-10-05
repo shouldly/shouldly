@@ -16,7 +16,7 @@ theSimpsonsCat.Name.ShouldBe("Snowball 2");
 
 **Exception**
 
-<!-- include: ShouldBeExamples.Objects.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.Objects.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.Objects.exceptionText.approved.txt -->
 ```
 theSimpsonsCat.Name
     should be
@@ -50,7 +50,7 @@ pi.ShouldBe(3.24m, 0.01m);
 
 **Exception**
 
-<!-- include: ShouldBeExamples.Numeric.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.Numeric.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.Numeric.exceptionText.approved.txt -->
 ```
 pi
     should be within
@@ -78,7 +78,7 @@ date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
 
 **Exception**
 
-<!-- include: ShouldBeExamples.DateTime.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.DateTime.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.DateTime.exceptionText.approved.txt -->
 ```
 date
     should be within
@@ -106,7 +106,7 @@ timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1))
 
 **Exception**
 
-<!-- include: ShouldBeExamples.TimeSpanExample.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.TimeSpanExample.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.TimeSpanExample.exceptionText.approved.txt -->
 ```
 timeSpan
     should be within
@@ -138,7 +138,7 @@ theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
 
 **Exception**
 
-<!-- include: ShouldBeExamples.Enumerables.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.Enumerables.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.Enumerables.exceptionText.approved.txt -->
 ```
 theBeSharps
     should be
@@ -167,7 +167,7 @@ firstSet.ShouldBe(secondSet, 0.1m);
 
 **Exception**
 
-<!-- include: ShouldBeExamples.EnumerablesOfNumerics.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfNumerics.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.EnumerablesOfNumerics.exceptionText.approved.txt -->
 ```
 firstSet
     should be within
@@ -195,7 +195,7 @@ myValue.ShouldBe(true, "Some additional context");
 
 **Exception**
 
-<!-- include: ShouldBeExamples.BooleanExample.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeExamples.BooleanExample.exceptionText.approved.txt -->
+<!-- include: ShouldBeExamples.BooleanExample.exceptionText.approved.txt -->
 ```
 myValue
     should be

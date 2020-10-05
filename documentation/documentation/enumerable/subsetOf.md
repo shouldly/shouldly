@@ -18,7 +18,7 @@ simpsonsKids.ShouldBeSubsetOf(simpsonsFamily);
 
 **Exception**
 
-<!-- include: EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldBeSubsetOfExamples.ShouldBeSubsetOf.exceptionText.approved.txt -->
 ```
 simpsonsKids
     should be subset of

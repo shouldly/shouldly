@@ -15,7 +15,7 @@ theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
 
 **Exception**
 
-<!-- include: EnumerableShouldBeExamples.ShouldBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldBeExamples.ShouldBe.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldBeExamples.ShouldBe.exceptionText.approved.txt -->
 ```
 theBeSharps
     should be

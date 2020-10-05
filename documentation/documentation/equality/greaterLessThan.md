@@ -16,7 +16,7 @@ mrBurns.Salary.ShouldBeGreaterThan(300000000);
 
 **Exception**
 
-<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.exceptionText.approved.txt -->
+<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.exceptionText.approved.txt -->
 ```
 mrBurns.Salary
     should be greater than
@@ -40,7 +40,7 @@ mrBurns.Salary.ShouldBeGreaterThanOrEqualTo(300000000);
 
 **Exception**
 
-<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.exceptionText.approved.txt -->
+<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.exceptionText.approved.txt -->
 ```
 mrBurns.Salary
     should be greater than or equal to
@@ -64,7 +64,7 @@ homer.Salary.ShouldBeLessThan(30000);
 
 **Exception**
 
-<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeLessThan.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThan.exceptionText.approved.txt -->
+<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeLessThan.exceptionText.approved.txt -->
 ```
 homer.Salary
     should be less than
@@ -88,7 +88,7 @@ homer.Salary.ShouldBeLessThanOrEqualTo(30000);
 
 **Exception**
 
-<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.exceptionText.approved.txt -->
+<!-- include: ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.exceptionText.approved.txt -->
 ```
 homer.Salary
     should be less than or equal to

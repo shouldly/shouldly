@@ -11,7 +11,7 @@ theSimpsonsDog.ShouldBeAssignableTo<Pet>();
 
 **Exception**
 
-<!-- include: ShouldBeAssignableToExamples.ShouldBeAssignableTo.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeAssignableToExamples.ShouldBeAssignableTo.exceptionText.approved.txt -->
+<!-- include: ShouldBeAssignableToExamples.ShouldBeAssignableTo.exceptionText.approved.txt -->
 ```
 theSimpsonsDog
     should be assignable to

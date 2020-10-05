@@ -14,7 +14,7 @@ Should.CompleteIn(
 
 **Exception**
 
-<!-- include: ShouldCompleteInExamples.ShouldCompleteIn.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldCompleteInExamples.ShouldCompleteIn.exceptionText.approved.txt -->
+<!-- include: ShouldCompleteInExamples.ShouldCompleteIn.exceptionText.approved.txt -->
 ```
 
 Delegate

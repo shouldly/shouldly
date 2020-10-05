@@ -19,7 +19,7 @@ actual.ShouldHaveFlag(value);
 
 **Exception**
 
-<!-- include: ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.exceptionText.approved.txt -->
+<!-- include: ShouldHaveFlagNotHaveFlagExamples.ShouldHaveFlag.exceptionText.approved.txt -->
 ```
 actual
     should have flag
@@ -44,7 +44,7 @@ actual.ShouldNotHaveFlag(value);
 
 **Exception**
 
-<!-- include: ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.exceptionText.approved.txt -->
+<!-- include: ShouldHaveFlagNotHaveFlagExamples.ShouldNotHaveFlag.exceptionText.approved.txt -->
 ```
 actual
     should not have flag

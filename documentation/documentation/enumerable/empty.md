@@ -15,7 +15,7 @@ powerPlantOnTheWeekend.ShouldBeEmpty();
 
 **Exception**
 
-<!-- include: EnumerableShouldBeEmptyExamples.ShouldBeEmpty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldBeEmpty.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldBeEmptyExamples.ShouldBeEmpty.exceptionText.approved.txt -->
 ```
 powerPlantOnTheWeekend
     should be empty but had
@@ -39,7 +39,7 @@ moesTavernOnTheWeekend.ShouldNotBeEmpty();
 
 **Exception**
 
-<!-- include: EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.exceptionText.approved.txt -->
 ```
 moesTavernOnTheWeekend
     should not be empty but was

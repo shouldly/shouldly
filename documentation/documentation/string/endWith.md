@@ -14,7 +14,7 @@ target.ShouldEndWith("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldEndWith.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldEndWith.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldEndWith.exceptionText.approved.txt -->
 ```
 target
     should end with
@@ -38,7 +38,7 @@ target.ShouldNotEndWith("Simpson");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotEndWith.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotEndWith.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotEndWith.exceptionText.approved.txt -->
 ```
 target
     should not end with

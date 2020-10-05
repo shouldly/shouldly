@@ -17,7 +17,7 @@ millionaires.ShouldContain(mrBurns);
 
 **Exception**
 
-<!-- include: EnumerableShouldContainExamples.ShouldContain.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldContainExamples.ShouldContain.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldContainExamples.ShouldContain.exceptionText.approved.txt -->
 ```
 millionaires
     should contain
@@ -44,7 +44,7 @@ millionaires.ShouldContain(m => m.Salary > 1000000);
 
 **Exception**
 
-<!-- include: EnumerableShouldContainExamples.ShouldContain_Predicate.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldContainExamples.ShouldContain_Predicate.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldContainExamples.ShouldContain_Predicate.exceptionText.approved.txt -->
 ```
 millionaires
     should contain an element satisfying the condition
@@ -71,7 +71,7 @@ clubOfNoHomers.ShouldNotContain(homerSimpson);
 
 **Exception**
 
-<!-- include: EnumerableShouldNotContainExamples.ShouldNotContain.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldNotContainExamples.ShouldNotContain.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldNotContainExamples.ShouldNotContain.exceptionText.approved.txt -->
 ```
 clubOfNoHomers
     should not contain
@@ -98,7 +98,7 @@ millionaires.ShouldNotContain(m => m.Salary < 1000000);
 
 **Exception**
 
-<!-- include: EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldNotContainExamples.ShouldNotContain_Predicate.exceptionText.approved.txt -->
 ```
 millionaires
     should not contain an element satisfying the condition

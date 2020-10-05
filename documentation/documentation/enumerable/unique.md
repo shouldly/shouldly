@@ -14,7 +14,7 @@ simpsonsKids.ShouldBeUnique();
 
 **Exception**
 
-<!-- include: EnumerableShouldBeUniqueExamples.ShouldBeUnique.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldBeUniqueExamples.ShouldBeUnique.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldBeUniqueExamples.ShouldBeUnique.exceptionText.approved.txt -->
 ```
 simpsonsKids
     should be unique but

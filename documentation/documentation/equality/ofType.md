@@ -16,7 +16,7 @@ theSimpsonsDog.ShouldBeOfType<Dog>();
 
 **Exception**
 
-<!-- include: ShouldBeOfTypeExamples.ShouldBeOfType.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeOfTypeExamples.ShouldBeOfType.exceptionText.approved.txt -->
+<!-- include: ShouldBeOfTypeExamples.ShouldBeOfType.exceptionText.approved.txt -->
 ```
 theSimpsonsDog
     should be of type
@@ -40,7 +40,7 @@ theSimpsonsDog.ShouldNotBeOfType<Cat>();
 
 **Exception**
 
-<!-- include: ShouldBeOfTypeExamples.ShouldNotBeOfType.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeOfTypeExamples.ShouldNotBeOfType.exceptionText.approved.txt -->
+<!-- include: ShouldBeOfTypeExamples.ShouldNotBeOfType.exceptionText.approved.txt -->
 ```
 theSimpsonsDog
     should not be of type

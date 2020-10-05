@@ -18,7 +18,7 @@ Should.Throw<DivideByZeroException>(() =>
 
 **Exception**
 
-<!-- include: ShouldThrowExamples.ShouldThrowAction.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowAction.exceptionText.approved.txt -->
+<!-- include: ShouldThrowExamples.ShouldThrowAction.exceptionText.approved.txt -->
 ```
 `var y = homer.Salary / denominator;`
     should throw
@@ -44,7 +44,7 @@ var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething
 
 **Exception**
 
-Task `doSomething()` <!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt. path: /src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
+Task `doSomething()` <!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
     should throw
 System.DivideByZeroException
     but did not <!-- endInclude -->
@@ -68,7 +68,7 @@ action.ShouldThrow<DivideByZeroException>();
 
 **Exception**
 
-<!-- include: ShouldThrowExamples.ShouldThrowActionExtension.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowActionExtension.exceptionText.approved.txt -->
+<!-- include: ShouldThrowExamples.ShouldThrowActionExtension.exceptionText.approved.txt -->
 ```
 `action()`
     should throw
@@ -90,7 +90,7 @@ Should.Throw<ArgumentNullException>(() => new Person("Homer"));
 
 **Exception**
 
-<!-- include: ShouldThrowExamples.ShouldThrowFunc.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFunc.exceptionText.approved.txt -->
+<!-- include: ShouldThrowExamples.ShouldThrowFunc.exceptionText.approved.txt -->
 ```
 `new Person("Homer")`
     should throw
@@ -113,7 +113,7 @@ func.ShouldThrow<ArgumentNullException>();
 
 **Exception**
 
-<!-- include: ShouldThrowExamples.ShouldThrowFuncExtension.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncExtension.exceptionText.approved.txt -->
+<!-- include: ShouldThrowExamples.ShouldThrowFuncExtension.exceptionText.approved.txt -->
 ```
 `func()`
     should throw
@@ -145,7 +145,7 @@ Should.Throw<DivideByZeroException>(() =>
 
 **Exception**
 
-<!-- include: ShouldThrowExamples.ShouldThrowFuncOfTask.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowFuncOfTask.exceptionText.approved.txt -->
+<!-- include: ShouldThrowExamples.ShouldThrowFuncOfTask.exceptionText.approved.txt -->
 ```
 Task `var task = Task.Factory.StartNew( () => { var y = homer.Salary / denominator; }); return task;`
     should throw

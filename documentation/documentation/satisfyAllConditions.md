@@ -16,7 +16,7 @@ mrBurns.ShouldSatisfyAllConditions
 
 **Exception**
 
-<!-- include: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.exceptionText.approved.txt -->
+<!-- include: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.exceptionText.approved.txt -->
 ```
 mrBurns
     should satisfy all the conditions specified, but does not.
@@ -55,7 +55,7 @@ mrBurns.ShouldSatisfyAllConditions
 
 **Exception**
 
-<!-- include: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.exceptionText.approved.txt -->
+<!-- include: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.exceptionText.approved.txt -->
 ```
 mrBurns
     should satisfy all the conditions specified, but does not.

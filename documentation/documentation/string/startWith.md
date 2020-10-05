@@ -14,7 +14,7 @@ target.ShouldStartWith("Bart");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldStartWith.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldStartWith.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldStartWith.exceptionText.approved.txt -->
 ```
 target
     should start with
@@ -38,7 +38,7 @@ target.ShouldNotStartWith("Homer");
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotStartWith.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotStartWith.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotStartWith.exceptionText.approved.txt -->
 ```
 target
     should not start with

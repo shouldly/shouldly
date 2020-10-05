@@ -14,7 +14,7 @@ target.ShouldBeNull();
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBeNull.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNull.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBeNull.exceptionText.approved.txt -->
 ```
 target
     should be null but was
@@ -36,7 +36,7 @@ target.ShouldBeNullOrEmpty();
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBeNullOrEmpty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNullOrEmpty.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBeNullOrEmpty.exceptionText.approved.txt -->
 ```
 target ("Homer")
     should be null or empty
@@ -57,7 +57,7 @@ target.ShouldBeEmpty();
 
 **Exception**
 
-<!-- include: StringExamples.ShouldBeEmpty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeEmpty.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldBeEmpty.exceptionText.approved.txt -->
 ```
 target
     should be empty but was
@@ -79,7 +79,7 @@ target.ShouldNotBeNull();
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotBeNull.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNull.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotBeNull.exceptionText.approved.txt -->
 ```
 target
     should not be null but was
@@ -100,7 +100,7 @@ target.ShouldNotBeNullOrEmpty();
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotBeNullOrEmpty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotBeNullOrEmpty.exceptionText.approved.txt -->
 ```
 target ("")
     should not be null or empty
@@ -121,7 +121,7 @@ target.ShouldNotBeNullOrEmpty();
 
 **Exception**
 
-<!-- include: StringExamples.ShouldNotBeEmpty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeEmpty.exceptionText.approved.txt -->
+<!-- include: StringExamples.ShouldNotBeEmpty.exceptionText.approved.txt -->
 ```
 target
     should not be empty but was

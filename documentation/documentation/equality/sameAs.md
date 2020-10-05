@@ -15,7 +15,7 @@ principleSkinner.ShouldBeSameAs(seymourSkinner);
 
 **Exception**
 
-<!-- include: ShouldBeSameAsExamples.ShouldBeSameAs.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeSameAsExamples.ShouldBeSameAs.exceptionText.approved.txt -->
+<!-- include: ShouldBeSameAsExamples.ShouldBeSameAs.exceptionText.approved.txt -->
 ```
 principleSkinner
     should be same as
@@ -39,7 +39,7 @@ person.ShouldNotBeSameAs(person);
 
 **Exception**
 
-<!-- include: ShouldBeSameAsExamples.ShouldNotBeSameAs.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeSameAsExamples.ShouldNotBeSameAs.exceptionText.approved.txt -->
+<!-- include: ShouldBeSameAsExamples.ShouldNotBeSameAs.exceptionText.approved.txt -->
 ```
 person
     should not be same as

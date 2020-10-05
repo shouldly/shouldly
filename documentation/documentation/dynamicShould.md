@@ -15,7 +15,7 @@ DynamicShould.HaveProperty(theFuture, "RobotTeachers");
 
 **Exception**
 
-<!-- include: DynamicShouldExamples.HaveProperty.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/DynamicShouldExamples.HaveProperty.exceptionText.approved.txt -->
+<!-- include: DynamicShouldExamples.HaveProperty.exceptionText.approved.txt -->
 ```
 Dynamic object "theFuture" should contain property "RobotTeachers" but does not.
 ```

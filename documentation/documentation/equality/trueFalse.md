@@ -16,7 +16,7 @@ myValue.ShouldBeTrue();
 
 **Exception**
 
-<!-- include: ShouldBeTrueFalseExamples.ShouldBeTrue.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeTrue.exceptionText.approved.txt -->
+<!-- include: ShouldBeTrueFalseExamples.ShouldBeTrue.exceptionText.approved.txt -->
 ```
 myValue
     should be
@@ -40,7 +40,7 @@ myValue.ShouldBeFalse();
 
 **Exception**
 
-<!-- include: ShouldBeTrueFalseExamples.ShouldBeFalse.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/ShouldBeTrueFalseExamples.ShouldBeFalse.exceptionText.approved.txt -->
+<!-- include: ShouldBeTrueFalseExamples.ShouldBeFalse.exceptionText.approved.txt -->
 ```
 myValue
     should be

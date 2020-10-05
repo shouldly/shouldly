@@ -14,7 +14,7 @@ millionaires.ShouldAllBe(m => m.Salary > 1000000);
 
 **Exception**
 
-<!-- include: EnumerableShouldAllBeExamples.ShouldAllBe.exceptionText.approved.txt. path: /src/DocumentationExamples/CodeExamples/EnumerableShouldAllBeExamples.ShouldAllBe.exceptionText.approved.txt -->
+<!-- include: EnumerableShouldAllBeExamples.ShouldAllBe.exceptionText.approved.txt -->
 ```
 millionaires
     should satisfy the condition
