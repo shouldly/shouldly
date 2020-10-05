@@ -17,6 +17,9 @@ namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
+        static Regex scrubberRegex = new Regex(@"\w:.+?shouldly\\src",RegexOptions.Compiled);
+        static Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
+
         static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup =
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
 
@@ -60,7 +63,6 @@ namespace DocumentationExamples
             testOutputHelper.WriteLine("");
             testOutputHelper.WriteLine(exceptionText);
 
-            Func<string, string> scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
             try
             {
                 body.ShouldMatchApproved(configurationBuilder =>
