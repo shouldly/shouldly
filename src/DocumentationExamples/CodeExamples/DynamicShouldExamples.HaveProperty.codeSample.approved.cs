@@ -1,2 +1,2 @@
 dynamic theFuture = new ExpandoObject();
-DynamicShould.HaveProperty(theFuture,"RobotTeachers");
+DynamicShould.HaveProperty(theFuture, "RobotTeachers");
