@@ -1,0 +1,7 @@
+```
+`action()`
+    should not throw but threw
+System.DivideByZeroException
+    with message
+"Attempted to divide by zero."
+```

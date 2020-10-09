@@ -1,5 +1,7 @@
+```
 homer.Salary
     should be in range
 { from = 30000, to = 40000 }
     but was
 300000000
+```

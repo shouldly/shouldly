@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBePositive
         [Fact]
         public void FloatScenarioShouldFail()
         {
-            var @float = (-3f);
+            var @float = -3f;
             Verify.ShouldFail(() =>
 @float.ShouldBePositive("Some additional context"),
 

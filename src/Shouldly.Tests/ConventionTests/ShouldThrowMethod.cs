@@ -16,9 +16,9 @@ namespace Shouldly.Tests.ConventionTests
             Parameters = throwMethod.GetParameters();
         }
 
-        public bool IsShouldlyExtension { get; private set; }
-        public string Name { get; private set; }
-        public ParameterInfo[] Parameters { get; private set; }
+        public bool IsShouldlyExtension { get; }
+        public string Name { get; }
+        public ParameterInfo[] Parameters { get; }
 
         protected bool Equals(ShouldThrowMethod other)
         {
@@ -30,7 +30,7 @@ namespace Shouldly.Tests.ConventionTests
             return pt1.FormatType() == pt2.FormatType();
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

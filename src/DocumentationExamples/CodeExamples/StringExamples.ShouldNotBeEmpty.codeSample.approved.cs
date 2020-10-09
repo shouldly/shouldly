@@ -1,0 +1,2 @@
+var target = "";
+target.ShouldNotBeEmpty();

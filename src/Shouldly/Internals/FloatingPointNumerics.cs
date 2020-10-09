@@ -62,16 +62,16 @@ namespace NUnit.Framework.Constraints
             leftUnion.Float = left;
             rightUnion.Float = right;
 
-            uint leftSignMask = (leftUnion.UInt >> 31);
-            uint rightSignMask = (rightUnion.UInt >> 31);
+            var leftSignMask = leftUnion.UInt >> 31;
+            var rightSignMask = rightUnion.UInt >> 31;
 
-            uint leftTemp = ((0x80000000 - leftUnion.UInt) & leftSignMask);
+            var leftTemp = (0x80000000 - leftUnion.UInt) & leftSignMask;
             leftUnion.UInt = leftTemp | (leftUnion.UInt & ~leftSignMask);
 
-            uint rightTemp = ((0x80000000 - rightUnion.UInt) & rightSignMask);
+            var rightTemp = (0x80000000 - rightUnion.UInt) & rightSignMask;
             rightUnion.UInt = rightTemp | (rightUnion.UInt & ~rightSignMask);
 
-            return (Math.Abs(leftUnion.Int - rightUnion.Int) <= maxUlps);
+            return Math.Abs(leftUnion.Int - rightUnion.Int) <= maxUlps;
         }
 
         /// <summary>Compares two double precision floating point values for equality</summary>
@@ -107,16 +107,16 @@ namespace NUnit.Framework.Constraints
             leftUnion.Double = left;
             rightUnion.Double = right;
 
-            ulong leftSignMask = (leftUnion.ULong >> 63);
-            ulong rightSignMask = (rightUnion.ULong >> 63);
+            var leftSignMask = leftUnion.ULong >> 63;
+            var rightSignMask = rightUnion.ULong >> 63;
 
-            ulong leftTemp = ((0x8000000000000000 - leftUnion.ULong) & leftSignMask);
+            var leftTemp = (0x8000000000000000 - leftUnion.ULong) & leftSignMask;
             leftUnion.ULong = leftTemp | (leftUnion.ULong & ~leftSignMask);
 
-            ulong rightTemp = ((0x8000000000000000 - rightUnion.ULong) & rightSignMask);
+            var rightTemp = (0x8000000000000000 - rightUnion.ULong) & rightSignMask;
             rightUnion.ULong = rightTemp | (rightUnion.ULong & ~rightSignMask);
 
-            return (Math.Abs(leftUnion.Long - rightUnion.Long) <= maxUlps);
+            return Math.Abs(leftUnion.Long - rightUnion.Long) <= maxUlps;
         }
 
         /// <summary>

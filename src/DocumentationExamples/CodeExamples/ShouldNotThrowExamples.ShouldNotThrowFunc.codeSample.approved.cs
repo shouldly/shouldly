@@ -1,0 +1,2 @@
+string? name = null;
+Should.NotThrow(() => new Person(name!));

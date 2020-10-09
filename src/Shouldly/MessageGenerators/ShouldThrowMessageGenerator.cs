@@ -24,26 +24,26 @@ namespace Shouldly.MessageGenerators
                     codePart = "Task " + codePart;
             }
 
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
 
             string errorMessage;
             if (context.HasRelevantActual)
             {
                 errorMessage = string.Format($@"{codePart.Replace("{", "{{").Replace("}", "}}")}
     should throw
-{expectedValue}
+{expected}
     but threw
-{context.Actual}", codePart, expectedValue, context.Actual, maybeInvokeMethod);
+{context.Actual}", codePart, expected, context.Actual, maybeInvokeMethod);
             }
             else
             {
                 errorMessage = $@"{codePart}
     should throw
-{expectedValue}
+{expected}
     but did not";
             }
 
-            errorMessage += (throwContext.ExceptionMessage != null) ?
+            errorMessage += throwContext.ExceptionMessage != null ?
                 $@" with message
 ""{throwContext.ExceptionMessage}"""
                 : string.Empty;

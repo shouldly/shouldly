@@ -1,0 +1,59 @@
+# BeOneOf
+
+
+## ShouldBeOneOf
+
+<!-- snippet: ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs -->
+<a id='cd4e159a'></a>
+```cs
+var apu = new Person { Name = "Apu" };
+var homer = new Person { Name = "Homer" };
+var skinner = new Person { Name = "Skinner" };
+var barney = new Person { Name = "Barney" };
+var theBeSharps = new List<Person> { homer, skinner, barney };
+apu.ShouldBeOneOf(theBeSharps.ToArray());
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldBeOneOf.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#cd4e159a' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeOneOfExamples.ShouldBeOneOf.exceptionText.approved.txt -->
+```
+apu
+    should be one of
+[Homer, Skinner, Barney]
+    but was
+Apu
+```
+<!-- endInclude -->
+
+
+## ShouldNotBeOneOf
+
+<!-- snippet: ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs -->
+<a id='595f1455'></a>
+```cs
+var apu = new Person { Name = "Apu" };
+var homer = new Person { Name = "Homer" };
+var skinner = new Person { Name = "Skinner" };
+var barney = new Person { Name = "Barney" };
+var wiggum = new Person { Name = "Wiggum" };
+var theBeSharps = new List<Person> { apu, homer, skinner, barney, wiggum };
+wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeOneOfExamples.ShouldNotBeOneOf.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#595f1455' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeOneOfExamples.ShouldNotBeOneOf.exceptionText.approved.txt -->
+```
+wiggum
+    should not be one of
+[Apu, Homer, Skinner, Barney, Wiggum]
+    but was
+Wiggum
+```
+<!-- endInclude -->
+

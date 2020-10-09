@@ -1,5 +1,5 @@
 ﻿using Shouldly;
-using Xunit;
+using Shouldly.Tests.ConventionTests;
 using Xunit.Abstractions;
 
 namespace DocumentationExamples
@@ -13,7 +13,7 @@ namespace DocumentationExamples
             _testOutputHelper = testOutputHelper;
         }
 
-        [Fact]
+        [IgnoreOnAppVeyorLinuxFact]
         public void ApprovedFileDoesNotExist()
         {
             DocExampleWriter.Document(() =>
@@ -28,7 +28,7 @@ namespace DocumentationExamples
             });
         }
 
-        [Fact]
+        [IgnoreOnAppVeyorLinuxFact]
         public void ApprovedFileIsDifferent()
         {
             DocExampleWriter.Document(() =>

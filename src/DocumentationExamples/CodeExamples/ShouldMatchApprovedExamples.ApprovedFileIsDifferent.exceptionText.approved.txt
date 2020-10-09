@@ -1,3 +1,4 @@
+```
 To approve the changes run this command:
 copy /Y "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
 ----------------------------
@@ -23,3 +24,4 @@ Expected Value | ...  e    n    d    o    \s   C    h    a    l    m    e    r  
 Actual Value   | ...  s    h    ?    \s   T    h    a    t    '    s    \s   u    n    p    o    s    s    i    b    l    e    
 Expected Code  | ...  101  110  100  111  32   67   104  97   108  109  101  114  115                                          
 Actual Code    | ...  115  104  63   32   84   104  97   116  39   115  32   117  110  112  111  115  115  105  98   108  101  
+```

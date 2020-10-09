@@ -14,15 +14,14 @@ namespace Shouldly
             switch (source.Status)
             {
                 case TaskStatus.Faulted:
-                    proxy.TrySetException(source.Exception);
+                    proxy.TrySetException(source.Exception!);
                     break;
                 case TaskStatus.Canceled:
                     proxy.TrySetCanceled();
                     break;
                 case TaskStatus.RanToCompletion:
-                    var castedSource = source as Task<TResult>;
-                    proxy.TrySetResult(castedSource == null
-                        ? default // source is a Task
+                    proxy.TrySetResult(!(source is Task<TResult> castedSource)
+                        ? default! // source is a Task
                         : castedSource.Result); // source is a Task<TResult>
                     break;
             }

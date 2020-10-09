@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -15,13 +14,13 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToString();
+            var expected = context.Expected?.ToString();
 
             return
 $@"{codePart}
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
-{expectedValue}";
+{expected}";
         }
     }
 }

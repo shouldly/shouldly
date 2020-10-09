@@ -1,0 +1,6 @@
+```
+`action()`
+    should throw
+System.DivideByZeroException
+    but did not
+```

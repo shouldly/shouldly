@@ -17,7 +17,7 @@ namespace Shouldly.Tests.ShouldNotThrow
                     {
                         throw new Exception("Dummy message.");
                     }
-                }, () => "Additional info");
+                }, "Additional info");
             },
 
 errorWithSource:
@@ -41,4 +41,4 @@ Additional Info:
     Additional info");
         }
     }
-} 
+}

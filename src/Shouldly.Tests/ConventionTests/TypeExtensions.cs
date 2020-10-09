@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -22,16 +21,16 @@ namespace Shouldly.Tests.ConventionTests
         {
             var parameters = shouldlyMethod.GetParameters();
             var maybeFilteredParameters = removeCustomMessage ? parameters.Where(p => p.Name != "customMessage") : parameters;
-            var argList = string.Join(", ", maybeFilteredParameters.Select(p => string.Format("{0} {1}", p.ParameterType.FormatType(), p.Name)));
+            var argList = string.Join(", ", maybeFilteredParameters.Select(p => $"{p.ParameterType.FormatType()} {p.Name}"));
             var extensionMethodText = shouldlyMethod.IsDefined(typeof(ExtensionAttribute), true)
                 ? "this "
                 : string.Empty;
             if (shouldlyMethod.IsGenericMethod)
             {
                 var genericArgs = string.Join(", ", shouldlyMethod.GetGenericArguments().Select(a => a.FormatType()));
-                return string.Format("{0}<{1}>({2}{3})", shouldlyMethod.Name, genericArgs, extensionMethodText, argList);
+                return $"{shouldlyMethod.Name}<{genericArgs}>({extensionMethodText}{argList})";
             }
-            return string.Format("{0}({1}{2})", shouldlyMethod.Name, extensionMethodText, argList);
+            return $"{shouldlyMethod.Name}({extensionMethodText}{argList})";
         }
 
         public static string FormatType(this Type type)
@@ -39,10 +38,7 @@ namespace Shouldly.Tests.ConventionTests
             if (type.IsGenericType)
             {
                 var genericTypeParams = type.GetGenericArguments();
-                return string.Format(
-                    "{0}<{1}>",
-                    type.Name.Trim('<', '>'),
-                    string.Join("", genericTypeParams.Select(FormatType)));
+                return $"{type.Name.Trim('<', '>')}<{string.Join("", genericTypeParams.Select(FormatType))}>";
             }
 
             return type.ToString()

@@ -52,7 +52,7 @@ Additional Info:
         {
             var collection = new[] { "a", "b", "c", "c" };
             Verify.ShouldFail(() =>
-            collection.ShouldContain(x => x == "c", 5, () => "custom message"),
+            collection.ShouldContain(x => x == "c", 5, "custom message"),
 errorWithSource:
 @"collection
     should contain 5 element(s) satisfying the condition
@@ -75,7 +75,7 @@ Additional Info:
         public void CollectionWithTheSpecifiedCountOfMatchingPredicatesSucceeds()
         {
             new[] { "a", "b", "c", "c" }.ShouldContain(x => x == "c", 2);   // collection has exactly two items that are "c"
-            new[] { 1, 2, 3, 4 }.ShouldContain(i => (i % 2) == 0, 2);   // collection has exactly two items that are even
+            new[] { 1, 2, 3, 4 }.ShouldContain(i => i % 2 == 0, 2);   // collection has exactly two items that are even
         }
     }
 }

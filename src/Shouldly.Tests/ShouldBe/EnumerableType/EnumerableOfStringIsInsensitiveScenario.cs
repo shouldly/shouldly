@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         public void EnumerableOfStringIsInsensitiveScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-new[] { "foo" }.ShouldBe(new[] { "different" }, Case.Insensitive, () => "Some additional context"),
+new[] { "foo" }.ShouldBe(new[] { "different" }, Case.Insensitive, "Some additional context"),
 
 errorWithSource:
 @"new[] { ""foo"" }

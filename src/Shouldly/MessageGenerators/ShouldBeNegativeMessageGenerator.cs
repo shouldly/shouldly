@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -20,10 +19,10 @@ namespace Shouldly.MessageGenerators
 {actual}
     " : " ";
 
-
-            return 
+            var should = context.ShouldMethod.PascalToSpaced();
+            return
 $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} but{actualValue}is positive";
+    {should} but{actualValue}is positive";
         }
     }
 }

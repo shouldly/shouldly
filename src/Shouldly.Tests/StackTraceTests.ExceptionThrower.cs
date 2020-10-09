@@ -23,7 +23,7 @@ namespace Shouldly.Tests
                     ExceptionType.Name + " thrown directly";
             }
 
-            public Exception Catch()
+            public Exception? Catch()
             {
                 // Don’t rely on a framework for this in case of the outside chance that the framework manipulates the stack trace.
                 try

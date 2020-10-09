@@ -4,12 +4,12 @@ using Xunit;
 
 namespace Shouldly.Tests.ShouldBeInRange
 {
-    public class DecimalScenaro
+    public class DecimalScenario
     {
 
     [Fact]
     [UseCulture("en-US")]
-    public void DecimalScenaroShouldFail()
+    public void DecimalScenarioShouldFail()
     {
         var val = 1.5m;
         Verify.ShouldFail(() =>

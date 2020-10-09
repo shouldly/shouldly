@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Shouldly.Configuration;
+using DiffEngine;
 using Shouldly.Tests.Strings;
 using Xunit;
 
@@ -102,34 +100,11 @@ Actual Code    | 70   111  111  ",
                 _scrubber);
         }
 
-
-        [Fact]
-        public void NoDiffToolsFound()
-        {
-            var diffTools = ShouldlyConfiguration.DiffTools.GetType()
-                .GetField("_diffTools", BindingFlags.Instance | BindingFlags.NonPublic);
-            var diffToolsCollection = (List<DiffTool>)diffTools.GetValue(ShouldlyConfiguration.DiffTools);
-            var currentDiffTools = new List<DiffTool>(diffToolsCollection);
-
-            try
-            {
-                diffToolsCollection.Clear();
-                var ex = Should.Throw<ShouldAssertException>(() => ShouldlyConfiguration.DiffTools.GetDiffTool());
-                ex.Message.ShouldBe(@"Cannot find a difftool to use, please open an issue or a PR to add support for your difftool.
-
-In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add your own");
-            }
-            finally
-            {
-                diffToolsCollection.AddRange(currentDiffTools);
-            }
-        }
-
         [Fact]
         public void IgnoresLineEndingsByDefault()
         {
             var stacktrace = new StackTrace(true);
-            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0).GetFileName());
+            var sourceFileDir = Path.GetDirectoryName(stacktrace.GetFrame(0)!.GetFileName())!;
             var approved = Path.Combine(sourceFileDir, "ShouldMatchApprovedScenarios.IgnoresLineEndingsByDefault.approved.txt");
             File.WriteAllText(approved, "Different\nStyle\nLine\nBreaks");
 
@@ -148,7 +123,7 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
         {
             Should.Throw<ShouldMatchApprovedException>(() => "".ShouldMatchApproved(c => c.NoDiff()));
 
-            ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(false);
+            ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(DiffRunner.Disabled);
         }
 
         [Fact]
@@ -164,6 +139,14 @@ In the meantime use 'ShouldlyConfiguration.DiffTools.RegisterDiffTool()' to add 
 
         private static void AnotherInCallStack()
         {
+            "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
+        }
+
+        [Fact]
+        public async Task CanFindTestAttributeInAsync()
+        {
+            await Task.Delay(200);
+
             "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
         }
 

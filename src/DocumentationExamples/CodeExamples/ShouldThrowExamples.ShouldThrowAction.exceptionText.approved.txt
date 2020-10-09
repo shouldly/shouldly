@@ -1,4 +1,6 @@
+```
 `var y = homer.Salary / denominator;`
     should throw
 System.DivideByZeroException
     but did not
+```

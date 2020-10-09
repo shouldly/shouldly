@@ -1,5 +1,7 @@
-`var task = Task.Factory.StartNew(() => { var y = homer.Salary / denominator; }); return task;`
+```
+`var task = Task.Factory.StartNew( () => { var y = homer.Salary / denominator; }); return task;`
     should not throw but threw
 System.DivideByZeroException
     with message
 "Attempted to divide by zero."
+```

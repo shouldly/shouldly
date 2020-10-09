@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shouldly.MessageGenerators
+﻿namespace Shouldly.MessageGenerators
 {
     internal class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
     {
@@ -14,7 +10,7 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
 
             var actual = context.Actual.ToStringAwesomely();
             var actualString = codePart == actual ? " had" : $@" it had
@@ -22,7 +18,7 @@ namespace Shouldly.MessageGenerators
 
             return $@"{codePart}
     should not have flag
-{expectedValue}
+{expected}
     but{actualString}";
         }
     }

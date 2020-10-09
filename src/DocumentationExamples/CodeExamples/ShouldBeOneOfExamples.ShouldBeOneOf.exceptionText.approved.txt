@@ -1,5 +1,7 @@
+```
 apu
     should be one of
 [Homer, Skinner, Barney]
     but was
 Apu
+```

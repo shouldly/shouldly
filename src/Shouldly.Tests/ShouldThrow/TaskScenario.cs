@@ -8,19 +8,18 @@ namespace Shouldly.Tests.ShouldThrow
 {
     public class TaskScenario
     {
-
         [Fact]
         public void TaskScenarioShouldFail()
         {
             var task = Task.Factory.StartNew(() => { },
-                            CancellationToken.None, TaskCreationOptions.None,
-                            TaskScheduler.Default);
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
 
             Verify.ShouldFail(() =>
-task.ShouldThrow<InvalidOperationException>("Some additional context"),
+                    task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
-errorWithSource:
-@"Task `task`
+                errorWithSource:
+                @"Task `task`
     should throw
 System.InvalidOperationException
     but did not
@@ -28,8 +27,8 @@ System.InvalidOperationException
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Task
+                errorWithoutSource:
+                @"Task
     should throw
 System.InvalidOperationException
     but did not
@@ -38,18 +37,18 @@ Additional Info:
     Some additional context");
         }
 
-[Fact]
+        [Fact]
         public void TaskScenarioShouldFail_ExceptionTypePassedIn()
         {
             var task = Task.Factory.StartNew(() => { },
-                            CancellationToken.None, TaskCreationOptions.None,
-                            TaskScheduler.Default);
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
 
             Verify.ShouldFail(() =>
-task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
+                    task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
 
-errorWithSource:
-@"Task `task`
+                errorWithSource:
+                @"Task `task`
     should throw
 System.InvalidOperationException
     but did not
@@ -57,8 +56,8 @@ System.InvalidOperationException
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Task
+                errorWithoutSource:
+                @"Task
     should throw
 System.InvalidOperationException
     but did not
@@ -70,9 +69,9 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
+            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
 
             var ex = task.ShouldThrow<InvalidOperationException>();
 
@@ -80,12 +79,12 @@ Additional Info:
             ex.ShouldBeOfType<InvalidOperationException>();
         }
 
-[Fact]
+        [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
-            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
+            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
+                CancellationToken.None, TaskCreationOptions.None,
+                TaskScheduler.Default);
 
             var ex = task.ShouldThrow(typeof(InvalidOperationException));
 

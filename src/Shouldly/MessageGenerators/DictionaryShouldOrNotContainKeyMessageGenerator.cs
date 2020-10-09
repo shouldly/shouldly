@@ -13,19 +13,22 @@ namespace Shouldly.MessageGenerators
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
-            const string format = 
+            const string format =
 @"{0}
     {1}
 {2}
     but does{3}";
 
             var codePart = context.CodePart ?? context.Actual.ToStringAwesomely();
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
 
+            var should = context.ShouldMethod.PascalToSpaced();
             if (context.IsNegatedAssertion)
-                return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue, "");
+            {
+                return string.Format(format, codePart, should, expected, "");
+            }
 
-            return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedValue, " not");
+            return string.Format(format, codePart, should, expected, " not");
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Shouldly;
 
 namespace NUnit.Framework.Constraints
@@ -14,7 +15,7 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a numeric type</returns>
-        public static bool IsNumericType(Object obj)
+        public static bool IsNumericType([NotNullWhen(true)] object? obj)
         {
             return IsFloatingPointNumeric(obj) || IsFixedPointNumeric(obj);
         }
@@ -25,12 +26,12 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a floating point numeric type</returns>
-        public static bool IsFloatingPointNumeric(Object obj)
+        public static bool IsFloatingPointNumeric([NotNullWhen(true)] object? obj)
         {
             if (null != obj)
             {
-                if (obj is Double) return true;
-                if (obj is Single) return true;
+                if (obj is double) return true;
+                if (obj is float) return true;
             }
             return false;
         }
@@ -41,19 +42,19 @@ namespace NUnit.Framework.Constraints
         /// </summary>
         /// <param name="obj">The object to check</param>
         /// <returns>true if the object is a fixed point numeric type</returns>
-        public static bool IsFixedPointNumeric(Object obj)
+        public static bool IsFixedPointNumeric([NotNullWhen(true)] object? obj)
         {
             if (null != obj)
             {
-                if (obj is Byte) return true;
-                if (obj is SByte) return true;
-                if (obj is Decimal) return true;
-                if (obj is Int32) return true;
-                if (obj is UInt32) return true;
-                if (obj is Int64) return true;
-                if (obj is UInt64) return true;
-                if (obj is Int16) return true;
-                if (obj is UInt16) return true;
+                if (obj is byte) return true;
+                if (obj is sbyte) return true;
+                if (obj is decimal) return true;
+                if (obj is int) return true;
+                if (obj is uint) return true;
+                if (obj is long) return true;
+                if (obj is ulong) return true;
+                if (obj is short) return true;
+                if (obj is ushort) return true;
             }
             return false;
         }
@@ -98,7 +99,7 @@ namespace NUnit.Framework.Constraints
             if (double.IsNaN(expected) && double.IsNaN(actual))
                 return true;
 
-            // Handle infinity specially since subtracting two infinite values gives 
+            // Handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails. mono also needs NaN to be handled
             // specially although ms.net could use either method. Also, handle
             // situation where no tolerance is used.
@@ -122,8 +123,8 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0.0)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs((expected - actual)/expected);
-                    return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
+                    var relativeError = Math.Abs((expected - actual)/expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
                 case ToleranceMode.Ulps:
                     return FloatingPointNumerics.AreAlmostEqualUlps(
                         expected, actual, Convert.ToInt64(tolerance.Value));
@@ -137,7 +138,7 @@ namespace NUnit.Framework.Constraints
             if (float.IsNaN(expected) && float.IsNaN(actual))
                 return true;
 
-            // handle infinity specially since subtracting two infinite values gives 
+            // handle infinity specially since subtracting two infinite values gives
             // NaN and the following test fails. mono also needs NaN to be handled
             // specially although ms.net could use either method.
             if (float.IsInfinity(expected) || float.IsNaN(expected) || float.IsNaN(actual))
@@ -159,8 +160,8 @@ namespace NUnit.Framework.Constraints
                 case ToleranceMode.Percent:
                     if (expected == 0.0f)
                         return expected.Equals(actual);
-                    float relativeError = Math.Abs((expected - actual)/expected);
-                    return (relativeError <= Convert.ToSingle(tolerance.Value)/100.0f);
+                    var relativeError = Math.Abs((expected - actual)/expected);
+                    return relativeError <= Convert.ToSingle(tolerance.Value)/100.0f;
                 case ToleranceMode.Ulps:
                     return FloatingPointNumerics.AreAlmostEqualUlps(
                         expected, actual, Convert.ToInt32(tolerance.Value));
@@ -178,7 +179,7 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    decimal decimalTolerance = Convert.ToDecimal(tolerance.Value);
+                    var decimalTolerance = Convert.ToDecimal(tolerance.Value);
                     if (decimalTolerance > 0m)
                         return Math.Abs(expected - actual) <= decimalTolerance;
 
@@ -188,9 +189,9 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0m)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs(
+                    var relativeError = Math.Abs(
                         (double) (expected - actual)/(double) expected);
-                    return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
+                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", "mode");
@@ -205,10 +206,10 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    ulong ulongTolerance = Convert.ToUInt64(tolerance.Value);
+                    var ulongTolerance = Convert.ToUInt64(tolerance.Value);
                     if (ulongTolerance > 0ul)
                     {
-                        ulong diff = expected >= actual ? expected - actual : actual - expected;
+                        var diff = expected >= actual ? expected - actual : actual - expected;
                         return diff <= ulongTolerance;
                     }
 
@@ -219,9 +220,9 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     // Can't do a simple Math.Abs() here since it's unsigned
-                    ulong difference = Math.Max(expected, actual) - Math.Min(expected, actual);
-                    double relativeError = Math.Abs(difference/(double) expected);
-                    return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
+                    var difference = Math.Max(expected, actual) - Math.Min(expected, actual);
+                    var relativeError = Math.Abs(difference/(double) expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", "mode");
@@ -236,7 +237,7 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    long longTolerance = Convert.ToInt64(tolerance.Value);
+                    var longTolerance = Convert.ToInt64(tolerance.Value);
                     if (longTolerance > 0L)
                         return Math.Abs(expected - actual) <= longTolerance;
 
@@ -246,9 +247,9 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0L)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs(
+                    var relativeError = Math.Abs(
                         (expected - actual)/(double) expected);
-                    return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
+                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", "mode");
@@ -263,10 +264,10 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    uint uintTolerance = Convert.ToUInt32(tolerance.Value);
+                    var uintTolerance = Convert.ToUInt32(tolerance.Value);
                     if (uintTolerance > 0)
                     {
-                        uint diff = expected >= actual ? expected - actual : actual - expected;
+                        var diff = expected >= actual ? expected - actual : actual - expected;
                         return diff <= uintTolerance;
                     }
 
@@ -277,9 +278,9 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     // Can't do a simple Math.Abs() here since it's unsigned
-                    uint difference = Math.Max(expected, actual) - Math.Min(expected, actual);
-                    double relativeError = Math.Abs(difference/(double) expected);
-                    return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
+                    var difference = Math.Max(expected, actual) - Math.Min(expected, actual);
+                    var relativeError = Math.Abs(difference/(double) expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", "mode");
@@ -294,7 +295,7 @@ namespace NUnit.Framework.Constraints
                     return expected.Equals(actual);
 
                 case ToleranceMode.Linear:
-                    int intTolerance = Convert.ToInt32(tolerance.Value);
+                    var intTolerance = Convert.ToInt32(tolerance.Value);
                     if (intTolerance > 0)
                         return Math.Abs(expected - actual) <= intTolerance;
 
@@ -304,9 +305,9 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0)
                         return expected.Equals(actual);
 
-                    double relativeError = Math.Abs(
+                    var relativeError = Math.Abs(
                         (expected - actual)/(double) expected);
-                    return (relativeError <= Convert.ToDouble(tolerance.Value)/100.0);
+                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", "mode");

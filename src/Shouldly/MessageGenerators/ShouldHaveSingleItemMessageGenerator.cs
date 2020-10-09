@@ -1,5 +1,4 @@
 ﻿using System;
-using Shouldly.DifferenceHighlighting;
 using System.Collections;
 using System.Linq;
 
@@ -19,23 +18,22 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
             var expected = context.Expected.ToStringAwesomely();
             var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
+            var should = context.ShouldMethod.PascalToSpaced();
             if (codePart != "null")
             {
                 return
-    $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} but had
+                    $@"{codePart}
+    {should} but had
 {count}
     items and was
 {expected}";
             }
-            else
-            {
-                return
-$@"{expected}
-    {context.ShouldMethod.PascalToSpaced()} but had
+
+            return
+                $@"{expected}
+    {should} but had
 {count}
     items";
-            }
         }
     }
 }

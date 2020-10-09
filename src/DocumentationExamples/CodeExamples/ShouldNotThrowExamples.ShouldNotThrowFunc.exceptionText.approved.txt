@@ -1,6 +1,7 @@
-`new Person(name)`
+```
+`new Person(name!)`
     should not throw but threw
 System.ArgumentNullException
     with message
-"Value cannot be null.
-Parameter name: name"
+"Value cannot be null. (Parameter 'name')"
+```

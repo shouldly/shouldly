@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,13 +16,15 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
             var shouldMethod = context.ShouldMethod.PascalToSpaced();
 
             if (context.IsNegatedAssertion)
             {
                 if (codePart == "null")
-                    codePart = expectedValue;
+                {
+                    codePart = expected;
+                }
 
                 return
 $@"{codePart}
@@ -39,15 +40,17 @@ $@"{codePart}
     item{(count == 1 ? string.Empty : "s")} and";
             }
             else
+            {
                 details = string.Empty;
+            }
             string expectedString;
             if (codePart == "null")
             {
-                codePart = expectedValue;
+                codePart = expected;
                 expectedString = " not empty";
             }
             else expectedString = $@"
-{expectedValue}";
+{expected}";
 
             return
 $@"{codePart}

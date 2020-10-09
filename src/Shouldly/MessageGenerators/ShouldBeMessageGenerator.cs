@@ -3,7 +3,7 @@ using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.MessageGenerators
 {
-    internal class ShouldBeMessageGenerator: ShouldlyMessageGenerator
+    internal class ShouldBeMessageGenerator : ShouldlyMessageGenerator
     {
         const string ShouldBeAssertion = "ShouldBe";
         const string ShouldNotBeAssertion = "ShouldNotBe";
@@ -32,8 +32,9 @@ namespace Shouldly.MessageGenerators
             {
                 actual = $"\r\n{actualValue}";
             }
+
             var message =
-$@"{codePart}
+                $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()}
 {expected}
     but was{actual}";
@@ -44,6 +45,7 @@ $@"{codePart}
     difference
 {DifferenceHighlighter.HighlightDifferences(context)}";
             }
+
             return message;
         }
     }

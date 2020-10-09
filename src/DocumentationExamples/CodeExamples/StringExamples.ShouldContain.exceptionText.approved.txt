@@ -1,0 +1,7 @@
+```
+target
+    should contain (case insensitive comparison)
+"Bart"
+    but was actually
+"Homer"
+```

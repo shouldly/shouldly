@@ -16,7 +16,7 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
             var caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : string.Empty;
             var actual = context.Actual.ToStringAwesomely();
-            var but = codePart == actual ? (context.IsNegatedAssertion ? "did" : "did not") : $@"was actually
+            var but = codePart == actual ? context.IsNegatedAssertion ? "did" : "did not" : $@"was actually
 {actual}";
 
             return

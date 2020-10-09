@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators
@@ -18,7 +17,9 @@ namespace Shouldly.MessageGenerators
             var actual = context.Actual.ToStringAwesomely();
 
             if (codePart == actual)
+            {
                 codePart = context.Expected.ToStringAwesomely();
+            }
 
             return
 $@"{codePart}

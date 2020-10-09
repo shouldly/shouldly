@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldBeNegative
         [Fact]
         public void ShortScenarioShouldFail()
         {
-            var @short = ((short)3);
+            var @short = (short)3;
             Verify.ShouldFail(() =>
 @short.ShouldBeNegative("Some additional context"),
 

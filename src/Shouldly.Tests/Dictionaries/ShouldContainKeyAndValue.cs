@@ -158,7 +158,7 @@ Additional Info:
         [Fact]
         public void ValueIsNullShouldFail()
         {
-            var dictionaryWithNullValue = new Dictionary<MyThing, MyThing>
+            var dictionaryWithNullValue = new Dictionary<MyThing, MyThing?>
             {
                 {ThingKey, null}
             };

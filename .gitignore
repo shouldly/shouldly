@@ -17,13 +17,14 @@ test-results
 *.orig
 Shouldly.sln.ide/
 packages/
+nugets/
 ShouldlyConvention.Tests/obj/
 ShouldlyConvention.Tests/bin/
 docs/_build/
 *.received.cs
 **/.vs
 *.user
-*.received.txt
+*.received.*
 src/TestResults/
 src/TestDiffTools/Main.approved.txt
 tools/*

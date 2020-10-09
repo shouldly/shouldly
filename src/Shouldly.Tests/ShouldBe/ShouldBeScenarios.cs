@@ -92,7 +92,7 @@ Additional Info:
         }
 
         [Fact]
-        public void BadEquatibleClassScenarioShouldFail()
+        public void BadEquatableClassScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
 new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context"),
@@ -172,7 +172,7 @@ Additional Info:
         [Fact]
         public void ActualIsNullScenario()
         {
-            string nullString = null;
+            string? nullString = null;
 
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
@@ -252,9 +252,9 @@ Additional Info:
         }
 
         /// <summary>
-        /// Strange emulates JToken, a class which can be implicitly cast to from a string which is IEnumerable, 
-        /// but enumerable can be empty which means we get a false pass. 
-        /// 
+        /// Strange emulates JToken, a class which can be implicitly cast to from a string which is IEnumerable,
+        /// but enumerable can be empty which means we get a false pass.
+        ///
         /// To make this test pass, for types like JToken and Strange we have to use .Equals not compare them as Enumerables
         /// </summary>
         [Fact]
@@ -446,7 +446,7 @@ Additional Info:
 
         public class BadEquatable : IEquatable<BadEquatable>
         {
-            public bool Equals(BadEquatable other)
+            public bool Equals(BadEquatable? other)
             {
                 return false;
             }
@@ -460,7 +460,7 @@ Additional Info:
             public bool EqualsResult { private get; set; }
 
             // ReSharper disable once CSharpWarnings::CS0659
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 return EqualsResult;
             }

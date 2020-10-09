@@ -172,7 +172,7 @@ Additional Info:
         [Fact]
         public void ActualIsNullScenario()
         {
-            IEnumerable<int> something = null;
+            IEnumerable<int>? something = null;
             // ReSharper disable once ExpressionIsAlwaysNull
             Verify.ShouldFail(() =>
 something.ShouldBe(new[] { 1, 2, 3 }, "Some additional context"),

@@ -18,7 +18,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                string myRef = "Hello World";
+                var myRef = "Hello World";
                 myRef.ShouldBeNull();
             }, _testOutputHelper);
         }
@@ -28,7 +28,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                string myRef = null;
+                string? myRef = null;
                 myRef.ShouldNotBeNull();
             }, _testOutputHelper);
         }

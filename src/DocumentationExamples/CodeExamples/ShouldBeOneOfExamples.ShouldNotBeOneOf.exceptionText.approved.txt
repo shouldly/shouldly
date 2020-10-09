@@ -1,5 +1,7 @@
+```
 wiggum
     should not be one of
 [Apu, Homer, Skinner, Barney, Wiggum]
     but was
 Wiggum
+```

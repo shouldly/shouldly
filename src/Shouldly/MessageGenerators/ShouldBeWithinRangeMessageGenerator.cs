@@ -15,20 +15,27 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var tolerance = context.Tolerance.ToStringAwesomely();
-            var expectedValue = context.Expected.ToStringAwesomely();
+            var expected = context.Expected.ToStringAwesomely();
             var actualValue = context.Actual.ToStringAwesomely();
             string actual;
-            if (codePart == actualValue) actual = " not";
-            else actual = $@"
+            if (codePart == actualValue)
+            {
+                actual = " not";
+            }
+            else
+            {
+                actual = $@"
 {actualValue}";
+            }
+
             var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
             var message =
-$@"{codePart}
+                $@"{codePart}
     should {negated}be within
 {tolerance}
     of
-{expectedValue}
+{expected}
     but was{actual}";
 
             if (DifferenceHighlighter.CanHighlightDifferences(context))

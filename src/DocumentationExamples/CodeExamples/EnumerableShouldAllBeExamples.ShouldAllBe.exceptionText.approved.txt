@@ -1,6 +1,8 @@
-millionares
+```
+millionaires
     should satisfy the condition
 (m.Salary > 1000000)
     but
 [Homer]
     do not
+```

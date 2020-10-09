@@ -19,7 +19,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var theSimpsonsDog = new Person() { Name = "Santas little helper" };
+                var theSimpsonsDog = new Person { Name = "Santas little helper" };
                 theSimpsonsDog.ShouldBeAssignableTo<Pet>();
             }, _testOutputHelper);
         }

@@ -17,16 +17,19 @@ namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
+        static Regex scrubberRegex = new Regex(@"\w:.+?shouldly\\src",RegexOptions.Compiled);
+        static Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
+
         static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup =
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder> additionConfig = null)
+        public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder>? additionConfig = null)
         {
             var stackTrace = new StackTrace(true);
-            var caller = stackTrace.GetFrame(1);
-            var callerFileName = caller.GetFileName();
-            var callerMethod = caller.GetMethod();
+            var caller = stackTrace.GetFrame(1)!;
+            var callerFileName = caller.GetFileName()!;
+            var callerMethod = caller.GetMethod()!;
 
             var testMethod = FileMethodsLookup.GetOrAdd(callerFileName, fn =>
             {
@@ -48,7 +51,7 @@ namespace DocumentationExamples
             var enumerable = blockSyntax
                 .Statements
                 .Select(s => s.WithoutLeadingTrivia().ToFullString());
-            var body = string.Join(string.Empty, enumerable);
+            var body = string.Join(string.Empty, enumerable).Trim();
             var exceptionText = Should.Throw<Exception>(shouldMethod).Message;
 
             testOutputHelper.WriteLine("Docs body:");
@@ -60,7 +63,6 @@ namespace DocumentationExamples
             testOutputHelper.WriteLine("");
             testOutputHelper.WriteLine(exceptionText);
 
-            Func<string, string> scrubber = v => Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src");
             try
             {
                 body.ShouldMatchApproved(configurationBuilder =>
@@ -69,13 +71,17 @@ namespace DocumentationExamples
                         .WithDiscriminator("codeSample")
                         .UseCallerLocation()
                         .SubFolder("CodeExamples")
-                        .WithScrubber(scrubber);
+                        .WithScrubber(scrubber).WithFileExtension(".cs");
 
                     additionConfig?.Invoke(configurationBuilder);
                 });
             }
             finally
             {
+                exceptionText = $@"```
+{exceptionText}
+```
+";
                 exceptionText.ShouldMatchApproved(configurationBuilder =>
                 {
                     configurationBuilder

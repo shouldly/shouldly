@@ -1,0 +1,7 @@
+```
+target
+    should contain without whitespace
+" Bart Simpson "
+    but was actually
+"Homer Simpson"
+```

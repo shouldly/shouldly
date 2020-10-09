@@ -1,0 +1,6 @@
+```
+`func()`
+    should throw
+System.ArgumentNullException
+    but did not
+```

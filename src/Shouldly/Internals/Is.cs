@@ -1,20 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Reflection;
 
 namespace Shouldly
 {
     internal static class Is
     {
-        public static bool InRange<T>(T comparable, T @from, T to) where T : IComparable<T>
+        public static bool InRange<T>([DisallowNull] T comparable, [AllowNull] T @from, [AllowNull] T to) where T : IComparable<T>
         {
             return comparable.CompareTo(from) >= 0 && comparable.CompareTo(to) <= 0;
         }
 
-        public static bool Same(object actual, object expected)
+        public static bool Same(object? actual, object? expected)
         {
             if (actual == null && expected == null)
                 return true;
@@ -24,22 +24,22 @@ namespace Shouldly
             return ReferenceEquals(actual, expected);
         }
 
-        public static bool Equal<T>(T expected, T actual)
+        public static bool Equal<T>([AllowNull] T expected, [AllowNull] T actual)
         {
             return Equal(expected, actual, GetEqualityComparer<T>());
         }
 
-        public static bool Equal<T>(T expected, T actual, IEqualityComparer<T> comparer)
+        public static bool Equal<T>([AllowNull] T expected, [AllowNull] T actual, IEqualityComparer<T> comparer)
         {
             return comparer.Equals(actual, expected);
         }
 
-        static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer innerComparer = null)
+        static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null)
         {
             return new EqualityComparer<T>(innerComparer);
         }
 
-        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+        public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
         {
             // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which 
             // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
@@ -72,7 +72,7 @@ namespace Shouldly
             }
         }
 
-        public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+        public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
         {
             // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which 
             // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
@@ -88,7 +88,9 @@ namespace Shouldly
             if (actual == null || expected == null)
                 return false;
 
-            if (actual is ICollection actualCollection && expected is ICollection && actualCollection.Count != ((ICollection)expected).Count)
+            if (actual is ICollection actualCollection &&
+                expected is ICollection collection &&
+                actualCollection.Count != collection.Count)
                 return false;
 
             var expectedList = expected.ToList();
@@ -187,9 +189,9 @@ namespace Shouldly
             return (actual - expected).Duration() < tolerance;
         }
 
-        public static bool InstanceOf(object o, Type expected)
+        public static bool InstanceOf(object? o, Type expected)
         {
-            return o != null ? expected.IsInstanceOfType(o) : false; 
+            return o != null ? expected.IsInstanceOfType(o) : false;
         }
 
         public static bool StringMatchingRegex(string actual, string regexPattern)
@@ -197,7 +199,7 @@ namespace Shouldly
             return Regex.IsMatch(actual, regexPattern);
         }
 
-        public static bool StringContainingIgnoreCase(string actual, string expected)
+        public static bool StringContainingIgnoreCase(string? actual, string expected)
         {
             if (actual == null)
                 return false;
@@ -205,7 +207,7 @@ namespace Shouldly
             return actual.IndexOf(expected, StringComparison.OrdinalIgnoreCase) != -1;
         }
 
-        public static bool StringContainingUsingCaseSensitivity(string actual, string expected)
+        public static bool StringContainingUsingCaseSensitivity(string? actual, string expected)
         {
             if (actual == null)
                 return false;
@@ -214,7 +216,7 @@ namespace Shouldly
         }
 
 
-        public static bool EndsWithUsingCaseSensitivity(string actual, string expected, Case caseSensitivity)
+        public static bool EndsWithUsingCaseSensitivity(string? actual, string expected, Case caseSensitivity)
         {
             if (actual == null)
                 return false;
@@ -227,7 +229,7 @@ namespace Shouldly
             return actual.EndsWith(expected);
         }
 
-        public static bool StringStartingWithUsingCaseSensitivity(string actual, string expected, Case caseSensitivity)
+        public static bool StringStartingWithUsingCaseSensitivity(string? actual, string expected, Case caseSensitivity)
         {
             if (actual == null)
                 return false;
@@ -240,7 +242,7 @@ namespace Shouldly
             return actual.StartsWith(expected);
         }
 
-        public static bool StringEqualWithCaseSensitivity(string actual, string expected, Case caseSensitivity)
+        public static bool StringEqualWithCaseSensitivity(string? actual, string? expected, Case caseSensitivity)
         {
             if (caseSensitivity == Case.Insensitive)
             {
@@ -275,51 +277,52 @@ namespace Shouldly
             }
         }
 
-        public static bool GreaterThanOrEqualTo<T>(IComparable<T> comparable, T expected)
+        public static bool GreaterThanOrEqualTo<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) >= 0;
         }
 
-        public static bool GreaterThanOrEqualTo<T>(T actual, T expected, IComparer<T> comparer)
+        public static bool GreaterThanOrEqualTo<T>([AllowNull] T actual, [AllowNull] T expected, IComparer<T> comparer)
         {
             return Compare(actual, expected, comparer) >= 0;
         }
 
-        public static bool LessThanOrEqualTo<T>(IComparable<T> comparable, T expected)
+        public static bool LessThanOrEqualTo<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) <= 0;
         }
 
-        public static bool LessThanOrEqualTo<T>(T actual, T expected, IComparer<T> comparer)
+        public static bool LessThanOrEqualTo<T>([AllowNull] T actual, [AllowNull] T expected, IComparer<T> comparer)
         {
             return Compare(actual, expected, comparer) <= 0;
         }
 
-        public static bool GreaterThan<T>(IComparable<T> comparable, T expected)
+        public static bool GreaterThan<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) > 0;
         }
 
-        public static bool GreaterThan<T>(T actual, T expected, IComparer<T> comparer)
+        public static bool GreaterThan<T>([AllowNull] T actual, [AllowNull] T expected, IComparer<T> comparer)
         {
             return Compare(actual, expected, comparer) > 0;
         }
 
-        public static bool LessThan<T>(IComparable<T> comparable, T expected)
+        public static bool LessThan<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             return Compare(comparable, expected) < 0;
         }
 
-        public static bool LessThan<T>(T actual, T expected, IComparer<T> comparer)
+        public static bool LessThan<T>([AllowNull] T actual, [AllowNull] T expected, IComparer<T> comparer)
         {
             return Compare(actual, expected, comparer) < 0;
         }
 
-        static decimal Compare<T>(T actual, T expected, IComparer<T> comparer)
+        static decimal Compare<T>([AllowNull] T actual, [AllowNull] T expected, IComparer<T> comparer)
         {
             return comparer.Compare(actual, expected);
         }
-        static decimal Compare<T>(IComparable<T> comparable, T expected)
+
+        static decimal Compare<T>([AllowNull] T comparable, [AllowNull] T expected) where T : IComparable<T>?
         {
             if (!typeof(T).IsValueType())
             {
@@ -331,7 +334,7 @@ namespace Shouldly
                 // ReSharper restore CompareNonConstrainedGenericWithNull
             }
 
-            return comparable.CompareTo(expected);
+            return comparable!.CompareTo(expected);
         }
     }
 }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldAllBe
-{       
+{
     public class TypeBinaryExpressionScenario
     {
         [Fact]
         public void TypeBinaryExpressionScenarioShouldFail()
         {
-            List<object> objects = new List<object> { "1", 1 };
-                        
-            Verify.ShouldFail(() => 
+            var objects = new List<object> { "1", 1 };
+
+            Verify.ShouldFail(() =>
 objects.ShouldAllBe(x => x is string, "Some additional context"),
 
 errorWithSource:

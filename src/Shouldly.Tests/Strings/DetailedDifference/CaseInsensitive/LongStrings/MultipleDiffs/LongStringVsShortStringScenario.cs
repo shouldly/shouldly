@@ -4,8 +4,6 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.
 {
     public class LongStringVsShortStringScenario
     {
-
-
         [Fact]
         public void LongStringVsShortStringScenarioShouldFail()
         {
