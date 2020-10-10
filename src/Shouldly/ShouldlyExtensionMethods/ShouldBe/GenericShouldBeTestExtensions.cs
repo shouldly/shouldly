@@ -19,11 +19,6 @@ namespace Shouldly
             ShouldBe(actual, expected, () => null);
         }
         [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
-        public static void  ShouldBe<T>(this T actual, T expected, string customMessage)
-        {
-            ShouldBe(actual, expected, () => customMessage);
-        }
-        [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
         public static void ShouldBe<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
