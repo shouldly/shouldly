@@ -2,7 +2,6 @@
 using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
 using Xunit;
-using System.Collections.Generic;
 
 namespace Shouldly.Tests.ShouldBe
 {
@@ -410,8 +409,8 @@ Additional Info:
         [Fact]
         public void ComparisonEqualsFalseShouldFail()
         {
-            var comparison1 = new ComparableClass() { Property = "Kangaroo", IgnoredProperty = "Whale" };
-            var comparison2 = new ComparableClass() { Property = "Cat", IgnoredProperty = "Ant" };
+            var comparison1 = new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" };
+            var comparison2 = new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" };
 
             Verify.ShouldFail(() =>
 comparison1.ShouldBe(comparison2, new ComparableClassComparer(), "Some additional context"),
@@ -439,8 +438,8 @@ Additional Info:
         [Fact]
         public void ComparisonEqualsTrueShouldPass()
         {
-            var comparison1 = new ComparableClass() { Property = "Elephant", IgnoredProperty = "Duck" };
-            var comparison2 = new ComparableClass() { Property = "Elephant", IgnoredProperty = "Dog" };
+            var comparison1 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" };
+            var comparison2 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" };
 
             comparison1.ShouldBe(comparison2, new ComparableClassComparer());
         }
