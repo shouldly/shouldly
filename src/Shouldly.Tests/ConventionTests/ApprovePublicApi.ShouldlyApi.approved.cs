@@ -553,8 +553,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T>? actual, System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder, System.Func<string?>? customMessage) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this System.Collections.Generic.IEnumerable<T>? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder, string? customMessage) { }
-        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, System.Func<string> customMessage) { }
-        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage) { }
         public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder, string? customMessage) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
@@ -696,8 +695,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotBe<T>(this T actual, T expected, System.Func<string?>? customMessage) { }
         public static void ShouldNotBe<T>([System.Diagnostics.CodeAnalysis.AllowNull] this T actual, [System.Diagnostics.CodeAnalysis.AllowNull] T expected, string? customMessage = null) { }
-        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, System.Func<string> customMessage) { }
-        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBeAssignableTo(this object? actual, System.Type expected, System.Func<string?>? customMessage) { }
