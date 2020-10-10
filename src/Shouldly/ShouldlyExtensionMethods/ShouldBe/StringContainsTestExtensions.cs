@@ -13,17 +13,7 @@
             strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage);
         }
 
-        public static void ShouldContain(this string actual, string expected, Case caseSensitivity)
-        {
-            ShouldContain(actual, expected, (string?)null, caseSensitivity);
-        }
-
-        public static void ShouldContain(this string actual, string expected, string? customMessage = null)
-        {
-            ShouldContain(actual, expected, customMessage, Case.Insensitive);
-        }
-
-        public static void ShouldContain(this string actual, string expected, string? customMessage, Case caseSensitivity)
+        public static void ShouldContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
         {
             actual.AssertAwesomely(
                 v => caseSensitivity == Case.Sensitive ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected),
@@ -33,17 +23,7 @@
                 customMessage);
         }
 
-        public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity)
-        {
-            ShouldNotContain(actual, expected, (string?)null, caseSensitivity);
-        }
-
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage = null)
-        {
-            ShouldNotContain(actual, expected, customMessage, Case.Insensitive);
-        }
-
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage, Case caseSensitivity)
+        public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
         {
             actual.AssertAwesomely(v =>
             {
