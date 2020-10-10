@@ -17,10 +17,30 @@ namespace Shouldly
             if (!actual.Contains(expected))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
+        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer)
+        {
+            ShouldContain(actual, expected, comparer, null);
+        }
+
+        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string customMessage)
+        {
+            if (!actual.Contains(expected, comparer))
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+        }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
         {
             if (actual.Contains(expected))
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+        }
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer)
+        {
+            ShouldNotContain(actual, expected, comparer, null);
+        }
+
+        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string customMessage)
+        {
+            if (actual.Contains(expected, comparer))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
@@ -97,10 +117,35 @@ namespace Shouldly
             if (missing.Any())
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
+        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
+        {
+            ShouldBeSubsetOf(actual, expected, comparer, null);
+        }
+
+        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string customMessage)
+        {
+            if (actual.Equals(expected))
+                return;
+
+            var missing = actual.Except(expected, comparer);
+            if (missing.Any())
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+        }
 
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null)
         {
             var duplicates = GetDuplicates(actual);
+            if (duplicates.Any())
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
+        }
+        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer)
+        {
+            ShouldBeUnique(actual, comparer, null);
+        }
+
+        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage)
+        {
+            var duplicates = GetDuplicates(actual, comparer);
             if (duplicates.Any())
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
         }
@@ -149,6 +194,22 @@ namespace Shouldly
                 {
                     duplicates.Add(item);
                 }
+            }
+
+            return duplicates;
+        }
+
+        // Could possible remove the above implementation and pass an ObjectComparer like the generic ShouldBe methods do.
+        // Also added generics instead of object as this is probably how it should have been implemented.
+        private static List<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T> comparer)
+        {
+            var list = new List<T>();
+            var duplicates = new List<T>();
+
+            foreach (var o1 in items)
+            {
+                duplicates.AddRange(list.Where(o2 => o1 != null && comparer.Equals(o1, o2)));
+                list.Add(o1);
             }
 
             return duplicates;

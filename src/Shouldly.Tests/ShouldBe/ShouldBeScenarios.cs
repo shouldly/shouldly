@@ -2,6 +2,7 @@
 using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Shouldly.Tests.ShouldBe
 {
@@ -343,10 +344,10 @@ Additional Info:
         public void StringScenarioShouldFail()
         {
             Verify.ShouldFail(() =>
-ThisString.ShouldBe(ThisOtherString, "Some additional context"),
+                    ThisString.ShouldBe(ThisOtherString, "Some additional context"),
 
-errorWithSource:
-@"ThisString
+                errorWithSource:
+                @"ThisString
     should be
 ""this other string""
     but was
@@ -363,8 +364,8 @@ Actual Code    | 116  104  105  115  32   115  116  114  105  110  103
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""this string""
+                errorWithoutSource:
+                @"""this string""
     should be
 ""this other string""
     but was not
@@ -380,6 +381,7 @@ Actual Code    | 116  104  105  115  32   115  116  114  105  110  103
 Additional Info:
     Some additional context");
         }
+
 
         [Fact]
         public void ShouldPass()
@@ -403,6 +405,44 @@ Additional Info:
             object a = 0;
             object b = 0.0;
             a.ShouldBe(b);
+        }
+
+        [Fact]
+        public void ComparisonEqualsFalseShouldFail()
+        {
+            var comparison1 = new ComparableClass() { Property = "Kangaroo", IgnoredProperty = "Whale" };
+            var comparison2 = new ComparableClass() { Property = "Cat", IgnoredProperty = "Ant" };
+
+            Verify.ShouldFail(() =>
+comparison1.ShouldBe(comparison2, new ComparableClassComparer(), "Some additional context"),
+
+errorWithSource:
+@"comparison1
+    should be
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but was
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    should be
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but was not
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ComparisonEqualsTrueShouldPass()
+        {
+            var comparison1 = new ComparableClass() { Property = "Elephant", IgnoredProperty = "Duck" };
+            var comparison2 = new ComparableClass() { Property = "Elephant", IgnoredProperty = "Dog" };
+
+            comparison1.ShouldBe(comparison2, new ComparableClassComparer());
         }
 
         public class BadEquatable : IEquatable<BadEquatable>
