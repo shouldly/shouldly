@@ -19,15 +19,10 @@ namespace Shouldly
         }
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer)
         {
-            ShouldContain(actual, expected, comparer, () => null);
+            ShouldContain(actual, expected, comparer, null);
         }
 
         public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string customMessage)
-        {
-            ShouldContain(actual, expected, comparer, () => customMessage);
-        }
-
-        public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
         {
             if (!actual.Contains(expected, comparer))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -40,15 +35,10 @@ namespace Shouldly
         }
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer)
         {
-            ShouldNotContain(actual, expected, comparer, () => null);
+            ShouldNotContain(actual, expected, comparer, null);
         }
 
         public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string customMessage)
-        {
-            ShouldNotContain(actual, expected, comparer, () => customMessage);
-        }
-
-        public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
         {
             if (actual.Contains(expected, comparer))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -129,15 +119,10 @@ namespace Shouldly
         }
         public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
         {
-            ShouldBeSubsetOf(actual, expected, comparer, () => null);
+            ShouldBeSubsetOf(actual, expected, comparer, null);
         }
 
         public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string customMessage)
-        {
-            ShouldBeSubsetOf(actual, expected, comparer, () => customMessage);
-        }
-
-        public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
         {
             if (actual.Equals(expected))
                 return;
@@ -155,15 +140,10 @@ namespace Shouldly
         }
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer)
         {
-            ShouldBeUnique(actual, comparer, () => null);
+            ShouldBeUnique(actual, comparer, null);
         }
 
-        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string customMessage)
-        {
-            ShouldBeUnique(actual, comparer, () => customMessage);
-        }
-
-        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage)
         {
             var duplicates = GetDuplicates(actual, comparer);
             if (duplicates.Any())
@@ -235,7 +215,7 @@ namespace Shouldly
             return duplicates;
         }
 
-        private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, Func<string> customMessage)
+        private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, string? customMessage)
         {
             var previousItem = default(T)!;
             var currentIndex = -1;
