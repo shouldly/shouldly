@@ -174,12 +174,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, System.Func<string?>? customMessage) { }
         public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string? customMessage = null) { }
-        public static System.Exception Throw(System.Action actual, System.Type exceptionType) { }
         public static System.Exception Throw(System.Func<object?> actual, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Action actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Action actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Action actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
@@ -723,12 +722,10 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
     {
-        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string? customMessage = null) { }
+        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldMatchApproved(this string actual, System.Func<string?> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string? customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldNotThrowTaskAsyncExtensions
@@ -790,16 +787,14 @@ namespace Shouldly
             "stomMessage.", true)]
         public static T ShouldNotThrow<T>(this System.Func<T> action, System.Func<string?>? customMessage) { }
         public static T ShouldNotThrow<T>(this System.Func<T> action, string? customMessage = null) { }
-        public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType) { }
-        public static System.Exception ShouldThrow(this System.Func<object?> actual, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception ShouldThrow(this System.Action actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception ShouldThrow(this System.Action actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception ShouldThrow(this System.Func<object?> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception ShouldThrow(this System.Func<object?> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object?> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static TException ShouldThrow<TException>(this System.Action actual, System.Func<string?>? customMessage)

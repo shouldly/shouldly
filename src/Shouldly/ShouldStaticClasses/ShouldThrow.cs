@@ -34,11 +34,7 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Action) ***/
-        public static Exception Throw([InstantHandle] Action actual, Type exceptionType)
-        {
-            return ThrowInternal(actual, null, exceptionType);
-        }
-        public static Exception Throw([InstantHandle] Action actual, string? customMessage, Type exceptionType)
+        public static Exception Throw([InstantHandle] Action actual, Type exceptionType, string? customMessage = null)
         {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
