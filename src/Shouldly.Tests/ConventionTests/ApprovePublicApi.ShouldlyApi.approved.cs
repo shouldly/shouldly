@@ -770,16 +770,14 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions
     {
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage)
