@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -23,13 +22,9 @@ namespace Shouldly
         }
         public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer)
         {
-            ShouldBe(actual, expected, comparer, () => null);
+            ShouldBe(actual, expected, comparer, null);
         }
-        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string customMessage)
-        {
-            ShouldBe(actual, expected, comparer, () => customMessage);
-        }
-        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage)
         {
             actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
@@ -42,15 +37,10 @@ namespace Shouldly
         [ContractAnnotation("actual:null,expected:null => halt")]
         public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer)
         {
-            ShouldNotBe(actual, expected, comparer, () => null);
+            ShouldNotBe(actual, expected, comparer, null);
         }
         [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string customMessage)
-        {
-            ShouldNotBe(actual, expected, comparer, () => customMessage);
-        }
-        [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage)
         {
             actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
