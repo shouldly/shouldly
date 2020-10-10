@@ -11,24 +11,14 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class ShouldMatchApprovedTestExtensions
     {
-        public static void ShouldMatchApproved(this string actual, string? customMessage = null)
-        {
-            actual.ShouldMatchApproved(customMessage, c => { });
-        }
-
-        public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder> configureOptions)
-        {
-            actual.ShouldMatchApproved((string?)null, configureOptions);
-        }
-
-        public static void ShouldMatchApproved(this string actual, string? customMessage, Action<ShouldMatchConfigurationBuilder> configureOptions)
+        public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null)
         {
             var codeGetter = new ActualCodeTextGetter();
             var stackTrace = new StackTrace(true);
             codeGetter.GetCodeText(actual, stackTrace);
 
             var configurationBuilder = new ShouldMatchConfigurationBuilder(ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build());
-            configureOptions(configurationBuilder);
+            configureOptions?.Invoke(configurationBuilder);
             var config = configurationBuilder.Build();
 
             if (config.Scrubber != null)
