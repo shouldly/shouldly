@@ -48,7 +48,7 @@ map.IndexOfValue("boo").ShouldBe(2);
 
 ## Installation
 
-Shouldly can be [found here on NuGet](https://www.nuget.org/packages/Shouldly/) and can be installed by copying and pasting the following command into your Package Manager Console within Visual Studio \(Tools &gt; NuGet Package Manager &gt; Package Manager Console\).
+Shouldly can be [found here on NuGet](https://www.nuget.org/packages/Shouldly/) and can be installed by copying and pasting the following command into your [Package Manager Console within Visual Studio](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-powershell).
 
 ```bash
 Install-Package Shouldly
@@ -60,9 +60,11 @@ Alternatively if you're using .NET Core then you can install Shouldly via the co
 dotnet add package Shouldly
 ```
 
+
 ## Contributing
 
 Contributions to Shouldly are very welcome. For guidance, please see [CONTRIBUTING.md](https://github.com/shouldly/shouldly/blob/master/CONTRIBUTING.md)
+
 
 ## Prerequisites for running on build server
 
@@ -70,12 +72,14 @@ Shouldly uses the source code to make its error messages better. Hence, on the b
 
 What is meant by "full" is that when you set up your "release" configuration in Visual Studio and you go to Project Properties &gt; Build &gt; Advanced &gt; Debug, you should set it to "full" rather than "pdb-only".
 
+
 ## Currently maintained by
 
 * [Jake Ginnivan](https://github.com/JakeGinnivan)
 * [Joseph Woodward](https://github.com/JosephWoodward)
 
 If you are interested in helping out, jump on [Gitter](https://gitter.im/shouldly/shouldly) and have a chat.
+
 
 ## Brought to you by
 
