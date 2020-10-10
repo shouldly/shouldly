@@ -347,12 +347,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string? customMessage) { }
-        public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage = null) { }
-        public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         public static void ShouldBeUnique<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
@@ -371,7 +370,6 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, System.Func<string?>? customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string? customMessage = null) { }
-        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string?>? customMessage) { }
@@ -380,7 +378,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, System.Func<string?>? customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null) { }
-        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T>? actual, System.Func<string?>? customMessage) { }
@@ -393,12 +391,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, System.Func<string?>? customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string? customMessage = null) { }
-        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string?>? customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string? customMessage = null) { }
-        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeNullExtensions
