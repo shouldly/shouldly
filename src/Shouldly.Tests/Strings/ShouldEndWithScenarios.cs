@@ -10,7 +10,7 @@ namespace Shouldly.Tests.Strings
             // ReSharper disable once RedundantArgumentDefaultValue
             var cheeseVar = "Cheese";
             Verify.ShouldFail(() =>
-                    cheeseVar.ShouldEndWith("ze", "Some additional context", Case.Insensitive),
+                    cheeseVar.ShouldEndWith("ze", Case.Insensitive, "Some additional context"),
 
                 errorWithSource:
                 @"cheeseVar
@@ -37,7 +37,7 @@ Additional Info:
         {
             var cheeseVar = "Cheese";
             Verify.ShouldFail(() =>
-                    cheeseVar.ShouldEndWith("Se", "Some additional context", Case.Sensitive),
+                    cheeseVar.ShouldEndWith("Se", Case.Sensitive, "Some additional context"),
 
                 errorWithSource:
                 @"cheeseVar

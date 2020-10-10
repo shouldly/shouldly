@@ -17,13 +17,7 @@ namespace Shouldly
             Debug.Assert(actual != null);
         }
 
-        /*** ShouldEndWith ***/
-        public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity)
-        {
-            ShouldEndWith(actual, expected, (string?)null, caseSensitivity);
-        }
-
-        public static void ShouldEndWith([NotNull] this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
         {
             actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
             Debug.Assert(actual != null);
