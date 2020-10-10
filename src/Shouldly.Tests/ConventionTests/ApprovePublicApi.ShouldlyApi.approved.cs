@@ -237,16 +237,14 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string? customMessage = null)
             where TException : System.Exception { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage)

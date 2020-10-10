@@ -21,7 +21,7 @@ namespace Shouldly
         }
         public static Task<Exception> ShouldThrowAsync(this Task task, string? customMessage, Type exceptionType)
         {
-            return Should.ThrowAsync(task, customMessage, exceptionType);
+            return Should.ThrowAsync(task, exceptionType, customMessage);
         }
 
         /*** ShouldThrowAsync(Func<Task>) ***/
@@ -37,7 +37,7 @@ namespace Shouldly
         }
         public static Task<Exception> ShouldThrowAsync(this Func<Task> actual, string? customMessage, Type exceptionType)
         {
-            return Should.ThrowAsync(actual, customMessage, exceptionType);
+            return Should.ThrowAsync(actual, exceptionType, customMessage);
         }
     }
 }
