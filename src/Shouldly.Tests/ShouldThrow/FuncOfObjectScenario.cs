@@ -37,7 +37,7 @@ Additional Info:
         {
             Func<object> action = () => 1;
             Verify.ShouldFail(() =>
-action.ShouldThrow("Some additional context", typeof(NotImplementedException)),
+action.ShouldThrow(typeof(NotImplementedException), "Some additional context"),
 
 errorWithSource:
 @"`action()`
