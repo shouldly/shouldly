@@ -36,13 +36,15 @@ contestant.Points should be 1337 but was 0
 It might be easy to underestimate how useful this is. Another example, side by side:
 
 ```csharp
-Assert.That(map.IndexOfValue("boo"), Is.EqualTo(2));    // -> Expected 2 but was -1
-map.IndexOfValue("boo").ShouldBe(2);                    // -> map.IndexOfValue("boo") should be 2 but was -1
+// -> Expected 2 but was -1
+Assert.That(map.IndexOfValue("boo"), Is.EqualTo(2));
+
+// -> map.IndexOfValue("boo") should be 2 but was -1
+map.IndexOfValue("boo").ShouldBe(2);
 ```
 
 **Shouldly** uses the code before the _ShouldBe_ statement to report on errors, which makes diagnosing easier.
 
-Read more about Shouldly and its features at [http://docs.shouldly-lib.net/](http://docs.shouldly-lib.net/).
 
 ## Installation
 
@@ -82,4 +84,3 @@ If you are interested in helping out, jump on [Gitter](https://gitter.im/shouldl
 * Anthony Egerton
 * Peter van der Woude
 * Jake Ginnivan
-
