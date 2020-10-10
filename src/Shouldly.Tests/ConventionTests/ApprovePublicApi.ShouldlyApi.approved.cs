@@ -439,15 +439,13 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBeNullOrWhiteSpace(this string? actual, System.Func<string?>? customMessage) { }
         public static void ShouldBeNullOrWhiteSpace(this string? actual, string? customMessage = null) { }
-        public static void ShouldContain(this string actual, string expected, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContain(this string actual, string expected, System.Func<string?>? customMessage) { }
-        public static void ShouldContain(this string actual, string expected, string? customMessage = null) { }
+        public static void ShouldContain(this string actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContain(this string actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity) { }
-        public static void ShouldContain(this string actual, string expected, string? customMessage, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContainWithoutWhitespace(this string actual, object? expected, System.Func<string?>? customMessage) { }
@@ -468,15 +466,13 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotBeNullOrWhiteSpace(this string? actual, System.Func<string?>? customMessage) { }
         public static void ShouldNotBeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string? customMessage = null) { }
-        public static void ShouldNotContain(this string actual, string expected, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotContain(this string actual, string expected, System.Func<string?>? customMessage) { }
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage = null) { }
+        public static void ShouldNotContain(this string actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotContain(this string actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity) { }
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage, Shouldly.Case caseSensitivity) { }
         public static void ShouldNotEndWith(this string? actual, string expected, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
@@ -486,11 +482,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotMatch(this string actual, string regexPattern, System.Func<string?>? customMessage) { }
         public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null) { }
-        public static void ShouldNotStartWith(this string? actual, string expected, Shouldly.Case caseSensitivity) { }
-        [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
-            "stomMessage.", true)]
-        public static void ShouldNotStartWith(this string? actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity = 1) { }
-        public static void ShouldNotStartWith(this string? actual, string expected, string? customMessage = null, Shouldly.Case caseSensitivity = 1) { }
+        public static void ShouldNotStartWith(this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         public static void ShouldStartWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
