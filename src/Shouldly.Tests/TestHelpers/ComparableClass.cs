@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Tests.TestHelpers
 {
-    public class ComparibleClass
+    public class ComparableClass
     {
         public string Property { get; set; }
 

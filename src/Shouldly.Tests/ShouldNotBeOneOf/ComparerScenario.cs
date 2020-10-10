@@ -1,6 +1,5 @@
 ﻿using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
-using System.Linq;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.ShouldNotBeOneOf
@@ -10,43 +9,43 @@ namespace Shouldly.Tests.ShouldBe.ShouldNotBeOneOf
         [Fact]
         public void ComparerEqualsShouldPass()
         {
-            var comparison1 = new ComparibleClass() { Property = "Tiger", IgnoredProperty = "Duck" };
-            var comparison2 = new ComparibleClass[]
+            var comparison1 = new ComparableClass { Property = "Tiger", IgnoredProperty = "Duck" };
+            var comparison2 = new []
             {
-                new ComparibleClass() { Property = "Elephant", IgnoredProperty = "Dog" },
-                new ComparibleClass() { Property = "Lion", IgnoredProperty = "Spider" }
+                new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
+                new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }
             };
 
-            comparison1.ShouldNotBeOneOf(comparison2, new ComparibleClassComparer());
+            comparison1.ShouldNotBeOneOf(comparison2, new ComparableClassComparer());
         }
 
         [Fact]
         public void ComparerNotEqualsShouldFail()
         {
-            var comparison1 = new ComparibleClass() { Property = "Snake", IgnoredProperty = "Whale" };
-            var comparison2 = new ComparibleClass[]
+            var comparison1 = new ComparableClass { Property = "Snake", IgnoredProperty = "Whale" };
+            var comparison2 = new[]
             {
-                new ComparibleClass() { Property = "Snake", IgnoredProperty = "Platypus" },
-                new ComparibleClass() { Property = "Cat", IgnoredProperty = "Ant" }
+                new ComparableClass { Property = "Snake", IgnoredProperty = "Platypus" },
+                new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" }
             };
 
             Verify.ShouldFail(() =>
-comparison1.ShouldNotBeOneOf(comparison2, new ComparibleClassComparer(), "Some additional context"),
+comparison1.ShouldNotBeOneOf(comparison2, new ComparableClassComparer(), "Some additional context"),
 
 errorWithSource:
 @"comparison1
     should not be one of
-[Shouldly.Tests.TestHelpers.ComparibleClass (000000), Shouldly.Tests.TestHelpers.ComparibleClass (000000)]
+[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
     but was
-Shouldly.Tests.TestHelpers.ComparibleClass (000000)
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
 
 Additional Info:
     Some additional context",
 
 errorWithoutSource:
-@"Shouldly.Tests.TestHelpers.ComparibleClass (000000)
+@"Shouldly.Tests.TestHelpers.ComparableClass (000000)
     should not be one of
-[Shouldly.Tests.TestHelpers.ComparibleClass (000000), Shouldly.Tests.TestHelpers.ComparibleClass (000000)]
+[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
     but was
 
 Additional Info:

@@ -2,14 +2,14 @@
 
 namespace Shouldly.Tests.TestHelpers
 {
-    public class ComparibleClassComparer : IEqualityComparer<ComparibleClass>
+    public class ComparableClassComparer : IEqualityComparer<ComparableClass>
     {
-        public bool Equals(ComparibleClass x, ComparibleClass y)
+        public bool Equals(ComparableClass x, ComparableClass y)
         {
             return x.Property == y.Property;
         }
 
-        public int GetHashCode(ComparibleClass obj)
+        public int GetHashCode(ComparableClass obj)
         {
             return obj.Property.GetHashCode();
         }
