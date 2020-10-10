@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netcoreapp3.1;net48</TargetFrameworks>

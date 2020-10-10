@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
@@ -15,16 +16,48 @@ namespace Shouldly
             [AllowNull, NotNullIfNotNull("actual")] T expected
             , string? customMessage = null)
         {
+            ShouldBe(actual, expected, () => null);
+        }
+        [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
+        public static void ShouldBe<T>(this T actual, T expected, [InstantHandle] Func<string> customMessage)
+        {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
                 actual!.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
             else
                 actual!.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
-
+        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer) 
+        {
+            ShouldBe(actual, expected, comparer, () => null);
+        }
+        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string customMessage)
+        {
+            ShouldBe(actual, expected, comparer, () => customMessage);
+        }
+        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        {
+            actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
+        }
+        
         [ContractAnnotation("actual:null,expected:null => halt")]
         public static void ShouldNotBe<T>([AllowNull] this T actual, [AllowNull] T expected, string? customMessage = null)
         {
             actual!.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
+        }
+        [ContractAnnotation("actual:null,expected:null => halt")]
+        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer)
+        {
+            ShouldNotBe(actual, expected, comparer, () => null);
+        }
+        [ContractAnnotation("actual:null,expected:null => halt")]
+        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string customMessage)
+        {
+            ShouldNotBe(actual, expected, comparer, () => customMessage);
+        }
+        [ContractAnnotation("actual:null,expected:null => halt")]
+        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, [InstantHandle] Func<string> customMessage)
+        {
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
 
         public static void ShouldBe<T>(
@@ -54,6 +87,25 @@ namespace Shouldly
                 {
                     actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
                 }
+            }
+        }
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder = false)
+        {
+            ShouldBe(actual, expected, comparer, ignoreOrder, () => null);
+        }
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder, string customMessage)
+        {
+            ShouldBe(actual, expected, comparer, ignoreOrder, () => customMessage);
+        }
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder, [InstantHandle] Func<string> customMessage)
+        {
+            if (ignoreOrder)
+            {
+                actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected, comparer), actual, expected, customMessage);
+            }
+            else
+            {
+                actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
             }
         }
 

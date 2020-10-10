@@ -41,6 +41,14 @@ namespace Shouldly
 
         public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
         {
+            // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which 
+            // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
+            // and move the contents to the overload that supports accepting the comparer method.
+            return Equal(actual, expected, GetEqualityComparer<T>());
+        }
+
+        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
+        {
             if (actual == null && expected == null)
                 return true;
             if (actual == null || expected == null)
@@ -49,7 +57,7 @@ namespace Shouldly
             var expectedEnum = expected.GetEnumerator();
             var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (;;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -57,7 +65,7 @@ namespace Shouldly
                 if (!expectedHasData && !actualHasData)
                     return true;
 
-                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current))
+                if (expectedHasData != actualHasData || !Equal(actualEnum.Current, expectedEnum.Current, comparer))
                 {
                     return false;
                 }
@@ -65,6 +73,14 @@ namespace Shouldly
         }
 
         public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
+        {
+            // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which 
+            // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
+            // and move the contents to the overload that supports accepting the comparer method.
+            return EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
+        }
+
+        public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
         {
             if (actual == null && expected == null)
                 return true;
@@ -80,7 +96,7 @@ namespace Shouldly
             var expectedList = expected.ToList();
             foreach (var actualElement in actual)
             {
-                var match = expectedList.FirstOrDefault(x => Equal(x, actualElement));
+                var match = expectedList.FirstOrDefault(x => Equal(x, actualElement, comparer));
                 if (!expectedList.Remove(match))
                     return false;
             }
