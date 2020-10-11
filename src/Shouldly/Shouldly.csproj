@@ -25,7 +25,7 @@
     <Version>$(PackageVersion)</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.0.3" />
+    <PackageReference Include="DiffEngine" Version="6.1.1" />
     <Content Include="build.targets" PackagePath="build\Shouldly.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Shouldly.targets" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
