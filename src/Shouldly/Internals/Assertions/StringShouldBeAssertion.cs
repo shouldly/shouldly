@@ -30,7 +30,7 @@ namespace Shouldly.Internals.Assertions
             _shouldlyMethod = shouldlyMethod;
         }
 
-        public string? GenerateMessage(string? customMessage)
+        public string GenerateMessage(string? customMessage)
         {
             var codeText = _codeTextGetter.GetCodeText(_actual);
             var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
