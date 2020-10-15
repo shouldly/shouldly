@@ -62,7 +62,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
 
-                var result = task.ShouldThrowAsync("Some additional context", typeof(InvalidOperationException));
+                var result = task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
                 result.Wait();
             }
             catch (AggregateException e)

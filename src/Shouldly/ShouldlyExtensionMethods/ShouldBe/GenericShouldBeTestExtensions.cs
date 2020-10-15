@@ -20,11 +20,8 @@ namespace Shouldly
             else
                 actual!.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
-        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer)
-        {
-            ShouldBe(actual, expected, comparer, null);
-        }
-        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage)
+
+        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
         {
             actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
@@ -34,13 +31,9 @@ namespace Shouldly
         {
             actual!.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
         }
+
         [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer)
-        {
-            ShouldNotBe(actual, expected, comparer, null);
-        }
-        [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage)
+        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
         {
             actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
@@ -74,11 +67,8 @@ namespace Shouldly
                 }
             }
         }
-        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder = false)
-        {
-            ShouldBe(actual, expected, comparer, ignoreOrder, null);
-        }
-        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder, string? customMessage)
+
+        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder = false, string? customMessage = null)
         {
             if (ignoreOrder)
             {
@@ -97,14 +87,8 @@ namespace Shouldly
 
         public static void ShouldBeSameAs(
             [NotNullIfNotNull("expected")] this object? actual,
-            [NotNullIfNotNull("actual")] object? expected)
-        {
-            ShouldBeSameAs(actual, expected, (string?)null);
-        }
-        public static void ShouldBeSameAs(
-            [NotNullIfNotNull("expected")] this object? actual,
             [NotNullIfNotNull("actual")] object? expected,
-            string? customMessage)
+            string? customMessage = null)
         {
             actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, customMessage);
         }

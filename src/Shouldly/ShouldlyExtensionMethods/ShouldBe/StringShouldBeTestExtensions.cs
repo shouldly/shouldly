@@ -14,19 +14,8 @@ namespace Shouldly
         /// </summary>
         public static void ShouldBe(
             [NotNullIfNotNull("expected")] this string? actual,
-            [NotNullIfNotNull("actual")] string? expected)
-        {
-            // ReSharper disable once IntroduceOptionalParameters.Global
-            ShouldBe(actual, expected, (StringCompareShould)0);
-        }
-
-        /// <summary>
-        /// Perform a string comparison with sensitivity options
-        /// </summary>
-        public static void ShouldBe(
-            [NotNullIfNotNull("expected")] this string? actual,
             [NotNullIfNotNull("actual")] string? expected,
-            string customMessage)
+            string? customMessage = null)
         {
             // ReSharper disable once IntroduceOptionalParameters.Global
             ShouldBe(actual, expected, customMessage, 0);

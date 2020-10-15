@@ -5,38 +5,20 @@ namespace Shouldly
 {
     public static partial class ShouldBeStringTestExtensions
     {
-        /*** ShouldStartWith ***/
-        public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity)
-        {
-            ShouldStartWith(actual, expected, customMessage: (string?)null, caseSensitivity);
-        }
-
-        public static void ShouldStartWith([NotNull] this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
         {
             actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
             Debug.Assert(actual != null);
         }
 
-        /*** ShouldEndWith ***/
-        public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity)
-        {
-            ShouldEndWith(actual, expected, (string?)null, caseSensitivity);
-        }
-
-        public static void ShouldEndWith([NotNull] this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
         {
             actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
             Debug.Assert(actual != null);
         }
 
-
         /*** ShouldNotStartWith ***/
-        public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity)
-        {
-            ShouldNotStartWith(actual, expected, (string?)null, caseSensitivity);
-        }
-
-        public static void ShouldNotStartWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
+        public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
         {
             actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
         }

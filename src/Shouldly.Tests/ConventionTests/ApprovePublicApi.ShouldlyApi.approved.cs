@@ -174,19 +174,16 @@ namespace Shouldly
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, System.Func<string?>? customMessage) { }
         public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string? customMessage = null) { }
-        public static System.Exception Throw(System.Action actual, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
         public static System.Exception Throw(System.Func<object?> actual, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Action actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Action actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Action actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
         public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Func<object?> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
@@ -194,8 +191,7 @@ namespace Shouldly
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Threading.Tasks.Task actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Threading.Tasks.Task actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Func<string?>? customMessage, System.Type exceptionType) { }
@@ -203,7 +199,7 @@ namespace Shouldly
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception Throw(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static TException Throw<TException>(System.Action actual, System.Func<string?>? customMessage)
@@ -240,16 +236,14 @@ namespace Shouldly
             where TException : System.Exception { }
         public static TException Throw<TException>(System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string? customMessage = null)
             where TException : System.Exception { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ThrowAsync(System.Threading.Tasks.Task task, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage)
@@ -352,12 +346,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string? customMessage) { }
-        public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage = null) { }
-        public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         public static void ShouldBeUnique<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
@@ -376,7 +369,6 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, System.Func<string?>? customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string? customMessage = null) { }
-        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string?>? customMessage) { }
@@ -385,7 +377,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, System.Func<string?>? customMessage) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null) { }
-        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static T ShouldHaveSingleItem<T>(this System.Collections.Generic.IEnumerable<T>? actual, System.Func<string?>? customMessage) { }
@@ -398,12 +390,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, System.Func<string?>? customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string? customMessage = null) { }
-        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Func<string?>? customMessage) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string? customMessage = null) { }
-        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeNullExtensions
@@ -426,12 +417,11 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeStringTestExtensions
     {
-        public static void ShouldBe([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this string? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] string? expected) { }
         public static void ShouldBe([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this string? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] string? expected, Shouldly.StringCompareShould options) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBe(this string? actual, string? expected, System.Func<string?> customMessage) { }
-        public static void ShouldBe([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this string? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] string? expected, string customMessage) { }
+        public static void ShouldBe([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this string? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] string? expected, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBe(this string? actual, string? expected, System.Func<string?> customMessage, Shouldly.StringCompareShould options) { }
@@ -444,24 +434,21 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBeNullOrWhiteSpace(this string? actual, System.Func<string?>? customMessage) { }
         public static void ShouldBeNullOrWhiteSpace(this string? actual, string? customMessage = null) { }
-        public static void ShouldContain(this string actual, string expected, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContain(this string actual, string expected, System.Func<string?>? customMessage) { }
-        public static void ShouldContain(this string actual, string expected, string? customMessage = null) { }
+        public static void ShouldContain(this string actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContain(this string actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity) { }
-        public static void ShouldContain(this string actual, string expected, string? customMessage, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldContainWithoutWhitespace(this string actual, object? expected, System.Func<string?>? customMessage) { }
         public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage = null) { }
-        public static void ShouldEndWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity) { }
+        public static void ShouldEndWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldEndWith(this string? actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity = 1) { }
-        public static void ShouldEndWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, string? customMessage = null, Shouldly.Case caseSensitivity = 1) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldMatch(this string actual, string regexPattern, System.Func<string?>? customMessage) { }
@@ -474,15 +461,13 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotBeNullOrWhiteSpace(this string? actual, System.Func<string?>? customMessage) { }
         public static void ShouldNotBeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string? customMessage = null) { }
-        public static void ShouldNotContain(this string actual, string expected, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotContain(this string actual, string expected, System.Func<string?>? customMessage) { }
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage = null) { }
+        public static void ShouldNotContain(this string actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotContain(this string actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity) { }
-        public static void ShouldNotContain(this string actual, string expected, string? customMessage, Shouldly.Case caseSensitivity) { }
         public static void ShouldNotEndWith(this string? actual, string expected, Shouldly.Case caseSensitivity) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
@@ -492,16 +477,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotMatch(this string actual, string regexPattern, System.Func<string?>? customMessage) { }
         public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null) { }
-        public static void ShouldNotStartWith(this string? actual, string expected, Shouldly.Case caseSensitivity) { }
-        [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
-            "stomMessage.", true)]
-        public static void ShouldNotStartWith(this string? actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity = 1) { }
-        public static void ShouldNotStartWith(this string? actual, string expected, string? customMessage = null, Shouldly.Case caseSensitivity = 1) { }
-        public static void ShouldStartWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity) { }
+        public static void ShouldNotStartWith(this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
+        public static void ShouldStartWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldStartWith(this string? actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity = 1) { }
-        public static void ShouldStartWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, string? customMessage = null, Shouldly.Case caseSensitivity = 1) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeTestExtensions
@@ -543,18 +523,16 @@ namespace Shouldly
         public static void ShouldBe(this float actual, float expected, double tolerance, System.Func<string?>? customMessage) { }
         public static void ShouldBe(this float actual, float expected, double tolerance, string? customMessage = null) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this System.Collections.Generic.IEnumerable<T>? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder = false) { }
-        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBe<T>(this T actual, T expected, System.Func<string?>? customMessage) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.AllowNull] [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this T actual, [System.Diagnostics.CodeAnalysis.AllowNull] [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] T expected, string? customMessage = null) { }
-        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder = false) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T>? actual, System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder, System.Func<string?>? customMessage) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this System.Collections.Generic.IEnumerable<T>? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder, string? customMessage) { }
-        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage) { }
-        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder, string? customMessage) { }
+        public static void ShouldBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
+        public static void ShouldBe<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder = false, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeAssignableTo(this object? actual, System.Type expected, System.Func<string?>? customMessage) { }
@@ -583,12 +561,10 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBeGreaterThanOrEqualTo<T>(this T actual, T expected, System.Collections.Generic.IComparer<T> comparer, System.Func<string?>? customMessage) { }
         public static void ShouldBeGreaterThanOrEqualTo<T>([System.Diagnostics.CodeAnalysis.AllowNull] this T actual, [System.Diagnostics.CodeAnalysis.AllowNull] T expected, System.Collections.Generic.IComparer<T> comparer, string? customMessage = null) { }
-        public static void ShouldBeInRange<T>(this T actual, T from, T to)
-            where T : System.IComparable<T> { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeInRange<T>(this T actual, T from, T to, System.Func<string?>? customMessage) { }
-        public static void ShouldBeInRange<T>([System.Diagnostics.CodeAnalysis.DisallowNull] this T actual, [System.Diagnostics.CodeAnalysis.AllowNull] T from, [System.Diagnostics.CodeAnalysis.AllowNull] T to, string? customMessage)
+        public static void ShouldBeInRange<T>([System.Diagnostics.CodeAnalysis.DisallowNull] this T actual, [System.Diagnostics.CodeAnalysis.AllowNull] T from, [System.Diagnostics.CodeAnalysis.AllowNull] T to, string? customMessage = null)
             where T : System.IComparable<T> { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
@@ -643,12 +619,11 @@ namespace Shouldly
         public static T ShouldBeOfType<T>(this object? actual, System.Func<string?>? customMessage) { }
         public static T ShouldBeOfType<T>([System.Diagnostics.CodeAnalysis.NotNull] this object? actual, string? customMessage = null) { }
         public static void ShouldBeOneOf<T>([System.Diagnostics.CodeAnalysis.AllowNull] this T actual, params T[] expected) { }
-        public static void ShouldBeOneOf<T>(this T actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeOneOf<T>(this T actual, T[] expected, System.Func<string?>? customMessage) { }
         public static void ShouldBeOneOf<T>([System.Diagnostics.CodeAnalysis.AllowNull] this T actual, T[] expected, string? customMessage) { }
-        public static void ShouldBeOneOf<T>(this T actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldBeOneOf<T>(this T actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBePositive(this decimal actual, System.Func<string?>? customMessage) { }
@@ -673,11 +648,10 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldBePositive(this short actual, System.Func<string?>? customMessage) { }
         public static void ShouldBePositive(this short actual, string? customMessage = null) { }
-        public static void ShouldBeSameAs([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this object? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] object? expected) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeSameAs(this object? actual, object? expected, System.Func<string?>? customMessage) { }
-        public static void ShouldBeSameAs([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this object? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] object? expected, string? customMessage) { }
+        public static void ShouldBeSameAs([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this object? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] object? expected, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBe(this System.DateTime actual, System.DateTime expected, System.TimeSpan tolerance, System.Func<string?>? customMessage) { }
@@ -690,12 +664,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldNotBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance, System.Func<string?>? customMessage) { }
         public static void ShouldNotBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance, string? customMessage = null) { }
-        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBe<T>(this T actual, T expected, System.Func<string?>? customMessage) { }
         public static void ShouldNotBe<T>([System.Diagnostics.CodeAnalysis.AllowNull] this T actual, [System.Diagnostics.CodeAnalysis.AllowNull] T expected, string? customMessage = null) { }
-        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage) { }
+        public static void ShouldNotBe<T>(this T actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBeAssignableTo(this object? actual, System.Type expected, System.Func<string?>? customMessage) { }
@@ -719,12 +692,11 @@ namespace Shouldly
         public static void ShouldNotBeOfType<T>(this object? actual, System.Func<string?>? customMessage) { }
         public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null) { }
         public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected) { }
-        public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, System.Func<string?>? customMessage) { }
         public static void ShouldNotBeOneOf<T>([System.Diagnostics.CodeAnalysis.AllowNull] this T actual, T[] expected, string? customMessage) { }
-        public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string customMessage) { }
+        public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBeSameAs(this object? actual, object? expected, System.Func<string?>? customMessage) { }
@@ -745,12 +717,10 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
     {
-        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string? customMessage = null) { }
+        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldMatchApproved(this string actual, System.Func<string?> customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
-        public static void ShouldMatchApproved(this string actual, string? customMessage, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder> configureOptions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldNotThrowTaskAsyncExtensions
@@ -781,16 +751,14 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions
     {
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, string? customMessage, System.Type exceptionType) { }
+        public static System.Threading.Tasks.Task<System.Exception> ShouldThrowAsync(this System.Threading.Tasks.Task task, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.Func<string?>? customMessage)
@@ -814,16 +782,14 @@ namespace Shouldly
             "stomMessage.", true)]
         public static T ShouldNotThrow<T>(this System.Func<T> action, System.Func<string?>? customMessage) { }
         public static T ShouldNotThrow<T>(this System.Func<T> action, string? customMessage = null) { }
-        public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType) { }
-        public static System.Exception ShouldThrow(this System.Func<object?> actual, System.Type exceptionType) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception ShouldThrow(this System.Action actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception ShouldThrow(this System.Action actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Action actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static System.Exception ShouldThrow(this System.Func<object?> actual, System.Func<string?>? customMessage, System.Type exceptionType) { }
-        public static System.Exception ShouldThrow(this System.Func<object?> actual, string? customMessage, System.Type exceptionType) { }
+        public static System.Exception ShouldThrow(this System.Func<object?> actual, System.Type exceptionType, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static TException ShouldThrow<TException>(this System.Action actual, System.Func<string?>? customMessage)

@@ -168,8 +168,7 @@ namespace Shouldly
                    && list.Contains(expected);
         }
 
-        private static void Record(this IDictionary<object, IList<object?>> comparisons, object actual,
-            object? expected)
+        private static void Record(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)
         {
             if (comparisons.TryGetValue(actual, out IList<object?>? list))
                 list.Add(expected);

@@ -13,12 +13,7 @@ namespace Shouldly
             return Throw<TException>(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
 
-        /*** Should.Throw(Task) ***/
-        public static Exception Throw(Task actual, Type exceptionType)
-        {
-            return ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, null, exceptionType);
-        }
-        public static Exception Throw(Task actual, string? customMessage, Type exceptionType)
+        public static Exception Throw(Task actual, Type exceptionType, string? customMessage = null)
         {
             return ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
         }
@@ -30,11 +25,7 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<Task>) ***/
-        public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType)
-        {
-            return ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, null, exceptionType);
-        }
-        public static Exception Throw([InstantHandle] Func<Task> actual, string? customMessage, Type exceptionType)
+        public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType, string? customMessage = null)
         {
             return ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
         }
@@ -46,11 +37,7 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Task, TimeSpan) ***/
-        public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType)
-        {
-            return ThrowInternal(() => actual, timeoutAfter, null, exceptionType);
-        }
-        public static Exception Throw(Task actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
+        public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType, string? customMessage = null)
         {
             return ThrowInternal(() => actual, timeoutAfter, customMessage, exceptionType);
         }

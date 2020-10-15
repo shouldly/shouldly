@@ -39,7 +39,7 @@ Additional Info:
     {
         Func<object> action = () => { throw new RankException(); };
         Verify.ShouldFail(() =>
-action.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
+action.ShouldThrow(typeof(InvalidOperationException), "Some additional context"),
 
 errorWithSource:
 @"`action()`

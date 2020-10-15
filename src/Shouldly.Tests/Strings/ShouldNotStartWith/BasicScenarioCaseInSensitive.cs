@@ -8,7 +8,7 @@ namespace Shouldly.Tests.Strings.ShouldNotStartWith
         public void BasicScenarioCaseInSensitiveShouldFail()
         {
             Verify.ShouldFail(() =>
-    "Cheese".ShouldNotStartWith("cH", "Some additional context", Case.Insensitive),
+    "Cheese".ShouldNotStartWith("cH", Case.Insensitive, "Some additional context"),
 
 errorWithSource:
 @"""Cheese""

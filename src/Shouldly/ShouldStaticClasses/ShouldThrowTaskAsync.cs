@@ -16,14 +16,9 @@ namespace Shouldly
             return ThrowAsync<TException>(() => task, customMessage);
         }
 
-        public static Task<Exception> ThrowAsync(Task task, Type exceptionType)
+        public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null)
         {
-            return ThrowAsync(task, (string?)null, exceptionType);
-        }
-
-        public static Task<Exception> ThrowAsync(Task task, string? customMessage, Type exceptionType)
-        {
-            return ThrowAsync(() => task, customMessage, exceptionType);
+            return ThrowAsync(() => task, exceptionType, customMessage);
         }
 
         /*** Should.ThrowAsync(Func<Task>) ***/
@@ -76,12 +71,7 @@ namespace Shouldly
         }
 
         /*** Should.ThrowAsync(Func<Task>) ***/
-        public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType)
-        {
-            return ThrowAsync(actual, (string?)null, exceptionType);
-        }
-
-        public static Task<Exception> ThrowAsync(Func<Task> actual, string? customMessage, Type exceptionType)
+        public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType, string? customMessage = null)
         {
             var stackTrace = new StackTrace(true);
             return actual().ContinueWith(t =>
