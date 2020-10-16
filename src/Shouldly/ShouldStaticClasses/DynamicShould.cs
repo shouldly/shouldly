@@ -1,6 +1,5 @@
 using System.Dynamic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace Shouldly
 {
