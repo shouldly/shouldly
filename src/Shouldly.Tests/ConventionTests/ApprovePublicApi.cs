@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ConventionTests
             {
                 IncludeAssemblyAttributes = false,
                 IncludeTypes = assembly.GetTypes()
-                    .Where(x => x.GetCustomAttribute(typeof(ObsoleteAttribute)) == null)
+                    .Where(x => !x.IsDefined(typeof(ObsoleteAttribute)))
                     .ToArray()
             };
             var publicApi = assembly.GeneratePublicApi(options);
