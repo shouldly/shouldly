@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -29,11 +27,6 @@ namespace Shouldly
                     throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
                 }
             }
-        }
-
-        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null) where TException : Exception
-        {
-            return Should.Throw<TException>(actual, customMessage);
         }
     }
 }
