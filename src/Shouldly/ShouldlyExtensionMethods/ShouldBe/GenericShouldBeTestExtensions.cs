@@ -21,9 +21,13 @@ namespace Shouldly
                 actual!.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
 
-        public static void ShouldBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
+        public static void ShouldBe<T>(
+            [AllowNull, NotNullIfNotNull("expected")] this T actual,
+            [AllowNull, NotNullIfNotNull("actual")] T expected,
+            IEqualityComparer<T> comparer,
+            string? customMessage = null)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
+            actual!.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
@@ -33,9 +37,9 @@ namespace Shouldly
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>(this T actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
+        public static void ShouldNotBe<T>([AllowNull] this T actual, [AllowNull] T expected, IEqualityComparer<T> comparer, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
+            actual!.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
 
         public static void ShouldBe<T>(
@@ -68,7 +72,12 @@ namespace Shouldly
             }
         }
 
-        public static void ShouldBe<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, bool ignoreOrder = false, string? customMessage = null)
+        public static void ShouldBe<T>(
+            [NotNullIfNotNull("expected")] this IEnumerable<T>? actual,
+            [NotNullIfNotNull("actual")] IEnumerable<T>? expected,
+            IEqualityComparer<T> comparer,
+            bool ignoreOrder = false,
+            string? customMessage = null)
         {
             if (ignoreOrder)
             {

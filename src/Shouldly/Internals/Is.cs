@@ -47,7 +47,7 @@ namespace Shouldly
             return Equal(actual, expected, GetEqualityComparer<T>());
         }
 
-        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
+        public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
         {
             if (actual == null && expected == null)
                 return true;
@@ -80,7 +80,7 @@ namespace Shouldly
             return EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
         }
 
-        public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
+        public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
         {
             if (actual == null && expected == null)
                 return true;
