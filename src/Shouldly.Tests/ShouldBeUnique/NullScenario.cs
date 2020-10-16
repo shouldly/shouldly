@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBeUnique
         public void NullShouldBeDetectedAsADuplicate()
         {
             Verify.ShouldFail(() =>
-                    new string?[] { null, null }.ShouldBeUnique("Some additional context"),
+new string?[] { null, null }.ShouldBeUnique("Some additional context"),
 
 errorWithSource:
 @"new string?[] { null, null }
@@ -35,10 +35,10 @@ Additional Info:
         public void NullShouldBeDetectedAsADuplicateWhenUsingComparer()
         {
             Verify.ShouldFail(() =>
-                    new string?[] { null, null }.ShouldBeUnique(StringComparer.OrdinalIgnoreCase, "Some additional context"),
+new string?[] { null, null }.ShouldBeUnique(StringComparer.OrdinalIgnoreCase, "Some additional context"),
 
-                errorWithSource:
-                @"new string?[] { null, null }
+errorWithSource:
+@"new string?[] { null, null }
     should be unique but
 [null]
     was duplicated
@@ -46,8 +46,8 @@ Additional Info:
 Additional Info:
     Some additional context",
 
-                errorWithoutSource:
-                @"[null, null]
+errorWithoutSource:
+@"[null, null]
     should be unique but
 [null]
     was duplicated
