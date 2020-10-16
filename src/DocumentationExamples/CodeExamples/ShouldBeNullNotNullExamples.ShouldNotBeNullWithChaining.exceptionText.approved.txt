@@ -1,0 +1,7 @@
+```
+myRef.ShouldNotBeNull().Length
+    should be
+5
+    but was
+4
+```
