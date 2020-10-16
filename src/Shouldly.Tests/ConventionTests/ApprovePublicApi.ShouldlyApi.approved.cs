@@ -478,6 +478,9 @@ namespace Shouldly
         public static void ShouldNotMatch(this string actual, string regexPattern, System.Func<string?>? customMessage) { }
         public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null) { }
         public static void ShouldNotStartWith(this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
+        [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
+            "stomMessage.", true)]
+        public static void ShouldNotStartWith(this string? actual, string expected, System.Func<string?>? customMessage, Shouldly.Case caseSensitivity = 1) { }
         public static void ShouldStartWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]

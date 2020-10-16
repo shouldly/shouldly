@@ -526,6 +526,12 @@ Diff launching can be controlled at the test level using `ShouldMatchConfigurati
         }
 
         [Obsolete(ObsoleteMessages.FuncCustomMessage, true)]
+        public static void ShouldNotStartWith(this string? actual, string expected, Func<string?>? customMessage, Case caseSensitivity = Case.Insensitive)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete(ObsoleteMessages.FuncCustomMessage, true)]
         public static void ShouldStartWith(this string? actual, string expected, Func<string?>? customMessage, Case caseSensitivity = Case.Insensitive)
         {
             throw new NotImplementedException();
