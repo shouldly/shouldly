@@ -18,13 +18,14 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldBeOneOf<T>(this T actual, T[] expected, IEqualityComparer<T> comparer, string? customMessage = null)
+        public static void ShouldBeOneOf<T>([AllowNull] this T actual, T[] expected, IEqualityComparer<T> comparer, string? customMessage = null)
         {
-            if (!expected.Contains(actual, comparer))
+            // Enumerable.Contains on an array always tolerates null.
+            if (!expected.Contains(actual!, comparer))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldNotBeOneOf<T>(this T actual, params T[] expected)
+        public static void ShouldNotBeOneOf<T>([AllowNull] this T actual, params T[] expected)
         {
             ShouldNotBeOneOf(actual, expected, (string?) null);
         }
@@ -35,9 +36,10 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, IEqualityComparer<T> comparer, string? customMessage = null)
+        public static void ShouldNotBeOneOf<T>([AllowNull] this T actual, T[] expected, IEqualityComparer<T> comparer, string? customMessage = null)
         {
-            if (expected.Contains(actual, comparer))
+            // Enumerable.Contains on an array always tolerates null.
+            if (expected.Contains(actual!, comparer))
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 

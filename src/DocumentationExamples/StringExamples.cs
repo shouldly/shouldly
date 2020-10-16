@@ -98,7 +98,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                string target = null;
+                string? target = null;
                 target.ShouldNotBeNull();
             }, _testOutputHelper);
         }

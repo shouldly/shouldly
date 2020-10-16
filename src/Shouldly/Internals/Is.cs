@@ -47,15 +47,15 @@ namespace Shouldly
             return Equal(actual, expected, GetEqualityComparer<T>());
         }
 
-        public static bool Equal<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
+        public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
         {
             if (actual == null && expected == null)
                 return true;
             if (actual == null || expected == null)
                 return false;
 
-            var expectedEnum = expected.GetEnumerator();
-            var actualEnum = actual.GetEnumerator();
+            using var expectedEnum = expected.GetEnumerator();
+            using var actualEnum = actual.GetEnumerator();
 
             for (;;)
             {
@@ -80,7 +80,7 @@ namespace Shouldly
             return EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
         }
 
-        public static bool EqualIgnoreOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
+        public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
         {
             if (actual == null && expected == null)
                 return true;
@@ -106,8 +106,8 @@ namespace Shouldly
 
         public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
         {
-            var expectedEnum = expected.GetEnumerator();
-            var actualEnum = actual.GetEnumerator();
+            using var expectedEnum = expected.GetEnumerator();
+            using var actualEnum = actual.GetEnumerator();
 
             for (; ; )
             {
@@ -126,8 +126,8 @@ namespace Shouldly
 
         public static bool Equal(IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
         {
-            var expectedEnum = expected.GetEnumerator();
-            var actualEnum = actual.GetEnumerator();
+            using var expectedEnum = expected.GetEnumerator();
+            using var actualEnum = actual.GetEnumerator();
 
             for (; ; )
             {
@@ -146,8 +146,8 @@ namespace Shouldly
 
         public static bool Equal(IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
         {
-            var expectedEnum = expected.GetEnumerator();
-            var actualEnum = actual.GetEnumerator();
+            using var expectedEnum = expected.GetEnumerator();
+            using var actualEnum = actual.GetEnumerator();
 
             for (; ; )
             {
@@ -254,8 +254,8 @@ namespace Shouldly
 
         public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
         {
-            var expectedEnum = expected.GetEnumerator();
-            var actualEnum = actual.GetEnumerator();
+            using var expectedEnum = expected.GetEnumerator();
+            using var actualEnum = actual.GetEnumerator();
 
             for (; ; )
             {
