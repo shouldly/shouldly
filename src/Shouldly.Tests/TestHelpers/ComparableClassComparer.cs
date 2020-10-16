@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Shouldly.Tests.TestHelpers
 {
     public class ComparableClassComparer : IEqualityComparer<ComparableClass>
     {
-        public bool Equals(ComparableClass x, ComparableClass y)
+        public bool Equals(ComparableClass? x, ComparableClass? y)
         {
+            if (x == y) return true;
+            if (x is null || y is null) return false;
+
             return x.Property == y.Property;
         }
 
         public int GetHashCode(ComparableClass obj)
         {
-            return obj.Property.GetHashCode();
+            return EqualityComparer<string?>.Default.GetHashCode(obj.Property!);
         }
     }
 }

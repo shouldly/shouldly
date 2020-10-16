@@ -71,7 +71,7 @@ target
 <!-- snippet: StringExamples.ShouldNotBeNull.codeSample.approved.cs -->
 <a id='c95659f4'></a>
 ```cs
-string target = null;
+string? target = null;
 target.ShouldNotBeNull();
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#c95659f4' title='Start of snippet'>anchor</a></sup>

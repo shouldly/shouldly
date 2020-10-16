@@ -1,2 +1,2 @@
-string target = null;
+string? target = null;
 target.ShouldNotBeNull();
