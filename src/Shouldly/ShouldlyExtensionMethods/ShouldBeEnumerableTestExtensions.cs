@@ -171,9 +171,9 @@ namespace Shouldly
             ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
         }
 
-        private static List<T> GetDuplicates<T>(IEnumerable<T> items)
+        private static List<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
         {
-            var uniqueItems = new HashSet<T>();
+            var uniqueItems = new HashSet<T>(comparer);
             var duplicates = new List<T>();
 
             foreach (var item in items)
@@ -182,22 +182,6 @@ namespace Shouldly
                 {
                     duplicates.Add(item);
                 }
-            }
-
-            return duplicates;
-        }
-
-        // Could possible remove the above implementation and pass an ObjectComparer like the generic ShouldBe methods do.
-        // Also added generics instead of object as this is probably how it should have been implemented.
-        private static List<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T> comparer)
-        {
-            var list = new List<T>();
-            var duplicates = new List<T>();
-
-            foreach (var o1 in items)
-            {
-                duplicates.AddRange(list.Where(o2 => o1 != null && comparer.Equals(o1, o2)));
-                list.Add(o1);
             }
 
             return duplicates;
