@@ -34,7 +34,7 @@ src/*.Tests/report.xml
 *.lock.json
 */.vscode
 .vscode
-src/.idea
-src/.idea.*
+.idea
+.idea.*
 UpgradeLog*.htm
 UpgradeLog*.XML
