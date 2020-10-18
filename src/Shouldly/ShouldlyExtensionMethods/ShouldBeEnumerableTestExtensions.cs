@@ -171,10 +171,10 @@ namespace Shouldly
             ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
         }
 
-        private static List<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
+        private static HashSet<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
         {
             var uniqueItems = new HashSet<T>(comparer);
-            var duplicates = new List<T>();
+            var duplicates = new HashSet<T>(comparer);
 
             foreach (var item in items)
             {
