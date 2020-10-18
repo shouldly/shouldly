@@ -33,6 +33,8 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, System.Func<string?>? customMessage) { }
         public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, string? customMessage = null) { }
+        public static TException Throw<TException>(System.Action actual, string? customMessage = null)
+            where TException : System.Exception { }
     }
     public class ExpectedActualIgnoreOrderShouldlyMessage : Shouldly.ShouldlyMessage
     {

@@ -1,17 +1,24 @@
+using System;
 using System.Dynamic;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
     [ShouldlyMethods]
     public static partial class DynamicShould
     {
+        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null) where TException : Exception
+        {
+            return Should.Throw<TException>(actual, customMessage);
+        }
+
         public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
         {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
-                var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
+                var dynamicAsDictionary = (IDictionary<string, object>) dynamicTestObject;
 
                 if (!dynamicAsDictionary.ContainsKey(propertyName))
                 {
@@ -20,7 +27,7 @@ namespace Shouldly
             }
             else
             {
-                var dynamicAsObject = (object)dynamicTestObject;
+                var dynamicAsObject = (object) dynamicTestObject;
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))
                 {
