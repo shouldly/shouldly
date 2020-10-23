@@ -1,0 +1,7 @@
+```
+nullableValue.ShouldNotBeNull().IntProperty
+    should be
+42
+    but was
+41
+```

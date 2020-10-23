@@ -31,7 +31,8 @@ Additional Info:
         [Fact]
         public void ShouldPassForNonNullReference()
         {
-            "Hello World".ShouldNotBeNull();
+            string returnValue = "Hello World".ShouldNotBeNull();
+            returnValue.ShouldBe("Hello World");
         }
 
         [Fact]
@@ -60,7 +61,8 @@ Additional Info:
         [Fact]
         public void ShouldPassForSystemNullableWithValue()
         {
-            ((int?)0).ShouldNotBeNull();
+            int returnValue = ((int?)0).ShouldNotBeNull();
+            returnValue.ShouldBe(0);
         }
     }
 }
