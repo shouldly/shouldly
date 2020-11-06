@@ -26,10 +26,7 @@ namespace Shouldly.Tests
             }
 
             /// <param name="throwDirectly">Required to cover the code path where the stack trace is not trimmed.</param>
-            /// <param name="reasonNotThrowingFromShouldlyAssembly">
-            /// Reason that an action cannot be provided which throws this type of exception in the Shouldly assembly.
-            /// </param>
-            public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly, string reasonNotThrowingFromShouldlyAssembly) where TException : Exception
+            public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly) where TException : Exception
             {
                 exceptionThrowers.Add(new ExceptionThrower(typeof(TException), false, throwDirectly));
                 return this;

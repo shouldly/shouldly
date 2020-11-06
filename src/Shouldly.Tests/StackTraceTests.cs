@@ -49,16 +49,14 @@ namespace Shouldly.Tests
                     })
 
                 .Add<ShouldlyTimeoutException>(
-                    throwDirectly: () => throw new ShouldlyTimeoutException(null, null),
-                    reasonNotThrowingFromShouldlyAssembly: "Exact type not thrown in Shouldly assembly")
+                    throwDirectly: () => throw new ShouldlyTimeoutException(null, null))
 
                 .Add<ShouldCompleteInException>(
                     throwDirectly: () => throw new ShouldCompleteInException(null, null),
                     throwInShouldlyAssembly: FailingUserCode_CompleteIn)
 
                 .Add<ShouldMatchApprovedException>(
-                    throwDirectly: () => throw new ShouldMatchApprovedException(null, null, null),
-                    reasonNotThrowingFromShouldlyAssembly: "Don’t want to actually create a file on disk")
+                    throwDirectly: () => throw new ShouldMatchApprovedException(null, null, null))
 
                 .Build()
                 .Select(exceptionThrower => new object[] { exceptionThrower });
