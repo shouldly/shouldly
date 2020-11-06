@@ -3,6 +3,7 @@
 * [Overview](README.md)
 * [Contributing](overview.md)
 
+
 ## Documentation
 
 * [Getting Started](documentation/getting-started.md)
@@ -47,3 +48,4 @@
 * [SatisfyAllConditions](documentation/satisfyAllConditions.md)
 * [CompleteIn](documentation/completeIn.md)
 * [DynamicShould](documentation/dynamicShould.md)
+* [Upgrade 3 to 4](documentation/upgrade/3to4.md)
