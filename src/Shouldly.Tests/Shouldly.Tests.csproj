@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netcoreapp3.1;net48</TargetFrameworks>
     <Optimize>false</Optimize>
-    <DebugType Condition=" '$(OS)' == 'Windows_NT' ">full</DebugType>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
