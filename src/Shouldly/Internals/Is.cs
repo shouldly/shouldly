@@ -189,11 +189,6 @@ namespace Shouldly
             return (actual - expected).Duration() < tolerance;
         }
 
-        public static bool InstanceOf(object? o, Type expected)
-        {
-            return o != null ? expected.IsInstanceOfType(o) : false;
-        }
-
         public static bool StringMatchingRegex(string actual, string regexPattern)
         {
             return Regex.IsMatch(actual, regexPattern);
