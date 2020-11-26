@@ -31,10 +31,10 @@ $@"{codePart}
     {shouldMethod} but was{(context.Expected == null ? " null" : "")}";
             }
 
-            var count = (context.Expected as IEnumerable)?.Cast<object?>().Count() ?? 0;
             string details;
-            if (context.Expected is IEnumerable and not string)
+            if (context.Expected is IEnumerable enumerable and not string)
             {
+                var count = enumerable?.Cast<object?>().Count() ?? 0;
                 details = $@" had
 {count}
     item{(count == 1 ? string.Empty : "s")} and";
