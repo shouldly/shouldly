@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework.Constraints;
 
 namespace Shouldly
@@ -22,7 +21,7 @@ namespace Shouldly
             _innerComparerFactory = () => innerComparer ?? DefaultInnerComparer;
         }
 
-        public bool Equals([AllowNull] T x, [AllowNull] T y)
+        public bool Equals(T? x, T? y)
         {
             if (ReferenceEquals(x, y))
                 return true;

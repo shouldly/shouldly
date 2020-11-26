@@ -11,8 +11,8 @@ namespace Shouldly
     {
         [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
         public static void  ShouldBe<T>(
-            [AllowNull, NotNullIfNotNull("expected")] this T actual,
-            [AllowNull, NotNullIfNotNull("actual")] T expected,
+            [NotNullIfNotNull("expected")] this T? actual,
+            [NotNullIfNotNull("actual")] T? expected,
             string? customMessage = null)
         {
             if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
@@ -22,8 +22,8 @@ namespace Shouldly
         }
 
         public static void ShouldBe<T>(
-            [AllowNull, NotNullIfNotNull("expected")] this T actual,
-            [AllowNull, NotNullIfNotNull("actual")] T expected,
+            [NotNullIfNotNull("expected")] this T? actual,
+            [NotNullIfNotNull("actual")] T? expected,
             IEqualityComparer<T> comparer,
             string? customMessage = null)
         {
@@ -31,13 +31,13 @@ namespace Shouldly
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>([AllowNull] this T actual, [AllowNull] T expected, string? customMessage = null)
+        public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null)
         {
             actual!.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
         }
 
         [ContractAnnotation("actual:null,expected:null => halt")]
-        public static void ShouldNotBe<T>([AllowNull] this T actual, [AllowNull] T expected, IEqualityComparer<T> comparer, string? customMessage = null)
+        public static void ShouldNotBe<T>(this T? actual, T? expected, IEqualityComparer<T> comparer, string? customMessage = null)
         {
             actual!.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
         }
