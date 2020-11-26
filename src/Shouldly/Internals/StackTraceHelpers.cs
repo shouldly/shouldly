@@ -24,9 +24,9 @@ namespace Shouldly.Internals
         {
             var shouldlyAssembly = Assembly.GetExecutingAssembly();
 
-            for (var startIndex = 0; startIndex < stackTrace.FrameCount; startIndex++)
+            var frames = stackTrace.GetFrames();
+            foreach (var (startIndex, frame) in frames.AsIndexed())
             {
-                var frame = stackTrace.GetFrame(startIndex)!;
                 if (frame.GetMethod()?.DeclaringType?.Assembly != shouldlyAssembly)
                 {
                     if (startIndex == 0)
@@ -35,12 +35,12 @@ namespace Shouldly.Internals
                     }
                     else
                     {
-                        var lines = new string[stackTrace.FrameCount - startIndex];
+                        var lines = new string[frames.Length - startIndex];
                         var neededCapacity = builder.Length;
 
                         for (var i = 0; i < lines.Length; i++)
                         {
-                            var line = new StackTrace(stackTrace.GetFrame(i + startIndex)!).ToString();
+                            var line = new StackTrace(frames[i + startIndex]).ToString();
                             if (i == lines.Length - 1) line = line.TrimEnd();
                             lines[i] = line;
                             neededCapacity += line.Length;
