@@ -9,7 +9,7 @@ namespace Shouldly
     {
         private struct VoidTypeStruct { }
 
-        private static void MarshalTaskResults<TResult>(Task source, TaskCompletionSource<TResult> proxy)
+        private static void MarshalTaskResults<TResult>(Task source, TaskCompletionSource<TResult?> proxy)
         {
             switch (source.Status)
             {
@@ -21,7 +21,7 @@ namespace Shouldly
                     break;
                 case TaskStatus.RanToCompletion:
                     proxy.TrySetResult(!(source is Task<TResult> castedSource)
-                        ? default! // source is a Task
+                        ? default // source is a Task
                         : castedSource.Result); // source is a Task<TResult>
                     break;
             }
