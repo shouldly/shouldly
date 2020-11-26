@@ -97,7 +97,7 @@ namespace Shouldly
             foreach (var actualElement in actual)
             {
                 var match = expectedList.FirstOrDefault(x => Equal(x, actualElement, comparer));
-                if (!expectedList.Remove(match))
+                if (!expectedList.Remove(match!)) // List<T>.Remove works fine when null is passed.
                     return false;
             }
 

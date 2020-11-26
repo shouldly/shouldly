@@ -60,7 +60,7 @@ namespace Shouldly.Internals
 
             if (_determinedOriginatingFrame)
             {
-                var codeLines = string.Join("\n", File.ReadAllLines(FileName).Skip(LineNumber).ToArray());
+                var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
 
                 var indexOf = codeLines.IndexOf(_shouldMethod!);
                 if (indexOf > 0)

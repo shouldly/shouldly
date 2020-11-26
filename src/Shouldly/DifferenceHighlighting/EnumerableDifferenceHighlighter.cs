@@ -34,8 +34,8 @@ namespace Shouldly.DifferenceHighlighting
             var expected = context.Expected as IEnumerable;
             if (CanProcess(context))
             {
-                var actualList = actual.Cast<object>();
-                var expectedList = expected.Cast<object>();
+                var actualList = actual!.Cast<object>();
+                var expectedList = expected!.Cast<object>();
 
                 var highestCount = actualList.Count() > expectedList.Count() ? actualList.Count() : expectedList.Count();
 
