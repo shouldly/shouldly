@@ -17,29 +17,7 @@ namespace NUnit.Framework.Constraints
         /// <returns>true if the object is a numeric type</returns>
         public static bool IsNumericType([NotNullWhen(true)] object? obj)
         {
-            return IsFloatingPointNumeric(obj) || IsFixedPointNumeric(obj);
-        }
-
-        /// <summary>
-        ///     Checks the type of the object, returning true if
-        ///     the object is a floating point numeric type.
-        /// </summary>
-        /// <param name="obj">The object to check</param>
-        /// <returns>true if the object is a floating point numeric type</returns>
-        public static bool IsFloatingPointNumeric([NotNullWhen(true)] object? obj)
-        {
-            return obj is double or float;
-        }
-
-        /// <summary>
-        ///     Checks the type of the object, returning true if
-        ///     the object is a fixed point numeric type.
-        /// </summary>
-        /// <param name="obj">The object to check</param>
-        /// <returns>true if the object is a fixed point numeric type</returns>
-        public static bool IsFixedPointNumeric([NotNullWhen(true)] object? obj)
-        {
-            return obj is byte or sbyte or decimal or int or uint or long or ulong or short or ushort;
+            return obj is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort;
         }
 
         /// <summary>
@@ -308,7 +286,7 @@ namespace NUnit.Framework.Constraints
             if (!IsNumericType(expected) || !IsNumericType(actual))
                 throw new ArgumentException("Both arguments must be numeric");
 
-            if (IsFloatingPointNumeric(expected) || IsFloatingPointNumeric(actual))
+            if (expected is double or float || actual is double or float)
                 return Convert.ToDouble(expected).CompareTo(Convert.ToDouble(actual));
 
             if (expected is decimal || actual is decimal)
