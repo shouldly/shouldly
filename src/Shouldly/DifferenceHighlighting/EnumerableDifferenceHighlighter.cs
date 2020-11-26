@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace Shouldly.DifferenceHighlighting
                 var actualList = actual.Cast<object>();
                 var expectedList = expected.Cast<object>();
 
-                var highestCount = actualList.Count() > expectedList.Count() ? actualList.Count() : expectedList.Count();
+                var highestCount = Math.Max(actualList.Count(), expectedList.Count());
 
                 return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount);
             }
