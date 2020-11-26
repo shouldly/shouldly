@@ -147,8 +147,8 @@ namespace Shouldly
         {
             foreach (var property in properties)
             {
-                var actualValue = property.GetValue(actual, new object[0]);
-                var expectedValue = property.GetValue(expected, new object[0]);
+                var actualValue = property.GetValue(actual, Array.Empty<object>());
+                var expectedValue = property.GetValue(expected, Array.Empty<object>());
 
                 var newPath = path.Concat(new[] { property.Name });
                 CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
