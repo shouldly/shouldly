@@ -937,6 +937,7 @@ namespace Shouldly
         protected Shouldly.IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }
         public override string ToString() { }
     }
+    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.All, Inherited=false)]
     public class ShouldlyMethodsAttribute : System.Attribute
     {
         public ShouldlyMethodsAttribute() { }

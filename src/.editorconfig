@@ -1,3 +1,6 @@
 [*.cs]
 indent_style = space
 indent_width = 4
+
+# CA1018: Mark attributes with AttributeUsageAttribute
+dotnet_diagnostic.CA1018.severity = error
