@@ -545,7 +545,7 @@ namespace Shouldly
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static T ShouldBeAssignableTo<T>(this object? actual, System.Func<string?>? customMessage) { }
-        public static T ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null) { }
+        public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeGreaterThan<T>(this T actual, T expected, System.Func<string?>? customMessage)
