@@ -14,7 +14,7 @@ namespace Shouldly
             switch (source.Status)
             {
                 case TaskStatus.Faulted:
-                    proxy.TrySetException(source.Exception!);
+                    proxy.TrySetException(source.Exception!.InnerExceptions);
                     break;
                 case TaskStatus.Canceled:
                     proxy.TrySetCanceled();
