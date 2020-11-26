@@ -33,7 +33,7 @@ $@"{codePart}
 
             var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
             string details;
-            if (!(context.Expected is string) && context.Expected is IEnumerable)
+            if (context.Expected is IEnumerable and not string)
             {
                 details = $@" had
 {count}

@@ -21,10 +21,8 @@ namespace Shouldly.DifferenceHighlighting
 
         public bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.Expected is IEnumerable
-                   && !(context.Expected is string)
-                   && context.Actual is IEnumerable
-                   && !(context.Actual is string);
+            return context.Expected is IEnumerable and not string
+                   && context.Actual is IEnumerable and not string;
         }
 
         public string? HighlightDifferences(IShouldlyAssertionContext context)
