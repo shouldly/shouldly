@@ -17,8 +17,8 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var expected = context.Expected.ToStringAwesomely();
-            var actualEnumerable = (context.Actual ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>();
-            var expectedEnumerable = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>();
+            var actualEnumerable = (context.Actual as IEnumerable ?? Enumerable.Empty<object>()).Cast<object>();
+            var expectedEnumerable = (context.Expected as IEnumerable ?? Enumerable.Empty<object>()).Cast<object>();
 
             var missing = actualEnumerable.Except(expectedEnumerable).ToList();
             var count = missing.Count;

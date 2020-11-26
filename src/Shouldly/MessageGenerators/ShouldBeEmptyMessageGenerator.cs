@@ -31,7 +31,7 @@ $@"{codePart}
     {shouldMethod} but was{(context.Expected == null ? " null" : "")}";
             }
 
-            var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
+            var count = (context.Expected as IEnumerable)?.Cast<object?>().Count() ?? 0;
             string details;
             if (context.Expected is IEnumerable and not string)
             {

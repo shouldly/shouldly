@@ -17,7 +17,7 @@ namespace Shouldly.MessageGenerators
         {
             var codePart = context.CodePart;
             var expected = context.Expected.ToStringAwesomely();
-            var count = (context.Expected ?? Enumerable.Empty<object>()).As<IEnumerable>().Cast<object>().Count();
+            var count = (context.Expected as IEnumerable)?.Cast<object>().Count() ?? 0;
             var should = context.ShouldMethod.PascalToSpaced();
             if (codePart != "null")
             {
