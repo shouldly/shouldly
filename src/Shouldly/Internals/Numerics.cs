@@ -28,12 +28,7 @@ namespace NUnit.Framework.Constraints
         /// <returns>true if the object is a floating point numeric type</returns>
         public static bool IsFloatingPointNumeric([NotNullWhen(true)] object? obj)
         {
-            if (null != obj)
-            {
-                if (obj is double) return true;
-                if (obj is float) return true;
-            }
-            return false;
+            return obj is double or float;
         }
 
         /// <summary>
@@ -44,19 +39,7 @@ namespace NUnit.Framework.Constraints
         /// <returns>true if the object is a fixed point numeric type</returns>
         public static bool IsFixedPointNumeric([NotNullWhen(true)] object? obj)
         {
-            if (null != obj)
-            {
-                if (obj is byte) return true;
-                if (obj is sbyte) return true;
-                if (obj is decimal) return true;
-                if (obj is int) return true;
-                if (obj is uint) return true;
-                if (obj is long) return true;
-                if (obj is ulong) return true;
-                if (obj is short) return true;
-                if (obj is ushort) return true;
-            }
-            return false;
+            return obj is byte or sbyte or decimal or int or uint or long or ulong or short or ushort;
         }
 
         /// <summary>
@@ -343,4 +326,4 @@ namespace NUnit.Framework.Constraints
             return Convert.ToInt32(expected).CompareTo(Convert.ToInt32(actual));
         }
     }
-}
+};

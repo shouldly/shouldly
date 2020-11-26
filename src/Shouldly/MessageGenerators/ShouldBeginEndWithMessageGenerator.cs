@@ -4,10 +4,11 @@ namespace Shouldly.MessageGenerators
     {
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod == "ShouldBeginWith" ||
-                   context.ShouldMethod == "ShouldNotBeginWith" ||
-                   context.ShouldMethod == "ShouldEndWith" ||
-                   context.ShouldMethod == "ShouldNotEndWith";
+            return context.ShouldMethod is
+                "ShouldBeginWith" or
+                "ShouldNotBeginWith" or
+                "ShouldEndWith" or
+                "ShouldNotEndWith";
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
