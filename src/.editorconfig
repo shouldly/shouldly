@@ -7,3 +7,6 @@ dotnet_diagnostic.CA1018.severity = error
 
 # CA1825: Avoid zero-length array allocations
 dotnet_diagnostic.CA1825.severity = warning
+
+# CA2208: Instantiate argument exceptions correctly
+dotnet_diagnostic.CA2208.severity = error

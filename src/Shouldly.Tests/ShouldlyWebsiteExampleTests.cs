@@ -126,7 +126,7 @@ namespace Shouldly.Tests
                 {
                     if (i == -1)
                     {
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException(nameof(i));
                     }
 
                     if (i == -2)
