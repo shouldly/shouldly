@@ -17,8 +17,8 @@ namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
-        static Regex scrubberRegex = new Regex(@"\w:.+?shouldly\\src",RegexOptions.Compiled);
-        static Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
+        static readonly Regex scrubberRegex = new Regex(@"\w:.+?shouldly\\src",RegexOptions.Compiled);
+        static readonly Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
 
         static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup =
             new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();

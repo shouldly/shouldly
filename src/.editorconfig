@@ -10,3 +10,6 @@ dotnet_diagnostic.CA1825.severity = warning
 
 # CA2208: Instantiate argument exceptions correctly
 dotnet_diagnostic.CA2208.severity = error
+
+# IDE0044: Add readonly modifier
+dotnet_diagnostic.IDE0044.severity = error
