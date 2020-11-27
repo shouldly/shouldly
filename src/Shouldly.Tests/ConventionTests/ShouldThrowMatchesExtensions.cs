@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
@@ -11,8 +12,8 @@ namespace Shouldly.Tests.ConventionTests
             var shouldThrowMethods = data
                 .SelectMany(t => t.GetMethods())
                 .Where(method =>
-                    method.Name.StartsWith("Throw") || method.Name.StartsWith("ShouldThrow") ||
-                    method.Name.StartsWith("NotThrow") || method.Name.StartsWith("ShouldNotThrow"))
+                    method.Name.StartsWith("Throw", StringComparison.Ordinal) || method.Name.StartsWith("ShouldThrow", StringComparison.Ordinal) ||
+                    method.Name.StartsWith("NotThrow", StringComparison.Ordinal) || method.Name.StartsWith("ShouldNotThrow", StringComparison.Ordinal))
                 .Select(throwMethod => new ShouldThrowMethod(throwMethod))
                 .ToList();
 

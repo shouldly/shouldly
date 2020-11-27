@@ -1,3 +1,4 @@
+using System;
 using System.Linq.Expressions;
 
 namespace Shouldly.MessageGenerators
@@ -6,7 +7,7 @@ namespace Shouldly.MessageGenerators
     {
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.StartsWith("Should")
+            return context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
                    && context.ShouldMethod.Contains("Contain")
                    && context.Expected is Expression;
         }

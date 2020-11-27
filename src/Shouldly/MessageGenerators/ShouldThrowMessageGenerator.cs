@@ -1,3 +1,5 @@
+using System;
+
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldThrowMessageGenerator : ShouldlyMessageGenerator
@@ -10,7 +12,7 @@ namespace Shouldly.MessageGenerators
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)
         {
             var throwContext = (ShouldThrowAssertionContext)context;
-            var isExtensionMethod = context.ShouldMethod.StartsWith("ShouldThrow");
+            var isExtensionMethod = context.ShouldMethod.StartsWith("ShouldThrow", StringComparison.Ordinal);
             var maybeInvokeMethod = isExtensionMethod && !throwContext.IsAsync ? "()" : string.Empty;
             string codePart;
             if (context.CodePart == "null" || context.CodePartMatchesActual)
