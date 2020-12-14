@@ -9,7 +9,7 @@ namespace Shouldly.Configuration
     {
         public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
         {
-            for (var i = startAt; stackTrace.GetFrame(i) is { } frame; i++)
+            foreach (var frame in stackTrace.GetFrames().Skip(startAt))
             {
                 var method = frame.GetMethod();
                 var originalMethod = GetOriginalMethodInfoForStateMachineMethod(method);

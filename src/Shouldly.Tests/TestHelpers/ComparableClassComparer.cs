@@ -14,7 +14,7 @@ namespace Shouldly.Tests.TestHelpers
 
         public int GetHashCode(ComparableClass obj)
         {
-            return EqualityComparer<string?>.Default.GetHashCode(obj.Property!);
+            return EqualityComparer<string?>.Default.GetHashCode(obj.Property);
         }
     }
 }

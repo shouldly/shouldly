@@ -189,13 +189,13 @@ namespace Shouldly
 
         private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, string? customMessage)
         {
-            var previousItem = default(T)!;
+            var previousItem = default(T);
             var currentIndex = -1;
 
             foreach (var currentItem in actual)
             {
                 if (++currentIndex > 0 // We only need to start comparing once we've passed the first item in the list
-                    && isOutOfOrder(previousItem, currentItem))
+                    && isOutOfOrder(previousItem!, currentItem))
                 {
                     throw new ShouldAssertException(
                         new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage).ToString());
