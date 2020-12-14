@@ -8,9 +8,12 @@ namespace Shouldly.MessageGenerators
     {
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.Equals("ShouldBe") &&
-                   !(context.Expected is Expression) &&
-                   context.Actual is IEnumerable<string>;
+            return context is
+            {
+                ShouldMethod: "ShouldBe",
+                Expected: not Expression,
+                Actual: IEnumerable<string>,
+            };
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)

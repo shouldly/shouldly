@@ -100,8 +100,6 @@ namespace Shouldly.Internals
                 {'[', ']'}
             };
 
-            var parameterFinishedKeys = new[] { ',', ')' };
-
             var openParentheses = new List<char>();
 
             var found = false;
@@ -110,7 +108,7 @@ namespace Shouldly.Internals
             {
                 var currentChar = parameterString[i];
 
-                if (openParentheses.Count == 0 && parameterFinishedKeys.Contains(currentChar))
+                if (openParentheses.Count == 0 && currentChar is ',' or ')')
                 {
                     found = true;
                     continue;

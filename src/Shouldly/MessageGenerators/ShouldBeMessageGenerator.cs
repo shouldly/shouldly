@@ -5,13 +5,9 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeMessageGenerator : ShouldlyMessageGenerator
     {
-        const string ShouldBeAssertion = "ShouldBe";
-        const string ShouldNotBeAssertion = "ShouldNotBe";
-
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.Equals(ShouldBeAssertion, StringComparison.OrdinalIgnoreCase) ||
-                   context.ShouldMethod.Equals(ShouldNotBeAssertion, StringComparison.OrdinalIgnoreCase);
+            return context.ShouldMethod is "ShouldBe" or "ShouldNotBe";
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)

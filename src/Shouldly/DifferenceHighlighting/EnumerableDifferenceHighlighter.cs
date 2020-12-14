@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,7 @@ namespace Shouldly.DifferenceHighlighting
 
         public bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.Expected != null && context.Actual != null
-                   && context.Expected is IEnumerable
-                   && !(context.Expected is string)
-                   && context.Actual is IEnumerable
-                   && !(context.Actual is string);
+            return context is { Expected: IEnumerable and not string, Actual: IEnumerable and not string };
         }
 
         public string? HighlightDifferences(IShouldlyAssertionContext context)
@@ -37,7 +34,7 @@ namespace Shouldly.DifferenceHighlighting
                 var actualList = actual!.Cast<object>();
                 var expectedList = expected!.Cast<object>();
 
-                var highestCount = actualList.Count() > expectedList.Count() ? actualList.Count() : expectedList.Count();
+                var highestCount = Math.Max(actualList.Count(), expectedList.Count());
 
                 return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount);
             }

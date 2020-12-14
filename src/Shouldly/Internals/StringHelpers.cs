@@ -49,26 +49,23 @@ namespace Shouldly
                 return inspect;
             }
 
-            if (value is Enum)
-                return value.As<Enum>().ToStringAwesomely();
+            if (value is Enum @enum)
+                return @enum.ToStringAwesomely();
 
-            if (value is DateTime)
-                return value.As<DateTime>().ToStringAwesomely();
+            if (value is DateTime dateTime)
+                return dateTime.ToStringAwesomely();
 
-            if (value is ConstantExpression)
-                return value.As<ConstantExpression>().Value.ToStringAwesomely();
+            if (value is ConstantExpression constantExpression)
+                return constantExpression.Value.ToStringAwesomely();
 
-            if (value is MemberExpression)
+            if (value is MemberExpression { Expression: ConstantExpression constant, Member: FieldInfo info })
             {
-                var member = value.As<MemberExpression>();
-                var constant = member.Expression!.As<ConstantExpression>();
-                var info = member.Member.As<FieldInfo>();
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
 
-            if (value is BinaryExpression)
+            if (value is BinaryExpression binaryExpression)
             {
-                return ExpressionToString.ExpressionStringBuilder.ToString(value.As<BinaryExpression>());
+                return ExpressionToString.ExpressionStringBuilder.ToString(binaryExpression);
             }
 
             if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
