@@ -11,5 +11,5 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
   </ItemGroup>
-  <Import Project="..\Shouldly\build.targets" />
+  <Import Project="..\Shouldly\build.props" />
 </Project>
