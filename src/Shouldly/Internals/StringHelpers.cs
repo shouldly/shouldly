@@ -61,7 +61,7 @@ namespace Shouldly
             if (value is MemberExpression)
             {
                 var member = value.As<MemberExpression>();
-                var constant = member.Expression.As<ConstantExpression>();
+                var constant = member.Expression!.As<ConstantExpression>();
                 var info = member.Member.As<FieldInfo>();
                 return info.GetValue(constant.Value).ToStringAwesomely();
             }
