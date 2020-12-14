@@ -6,10 +6,10 @@ namespace Shouldly
 {
     public static partial class ShouldBeTestExtensions
     {
-        public static T ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
+        public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
         {
             ShouldBeAssignableTo(actual, typeof(T), customMessage);
-            return (T)actual!;
+            return (T)actual;
         }
 
         public static void ShouldBeAssignableTo(this object? actual, Type expected, string? customMessage = null)

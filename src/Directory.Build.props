@@ -4,7 +4,6 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Version>4.0.1</Version>
-    <NoWarn>CS8631;CS8620</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
