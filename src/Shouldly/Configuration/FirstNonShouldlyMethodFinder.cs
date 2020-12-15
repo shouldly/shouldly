@@ -1,5 +1,7 @@
+using Shouldly.Internals;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -19,7 +21,7 @@ namespace Shouldly.Configuration
 
         public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
         {
-            for (var i = startAt; stackTrace.GetFrame(i) is { } frame; i++)
+            foreach (var (i, frame) in stackTrace.GetFrames().AsIndexed().Skip(startAt))
             {
                 if (frame.GetMethod() is { } method && !method.IsShouldlyMethod() && !IsCompilerGenerated(method))
                 {

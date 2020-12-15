@@ -9,8 +9,8 @@
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <Compile Include="..\Shouldly.Tests\ConventionTests\IgnoreOnAppVeyorLinuxFact.cs" Link="IgnoreOnAppVeyorLinuxFact.cs" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="21.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="21.7.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
@@ -18,6 +18,6 @@
     <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
     <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[3.1.0]" />
   </ItemGroup>
-  <Import Project="..\Shouldly\build.targets" />
+  <Import Project="..\Shouldly\build.props" />
 
 </Project>

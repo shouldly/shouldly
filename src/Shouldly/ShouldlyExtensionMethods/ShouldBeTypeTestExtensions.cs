@@ -6,10 +6,10 @@ namespace Shouldly
 {
     public static partial class ShouldBeTestExtensions
     {
-        public static T ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
+        public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
         {
             ShouldBeAssignableTo(actual, typeof(T), customMessage);
-            return (T)actual!;
+            return (T?)actual;
         }
 
         public static void ShouldBeAssignableTo(this object? actual, Type expected, string? customMessage = null)
@@ -19,7 +19,7 @@ namespace Shouldly
                 if (actual == null && !expected.IsValueType())
                     return true;
 
-                return Is.InstanceOf(v, expected);
+                return expected.IsInstanceOfType(v);
             }, actual, expected, customMessage);
         }
 
@@ -42,7 +42,7 @@ namespace Shouldly
 
         public static void ShouldNotBeAssignableTo(this object? actual, Type expected, string? customMessage = null)
         {
-            actual.AssertAwesomely(v => !Is.InstanceOf(v, expected), actual, expected, customMessage);
+            actual.AssertAwesomely(v => !expected.IsInstanceOfType(v), actual, expected, customMessage);
         }
 
         public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null)

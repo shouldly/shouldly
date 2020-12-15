@@ -9,7 +9,7 @@ namespace Shouldly.MessageGenerators
         {
             return context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
                     && context.ShouldMethod.Contains("Contain")
-                    && !(context.Expected is Expression);
+                    && context.Expected is not Expression;
         }
 
         public override string GenerateErrorMessage(IShouldlyAssertionContext context)

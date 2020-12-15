@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly
 {
     [Serializable]
     class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
     {
-        public override bool Equals([AllowNull] T x, [AllowNull] T y)
+        public override bool Equals(T? x, T? y)
         {
             if (x != null)
             {
@@ -15,7 +14,7 @@ namespace Shouldly
             return y == null;
         }
 
-        public override int GetHashCode([AllowNull] T obj)
+        public override int GetHashCode(T? obj)
         {
             if (obj == null)
             {

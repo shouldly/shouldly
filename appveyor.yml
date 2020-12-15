@@ -1,7 +1,9 @@
 image:
   - Visual Studio 2019
   - Ubuntu
-  - macos
+# re enable mac build when appveyor is net 5
+# https://github.com/shouldly/shouldly/issues/731
+#- macos
 
 build_script:
 - ps: >-
