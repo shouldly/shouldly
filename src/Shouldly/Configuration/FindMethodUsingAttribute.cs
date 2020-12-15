@@ -11,6 +11,10 @@ namespace Shouldly.Configuration
         {
             foreach (var frame in stackTrace.GetFrames().Skip(startAt))
             {
+                if (frame == null)
+                {
+                    continue;
+                }
                 var method = frame.GetMethod();
                 var originalMethod = GetOriginalMethodInfoForStateMachineMethod(method);
                 method = originalMethod != null ? originalMethod.Value.DeclaringType.GetMethod(originalMethod.Value.MethodName) : method;
