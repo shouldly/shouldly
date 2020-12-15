@@ -27,33 +27,43 @@ namespace Shouldly.Internals
             var frames = stackTrace.GetFrames();
             foreach (var (startIndex, frame) in frames.AsIndexed())
             {
-                if (frame.GetMethod()?.DeclaringType?.Assembly != shouldlyAssembly)
+                if (frame == null)
                 {
-                    if (startIndex == 0)
-                    {
-                        builder.Append(stackTrace.ToString().TrimEnd());
-                    }
-                    else
-                    {
-                        var lines = new string[frames.Length - startIndex];
-                        var neededCapacity = builder.Length;
-
-                        for (var i = 0; i < lines.Length; i++)
-                        {
-                            var line = new StackTrace(frames[i + startIndex]).ToString();
-                            if (i == lines.Length - 1) line = line.TrimEnd();
-                            lines[i] = line;
-                            neededCapacity += line.Length;
-                        }
-
-                        builder.EnsureCapacity(neededCapacity);
-
-                        foreach (var line in lines)
-                            builder.Append(line);
-                    }
-
-                    return;
+                    continue;
                 }
+                if (frame.GetMethod()?.DeclaringType?.Assembly == shouldlyAssembly)
+                {
+                    continue;
+                }
+                if (startIndex == 0)
+                {
+                    builder.Append(stackTrace.ToString().TrimEnd());
+                }
+                else
+                {
+                    var lines = new string[frames.Length - startIndex];
+                    var neededCapacity = builder.Length;
+
+                    for (var i = 0; i < lines.Length; i++)
+                    {
+                        var nextFrame = frames[i + startIndex];
+                        if (nextFrame == null)
+                        {
+                            continue;
+                        }
+                        var line = new StackTrace(nextFrame).ToString();
+                        if (i == lines.Length - 1) line = line.TrimEnd();
+                        lines[i] = line;
+                        neededCapacity += line.Length;
+                    }
+
+                    builder.EnsureCapacity(neededCapacity);
+
+                    foreach (var line in lines)
+                        builder.Append(line);
+                }
+
+                return;
             }
         }
     }
