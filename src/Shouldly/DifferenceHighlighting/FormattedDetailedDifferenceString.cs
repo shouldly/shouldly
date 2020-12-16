@@ -9,13 +9,13 @@ namespace Shouldly.DifferenceHighlighting
         private readonly string _expectedValue;
         private readonly Case _caseSensitivity;
         private readonly int _indexOffset;
-        private StringBuilder differenceStringLineOneBuilder;
-        private StringBuilder actualCodeStringBuilder;
-        private StringBuilder differenceStringLineTwoBuilder;
-        private StringBuilder indexStringBuilder;
-        private StringBuilder expectedValueStringBuilder;
-        private StringBuilder actualValueStringBuilder;
-        private StringBuilder expectedCodeStringBuilder;
+        private readonly StringBuilder differenceStringLineOneBuilder;
+        private readonly StringBuilder actualCodeStringBuilder;
+        private readonly StringBuilder differenceStringLineTwoBuilder;
+        private readonly StringBuilder indexStringBuilder;
+        private readonly StringBuilder expectedValueStringBuilder;
+        private readonly StringBuilder actualValueStringBuilder;
+        private readonly StringBuilder expectedCodeStringBuilder;
 
         private readonly bool _prefixWithDots;
         private readonly bool _suffixWithDots;

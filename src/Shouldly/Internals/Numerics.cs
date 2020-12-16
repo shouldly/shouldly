@@ -90,7 +90,7 @@ namespace NUnit.Framework.Constraints
                     return FloatingPointNumerics.AreAlmostEqualUlps(
                         expected, actual, Convert.ToInt64(tolerance.Value));
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 
@@ -127,7 +127,7 @@ namespace NUnit.Framework.Constraints
                     return FloatingPointNumerics.AreAlmostEqualUlps(
                         expected, actual, Convert.ToInt32(tolerance.Value));
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 
@@ -155,7 +155,7 @@ namespace NUnit.Framework.Constraints
                     return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 
@@ -186,7 +186,7 @@ namespace NUnit.Framework.Constraints
                     return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 
@@ -213,7 +213,7 @@ namespace NUnit.Framework.Constraints
                     return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 
@@ -244,7 +244,7 @@ namespace NUnit.Framework.Constraints
                     return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 
@@ -271,7 +271,7 @@ namespace NUnit.Framework.Constraints
                     return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
 
                 default:
-                    throw new ArgumentException("Unknown tolerance mode specified", "mode");
+                    throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
             }
         }
 

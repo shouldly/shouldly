@@ -1,10 +1,12 @@
+using System;
+
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldContainWithinRangeMessageGenerator : ShouldlyMessageGenerator
     {
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
-            return context.ShouldMethod.StartsWith("Should")
+            return context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
                    && context.ShouldMethod.Contains("Contain")
                    && context.Tolerance != null;
         }

@@ -62,14 +62,14 @@ namespace Shouldly.Internals
             {
                 var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
 
-                var indexOf = codeLines.IndexOf(_shouldMethod!);
+                var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
                 if (indexOf > 0)
                     codePart = codeLines.Substring(0, indexOf - 1).Trim();
 
                 // When the static method is used instead of the extension method,
                 // the code part will be "Should".
                 // Using EndsWith to cater for being inside a lambda
-                if (codePart.EndsWith("Should"))
+                if (codePart.EndsWith("Should", StringComparison.Ordinal))
                 {
                     codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
                 }
@@ -89,7 +89,7 @@ namespace Shouldly.Internals
 
             var parameterString = codeLines.Substring(indexOfParameters);
             // Remove generic parameter if need be
-            parameterString = parameterString.StartsWith("<")
+            parameterString = parameterString.StartsWith("<", StringComparison.Ordinal)
                 ? parameterString.Substring(parameterString.IndexOf(">", StringComparison.Ordinal) + 2)
                 : parameterString.Substring(1);
 

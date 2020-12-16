@@ -221,7 +221,7 @@ namespace Shouldly
                 return actual.EndsWith(expected, StringComparison.OrdinalIgnoreCase);
             }
 
-            return actual.EndsWith(expected);
+            return actual.EndsWith(expected, StringComparison.Ordinal);
         }
 
         public static bool StringStartingWithUsingCaseSensitivity(string? actual, string expected, Case caseSensitivity)
@@ -234,7 +234,7 @@ namespace Shouldly
                 return actual.StartsWith(expected, StringComparison.OrdinalIgnoreCase);
             }
 
-            return actual.StartsWith(expected);
+            return actual.StartsWith(expected, StringComparison.Ordinal);
         }
 
         public static bool StringEqualWithCaseSensitivity(string? actual, string? expected, Case caseSensitivity)

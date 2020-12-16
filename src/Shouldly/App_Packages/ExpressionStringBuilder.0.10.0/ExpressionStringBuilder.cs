@@ -231,7 +231,7 @@ namespace ExpressionToString
             var isDefined = type.IsDefined(typeof(CompilerGeneratedAttribute), false);
             return isDefined
                    && (type.IsGenericType() && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
-                   && (type.Name.StartsWith("<>") || type.Name.StartsWith("VB$"));
+                   && (type.Name.StartsWith("<>", StringComparison.Ordinal) || type.Name.StartsWith("VB$", StringComparison.Ordinal));
         }
 
         static string ToString(ExpressionType type)

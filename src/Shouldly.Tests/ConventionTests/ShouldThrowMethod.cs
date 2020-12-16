@@ -12,7 +12,7 @@ namespace Shouldly.Tests.ConventionTests
         {
             _throwMethod = throwMethod;
             Name = throwMethod.Name.Replace("Should", string.Empty);
-            IsShouldlyExtension = throwMethod.Name.StartsWith("Should");
+            IsShouldlyExtension = throwMethod.Name.StartsWith("Should", StringComparison.Ordinal);
             Parameters = throwMethod.GetParameters();
         }
 
