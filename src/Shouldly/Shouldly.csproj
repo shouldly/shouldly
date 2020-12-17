@@ -21,8 +21,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.4.8" />
-    <PackageReference Include="EmptyFiles" Version="2.3.2" PrivateAssets="analyzers;build" />
+    <PackageReference Include="DiffEngine" Version="6.4.9" />
+    <PackageReference Include="EmptyFiles" Version="2.3.3" PrivateAssets="None" />
     <Content Include="build.props" PackagePath="build\Shouldly.props" />
     <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Shouldly.props" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
