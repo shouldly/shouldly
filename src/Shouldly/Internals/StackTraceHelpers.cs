@@ -27,10 +27,6 @@ namespace Shouldly.Internals
             var frames = stackTrace.GetFrames();
             foreach (var (startIndex, frame) in frames.AsIndexed())
             {
-                if (frame == null)
-                {
-                    continue;
-                }
                 if (frame.GetMethod()?.DeclaringType?.Assembly == shouldlyAssembly)
                 {
                     continue;
