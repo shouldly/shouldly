@@ -19,7 +19,7 @@ namespace Shouldly
 
         public new bool Equals(object? x, object? y)
         {
-            return _innerComparer.Equals((T)x!, (T)y!);
+            return _innerComparer.Equals((T?)x, (T?)y);
         }
 
         public int GetHashCode(object obj)
