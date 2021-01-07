@@ -41,7 +41,7 @@ namespace Shouldly
 
         public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
         {
-            // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which 
+            // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
             // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
             // and move the contents to the overload that supports accepting the comparer method.
             return Equal(actual, expected, GetEqualityComparer<T>());
@@ -74,7 +74,7 @@ namespace Shouldly
 
         public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
         {
-            // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which 
+            // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
             // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
             // and move the contents to the overload that supports accepting the comparer method.
             return EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
