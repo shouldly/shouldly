@@ -42,6 +42,39 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         }
 
         [Fact]
+        public void ActualEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
+        {
+            var fooEnum = CreateTestEnumerable();
+
+            Verify.ShouldFail(() =>
+                fooEnum.ShouldBe(new[] { 2, 3, 4 }, true),
+                errorWithSource:
+@"fooEnum
+    should be (ignoring order)
+[2, 3, 4]
+    but
+fooEnum
+    is missing
+[4]
+    and
+[2, 3, 4]
+    is missing
+[1]",
+                errorWithoutSource:
+@"[1, 2, 3]
+    should be (ignoring order)
+[2, 3, 4]
+    but
+[1, 2, 3]
+    is missing
+[4]
+    and
+[2, 3, 4]
+    is missing
+[1]");
+        }
+
+        [Fact]
         public void ExpectedEnumerableShouldOnlyBeTraversedOnce()
         {
             var fooEnum = CreateTestEnumerable();
@@ -63,6 +96,39 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
     but was not
     difference
 [*3*, 2, *1*]");
+        }
+
+        [Fact]
+        public void ExpectedEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
+        {
+            var fooEnum = CreateTestEnumerable();
+
+            Verify.ShouldFail(() =>
+                new[] { 2, 3, 4 }.ShouldBe(fooEnum, true),
+                errorWithSource:
+@"new[] { 2, 3, 4 }
+    should be (ignoring order)
+[1, 2, 3]
+    but
+new[] { 2, 3, 4 }
+    is missing
+[1]
+    and
+[1, 2, 3]
+    is missing
+[4]",
+                errorWithoutSource:
+@"[2, 3, 4]
+    should be (ignoring order)
+[1, 2, 3]
+    but
+[2, 3, 4]
+    is missing
+[1]
+    and
+[1, 2, 3]
+    is missing
+[4]");
         }
 
         [Fact]
