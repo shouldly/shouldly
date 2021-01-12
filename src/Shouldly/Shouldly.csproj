@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="6.5.2" />
-    <PackageReference Include="EmptyFiles" Version="2.3.3" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="2.4.0" PrivateAssets="None" />
     <Content Include="build.props" PackagePath="build\Shouldly.props" />
     <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Shouldly.props" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
