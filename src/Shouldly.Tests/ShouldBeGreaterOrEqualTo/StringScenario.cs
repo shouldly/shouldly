@@ -37,5 +37,13 @@ Additional Info:
         {
             "a".ShouldBeGreaterThanOrEqualTo("a");
         }
+
+        [Fact]
+        public void ShouldFailDate()
+        {
+            var oldDate = Convert.ToDateTime("22/1/2020 4:44:01.210 PM");
+            var newDate = Convert.ToDateTime("22/1/2020 4:44:01.209 PM");
+            old.ShouldBeGreaterThanOrEqualTo(newDate);
+        }
     }
 }
