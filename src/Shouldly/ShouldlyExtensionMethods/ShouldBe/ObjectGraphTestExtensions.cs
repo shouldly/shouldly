@@ -105,7 +105,7 @@ namespace Shouldly
             }
             else if (typeof(IEnumerable).IsAssignableFrom(type))
             {
-                CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
+                CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, customMessage, shouldlyMethod);
             }
             else
             {
@@ -122,8 +122,8 @@ namespace Shouldly
         }
 
         private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
-            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
-            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+            IEnumerable<string> path, string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
         {
             var expectedList = expected.Cast<object?>().ToList();
             var actualList = actual.Cast<object?>().ToList();
@@ -134,10 +134,22 @@ namespace Shouldly
                 ThrowException(actualList.Count, expectedList.Count, newPath, customMessage, shouldlyMethod);
             }
 
-            for (var i = 0; i < actualList.Count; i++)
+            if (expectedList.Count != 0 && FindMismatchedElement(
+                expectedList,
+                actualList,
+                out _,
+                out _,
+                out var mismatchedElement))
             {
-                var newPath = path.Concat(new[] { $"Element [{i}]" });
-                CompareObjects(actualList[i], expectedList[i], newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+                var newPath = path.Concat(new[] { $"Element {mismatchedElement} not found" });
+
+                throw new ShouldAssertException(
+                    new ExpectedEquivalenceShouldlyMessage(
+                        expected,
+                        actual,
+                        newPath,
+                        customMessage,
+                        shouldlyMethod).ToString());
             }
         }
 
@@ -174,6 +186,64 @@ namespace Shouldly
                 list.Add(expected);
             else
                 comparisons.Add(actual, new List<object?>(new[] { expected }));
+        }
+
+        private static bool FindMismatchedElement(
+            IEnumerable expected,
+            IEnumerable actual,
+            out int expectedCount,
+            out int actualCount,
+            out object? mismatchedElement)
+        {
+            Dictionary<object, int> elementCounts1 = GetElementCounts(expected, out var nullCount1);
+            Dictionary<object, int> elementCounts2 = GetElementCounts(actual, out var nullCount2);
+
+            if (nullCount2 != nullCount1)
+            {
+                expectedCount = nullCount1;
+                actualCount = nullCount2;
+                mismatchedElement = null;
+                return true;
+            }
+
+            foreach (object key in elementCounts1.Keys)
+            {
+                elementCounts1.TryGetValue(key, out expectedCount);
+                elementCounts2.TryGetValue(key, out actualCount);
+                if (expectedCount == actualCount)
+                {
+                    continue;
+                }
+
+                mismatchedElement = key;
+                return true;
+            }
+
+            expectedCount = 0;
+            actualCount = 0;
+            mismatchedElement = null;
+            return false;
+        }
+
+        private static Dictionary<object, int> GetElementCounts(IEnumerable collection, out int nullCount)
+        {
+            var dictionary = new Dictionary<object, int>();
+            nullCount = 0;
+            foreach (object key in collection)
+            {
+                if (key == null)
+                {
+                    ++nullCount;
+                }
+                else
+                {
+                    dictionary.TryGetValue(key, out var num);
+                    ++num;
+                    dictionary[key] = num;
+                }
+            }
+
+            return dictionary;
         }
     }
 }
