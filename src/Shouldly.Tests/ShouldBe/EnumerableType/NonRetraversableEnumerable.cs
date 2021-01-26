@@ -47,7 +47,7 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
             var fooEnum = CreateTestEnumerable();
 
             Verify.ShouldFail(
-                () => fooEnum.ShouldBe(new[] { 2, 3, 4 }, true),
+                () => fooEnum.ShouldBe(new[] { 2, 3, 4 }, ignoreOrder: true),
                 errorWithSource:
 @"fooEnum
     should be (ignoring order)
@@ -104,7 +104,7 @@ fooEnum
             var fooEnum = CreateTestEnumerable();
 
             Verify.ShouldFail(
-                () => new[] { 2, 3, 4 }.ShouldBe(fooEnum, true),
+                () => new[] { 2, 3, 4 }.ShouldBe(fooEnum, ignoreOrder: true),
                 errorWithSource:
 @"new[] { 2, 3, 4 }
     should be (ignoring order)
