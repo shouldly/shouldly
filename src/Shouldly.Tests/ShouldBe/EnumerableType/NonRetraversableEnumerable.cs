@@ -10,9 +10,9 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         private static IEnumerable<int> CreateTestEnumerable()
         {
             var foo = new TestEnumerable(new[] {
-                new[] {1, 2, 3 },
-                new[] {4, 5, 6 },
-                new[] {7, 8, 9 } });
+                new[] { 1, 2, 3 },
+                new[] { 4, 5, 6 },
+                new[] { 7, 8, 9 } });
 
             return foo.ReadLine();
         }
@@ -22,8 +22,8 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         {
             var fooEnum = CreateTestEnumerable();
 
-            Verify.ShouldFail(() =>
-                fooEnum.ShouldBe(new [] {3, 2, 1 }),
+            Verify.ShouldFail(
+                () => fooEnum.ShouldBe(new[] { 3, 2, 1 }),
                 errorWithSource:
 @"fooEnum
     should be
@@ -46,8 +46,8 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         {
             var fooEnum = CreateTestEnumerable();
 
-            Verify.ShouldFail(() =>
-                fooEnum.ShouldBe(new[] { 2, 3, 4 }, true),
+            Verify.ShouldFail(
+                () => fooEnum.ShouldBe(new[] { 2, 3, 4 }, true),
                 errorWithSource:
 @"fooEnum
     should be (ignoring order)
@@ -79,8 +79,8 @@ fooEnum
         {
             var fooEnum = CreateTestEnumerable();
 
-            Verify.ShouldFail(() =>
-                new[] { 3, 2, 1 }.ShouldBe(fooEnum),
+            Verify.ShouldFail(
+                () => new[] { 3, 2, 1 }.ShouldBe(fooEnum),
                 errorWithSource:
 @"new[] { 3, 2, 1 }
     should be
@@ -103,8 +103,8 @@ fooEnum
         {
             var fooEnum = CreateTestEnumerable();
 
-            Verify.ShouldFail(() =>
-                new[] { 2, 3, 4 }.ShouldBe(fooEnum, true),
+            Verify.ShouldFail(
+                () => new[] { 2, 3, 4 }.ShouldBe(fooEnum, true),
                 errorWithSource:
 @"new[] { 2, 3, 4 }
     should be (ignoring order)
@@ -143,7 +143,7 @@ new[] { 2, 3, 4 }
                 () => fooEnum.First().ShouldBe(6),
                 () => fooEnum.Any().ShouldBeFalse(),
                 () => fooEnum.First().ShouldBe(7),
-                () => fooEnum.ShouldBe(new[] {8, 9 }));
+                () => fooEnum.ShouldBe(new[] { 8, 9 }));
         }
 
         private class TestEnumerable
