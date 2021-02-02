@@ -49,6 +49,29 @@ Approval file {approvalPath}.approved.txt
         }
 
         [Fact]
+        public void BigStringShouldTrim()
+        {
+            var str = $"Foo{new string('*', 10000)}";
+
+            Exception? exception = null;
+            try
+            {
+                str.ShouldMatchApproved(c =>
+                {
+                    c.NoDiff();
+                });
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            exception.ShouldNotBeNull();
+            // text is limited to 5000 char. but then the diff results in 5000*2+some extraneous text 
+            exception!.Message.Length.ShouldBeLessThan(12000);
+        }
+
+        [Fact]
         public void DifferencesUseShouldlyMessages()
         {
             var cmd = IsWindows()
