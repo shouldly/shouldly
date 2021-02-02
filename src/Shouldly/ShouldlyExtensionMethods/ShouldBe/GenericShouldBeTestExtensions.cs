@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Shouldly
@@ -55,6 +57,12 @@ namespace Shouldly
             bool ignoreOrder,
             string? customMessage)
         {
+            if (actual is not (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
+                actual = actual.ToList();
+
+            if (expected is not (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
+                expected = expected.ToList();
+
             if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
             {
                 actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, customMessage);

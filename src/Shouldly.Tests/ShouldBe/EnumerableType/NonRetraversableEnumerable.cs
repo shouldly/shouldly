@@ -10,9 +10,9 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         private static IEnumerable<int> CreateTestEnumerable()
         {
             var foo = new TestEnumerable(new[] {
-                new[] {1, 2, 3 },
-                new[] {4, 5, 6 },
-                new[] {7, 8, 9 } });
+                new[] { 1, 2, 3 },
+                new[] { 4, 5, 6 },
+                new[] { 7, 8, 9 } });
 
             return foo.ReadLine();
         }
@@ -20,12 +20,10 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         [Fact]
         public void ActualEnumerableShouldOnlyBeTraversedOnce()
         {
-            var fooEnum = CreateTestEnumerable();
-
-            Verify.ShouldFail(() =>
-                fooEnum.ShouldBe(new [] {3, 2, 1 }),
+            Verify.ShouldFail(
+                () => CreateTestEnumerable().ShouldBe(new[] { 3, 2, 1 }),
                 errorWithSource:
-@"fooEnum
+@"CreateTestEnumerable()
     should be
 [3, 2, 1]
     but was
@@ -44,16 +42,14 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         [Fact]
         public void ActualEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
         {
-            var fooEnum = CreateTestEnumerable();
-
-            Verify.ShouldFail(() =>
-                fooEnum.ShouldBe(new[] { 2, 3, 4 }, true),
+            Verify.ShouldFail(
+                () => CreateTestEnumerable().ShouldBe(new[] { 2, 3, 4 }, ignoreOrder: true),
                 errorWithSource:
-@"fooEnum
+@"CreateTestEnumerable()
     should be (ignoring order)
 [2, 3, 4]
     but
-fooEnum
+CreateTestEnumerable()
     is missing
 [4]
     and
@@ -77,10 +73,8 @@ fooEnum
         [Fact]
         public void ExpectedEnumerableShouldOnlyBeTraversedOnce()
         {
-            var fooEnum = CreateTestEnumerable();
-
-            Verify.ShouldFail(() =>
-                new[] { 3, 2, 1 }.ShouldBe(fooEnum),
+            Verify.ShouldFail(
+                () => new[] { 3, 2, 1 }.ShouldBe(CreateTestEnumerable()),
                 errorWithSource:
 @"new[] { 3, 2, 1 }
     should be
@@ -101,10 +95,8 @@ fooEnum
         [Fact]
         public void ExpectedEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
         {
-            var fooEnum = CreateTestEnumerable();
-
-            Verify.ShouldFail(() =>
-                new[] { 2, 3, 4 }.ShouldBe(fooEnum, true),
+            Verify.ShouldFail(
+                () => new[] { 2, 3, 4 }.ShouldBe(CreateTestEnumerable(), ignoreOrder: true),
                 errorWithSource:
 @"new[] { 2, 3, 4 }
     should be (ignoring order)
@@ -143,7 +135,7 @@ new[] { 2, 3, 4 }
                 () => fooEnum.First().ShouldBe(6),
                 () => fooEnum.Any().ShouldBeFalse(),
                 () => fooEnum.First().ShouldBe(7),
-                () => fooEnum.ShouldBe(new[] {8, 9 }));
+                () => fooEnum.ShouldBe(new[] { 8, 9 }));
         }
 
         private class TestEnumerable
