@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -57,11 +58,8 @@ namespace Shouldly
             bool ignoreOrder,
             string? customMessage)
         {
-            if (actual is not (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
-                actual = actual.ToList();
-
-            if (expected is not (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
-                expected = expected.ToList();
+            actual = actual.Wrap();
+            expected = expected.Wrap();
 
             if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
             {

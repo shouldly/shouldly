@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Shouldly.Internals;
 
 namespace Shouldly
 {
@@ -41,9 +42,17 @@ namespace Shouldly
             {
                 var objects = enumerable.Cast<object>();
                 var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
-                if (inspect == "[]" && value.ToString() != objectType.FullName)
+                if (inspect == "[]")
                 {
-                    inspect += " (" + value + ")";
+                    if (value is IProxy proxy)
+                    {
+                        objectType = proxy.ProxiedValue.GetType();
+                        value = proxy.ProxiedValue;
+                    }
+                    if(value.ToString() != objectType.FullName)
+                    {
+                        inspect += " (" + value + ")";
+                    }
                 }
 
                 return inspect;
