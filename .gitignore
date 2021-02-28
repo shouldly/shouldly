@@ -10,7 +10,7 @@ output
 test-results
 *.gem
 *crunch*.xml
-*.nupkg
+*.*nupkg
 *DotSettings*
 *DS_Store
 *ncrunch*
