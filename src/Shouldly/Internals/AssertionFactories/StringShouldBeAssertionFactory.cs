@@ -33,7 +33,8 @@ namespace Shouldly.Internals.AssertionFactories
             }
 
             return new StringShouldBeAssertion(
-                expected, actual,
+                expected,
+                actual,
                 stringComparer,
                 new ActualCodeTextGetter(),
                 new StringDifferenceHighlighter(sensitivity),

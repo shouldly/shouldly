@@ -14,7 +14,8 @@ namespace Shouldly.Internals.Assertions
         readonly string _shouldlyMethod;
 
         public StringShouldBeAssertion(
-            string? expected, string? actual,
+            string? expected,
+            string? actual,
             Func<string?, string?, bool> compare,
             ICodeTextGetter codeTextGetter,
             IStringDifferenceHighlighter diffHighlighter,
@@ -32,12 +33,14 @@ namespace Shouldly.Internals.Assertions
 
         public string GenerateMessage(string? customMessage)
         {
+            var _actualTrimmed = Trim(_actual);
+            var _expectedTrimmed = Trim(_expected);
             var codeText = _codeTextGetter.GetCodeText(_actual);
             var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
-            var actualValue = _actual.ToStringAwesomely();
-            var expectedValue = _expected.ToStringAwesomely();
+            var actualValue = _actualTrimmed.ToStringAwesomely();
+            var expectedValue = _expectedTrimmed.ToStringAwesomely();
 
-            var differences = _diffHighlighter.HighlightDifferences(_expected, _actual);
+            var differences = _diffHighlighter.HighlightDifferences(_expectedTrimmed, _actualTrimmed);
 
             var actual = codeText == actualValue ? " not" : $@"
 {actualValue}";
@@ -62,6 +65,21 @@ Additional Info:
     {customMessage}";
             }
             return message;
+        }
+
+        static string? Trim(string? value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (value.Length <= 5000)
+            {
+                return value;
+            }
+
+            return value.Substring(0, 5000);
         }
 
         public bool IsSatisfied()
