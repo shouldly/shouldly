@@ -8,7 +8,7 @@
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="22.0.3" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="23.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
