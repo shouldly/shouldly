@@ -44,7 +44,7 @@ namespace Shouldly
                 var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
                 if (inspect == "[]")
                 {
-                    if (value is IProxy proxy)
+                    if (value is IEnumerableProxy proxy)
                     {
                         objectType = proxy.ProxiedValue.GetType();
                         value = proxy.ProxiedValue;

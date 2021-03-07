@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Shouldly.Internals
 {
-    interface IProxy
+    interface IEnumerableProxy
     {
         object ProxiedValue {  get; }
     }
 
-    sealed class EnumerableProxy<T> : IEnumerable<T>, IProxy
+    sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
     {
         public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
         {
@@ -27,7 +27,7 @@ namespace Shouldly.Internals
         }
 
         public IEnumerable<T> ProxiedValue { get; }
-        object IProxy.ProxiedValue => ProxiedValue;
+        object IEnumerableProxy.ProxiedValue => ProxiedValue;
 
         private readonly IEnumerable<T> _baseReentrable;
 
