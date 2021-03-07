@@ -12,25 +12,18 @@ namespace Shouldly.Internals
 
     sealed class EnumerableProxy<T> : IEnumerable<T>, IProxy
     {
-        public static IEnumerable<T>? Wrap(IEnumerable<T>? baseEnum)
+        public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
         {
-            if(baseEnum is (null or EnumerableProxy<T>))
+            if(baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
             {
                 return baseEnum;
             }
-
-            IEnumerable<T> baseCollection;
-            if (baseEnum is (IReadOnlyCollection<T> or ICollection<T> or ICollection))
+            if (baseEnum is EnumerableProxy<T>)
             {
-                baseCollection = baseEnum;
-            }
-            else
-            {
-                baseCollection = baseEnum.ToList();
+                throw new ArgumentException("Value already wrapped.", nameof(baseEnum));
             }
 
-            return new EnumerableProxy<T>(baseEnum, baseCollection);
-
+            return new EnumerableProxy<T>(baseEnum, baseEnum.ToList());
         }
 
         public IEnumerable<T> ProxiedValue { get; }

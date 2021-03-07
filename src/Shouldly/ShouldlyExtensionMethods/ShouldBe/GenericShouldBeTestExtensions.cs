@@ -58,8 +58,8 @@ namespace Shouldly
             bool ignoreOrder,
             string? customMessage)
         {
-            actual = EnumerableProxy<T>.Wrap(actual);
-            expected = EnumerableProxy<T>.Wrap(expected);
+            actual = EnumerableProxy<T>.WrapNonCollection(actual);
+            expected = EnumerableProxy<T>.WrapNonCollection(expected);
 
             if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
             {
