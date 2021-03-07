@@ -14,10 +14,5 @@ namespace Shouldly.Internals
                 index++;
             }
         }
-
-        public static IEnumerable<T>? Wrap<T>(this IEnumerable<T>? source)
-        {
-            return EnumerableProxy<T>.Wrap(source);
-        }
     }
 }
