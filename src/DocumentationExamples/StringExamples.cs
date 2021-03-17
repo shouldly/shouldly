@@ -24,6 +24,16 @@ namespace DocumentationExamples
         }
 
         [Fact]
+        public void ShouldNotBe()
+        {
+            DocExampleWriter.Document(() =>
+            {
+                var target = "Bart";
+                target.ShouldNotBe("Bart");
+            }, _testOutputHelper);
+        }
+
+        [Fact]
         public void ShouldEndWith()
         {
             DocExampleWriter.Document(() =>
