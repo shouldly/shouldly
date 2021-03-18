@@ -45,7 +45,7 @@ namespace Shouldly.Tests.ShouldThrow
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(2));
+            var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
 
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
@@ -58,7 +58,7 @@ namespace Shouldly.Tests.ShouldThrow
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            var ex = task.ShouldThrow(TimeSpan.FromSeconds(2), typeof(InvalidOperationException));
+            var ex = task.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
 
             ex.ShouldNotBe(null);
             ex.ShouldBeOfType<InvalidOperationException>();
