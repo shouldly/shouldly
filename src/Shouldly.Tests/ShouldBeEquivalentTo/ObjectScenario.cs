@@ -295,8 +295,8 @@ Additional Info:
 
             Verify.ShouldFail(() =>
                     subject.ShouldBeEquivalentTo(expected),
-                    errorWithSource: "Comparing unsupported property types: Item",
-                    errorWithoutSource:"Comparing unsupported property types: Item");
+                    errorWithSource: "Comparing indexer property types is not supported",
+                    errorWithoutSource:"Comparing indexer property types is not supported");
         }
     }
 }
