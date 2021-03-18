@@ -147,8 +147,17 @@ namespace Shouldly
         {
             foreach (var property in properties)
             {
-                var actualValue = property.GetValue(actual, Array.Empty<object>());
-                var expectedValue = property.GetValue(expected, Array.Empty<object>());
+                object? actualValue;
+                object? expectedValue;
+                try
+                {
+                    actualValue = property.GetValue(actual, Array.Empty<object>());
+                    expectedValue = property.GetValue(expected, Array.Empty<object>());
+                }
+                catch (TargetParameterCountException ex)
+                {
+                    throw new ShouldAssertException($"Comparing unsupported property types: {property.Name}", ex);
+                }
 
                 var newPath = path.Concat(new[] { property.Name });
                 CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);

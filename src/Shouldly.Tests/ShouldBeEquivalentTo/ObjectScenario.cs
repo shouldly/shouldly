@@ -1,4 +1,5 @@
-﻿using Shouldly.Tests.Strings;
+﻿using System.Collections.Generic;
+using Shouldly.Tests.Strings;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeEquivalentTo
@@ -284,6 +285,18 @@ Additional Info:
             expected.Child = expected;
 
             subject.ShouldBeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void ShouldThrowSensibleErrorWhenIndexersUsed()
+        {
+            var subject = new IndexableObject(new List<string>{"foo", "bar"});
+            var expected = new IndexableObject(new List<string>{"a", "b"});
+
+            Verify.ShouldFail(() =>
+                    subject.ShouldBeEquivalentTo(expected),
+                    errorWithSource: "Comparing unsupported property types: Item",
+                    errorWithoutSource:"Comparing unsupported property types: Item");
         }
     }
 }
