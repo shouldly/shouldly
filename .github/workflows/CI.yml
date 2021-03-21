@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ '*' ] # excludes tags
+  pull_request:       # Pull requests to anything should gain this status info
+
+env:
+  DOTNET_NOLOGO: true
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Pack and test
+      run: ./build.ps1
+
+    - name: Upload packages artifact
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Packages
+        path: artifacts/Packages
+
+    - name: Upload logs artifact
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Logs
+        path: artifacts/Logs
