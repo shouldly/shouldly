@@ -13,8 +13,7 @@ $dotnetArgs = @(
 )
 
 # Build
-# `/bl:$logsDir\build.binlog` removed to work around https://github.com/SimonCropp/MarkdownSnippets/issues/370
-dotnet build @dotnetArgs
+dotnet build /bl:$logsDir\build.binlog @dotnetArgs
 if ($LastExitCode) { exit 1 }
 
 # Pack
