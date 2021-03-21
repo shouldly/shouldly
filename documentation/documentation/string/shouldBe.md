@@ -33,12 +33,12 @@ Actual Code    | 72   111  109  101  114
 ## ShouldNotBe
 
 <!-- snippet: StringExamples.ShouldNotBe.codeSample.approved.cs -->
-<a id='0f46b9f0'></a>
+<a id='4fa93f1c'></a>
 ```cs
 var target = "Bart";
 target.ShouldNotBe("Bart");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBe.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#0f46b9f0' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBe.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#4fa93f1c' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -48,6 +48,6 @@ target.ShouldNotBe("Bart");
 target
     should not be
 "Bart"
-    but was 
+    but was
 ```
 <!-- endInclude -->
