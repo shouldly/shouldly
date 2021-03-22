@@ -147,19 +147,18 @@ namespace Shouldly
         {
             foreach (var property in properties)
             {
-                if (property.GetIndexParameters().Length == 0)
-                {
-                    var actualValue = property.GetValue(actual, Array.Empty<object>());
-                    var expectedValue = property.GetValue(expected, Array.Empty<object>());
-                    var newPath = path.Concat(new[] { property.Name });
-                    CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
-                }
-                else
+                if (property.GetIndexParameters().Length != 0)
                 {
                     // There's no sensible way to compare indexers, as there does not exist a way to obtain a collection
                     // of all values in a way that's common to all indexer implementations.
-                    throw new ShouldAssertException("Comparing indexer property types is not supported");
+                    throw new NotSupportedException("Comparing types that have indexers is not supported");
                 }
+
+                var actualValue = property.GetValue(actual, Array.Empty<object>());
+                var expectedValue = property.GetValue(expected, Array.Empty<object>());
+                var newPath = path.Concat(new[] {property.Name});
+                CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage,
+                    shouldlyMethod);
             }
         }
 

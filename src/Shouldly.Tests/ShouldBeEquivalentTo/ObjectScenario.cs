@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Shouldly.Tests.Strings;
 using Xunit;
 
@@ -292,11 +293,9 @@ Additional Info:
         {
             var subject = new IndexableObject(new List<string>{"foo", "bar"});
             var expected = new IndexableObject(new List<string>{"a", "b"});
+            Action indexableObjectComparison = () => subject.ShouldBeEquivalentTo(expected);
 
-            Verify.ShouldFail(() =>
-                    subject.ShouldBeEquivalentTo(expected),
-                    errorWithSource: "Comparing indexer property types is not supported",
-                    errorWithoutSource:"Comparing indexer property types is not supported");
+            indexableObjectComparison.ShouldThrow<NotSupportedException>();
         }
     }
 }
