@@ -295,7 +295,10 @@ Additional Info:
             var expected = new IndexableObject(new List<string>{"a", "b"});
             Action indexableObjectComparison = () => subject.ShouldBeEquivalentTo(expected);
 
-            indexableObjectComparison.ShouldThrow<NotSupportedException>();
+            indexableObjectComparison
+                .ShouldThrow<NotSupportedException>()
+                .Message
+                .ShouldBe("Comparing types that have indexers is not supported.");
         }
     }
 }

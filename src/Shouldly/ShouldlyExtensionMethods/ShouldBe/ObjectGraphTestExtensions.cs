@@ -151,7 +151,7 @@ namespace Shouldly
                 {
                     // There's no sensible way to compare indexers, as there does not exist a way to obtain a collection
                     // of all values in a way that's common to all indexer implementations.
-                    throw new NotSupportedException("Comparing types that have indexers is not supported");
+                    throw new NotSupportedException("Comparing types that have indexers is not supported.");
                 }
 
                 var actualValue = property.GetValue(actual, Array.Empty<object>());
