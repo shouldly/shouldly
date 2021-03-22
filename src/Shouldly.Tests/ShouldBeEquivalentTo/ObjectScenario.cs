@@ -297,5 +297,20 @@ Additional Info:
 
             indexableObjectComparison.ShouldThrow<NotSupportedException>();
         }
+
+        private class MyObject
+        {
+            public string? Field;
+            public string? Property { get; set; }
+        }
+
+        // TODO MC: Finish implementing tests for this.
+        // https://github.com/shouldly/shouldly/issues/755
+        [Fact]
+        public void CompareObjects()
+        {
+            //new MyObject {Property = "actual"}.ShouldBeEquivalentTo(new MyObject {Property = "expected"}); // Shouldly fails - good
+            new MyObject {Field = "actual"}.ShouldBeEquivalentTo(new MyObject {Field = "expected"}); // Shouldly - passes!
+        }
     }
 }

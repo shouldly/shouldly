@@ -11,6 +11,8 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class ObjectGraphTestExtensions
     {
+        private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.Instance;
+
         public static void ShouldBeEquivalentTo(
             [NotNullIfNotNull("expected")] this object? actual,
             [NotNullIfNotNull("actual")] object? expected,
@@ -90,7 +92,7 @@ namespace Shouldly
         }
 
         private static void CompareReferenceTypes(object actual, object expected, Type type,
-            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
             string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             if (ReferenceEquals(actual, expected) ||
@@ -109,7 +111,10 @@ namespace Shouldly
             }
             else
             {
-                var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                var fields = type.GetFields(DefaultBindingFlags);
+                CompareFields(actual, expected, fields, path, previousComparisons, customMessage, shouldlyMethod);
+
+                var properties = type.GetProperties(DefaultBindingFlags);
                 CompareProperties(actual, expected, properties, path, previousComparisons, customMessage, shouldlyMethod);
             }
         }
@@ -141,8 +146,22 @@ namespace Shouldly
             }
         }
 
+        private static void CompareFields(object actual, object expected, IEnumerable<FieldInfo> fields,
+            IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+        {
+            foreach (var field in fields)
+            {
+                var actualValue = field.GetValue(actual);
+                var expectedValue = field.GetValue(expected);
+
+                var newPath = path.Concat(new[] {field.Name});
+                CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+            }
+        }
+
         private static void CompareProperties(object actual, object expected, IEnumerable<PropertyInfo> properties,
-            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
             string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
         {
             foreach (var property in properties)
