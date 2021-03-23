@@ -103,6 +103,10 @@ namespace Shouldly
             {
                 CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
             }
+            else if (typeof(IDictionary).IsAssignableFrom(type))
+            {
+                CompareDictionaries((IDictionary)actual, (IDictionary)expected, path, previousComparisons, customMessage, shouldlyMethod);
+            }
             else if (typeof(IEnumerable).IsAssignableFrom(type))
             {
                 CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
@@ -119,6 +123,31 @@ namespace Shouldly
         {
             if (!actual.Equals(expected, StringComparison.Ordinal))
                 ThrowException(actual, expected, path, customMessage, shouldlyMethod);
+        }
+
+        // When comparing dictionaries: a) we don't want to compare as dictionaries, as dictionaries with identical contents
+        // don't necessarily enumerate in the same order, and b) the KeyValuePair type that dictionaries allow enumeration
+        // through doesn't (at time of writing - Q1 2021) allow for any comparison other than default equality checking.
+        private static void CompareDictionaries(IDictionary actual, IDictionary expected,
+            IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+            string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+        {
+            if (actual.Count != expected.Count)
+            {
+                var newPath = path.Concat(new[] { "Count" });
+                ThrowException(actual.Count, expected.Count, newPath, customMessage, shouldlyMethod);
+            }
+
+            foreach (var key in expected.Keys)
+            {
+                var newPath = path.Concat(new[] { $"Key [{key}]" }).ToList();
+                if (actual.Contains(key))
+                {
+                    CompareObjects(actual[key], expected[key], newPath, previousComparisons, customMessage, shouldlyMethod);
+                    continue;
+                }
+                ThrowException(actual: null, expected[key], newPath, customMessage, shouldlyMethod);
+            }
         }
 
         private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
