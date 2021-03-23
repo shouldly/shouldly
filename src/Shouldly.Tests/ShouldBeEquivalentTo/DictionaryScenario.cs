@@ -13,7 +13,7 @@ namespace Shouldly.Tests.ShouldBeEquivalentTo
         }
 
         [Fact]
-        public void ShouldFailWhenComparingNonIdenticalNestedDictionaries()
+        public void ShouldFailWhenComparingNonIdenticalNestedDictionariesWithSameKey()
         {
             var expected = CreateNestedDict();
             expected["outer"]["inner"] = "otherValue";
@@ -72,6 +72,31 @@ Verify.ShouldFail(actual [System.Collections.Generic.Dictionary`2[[System.String
         public void ShouldPassWhenComparingIdenticalNonNestedDictionaries()
         {
             CreateNonNestedDict().ShouldBeEquivalentTo(CreateNonNestedDict());
+        }
+
+        [Fact]
+        public void ShouldFailWhenComparingNonNestedDictionariesWithDisjointKeys()
+        {
+            var expected = new Dictionary<string, string> {{"key", "value"}};
+            var actual = new Dictionary<string, string> {{"otherKey", "value"}};
+
+            Verify.ShouldFail(() => actual.ShouldBeEquivalentTo(expected),
+                errorWithSource: @"Comparing object equivalence, at path:
+Verify.ShouldFail(actual [System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]]
+    Key [key]
+
+    Expected value to be
+""value""
+    but was
+null",
+                errorWithoutSource: @"Comparing object equivalence, at path:
+<root> [System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]]
+    Key [key]
+
+    Expected value to be
+""value""
+    but was
+null");
         }
 
         private static Dictionary<string, Dictionary<string, string>> CreateNestedDict() =>
