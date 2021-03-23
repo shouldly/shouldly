@@ -86,6 +86,51 @@ Additional Info:
         }
 
         [Fact]
+        public void ShouldFailWhenTitleDoesNotMatch()
+        {
+            var subject = new FakeObject
+            {
+                Id = 5,
+                Title = "Mr",
+                Name = "Bob",
+            };
+            var expected = new FakeObject
+            {
+                Id = 5,
+                Title = "Sir",
+                Name = "Bob",
+            };
+            Verify.ShouldFail(() =>
+                    subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+
+                errorWithSource:
+                @"Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Title [System.String]
+
+    Expected value to be
+""Sir""
+    but was
+""Mr""
+
+Additional Info:
+    Some additional context",
+
+                errorWithoutSource:
+                @"Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Title [System.String]
+
+    Expected value to be
+""Sir""
+    but was
+""Mr""
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
         public void ShouldFailWhenObjectIsComplex()
         {
             var subject = new FakeObject
@@ -237,6 +282,7 @@ Additional Info:
                 Name = "Bob",
                 Adjectives = new[] { "funny", "wise" },
                 Colors = new[] { "red", "blue" },
+                Title = "Mr",
                 Child = new FakeObject
                 {
                     Id = 6,
@@ -249,6 +295,7 @@ Additional Info:
             var expected = new FakeObject
             {
                 Id = 5,
+                Title = "Mr",
                 Name = "Bob",
                 Adjectives = new[] { "funny", "wise" },
                 Colors = new[] { "red", "blue" },
@@ -296,21 +343,6 @@ Additional Info:
             Action indexableObjectComparison = () => subject.ShouldBeEquivalentTo(expected);
 
             indexableObjectComparison.ShouldThrow<NotSupportedException>();
-        }
-
-        private class MyObject
-        {
-            public string? Field;
-            public string? Property { get; set; }
-        }
-
-        // TODO MC: Finish implementing tests for this.
-        // https://github.com/shouldly/shouldly/issues/755
-        [Fact]
-        public void CompareObjects()
-        {
-            //new MyObject {Property = "actual"}.ShouldBeEquivalentTo(new MyObject {Property = "expected"}); // Shouldly fails - good
-            new MyObject {Field = "actual"}.ShouldBeEquivalentTo(new MyObject {Field = "expected"}); // Shouldly - passes!
         }
     }
 }
