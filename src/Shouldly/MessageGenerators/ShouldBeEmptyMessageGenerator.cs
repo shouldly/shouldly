@@ -50,8 +50,11 @@ $@"{codePart}
                 codePart = expected;
                 expectedString = " not empty";
             }
-            else expectedString = $@"
+            else
+            {
+                expectedString = $@"
 {expected}";
+            }
 
             return
 $@"{codePart}

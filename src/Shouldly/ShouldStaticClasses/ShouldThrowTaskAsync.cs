@@ -85,8 +85,10 @@ namespace Shouldly
                 }
 
                 if (t.IsCanceled)
+                {
                     throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString()
                         , new TaskCanceledException("Task is cancelled"));
+                }
 
                 throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
             });

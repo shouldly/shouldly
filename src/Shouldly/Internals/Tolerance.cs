@@ -171,9 +171,11 @@ namespace NUnit.Framework.Constraints
         private void CheckLinearAndNumeric()
         {
             if (mode != ToleranceMode.Linear)
+            {
                 throw new InvalidOperationException(mode == ToleranceMode.None
                     ? ModeMustFollowTolerance
                     : MultipleToleranceModes);
+            }
 
             if (!Numerics.IsNumericType(amount))
                 throw new InvalidOperationException(NumericToleranceRequired);
