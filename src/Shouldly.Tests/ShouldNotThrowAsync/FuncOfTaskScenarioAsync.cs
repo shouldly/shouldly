@@ -69,4 +69,3 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
         }
     }
 }
-
