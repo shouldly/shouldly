@@ -10,8 +10,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
         {
             var result = 4;
             Verify.ShouldFail(() =>
-result.ShouldSatisfyAllConditions
-    (
+result.ShouldSatisfyAllConditions(
         "Some additional context",
         () => result.ShouldBeOfType<float>("Some additional context"),
         () => result.ShouldBeGreaterThan(5, "Some additional context")
@@ -79,8 +78,7 @@ Additional Info:
         public void ShouldPass()
         {
             var result = 4;
-            result.ShouldSatisfyAllConditions
-                    (
+            result.ShouldSatisfyAllConditions(
                         () => result.ShouldBeOfType<int>(),
                         () => result.ShouldBeGreaterThan(3)
                     );

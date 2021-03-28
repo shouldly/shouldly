@@ -13,8 +13,7 @@ namespace Shouldly.Tests.DynamicShould
             testDynamicObject.Bar = "BarPropertyValue";
             Verify.ShouldFail(() =>
             Shouldly.DynamicShould
-                .HaveProperty
-                (
+                .HaveProperty(
                 testDynamicObject,
                 "foo",
                 "Some additional context"
@@ -39,8 +38,7 @@ Additional Info:
             dynamic testDynamicObject = new ExpandoObject();
             testDynamicObject.Foo = "FooPropertyValue";
             Shouldly.DynamicShould
-                .HaveProperty
-                (
+                .HaveProperty(
                 testDynamicObject,
                 "Foo"
                 );
