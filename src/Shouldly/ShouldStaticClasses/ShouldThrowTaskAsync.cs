@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using System.Runtime.CompilerServices;
 
 namespace Shouldly
 {

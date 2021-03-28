@@ -1,8 +1,8 @@
-﻿using Shouldly.Internals.Assertions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Shouldly.DifferenceHighlighting;
+using Shouldly.Internals.Assertions;
 
 namespace Shouldly.Internals.AssertionFactories
 {
