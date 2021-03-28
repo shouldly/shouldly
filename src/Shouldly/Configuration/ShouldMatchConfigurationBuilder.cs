@@ -81,7 +81,9 @@ namespace Shouldly.Configuration
             return Configure(c =>
             {
                 if (c.Scrubber == null)
+                {
                     c.Scrubber = scrubber;
+                }
                 else
                 {
                     var existing = c.Scrubber;

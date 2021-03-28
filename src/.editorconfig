@@ -38,3 +38,4 @@ dotnet_diagnostic.SA1514.severity = warning # Element documentation header shoul
 dotnet_diagnostic.SA1517.severity = warning # Code should not contain blank lines at start of file
 dotnet_diagnostic.SA1518.severity = warning # Use line endings correctly at end of file
 dotnet_diagnostic.SA1519.severity = warning # Braces should not be omitted from multi-line child statement
+dotnet_diagnostic.SA1520.severity = warning # Use braces consistently

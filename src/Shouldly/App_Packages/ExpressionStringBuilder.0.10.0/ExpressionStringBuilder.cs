@@ -89,7 +89,9 @@ namespace ExpressionToString
                     Out(node.Member.Name);
                 }
                 else
+                {
                     Out("." + node.Member.Name);
+                }
             }
             else
             {
