@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
 {
     public class IntScenario
     {
-
     [Fact]
     public void IntScenarioShouldFail()
     {

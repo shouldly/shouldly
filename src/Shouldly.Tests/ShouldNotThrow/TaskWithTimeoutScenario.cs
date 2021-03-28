@@ -7,7 +7,6 @@ namespace Shouldly.Tests.ShouldNotThrow
 {
     public class TaskWithTimeoutScenario
     {
-
         [Fact]
         public void ShouldThrowAWobbly()
         {

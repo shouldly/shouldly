@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class IgnoreOrderFalseScenario2
     {
-
     [Fact]
     public void IgnoreOrderFalseScenario2ShouldFail()
     {

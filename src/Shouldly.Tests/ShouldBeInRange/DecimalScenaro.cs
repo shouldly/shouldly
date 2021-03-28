@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldBeInRange
 {
     public class DecimalScenario
     {
-
     [Fact]
     [UseCulture("en-US")]
     public void DecimalScenarioShouldFail()

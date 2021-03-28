@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldNotBe.WithTolerance
 {
     public class DateTimeScenario
     {
-
         [Fact]
         public void DateTimeScenarioShouldFail()
         {

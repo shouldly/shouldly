@@ -4,7 +4,6 @@ namespace Shouldly.Tests.Strings
 {
     public class ShouldContainWithoutWhitespace
     {
-
         [Fact]
         public void ShouldContainWithoutWhitespaceShouldFail()
         {

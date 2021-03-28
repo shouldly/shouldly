@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
 {
     public class GenericMultipleConditionsScenario_MultiLine
     {
-
         [Fact]
         public void GenericMultipleConditionsScenario_MultiLineShouldFail()
         {

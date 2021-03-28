@@ -4,7 +4,6 @@ using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.WithTolerance
 {
-
     public static class MathEx
     {
         public const double PI = 3.14159;

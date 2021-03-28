@@ -5,7 +5,6 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings
     // Just after the edge case for the end of string truncation. Now, both start and end should be truncated.
     public class LongStringsAreTruncatedAtTheStartBorderConditionBorderConditionTwo
     {
-
         [Fact]
         public void LongStringsAreTruncatedAtTheStartBorderConditionBorderConditionTwoShouldFail()
         {

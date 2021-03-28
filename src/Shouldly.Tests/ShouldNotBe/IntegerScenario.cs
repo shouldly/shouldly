@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldNotBe
 {
     public class IntegerScenario
     {
-
         [Fact]
         public void IntegerScenarioShouldFail()
         {

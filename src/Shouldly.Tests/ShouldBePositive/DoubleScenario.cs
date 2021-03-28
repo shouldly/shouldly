@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldBePositive
 {
     public class DoubleScenario
     {
-
         [Fact]
         [UseCulture("en-US")]
         public void DoubleScenarioShouldFail()

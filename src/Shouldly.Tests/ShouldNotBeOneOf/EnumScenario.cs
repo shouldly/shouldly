@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldNotBeOneOf
 {
     public class EnumScenario
     {
-
     [Fact]
     public void EnumScenarioShouldFail()
     {

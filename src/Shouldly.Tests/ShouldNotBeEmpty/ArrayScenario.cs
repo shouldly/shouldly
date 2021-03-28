@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldNotBeEmpty
 {
     public class ArrayScenario
     {
-
     [Fact]
     public void ArrayScenarioShouldFail()
     {

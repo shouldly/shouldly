@@ -7,7 +7,6 @@ namespace Shouldly.Tests.ShouldNotThrow
 {
     public class FuncDelegateScenario
     {
-
         [Fact]
         [UseCulture("en-US")]
         public void FuncDelegateScenarioShouldFail()

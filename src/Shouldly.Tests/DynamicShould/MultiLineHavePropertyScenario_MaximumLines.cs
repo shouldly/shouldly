@@ -6,7 +6,6 @@ namespace Shouldly.Tests.DynamicShould
 {
     public class MultiLineHavePropertyScenario_MaximumLines
     {
-
         [Fact]
         public void MultiLineHavePropertyScenario_MaximumLinesShouldFail()
         {

@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class DoubleWithToleranceScenario
     {
-
     [Fact]
     [UseCulture("en-US")]
     public void DoubleWithToleranceScenarioShouldFail()

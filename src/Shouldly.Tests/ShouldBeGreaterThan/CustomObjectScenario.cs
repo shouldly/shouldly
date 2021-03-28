@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldBeGreaterThan
 {
     public class CustomObjectScenario
     {
-
         [Fact]
         public void CustomObjectScenarioShouldFail()
         {

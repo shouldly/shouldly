@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class PredicateScenario
     {
-
         [Fact]
         public void PredicateScenarioShouldFail()
         {

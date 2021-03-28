@@ -9,7 +9,6 @@ namespace Shouldly.Tests.ShouldNotThrow
 {
     public class FuncOfTaskOfStringScenario
     {
-
         [Fact]
         [UseCulture("en-US")]
         public void FuncOfTaskOfStringScenarioShouldFail()
