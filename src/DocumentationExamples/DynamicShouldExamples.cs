@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class DynamicShouldExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public DynamicShouldExamples(ITestOutputHelper testOutputHelper)
         {

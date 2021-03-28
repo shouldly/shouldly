@@ -11,7 +11,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeExamples(ITestOutputHelper testOutputHelper)
         {

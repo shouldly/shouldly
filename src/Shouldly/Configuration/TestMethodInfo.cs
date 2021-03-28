@@ -31,7 +31,7 @@ namespace Shouldly.Configuration
             public Type DeclaringType { get; }
         }
 
-        static OriginalMethodInfo? GetOriginalMethodInfoForStateMachineMethod(MethodBase? method)
+        private static OriginalMethodInfo? GetOriginalMethodInfoForStateMachineMethod(MethodBase? method)
         {
             if (method?.DeclaringType is { IsByRef: false } declaringType
                 && declaringType.DeclaringType is { } originalMethodDeclaringType
@@ -55,7 +55,7 @@ namespace Shouldly.Configuration
             return null;
         }
 
-        static bool ContainsAttribute(MemberInfo member, string attributeName)
+        private static bool ContainsAttribute(MemberInfo member, string attributeName)
         {
             return member.CustomAttributes.Any(a =>
                 a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);

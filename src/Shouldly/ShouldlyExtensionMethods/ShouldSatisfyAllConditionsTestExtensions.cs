@@ -46,11 +46,11 @@ namespace Shouldly
             }
         }
 
-        static Action[] CreateParameterlessActions<T>(T parameter, params Action<T>[] actions) {
+        private static Action[] CreateParameterlessActions<T>(T parameter, params Action<T>[] actions) {
           return actions.Select(a => new Action(() => a(parameter))).ToArray();
         }
 
-        static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
+        private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
         {
             var errorCount = 1;
             var sb = new StringBuilder();

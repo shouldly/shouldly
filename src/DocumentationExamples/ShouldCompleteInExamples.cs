@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class ShouldCompleteInExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldCompleteInExamples(ITestOutputHelper testOutputHelper)
         {

@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class StringContainsCharScenario
     {
-        const string Target = "Foo";
+        private const string Target = "Foo";
 
         [Fact]
         public void StringContainsCharScenarioShouldFail()

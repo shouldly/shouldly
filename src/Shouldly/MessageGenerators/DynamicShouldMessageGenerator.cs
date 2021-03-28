@@ -7,8 +7,8 @@ namespace Shouldly.MessageGenerators
 {
     internal class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("HaveProperty", RegexOptions.Compiled);
-        static readonly Regex DynamicObjectNameExtractor = new Regex(@"DynamicShould.HaveProperty\((?<dynamicObjectName>.*?),(?<propertyName>.*?)[\),]", RegexOptions.Compiled);
+        private static readonly Regex Validator = new Regex("HaveProperty", RegexOptions.Compiled);
+        private static readonly Regex DynamicObjectNameExtractor = new Regex(@"DynamicShould.HaveProperty\((?<dynamicObjectName>.*?),(?<propertyName>.*?)[\),]", RegexOptions.Compiled);
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

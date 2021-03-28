@@ -4,7 +4,7 @@ namespace Shouldly.Configuration
 {
     public class ShouldMatchConfigurationBuilder
     {
-        readonly ShouldMatchConfiguration _config;
+        private readonly ShouldMatchConfiguration _config;
 
         public ShouldMatchConfigurationBuilder(ShouldMatchConfiguration initialConfig)
         {

@@ -91,21 +91,21 @@ Additional Info:
             _stringDictionary.ShouldContainKey("Foo");
         }
 
-        static readonly MyThing ThingKey = new MyThing();
-        readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        private static readonly MyThing ThingKey = new MyThing();
+        private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
         {
             {ThingKey, new MyThing()}
         };
 
-        readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
         {
             { GuidKey, new Guid("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5")}
         };
 
-        static readonly Guid GuidKey = new Guid("468a57a7-ca19-4b76-a1e3-3040719392bc");
-        readonly Guid _missingGuid = new Guid("5250646b-4c46-4b0e-86d8-e1421f2a0ea2");
+        private static readonly Guid GuidKey = new Guid("468a57a7-ca19-4b76-a1e3-3040719392bc");
+        private readonly Guid _missingGuid = new Guid("5250646b-4c46-4b0e-86d8-e1421f2a0ea2");
 
-        readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
         {
             { "Foo", ""}
         };

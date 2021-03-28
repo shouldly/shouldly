@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class EnumerableShouldBeUniqueExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public EnumerableShouldBeUniqueExamples(ITestOutputHelper testOutputHelper)
         {

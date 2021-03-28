@@ -6,7 +6,7 @@ using Shouldly.Configuration;
 
 namespace Shouldly
 {
-    class ObsoleteMessages
+    internal class ObsoleteMessages
     {
         public const string FuncCustomMessage = "Func based customMessage overloads have been removed. Pass in a string for the customMessage.";
 

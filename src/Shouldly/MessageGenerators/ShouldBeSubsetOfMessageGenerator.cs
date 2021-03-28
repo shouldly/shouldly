@@ -6,7 +6,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("ShouldBeSubsetOf");
+        private static readonly Regex Validator = new Regex("ShouldBeSubsetOf");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

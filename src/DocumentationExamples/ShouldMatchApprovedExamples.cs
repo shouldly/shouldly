@@ -6,7 +6,7 @@ namespace DocumentationExamples
 {
     public class ShouldMatchApprovedExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldMatchApprovedExamples(ITestOutputHelper testOutputHelper)
         {

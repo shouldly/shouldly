@@ -6,7 +6,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeNullNotNullExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeNullNotNullExamples(ITestOutputHelper testOutputHelper)
         {

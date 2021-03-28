@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeOneOfExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeOneOfExamples(ITestOutputHelper testOutputHelper)
         {

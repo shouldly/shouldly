@@ -3,7 +3,7 @@
 namespace Shouldly
 {
     [Serializable]
-    class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
+    internal class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
     {
         public override bool Equals(T? x, T? y)
         {

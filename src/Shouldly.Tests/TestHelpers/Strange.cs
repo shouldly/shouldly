@@ -5,13 +5,13 @@ namespace Shouldly.Tests.TestHelpers
 {
     internal class Strange : IEnumerable<Strange>
     {
-        readonly string? _thing;
+        private readonly string? _thing;
 
         public Strange()
         {
         }
 
-        Strange(string thing)
+        private Strange(string thing)
         {
             _thing = thing;
         }

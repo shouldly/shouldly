@@ -260,7 +260,7 @@ namespace Shouldly
 
     public abstract class ShouldlyMessage
     {
-        static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
             new ShouldHaveFlagMessageGenerator(),
             new ShouldNotHaveFlagMessageGenerator(),
@@ -313,7 +313,7 @@ Additional Info:
             return message;
         }
 
-        string GenerateShouldMessage()
+        private string GenerateShouldMessage()
         {
             var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(ShouldlyAssertionContext));
             if (messageGenerator != null)
@@ -330,7 +330,7 @@ Additional Info:
             return CreateExpectedErrorMessage();
         }
 
-        string CreateExpectedErrorMessage()
+        private string CreateExpectedErrorMessage()
         {
             var codePart = ShouldlyAssertionContext.CodePart;
             var isNegatedAssertion = ShouldlyAssertionContext.ShouldMethod.Contains("Not");
@@ -347,7 +347,7 @@ $@"{codePart}
     but does{(isNegatedAssertion ? "" : " not")}";
         }
 
-        static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
+        private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();

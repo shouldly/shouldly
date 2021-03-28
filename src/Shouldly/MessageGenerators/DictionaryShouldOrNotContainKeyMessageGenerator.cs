@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("Should(Not)?ContainKey");
+        private static readonly Regex Validator = new Regex("Should(Not)?ContainKey");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

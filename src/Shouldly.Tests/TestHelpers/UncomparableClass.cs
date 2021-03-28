@@ -2,7 +2,7 @@
 {
     internal class UncomparableClass
     {
-        readonly string _description;
+        private readonly string _description;
 
         public UncomparableClass(string description)
         {

@@ -28,7 +28,7 @@ namespace Shouldly.Tests
                 contestant.Points.ShouldBe(0);
             }
 
-            class Contestant
+            private class Contestant
             {
                 public int Points { get; set; }
             }
@@ -36,7 +36,7 @@ namespace Shouldly.Tests
 
         public class MapIndexOfBoo
         {
-            IList<string> GetMap()
+            private IList<string> GetMap()
             {
                 return new[]
                 {
@@ -120,7 +120,7 @@ namespace Shouldly.Tests
                     "`widget.Twist(5)` should throw System.ArgumentOutOfRangeException but did not");
             }
 
-            class Widget
+            private class Widget
             {
                 public void Twist(int i)
                 {

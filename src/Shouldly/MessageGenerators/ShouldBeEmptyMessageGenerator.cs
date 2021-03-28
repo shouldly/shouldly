@@ -6,7 +6,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("Should(Not)?BeEmpty");
+        private static readonly Regex Validator = new Regex("Should(Not)?BeEmpty");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

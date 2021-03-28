@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeGreater_LessThanExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeGreater_LessThanExamples(ITestOutputHelper testOutputHelper)
         {

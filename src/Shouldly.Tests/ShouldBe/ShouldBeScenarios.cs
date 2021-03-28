@@ -472,7 +472,7 @@ Additional Info:
             }
         }
 
-        const string ThisOtherString = "this other string";
-        const string ThisString = "this string";
+        private const string ThisOtherString = "this other string";
+        private const string ThisString = "this string";
     }
 }

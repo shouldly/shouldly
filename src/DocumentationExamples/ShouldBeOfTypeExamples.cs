@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeOfTypeExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeOfTypeExamples(ITestOutputHelper testOutputHelper)
         {

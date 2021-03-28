@@ -103,7 +103,7 @@ namespace Shouldly.DifferenceHighlighting
             return isEqual;
         }
 
-        string GetFormattedString()
+        private string GetFormattedString()
         {
             var output = new StringBuilder();
             output.AppendLine("Difference     | " + differenceStringLineOneBuilder);

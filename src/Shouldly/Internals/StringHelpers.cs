@@ -189,22 +189,22 @@ namespace Shouldly
             return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
         }
 
-        static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
+        private static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
         {
             return enumerable.DelimitWith(", ");
         }
 
-        static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
+        private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
         {
             return string.Join(separator, enumerable.Select(i => Equals(i, null) ? null : i.ToString()).ToArray());
         }
 
-        static string ToStringAwesomely(this Enum value)
+        private static string ToStringAwesomely(this Enum value)
         {
             return value.GetType().Name + "." + value;
         }
 
-        static string ToStringAwesomely(this DateTime value)
+        private static string ToStringAwesomely(this DateTime value)
         {
             return value.ToString("o");
         }

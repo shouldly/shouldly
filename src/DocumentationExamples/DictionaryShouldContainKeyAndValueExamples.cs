@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class DictionaryShouldContainKeyAndValueExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public DictionaryShouldContainKeyAndValueExamples(ITestOutputHelper testOutputHelper)
         {

@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldSatisfyAllConditionsExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldSatisfyAllConditionsExamples(ITestOutputHelper testOutputHelper)
         {

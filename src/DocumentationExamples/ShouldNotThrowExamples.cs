@@ -9,7 +9,7 @@ namespace DocumentationExamples
 {
     public class ShouldNotThrowExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldNotThrowExamples(ITestOutputHelper testOutputHelper)
         {

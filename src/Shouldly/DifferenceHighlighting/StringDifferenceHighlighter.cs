@@ -7,11 +7,11 @@ namespace Shouldly.DifferenceHighlighting
 {
     internal class StringDifferenceHighlighter : IStringDifferenceHighlighter
     {
-        const int maxDiffLength = 21;
-        const int maxNumberOfDiffs = 10;
+        private const int maxDiffLength = 21;
+        private const int maxNumberOfDiffs = 10;
 
-        readonly Case _sensitivity;
-        readonly Func<string, string> _transform;
+        private readonly Case _sensitivity;
+        private readonly Func<string, string> _transform;
 
         public StringDifferenceHighlighter(Case sensitivity, Func<string, string>? transform = null)
         {

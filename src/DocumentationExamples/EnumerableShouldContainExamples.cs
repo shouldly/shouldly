@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class EnumerableShouldContainExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public EnumerableShouldContainExamples(ITestOutputHelper testOutputHelper)
         {

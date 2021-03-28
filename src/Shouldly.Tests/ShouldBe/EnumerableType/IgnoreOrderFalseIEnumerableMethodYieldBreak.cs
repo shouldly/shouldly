@@ -42,7 +42,7 @@ Additional Info:
             GetEmptyEnumerable().ShouldBe(new int[0], false);
         }
 
-        static IEnumerable<int> GetEmptyEnumerable()
+        private static IEnumerable<int> GetEmptyEnumerable()
         {
             yield break;
         }

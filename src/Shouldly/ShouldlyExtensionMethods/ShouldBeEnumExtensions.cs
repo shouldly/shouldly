@@ -23,7 +23,7 @@ namespace Shouldly.ShouldlyExtensionMethods
             }
         }
 
-        static void CheckEnumHasFlagAttribute(Enum actual)
+        private static void CheckEnumHasFlagAttribute(Enum actual)
         {
             if (!actual.GetType().IsDefined(typeof(FlagsAttribute), false))
             {

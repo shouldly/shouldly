@@ -58,7 +58,7 @@ namespace Shouldly.Tests.InternalTests
             eq2.EqualsOther.ShouldBeSameAs(eq1);
         }
 
-        class NonComparableObject
+        private class NonComparableObject
         {
             public override bool Equals(object? obj)
             {
@@ -71,7 +71,7 @@ namespace Shouldly.Tests.InternalTests
             }
         }
 
-        class SpyComparable : IComparable
+        private class SpyComparable : IComparable
         {
             public int CompareTo(object? obj)
             {
@@ -79,7 +79,7 @@ namespace Shouldly.Tests.InternalTests
             }
         }
 
-        class SpyComparableGeneric : IComparable<SpyComparableGeneric>
+        private class SpyComparableGeneric : IComparable<SpyComparableGeneric>
         {
             public bool CompareCalled;
 

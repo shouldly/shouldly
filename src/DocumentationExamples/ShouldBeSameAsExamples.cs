@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeSameAsExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeSameAsExamples(ITestOutputHelper testOutputHelper)
         {

@@ -6,7 +6,7 @@ namespace DocumentationExamples
 {
     public class StringExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public StringExamples(ITestOutputHelper testOutputHelper)
         {

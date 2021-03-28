@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldHaveFlagNotHaveFlagExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldHaveFlagNotHaveFlagExamples(ITestOutputHelper testOutputHelper)
         {

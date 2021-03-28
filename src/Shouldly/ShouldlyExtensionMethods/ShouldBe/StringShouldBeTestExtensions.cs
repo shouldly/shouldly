@@ -42,7 +42,7 @@ namespace Shouldly
             ExecuteAssertion(assertion, customMessage);
         }
 
-        static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage)
+        private static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage)
         {
             try
             {

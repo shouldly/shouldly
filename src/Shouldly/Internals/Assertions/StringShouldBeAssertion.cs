@@ -5,13 +5,13 @@ namespace Shouldly.Internals.Assertions
 {
     internal class StringShouldBeAssertion : IAssertion
     {
-        readonly string? _expected;
-        readonly string? _actual;
-        readonly Func<string?, string?, bool> _compare;
-        readonly ICodeTextGetter _codeTextGetter;
-        readonly IStringDifferenceHighlighter _diffHighlighter;
-        readonly string _options;
-        readonly string _shouldlyMethod;
+        private readonly string? _expected;
+        private readonly string? _actual;
+        private readonly Func<string?, string?, bool> _compare;
+        private readonly ICodeTextGetter _codeTextGetter;
+        private readonly IStringDifferenceHighlighter _diffHighlighter;
+        private readonly string _options;
+        private readonly string _shouldlyMethod;
 
         public StringShouldBeAssertion(
             string? expected,
@@ -68,7 +68,7 @@ Additional Info:
             return message;
         }
 
-        static string? Trim(string? value)
+        private static string? Trim(string? value)
         {
             if (value == null)
             {

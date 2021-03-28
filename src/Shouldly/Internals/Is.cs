@@ -34,7 +34,7 @@ namespace Shouldly
             return comparer.Equals(actual, expected);
         }
 
-        static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null)
+        private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null)
         {
             return new EqualityComparer<T>(innerComparer);
         }
@@ -311,12 +311,12 @@ namespace Shouldly
             return Compare(actual, expected, comparer) < 0;
         }
 
-        static decimal Compare<T>(T? actual, T? expected, IComparer<T> comparer)
+        private static decimal Compare<T>(T? actual, T? expected, IComparer<T> comparer)
         {
             return comparer.Compare(actual, expected);
         }
 
-        static decimal Compare<T>(T? comparable, T? expected) where T : IComparable<T>?
+        private static decimal Compare<T>(T? comparable, T? expected) where T : IComparable<T>?
         {
             if (!typeof(T).IsValueType())
             {

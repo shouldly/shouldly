@@ -74,7 +74,7 @@ Additional Info:
 
         public class YourAverageNonComparableType
         {
-            readonly int identity;
+            private readonly int identity;
 
             public YourAverageNonComparableType(int identity)
             {

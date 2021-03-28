@@ -42,7 +42,7 @@ namespace Shouldly
             return (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
         }
 
-        class EnableSourceInErrorsDisposable : IDisposable
+        private class EnableSourceInErrorsDisposable : IDisposable
         {
             public void Dispose()
             {

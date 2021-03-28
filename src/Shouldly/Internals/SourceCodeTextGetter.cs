@@ -8,8 +8,8 @@ namespace Shouldly.Internals
 {
     internal class ActualCodeTextGetter : ICodeTextGetter
     {
-        bool _determinedOriginatingFrame;
-        string? _shouldMethod;
+        private bool _determinedOriginatingFrame;
+        private string? _shouldMethod;
 
         public int ShouldlyFrameOffset { get; private set; }
         public string? FileName { get; private set; }
@@ -23,7 +23,7 @@ namespace Shouldly.Internals
             return GetCodePart();
         }
 
-        void ParseStackTrace(StackTrace? stackTrace)
+        private void ParseStackTrace(StackTrace? stackTrace)
         {
             stackTrace ??= new StackTrace(fNeedFileInfo: true);
 
@@ -53,7 +53,7 @@ namespace Shouldly.Internals
             LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
         }
 
-        string GetCodePart()
+        private string GetCodePart()
         {
             var codePart = "Shouldly uses your source code to generate its great error messages, build your test project with full debug information to get better error messages" +
                            "\nThe provided expression";
@@ -82,7 +82,7 @@ namespace Shouldly.Internals
             return codePart;
         }
 
-        string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
+        private string GetCodePartFromParameter(int indexOfMethod, string codeLines, string codePart)
         {
             var indexOfParameters =
                 indexOfMethod +
