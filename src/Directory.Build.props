@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Version>4.0.3</Version>
     <AnalysisLevel>5</AnalysisLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors Condition="'$(Configuration)' != 'Debug'">true</TreatWarningsAsErrors>
   </PropertyGroup>
 
 </Project>

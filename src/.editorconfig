@@ -3,16 +3,16 @@ indent_style = space
 indent_size = 4
 
 # CA1018: Mark attributes with AttributeUsageAttribute
-dotnet_diagnostic.CA1018.severity = error
+dotnet_diagnostic.CA1018.severity = warning
 
 # CA1825: Avoid zero-length array allocations
 dotnet_diagnostic.CA1825.severity = warning
 
 # CA2208: Instantiate argument exceptions correctly
-dotnet_diagnostic.CA2208.severity = error
+dotnet_diagnostic.CA2208.severity = warning
 
 # IDE0044: Add readonly modifier
-dotnet_diagnostic.IDE0044.severity = error
+dotnet_diagnostic.IDE0044.severity = warning
 
 # CA1310: Specify StringComparison for correctness
-dotnet_diagnostic.CA1310.severity = error
+dotnet_diagnostic.CA1310.severity = warning
