@@ -32,6 +32,7 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 Additional Info:
     Some additional context");
         }
+
         [Fact]
         public void GuidScenarioShouldFail()
         {

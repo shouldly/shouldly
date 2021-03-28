@@ -52,6 +52,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, ignoreOrder, (string?)null);
         }
+
         public static void ShouldBe<T>(
             [NotNullIfNotNull("expected")] this IEnumerable<T>? actual,
             [NotNullIfNotNull("actual")] IEnumerable<T>? expected,

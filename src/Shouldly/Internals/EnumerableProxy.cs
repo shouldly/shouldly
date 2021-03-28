@@ -18,6 +18,7 @@ namespace Shouldly.Internals
             {
                 return baseEnum;
             }
+
             if (baseEnum is EnumerableProxy<T>)
             {
                 throw new ArgumentException("Value already wrapped.", nameof(baseEnum));

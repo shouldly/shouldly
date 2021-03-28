@@ -99,6 +99,7 @@ namespace Shouldly.DifferenceHighlighting
                     isEqual = Equals(_actualValue[index], _expectedValue[index]);
                 }
             }
+
             return isEqual;
         }
 

@@ -11,6 +11,7 @@ namespace Shouldly
             {
                 return y != null && x.Equals(y);
             }
+
             return y == null;
         }
 
@@ -20,6 +21,7 @@ namespace Shouldly
             {
                 return 0;
             }
+
             return obj.GetHashCode();
         }
 

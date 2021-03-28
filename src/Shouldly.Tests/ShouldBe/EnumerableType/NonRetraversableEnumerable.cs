@@ -161,6 +161,7 @@ new[] { 2, 3, 4 }
                         yield return _baseData[_curLine][_curCol];
                         _curCol++;
                     }
+
                     _curLine++;
                     _curCol = -1;
                 }

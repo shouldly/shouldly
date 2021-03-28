@@ -78,6 +78,7 @@ namespace Shouldly.Internals
                     codePart = codePart.RemoveVariableAssignment().RemoveBlock();
                 }
             }
+
             return codePart;
         }
 
@@ -130,6 +131,7 @@ namespace Shouldly.Internals
             {
                 codePart = parameterString.Substring(0, i);
             }
+
             return codePart
                 .StripLambdaExpressionSyntax()
                 .CollapseWhitespace()

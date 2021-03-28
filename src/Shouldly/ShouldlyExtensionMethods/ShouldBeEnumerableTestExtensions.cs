@@ -126,6 +126,7 @@ namespace Shouldly
             if (duplicates.Any())
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
         }
+
         public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer)
         {
             ShouldBeUnique(actual, comparer, null);

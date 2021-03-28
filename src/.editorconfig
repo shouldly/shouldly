@@ -33,3 +33,4 @@ dotnet_diagnostic.SA1508.severity = warning # Closing braces should not be prece
 dotnet_diagnostic.SA1509.severity = warning # Opening braces should not be preceded by blank line
 dotnet_diagnostic.SA1510.severity = warning # Chained statement blocks should not be preceded by blank line
 dotnet_diagnostic.SA1511.severity = warning # While-do footer should not be preceded by blank line
+dotnet_diagnostic.SA1513.severity = warning # Closing brace should be followed by blank line

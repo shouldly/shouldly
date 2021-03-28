@@ -30,6 +30,7 @@ namespace Shouldly.Tests.ConventionTests
                 var genericArgs = string.Join(", ", shouldlyMethod.GetGenericArguments().Select(a => a.FormatType()));
                 return $"{shouldlyMethod.Name}<{genericArgs}>({extensionMethodText}{argList})";
             }
+
             return $"{shouldlyMethod.Name}({extensionMethodText}{argList})";
         }
 

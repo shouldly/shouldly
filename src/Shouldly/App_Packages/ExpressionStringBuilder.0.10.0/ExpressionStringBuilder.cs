@@ -42,6 +42,7 @@ namespace ExpressionToString
                 Out(string.Join(",", node.Parameters.Select(n => n.Name)));
                 Out(") => ");
             }
+
             Visit(node.Body);
             return node;
         }
@@ -106,6 +107,7 @@ namespace ExpressionToString
                 skipDot = true;
                 return node;
             }
+
             if (node.Value == null)
             {
                 Out("null");
@@ -148,12 +150,14 @@ namespace ExpressionToString
                 Visit(node.Operand);
                 return node;
             }
+
             if (node.NodeType == ExpressionType.Not)
             {
                 Out("!");
                 Visit(node.Operand);
                 return node;
             }
+
             if (node.NodeType == ExpressionType.TypeAs)
             {
                 Out("(");
@@ -182,6 +186,7 @@ namespace ExpressionToString
                 Out(".");
                 skipDot = false;
             }
+
             Out(node.Method.Name + "(");
             var args = node.Arguments.ToArray();
             if (args.Length > 3 && trimLongArgumentList)

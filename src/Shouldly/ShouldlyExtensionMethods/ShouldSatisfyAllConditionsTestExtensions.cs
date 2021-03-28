@@ -13,14 +13,17 @@ namespace Shouldly
         {
           ShouldSatisfyAllConditions(actual, (string?)null, CreateParameterlessActions(actual, conditions));
         }
+
         public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
           ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
         }
+
         public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
         {
             ShouldSatisfyAllConditions(actual, (string?)null, conditions);
         }
+
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
@@ -61,6 +64,7 @@ namespace Shouldly
                 sb.AppendLine();
                 errorCount++;
             }
+
             sb.AppendLine("-----------------------------------------");
 
             return sb.ToString().TrimEnd();

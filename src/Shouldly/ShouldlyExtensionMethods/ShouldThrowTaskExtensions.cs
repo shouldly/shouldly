@@ -19,6 +19,7 @@ namespace Shouldly
         {
             return ShouldThrow(() => actual, exceptionType);
         }
+
         public static Exception ShouldThrow(this Task actual, string? customMessage, Type exceptionType)
         {
             return ShouldThrow(() => actual, customMessage, exceptionType);
@@ -35,6 +36,7 @@ namespace Shouldly
         {
             return ShouldThrow(actual, (string?)null, exceptionType);
         }
+
         public static Exception ShouldThrow(this Func<Task> actual, string? customMessage, Type exceptionType)
         {
             return ShouldThrow(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
@@ -51,6 +53,7 @@ namespace Shouldly
         {
             return ShouldThrow(() => actual, timeoutAfter, exceptionType);
         }
+
         public static Exception ShouldThrow(this Task actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
             return ShouldThrow(() => actual, timeoutAfter, customMessage, exceptionType);
@@ -67,6 +70,7 @@ namespace Shouldly
         {
             return ShouldThrow(actual, timeoutAfter, (string?)null,exceptionType);
         }
+
         public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
             return Should.ThrowInternal(actual, timeoutAfter, customMessage,exceptionType);

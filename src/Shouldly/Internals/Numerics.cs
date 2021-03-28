@@ -303,4 +303,4 @@ namespace NUnit.Framework.Constraints
             return Convert.ToInt32(expected).CompareTo(Convert.ToInt32(actual));
         }
     }
-};
+}

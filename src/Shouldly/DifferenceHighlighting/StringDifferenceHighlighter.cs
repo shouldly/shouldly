@@ -18,6 +18,7 @@ namespace Shouldly.DifferenceHighlighting
             _sensitivity = sensitivity;
             _transform = transform ?? (s => s);
         }
+
         public string? HighlightDifferences(string? expected, string? actual)
         {
             if (expected == null || actual == null) return null;
@@ -62,8 +63,10 @@ namespace Shouldly.DifferenceHighlighting
                         output.AppendLine();
                         output.AppendLine();
                     }
+
                     output.Append(formattedDetailedDiffString);
                 }
+
                 return output.ToString();
             }
         }
@@ -76,6 +79,7 @@ namespace Shouldly.DifferenceHighlighting
             {
                 return value.Substring(index, maxDiffLength);
             }
+
             return value.Substring(index);
         }
 
@@ -89,6 +93,7 @@ namespace Shouldly.DifferenceHighlighting
                 if (!CharAtIndexIsEqual(actualValue, expectedValue, index))
                     indicesOfAllDifferences.Add(index);
             }
+
             return indicesOfAllDifferences;
         }
 

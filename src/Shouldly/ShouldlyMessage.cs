@@ -17,6 +17,7 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
+
     public class ActualShouldlyMessage : ShouldlyMessage
     {
         public ActualShouldlyMessage(object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
@@ -40,6 +41,7 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
+
     public class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
     {
         public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object? result, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
@@ -232,6 +234,7 @@ namespace Shouldly
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
+
         public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace stackTrace)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
@@ -306,6 +309,7 @@ namespace Shouldly
 Additional Info:
     {ShouldlyAssertionContext.CustomMessage}";
             }
+
             return message;
         }
 
@@ -362,6 +366,7 @@ $@"{codePart}
     difference
 {DifferenceHighlighter.HighlightDifferences(context)}";
             }
+
             return message;
         }
     }

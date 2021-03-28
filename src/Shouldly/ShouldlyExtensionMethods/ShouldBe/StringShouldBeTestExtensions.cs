@@ -52,6 +52,7 @@ namespace Shouldly
             {
                 throw new ShouldAssertException(ex.Message, ex);
             }
+
             throw new ShouldAssertException(assertion.GenerateMessage(customMessage));
         }
     }

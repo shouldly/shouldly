@@ -43,6 +43,7 @@ $@"{codePart}
             {
                 details = string.Empty;
             }
+
             string expectedString;
             if (codePart == "null")
             {

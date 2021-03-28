@@ -49,6 +49,7 @@ namespace Shouldly
                         objectType = proxy.ProxiedValue.GetType();
                         value = proxy.ProxiedValue;
                     }
+
                     if(value.ToString() != objectType.FullName)
                     {
                         inspect += " (" + value + ")";
@@ -136,6 +137,7 @@ namespace Shouldly
             {
                 stringToClip = stringToClip.Substring(0, maximumStringLength);
             }
+
             return stringToClip;
         }
 
@@ -145,6 +147,7 @@ namespace Shouldly
             {
                 stringToClip = stringToClip.Substring(0, maximumStringLength) + ellipsis;
             }
+
             return stringToClip;
         }
 
@@ -172,6 +175,7 @@ namespace Shouldly
                         return $"\\u{(int) c:X};";
                 }
             }
+
             return c.ToString();
         }
 

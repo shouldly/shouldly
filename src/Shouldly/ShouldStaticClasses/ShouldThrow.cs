@@ -14,6 +14,7 @@ namespace Shouldly
         {
             return ThrowInternal<TException>(actual, customMessage);
         }
+
         internal static TException ThrowInternal<TException>([InstantHandle] Action actual, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
@@ -38,6 +39,7 @@ namespace Shouldly
         {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
+
         internal static Exception ThrowInternal([InstantHandle] Action actual, string? customMessage, Type exceptionType,
             [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -63,6 +65,7 @@ namespace Shouldly
         {
             return ThrowInternal<TException>(actual, customMessage);
         }
+
         internal static TException ThrowInternal<TException>([InstantHandle] Func<object?> actual, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
         {
@@ -87,10 +90,12 @@ namespace Shouldly
         {
             return ThrowInternal(actual, null, exceptionType);
         }
+
         public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType)
         {
             return ThrowInternal(actual, customMessage, exceptionType);
         }
+
         internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
             [CallerMemberName] string shouldlyMethod = null!)
         {
@@ -116,6 +121,7 @@ namespace Shouldly
         {
             NotThrowInternal(action, customMessage);
         }
+
         internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
             [CallerMemberName] string shouldlyMethod = null!)
         {

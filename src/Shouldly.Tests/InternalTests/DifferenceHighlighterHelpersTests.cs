@@ -122,6 +122,7 @@ namespace Shouldly.Tests.InternalTests
                 actualList[count] = count;
                 expectedList[count] = count;
             }
+
             actualList[0] = 666;
 
             Should.Throw<ShouldAssertException>(() => actualList.ShouldBe(expectedList))
