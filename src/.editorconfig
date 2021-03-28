@@ -30,3 +30,4 @@ dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
 dotnet_diagnostic.SA1505.severity = warning # Opening braces should not be followed by blank line
 dotnet_diagnostic.SA1507.severity = warning # Code should not contain multiple blank lines in a row
 dotnet_diagnostic.SA1508.severity = warning # Closing braces should not be preceded by blank line
+dotnet_diagnostic.SA1509.severity = warning # Opening braces should not be preceded by blank line
