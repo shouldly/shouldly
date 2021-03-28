@@ -28,6 +28,5 @@ namespace DocumentationExamples
                 millionaires.ShouldAllBe(m => m.Salary > 1000000);
             }, _testOutputHelper);
         }
-
     }
 }

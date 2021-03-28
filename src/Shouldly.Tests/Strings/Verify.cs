@@ -26,7 +26,6 @@ namespace Shouldly.Tests.Strings
                     var msg = scrubber(v);
                     var res = MatchGetHashCode.Replace(msg, "(000000)");
                     return res;
-
                 };
             }
 

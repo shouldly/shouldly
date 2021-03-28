@@ -33,6 +33,5 @@ namespace DocumentationExamples
                 theSimpsonsDog.ShouldNotBeOfType<Cat>();
             }, _testOutputHelper);
         }
-
     }
 }

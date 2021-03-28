@@ -33,6 +33,5 @@ namespace DocumentationExamples
                 mrBurns.Salary.ShouldNotBeInRange(30000, 40000);
             }, _testOutputHelper);
         }
-
     }
 }

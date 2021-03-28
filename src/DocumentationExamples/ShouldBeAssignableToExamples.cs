@@ -23,6 +23,5 @@ namespace DocumentationExamples
                 theSimpsonsDog.ShouldBeAssignableTo<Pet>();
             }, _testOutputHelper);
         }
-
     }
 }

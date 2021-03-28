@@ -32,6 +32,5 @@ namespace DocumentationExamples
                 myValue.ShouldBeFalse();
             }, _testOutputHelper);
         }
-
     }
 }

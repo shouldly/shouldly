@@ -45,6 +45,5 @@ namespace DocumentationExamples
                 wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
             }, _testOutputHelper);
         }
-
     }
 }
