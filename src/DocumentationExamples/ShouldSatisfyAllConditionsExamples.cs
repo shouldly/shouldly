@@ -22,8 +22,7 @@ namespace DocumentationExamples
                 var mrBurns = new Person { Name = null };
                 mrBurns.ShouldSatisfyAllConditions(
                         () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
-                        () => mrBurns.Name.ShouldBe("Mr.Burns")
-                    );
+                        () => mrBurns.Name.ShouldBe("Mr.Burns"));
             }, _testOutputHelper);
         }
 
@@ -35,8 +34,7 @@ namespace DocumentationExamples
                 var mrBurns = new Person { Name = null };
                 mrBurns.ShouldSatisfyAllConditions(
                         p => p.Name.ShouldNotBeNullOrEmpty(),
-                        p => p.Name.ShouldBe("Mr.Burns")
-                    );
+                        p => p.Name.ShouldBe("Mr.Burns"));
             }, _testOutputHelper);
         }
     }

@@ -13,8 +13,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
 result.ShouldSatisfyAllConditions(
         "Some additional context",
         r => r.ShouldBeOfType<float>("Some additional context"),
-        r => r.ShouldBeGreaterThan(5, "Some additional context")
-    ),
+        r => r.ShouldBeGreaterThan(5, "Some additional context")),
 
 errorWithSource:
 @"result
@@ -80,8 +79,7 @@ Additional Info:
             var result = 4;
             result.ShouldSatisfyAllConditions(
                         r => result.ShouldBeOfType<int>(),
-                        r => result.ShouldBeGreaterThan(3)
-                    );
+                        r => result.ShouldBeGreaterThan(3));
         }
     }
 }

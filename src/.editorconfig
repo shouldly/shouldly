@@ -36,6 +36,7 @@ dotnet_diagnostic.SA1106.severity = warning # Code should not contain empty stat
 dotnet_diagnostic.SA1108.severity = warning # Block statements should not contain embedded comments
 dotnet_diagnostic.SA1109.severity = warning # Block statements should not contain embedded regions
 dotnet_diagnostic.SA1110.severity = warning # Opening parenthesis or bracket should be on declaration line
+dotnet_diagnostic.SA1111.severity = warning # Closing parenthesis should be on line of last parameter
 dotnet_diagnostic.SA1206.severity = warning # Declaration keywords should follow order
 dotnet_diagnostic.SA1207.severity = warning # Protected should come before internal
 dotnet_diagnostic.SA1210.severity = warning # Using directives should be ordered alphabetically by namespace

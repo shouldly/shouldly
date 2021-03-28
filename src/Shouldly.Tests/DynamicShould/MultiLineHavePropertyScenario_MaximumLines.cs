@@ -16,8 +16,7 @@ namespace Shouldly.Tests.DynamicShould
                 .HaveProperty(
                 testDynamicObject,
                 "foo",
-                "Some additional context"
-                ),
+                "Some additional context"),
 
 errorWithSource:
 @"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
@@ -40,8 +39,7 @@ Additional Info:
             Shouldly.DynamicShould
                 .HaveProperty(
                 testDynamicObject,
-                "Foo"
-                );
+                "Foo");
         }
     }
 }

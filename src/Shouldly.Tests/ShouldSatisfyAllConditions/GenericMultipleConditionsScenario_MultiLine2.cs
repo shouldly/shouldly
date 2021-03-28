@@ -12,8 +12,7 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
             Verify.ShouldFail(() =>
 result.ShouldSatisfyAllConditions(
     r => r.ShouldBeOfType<float>("Some additional context"),
-    r => r.ShouldBeGreaterThan(5, "Some additional context")
-),
+    r => r.ShouldBeGreaterThan(5, "Some additional context")),
 
 errorWithSource:
 @"result
@@ -78,8 +77,7 @@ The following errors were found ...
                         r
                             =>
                             r
-                            .ShouldBeGreaterThan(3)
-                    );
+                            .ShouldBeGreaterThan(3));
         }
     }
 }

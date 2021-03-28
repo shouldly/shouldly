@@ -32,8 +32,7 @@ Shouldly.Tests.TestHelpers.Custom (000000)
     but was not
 
 Additional Info:
-    Some additional context"
-);
+    Some additional context");
         }
 
         [Fact]
