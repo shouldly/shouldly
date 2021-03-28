@@ -25,7 +25,6 @@ namespace DocumentationExamples
             }, _testOutputHelper);
         }
 
-
         [Fact]
         public void ShouldNotHaveFlag()
         {

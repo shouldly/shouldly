@@ -210,7 +210,6 @@ namespace Shouldly
             return actual.IndexOf(expected, StringComparison.Ordinal) != -1;
         }
 
-
         public static bool EndsWithUsingCaseSensitivity(string? actual, string expected, Case caseSensitivity)
         {
             if (actual == null)

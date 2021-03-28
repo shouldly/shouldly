@@ -31,7 +31,6 @@ namespace Shouldly.Internals
 
         private readonly IEnumerable<T> _baseReentrable;
 
-
         private EnumerableProxy(IEnumerable<T> baseEnum, IEnumerable<T> baseReentrable)
         {
             ProxiedValue = baseEnum;

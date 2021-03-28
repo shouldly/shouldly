@@ -51,7 +51,6 @@ Additional Info:
     Some additional context");
         }
 
-
         [Fact]
         public void FailsIfActualAndExpectedAreDifferentLengths()
         {

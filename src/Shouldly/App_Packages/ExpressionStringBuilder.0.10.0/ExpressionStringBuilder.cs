@@ -34,7 +34,6 @@ namespace ExpressionToString
             return s;
         }
 
-
         protected override Expression VisitLambda<T>(Expression<T> node)
         {
             if (node.Parameters.Any())

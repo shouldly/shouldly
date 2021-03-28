@@ -131,7 +131,6 @@ namespace NUnit.Framework.Constraints
             }
         }
 
-
         private static bool AreEqual(decimal expected, decimal actual, Tolerance tolerance)
         {
             switch (tolerance.Mode)

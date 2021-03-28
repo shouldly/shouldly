@@ -381,7 +381,6 @@ Additional Info:
     Some additional context");
         }
 
-
         [Fact]
         public void ShouldPass()
         {
@@ -471,7 +470,6 @@ Additional Info:
                 return 0;
             }
         }
-
 
         const string ThisOtherString = "this other string";
         const string ThisString = "this string";
