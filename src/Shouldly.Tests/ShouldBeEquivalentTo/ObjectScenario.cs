@@ -106,7 +106,7 @@ Additional Info:
                 errorWithSource:
                 @"Comparing object equivalence, at path:
 subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Title [System.String]
+    TitleField [System.String]
 
     Expected value to be
 ""Sir""
@@ -119,7 +119,7 @@ Additional Info:
                 errorWithoutSource:
                 @"Comparing object equivalence, at path:
 <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Title [System.String]
+    TitleField [System.String]
 
     Expected value to be
 ""Sir""
