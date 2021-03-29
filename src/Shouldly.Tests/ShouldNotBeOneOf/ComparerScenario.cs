@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBe.ShouldNotBeOneOf
         public void ComparerEqualsShouldPass()
         {
             var comparison1 = new ComparableClass { Property = "Tiger", IgnoredProperty = "Duck" };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }

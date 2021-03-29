@@ -153,7 +153,7 @@ new[] { 2, 3, 4 }
 
             public IEnumerable<int> ReadLine()
             {
-                if(_curLine < _baseData.Length)
+                if (_curLine < _baseData.Length)
                 {
                     _curCol++;
                     while (_curCol < _baseData[_curLine].Length)

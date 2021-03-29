@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldBe.ShouldBeOneOf
         public void ComparerEqualsShouldPass()
         {
             var comparison1 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }
@@ -23,7 +23,7 @@ namespace Shouldly.Tests.ShouldBe.ShouldBeOneOf
         public void ComparerNotEqualsShouldFail()
         {
             var comparison1 = new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Snake", IgnoredProperty = "Platypus" },
                 new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" }

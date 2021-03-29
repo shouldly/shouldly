@@ -39,7 +39,7 @@ namespace Shouldly
 
         public static bool IsSourceDisabledInErrors()
         {
-            return (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
+            return (bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
         }
 
         private class EnableSourceInErrorsDisposable : IDisposable

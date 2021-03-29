@@ -7,14 +7,14 @@ namespace Shouldly.Internals
 {
     internal interface IEnumerableProxy
     {
-        object ProxiedValue {  get; }
+        object ProxiedValue { get; }
     }
 
     internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
     {
         public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
         {
-            if(baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
+            if (baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
             {
                 return baseEnum;
             }

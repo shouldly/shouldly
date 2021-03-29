@@ -6,7 +6,7 @@
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs -->
 <a id='16bf37fa'></a>
 ```cs
-var homer = new Person {Name = "Homer", Salary = 30000};
+var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
 Should.NotThrow(() =>
                 {
@@ -33,7 +33,7 @@ System.DivideByZeroException
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs -->
 <a id='cc57c8e4'></a>
 ```cs
-var homer = new Person {Name = "Homer", Salary = 30000};
+var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
 Action action = () =>
                 {
@@ -109,7 +109,7 @@ System.ArgumentNullException
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs -->
 <a id='22f6b427'></a>
 ```cs
-var homer = new Person {Name = "Homer", Salary = 30000};
+var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
 Should.NotThrow(() =>
                 {

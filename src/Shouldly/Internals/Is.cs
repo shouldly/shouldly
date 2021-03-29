@@ -57,7 +57,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (;;)
+            while (true)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -109,7 +109,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -129,7 +129,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -149,7 +149,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -251,7 +251,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();

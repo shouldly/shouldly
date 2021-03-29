@@ -93,15 +93,15 @@ Additional Info:
 
         private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
         {
-            {ThingKey, new MyThing()}
+            { ThingKey, new MyThing() }
         };
         private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
         {
-            { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f")}
+            { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
         };
         private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
         {
-            { "Foo", ""}
+            { "Foo", "" }
         };
 
         private static readonly Guid GuidKey = new Guid("89bdbe3d-3436-4749-bcb7-84264394026c");

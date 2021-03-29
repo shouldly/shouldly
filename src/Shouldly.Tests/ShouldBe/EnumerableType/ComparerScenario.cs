@@ -10,12 +10,12 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         [Fact]
         public void ComparerEqualsShouldPass()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Whale" }
             };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }
@@ -27,12 +27,12 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         [Fact]
         public void ComparerEqualsIgnoreOrderShouldPass()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Whale" }
             };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" },
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" }
@@ -44,12 +44,12 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
         [Fact]
         public void ComparerNotEqualsShouldFail()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" },
                 new ComparableClass { Property = "Tiger", IgnoredProperty = "Salmon" }
             }.AsEnumerable();
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Snake", IgnoredProperty = "Platypus" },
                 new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" }

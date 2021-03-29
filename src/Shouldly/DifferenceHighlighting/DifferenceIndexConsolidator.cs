@@ -50,7 +50,7 @@ namespace Shouldly.DifferenceHighlighting
             var isCloseToTheEnd = averageIndexOfAllDiffs + requiredAdjustmentToCenterDiff >= _maxLengthOfStrings;
             if (!isCloseToTheEnd)
             {
-                adjustedIndex = (int) Math.Max(0, averageIndexOfAllDiffs - requiredAdjustmentToCenterDiff);
+                adjustedIndex = (int)Math.Max(0, averageIndexOfAllDiffs - requiredAdjustmentToCenterDiff);
             }
             else
             {

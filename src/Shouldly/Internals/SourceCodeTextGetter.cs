@@ -96,9 +96,9 @@ namespace Shouldly.Internals
 
             var parentheses = new Dictionary<char, char>
             {
-                {'{', '}'},
-                {'(', ')'},
-                {'[', ']'}
+                { '{', '}' },
+                { '(', ')' },
+                { '[', ']' }
             };
 
             var openParentheses = new List<char>();

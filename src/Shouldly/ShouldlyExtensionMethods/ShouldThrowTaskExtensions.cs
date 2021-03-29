@@ -68,12 +68,12 @@ namespace Shouldly
         /*** ShouldThrow(Func<Task>, TimeSpan) ***/
         public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType)
         {
-            return ShouldThrow(actual, timeoutAfter, (string?)null,exceptionType);
+            return ShouldThrow(actual, timeoutAfter, (string?)null, exceptionType);
         }
 
         public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
-            return Should.ThrowInternal(actual, timeoutAfter, customMessage,exceptionType);
+            return Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
         }
 
         /*** ShouldNotThrow(Task) ***/

@@ -158,7 +158,7 @@ Additional Info:
         {
             var dictionary = new Dictionary<MyThing, MyThing?>
             {
-                {ThingKey, null}
+                { ThingKey, null }
             };
             Verify.ShouldFail(() =>
 dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
@@ -196,15 +196,15 @@ Additional Info:
 
         private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
         {
-            {ThingKey, ThingValue}
+            { ThingKey, ThingValue }
         };
         private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
         {
-            { GuidKey, GuidValue}
+            { GuidKey, GuidValue }
         };
         private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
         {
-            { "Foo", "Bar"}
+            { "Foo", "Bar" }
         };
 
         private static readonly Guid GuidKey = new Guid("edae0d73-8e4c-4251-85c8-e5497c7ccad1");

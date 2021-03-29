@@ -6,7 +6,7 @@
 <!-- snippet: ShouldThrowExamples.ShouldThrowAction.codeSample.approved.cs -->
 <a id='55961712'></a>
 ```cs
-var homer = new Person {Name = "Homer", Salary = 30000};
+var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 1;
 Should.Throw<DivideByZeroException>(() =>
                 {
@@ -55,7 +55,7 @@ System.DivideByZeroException
 <!-- snippet: ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs -->
 <a id='de1acfa0'></a>
 ```cs
-var homer = new Person {Name = "Homer", Salary = 30000};
+var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 1;
 Action action = () =>
                 {
@@ -128,7 +128,7 @@ System.ArgumentNullException
 <!-- snippet: ShouldThrowExamples.ShouldThrowFuncOfTask.codeSample.approved.cs -->
 <a id='c98370e9'></a>
 ```cs
-var homer = new Person {Name = "Homer", Salary = 30000};
+var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 1;
 Should.Throw<DivideByZeroException>(() =>
                 {

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Shouldly.DifferenceHighlighting
 {
-    internal class FormattedDetailedDifferenceString 
+    internal class FormattedDetailedDifferenceString
     {
         private readonly string _actualValue;
         private readonly string _expectedValue;
@@ -62,8 +62,8 @@ namespace Shouldly.DifferenceHighlighting
                 indexStringBuilder.Append($"{index + _indexOffset,-5}");
                 expectedValueStringBuilder.Append($"{(index < _expectedValue.Length ? _expectedValue[index].ToSafeString() : ""),-5}");
                 actualValueStringBuilder.Append($"{(index < _actualValue.Length ? _actualValue[index].ToSafeString() : ""),-5}");
-                expectedCodeStringBuilder.Append($"{(index < _expectedValue.Length ? ((int) _expectedValue[index]).ToString() : ""),-5}");
-                actualCodeStringBuilder.Append($"{(index < _actualValue.Length ? ((int) _actualValue[index]).ToString() : ""),-5}");
+                expectedCodeStringBuilder.Append($"{(index < _expectedValue.Length ? ((int)_expectedValue[index]).ToString() : ""),-5}");
+                actualCodeStringBuilder.Append($"{(index < _actualValue.Length ? ((int)_actualValue[index]).ToString() : ""),-5}");
             }
 
             if (_suffixWithDots)
@@ -112,7 +112,7 @@ namespace Shouldly.DifferenceHighlighting
             output.AppendLine("Expected Value | " + expectedValueStringBuilder);
             output.AppendLine("Actual Value   | " + actualValueStringBuilder);
             output.AppendLine("Expected Code  | " + expectedCodeStringBuilder);
-            output.Append    ("Actual Code    | " + actualCodeStringBuilder);
+            output.Append("Actual Code    | " + actualCodeStringBuilder);
 
             var outputString = output.ToString();
             return outputString;

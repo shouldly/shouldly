@@ -19,8 +19,8 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var principleSkinner = new Person {Name = "Armin Tamzarian"};
-                var seymourSkinner = new Person {Name = "Seymour Skinner"};
+                var principleSkinner = new Person { Name = "Armin Tamzarian" };
+                var seymourSkinner = new Person { Name = "Seymour Skinner" };
 
                 principleSkinner.ShouldBeSameAs(seymourSkinner);
             }, _testOutputHelper);
@@ -31,7 +31,7 @@ namespace DocumentationExamples
         {
             DocExampleWriter.Document(() =>
             {
-                var person = new Person {Name = "Armin Tamzarian"};
+                var person = new Person { Name = "Armin Tamzarian" };
                 person.ShouldNotBeSameAs(person);
             }, _testOutputHelper);
         }

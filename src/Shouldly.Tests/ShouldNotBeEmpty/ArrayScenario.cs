@@ -29,7 +29,7 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        new[] {1}.ShouldNotBeEmpty();
+        new[] { 1 }.ShouldNotBeEmpty();
     }
 }
 }

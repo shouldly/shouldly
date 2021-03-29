@@ -11,10 +11,10 @@ namespace Shouldly.Tests.ShouldContain
     public void DoubleWithToleranceScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] {1d, 2d, 3d}.ShouldContain(1.8, 0.1d, "Some additional context"),
+new[] { 1d, 2d, 3d }.ShouldContain(1.8, 0.1d, "Some additional context"),
 
 errorWithSource:
-@"new[] {1d, 2d, 3d}
+@"new[] { 1d, 2d, 3d }
     should contain
 1.8d
     within
@@ -40,7 +40,7 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        new[] {1d, 2d, 3d}.ShouldContain(1.91d, 0.1d);
+        new[] { 1d, 2d, 3d }.ShouldContain(1.91d, 0.1d);
     }
 }
 }

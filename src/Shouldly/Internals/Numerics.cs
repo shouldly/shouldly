@@ -84,8 +84,8 @@ namespace NUnit.Framework.Constraints
                     if (expected == 0.0)
                         return expected.Equals(actual);
 
-                    var relativeError = Math.Abs((expected - actual)/expected);
-                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
+                    var relativeError = Math.Abs((expected - actual) / expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value) / 100.0;
                 case ToleranceMode.Ulps:
                     return FloatingPointNumerics.AreAlmostEqualUlps(
                         expected, actual, Convert.ToInt64(tolerance.Value));
@@ -121,8 +121,8 @@ namespace NUnit.Framework.Constraints
                 case ToleranceMode.Percent:
                     if (expected == 0.0f)
                         return expected.Equals(actual);
-                    var relativeError = Math.Abs((expected - actual)/expected);
-                    return relativeError <= Convert.ToSingle(tolerance.Value)/100.0f;
+                    var relativeError = Math.Abs((expected - actual) / expected);
+                    return relativeError <= Convert.ToSingle(tolerance.Value) / 100.0f;
                 case ToleranceMode.Ulps:
                     return FloatingPointNumerics.AreAlmostEqualUlps(
                         expected, actual, Convert.ToInt32(tolerance.Value));
@@ -150,8 +150,8 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     var relativeError = Math.Abs(
-                        (double) (expected - actual)/(double) expected);
-                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
+                        (double)(expected - actual) / (double)expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value) / 100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
@@ -181,8 +181,8 @@ namespace NUnit.Framework.Constraints
 
                     // Can't do a simple Math.Abs() here since it's unsigned
                     var difference = Math.Max(expected, actual) - Math.Min(expected, actual);
-                    var relativeError = Math.Abs(difference/(double) expected);
-                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
+                    var relativeError = Math.Abs(difference / (double)expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value) / 100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
@@ -208,8 +208,8 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     var relativeError = Math.Abs(
-                        (expected - actual)/(double) expected);
-                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
+                        (expected - actual) / (double)expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value) / 100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
@@ -239,8 +239,8 @@ namespace NUnit.Framework.Constraints
 
                     // Can't do a simple Math.Abs() here since it's unsigned
                     var difference = Math.Max(expected, actual) - Math.Min(expected, actual);
-                    var relativeError = Math.Abs(difference/(double) expected);
-                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
+                    var relativeError = Math.Abs(difference / (double)expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value) / 100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
@@ -266,8 +266,8 @@ namespace NUnit.Framework.Constraints
                         return expected.Equals(actual);
 
                     var relativeError = Math.Abs(
-                        (expected - actual)/(double) expected);
-                    return relativeError <= Convert.ToDouble(tolerance.Value)/100.0;
+                        (expected - actual) / (double)expected);
+                    return relativeError <= Convert.ToDouble(tolerance.Value) / 100.0;
 
                 default:
                     throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));

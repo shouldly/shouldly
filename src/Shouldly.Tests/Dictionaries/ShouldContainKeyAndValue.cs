@@ -160,7 +160,7 @@ Additional Info:
         {
             var dictionaryWithNullValue = new Dictionary<MyThing, MyThing?>
             {
-                {ThingKey, null}
+                { ThingKey, null }
             };
             Verify.ShouldFail(() =>
 dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
@@ -200,15 +200,15 @@ Additional Info:
 
         private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
         {
-            {ThingKey, ThingValue}
+            { ThingKey, ThingValue }
         };
         private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
         {
-            { GuidKey, GuidValue}
+            { GuidKey, GuidValue }
         };
         private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
         {
-            { "Foo", "Bar"}
+            { "Foo", "Bar" }
         };
 
         private static readonly MyThing ThingKey = new MyThing();

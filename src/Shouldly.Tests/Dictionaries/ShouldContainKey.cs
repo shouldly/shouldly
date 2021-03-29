@@ -94,12 +94,12 @@ Additional Info:
         private static readonly MyThing ThingKey = new MyThing();
         private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
         {
-            {ThingKey, new MyThing()}
+            { ThingKey, new MyThing() }
         };
 
         private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
         {
-            { GuidKey, new Guid("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5")}
+            { GuidKey, new Guid("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5") }
         };
 
         private static readonly Guid GuidKey = new Guid("468a57a7-ca19-4b76-a1e3-3040719392bc");
@@ -107,7 +107,7 @@ Additional Info:
 
         private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
         {
-            { "Foo", ""}
+            { "Foo", "" }
         };
     }
 }

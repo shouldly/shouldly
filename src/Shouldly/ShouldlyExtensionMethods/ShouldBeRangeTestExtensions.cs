@@ -28,7 +28,7 @@ namespace Shouldly
 
         public static void ShouldNotBeOneOf<T>(this T? actual, params T[] expected)
         {
-            ShouldNotBeOneOf(actual, expected, (string?) null);
+            ShouldNotBeOneOf(actual, expected, (string?)null);
         }
 
         public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage)

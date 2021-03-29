@@ -41,7 +41,7 @@ namespace Shouldly
         public object? OutOfOrderObject { get; set; }
         public IEnumerable<string>? Path { get; set; }
 
-        public  ShouldlyAssertionContext(
+        public ShouldlyAssertionContext(
             string shouldlyMethod,
             object? expected = null,
             object? actual = null,

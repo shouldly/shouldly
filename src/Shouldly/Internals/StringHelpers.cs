@@ -50,7 +50,7 @@ namespace Shouldly
                         value = proxy.ProxiedValue;
                     }
 
-                    if(value.ToString() != objectType.FullName)
+                    if (value.ToString() != objectType.FullName)
                     {
                         inspect += " (" + value + ")";
                     }
@@ -78,7 +78,7 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(binaryExpression);
             }
 
-            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
+            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)) {
                 var key = objectType.GetProperty("Key")!.GetValue(value, null);
                 var v = objectType.GetProperty("Value")!.GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
@@ -172,7 +172,7 @@ namespace Shouldly
                     case ' ':
                         return @"\s";
                     default:
-                        return $"\\u{(int) c:X};";
+                        return $"\\u{(int)c:X};";
                 }
             }
 

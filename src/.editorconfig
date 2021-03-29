@@ -24,9 +24,9 @@ dotnet_analyzer_diagnostic.category-StyleCop.CSharp.MaintainabilityRules.severit
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.NamingRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.OrderingRules.severity = none
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.ReadabilityRules.severity = none
-dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
 
 # Opt in to rules for things we’d prefer to have but not prefer to surprise people with at PR time
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = warning
 dotnet_diagnostic.SA1100.severity = warning # Do not prefix calls with base unless local implementation exists
 dotnet_diagnostic.SA1102.severity = warning # Query clause should follow previous clause
 dotnet_diagnostic.SA1103.severity = warning # Query clauses should be on separate lines or all on one line
