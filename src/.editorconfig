@@ -2,6 +2,10 @@
 indent_style = space
 indent_size = 4
 
+# Override ReSharper defaults to not conflict
+csharp_space_after_cast = false
+resharper_csharp_space_within_single_line_array_initializer_braces = true # https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_SpacesPageSchema.html#resharper_csharp_space_within_single_line_array_initializer_braces
+
 # CA1018: Mark attributes with AttributeUsageAttribute
 dotnet_diagnostic.CA1018.severity = warning
 
