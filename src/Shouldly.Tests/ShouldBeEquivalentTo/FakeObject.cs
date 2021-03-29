@@ -7,7 +7,7 @@ namespace Shouldly.Tests.ShouldBeEquivalentTo
     public class FakeObject
     {
         public int Id { get; set; }
-        public string? Title;
+        public string? TitleField;
         public string? Name { get; set; }
         public FakeObject? Child { get; set; }
         public ICollection<string>? Colors { get; set; }

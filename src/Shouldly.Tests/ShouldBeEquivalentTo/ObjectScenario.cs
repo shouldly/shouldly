@@ -86,18 +86,18 @@ Additional Info:
         }
 
         [Fact]
-        public void ShouldFailWhenTitleDoesNotMatch()
+        public void ShouldFailWhenFieldDoesNotMatch()
         {
             var subject = new FakeObject
             {
                 Id = 5,
-                Title = "Mr",
+                TitleField = "Mr",
                 Name = "Bob",
             };
             var expected = new FakeObject
             {
                 Id = 5,
-                Title = "Sir",
+                TitleField = "Sir",
                 Name = "Bob",
             };
             Verify.ShouldFail(() =>
@@ -282,7 +282,7 @@ Additional Info:
                 Name = "Bob",
                 Adjectives = new[] { "funny", "wise" },
                 Colors = new[] { "red", "blue" },
-                Title = "Mr",
+                TitleField = "Mr",
                 Child = new FakeObject
                 {
                     Id = 6,
@@ -295,7 +295,7 @@ Additional Info:
             var expected = new FakeObject
             {
                 Id = 5,
-                Title = "Mr",
+                TitleField = "Mr",
                 Name = "Bob",
                 Adjectives = new[] { "funny", "wise" },
                 Colors = new[] { "red", "blue" },
