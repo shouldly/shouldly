@@ -9,7 +9,7 @@
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <Compile Include="..\Shouldly.Tests\ConventionTests\IgnoreOnAppVeyorLinuxFact.cs" Link="IgnoreOnAppVeyorLinuxFact.cs" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="23.1.1">
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="23.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
