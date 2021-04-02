@@ -1,4 +1,6 @@
-﻿namespace Shouldly
+﻿using JetBrains.Annotations;
+
+namespace Shouldly
 {
     public static partial class ShouldBeStringTestExtensions
     {
@@ -32,12 +34,12 @@
             }, actual.Clip(100, "..."), expected, caseSensitivity, customMessage);
         }
 
-        public static void ShouldMatch(this string actual, string regexPattern, string? customMessage = null)
+        public static void ShouldMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null)
         {
             actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
         }
 
-        public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null)
+        public static void ShouldNotMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null)
         {
             actual.AssertAwesomely(v => !Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
         }

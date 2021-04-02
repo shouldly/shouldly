@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 
 namespace Shouldly
 {
@@ -189,7 +190,7 @@ namespace Shouldly
             return (actual - expected).Duration() < tolerance;
         }
 
-        public static bool StringMatchingRegex(string actual, string regexPattern)
+        public static bool StringMatchingRegex(string actual, [RegexPattern] string regexPattern)
         {
             return Regex.IsMatch(actual, regexPattern);
         }
