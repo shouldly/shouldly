@@ -86,6 +86,51 @@ Additional Info:
         }
 
         [Fact]
+        public void ShouldFailWhenFieldDoesNotMatch()
+        {
+            var subject = new FakeObject
+            {
+                Id = 5,
+                TitleField = "Mr",
+                Name = "Bob",
+            };
+            var expected = new FakeObject
+            {
+                Id = 5,
+                TitleField = "Sir",
+                Name = "Bob",
+            };
+            Verify.ShouldFail(() =>
+                    subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+
+                errorWithSource:
+                @"Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    TitleField [System.String]
+
+    Expected value to be
+""Sir""
+    but was
+""Mr""
+
+Additional Info:
+    Some additional context",
+
+                errorWithoutSource:
+                @"Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    TitleField [System.String]
+
+    Expected value to be
+""Sir""
+    but was
+""Mr""
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
         public void ShouldFailWhenObjectIsComplex()
         {
             var subject = new FakeObject
@@ -237,6 +282,7 @@ Additional Info:
                 Name = "Bob",
                 Adjectives = new[] { "funny", "wise" },
                 Colors = new[] { "red", "blue" },
+                TitleField = "Mr",
                 Child = new FakeObject
                 {
                     Id = 6,
@@ -249,6 +295,7 @@ Additional Info:
             var expected = new FakeObject
             {
                 Id = 5,
+                TitleField = "Mr",
                 Name = "Bob",
                 Adjectives = new[] { "funny", "wise" },
                 Colors = new[] { "red", "blue" },
