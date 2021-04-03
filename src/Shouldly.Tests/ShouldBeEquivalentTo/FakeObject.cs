@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ShouldBeEquivalentTo
 
     public class IndexableObject
     {
-        private Dictionary<int, string> _indexedStrings;
+        private readonly Dictionary<int, string> _indexedStrings;
         public IndexableObject(IEnumerable<string> strings)
         {
             _indexedStrings =
