@@ -214,9 +214,9 @@ Additional Info:
             a.ShouldBe(new IFoo[] { foo });
         }
 
-        interface IFoo { }
-        class Foo : IFoo { }
-        readonly List<string> _thisOtherStringList = new List<string> { "1", "3" };
-        readonly List<string> _thisString = new List<string> { "1", "2" };
+        private interface IFoo { }
+        private class Foo : IFoo { }
+        private readonly List<string> _thisOtherStringList = new List<string> { "1", "3" };
+        private readonly List<string> _thisString = new List<string> { "1", "2" };
     }
 }

@@ -6,7 +6,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
     {
-        const string ShouldBeAssertion = "ShouldHaveSingleItem";
+        private const string ShouldBeAssertion = "ShouldHaveSingleItem";
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

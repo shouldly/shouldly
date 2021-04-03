@@ -39,10 +39,10 @@ namespace Shouldly
 
         public static bool IsSourceDisabledInErrors()
         {
-            return (bool?) CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
+            return (bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
         }
 
-        class EnableSourceInErrorsDisposable : IDisposable
+        private class EnableSourceInErrorsDisposable : IDisposable
         {
             public void Dispose()
             {

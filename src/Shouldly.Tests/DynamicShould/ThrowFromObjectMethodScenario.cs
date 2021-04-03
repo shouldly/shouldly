@@ -6,7 +6,7 @@ namespace Shouldly.Tests.DynamicShould
 {
     public class ThrowFromObjectMethodScenario
     {
-        class Foo
+        private class Foo
         {
             public object NoExceptionMethod()
             {

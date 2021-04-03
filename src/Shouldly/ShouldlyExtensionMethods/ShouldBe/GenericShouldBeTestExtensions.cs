@@ -13,7 +13,7 @@ namespace Shouldly
     public static partial class ShouldBeTestExtensions
     {
         [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
-        public static void  ShouldBe<T>(
+        public static void ShouldBe<T>(
             [NotNullIfNotNull("expected")] this T? actual,
             [NotNullIfNotNull("actual")] T? expected,
             string? customMessage = null)
@@ -52,6 +52,7 @@ namespace Shouldly
         {
             ShouldBe(actual, expected, ignoreOrder, (string?)null);
         }
+
         public static void ShouldBe<T>(
             [NotNullIfNotNull("expected")] this IEnumerable<T>? actual,
             [NotNullIfNotNull("actual")] IEnumerable<T>? expected,

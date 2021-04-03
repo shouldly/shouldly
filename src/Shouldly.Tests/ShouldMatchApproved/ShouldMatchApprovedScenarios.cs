@@ -67,7 +67,7 @@ Approval file {approvalPath}.approved.txt
             }
 
             exception.ShouldNotBeNull();
-            // text is limited to 5000 char. but then the diff results in 5000*2+some extraneous text 
+            // text is limited to 5000 char. but then the diff results in 5000*2+some extraneous text
             exception!.Message.Length.ShouldBeLessThan(12000);
         }
 

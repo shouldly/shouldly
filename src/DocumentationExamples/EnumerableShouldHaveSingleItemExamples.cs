@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class EnumerableShouldHaveSingleItemExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public EnumerableShouldHaveSingleItemExamples(ITestOutputHelper testOutputHelper)
         {

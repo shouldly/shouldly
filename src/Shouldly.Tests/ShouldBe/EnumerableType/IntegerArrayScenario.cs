@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class IntegerArrayScenario
     {
-
     [Fact]
     public void IntegerArrayScenarioShouldFail()
     {

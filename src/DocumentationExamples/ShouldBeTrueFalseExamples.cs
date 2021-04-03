@@ -6,7 +6,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeTrueFalseExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeTrueFalseExamples(ITestOutputHelper testOutputHelper)
         {
@@ -32,6 +32,5 @@ namespace DocumentationExamples
                 myValue.ShouldBeFalse();
             }, _testOutputHelper);
         }
-
     }
 }

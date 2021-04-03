@@ -338,8 +338,8 @@ Additional Info:
         [Fact]
         public void ShouldThrowSensibleErrorWhenIndexersUsed()
         {
-            var subject = new IndexableObject(new List<string>{"foo", "bar"});
-            var expected = new IndexableObject(new List<string>{"a", "b"});
+            var subject = new IndexableObject(new List<string> { "foo", "bar" });
+            var expected = new IndexableObject(new List<string> { "a", "b" });
             Action indexableObjectComparison = () => subject.ShouldBeEquivalentTo(expected);
 
             indexableObjectComparison

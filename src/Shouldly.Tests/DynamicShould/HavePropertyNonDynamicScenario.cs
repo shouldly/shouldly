@@ -5,7 +5,7 @@ namespace Shouldly.Tests.DynamicShould
 {
     public class HavePropertyNonDynamicScenario
     {
-        class Foo
+        private class Foo
         {
             public string? Bar { get; set; }
         }

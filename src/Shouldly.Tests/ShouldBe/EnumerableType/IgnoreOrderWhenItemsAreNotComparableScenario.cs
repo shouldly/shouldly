@@ -44,7 +44,6 @@ Actual
 Additional Info:
     Some additional context",
 
-
 errorWithoutSource:
 @"[1, 2]
     should be (ignoring order)
@@ -75,7 +74,7 @@ Additional Info:
 
         public class YourAverageNonComparableType
         {
-            readonly int identity;
+            private readonly int identity;
 
             public YourAverageNonComparableType(int identity)
             {

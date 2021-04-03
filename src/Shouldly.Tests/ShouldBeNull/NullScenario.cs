@@ -34,7 +34,6 @@ Additional Info:
             ((string?)null).ShouldBeNull();
         }
 
-
         [Fact]
         public void ShouldFailForSystemNullableWithValue()
         {

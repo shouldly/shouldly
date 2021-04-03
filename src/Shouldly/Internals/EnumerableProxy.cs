@@ -5,19 +5,20 @@ using System.Linq;
 
 namespace Shouldly.Internals
 {
-    interface IEnumerableProxy
+    internal interface IEnumerableProxy
     {
-        object ProxiedValue {  get; }
+        object ProxiedValue { get; }
     }
 
-    sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
+    internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
     {
         public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
         {
-            if(baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
+            if (baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
             {
                 return baseEnum;
             }
+
             if (baseEnum is EnumerableProxy<T>)
             {
                 throw new ArgumentException("Value already wrapped.", nameof(baseEnum));
@@ -30,7 +31,6 @@ namespace Shouldly.Internals
         object IEnumerableProxy.ProxiedValue => ProxiedValue;
 
         private readonly IEnumerable<T> _baseReentrable;
-
 
         private EnumerableProxy(IEnumerable<T> baseEnum, IEnumerable<T> baseReentrable)
         {

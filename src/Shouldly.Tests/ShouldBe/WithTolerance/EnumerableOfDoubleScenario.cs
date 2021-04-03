@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance
 {
     public class EnumerableOfDoubleScenario
     {
-
     [Fact]
     [UseCulture("en-US")]
     public void EnumerableOfDoubleScenarioShouldFail()

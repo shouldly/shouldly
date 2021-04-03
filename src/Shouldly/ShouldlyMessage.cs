@@ -17,6 +17,7 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
+
     public class ActualShouldlyMessage : ShouldlyMessage
     {
         public ActualShouldlyMessage(object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
@@ -40,6 +41,7 @@ namespace Shouldly
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
     }
+
     public class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
     {
         public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object? result, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
@@ -232,6 +234,7 @@ namespace Shouldly
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod);
             if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
         }
+
         public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace stackTrace)
         {
             ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
@@ -257,7 +260,7 @@ namespace Shouldly
 
     public abstract class ShouldlyMessage
     {
-        static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
+        private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
         {
             new ShouldHaveFlagMessageGenerator(),
             new ShouldNotHaveFlagMessageGenerator(),
@@ -306,10 +309,11 @@ namespace Shouldly
 Additional Info:
     {ShouldlyAssertionContext.CustomMessage}";
             }
+
             return message;
         }
 
-        string GenerateShouldMessage()
+        private string GenerateShouldMessage()
         {
             var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(ShouldlyAssertionContext));
             if (messageGenerator != null)
@@ -326,7 +330,7 @@ Additional Info:
             return CreateExpectedErrorMessage();
         }
 
-        string CreateExpectedErrorMessage()
+        private string CreateExpectedErrorMessage()
         {
             var codePart = ShouldlyAssertionContext.CodePart;
             var isNegatedAssertion = ShouldlyAssertionContext.ShouldMethod.Contains("Not");
@@ -343,7 +347,7 @@ $@"{codePart}
     but does{(isNegatedAssertion ? "" : " not")}";
         }
 
-        static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
+        private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
         {
             var codePart = context.CodePart;
             var actual = context.Actual.ToStringAwesomely();
@@ -362,6 +366,7 @@ $@"{codePart}
     difference
 {DifferenceHighlighter.HighlightDifferences(context)}";
             }
+
             return message;
         }
     }

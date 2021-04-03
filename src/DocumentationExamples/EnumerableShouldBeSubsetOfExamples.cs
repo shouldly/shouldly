@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class EnumerableShouldBeSubsetOfExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public EnumerableShouldBeSubsetOfExamples(ITestOutputHelper testOutputHelper)
         {

@@ -6,7 +6,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("Should(Not)?BeEmpty");
+        private static readonly Regex Validator = new Regex("Should(Not)?BeEmpty");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {
@@ -43,14 +43,18 @@ $@"{codePart}
             {
                 details = string.Empty;
             }
+
             string expectedString;
             if (codePart == "null")
             {
                 codePart = expected;
                 expectedString = " not empty";
             }
-            else expectedString = $@"
+            else
+            {
+                expectedString = $@"
 {expected}";
+            }
 
             return
 $@"{codePart}

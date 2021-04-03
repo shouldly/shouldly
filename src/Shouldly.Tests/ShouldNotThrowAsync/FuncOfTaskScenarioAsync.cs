@@ -61,7 +61,7 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
         [Fact]
         public void ShouldPass()
         {
-            var task = Task.Factory.StartNew(() => { } ,
+            var task = Task.Factory.StartNew(() => { },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
@@ -69,4 +69,3 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
         }
     }
 }
-

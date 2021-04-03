@@ -6,7 +6,7 @@ namespace Shouldly.Tests.Strings
     [ShouldlyMethods]
     public static class Verify
     {
-        static readonly Regex MatchGetHashCode = new Regex("\\(\\d{5,8}\\)");
+        private static readonly Regex MatchGetHashCode = new Regex("\\(\\d{5,8}\\)");
 
         public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string>? messageScrubber = null)
         {
@@ -26,7 +26,6 @@ namespace Shouldly.Tests.Strings
                     var msg = scrubber(v);
                     var res = MatchGetHashCode.Replace(msg, "(000000)");
                     return res;
-
                 };
             }
 

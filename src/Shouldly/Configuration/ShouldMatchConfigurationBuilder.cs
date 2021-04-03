@@ -4,7 +4,7 @@ namespace Shouldly.Configuration
 {
     public class ShouldMatchConfigurationBuilder
     {
-        readonly ShouldMatchConfiguration _config;
+        private readonly ShouldMatchConfiguration _config;
 
         public ShouldMatchConfigurationBuilder(ShouldMatchConfiguration initialConfig)
         {
@@ -81,7 +81,9 @@ namespace Shouldly.Configuration
             return Configure(c =>
             {
                 if (c.Scrubber == null)
+                {
                     c.Scrubber = scrubber;
+                }
                 else
                 {
                     var existing = c.Scrubber;

@@ -43,7 +43,7 @@ Additional Info:
             GetEnumerable().ShouldBe(new[] { 1 }, true);
         }
 
-        static IEnumerable<int> GetEnumerable()
+        private static IEnumerable<int> GetEnumerable()
         {
             yield return 1;
         }

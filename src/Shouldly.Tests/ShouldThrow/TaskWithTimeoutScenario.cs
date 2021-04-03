@@ -29,7 +29,7 @@ namespace Shouldly.Tests.ShouldThrow
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
-        string ChuckedAWobblyErrorMessage => @"
+        private string ChuckedAWobblyErrorMessage => @"
     Task
         should complete in
     00:00:00.5000000

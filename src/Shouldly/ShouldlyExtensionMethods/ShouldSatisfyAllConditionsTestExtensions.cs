@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System;
 using System.Text;
 using JetBrains.Annotations;
 
@@ -13,14 +13,17 @@ namespace Shouldly
         {
           ShouldSatisfyAllConditions(actual, (string?)null, CreateParameterlessActions(actual, conditions));
         }
+
         public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
           ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
         }
+
         public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
         {
             ShouldSatisfyAllConditions(actual, (string?)null, conditions);
         }
+
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
         {
             var errorMessages = new List<Exception>();
@@ -43,11 +46,11 @@ namespace Shouldly
             }
         }
 
-        static Action[] CreateParameterlessActions<T>(T parameter, params Action<T>[] actions) {
+        private static Action[] CreateParameterlessActions<T>(T parameter, params Action<T>[] actions) {
           return actions.Select(a => new Action(() => a(parameter))).ToArray();
         }
 
-        static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
+        private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
         {
             var errorCount = 1;
             var sb = new StringBuilder();
@@ -61,6 +64,7 @@ namespace Shouldly
                 sb.AppendLine();
                 errorCount++;
             }
+
             sb.AppendLine("-----------------------------------------");
 
             return sb.ToString().TrimEnd();

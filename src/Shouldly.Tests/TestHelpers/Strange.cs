@@ -5,13 +5,13 @@ namespace Shouldly.Tests.TestHelpers
 {
     internal class Strange : IEnumerable<Strange>
     {
-        readonly string? _thing;
+        private readonly string? _thing;
 
         public Strange()
         {
         }
 
-        Strange(string thing)
+        private Strange(string thing)
         {
             _thing = thing;
         }
@@ -41,7 +41,7 @@ namespace Shouldly.Tests.TestHelpers
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((Strange) obj);
+            return Equals((Strange)obj);
         }
 
         public override int GetHashCode()

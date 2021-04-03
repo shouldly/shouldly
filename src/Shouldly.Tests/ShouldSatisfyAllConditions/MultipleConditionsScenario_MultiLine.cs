@@ -5,17 +5,14 @@ namespace Shouldly.Tests.ShouldSatisfyAllConditions
 {
     public class MultipleConditionsScenario_MultiLine
     {
-
         [Fact]
         public void MultipleConditionsScenario_MultiLineShouldFail()
         {
             var result = 4;
             Verify.ShouldFail(() =>
-result.ShouldSatisfyAllConditions
-(
+result.ShouldSatisfyAllConditions(
     () => result.ShouldBeOfType<float>("Some additional context"),
-    () => result.ShouldBeGreaterThan(5, "Some additional context")
-),
+    () => result.ShouldBeGreaterThan(5, "Some additional context")),
 
 errorWithSource:
 @"result
@@ -73,14 +70,12 @@ The following errors were found ...
         public void ShouldPass()
         {
             var result = 4;
-            result.ShouldSatisfyAllConditions
-                    (
+            result.ShouldSatisfyAllConditions(
                         ()
                             => result.ShouldBeOfType<int>(),
                         ()
                             =>
-                            result.ShouldBeGreaterThan(3)
-                    );
+                            result.ShouldBeGreaterThan(3));
         }
     }
 }

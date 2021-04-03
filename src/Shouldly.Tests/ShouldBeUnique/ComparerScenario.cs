@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldBe.ShouldBeUnique
         [Fact]
         public void ComparerEqualsShouldPass()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Whale" }
@@ -21,7 +21,7 @@ namespace Shouldly.Tests.ShouldBe.ShouldBeUnique
         [Fact]
         public void ComparerNotEqualsShouldFail()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" },
                 new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Salmon" }

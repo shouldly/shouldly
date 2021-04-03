@@ -5,8 +5,8 @@ namespace Shouldly.Tests.ShouldBeSameAs
 {
     public class BoxedIntScenario
     {
-        readonly object _boxedInt = 1;
-        readonly object _differentBoxedInt = 1;
+        private readonly object _boxedInt = 1;
+        private readonly object _differentBoxedInt = 1;
 
         [Fact]
         public void BoxedIntScenarioShouldFail()

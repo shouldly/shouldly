@@ -43,7 +43,6 @@ namespace Simpsons
         public string? Name { get; set; }
         public int Salary { get; set; }
 
-
         public override string? ToString()
         {
             return Name;
@@ -51,5 +50,5 @@ namespace Simpsons
     }
 }
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L45' title='Snippet source file'>snippet source</a> | <a href='#9418171b' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L44' title='Snippet source file'>snippet source</a> | <a href='#9418171b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

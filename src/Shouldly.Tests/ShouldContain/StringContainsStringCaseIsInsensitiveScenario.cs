@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class StringContainsStringCaseIsInsensitiveScenario
     {
-
         [Fact]
         public void StringContainsStringCaseIsInsensitiveScenarioShouldFail()
         {

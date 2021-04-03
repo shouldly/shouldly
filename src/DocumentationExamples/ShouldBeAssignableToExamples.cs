@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeAssignableToExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeAssignableToExamples(ITestOutputHelper testOutputHelper)
         {
@@ -23,6 +23,5 @@ namespace DocumentationExamples
                 theSimpsonsDog.ShouldBeAssignableTo<Pet>();
             }, _testOutputHelper);
         }
-
     }
 }

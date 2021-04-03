@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class EnumerableShouldBeUniqueExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public EnumerableShouldBeUniqueExamples(ITestOutputHelper testOutputHelper)
         {
@@ -23,7 +23,7 @@ namespace DocumentationExamples
                 var lisa = new Person { Name = "Lisa" };
                 var bart = new Person { Name = "Bart" };
                 var maggie = new Person { Name = "Maggie" };
-                var simpsonsKids = new List<Person> { bart, lisa, maggie, maggie};
+                var simpsonsKids = new List<Person> { bart, lisa, maggie, maggie };
 
                 simpsonsKids.ShouldBeUnique();
             }, _testOutputHelper);

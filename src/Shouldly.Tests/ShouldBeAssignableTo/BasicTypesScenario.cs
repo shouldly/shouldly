@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBeAssignableTo
 {
     public class BasicTypesScenario
     {
-
     [Fact]
     public void BasicTypesScenarioShouldFail()
     {

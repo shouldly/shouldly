@@ -47,6 +47,7 @@ namespace Shouldly
         {
             return ThrowInternal<TException>(actual, timeoutAfter, customMessage);
         }
+
         internal static TException ThrowInternal<TException>(
             [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
             string? customMessage,
@@ -78,6 +79,7 @@ namespace Shouldly
         {
             return ThrowInternal(actual, timeoutAfter, null, exceptionType);
         }
+
         public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
         {
             return ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
@@ -180,6 +182,7 @@ namespace Shouldly
         {
             return NotThrowInternal(action, timeoutAfter, customMessage);
         }
+
         internal static T NotThrowInternal<T>(
             [InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter,
             [InstantHandle] string? customMessage,

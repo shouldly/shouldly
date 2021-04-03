@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldHaveSingleItem
 {
     public class ArrayScenario
     {
-
         [Fact]
         public void ArrayScenarioShouldFail()
         {

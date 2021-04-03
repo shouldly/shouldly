@@ -6,13 +6,12 @@ namespace Shouldly.Tests.ShouldNotBeOneOf
 {
     public class EnumScenario
     {
-
     [Fact]
     public void EnumScenarioShouldFail()
     {
             var someFlags = SomeFlags.Val1;
         Verify.ShouldFail(() =>
-someFlags.ShouldNotBeOneOf(new[] {SomeFlags.Val1}, "Some additional context"),
+someFlags.ShouldNotBeOneOf(new[] { SomeFlags.Val1 }, "Some additional context"),
 
 errorWithSource:
 @"someFlags

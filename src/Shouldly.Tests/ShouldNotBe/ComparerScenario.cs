@@ -20,7 +20,7 @@ namespace Shouldly.Tests.ShouldNotBe
         {
             var comparison1 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" };
             var comparison2 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" };
-            
+
             Verify.ShouldFail(() =>
 comparison1.ShouldNotBe(comparison2, new ComparableClassComparer(), "Some additional context"),
 

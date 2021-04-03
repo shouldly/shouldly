@@ -4,8 +4,6 @@ namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings
 {
     public class LongStringsAreTruncatedAtTheEnd
     {
-
-
         [Fact]
         public void LongStringsAreTruncatedAtTheEndShouldFail()
         {

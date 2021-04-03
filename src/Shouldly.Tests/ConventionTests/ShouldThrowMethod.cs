@@ -35,7 +35,7 @@ namespace Shouldly.Tests.ConventionTests
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((ShouldThrowMethod) obj);
+            return Equals((ShouldThrowMethod)obj);
         }
 
         public override string ToString()
@@ -47,7 +47,7 @@ namespace Shouldly.Tests.ConventionTests
         {
             unchecked
             {
-                return ((Name != null ? Name.GetHashCode() : 0)*397) ^ (Parameters != null ? Parameters.GetHashCode() : 0);
+                return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ (Parameters != null ? Parameters.GetHashCode() : 0);
             }
         }
     }

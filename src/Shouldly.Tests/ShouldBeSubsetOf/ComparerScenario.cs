@@ -9,11 +9,11 @@ namespace Shouldly.Tests.ShouldBe.ShouldBeSubsetOf
         [Fact]
         public void ComparerEqualsShouldPass()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" }
             };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
                 new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }
@@ -25,11 +25,11 @@ namespace Shouldly.Tests.ShouldBe.ShouldBeSubsetOf
         [Fact]
         public void ComparerNotEqualsShouldFail()
         {
-            var comparison1 = new []
+            var comparison1 = new[]
             {
                 new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" }
             };
-            var comparison2 = new []
+            var comparison2 = new[]
             {
                 new ComparableClass { Property = "Snake", IgnoredProperty = "Platypus" },
                 new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" }

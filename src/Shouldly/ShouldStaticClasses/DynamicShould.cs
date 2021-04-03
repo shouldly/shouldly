@@ -1,6 +1,6 @@
 using System;
-using System.Dynamic;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -18,7 +18,7 @@ namespace Shouldly
         {
             if (dynamicTestObject is IDynamicMetaObjectProvider)
             {
-                var dynamicAsDictionary = (IDictionary<string, object>) dynamicTestObject;
+                var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
 
                 if (!dynamicAsDictionary.ContainsKey(propertyName))
                 {
@@ -27,7 +27,7 @@ namespace Shouldly
             }
             else
             {
-                var dynamicAsObject = (object) dynamicTestObject;
+                var dynamicAsObject = (object)dynamicTestObject;
                 var properties = dynamicAsObject.GetType().GetProperties();
                 if (!properties.Select(x => x.Name).Contains(propertyName))
                 {

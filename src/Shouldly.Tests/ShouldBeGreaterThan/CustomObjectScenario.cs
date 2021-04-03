@@ -6,7 +6,6 @@ namespace Shouldly.Tests.ShouldBeGreaterThan
 {
     public class CustomObjectScenario
     {
-
         [Fact]
         public void CustomObjectScenarioShouldFail()
         {
@@ -33,8 +32,7 @@ Shouldly.Tests.TestHelpers.Custom (000000)
     but was not
 
 Additional Info:
-    Some additional context"
-);
+    Some additional context");
         }
 
         [Fact]

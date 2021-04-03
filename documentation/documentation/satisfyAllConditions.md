@@ -4,13 +4,11 @@
 <a id='99f0f74e'></a>
 ```cs
 var mrBurns = new Person { Name = null };
-mrBurns.ShouldSatisfyAllConditions
-                    (
+mrBurns.ShouldSatisfyAllConditions(
                         () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
-                        () => mrBurns.Name.ShouldBe("Mr.Burns")
-                    );
+                        () => mrBurns.Name.ShouldBe("Mr.Burns"));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#99f0f74e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#99f0f74e' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -43,13 +41,11 @@ The following errors were found ...
 <a id='ed11a6af'></a>
 ```cs
 var mrBurns = new Person { Name = null };
-mrBurns.ShouldSatisfyAllConditions
-                    (
+mrBurns.ShouldSatisfyAllConditions(
                         p => p.Name.ShouldNotBeNullOrEmpty(),
-                        p => p.Name.ShouldBe("Mr.Burns")
-                    );
+                        p => p.Name.ShouldBe("Mr.Burns"));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#ed11a6af' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#ed11a6af' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

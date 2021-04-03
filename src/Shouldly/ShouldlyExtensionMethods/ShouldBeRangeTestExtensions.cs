@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Shouldly
 {
@@ -11,6 +11,7 @@ namespace Shouldly
         {
             ShouldBeOneOf(actual, expected, (string?)null);
         }
+
         public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage)
         {
             // Enumerable.Contains on an array always tolerates null.
@@ -27,8 +28,9 @@ namespace Shouldly
 
         public static void ShouldNotBeOneOf<T>(this T? actual, params T[] expected)
         {
-            ShouldNotBeOneOf(actual, expected, (string?) null);
+            ShouldNotBeOneOf(actual, expected, (string?)null);
         }
+
         public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage)
         {
             // Enumerable.Contains on an array always tolerates null.

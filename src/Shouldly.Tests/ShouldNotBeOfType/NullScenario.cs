@@ -11,6 +11,6 @@ namespace Shouldly.Tests.ShouldNotBeOfType
             o.ShouldNotBeOfType<int>("Some additional context");
         }
 
-        //TODO Test of null.ShouldNotBeOfType<int?>()
+        // TODO Test of null.ShouldNotBeOfType<int?>()
     }
 }

@@ -5,8 +5,8 @@ namespace Shouldly.Tests.ShouldNotBe
 {
     public class StringScenario
     {
-        const string ThisOtherString = "this other string";
-        const string ThisString = "this string";
+        private const string ThisOtherString = "this other string";
+        private const string ThisString = "this string";
 
         [Fact]
         public void StringScenarioShouldFail()

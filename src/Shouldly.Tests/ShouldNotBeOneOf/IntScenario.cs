@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldNotBeOneOf
 {
     public class IntScenario
     {
-
         [Fact]
         public void IntScenarioShouldFail()
         {

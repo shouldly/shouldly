@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBeSubsetOf
 {
     public class ObjectArrayOfIntScenario
     {
-
         [Fact]
         public void ObjectArrayOfIntScenarioShouldFail()
         {

@@ -15,4 +15,3 @@ namespace Shouldly.Tests.ShouldBeUnique
         }
     }
 }
-

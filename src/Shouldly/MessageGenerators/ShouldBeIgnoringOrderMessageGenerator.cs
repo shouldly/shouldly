@@ -16,8 +16,8 @@ namespace Shouldly.MessageGenerators
             Debug.Assert(context.Expected is IEnumerable);
             Debug.Assert(context.Actual is IEnumerable);
 
-            var expected = ((IEnumerable) context.Expected).Cast<object>().ToArray();
-            var actual = ((IEnumerable) context.Actual).Cast<object>().ToArray();
+            var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
+            var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();
             var codePart = context.CodePart;
             var expectedFormattedValue = expected.ToStringAwesomely();
 
@@ -35,7 +35,7 @@ namespace Shouldly.MessageGenerators
 {missingFromExpected.ToStringAwesomely()}"
                 : string.Empty;
 
-            //"first should be second (ignoring order) but first is missing [4] and second is missing [2]"
+            // "first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 
             const string format =
                 @"{0}

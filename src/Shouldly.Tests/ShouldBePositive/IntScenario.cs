@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBePositive
 {
     public class IntScenario
     {
-
     [Fact]
     public void IntScenarioShouldFail()
     {

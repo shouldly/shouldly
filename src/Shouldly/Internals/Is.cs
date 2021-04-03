@@ -35,7 +35,7 @@ namespace Shouldly
             return comparer.Equals(actual, expected);
         }
 
-        static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null)
+        private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null)
         {
             return new EqualityComparer<T>(innerComparer);
         }
@@ -58,7 +58,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (;;)
+            while (true)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -110,7 +110,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -130,7 +130,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -150,7 +150,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -211,7 +211,6 @@ namespace Shouldly
             return actual.IndexOf(expected, StringComparison.Ordinal) != -1;
         }
 
-
         public static bool EndsWithUsingCaseSensitivity(string? actual, string expected, Case caseSensitivity)
         {
             if (actual == null)
@@ -253,7 +252,7 @@ namespace Shouldly
             using var expectedEnum = expected.GetEnumerator();
             using var actualEnum = actual.GetEnumerator();
 
-            for (; ; )
+            for (; ;)
             {
                 var expectedHasData = expectedEnum.MoveNext();
                 var actualHasData = actualEnum.MoveNext();
@@ -313,12 +312,12 @@ namespace Shouldly
             return Compare(actual, expected, comparer) < 0;
         }
 
-        static decimal Compare<T>(T? actual, T? expected, IComparer<T> comparer)
+        private static decimal Compare<T>(T? actual, T? expected, IComparer<T> comparer)
         {
             return comparer.Compare(actual, expected);
         }
 
-        static decimal Compare<T>(T? comparable, T? expected) where T : IComparable<T>?
+        private static decimal Compare<T>(T? comparable, T? expected) where T : IComparable<T>?
         {
             if (!typeof(T).IsValueType())
             {

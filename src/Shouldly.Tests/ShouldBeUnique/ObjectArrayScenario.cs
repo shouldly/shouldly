@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBeUnique
 {
     public class ObjectArrayScenario
     {
-
         [Fact]
         public void ObjectArrayScenarioShouldFail()
         {
@@ -38,4 +37,3 @@ Additional Info:
         }
     }
 }
-

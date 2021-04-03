@@ -9,7 +9,6 @@ namespace Shouldly.Tests.ShouldNotThrow
 {
     public class TaskOfTScenario
     {
-
         [Fact]
         [UseCulture("en-US")]
         public void TaskOfTScenarioShouldFail()

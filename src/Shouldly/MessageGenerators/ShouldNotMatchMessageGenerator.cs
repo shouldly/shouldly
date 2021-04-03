@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldNotMatchMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("ShouldNotMatch");
+        private static readonly Regex Validator = new Regex("ShouldNotMatch");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

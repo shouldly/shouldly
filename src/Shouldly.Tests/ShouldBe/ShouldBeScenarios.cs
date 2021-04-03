@@ -381,7 +381,6 @@ Additional Info:
     Some additional context");
         }
 
-
         [Fact]
         public void ShouldPass()
         {
@@ -451,6 +450,7 @@ Additional Info:
                 return false;
             }
         }
+
         public class BaseClass
         {
         }
@@ -472,8 +472,7 @@ Additional Info:
             }
         }
 
-
-        const string ThisOtherString = "this other string";
-        const string ThisString = "this string";
+        private const string ThisOtherString = "this other string";
+        private const string ThisString = "this string";
     }
 }

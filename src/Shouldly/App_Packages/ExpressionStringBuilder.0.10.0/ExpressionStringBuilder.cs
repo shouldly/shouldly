@@ -8,12 +8,12 @@ using Shouldly;
 // ReSharper disable CheckNamespace
 namespace ExpressionToString
 {
-    class ExpressionStringBuilder : ExpressionVisitor
+    internal class ExpressionStringBuilder : ExpressionVisitor
     {
         // ReSharper disable InconsistentNaming
         private readonly StringBuilder builder = new StringBuilder();
         private readonly bool trimLongArgumentList;
-        bool skipDot;
+        private bool skipDot;
 
         private ExpressionStringBuilder(bool trimLongArgumentList)
         {
@@ -34,7 +34,6 @@ namespace ExpressionToString
             return s;
         }
 
-
         protected override Expression VisitLambda<T>(Expression<T> node)
         {
             if (node.Parameters.Any())
@@ -43,6 +42,7 @@ namespace ExpressionToString
                 Out(string.Join(",", node.Parameters.Select(n => n.Name)));
                 Out(") => ");
             }
+
             Visit(node.Body);
             return node;
         }
@@ -89,7 +89,9 @@ namespace ExpressionToString
                     Out(node.Member.Name);
                 }
                 else
+                {
                     Out("." + node.Member.Name);
+                }
             }
             else
             {
@@ -107,6 +109,7 @@ namespace ExpressionToString
                 skipDot = true;
                 return node;
             }
+
             if (node.Value == null)
             {
                 Out("null");
@@ -149,12 +152,14 @@ namespace ExpressionToString
                 Visit(node.Operand);
                 return node;
             }
+
             if (node.NodeType == ExpressionType.Not)
             {
                 Out("!");
                 Visit(node.Operand);
                 return node;
             }
+
             if (node.NodeType == ExpressionType.TypeAs)
             {
                 Out("(");
@@ -183,6 +188,7 @@ namespace ExpressionToString
                 Out(".");
                 skipDot = false;
             }
+
             Out(node.Method.Name + "(");
             var args = node.Arguments.ToArray();
             if (args.Length > 3 && trimLongArgumentList)
@@ -210,7 +216,7 @@ namespace ExpressionToString
             return node;
         }
 
-        void VisitArguments(Expression[] arguments)
+        private void VisitArguments(Expression[] arguments)
         {
             var argindex = 0;
             while (argindex < arguments.Length)
@@ -225,7 +231,7 @@ namespace ExpressionToString
             }
         }
 
-        static bool CheckIfAnonymousType(Type type)
+        private static bool CheckIfAnonymousType(Type type)
         {
             // hack: the only way to detect anonymous types right now
             var isDefined = type.IsDefined(typeof(CompilerGeneratedAttribute), false);
@@ -234,7 +240,7 @@ namespace ExpressionToString
                    && (type.Name.StartsWith("<>", StringComparison.Ordinal) || type.Name.StartsWith("VB$", StringComparison.Ordinal));
         }
 
-        static string ToString(ExpressionType type)
+        private static string ToString(ExpressionType type)
         {
             switch (type)
             {

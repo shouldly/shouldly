@@ -7,17 +7,18 @@ namespace Shouldly.DifferenceHighlighting
 {
     internal class StringDifferenceHighlighter : IStringDifferenceHighlighter
     {
-        const int maxDiffLength = 21;
-        const int maxNumberOfDiffs = 10;
+        private const int maxDiffLength = 21;
+        private const int maxNumberOfDiffs = 10;
 
-        readonly Case _sensitivity;
-        readonly Func<string, string> _transform;
+        private readonly Case _sensitivity;
+        private readonly Func<string, string> _transform;
 
         public StringDifferenceHighlighter(Case sensitivity, Func<string, string>? transform = null)
         {
             _sensitivity = sensitivity;
             _transform = transform ?? (s => s);
         }
+
         public string? HighlightDifferences(string? expected, string? actual)
         {
             if (expected == null || actual == null) return null;
@@ -62,8 +63,10 @@ namespace Shouldly.DifferenceHighlighting
                         output.AppendLine();
                         output.AppendLine();
                     }
+
                     output.Append(formattedDetailedDiffString);
                 }
+
                 return output.ToString();
             }
         }
@@ -76,6 +79,7 @@ namespace Shouldly.DifferenceHighlighting
             {
                 return value.Substring(index, maxDiffLength);
             }
+
             return value.Substring(index);
         }
 
@@ -89,6 +93,7 @@ namespace Shouldly.DifferenceHighlighting
                 if (!CharAtIndexIsEqual(actualValue, expectedValue, index))
                     indicesOfAllDifferences.Add(index);
             }
+
             return indicesOfAllDifferences;
         }
 

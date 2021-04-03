@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeInRangeExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeInRangeExamples(ITestOutputHelper testOutputHelper)
         {
@@ -33,6 +33,5 @@ namespace DocumentationExamples
                 mrBurns.Salary.ShouldNotBeInRange(30000, 40000);
             }, _testOutputHelper);
         }
-
     }
 }

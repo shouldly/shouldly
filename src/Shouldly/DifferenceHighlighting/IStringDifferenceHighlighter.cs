@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.DifferenceHighlighting
 {
-    interface IStringDifferenceHighlighter
+    internal interface IStringDifferenceHighlighter
     {
         string? HighlightDifferences(string? expected, string? actual);
     }

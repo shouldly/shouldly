@@ -73,7 +73,7 @@ Additional Info:
 
         public struct NonNullableType
         {
-            readonly int identity;
+            private readonly int identity;
 
             public NonNullableType(int identity)
             {

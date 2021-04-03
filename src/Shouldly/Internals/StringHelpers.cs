@@ -49,7 +49,8 @@ namespace Shouldly
                         objectType = proxy.ProxiedValue.GetType();
                         value = proxy.ProxiedValue;
                     }
-                    if(value.ToString() != objectType.FullName)
+
+                    if (value.ToString() != objectType.FullName)
                     {
                         inspect += " (" + value + ")";
                     }
@@ -77,7 +78,7 @@ namespace Shouldly
                 return ExpressionToString.ExpressionStringBuilder.ToString(binaryExpression);
             }
 
-            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)){
+            if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)) {
                 var key = objectType.GetProperty("Key")!.GetValue(value, null);
                 var v = objectType.GetProperty("Value")!.GetValue(value, null);
                 return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
@@ -136,6 +137,7 @@ namespace Shouldly
             {
                 stringToClip = stringToClip.Substring(0, maximumStringLength);
             }
+
             return stringToClip;
         }
 
@@ -145,6 +147,7 @@ namespace Shouldly
             {
                 stringToClip = stringToClip.Substring(0, maximumStringLength) + ellipsis;
             }
+
             return stringToClip;
         }
 
@@ -169,9 +172,10 @@ namespace Shouldly
                     case ' ':
                         return @"\s";
                     default:
-                        return $"\\u{(int) c:X};";
+                        return $"\\u{(int)c:X};";
                 }
             }
+
             return c.ToString();
         }
 
@@ -185,22 +189,22 @@ namespace Shouldly
             return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
         }
 
-        static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
+        private static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
         {
             return enumerable.DelimitWith(", ");
         }
 
-        static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
+        private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
         {
             return string.Join(separator, enumerable.Select(i => Equals(i, null) ? null : i.ToString()).ToArray());
         }
 
-        static string ToStringAwesomely(this Enum value)
+        private static string ToStringAwesomely(this Enum value)
         {
             return value.GetType().Name + "." + value;
         }
 
-        static string ToStringAwesomely(this DateTime value)
+        private static string ToStringAwesomely(this DateTime value)
         {
             return value.ToString("o");
         }

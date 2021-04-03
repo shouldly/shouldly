@@ -13,7 +13,7 @@ namespace Shouldly.Tests
             [Fact]
             public void Shouldly_ContestantPointsShouldBe1337()
             {
-                var contestant = new Contestant {Points = 0};
+                var contestant = new Contestant { Points = 0 };
 
                 TestHelpers.Should.Error(
                     () => contestant.Points.ShouldBe(1337),
@@ -23,12 +23,12 @@ namespace Shouldly.Tests
             [Fact]
             public void Shouldly_ContestantPointsShouldBe1337_HappyPath()
             {
-                var contestant = new Contestant {Points = 0};
+                var contestant = new Contestant { Points = 0 };
 
                 contestant.Points.ShouldBe(0);
             }
 
-            class Contestant
+            private class Contestant
             {
                 public int Points { get; set; }
             }
@@ -36,7 +36,7 @@ namespace Shouldly.Tests
 
         public class MapIndexOfBoo
         {
-            IList<string> GetMap()
+            private IList<string> GetMap()
             {
                 return new[]
                 {
@@ -71,14 +71,14 @@ namespace Shouldly.Tests
             public void Shouldly_CompareTwoCollections()
             {
                 TestHelpers.Should.Error(
-                    () => new[] {1, 2, 3}.ShouldBe(new[] {1, 2, 4}),
+                    () => new[] { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 4 }),
                     "new[] {1, 2, 3} should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
             }
 
             [Fact]
             public void Shouldly_CompareTwoCollections_HappyPath()
             {
-                new[] {1, 2, 3}.ShouldBe(new[] {1, 2, 3});
+                new[] { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
             }
         }
 
@@ -120,7 +120,7 @@ namespace Shouldly.Tests
                     "`widget.Twist(5)` should throw System.ArgumentOutOfRangeException but did not");
             }
 
-            class Widget
+            private class Widget
             {
                 public void Twist(int i)
                 {

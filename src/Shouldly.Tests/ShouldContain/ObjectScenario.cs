@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldContain
 {
     public class ObjectScenario
     {
-
         [Fact]
         public void ObjectScenarioShouldFail()
         {

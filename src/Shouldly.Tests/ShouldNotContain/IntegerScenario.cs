@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class IntegerScenario
     {
-        readonly int[] _target = { 1, 2, 3, 4, 5 };
+        private readonly int[] _target = { 1, 2, 3, 4, 5 };
 
         [Fact]
         public void IntegerScenarioShouldFail()

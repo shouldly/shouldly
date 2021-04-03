@@ -8,7 +8,7 @@ namespace DocumentationExamples
 {
     public class EnumerableShouldAllBeExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public EnumerableShouldAllBeExamples(ITestOutputHelper testOutputHelper)
         {
@@ -28,6 +28,5 @@ namespace DocumentationExamples
                 millionaires.ShouldAllBe(m => m.Salary > 1000000);
             }, _testOutputHelper);
         }
-
     }
 }

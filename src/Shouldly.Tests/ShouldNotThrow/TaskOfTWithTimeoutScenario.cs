@@ -6,9 +6,7 @@ using Xunit;
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class TaskOfTWithTimeoutScenario
-
     {
-
         [Fact]
         public void ShouldThrowAWobbly()
         {
@@ -25,7 +23,7 @@ namespace Shouldly.Tests.ShouldNotThrow
             ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
         }
 
-        string ChuckedAWobblyErrorMessage => @"Task
+        private string ChuckedAWobblyErrorMessage => @"Task
         should complete in
     00:00:00.5000000
         but did not

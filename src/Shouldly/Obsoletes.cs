@@ -6,7 +6,7 @@ using Shouldly.Configuration;
 
 namespace Shouldly
 {
-    class ObsoleteMessages
+    internal class ObsoleteMessages
     {
         public const string FuncCustomMessage = "Func based customMessage overloads have been removed. Pass in a string for the customMessage.";
 
@@ -839,6 +839,7 @@ Diff launching can be controlled at the test level using `ShouldMatchConfigurati
             throw new NotImplementedException();
         }
     }
+
     public static partial class ShouldMatchApprovedTestExtensions
     {
         [Obsolete(ObsoleteMessages.FuncCustomMessage, true)]

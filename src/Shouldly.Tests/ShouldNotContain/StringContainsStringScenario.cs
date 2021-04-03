@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class StringContainsStringScenario
     {
-        const string Target = "Shouldly is legendary";
+        private const string Target = "Shouldly is legendary";
 
         [Fact]
         public void StringContainsStringScenarioShouldFail()

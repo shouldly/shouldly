@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeNullOrWhiteSpaceMessageGenerator : ShouldlyMessageGenerator
     {
-        static readonly Regex Validator = new Regex("Should(Not)?BeNullOrWhiteSpace");
+        private static readonly Regex Validator = new Regex("Should(Not)?BeNullOrWhiteSpace");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

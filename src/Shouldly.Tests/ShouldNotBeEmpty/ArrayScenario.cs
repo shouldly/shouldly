@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldNotBeEmpty
 {
     public class ArrayScenario
     {
-
     [Fact]
     public void ArrayScenarioShouldFail()
     {
@@ -30,7 +29,7 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        new[] {1}.ShouldNotBeEmpty();
+        new[] { 1 }.ShouldNotBeEmpty();
     }
 }
 }

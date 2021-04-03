@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldNotContain
 {
     public class LongStringScenario
     {
-        readonly string _target = new string('a', 110) + "zzzz";
+        private readonly string _target = new string('a', 110) + "zzzz";
 
     [Fact]
     public void LongStringScenarioShouldFail()

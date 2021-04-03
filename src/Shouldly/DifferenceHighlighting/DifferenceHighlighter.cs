@@ -5,7 +5,7 @@ namespace Shouldly.DifferenceHighlighting
 {
     internal static class DifferenceHighlighter
     {
-        static readonly List<IDifferenceHighlighter> _differenceHighlighters = new List<IDifferenceHighlighter> {
+        private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new List<IDifferenceHighlighter> {
             new EnumerableDifferenceHighlighter()
         };
 
@@ -30,7 +30,7 @@ namespace Shouldly.DifferenceHighlighting
             return GetDifferenceHighlighterFor(context) != null;
         }
 
-        static IDifferenceHighlighter? GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
+        private static IDifferenceHighlighter? GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
         {
             return _differenceHighlighters.FirstOrDefault(x => x.CanProcess(context));
         }

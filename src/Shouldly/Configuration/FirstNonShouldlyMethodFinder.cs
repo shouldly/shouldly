@@ -10,7 +10,7 @@ namespace Shouldly.Configuration
 {
     public class FirstNonShouldlyMethodFinder : ITestMethodFinder
     {
-        static readonly Regex AnonMethod = new Regex(@"<(\w|_)+>b_.+");
+        private static readonly Regex AnonMethod = new Regex(@"<(\w|_)+>b_.+");
 
         /// <summary>
         /// Increasing the offset will move past the first non-shouldly method
@@ -35,7 +35,7 @@ namespace Shouldly.Configuration
             throw new InvalidOperationException("Cannot find a non-Shouldly method in the stack trace.");
         }
 
-        static bool IsCompilerGenerated(MethodBase method)
+        private static bool IsCompilerGenerated(MethodBase method)
         {
             return method.IsDefined(typeof(CompilerGeneratedAttribute), inherit: true) || AnonMethod.IsMatch(method.Name);
         }

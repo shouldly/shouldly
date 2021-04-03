@@ -62,6 +62,7 @@ namespace Shouldly
                 {
                     DiffRunner.Launch(receivedFile, approvedFile);
                 }
+
                 throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
             }
 

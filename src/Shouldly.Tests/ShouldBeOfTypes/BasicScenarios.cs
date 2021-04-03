@@ -18,7 +18,7 @@ namespace Shouldly.Tests.ShouldBeOfTypes
         {
             var arr = new object[] { new Added(), new Changed(), new Removed() };
 
-            arr.ShouldBeOfTypes(new[] { typeof(Added), typeof(Changed), typeof(Removed)}, "additional context");
+            arr.ShouldBeOfTypes(new[] { typeof(Added), typeof(Changed), typeof(Removed) }, "additional context");
         }
 
         [Fact]
@@ -51,7 +51,6 @@ Additional Info:
     Some additional context");
         }
 
-
         [Fact]
         public void FailsIfActualAndExpectedAreDifferentLengths()
         {
@@ -82,8 +81,8 @@ Additional Info:
     Some additional context");
         }
 
-        private class Added {}
-        private class Changed {}
-        private class Removed {}
+        private class Added { }
+        private class Changed { }
+        private class Removed { }
     }
 }

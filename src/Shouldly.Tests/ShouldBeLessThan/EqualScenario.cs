@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldBeLessThan
 {
     public class EqualScenario
     {
-
         [Fact]
         public void EqualScenarioShouldFail()
         {

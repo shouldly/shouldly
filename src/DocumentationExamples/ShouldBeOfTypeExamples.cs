@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldBeOfTypeExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldBeOfTypeExamples(ITestOutputHelper testOutputHelper)
         {
@@ -33,6 +33,5 @@ namespace DocumentationExamples
                 theSimpsonsDog.ShouldNotBeOfType<Cat>();
             }, _testOutputHelper);
         }
-
     }
 }

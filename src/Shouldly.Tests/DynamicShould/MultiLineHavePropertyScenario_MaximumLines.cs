@@ -6,7 +6,6 @@ namespace Shouldly.Tests.DynamicShould
 {
     public class MultiLineHavePropertyScenario_MaximumLines
     {
-
         [Fact]
         public void MultiLineHavePropertyScenario_MaximumLinesShouldFail()
         {
@@ -14,12 +13,10 @@ namespace Shouldly.Tests.DynamicShould
             testDynamicObject.Bar = "BarPropertyValue";
             Verify.ShouldFail(() =>
             Shouldly.DynamicShould
-                .HaveProperty
-                (
+                .HaveProperty(
                 testDynamicObject,
                 "foo",
-                "Some additional context"
-                ),
+                "Some additional context"),
 
 errorWithSource:
 @"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
@@ -40,11 +37,9 @@ Additional Info:
             dynamic testDynamicObject = new ExpandoObject();
             testDynamicObject.Foo = "FooPropertyValue";
             Shouldly.DynamicShould
-                .HaveProperty
-                (
+                .HaveProperty(
                 testDynamicObject,
-                "Foo"
-                );
+                "Foo");
         }
     }
 }

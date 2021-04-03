@@ -7,7 +7,7 @@ namespace DocumentationExamples
 {
     public class ShouldSatisfyAllConditionsExamples
     {
-        readonly ITestOutputHelper _testOutputHelper;
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public ShouldSatisfyAllConditionsExamples(ITestOutputHelper testOutputHelper)
         {
@@ -20,11 +20,9 @@ namespace DocumentationExamples
             DocExampleWriter.Document(() =>
             {
                 var mrBurns = new Person { Name = null };
-                mrBurns.ShouldSatisfyAllConditions
-                    (
+                mrBurns.ShouldSatisfyAllConditions(
                         () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
-                        () => mrBurns.Name.ShouldBe("Mr.Burns")
-                    );
+                        () => mrBurns.Name.ShouldBe("Mr.Burns"));
             }, _testOutputHelper);
         }
 
@@ -34,11 +32,9 @@ namespace DocumentationExamples
             DocExampleWriter.Document(() =>
             {
                 var mrBurns = new Person { Name = null };
-                mrBurns.ShouldSatisfyAllConditions
-                    (
+                mrBurns.ShouldSatisfyAllConditions(
                         p => p.Name.ShouldNotBeNullOrEmpty(),
-                        p => p.Name.ShouldBe("Mr.Burns")
-                    );
+                        p => p.Name.ShouldBe("Mr.Burns"));
             }, _testOutputHelper);
         }
     }

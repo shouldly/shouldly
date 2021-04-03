@@ -5,7 +5,6 @@ namespace Shouldly.Tests.ShouldNotBeSameAs
 {
     public class BasicScenario
     {
-
         [Fact]
         public void BasicScenarioShouldFail()
         {
