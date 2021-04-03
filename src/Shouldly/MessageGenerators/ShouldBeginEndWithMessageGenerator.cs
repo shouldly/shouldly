@@ -16,24 +16,8 @@ namespace Shouldly.MessageGenerators
             var codePart = context.CodePart;
             var expected = context.Expected.ToStringAwesomely();
             var actualValue = context.Actual.ToStringAwesomely();
-            string actual;
-            if (codePart == actualValue)
-            {
-                if (context.IsNegatedAssertion)
-                {
-                    actual = " did";
-                }
-                else
-                {
-                    actual = " did not";
-                }
-            }
-            else
-            {
-                actual = $@" was
-{actualValue}";
-            }
-
+            var actual = codePart == actualValue
+                ? context.IsNegatedAssertion ? " did" : " did not" : $@" was {actualValue}";
             return $@"{codePart}
     {context.ShouldMethod.PascalToSpaced()}
 {expected}
