@@ -155,7 +155,7 @@ namespace Shouldly
                 var actualValue = field.GetValue(actual);
                 var expectedValue = field.GetValue(expected);
 
-                var newPath = path.Concat(new[] {field.Name});
+                var newPath = path.Concat(new[] { field.Name });
                 CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
             }
         }
