@@ -77,18 +77,19 @@ Additional Info:
         public void ShouldFailWhenListsDoNotMatch()
         {
             var subject = new[] { 1, 2, 6, 4, 5 };
+
             Verify.ShouldFail(() =>
 subject.ShouldBeEquivalentTo(new[] { 1, 2, 3, 4, 5 }, "Some additional context"),
 
 errorWithSource:
 @"Comparing object equivalence, at path:
 subject [System.Int32[]]
-    Element [2] [System.Int32]
+    Element 3 not found
 
     Expected value to be
-3
+[1, 2, 3, 4, 5]
     but was
-6
+[1, 2, 6, 4, 5]
 
 Additional Info:
     Some additional context",
@@ -96,12 +97,12 @@ Additional Info:
 errorWithoutSource:
 @"Comparing object equivalence, at path:
 <root> [System.Int32[]]
-    Element [2] [System.Int32]
+    Element 3 not found
 
     Expected value to be
-3
+[1, 2, 3, 4, 5]
     but was
-6
+[1, 2, 6, 4, 5]
 
 Additional Info:
     Some additional context");
@@ -111,6 +112,14 @@ Additional Info:
         public void ShouldPass()
         {
             var subject = new[] { 1, 2, 6, 4, 5 };
+            subject.ShouldBeEquivalentTo(new[] { 1, 2, 6, 4, 5 });
+        }
+
+
+        [Fact]
+        public void ShouldPassIfOutOfOrder()
+        {
+            var subject = new[] { 1, 2, 4, 5, 6 };
             subject.ShouldBeEquivalentTo(new[] { 1, 2, 6, 4, 5 });
         }
     }
