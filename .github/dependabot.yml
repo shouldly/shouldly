@@ -1,0 +1,25 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: DiffEngine
+    versions:
+    - 6.5.6
+    - 6.5.7
+    - 6.5.9
+    - 6.6.1
+  - dependency-name: Microsoft.CodeAnalysis.CSharp
+    versions:
+    - 3.9.0
+  - dependency-name: MarkdownSnippets.MsBuild
+    versions:
+    - 23.0.1
+    - 23.0.2
+    - 23.1.0
+  - dependency-name: Microsoft.NET.Test.Sdk
+    versions:
+    - 16.9.1
