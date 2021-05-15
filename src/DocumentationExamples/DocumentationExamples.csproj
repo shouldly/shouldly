@@ -9,11 +9,11 @@
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <Compile Include="..\Shouldly.Tests\ConventionTests\IgnoreOnAppVeyorLinuxFact.cs" Link="IgnoreOnAppVeyorLinuxFact.cs" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="23.1.1">
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="23.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
