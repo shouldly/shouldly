@@ -21,7 +21,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.6.0" />
+    <PackageReference Include="DiffEngine" Version="6.8.1" />
     <PackageReference Include="EmptyFiles" Version="2.6.0" PrivateAssets="None" />
     <Content Include="build.props" PackagePath="build\Shouldly.props" />
     <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Shouldly.props" />
