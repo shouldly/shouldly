@@ -52,10 +52,10 @@ namespace Shouldly
                     {
                         switch (x.Result)
                         {
-                            case TException expectedException:
-                                return expectedException;
                             case ShouldAssertException assert:
                                 throw assert;
+                            case TException expectedException:
+                                return expectedException;
                             default:
                                 throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);
                         }
