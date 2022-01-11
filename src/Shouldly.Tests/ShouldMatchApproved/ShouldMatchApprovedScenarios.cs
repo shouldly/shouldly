@@ -181,6 +181,13 @@ Actual Code    | 70   111  111  ",
             "Foo".ShouldMatchApproved();
         }
 
+        [Fact]
+        public void SimpleBytes()
+        {
+            var bytes = new byte[] { 1, 2, 0, 3 };
+            bytes.ShouldMatchApproved(b => b.WithFileExtension("dat"));
+        }
+
         public static bool IsWindows()
             => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }

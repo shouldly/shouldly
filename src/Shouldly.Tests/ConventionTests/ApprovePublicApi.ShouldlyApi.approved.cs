@@ -722,6 +722,7 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
     {
+        public static void ShouldMatchApproved(this byte[] actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null) { }
         public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
