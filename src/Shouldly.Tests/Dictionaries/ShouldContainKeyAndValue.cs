@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Shouldly.Tests.Strings;
 using Shouldly.Tests.TestHelpers;
 using Xunit;
@@ -8,14 +10,15 @@ namespace Shouldly.Tests.Dictionaries
 {
     public class ShouldContainKeyAndValue
     {
-        [Fact]
-        public void ShouldContainKeyAndValueWithClassesShouldFail()
+        [Theory]
+        [MemberData(nameof(ClassDictionaries))]
+        private void ShouldContainKeyAndValueWithClassesShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
         {
             Verify.ShouldFail(() =>
-    _classDictionary.ShouldContainKeyAndValue(new MyThing(), new MyThing(), "Some additional context"),
+    classDictionary.ShouldContainKeyAndValue(new MyThing(), new MyThing(), "Some additional context"),
 
 errorWithSource:
-@"_classDictionary
+@"classDictionary
     should contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -37,14 +40,15 @@ Additional Info:
     Some additional context");
         }
 
-        [Fact]
-        public void GuidScenarioShouldFail()
+        [Theory]
+        [MemberData(nameof(GuidDictionaries))]
+        public void GuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
         {
             Verify.ShouldFail(() =>
-    _guidDictionary.ShouldContainKeyAndValue(_missingGuidKey, _missingGuidValue, "Some additional context"),
+    guidDictionary.ShouldContainKeyAndValue(_missingGuidKey, _missingGuidValue, "Some additional context"),
 
 errorWithSource:
-@"_guidDictionary
+@"guidDictionary
     should contain key
 1924e617-2fc2-47ae-ad38-b6f30ec2226b
     with value
@@ -66,14 +70,15 @@ Additional Info:
     Some additional context");
         }
 
-        [Fact]
-        public void OnlyKeyMatchesShouldFail()
+        [Theory]
+        [MemberData(nameof(ClassDictionaries))]
+        private void OnlyKeyMatchesShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
         {
             Verify.ShouldFail(() =>
-_classDictionary.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
+classDictionary.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
 
 errorWithSource:
-@"_classDictionary
+@"classDictionary
     should contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -97,14 +102,15 @@ Additional Info:
     Some additional context");
         }
 
-        [Fact]
-        public void OnlyValueMatchesShouldFail()
+        [Theory]
+        [MemberData(nameof(ClassDictionaries))]
+        private void OnlyValueMatchesShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
         {
             Verify.ShouldFail(() =>
-    _classDictionary.ShouldContainKeyAndValue(new MyThing(), ThingValue, "Some additional context"),
+    classDictionary.ShouldContainKeyAndValue(new MyThing(), ThingValue, "Some additional context"),
 
  errorWithSource:
-@"_classDictionary
+@"classDictionary
     should contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -126,14 +132,15 @@ Additional Info:
     Some additional context");
         }
 
-        [Fact]
-        public void StringScenarioShouldFail()
+        [Theory]
+        [MemberData(nameof(StringDictionaries))]
+        public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
         {
             Verify.ShouldFail(() =>
-_stringDictionary.ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
+stringDictionary.ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
 
 errorWithSource:
-@"_stringDictionary
+@"stringDictionary
     should contain key
 ""bar""
     with value
@@ -193,30 +200,64 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            _classDictionary.ShouldContainKeyAndValue(ThingKey, ThingValue);
-            _guidDictionary.ShouldContainKeyAndValue(GuidKey, GuidValue);
-            _stringDictionary.ShouldContainKeyAndValue("Foo", "Bar");
-        }
+            foreach (var classDictionary in ClassDictionaries().SelectMany(x => x))
+            {
+                classDictionary.ShouldContainKeyAndValue(ThingKey, ThingValue);
+            }
 
-        private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
-        {
-            { ThingKey, ThingValue }
-        };
-        private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
-        {
-            { GuidKey, GuidValue }
-        };
-        private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
-        {
-            { "Foo", "Bar" }
-        };
+            foreach (var guidDictionary in GuidDictionaries().SelectMany(x => x))
+            {
+                guidDictionary.ShouldContainKeyAndValue(GuidKey, GuidValue);
+            }
+
+            foreach (var stringDictionary in StringDictionaries().SelectMany(x => x))
+            {
+                stringDictionary.ShouldContainKeyAndValue("Foo", "Bar");
+            }
+        }
 
         private static readonly MyThing ThingKey = new MyThing();
         private static readonly MyThing ThingValue = new MyThing();
+        private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        {
+            { ThingKey, ThingValue }
+        };
 
         private static readonly Guid GuidKey = new Guid("efc7ee91-6b19-4dff-88a8-affae77ad870");
         private static readonly Guid GuidValue = new Guid("b951fb9f-07c3-4060-bd80-055e63946497");
         private readonly Guid _missingGuidKey = new Guid("1924e617-2fc2-47ae-ad38-b6f30ec2226b");
         private readonly Guid _missingGuidValue = new Guid("f08a0b08-c9f4-49bb-a4d4-be06e88b69c8");
+        private static readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        {
+            { GuidKey, GuidValue }
+        };
+        private static readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        {
+            { "Foo", "Bar" }
+        };
+        
+        private static IEnumerable<IEnumerable<KeyValuePair<MyThing, MyThing>>[]> ClassDictionaries()
+        {
+            yield return new[] { _classDictionary };
+            yield return new[] { new ReadOnlyDictionary<MyThing, MyThing>(_classDictionary) };
+            yield return new[] { _classDictionary.ToArray() };
+            yield return new[] { _classDictionary.ToList() };
+        }
+
+        private static IEnumerable<IEnumerable<KeyValuePair<string, string>>[]> StringDictionaries()
+        {
+            yield return new[] { _stringDictionary };
+            yield return new[] { new ReadOnlyDictionary<string, string>(_stringDictionary) };
+            yield return new[] { _stringDictionary.ToArray() };
+            yield return new[] { _stringDictionary.ToList() };
+        }
+
+        private static IEnumerable<IEnumerable<KeyValuePair<Guid, Guid>>[]> GuidDictionaries()
+        {
+            yield return new[] { _guidDictionary };
+            yield return new[] { new ReadOnlyDictionary<Guid, Guid>(_guidDictionary) };
+            yield return new[] { _guidDictionary.ToArray() };
+            yield return new[] { _guidDictionary.ToList() };
+        }
     }
 }
