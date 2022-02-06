@@ -1,164 +1,175 @@
-﻿namespace Shouldly.Tests.Dictionaries;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
+using Xunit;
 
-public class ShouldNotContainValueForKey
+namespace Shouldly.Tests.Dictionaries
 {
-    [Fact]
-    public void ClassScenarioShouldFail()
+    public class ShouldNotContainValueForKey
     {
-        Verify.ShouldFail(() =>
-                _classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            @"_classDictionary
-    should not contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does
-
-Additional Info:
-    Some additional context",
-
-            errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should not contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does
-
-Additional Info:
-    Some additional context");
-    }
-
-    [Fact]
-    public void GuidScenarioShouldFail()
-    {
-        Verify.ShouldFail(() =>
-                _guidDictionary.ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
-
-            errorWithSource:
-            @"_guidDictionary
-    should not contain key
-edae0d73-8e4c-4251-85c8-e5497c7ccad1
-    with value
-fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-    but does
-
-Additional Info:
-    Some additional context",
-
-            errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should not contain key
-edae0d73-8e4c-4251-85c8-e5497c7ccad1
-    with value
-fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-    but does
-
-Additional Info:
-    Some additional context");
-    }
-
-    [Fact]
-    public void KeyAndValueExistShouldFail()
-    {
-        Verify.ShouldFail(() =>
-                _classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            @"_classDictionary
-    should not contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does
-
-Additional Info:
-    Some additional context",
-
-            errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should not contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does
-
-Additional Info:
-    Some additional context");
-    }
-
-    [Fact]
-    public void NoKeyExistsShouldFail()
-    {
-        Verify.ShouldFail(() =>
-                _classDictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context"),
-
-            errorWithSource:
-            @"_classDictionary
-    should not contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
-
-Additional Info:
-    Some additional context",
-
-            errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should not contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
-
-Additional Info:
-    Some additional context");
-    }
-
-    [Fact]
-    public void StringScenarioShouldFail()
-    {
-        Verify.ShouldFail(() =>
-                _stringDictionary.ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
-
-            errorWithSource:
-            @"_stringDictionary
-    should not contain key
-""Foo""
-    with value
-""Bar""
-    but does
-
-Additional Info:
-    Some additional context",
-
-            errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should not contain key
-""Foo""
-    with value
-""Bar""
-    but does
-
-Additional Info:
-    Some additional context");
-    }
-
-    [Fact]
-    public void ValueIsNullShouldFail()
-    {
-        var dictionary = new Dictionary<MyThing, MyThing?>
+        [Theory]
+        [MemberData(nameof(ClassDictionaries))]
+        private void ClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
         {
-            { ThingKey, null }
-        };
-        Verify.ShouldFail(() =>
-                dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
+            Verify.ShouldFail(() =>
+classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
 
-            errorWithSource:
-            @"dictionary
+errorWithSource:
+@"classDictionary
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but does
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but does
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Theory]
+        [MemberData(nameof(GuidDictionaries))]
+        public void GuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
+        {
+            Verify.ShouldFail(() =>
+guidDictionary.ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
+
+errorWithSource:
+@"guidDictionary
+    should not contain key
+edae0d73-8e4c-4251-85c8-e5497c7ccad1
+    with value
+fa1e5f58-578f-43d4-b4d6-67eae06a5d17
+    but does
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+    should not contain key
+edae0d73-8e4c-4251-85c8-e5497c7ccad1
+    with value
+fa1e5f58-578f-43d4-b4d6-67eae06a5d17
+    but does
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void KeyAndValueExistShouldFail()
+        {
+            Verify.ShouldFail(() =>
+_classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
+
+errorWithSource:
+@"_classDictionary
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but does
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but does
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void NoKeyExistsShouldFail()
+        {
+            Verify.ShouldFail(() =>
+_classDictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context"),
+
+errorWithSource:
+@"_classDictionary
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Theory]
+        [MemberData(nameof(StringDictionaries))]
+        public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
+        {
+            Verify.ShouldFail(() =>
+stringDictionary.ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
+
+errorWithSource:
+@"stringDictionary
+    should not contain key
+""Foo""
+    with value
+""Bar""
+    but does
+
+Additional Info:
+    Some additional context",
+
+errorWithoutSource:
+@"[[""Foo"" => ""Bar""]]
+    should not contain key
+""Foo""
+    with value
+""Bar""
+    but does
+
+Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ValueIsNullShouldFail()
+        {
+            var dictionary = new Dictionary<MyThing, MyThing?>
+            {
+                { ThingKey, null }
+            };
+            Verify.ShouldFail(() =>
+dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
+
+errorWithSource:
+@"dictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -168,8 +179,8 @@ null
 Additional Info:
     Some additional context",
 
-            errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+errorWithoutSource:
+@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -178,31 +189,67 @@ null
 
 Additional Info:
     Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            foreach (var classDictionary in ClassDictionaries().SelectMany(x => x))
+            {
+                classDictionary.ShouldNotContainValueForKey(ThingKey, new MyThing());
+            }
+
+            foreach (var guidDictionary in GuidDictionaries().SelectMany(x => x))
+            {
+                guidDictionary.ShouldNotContainValueForKey(GuidKey, Guid.NewGuid());
+            }
+
+            foreach (var stringDictionary in StringDictionaries().SelectMany(x => x))
+            {
+                stringDictionary.ShouldNotContainValueForKey("Foo", "baz");
+            }
+        }
+
+        private static readonly MyThing ThingKey = new MyThing();
+        private static readonly MyThing ThingValue = new MyThing();
+        private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        {
+            { ThingKey, ThingValue }
+        };
+
+        private static readonly Guid GuidKey = new Guid("edae0d73-8e4c-4251-85c8-e5497c7ccad1");
+        private static readonly Guid GuidValue = new Guid("fa1e5f58-578f-43d4-b4d6-67eae06a5d17");
+        private static readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        {
+            { GuidKey, GuidValue }
+        };
+        private static readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        {
+            { "Foo", "Bar" }
+        };
+
+        private static IEnumerable<IEnumerable<KeyValuePair<MyThing, MyThing>>[]> ClassDictionaries()
+        {
+            yield return new[] { _classDictionary };
+            yield return new[] { new ReadOnlyDictionary<MyThing, MyThing>(_classDictionary) };
+            yield return new[] { _classDictionary.ToArray() };
+            yield return new[] { _classDictionary.ToList() };
+        }
+
+        private static IEnumerable<IEnumerable<KeyValuePair<string, string>>[]> StringDictionaries()
+        {
+            yield return new[] { _stringDictionary };
+            yield return new[] { new ReadOnlyDictionary<string, string>(_stringDictionary) };
+            yield return new[] { _stringDictionary.ToArray() };
+            yield return new[] { _stringDictionary.ToList() };
+        }
+
+        private static IEnumerable<IEnumerable<KeyValuePair<Guid, Guid>>[]> GuidDictionaries()
+        {
+            yield return new[] { _guidDictionary };
+            yield return new[] { new ReadOnlyDictionary<Guid, Guid>(_guidDictionary) };
+            yield return new[] { _guidDictionary.ToArray() };
+            yield return new[] { _guidDictionary.ToList() };
+        }
     }
-
-    [Fact]
-    public void ShouldPass()
-    {
-        _classDictionary.ShouldNotContainValueForKey(ThingKey, new MyThing());
-        _guidDictionary.ShouldNotContainValueForKey(GuidKey, Guid.NewGuid());
-        _stringDictionary.ShouldNotContainValueForKey("Foo", "baz");
-    }
-
-    private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
-    {
-        { ThingKey, ThingValue }
-    };
-    private readonly Dictionary<Guid, Guid> _guidDictionary = new()
-    {
-        { GuidKey, GuidValue }
-    };
-    private readonly Dictionary<string, string> _stringDictionary = new()
-    {
-        { "Foo", "Bar" }
-    };
-
-    private static readonly Guid GuidKey = new("edae0d73-8e4c-4251-85c8-e5497c7ccad1");
-    private static readonly Guid GuidValue = new("fa1e5f58-578f-43d4-b4d6-67eae06a5d17");
-    private static readonly MyThing ThingKey = new();
-    private static readonly MyThing ThingValue = new();
 }

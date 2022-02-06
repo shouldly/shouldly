@@ -1,15 +1,24 @@
-﻿namespace Shouldly.Tests.Dictionaries;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Shouldly.Tests.Strings;
+using Shouldly.Tests.TestHelpers;
+using Xunit;
 
-public class ShouldNotContainKey
+namespace Shouldly.Tests.Dictionaries
 {
-    [Fact]
-    public void ShouldNotContainKeyClassScenarioShouldFail()
+    public class ShouldNotContainKey
     {
-        Verify.ShouldFail(() =>
-                _classDictionary.ShouldNotContainKey(ThingKey, "Some additional context"),
+        [Theory]
+        [MemberData(nameof(ClassDictionaries))]
+        private void ShouldNotContainKeyClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
+        {
+            Verify.ShouldFail(() =>
+classDictionary.ShouldNotContainKey(ThingKey, "Some additional context"),
 
-            errorWithSource:
-            @"_classDictionary
+errorWithSource:
+@"classDictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     but does
@@ -17,24 +26,25 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 Additional Info:
     Some additional context",
 
-            errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+errorWithoutSource:
+@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     but does
 
 Additional Info:
     Some additional context");
-    }
+        }
 
-    [Fact]
-    public void ShouldNotContainKeyGuidScenarioShouldFail()
-    {
-        Verify.ShouldFail(() =>
-                _guidDictionary.ShouldNotContainKey(GuidKey, "Some additional context"),
+        [Theory]
+        [MemberData(nameof(GuidDictionaries))]
+        public void ShouldNotContainKeyGuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
+        {
+            Verify.ShouldFail(() =>
+guidDictionary.ShouldNotContainKey(GuidKey, "Some additional context"),
 
-            errorWithSource:
-            @"_guidDictionary
+errorWithSource:
+@"guidDictionary
     should not contain key
 89bdbe3d-3436-4749-bcb7-84264394026c
     but does
@@ -42,24 +52,25 @@ Additional Info:
 Additional Info:
     Some additional context",
 
-            errorWithoutSource:
-            @"[[89bdbe3d-3436-4749-bcb7-84264394026c => 96408719-fdd4-4212-8e54-4f4d7371300f]]
+errorWithoutSource:
+@"[[89bdbe3d-3436-4749-bcb7-84264394026c => 96408719-fdd4-4212-8e54-4f4d7371300f]]
     should not contain key
 89bdbe3d-3436-4749-bcb7-84264394026c
     but does
 
 Additional Info:
     Some additional context");
-    }
+        }
 
-    [Fact]
-    public void StringScenarioShouldFail()
-    {
-        Verify.ShouldFail(() =>
-                _stringDictionary.ShouldNotContainKey("Foo", "Some additional context"),
+        [Theory]
+        [MemberData(nameof(StringDictionaries))]
+        public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
+        {
+            Verify.ShouldFail(() =>
+stringDictionary.ShouldNotContainKey("Foo", "Some additional context"),
 
-            errorWithSource:
-            @"_stringDictionary
+errorWithSource:
+@"stringDictionary
     should not contain key
 ""Foo""
     but does
@@ -67,37 +78,70 @@ Additional Info:
 Additional Info:
     Some additional context",
 
-            errorWithoutSource:
-            @"[[""Foo"" => """"]]
+errorWithoutSource:
+@"[[""Foo"" => """"]]
     should not contain key
 ""Foo""
     but does
 
 Additional Info:
     Some additional context");
+        }
+
+        [Fact]
+        public void ShouldPass()
+        {
+            foreach (var classDictionary in ClassDictionaries().SelectMany(x => x))
+            {
+                classDictionary.ShouldNotContainKey(new MyThing());
+            }
+
+            foreach (var guidDictionary in GuidDictionaries().SelectMany(x => x))
+            {
+                guidDictionary.ShouldNotContainKey(Guid.NewGuid());
+            }
+
+            foreach (var stringDictionary in StringDictionaries().SelectMany(x => x))
+            {
+                stringDictionary.ShouldNotContainKey("bar");
+            }
+        }
+
+        private static readonly MyThing ThingKey = new MyThing();
+        private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        {
+            { ThingKey, new MyThing() }
+        };
+
+        private static readonly Guid GuidKey = new Guid("89bdbe3d-3436-4749-bcb7-84264394026c");
+        private static readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        {
+            { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
+        };
+        private static readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        {
+            { "Foo", "" }
+        };
+
+        private static IEnumerable<IEnumerable<KeyValuePair<MyThing, MyThing>>[]> ClassDictionaries()
+        {
+            yield return new[] { _classDictionary };
+            yield return new[] { new ReadOnlyDictionary<MyThing, MyThing>(_classDictionary) };
+            yield return new[] { _classDictionary.ToArray() };
+        }
+
+        private static IEnumerable<IEnumerable<KeyValuePair<string, string>>[]> StringDictionaries()
+        {
+            yield return new[] { _stringDictionary };
+            yield return new[] { new ReadOnlyDictionary<string, string>(_stringDictionary) };
+            yield return new[] { _stringDictionary.ToArray() };
+        }
+
+        private static IEnumerable<IEnumerable<KeyValuePair<Guid, Guid>>[]> GuidDictionaries()
+        {
+            yield return new[] { _guidDictionary };
+            yield return new[] { new ReadOnlyDictionary<Guid, Guid>(_guidDictionary) };
+            yield return new[] { _guidDictionary.ToArray() };
+        }
     }
-
-    [Fact]
-    public void ShouldPass()
-    {
-        _classDictionary.ShouldNotContainKey(new MyThing());
-        _guidDictionary.ShouldNotContainKey(Guid.NewGuid());
-        _stringDictionary.ShouldNotContainKey("bar");
-    }
-
-    private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
-    {
-        { ThingKey, new MyThing() }
-    };
-    private readonly Dictionary<Guid, Guid> _guidDictionary = new()
-    {
-        { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
-    };
-    private readonly Dictionary<string, string> _stringDictionary = new()
-    {
-        { "Foo", "" }
-    };
-
-    private static readonly Guid GuidKey = new("89bdbe3d-3436-4749-bcb7-84264394026c");
-    private static readonly MyThing ThingKey = new();
 }
