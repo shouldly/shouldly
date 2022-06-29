@@ -98,6 +98,69 @@ namespace Shouldly.Tests
         }
 
         [Fact]
+        public void ShouldCompleteInTaskOptimistic_WhenFinishAfterTimeout()
+        {
+            bool isCancelled = false;
+            var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(cancellationToken =>
+            {
+                return Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        Task.Delay(-1, cancellationToken).Wait(cancellationToken);
+                    }
+                    catch (OperationCanceledException canceledException) when (canceledException.CancellationToken == cancellationToken)
+                    {
+                        isCancelled = true;
+                        throw;
+                    }
+                }, cancellationToken);
+            }, TimeSpan.FromSeconds(1), "Some additional context"));
+
+            isCancelled.ShouldBeTrue();
+
+            ex.Message.ShouldContainWithoutWhitespace(@"
+    Task
+        should complete in
+    00:00:01
+        but did not
+    Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
+        public void ShouldCompleteInTaskTOptimistic_WhenFinishAfterTimeout()
+        {
+            bool isCancelled = false;
+            var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(cancellationToken =>
+            {
+                return Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        Task.Delay(-1, cancellationToken).Wait(cancellationToken);
+                        return "";
+                    }
+                    catch (OperationCanceledException canceledException) when (canceledException.CancellationToken == cancellationToken)
+                    {
+                        isCancelled = true;
+                        throw;
+                    }
+                }, cancellationToken);
+            }, TimeSpan.FromSeconds(1), "Some additional context"));
+
+            isCancelled.ShouldBeTrue();
+
+            ex.Message.ShouldContainWithoutWhitespace(@"
+    Task
+        should complete in
+    00:00:01
+        but did not
+    Additional Info:
+    Some additional context");
+        }
+
+        [Fact]
         public void ShouldCompleteInT_WhenThrowsNonTimeoutException()
         {
             Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => throw new NotImplementedException()), TimeSpan.FromSeconds(2)));

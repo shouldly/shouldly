@@ -38,6 +38,22 @@ namespace Shouldly
             return task.Result;
         }
 
+        /*** CompleteIn(Func<Task>) ***/
+        public static void CompleteIn(Func<CancellationToken, Task> actual, TimeSpan timeout, string? customMessage = null)
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+            CompleteIn(actual(cancellationTokenSource.Token), timeout, customMessage, "Task", cancellationTokenSource);
+        }
+
+        /*** CompleteIn(Func<Task<T>>) ***/
+        public static T CompleteIn<T>(Func<CancellationToken, Task<T>> actual, TimeSpan timeout, string? customMessage = null)
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+            Task<T> task = actual(cancellationTokenSource.Token);
+            CompleteIn(task, timeout, customMessage, "Task", cancellationTokenSource);
+            return task.Result;
+        }
+
         /*** CompleteIn(Task<T>) ***/
         public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null)
         {
@@ -51,7 +67,7 @@ namespace Shouldly
             return actual.Result;
         }
 
-        private static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage, string what)
+        private static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage, string what, CancellationTokenSource? cancellationTokenSource = null)
         {
             try
             {
@@ -67,6 +83,25 @@ namespace Shouldly
                 // When exception is a timeout exception we can provide a better error, otherwise rethrow
                 if (inner is ShouldlyTimeoutException exception)
                 {
+                    // Cancel the task first if a cancellation token is provided
+                    if (cancellationTokenSource != null)
+                    {
+                        cancellationTokenSource.Cancel();
+                        try
+                        {
+                            actual.Wait();
+                        }
+                        catch (AggregateException aggregateException)
+                        {
+                            if (aggregateException.InnerExceptions.Count != 1 ||
+                                aggregateException.InnerException is not OperationCanceledException canceledException ||
+                                canceledException.CancellationToken != cancellationTokenSource.Token)
+                            {
+                                throw;
+                            }
+                        }
+                    }
+
                     var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
                     throw new ShouldCompleteInException(message, exception);
                 }
