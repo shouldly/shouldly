@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync
 {
@@ -156,6 +157,28 @@ namespace Shouldly.Tests.ShouldThrowAsync
                     but threw
                     System.DivideByZeroException");
             }
+        }
+
+        [Fact] // Issue 818
+        public async Task ShouldThrowAssertException_ExceptionTypeIsException()
+        {
+            try
+            {
+                Func<Task> doSomething = () => Task.CompletedTask;
+                await Should.ThrowAsync<Exception>(async () => await doSomething());
+            }
+            catch (Exception e)
+            {
+                var ex = e.ShouldBeOfType<ShouldAssertException>();
+                ex.Message.ShouldContainWithoutWhitespace(@"
+                    Task `async () => await doSomething()`
+                    should throw 
+                    System.Exception
+                    but did not");
+                return;
+            }
+
+            throw new XunitException("ShouldThrowAsync did not throw");
         }
     }
 }
