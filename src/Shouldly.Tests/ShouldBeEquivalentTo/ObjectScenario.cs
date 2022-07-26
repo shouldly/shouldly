@@ -164,19 +164,19 @@ Additional Info:
             };
 
             Verify.ShouldFail(() =>
-subject.ShouldBeEquivalentTo(expected, "Some additional context"),
+                    subject.ShouldBeEquivalentTo(expected, "Some additional context"),
 
-errorWithSource:
+                errorWithSource:
 @"Comparing object equivalence, at path:
 subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
     Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
         Adjectives [System.String[]]
-            Element [0] [System.String]
+            Element beautiful not found
 
     Expected value to be
-""beautiful""
+[""beautiful"", ""intelligent""]
     but was
-""ugly""
+[""ugly"", ""intelligent""]
 
 Additional Info:
     Some additional context",
@@ -186,12 +186,12 @@ errorWithoutSource:
 <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
     Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
         Adjectives [System.String[]]
-            Element [0] [System.String]
+            Element beautiful not found
 
     Expected value to be
-""beautiful""
+[""beautiful"", ""intelligent""]
     but was
-""ugly""
+[""ugly"", ""intelligent""]
 
 Additional Info:
     Some additional context");
@@ -240,12 +240,12 @@ errorWithSource:
 subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
     Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
         Adjectives [System.String[]]
-            Element [1] [System.String]
+            Element dumb not found
 
     Expected value to be
-""dumb""
+[""beautiful"", ""dumb""]
     but was
-""intelligent""
+[""beautiful"", ""intelligent""]
 
 Additional Info:
     Some additional context",
@@ -255,12 +255,12 @@ errorWithoutSource:
 <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
     Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
         Adjectives [System.String[]]
-            Element [1] [System.String]
+            Element dumb not found
 
     Expected value to be
-""dumb""
+[""beautiful"", ""dumb""]
     but was
-""intelligent""
+[""beautiful"", ""intelligent""]
 
 Additional Info:
     Some additional context");
