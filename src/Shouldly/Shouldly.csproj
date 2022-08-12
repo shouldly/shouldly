@@ -21,12 +21,12 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="8.0.1" />
-    <PackageReference Include="EmptyFiles" Version="2.7.0" PrivateAssets="None" />
+    <PackageReference Include="DiffEngine" Version="10.0.0" />
+    <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <Content Include="build.props" PackagePath="build\Shouldly.props" />
     <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Shouldly.props" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
