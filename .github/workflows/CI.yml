@@ -19,6 +19,14 @@ jobs:
     - name: Pack and test
       run: ./build.ps1
 
+    - name: Upload Received
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: received-results
+        path: |
+          **/*.received.*
+
     - name: Upload packages artifact
       if: always()
       uses: actions/upload-artifact@v2
