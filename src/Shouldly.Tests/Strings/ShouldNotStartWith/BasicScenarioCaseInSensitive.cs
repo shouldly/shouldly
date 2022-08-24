@@ -32,7 +32,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            "Cheese".ShouldNotStartWith("Ce", Case.Insensitive);
+            "Cheese".ShouldNotStartWith("Ce");
         }
     }
 }

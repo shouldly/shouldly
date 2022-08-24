@@ -38,7 +38,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            GetEmptyEnumerable().ShouldBe(new int[0], false);
+            GetEmptyEnumerable().ShouldBe(new int[0]);
         }
 
         private static IEnumerable<int> GetEmptyEnumerable()

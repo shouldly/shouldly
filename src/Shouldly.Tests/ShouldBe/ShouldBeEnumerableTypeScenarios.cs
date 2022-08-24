@@ -200,7 +200,7 @@ Additional Info:
         public void DifferentEnumerableTypesShouldPass()
         {
             _thisString.ToArray().ShouldBe(_thisString);
-            new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 }, false);
+            new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
         }
 
         [Fact]

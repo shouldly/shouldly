@@ -9,7 +9,7 @@ namespace Shouldly.Tests.Strings.ShouldNotEndWith
         {
             var str = "Cheese";
             Verify.ShouldFail(() =>
-str.ShouldNotEndWith("SE", "Some additional context", Case.Insensitive),
+str.ShouldNotEndWith("SE", "Some additional context"),
 
 errorWithSource:
 @"str

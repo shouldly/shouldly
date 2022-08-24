@@ -10,7 +10,7 @@ namespace Shouldly.Tests.ShouldNotContain
         {
             const string target = "Shouldly is legendary";
             Verify.ShouldFail(() =>
-target.ShouldNotContain("LEGENDARY", Case.Insensitive),
+target.ShouldNotContain("LEGENDARY"),
 
 errorWithSource:
 @"target
@@ -29,7 +29,7 @@ errorWithoutSource:
         [Fact]
         public void ShouldPass()
         {
-            "Shouldly is legendary".ShouldNotContain("LEGEND-wait for it-ary", Case.Insensitive);
+            "Shouldly is legendary".ShouldNotContain("LEGEND-wait for it-ary");
         }
     }
 }

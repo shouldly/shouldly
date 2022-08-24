@@ -64,7 +64,7 @@ Additional Info:
         {
             "Cheese".ShouldEndWith("se");
             "Cheese".ShouldEndWith("SE");
-            "Cheese".ShouldEndWith("Se", Case.Insensitive);
+            "Cheese".ShouldEndWith("Se");
             "Cheese".ShouldEndWith("se", Case.Sensitive);
         }
     }

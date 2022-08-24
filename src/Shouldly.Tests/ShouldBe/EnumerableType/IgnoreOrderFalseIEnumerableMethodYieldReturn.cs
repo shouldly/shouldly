@@ -38,7 +38,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            GetEnumerable().ShouldBe(new[] { 1 }, false);
+            GetEnumerable().ShouldBe(new[] { 1 });
         }
 
         private static IEnumerable<int> GetEnumerable()
