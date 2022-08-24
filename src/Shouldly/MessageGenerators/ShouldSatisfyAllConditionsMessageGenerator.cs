@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldSatisfyAllConditionsMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldSatisfyAllConditions");
+        private static readonly Regex Validator = new("ShouldSatisfyAllConditions");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

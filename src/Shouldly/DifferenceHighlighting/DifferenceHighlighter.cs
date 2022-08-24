@@ -2,7 +2,8 @@
 {
     internal static class DifferenceHighlighter
     {
-        private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new List<IDifferenceHighlighter> {
+        private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new()
+        {
             new EnumerableDifferenceHighlighter()
         };
 

@@ -192,22 +192,22 @@ Additional Info:
             _stringDictionary.ShouldNotContainValueForKey("Foo", "baz");
         }
 
-        private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
         {
             { ThingKey, ThingValue }
         };
-        private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        private readonly Dictionary<Guid, Guid> _guidDictionary = new()
         {
             { GuidKey, GuidValue }
         };
-        private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _stringDictionary = new()
         {
             { "Foo", "Bar" }
         };
 
-        private static readonly Guid GuidKey = new Guid("edae0d73-8e4c-4251-85c8-e5497c7ccad1");
-        private static readonly Guid GuidValue = new Guid("fa1e5f58-578f-43d4-b4d6-67eae06a5d17");
-        private static readonly MyThing ThingKey = new MyThing();
-        private static readonly MyThing ThingValue = new MyThing();
+        private static readonly Guid GuidKey = new("edae0d73-8e4c-4251-85c8-e5497c7ccad1");
+        private static readonly Guid GuidValue = new("fa1e5f58-578f-43d4-b4d6-67eae06a5d17");
+        private static readonly MyThing ThingKey = new();
+        private static readonly MyThing ThingValue = new();
     }
 }

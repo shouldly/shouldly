@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldBeUnique");
+        private static readonly Regex Validator = new("ShouldBeUnique");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

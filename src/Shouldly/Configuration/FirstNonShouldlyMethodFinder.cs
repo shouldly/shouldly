@@ -8,7 +8,7 @@ namespace Shouldly.Configuration
 {
     public class FirstNonShouldlyMethodFinder : ITestMethodFinder
     {
-        private static readonly Regex AnonMethod = new Regex(@"<(\w|_)+>b_.+");
+        private static readonly Regex AnonMethod = new(@"<(\w|_)+>b_.+");
 
         /// <summary>
         /// Increasing the offset will move past the first non-shouldly method

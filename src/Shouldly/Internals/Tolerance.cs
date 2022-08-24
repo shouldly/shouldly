@@ -37,13 +37,13 @@
         ///     in an exact match but for floats and doubles a
         ///     default tolerance may be used.
         /// </summary>
-        public static Tolerance Empty => new Tolerance(0, ToleranceMode.None);
+        public static Tolerance Empty => new(0, ToleranceMode.None);
 
         /// <summary>
         ///     Returns a zero Tolerance object, equivalent to
         ///     specifying an exact match.
         /// </summary>
-        public static Tolerance Zero => new Tolerance(0, ToleranceMode.Linear);
+        public static Tolerance Zero => new(0, ToleranceMode.Linear);
 
         /// <summary>
         ///     Gets the ToleranceMode for the current Tolerance

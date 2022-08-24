@@ -5,7 +5,7 @@ namespace Shouldly
 {
     internal class ShouldBeTypeMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldBe(Not)?(OfType|AssignableTo)");
+        private static readonly Regex Validator = new("ShouldBe(Not)?(OfType|AssignableTo)");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

@@ -13,11 +13,10 @@ namespace DocumentationExamples
 {
     public static class DocExampleWriter
     {
-        private static readonly Regex scrubberRegex = new Regex(@"\w:.+?shouldly\\src", RegexOptions.Compiled);
+        private static readonly Regex scrubberRegex = new(@"\w:.+?shouldly\\src", RegexOptions.Compiled);
         private static readonly Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
 
-        private static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup =
-            new ConcurrentDictionary<string, List<MethodDeclarationSyntax>>();
+        private static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup = new();
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder>? additionConfig = null)

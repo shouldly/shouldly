@@ -4,7 +4,7 @@ namespace Shouldly
 {
     internal static class CallContext
     {
-        private static readonly ConcurrentDictionary<string, AsyncLocal<object?>> state = new ConcurrentDictionary<string, AsyncLocal<object?>>();
+        private static readonly ConcurrentDictionary<string, AsyncLocal<object?>> state = new();
 
         /// <summary>
         /// Stores a given object and associates it with the specified name.

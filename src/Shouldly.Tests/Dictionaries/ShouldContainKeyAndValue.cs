@@ -196,25 +196,25 @@ Additional Info:
             _stringDictionary.ShouldContainKeyAndValue("Foo", "Bar");
         }
 
-        private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
         {
             { ThingKey, ThingValue }
         };
-        private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        private readonly Dictionary<Guid, Guid> _guidDictionary = new()
         {
             { GuidKey, GuidValue }
         };
-        private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _stringDictionary = new()
         {
             { "Foo", "Bar" }
         };
 
-        private static readonly MyThing ThingKey = new MyThing();
-        private static readonly MyThing ThingValue = new MyThing();
+        private static readonly MyThing ThingKey = new();
+        private static readonly MyThing ThingValue = new();
 
-        private static readonly Guid GuidKey = new Guid("efc7ee91-6b19-4dff-88a8-affae77ad870");
-        private static readonly Guid GuidValue = new Guid("b951fb9f-07c3-4060-bd80-055e63946497");
-        private readonly Guid _missingGuidKey = new Guid("1924e617-2fc2-47ae-ad38-b6f30ec2226b");
-        private readonly Guid _missingGuidValue = new Guid("f08a0b08-c9f4-49bb-a4d4-be06e88b69c8");
+        private static readonly Guid GuidKey = new("efc7ee91-6b19-4dff-88a8-affae77ad870");
+        private static readonly Guid GuidValue = new("b951fb9f-07c3-4060-bd80-055e63946497");
+        private readonly Guid _missingGuidKey = new("1924e617-2fc2-47ae-ad38-b6f30ec2226b");
+        private readonly Guid _missingGuidValue = new("f08a0b08-c9f4-49bb-a4d4-be06e88b69c8");
     }
 }

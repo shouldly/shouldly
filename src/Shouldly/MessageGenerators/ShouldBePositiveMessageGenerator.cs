@@ -4,7 +4,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class ShouldBePositiveMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldBePositive");
+        private static readonly Regex Validator = new("ShouldBePositive");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

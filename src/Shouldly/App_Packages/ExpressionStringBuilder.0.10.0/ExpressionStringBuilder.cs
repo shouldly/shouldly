@@ -9,7 +9,7 @@ namespace ExpressionToString
     internal class ExpressionStringBuilder : ExpressionVisitor
     {
         // ReSharper disable InconsistentNaming
-        private readonly StringBuilder builder = new StringBuilder();
+        private readonly StringBuilder builder = new();
         private readonly bool trimLongArgumentList;
         private bool skipDot;
 

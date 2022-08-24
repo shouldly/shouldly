@@ -16,7 +16,7 @@ namespace Shouldly
         public static List<string> CompareAsObjectTypes { get; }
 
         public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; } =
-            new ShouldMatchConfigurationBuilder(new ShouldMatchConfiguration
+            new(new ShouldMatchConfiguration
             {
                 StringCompareOptions = StringCompareShould.IgnoreLineEndings,
                 TestMethodFinder = new FirstNonShouldlyMethodFinder(),

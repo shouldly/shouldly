@@ -89,20 +89,20 @@ Additional Info:
             _stringDictionary.ShouldNotContainKey("bar");
         }
 
-        private readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
         {
             { ThingKey, new MyThing() }
         };
-        private readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+        private readonly Dictionary<Guid, Guid> _guidDictionary = new()
         {
             { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
         };
-        private readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _stringDictionary = new()
         {
             { "Foo", "" }
         };
 
-        private static readonly Guid GuidKey = new Guid("89bdbe3d-3436-4749-bcb7-84264394026c");
-        private static readonly MyThing ThingKey = new MyThing();
+        private static readonly Guid GuidKey = new("89bdbe3d-3436-4749-bcb7-84264394026c");
+        private static readonly MyThing ThingKey = new();
     }
 }

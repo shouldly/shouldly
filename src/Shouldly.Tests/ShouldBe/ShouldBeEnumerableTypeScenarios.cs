@@ -215,7 +215,7 @@ Additional Info:
 
         private interface IFoo { }
         private class Foo : IFoo { }
-        private readonly List<string> _thisOtherStringList = new List<string> { "1", "3" };
-        private readonly List<string> _thisString = new List<string> { "1", "2" };
+        private readonly List<string> _thisOtherStringList = new() { "1", "3" };
+        private readonly List<string> _thisString = new() { "1", "2" };
     }
 }

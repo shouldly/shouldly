@@ -6,7 +6,7 @@ namespace Shouldly.MessageGenerators
 {
     internal class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
     {
-        private static readonly Regex Validator = new Regex("ShouldNotContainValueForKey");
+        private static readonly Regex Validator = new("ShouldNotContainValueForKey");
 
         public override bool CanProcess(IShouldlyAssertionContext context)
         {

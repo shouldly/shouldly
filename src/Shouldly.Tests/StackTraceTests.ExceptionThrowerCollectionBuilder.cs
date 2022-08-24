@@ -4,7 +4,7 @@
     {
         private sealed class ExceptionThrowerCollectionBuilder
         {
-            private readonly List<ExceptionThrower> exceptionThrowers = new List<ExceptionThrower>();
+            private readonly List<ExceptionThrower> exceptionThrowers = new();
 
             /// <param name="throwDirectly">Required to cover the code path where the stack trace is not trimmed.</param>
             /// <param name="throwInShouldlyAssembly">Required to cover the code path where the stack trace is trimmed.</param>

@@ -178,7 +178,7 @@ namespace Shouldly.Tests.InternalTests
 
         private class PureEnumerable : IEnumerable
         {
-            private readonly List<int> _numbers = new List<int>();
+            private readonly List<int> _numbers = new();
 
             public void Add(int number)
             {
