@@ -9,7 +9,7 @@ build_script:
 - pwsh: |
     if ($isWindows) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
-      ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+      ./dotnet-install.ps1 -JSonFile global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
     }
     else {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
@@ -20,8 +20,8 @@ build_script:
         sudo ./dotnet-install.sh --architecture x64 --install-dir '/usr/share/dotnet'
       }
     }
-- dotnet build src --configuration Release --nologo
-- dotnet test src --configuration Release --no-build --no-restore --nologo
+- dotnet build --configuration Release --nologo
+- dotnet test --configuration Release --no-build --no-restore --nologo
 
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
