@@ -33,7 +33,7 @@ Additional Info:
         [Fact]
         public void ShouldPass()
         {
-            new string[] { "string2", "string1", "string42", "string53" }.ShouldBeUnique();
+            new[] { "string2", "string1", "string42", "string53" }.ShouldBeUnique();
         }
     }
 }
