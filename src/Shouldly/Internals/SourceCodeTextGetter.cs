@@ -125,7 +125,7 @@ namespace Shouldly.Internals
 
             if (found)
             {
-                codePart = parameterString.Substring(0, i);
+                codePart = parameterString[..i];
             }
 
             return codePart
