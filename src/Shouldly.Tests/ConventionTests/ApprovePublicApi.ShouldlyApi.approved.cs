@@ -747,11 +747,11 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void ShouldSatisfyAllConditions(this object? actual, System.Func<string?>? customMessage, params System.Action[] conditions) { }
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, params System.Action[] conditions) { }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, params System.Action<>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, params System.Action<T>[] conditions) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
-        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Func<string?>? customMessage, params System.Action<>[] conditions) { }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, params System.Action<>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Func<string?>? customMessage, params System.Action<T>[] conditions) { }
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, params System.Action<T>[] conditions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions
@@ -937,7 +937,7 @@ namespace Shouldly
         protected Shouldly.IShouldlyAssertionContext ShouldlyAssertionContext { get; set; }
         public override string ToString() { }
     }
-    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.All, Inherited=false)]
+    [System.AttributeUsage(System.AttributeTargets.Class, Inherited=false)]
     public class ShouldlyMethodsAttribute : System.Attribute
     {
         public ShouldlyMethodsAttribute() { }
