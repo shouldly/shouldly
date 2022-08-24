@@ -35,7 +35,7 @@ System.DivideByZeroException
 ```cs
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
-Action action = () =>
+var action = () =>
                 {
                     var y = homer.Salary / denominator;
                 };
@@ -86,7 +86,7 @@ System.ArgumentNullException
 <a id='7ff02816'></a>
 ```cs
 string? name = null;
-Func<Person> func = () => new Person(name!);
+var func = () => new Person(name!);
 func.ShouldNotThrow();
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#7ff02816' title='Start of snippet'>anchor</a></sup>
