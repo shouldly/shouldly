@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers
 {
     internal class CustomComparer<T> : IComparer<T>
     {

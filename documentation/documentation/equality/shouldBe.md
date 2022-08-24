@@ -11,7 +11,7 @@
 var theSimpsonsCat = new Cat { Name = "Santas little helper" };
 theSimpsonsCat.Name.ShouldBe("Snowball 2");
 ```
-<sup><a href='/src/DocumentationExamples/ShouldBeExamples.cs#L26-L31' title='Snippet source file'>snippet source</a> | <a href='#eea0f4bf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ShouldBeExamples.cs#L23-L28' title='Snippet source file'>snippet source</a> | <a href='#eea0f4bf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Simpsons
+﻿namespace Simpsons
 {
     public abstract class Pet
     {

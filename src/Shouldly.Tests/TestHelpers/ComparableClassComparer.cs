@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers
 {
     public class ComparableClassComparer : IEqualityComparer<ComparableClass>
     {

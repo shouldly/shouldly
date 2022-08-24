@@ -5,8 +5,6 @@ The classes used in these samples are:
 <!-- snippet: DocumentationExamples/ExampleClasses.cs -->
 <a id='9418171b'></a>
 ```cs
-using System;
-
 namespace Simpsons
 {
     public abstract class Pet
@@ -50,5 +48,5 @@ namespace Simpsons
     }
 }
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L44' title='Snippet source file'>snippet source</a> | <a href='#9418171b' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L42' title='Snippet source file'>snippet source</a> | <a href='#9418171b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

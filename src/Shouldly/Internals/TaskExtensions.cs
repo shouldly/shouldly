@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     // http://blogs.msdn.com/b/pfxteam/archive/2011/11/10/10235834.aspx
     internal static class TaskExtensions

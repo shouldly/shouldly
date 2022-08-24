@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType

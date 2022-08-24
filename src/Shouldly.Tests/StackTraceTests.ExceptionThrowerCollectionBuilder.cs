@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Shouldly.Tests
+﻿namespace Shouldly.Tests
 {
     partial class StackTraceTests
     {

@@ -1,6 +1,4 @@
 #if(NETCOREAPP)
-using System;
-using System.Linq;
 using System.Reflection;
 using PublicApiGenerator;
 

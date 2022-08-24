@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using Xunit;
+﻿using Xunit;
 
 namespace Shouldly.Tests.ShouldBeUnique
 {

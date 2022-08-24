@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shouldly.ShouldlyExtensionMethods
+﻿namespace Shouldly.ShouldlyExtensionMethods
 {
     [ShouldlyMethods]
     public static partial class ShouldHaveEnumExtensions

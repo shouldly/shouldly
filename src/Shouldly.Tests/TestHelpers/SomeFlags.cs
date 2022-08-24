@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers
 {
     [Flags]
     internal enum SomeFlags

@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Internals;
+﻿using Shouldly.Internals;
 
 namespace Shouldly
 {

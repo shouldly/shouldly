@@ -1,5 +1,4 @@
 ﻿using Shouldly.Tests.Strings;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeUnique

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 

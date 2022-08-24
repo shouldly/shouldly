@@ -1,5 +1,3 @@
-using System;
-
 namespace Shouldly.MessageGenerators
 {
     internal class ShouldThrowMessageGenerator : ShouldlyMessageGenerator

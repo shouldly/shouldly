@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.ShouldlyExtensionMethods;
+﻿using Shouldly.ShouldlyExtensionMethods;
 using Xunit;
 using Xunit.Abstractions;
 

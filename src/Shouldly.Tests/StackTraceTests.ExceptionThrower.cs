@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shouldly.Tests
+﻿namespace Shouldly.Tests
 {
     partial class StackTraceTests
     {

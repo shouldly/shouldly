@@ -4,7 +4,6 @@
 // obtain a copy of the license at http://nunit.org
 // ****************************************************************
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace NUnit.Framework.Constraints

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     internal static class On
     {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Shouldly.DifferenceHighlighting
+﻿namespace Shouldly.DifferenceHighlighting
 {
     internal static class DifferenceHighlighter
     {

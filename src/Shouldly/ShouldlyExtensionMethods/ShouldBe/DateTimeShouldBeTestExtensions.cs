@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     public static partial class ShouldBeTestExtensions
     {

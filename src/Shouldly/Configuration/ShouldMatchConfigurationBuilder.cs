@@ -1,5 +1,3 @@
-using System;
-
 namespace Shouldly.Configuration
 {
     public class ShouldMatchConfigurationBuilder

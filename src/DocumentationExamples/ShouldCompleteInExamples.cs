@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 

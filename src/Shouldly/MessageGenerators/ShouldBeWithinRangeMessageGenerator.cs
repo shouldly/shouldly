@@ -1,5 +1,4 @@
 using Shouldly.DifferenceHighlighting;
-using System;
 
 namespace Shouldly.MessageGenerators
 {

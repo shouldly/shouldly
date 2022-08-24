@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     [Serializable]
     internal class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>

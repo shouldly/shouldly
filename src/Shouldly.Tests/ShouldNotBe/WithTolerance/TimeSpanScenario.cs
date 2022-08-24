@@ -1,4 +1,3 @@
-using System;
 using Shouldly.Tests.Strings;
 using Xunit;
 

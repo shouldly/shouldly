@@ -1,9 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using DiffEngine;
 using Shouldly.Tests.Strings;
 using Xunit;

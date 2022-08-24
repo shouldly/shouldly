@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldThrow

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Shouldly
+﻿namespace Shouldly
 {
     public static partial class ShouldBeTestExtensions
     {

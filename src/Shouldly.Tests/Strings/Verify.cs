@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.Tests.Strings

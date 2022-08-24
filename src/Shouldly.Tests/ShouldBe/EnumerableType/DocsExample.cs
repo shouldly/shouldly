@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Xunit;
+﻿using Xunit;
 
 namespace Shouldly.Tests.ShouldBe.EnumerableType
 {

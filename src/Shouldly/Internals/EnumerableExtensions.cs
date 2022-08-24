@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Shouldly.Internals
+﻿namespace Shouldly.Internals
 {
     internal static class EnumerableExtensions
     {

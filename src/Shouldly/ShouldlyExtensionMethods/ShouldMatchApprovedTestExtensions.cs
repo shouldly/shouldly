@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using DiffEngine;
 using Shouldly.Configuration;
 using Shouldly.Internals;

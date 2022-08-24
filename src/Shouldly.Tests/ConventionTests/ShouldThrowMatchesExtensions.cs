@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using TestStack.ConventionTests;
+﻿using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
 namespace Shouldly.Tests.ConventionTests

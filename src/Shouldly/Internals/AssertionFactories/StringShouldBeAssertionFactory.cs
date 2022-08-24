@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Shouldly.DifferenceHighlighting;
 using Shouldly.Internals.Assertions;
 

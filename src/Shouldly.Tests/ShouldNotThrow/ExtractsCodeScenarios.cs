@@ -1,5 +1,4 @@
-﻿using System;
-using Shouldly.Tests.TestHelpers;
+﻿using Shouldly.Tests.TestHelpers;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldNotThrow

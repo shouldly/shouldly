@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Shouldly.Tests.Strings;
+﻿using Shouldly.Tests.Strings;
 using Xunit;
 
 namespace Shouldly.Tests.ShouldBeEquivalentTo
