@@ -7,7 +7,8 @@ namespace Shouldly
     public static partial class ShouldThrowAsyncExtensions
     {
         /*** ShouldThrowAsync(Task) ***/
-        public static Task<TException> ShouldThrowAsync<TException>(this Task task, string? customMessage = null) where TException : Exception
+        public static Task<TException> ShouldThrowAsync<TException>(this Task task, string? customMessage = null)
+            where TException : Exception
         {
             return Should.ThrowAsync<TException>(task, customMessage);
         }
@@ -19,7 +20,8 @@ namespace Shouldly
         }
 
         /*** ShouldThrowAsync(Func<Task>) ***/
-        public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual, string? customMessage = null) where TException : Exception
+        public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual, string? customMessage = null)
+            where TException : Exception
         {
             return Should.ThrowAsync<TException>(actual, customMessage);
         }

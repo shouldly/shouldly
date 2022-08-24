@@ -7,7 +7,8 @@ namespace Shouldly
 {
     internal static class Is
     {
-        public static bool InRange<T>([DisallowNull] T comparable, T? @from, T? to) where T : IComparable<T>
+        public static bool InRange<T>([DisallowNull] T comparable, T? @from, T? to)
+            where T : IComparable<T>
         {
             return comparable.CompareTo(from) >= 0 && comparable.CompareTo(to) <= 0;
         }
@@ -269,7 +270,8 @@ namespace Shouldly
             }
         }
 
-        public static bool GreaterThanOrEqualTo<T>(T? comparable, T? expected) where T : IComparable<T>?
+        public static bool GreaterThanOrEqualTo<T>(T? comparable, T? expected)
+            where T : IComparable<T>?
         {
             return Compare(comparable, expected) >= 0;
         }
@@ -279,7 +281,8 @@ namespace Shouldly
             return Compare(actual, expected, comparer) >= 0;
         }
 
-        public static bool LessThanOrEqualTo<T>(T? comparable, T? expected) where T : IComparable<T>?
+        public static bool LessThanOrEqualTo<T>(T? comparable, T? expected)
+            where T : IComparable<T>?
         {
             return Compare(comparable, expected) <= 0;
         }
@@ -289,7 +292,8 @@ namespace Shouldly
             return Compare(actual, expected, comparer) <= 0;
         }
 
-        public static bool GreaterThan<T>(T? comparable, T? expected) where T : IComparable<T>?
+        public static bool GreaterThan<T>(T? comparable, T? expected)
+            where T : IComparable<T>?
         {
             return Compare(comparable, expected) > 0;
         }
@@ -299,7 +303,8 @@ namespace Shouldly
             return Compare(actual, expected, comparer) > 0;
         }
 
-        public static bool LessThan<T>(T? comparable, T? expected) where T : IComparable<T>?
+        public static bool LessThan<T>(T? comparable, T? expected)
+            where T : IComparable<T>?
         {
             return Compare(comparable, expected) < 0;
         }
@@ -314,7 +319,8 @@ namespace Shouldly
             return comparer.Compare(actual, expected);
         }
 
-        private static decimal Compare<T>(T? comparable, T? expected) where T : IComparable<T>?
+        private static decimal Compare<T>(T? comparable, T? expected)
+            where T : IComparable<T>?
         {
             if (!typeof(T).IsValueType())
             {

@@ -8,7 +8,8 @@
 
             /// <param name="throwDirectly">Required to cover the code path where the stack trace is not trimmed.</param>
             /// <param name="throwInShouldlyAssembly">Required to cover the code path where the stack trace is trimmed.</param>
-            public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly, params Action[] throwInShouldlyAssembly) where TException : Exception
+            public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly, params Action[] throwInShouldlyAssembly)
+                where TException : Exception
             {
                 exceptionThrowers.Add(new ExceptionThrower(typeof(TException), false, throwDirectly));
 
@@ -22,7 +23,8 @@
             }
 
             /// <param name="throwDirectly">Required to cover the code path where the stack trace is not trimmed.</param>
-            public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly) where TException : Exception
+            public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly)
+                where TException : Exception
             {
                 exceptionThrowers.Add(new ExceptionThrower(typeof(TException), false, throwDirectly));
                 return this;

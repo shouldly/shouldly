@@ -6,7 +6,8 @@ namespace Shouldly
     [ShouldlyMethods]
     public static partial class DynamicShould
     {
-        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
+            where TException : Exception
         {
             return Should.Throw<TException>(actual, customMessage);
         }

@@ -69,7 +69,8 @@ namespace Shouldly.Configuration
         /// <summary>
         /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
         /// </summary>
-        public ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>() where T : Attribute
+        public ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
+            where T : Attribute
         {
             return Configure(c => c.TestMethodFinder = new FindMethodUsingAttribute<T>());
         }

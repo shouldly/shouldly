@@ -42,12 +42,14 @@ namespace Shouldly
                 throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
         }
 
-        public static void ShouldBeInRange<T>([DisallowNull] this T actual, T? from, T? to, string? customMessage = null) where T : IComparable<T>
+        public static void ShouldBeInRange<T>([DisallowNull] this T actual, T? from, T? to, string? customMessage = null)
+            where T : IComparable<T>
         {
             actual.AssertAwesomely(v => Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }
 
-        public static void ShouldNotBeInRange<T>([DisallowNull] this T actual, T? from, T? to, string? customMessage = null) where T : IComparable<T>
+        public static void ShouldNotBeInRange<T>([DisallowNull] this T actual, T? from, T? to, string? customMessage = null)
+            where T : IComparable<T>
         {
             actual.AssertAwesomely(v => !Is.InRange<T>(v, @from, to), actual, new { @from, to }, customMessage);
         }

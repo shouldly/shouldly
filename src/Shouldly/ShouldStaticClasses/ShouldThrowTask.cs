@@ -6,7 +6,8 @@ namespace Shouldly
     public static partial class Should
     {
         /*** Should.Throw(Task) ***/
-        public static TException Throw<TException>(Task actual, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>(Task actual, string? customMessage = null)
+            where TException : Exception
         {
             return Throw<TException>(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -17,7 +18,8 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<Task>) ***/
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<Task> actual, string? customMessage = null)
+            where TException : Exception
         {
             return Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -29,7 +31,8 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Task, TimeSpan) ***/
-        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null)
+            where TException : Exception
         {
             return Throw<TException>(() => actual, timeoutAfter, customMessage);
         }
@@ -41,7 +44,8 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<Task>, TimeSpan) ***/
-        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null)
+            where TException : Exception
         {
             return ThrowInternal<TException>(actual, timeoutAfter, customMessage);
         }
@@ -49,7 +53,8 @@ namespace Shouldly
         internal static TException ThrowInternal<TException>(
             [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
             string? customMessage,
-            [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
+            [CallerMemberName] string shouldlyMethod = null!)
+            where TException : Exception
         {
             try
             {

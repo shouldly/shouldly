@@ -186,14 +186,23 @@ namespace Shouldly
             return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
         }
 
-        private static string CommaDelimited<T>(this IEnumerable<T> enumerable) where T : class?
+        private static string CommaDelimited<T>(this IEnumerable<T> enumerable)
+            where T : class?
         {
             return enumerable.DelimitWith(", ");
         }
 
-        private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator) where T : class?
+        private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator)
+            where T : class?
         {
-            return string.Join(separator, enumerable.Select(i => Equals(i, null) ? null : i.ToString()).ToArray());
+            return string.Join(separator,
+                enumerable.Select(i =>
+                    {
+                        if (Equals(i, null))
+                            return null;
+                        return i.ToString();
+                    })
+                    .ToArray());
         }
 
         private static string ToStringAwesomely(this Enum value)

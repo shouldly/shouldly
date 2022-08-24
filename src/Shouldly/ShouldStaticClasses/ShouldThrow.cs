@@ -9,13 +9,17 @@ namespace Shouldly
     public static partial class Should
     {
         /*** Should.Throw(Action) ***/
-        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
+            where TException : Exception
         {
             return ThrowInternal<TException>(actual, customMessage);
         }
 
-        internal static TException ThrowInternal<TException>([InstantHandle] Action actual, string? customMessage,
-            [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
+        internal static TException ThrowInternal<TException>(
+            [InstantHandle] Action actual,
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
+            where TException : Exception
         {
             try
             {
@@ -60,13 +64,17 @@ namespace Shouldly
         }
 
         /*** Should.Throw(Func<T>) ***/
-        public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null) where TException : Exception
+        public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null)
+            where TException : Exception
         {
             return ThrowInternal<TException>(actual, customMessage);
         }
 
-        internal static TException ThrowInternal<TException>([InstantHandle] Func<object?> actual, string? customMessage,
-            [CallerMemberName] string shouldlyMethod = null!) where TException : Exception
+        internal static TException ThrowInternal<TException>(
+            [InstantHandle] Func<object?> actual,
+            string? customMessage,
+            [CallerMemberName] string shouldlyMethod = null!)
+            where TException : Exception
         {
             try
             {

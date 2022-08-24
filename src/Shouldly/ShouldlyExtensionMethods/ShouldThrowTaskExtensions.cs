@@ -7,7 +7,8 @@ namespace Shouldly
     public static partial class ShouldThrowTaskExtensions
     {
         /*** ShouldThrow(Task) ***/
-        public static TException ShouldThrow<TException>(this Task actual, string? customMessage = null) where TException : Exception
+        public static TException ShouldThrow<TException>(this Task actual, string? customMessage = null)
+            where TException : Exception
         {
             return ShouldThrow<TException>(() => actual, customMessage);
         }
@@ -24,7 +25,8 @@ namespace Shouldly
         }
 
         /*** ShouldThrow(Func<Task>) ***/
-        public static TException ShouldThrow<TException>(this Func<Task> actual, string? customMessage = null) where TException : Exception
+        public static TException ShouldThrow<TException>(this Func<Task> actual, string? customMessage = null)
+            where TException : Exception
         {
             return ShouldThrow<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
         }
@@ -41,7 +43,8 @@ namespace Shouldly
         }
 
         /*** ShouldThrow(Task, TimeSpan) ***/
-        public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
+        public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string? customMessage = null)
+            where TException : Exception
         {
             return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
         }
@@ -58,7 +61,8 @@ namespace Shouldly
         }
 
         /*** ShouldThrow(Func<Task>, TimeSpan) ***/
-        public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null) where TException : Exception
+        public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null)
+            where TException : Exception
         {
             return Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
         }
