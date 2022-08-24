@@ -6,10 +6,10 @@ namespace Shouldly.Tests.ShouldNotThrow
         public void ShouldThrowAWobbly()
         {
             var task = Task.Factory.StartNew(() =>
-            {
-                Task.Delay(5000).Wait();
-                return "foo";
-            },
+                {
+                    Task.Delay(5000).Wait();
+                    return "foo";
+                },
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
