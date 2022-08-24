@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldThrow
         [Fact]
         public void ActionDelegateScenarioShouldFail()
         {
-            Action action = () => { };
+            var action = () => { };
             Verify.ShouldFail(() =>
 action.ShouldThrow<NotImplementedException>("Some additional context"),
 
@@ -34,7 +34,7 @@ Additional Info:
         [Fact]
         public void ActionDelegateScenarioShouldFail_ExceptionTypePassedIn()
         {
-            Action action = () => { };
+            var action = () => { };
             Verify.ShouldFail(() =>
 action.ShouldThrow(typeof(NotImplementedException), "Some additional context"),
 

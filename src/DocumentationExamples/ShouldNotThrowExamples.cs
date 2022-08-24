@@ -35,7 +35,7 @@ namespace DocumentationExamples
             {
                 var homer = new Person { Name = "Homer", Salary = 30000 };
                 var denominator = 0;
-                Action action = () =>
+                var action = () =>
                 {
                     var y = homer.Salary / denominator;
                 };
@@ -59,7 +59,7 @@ namespace DocumentationExamples
             DocExampleWriter.Document(() =>
             {
                 string? name = null;
-                Func<Person> func = () => new Person(name!);
+                var func = () => new Person(name!);
                 func.ShouldNotThrow();
             }, _testOutputHelper);
         }

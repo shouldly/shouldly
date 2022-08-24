@@ -187,13 +187,13 @@ namespace Shouldly
 
         private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)
         {
-            return comparisons.TryGetValue(actual, out IList<object?>? list)
+            return comparisons.TryGetValue(actual, out var list)
                    && list.Contains(expected);
         }
 
         private static void Record(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)
         {
-            if (comparisons.TryGetValue(actual, out IList<object?>? list))
+            if (comparisons.TryGetValue(actual, out var list))
                 list.Add(expected);
             else
                 comparisons.Add(actual, new List<object?>(new[] { expected }));

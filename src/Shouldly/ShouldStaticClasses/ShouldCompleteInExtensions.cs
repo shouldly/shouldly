@@ -30,7 +30,7 @@ namespace Shouldly
         /*** CompleteIn(Func<Task<T>>) ***/
         public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
         {
-            Task<T> task = actual();
+            var task = actual();
             CompleteIn(task, timeout, customMessage, "Task");
             return task.Result;
         }

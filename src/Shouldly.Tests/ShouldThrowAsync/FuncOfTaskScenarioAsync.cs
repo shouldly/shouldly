@@ -161,7 +161,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
         {
             try
             {
-                Func<Task> doSomething = () => Task.CompletedTask;
+                var doSomething = () => Task.CompletedTask;
                 await Should.ThrowAsync<Exception>(async () => await doSomething());
             }
             catch (Exception e)

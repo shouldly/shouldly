@@ -1,2 +1,2 @@
-Func<Person> func = () => new Person("Homer");
+var func = () => new Person("Homer");
 func.ShouldThrow<ArgumentNullException>();

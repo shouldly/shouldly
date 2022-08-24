@@ -338,7 +338,7 @@ Additional Info:
         {
             var subject = new IndexableObject(new List<string> { "foo", "bar" });
             var expected = new IndexableObject(new List<string> { "a", "b" });
-            Action indexableObjectComparison = () => subject.ShouldBeEquivalentTo(expected);
+            var indexableObjectComparison = () => subject.ShouldBeEquivalentTo(expected);
 
             indexableObjectComparison
                 .ShouldThrow<NotSupportedException>()

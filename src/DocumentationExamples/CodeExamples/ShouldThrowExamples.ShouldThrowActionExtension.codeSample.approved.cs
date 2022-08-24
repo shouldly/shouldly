@@ -1,6 +1,6 @@
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 1;
-Action action = () =>
+var action = () =>
                 {
                     var y = homer.Salary / denominator;
                 };
