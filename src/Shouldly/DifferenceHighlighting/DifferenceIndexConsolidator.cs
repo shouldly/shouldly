@@ -56,14 +56,13 @@
             return adjustedIndex;
         }
 
-        private List<KeyValuePair<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
+        private static List<KeyValuePair<int, int>> CalculateDistanceBetweenDiffIndices(List<int> diffIndices)
         {
             var diffToNextIndex = diffIndices.Zip(diffIndices.Skip(1), (i1, i2) => i2 - i1).ToList();
 
             diffToNextIndex.Add(0);
 
-            var result = diffIndices.Zip(diffToNextIndex, (i1, i2) => new KeyValuePair<int, int>(i1, i2)).ToList();
-            return result;
+            return diffIndices.Zip(diffToNextIndex, (i1, i2) => new KeyValuePair<int, int>(i1, i2)).ToList();
         }
     }
 }
