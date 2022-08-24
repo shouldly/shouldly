@@ -78,7 +78,7 @@ namespace Shouldly.DifferenceHighlighting
             return value[index..];
         }
 
-        private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue)
+        private static List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue)
         {
             var indicesOfAllDifferences = new List<int>();
             var maxLengthOfStrings = Math.Max(actualValue.Length, expectedValue.Length);

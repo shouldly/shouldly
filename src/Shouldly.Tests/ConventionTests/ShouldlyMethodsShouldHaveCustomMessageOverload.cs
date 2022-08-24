@@ -23,12 +23,12 @@ namespace Shouldly.Tests.ConventionTests
                 failingTypes);
         }
 
-        private string FormatKey(MethodInfo shouldlyMethods)
+        private static string FormatKey(MethodInfo shouldlyMethods)
         {
             return shouldlyMethods.FormatMethod(true);
         }
 
-        private bool HasNoCustomMessageOverload(IGrouping<string, MethodInfo> shouldlyMethod)
+        private static bool HasNoCustomMessageOverload(IGrouping<string, MethodInfo> shouldlyMethod)
         {
             var hasFuncStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<Func<string>>));
             var hasStringOverload = shouldlyMethod.Any(m => m.GetParameters().Any(IsCustomMessageParameter<string>));
