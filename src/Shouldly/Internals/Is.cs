@@ -7,7 +7,7 @@ namespace Shouldly
 {
     internal static class Is
     {
-        public static bool InRange<T>([DisallowNull] T comparable, T? @from, T? to)
+        public static bool InRange<T>([DisallowNull] T comparable, T? from, T? to)
             where T : IComparable<T>
         {
             return comparable.CompareTo(from) >= 0 && comparable.CompareTo(to) <= 0;
