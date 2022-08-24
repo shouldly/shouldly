@@ -9,7 +9,7 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
         {
             try
             {
-                var task = Task.Factory.StartNew(() => { throw new InvalidOperationException("exception message"); },
+                var task = Task.Factory.StartNew(() => throw new InvalidOperationException("exception message"),
                     CancellationToken.None, TaskCreationOptions.None,
                     TaskScheduler.Default);
 
@@ -32,9 +32,8 @@ namespace Shouldly.Tests.ShouldNotThrowAsync
             {
                 var task = Task.Factory.StartNew(() => {
                     var child1 = Task.Factory.StartNew(() => {
-                        var child2 = Task.Factory.StartNew(() => {
-                            throw new InvalidOperationException();
-                        }, TaskCreationOptions.AttachedToParent);
+                        var child2 = Task.Factory.StartNew(() =>
+                            throw new InvalidOperationException(), TaskCreationOptions.AttachedToParent);
                         throw new InvalidOperationException();
                     }, TaskCreationOptions.AttachedToParent);
                 });

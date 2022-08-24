@@ -8,7 +8,7 @@ namespace Shouldly.Tests.ShouldThrow
         [Fact]
         public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail()
         {
-            Func<object> action = () => { throw new RankException(); };
+            Func<object> action = () => throw new RankException();
             Verify.ShouldFail(() =>
 action.ShouldThrow<InvalidOperationException>("Some additional context"),
 
@@ -36,7 +36,7 @@ Additional Info:
     [Fact]
     public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail_ExceptionTypePassedIn()
     {
-        Func<object> action = () => { throw new RankException(); };
+        Func<object> action = () => throw new RankException();
         Verify.ShouldFail(() =>
 action.ShouldThrow(typeof(InvalidOperationException), "Some additional context"),
 

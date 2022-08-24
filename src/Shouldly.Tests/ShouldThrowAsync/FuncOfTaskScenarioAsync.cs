@@ -77,7 +77,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
         [Fact]
         public void ShouldPass()
         {
-            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
@@ -88,7 +88,7 @@ namespace Shouldly.Tests.ShouldThrowAsync
         [Fact]
         public void ShouldPass_ExceptionTypePassedIn()
         {
-            var task = Task.Factory.StartNew(() => { throw new InvalidOperationException(); },
+            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
