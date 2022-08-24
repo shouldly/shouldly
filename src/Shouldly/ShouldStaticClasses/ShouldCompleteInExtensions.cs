@@ -44,7 +44,7 @@ namespace Shouldly
         /*** CompleteIn(Task<T>) ***/
         public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
         {
-            CompleteIn((Task)actual, timeout, customMessage, "Task");
+            CompleteIn(actual, timeout, customMessage, "Task");
             return actual.Result;
         }
 
