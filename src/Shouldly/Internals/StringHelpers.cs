@@ -132,7 +132,7 @@ namespace Shouldly
         {
             if (stringToClip.Length > maximumStringLength)
             {
-                stringToClip = stringToClip.Substring(0, maximumStringLength);
+                stringToClip = stringToClip[..maximumStringLength];
             }
 
             return stringToClip;
@@ -142,7 +142,7 @@ namespace Shouldly
         {
             if (stringToClip.Length > maximumStringLength)
             {
-                stringToClip = stringToClip.Substring(0, maximumStringLength) + ellipsis;
+                stringToClip = stringToClip[..maximumStringLength] + ellipsis;
             }
 
             return stringToClip;

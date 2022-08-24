@@ -79,7 +79,7 @@ Additional Info:
                 return value;
             }
 
-            return value.Substring(0, 5000);
+            return value[..5000];
         }
 
         public bool IsSatisfied()

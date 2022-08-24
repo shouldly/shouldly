@@ -60,7 +60,7 @@ namespace Shouldly.Internals
 
                 var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
                 if (indexOf > 0)
-                    codePart = codeLines.Substring(0, indexOf - 1).Trim();
+                    codePart = codeLines[..(indexOf - 1)].Trim();
 
                 // When the static method is used instead of the extension method,
                 // the code part will be "Should".
@@ -84,11 +84,11 @@ namespace Shouldly.Internals
                 indexOfMethod +
                 _shouldMethod!.Length;
 
-            var parameterString = codeLines.Substring(indexOfParameters);
+            var parameterString = codeLines[indexOfParameters..];
             // Remove generic parameter if need be
             parameterString = parameterString.StartsWith("<", StringComparison.Ordinal)
-                ? parameterString.Substring(parameterString.IndexOf(">", StringComparison.Ordinal) + 2)
-                : parameterString.Substring(1);
+                ? parameterString[(parameterString.IndexOf(">", StringComparison.Ordinal) + 2)..]
+                : parameterString[1..];
 
             var parentheses = new Dictionary<char, char>
             {

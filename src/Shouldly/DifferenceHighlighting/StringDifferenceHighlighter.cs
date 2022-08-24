@@ -77,7 +77,7 @@ namespace Shouldly.DifferenceHighlighting
                 return value.Substring(index, maxDiffLength);
             }
 
-            return value.Substring(index);
+            return value[index..];
         }
 
         private List<int> GetIndicesOfAllDifferences(string actualValue, string expectedValue)
