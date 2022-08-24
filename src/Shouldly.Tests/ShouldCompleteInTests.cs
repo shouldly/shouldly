@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests
+﻿namespace Shouldly.Tests
 {
     public class ShouldCompleteInTests
     {

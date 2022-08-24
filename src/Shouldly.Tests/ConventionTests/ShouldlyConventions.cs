@@ -1,6 +1,5 @@
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
-using Xunit;
 
 namespace Shouldly.Tests.ConventionTests
 {

@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.ShouldNotThrowAsync
+﻿namespace Shouldly.Tests.ShouldNotThrowAsync
 {
     public class FuncOfTaskScenarioAsync
     {

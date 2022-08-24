@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs
 {
     // Just before the edge case for consolidation. 2 differences are exactly the required length apart to be consolidated into one diff
     public class DiffsCloseToEachOtherAreConsolidatedBorderConditionOne

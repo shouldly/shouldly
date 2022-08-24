@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.ShouldStartWith
+﻿namespace Shouldly.Tests.Strings.ShouldStartWith
 {
     public class BasicScenarioCaseSensitive
     {

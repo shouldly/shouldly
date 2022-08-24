@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using DiffEngine;
 using Shouldly.Tests.Strings;
-using Xunit;
 
 namespace Shouldly.Tests.ShouldMatchApproved
 {

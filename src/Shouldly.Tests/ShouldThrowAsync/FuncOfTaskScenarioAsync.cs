@@ -1,5 +1,4 @@
-﻿using Xunit;
-using Xunit.Sdk;
+﻿using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync
 {

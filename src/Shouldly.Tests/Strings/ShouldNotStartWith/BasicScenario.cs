@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.ShouldNotStartWith
+﻿namespace Shouldly.Tests.Strings.ShouldNotStartWith
 {
     public class BasicScenario
     {

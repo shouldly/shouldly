@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.InternalTests
+﻿namespace Shouldly.Tests.InternalTests
 {
     public class EqualityComparerTests
     {

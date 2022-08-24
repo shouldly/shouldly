@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.ShouldBeInOrder
+﻿namespace Shouldly.Tests.ShouldBeInOrder
 {
     public class UnitArrayScenario
     {

@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings
 {
     public class LongStringsAreTruncatedAtTheStart
     {

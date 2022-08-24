@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings
+﻿namespace Shouldly.Tests.Strings
 {
     public class ShouldNotBeNullOrEmpty
     {

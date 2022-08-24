@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
 {
     public class ShouldBeScenario
     {

@@ -1,6 +1,5 @@
 ﻿using System.Dynamic;
 using Shouldly.Tests.Strings;
-using Xunit;
 
 namespace Shouldly.Tests.DynamicShould
 {

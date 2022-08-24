@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
 {
     public class UnsafeStringBackslashVScenario
     {

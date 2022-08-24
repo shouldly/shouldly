@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.Strings.ShouldBe
+﻿namespace Shouldly.Tests.Strings.ShouldBe
 {
     public class InsensitiveToLineEndingsScenario
     {

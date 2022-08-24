@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.ShouldNotThrow
+﻿namespace Shouldly.Tests.ShouldNotThrow
 {
     public class NestedAwaitsDoNotDeadlockScenario
     {

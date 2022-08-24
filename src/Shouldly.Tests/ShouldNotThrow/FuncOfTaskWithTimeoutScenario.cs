@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace Shouldly.Tests.ShouldNotThrow
 {
     public class FuncOfTaskWithTimeoutScenario

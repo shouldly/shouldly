@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.ShouldBeUnique
+﻿namespace Shouldly.Tests.ShouldBeUnique
 {
     public class LargeDatasetScenario
     {

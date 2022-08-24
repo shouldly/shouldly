@@ -1,5 +1,4 @@
 ﻿using Shouldly.Tests.Strings;
-using Xunit;
 
 namespace Shouldly.Tests.ShouldBeEmpty
 {

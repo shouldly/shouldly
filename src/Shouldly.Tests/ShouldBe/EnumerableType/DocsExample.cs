@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Shouldly.Tests.ShouldBe.EnumerableType
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
 {
     public class DocsExample
     {

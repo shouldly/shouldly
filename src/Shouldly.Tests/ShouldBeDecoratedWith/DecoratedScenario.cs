@@ -1,5 +1,4 @@
 ﻿using Shouldly.Tests.TestHelpers;
-using Xunit;
 
 namespace Shouldly.Tests.ShouldBeDecoratedWith
 {
