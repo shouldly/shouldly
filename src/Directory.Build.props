@@ -10,4 +10,8 @@
     <NoWarn>CS1591</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
 </Project>

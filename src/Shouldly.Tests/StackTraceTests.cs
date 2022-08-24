@@ -34,7 +34,7 @@ namespace Shouldly.Tests
 
         private static string GetEndingWhitespace(string value)
         {
-            return value.Substring(value.TrimEnd().Length);
+            return value[value.TrimEnd().Length..];
         }
 
         public static IEnumerable<object[]> ExceptionThrowers()
