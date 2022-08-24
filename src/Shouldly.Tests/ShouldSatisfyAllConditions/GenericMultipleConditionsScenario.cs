@@ -78,8 +78,8 @@ Additional Info:
         {
             var result = 4;
             result.ShouldSatisfyAllConditions(
-                        r => result.ShouldBeOfType<int>(),
-                        r => result.ShouldBeGreaterThan(3));
+                        _ => result.ShouldBeOfType<int>(),
+                        _ => result.ShouldBeGreaterThan(3));
         }
     }
 }
