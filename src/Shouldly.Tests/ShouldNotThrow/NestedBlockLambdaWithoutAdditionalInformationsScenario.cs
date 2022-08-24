@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotThrow
+﻿namespace Shouldly.Tests.ShouldNotThrow
 {
     public class NestedBlockLambdaWithoutAdditionalInformationsScenario
     {

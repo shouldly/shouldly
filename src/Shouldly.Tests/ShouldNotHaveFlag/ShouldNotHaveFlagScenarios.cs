@@ -1,5 +1,4 @@
 ﻿using Shouldly.ShouldlyExtensionMethods;
-using Shouldly.Tests.Strings;
 
 namespace Shouldly.Tests.ShouldNotHaveFlag
 {

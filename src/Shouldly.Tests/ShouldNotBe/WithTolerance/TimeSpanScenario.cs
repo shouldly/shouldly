@@ -1,5 +1,3 @@
-using Shouldly.Tests.Strings;
-
 namespace Shouldly.Tests.ShouldNotBe.WithTolerance
 {
     public class TimeSpanScenario

@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldContain
+﻿namespace Shouldly.Tests.ShouldContain
 {
     public class DoubleWithToleranceScenario
     {

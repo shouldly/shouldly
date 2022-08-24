@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.DynamicShould
+﻿namespace Shouldly.Tests.DynamicShould
 {
     public class HavePropertyNonDynamicScenario
     {

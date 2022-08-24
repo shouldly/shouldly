@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBeInOrder
+﻿namespace Shouldly.Tests.ShouldBeInOrder
 {
     public class DoubleArrayScenario
     {

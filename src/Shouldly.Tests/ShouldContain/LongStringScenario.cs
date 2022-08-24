@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldContain
+﻿namespace Shouldly.Tests.ShouldContain
 {
     public class LongStringScenario
     {

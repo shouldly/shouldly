@@ -1,5 +1,4 @@
 ﻿using System.Dynamic;
-using Shouldly.Tests.Strings;
 
 namespace Shouldly.Tests.DynamicShould
 {

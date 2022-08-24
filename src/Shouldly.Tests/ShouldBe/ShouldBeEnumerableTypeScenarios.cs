@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBe
+﻿namespace Shouldly.Tests.ShouldBe
 {
     public class ShouldBeEnumerableTypeScenarios
     {

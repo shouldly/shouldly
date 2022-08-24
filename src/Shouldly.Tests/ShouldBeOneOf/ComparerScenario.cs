@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBe.ShouldBeOneOf
+﻿namespace Shouldly.Tests.ShouldBe.ShouldBeOneOf
 {
     public class ComparerScenario
     {

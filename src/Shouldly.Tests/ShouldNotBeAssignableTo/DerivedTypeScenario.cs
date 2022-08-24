@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldNotBeAssignableTo
+﻿namespace Shouldly.Tests.ShouldNotBeAssignableTo
 {
     public class DerivedTypeScenario
     {

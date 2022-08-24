@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldNotBeOfType
+﻿namespace Shouldly.Tests.ShouldNotBeOfType
 {
     public class DerivedTypeScenario
     {

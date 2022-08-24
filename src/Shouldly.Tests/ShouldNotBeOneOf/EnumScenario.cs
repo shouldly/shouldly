@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldNotBeOneOf
+﻿namespace Shouldly.Tests.ShouldNotBeOneOf
 {
     public class EnumScenario
     {

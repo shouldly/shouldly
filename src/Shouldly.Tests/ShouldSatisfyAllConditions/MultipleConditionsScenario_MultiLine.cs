@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldSatisfyAllConditions
+﻿namespace Shouldly.Tests.ShouldSatisfyAllConditions
 {
     public class MultipleConditionsScenario_MultiLine
     {

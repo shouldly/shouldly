@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotBe
+﻿namespace Shouldly.Tests.ShouldNotBe
 {
     public class NumbersOfDifferentTypesScenario
     {

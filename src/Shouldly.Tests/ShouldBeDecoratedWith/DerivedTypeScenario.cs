@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBeDecoratedWith
+﻿namespace Shouldly.Tests.ShouldBeDecoratedWith
 {
     public class DerivedTypeScenario
     {

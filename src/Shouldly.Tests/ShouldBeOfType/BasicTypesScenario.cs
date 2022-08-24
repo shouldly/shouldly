@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeOfType
+﻿namespace Shouldly.Tests.ShouldBeOfType
 {
     public class BasicTypesScenario
     {

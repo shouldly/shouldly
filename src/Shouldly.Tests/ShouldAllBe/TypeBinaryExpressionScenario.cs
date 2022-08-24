@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldAllBe
+﻿namespace Shouldly.Tests.ShouldAllBe
 {
     public class TypeBinaryExpressionScenario
     {

@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeLessThanOrEqualTo
+﻿namespace Shouldly.Tests.ShouldBeLessThanOrEqualTo
 {
     public class IntScenario
     {

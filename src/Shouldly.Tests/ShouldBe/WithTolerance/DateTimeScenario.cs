@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBe.WithTolerance
+﻿namespace Shouldly.Tests.ShouldBe.WithTolerance
 {
     public class DateTimeScenario
     {

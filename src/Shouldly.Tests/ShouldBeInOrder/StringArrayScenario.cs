@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeInOrder
+﻿namespace Shouldly.Tests.ShouldBeInOrder
 {
     public class StringArrayScenario
     {

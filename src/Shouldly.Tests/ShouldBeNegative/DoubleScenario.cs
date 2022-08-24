@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBeNegative
+﻿namespace Shouldly.Tests.ShouldBeNegative
 {
     [UseCulture("en-US")]
     public class DoubleScenario

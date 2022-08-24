@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeNegative
+﻿namespace Shouldly.Tests.ShouldBeNegative
 {
     public class ZeroDoubleScenario
     {

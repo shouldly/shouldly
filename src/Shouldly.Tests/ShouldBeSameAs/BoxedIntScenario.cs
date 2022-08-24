@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeSameAs
+﻿namespace Shouldly.Tests.ShouldBeSameAs
 {
     public class BoxedIntScenario
     {

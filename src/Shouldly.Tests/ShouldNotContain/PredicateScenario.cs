@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotContain
+﻿namespace Shouldly.Tests.ShouldNotContain
 {
     public class PredicateScenario
     {

@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
+﻿namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
 {
     public class IntScenario
     {

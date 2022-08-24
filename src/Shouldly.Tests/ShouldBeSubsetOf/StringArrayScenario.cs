@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldBeSubsetOf
+﻿namespace Shouldly.Tests.ShouldBeSubsetOf
 {
     public class StringArrayScenario
     {

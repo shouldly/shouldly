@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotBeEmpty
+﻿namespace Shouldly.Tests.ShouldNotBeEmpty
 {
     public class ArrayScenario
     {

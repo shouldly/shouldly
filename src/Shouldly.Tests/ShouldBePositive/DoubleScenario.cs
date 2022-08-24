@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBePositive
+﻿namespace Shouldly.Tests.ShouldBePositive
 {
     public class DoubleScenario
     {

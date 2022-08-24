@@ -1,5 +1,3 @@
-using Shouldly.Tests.Strings;
-
 namespace Shouldly.Tests.ShouldThrow
 {
     public class TaskScenario

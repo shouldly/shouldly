@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotBeAssignableTo
+﻿namespace Shouldly.Tests.ShouldNotBeAssignableTo
 {
     public class BasicTypesScenario
     {

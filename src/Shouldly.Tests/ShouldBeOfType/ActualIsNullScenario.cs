@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBeOfType
+﻿namespace Shouldly.Tests.ShouldBeOfType
 {
     public class ActualIsNullScenario
     {

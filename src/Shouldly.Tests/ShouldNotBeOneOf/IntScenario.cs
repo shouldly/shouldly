@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotBeOneOf
+﻿namespace Shouldly.Tests.ShouldNotBeOneOf
 {
     public class IntScenario
     {

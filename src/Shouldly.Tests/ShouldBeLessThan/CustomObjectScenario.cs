@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBeLessThan
+﻿namespace Shouldly.Tests.ShouldBeLessThan
 {
     public class CustomObjectScenario
     {

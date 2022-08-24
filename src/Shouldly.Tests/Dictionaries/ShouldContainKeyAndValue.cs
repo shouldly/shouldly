@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.Dictionaries
+﻿namespace Shouldly.Tests.Dictionaries
 {
     public class ShouldContainKeyAndValue
     {

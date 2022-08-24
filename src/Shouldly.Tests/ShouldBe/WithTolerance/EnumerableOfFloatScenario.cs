@@ -1,7 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-
-namespace Shouldly.Tests.ShouldBe.WithTolerance
+﻿namespace Shouldly.Tests.ShouldBe.WithTolerance
 {
     public class EnumerableOfFloatScenario
     {

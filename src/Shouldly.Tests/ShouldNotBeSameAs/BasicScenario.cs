@@ -1,6 +1,4 @@
-﻿using Shouldly.Tests.Strings;
-
-namespace Shouldly.Tests.ShouldNotBeSameAs
+﻿namespace Shouldly.Tests.ShouldNotBeSameAs
 {
     public class BasicScenario
     {
