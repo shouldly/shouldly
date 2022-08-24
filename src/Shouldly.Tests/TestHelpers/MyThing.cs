@@ -1,4 +1,3 @@
-namespace Shouldly.Tests.TestHelpers
-{
-    internal class MyThing : MyBase { }
-}
+namespace Shouldly.Tests.TestHelpers;
+
+internal class MyThing : MyBase { }

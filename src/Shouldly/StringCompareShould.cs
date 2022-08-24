@@ -1,9 +1,8 @@
-﻿namespace Shouldly
+﻿namespace Shouldly;
+
+[Flags]
+public enum StringCompareShould
 {
-    [Flags]
-    public enum StringCompareShould
-    {
-        IgnoreCase = 1,
-        IgnoreLineEndings = 2
-    }
+    IgnoreCase = 1,
+    IgnoreLineEndings = 2
 }

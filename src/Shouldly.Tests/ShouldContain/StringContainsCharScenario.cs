@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldContain
+﻿namespace Shouldly.Tests.ShouldContain;
+
+public class StringContainsCharScenario
 {
-    public class StringContainsCharScenario
+    private const string Target = "Foo";
+
+    [Fact]
+    public void StringContainsCharScenarioShouldFail()
     {
-        private const string Target = "Foo";
+        Verify.ShouldFail(() =>
+                Target.ShouldContain('B', "Some additional context"),
 
-        [Fact]
-        public void StringContainsCharScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-Target.ShouldContain('B', "Some additional context"),
-
-errorWithSource:
-@"Target
+            errorWithSource:
+            @"Target
     should contain
 B
     but was actually
@@ -20,20 +20,19 @@ B
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""Foo""
+            errorWithoutSource:
+            @"""Foo""
     should contain
 B
     but did not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            Target.ShouldContain('F');
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        Target.ShouldContain('F');
     }
 }

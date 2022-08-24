@@ -1,22 +1,22 @@
-﻿namespace Shouldly.Tests.ShouldNotBeEmpty
+﻿namespace Shouldly.Tests.ShouldNotBeEmpty;
+
+public class ArrayScenario
 {
-    public class ArrayScenario
-    {
     [Fact]
     public void ArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new int[0].ShouldNotBeEmpty("Some additional context"),
+                new int[0].ShouldNotBeEmpty("Some additional context"),
 
-errorWithSource:
-@"new int[0]
+            errorWithSource:
+            @"new int[0]
     should not be empty but was
 
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[]
+            errorWithoutSource:
+            @"[]
     should not be empty but was
 
 Additional Info:
@@ -28,5 +28,4 @@ Additional Info:
     {
         new[] { 1 }.ShouldNotBeEmpty();
     }
-}
 }

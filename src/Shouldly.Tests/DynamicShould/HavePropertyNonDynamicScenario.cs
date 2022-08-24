@@ -1,40 +1,39 @@
-﻿namespace Shouldly.Tests.DynamicShould
+﻿namespace Shouldly.Tests.DynamicShould;
+
+public class HavePropertyNonDynamicScenario
 {
-    public class HavePropertyNonDynamicScenario
+    private class Foo
     {
-        private class Foo
-        {
-            public string? Bar { get; set; }
-        }
+        public string? Bar { get; set; }
+    }
 
-        [Fact]
-        public void HavePropertyNonDynamicScenarioShouldFail()
-        {
-            dynamic testDynamicObject = new Foo();
-            testDynamicObject.Bar = "BarPropertyValue";
+    [Fact]
+    public void HavePropertyNonDynamicScenarioShouldFail()
+    {
+        dynamic testDynamicObject = new Foo();
+        testDynamicObject.Bar = "BarPropertyValue";
 
-            Verify.ShouldFail(() =>
-            Shouldly.DynamicShould
-                .HaveProperty(testDynamicObject, "foo", "Some additional context"),
+        Verify.ShouldFail(() =>
+                Shouldly.DynamicShould
+                    .HaveProperty(testDynamicObject, "foo", "Some additional context"),
 
-errorWithSource:
-@"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+            errorWithSource:
+            @"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
 
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Dynamic object should contain property ""foo"" but does not." + @"
+            errorWithoutSource:
+            @"Dynamic object should contain property ""foo"" but does not." + @"
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            dynamic testDynamicObject = new Foo();
-            Shouldly.DynamicShould.HaveProperty(testDynamicObject, "Bar");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        dynamic testDynamicObject = new Foo();
+        Shouldly.DynamicShould.HaveProperty(testDynamicObject, "Bar");
     }
 }

@@ -1,36 +1,35 @@
-﻿namespace Shouldly.DifferenceHighlighting
+﻿namespace Shouldly.DifferenceHighlighting;
+
+internal static class DifferenceHighlighter
 {
-    internal static class DifferenceHighlighter
+    private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new()
     {
-        private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new()
+        new EnumerableDifferenceHighlighter()
+    };
+
+    /// <summary>
+    /// Compares an actual value against an expected one and creates
+    /// a string with the differences highlighted
+    /// </summary>
+    public static string? HighlightDifferences(IShouldlyAssertionContext context)
+    {
+        var validDifferenceHighlighter = GetDifferenceHighlighterFor(context);
+
+        if (validDifferenceHighlighter == null)
         {
-            new EnumerableDifferenceHighlighter()
-        };
-
-        /// <summary>
-        /// Compares an actual value against an expected one and creates
-        /// a string with the differences highlighted
-        /// </summary>
-        public static string? HighlightDifferences(IShouldlyAssertionContext context)
-        {
-            var validDifferenceHighlighter = GetDifferenceHighlighterFor(context);
-
-            if (validDifferenceHighlighter == null)
-            {
-                return context.Actual.ToStringAwesomely();
-            }
-
-            return validDifferenceHighlighter.HighlightDifferences(context);
+            return context.Actual.ToStringAwesomely();
         }
 
-        public static bool CanHighlightDifferences(IShouldlyAssertionContext context)
-        {
-            return GetDifferenceHighlighterFor(context) != null;
-        }
+        return validDifferenceHighlighter.HighlightDifferences(context);
+    }
 
-        private static IDifferenceHighlighter? GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
-        {
-            return _differenceHighlighters.FirstOrDefault(x => x.CanProcess(context));
-        }
+    public static bool CanHighlightDifferences(IShouldlyAssertionContext context)
+    {
+        return GetDifferenceHighlighterFor(context) != null;
+    }
+
+    private static IDifferenceHighlighter? GetDifferenceHighlighterFor(IShouldlyAssertionContext context)
+    {
+        return _differenceHighlighters.FirstOrDefault(x => x.CanProcess(context));
     }
 }

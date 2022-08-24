@@ -1,20 +1,20 @@
-﻿namespace Shouldly.Tests.ShouldNotThrow
+﻿namespace Shouldly.Tests.ShouldNotThrow;
+
+public class FuncOfTaskScenario
 {
-    public class FuncOfTaskScenario
+    [Fact]
+    [UseCulture("en-US")]
+    public void FuncOfTaskScenarioShouldFail()
     {
-        [Fact]
-        [UseCulture("en-US")]
-        public void FuncOfTaskScenarioShouldFail()
-        {
-            var task = Task.Factory.StartNew(() => throw new RankException(),
-                            CancellationToken.None, TaskCreationOptions.None,
-                            TaskScheduler.Default);
+        var task = Task.Factory.StartNew(() => throw new RankException(),
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            Verify.ShouldFail(() =>
-            task.ShouldNotThrow("Some additional context"),
+        Verify.ShouldFail(() =>
+                task.ShouldNotThrow("Some additional context"),
 
-errorWithSource:
-@"Task `task`
+            errorWithSource:
+            @"Task `task`
     should not throw but threw
 System.RankException
     with message
@@ -23,8 +23,8 @@ System.RankException
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Task
+            errorWithoutSource:
+            @"Task
     should not throw but threw
 System.RankException
     with message
@@ -32,16 +32,15 @@ System.RankException
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var task = Task.Factory.StartNew(() => { },
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
+    [Fact]
+    public void ShouldPass()
+    {
+        var task = Task.Factory.StartNew(() => { },
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            task.ShouldNotThrow();
-        }
+        task.ShouldNotThrow();
     }
 }

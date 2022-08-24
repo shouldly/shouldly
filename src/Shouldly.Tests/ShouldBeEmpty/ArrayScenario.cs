@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBeEmpty
+﻿namespace Shouldly.Tests.ShouldBeEmpty;
+
+public class ArrayScenario
 {
-    public class ArrayScenario
-    {
     [Fact]
     public void ArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { 1 }.ShouldBeEmpty("Some additional context"),
+                new[] { 1 }.ShouldBeEmpty("Some additional context"),
 
-errorWithSource:
-@"new[] { 1 }
+            errorWithSource:
+            @"new[] { 1 }
     should be empty but had
 1
     item and was
@@ -18,8 +18,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1]
+            errorWithoutSource:
+            @"[1]
     should be empty but had
 1
     item and was not empty
@@ -33,5 +33,4 @@ Additional Info:
     {
         new int[0].ShouldBeEmpty();
     }
-}
 }

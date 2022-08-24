@@ -1,7 +1,6 @@
-﻿namespace Shouldly.Internals
+﻿namespace Shouldly.Internals;
+
+internal interface ICodeTextGetter
 {
-    internal interface ICodeTextGetter
-    {
-        string? GetCodeText(object? actual, System.Diagnostics.StackTrace? stackTrace = null);
-    }
+    string? GetCodeText(object? actual, System.Diagnostics.StackTrace? stackTrace = null);
 }

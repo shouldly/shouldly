@@ -1,10 +1,9 @@
-﻿namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers;
+
+public static class EnumerableExtensionHelpers
 {
-    public static class EnumerableExtensionHelpers
+    public static IEnumerable<T> ToEnumerable<T>(this T obj)
     {
-        public static IEnumerable<T> ToEnumerable<T>(this T obj)
-        {
-            yield return obj;
-        }
+        yield return obj;
     }
 }

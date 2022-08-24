@@ -3,35 +3,34 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeInRangeExamples
 {
-    public class ShouldBeInRangeExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeInRangeExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeInRangeExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeInRange()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var homer = new Person { Name = "Homer", Salary = 300000000 };
+            homer.Salary.ShouldBeInRange(30000, 40000);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeInRange()
+    [Fact]
+    public void ShouldNotBeInRange()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var homer = new Person { Name = "Homer", Salary = 300000000 };
-                homer.Salary.ShouldBeInRange(30000, 40000);
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotBeInRange()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
-                mrBurns.Salary.ShouldNotBeInRange(30000, 40000);
-            }, _testOutputHelper);
-        }
+            var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
+            mrBurns.Salary.ShouldNotBeInRange(30000, 40000);
+        }, _testOutputHelper);
     }
 }

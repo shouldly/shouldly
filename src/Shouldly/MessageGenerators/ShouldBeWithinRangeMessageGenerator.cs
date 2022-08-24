@@ -1,51 +1,50 @@
 using Shouldly.DifferenceHighlighting;
 
-namespace Shouldly.MessageGenerators
+namespace Shouldly.MessageGenerators;
+
+internal class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
 {
-    internal class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
+    public override bool CanProcess(IShouldlyAssertionContext context)
     {
-        public override bool CanProcess(IShouldlyAssertionContext context)
+        return (context.ShouldMethod.StartsWith("ShouldBe", StringComparison.Ordinal) || context.ShouldMethod.StartsWith("ShouldNotBe", StringComparison.Ordinal))
+               && !context.ShouldMethod.Contains("Contain")
+               && context.Tolerance != null;
+    }
+
+    public override string GenerateErrorMessage(IShouldlyAssertionContext context)
+    {
+        var codePart = context.CodePart;
+        var tolerance = context.Tolerance.ToStringAwesomely();
+        var expected = context.Expected.ToStringAwesomely();
+        var actualValue = context.Actual.ToStringAwesomely();
+        string actual;
+        if (codePart == actualValue)
         {
-            return (context.ShouldMethod.StartsWith("ShouldBe", StringComparison.Ordinal) || context.ShouldMethod.StartsWith("ShouldNotBe", StringComparison.Ordinal))
-                   && !context.ShouldMethod.Contains("Contain")
-                   && context.Tolerance != null;
+            actual = " not";
+        }
+        else
+        {
+            actual = $@"
+{actualValue}";
         }
 
-        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
-        {
-            var codePart = context.CodePart;
-            var tolerance = context.Tolerance.ToStringAwesomely();
-            var expected = context.Expected.ToStringAwesomely();
-            var actualValue = context.Actual.ToStringAwesomely();
-            string actual;
-            if (codePart == actualValue)
-            {
-                actual = " not";
-            }
-            else
-            {
-                actual = $@"
-{actualValue}";
-            }
+        var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
-            var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
-
-            var message =
-                $@"{codePart}
+        var message =
+            $@"{codePart}
     should {negated}be within
 {tolerance}
     of
 {expected}
     but was{actual}";
 
-            if (DifferenceHighlighter.CanHighlightDifferences(context))
-            {
-                message += $@"
+        if (DifferenceHighlighter.CanHighlightDifferences(context))
+        {
+            message += $@"
     difference
 {DifferenceHighlighter.HighlightDifferences(context)}";
-            }
-
-            return message;
         }
+
+        return message;
     }
 }

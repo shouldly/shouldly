@@ -1,8 +1,7 @@
-namespace Shouldly
+namespace Shouldly;
+
+public enum Case
 {
-    public enum Case
-    {
-        Sensitive,
-        Insensitive
-    }
+    Sensitive,
+    Insensitive
 }

@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
-{
-    public class UnsafeStringNewLineScenario
-    {
-        [Fact]
-        public void UnsafeStringNewLineScenarioShouldFail()
-        {
-            var str = "StringOneNoNewLine";
-            Verify.ShouldFail(() =>
-str.ShouldBe("Stringone\r\nNewLine", StringCompareShould.IgnoreCase),
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive;
 
-errorWithSource:
-@"str
+public class UnsafeStringNewLineScenario
+{
+    [Fact]
+    public void UnsafeStringNewLineScenarioShouldFail()
+    {
+        var str = "StringOneNoNewLine";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("Stringone\r\nNewLine", StringCompareShould.IgnoreCase),
+
+            errorWithSource:
+            @"str
     should be with options: Ignoring case
 ""Stringone
 NewLine""
@@ -25,8 +25,8 @@ Actual Value   | S    t    r    i    n    g    O    n    e    N    o    N    e  
 Expected Code  | 83   116  114  105  110  103  111  110  101  13   10   78   101  119  76   105  110  101  
 Actual Code    | 83   116  114  105  110  103  79   110  101  78   111  78   101  119  76   105  110  101  ",
 
-    errorWithoutSource:
-@"""StringOneNoNewLine""
+            errorWithoutSource:
+            @"""StringOneNoNewLine""
     should be with options: Ignoring case
 ""Stringone
 NewLine""
@@ -39,12 +39,11 @@ Expected Value | S    t    r    i    n    g    o    n    e    \r   \n   N    e  
 Actual Value   | S    t    r    i    n    g    O    n    e    N    o    N    e    w    L    i    n    e    
 Expected Code  | 83   116  114  105  110  103  111  110  101  13   10   78   101  119  76   105  110  101  
 Actual Code    | 83   116  114  105  110  103  79   110  101  78   111  78   101  119  76   105  110  101  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "StringOne\r\nNewline".ShouldBe("Stringone\r\nNewline", StringCompareShould.IgnoreCase);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "StringOne\r\nNewline".ShouldBe("Stringone\r\nNewline", StringCompareShould.IgnoreCase);
     }
 }

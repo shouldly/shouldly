@@ -1,13 +1,12 @@
-﻿namespace Shouldly.Tests.ShouldBeDecoratedWith
-{
-    public class DerivedTypeScenario
-    {
-        [Fact]
-        public void DerivedTypeScenarioShouldPass()
-        {
-            var myDecoratedThing = typeof(MyDecoratedThing);
+﻿namespace Shouldly.Tests.ShouldBeDecoratedWith;
 
-            myDecoratedThing.ShouldBeDecoratedWith<UseCultureAttribute>();
-        }
+public class DerivedTypeScenario
+{
+    [Fact]
+    public void DerivedTypeScenarioShouldPass()
+    {
+        var myDecoratedThing = typeof(MyDecoratedThing);
+
+        myDecoratedThing.ShouldBeDecoratedWith<UseCultureAttribute>();
     }
 }

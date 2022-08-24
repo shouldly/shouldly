@@ -1,55 +1,54 @@
-﻿namespace Shouldly
+﻿namespace Shouldly;
+
+// http://blogs.msdn.com/b/pfxteam/archive/2011/11/10/10235834.aspx
+internal static class TaskExtensions
 {
-    // http://blogs.msdn.com/b/pfxteam/archive/2011/11/10/10235834.aspx
-    internal static class TaskExtensions
+    private struct VoidTypeStruct { }
+
+    private static void MarshalTaskResults<TResult>(Task source, TaskCompletionSource<TResult?> proxy)
     {
-        private struct VoidTypeStruct { }
-
-        private static void MarshalTaskResults<TResult>(Task source, TaskCompletionSource<TResult?> proxy)
+        switch (source.Status)
         {
-            switch (source.Status)
+            case TaskStatus.Faulted:
+                proxy.TrySetException(source.Exception!.InnerExceptions);
+                break;
+            case TaskStatus.Canceled:
+                proxy.TrySetCanceled();
+                break;
+            case TaskStatus.RanToCompletion:
+                var result = source is Task<TResult> castedSource ? castedSource.Result : default;
+                proxy.TrySetResult(result); // source is a Task<TResult>
+                break;
+        }
+    }
+
+    public static Task TimeoutAfter(this Task task, TimeSpan timeout)
+    {
+        // tcs.Task will be returned as a proxy to the caller
+        var tcs = new TaskCompletionSource<VoidTypeStruct>();
+
+        // Set up a timer to complete after the specified timeout period
+        var timer = new Timer(
+            _ =>
             {
-                case TaskStatus.Faulted:
-                    proxy.TrySetException(source.Exception!.InnerExceptions);
-                    break;
-                case TaskStatus.Canceled:
-                    proxy.TrySetCanceled();
-                    break;
-                case TaskStatus.RanToCompletion:
-                    var result = source is Task<TResult> castedSource ? castedSource.Result : default;
-                    proxy.TrySetResult(result); // source is a Task<TResult>
-                    break;
-            }
-        }
+                // Fault our proxy Task with a ShouldlyTimeoutException
+                tcs.TrySetException(new ShouldlyTimeoutException());
+            },
+            null,
+            (int)timeout.TotalMilliseconds,
+            Timeout.Infinite);
 
-        public static Task TimeoutAfter(this Task task, TimeSpan timeout)
-        {
-            // tcs.Task will be returned as a proxy to the caller
-            var tcs = new TaskCompletionSource<VoidTypeStruct>();
+        // Wire up the logic for what happens when source task completes
+        task.ContinueWith(
+            antecedent =>
+            {
+                timer.Dispose(); // Cancel the timer
+                MarshalTaskResults(antecedent, tcs); // Marshal results to proxy
+            },
+            CancellationToken.None,
+            TaskContinuationOptions.ExecuteSynchronously,
+            TaskScheduler.Default);
 
-            // Set up a timer to complete after the specified timeout period
-            var timer = new Timer(
-                _ =>
-                {
-                    // Fault our proxy Task with a ShouldlyTimeoutException
-                    tcs.TrySetException(new ShouldlyTimeoutException());
-                },
-                null,
-                (int)timeout.TotalMilliseconds,
-                Timeout.Infinite);
-
-            // Wire up the logic for what happens when source task completes
-            task.ContinueWith(
-                antecedent =>
-                {
-                    timer.Dispose(); // Cancel the timer
-                    MarshalTaskResults(antecedent, tcs); // Marshal results to proxy
-                },
-                CancellationToken.None,
-                TaskContinuationOptions.ExecuteSynchronously,
-                TaskScheduler.Default);
-
-            return tcs.Task;
-        }
+        return tcs.Task;
     }
 }

@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldNotContain
+﻿namespace Shouldly.Tests.ShouldNotContain;
+
+public class StringArrayScenario
 {
-    public class StringArrayScenario
+    private readonly string[] _target = { "a", "b", "c" };
+
+    [Fact]
+    public void StringArrayScenarioShouldFail()
     {
-        private readonly string[] _target = { "a", "b", "c" };
+        Verify.ShouldFail(() =>
+                _target.ShouldNotContain("c", "Some additional context"),
 
-        [Fact]
-        public void StringArrayScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-_target.ShouldNotContain("c", "Some additional context"),
-
-errorWithSource:
-@"_target
+            errorWithSource:
+            @"_target
     should not contain
 ""c""
     but was actually
@@ -20,20 +20,19 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[""a"", ""b"", ""c""]
+            errorWithoutSource:
+            @"[""a"", ""b"", ""c""]
     should not contain
 ""c""
     but did
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            _target.ShouldNotContain("d");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        _target.ShouldNotContain("d");
     }
 }

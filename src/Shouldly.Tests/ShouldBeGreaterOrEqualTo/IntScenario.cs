@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
+﻿namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo;
+
+public class IntScenario
 {
-    public class IntScenario
-    {
     [Fact]
     public void IntScenarioShouldFail()
     {
         var one = 1;
         Verify.ShouldFail(() =>
-one.ShouldBeGreaterThanOrEqualTo(7, "Some additional context"),
+                one.ShouldBeGreaterThanOrEqualTo(7, "Some additional context"),
 
-errorWithSource:
-@"one
+            errorWithSource:
+            @"one
     should be greater than or equal to
 7
     but was
@@ -19,8 +19,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"1
+            errorWithoutSource:
+            @"1
     should be greater than or equal to
 7
     but was not
@@ -29,10 +29,9 @@ Additional Info:
     Some additional context");
     }
 
-        [Fact]
+    [Fact]
     public void ShouldPass()
     {
         1.ShouldBeGreaterThanOrEqualTo(1);
     }
-}
 }

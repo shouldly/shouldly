@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBeUnique
+﻿namespace Shouldly.Tests.ShouldBeUnique;
+
+public class NullScenario
 {
-    public class NullScenario
+    [Fact]
+    public void NullShouldBeDetectedAsADuplicate()
     {
-        [Fact]
-        public void NullShouldBeDetectedAsADuplicate()
-        {
-            Verify.ShouldFail(() =>
-new string?[] { null, null }.ShouldBeUnique("Some additional context"),
+        Verify.ShouldFail(() =>
+                new string?[] { null, null }.ShouldBeUnique("Some additional context"),
 
-errorWithSource:
-@"new string?[] { null, null }
+            errorWithSource:
+            @"new string?[] { null, null }
     should be unique but
 [null]
     was duplicated
@@ -17,24 +17,24 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-    errorWithoutSource:
-@"[null, null]
+            errorWithoutSource:
+            @"[null, null]
     should be unique but
 [null]
     was duplicated
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void NullShouldBeDetectedAsADuplicateWhenUsingComparer()
-        {
-            Verify.ShouldFail(() =>
-new string?[] { null, null }.ShouldBeUnique(StringComparer.OrdinalIgnoreCase, "Some additional context"),
+    [Fact]
+    public void NullShouldBeDetectedAsADuplicateWhenUsingComparer()
+    {
+        Verify.ShouldFail(() =>
+                new string?[] { null, null }.ShouldBeUnique(StringComparer.OrdinalIgnoreCase, "Some additional context"),
 
-errorWithSource:
-@"new string?[] { null, null }
+            errorWithSource:
+            @"new string?[] { null, null }
     should be unique but
 [null]
     was duplicated
@@ -42,14 +42,13 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[null, null]
+            errorWithoutSource:
+            @"[null, null]
     should be unique but
 [null]
     was duplicated
 
 Additional Info:
     Some additional context");
-        }
     }
 }

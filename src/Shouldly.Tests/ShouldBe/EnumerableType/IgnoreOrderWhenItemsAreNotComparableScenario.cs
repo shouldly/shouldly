@@ -1,31 +1,31 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
+
+public class IgnoreOrderWhenItemsAreNotComparableScenario
 {
-    public class IgnoreOrderWhenItemsAreNotComparableScenario
+    // testing against non-ICollection IEnumerable, so we're not falling into the ICollection.Count short-circuit
+    public IEnumerable<YourAverageNonComparableType> Actual
     {
-        // testing against non-ICollection IEnumerable, so we're not falling into the ICollection.Count short-circuit
-        public IEnumerable<YourAverageNonComparableType> Actual
+        get
         {
-            get
-            {
-                yield return new YourAverageNonComparableType(1);
-                yield return new YourAverageNonComparableType(2);
-            }
+            yield return new YourAverageNonComparableType(1);
+            yield return new YourAverageNonComparableType(2);
         }
+    }
 
-        [Fact]
-        public void IgnoreOrderWhenItemsAreNotComparableScenarioShouldFail()
+    [Fact]
+    public void IgnoreOrderWhenItemsAreNotComparableScenarioShouldFail()
+    {
+        var expected = new[]
         {
-            var expected = new[]
-            {
-                new YourAverageNonComparableType(2),
-                new YourAverageNonComparableType(3)
-            };
-            Verify.ShouldFail(() =>
+            new YourAverageNonComparableType(2),
+            new YourAverageNonComparableType(3)
+        };
+        Verify.ShouldFail(() =>
 
-Actual.ShouldBe(expected, true, "Some additional context"),
+                Actual.ShouldBe(expected, true, "Some additional context"),
 
-errorWithSource:
-@"Actual
+            errorWithSource:
+            @"Actual
     should be (ignoring order)
 [2, 3]
     but
@@ -40,8 +40,8 @@ Actual
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 2]
+            errorWithoutSource:
+            @"[1, 2]
     should be (ignoring order)
 [2, 3]
     but
@@ -55,49 +55,48 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
+    }
+
+    [Fact]
+    public void ShouldPass()
+    {
+        var expected = new[]
+        {
+            new YourAverageNonComparableType(2),
+            new YourAverageNonComparableType(1)
+        };
+        Actual.ShouldBe(expected, ignoreOrder: true);
+    }
+
+    public class YourAverageNonComparableType
+    {
+        private readonly int identity;
+
+        public YourAverageNonComparableType(int identity)
+        {
+            this.identity = identity;
         }
 
-        [Fact]
-        public void ShouldPass()
+        protected bool Equals(YourAverageNonComparableType? other)
         {
-            var expected = new[]
-            {
-                new YourAverageNonComparableType(2),
-                new YourAverageNonComparableType(1)
-            };
-            Actual.ShouldBe(expected, ignoreOrder: true);
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(identity, other.identity);
         }
 
-        public class YourAverageNonComparableType
+        public override bool Equals(object? obj)
         {
-            private readonly int identity;
+            return Equals(obj as YourAverageNonComparableType);
+        }
 
-            public YourAverageNonComparableType(int identity)
-            {
-                this.identity = identity;
-            }
+        public override int GetHashCode()
+        {
+            return identity.GetHashCode();
+        }
 
-            protected bool Equals(YourAverageNonComparableType? other)
-            {
-                if (other is null) return false;
-                if (ReferenceEquals(this, other)) return true;
-                return Equals(identity, other.identity);
-            }
-
-            public override bool Equals(object? obj)
-            {
-                return Equals(obj as YourAverageNonComparableType);
-            }
-
-            public override int GetHashCode()
-            {
-                return identity.GetHashCode();
-            }
-
-            public override string ToString()
-            {
-                return identity.ToString();
-            }
+        public override string ToString()
+        {
+            return identity.ToString();
         }
     }
 }

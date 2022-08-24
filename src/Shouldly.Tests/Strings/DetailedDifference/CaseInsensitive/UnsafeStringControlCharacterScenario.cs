@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive
-{
-    public class UnsafeStringControlCharacterScenario
-    {
-        [Fact]
-        public void UnsafeStringControlCharacterScenarioShouldFail()
-        {
-            var str = "StringOne\u0000ControlChar";
-            Verify.ShouldFail(() =>
-str.ShouldBe("Stringone\u0001ControlChar", StringCompareShould.IgnoreCase),
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive;
 
-errorWithSource:
-@"str
+public class UnsafeStringControlCharacterScenario
+{
+    [Fact]
+    public void UnsafeStringControlCharacterScenarioShouldFail()
+    {
+        var str = "StringOne\u0000ControlChar";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("Stringone\u0001ControlChar", StringCompareShould.IgnoreCase),
+
+            errorWithSource:
+            @"str
     should be with options: Ignoring case
 ""Stringone" + "\u0001" + @"ControlChar""
     but was
@@ -24,8 +24,8 @@ Actual Value   | S    t    r    i    n    g    O    n    e    \u0; C    o    n  
 Expected Code  | 83   116  114  105  110  103  111  110  101  1    67   111  110  116  114  111  108  67   104  97   114  
 Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110  116  114  111  108  67   104  97   114  ",
 
-errorWithoutSource:
-@"""StringOne" + "\u0000" + @"ControlChar""
+            errorWithoutSource:
+            @"""StringOne" + "\u0000" + @"ControlChar""
     should be with options: Ignoring case
 ""Stringone" + "\u0001" + @"ControlChar""
     but was not
@@ -37,12 +37,11 @@ Expected Value | S    t    r    i    n    g    o    n    e    \u1; C    o    n  
 Actual Value   | S    t    r    i    n    g    O    n    e    \u0; C    o    n    t    r    o    l    C    h    a    r    
 Expected Code  | 83   116  114  105  110  103  111  110  101  1    67   111  110  116  114  111  108  67   104  97   114  
 Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110  116  114  111  108  67   104  97   114  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "StringOne\u0000ControlChar".ShouldBe("Stringone\u0000ControlChar", StringCompareShould.IgnoreCase);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "StringOne\u0000ControlChar".ShouldBe("Stringone\u0000ControlChar", StringCompareShould.IgnoreCase);
     }
 }

@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldBe
-{
-    public class ShouldBeScenarios
-    {
-        [Fact]
-        [UseCulture("en-US")]
-        public void BoolFailure()
-        {
-            const bool myValue = false;
-            Verify.ShouldFail(() =>
-            myValue.ShouldBe(true, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBe;
 
-errorWithSource:
-@"myValue
+public class ShouldBeScenarios
+{
+    [Fact]
+    [UseCulture("en-US")]
+    public void BoolFailure()
+    {
+        const bool myValue = false;
+        Verify.ShouldFail(() =>
+                myValue.ShouldBe(true, "Some additional context"),
+
+            errorWithSource:
+            @"myValue
     should be
 True
     but was
@@ -20,27 +20,27 @@ False
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"False
+            errorWithoutSource:
+            @"False
     should be
 True
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        [UseCulture("en-US")]
-        public void BoxedComparableFailureScenario()
-        {
-            object a = 0;
-            object b = 0.1;
-            Verify.ShouldFail(() =>
-a.ShouldBe(b, "Some additional context"),
+    [Fact]
+    [UseCulture("en-US")]
+    public void BoxedComparableFailureScenario()
+    {
+        object a = 0;
+        object b = 0.1;
+        Verify.ShouldFail(() =>
+                a.ShouldBe(b, "Some additional context"),
 
-errorWithSource:
-@"a
+            errorWithSource:
+            @"a
     should be
 0.1d
     but was
@@ -49,24 +49,24 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"0
+            errorWithoutSource:
+            @"0
     should be
 0.1d
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void BoxedIntComparableFailureScenario()
-        {
-            Verify.ShouldFail(() =>
-((object)12).ShouldBe("string", "Some additional context"),
+    [Fact]
+    public void BoxedIntComparableFailureScenario()
+    {
+        Verify.ShouldFail(() =>
+                ((object)12).ShouldBe("string", "Some additional context"),
 
-errorWithSource:
-@"(object)12
+            errorWithSource:
+            @"(object)12
     should be
 ""string""
     but was
@@ -75,24 +75,24 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"12
+            errorWithoutSource:
+            @"12
     should be
 ""string""
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void BadEquatableClassScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context"),
+    [Fact]
+    public void BadEquatableClassScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context"),
 
-errorWithSource:
-@"new BadEquatable()
+            errorWithSource:
+            @"new BadEquatable()
     should be
 Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
     but was
@@ -101,24 +101,24 @@ Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
+            errorWithoutSource:
+            @"Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
     should be
 Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ComparingBaseWithDerivedTypeShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new MyBase().ShouldBe(new MyThing(), "Some additional context"),
+    [Fact]
+    public void ComparingBaseWithDerivedTypeShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new MyBase().ShouldBe(new MyThing(), "Some additional context"),
 
-errorWithSource:
-@"new MyBase()
+            errorWithSource:
+            @"new MyBase()
     should be
 Shouldly.Tests.TestHelpers.MyThing (000000)
     but was
@@ -127,24 +127,24 @@ Shouldly.Tests.TestHelpers.MyBase (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Shouldly.Tests.TestHelpers.MyBase (000000)
+            errorWithoutSource:
+            @"Shouldly.Tests.TestHelpers.MyBase (000000)
     should be
 Shouldly.Tests.TestHelpers.MyThing (000000)
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ComparingObjectWithStringFailure()
-        {
-            Verify.ShouldFail(() =>
-new object().ShouldBe("this string", "Some additional context"),
+    [Fact]
+    public void ComparingObjectWithStringFailure()
+    {
+        Verify.ShouldFail(() =>
+                new object().ShouldBe("this string", "Some additional context"),
 
-errorWithSource:
-@"new object()
+            errorWithSource:
+            @"new object()
     should be
 ""this string""
     but was
@@ -153,27 +153,27 @@ System.Object (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"System.Object (000000)
+            errorWithoutSource:
+            @"System.Object (000000)
     should be
 ""this string""
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ActualIsNullScenario()
-        {
-            string? nullString = null;
+    [Fact]
+    public void ActualIsNullScenario()
+    {
+        string? nullString = null;
 
-            // ReSharper disable once ExpressionIsAlwaysNull
-            Verify.ShouldFail(() =>
-nullString.ShouldBe(string.Empty, "Some additional context"),
+        // ReSharper disable once ExpressionIsAlwaysNull
+        Verify.ShouldFail(() =>
+                nullString.ShouldBe(string.Empty, "Some additional context"),
 
-errorWithSource:
-@"nullString
+            errorWithSource:
+            @"nullString
     should be
 """"
     but was
@@ -182,24 +182,24 @@ null
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"null
+            errorWithoutSource:
+            @"null
     should be
 """"
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void EqualsShouldBeCalledOnExpectedScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new BaseClass().ShouldBe(new SubclassWithStubbedEquals { EqualsResult = false }, "Some additional context"),
+    [Fact]
+    public void EqualsShouldBeCalledOnExpectedScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new BaseClass().ShouldBe(new SubclassWithStubbedEquals { EqualsResult = false }, "Some additional context"),
 
-errorWithSource:
-@"new BaseClass()
+            errorWithSource:
+            @"new BaseClass()
     should be
 Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
     but was
@@ -208,25 +208,25 @@ Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
+            errorWithoutSource:
+            @"Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
     should be
 Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void IntegerShouldFailScenario()
-        {
-            const int two = 2;
-            Verify.ShouldFail(() =>
-two.ShouldBe(1, "Some additional context"),
+    [Fact]
+    public void IntegerShouldFailScenario()
+    {
+        const int two = 2;
+        Verify.ShouldFail(() =>
+                two.ShouldBe(1, "Some additional context"),
 
-errorWithSource:
-@"two
+            errorWithSource:
+            @"two
     should be
 1
     but was
@@ -235,30 +235,30 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-    errorWithoutSource:
-@"2
+            errorWithoutSource:
+            @"2
     should be
 1
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        /// <summary>
-        /// Strange emulates JToken, a class which can be implicitly cast to from a string which is IEnumerable,
-        /// but enumerable can be empty which means we get a false pass.
-        ///
-        /// To make this test pass, for types like JToken and Strange we have to use .Equals not compare them as Enumerables
-        /// </summary>
-        [Fact]
-        public void JTokenScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new Strange().ShouldBe("string", "Some additional context"),
+    /// <summary>
+    /// Strange emulates JToken, a class which can be implicitly cast to from a string which is IEnumerable,
+    /// but enumerable can be empty which means we get a false pass.
+    ///
+    /// To make this test pass, for types like JToken and Strange we have to use .Equals not compare them as Enumerables
+    /// </summary>
+    [Fact]
+    public void JTokenScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new Strange().ShouldBe("string", "Some additional context"),
 
-errorWithSource:
-@"new Strange()
+            errorWithSource:
+            @"new Strange()
     should be
 [] (string)
     but was
@@ -269,8 +269,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[] (null)
+            errorWithoutSource:
+            @"[] (null)
     should be
 [] (string)
     but was not
@@ -279,17 +279,17 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void NumbersOfDifferentTypesScenarioShouldFail()
-        {
-            const long aLong = 2L;
-            Verify.ShouldFail(() =>
-aLong.ShouldBe(1, "Some additional context"),
+    [Fact]
+    public void NumbersOfDifferentTypesScenarioShouldFail()
+    {
+        const long aLong = 2L;
+        Verify.ShouldFail(() =>
+                aLong.ShouldBe(1, "Some additional context"),
 
-errorWithSource:
-@"aLong
+            errorWithSource:
+            @"aLong
     should be
 1L
     but was
@@ -298,24 +298,24 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"2L
+            errorWithoutSource:
+            @"2L
     should be
 1L
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void UncomparableClassScenario()
-        {
-            Verify.ShouldFail(() =>
-new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob"), "Some additional context"),
+    [Fact]
+    public void UncomparableClassScenario()
+    {
+        Verify.ShouldFail(() =>
+                new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob"), "Some additional context"),
 
-errorWithSource:
-@"new UncomparableClass(""ted"")
+            errorWithSource:
+            @"new UncomparableClass(""ted"")
     should be
 bob
     but was
@@ -324,24 +324,24 @@ ted
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"ted
+            errorWithoutSource:
+            @"ted
     should be
 bob
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void StringScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-                    ThisString.ShouldBe(ThisOtherString, "Some additional context"),
+    [Fact]
+    public void StringScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                ThisString.ShouldBe(ThisOtherString, "Some additional context"),
 
-                errorWithSource:
-                @"ThisString
+            errorWithSource:
+            @"ThisString
     should be
 ""this other string""
     but was
@@ -358,8 +358,8 @@ Actual Code    | 116  104  105  115  32   115  116  114  105  110  103
 Additional Info:
     Some additional context",
 
-                errorWithoutSource:
-                @"""this string""
+            errorWithoutSource:
+            @"""this string""
     should be
 ""this other string""
     but was not
@@ -374,43 +374,43 @@ Actual Code    | 116  104  105  115  32   115  116  114  105  110  103
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            true.ShouldBe(true);
-            var instance = new BadEquatable();
-            instance.ShouldBe(instance);
+    [Fact]
+    public void ShouldPass()
+    {
+        true.ShouldBe(true);
+        var instance = new BadEquatable();
+        instance.ShouldBe(instance);
 
-            new BaseClass().ShouldBe(new SubclassWithStubbedEquals { EqualsResult = true });
+        new BaseClass().ShouldBe(new SubclassWithStubbedEquals { EqualsResult = true });
 
-            1.ShouldBe(1);
+        1.ShouldBe(1);
 
-            ((Strange)"string").ShouldBe("string");
+        ((Strange)"string").ShouldBe("string");
 
-            1L.ShouldBe(1);
-        }
+        1L.ShouldBe(1);
+    }
 
-        [Fact]
-        public void ShouldBeBoxedPass()
-        {
-            object a = 0;
-            object b = 0.0;
-            a.ShouldBe(b);
-        }
+    [Fact]
+    public void ShouldBeBoxedPass()
+    {
+        object a = 0;
+        object b = 0.0;
+        a.ShouldBe(b);
+    }
 
-        [Fact]
-        public void ComparisonEqualsFalseShouldFail()
-        {
-            var comparison1 = new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" };
-            var comparison2 = new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" };
+    [Fact]
+    public void ComparisonEqualsFalseShouldFail()
+    {
+        var comparison1 = new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" };
+        var comparison2 = new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" };
 
-            Verify.ShouldFail(() =>
-comparison1.ShouldBe(comparison2, new ComparableClassComparer(), "Some additional context"),
+        Verify.ShouldFail(() =>
+                comparison1.ShouldBe(comparison2, new ComparableClassComparer(), "Some additional context"),
 
-errorWithSource:
-@"comparison1
+            errorWithSource:
+            @"comparison1
     should be
 Shouldly.Tests.TestHelpers.ComparableClass (000000)
     but was
@@ -419,55 +419,54 @@ Shouldly.Tests.TestHelpers.ComparableClass (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Shouldly.Tests.TestHelpers.ComparableClass (000000)
+            errorWithoutSource:
+            @"Shouldly.Tests.TestHelpers.ComparableClass (000000)
     should be
 Shouldly.Tests.TestHelpers.ComparableClass (000000)
     but was not
 
 Additional Info:
     Some additional context");
-        }
-
-        [Fact]
-        public void ComparisonEqualsTrueShouldPass()
-        {
-            var comparison1 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" };
-            var comparison2 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" };
-
-            comparison1.ShouldBe(comparison2, new ComparableClassComparer());
-        }
-
-        public class BadEquatable : IEquatable<BadEquatable>
-        {
-            public bool Equals(BadEquatable? other)
-            {
-                return false;
-            }
-        }
-
-        public class BaseClass
-        {
-        }
-
-        public class SubclassWithStubbedEquals : BaseClass
-        {
-            public bool EqualsResult { private get; set; }
-
-            // ReSharper disable once CSharpWarnings::CS0659
-            public override bool Equals(object? obj)
-            {
-                return EqualsResult;
-            }
-
-            public override int GetHashCode()
-            {
-                // Just to stop build warning
-                return 0;
-            }
-        }
-
-        private const string ThisOtherString = "this other string";
-        private const string ThisString = "this string";
     }
+
+    [Fact]
+    public void ComparisonEqualsTrueShouldPass()
+    {
+        var comparison1 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" };
+        var comparison2 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" };
+
+        comparison1.ShouldBe(comparison2, new ComparableClassComparer());
+    }
+
+    public class BadEquatable : IEquatable<BadEquatable>
+    {
+        public bool Equals(BadEquatable? other)
+        {
+            return false;
+        }
+    }
+
+    public class BaseClass
+    {
+    }
+
+    public class SubclassWithStubbedEquals : BaseClass
+    {
+        public bool EqualsResult { private get; set; }
+
+        // ReSharper disable once CSharpWarnings::CS0659
+        public override bool Equals(object? obj)
+        {
+            return EqualsResult;
+        }
+
+        public override int GetHashCode()
+        {
+            // Just to stop build warning
+            return 0;
+        }
+    }
+
+    private const string ThisOtherString = "this other string";
+    private const string ThisString = "this string";
 }

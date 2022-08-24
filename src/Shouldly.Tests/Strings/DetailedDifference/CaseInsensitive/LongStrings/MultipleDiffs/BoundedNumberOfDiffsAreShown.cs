@@ -1,11 +1,11 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs;
+
+public class BoundedNumberOfDiffsAreShown
 {
-    public class BoundedNumberOfDiffsAreShown
+    [Fact]
+    public void BoundedNumberOfDiffsAreShownShouldFail()
     {
-        [Fact]
-        public void BoundedNumberOfDiffsAreShownShouldFail()
-        {
-            var str = @"1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
+        var str = @"1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
               2a,2b,2c,2d,2e,2f,2g,2h,2i,2j,2k,2l,2m,2n,2o,2p,2q,2r,2s,2t,2u,2v,2w,2x,2y,2z,
               3a,3b,3c,3d,3e,3f,3g,3h,3i,3j,3k,3l,3m,3n,3o,3p,3q,3r,3s,3t,3u,3v,3w,3x,3y,3z,
               4a,4b,4c,4d,4e,4f,4g,4h,4i,4j,4k,4l,4m,4n,4o,4p,4q,4r,4s,4t,4u,4v,4w,4x,4y,4z,
@@ -14,8 +14,8 @@
               7a,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7s,7t,7u,7v,7w,7x,7y,7z,
               8a,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8s,8t,8u,8v,8w,8x,8y,8z,
               9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z";
-            Verify.ShouldFail(() =>
-str.ShouldBe(@"1b,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1w,1t,1u,1v,1w,1x,1y,1z,
+        Verify.ShouldFail(() =>
+                str.ShouldBe(@"1b,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1w,1t,1u,1v,1w,1x,1y,1z,
               2b,2b,2c,2d,2e,2f,2g,2h,2i,2j,2k,2l,2m,2n,2o,2p,2q,2r,2w,2t,2u,2v,2w,2x,2y,2z,
               3b,3b,3c,3d,3e,3f,3g,3h,3i,3j,3k,3l,3m,3n,3o,3p,3q,3r,3w,3t,3u,3v,3w,3x,3y,3z,
               4b,4b,4c,4d,4e,4f,4g,4h,4i,4j,4k,4l,4m,4n,4o,4p,4q,4r,4w,4t,4u,4v,4w,4x,4y,4z,
@@ -24,10 +24,10 @@ str.ShouldBe(@"1b,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1w,1t,1u,1v
               7b,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7w,7t,7u,7v,7w,7x,7y,7z,
               8b,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8w,8t,8u,8v,8w,8x,8y,8z,
               9b,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9w,9t,9u,9v,9w,9x,9y,9z",
-              StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings),
+                    StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings),
 
-    errorWithSource:
-    @"str
+            errorWithSource:
+            @"str
     should be with options: Ignoring line endings, Ignoring case
 ""1b,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1w,1t,1u,1v,1w,1x,1y,1z,
               2b,2b,2c,2d,2e,2f,2g,2h,2i,2j,2k,2l,2m,2n,2o,2p,2q,2r,2w,2t,2u,2v,2w,2x,2y,2z,
@@ -130,8 +130,8 @@ Actual Value   | ...  5    p    ,    5    q    ,    5    r    ,    5    s    ,  
 Expected Code  | ...  53   112  44   53   113  44   53   114  44   53   119  44   53   116  44   53   117  44   53   118  44   ...  
 Actual Code    | ...  53   112  44   53   113  44   53   114  44   53   115  44   53   116  44   53   117  44   53   118  44   ...  ",
 
-    errorWithoutSource:
-    @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
+            errorWithoutSource:
+            @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
               2a,2b,2c,2d,2e,2f,2g,2h,2i,2j,2k,2l,2m,2n,2o,2p,2q,2r,2s,2t,2u,2v,2w,2x,2y,2z,
               3a,3b,3c,3d,3e,3f,3g,3h,3i,3j,3k,3l,3m,3n,3o,3p,3q,3r,3s,3t,3u,3v,3w,3x,3y,3z,
               4a,4b,4c,4d,4e,4f,4g,4h,4i,4j,4k,4l,4m,4n,4o,4p,4q,4r,4s,4t,4u,4v,4w,4x,4y,4z,
@@ -232,12 +232,12 @@ Expected Value | ...  5    p    ,    5    q    ,    5    r    ,    5    w    ,  
 Actual Value   | ...  5    p    ,    5    q    ,    5    r    ,    5    s    ,    5    t    ,    5    u    ,    5    v    ,    ...  
 Expected Code  | ...  53   112  44   53   113  44   53   114  44   53   119  44   53   116  44   53   117  44   53   118  44   ...  
 Actual Code    | ...  53   112  44   53   113  44   53   114  44   53   115  44   53   116  44   53   117  44   53   118  44   ...  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            @"1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
+    [Fact]
+    public void ShouldPass()
+    {
+        @"1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
               2a,2b,2c,2d,2e,2f,2g,2h,2i,2j,2k,2l,2m,2n,2o,2p,2q,2r,2s,2t,2u,2v,2w,2x,2y,2z,
               3a,3b,3c,3d,3e,3f,3g,3h,3i,3j,3k,3l,3m,3n,3o,3p,3q,3r,3s,3t,3u,3v,3w,3x,3y,3z,
               4a,4b,4c,4d,4e,4f,4g,4h,4i,4j,4k,4l,4m,4n,4o,4p,4q,4r,4s,4t,4u,4v,4w,4x,4y,4z,
@@ -246,7 +246,7 @@ Actual Code    | ...  53   112  44   53   113  44   53   114  44   53   115  44 
               7a,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7s,7t,7u,7v,7w,7x,7y,7z,
               8a,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8s,8t,8u,8v,8w,8x,8y,8z,
               9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z"
-                 .ShouldBe(
+            .ShouldBe(
                 @"1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v,1w,1x,1y,1z,
               2a,2b,2c,2d,2e,2f,2g,2h,2i,2j,2k,2l,2m,2n,2o,2p,2q,2r,2s,2t,2u,2v,2w,2x,2y,2z,
               3a,3b,3c,3d,3e,3f,3g,3h,3i,3j,3k,3l,3m,3n,3o,3p,3q,3r,3s,3t,3u,3v,3w,3x,3y,3z,
@@ -256,7 +256,6 @@ Actual Code    | ...  53   112  44   53   113  44   53   114  44   53   115  44 
               7a,7b,7c,7d,7e,7f,7g,7h,7i,7j,7k,7l,7m,7n,7o,7p,7q,7r,7s,7t,7u,7v,7w,7x,7y,7z,
               8a,8b,8c,8d,8e,8f,8g,8h,8i,8j,8k,8l,8m,8n,8o,8p,8q,8r,8s,8t,8u,8v,8w,8x,8y,8z,
               9a,9b,9c,9d,9e,9f,9g,9h,9i,9j,9k,9l,9m,9n,9o,9p,9q,9r,9s,9t,9u,9v,9w,9x,9y,9z",
-                 StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings);
-        }
+                StringCompareShould.IgnoreCase | StringCompareShould.IgnoreLineEndings);
     }
 }

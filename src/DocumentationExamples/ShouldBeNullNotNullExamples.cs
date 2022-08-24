@@ -2,80 +2,79 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeNullNotNullExamples
 {
-    public class ShouldBeNullNotNullExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeNullNotNullExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeNullNotNullExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeNull()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var myRef = "Hello World";
+            myRef.ShouldBeNull();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeNull()
+    [Fact]
+    public void NullableValueShouldBeNull()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var myRef = "Hello World";
-                myRef.ShouldBeNull();
-            }, _testOutputHelper);
-        }
+            int? nullableValue = 42;
+            nullableValue.ShouldBeNull();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void NullableValueShouldBeNull()
+    [Fact]
+    public void ShouldNotBeNull()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                int? nullableValue = 42;
-                nullableValue.ShouldBeNull();
-            }, _testOutputHelper);
-        }
+            string? myRef = null;
+            myRef.ShouldNotBeNull();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotBeNull()
+    [Fact]
+    public void ShouldNotBeNullWithChaining()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                string? myRef = null;
-                myRef.ShouldNotBeNull();
-            }, _testOutputHelper);
-        }
+            var myRef = (string?)"1234";
+            myRef.ShouldNotBeNull().Length.ShouldBe(5);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotBeNullWithChaining()
+    [Fact]
+    public void NullableValueShouldNotBeNull()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var myRef = (string?)"1234";
-                myRef.ShouldNotBeNull().Length.ShouldBe(5);
-            }, _testOutputHelper);
-        }
+            int? myRef = null;
+            myRef.ShouldNotBeNull();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void NullableValueShouldNotBeNull()
+    [Fact]
+    public void NullableValueShouldNotBeNullWithChaining()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                int? myRef = null;
-                myRef.ShouldNotBeNull();
-            }, _testOutputHelper);
-        }
+            SomeStruct? nullableValue = new SomeStruct { IntProperty = 41 };
+            nullableValue.ShouldNotBeNull().IntProperty.ShouldBe(42);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void NullableValueShouldNotBeNullWithChaining()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                SomeStruct? nullableValue = new SomeStruct { IntProperty = 41 };
-                nullableValue.ShouldNotBeNull().IntProperty.ShouldBe(42);
-            }, _testOutputHelper);
-        }
-
-        public struct SomeStruct
-        {
-            public int IntProperty { get; set; }
-        }
+    public struct SomeStruct
+    {
+        public int IntProperty { get; set; }
     }
 }

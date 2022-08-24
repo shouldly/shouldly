@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldNotThrow
-{
-    public class ActionDelegateScenario
-    {
-        [Fact]
-        [UseCulture("en-US")]
-        public void ActionDelegateScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-Should.NotThrow(new Action(() => { throw new InvalidOperationException(); }), "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldNotThrow;
 
-errorWithSource:
-@"`new Action(() => { throw new InvalidOperationException(); })`
+public class ActionDelegateScenario
+{
+    [Fact]
+    [UseCulture("en-US")]
+    public void ActionDelegateScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                Should.NotThrow(new Action(() => { throw new InvalidOperationException(); }), "Some additional context"),
+
+            errorWithSource:
+            @"`new Action(() => { throw new InvalidOperationException(); })`
     should not throw but threw
 System.InvalidOperationException
     with message
@@ -19,8 +19,8 @@ System.InvalidOperationException
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"delegate
+            errorWithoutSource:
+            @"delegate
     should not throw but threw
 System.InvalidOperationException
     with message
@@ -28,13 +28,12 @@ System.InvalidOperationException
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var action = new Action(() => { });
-            action.ShouldNotThrow();
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        var action = new Action(() => { });
+        action.ShouldNotThrow();
     }
 }

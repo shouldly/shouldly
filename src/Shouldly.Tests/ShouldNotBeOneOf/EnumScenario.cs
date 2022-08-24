@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldNotBeOneOf
+﻿namespace Shouldly.Tests.ShouldNotBeOneOf;
+
+public class EnumScenario
 {
-    public class EnumScenario
-    {
     [Fact]
     public void EnumScenarioShouldFail()
     {
-            var someFlags = SomeFlags.Val1;
+        var someFlags = SomeFlags.Val1;
         Verify.ShouldFail(() =>
-someFlags.ShouldNotBeOneOf(new[] { SomeFlags.Val1 }, "Some additional context"),
+                someFlags.ShouldNotBeOneOf(new[] { SomeFlags.Val1 }, "Some additional context"),
 
-errorWithSource:
-@"someFlags
+            errorWithSource:
+            @"someFlags
     should not be one of
 [SomeFlags.Val1]
     but was
@@ -19,8 +19,8 @@ SomeFlags.Val1
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"SomeFlags.Val1
+            errorWithoutSource:
+            @"SomeFlags.Val1
     should not be one of
 [SomeFlags.Val1]
     but was
@@ -34,5 +34,4 @@ Additional Info:
     {
         SomeFlags.Val1.ShouldNotBeOneOf(SomeFlags.Val2, SomeFlags.Val3);
     }
-}
 }

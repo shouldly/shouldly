@@ -1,9 +1,8 @@
-﻿namespace Shouldly.Tests.TestHelpers
-{
-    public class ComparableClass
-    {
-        public string? Property { get; set; }
+﻿namespace Shouldly.Tests.TestHelpers;
 
-        public string? IgnoredProperty { get; set; }
-    }
+public class ComparableClass
+{
+    public string? Property { get; set; }
+
+    public string? IgnoredProperty { get; set; }
 }

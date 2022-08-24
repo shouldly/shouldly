@@ -1,18 +1,18 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
+
+public class EnumerableOfMemoryScenario
 {
-    public class EnumerableOfMemoryScenario
+    [Fact]
+    public void EnumerableOfMemoryScenarioShouldFail()
     {
-        [Fact]
-        public void EnumerableOfMemoryScenarioShouldFail()
-        {
-            var foo = new byte[] { 1, 2, 3 }.AsMemory();
-            var bar = new byte[] { 1, 2 }.AsMemory();
+        var foo = new byte[] { 1, 2, 3 }.AsMemory();
+        var bar = new byte[] { 1, 2 }.AsMemory();
 
-            Verify.ShouldFail(() =>
-                    foo.ShouldBe(bar, "Some additional context"),
+        Verify.ShouldFail(() =>
+                foo.ShouldBe(bar, "Some additional context"),
 
-errorWithSource:
-@"foo
+            errorWithSource:
+            @"foo
     should be
 [1, 2]
     but was
@@ -21,21 +21,20 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 2, 3]
+            errorWithoutSource:
+            @"[1, 2, 3]
     should be
 [1, 2]
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var foo = new byte[] { 1, 2, 3 }.AsMemory();
-            foo.ShouldBe(new byte[] { 1, 2, 3 });
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        var foo = new byte[] { 1, 2, 3 }.AsMemory();
+        foo.ShouldBe(new byte[] { 1, 2, 3 });
     }
 }

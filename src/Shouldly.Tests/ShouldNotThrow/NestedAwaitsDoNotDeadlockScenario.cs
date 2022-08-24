@@ -1,36 +1,35 @@
-﻿namespace Shouldly.Tests.ShouldNotThrow
+﻿namespace Shouldly.Tests.ShouldNotThrow;
+
+public class NestedAwaitsDoNotDeadlockScenario
 {
-    public class NestedAwaitsDoNotDeadlockScenario
+    [Fact]
+    public void DelegateShouldDropSynchronisationContext()
     {
-        [Fact]
-        public void DelegateShouldDropSynchronisationContext()
+        // The await keyword will automatically capture synchronization context
+        // Because shouldly uses .Wait() we cannot let continuations run on the sync context without a deadlock
+        var synchronizationContext = new SynchronizationContext();
+        SynchronizationContext.SetSynchronizationContext(synchronizationContext);
+        SynchronizationContext.Current.ShouldNotBe(null);
+
+        var syncFunc1 = new Func<Task<object?>>(() =>
         {
-            // The await keyword will automatically capture synchronization context
-            // Because shouldly uses .Wait() we cannot let continuations run on the sync context without a deadlock
-            var synchronizationContext = new SynchronizationContext();
-            SynchronizationContext.SetSynchronizationContext(synchronizationContext);
-            SynchronizationContext.Current.ShouldNotBe(null);
+            SynchronizationContext.Current.ShouldBe(null);
 
-            var syncFunc1 = new Func<Task<object?>>(() =>
-            {
-                SynchronizationContext.Current.ShouldBe(null);
+            var taskCompletionSource = new TaskCompletionSource<object?>();
+            taskCompletionSource.SetResult(null);
+            return taskCompletionSource.Task;
+        });
+        syncFunc1.ShouldNotThrow();
 
-                var taskCompletionSource = new TaskCompletionSource<object?>();
-                taskCompletionSource.SetResult(null);
-                return taskCompletionSource.Task;
-            });
-            syncFunc1.ShouldNotThrow();
+        var syncFunc2 = new Func<Task>(() =>
+        {
+            SynchronizationContext.Current.ShouldBe(null);
 
-            var syncFunc2 = new Func<Task>(() =>
-            {
-                SynchronizationContext.Current.ShouldBe(null);
+            var taskCompletionSource = new TaskCompletionSource<object?>();
+            taskCompletionSource.SetResult(null);
+            return taskCompletionSource.Task;
+        });
 
-                var taskCompletionSource = new TaskCompletionSource<object?>();
-                taskCompletionSource.SetResult(null);
-                return taskCompletionSource.Task;
-            });
-
-            syncFunc2.ShouldNotThrow();
-        }
+        syncFunc2.ShouldNotThrow();
     }
 }

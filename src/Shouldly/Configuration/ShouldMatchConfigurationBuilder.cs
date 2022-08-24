@@ -1,105 +1,104 @@
-namespace Shouldly.Configuration
+namespace Shouldly.Configuration;
+
+public class ShouldMatchConfigurationBuilder
 {
-    public class ShouldMatchConfigurationBuilder
+    private readonly ShouldMatchConfiguration _config;
+
+    public ShouldMatchConfigurationBuilder(ShouldMatchConfiguration initialConfig)
     {
-        private readonly ShouldMatchConfiguration _config;
+        _config = new ShouldMatchConfiguration(initialConfig);
+    }
 
-        public ShouldMatchConfigurationBuilder(ShouldMatchConfiguration initialConfig)
-        {
-            _config = new ShouldMatchConfiguration(initialConfig);
-        }
+    public ShouldMatchConfigurationBuilder WithStringCompareOptions(StringCompareShould stringCompareOptions)
+    {
+        return Configure(c => c.StringCompareOptions = stringCompareOptions);
+    }
 
-        public ShouldMatchConfigurationBuilder WithStringCompareOptions(StringCompareShould stringCompareOptions)
-        {
-            return Configure(c => c.StringCompareOptions = stringCompareOptions);
-        }
+    public ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator)
+    {
+        return Configure(c => c.FilenameDiscriminator = fileDiscriminator);
+    }
 
-        public ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator)
-        {
-            return Configure(c => c.FilenameDiscriminator = fileDiscriminator);
-        }
+    public ShouldMatchConfigurationBuilder NoDiff()
+    {
+        return Configure(c => c.PreventDiff = true);
+    }
 
-        public ShouldMatchConfigurationBuilder NoDiff()
-        {
-            return Configure(c => c.PreventDiff = true);
-        }
+    public ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension)
+    {
+        return Configure(c => c.FileExtension = fileExtension.TrimStart('.'));
+    }
 
-        public ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension)
-        {
-            return Configure(c => c.FileExtension = fileExtension.TrimStart('.'));
-        }
+    public ShouldMatchConfigurationBuilder WithFilenameGenerator(FilenameGenerator filenameGenerator)
+    {
+        return Configure(c => c.FilenameGenerator = filenameGenerator);
+    }
 
-        public ShouldMatchConfigurationBuilder WithFilenameGenerator(FilenameGenerator filenameGenerator)
+    /// <summary>
+    /// Default is to ignore line endings
+    /// </summary>
+    public ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings()
+    {
+        return Configure(c =>
         {
-            return Configure(c => c.FilenameGenerator = filenameGenerator);
-        }
+            if ((c.StringCompareOptions & StringCompareShould.IgnoreLineEndings) ==
+                StringCompareShould.IgnoreLineEndings)
+                c.StringCompareOptions &= ~StringCompareShould.IgnoreLineEndings;
+        });
+    }
 
-        /// <summary>
-        /// Default is to ignore line endings
-        /// </summary>
-        public ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings()
+    /// <summary>
+    /// Places the .approved and .received files into a subfolder
+    /// </summary>
+    public ShouldMatchConfigurationBuilder SubFolder(string subfolder)
+    {
+        return Configure(c => c.ApprovalFileSubFolder = subfolder);
+    }
+
+    /// <summary>
+    /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
+    /// </summary>
+    public ShouldMatchConfigurationBuilder UseCallerLocation()
+    {
+        return Configure(c => c.TestMethodFinder = new FirstNonShouldlyMethodFinder
         {
-            return Configure(c =>
+            Offset = 1
+        });
+    }
+
+    /// <summary>
+    /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
+    /// </summary>
+    public ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
+        where T : Attribute
+    {
+        return Configure(c => c.TestMethodFinder = new FindMethodUsingAttribute<T>());
+    }
+
+    public ShouldMatchConfigurationBuilder WithScrubber(Func<string, string> scrubber)
+    {
+        return Configure(c =>
+        {
+            if (c.Scrubber == null)
             {
-                if ((c.StringCompareOptions & StringCompareShould.IgnoreLineEndings) ==
-                    StringCompareShould.IgnoreLineEndings)
-                    c.StringCompareOptions &= ~StringCompareShould.IgnoreLineEndings;
-            });
-        }
-
-        /// <summary>
-        /// Places the .approved and .received files into a subfolder
-        /// </summary>
-        public ShouldMatchConfigurationBuilder SubFolder(string subfolder)
-        {
-            return Configure(c => c.ApprovalFileSubFolder = subfolder);
-        }
-
-        /// <summary>
-        /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
-        /// </summary>
-        public ShouldMatchConfigurationBuilder UseCallerLocation()
-        {
-            return Configure(c => c.TestMethodFinder = new FirstNonShouldlyMethodFinder
+                c.Scrubber = scrubber;
+            }
+            else
             {
-                Offset = 1
-            });
-        }
+                var existing = c.Scrubber;
+                c.Scrubber = s => existing(scrubber(s));
+            }
+        });
+    }
 
-        /// <summary>
-        /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
-        /// </summary>
-        public ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
-            where T : Attribute
-        {
-            return Configure(c => c.TestMethodFinder = new FindMethodUsingAttribute<T>());
-        }
+    public ShouldMatchConfigurationBuilder Configure(Action<ShouldMatchConfiguration> configure)
+    {
+        configure(_config);
+        return this;
+    }
 
-        public ShouldMatchConfigurationBuilder WithScrubber(Func<string, string> scrubber)
-        {
-            return Configure(c =>
-            {
-                if (c.Scrubber == null)
-                {
-                    c.Scrubber = scrubber;
-                }
-                else
-                {
-                    var existing = c.Scrubber;
-                    c.Scrubber = s => existing(scrubber(s));
-                }
-            });
-        }
-
-        public ShouldMatchConfigurationBuilder Configure(Action<ShouldMatchConfiguration> configure)
-        {
-            configure(_config);
-            return this;
-        }
-
-        public ShouldMatchConfiguration Build()
-        {
-            return _config;
-        }
+    public ShouldMatchConfiguration Build()
+    {
+        return _config;
     }
 }

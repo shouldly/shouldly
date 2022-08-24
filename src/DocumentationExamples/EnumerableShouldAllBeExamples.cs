@@ -3,29 +3,28 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class EnumerableShouldAllBeExamples
 {
-    public class EnumerableShouldAllBeExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EnumerableShouldAllBeExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public EnumerableShouldAllBeExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldAllBe()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var mrBurns = new Person { Name = "Mr.Burns", Salary = 3000000 };
+            var kentBrockman = new Person { Name = "Homer", Salary = 3000000 };
+            var homer = new Person { Name = "Homer", Salary = 30000 };
+            var millionaires = new List<Person> { mrBurns, kentBrockman, homer };
 
-        [Fact]
-        public void ShouldAllBe()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = "Mr.Burns", Salary = 3000000 };
-                var kentBrockman = new Person { Name = "Homer", Salary = 3000000 };
-                var homer = new Person { Name = "Homer", Salary = 30000 };
-                var millionaires = new List<Person> { mrBurns, kentBrockman, homer };
-
-                millionaires.ShouldAllBe(m => m.Salary > 1000000);
-            }, _testOutputHelper);
-        }
+            millionaires.ShouldAllBe(m => m.Salary > 1000000);
+        }, _testOutputHelper);
     }
 }

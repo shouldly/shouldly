@@ -3,39 +3,38 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldSatisfyAllConditionsExamples
 {
-    public class ShouldSatisfyAllConditionsExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldSatisfyAllConditionsExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldSatisfyAllConditionsExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldSatisfyAllConditions()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var mrBurns = new Person { Name = null };
+            mrBurns.ShouldSatisfyAllConditions(
+                () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
+                () => mrBurns.Name.ShouldBe("Mr.Burns"));
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldSatisfyAllConditions()
+    [Fact]
+    public void ShouldSatisfyAllConditionsGeneric()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = null };
-                mrBurns.ShouldSatisfyAllConditions(
-                        () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
-                        () => mrBurns.Name.ShouldBe("Mr.Burns"));
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldSatisfyAllConditionsGeneric()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = null };
-                mrBurns.ShouldSatisfyAllConditions(
-                        p => p.Name.ShouldNotBeNullOrEmpty(),
-                        p => p.Name.ShouldBe("Mr.Burns"));
-            }, _testOutputHelper);
-        }
+            var mrBurns = new Person { Name = null };
+            mrBurns.ShouldSatisfyAllConditions(
+                p => p.Name.ShouldNotBeNullOrEmpty(),
+                p => p.Name.ShouldBe("Mr.Burns"));
+        }, _testOutputHelper);
     }
 }

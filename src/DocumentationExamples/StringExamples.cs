@@ -2,185 +2,184 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class StringExamples
 {
-    public class StringExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public StringExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public StringExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBe()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var target = "Homer";
+            target.ShouldBe("Bart");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBe()
+    [Fact]
+    public void ShouldNotBe()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldBe("Bart");
-            }, _testOutputHelper);
-        }
+            var target = "Bart";
+            target.ShouldNotBe("Bart");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotBe()
+    [Fact]
+    public void ShouldEndWith()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Bart";
-                target.ShouldNotBe("Bart");
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldEndWith("Bart");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldEndWith()
+    [Fact]
+    public void ShouldNotEndWith()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldEndWith("Bart");
-            }, _testOutputHelper);
-        }
+            var target = "Homer Simpson";
+            target.ShouldNotEndWith("Simpson");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotEndWith()
+    [Fact]
+    public void ShouldStartWith()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer Simpson";
-                target.ShouldNotEndWith("Simpson");
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldStartWith("Bart");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldStartWith()
+    [Fact]
+    public void ShouldNotStartWith()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldStartWith("Bart");
-            }, _testOutputHelper);
-        }
+            var target = "Homer Simpson";
+            target.ShouldNotStartWith("Homer");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotStartWith()
+    [Fact]
+    public void ShouldContain()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer Simpson";
-                target.ShouldNotStartWith("Homer");
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldContain("Bart");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldContain()
+    [Fact]
+    public void ShouldNotBeNullOrEmpty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldContain("Bart");
-            }, _testOutputHelper);
-        }
+            var target = "";
+            target.ShouldNotBeNullOrEmpty();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotBeNullOrEmpty()
+    [Fact]
+    public void ShouldNotBeEmpty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "";
-                target.ShouldNotBeNullOrEmpty();
-            }, _testOutputHelper);
-        }
+            var target = "";
+            target.ShouldNotBeEmpty();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotBeEmpty()
+    [Fact]
+    public void ShouldNotBeNull()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "";
-                target.ShouldNotBeEmpty();
-            }, _testOutputHelper);
-        }
+            string? target = null;
+            target.ShouldNotBeNull();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotBeNull()
+    [Fact]
+    public void ShouldBeNull()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                string? target = null;
-                target.ShouldNotBeNull();
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldBeNull();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeNull()
+    [Fact]
+    public void ShouldNotMatch()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldBeNull();
-            }, _testOutputHelper);
-        }
+            var target = "Homer Simpson";
+            target.ShouldNotMatch("Homer .*");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotMatch()
+    [Fact]
+    public void ShouldMatch()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer Simpson";
-                target.ShouldNotMatch("Homer .*");
-            }, _testOutputHelper);
-        }
+            var target = "Homer Simpson";
+            target.ShouldMatch("Bart .*");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldMatch()
+    [Fact]
+    public void ShouldBeNullOrEmpty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer Simpson";
-                target.ShouldMatch("Bart .*");
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldBeNullOrEmpty();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeNullOrEmpty()
+    [Fact]
+    public void ShouldBeEmpty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldBeNullOrEmpty();
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldBeEmpty();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeEmpty()
+    [Fact]
+    public void ShouldContainWithoutWhitespace()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldBeEmpty();
-            }, _testOutputHelper);
-        }
+            var target = "Homer Simpson";
+            target.ShouldContainWithoutWhitespace(" Bart Simpson ");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldContainWithoutWhitespace()
+    [Fact]
+    public void ShouldNotContain()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer Simpson";
-                target.ShouldContainWithoutWhitespace(" Bart Simpson ");
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotContain()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var target = "Homer";
-                target.ShouldNotContain("Home");
-            }, _testOutputHelper);
-        }
+            var target = "Homer";
+            target.ShouldNotContain("Home");
+        }, _testOutputHelper);
     }
 }

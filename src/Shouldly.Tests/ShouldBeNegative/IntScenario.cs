@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBeNegative
+﻿namespace Shouldly.Tests.ShouldBeNegative;
+
+public class IntScenario
 {
-    public class IntScenario
-    {
     [Fact]
     public void IntScenarioShouldFail()
     {
         var @int = 3;
         Verify.ShouldFail(() =>
-@int.ShouldBeNegative("Some additional context"),
+                @int.ShouldBeNegative("Some additional context"),
 
-errorWithSource:
-@"@int
+            errorWithSource:
+            @"@int
     should be negative but
 3
     is positive
@@ -18,18 +18,17 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"3
+            errorWithoutSource:
+            @"3
     should be negative but is positive
 
 Additional Info:
     Some additional context");
     }
 
-        [Fact]
+    [Fact]
     public void ShouldPass()
     {
         (-7).ShouldBeNegative();
     }
-}
 }

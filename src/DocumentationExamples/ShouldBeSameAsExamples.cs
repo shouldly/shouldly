@@ -3,37 +3,36 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeSameAsExamples
 {
-    public class ShouldBeSameAsExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeSameAsExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeSameAsExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeSameAs()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var principleSkinner = new Person { Name = "Armin Tamzarian" };
+            var seymourSkinner = new Person { Name = "Seymour Skinner" };
 
-        [Fact]
-        public void ShouldBeSameAs()
+            principleSkinner.ShouldBeSameAs(seymourSkinner);
+        }, _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldNotBeSameAs()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var principleSkinner = new Person { Name = "Armin Tamzarian" };
-                var seymourSkinner = new Person { Name = "Seymour Skinner" };
-
-                principleSkinner.ShouldBeSameAs(seymourSkinner);
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotBeSameAs()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var person = new Person { Name = "Armin Tamzarian" };
-                person.ShouldNotBeSameAs(person);
-            }, _testOutputHelper);
-        }
+            var person = new Person { Name = "Armin Tamzarian" };
+            person.ShouldNotBeSameAs(person);
+        }, _testOutputHelper);
     }
 }

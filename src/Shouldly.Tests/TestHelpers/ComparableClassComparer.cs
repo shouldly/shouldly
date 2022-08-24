@@ -1,18 +1,17 @@
-﻿namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers;
+
+public class ComparableClassComparer : IEqualityComparer<ComparableClass>
 {
-    public class ComparableClassComparer : IEqualityComparer<ComparableClass>
+    public bool Equals(ComparableClass? x, ComparableClass? y)
     {
-        public bool Equals(ComparableClass? x, ComparableClass? y)
-        {
-            if (x == y) return true;
-            if (x is null || y is null) return false;
+        if (x == y) return true;
+        if (x is null || y is null) return false;
 
-            return x.Property == y.Property;
-        }
+        return x.Property == y.Property;
+    }
 
-        public int GetHashCode(ComparableClass obj)
-        {
-            return EqualityComparer<string?>.Default.GetHashCode(obj.Property);
-        }
+    public int GetHashCode(ComparableClass obj)
+    {
+        return EqualityComparer<string?>.Default.GetHashCode(obj.Property);
     }
 }

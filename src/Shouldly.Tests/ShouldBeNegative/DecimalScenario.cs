@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldBeNegative
-{
-    [UseCulture("en-US")]
-    public class DecimalScenario
-    {
-        [Fact]
-        public void DecimalScenarioShouldFail()
-        {
-            var @decimal = 3.5m;
-            Verify.ShouldFail(() =>
-    @decimal.ShouldBeNegative("Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBeNegative;
 
-errorWithSource:
-@"@decimal
+[UseCulture("en-US")]
+public class DecimalScenario
+{
+    [Fact]
+    public void DecimalScenarioShouldFail()
+    {
+        var @decimal = 3.5m;
+        Verify.ShouldFail(() =>
+                @decimal.ShouldBeNegative("Some additional context"),
+
+            errorWithSource:
+            @"@decimal
     should be negative but
 3.5m
     is positive
@@ -19,18 +19,17 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"3.5m
+            errorWithoutSource:
+            @"3.5m
     should be negative but is positive
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            (-7.5m).ShouldBeNegative();
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        (-7.5m).ShouldBeNegative();
     }
 }

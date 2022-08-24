@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldContain
+﻿namespace Shouldly.Tests.ShouldContain;
+
+public class DoubleWithToleranceScenario
 {
-    public class DoubleWithToleranceScenario
-    {
     [Fact]
     [UseCulture("en-US")]
     public void DoubleWithToleranceScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { 1d, 2d, 3d }.ShouldContain(1.8, 0.1d, "Some additional context"),
+                new[] { 1d, 2d, 3d }.ShouldContain(1.8, 0.1d, "Some additional context"),
 
-errorWithSource:
-@"new[] { 1d, 2d, 3d }
+            errorWithSource:
+            @"new[] { 1d, 2d, 3d }
     should contain
 1.8d
     within
@@ -21,8 +21,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1d, 2d, 3d]
+            errorWithoutSource:
+            @"[1d, 2d, 3d]
     should contain
 1.8d
     within
@@ -38,5 +38,4 @@ Additional Info:
     {
         new[] { 1d, 2d, 3d }.ShouldContain(1.91d, 0.1d);
     }
-}
 }

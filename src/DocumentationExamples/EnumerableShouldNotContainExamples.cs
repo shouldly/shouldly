@@ -3,44 +3,43 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class EnumerableShouldNotContainExamples
 {
-    public class EnumerableShouldNotContainExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EnumerableShouldNotContainExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public EnumerableShouldNotContainExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldNotContain()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var homerSimpson = new Person { Name = "Homer" };
+            var homerGlumplich = new Person { Name = "Homer" };
+            var lenny = new Person { Name = "Lenny" };
+            var carl = new Person { Name = "carl" };
+            var clubOfNoHomers = new List<Person> { homerSimpson, homerGlumplich, lenny, carl };
 
-        [Fact]
-        public void ShouldNotContain()
+            clubOfNoHomers.ShouldNotContain(homerSimpson);
+        }, _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldNotContain_Predicate()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var homerSimpson = new Person { Name = "Homer" };
-                var homerGlumplich = new Person { Name = "Homer" };
-                var lenny = new Person { Name = "Lenny" };
-                var carl = new Person { Name = "carl" };
-                var clubOfNoHomers = new List<Person> { homerSimpson, homerGlumplich, lenny, carl };
+            var mrBurns = new Person { Name = "Mr.Burns", Salary = 3000000 };
+            var kentBrockman = new Person { Name = "Homer", Salary = 3000000 };
+            var homer = new Person { Name = "Homer", Salary = 30000 };
+            var millionaires = new List<Person> { mrBurns, kentBrockman, homer };
 
-                clubOfNoHomers.ShouldNotContain(homerSimpson);
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotContain_Predicate()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = "Mr.Burns", Salary = 3000000 };
-                var kentBrockman = new Person { Name = "Homer", Salary = 3000000 };
-                var homer = new Person { Name = "Homer", Salary = 30000 };
-                var millionaires = new List<Person> { mrBurns, kentBrockman, homer };
-
-                millionaires.ShouldNotContain(m => m.Salary < 1000000);
-            }, _testOutputHelper);
-        }
+            millionaires.ShouldNotContain(m => m.Salary < 1000000);
+        }, _testOutputHelper);
     }
 }

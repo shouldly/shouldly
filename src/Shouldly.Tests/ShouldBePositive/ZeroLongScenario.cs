@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBePositive
-{
-    public class ZeroLongScenario
-    {
-        [Fact]
-        public void ZeroLongScenarioShouldFail()
-        {
-            var val = 0L;
-            Verify.ShouldFail(() =>
-val.ShouldBePositive("Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBePositive;
 
-errorWithSource:
-@"val
+public class ZeroLongScenario
+{
+    [Fact]
+    public void ZeroLongScenarioShouldFail()
+    {
+        var val = 0L;
+        Verify.ShouldFail(() =>
+                val.ShouldBePositive("Some additional context"),
+
+            errorWithSource:
+            @"val
     should be positive but
 0L
     is negative
@@ -18,12 +18,11 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"0L
+            errorWithoutSource:
+            @"0L
     should be positive but is negative
 
 Additional Info:
     Some additional context");
-        }
     }
 }

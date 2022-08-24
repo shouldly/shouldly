@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
-{
-    public class IgnoreOrderIEnumerableMethodYieldBreak
-    {
-        [Fact]
-        public void IgnoreOrderIEnumerableMethodYieldBreakShouldFail()
-        {
-            Verify.ShouldFail(() =>
-GetEmptyEnumerable().ShouldBe(new[] { 2, 4 }, true, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
 
-errorWithSource:
-@"GetEmptyEnumerable()
+public class IgnoreOrderIEnumerableMethodYieldBreak
+{
+    [Fact]
+    public void IgnoreOrderIEnumerableMethodYieldBreakShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                GetEmptyEnumerable().ShouldBe(new[] { 2, 4 }, true, "Some additional context"),
+
+            errorWithSource:
+            @"GetEmptyEnumerable()
     should be (ignoring order)
 [2, 4]
     but
@@ -20,8 +20,8 @@ GetEmptyEnumerable()
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[]
+            errorWithoutSource:
+            @"[]
     should be (ignoring order)
 [2, 4]
     but
@@ -31,17 +31,16 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            GetEmptyEnumerable().ShouldBe(new int[0], true);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        GetEmptyEnumerable().ShouldBe(new int[0], true);
+    }
 
-        private static IEnumerable<int> GetEmptyEnumerable()
-        {
-            yield break;
-        }
+    private static IEnumerable<int> GetEmptyEnumerable()
+    {
+        yield break;
     }
 }

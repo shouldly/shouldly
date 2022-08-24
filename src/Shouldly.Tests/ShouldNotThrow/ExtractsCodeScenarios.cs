@@ -1,53 +1,53 @@
-﻿namespace Shouldly.Tests.ShouldNotThrow
+﻿namespace Shouldly.Tests.ShouldNotThrow;
+
+public class ExtractsCodeScenarios
 {
-    public class ExtractsCodeScenarios
+    [Fact]
+    [UseCulture("en-US")]
+    public void ExtractsCodeCorrectly1()
     {
-        [Fact]
-        [UseCulture("en-US")]
-        public void ExtractsCodeCorrectly1()
-        {
-            TestHelpers.Should.Error(() =>
+        TestHelpers.Should.Error(() =>
                 Should.NotThrow(() => methodCall()),
-                @"`methodCall()` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
-        }
+            @"`methodCall()` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+    }
 
-        [Fact]
-        public void ExtractsCodeCorrectly2()
-        {
-            TestHelpers.Should.Error(() =>
+    [Fact]
+    public void ExtractsCodeCorrectly2()
+    {
+        TestHelpers.Should.Error(() =>
                 Should.Throw<Exception>(() => noThrowMethodCall()),
-                "`noThrowMethodCall()` should throw System.Exception but did not");
-        }
+            "`noThrowMethodCall()` should throw System.Exception but did not");
+    }
 
-        [Fact]
-        [UseCulture("en-US")]
-        public void ExtractsCodeCorrectly3()
-        {
-            TestHelpers.Should.Error(() =>
+    [Fact]
+    [UseCulture("en-US")]
+    public void ExtractsCodeCorrectly3()
+    {
+        TestHelpers.Should.Error(() =>
                 Should.NotThrow(() => { methodCallWithParameters(1, 2); }),
-                @"`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
-        }
+            @"`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+    }
 
-        [Fact]
-        [UseCulture("en-US")]
-        public void ExtractsCodeCorrectly4()
-        {
-            TestHelpers.Should.Error(
-                () => Should.NotThrow(() =>
+    [Fact]
+    [UseCulture("en-US")]
+    public void ExtractsCodeCorrectly4()
+    {
+        TestHelpers.Should.Error(
+            () => Should.NotThrow(() =>
+            {
+                if (methodCall1())
                 {
-                    if (methodCall1())
-                    {
-                        methodCallWithParameters(1, 2);
-                    }
-                }),
-                @"`if (methodCall1()) { methodCallWithParameters(1, 2); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
-        }
+                    methodCallWithParameters(1, 2);
+                }
+            }),
+            @"`if (methodCall1()) { methodCallWithParameters(1, 2); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+    }
 
-        [Fact]
-        [UseCulture("en-US")]
-        public void ExtractsCodeCorrectly5()
-        {
-            TestHelpers.Should.Error(() =>
+    [Fact]
+    [UseCulture("en-US")]
+    public void ExtractsCodeCorrectly5()
+    {
+        TestHelpers.Should.Error(() =>
                 Should.NotThrow(() =>
                 {
                     if (methodCall1())
@@ -55,31 +55,30 @@
                         methodCall2();
                     }
                 }),
-                @"`if (methodCall1()) { methodCall2(); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
-        }
+            @"`if (methodCall1()) { methodCall2(); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+    }
 
-        private void noThrowMethodCall()
-        {
-        }
+    private void noThrowMethodCall()
+    {
+    }
 
-        private void methodCallWithParameters(int i, int i1)
-        {
-            throw new Exception();
-        }
+    private void methodCallWithParameters(int i, int i1)
+    {
+        throw new Exception();
+    }
 
-        private void methodCall2()
-        {
-            throw new Exception();
-        }
+    private void methodCall2()
+    {
+        throw new Exception();
+    }
 
-        private bool methodCall1()
-        {
-            return true;
-        }
+    private bool methodCall1()
+    {
+        return true;
+    }
 
-        private void methodCall()
-        {
-            throw new Exception();
-        }
+    private void methodCall()
+    {
+        throw new Exception();
     }
 }

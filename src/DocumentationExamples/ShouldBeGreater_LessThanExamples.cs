@@ -3,55 +3,54 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeGreater_LessThanExamples
 {
-    public class ShouldBeGreater_LessThanExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeGreater_LessThanExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeGreater_LessThanExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeGreaterThan()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
+            mrBurns.Salary.ShouldBeGreaterThan(300000000);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeGreaterThan()
+    [Fact]
+    public void ShouldBeLessThan()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
-                mrBurns.Salary.ShouldBeGreaterThan(300000000);
-            }, _testOutputHelper);
-        }
+            var homer = new Person { Name = "Homer", Salary = 300000000 };
+            homer.Salary.ShouldBeLessThan(30000);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeLessThan()
+    [Fact]
+    public void ShouldBeGreaterThanOrEqualTo()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var homer = new Person { Name = "Homer", Salary = 300000000 };
-                homer.Salary.ShouldBeLessThan(30000);
-            }, _testOutputHelper);
-        }
+            var mrBurns = new Person { Name = "Mr. Burns", Salary = 299999999 };
+            mrBurns.Salary.ShouldBeGreaterThanOrEqualTo(300000000);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeGreaterThanOrEqualTo()
+    [Fact]
+    public void ShouldBeLessThanOrEqualTo()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var mrBurns = new Person { Name = "Mr. Burns", Salary = 299999999 };
-                mrBurns.Salary.ShouldBeGreaterThanOrEqualTo(300000000);
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldBeLessThanOrEqualTo()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var homer = new Person { Name = "Homer", Salary = 30001 };
-                homer.Salary.ShouldBeLessThanOrEqualTo(30000);
-            }, _testOutputHelper);
-        }
+            var homer = new Person { Name = "Homer", Salary = 30001 };
+            homer.Salary.ShouldBeLessThanOrEqualTo(30000);
+        }, _testOutputHelper);
     }
 }

@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo
-{
-    public class StringScenario
-    {
-        [Fact]
-        public void StringScenarioShouldFail()
-        {
-            var aVar = "a";
-            Verify.ShouldFail(() =>
-aVar.ShouldBeGreaterThanOrEqualTo("b", "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBeGreaterOrEqualTo;
 
-errorWithSource:
-@"aVar
+public class StringScenario
+{
+    [Fact]
+    public void StringScenarioShouldFail()
+    {
+        var aVar = "a";
+        Verify.ShouldFail(() =>
+                aVar.ShouldBeGreaterThanOrEqualTo("b", "Some additional context"),
+
+            errorWithSource:
+            @"aVar
     should be greater than or equal to
 ""b""
     but was
@@ -19,20 +19,19 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""a""
+            errorWithoutSource:
+            @"""a""
     should be greater than or equal to
 ""b""
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "a".ShouldBeGreaterThanOrEqualTo("a");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "a".ShouldBeGreaterThanOrEqualTo("a");
     }
 }

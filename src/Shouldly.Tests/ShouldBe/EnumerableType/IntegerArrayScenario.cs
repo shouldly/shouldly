@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
+
+public class IntegerArrayScenario
 {
-    public class IntegerArrayScenario
-    {
     [Fact]
     public void IntegerArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { 99, 2, 3, 5 }.ShouldBe(new[] { 1, 2, 3, 4 }, "Some additional context"),
+                new[] { 99, 2, 3, 5 }.ShouldBe(new[] { 1, 2, 3, 4 }, "Some additional context"),
 
-errorWithSource:
-@"new[] { 99, 2, 3, 5 }
+            errorWithSource:
+            @"new[] { 99, 2, 3, 5 }
     should be
 [1, 2, 3, 4]
     but was
@@ -20,8 +20,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[99, 2, 3, 5]
+            errorWithoutSource:
+            @"[99, 2, 3, 5]
     should be
 [1, 2, 3, 4]
     but was not
@@ -37,5 +37,4 @@ Additional Info:
     {
         new[] { 1, 2, 3, 4 }.ShouldBe(new[] { 1, 2, 3, 4 });
     }
-}
 }

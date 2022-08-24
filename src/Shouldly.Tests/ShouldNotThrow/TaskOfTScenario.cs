@@ -1,20 +1,20 @@
-namespace Shouldly.Tests.ShouldNotThrow
+namespace Shouldly.Tests.ShouldNotThrow;
+
+public class TaskOfTScenario
 {
-    public class TaskOfTScenario
+    [Fact]
+    [UseCulture("en-US")]
+    public void TaskOfTScenarioShouldFail()
     {
-        [Fact]
-        [UseCulture("en-US")]
-        public void TaskOfTScenarioShouldFail()
-        {
-            var task = Task.Factory.StartNew<string>(() => throw new RankException(),
-                            CancellationToken.None, TaskCreationOptions.None,
-                            TaskScheduler.Default);
+        var task = Task.Factory.StartNew<string>(() => throw new RankException(),
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            Verify.ShouldFail(() =>
-task.ShouldNotThrow("Some additional context"),
+        Verify.ShouldFail(() =>
+                task.ShouldNotThrow("Some additional context"),
 
-errorWithSource:
-@"Task `task`
+            errorWithSource:
+            @"Task `task`
     should not throw but threw
 System.RankException
     with message
@@ -23,8 +23,8 @@ System.RankException
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Task
+            errorWithoutSource:
+            @"Task
     should not throw but threw
 System.RankException
     with message
@@ -32,17 +32,16 @@ System.RankException
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var task = Task.Factory.StartNew(() => "foo",
-                    CancellationToken.None, TaskCreationOptions.None,
-                    TaskScheduler.Default);
+    [Fact]
+    public void ShouldPass()
+    {
+        var task = Task.Factory.StartNew(() => "foo",
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            var result = task.ShouldNotThrow();
-            result.ShouldBe("foo");
-        }
+        var result = task.ShouldNotThrow();
+        result.ShouldBe("foo");
     }
 }

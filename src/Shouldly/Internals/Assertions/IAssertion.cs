@@ -1,8 +1,7 @@
-﻿namespace Shouldly.Internals.Assertions
+﻿namespace Shouldly.Internals.Assertions;
+
+internal interface IAssertion
 {
-    internal interface IAssertion
-    {
-        bool IsSatisfied();
-        string? GenerateMessage(string? customMessage);
-    }
+    bool IsSatisfied();
+    string? GenerateMessage(string? customMessage);
 }

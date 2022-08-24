@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs
-{
-    public class LongStringVsShortStringScenario
-    {
-        [Fact]
-        public void LongStringVsShortStringScenarioShouldFail()
-        {
-            var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
-            Verify.ShouldFail(() =>
-str.ShouldBe("1A"),
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs;
 
-errorWithSource:
-@"str
+public class LongStringVsShortStringScenario
+{
+    [Fact]
+    public void LongStringVsShortStringScenarioShouldFail()
+    {
+        var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("1A"),
+
+            errorWithSource:
+            @"str
     should be
 ""1A""
     but was
@@ -48,8 +48,8 @@ Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s  
 Expected Code  | ...                                                                                                           
 Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  ",
 
-errorWithoutSource:
-@"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
+            errorWithoutSource:
+            @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
     should be
 ""1A""
     but was not
@@ -85,13 +85,12 @@ Expected Value | ...
 Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    v    
 Expected Code  | ...                                                                                                           
 Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
-                    .ShouldBe("1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
+            .ShouldBe("1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v");
     }
 }

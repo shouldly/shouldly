@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldBe.WithTolerance
-{
-    public class DecimalScenario
-    {
-        [Fact]
-        [UseCulture("en-US")]
-        public void DecimalScenarioShouldFail()
-        {
-            const decimal pi = (decimal)MathEx.PI;
-            Verify.ShouldFail(() =>
-pi.ShouldBe(3.24m, 0.01m, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBe.WithTolerance;
 
-errorWithSource:
-@"pi
+public class DecimalScenario
+{
+    [Fact]
+    [UseCulture("en-US")]
+    public void DecimalScenarioShouldFail()
+    {
+        const decimal pi = (decimal)MathEx.PI;
+        Verify.ShouldFail(() =>
+                pi.ShouldBe(3.24m, 0.01m, "Some additional context"),
+
+            errorWithSource:
+            @"pi
     should be within
 0.01m
     of
@@ -22,8 +22,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"3.14159m
+            errorWithoutSource:
+            @"3.14159m
     should be within
 0.01m
     of
@@ -32,13 +32,12 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            const decimal pi = (decimal)MathEx.PI;
-            pi.ShouldBe(3.14m, 0.01m);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        const decimal pi = (decimal)MathEx.PI;
+        pi.ShouldBe(3.14m, 0.01m);
     }
 }

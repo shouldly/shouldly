@@ -1,13 +1,12 @@
-﻿namespace Shouldly.Tests.ShouldBeUnique
+﻿namespace Shouldly.Tests.ShouldBeUnique;
+
+public class LargeDatasetScenario
 {
-    public class LargeDatasetScenario
+    [Fact]
+    public void ShouldPass()
     {
-        [Fact]
-        public void ShouldPass()
-        {
-            Enumerable.Range(1, 500000)
-                .ToArray()
-                .ShouldBeUnique();
-        }
+        Enumerable.Range(1, 500000)
+            .ToArray()
+            .ShouldBeUnique();
     }
 }

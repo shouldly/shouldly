@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive
-{
-    public class UnsafeStringSpaceScenario
-    {
-        [Fact]
-        public void UnsafeStringSpaceScenarioShouldFail()
-        {
-            var str = "StringOne Space";
-            Verify.ShouldFail(() =>
-str.ShouldBe("Stringone\tSpace"),
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive;
 
-errorWithSource:
-@"str
+public class UnsafeStringSpaceScenario
+{
+    [Fact]
+    public void UnsafeStringSpaceScenarioShouldFail()
+    {
+        var str = "StringOne Space";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("Stringone\tSpace"),
+
+            errorWithSource:
+            @"str
     should be
 ""Stringone" + "\t" + @"Space""
     but was
@@ -24,8 +24,8 @@ Actual Value   | S    t    r    i    n    g    O    n    e    \s   S    p    a  
 Expected Code  | 83   116  114  105  110  103  111  110  101  9    83   112  97   99   101  
 Actual Code    | 83   116  114  105  110  103  79   110  101  32   83   112  97   99   101  ",
 
-errorWithoutSource:
-@"""StringOne Space""
+            errorWithoutSource:
+            @"""StringOne Space""
     should be
 ""Stringone" + "\t" + @"Space""
     but was not
@@ -37,12 +37,11 @@ Expected Value | S    t    r    i    n    g    o    n    e    \t   S    p    a  
 Actual Value   | S    t    r    i    n    g    O    n    e    \s   S    p    a    c    e    
 Expected Code  | 83   116  114  105  110  103  111  110  101  9    83   112  97   99   101  
 Actual Code    | 83   116  114  105  110  103  79   110  101  32   83   112  97   99   101  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "StringOne Space".ShouldBe("StringOne Space");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "StringOne Space".ShouldBe("StringOne Space");
     }
 }

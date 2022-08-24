@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs
-{
-    // Just before the edge case for consolidation. 2 differences are exactly the required length apart to be consolidated into one diff
-    public class DiffsCloseToEachOtherAreConsolidatedBorderConditionOne
-    {
-        [Fact]
-        public void DiffsCloseToEachOtherAreConsolidatedBorderConditionOneShouldFail()
-        {
-            var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
-            Verify.ShouldFail(() =>
-str.ShouldBe("1a,1b.1c,1d,1e,1f,1g,1h,1j,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1w", StringCompareShould.IgnoreCase),
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs;
 
-errorWithSource:
-@"str
+// Just before the edge case for consolidation. 2 differences are exactly the required length apart to be consolidated into one diff
+public class DiffsCloseToEachOtherAreConsolidatedBorderConditionOne
+{
+    [Fact]
+    public void DiffsCloseToEachOtherAreConsolidatedBorderConditionOneShouldFail()
+    {
+        var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("1a,1b.1c,1d,1e,1f,1g,1h,1j,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1w", StringCompareShould.IgnoreCase),
+
+            errorWithSource:
+            @"str
     should be with options: Ignoring case
 ""1a,1b.1c,1d,1e,1f,1g,1h,1j,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1w""
     but was
@@ -33,8 +33,8 @@ Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s  
 Expected Code  | ...  46   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   119  
 Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  ",
 
-errorWithoutSource:
-@"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
+            errorWithoutSource:
+            @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
     should be with options: Ignoring case
 ""1a,1b.1c,1d,1e,1f,1g,1h,1j,1j,1k,1l,1m,1n,1o.1p,1q,1r,1s,1t,1u,1w""
     but was not
@@ -54,15 +54,14 @@ Expected Value | ...  .    1    p    ,    1    q    ,    1    r    ,    1    s  
 Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    v    
 Expected Code  | ...  46   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   119  
 Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
-                 .ShouldBe(
+    [Fact]
+    public void ShouldPass()
+    {
+        "1A,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
+            .ShouldBe(
                 "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v",
-                 StringCompareShould.IgnoreCase);
-        }
+                StringCompareShould.IgnoreCase);
     }
 }

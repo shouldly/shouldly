@@ -3,46 +3,45 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeOneOfExamples
 {
-    public class ShouldBeOneOfExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeOneOfExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeOneOfExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeOneOf()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var apu = new Person { Name = "Apu" };
+            var homer = new Person { Name = "Homer" };
+            var skinner = new Person { Name = "Skinner" };
+            var barney = new Person { Name = "Barney" };
+            var theBeSharps = new List<Person> { homer, skinner, barney };
 
-        [Fact]
-        public void ShouldBeOneOf()
+            apu.ShouldBeOneOf(theBeSharps.ToArray());
+        }, _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldNotBeOneOf()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var apu = new Person { Name = "Apu" };
-                var homer = new Person { Name = "Homer" };
-                var skinner = new Person { Name = "Skinner" };
-                var barney = new Person { Name = "Barney" };
-                var theBeSharps = new List<Person> { homer, skinner, barney };
+            var apu = new Person { Name = "Apu" };
+            var homer = new Person { Name = "Homer" };
+            var skinner = new Person { Name = "Skinner" };
+            var barney = new Person { Name = "Barney" };
+            var wiggum = new Person { Name = "Wiggum" };
+            var theBeSharps = new List<Person> { apu, homer, skinner, barney, wiggum };
 
-                apu.ShouldBeOneOf(theBeSharps.ToArray());
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotBeOneOf()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var apu = new Person { Name = "Apu" };
-                var homer = new Person { Name = "Homer" };
-                var skinner = new Person { Name = "Skinner" };
-                var barney = new Person { Name = "Barney" };
-                var wiggum = new Person { Name = "Wiggum" };
-                var theBeSharps = new List<Person> { apu, homer, skinner, barney, wiggum };
-
-                wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
-            }, _testOutputHelper);
-        }
+            wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
+        }, _testOutputHelper);
     }
 }

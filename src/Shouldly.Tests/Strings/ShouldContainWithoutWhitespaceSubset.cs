@@ -1,11 +1,10 @@
-namespace Shouldly.Tests.Strings
+namespace Shouldly.Tests.Strings;
+
+public class ShouldContainWithoutWhitespaceSubset
 {
-    public class ShouldContainWithoutWhitespaceSubset
+    [Fact]
+    public void CanMatchOnSubset()
     {
-        [Fact]
-        public void CanMatchOnSubset()
-        {
-            "Fun   with     space and some extra stuff".ShouldContainWithoutWhitespace("Fun with space");
-        }
+        "Fun   with     space and some extra stuff".ShouldContainWithoutWhitespace("Fun with space");
     }
 }

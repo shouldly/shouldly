@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBe.WithTolerance
+﻿namespace Shouldly.Tests.ShouldBe.WithTolerance;
+
+public class EnumerableOfDoubleScenario
 {
-    public class EnumerableOfDoubleScenario
-    {
     [Fact]
     [UseCulture("en-US")]
     public void EnumerableOfDoubleScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.24, 3.24 }, 0.01, "Some additional context"),
+                new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.24, 3.24 }, 0.01, "Some additional context"),
 
-errorWithSource:
-@"new[] { MathEx.PI, MathEx.PI }
+            errorWithSource:
+            @"new[] { MathEx.PI, MathEx.PI }
     should be within
 0.01d
     of
@@ -23,8 +23,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[3.14159d, 3.14159d]
+            errorWithoutSource:
+            @"[3.14159d, 3.14159d]
     should be within
 0.01d
     of
@@ -42,5 +42,4 @@ Additional Info:
     {
         new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
     }
-}
 }

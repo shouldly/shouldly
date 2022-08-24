@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.ShouldBe
-{
-    public class CaseIsInsensitiveScenario
-    {
-        [Fact]
-        public void CaseIsInsensitiveScenarioShouldFail()
-        {
-            var str = "SamplE";
-            Verify.ShouldFail(() =>
-str.ShouldBe("different", "Some additional context", StringCompareShould.IgnoreCase),
+﻿namespace Shouldly.Tests.Strings.ShouldBe;
 
-errorWithSource:
-@"str
+public class CaseIsInsensitiveScenario
+{
+    [Fact]
+    public void CaseIsInsensitiveScenarioShouldFail()
+    {
+        var str = "SamplE";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("different", "Some additional context", StringCompareShould.IgnoreCase),
+
+            errorWithSource:
+            @"str
     should be with options: Ignoring case
 ""different""
     but was
@@ -27,8 +27,8 @@ Actual Code    | 83   97   109  112  108  69
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""SamplE""
+            errorWithoutSource:
+            @"""SamplE""
     should be with options: Ignoring case
 ""different""
     but was not
@@ -43,12 +43,11 @@ Actual Code    | 83   97   109  112  108  69
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "SamplE".ShouldBe("sAMPLe", StringCompareShould.IgnoreCase);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "SamplE".ShouldBe("sAMPLe", StringCompareShould.IgnoreCase);
     }
 }

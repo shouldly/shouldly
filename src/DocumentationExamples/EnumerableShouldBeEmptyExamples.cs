@@ -3,36 +3,35 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class EnumerableShouldBeEmptyExamples
 {
-    public class EnumerableShouldBeEmptyExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EnumerableShouldBeEmptyExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public EnumerableShouldBeEmptyExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeEmpty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var homer = new Person { Name = "Homer" };
+            var powerPlantOnTheWeekend = new List<Person> { homer };
+            powerPlantOnTheWeekend.ShouldBeEmpty();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeEmpty()
+    [Fact]
+    public void ShouldNotBeEmpty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var homer = new Person { Name = "Homer" };
-                var powerPlantOnTheWeekend = new List<Person> { homer };
-                powerPlantOnTheWeekend.ShouldBeEmpty();
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotBeEmpty()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var moesTavernOnTheWeekend = new List<Person>();
-                moesTavernOnTheWeekend.ShouldNotBeEmpty();
-            }, _testOutputHelper);
-        }
+            var moesTavernOnTheWeekend = new List<Person>();
+            moesTavernOnTheWeekend.ShouldNotBeEmpty();
+        }, _testOutputHelper);
     }
 }

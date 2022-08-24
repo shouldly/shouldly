@@ -1,9 +1,8 @@
 using System.Diagnostics;
 
-namespace Shouldly.Configuration
+namespace Shouldly.Configuration;
+
+public interface ITestMethodFinder
 {
-    public interface ITestMethodFinder
-    {
-        TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0);
-    }
+    TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0);
 }

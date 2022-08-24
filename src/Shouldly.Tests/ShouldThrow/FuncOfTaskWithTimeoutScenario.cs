@@ -1,62 +1,61 @@
-namespace Shouldly.Tests.ShouldThrow
+namespace Shouldly.Tests.ShouldThrow;
+
+public class FuncOfTaskWithTimeoutScenario
 {
-    public class FuncOfTaskWithTimeoutScenario
+    [Fact]
+    public void ShouldThrowAWobbly()
     {
-        [Fact]
-        public void ShouldThrowAWobbly()
-        {
-            var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
+        var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
 
-            ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
-        }
+        ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
+    }
 
-        [Fact]
-        public void ShouldThrowAWobbly_ExceptionTypePassedIn()
-        {
-            var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+    [Fact]
+    public void ShouldThrowAWobbly_ExceptionTypePassedIn()
+    {
+        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            var ex = Should.Throw(() => task.ShouldThrow(TimeSpan.FromSeconds(0.5), "Some additional context", typeof(ShouldCompleteInException)), typeof(ShouldCompleteInException));
+        var ex = Should.Throw(() => task.ShouldThrow(TimeSpan.FromSeconds(0.5), "Some additional context", typeof(ShouldCompleteInException)), typeof(ShouldCompleteInException));
 
-            ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
-        }
+        ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
+    }
 
-        private string ChuckedAWobblyErrorMessage = @"Task
+    private string ChuckedAWobblyErrorMessage = @"Task
         should complete in
     00:00:00.5000000
         but did not
     Additional Info:
     Some additional context";
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+    [Fact]
+    public void ShouldPass()
+    {
+        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
+        var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
 
-            ex.ShouldNotBe(null);
-            ex.ShouldBeOfType<InvalidOperationException>();
-        }
+        ex.ShouldNotBe(null);
+        ex.ShouldBeOfType<InvalidOperationException>();
+    }
 
-        [Fact]
-        public void ShouldPass_ExceptionTypePassedIn()
-        {
-            var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+    [Fact]
+    public void ShouldPass_ExceptionTypePassedIn()
+    {
+        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            var ex = task.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
+        var ex = task.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
 
-            ex.ShouldNotBe(null);
-            ex.ShouldBeOfType<InvalidOperationException>();
-        }
+        ex.ShouldNotBe(null);
+        ex.ShouldBeOfType<InvalidOperationException>();
     }
 }

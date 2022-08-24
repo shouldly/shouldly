@@ -2,35 +2,34 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeTrueFalseExamples
 {
-    public class ShouldBeTrueFalseExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeTrueFalseExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeTrueFalseExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeTrue()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var myValue = false;
+            myValue.ShouldBeTrue();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeTrue()
+    [Fact]
+    public void ShouldBeFalse()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var myValue = false;
-                myValue.ShouldBeTrue();
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldBeFalse()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var myValue = true;
-                myValue.ShouldBeFalse();
-            }, _testOutputHelper);
-        }
+            var myValue = true;
+            myValue.ShouldBeFalse();
+        }, _testOutputHelper);
     }
 }

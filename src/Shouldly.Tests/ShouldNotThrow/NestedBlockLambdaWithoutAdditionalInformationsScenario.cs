@@ -1,11 +1,11 @@
-﻿namespace Shouldly.Tests.ShouldNotThrow
+﻿namespace Shouldly.Tests.ShouldNotThrow;
+
+public class NestedBlockLambdaWithoutAdditionalInformationsScenario
 {
-    public class NestedBlockLambdaWithoutAdditionalInformationsScenario
+    [Fact]
+    public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail()
     {
-        [Fact]
-        public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
+        Verify.ShouldFail(() =>
             {
                 Should.NotThrow(() =>
                 {
@@ -16,19 +16,18 @@
                 });
             },
 
-errorWithSource:
-@"`if (true) { throw new Exception(""Dummy message.""); }`
+            errorWithSource:
+            @"`if (true) { throw new Exception(""Dummy message.""); }`
     should not throw but threw
 System.Exception
     with message
 ""Dummy message.""",
 
-errorWithoutSource:
-@"Task
+            errorWithoutSource:
+            @"Task
     should not throw but threw
 System.Exception
     with message
 ""Dummy message.""");
-        }
     }
 }

@@ -1,41 +1,41 @@
-﻿namespace Shouldly.Tests.ShouldBe.ShouldBeSubsetOf
+﻿namespace Shouldly.Tests.ShouldBe.ShouldBeSubsetOf;
+
+public class ComparerScenario
 {
-    public class ComparerScenario
+    [Fact]
+    public void ComparerEqualsShouldPass()
     {
-        [Fact]
-        public void ComparerEqualsShouldPass()
+        var comparison1 = new[]
         {
-            var comparison1 = new[]
-            {
-                new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" }
-            };
-            var comparison2 = new[]
-            {
-                new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
-                new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }
-            };
-
-            comparison1.ShouldBeSubsetOf(comparison2, new ComparableClassComparer());
-        }
-
-        [Fact]
-        public void ComparerNotEqualsShouldFail()
+            new ComparableClass { Property = "Elephant", IgnoredProperty = "Duck" }
+        };
+        var comparison2 = new[]
         {
-            var comparison1 = new[]
-            {
-                new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" }
-            };
-            var comparison2 = new[]
-            {
-                new ComparableClass { Property = "Snake", IgnoredProperty = "Platypus" },
-                new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" }
-            };
+            new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" },
+            new ComparableClass { Property = "Lion", IgnoredProperty = "Spider" }
+        };
 
-            Verify.ShouldFail(() =>
-comparison1.ShouldBeSubsetOf(comparison2, new ComparableClassComparer(), "Some additional context"),
+        comparison1.ShouldBeSubsetOf(comparison2, new ComparableClassComparer());
+    }
 
-errorWithSource:
-@"comparison1
+    [Fact]
+    public void ComparerNotEqualsShouldFail()
+    {
+        var comparison1 = new[]
+        {
+            new ComparableClass { Property = "Kangaroo", IgnoredProperty = "Whale" }
+        };
+        var comparison2 = new[]
+        {
+            new ComparableClass { Property = "Snake", IgnoredProperty = "Platypus" },
+            new ComparableClass { Property = "Cat", IgnoredProperty = "Ant" }
+        };
+
+        Verify.ShouldFail(() =>
+                comparison1.ShouldBeSubsetOf(comparison2, new ComparableClassComparer(), "Some additional context"),
+
+            errorWithSource:
+            @"comparison1
     should be subset of
 [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
     but
@@ -45,8 +45,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+            errorWithoutSource:
+            @"[Shouldly.Tests.TestHelpers.ComparableClass (000000)]
     should be subset of
 [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
     but
@@ -55,6 +55,5 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
     }
 }

@@ -1,90 +1,89 @@
 ﻿using Shouldly.DifferenceHighlighting;
 
-namespace Shouldly.Internals.Assertions
+namespace Shouldly.Internals.Assertions;
+
+internal class StringShouldBeAssertion : IAssertion
 {
-    internal class StringShouldBeAssertion : IAssertion
+    private readonly string? _expected;
+    private readonly string? _actual;
+    private readonly Func<string?, string?, bool> _compare;
+    private readonly ICodeTextGetter _codeTextGetter;
+    private readonly IStringDifferenceHighlighter _diffHighlighter;
+    private readonly string _options;
+    private readonly string _shouldlyMethod;
+
+    public StringShouldBeAssertion(
+        string? expected,
+        string? actual,
+        Func<string?, string?, bool> compare,
+        ICodeTextGetter codeTextGetter,
+        IStringDifferenceHighlighter diffHighlighter,
+        string options,
+        string shouldlyMethod)
     {
-        private readonly string? _expected;
-        private readonly string? _actual;
-        private readonly Func<string?, string?, bool> _compare;
-        private readonly ICodeTextGetter _codeTextGetter;
-        private readonly IStringDifferenceHighlighter _diffHighlighter;
-        private readonly string _options;
-        private readonly string _shouldlyMethod;
+        _expected = expected;
+        _actual = actual;
+        _compare = compare;
+        _codeTextGetter = codeTextGetter;
+        _diffHighlighter = diffHighlighter;
+        _options = options;
+        _shouldlyMethod = shouldlyMethod;
+    }
 
-        public StringShouldBeAssertion(
-            string? expected,
-            string? actual,
-            Func<string?, string?, bool> compare,
-            ICodeTextGetter codeTextGetter,
-            IStringDifferenceHighlighter diffHighlighter,
-            string options,
-            string shouldlyMethod)
-        {
-            _expected = expected;
-            _actual = actual;
-            _compare = compare;
-            _codeTextGetter = codeTextGetter;
-            _diffHighlighter = diffHighlighter;
-            _options = options;
-            _shouldlyMethod = shouldlyMethod;
-        }
+    public string GenerateMessage(string? customMessage)
+    {
+        var _actualTrimmed = Trim(_actual);
+        var _expectedTrimmed = Trim(_expected);
+        var codeText = _codeTextGetter.GetCodeText(_actual);
+        var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
+        var actualValue = _actualTrimmed.ToStringAwesomely();
+        var expectedValue = _expectedTrimmed.ToStringAwesomely();
 
-        public string GenerateMessage(string? customMessage)
-        {
-            var _actualTrimmed = Trim(_actual);
-            var _expectedTrimmed = Trim(_expected);
-            var codeText = _codeTextGetter.GetCodeText(_actual);
-            var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
-            var actualValue = _actualTrimmed.ToStringAwesomely();
-            var expectedValue = _expectedTrimmed.ToStringAwesomely();
+        var differences = _diffHighlighter.HighlightDifferences(_expectedTrimmed, _actualTrimmed);
 
-            var differences = _diffHighlighter.HighlightDifferences(_expectedTrimmed, _actualTrimmed);
-
-            var actual = codeText == actualValue ? " not" : $@"
+        var actual = codeText == actualValue ? " not" : $@"
 {actualValue}";
-            var message =
-$@"{codeText}
+        var message =
+            $@"{codeText}
     {_shouldlyMethod}{withOption}
 {expectedValue}
     but was{actual}";
 
-            if (differences != null)
-            {
-                message += $@"
+        if (differences != null)
+        {
+            message += $@"
     difference
 {differences}";
-            }
+        }
 
-            if (customMessage != null)
-            {
-                message += $@"
+        if (customMessage != null)
+        {
+            message += $@"
 
 Additional Info:
     {customMessage}";
-            }
-
-            return message;
         }
 
-        private static string? Trim(string? value)
+        return message;
+    }
+
+    private static string? Trim(string? value)
+    {
+        if (value == null)
         {
-            if (value == null)
-            {
-                return null;
-            }
-
-            if (value.Length <= 5000)
-            {
-                return value;
-            }
-
-            return value[..5000];
+            return null;
         }
 
-        public bool IsSatisfied()
+        if (value.Length <= 5000)
         {
-            return _compare(_actual, _expected);
+            return value;
         }
+
+        return value[..5000];
+    }
+
+    public bool IsSatisfied()
+    {
+        return _compare(_actual, _expected);
     }
 }

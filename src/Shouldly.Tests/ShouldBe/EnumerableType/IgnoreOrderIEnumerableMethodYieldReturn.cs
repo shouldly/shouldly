@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
-{
-    public class IgnoreOrderIEnumerableMethodYieldReturn
-    {
-        [Fact]
-        public void IgnoreOrderIEnumerableMethodYieldReturnShouldFail()
-        {
-            Verify.ShouldFail(() =>
-GetEnumerable().ShouldBe(new[] { 1, 2 }, true, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
 
-errorWithSource:
-@"GetEnumerable()
+public class IgnoreOrderIEnumerableMethodYieldReturn
+{
+    [Fact]
+    public void IgnoreOrderIEnumerableMethodYieldReturnShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                GetEnumerable().ShouldBe(new[] { 1, 2 }, true, "Some additional context"),
+
+            errorWithSource:
+            @"GetEnumerable()
     should be (ignoring order)
 [1, 2]
     but
@@ -20,8 +20,8 @@ GetEnumerable()
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1]
+            errorWithoutSource:
+            @"[1]
     should be (ignoring order)
 [1, 2]
     but
@@ -31,17 +31,16 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            GetEnumerable().ShouldBe(new[] { 1 }, true);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        GetEnumerable().ShouldBe(new[] { 1 }, true);
+    }
 
-        private static IEnumerable<int> GetEnumerable()
-        {
-            yield return 1;
-        }
+    private static IEnumerable<int> GetEnumerable()
+    {
+        yield return 1;
     }
 }

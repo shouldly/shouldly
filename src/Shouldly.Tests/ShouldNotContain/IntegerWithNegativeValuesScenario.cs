@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldNotContain
+﻿namespace Shouldly.Tests.ShouldNotContain;
+
+public class IntegerWithNegativeValuesScenario
 {
-    public class IntegerWithNegativeValuesScenario
+    private readonly int[] _target = { 2, 3, 4, 5, 4, 123665, 11234, -13562377 };
+
+    [Fact]
+    public void IntegerWithNegativeValuesScenarioShouldFail()
     {
-        private readonly int[] _target = { 2, 3, 4, 5, 4, 123665, 11234, -13562377 };
+        Verify.ShouldFail(() =>
+                _target.ShouldNotContain(3, "Some additional context"),
 
-        [Fact]
-        public void IntegerWithNegativeValuesScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-    _target.ShouldNotContain(3, "Some additional context"),
-
-errorWithSource:
-@"_target
+            errorWithSource:
+            @"_target
     should not contain
 3
     but was actually
@@ -20,20 +20,19 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-    errorWithoutSource:
-@"[2, 3, 4, 5, 4, 123665, 11234, -13562377]
+            errorWithoutSource:
+            @"[2, 3, 4, 5, 4, 123665, 11234, -13562377]
     should not contain
 3
     but did
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            _target.ShouldNotContain(-300);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        _target.ShouldNotContain(-300);
     }
 }

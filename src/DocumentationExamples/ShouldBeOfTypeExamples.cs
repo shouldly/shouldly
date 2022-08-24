@@ -3,35 +3,34 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldBeOfTypeExamples
 {
-    public class ShouldBeOfTypeExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldBeOfTypeExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldBeOfTypeExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeOfType()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var theSimpsonsDog = new Cat { Name = "Santas little helper" };
+            theSimpsonsDog.ShouldBeOfType<Dog>();
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldBeOfType()
+    [Fact]
+    public void ShouldNotBeOfType()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var theSimpsonsDog = new Cat { Name = "Santas little helper" };
-                theSimpsonsDog.ShouldBeOfType<Dog>();
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotBeOfType()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var theSimpsonsDog = new Cat { Name = "Santas little helper" };
-                theSimpsonsDog.ShouldNotBeOfType<Cat>();
-            }, _testOutputHelper);
-        }
+            var theSimpsonsDog = new Cat { Name = "Santas little helper" };
+            theSimpsonsDog.ShouldNotBeOfType<Cat>();
+        }, _testOutputHelper);
     }
 }

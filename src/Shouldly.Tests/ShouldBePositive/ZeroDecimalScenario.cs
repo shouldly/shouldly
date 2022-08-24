@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldBePositive
+﻿namespace Shouldly.Tests.ShouldBePositive;
+
+public class ZeroDecimalScenario
 {
-    public class ZeroDecimalScenario
+    [Fact]
+    public void ZeroDecimalScenarioShouldFail()
     {
-        [Fact]
-        public void ZeroDecimalScenarioShouldFail()
-        {
-            var val = 0m;
-            Verify.ShouldFail(() =>
-val.ShouldBePositive("Some additional context"),
+        var val = 0m;
+        Verify.ShouldFail(() =>
+                val.ShouldBePositive("Some additional context"),
 
 // TODO is zero negative?
-errorWithSource:
-@"val
+            errorWithSource:
+            @"val
     should be positive but
 0m
     is negative
@@ -19,12 +19,11 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"0m
+            errorWithoutSource:
+            @"0m
     should be positive but is negative
 
 Additional Info:
     Some additional context");
-        }
     }
 }

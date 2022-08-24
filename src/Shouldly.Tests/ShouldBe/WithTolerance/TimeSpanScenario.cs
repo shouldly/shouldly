@@ -1,16 +1,16 @@
-namespace Shouldly.Tests.ShouldBe.WithTolerance
+namespace Shouldly.Tests.ShouldBe.WithTolerance;
+
+public class TimeSpanScenario
 {
-    public class TimeSpanScenario
+    [Fact]
+    public void TimeSpanScenarioShouldFail()
     {
-        [Fact]
-        public void TimeSpanScenarioShouldFail()
-        {
-            var timeSpan = TimeSpan.FromHours(1);
-            Verify.ShouldFail(() =>
+        var timeSpan = TimeSpan.FromHours(1);
+        Verify.ShouldFail(() =>
                 timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1), "Some additional context"),
 
-errorWithSource:
-@"timeSpan
+            errorWithSource:
+            @"timeSpan
     should be within
 01:00:00
     of
@@ -21,8 +21,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"01:00:00
+            errorWithoutSource:
+            @"01:00:00
     should be within
 01:00:00
     of
@@ -31,13 +31,12 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var timeSpan = TimeSpan.FromHours(1);
-            timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d));
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        var timeSpan = TimeSpan.FromHours(1);
+        timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d));
     }
 }

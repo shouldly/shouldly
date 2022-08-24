@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldAllBe
+﻿namespace Shouldly.Tests.ShouldAllBe;
+
+public class TypeBinaryExpressionScenario
 {
-    public class TypeBinaryExpressionScenario
+    [Fact]
+    public void TypeBinaryExpressionScenarioShouldFail()
     {
-        [Fact]
-        public void TypeBinaryExpressionScenarioShouldFail()
-        {
-            var objects = new List<object> { "1", 1 };
+        var objects = new List<object> { "1", 1 };
 
-            Verify.ShouldFail(() =>
-objects.ShouldAllBe(x => x is string, "Some additional context"),
+        Verify.ShouldFail(() =>
+                objects.ShouldAllBe(x => x is string, "Some additional context"),
 
-errorWithSource:
-@"objects
+            errorWithSource:
+            @"objects
     should satisfy the condition
 (x Is String)
     but
@@ -21,8 +21,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[""1"", 1]
+            errorWithoutSource:
+            @"[""1"", 1]
     should satisfy the condition
 (x Is String)
     but
@@ -31,12 +31,11 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            new[] { "1", "2", "3" }.ShouldAllBe(x => x is string);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        new[] { "1", "2", "3" }.ShouldAllBe(x => x is string);
     }
 }

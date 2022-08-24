@@ -3,30 +3,29 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class EnumerableShouldBeExamples
 {
-    public class EnumerableShouldBeExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EnumerableShouldBeExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public EnumerableShouldBeExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBe()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var apu = new Person { Name = "Apu" };
+            var homer = new Person { Name = "Homer" };
+            var skinner = new Person { Name = "Skinner" };
+            var barney = new Person { Name = "Barney" };
+            var theBeSharps = new List<Person> { homer, skinner, barney };
 
-        [Fact]
-        public void ShouldBe()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var apu = new Person { Name = "Apu" };
-                var homer = new Person { Name = "Homer" };
-                var skinner = new Person { Name = "Skinner" };
-                var barney = new Person { Name = "Barney" };
-                var theBeSharps = new List<Person> { homer, skinner, barney };
-
-                theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
-            }, _testOutputHelper);
-        }
+            theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney });
+        }, _testOutputHelper);
     }
 }

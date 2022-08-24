@@ -1,23 +1,22 @@
-﻿namespace Shouldly.Tests.ShouldBeInOrder
+﻿namespace Shouldly.Tests.ShouldBeInOrder;
+
+public class UnitArrayScenario
 {
-    public class UnitArrayScenario
+    [Fact]
+    public void ShouldPass()
     {
-        [Fact]
-        public void ShouldPass()
-        {
-            new[] { 5 }.ShouldBeInOrder();
-        }
+        new[] { 5 }.ShouldBeInOrder();
+    }
 
-        [Fact]
-        public void ShouldPassWhenSortDirectionIsGiven()
-        {
-            new[] { 5 }.ShouldBeInOrder(SortDirection.Descending);
-        }
+    [Fact]
+    public void ShouldPassWhenSortDirectionIsGiven()
+    {
+        new[] { 5 }.ShouldBeInOrder(SortDirection.Descending);
+    }
 
-        [Fact]
-        public void ShouldPassWhenSortDirectionAndCustomComparerAreGiven()
-        {
-            new[] { 5 }.ShouldBeInOrder(SortDirection.Ascending, Comparer<int>.Default);
-        }
+    [Fact]
+    public void ShouldPassWhenSortDirectionAndCustomComparerAreGiven()
+    {
+        new[] { 5 }.ShouldBeInOrder(SortDirection.Ascending, Comparer<int>.Default);
     }
 }

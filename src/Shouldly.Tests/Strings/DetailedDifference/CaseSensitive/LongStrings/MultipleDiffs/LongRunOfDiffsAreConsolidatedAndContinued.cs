@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs
-{
-    public class LongRunOfDiffsAreConsolidatedAndContinued
-    {
-        [Fact]
-        public void LongRunOfDiffsAreConsolidatedAndContinuedShouldFail()
-        {
-            var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
-            Verify.ShouldFail(() =>
-str.ShouldBe("2A.2B.2C.2D.2E.2F.2G.2H.2I.2J.2K.2L.2M.2N.2O.2P.2Q.2R.2S.2T.2U.2V"),
+﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive.LongStrings.MultipleDiffs;
 
-errorWithSource:
-@"str
+public class LongRunOfDiffsAreConsolidatedAndContinued
+{
+    [Fact]
+    public void LongRunOfDiffsAreConsolidatedAndContinuedShouldFail()
+    {
+        var str = "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("2A.2B.2C.2D.2E.2F.2G.2H.2I.2J.2K.2L.2M.2N.2O.2P.2Q.2R.2S.2T.2U.2V"),
+
+            errorWithSource:
+            @"str
     should be
 ""2A.2B.2C.2D.2E.2F.2G.2H.2I.2J.2K.2L.2M.2N.2O.2P.2Q.2R.2S.2T.2U.2V""
     but was
@@ -48,8 +48,8 @@ Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s  
 Expected Code  | ...  46   50   80   46   50   81   46   50   82   46   50   83   46   50   84   46   50   85   46   50   86   
 Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  ",
 
-errorWithoutSource:
-@"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
+            errorWithoutSource:
+            @"""1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v""
     should be
 ""2A.2B.2C.2D.2E.2F.2G.2H.2I.2J.2K.2L.2M.2N.2O.2P.2Q.2R.2S.2T.2U.2V""
     but was not
@@ -85,13 +85,12 @@ Expected Value | ...  .    2    P    .    2    Q    .    2    R    .    2    S  
 Actual Value   | ...  ,    1    p    ,    1    q    ,    1    r    ,    1    s    ,    1    t    ,    1    u    ,    1    v    
 Expected Code  | ...  46   50   80   46   50   81   46   50   82   46   50   83   46   50   84   46   50   85   46   50   86   
 Actual Code    | ...  44   49   112  44   49   113  44   49   114  44   49   115  44   49   116  44   49   117  44   49   118  ");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
-                    .ShouldBe("1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
+            .ShouldBe("1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v");
     }
 }

@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBeEquivalentTo
-{
-    public class TypeScenario
-    {
-        [Fact]
-        public void ShouldFail()
-        {
-            const string subject = "Hello";
-            Verify.ShouldFail(() =>
-subject.ShouldBeEquivalentTo(5, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBeEquivalentTo;
 
-errorWithSource:
-@"Comparing object equivalence, at path:
+public class TypeScenario
+{
+    [Fact]
+    public void ShouldFail()
+    {
+        const string subject = "Hello";
+        Verify.ShouldFail(() =>
+                subject.ShouldBeEquivalentTo(5, "Some additional context"),
+
+            errorWithSource:
+            @"Comparing object equivalence, at path:
 subject
 
     Expected value to be
@@ -21,8 +21,8 @@ System.String
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"Comparing object equivalence, at path:
+            errorWithoutSource:
+            @"Comparing object equivalence, at path:
 <root>
 
     Expected value to be
@@ -32,6 +32,5 @@ System.String
 
 Additional Info:
     Some additional context");
-        }
     }
 }

@@ -3,29 +3,28 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class EnumerableShouldBeUniqueExamples
 {
-    public class EnumerableShouldBeUniqueExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EnumerableShouldBeUniqueExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public EnumerableShouldBeUniqueExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldBeUnique()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var lisa = new Person { Name = "Lisa" };
+            var bart = new Person { Name = "Bart" };
+            var maggie = new Person { Name = "Maggie" };
+            var simpsonsKids = new List<Person> { bart, lisa, maggie, maggie };
 
-        [Fact]
-        public void ShouldBeUnique()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var lisa = new Person { Name = "Lisa" };
-                var bart = new Person { Name = "Bart" };
-                var maggie = new Person { Name = "Maggie" };
-                var simpsonsKids = new List<Person> { bart, lisa, maggie, maggie };
-
-                simpsonsKids.ShouldBeUnique();
-            }, _testOutputHelper);
-        }
+            simpsonsKids.ShouldBeUnique();
+        }, _testOutputHelper);
     }
 }

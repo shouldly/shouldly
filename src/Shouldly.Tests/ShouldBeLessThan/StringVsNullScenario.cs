@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBeLessThan
-{
-    public class StringVsNullScenario
-    {
-        [Fact]
-        public void StringVsNullScenarioShouldFail()
-        {
-            var bee = "b";
-            Verify.ShouldFail(() =>
-bee.ShouldBeLessThan(null, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBeLessThan;
 
-errorWithSource:
-@"bee
+public class StringVsNullScenario
+{
+    [Fact]
+    public void StringVsNullScenarioShouldFail()
+    {
+        var bee = "b";
+        Verify.ShouldFail(() =>
+                bee.ShouldBeLessThan(null, "Some additional context"),
+
+            errorWithSource:
+            @"bee
     should be less than
 null
     but was
@@ -19,20 +19,19 @@ null
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""b""
+            errorWithoutSource:
+            @"""b""
     should be less than
 null
     but was not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            ((string?)null).ShouldBeLessThan("b");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        ((string?)null).ShouldBeLessThan("b");
     }
 }

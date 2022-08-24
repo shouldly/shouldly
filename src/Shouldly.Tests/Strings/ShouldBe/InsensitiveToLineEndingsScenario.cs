@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.ShouldBe
-{
-    public class InsensitiveToLineEndingsScenario
-    {
-        [Fact]
-        public void InsensitiveToLineEndingsScenarioShouldFail()
-        {
-            var str = "line1\nline2";
-            Verify.ShouldFail(() =>
-str.ShouldBe("line1\r\nLine3", "Some additional context", StringCompareShould.IgnoreLineEndings),
+﻿namespace Shouldly.Tests.Strings.ShouldBe;
 
-errorWithSource:
-@"str
+public class InsensitiveToLineEndingsScenario
+{
+    [Fact]
+    public void InsensitiveToLineEndingsScenarioShouldFail()
+    {
+        var str = "line1\nline2";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("line1\r\nLine3", "Some additional context", StringCompareShould.IgnoreLineEndings),
+
+            errorWithSource:
+            @"str
     should be with options: Ignoring line endings
 ""line1" + "\n" + @"Line3""
     but was
@@ -27,8 +27,8 @@ Actual Code    | 108  105  110  101  49   10   108  105  110  101  50
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""line1" + "\n" + @"line2""
+            errorWithoutSource:
+            @"""line1" + "\n" + @"line2""
     should be with options: Ignoring line endings
 ""line1" + "\n" + @"Line3""
     but was not
@@ -43,12 +43,11 @@ Actual Code    | 108  105  110  101  49   10   108  105  110  101  50
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "line1\nline2".ShouldBe("line1\r\nline2", StringCompareShould.IgnoreLineEndings);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "line1\nline2".ShouldBe("line1\r\nline2", StringCompareShould.IgnoreLineEndings);
     }
 }

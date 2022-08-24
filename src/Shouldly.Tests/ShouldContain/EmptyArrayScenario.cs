@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldContain
-{
-    public class EmptyArrayScenario
-    {
-        [Fact]
-        public void EmptyArrayScenarioShouldFail()
-        {
-            var target = new int[0];
-            Verify.ShouldFail(() =>
-target.ShouldContain(1, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldContain;
 
-errorWithSource:
-@"target
+public class EmptyArrayScenario
+{
+    [Fact]
+    public void EmptyArrayScenarioShouldFail()
+    {
+        var target = new int[0];
+        Verify.ShouldFail(() =>
+                target.ShouldContain(1, "Some additional context"),
+
+            errorWithSource:
+            @"target
     should contain
 1
     but was actually
@@ -19,14 +19,13 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[]
+            errorWithoutSource:
+            @"[]
     should contain
 1
     but did not
 
 Additional Info:
     Some additional context");
-        }
     }
 }

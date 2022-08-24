@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe
-{
-    public class ShouldBeEnumerableTypeScenarios
-    {
-        [Fact]
-        public void StringListScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-_thisString.ShouldBe(_thisOtherStringList, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBe;
 
-errorWithSource:
-@"_thisString
+public class ShouldBeEnumerableTypeScenarios
+{
+    [Fact]
+    public void StringListScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                _thisString.ShouldBe(_thisOtherStringList, "Some additional context"),
+
+            errorWithSource:
+            @"_thisString
     should be
 [""1"", ""3""]
     but was (case sensitive comparison)
@@ -20,8 +20,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[""1"", ""2""]
+            errorWithoutSource:
+            @"[""1"", ""2""]
     should be
 [""1"", ""3""]
     but was not (case sensitive comparison)
@@ -30,18 +30,18 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void DifferentOrderWithMissingItemFromBothIgnoringOrderScenario()
-        {
-            var first = new List<int> { 1, 3, 2 };
-            var second = new[] { 1, 3, 4 };
-            Verify.ShouldFail(() =>
-first.ShouldBe(second, true, "Some additional context"),
+    [Fact]
+    public void DifferentOrderWithMissingItemFromBothIgnoringOrderScenario()
+    {
+        var first = new List<int> { 1, 3, 2 };
+        var second = new[] { 1, 3, 4 };
+        Verify.ShouldFail(() =>
+                first.ShouldBe(second, true, "Some additional context"),
 
-errorWithSource:
-@"first
+            errorWithSource:
+            @"first
     should be (ignoring order)
 [1, 3, 4]
     but
@@ -56,8 +56,8 @@ first
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 3, 2]
+            errorWithoutSource:
+            @"[1, 3, 2]
     should be (ignoring order)
 [1, 3, 4]
     but
@@ -71,16 +71,16 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void DifferentOrderWithMissingItemFromExpectedScenario()
-        {
-            Verify.ShouldFail(() =>
-new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 3 }, true, "Some additional context"),
+    [Fact]
+    public void DifferentOrderWithMissingItemFromExpectedScenario()
+    {
+        Verify.ShouldFail(() =>
+                new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 3 }, true, "Some additional context"),
 
-errorWithSource:
-@"new List<int> { 1, 3, 2 }
+            errorWithSource:
+            @"new List<int> { 1, 3, 2 }
     should be (ignoring order)
 [1, 3]
     but
@@ -91,8 +91,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 3, 2]
+            errorWithoutSource:
+            @"[1, 3, 2]
     should be (ignoring order)
 [1, 3]
     but
@@ -102,16 +102,16 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void DifferentOrderWithMissingItemFromActualScenario()
-        {
-            Verify.ShouldFail(() =>
-new List<int> { 1, 3 }.ShouldBe(new[] { 1, 2, 3 }, true, "Some additional context"),
+    [Fact]
+    public void DifferentOrderWithMissingItemFromActualScenario()
+    {
+        Verify.ShouldFail(() =>
+                new List<int> { 1, 3 }.ShouldBe(new[] { 1, 2, 3 }, true, "Some additional context"),
 
-errorWithSource:
-@"new List<int> { 1, 3 }
+            errorWithSource:
+            @"new List<int> { 1, 3 }
     should be (ignoring order)
 [1, 2, 3]
     but
@@ -122,8 +122,8 @@ new List<int> { 1, 3 }
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 3]
+            errorWithoutSource:
+            @"[1, 3]
     should be (ignoring order)
 [1, 2, 3]
     but
@@ -133,16 +133,16 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void DifferentCollectionTypeScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-    new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 3, 2 }, false, "Some additional context"),
+    [Fact]
+    public void DifferentCollectionTypeScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 3, 2 }, false, "Some additional context"),
 
-errorWithSource:
-@"new List<int> { 1, 2, 3 }
+            errorWithSource:
+            @"new List<int> { 1, 2, 3 }
     should be
 [1, 3, 2]
     but was
@@ -153,8 +153,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 2, 3]
+            errorWithoutSource:
+            @"[1, 2, 3]
     should be
 [1, 3, 2]
     but was not
@@ -163,18 +163,18 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ActualIsNullScenario()
-        {
-            IEnumerable<int>? something = null;
-            // ReSharper disable once ExpressionIsAlwaysNull
-            Verify.ShouldFail(() =>
-something.ShouldBe(new[] { 1, 2, 3 }, "Some additional context"),
+    [Fact]
+    public void ActualIsNullScenario()
+    {
+        IEnumerable<int>? something = null;
+        // ReSharper disable once ExpressionIsAlwaysNull
+        Verify.ShouldFail(() =>
+                something.ShouldBe(new[] { 1, 2, 3 }, "Some additional context"),
 
-errorWithSource:
-@"something
+            errorWithSource:
+            @"something
     should be
 [1, 2, 3]
     but was
@@ -183,36 +183,35 @@ null
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"null
+            errorWithoutSource:
+            @"null
     should be
 [1, 2, 3]
     but was not
 
 Additional Info:
     Some additional context");
-        }
-
-        [Fact]
-        public void DifferentEnumerableTypesShouldPass()
-        {
-            _thisString.ToArray().ShouldBe(_thisString);
-            new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
-        }
-
-        [Fact]
-        public void SameInstanceInDifferentInterfaceCollectionTypesShouldPass()
-        {
-            var foo = new Foo();
-
-            IList<IFoo> a = new List<IFoo> { foo };
-
-            a.ShouldBe(new IFoo[] { foo });
-        }
-
-        private interface IFoo { }
-        private class Foo : IFoo { }
-        private readonly List<string> _thisOtherStringList = new() { "1", "3" };
-        private readonly List<string> _thisString = new() { "1", "2" };
     }
+
+    [Fact]
+    public void DifferentEnumerableTypesShouldPass()
+    {
+        _thisString.ToArray().ShouldBe(_thisString);
+        new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
+    }
+
+    [Fact]
+    public void SameInstanceInDifferentInterfaceCollectionTypesShouldPass()
+    {
+        var foo = new Foo();
+
+        IList<IFoo> a = new List<IFoo> { foo };
+
+        a.ShouldBe(new IFoo[] { foo });
+    }
+
+    private interface IFoo { }
+    private class Foo : IFoo { }
+    private readonly List<string> _thisOtherStringList = new() { "1", "3" };
+    private readonly List<string> _thisString = new() { "1", "2" };
 }

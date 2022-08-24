@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBeSubsetOf
-{
-    public class FloatArrayScenario
-    {
-        [Fact]
-        public void FloatArrayScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new[] { 1f, 2f, 5f }.ShouldBeSubsetOf(new[] { 2f, 3f, 4f }, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBeSubsetOf;
 
-errorWithSource:
-@"new[] { 1f, 2f, 5f }
+public class FloatArrayScenario
+{
+    [Fact]
+    public void FloatArrayScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new[] { 1f, 2f, 5f }.ShouldBeSubsetOf(new[] { 2f, 3f, 4f }, "Some additional context"),
+
+            errorWithSource:
+            @"new[] { 1f, 2f, 5f }
     should be subset of
 [2f, 3f, 4f]
     but
@@ -19,8 +19,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1f, 2f, 5f]
+            errorWithoutSource:
+            @"[1f, 2f, 5f]
     should be subset of
 [2f, 3f, 4f]
     but
@@ -29,12 +29,11 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            new[] { 1f }.ShouldBeSubsetOf(new[] { 1f, 2f, 3f });
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        new[] { 1f }.ShouldBeSubsetOf(new[] { 1f, 2f, 3f });
     }
 }

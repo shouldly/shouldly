@@ -1,10 +1,9 @@
-﻿namespace Shouldly.Tests.TestHelpers
+﻿namespace Shouldly.Tests.TestHelpers;
+
+[Flags]
+internal enum SomeFlags
 {
-    [Flags]
-    internal enum SomeFlags
-    {
-        Val1,
-        Val2,
-        Val3
-    }
+    Val1,
+    Val2,
+    Val3
 }

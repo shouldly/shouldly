@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
+
+public class IgnoreOrderFalseScenario
 {
-    public class IgnoreOrderFalseScenario
-    {
     [Fact]
     public void IgnoreOrderFalseScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new List<int> { 1, 4, 2 }.ShouldBe(new[] { 1, 2, 3 }, false, "Some additional context"),
+                new List<int> { 1, 4, 2 }.ShouldBe(new[] { 1, 2, 3 }, false, "Some additional context"),
 
-errorWithSource:
-@"new List<int> { 1, 4, 2 }
+            errorWithSource:
+            @"new List<int> { 1, 4, 2 }
     should be
 [1, 2, 3]
     but was
@@ -20,8 +20,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 4, 2]
+            errorWithoutSource:
+            @"[1, 4, 2]
     should be
 [1, 2, 3]
     but was not
@@ -37,5 +37,4 @@ Additional Info:
     {
         new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: false);
     }
-}
 }

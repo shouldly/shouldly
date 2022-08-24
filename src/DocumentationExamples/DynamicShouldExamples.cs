@@ -3,25 +3,24 @@ using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class DynamicShouldExamples
 {
-    public class DynamicShouldExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public DynamicShouldExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public DynamicShouldExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void HaveProperty()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
-
-        [Fact]
-        public void HaveProperty()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                dynamic theFuture = new ExpandoObject();
-                DynamicShould.HaveProperty(theFuture, "RobotTeachers");
-            }, _testOutputHelper);
-        }
+            dynamic theFuture = new ExpandoObject();
+            DynamicShould.HaveProperty(theFuture, "RobotTeachers");
+        }, _testOutputHelper);
     }
 }

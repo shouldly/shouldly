@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBe.WithTolerance
+﻿namespace Shouldly.Tests.ShouldBe.WithTolerance;
+
+public class EnumerableOfFloatScenario
 {
-    public class EnumerableOfFloatScenario
-    {
     [Fact]
     [UseCulture("en-US")]
     public void EnumerableOfFloatScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, "Some additional context"),
+                new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, "Some additional context"),
 
-errorWithSource:
-@"new[] { (float)MathEx.PI, (float)MathEx.PI }
+            errorWithSource:
+            @"new[] { (float)MathEx.PI, (float)MathEx.PI }
     should be within
 0.01d
     of
@@ -23,8 +23,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[3.14159f, 3.14159f]
+            errorWithoutSource:
+            @"[3.14159f, 3.14159f]
     should be within
 0.01d
     of
@@ -42,5 +42,4 @@ Additional Info:
     {
         new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.14f, 3.14f }, 0.01);
     }
-}
 }

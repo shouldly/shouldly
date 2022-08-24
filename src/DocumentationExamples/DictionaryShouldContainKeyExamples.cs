@@ -2,36 +2,35 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class DictionaryShouldContainKeyExamples
 {
-    public class DictionaryShouldContainKeyExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public DictionaryShouldContainKeyExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public DictionaryShouldContainKeyExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldContainKey()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var websters = new Dictionary<string, string> { { "Embiggen", "To empower or embolden." } };
+            websters.ShouldContainKey("Cromulent");
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldContainKey()
+    [Fact]
+    public void ShouldNotContainKey()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var websters = new Dictionary<string, string> { { "Embiggen", "To empower or embolden." } };
-                websters.ShouldContainKey("Cromulent");
-            }, _testOutputHelper);
-        }
+            var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
 
-        [Fact]
-        public void ShouldNotContainKey()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
-
-                websters.ShouldNotContainKey("Chazzwazzers");
-            }, _testOutputHelper);
-        }
+            websters.ShouldNotContainKey("Chazzwazzers");
+        }, _testOutputHelper);
     }
 }

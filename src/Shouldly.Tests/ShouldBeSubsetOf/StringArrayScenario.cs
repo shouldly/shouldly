@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBeSubsetOf
-{
-    public class StringArrayScenario
-    {
-        [Fact]
-        public void StringArrayScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2" }, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBeSubsetOf;
 
-errorWithSource:
-@"new[] { ""1"", ""2"", ""3"" }
+public class StringArrayScenario
+{
+    [Fact]
+    public void StringArrayScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2" }, "Some additional context"),
+
+            errorWithSource:
+            @"new[] { ""1"", ""2"", ""3"" }
     should be subset of
 [""1"", ""2""]
     but
@@ -19,8 +19,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[""1"", ""2"", ""3""]
+            errorWithoutSource:
+            @"[""1"", ""2"", ""3""]
     should be subset of
 [""1"", ""2""]
     but
@@ -29,12 +29,11 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4" });
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4" });
     }
 }

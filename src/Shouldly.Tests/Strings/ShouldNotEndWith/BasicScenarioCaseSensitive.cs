@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.ShouldNotEndWith
-{
-    public class BasicScenarioCaseSensitive
-    {
-        [Fact]
-        public void BasicScenarioCaseSensitiveShouldFail()
-        {
-            var str = "Cheese";
-            Verify.ShouldFail(() =>
-str.ShouldNotEndWith("se", "Some additional context", Case.Sensitive),
+﻿namespace Shouldly.Tests.Strings.ShouldNotEndWith;
 
-errorWithSource:
-@"str
+public class BasicScenarioCaseSensitive
+{
+    [Fact]
+    public void BasicScenarioCaseSensitiveShouldFail()
+    {
+        var str = "Cheese";
+        Verify.ShouldFail(() =>
+                str.ShouldNotEndWith("se", "Some additional context", Case.Sensitive),
+
+            errorWithSource:
+            @"str
     should not end with
 ""se""
     but was
@@ -19,20 +19,19 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""Cheese""
+            errorWithoutSource:
+            @"""Cheese""
     should not end with
 ""se""
     but did
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "Cheese".ShouldNotEndWith("SE", Case.Sensitive);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "Cheese".ShouldNotEndWith("SE", Case.Sensitive);
     }
 }

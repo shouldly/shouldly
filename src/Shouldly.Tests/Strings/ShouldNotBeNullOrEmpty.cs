@@ -1,28 +1,27 @@
-﻿namespace Shouldly.Tests.Strings
+﻿namespace Shouldly.Tests.Strings;
+
+public class ShouldNotBeNullOrEmpty
 {
-    public class ShouldNotBeNullOrEmpty
+    [Fact]
+    public void SingleLetterShouldFail()
     {
-        [Fact]
-        public void SingleLetterShouldFail()
-        {
-            Verify.ShouldFail(() =>
-"".ShouldNotBeNullOrEmpty("Some additional context"),
-errorWithSource: @"""""
+        Verify.ShouldFail(() =>
+                "".ShouldNotBeNullOrEmpty("Some additional context"),
+            errorWithSource: @"""""
     should not be null or empty
 
 Additional Info:
     Some additional context",
-errorWithoutSource: @"""""
+            errorWithoutSource: @"""""
     should not be null or empty
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            " ".ShouldNotBeNullOrEmpty();
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        " ".ShouldNotBeNullOrEmpty();
     }
 }

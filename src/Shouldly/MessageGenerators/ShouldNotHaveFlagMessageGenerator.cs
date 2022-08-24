@@ -1,25 +1,24 @@
-﻿namespace Shouldly.MessageGenerators
+﻿namespace Shouldly.MessageGenerators;
+
+internal class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
 {
-    internal class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
+    public override bool CanProcess(IShouldlyAssertionContext context)
     {
-        public override bool CanProcess(IShouldlyAssertionContext context)
-        {
-            return context.ShouldMethod == "ShouldNotHaveFlag";
-        }
+        return context.ShouldMethod == "ShouldNotHaveFlag";
+    }
 
-        public override string GenerateErrorMessage(IShouldlyAssertionContext context)
-        {
-            var codePart = context.CodePart;
-            var expected = context.Expected.ToStringAwesomely();
+    public override string GenerateErrorMessage(IShouldlyAssertionContext context)
+    {
+        var codePart = context.CodePart;
+        var expected = context.Expected.ToStringAwesomely();
 
-            var actual = context.Actual.ToStringAwesomely();
-            var actualString = codePart == actual ? " had" : $@" it had
+        var actual = context.Actual.ToStringAwesomely();
+        var actualString = codePart == actual ? " had" : $@" it had
 {actual}";
 
-            return $@"{codePart}
+        return $@"{codePart}
     should not have flag
 {expected}
     but{actualString}";
-        }
     }
 }

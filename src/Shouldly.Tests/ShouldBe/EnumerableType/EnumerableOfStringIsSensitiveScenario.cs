@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType
-{
-    public class EnumerableOfStringIsSensitiveScenario
-    {
-        [Fact]
-        public void EnumerableOfStringIsSensitiveScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-new[] { "foo" }.ShouldBe(new[] { "FoO" }, Case.Sensitive, "Some additional context"),
+﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
 
-errorWithSource:
-@"new[] { ""foo"" }
+public class EnumerableOfStringIsSensitiveScenario
+{
+    [Fact]
+    public void EnumerableOfStringIsSensitiveScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+                new[] { "foo" }.ShouldBe(new[] { "FoO" }, Case.Sensitive, "Some additional context"),
+
+            errorWithSource:
+            @"new[] { ""foo"" }
     should be
 [""FoO""]
     but was (case sensitive comparison)
@@ -20,8 +20,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[""foo""]
+            errorWithoutSource:
+            @"[""foo""]
     should be
 [""FoO""]
     but was not (case sensitive comparison)
@@ -30,12 +30,11 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            new[] { "foo" }.ShouldBe(new[] { "foo" }, Case.Sensitive);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        new[] { "foo" }.ShouldBe(new[] { "foo" }, Case.Sensitive);
     }
 }

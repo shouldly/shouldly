@@ -2,84 +2,83 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Shouldly
+namespace Shouldly;
+
+internal static class TypeExtensions
 {
-    internal static class TypeExtensions
+    public static bool IsValueType(this Type type) =>
+        type.GetTypeInfo().IsValueType;
+    public static bool IsGenericType(this Type type) =>
+        type.GetTypeInfo().IsGenericType;
+
+    public static bool IsDefined(this Type type, Type attributeType, bool inherit) =>
+        type.GetTypeInfo().IsDefined(attributeType, inherit);
+
+    public static bool TryGetEnumerable(this object obj,  [NotNullWhen(true)] out IEnumerable? enumerable)
     {
-        public static bool IsValueType(this Type type) =>
-            type.GetTypeInfo().IsValueType;
-        public static bool IsGenericType(this Type type) =>
-            type.GetTypeInfo().IsGenericType;
+        enumerable = obj as IEnumerable;
 
-        public static bool IsDefined(this Type type, Type attributeType, bool inherit) =>
-            type.GetTypeInfo().IsDefined(attributeType, inherit);
-
-        public static bool TryGetEnumerable(this object obj,  [NotNullWhen(true)] out IEnumerable? enumerable)
+        if (enumerable == null && obj != null)
         {
-            enumerable = obj as IEnumerable;
-
-            if (enumerable == null && obj != null)
+            var objectType = obj.GetType();
+            if (objectType.IsMemory(out var genericParameterType))
             {
-                var objectType = obj.GetType();
-                if (objectType.IsMemory(out var genericParameterType))
-                {
-                    var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
+                var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
 
-                    if (readOnlyMemory != null)
-                    {
-                        enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
-                    }
-                }
-                else if (objectType.IsReadOnlyMemory(out genericParameterType))
+                if (readOnlyMemory != null)
                 {
-                    enumerable = obj.ToEnumerable(genericParameterType);
+                    enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
                 }
             }
-
-            return enumerable != null;
-        }
-
-        private static bool IsMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
-        {
-            if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+            else if (objectType.IsReadOnlyMemory(out genericParameterType))
             {
-                elementType = type.GetGenericArguments()[0];
-                return true;
+                enumerable = obj.ToEnumerable(genericParameterType);
             }
-
-            elementType = null;
-            return false;
         }
 
-        private static bool IsReadOnlyMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
+        return enumerable != null;
+    }
+
+    private static bool IsMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
+    {
+        if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
         {
-            if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
-            {
-                elementType = type.GetGenericArguments()[0];
-                return true;
-            }
-
-            elementType = null;
-            return false;
+            elementType = type.GetGenericArguments()[0];
+            return true;
         }
 
-        private static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
+        elementType = null;
+        return false;
+    }
+
+    private static bool IsReadOnlyMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
+    {
+        if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
         {
-            return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
-                ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                ?.MakeGenericMethod(elementType)
-                .Invoke(null, new[] { readOnlyMemory })!;
+            elementType = type.GetGenericArguments()[0];
+            return true;
         }
 
-        private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
-        {
-            return objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                .SingleOrDefault(method =>
-                    method.Name == "op_Implicit"
-                    && method.GetParameters()[0].ParameterType == objectType
-                    && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
-                    && returnElementType == genericParameterType)
-                ?.Invoke(null, new[] { obj })!;
-        }
+        elementType = null;
+        return false;
+    }
+
+    private static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
+    {
+        return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
+            ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+            ?.MakeGenericMethod(elementType)
+            .Invoke(null, new[] { readOnlyMemory })!;
+    }
+
+    private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
+    {
+        return objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+            .SingleOrDefault(method =>
+                method.Name == "op_Implicit"
+                && method.GetParameters()[0].ParameterType == objectType
+                && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
+                && returnElementType == genericParameterType)
+            ?.Invoke(null, new[] { obj })!;
     }
 }

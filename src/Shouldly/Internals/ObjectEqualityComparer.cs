@@ -1,33 +1,32 @@
-﻿namespace Shouldly
+﻿namespace Shouldly;
+
+[Serializable]
+internal class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
 {
-    [Serializable]
-    internal class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
+    public override bool Equals(T? x, T? y)
     {
-        public override bool Equals(T? x, T? y)
+        if (x != null)
         {
-            if (x != null)
-            {
-                return y != null && x.Equals(y);
-            }
-
-            return y == null;
+            return y != null && x.Equals(y);
         }
 
-        public override int GetHashCode(T? obj)
-        {
-            if (obj == null)
-            {
-                return 0;
-            }
+        return y == null;
+    }
 
-            return obj.GetHashCode();
+    public override int GetHashCode(T? obj)
+    {
+        if (obj == null)
+        {
+            return 0;
         }
 
-        public override bool Equals(object? obj) => obj is ObjectEqualityComparer<T>;
+        return obj.GetHashCode();
+    }
 
-        public override int GetHashCode()
-        {
-            return GetType().Name.GetHashCode();
-        }
+    public override bool Equals(object? obj) => obj is ObjectEqualityComparer<T>;
+
+    public override int GetHashCode()
+    {
+        return GetType().Name.GetHashCode();
     }
 }

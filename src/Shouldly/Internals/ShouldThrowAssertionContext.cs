@@ -1,24 +1,23 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Shouldly
+namespace Shouldly;
+
+internal class ShouldThrowAssertionContext : ShouldlyAssertionContext
 {
-    internal class ShouldThrowAssertionContext : ShouldlyAssertionContext
+    public string? ExceptionMessage { get; }
+
+    public bool IsAsync { get; }
+
+    /// <summary>
+    /// Only pass stacktrace if asynchronous
+    /// </summary>
+    internal ShouldThrowAssertionContext(object? expected, object? actual = null, string? exceptionMessage = null,
+        bool isAsync = false,
+        StackTrace? stackTrace = null,
+        [CallerMemberName] string shouldlyMethod = null!) : base(shouldlyMethod, expected, actual, stackTrace)
     {
-        public string? ExceptionMessage { get; }
-
-        public bool IsAsync { get; }
-
-        /// <summary>
-        /// Only pass stacktrace if asynchronous
-        /// </summary>
-        internal ShouldThrowAssertionContext(object? expected, object? actual = null, string? exceptionMessage = null,
-            bool isAsync = false,
-            StackTrace? stackTrace = null,
-            [CallerMemberName] string shouldlyMethod = null!) : base(shouldlyMethod, expected, actual, stackTrace)
-        {
-            ExceptionMessage = exceptionMessage;
-            IsAsync = isAsync;
-        }
+        ExceptionMessage = exceptionMessage;
+        IsAsync = isAsync;
     }
 }

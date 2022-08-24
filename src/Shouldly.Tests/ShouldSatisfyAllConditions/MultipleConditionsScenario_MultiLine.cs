@@ -1,18 +1,18 @@
-﻿namespace Shouldly.Tests.ShouldSatisfyAllConditions
-{
-    public class MultipleConditionsScenario_MultiLine
-    {
-        [Fact]
-        public void MultipleConditionsScenario_MultiLineShouldFail()
-        {
-            var result = 4;
-            Verify.ShouldFail(() =>
-result.ShouldSatisfyAllConditions(
-    () => result.ShouldBeOfType<float>("Some additional context"),
-    () => result.ShouldBeGreaterThan(5, "Some additional context")),
+﻿namespace Shouldly.Tests.ShouldSatisfyAllConditions;
 
-errorWithSource:
-@"result
+public class MultipleConditionsScenario_MultiLine
+{
+    [Fact]
+    public void MultipleConditionsScenario_MultiLineShouldFail()
+    {
+        var result = 4;
+        Verify.ShouldFail(() =>
+                result.ShouldSatisfyAllConditions(
+                    () => result.ShouldBeOfType<float>("Some additional context"),
+                    () => result.ShouldBeGreaterThan(5, "Some additional context")),
+
+            errorWithSource:
+            @"result
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
 --------------- Error 1 ---------------
@@ -37,8 +37,8 @@ The following errors were found ...
 
 -----------------------------------------",
 
-errorWithoutSource:
-@"4
+            errorWithoutSource:
+            @"4
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
 --------------- Error 1 ---------------
@@ -61,18 +61,17 @@ The following errors were found ...
         Some additional context
 
 -----------------------------------------");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var result = 4;
-            result.ShouldSatisfyAllConditions(
-                        ()
-                            => result.ShouldBeOfType<int>(),
-                        ()
-                            =>
-                            result.ShouldBeGreaterThan(3));
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        var result = 4;
+        result.ShouldSatisfyAllConditions(
+            ()
+                => result.ShouldBeOfType<int>(),
+            ()
+                =>
+                result.ShouldBeGreaterThan(3));
     }
 }

@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.Strings.ShouldBe
-{
-    public class CaseIsSensitiveScenario
-    {
-        [Fact]
-        public void CaseIsSensitiveScenarioShouldFail()
-        {
-            var str = "SamplE";
-            Verify.ShouldFail(() =>
-str.ShouldBe("sAMPLe", "Some additional context"),
+﻿namespace Shouldly.Tests.Strings.ShouldBe;
 
-errorWithSource:
-@"str
+public class CaseIsSensitiveScenario
+{
+    [Fact]
+    public void CaseIsSensitiveScenarioShouldFail()
+    {
+        var str = "SamplE";
+        Verify.ShouldFail(() =>
+                str.ShouldBe("sAMPLe", "Some additional context"),
+
+            errorWithSource:
+            @"str
     should be
 ""sAMPLe""
     but was
@@ -27,8 +27,8 @@ Actual Code    | 83   97   109  112  108  69
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"""SamplE""
+            errorWithoutSource:
+            @"""SamplE""
     should be
 ""sAMPLe""
     but was not
@@ -43,12 +43,11 @@ Actual Code    | 83   97   109  112  108  69
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            "SamplE".ShouldBe("SamplE");
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        "SamplE".ShouldBe("SamplE");
     }
 }

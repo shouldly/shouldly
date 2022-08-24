@@ -1,24 +1,24 @@
-﻿namespace Shouldly.Tests.ShouldNotContain
+﻿namespace Shouldly.Tests.ShouldNotContain;
+
+public class LongStringScenario
 {
-    public class LongStringScenario
-    {
-        private readonly string _target = new string('a', 110) + "zzzz";
+    private readonly string _target = new string('a', 110) + "zzzz";
 
     [Fact]
     public void LongStringScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-_target.ShouldNotContain("zzzz"),
+                _target.ShouldNotContain("zzzz"),
 
-errorWithSource:
-@"_target
+            errorWithSource:
+            @"_target
     should not contain (case insensitive comparison)
 ""zzzz""
     but was actually
 ""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""",
 
-errorWithoutSource:
-@"""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""
+            errorWithoutSource:
+            @"""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""
     should not contain (case insensitive comparison)
 ""zzzz""
     but did");
@@ -29,5 +29,4 @@ errorWithoutSource:
     {
         _target.ShouldNotContain("fff");
     }
-}
 }

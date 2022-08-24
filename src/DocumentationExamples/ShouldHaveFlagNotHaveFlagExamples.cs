@@ -2,52 +2,51 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class ShouldHaveFlagNotHaveFlagExamples
 {
-    public class ShouldHaveFlagNotHaveFlagExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public ShouldHaveFlagNotHaveFlagExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public ShouldHaveFlagNotHaveFlagExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldHaveFlag()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var actual = TestEnum.FlagTwo;
+            var value = TestEnum.FlagOne;
+            actual.ShouldHaveFlag(value);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldHaveFlag()
+    [Fact]
+    public void ShouldNotHaveFlag()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var actual = TestEnum.FlagTwo;
-                var value = TestEnum.FlagOne;
-                actual.ShouldHaveFlag(value);
-            }, _testOutputHelper);
-        }
+            var actual = TestEnum.FlagOne;
+            var value = TestEnum.FlagOne;
+            actual.ShouldNotHaveFlag(value);
+        }, _testOutputHelper);
+    }
 
-        [Fact]
-        public void ShouldNotHaveFlag()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var actual = TestEnum.FlagOne;
-                var value = TestEnum.FlagOne;
-                actual.ShouldNotHaveFlag(value);
-            }, _testOutputHelper);
-        }
+    [Flags]
+    public enum TestEnum
+    {
+        FlagOne = 1,
+        FlagTwo = 2,
+        FlagThree = 4
+    }
 
-        [Flags]
-        public enum TestEnum
-        {
-            FlagOne = 1,
-            FlagTwo = 2,
-            FlagThree = 4
-        }
-
-        public enum TestEnumWithoutFlagAttribute
-        {
-            FlagOne,
-            FlagTwo,
-            FlagThree
-        }
+    public enum TestEnumWithoutFlagAttribute
+    {
+        FlagOne,
+        FlagTwo,
+        FlagThree
     }
 }

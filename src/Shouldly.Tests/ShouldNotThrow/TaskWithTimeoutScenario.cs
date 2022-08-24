@@ -1,19 +1,19 @@
-namespace Shouldly.Tests.ShouldNotThrow
+namespace Shouldly.Tests.ShouldNotThrow;
+
+public class TaskWithTimeoutScenario
 {
-    public class TaskWithTimeoutScenario
+    [Fact]
+    public void ShouldThrowAWobbly()
     {
-        [Fact]
-        public void ShouldThrowAWobbly()
-        {
-            var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
-            ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
-        }
+        var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
+        ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
+    }
 
-        private string ChuckedAWobblyErrorMessage = @"
+    private string ChuckedAWobblyErrorMessage = @"
     Task
         should complete in
     00:00:00.5000000
@@ -21,14 +21,13 @@ namespace Shouldly.Tests.ShouldNotThrow
     Additional Info:
     Some additional context";
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var task = Task.Factory.StartNew(() => { },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+    [Fact]
+    public void ShouldPass()
+    {
+        var task = Task.Factory.StartNew(() => { },
+            CancellationToken.None, TaskCreationOptions.None,
+            TaskScheduler.Default);
 
-            task.ShouldNotThrow(TimeSpan.FromSeconds(2));
-        }
+        task.ShouldNotThrow(TimeSpan.FromSeconds(2));
     }
 }

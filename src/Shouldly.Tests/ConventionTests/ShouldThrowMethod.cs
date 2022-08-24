@@ -1,52 +1,51 @@
 using System.Reflection;
 
-namespace Shouldly.Tests.ConventionTests
+namespace Shouldly.Tests.ConventionTests;
+
+public class ShouldThrowMethod
 {
-    public class ShouldThrowMethod
+    private readonly MethodInfo _throwMethod;
+
+    public ShouldThrowMethod(MethodInfo throwMethod)
     {
-        private readonly MethodInfo _throwMethod;
+        _throwMethod = throwMethod;
+        Name = throwMethod.Name.Replace("Should", string.Empty);
+        IsShouldlyExtension = throwMethod.Name.StartsWith("Should", StringComparison.Ordinal);
+        Parameters = throwMethod.GetParameters();
+    }
 
-        public ShouldThrowMethod(MethodInfo throwMethod)
+    public bool IsShouldlyExtension { get; }
+    public string Name { get; }
+    public ParameterInfo[] Parameters { get; }
+
+    protected bool Equals(ShouldThrowMethod other)
+    {
+        return string.Equals(Name, other.Name) && Parameters.All(p => other.Parameters.Any(op => p.Name == op.Name && TypeEqual(p.ParameterType, op.ParameterType)));
+    }
+
+    private static bool TypeEqual(Type pt1, Type pt2)
+    {
+        return pt1.FormatType() == pt2.FormatType();
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        return Equals((ShouldThrowMethod)obj);
+    }
+
+    public override string ToString()
+    {
+        return _throwMethod.FormatMethod();
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
         {
-            _throwMethod = throwMethod;
-            Name = throwMethod.Name.Replace("Should", string.Empty);
-            IsShouldlyExtension = throwMethod.Name.StartsWith("Should", StringComparison.Ordinal);
-            Parameters = throwMethod.GetParameters();
-        }
-
-        public bool IsShouldlyExtension { get; }
-        public string Name { get; }
-        public ParameterInfo[] Parameters { get; }
-
-        protected bool Equals(ShouldThrowMethod other)
-        {
-            return string.Equals(Name, other.Name) && Parameters.All(p => other.Parameters.Any(op => p.Name == op.Name && TypeEqual(p.ParameterType, op.ParameterType)));
-        }
-
-        private static bool TypeEqual(Type pt1, Type pt2)
-        {
-            return pt1.FormatType() == pt2.FormatType();
-        }
-
-        public override bool Equals(object? obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((ShouldThrowMethod)obj);
-        }
-
-        public override string ToString()
-        {
-            return _throwMethod.FormatMethod();
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ (Parameters != null ? Parameters.GetHashCode() : 0);
-            }
+            return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ (Parameters != null ? Parameters.GetHashCode() : 0);
         }
     }
 }

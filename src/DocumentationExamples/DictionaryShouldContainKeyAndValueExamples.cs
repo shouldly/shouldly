@@ -2,37 +2,36 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class DictionaryShouldContainKeyAndValueExamples
 {
-    public class DictionaryShouldContainKeyAndValueExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public DictionaryShouldContainKeyAndValueExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public DictionaryShouldContainKeyAndValueExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldContainKeyAndValue()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
+            var websters = new Dictionary<string, string> { { "Cromulent", "I never heard the word before moving to Springfield." } };
 
-        [Fact]
-        public void ShouldContainKeyAndValue()
+            websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
+        }, _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldNotContainKeyAndValue()
+    {
+        DocExampleWriter.Document(() =>
         {
-            DocExampleWriter.Document(() =>
-            {
-                var websters = new Dictionary<string, string> { { "Cromulent", "I never heard the word before moving to Springfield." } };
+            var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
 
-                websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
-            }, _testOutputHelper);
-        }
-
-        [Fact]
-        public void ShouldNotContainKeyAndValue()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
-
-                websters.ShouldNotContainValueForKey("Chazzwazzers",  "What Australians would have called a bull frog.");
-            }, _testOutputHelper);
-        }
+            websters.ShouldNotContainValueForKey("Chazzwazzers",  "What Australians would have called a bull frog.");
+        }, _testOutputHelper);
     }
 }

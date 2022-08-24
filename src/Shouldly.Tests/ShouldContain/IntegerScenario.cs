@@ -1,17 +1,17 @@
-﻿namespace Shouldly.Tests.ShouldContain
+﻿namespace Shouldly.Tests.ShouldContain;
+
+public class IntegerScenario
 {
-    public class IntegerScenario
+    private readonly int[] _target = { 1, 2, 3, 4, 5 };
+
+    [Fact]
+    public void IntegerScenarioShouldFail()
     {
-        private readonly int[] _target = { 1, 2, 3, 4, 5 };
+        Verify.ShouldFail(() =>
+                _target.ShouldContain(6, "Some additional context"),
 
-        [Fact]
-        public void IntegerScenarioShouldFail()
-        {
-            Verify.ShouldFail(() =>
-_target.ShouldContain(6, "Some additional context"),
-
-errorWithSource:
-@"_target
+            errorWithSource:
+            @"_target
     should contain
 6
     but was actually
@@ -20,20 +20,19 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 2, 3, 4, 5]
+            errorWithoutSource:
+            @"[1, 2, 3, 4, 5]
     should contain
 6
     but did not
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            _target.ShouldContain(3);
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        _target.ShouldContain(3);
     }
 }

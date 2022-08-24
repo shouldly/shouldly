@@ -1,15 +1,15 @@
-﻿namespace Shouldly.Tests.ShouldBeSubsetOf
+﻿namespace Shouldly.Tests.ShouldBeSubsetOf;
+
+public class IntegerArrayScenario
 {
-    public class IntegerArrayScenario
-    {
     [Fact]
     public void IntegerArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-new[] { 1, 2, 5 }.ShouldBeSubsetOf(new[] { 2, 3, 4 }, "Some additional context"),
+                new[] { 1, 2, 5 }.ShouldBeSubsetOf(new[] { 2, 3, 4 }, "Some additional context"),
 
-errorWithSource:
-@"new[] { 1, 2, 5 }
+            errorWithSource:
+            @"new[] { 1, 2, 5 }
     should be subset of
 [2, 3, 4]
     but
@@ -19,8 +19,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[1, 2, 5]
+            errorWithoutSource:
+            @"[1, 2, 5]
     should be subset of
 [2, 3, 4]
     but
@@ -36,5 +36,4 @@ Additional Info:
     {
         new[] { 1 }.ShouldBeSubsetOf(new[] { 1, 2, 3 });
     }
-}
 }

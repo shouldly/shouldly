@@ -1,16 +1,16 @@
-﻿namespace Shouldly.Tests.ShouldBeLessThan
+﻿namespace Shouldly.Tests.ShouldBeLessThan;
+
+public class IntScenario
 {
-    public class IntScenario
-    {
     [Fact]
     public void IntScenarioShouldFail()
     {
         var seven = 7;
         Verify.ShouldFail(() =>
-seven.ShouldBeLessThan(1, "Some additional context"),
+                seven.ShouldBeLessThan(1, "Some additional context"),
 
-errorWithSource:
-@"seven
+            errorWithSource:
+            @"seven
     should be less than
 1
     but was
@@ -19,8 +19,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"7
+            errorWithoutSource:
+            @"7
     should be less than
 1
     but was not
@@ -29,10 +29,9 @@ Additional Info:
     Some additional context");
     }
 
-        [Fact]
+    [Fact]
     public void ShouldPass()
     {
         1.ShouldBeLessThan(7);
     }
-}
 }

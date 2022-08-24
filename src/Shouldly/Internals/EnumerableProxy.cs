@@ -1,48 +1,47 @@
 ﻿using System.Collections;
 
-namespace Shouldly.Internals
+namespace Shouldly.Internals;
+
+internal interface IEnumerableProxy
 {
-    internal interface IEnumerableProxy
+    object ProxiedValue { get; }
+}
+
+internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
+{
+    public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
     {
-        object ProxiedValue { get; }
+        if (baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
+        {
+            return baseEnum;
+        }
+
+        if (baseEnum is EnumerableProxy<T>)
+        {
+            throw new ArgumentException("Value already wrapped.", nameof(baseEnum));
+        }
+
+        return new EnumerableProxy<T>(baseEnum, baseEnum.ToList());
     }
 
-    internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
+    public IEnumerable<T> ProxiedValue { get; }
+    object IEnumerableProxy.ProxiedValue => ProxiedValue;
+
+    private readonly IEnumerable<T> _baseReentrable;
+
+    private EnumerableProxy(IEnumerable<T> baseEnum, IEnumerable<T> baseReentrable)
     {
-        public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
-        {
-            if (baseEnum is (null or IReadOnlyCollection<T> or ICollection<T> or ICollection))
-            {
-                return baseEnum;
-            }
+        ProxiedValue = baseEnum;
+        _baseReentrable = baseReentrable;
+    }
 
-            if (baseEnum is EnumerableProxy<T>)
-            {
-                throw new ArgumentException("Value already wrapped.", nameof(baseEnum));
-            }
+    public IEnumerator<T> GetEnumerator()
+    {
+        return _baseReentrable.GetEnumerator();
+    }
 
-            return new EnumerableProxy<T>(baseEnum, baseEnum.ToList());
-        }
-
-        public IEnumerable<T> ProxiedValue { get; }
-        object IEnumerableProxy.ProxiedValue => ProxiedValue;
-
-        private readonly IEnumerable<T> _baseReentrable;
-
-        private EnumerableProxy(IEnumerable<T> baseEnum, IEnumerable<T> baseReentrable)
-        {
-            ProxiedValue = baseEnum;
-            _baseReentrable = baseReentrable;
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _baseReentrable.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

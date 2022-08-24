@@ -3,27 +3,26 @@ using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples
+namespace DocumentationExamples;
+
+public class EnumerableShouldHaveSingleItemExamples
 {
-    public class EnumerableShouldHaveSingleItemExamples
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public EnumerableShouldHaveSingleItemExamples(ITestOutputHelper testOutputHelper)
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        _testOutputHelper = testOutputHelper;
+    }
 
-        public EnumerableShouldHaveSingleItemExamples(ITestOutputHelper testOutputHelper)
+    [Fact]
+    public void ShouldHaveSingleItem()
+    {
+        DocExampleWriter.Document(() =>
         {
-            _testOutputHelper = testOutputHelper;
-        }
-
-        [Fact]
-        public void ShouldHaveSingleItem()
-        {
-            DocExampleWriter.Document(() =>
-            {
-                var maggie = new Person { Name = "Maggie" };
-                var homer = new Person { Name = "Homer" };
-                var simpsonsBabies = new List<Person> { homer, maggie };
-                simpsonsBabies.ShouldHaveSingleItem();
-            }, _testOutputHelper);
-        }
+            var maggie = new Person { Name = "Maggie" };
+            var homer = new Person { Name = "Homer" };
+            var simpsonsBabies = new List<Person> { homer, maggie };
+            simpsonsBabies.ShouldHaveSingleItem();
+        }, _testOutputHelper);
     }
 }

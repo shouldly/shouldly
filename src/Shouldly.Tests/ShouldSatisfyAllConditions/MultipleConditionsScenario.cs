@@ -1,19 +1,19 @@
-﻿namespace Shouldly.Tests.ShouldSatisfyAllConditions
-{
-    public class MultipleConditionsScenario
-    {
-        [Fact]
-        public void MultipleConditionsScenarioShouldFail()
-        {
-            var result = 4;
-            Verify.ShouldFail(() =>
-result.ShouldSatisfyAllConditions(
-        "Some additional context",
-        () => result.ShouldBeOfType<float>("Some additional context"),
-        () => result.ShouldBeGreaterThan(5, "Some additional context")),
+﻿namespace Shouldly.Tests.ShouldSatisfyAllConditions;
 
-errorWithSource:
-@"result
+public class MultipleConditionsScenario
+{
+    [Fact]
+    public void MultipleConditionsScenarioShouldFail()
+    {
+        var result = 4;
+        Verify.ShouldFail(() =>
+                result.ShouldSatisfyAllConditions(
+                    "Some additional context",
+                    () => result.ShouldBeOfType<float>("Some additional context"),
+                    () => result.ShouldBeGreaterThan(5, "Some additional context")),
+
+            errorWithSource:
+            @"result
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
 --------------- Error 1 ---------------
@@ -41,8 +41,8 @@ The following errors were found ...
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"4
+            errorWithoutSource:
+            @"4
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
 --------------- Error 1 ---------------
@@ -68,15 +68,14 @@ The following errors were found ...
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Fact]
-        public void ShouldPass()
-        {
-            var result = 4;
-            result.ShouldSatisfyAllConditions(
-                        () => result.ShouldBeOfType<int>(),
-                        () => result.ShouldBeGreaterThan(3));
-        }
+    [Fact]
+    public void ShouldPass()
+    {
+        var result = 4;
+        result.ShouldSatisfyAllConditions(
+            () => result.ShouldBeOfType<int>(),
+            () => result.ShouldBeGreaterThan(3));
     }
 }

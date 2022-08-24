@@ -1,22 +1,21 @@
 using System.Runtime.InteropServices;
 using Xunit;
 
-namespace Shouldly.Tests.ConventionTests
+namespace Shouldly.Tests.ConventionTests;
+
+public sealed class IgnoreOnAppVeyorLinuxFact : FactAttribute
 {
-    public sealed class IgnoreOnAppVeyorLinuxFact : FactAttribute
+    public IgnoreOnAppVeyorLinuxFact()
     {
-        public IgnoreOnAppVeyorLinuxFact()
+        if (IsAppVeyor())
         {
-            if (IsAppVeyor())
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    Skip = "Ignored on Linux";
-                }
+                Skip = "Ignored on Linux";
             }
         }
-
-        private static bool IsAppVeyor()
-            => Environment.GetEnvironmentVariable("APPVEYOR") != null;
     }
+
+    private static bool IsAppVeyor()
+        => Environment.GetEnvironmentVariable("APPVEYOR") != null;
 }

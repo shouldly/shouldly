@@ -1,48 +1,47 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Shouldly.Tests.ConventionTests
+namespace Shouldly.Tests.ConventionTests;
+
+public static class TypeExtensions
 {
-    public static class TypeExtensions
+    public static bool HasAttribute<TAttribute>(this Type type)
     {
-        public static bool HasAttribute<TAttribute>(this Type type)
+        return type.GetCustomAttributes(typeof(TAttribute), true).Any();
+    }
+
+    public static bool HasAttribute(this Type type, string attributeName)
+    {
+        return type.GetCustomAttributes(true).Cast<Attribute>().Any(a => a.GetType().FullName == attributeName);
+    }
+
+    public static string FormatMethod(this MethodInfo shouldlyMethod, bool removeCustomMessage = false)
+    {
+        var parameters = shouldlyMethod.GetParameters();
+        var maybeFilteredParameters = removeCustomMessage ? parameters.Where(p => p.Name != "customMessage") : parameters;
+        var argList = string.Join(", ", maybeFilteredParameters.Select(p => $"{p.ParameterType.FormatType()} {p.Name}"));
+        var extensionMethodText = shouldlyMethod.IsDefined(typeof(ExtensionAttribute), true)
+            ? "this "
+            : string.Empty;
+        if (shouldlyMethod.IsGenericMethod)
         {
-            return type.GetCustomAttributes(typeof(TAttribute), true).Any();
+            var genericArgs = string.Join(", ", shouldlyMethod.GetGenericArguments().Select(a => a.FormatType()));
+            return $"{shouldlyMethod.Name}<{genericArgs}>({extensionMethodText}{argList})";
         }
 
-        public static bool HasAttribute(this Type type, string attributeName)
+        return $"{shouldlyMethod.Name}({extensionMethodText}{argList})";
+    }
+
+    public static string FormatType(this Type type)
+    {
+        if (type.IsGenericType)
         {
-            return type.GetCustomAttributes(true).Cast<Attribute>().Any(a => a.GetType().FullName == attributeName);
+            var genericTypeParams = type.GetGenericArguments();
+            return $"{type.Name.Trim('<', '>')}<{string.Join("", genericTypeParams.Select(FormatType))}>";
         }
 
-        public static string FormatMethod(this MethodInfo shouldlyMethod, bool removeCustomMessage = false)
-        {
-            var parameters = shouldlyMethod.GetParameters();
-            var maybeFilteredParameters = removeCustomMessage ? parameters.Where(p => p.Name != "customMessage") : parameters;
-            var argList = string.Join(", ", maybeFilteredParameters.Select(p => $"{p.ParameterType.FormatType()} {p.Name}"));
-            var extensionMethodText = shouldlyMethod.IsDefined(typeof(ExtensionAttribute), true)
-                ? "this "
-                : string.Empty;
-            if (shouldlyMethod.IsGenericMethod)
-            {
-                var genericArgs = string.Join(", ", shouldlyMethod.GetGenericArguments().Select(a => a.FormatType()));
-                return $"{shouldlyMethod.Name}<{genericArgs}>({extensionMethodText}{argList})";
-            }
-
-            return $"{shouldlyMethod.Name}({extensionMethodText}{argList})";
-        }
-
-        public static string FormatType(this Type type)
-        {
-            if (type.IsGenericType)
-            {
-                var genericTypeParams = type.GetGenericArguments();
-                return $"{type.Name.Trim('<', '>')}<{string.Join("", genericTypeParams.Select(FormatType))}>";
-            }
-
-            return type.ToString()
-                .Replace("System.Object", "object")
-                .Replace("System.Int32", "int");
-        }
+        return type.ToString()
+            .Replace("System.Object", "object")
+            .Replace("System.Int32", "int");
     }
 }
