@@ -13,16 +13,18 @@ namespace DocumentationExamples
             _testOutputHelper = testOutputHelper;
         }
 
-        [Fact]
+        [Fact(Skip = "Flaky test")]
         public void ShouldCompleteIn()
         {
-            DocExampleWriter.Document(() =>
-            {
-                Should.CompleteIn(
-                    action: () => { Thread.Sleep(TimeSpan.FromSeconds(2)); },
-                    timeout: TimeSpan.FromSeconds(1),
-                    customMessage: "Some additional context");
-            }, _testOutputHelper);
+            DocExampleWriter.Document(
+                () =>
+                {
+                    Should.CompleteIn(
+                        action: () => { Thread.Sleep(TimeSpan.FromSeconds(2)); },
+                        timeout: TimeSpan.FromSeconds(1),
+                        customMessage: "Some additional context");
+                },
+                _testOutputHelper);
         }
     }
 }
