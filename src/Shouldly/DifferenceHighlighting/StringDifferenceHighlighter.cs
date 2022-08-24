@@ -32,43 +32,41 @@ namespace Shouldly.DifferenceHighlighting
                 output.Append(formattedDetailedDiffString);
                 return output.ToString();
             }
-            else
+
+            var indicesOfAllDiffs = GetIndicesOfAllDifferences(actual, expected);
+            var differenceIndexConsolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDiffs);
+            var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices();
+
+            if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
             {
-                var indicesOfAllDiffs = GetIndicesOfAllDifferences(actual, expected);
-                var differenceIndexConsolidator = new DifferenceIndexConsolidator(maxDiffLength, maxLengthOfStrings, indicesOfAllDiffs);
-                var startIndicesOfAllDiffs = differenceIndexConsolidator.GetConsolidatedIndices();
-
-                if (startIndicesOfAllDiffs.Count > maxNumberOfDiffs)
-                {
-                    output.AppendLine($"Showing some of the {indicesOfAllDiffs.Count} differences");
-                    startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
-                }
-
-                for (var index = 0; index < startIndicesOfAllDiffs.Count; index++)
-                {
-                    var startIndexOfDiffString = startIndicesOfAllDiffs[index];
-                    var trimmedActualValue = TrimmedValue(actual, startIndexOfDiffString);
-                    var trimmedExpectedValue = TrimmedValue(expected, startIndexOfDiffString);
-
-                    var prefixWithDots = startIndexOfDiffString != 0;
-                    var suffixWithDots = startIndexOfDiffString + maxDiffLength < maxLengthOfStrings;
-                    var formattedDetailedDiffString = new FormattedDetailedDifferenceString(
-                        trimmedActualValue, trimmedExpectedValue, _sensitivity,
-                        startIndexOfDiffString, prefixWithDots, suffixWithDots);
-                    if (index > 0)
-                    {
-                        output.AppendLine();
-                        output.AppendLine();
-                    }
-
-                    output.Append(formattedDetailedDiffString);
-                }
-
-                return output.ToString();
+                output.AppendLine($"Showing some of the {indicesOfAllDiffs.Count} differences");
+                startIndicesOfAllDiffs = startIndicesOfAllDiffs.Take(maxNumberOfDiffs).ToList();
             }
+
+            for (var index = 0; index < startIndicesOfAllDiffs.Count; index++)
+            {
+                var startIndexOfDiffString = startIndicesOfAllDiffs[index];
+                var trimmedActualValue = TrimmedValue(actual, startIndexOfDiffString);
+                var trimmedExpectedValue = TrimmedValue(expected, startIndexOfDiffString);
+
+                var prefixWithDots = startIndexOfDiffString != 0;
+                var suffixWithDots = startIndexOfDiffString + maxDiffLength < maxLengthOfStrings;
+                var formattedDetailedDiffString = new FormattedDetailedDifferenceString(
+                    trimmedActualValue, trimmedExpectedValue, _sensitivity,
+                    startIndexOfDiffString, prefixWithDots, suffixWithDots);
+                if (index > 0)
+                {
+                    output.AppendLine();
+                    output.AppendLine();
+                }
+
+                output.Append(formattedDetailedDiffString);
+            }
+
+            return output.ToString();
         }
 
-        private string TrimmedValue(string value, int index)
+        private static string TrimmedValue(string value, int index)
         {
             if (index >= value.Length) return "";
 
@@ -94,7 +92,7 @@ namespace Shouldly.DifferenceHighlighting
             return indicesOfAllDifferences;
         }
 
-        private bool CharAtIndexIsEqual(string actual, string expected, int index)
+        private static bool CharAtIndexIsEqual(string actual, string expected, int index)
         {
             return index < actual.Length &&
                 index < expected.Length &&
