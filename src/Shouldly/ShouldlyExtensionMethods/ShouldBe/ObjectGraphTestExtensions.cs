@@ -178,6 +178,7 @@ public static partial class ObjectGraphTestExtensions
         }
     }
 
+    [DoesNotReturn]
     private static void ThrowException(object? actual, object? expected, IEnumerable<string> path,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
