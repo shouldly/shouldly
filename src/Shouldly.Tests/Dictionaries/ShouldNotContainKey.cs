@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Shouldly.Tests.Strings;
-using Shouldly.Tests.TestHelpers;
-using Xunit;
+﻿using System.Collections.ObjectModel;
 
-namespace Shouldly.Tests.Dictionaries
+namespace Shouldly.Tests.Dictionaries;
+
+public class ShouldNotContainKey
 {
-    public class ShouldNotContainKey
+    [Theory]
+    [MemberData(nameof(ClassDictionaries))]
+    private void ShouldNotContainKeyClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
-        [Theory]
-        [MemberData(nameof(ClassDictionaries))]
-        private void ShouldNotContainKeyClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
-        {
-            Verify.ShouldFail(() =>
+        Verify.ShouldFail(() =>
 classDictionary.ShouldNotContainKey(ThingKey, "Some additional context"),
 
 errorWithSource:
@@ -34,13 +28,13 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Theory]
-        [MemberData(nameof(GuidDictionaries))]
-        public void ShouldNotContainKeyGuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
-        {
-            Verify.ShouldFail(() =>
+    [Theory]
+    [MemberData(nameof(GuidDictionaries))]
+    public void ShouldNotContainKeyGuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
+    {
+        Verify.ShouldFail(() =>
 guidDictionary.ShouldNotContainKey(GuidKey, "Some additional context"),
 
 errorWithSource:
@@ -60,13 +54,13 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
-        }
+    }
 
-        [Theory]
-        [MemberData(nameof(StringDictionaries))]
-        public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
-        {
-            Verify.ShouldFail(() =>
+    [Theory]
+    [MemberData(nameof(StringDictionaries))]
+    public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
+    {
+        Verify.ShouldFail(() =>
 stringDictionary.ShouldNotContainKey("Foo", "Some additional context"),
 
 errorWithSource:
@@ -86,62 +80,61 @@ errorWithoutSource:
 
 Additional Info:
     Some additional context");
+    }
+
+    [Fact]
+    public void ShouldPass()
+    {
+        foreach (var classDictionary in ClassDictionaries().SelectMany(x => x).OfType<IEnumerable<KeyValuePair<MyThing, MyThing>>>())
+        {
+            classDictionary.ShouldNotContainKey(new MyThing());
         }
 
-        [Fact]
-        public void ShouldPass()
+        foreach (var guidDictionary in GuidDictionaries().SelectMany(x => x).OfType<IEnumerable<KeyValuePair<Guid, Guid>>>())
         {
-            foreach (var classDictionary in ClassDictionaries().SelectMany(x => x))
-            {
-                classDictionary.ShouldNotContainKey(new MyThing());
-            }
-
-            foreach (var guidDictionary in GuidDictionaries().SelectMany(x => x))
-            {
-                guidDictionary.ShouldNotContainKey(Guid.NewGuid());
-            }
-
-            foreach (var stringDictionary in StringDictionaries().SelectMany(x => x))
-            {
-                stringDictionary.ShouldNotContainKey("bar");
-            }
+            guidDictionary.ShouldNotContainKey(Guid.NewGuid());
         }
 
-        private static readonly MyThing ThingKey = new MyThing();
-        private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+        foreach (var stringDictionary in StringDictionaries().SelectMany(x => x).OfType<IEnumerable<KeyValuePair<string, string>>>())
         {
-            { ThingKey, new MyThing() }
-        };
-
-        private static readonly Guid GuidKey = new Guid("89bdbe3d-3436-4749-bcb7-84264394026c");
-        private static readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
-        {
-            { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
-        };
-        private static readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
-        {
-            { "Foo", "" }
-        };
-
-        private static IEnumerable<IEnumerable<KeyValuePair<MyThing, MyThing>>[]> ClassDictionaries()
-        {
-            yield return new[] { _classDictionary };
-            yield return new[] { new ReadOnlyDictionary<MyThing, MyThing>(_classDictionary) };
-            yield return new[] { _classDictionary.ToArray() };
+            stringDictionary.ShouldNotContainKey("bar");
         }
+    }
 
-        private static IEnumerable<IEnumerable<KeyValuePair<string, string>>[]> StringDictionaries()
-        {
-            yield return new[] { _stringDictionary };
-            yield return new[] { new ReadOnlyDictionary<string, string>(_stringDictionary) };
-            yield return new[] { _stringDictionary.ToArray() };
-        }
+    private static readonly MyThing ThingKey = new MyThing();
+    private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+    {
+        { ThingKey, new MyThing() }
+    };
 
-        private static IEnumerable<IEnumerable<KeyValuePair<Guid, Guid>>[]> GuidDictionaries()
-        {
-            yield return new[] { _guidDictionary };
-            yield return new[] { new ReadOnlyDictionary<Guid, Guid>(_guidDictionary) };
-            yield return new[] { _guidDictionary.ToArray() };
-        }
+    private static readonly Guid GuidKey = new Guid("89bdbe3d-3436-4749-bcb7-84264394026c");
+    private static readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
+    {
+        { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
+    };
+    private static readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>
+    {
+        { "Foo", "" }
+    };
+
+    public static IEnumerable<object[]> ClassDictionaries()
+    {
+        yield return new[] { _classDictionary };
+        yield return new[] { new ReadOnlyDictionary<MyThing, MyThing>(_classDictionary) };
+        yield return new[] { _classDictionary.ToArray() };
+    }
+
+    public static IEnumerable<object[]> StringDictionaries()
+    {
+        yield return new[] { _stringDictionary };
+        yield return new[] { new ReadOnlyDictionary<string, string>(_stringDictionary) };
+        yield return new[] { _stringDictionary.ToArray() };
+    }
+
+    public static IEnumerable<object[]> GuidDictionaries()
+    {
+        yield return new[] { _guidDictionary };
+        yield return new[] { new ReadOnlyDictionary<Guid, Guid>(_guidDictionary) };
+        yield return new[] { _guidDictionary.ToArray() };
     }
 }
