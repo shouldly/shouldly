@@ -9,9 +9,9 @@
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
 Should.NotThrow(() =>
-            {
-                var y = homer.Salary / denominator;
-            });
+                {
+                    var y = homer.Salary / denominator;
+                });
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#16bf37fa' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -36,9 +36,9 @@ System.DivideByZeroException
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
 var action = () =>
-            {
-                var y = homer.Salary / denominator;
-            };
+                {
+                    var y = homer.Salary / denominator;
+                };
 action.ShouldNotThrow();
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#cc57c8e4' title='Start of snippet'>anchor</a></sup>
@@ -112,14 +112,14 @@ System.ArgumentNullException
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
 Should.NotThrow(() =>
-            {
-                var task = Task.Factory.StartNew(
-                    () =>
-                    {
-                        var y = homer.Salary / denominator;
-                    });
-                return task;
-            });
+                {
+                    var task = Task.Factory.StartNew(
+                        () =>
+                        {
+                            var y = homer.Salary / denominator;
+                        });
+                    return task;
+                });
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#22f6b427' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
