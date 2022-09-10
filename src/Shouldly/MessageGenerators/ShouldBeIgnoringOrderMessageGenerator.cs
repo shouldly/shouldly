@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Diagnostics;
 
 namespace Shouldly.MessageGenerators;
 
@@ -12,11 +11,18 @@ internal class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        Debug.Assert(context.Expected is IEnumerable);
-        Debug.Assert(context.Actual is IEnumerable);
+        if (context.Expected is not IEnumerable expectedEnumerable)
+        {
+            throw new("`context.Expected` should be IEnumerable");
+        }
 
-        var expected = ((IEnumerable)context.Expected).Cast<object>().ToArray();
-        var actual = ((IEnumerable)context.Actual).Cast<object>().ToArray();
+        if (context.Actual is not IEnumerable actualEnumerable)
+        {
+            throw new("`context.Actual` should be IEnumerable");
+        }
+
+        var expected = expectedEnumerable.Cast<object>().ToArray();
+        var actual = actualEnumerable.Cast<object>().ToArray();
         var codePart = context.CodePart;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
