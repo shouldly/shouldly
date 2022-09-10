@@ -17,21 +17,23 @@ public class DictionaryShouldContainKeyAndValueExamples
     public void ShouldContainKeyAndValue()
     {
         DocExampleWriter.Document(() =>
-        {
-            var websters = new Dictionary<string, string> { { "Cromulent", "I never heard the word before moving to Springfield." } };
+            {
+                var websters = new Dictionary<string, string> { { "Cromulent", "I never heard the word before moving to Springfield." } };
 
-            websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
-        }, _testOutputHelper);
+                websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
+            },
+            _testOutputHelper);
     }
 
     [Fact]
     public void ShouldNotContainKeyAndValue()
     {
         DocExampleWriter.Document(() =>
-        {
-            var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
+            {
+                var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
 
-            websters.ShouldNotContainValueForKey("Chazzwazzers",  "What Australians would have called a bull frog.");
-        }, _testOutputHelper);
+                websters.ShouldNotContainValueForKey("Chazzwazzers", "What Australians would have called a bull frog.");
+            },
+            _testOutputHelper);
     }
 }

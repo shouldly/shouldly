@@ -16,20 +16,24 @@ public class ShouldBeTrueFalseExamples
     [Fact]
     public void ShouldBeTrue()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var myValue = false;
-            myValue.ShouldBeTrue();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var myValue = false;
+                myValue.ShouldBeTrue();
+            },
+            _testOutputHelper);
     }
 
     [Fact]
     public void ShouldBeFalse()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var myValue = true;
-            myValue.ShouldBeFalse();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var myValue = true;
+                myValue.ShouldBeFalse();
+            },
+            _testOutputHelper);
     }
 }
