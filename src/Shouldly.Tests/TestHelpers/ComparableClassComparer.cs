@@ -12,6 +12,6 @@ public class ComparableClassComparer : IEqualityComparer<ComparableClass>
 
     public int GetHashCode(ComparableClass obj)
     {
-        return EqualityComparer<string?>.Default.GetHashCode(obj.Property);
+        return EqualityComparer<string?>.Default.GetHashCode(obj.Property!);
     }
 }
