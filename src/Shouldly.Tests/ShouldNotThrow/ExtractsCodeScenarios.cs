@@ -64,12 +64,12 @@ public class ExtractsCodeScenarios
 
     private void methodCallWithParameters(int i, int i1)
     {
-        throw new Exception();
+        throw new();
     }
 
     private void methodCall2()
     {
-        throw new Exception();
+        throw new();
     }
 
     private bool methodCall1()
@@ -79,6 +79,6 @@ public class ExtractsCodeScenarios
 
     private void methodCall()
     {
-        throw new Exception();
+        throw new();
     }
 }

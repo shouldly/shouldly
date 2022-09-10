@@ -80,18 +80,18 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        _classDictionary.ShouldNotContainKey(new MyThing());
+        _classDictionary.ShouldNotContainKey(new());
         _guidDictionary.ShouldNotContainKey(Guid.NewGuid());
         _stringDictionary.ShouldNotContainKey("bar");
     }
 
     private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
     {
-        { ThingKey, new MyThing() }
+        { ThingKey, new() }
     };
     private readonly Dictionary<Guid, Guid> _guidDictionary = new()
     {
-        { GuidKey, new Guid("96408719-fdd4-4212-8e54-4f4d7371300f") }
+        { GuidKey, new("96408719-fdd4-4212-8e54-4f4d7371300f") }
     };
     private readonly Dictionary<string, string> _stringDictionary = new()
     {

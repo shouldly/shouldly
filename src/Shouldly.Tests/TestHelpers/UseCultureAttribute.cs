@@ -40,8 +40,8 @@ public class UseCultureAttribute : BeforeAfterTestAttribute
     /// <param name="uiCulture">The name of the UI culture.</param>
     public UseCultureAttribute(string culture, string uiCulture)
     {
-        _culture = new Lazy<CultureInfo>(() => new CultureInfo(culture));
-        _uiCulture = new Lazy<CultureInfo>(() => new CultureInfo(uiCulture));
+        _culture = new(() => new(culture));
+        _uiCulture = new(() => new(uiCulture));
     }
 
     /// <summary>

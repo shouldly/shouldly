@@ -28,13 +28,13 @@ internal class FormattedDetailedDifferenceString
         _prefixWithDots = prefixWithDots;
         _suffixWithDots = suffixWithDots;
 
-        differenceStringLineOneBuilder = new StringBuilder();
-        differenceStringLineTwoBuilder = new StringBuilder();
-        indexStringBuilder = new StringBuilder();
-        expectedValueStringBuilder = new StringBuilder();
-        actualValueStringBuilder = new StringBuilder();
-        expectedCodeStringBuilder = new StringBuilder();
-        actualCodeStringBuilder = new StringBuilder();
+        differenceStringLineOneBuilder = new();
+        differenceStringLineTwoBuilder = new();
+        indexStringBuilder = new();
+        expectedValueStringBuilder = new();
+        actualValueStringBuilder = new();
+        expectedCodeStringBuilder = new();
+        actualCodeStringBuilder = new();
     }
 
     public override string ToString()

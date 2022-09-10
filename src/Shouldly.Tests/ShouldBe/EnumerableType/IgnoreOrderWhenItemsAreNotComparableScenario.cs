@@ -7,18 +7,18 @@ public class IgnoreOrderWhenItemsAreNotComparableScenario
     {
         get
         {
-            yield return new YourAverageNonComparableType(1);
-            yield return new YourAverageNonComparableType(2);
+            yield return new(1);
+            yield return new(2);
         }
     }
 
     [Fact]
     public void IgnoreOrderWhenItemsAreNotComparableScenarioShouldFail()
     {
-        var expected = new[]
+        var expected = new YourAverageNonComparableType[]
         {
-            new YourAverageNonComparableType(2),
-            new YourAverageNonComparableType(3)
+            new(2),
+            new(3)
         };
         Verify.ShouldFail(() =>
 
@@ -60,10 +60,10 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        var expected = new[]
+        var expected = new YourAverageNonComparableType[]
         {
-            new YourAverageNonComparableType(2),
-            new YourAverageNonComparableType(1)
+            new(2),
+            new(1)
         };
         Actual.ShouldBe(expected, ignoreOrder: true);
     }

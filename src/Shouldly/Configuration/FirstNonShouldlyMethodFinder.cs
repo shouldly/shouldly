@@ -26,7 +26,7 @@ public class FirstNonShouldlyMethodFinder : ITestMethodFinder
                 var callingFrame = stackTrace.GetFrame(i + Offset)
                                    ?? throw new InvalidOperationException("There is no stack frame at the specified offset from the first non-Shouldly stack frame.");
 
-                return new TestMethodInfo(callingFrame);
+                return new(callingFrame);
             }
         }
 

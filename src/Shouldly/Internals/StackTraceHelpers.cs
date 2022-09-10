@@ -12,7 +12,7 @@ internal static class StackTraceHelpers
         if (cachedValue == null)
         {
             var builder = new StringBuilder();
-            WriteFilteredStackTrace(builder, new StackTrace(exception, fNeedFileInfo: true));
+            WriteFilteredStackTrace(builder, new(exception, fNeedFileInfo: true));
             cachedValue = builder.ToString();
         }
 

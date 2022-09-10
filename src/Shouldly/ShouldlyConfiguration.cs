@@ -6,7 +6,7 @@ public static partial class ShouldlyConfiguration
 {
     static ShouldlyConfiguration()
     {
-        CompareAsObjectTypes = new List<string>
+        CompareAsObjectTypes = new()
         {
             "Newtonsoft.Json.Linq.JToken",
             "Shouldly.Tests.TestHelpers.Strange"
@@ -16,7 +16,7 @@ public static partial class ShouldlyConfiguration
     public static List<string> CompareAsObjectTypes { get; }
 
     public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; } =
-        new(new ShouldMatchConfiguration
+        new(new()
         {
             StringCompareOptions = StringCompareShould.IgnoreLineEndings,
             TestMethodFinder = new FirstNonShouldlyMethodFinder(),

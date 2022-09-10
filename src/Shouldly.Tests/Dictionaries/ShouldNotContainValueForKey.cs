@@ -93,7 +93,7 @@ Additional Info:
     public void NoKeyExistsShouldFail()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context"),
+                _classDictionary.ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
             @"_classDictionary
@@ -183,7 +183,7 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        _classDictionary.ShouldNotContainValueForKey(ThingKey, new MyThing());
+        _classDictionary.ShouldNotContainValueForKey(ThingKey, new());
         _guidDictionary.ShouldNotContainValueForKey(GuidKey, Guid.NewGuid());
         _stringDictionary.ShouldNotContainValueForKey("Foo", "baz");
     }

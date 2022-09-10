@@ -91,21 +91,21 @@ public class DifferenceHighlighterHelpersTests
     [Fact]
     public void HighlightDifferencesBetween_GenericList_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new List<int> { 1, 4, 3 }.ShouldBe(new List<int> { 1, 2, 3 }))
+        Should.Throw<ShouldAssertException>(() => new List<int> { 1, 4, 3 }.ShouldBe(new() { 1, 2, 3 }))
             .Message.ShouldContain("[1, *4*, 3]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_ArrayList_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new ArrayList { 9, 7, 8 }.ShouldBe(new ArrayList { 9, 8, 7 }))
+        Should.Throw<ShouldAssertException>(() => new ArrayList { 9, 7, 8 }.ShouldBe(new() { 9, 8, 7 }))
             .Message.ShouldContain("[9, *7*, *8*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_PureEnumerable_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new PureEnumerable { 9, 8, 6 }.ShouldBe(new PureEnumerable { 9, 8, 7 }))
+        Should.Throw<ShouldAssertException>(() => new PureEnumerable { 9, 8, 6 }.ShouldBe(new() { 9, 8, 7 }))
             .Message.ShouldContain("[9, 8, *6*]");
     }
 

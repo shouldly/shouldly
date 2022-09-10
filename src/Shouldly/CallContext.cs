@@ -12,7 +12,7 @@ internal static class CallContext
     /// <param name="name">The name with which to associate the new item in the call context.</param>
     /// <param name="data">The object to store in the call context.</param>
     public static void LogicalSetData(string name, object? data) =>
-        state.GetOrAdd(name, _ => new AsyncLocal<object?>()).Value = data;
+        state.GetOrAdd(name, _ => new()).Value = data;
 
     /// <summary>
     /// Retrieves an object with the specified name from the <see cref="CallContext"/>.

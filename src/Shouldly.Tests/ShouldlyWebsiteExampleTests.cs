@@ -32,7 +32,7 @@ public class ShouldlyWebsiteExampleTests
 
     public class MapIndexOfBoo
     {
-        private IList<string> GetMap()
+        private static IList<string> GetMap()
         {
             return new[]
             {

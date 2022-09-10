@@ -21,7 +21,7 @@ internal class ActualCodeTextGetter : ICodeTextGetter
 
     private void ParseStackTrace(StackTrace? stackTrace)
     {
-        stackTrace ??= new StackTrace(fNeedFileInfo: true);
+        stackTrace ??= new(fNeedFileInfo: true);
 
         var frames =
             from index in Enumerable.Range(0, stackTrace.FrameCount)

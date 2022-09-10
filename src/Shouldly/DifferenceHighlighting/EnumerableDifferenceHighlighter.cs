@@ -14,7 +14,7 @@ internal class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 
     public EnumerableDifferenceHighlighter()
     {
-        _itemDifferenceHighlighter = new ItemDifferenceHighlighter();
+        _itemDifferenceHighlighter = new();
     }
 
     public bool CanProcess(IShouldlyAssertionContext context)

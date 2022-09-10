@@ -6,7 +6,7 @@ public class ShouldContainKeyAndValue
     public void ShouldContainKeyAndValueWithClassesShouldFail()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKeyAndValue(new MyThing(), new MyThing(), "Some additional context"),
+                _classDictionary.ShouldContainKeyAndValue(new(), new(), "Some additional context"),
 
             errorWithSource:
             @"_classDictionary
@@ -64,7 +64,7 @@ Additional Info:
     public void OnlyKeyMatchesShouldFail()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
+                _classDictionary.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
             @"_classDictionary
@@ -95,7 +95,7 @@ Additional Info:
     public void OnlyValueMatchesShouldFail()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKeyAndValue(new MyThing(), ThingValue, "Some additional context"),
+                _classDictionary.ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
             @"_classDictionary
@@ -157,7 +157,7 @@ Additional Info:
             { ThingKey, null }
         };
         Verify.ShouldFail(() =>
-                dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
+                dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
             @"dictionaryWithNullValue

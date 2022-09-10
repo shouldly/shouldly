@@ -29,7 +29,7 @@ internal class DifferenceIndexConsolidator
             {
                 consolidatedIndices.Add(currentConsolidationRun);
                 diffDistanceCounter = 0;
-                currentConsolidationRun = new List<int>();
+                currentConsolidationRun = new();
             }
         }
 

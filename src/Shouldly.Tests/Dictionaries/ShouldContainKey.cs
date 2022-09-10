@@ -6,7 +6,7 @@ public class ShouldContainKey
     public void ClassScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKey(new MyThing(), "Some additional context"),
+                _classDictionary.ShouldContainKey(new(), "Some additional context"),
 
             errorWithSource:
             @"_classDictionary
@@ -88,12 +88,12 @@ Additional Info:
     private static readonly MyThing ThingKey = new();
     private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
     {
-        { ThingKey, new MyThing() }
+        { ThingKey, new() }
     };
 
     private readonly Dictionary<Guid, Guid> _guidDictionary = new()
     {
-        { GuidKey, new Guid("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5") }
+        { GuidKey, new("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5") }
     };
 
     private static readonly Guid GuidKey = new("468a57a7-ca19-4b76-a1e3-3040719392bc");

@@ -15,7 +15,7 @@ public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
 
             if ((method?.IsDefined(typeof(T), inherit: true)).GetValueOrDefault())
             {
-                return new TestMethodInfo(frame);
+                return new(frame);
             }
         }
 
