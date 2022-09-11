@@ -134,7 +134,7 @@ Additional Info:
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
             Colors = new[] { "red", "blue" },
-            Child = new FakeObject
+            Child = new()
             {
                 Id = 6,
                 Name = "Sally",
@@ -149,7 +149,7 @@ Additional Info:
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
             Colors = new[] { "red", "blue" },
-            Child = new FakeObject
+            Child = new()
             {
                 Id = 6,
                 Name = "Sally",
@@ -201,7 +201,7 @@ Additional Info:
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
             Colors = new[] { "red", "blue" },
-            Child = new FakeObject
+            Child = new()
             {
                 Id = 6,
                 Name = "Sally",
@@ -217,7 +217,7 @@ Additional Info:
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
             Colors = new[] { "red", "blue" },
-            Child = new FakeObject
+            Child = new()
             {
                 Id = 6,
                 Name = "Sally",
@@ -278,7 +278,7 @@ Additional Info:
             Adjectives = new[] { "funny", "wise" },
             Colors = new[] { "red", "blue" },
             TitleField = "Mr",
-            Child = new FakeObject
+            Child = new()
             {
                 Id = 6,
                 Name = "Sally",
@@ -294,7 +294,7 @@ Additional Info:
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
             Colors = new[] { "red", "blue" },
-            Child = new FakeObject
+            Child = new()
             {
                 Id = 6,
                 Name = "Sally",

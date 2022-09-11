@@ -9,7 +9,7 @@ public class ShouldContainKey
     private void ClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
         Verify.ShouldFail(() =>
-                classDictionary.ShouldContainKey(new MyThing(), "Some additional context"),
+                classDictionary.ShouldContainKey(new(), "Some additional context"),
 
             errorWithSource:
             @"classDictionary
@@ -104,14 +104,14 @@ Additional Info:
     private static readonly MyThing ThingKey = new MyThing();
     private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
     {
-        { ThingKey, new MyThing() }
+        { ThingKey, new() }
     };
 
     private static readonly Guid GuidKey = new Guid("468a57a7-ca19-4b76-a1e3-3040719392bc");
     private readonly Guid _missingGuid = new Guid("5250646b-4c46-4b0e-86d8-e1421f2a0ea2");
     private static readonly Dictionary<Guid, Guid> _guidDictionary = new Dictionary<Guid, Guid>
     {
-        { GuidKey, new Guid("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5") }
+        { GuidKey, new("a9db46cc-9d3c-4595-ae1b-8e33de4cc6e5") }
     };
 
     private static readonly Dictionary<string, string> _stringDictionary = new Dictionary<string, string>

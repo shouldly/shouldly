@@ -24,12 +24,12 @@ internal class DifferenceIndexConsolidator
         foreach (var diffIndexWithDistance in diffIndicesWithDistanceToNextDiffIndex)
         {
             currentConsolidationRun.Add(diffIndexWithDistance.Key);
-            diffDistanceCounter = diffDistanceCounter + diffIndexWithDistance.Value;
+            diffDistanceCounter += diffIndexWithDistance.Value;
             if (diffDistanceCounter >= _maxDiffLength || diffIndexWithDistance.Value == 0)
             {
                 consolidatedIndices.Add(currentConsolidationRun);
                 diffDistanceCounter = 0;
-                currentConsolidationRun = new List<int>();
+                currentConsolidationRun = new();
             }
         }
 

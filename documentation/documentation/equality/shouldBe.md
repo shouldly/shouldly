@@ -71,7 +71,7 @@ DateTime overloads are similar to the numeric overloads and support tolerances.
 <a id='c0877fef'></a>
 ```cs
 var date = new DateTime(2000, 6, 1);
-date.ShouldBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
+date.ShouldBe(new(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1));
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#c0877fef' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

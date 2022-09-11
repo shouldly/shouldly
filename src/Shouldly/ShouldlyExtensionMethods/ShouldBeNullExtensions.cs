@@ -10,7 +10,7 @@ namespace Shouldly;
 public static partial class ShouldBeNullExtensions
 {
     [ContractAnnotation("actual:notnull => halt")]
-    public static void ShouldBeNull<T>([MaybeNull] this T? actual, string? customMessage = null)
+    public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
         where T : class
     {
         if (actual != null)
@@ -18,7 +18,7 @@ public static partial class ShouldBeNullExtensions
     }
 
     [ContractAnnotation("actual:notnull => halt")]
-    public static void ShouldBeNull<T>([MaybeNull] this T? actual, string? customMessage = null)
+    public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
         where T : struct
     {
         if (actual != null)

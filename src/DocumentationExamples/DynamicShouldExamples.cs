@@ -17,10 +17,12 @@ public class DynamicShouldExamples
     [Fact]
     public void HaveProperty()
     {
-        DocExampleWriter.Document(() =>
-        {
-            dynamic theFuture = new ExpandoObject();
-            DynamicShould.HaveProperty(theFuture, "RobotTeachers");
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                dynamic theFuture = new ExpandoObject();
+                DynamicShould.HaveProperty(theFuture, "RobotTeachers");
+            },
+            _testOutputHelper);
     }
 }

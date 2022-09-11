@@ -87,7 +87,7 @@ aLong
 <a id='1916a5c7'></a>
 ```cs
 var date = new DateTime(2000, 6, 1);
-date.ShouldNotBe(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5));
+date.ShouldNotBe(new(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5));
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotBeExamples.DateTime.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#1916a5c7' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

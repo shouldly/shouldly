@@ -17,21 +17,25 @@ public class EnumerableShouldBeEmptyExamples
     [Fact]
     public void ShouldBeEmpty()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var homer = new Person { Name = "Homer" };
-            var powerPlantOnTheWeekend = new List<Person> { homer };
-            powerPlantOnTheWeekend.ShouldBeEmpty();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var homer = new Person { Name = "Homer" };
+                var powerPlantOnTheWeekend = new List<Person> { homer };
+                powerPlantOnTheWeekend.ShouldBeEmpty();
+            },
+            _testOutputHelper);
     }
 
     [Fact]
     public void ShouldNotBeEmpty()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var moesTavernOnTheWeekend = new List<Person>();
-            moesTavernOnTheWeekend.ShouldNotBeEmpty();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var moesTavernOnTheWeekend = new List<Person>();
+                moesTavernOnTheWeekend.ShouldNotBeEmpty();
+            }
+            , _testOutputHelper);
     }
 }

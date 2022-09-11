@@ -26,7 +26,7 @@ public static partial class ShouldMatchApprovedTestExtensions
         var discriminator = config.FilenameDiscriminator == null ? null : "." + config.FilenameDiscriminator;
         var outputFolder = testMethodInfo.SourceFileDirectory;
         if (string.IsNullOrEmpty(outputFolder))
-            throw new Exception($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+            throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
         if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
         {
             outputFolder = Path.Combine(outputFolder, config.ApprovalFileSubFolder);

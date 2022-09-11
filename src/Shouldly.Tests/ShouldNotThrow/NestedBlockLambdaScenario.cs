@@ -11,13 +11,13 @@ public class NestedBlockLambdaScenario
                 {
                     if (true)
                     {
-                        throw new Exception("Dummy message.");
+                        throw new("Dummy message.");
                     }
                 }, "Additional info");
             },
 
             errorWithSource:
-            @"`if (true) { throw new Exception(""Dummy message.""); }`
+            @"`if (true) { throw new(""Dummy message.""); }`
     should not throw but threw
 System.Exception
     with message

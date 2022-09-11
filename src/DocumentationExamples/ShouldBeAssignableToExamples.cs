@@ -17,10 +17,12 @@ public class ShouldBeAssignableToExamples
     [Fact]
     public void ShouldBeAssignableTo()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var theSimpsonsDog = new Person { Name = "Santas little helper" };
-            theSimpsonsDog.ShouldBeAssignableTo<Pet>();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var theSimpsonsDog = new Person { Name = "Santas little helper" };
+                theSimpsonsDog.ShouldBeAssignableTo<Pet>();
+            },
+            _testOutputHelper);
     }
 }

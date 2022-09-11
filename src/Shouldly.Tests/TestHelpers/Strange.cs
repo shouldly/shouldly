@@ -27,7 +27,7 @@ internal class Strange : IEnumerable<Strange>
 
     public static implicit operator Strange(string thing)
     {
-        return new Strange(thing);
+        return new(thing);
     }
 
     protected bool Equals(Strange other)

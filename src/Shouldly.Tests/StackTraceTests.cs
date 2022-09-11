@@ -18,7 +18,7 @@ public static partial class StackTraceTests
     public static void Stack_trace_is_trimmed_the_same_as_default_exception_stack_traces(ExceptionThrower exceptionThrower)
     {
         var shouldlyException = exceptionThrower.Catch()!;
-        var defaultException = new ExceptionThrower(typeof(Exception), false, () => throw new Exception()).Catch()!;
+        var defaultException = new ExceptionThrower(typeof(Exception), false, () => throw new()).Catch()!;
 
         var shouldlyEndingWhitespace = GetEndingWhitespace(shouldlyException.StackTrace!);
         var defaultEndingWhitespace = GetEndingWhitespace(defaultException.StackTrace!);

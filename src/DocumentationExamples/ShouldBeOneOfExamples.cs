@@ -17,31 +17,35 @@ public class ShouldBeOneOfExamples
     [Fact]
     public void ShouldBeOneOf()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var apu = new Person { Name = "Apu" };
-            var homer = new Person { Name = "Homer" };
-            var skinner = new Person { Name = "Skinner" };
-            var barney = new Person { Name = "Barney" };
-            var theBeSharps = new List<Person> { homer, skinner, barney };
+        DocExampleWriter.Document(
+            () =>
+            {
+                var apu = new Person { Name = "Apu" };
+                var homer = new Person { Name = "Homer" };
+                var skinner = new Person { Name = "Skinner" };
+                var barney = new Person { Name = "Barney" };
+                var theBeSharps = new List<Person> { homer, skinner, barney };
 
-            apu.ShouldBeOneOf(theBeSharps.ToArray());
-        }, _testOutputHelper);
+                apu.ShouldBeOneOf(theBeSharps.ToArray());
+            },
+            _testOutputHelper);
     }
 
     [Fact]
     public void ShouldNotBeOneOf()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var apu = new Person { Name = "Apu" };
-            var homer = new Person { Name = "Homer" };
-            var skinner = new Person { Name = "Skinner" };
-            var barney = new Person { Name = "Barney" };
-            var wiggum = new Person { Name = "Wiggum" };
-            var theBeSharps = new List<Person> { apu, homer, skinner, barney, wiggum };
+        DocExampleWriter.Document(
+            () =>
+            {
+                var apu = new Person { Name = "Apu" };
+                var homer = new Person { Name = "Homer" };
+                var skinner = new Person { Name = "Skinner" };
+                var barney = new Person { Name = "Barney" };
+                var wiggum = new Person { Name = "Wiggum" };
+                var theBeSharps = new List<Person> { apu, homer, skinner, barney, wiggum };
 
-            wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
-        }, _testOutputHelper);
+                wiggum.ShouldNotBeOneOf(theBeSharps.ToArray());
+            },
+            _testOutputHelper);
     }
 }

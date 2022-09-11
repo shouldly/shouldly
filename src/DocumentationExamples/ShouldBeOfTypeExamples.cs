@@ -17,20 +17,24 @@ public class ShouldBeOfTypeExamples
     [Fact]
     public void ShouldBeOfType()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var theSimpsonsDog = new Cat { Name = "Santas little helper" };
-            theSimpsonsDog.ShouldBeOfType<Dog>();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var theSimpsonsDog = new Cat { Name = "Santas little helper" };
+                theSimpsonsDog.ShouldBeOfType<Dog>();
+            },
+            _testOutputHelper);
     }
 
     [Fact]
     public void ShouldNotBeOfType()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var theSimpsonsDog = new Cat { Name = "Santas little helper" };
-            theSimpsonsDog.ShouldNotBeOfType<Cat>();
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var theSimpsonsDog = new Cat { Name = "Santas little helper" };
+                theSimpsonsDog.ShouldNotBeOfType<Cat>();
+            },
+            _testOutputHelper);
     }
 }

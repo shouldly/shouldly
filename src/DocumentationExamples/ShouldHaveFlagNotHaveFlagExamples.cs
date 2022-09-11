@@ -16,23 +16,27 @@ public class ShouldHaveFlagNotHaveFlagExamples
     [Fact]
     public void ShouldHaveFlag()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var actual = TestEnum.FlagTwo;
-            var value = TestEnum.FlagOne;
-            actual.ShouldHaveFlag(value);
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var actual = TestEnum.FlagTwo;
+                var value = TestEnum.FlagOne;
+                actual.ShouldHaveFlag(value);
+            },
+            _testOutputHelper);
     }
 
     [Fact]
     public void ShouldNotHaveFlag()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var actual = TestEnum.FlagOne;
-            var value = TestEnum.FlagOne;
-            actual.ShouldNotHaveFlag(value);
-        }, _testOutputHelper);
+        DocExampleWriter.Document(
+            () =>
+            {
+                var actual = TestEnum.FlagOne;
+                var value = TestEnum.FlagOne;
+                actual.ShouldNotHaveFlag(value);
+            },
+            _testOutputHelper);
     }
 
     [Flags]

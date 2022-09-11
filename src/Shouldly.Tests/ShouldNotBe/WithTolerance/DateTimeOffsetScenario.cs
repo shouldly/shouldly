@@ -41,6 +41,6 @@ Additional Info:
     public void ShouldPass()
     {
         var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
-        date.ShouldNotBe(new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero), TimeSpan.FromHours(1));
+        date.ShouldNotBe(new(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero), TimeSpan.FromHours(1));
     }
 }

@@ -6,7 +6,7 @@ public class ShouldMatchConfigurationBuilder
 
     public ShouldMatchConfigurationBuilder(ShouldMatchConfiguration initialConfig)
     {
-        _config = new ShouldMatchConfiguration(initialConfig);
+        _config = new(initialConfig);
     }
 
     public ShouldMatchConfigurationBuilder WithStringCompareOptions(StringCompareShould stringCompareOptions)

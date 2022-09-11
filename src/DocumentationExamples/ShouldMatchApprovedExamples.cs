@@ -16,31 +16,35 @@ public class ShouldMatchApprovedExamples
     [IgnoreOnAppVeyorLinuxFact]
     public void ApprovedFileDoesNotExist()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var simpsonsQuote = "Hi Super Nintendo Chalmers";
-            simpsonsQuote.ShouldMatchApproved(c => c.NoDiff());
-        }, _testOutputHelper, c =>
-        {
-            c.WithScrubber(s => s.Replace("DocExampleWriter.Document.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.approved.txt"));
-            c.WithScrubber(s => s.Replace("DocExampleWriter.Document.received.txt", "ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.received.txt"));
-            c.WithScrubber(s => s.Replace("c => c.NoDiff()", string.Empty));
-        });
+        DocExampleWriter.Document(
+            () =>
+            {
+                var simpsonsQuote = "Hi Super Nintendo Chalmers";
+                simpsonsQuote.ShouldMatchApproved(c => c.NoDiff());
+            },
+            _testOutputHelper, c =>
+            {
+                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.approved.txt"));
+                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.received.txt", "ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.received.txt"));
+                c.WithScrubber(s => s.Replace("c => c.NoDiff()", string.Empty));
+            });
     }
 
     [IgnoreOnAppVeyorLinuxFact]
     public void ApprovedFileIsDifferent()
     {
-        DocExampleWriter.Document(() =>
-        {
-            var simpsonsQuote = "Me fail english? That's unpossible";
-            simpsonsQuote.ShouldMatchApproved(c => c.NoDiff().WithDiscriminator("Different"));
-        }, _testOutputHelper, c =>
-        {
-            // Scrubbing the generated docs is easier than altering the infrastructure to support this scenario
-            c.WithScrubber(s => s.Replace("c => c.NoDiff().WithDiscriminator(\"Different\")", string.Empty));
-            c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"));
-            c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.received.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt"));
-        });
+        DocExampleWriter.Document(
+            () =>
+            {
+                var simpsonsQuote = "Me fail english? That's unpossible";
+                simpsonsQuote.ShouldMatchApproved(c => c.NoDiff().WithDiscriminator("Different"));
+            },
+            _testOutputHelper, c =>
+            {
+                // Scrubbing the generated docs is easier than altering the infrastructure to support this scenario
+                c.WithScrubber(s => s.Replace("c => c.NoDiff().WithDiscriminator(\"Different\")", string.Empty));
+                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"));
+                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.received.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt"));
+            });
     }
 }

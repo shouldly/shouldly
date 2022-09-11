@@ -89,7 +89,7 @@ Additional Info:
     public void BadEquatableClassScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new BadEquatable().ShouldBe(new BadEquatable(), "Some additional context"),
+                new BadEquatable().ShouldBe(new(), "Some additional context"),
 
             errorWithSource:
             @"new BadEquatable()
@@ -312,7 +312,7 @@ Additional Info:
     public void UncomparableClassScenario()
     {
         Verify.ShouldFail(() =>
-                new UncomparableClass("ted").ShouldBe(new UncomparableClass("bob"), "Some additional context"),
+                new UncomparableClass("ted").ShouldBe(new("bob"), "Some additional context"),
 
             errorWithSource:
             @"new UncomparableClass(""ted"")

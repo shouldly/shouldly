@@ -33,7 +33,7 @@ websters
 <a id='dbf0b7f8'></a>
 ```cs
 var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
-websters.ShouldNotContainValueForKey("Chazzwazzers",  "What Australians would have called a bull frog.");
+websters.ShouldNotContainValueForKey("Chazzwazzers", "What Australians would have called a bull frog.");
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#dbf0b7f8' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

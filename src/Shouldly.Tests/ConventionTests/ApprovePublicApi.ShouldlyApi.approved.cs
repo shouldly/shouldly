@@ -404,9 +404,9 @@ namespace Shouldly
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldBeNull<T>(this T actual, System.Func<string?>? customMessage) { }
-        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual, string? customMessage = null)
+        public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
             where T :  class { }
-        public static void ShouldBeNull<T>([System.Diagnostics.CodeAnalysis.MaybeNull] this T? actual, string? customMessage = null)
+        public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
             where T :  struct { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]

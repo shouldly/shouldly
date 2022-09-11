@@ -63,7 +63,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(amount, ToleranceMode.Percent);
+            return new(amount, ToleranceMode.Percent);
         }
     }
 
@@ -75,7 +75,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(amount, ToleranceMode.Ulps);
+            return new(amount, ToleranceMode.Ulps);
         }
     }
 
@@ -88,7 +88,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(TimeSpan.FromDays(Convert.ToDouble(amount)));
+            return new(TimeSpan.FromDays(Convert.ToDouble(amount)));
         }
     }
 
@@ -101,7 +101,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(TimeSpan.FromHours(Convert.ToDouble(amount)));
+            return new(TimeSpan.FromHours(Convert.ToDouble(amount)));
         }
     }
 
@@ -114,7 +114,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(TimeSpan.FromMinutes(Convert.ToDouble(amount)));
+            return new(TimeSpan.FromMinutes(Convert.ToDouble(amount)));
         }
     }
 
@@ -127,7 +127,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(TimeSpan.FromSeconds(Convert.ToDouble(amount)));
+            return new(TimeSpan.FromSeconds(Convert.ToDouble(amount)));
         }
     }
 
@@ -140,7 +140,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(TimeSpan.FromMilliseconds(Convert.ToDouble(amount)));
+            return new(TimeSpan.FromMilliseconds(Convert.ToDouble(amount)));
         }
     }
 
@@ -153,7 +153,7 @@ internal class Tolerance
         get
         {
             CheckLinearAndNumeric();
-            return new Tolerance(TimeSpan.FromTicks(Convert.ToInt64(amount)));
+            return new(TimeSpan.FromTicks(Convert.ToInt64(amount)));
         }
     }
 

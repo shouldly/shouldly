@@ -69,7 +69,7 @@ internal static class Numerics
         }
 
         if (tolerance.IsEmpty && ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d)
-            tolerance = new Tolerance(ShouldlyConfiguration.DefaultFloatingPointTolerance);
+            tolerance = new(ShouldlyConfiguration.DefaultFloatingPointTolerance);
 
         switch (tolerance.Mode)
         {
@@ -107,7 +107,7 @@ internal static class Numerics
         }
 
         if (tolerance.IsEmpty && ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d)
-            tolerance = new Tolerance(ShouldlyConfiguration.DefaultFloatingPointTolerance);
+            tolerance = new(ShouldlyConfiguration.DefaultFloatingPointTolerance);
 
         switch (tolerance.Mode)
         {

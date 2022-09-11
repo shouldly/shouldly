@@ -9,7 +9,7 @@ public class ShouldContainKeyAndValue
     private void ShouldContainKeyAndValueWithClassesShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
         Verify.ShouldFail(() =>
-                classDictionary.ShouldContainKeyAndValue(new MyThing(), new MyThing(), "Some additional context"),
+                classDictionary.ShouldContainKeyAndValue(new(), new(), "Some additional context"),
 
             errorWithSource:
             @"classDictionary
@@ -69,7 +69,7 @@ Additional Info:
     private void OnlyKeyMatchesShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
         Verify.ShouldFail(() =>
-                classDictionary.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
+                classDictionary.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
             @"classDictionary
@@ -101,7 +101,7 @@ Additional Info:
     private void OnlyValueMatchesShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
         Verify.ShouldFail(() =>
-                classDictionary.ShouldContainKeyAndValue(new MyThing(), ThingValue, "Some additional context"),
+                classDictionary.ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
             @"classDictionary
@@ -164,7 +164,7 @@ Additional Info:
             { ThingKey, null }
         };
         Verify.ShouldFail(() =>
-                dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new MyThing(), "Some additional context"),
+                dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
             @"dictionaryWithNullValue

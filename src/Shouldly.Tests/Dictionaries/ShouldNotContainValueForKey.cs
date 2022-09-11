@@ -97,7 +97,7 @@ Additional Info:
     public void NoKeyExistsShouldFail()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context"),
+                _classDictionary.ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
             @"_classDictionary

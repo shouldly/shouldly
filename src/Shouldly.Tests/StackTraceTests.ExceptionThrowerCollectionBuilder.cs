@@ -11,13 +11,13 @@ partial class StackTraceTests
         public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly, params Action[] throwInShouldlyAssembly)
             where TException : Exception
         {
-            exceptionThrowers.Add(new ExceptionThrower(typeof(TException), false, throwDirectly));
+            exceptionThrowers.Add(new(typeof(TException), false, throwDirectly));
 
             if (throwInShouldlyAssembly.Length == 0)
                 throw new ArgumentException("If an action cannot be provided which throws this type of exception in the Shouldly assembly, specify the reason in the other overload.", nameof(throwInShouldlyAssembly));
 
             foreach (var action in throwInShouldlyAssembly)
-                exceptionThrowers.Add(new ExceptionThrower(typeof(TException), true, action));
+                exceptionThrowers.Add(new(typeof(TException), true, action));
 
             return this;
         }
@@ -26,7 +26,7 @@ partial class StackTraceTests
         public ExceptionThrowerCollectionBuilder Add<TException>(Action throwDirectly)
             where TException : Exception
         {
-            exceptionThrowers.Add(new ExceptionThrower(typeof(TException), false, throwDirectly));
+            exceptionThrowers.Add(new(typeof(TException), false, throwDirectly));
             return this;
         }
 

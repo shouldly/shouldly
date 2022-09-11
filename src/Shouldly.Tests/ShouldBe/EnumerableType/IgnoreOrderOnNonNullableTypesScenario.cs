@@ -6,18 +6,18 @@ public class IgnoreOrderOnNonNullableTypesScenario
     {
         get
         {
-            yield return new NonNullableType(1);
-            yield return new NonNullableType(2);
+            yield return new(1);
+            yield return new(2);
         }
     }
 
     [Fact]
     public void IgnoreOrderOnNonNullableTypesScenarioShouldFail()
     {
-        var expected = new[]
+        var expected = new NonNullableType[]
         {
-            new NonNullableType(2),
-            new NonNullableType(3),
+            new(2),
+            new(3),
         };
         Verify.ShouldFail(() =>
                 Actual.ShouldBe(expected, true, "Some additional context"),
@@ -58,10 +58,10 @@ Additional Info:
     [Fact]
     public void ShouldPass()
     {
-        var expected = new[]
+        var expected = new NonNullableType[]
         {
-            new NonNullableType(2),
-            new NonNullableType(1)
+            new(2),
+            new(1)
         };
 
         Actual.ShouldBe(expected, ignoreOrder: true);
