@@ -9,10 +9,10 @@ public class ShouldNotContainKey
     private void ShouldNotContainKeyClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
         Verify.ShouldFail(() =>
-classDictionary.ShouldNotContainKey(ThingKey, "Some additional context"),
+                classDictionary.ShouldNotContainKey(ThingKey, "Some additional context"),
 
-errorWithSource:
-@"classDictionary
+            errorWithSource:
+            @"classDictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     but does
@@ -20,8 +20,8 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     but does
@@ -35,10 +35,10 @@ Additional Info:
     public void ShouldNotContainKeyGuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
     {
         Verify.ShouldFail(() =>
-guidDictionary.ShouldNotContainKey(GuidKey, "Some additional context"),
+                guidDictionary.ShouldNotContainKey(GuidKey, "Some additional context"),
 
-errorWithSource:
-@"guidDictionary
+            errorWithSource:
+            @"guidDictionary
     should not contain key
 89bdbe3d-3436-4749-bcb7-84264394026c
     but does
@@ -46,8 +46,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[89bdbe3d-3436-4749-bcb7-84264394026c => 96408719-fdd4-4212-8e54-4f4d7371300f]]
+            errorWithoutSource:
+            @"[[89bdbe3d-3436-4749-bcb7-84264394026c => 96408719-fdd4-4212-8e54-4f4d7371300f]]
     should not contain key
 89bdbe3d-3436-4749-bcb7-84264394026c
     but does
@@ -61,10 +61,10 @@ Additional Info:
     public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
     {
         Verify.ShouldFail(() =>
-stringDictionary.ShouldNotContainKey("Foo", "Some additional context"),
+                stringDictionary.ShouldNotContainKey("Foo", "Some additional context"),
 
-errorWithSource:
-@"stringDictionary
+            errorWithSource:
+            @"stringDictionary
     should not contain key
 ""Foo""
     but does
@@ -72,8 +72,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[""Foo"" => """"]]
+            errorWithoutSource:
+            @"[[""Foo"" => """"]]
     should not contain key
 ""Foo""
     but does

@@ -9,10 +9,10 @@ public class ShouldNotContainValueForKey
     private void ClassScenarioShouldFail(IEnumerable<KeyValuePair<MyThing, MyThing>> classDictionary)
     {
         Verify.ShouldFail(() =>
-classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
+                classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
 
-errorWithSource:
-@"classDictionary
+            errorWithSource:
+            @"classDictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -22,8 +22,8 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -39,10 +39,10 @@ Additional Info:
     public void GuidScenarioShouldFail(IEnumerable<KeyValuePair<Guid, Guid>> guidDictionary)
     {
         Verify.ShouldFail(() =>
-guidDictionary.ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
+                guidDictionary.ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
 
-errorWithSource:
-@"guidDictionary
+            errorWithSource:
+            @"guidDictionary
     should not contain key
 edae0d73-8e4c-4251-85c8-e5497c7ccad1
     with value
@@ -52,8 +52,8 @@ fa1e5f58-578f-43d4-b4d6-67eae06a5d17
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+            errorWithoutSource:
+            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
     should not contain key
 edae0d73-8e4c-4251-85c8-e5497c7ccad1
     with value
@@ -68,10 +68,10 @@ Additional Info:
     public void KeyAndValueExistShouldFail()
     {
         Verify.ShouldFail(() =>
-_classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
+                _classDictionary.ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
 
-errorWithSource:
-@"_classDictionary
+            errorWithSource:
+            @"_classDictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -81,8 +81,8 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -97,10 +97,10 @@ Additional Info:
     public void NoKeyExistsShouldFail()
     {
         Verify.ShouldFail(() =>
-_classDictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context"),
+                _classDictionary.ShouldNotContainValueForKey(new MyThing(), ThingValue, "Some additional context"),
 
-errorWithSource:
-@"_classDictionary
+            errorWithSource:
+            @"_classDictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -110,8 +110,8 @@ Shouldly.Tests.TestHelpers.MyThing (000000)
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -127,10 +127,10 @@ Additional Info:
     public void StringScenarioShouldFail(IEnumerable<KeyValuePair<string, string>> stringDictionary)
     {
         Verify.ShouldFail(() =>
-stringDictionary.ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
+                stringDictionary.ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
 
-errorWithSource:
-@"stringDictionary
+            errorWithSource:
+            @"stringDictionary
     should not contain key
 ""Foo""
     with value
@@ -140,8 +140,8 @@ errorWithSource:
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[""Foo"" => ""Bar""]]
+            errorWithoutSource:
+            @"[[""Foo"" => ""Bar""]]
     should not contain key
 ""Foo""
     with value
@@ -160,10 +160,10 @@ Additional Info:
             { ThingKey, null }
         };
         Verify.ShouldFail(() =>
-dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
+                dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
 
-errorWithSource:
-@"dictionary
+            errorWithSource:
+            @"dictionary
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -173,8 +173,8 @@ null
 Additional Info:
     Some additional context",
 
-errorWithoutSource:
-@"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
     should not contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
