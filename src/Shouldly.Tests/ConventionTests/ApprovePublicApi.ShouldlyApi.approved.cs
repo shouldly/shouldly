@@ -112,6 +112,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static void CompleteIn(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeout, System.Func<string?>? customMessage) { }
         public static void CompleteIn(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeout, string? customMessage = null) { }
+        public static void CompleteIn(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task> actual, System.TimeSpan timeout, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void CompleteIn(System.Threading.Tasks.Task actual, System.TimeSpan timeout, System.Func<string?>? customMessage) { }
@@ -124,6 +125,7 @@ namespace Shouldly
             "stomMessage.", true)]
         public static T CompleteIn<T>(System.Func<T> function, System.TimeSpan timeout, System.Func<string?>? customMessage) { }
         public static T CompleteIn<T>(System.Func<T> function, System.TimeSpan timeout, string? customMessage = null) { }
+        public static T CompleteIn<T>(System.Func<System.Threading.CancellationToken, System.Threading.Tasks.Task<T>> actual, System.TimeSpan timeout, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static T CompleteIn<T>(System.Threading.Tasks.Task<T> actual, System.TimeSpan timeout, System.Func<string?>? customMessage) { }
