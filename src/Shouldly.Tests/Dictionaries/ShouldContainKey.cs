@@ -102,7 +102,7 @@ Additional Info:
     }
 
     private static readonly MyThing ThingKey = new MyThing();
-    private static readonly Dictionary<MyThing, MyThing> _classDictionary = new Dictionary<MyThing, MyThing>
+    private static readonly Dictionary<MyThing, MyThing> _classDictionary = new ()
     {
         { ThingKey, new() }
     };
