@@ -14,7 +14,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-dotnet@v3
 
     - name: Pack and test
       run: ./build.ps1
@@ -29,14 +31,14 @@ jobs:
 
     - name: Upload packages artifact
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Packages
         path: artifacts/Packages
 
     - name: Upload logs artifact
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Logs
         path: artifacts/Logs
