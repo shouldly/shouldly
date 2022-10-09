@@ -11,7 +11,7 @@
     <Authors>Jake Ginnivan, Joseph Woodward, Simon Cropp</Authors>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
     <PackageIcon>assets/logo_128x128.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/shouldly/shouldly</PackageProjectUrl>
+    <PackageProjectUrl>https://shouldly.org</PackageProjectUrl>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
