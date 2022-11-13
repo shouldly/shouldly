@@ -16,7 +16,11 @@ internal static class Numerics
     /// <returns>true if the object is a numeric type</returns>
     public static bool IsNumericType([NotNullWhen(true)] object? obj)
     {
-        return obj is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort;
+        return obj is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort
+#if NET5_0_OR_GREATER
+            or Half
+#endif
+            ;
     }
 
     /// <summary>
@@ -35,6 +39,11 @@ internal static class Numerics
 
         if (expected is float || actual is float)
             return AreEqual(Convert.ToSingle(expected), Convert.ToSingle(actual), ref tolerance);
+
+#if NET5_0_OR_GREATER
+        if (expected is Half h1 && actual is Half h2)
+            return AreEqual(h1, h2, ref tolerance);
+#endif
 
         if (tolerance.Mode == ToleranceMode.Ulps)
             throw new InvalidOperationException("Ulps may only be specified for floating point arguments");
@@ -129,6 +138,34 @@ internal static class Numerics
                 throw new ArgumentException("Unknown tolerance mode specified", nameof(tolerance));
         }
     }
+
+#if NET5_0_OR_GREATER
+    private static bool AreEqual(Half expected, Half actual, ref Tolerance tolerance)
+    {
+        if (Half.IsNaN(expected) && Half.IsNaN(actual))
+            return true;
+
+        // handle infinity specially since subtracting two infinite values gives
+        // NaN and the following test fails. mono also needs NaN to be handled
+        // specially although ms.net could use either method.
+        if (Half.IsInfinity(expected) || Half.IsNaN(expected) || Half.IsNaN(actual))
+        {
+            return expected.Equals(actual);
+        }
+
+        if (tolerance.IsEmpty && ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d)
+            tolerance = new(ShouldlyConfiguration.DefaultFloatingPointTolerance);
+
+        switch (tolerance.Mode)
+        {
+            case ToleranceMode.None:
+                return expected.Equals(actual);
+
+            default:
+                throw new ArgumentException("Specified tolerance is not supported for Half type", nameof(tolerance));
+        }
+    }
+#endif
 
     private static bool AreEqual(decimal expected, decimal actual, Tolerance tolerance)
     {
