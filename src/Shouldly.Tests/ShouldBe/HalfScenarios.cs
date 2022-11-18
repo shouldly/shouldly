@@ -12,7 +12,7 @@ public class HalfScenarios
     }
 
     [Fact]
-    public void ShouldPass_DirrerentInstances()
+    public void ShouldPass_DifferentInstances()
     {
         object h1 = (Half)12345;
         object h2 = (Half)12345;
