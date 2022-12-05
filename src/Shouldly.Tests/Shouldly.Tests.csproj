@@ -21,7 +21,7 @@
     <Reference Include="System.Runtime" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <Reference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
   <Import Project="..\Shouldly\build.props" />
