@@ -6,18 +6,18 @@ namespace Shouldly;
  * Code heavily influenced by code from xunit assert equality comparer adapter
  * at https://github.com/xunit/xunit/blob/master/src/xunit2.assert/Asserts/Sdk/AssertEqualityComparerAdapter.cs
  */
-internal class EqualityComparerAdapter<T> : IEqualityComparer
+internal class EqualityComparerAdapter : IEqualityComparer
 {
-    private readonly IEqualityComparer<T> _innerComparer;
+    private readonly IEqualityComparer<object> _innerComparer;
 
-    public EqualityComparerAdapter(IEqualityComparer<T> innerComparer)
+    public EqualityComparerAdapter(IEqualityComparer<object> innerComparer)
     {
         _innerComparer = innerComparer;
     }
 
     public new bool Equals(object? x, object? y)
     {
-        return _innerComparer.Equals((T?)x, (T?)y);
+        return _innerComparer.Equals(x, y);
     }
 
     public int GetHashCode(object obj)
