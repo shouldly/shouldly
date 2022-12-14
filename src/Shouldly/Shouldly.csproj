@@ -25,6 +25,7 @@
     <PackageReference Include="DiffEngine" Version="11.0.0" />
     <Content Include="build.props" PackagePath="build\Shouldly.props" />
     <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Shouldly.props" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
