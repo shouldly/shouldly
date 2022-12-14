@@ -1,4 +1,6 @@
-# ShouldHaveSingleItem
+# Have
+
+## ShouldHaveSingleItem
 
 <!-- snippet: EnumerableShouldHaveSingleItemExamples.ShouldHaveSingleItem.codeSample.approved.cs -->
 <a id='aa895b2d'></a>
