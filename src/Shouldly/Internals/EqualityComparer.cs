@@ -9,7 +9,7 @@ namespace Shouldly;
  */
 internal class EqualityComparer<T> : IEqualityComparer<T>
 {
-    private static readonly IEqualityComparer DefaultInnerComparer = new EqualityComparerAdapter<object>(new EqualityComparer<object>());
+    private static readonly IEqualityComparer DefaultInnerComparer = new EqualityComparerAdapter(new EqualityComparer<object>());
 
     private readonly Func<IEqualityComparer> _innerComparerFactory;
 
