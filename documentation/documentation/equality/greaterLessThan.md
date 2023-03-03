@@ -6,12 +6,12 @@
 ## ShouldBeGreaterThan
 
 <!-- snippet: ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs -->
-<a id='a7b1d7d8'></a>
+<a id='snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs'></a>
 ```cs
 var mrBurns = new Person { Name = "Mr. Burns", Salary = 30000 };
 mrBurns.Salary.ShouldBeGreaterThan(300000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#a7b1d7d8' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThan.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -30,12 +30,12 @@ mrBurns.Salary
 ## ShouldBeGreaterThanOrEqualTo
 
 <!-- snippet: ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs -->
-<a id='41f8b71f'></a>
+<a id='snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs'></a>
 ```cs
 var mrBurns = new Person { Name = "Mr. Burns", Salary = 299999999 };
 mrBurns.Salary.ShouldBeGreaterThanOrEqualTo(300000000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#41f8b71f' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeGreaterThanOrEqualTo.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -54,12 +54,12 @@ mrBurns.Salary
 ## ShouldBeLessThan
 
 <!-- snippet: ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs -->
-<a id='3c77c61e'></a>
+<a id='snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs'></a>
 ```cs
 var homer = new Person { Name = "Homer", Salary = 300000000 };
 homer.Salary.ShouldBeLessThan(30000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#3c77c61e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThan.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -78,12 +78,12 @@ homer.Salary
 ## ShouldBeLessThanOrEqualTo
 
 <!-- snippet: ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs -->
-<a id='e9da0562'></a>
+<a id='snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs'></a>
 ```cs
 var homer = new Person { Name = "Homer", Salary = 30001 };
 homer.Salary.ShouldBeLessThanOrEqualTo(30000);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#e9da0562' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeGreater_LessThanExamples.ShouldBeLessThanOrEqualTo.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

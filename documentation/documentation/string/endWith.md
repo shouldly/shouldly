@@ -4,12 +4,12 @@
 ## ShouldEndWith
 
 <!-- snippet: StringExamples.ShouldEndWith.codeSample.approved.cs -->
-<a id='c9273a3e'></a>
+<a id='snippet-StringExamples.ShouldEndWith.codeSample.approved.cs'></a>
 ```cs
 var target = "Homer";
 target.ShouldEndWith("Bart");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldEndWith.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#c9273a3e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldEndWith.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldEndWith.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -28,12 +28,12 @@ target
 ## ShouldNotEndWith
 
 <!-- snippet: StringExamples.ShouldNotEndWith.codeSample.approved.cs -->
-<a id='81d25dbe'></a>
+<a id='snippet-StringExamples.ShouldNotEndWith.codeSample.approved.cs'></a>
 ```cs
 var target = "Homer Simpson";
 target.ShouldNotEndWith("Simpson");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotEndWith.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#81d25dbe' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotEndWith.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotEndWith.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
