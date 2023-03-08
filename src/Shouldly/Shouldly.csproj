@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!-- Had to remove the .net5.0 target. https://github.com/shouldly/shouldly/pull/870 -->
     <TargetFramework>netstandard2.0</TargetFramework>
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
@@ -14,7 +15,7 @@
     <PackageProjectUrl>https://shouldly.org</PackageProjectUrl>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
+    <RepositoryUrl></RepositoryUrl> <!-- Is set by Microsoft.SourceLink.GitHub -->
     <PackageReleaseNotes>https://github.com/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>

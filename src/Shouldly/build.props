@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <PropertyGroup>
+  <!-- If <UseShouldlyInNonTestProject>false</UseShouldlyInNonTestProject> is set in csproj or not set at all. -->
+  <PropertyGroup Condition="'$(UseShouldlyInNonTestProject)' != 'true'">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <DebugType>embedded</DebugType>
