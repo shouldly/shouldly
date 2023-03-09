@@ -72,6 +72,17 @@ Shouldly uses the source code to make its error messages better. Hence, on the b
 
 What is meant by "full" is that when you set up your "release" configuration in Visual Studio and you go to Project Properties &gt; Build &gt; Advanced &gt; Debug, you should set it to "full" rather than "pdb-only".
 
+## Prerequisites for using Shouldly in a non-test project
+
+The Shouldly NuGet package contains a file `Shouldly.props` which modifies the build of your test project to work properly with Shouldly out of the box. But sometimes it might be necessary to add Shouldly as a dependency in a non-test project. Maybe if you want to centralize your test setup in a NuGet. In such a scenario Shouldly might break your build. In such a case you can deactivate the modification by adding `<UseShouldlyInNonTestProject>true</UseShouldlyInNonTestProject>` to your project file. Then you can set the needed properties as you need. Those are the by Shouldly set build properties:
+
+```xml
+<DebugSymbols>true</DebugSymbols>
+<Optimize>false</Optimize>
+<DebugType>embedded</DebugType>
+<Deterministic>false</Deterministic>
+<DeterministicSourcePaths>false</DeterministicSourcePaths>
+```
 
 ## Currently maintained by
 
