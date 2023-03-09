@@ -74,7 +74,13 @@ What is meant by "full" is that when you set up your "release" configuration in 
 
 ## Prerequisites for using Shouldly in a non-test project
 
-The Shouldly NuGet package contains a file `Shouldly.props` which modifies the build of your test project to work properly with Shouldly out of the box. But sometimes it might be necessary to add Shouldly as a dependency in a non-test project. Maybe if you want to centralize your test setup in a NuGet. In such a scenario Shouldly might break your build. In such a case you can deactivate the modification by adding `<UseShouldlyInNonTestProject>true</UseShouldlyInNonTestProject>` to your project file. Then you can set the needed properties as you need. Those are the by Shouldly set build properties:
+The Shouldly NuGet package contains a file `Shouldly.props` which modifies the build of your test project to work properly with Shouldly out of the box. But sometimes it might be necessary to add Shouldly as a dependency in a non-test project. Maybe if you want to centralize your test setup in a NuGet. In such a scenario Shouldly might break your build. In such a case you can deactivate the modification.
+
+```shell
+dotnet build project.csproj -p:UseShouldlyInNonTestProject=true
+```
+
+Alternatively you can add `<UseShouldlyInNonTestProject>true</UseShouldlyInNonTestProject>` to your `Directory.Build.props`. Then you can set the properties as you need. Those are the build properties set by Shouldly:
 
 ```xml
 <DebugSymbols>true</DebugSymbols>
@@ -83,6 +89,18 @@ The Shouldly NuGet package contains a file `Shouldly.props` which modifies the b
 <Deterministic>false</Deterministic>
 <DeterministicSourcePaths>false</DeterministicSourcePaths>
 ```
+
+The way MSBuild evaluates the build properties prevents setting `<UseShouldlyInNonTestProject>` directly in a `*.csproj`. If you want to ignore the modifications in `*.csproj` you can exclude the build assets by adding Shouldly like this:
+
+```xml
+<PackageReference Include="Shouldly" Version="4.1.0">
+    <ExcludeAssets>build</ExcludeAssets>
+</PackageReference>
+```
+
+`<ExcludeAssets>build</ExcludeAssets>` will also prevent Shouldly to create better messages with links to failing tests. Consider to add conditions for your build configurations.
+
+Which solution works best for you depends on the context in which you use Shouldly. 
 
 ## Currently maintained by
 
