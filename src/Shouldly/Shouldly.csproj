@@ -14,7 +14,6 @@
     <PackageProjectUrl>https://shouldly.org</PackageProjectUrl>
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl></RepositoryUrl> <!-- Is set by Microsoft.SourceLink.GitHub -->
     <PackageReleaseNotes>https://github.com/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
