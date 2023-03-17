@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace Shouldly.Internals;
 
@@ -43,6 +45,23 @@ internal class ActualCodeTextGetter : ICodeTextGetter
         ShouldlyFrameOffset = originatingFrame.index;
 
         var fileName = originatingFrame.frame.GetFileName();
+        if (fileName?.StartsWith(@"/_/", StringComparison.Ordinal) == true)
+        {
+            var sourceRoot = ShouldlyConfiguration.SourceRoot;
+            if (sourceRoot == null)
+            {
+                var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+                if (assemblyLocation != null)
+                {
+                    var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+                    TryFindGitRepoRoot(assemblyDirectory!, out sourceRoot);
+                }
+            }
+            if (sourceRoot != null)
+            {
+                fileName = fileName.Replace("/_/", sourceRoot + Path.PathSeparator);
+            }
+        }
         _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
         _shouldMethod = shouldlyFrame.method.Name;
         FileName = fileName;
@@ -133,5 +152,28 @@ internal class ActualCodeTextGetter : ICodeTextGetter
             .CollapseWhitespace()
             .RemoveBlock()
             .Trim();
+    }
+
+    private static bool TryFindGitRepoRoot(string startDirectory, [NotNullWhen(true)] out string? gitRepoRoot)
+    {
+        try
+        {
+            var currentDirectory = new DirectoryInfo(startDirectory);
+            while (currentDirectory != null)
+            {
+                var gitDirectory = Path.Combine(currentDirectory.FullName, ".git");
+                if (Directory.Exists(gitDirectory))
+                {
+                    gitRepoRoot = currentDirectory.FullName;
+                    return true;
+                }
+
+                currentDirectory = currentDirectory.Parent;
+            }
+        }
+        catch { }
+
+        gitRepoRoot = null;
+        return false;
     }
 }

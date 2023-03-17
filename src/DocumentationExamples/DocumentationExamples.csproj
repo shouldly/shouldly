@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +15,5 @@
     <PackageReference Include="PublicApiGenerator" Version="10.3.0" />
     <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[3.1.0]" />
   </ItemGroup>
-  <Import Project="..\Shouldly\build.props" />
 
 </Project>
