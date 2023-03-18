@@ -45,6 +45,15 @@ internal class ActualCodeTextGetter : ICodeTextGetter
         ShouldlyFrameOffset = originatingFrame.index;
 
         var fileName = originatingFrame.frame.GetFileName();
+        fileName = ResolveDeterministicPaths(fileName);
+        _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
+        _shouldMethod = shouldlyFrame.method.Name;
+        FileName = fileName;
+        LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
+    }
+
+    private static string? ResolveDeterministicPaths(string? fileName)
+    {
         if (fileName?.StartsWith(@"/_/", StringComparison.Ordinal) == true)
         {
             var sourceRoot = ShouldlyConfiguration.SourceRoot;
@@ -57,15 +66,14 @@ internal class ActualCodeTextGetter : ICodeTextGetter
                     TryFindGitRepoRoot(assemblyDirectory!, out sourceRoot);
                 }
             }
+
             if (sourceRoot != null)
             {
-                fileName = fileName.Replace("/_/", sourceRoot + Path.PathSeparator);
+                return fileName.Replace("/_/", sourceRoot + Path.PathSeparator);
             }
         }
-        _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
-        _shouldMethod = shouldlyFrame.method.Name;
-        FileName = fileName;
-        LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
+
+        return fileName;
     }
 
     private string GetCodePart()
