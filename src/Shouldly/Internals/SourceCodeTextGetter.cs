@@ -69,7 +69,8 @@ internal class ActualCodeTextGetter : ICodeTextGetter
 
             if (sourceRoot != null)
             {
-                return fileName.Replace("/_/", sourceRoot + Path.PathSeparator);
+                return fileName.Replace("/_/", sourceRoot + Path.DirectorySeparatorChar)
+                    .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
             }
         }
 
