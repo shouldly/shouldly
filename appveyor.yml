@@ -22,7 +22,6 @@ build_script:
     }
 - dotnet build --configuration Release --nologo
 - dotnet test --configuration Release --no-build --no-restore --nologo
-
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off
