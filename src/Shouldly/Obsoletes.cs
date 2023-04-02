@@ -7,12 +7,14 @@ namespace Shouldly
     {
         public const string FuncCustomMessage = "Func based customMessage overloads have been removed. Pass in a string for the customMessage.";
 
-        public const string DiffMessage = @"Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.
- * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.
- * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe separated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.
- * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.
-
-Diff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.";
+        public const string DiffMessage = """
+            Diff tool management is now handled by https://github.com/VerifyTests/DiffEngine. Use the following for custom diff configuration.
+             * Add a custom tool using `DiffTools.AddTool()`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md.
+             * Specify a custom order using a `DiffEngine.ToolOrder` environment variable (comma or pipe separated), or use `DiffTools.UseOrder`. https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md#custom-order.
+             * Disable all diffs by setting an environment variable `DiffEngine.Disabled` with the value `true`. https://github.com/VerifyTests/DiffEngine#disable-for-a-machineprocess.
+            
+            Diff launching can be controlled at the test level using `ShouldMatchConfiguration.PreventDiff`.
+            """;
     }
 
     public static partial class DynamicShould
