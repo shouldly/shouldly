@@ -13,7 +13,7 @@ public class TaskWithTimeoutScenario
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
-    [Fact(Skip = true)]
+    [Fact(Skip = "flaky")]
     public void ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
         var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
