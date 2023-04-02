@@ -28,11 +28,11 @@ public class ShouldCompleteInTests
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
             Should.CompleteIn(
                 () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()),
-                TimeSpan.FromSeconds(1), "Some additional context"));
+                TimeSpan.FromMilliseconds(10), "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(@"
     Task
         should complete in
-    00:00:01
+    00:00:00.0100000
         but did not
     Additional Info:
     Some additional context");
