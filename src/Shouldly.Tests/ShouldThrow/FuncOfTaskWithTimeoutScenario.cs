@@ -5,11 +5,14 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-            CancellationToken.None, TaskCreationOptions.None,
+        var task = Task.Factory.StartNew(
+            () => { Task.Delay(5000).Wait(); },
+            CancellationToken.None,
+            TaskCreationOptions.None,
             TaskScheduler.Default);
 
-        var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
+        var ex = Should.Throw<ShouldCompleteInException>(
+            () => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.1), "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
@@ -17,18 +20,25 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-            CancellationToken.None, TaskCreationOptions.None,
+        var task = Task.Factory.StartNew(
+            () => { Task.Delay(5000).Wait(); },
+            CancellationToken.None,
+            TaskCreationOptions.None,
             TaskScheduler.Default);
 
-        var ex = Should.Throw(() => task.ShouldThrow(TimeSpan.FromSeconds(0.5), "Some additional context", typeof(ShouldCompleteInException)), typeof(ShouldCompleteInException));
+        var ex = Should.Throw(
+            () => task.ShouldThrow(
+                TimeSpan.FromSeconds(0.1),
+                "Some additional context",
+                typeof(ShouldCompleteInException)),
+            typeof(ShouldCompleteInException));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
     private string ChuckedAWobblyErrorMessage = @"Task
         should complete in
-    00:00:00.5000000
+    00:00:00.1000000
         but did not
     Additional Info:
     Some additional context";
