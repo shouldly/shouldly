@@ -5,11 +5,14 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-            CancellationToken.None, TaskCreationOptions.None,
+        var task = Task.Factory.StartNew(
+            () => { Task.Delay(5000).Wait(); },
+            CancellationToken.None,
+            TaskCreationOptions.None,
             TaskScheduler.Default);
 
-        var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
+        var ex = Should.Throw<ShouldCompleteInException>(
+            () => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.1), "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
