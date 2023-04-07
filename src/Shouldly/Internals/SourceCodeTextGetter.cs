@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 
 namespace Shouldly.Internals;
 
@@ -8,6 +6,9 @@ internal class ActualCodeTextGetter : ICodeTextGetter
 {
     private bool _determinedOriginatingFrame;
     private string? _shouldMethod;
+
+    private static readonly Lazy<string?> SourceRoot
+        = new(() => Environment.GetEnvironmentVariable("SHOULDLY_SOURCE_ROOT"));
 
     public int ShouldlyFrameOffset { get; private set; }
     public string? FileName { get; private set; }
@@ -56,17 +57,8 @@ internal class ActualCodeTextGetter : ICodeTextGetter
     {
         if (fileName?.StartsWith(@"/_/", StringComparison.Ordinal) == true)
         {
-            var sourceRoot = ShouldlyConfiguration.SourceRoot;
-            if (sourceRoot == null)
-            {
-                var assemblyLocation = Assembly.GetExecutingAssembly().Location;
-                if (assemblyLocation != null)
-                {
-                    var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
-                    TryFindGitRepoRoot(assemblyDirectory!, out sourceRoot);
-                }
-            }
-
+            var sourceRoot = SourceRoot.Value;
+            
             if (sourceRoot != null)
             {
                 return fileName.Replace("/_/", sourceRoot + Path.DirectorySeparatorChar)
@@ -161,28 +153,5 @@ internal class ActualCodeTextGetter : ICodeTextGetter
             .CollapseWhitespace()
             .RemoveBlock()
             .Trim();
-    }
-
-    private static bool TryFindGitRepoRoot(string startDirectory, [NotNullWhen(true)] out string? gitRepoRoot)
-    {
-        try
-        {
-            var currentDirectory = new DirectoryInfo(startDirectory);
-            while (currentDirectory != null)
-            {
-                var gitDirectory = Path.Combine(currentDirectory.FullName, ".git");
-                if (Directory.Exists(gitDirectory))
-                {
-                    gitRepoRoot = currentDirectory.FullName;
-                    return true;
-                }
-
-                currentDirectory = currentDirectory.Parent;
-            }
-        }
-        catch { }
-
-        gitRepoRoot = null;
-        return false;
     }
 }

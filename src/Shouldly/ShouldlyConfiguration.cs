@@ -49,10 +49,4 @@ public static partial class ShouldlyConfiguration
 
     public static double DefaultFloatingPointTolerance = 0.0d;
     public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);
-    
-    /// <summary>
-    /// Shouldly can enhance assertion failure messages if it can find the source code at the call site.
-    /// When using deterministic builds, set this property to explicitly tell Shouldly the root path which symbol paths will be relative to.
-    /// </summary>
-    public static string? SourceRoot { get; set; } = null;
 }
