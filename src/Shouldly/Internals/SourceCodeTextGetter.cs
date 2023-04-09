@@ -7,8 +7,18 @@ internal class ActualCodeTextGetter : ICodeTextGetter
     private bool _determinedOriginatingFrame;
     private string? _shouldMethod;
 
-    private static readonly Lazy<string?> SourceRoot
-        = new(() => Environment.GetEnvironmentVariable("SHOULDLY_SOURCE_ROOT"));
+    private static readonly Lazy<IEnumerable<(string, string)>> SourcePathMap
+        = new(() =>
+        {
+            var shouldlySourcePathMap = Environment.GetEnvironmentVariable("SHOULDLY_SOURCE_PATH_MAP") ?? "";
+            var pathMapPairs = shouldlySourcePathMap
+                .Split(',')
+                .Select(x => x.Split('='))
+                .Where(x => x.Length == 2)
+                .Select(x => (x[0], x[1]));
+            
+            return pathMapPairs;
+        });
 
     public int ShouldlyFrameOffset { get; private set; }
     public string? FileName { get; private set; }
@@ -55,14 +65,12 @@ internal class ActualCodeTextGetter : ICodeTextGetter
 
     private static string? ResolveDeterministicPaths(string? fileName)
     {
-        if (fileName?.StartsWith(@"/_/", StringComparison.Ordinal) == true)
+        var sourcePathMap = SourcePathMap.Value;
+        foreach ((var path, var placeholder) in sourcePathMap)
         {
-            var sourceRoot = SourceRoot.Value;
-            
-            if (sourceRoot != null)
+            if (fileName?.StartsWith(placeholder, StringComparison.Ordinal) == true)
             {
-                return fileName.Replace("/_/", sourceRoot + Path.DirectorySeparatorChar)
-                    .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+                return fileName.Replace(placeholder, path);
             }
         }
 

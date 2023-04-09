@@ -1,0 +1,18 @@
+<Project>
+    <UsingTask TaskName="SetEnvVar" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)/Microsoft.Build.Tasks.Core.dll" >
+        <ParameterGroup>
+            <EnvName ParameterType="System.String" Required="true" />
+            <EnvValue ParameterType="System.String" Required="true" />
+        </ParameterGroup>
+        <Task>
+            <Using Namespace="System" />
+            <Code Type="Fragment" Language="cs"><![CDATA[
+                System.Environment.SetEnvironmentVariable(EnvName, EnvValue);
+            ]]></Code>
+        </Task>
+    </UsingTask>
+    
+    <Target Name="SetPathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(PathMap)' != '' " >
+        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" />
+    </Target>
+</Project>
