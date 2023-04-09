@@ -12,7 +12,7 @@
         </Task>
     </UsingTask>
     
-    <Target Name="SetPathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(PathMap)' != '' " >
+    <Target Name="SetPathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(PathMap)' != '' AND '$(SHOULDLY_SOURCE_PATH_MAP)' == '' " >
         <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" />
     </Target>
 </Project>
