@@ -4,7 +4,9 @@
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
+    <Deterministic>true</Deterministic>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <EmbedAllSources>true</EmbedAllSources>
     <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
@@ -19,16 +21,18 @@
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <ContinuousIntegrationBuild Condition=" '$(CI)' == 'true' ">true</ContinuousIntegrationBuild>
     <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1505</WarningsNotAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="11.2.0" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />
-    <Content Include="build.props" PackagePath="build\Shouldly.props" />
-    <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Shouldly.props" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
+    <None Include="buildTransitive\Shouldly.targets" Pack="true" PackagePath="buildTransitive\Shouldly.targets" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
     <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[5.0.0]" />
   </ItemGroup>
