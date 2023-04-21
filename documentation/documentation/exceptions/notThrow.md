@@ -4,7 +4,7 @@
 ## ShouldNotThrowAction
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs -->
-<a id='16bf37fa'></a>
+<a id='snippet-ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs'></a>
 ```cs
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
@@ -13,7 +13,7 @@ Should.NotThrow(() =>
                     var y = homer.Salary / denominator;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#16bf37fa' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowAction.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -31,7 +31,7 @@ System.DivideByZeroException
 ## ShouldNotThrow Action Extension
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs -->
-<a id='cc57c8e4'></a>
+<a id='snippet-ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs'></a>
 ```cs
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
@@ -41,7 +41,7 @@ var action = () =>
                 };
 action.ShouldNotThrow();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#cc57c8e4' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -59,12 +59,12 @@ System.DivideByZeroException
 ## ShouldNotThrowFunc
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs -->
-<a id='7e8ffad2'></a>
+<a id='snippet-ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs'></a>
 ```cs
 string? name = null;
 Should.NotThrow(() => new Person(name!));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#7e8ffad2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -83,13 +83,13 @@ System.ArgumentNullException
 ## ShouldNotThrow Func Extension
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs -->
-<a id='7ff02816'></a>
+<a id='snippet-ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs'></a>
 ```cs
 string? name = null;
 var func = () => new Person(name!);
 func.ShouldNotThrow();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#7ff02816' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFuncExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -107,7 +107,7 @@ System.ArgumentNullException
 ## ShouldNotThrowFuncOfTask
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs -->
-<a id='22f6b427'></a>
+<a id='snippet-ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs'></a>
 ```cs
 var homer = new Person { Name = "Homer", Salary = 30000 };
 var denominator = 0;
@@ -121,7 +121,7 @@ Should.NotThrow(() =>
                     return task;
                 });
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#22f6b427' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowFuncOfTask.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

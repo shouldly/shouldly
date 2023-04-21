@@ -4,12 +4,12 @@
 ## ShouldContainKeyAndValue
 
 <!-- snippet: DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.codeSample.approved.cs -->
-<a id='a113757c'></a>
+<a id='snippet-DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.codeSample.approved.cs'></a>
 ```cs
 var websters = new Dictionary<string, string> { { "Cromulent", "I never heard the word before moving to Springfield." } };
 websters.ShouldContainKeyAndValue("Cromulent", "Fine, acceptable.");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#a113757c' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-DictionaryShouldContainKeyAndValueExamples.ShouldContainKeyAndValue.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -30,12 +30,12 @@ websters
 ## ShouldNotContainKeyAndValue
 
 <!-- snippet: DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.codeSample.approved.cs -->
-<a id='dbf0b7f8'></a>
+<a id='snippet-DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.codeSample.approved.cs'></a>
 ```cs
 var websters = new Dictionary<string, string> { { "Chazzwazzers", "What Australians would have called a bull frog." } };
 websters.ShouldNotContainValueForKey("Chazzwazzers", "What Australians would have called a bull frog.");
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#dbf0b7f8' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-DictionaryShouldContainKeyAndValueExamples.ShouldNotContainKeyAndValue.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

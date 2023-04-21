@@ -1,14 +1,14 @@
 # ShouldSatisfyAllConditions
 
 <!-- snippet: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs -->
-<a id='99f0f74e'></a>
+<a id='snippet-ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs'></a>
 ```cs
 var mrBurns = new Person { Name = null };
 mrBurns.ShouldSatisfyAllConditions(
                     () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
                     () => mrBurns.Name.ShouldBe("Mr.Burns"));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#99f0f74e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditions.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -38,14 +38,14 @@ The following errors were found ...
 ## Generic
 
 <!-- snippet: ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs -->
-<a id='ed11a6af'></a>
+<a id='snippet-ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs'></a>
 ```cs
 var mrBurns = new Person { Name = null };
 mrBurns.ShouldSatisfyAllConditions(
                     p => p.Name.ShouldNotBeNullOrEmpty(),
                     p => p.Name.ShouldBe("Mr.Burns"));
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#ed11a6af' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldSatisfyAllConditionsExamples.ShouldSatisfyAllConditionsGeneric.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -7,12 +7,12 @@
 ## ShouldBeNull
 
 <!-- snippet: ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs -->
-<a id='17c561a5'></a>
+<a id='snippet-ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs'></a>
 ```cs
 var myRef = "Hello World";
 myRef.ShouldBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#17c561a5' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.ShouldBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -28,12 +28,12 @@ myRef
 ### ShouldBeNull (nullable value type)
 
 <!-- snippet: ShouldBeNullNotNullExamples.NullableValueShouldBeNull.codeSample.approved.cs -->
-<a id='173c842c'></a>
+<a id='snippet-ShouldBeNullNotNullExamples.NullableValueShouldBeNull.codeSample.approved.cs'></a>
 ```cs
 int? nullableValue = 42;
 nullableValue.ShouldBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.NullableValueShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#173c842c' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.NullableValueShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.NullableValueShouldBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -50,12 +50,12 @@ nullableValue
 ## ShouldNotBeNull
 
 <!-- snippet: ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs -->
-<a id='083920a2'></a>
+<a id='snippet-ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs'></a>
 ```cs
 string? myRef = null;
 myRef.ShouldNotBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#083920a2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.ShouldNotBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -70,12 +70,12 @@ myRef
 ### ShouldNotBeNull (nullable value type)
 
 <!-- snippet: ShouldBeNullNotNullExamples.NullableValueShouldNotBeNull.codeSample.approved.cs -->
-<a id='e3313a76'></a>
+<a id='snippet-ShouldBeNullNotNullExamples.NullableValueShouldNotBeNull.codeSample.approved.cs'></a>
 ```cs
 int? myRef = null;
 myRef.ShouldNotBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.NullableValueShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#e3313a76' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.NullableValueShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.NullableValueShouldNotBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -90,12 +90,12 @@ myRef
 ## ShouldNotBeNull with chaining
 
 <!-- snippet: ShouldBeNullNotNullExamples.ShouldNotBeNullWithChaining.codeSample.approved.cs -->
-<a id='17ba67c8'></a>
+<a id='snippet-ShouldBeNullNotNullExamples.ShouldNotBeNullWithChaining.codeSample.approved.cs'></a>
 ```cs
 var myRef = (string?)"1234";
 myRef.ShouldNotBeNull().Length.ShouldBe(5);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNullWithChaining.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#17ba67c8' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.ShouldNotBeNullWithChaining.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.ShouldNotBeNullWithChaining.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -113,12 +113,12 @@ myRef.ShouldNotBeNull().Length
 ### ShouldNotBeNull with chaining  (nullable value type)
 
 <!-- snippet: ShouldBeNullNotNullExamples.NullableValueShouldNotBeNullWithChaining.codeSample.approved.cs -->
-<a id='746f9afe'></a>
+<a id='snippet-ShouldBeNullNotNullExamples.NullableValueShouldNotBeNullWithChaining.codeSample.approved.cs'></a>
 ```cs
 SomeStruct? nullableValue = new SomeStruct { IntProperty = 41 };
 nullableValue.ShouldNotBeNull().IntProperty.ShouldBe(42);
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.NullableValueShouldNotBeNullWithChaining.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#746f9afe' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeNullNotNullExamples.NullableValueShouldNotBeNullWithChaining.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeNullNotNullExamples.NullableValueShouldNotBeNullWithChaining.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

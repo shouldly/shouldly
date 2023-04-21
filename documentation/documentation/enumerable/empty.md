@@ -4,13 +4,13 @@
 ## ShouldBeEmpty
 
 <!-- snippet: EnumerableShouldBeEmptyExamples.ShouldBeEmpty.codeSample.approved.cs -->
-<a id='9aaae6d1'></a>
+<a id='snippet-EnumerableShouldBeEmptyExamples.ShouldBeEmpty.codeSample.approved.cs'></a>
 ```cs
 var homer = new Person { Name = "Homer" };
 var powerPlantOnTheWeekend = new List<Person> { homer };
 powerPlantOnTheWeekend.ShouldBeEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldBeEmpty.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#9aaae6d1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldBeEmpty.codeSample.approved.cs#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldBeEmptyExamples.ShouldBeEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -29,12 +29,12 @@ powerPlantOnTheWeekend
 ## ShouldNotBeEmpty
 
 <!-- snippet: EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.codeSample.approved.cs -->
-<a id='211d74b7'></a>
+<a id='snippet-EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.codeSample.approved.cs'></a>
 ```cs
 var moesTavernOnTheWeekend = new List<Person>();
 moesTavernOnTheWeekend.ShouldNotBeEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#211d74b7' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldBeEmptyExamples.ShouldNotBeEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

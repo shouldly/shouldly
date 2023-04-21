@@ -1,5 +1,4 @@
 ﻿{
   "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
-  "Convention": "InPlaceOverwrite",
-  "HashSnippetAnchors": true
+  "Convention": "InPlaceOverwrite"
 }

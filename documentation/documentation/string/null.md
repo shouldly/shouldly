@@ -4,12 +4,12 @@
 ## ShouldBeNull
 
 <!-- snippet: StringExamples.ShouldBeNull.codeSample.approved.cs -->
-<a id='6818dbd1'></a>
+<a id='snippet-StringExamples.ShouldBeNull.codeSample.approved.cs'></a>
 ```cs
 var target = "Homer";
 target.ShouldBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#6818dbd1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -26,12 +26,12 @@ target
 ## ShouldBeNullOrEmpty
 
 <!-- snippet: StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs -->
-<a id='c9d185c9'></a>
+<a id='snippet-StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs'></a>
 ```cs
 var target = "Homer";
 target.ShouldBeNullOrEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#c9d185c9' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -47,12 +47,12 @@ target ("Homer")
 ## ShouldBeEmpty
 
 <!-- snippet: StringExamples.ShouldBeEmpty.codeSample.approved.cs -->
-<a id='60973bb0'></a>
+<a id='snippet-StringExamples.ShouldBeEmpty.codeSample.approved.cs'></a>
 ```cs
 var target = "Homer";
 target.ShouldBeEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#60973bb0' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldBeEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldBeEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -69,12 +69,12 @@ target
 ## ShouldNotBeNull
 
 <!-- snippet: StringExamples.ShouldNotBeNull.codeSample.approved.cs -->
-<a id='c95659f4'></a>
+<a id='snippet-StringExamples.ShouldNotBeNull.codeSample.approved.cs'></a>
 ```cs
 string? target = null;
 target.ShouldNotBeNull();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#c95659f4' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNull.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNull.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -90,12 +90,12 @@ target
 ## ShouldNotBeNullOrEmpty
 
 <!-- snippet: StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs -->
-<a id='9f26188e'></a>
+<a id='snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs'></a>
 ```cs
 var target = "";
 target.ShouldNotBeNullOrEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#9f26188e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
@@ -111,12 +111,12 @@ target ("")
 ## ShouldNotBeEmpty
 
 <!-- snippet: StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs -->
-<a id='9f26188e'></a>
+<a id='snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs'></a>
 ```cs
 var target = "";
 target.ShouldNotBeNullOrEmpty();
 ```
-<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#9f26188e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/CodeExamples/StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-StringExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

@@ -3,7 +3,7 @@
 The classes used in these samples are:
 
 <!-- snippet: DocumentationExamples/ExampleClasses.cs -->
-<a id='9418171b'></a>
+<a id='snippet-DocumentationExamples/ExampleClasses.cs'></a>
 ```cs
 namespace Simpsons;
 
@@ -47,5 +47,5 @@ public class Person
     }
 }
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#9418171b' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
