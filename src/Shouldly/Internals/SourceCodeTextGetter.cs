@@ -7,19 +7,6 @@ internal class ActualCodeTextGetter : ICodeTextGetter
     private bool _determinedOriginatingFrame;
     private string? _shouldMethod;
 
-    private static readonly Lazy<IEnumerable<(string, string)>> SourcePathMap
-        = new(() =>
-        {
-            var shouldlySourcePathMap = Environment.GetEnvironmentVariable("SHOULDLY_SOURCE_PATH_MAP") ?? "";
-            var pathMapPairs = shouldlySourcePathMap
-                .Split(',')
-                .Select(x => x.Split('='))
-                .Where(x => x.Length == 2)
-                .Select(x => (x[0], x[1]));
-            
-            return pathMapPairs;
-        });
-
     public int ShouldlyFrameOffset { get; private set; }
     public string? FileName { get; private set; }
     public int LineNumber { get; private set; }
@@ -56,25 +43,11 @@ internal class ActualCodeTextGetter : ICodeTextGetter
         ShouldlyFrameOffset = originatingFrame.index;
 
         var fileName = originatingFrame.frame.GetFileName();
-        fileName = ResolveDeterministicPaths(fileName);
+        fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
         _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
         _shouldMethod = shouldlyFrame.method.Name;
         FileName = fileName;
         LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
-    }
-
-    private static string? ResolveDeterministicPaths(string? fileName)
-    {
-        var sourcePathMap = SourcePathMap.Value;
-        foreach ((var path, var placeholder) in sourcePathMap)
-        {
-            if (fileName?.StartsWith(placeholder, StringComparison.Ordinal) == true)
-            {
-                return fileName.Replace(placeholder, path);
-            }
-        }
-
-        return fileName;
     }
 
     private string GetCodePart()

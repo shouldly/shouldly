@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Reflection;
+using Shouldly.Internals;
 
 namespace Shouldly.Configuration;
 
@@ -7,7 +8,9 @@ public class TestMethodInfo
 {
     public TestMethodInfo(StackFrame callingFrame)
     {
-        SourceFileDirectory = Path.GetDirectoryName(callingFrame.GetFileName());
+        var fileName = callingFrame.GetFileName();
+        fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
+        SourceFileDirectory = Path.GetDirectoryName(fileName);
 
         var method = callingFrame.GetMethod();
         var originalMethodInfo = GetOriginalMethodInfoForStateMachineMethod(method);

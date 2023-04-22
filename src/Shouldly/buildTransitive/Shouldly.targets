@@ -12,7 +12,27 @@
         </Task>
     </UsingTask>
     
-    <Target Name="SetPathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(PathMap)' != '' AND '$(SHOULDLY_SOURCE_PATH_MAP)' == '' " >
-        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" />
+    <Target Name="CapturePathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(DeterministicSourcePaths)' == 'true' " >
+        <PropertyGroup>
+            <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
+        </PropertyGroup>
+        <WriteLinesToFile File="$(_ShouldlyPathMapsFilePath)" Lines="$(PathMap)" Overwrite="true" Encoding="Unicode" Condition=" '$(PathMap)' != '' " WriteOnlyWhenDifferent="true" />
+        <ItemGroup>
+            <FileWrites Include="$(_ShouldlyPathMapsFilePath)" Condition=" '$(PathMap)' != '' " />
+        </ItemGroup>
+        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" Condition=" '$(VSTestNoBuild)' != 'true' " />
+    </Target>
+    
+    <Target Name="SetShouldlyPathMaps" BeforeTargets="VSTest" Condition=" '$(VSTestNoBuild)' == 'true' ">
+        <PropertyGroup>
+            <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
+        </PropertyGroup>
+        <ReadLinesFromFile File="$(_ShouldlyPathMapsFilePath)">
+            <Output TaskParameter="Lines" ItemName="_ShouldlyPathMaps" />
+        </ReadLinesFromFile>
+        <PropertyGroup>
+            <ShouldlyPathMaps>%(_ShouldlyPathMaps.Identity)</ShouldlyPathMaps>
+        </PropertyGroup>
+        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(ShouldlyPathMaps)" Condition=" '$(ShouldlyPathMaps)' != '' " />
     </Target>
 </Project>
