@@ -12,7 +12,13 @@
         </Task>
     </UsingTask>
     
-    <Target Name="CapturePathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(DeterministicSourcePaths)' == 'true' " >
+    <!--
+        This target is used to capture the PathMap value when building the project. The PathMap is used by Shouldly to map paths
+        in stack traces to the source files. The PathMap is written to a file and read by the SetShouldlyPathMaps target.
+        When VSTestNoBuild is not true, then VSTest has inititiated the build so the SetShouldlyPathMaps target has already ran,
+        so we need to set the SHOULDLY_SOURCE_PATH_MAP environment variable here.
+    -->
+    <Target Name="CapturePathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(DisableShouldlyPathMaps)' != 'true' AND '$(DeterministicSourcePaths)' == 'true' " >
         <PropertyGroup>
             <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
         </PropertyGroup>
@@ -23,7 +29,11 @@
         <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" Condition=" '$(VSTestNoBuild)' != 'true' " />
     </Target>
     
-    <Target Name="SetShouldlyPathMaps" BeforeTargets="VSTest" Condition=" '$(VSTestNoBuild)' == 'true' ">
+    <!--
+        This target is used to set the SHOULDLY_SOURCE_PATH_MAP environment variable when running tests with VSTestNoBuild=true.
+        This is necessary because the VSTest task does not run the CoreCompile target, so the PathMap is not set.    
+    -->
+    <Target Name="SetShouldlyPathMaps" BeforeTargets="VSTest" Condition=" '$(DisableShouldlyPathMaps)' != 'true' AND '$(VSTestNoBuild)' == 'true' ">
         <PropertyGroup>
             <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
         </PropertyGroup>
