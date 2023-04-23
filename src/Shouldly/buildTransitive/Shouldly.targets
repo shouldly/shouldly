@@ -15,7 +15,7 @@
     <!--
         This target is used to capture the PathMap value when building the project. The PathMap is used by Shouldly to map paths
         in stack traces to the source files. The PathMap is written to a file and read by the SetShouldlyPathMaps target.
-        When VSTestNoBuild is not true, then VSTest has inititiated the build so the SetShouldlyPathMaps target has already ran,
+        When VSTestNoBuild is not true, then VSTest has inititiated the build so the SetShouldlyPathMaps target has already started,
         so we need to set the SHOULDLY_SOURCE_PATH_MAP environment variable here.
     -->
     <Target Name="CapturePathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(DisableShouldlyPathMaps)' != 'true' AND '$(DeterministicSourcePaths)' == 'true' " >
