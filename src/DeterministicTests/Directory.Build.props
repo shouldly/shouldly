@@ -3,7 +3,6 @@
   <PropertyGroup>
     <NoWarn>CS1591;CS0649</NoWarn>
     <Deterministic>true</Deterministic>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
   <ItemGroup>
     <SourceRoot Include = " $(MSBuildThisFileDirectory)/ " />

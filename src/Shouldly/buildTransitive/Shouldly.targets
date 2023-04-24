@@ -12,7 +12,37 @@
         </Task>
     </UsingTask>
     
-    <Target Name="SetPathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(PathMap)' != '' AND '$(SHOULDLY_SOURCE_PATH_MAP)' == '' " >
-        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" />
+    <!--
+        This target is used to capture the PathMap value when building the project. The PathMap is used by Shouldly to map paths
+        in stack traces to the source files. The PathMap is written to a file and read by the SetShouldlyPathMaps target.
+        When VSTestNoBuild is not true, then VSTest has inititiated the build so the SetShouldlyPathMaps target has already started,
+        so we need to set the SHOULDLY_SOURCE_PATH_MAP environment variable here.
+    -->
+    <Target Name="CapturePathMapsForShouldly" BeforeTargets="CoreCompile" DependsOnTargets="_SetPathMapFromSourceRoots" Condition=" '$(DisableShouldlyPathMaps)' != 'true' AND '$(DeterministicSourcePaths)' == 'true' " >
+        <PropertyGroup>
+            <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
+        </PropertyGroup>
+        <WriteLinesToFile File="$(_ShouldlyPathMapsFilePath)" Lines="$(PathMap)" Overwrite="true" Encoding="Unicode" Condition=" '$(PathMap)' != '' " WriteOnlyWhenDifferent="true" />
+        <ItemGroup>
+            <FileWrites Include="$(_ShouldlyPathMapsFilePath)" Condition=" '$(PathMap)' != '' " />
+        </ItemGroup>
+        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(PathMap)" Condition=" '$(VSTestNoBuild)' != 'true' " />
+    </Target>
+    
+    <!--
+        This target is used to set the SHOULDLY_SOURCE_PATH_MAP environment variable when running tests with VSTestNoBuild=true.
+        This is necessary because the VSTest task does not run the CoreCompile target, so the PathMap is not set.    
+    -->
+    <Target Name="SetShouldlyPathMaps" BeforeTargets="VSTest" Condition=" '$(DisableShouldlyPathMaps)' != 'true' AND '$(VSTestNoBuild)' == 'true' ">
+        <PropertyGroup>
+            <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
+        </PropertyGroup>
+        <ReadLinesFromFile File="$(_ShouldlyPathMapsFilePath)">
+            <Output TaskParameter="Lines" ItemName="_ShouldlyPathMaps" />
+        </ReadLinesFromFile>
+        <PropertyGroup>
+            <ShouldlyPathMaps>%(_ShouldlyPathMaps.Identity)</ShouldlyPathMaps>
+        </PropertyGroup>
+        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(ShouldlyPathMaps)" Condition=" '$(ShouldlyPathMaps)' != '' " />
     </Target>
 </Project>
