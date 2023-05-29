@@ -17,7 +17,7 @@
     <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
-    <PackageReleaseNotes>https://github.com/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/shouldly/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
