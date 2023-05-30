@@ -268,8 +268,10 @@ public abstract class ShouldlyMessage
         new ShouldCompleteInMessageGenerator(),
         new ShouldBeNullOrWhiteSpaceMessageGenerator(),
         new DictionaryShouldContainKeyAndValueMessageGenerator(),
+        new DictionaryShouldContainKeyAndValueReflectionMessageGenerator(),
         new DictionaryShouldOrNotContainKeyMessageGenerator(),
         new DictionaryShouldNotContainValueForKeyMessageGenerator(),
+        new DictionaryShouldNotContainValueForKeyReflectionMessageGenerator(),
         new ShouldBeginEndWithMessageGenerator(),
         new ShouldBeWithinRangeMessageGenerator(),
         new ShouldContainWithinRangeMessageGenerator(),
@@ -338,7 +340,7 @@ Additional Info:
             ? "an element satisfying the condition"
             : "";
         return
-            $@"{codePart}
+$@"{codePart}
     {shouldMethod} {conditionString}
 {expected}
     but does{(isNegatedAssertion ? "" : " not")}";
@@ -352,7 +354,7 @@ Additional Info:
 {actual}";
 
         var message =
-            $@"{codePart}
+$@"{codePart}
     {context.ShouldMethod.PascalToSpaced()}
 {context.Expected.ToStringAwesomely()}
     but was{actualString}";
