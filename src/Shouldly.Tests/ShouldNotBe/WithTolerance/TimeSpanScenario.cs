@@ -10,24 +10,25 @@ public class TimeSpanScenario
                 timeSpan.ShouldNotBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d), "Some additional context"),
 
             errorWithSource:
-            @"timeSpan
+            @"timeSpan {01:00:00}
     should not be within
 01:30:00
     of
 02:06:00
-    but was
-01:00:00
+    but had difference of 
+01:06:00
 
 Additional Info:
     Some additional context",
 
             errorWithoutSource:
-            @"01:00:00
+            @"{01:00:00}
     should not be within
 01:30:00
     of
 02:06:00
-    but was not
+    but had difference of 
+01:06:00
 
 Additional Info:
     Some additional context");
