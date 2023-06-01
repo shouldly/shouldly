@@ -272,6 +272,7 @@ public abstract class ShouldlyMessage
         new DictionaryShouldNotContainValueForKeyMessageGenerator(),
         new ShouldBeginEndWithMessageGenerator(),
         new ShouldBeWithinRangeMessageGenerator(),
+        new ShouldBeWithinRangeTimeSpanMessageGenerator(),
         new ShouldContainWithinRangeMessageGenerator(),
         new ShouldBeUniqueMessageGenerator(),
         new ShouldBeEnumerableCaseSensitiveMessageGenerator(),
