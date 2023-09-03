@@ -289,6 +289,8 @@ public abstract class ShouldlyMessage
         new ShouldBeMessageGenerator(),
         new ShouldBePositiveMessageGenerator(),
         new ShouldBeNegativeMessageGenerator(),
+        new ShouldNotBePositiveMessageGenerator(),
+        new ShouldNotBeNegativeMessageGenerator(),
         new ShouldBeTypeMessageGenerator(),
         new ShouldBeInOrderMessageGenerator(),
         new ShouldBeEquivalentToMessageGenerator()

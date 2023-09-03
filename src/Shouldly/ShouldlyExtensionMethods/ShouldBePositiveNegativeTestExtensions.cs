@@ -17,6 +17,18 @@ public static partial class ShouldBeTestExtensions
         actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
     }
 
+    public static void ShouldNotBePositive(this decimal actual, string? customMessage = null)
+    {
+        var expected = default(decimal);
+        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBeNegative(this decimal actual, string? customMessage = null)
+    {
+        var expected = default(decimal);
+        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
     /// <summary>
     /// double
     /// </summary>
@@ -30,6 +42,18 @@ public static partial class ShouldBeTestExtensions
     {
         var expected = default(double);
         actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBePositive(this double actual, string? customMessage = null)
+    {
+        var expected = default(double);
+        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBeNegative(this double actual, string? customMessage = null)
+    {
+        var expected = default(double);
+        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
     }
 
     /// <summary>
@@ -47,6 +71,18 @@ public static partial class ShouldBeTestExtensions
         actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
     }
 
+    public static void ShouldNotBePositive(this float actual, string? customMessage = null)
+    {
+        var expected = default(float);
+        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBeNegative(this float actual, string? customMessage = null)
+    {
+        var expected = default(float);
+        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
     /// <summary>
     /// int
     /// </summary>
@@ -60,6 +96,18 @@ public static partial class ShouldBeTestExtensions
     {
         var expected = default(int);
         actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBePositive(this int actual, string? customMessage = null)
+    {
+        var expected = default(int);
+        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBeNegative(this int actual, string? customMessage = null)
+    {
+        var expected = default(int);
+        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
     }
 
     /// <summary>
@@ -77,6 +125,18 @@ public static partial class ShouldBeTestExtensions
         actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
     }
 
+    public static void ShouldNotBePositive(this long actual, string? customMessage = null)
+    {
+        var expected = default(long);
+        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBeNegative(this long actual, string? customMessage = null)
+    {
+        var expected = default(long);
+        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
     /// <summary>
     /// short
     /// </summary>
@@ -90,5 +150,17 @@ public static partial class ShouldBeTestExtensions
     {
         var expected = default(short);
         actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBePositive(this short actual, string? customMessage = null)
+    {
+        var expected = default(short);
+        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage);
+    }
+
+    public static void ShouldNotBeNegative(this short actual, string? customMessage = null)
+    {
+        var expected = default(short);
+        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage);
     }
 }
