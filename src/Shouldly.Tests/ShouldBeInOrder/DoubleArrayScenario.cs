@@ -13,22 +13,26 @@ public class DoubleArrayScenario
                 _descendingTarget.ShouldBeInOrder("Some additional context"),
 
             errorWithSource:
-            @"_descendingTarget
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-1.4
+            """
+            _descendingTarget
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            1.4
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1.5d, 1.4d, 1.3d, 1.2d, 1.1d]
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-1.4
+            """
+            [1.5d, 1.4d, 1.3d, 1.2d, 1.1d]
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            1.4
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -39,22 +43,26 @@ Additional Info:
                 _descendingTarget.ShouldBeInOrder(SortDirection.Ascending, "Some additional context"),
 
             errorWithSource:
-            @"_descendingTarget
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-1.4
+            """
+            _descendingTarget
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            1.4
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1.5d, 1.4d, 1.3d, 1.2d, 1.1d]
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-1.4
+            """
+            [1.5d, 1.4d, 1.3d, 1.2d, 1.1d]
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            1.4
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -65,22 +73,26 @@ Additional Info:
                 _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, "Some additional context"),
 
             errorWithSource:
-            @"_ascendingTarget
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-1.2
+            """
+            _ascendingTarget
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            1.2
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1.1d, 1.2d, 1.3d, 1.4d, 1.5d]
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-1.2
+            """
+            [1.1d, 1.2d, 1.3d, 1.4d, 1.5d]
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            1.2
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -91,22 +103,26 @@ Additional Info:
                 _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, Comparer<double>.Default, "Some additional context"),
 
             errorWithSource:
-            @"_ascendingTarget
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-1.2
+            """
+            _ascendingTarget
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            1.2
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1.1d, 1.2d, 1.3d, 1.4d, 1.5d]
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-1.2
+            """
+            [1.1d, 1.2d, 1.3d, 1.4d, 1.5d]
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            1.2
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

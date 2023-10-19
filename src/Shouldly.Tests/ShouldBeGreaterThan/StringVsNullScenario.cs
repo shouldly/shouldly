@@ -9,23 +9,27 @@ public class StringVsNullScenario
                 ((string?)null).ShouldBeGreaterThan("b", "Some additional context"),
 
             errorWithSource:
-            @"(string?)null
-    should be greater than
-""b""
-    but was
-null
+            """
+            (string?)null
+                should be greater than
+            "b"
+                but was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"null
-    should be greater than
-""b""
-    but was not
+            """
+            null
+                should be greater than
+            "b"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
