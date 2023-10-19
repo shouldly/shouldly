@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseSensitive;
-
-public class UnsafeStringBackslashAScenario
+﻿public class UnsafeStringBackslashAScenario
 {
     [Fact]
     public void UnsafeStringBackslashAScenarioShouldFail()

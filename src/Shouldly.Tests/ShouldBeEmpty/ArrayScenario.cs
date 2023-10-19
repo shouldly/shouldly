@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeEmpty;
-
-public class ArrayScenario
+﻿public class ArrayScenario
 {
     [Fact]
     public void ArrayScenarioShouldFail()

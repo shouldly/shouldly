@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeEquivalentTo;
+﻿using Shouldly.Tests.ShouldBeEquivalentTo;
 
 public class ObjectScenario
 {

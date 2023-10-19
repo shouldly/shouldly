@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeDecoratedWith;
-
-public class ActualIsNotDecoratedScenario
+﻿public class ActualIsNotDecoratedScenario
 {
     [Fact]
     public void ActualIsNotDecoratedScenarioShouldFail()

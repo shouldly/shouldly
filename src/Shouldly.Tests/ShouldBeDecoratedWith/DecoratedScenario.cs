@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeDecoratedWith;
-
-public class DecoratedScenario
+﻿public class DecoratedScenario
 {
     [Fact]
     public void DerivedTypeScenarioShouldPass()
