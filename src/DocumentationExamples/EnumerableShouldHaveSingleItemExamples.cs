@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class EnumerableShouldHaveSingleItemExamples
+﻿public class EnumerableShouldHaveSingleItemExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public EnumerableShouldHaveSingleItemExamples(ITestOutputHelper testOutputHelper)
-    {
+    public EnumerableShouldHaveSingleItemExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldHaveSingleItem()

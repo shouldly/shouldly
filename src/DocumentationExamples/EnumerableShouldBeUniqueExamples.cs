@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class EnumerableShouldBeUniqueExamples
+﻿public class EnumerableShouldBeUniqueExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public EnumerableShouldBeUniqueExamples(ITestOutputHelper testOutputHelper)
-    {
+    public EnumerableShouldBeUniqueExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBeUnique()

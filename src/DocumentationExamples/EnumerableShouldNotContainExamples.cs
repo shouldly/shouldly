@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class EnumerableShouldNotContainExamples
+﻿public class EnumerableShouldNotContainExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public EnumerableShouldNotContainExamples(ITestOutputHelper testOutputHelper)
-    {
+    public EnumerableShouldNotContainExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldNotContain()

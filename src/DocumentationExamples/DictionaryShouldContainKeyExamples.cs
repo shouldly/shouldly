@@ -1,17 +1,9 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class DictionaryShouldContainKeyExamples
+﻿public class DictionaryShouldContainKeyExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public DictionaryShouldContainKeyExamples(ITestOutputHelper testOutputHelper)
-    {
+    public DictionaryShouldContainKeyExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldContainKey()

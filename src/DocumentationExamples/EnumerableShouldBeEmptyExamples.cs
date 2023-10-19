@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class EnumerableShouldBeEmptyExamples
+﻿public class EnumerableShouldBeEmptyExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public EnumerableShouldBeEmptyExamples(ITestOutputHelper testOutputHelper)
-    {
+    public EnumerableShouldBeEmptyExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBeEmpty()

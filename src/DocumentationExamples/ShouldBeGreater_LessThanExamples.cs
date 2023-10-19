@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class ShouldBeGreater_LessThanExamples
+﻿public class ShouldBeGreater_LessThanExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldBeGreater_LessThanExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldBeGreater_LessThanExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBeGreaterThan()

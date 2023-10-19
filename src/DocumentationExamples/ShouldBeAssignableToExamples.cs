@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class ShouldBeAssignableToExamples
+﻿public class ShouldBeAssignableToExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldBeAssignableToExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldBeAssignableToExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBeAssignableTo()

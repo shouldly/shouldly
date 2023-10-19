@@ -1,17 +1,9 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class ShouldBeTrueFalseExamples
+﻿public class ShouldBeTrueFalseExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldBeTrueFalseExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldBeTrueFalseExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBeTrue()

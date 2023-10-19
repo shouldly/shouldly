@@ -1,17 +1,9 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class ShouldCompleteInExamples
+﻿public class ShouldCompleteInExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldCompleteInExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldCompleteInExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact(Skip = "Flaky test")]
     public void ShouldCompleteIn()

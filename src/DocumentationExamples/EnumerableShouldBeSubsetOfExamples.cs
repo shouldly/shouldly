@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class EnumerableShouldBeSubsetOfExamples
+﻿public class EnumerableShouldBeSubsetOfExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public EnumerableShouldBeSubsetOfExamples(ITestOutputHelper testOutputHelper)
-    {
+    public EnumerableShouldBeSubsetOfExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBeSubsetOf()

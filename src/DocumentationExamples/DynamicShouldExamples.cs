@@ -1,18 +1,9 @@
-﻿using System.Dynamic;
-using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class DynamicShouldExamples
+﻿public class DynamicShouldExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public DynamicShouldExamples(ITestOutputHelper testOutputHelper)
-    {
+    public DynamicShouldExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void HaveProperty()

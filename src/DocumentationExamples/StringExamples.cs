@@ -1,17 +1,9 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class StringExamples
+﻿public class StringExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public StringExamples(ITestOutputHelper testOutputHelper)
-    {
+    public StringExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldBe()
