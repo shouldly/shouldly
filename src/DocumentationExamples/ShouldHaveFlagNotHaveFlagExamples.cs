@@ -1,6 +1,4 @@
 ﻿using Shouldly.ShouldlyExtensionMethods;
-using Xunit;
-using Xunit.Abstractions;
 
 public class ShouldHaveFlagNotHaveFlagExamples
 {

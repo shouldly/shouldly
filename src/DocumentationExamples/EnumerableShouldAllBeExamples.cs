@@ -1,8 +1,4 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-public class EnumerableShouldAllBeExamples
+﻿public class EnumerableShouldAllBeExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
 

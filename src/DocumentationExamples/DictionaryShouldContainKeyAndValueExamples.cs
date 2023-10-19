@@ -1,8 +1,4 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-public class DictionaryShouldContainKeyAndValueExamples
+﻿public class DictionaryShouldContainKeyAndValueExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
 

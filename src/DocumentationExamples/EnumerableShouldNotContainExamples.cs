@@ -1,9 +1,4 @@
-﻿using DocumentationExamples;
-using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-public class EnumerableShouldNotContainExamples
+﻿public class EnumerableShouldNotContainExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
 

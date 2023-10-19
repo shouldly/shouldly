@@ -1,8 +1,4 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-public class ShouldBeInRangeExamples
+﻿public class ShouldBeInRangeExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
 

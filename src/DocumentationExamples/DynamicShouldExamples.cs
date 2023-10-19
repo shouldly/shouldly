@@ -1,7 +1,4 @@
 ﻿using System.Dynamic;
-using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
 
 public class DynamicShouldExamples
 {

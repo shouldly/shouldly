@@ -1,7 +1,4 @@
-﻿using Shouldly;
-using Xunit.Abstractions;
-
-public class ShouldMatchApprovedExamples
+﻿public class ShouldMatchApprovedExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
 

@@ -1,8 +1,4 @@
-﻿using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-public class ShouldBeSameAsExamples
+﻿public class ShouldBeSameAsExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
 
