@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.DynamicShould;
-
-public class HavePropertyNonDynamicScenario
+﻿public class HavePropertyNonDynamicScenario
 {
     private class Foo
     {

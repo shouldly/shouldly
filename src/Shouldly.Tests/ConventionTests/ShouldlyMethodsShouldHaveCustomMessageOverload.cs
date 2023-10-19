@@ -23,10 +23,7 @@ public class ShouldlyMethodsShouldHaveCustomMessageOverload : IConvention<Types>
             failingTypes);
     }
 
-    private static string FormatKey(MethodInfo shouldlyMethods)
-    {
-        return shouldlyMethods.FormatMethod(true);
-    }
+    private static string FormatKey(MethodInfo shouldlyMethods) => shouldlyMethods.FormatMethod(true);
 
     private static bool HasNoCustomMessageOverload(IGrouping<string, MethodInfo> shouldlyMethod)
     {

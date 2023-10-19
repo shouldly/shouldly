@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Shouldly.Tests.ConventionTests;
 
 public static class TypeExtensions
 {

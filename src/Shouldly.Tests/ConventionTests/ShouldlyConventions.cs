@@ -1,7 +1,7 @@
+using Shouldly.Tests.ConventionTests;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
-
-namespace Shouldly.Tests.ConventionTests;
+using Should = Shouldly.Should;
 
 public class ShouldlyConventions
 {

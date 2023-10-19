@@ -1,7 +1,5 @@
 using System.Reflection;
 
-namespace Shouldly.Tests.ConventionTests;
-
 public class ShouldThrowMethod
 {
     private readonly MethodInfo _throwMethod;

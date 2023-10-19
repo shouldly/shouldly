@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.Dictionaries;
-
-public class ShouldNotContainKey
+﻿public class ShouldNotContainKey
 {
     [Fact]
     public void ShouldNotContainKeyClassScenarioShouldFail()

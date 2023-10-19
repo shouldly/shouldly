@@ -1,7 +1,5 @@
 ﻿using System.Dynamic;
 
-namespace Shouldly.Tests.DynamicShould;
-
 public class HavePropertyScenario
 {
     [Fact]
@@ -9,7 +7,7 @@ public class HavePropertyScenario
     {
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Bar = "BarPropertyValue";
-        Verify.ShouldFail(() => Shouldly.DynamicShould.HaveProperty(testDynamicObject, "foo", "Some additional context"),
+        Verify.ShouldFail(() => DynamicShould.HaveProperty(testDynamicObject, "foo", "Some additional context"),
 
             errorWithSource:
             @"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
