@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldAllBe;
-
-public class IntegerArrayScenario
+﻿public class IntegerArrayScenario
 {
     [Fact]
     public void IntegerArrayScenarioShouldFail()

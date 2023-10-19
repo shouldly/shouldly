@@ -1,6 +1,5 @@
 ﻿using System.Collections;
-
-namespace Shouldly.Tests.InternalTests;
+using Should = Shouldly.Should;
 
 public class DifferenceHighlighterHelpersTests
 {

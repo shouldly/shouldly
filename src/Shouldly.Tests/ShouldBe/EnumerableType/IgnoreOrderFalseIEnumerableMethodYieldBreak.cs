@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
-
-public class IgnoreOrderFalseIEnumerableMethodYieldBreak
+﻿public class IgnoreOrderFalseIEnumerableMethodYieldBreak
 {
     [Fact]
     public void IgnoreOrderFalseIEnumerableMethodYieldBreakShouldFail()

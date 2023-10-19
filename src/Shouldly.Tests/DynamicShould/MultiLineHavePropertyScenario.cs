@@ -1,7 +1,5 @@
 ﻿using System.Dynamic;
 
-namespace Shouldly.Tests.DynamicShould;
-
 public class MultiLineHavePropertyScenario
 {
     [Fact]
@@ -10,7 +8,7 @@ public class MultiLineHavePropertyScenario
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Bar = "BarPropertyValue";
         Verify.ShouldFail(() =>
-                Shouldly.DynamicShould
+                DynamicShould
                     .HaveProperty(testDynamicObject, "foo", "Some additional context"),
 
             errorWithSource:

@@ -1,7 +1,5 @@
 ﻿using System.Dynamic;
 
-namespace Shouldly.Tests.DynamicShould;
-
 public class MultiLineHavePropertyScenario_MaximumLines
 {
     [Fact]
@@ -10,7 +8,7 @@ public class MultiLineHavePropertyScenario_MaximumLines
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Bar = "BarPropertyValue";
         Verify.ShouldFail(() =>
-                Shouldly.DynamicShould
+                DynamicShould
                     .HaveProperty(
                         testDynamicObject,
                         "foo",

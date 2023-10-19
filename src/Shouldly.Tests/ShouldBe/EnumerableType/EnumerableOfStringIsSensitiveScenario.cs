@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
-
-public class EnumerableOfStringIsSensitiveScenario
+﻿public class EnumerableOfStringIsSensitiveScenario
 {
     [Fact]
     public void EnumerableOfStringIsSensitiveScenarioShouldFail()

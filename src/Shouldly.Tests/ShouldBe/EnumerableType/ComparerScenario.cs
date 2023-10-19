@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
-
-public class ComparerScenario
+﻿public class ComparerScenario
 {
     [Fact]
     public void ComparerEqualsShouldPass()

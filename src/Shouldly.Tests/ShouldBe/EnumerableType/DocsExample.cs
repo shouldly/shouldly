@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
+﻿using Should = Shouldly.Tests.TestHelpers.Should;
 
 public class DocsExample
 {
@@ -10,7 +10,7 @@ public class DocsExample
         var skinner = new Person { Name = "Skinner" };
         var barney = new Person { Name = "Barney" };
         var theBeSharps = new List<Person> { homer, skinner, barney };
-        TestHelpers.Should.Error(() =>
+        Should.Error(() =>
                 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney }),
             @"theBeSharps
     should be

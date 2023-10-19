@@ -1,5 +1,3 @@
-namespace Shouldly.Tests.DynamicShould;
-
 public class ThrowFromObjectMethodScenario
 {
     private class Foo

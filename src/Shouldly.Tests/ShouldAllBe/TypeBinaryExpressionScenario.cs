@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldAllBe;
-
-public class TypeBinaryExpressionScenario
+﻿public class TypeBinaryExpressionScenario
 {
     [Fact]
     public void TypeBinaryExpressionScenarioShouldFail()

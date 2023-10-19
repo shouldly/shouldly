@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.InternalTests;
-
-public class EqualityComparerTests
+﻿public class EqualityComparerTests
 {
     /*
      * Code heavily influenced by code from xunit assertion tests

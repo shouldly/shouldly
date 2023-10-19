@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
-
-public class EnumerableOfStringScenario
+﻿public class EnumerableOfStringScenario
 {
     [Fact]
     public void EnumerableOfStringScenarioShouldFail()

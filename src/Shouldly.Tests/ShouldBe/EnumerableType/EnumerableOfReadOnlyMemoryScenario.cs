@@ -1,6 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.EnumerableType;
-
-public class EnumerableOfReadOnlyMemoryScenario
+﻿public class EnumerableOfReadOnlyMemoryScenario
 {
     [Fact]
     public void EnumerableOfReadOnlyMemoryScenarioShouldFail()
