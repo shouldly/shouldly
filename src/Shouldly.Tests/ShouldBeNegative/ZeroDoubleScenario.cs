@@ -10,19 +10,23 @@ public class ZeroDoubleScenario
                 val.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"val
-    should be negative but
-0d
-    is positive
+            """
+            val
+                should be negative but
+            0d
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0d
-    should be negative but is positive
+            """
+            0d
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

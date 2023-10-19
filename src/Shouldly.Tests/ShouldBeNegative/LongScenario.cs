@@ -10,20 +10,24 @@ public class LongScenario
                 @long.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"@long
-    should be negative but
-3L
-    is positive
+            """
+            @long
+                should be negative but
+            3L
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"3L
-    should be negative but is positive
+            """
+            3L
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

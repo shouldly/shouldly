@@ -10,23 +10,27 @@ public class StringScenario
                 beeeee.ShouldBeLessThan("a", "Some additional context"),
 
             errorWithSource:
-            @"beeeee
-    should be less than
-""a""
-    but was
-""b""
+            """
+            beeeee
+                should be less than
+            "a"
+                but was
+            "b"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""b""
-    should be less than
-""a""
-    but was not
+            """
+            "b"
+                should be less than
+            "a"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
