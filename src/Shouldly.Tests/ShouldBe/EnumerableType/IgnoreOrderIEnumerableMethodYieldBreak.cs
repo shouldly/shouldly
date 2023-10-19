@@ -9,28 +9,32 @@ public class IgnoreOrderIEnumerableMethodYieldBreak
                 GetEmptyEnumerable().ShouldBe(new[] { 2, 4 }, true, "Some additional context"),
 
             errorWithSource:
-            @"GetEmptyEnumerable()
-    should be (ignoring order)
-[2, 4]
-    but
-GetEmptyEnumerable()
-    is missing
-[2, 4]
+            """
+            GetEmptyEnumerable()
+                should be (ignoring order)
+            [2, 4]
+                but
+            GetEmptyEnumerable()
+                is missing
+            [2, 4]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[]
-    should be (ignoring order)
-[2, 4]
-    but
-[]
-    is missing
-[2, 4]
+            """
+            []
+                should be (ignoring order)
+            [2, 4]
+                but
+            []
+                is missing
+            [2, 4]
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

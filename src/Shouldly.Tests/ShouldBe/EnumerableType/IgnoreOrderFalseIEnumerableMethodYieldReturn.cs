@@ -9,27 +9,31 @@ public class IgnoreOrderFalseIEnumerableMethodYieldReturn
                 GetEnumerable().ShouldBe(new[] { 1, 2 }, false, "Some additional context"),
 
             errorWithSource:
-            @"GetEnumerable()
-    should be
-[1, 2]
-    but was
-[1]
-    difference
-[1, *]
+            """
+            GetEnumerable()
+                should be
+            [1, 2]
+                but was
+            [1]
+                difference
+            [1, *]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1]
-    should be
-[1, 2]
-    but was not
-    difference
-[1, *]
+            """
+            [1]
+                should be
+            [1, 2]
+                but was not
+                difference
+            [1, *]
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

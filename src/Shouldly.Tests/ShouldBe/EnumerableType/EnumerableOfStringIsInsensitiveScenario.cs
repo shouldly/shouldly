@@ -9,27 +9,31 @@ public class EnumerableOfStringIsInsensitiveScenario
                 new[] { "foo" }.ShouldBe(new[] { "different" }, Case.Insensitive, "Some additional context"),
 
             errorWithSource:
-            @"new[] { ""foo"" }
-    should be
-[""different""]
-    but was (case insensitive comparison)
-[""foo""]
-    difference
-[*""foo""*]
+            """
+            new[] { "foo" }
+                should be
+            ["different"]
+                but was (case insensitive comparison)
+            ["foo"]
+                difference
+            [*"foo"*]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""foo""]
-    should be
-[""different""]
-    but was not (case insensitive comparison)
-    difference
-[*""foo""*]
+            """
+            ["foo"]
+                should be
+            ["different"]
+                but was not (case insensitive comparison)
+                difference
+            [*"foo"*]
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

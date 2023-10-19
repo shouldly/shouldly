@@ -11,23 +11,27 @@ public class ShouldBeScenarios
                 myValue.ShouldBe(true, "Some additional context"),
 
             errorWithSource:
-            @"myValue
-    should be
-True
-    but was
-False
+            """
+            myValue
+                should be
+            True
+                but was
+            False
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"False
-    should be
-True
-    but was not
+            """
+            False
+                should be
+            True
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -40,23 +44,27 @@ Additional Info:
                 a.ShouldBe(b, "Some additional context"),
 
             errorWithSource:
-            @"a
-    should be
-0.1d
-    but was
-0
+            """
+            a
+                should be
+            0.1d
+                but was
+            0
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0
-    should be
-0.1d
-    but was not
+            """
+            0
+                should be
+            0.1d
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -66,23 +74,27 @@ Additional Info:
                 ((object)12).ShouldBe("string", "Some additional context"),
 
             errorWithSource:
-            @"(object)12
-    should be
-""string""
-    but was
-12
+            """
+            (object)12
+                should be
+            "string"
+                but was
+            12
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"12
-    should be
-""string""
-    but was not
+            """
+            12
+                should be
+            "string"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -92,23 +104,27 @@ Additional Info:
                 new BadEquatable().ShouldBe(new(), "Some additional context"),
 
             errorWithSource:
-            @"new BadEquatable()
-    should be
-Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
-    but was
-Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
+            """
+            new BadEquatable()
+                should be
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
+                but was
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
-    should be
-Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
-    but was not
+            """
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
+                should be
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -118,23 +134,27 @@ Additional Info:
                 new MyBase().ShouldBe(new MyThing(), "Some additional context"),
 
             errorWithSource:
-            @"new MyBase()
-    should be
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but was
-Shouldly.Tests.TestHelpers.MyBase (000000)
+            """
+            new MyBase()
+                should be
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but was
+            Shouldly.Tests.TestHelpers.MyBase (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Shouldly.Tests.TestHelpers.MyBase (000000)
-    should be
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but was not
+            """
+            Shouldly.Tests.TestHelpers.MyBase (000000)
+                should be
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -144,23 +164,27 @@ Additional Info:
                 new object().ShouldBe("this string", "Some additional context"),
 
             errorWithSource:
-            @"new object()
-    should be
-""this string""
-    but was
-System.Object (000000)
+            """
+            new object()
+                should be
+            "this string"
+                but was
+            System.Object (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"System.Object (000000)
-    should be
-""this string""
-    but was not
+            """
+            System.Object (000000)
+                should be
+            "this string"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -173,23 +197,27 @@ Additional Info:
                 nullString.ShouldBe(string.Empty, "Some additional context"),
 
             errorWithSource:
-            @"nullString
-    should be
-""""
-    but was
-null
+            """
+            nullString
+                should be
+            ""
+                but was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"null
-    should be
-""""
-    but was not
+            """
+            null
+                should be
+            ""
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -199,23 +227,27 @@ Additional Info:
                 new BaseClass().ShouldBe(new SubclassWithStubbedEquals { EqualsResult = false }, "Some additional context"),
 
             errorWithSource:
-            @"new BaseClass()
-    should be
-Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
-    but was
-Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
+            """
+            new BaseClass()
+                should be
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
+                but was
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
-    should be
-Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
-    but was not
+            """
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
+                should be
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -226,23 +258,27 @@ Additional Info:
                 two.ShouldBe(1, "Some additional context"),
 
             errorWithSource:
-            @"two
-    should be
-1
-    but was
-2
+            """
+            two
+                should be
+            1
+                but was
+            2
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"2
-    should be
-1
-    but was not
+            """
+            2
+                should be
+            1
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     /// <summary>
@@ -258,27 +294,31 @@ Additional Info:
                 new Strange().ShouldBe("string", "Some additional context"),
 
             errorWithSource:
-            @"new Strange()
-    should be
-[] (string)
-    but was
-[] (null)
-    difference
-[]
+            """
+            new Strange()
+                should be
+            [] (string)
+                but was
+            [] (null)
+                difference
+            []
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[] (null)
-    should be
-[] (string)
-    but was not
-    difference
-[]
+            """
+            [] (null)
+                should be
+            [] (string)
+                but was not
+                difference
+            []
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -289,23 +329,27 @@ Additional Info:
                 aLong.ShouldBe(1, "Some additional context"),
 
             errorWithSource:
-            @"aLong
-    should be
-1L
-    but was
-2L
+            """
+            aLong
+                should be
+            1L
+                but was
+            2L
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"2L
-    should be
-1L
-    but was not
+            """
+            2L
+                should be
+            1L
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -315,23 +359,27 @@ Additional Info:
                 new UncomparableClass("ted").ShouldBe(new("bob"), "Some additional context"),
 
             errorWithSource:
-            @"new UncomparableClass(""ted"")
-    should be
-bob
-    but was
-ted
+            """
+            new UncomparableClass("ted")
+                should be
+            bob
+                but was
+            ted
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"ted
-    should be
-bob
-    but was not
+            """
+            ted
+                should be
+            bob
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
