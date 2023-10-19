@@ -1,7 +1,7 @@
 ```
 theSimpsonsDog
     should be assignable to
-Simpsons.Pet
+Pet
     but was
-Simpsons.Person
+Person
 ```

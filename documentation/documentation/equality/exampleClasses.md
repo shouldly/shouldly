@@ -5,8 +5,6 @@ The classes used in these samples are:
 <!-- snippet: DocumentationExamples/ExampleClasses.cs -->
 <a id='snippet-DocumentationExamples/ExampleClasses.cs'></a>
 ```cs
-namespace Simpsons;
-
 public abstract class Pet
 {
     public abstract string? Name { get; set; }
@@ -47,5 +45,5 @@ public class Person
     }
 }
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

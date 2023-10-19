@@ -1,8 +1,5 @@
 ﻿using Shouldly;
-using Shouldly.Tests.ConventionTests;
 using Xunit.Abstractions;
-
-namespace DocumentationExamples;
 
 public class ShouldMatchApprovedExamples
 {

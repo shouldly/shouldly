@@ -9,8 +9,6 @@ using Shouldly;
 using Shouldly.Configuration;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples;
-
 public static class DocExampleWriter
 {
     private static readonly Regex scrubberRegex = new(@"\w:.+?shouldly\\src", RegexOptions.Compiled);

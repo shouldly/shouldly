@@ -1,7 +1,7 @@
 ```
 theSimpsonsDog
     should not be of type
-Simpsons.Cat
+Cat
     but was
 Santas little helper
 ```

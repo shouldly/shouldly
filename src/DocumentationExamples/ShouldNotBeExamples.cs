@@ -1,9 +1,6 @@
 ﻿using Shouldly;
-using Simpsons;
 using Xunit;
 using Xunit.Abstractions;
-
-namespace DocumentationExamples;
 
 public class ShouldNotBeExamples
 {

@@ -1,6 +1,4 @@
-﻿namespace Simpsons;
-
-public abstract class Pet
+﻿public abstract class Pet
 {
     public abstract string? Name { get; set; }
 

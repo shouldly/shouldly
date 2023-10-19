@@ -1,9 +1,7 @@
-﻿using Shouldly;
-using Simpsons;
+﻿using DocumentationExamples;
+using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
-
-namespace DocumentationExamples;
 
 public class EnumerableShouldNotContainExamples
 {

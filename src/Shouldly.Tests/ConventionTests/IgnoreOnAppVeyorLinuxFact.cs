@@ -1,8 +1,6 @@
 using System.Runtime.InteropServices;
 using Xunit;
 
-namespace Shouldly.Tests.ConventionTests;
-
 public sealed class IgnoreOnAppVeyorLinuxFact : FactAttribute
 {
     public IgnoreOnAppVeyorLinuxFact()

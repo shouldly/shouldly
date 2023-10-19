@@ -1,7 +1,7 @@
 ```
 theSimpsonsDog
     should be of type
-Simpsons.Dog
+Dog
     but was
-Simpsons.Cat
+Cat
 ```

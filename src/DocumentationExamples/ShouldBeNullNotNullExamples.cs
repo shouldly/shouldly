@@ -2,8 +2,6 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DocumentationExamples;
-
 public class ShouldBeNullNotNullExamples
 {
     private readonly ITestOutputHelper _testOutputHelper;
