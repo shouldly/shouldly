@@ -10,24 +10,28 @@ public class DerivedTypeScenario
                 myThing.ShouldBeAssignableTo<string>("Some additional context"),
 
             errorWithSource:
-            @"myThing
-    should be assignable to
-System.String
-    but was
-Shouldly.Tests.TestHelpers.MyThing
+            """
+            myThing
+                should be assignable to
+            System.String
+                but was
+            Shouldly.Tests.TestHelpers.MyThing
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Shouldly.Tests.TestHelpers.MyThing (000000)
-    should be assignable to
-System.String
-    but was
-Shouldly.Tests.TestHelpers.MyThing
+            """
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                should be assignable to
+            System.String
+                but was
+            Shouldly.Tests.TestHelpers.MyThing
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

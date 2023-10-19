@@ -10,28 +10,32 @@ public class ValueTypeScenario
                 subject.ShouldBeEquivalentTo(3, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [System.Int32]
+            """
+            Comparing object equivalence, at path:
+            subject [System.Int32]
+            
+                Expected value to be
+            3
+                but was
+            5
 
-    Expected value to be
-3
-    but was
-5
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [System.Int32]
+            """
+            Comparing object equivalence, at path:
+            <root> [System.Int32]
+            
+                Expected value to be
+            3
+                but was
+            5
 
-    Expected value to be
-3
-    but was
-5
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

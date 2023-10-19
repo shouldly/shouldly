@@ -10,27 +10,31 @@ public class TimeSpanScenario
                 timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1), "Some additional context"),
 
             errorWithSource:
-            @"timeSpan
-    should be within
-01:00:00
-    of
-02:06:00
-    but was
-01:00:00
+            """
+            timeSpan
+                should be within
+            01:00:00
+                of
+            02:06:00
+                but was
+            01:00:00
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"01:00:00
-    should be within
-01:00:00
-    of
-02:06:00
-    but was not
+            """
+            01:00:00
+                should be within
+            01:00:00
+                of
+            02:06:00
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

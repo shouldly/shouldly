@@ -10,23 +10,27 @@ public class EqualScenario
                 one.ShouldBeGreaterThan(1, "Some additional context"),
 
             errorWithSource:
-            @"one
-    should be greater than
-1
-    but was
-1
+            """
+            one
+                should be greater than
+            1
+                but was
+            1
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"1
-    should be greater than
-1
-    but was not
+            """
+            1
+                should be greater than
+            1
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

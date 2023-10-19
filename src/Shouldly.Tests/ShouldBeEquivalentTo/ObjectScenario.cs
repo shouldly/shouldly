@@ -19,30 +19,34 @@ public class ObjectScenario
                 subject.ShouldBeEquivalentTo(expected, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Id [System.Int32]
+            """
+            Comparing object equivalence, at path:
+            subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Id [System.Int32]
+            
+                Expected value to be
+            6
+                but was
+            5
 
-    Expected value to be
-6
-    but was
-5
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Id [System.Int32]
+            """
+            Comparing object equivalence, at path:
+            <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Id [System.Int32]
+            
+                Expected value to be
+            6
+                but was
+            5
 
-    Expected value to be
-6
-    but was
-5
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -54,30 +58,34 @@ Additional Info:
                 subject.ShouldBeEquivalentTo(expected, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Name [System.String]
+            """
+            Comparing object equivalence, at path:
+            subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Name [System.String]
+            
+                Expected value to be
+            "Sally"
+                but was
+            "Bob"
 
-    Expected value to be
-""Sally""
-    but was
-""Bob""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Name [System.String]
+            """
+            Comparing object equivalence, at path:
+            <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Name [System.String]
+            
+                Expected value to be
+            "Sally"
+                but was
+            "Bob"
 
-    Expected value to be
-""Sally""
-    but was
-""Bob""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -99,30 +107,34 @@ Additional Info:
                 subject.ShouldBeEquivalentTo(expected, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    TitleField [System.String]
+            """
+            Comparing object equivalence, at path:
+            subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                TitleField [System.String]
+            
+                Expected value to be
+            "Sir"
+                but was
+            "Mr"
 
-    Expected value to be
-""Sir""
-    but was
-""Mr""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    TitleField [System.String]
+            """
+            Comparing object equivalence, at path:
+            <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                TitleField [System.String]
+            
+                Expected value to be
+            "Sir"
+                but was
+            "Mr"
 
-    Expected value to be
-""Sir""
-    but was
-""Mr""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -162,34 +174,38 @@ Additional Info:
                 subject.ShouldBeEquivalentTo(expected, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-        Adjectives [System.String[]]
-            Element [0] [System.String]
+            """
+            Comparing object equivalence, at path:
+            subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                    Adjectives [System.String[]]
+                        Element [0] [System.String]
+            
+                Expected value to be
+            "beautiful"
+                but was
+            "ugly"
 
-    Expected value to be
-""beautiful""
-    but was
-""ugly""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-        Adjectives [System.String[]]
-            Element [0] [System.String]
+            """
+            Comparing object equivalence, at path:
+            <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                    Adjectives [System.String[]]
+                        Element [0] [System.String]
+            
+                Expected value to be
+            "beautiful"
+                but was
+            "ugly"
 
-    Expected value to be
-""beautiful""
-    but was
-""ugly""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -231,34 +247,38 @@ Additional Info:
                 subject.ShouldBeEquivalentTo(expected, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-        Adjectives [System.String[]]
-            Element [1] [System.String]
+            """
+            Comparing object equivalence, at path:
+            subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                    Adjectives [System.String[]]
+                        Element [1] [System.String]
+            
+                Expected value to be
+            "dumb"
+                but was
+            "intelligent"
 
-    Expected value to be
-""dumb""
-    but was
-""intelligent""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-        Adjectives [System.String[]]
-            Element [1] [System.String]
+            """
+            Comparing object equivalence, at path:
+            <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                    Adjectives [System.String[]]
+                        Element [1] [System.String]
+            
+                Expected value to be
+            "dumb"
+                but was
+            "intelligent"
 
-    Expected value to be
-""dumb""
-    but was
-""intelligent""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

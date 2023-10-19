@@ -10,28 +10,32 @@ public class NullScenario
                 subject.ShouldBeEquivalentTo("Hello", "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject
+            """
+            Comparing object equivalence, at path:
+            subject
+            
+                Expected value to be
+            "Hello"
+                but was
+            null
 
-    Expected value to be
-""Hello""
-    but was
-null
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root>
+            """
+            Comparing object equivalence, at path:
+            <root>
+            
+                Expected value to be
+            "Hello"
+                but was
+            null
 
-    Expected value to be
-""Hello""
-    but was
-null
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -42,16 +46,18 @@ Additional Info:
                 subject.ShouldBeEquivalentTo(null, "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject
+            """
+            Comparing object equivalence, at path:
+            subject
+            
+                Expected value to be
+            null
+                but was
+            "Hello"
 
-    Expected value to be
-null
-    but was
-""Hello""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
             @"Comparing object equivalence, at path:

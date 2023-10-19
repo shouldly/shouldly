@@ -11,23 +11,27 @@ public class NullIsAssignableToTypeScenario
                 myThing.ShouldBeAssignableTo<int>("Some additional context"),
 
             errorWithSource:
-            @"myThing
-    should be assignable to
-System.Int32
-    but was
-null
+            """
+            myThing
+                should be assignable to
+            System.Int32
+                but was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"null
-    should be assignable to
-System.Int32
-    but was not
+            """
+            null
+                should be assignable to
+            System.Int32
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

@@ -12,23 +12,27 @@ public class CustomObjectScenario
                 customA.ShouldBeGreaterThanOrEqualTo(customB, comparer, "Some additional context"),
 
             errorWithSource:
-            @"customA
-    should be greater than or equal to
-Shouldly.Tests.TestHelpers.Custom (000000)
-    but was
-Shouldly.Tests.TestHelpers.Custom (000000)
+            """
+            customA
+                should be greater than or equal to
+            Shouldly.Tests.TestHelpers.Custom (000000)
+                but was
+            Shouldly.Tests.TestHelpers.Custom (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Shouldly.Tests.TestHelpers.Custom (000000)
-    should be greater than or equal to
-Shouldly.Tests.TestHelpers.Custom (000000)
-    but was not
+            """
+            Shouldly.Tests.TestHelpers.Custom (000000)
+                should be greater than or equal to
+            Shouldly.Tests.TestHelpers.Custom (000000)
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
