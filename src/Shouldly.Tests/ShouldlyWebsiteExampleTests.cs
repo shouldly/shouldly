@@ -11,7 +11,7 @@ public class ShouldlyWebsiteExampleTests
         {
             var contestant = new Contestant { Points = 0 };
 
-            TestHelpers.Should.Error(
+            TestHelpers.ShouldHelper.Error(
                 () => contestant.Points.ShouldBe(1337),
                 "contestant.Points should be 1337 but was 0");
         }
@@ -47,7 +47,7 @@ public class ShouldlyWebsiteExampleTests
         {
             var map = GetMap();
 
-            TestHelpers.Should.Error(
+            TestHelpers.ShouldHelper.Error(
                 () => map.IndexOf("boo").ShouldBe(2),
                 "map.IndexOf(\"boo\") should be 2 but was 1");
         }
@@ -66,7 +66,7 @@ public class ShouldlyWebsiteExampleTests
         [Fact]
         public void Shouldly_CompareTwoCollections()
         {
-            TestHelpers.Should.Error(
+            TestHelpers.ShouldHelper.Error(
                 () => new[] { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 4 }),
                 "new[] {1, 2, 3} should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
         }
@@ -101,7 +101,7 @@ public class ShouldlyWebsiteExampleTests
         {
             var widget = new Widget();
 
-            TestHelpers.Should.Error(
+            TestHelpers.ShouldHelper.Error(
                 () => Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(-2)),
                 "`widget.Twist(-2)` should throw System.ArgumentOutOfRangeException but threw System.InvalidOperationException");
         }
@@ -111,7 +111,7 @@ public class ShouldlyWebsiteExampleTests
         {
             var widget = new Widget();
 
-            TestHelpers.Should.Error(
+            TestHelpers.ShouldHelper.Error(
                 () => Should.Throw<ArgumentOutOfRangeException>(() => widget.Twist(5)),
                 "`widget.Twist(5)` should throw System.ArgumentOutOfRangeException but did not");
         }

@@ -6,7 +6,7 @@ public class ExtractsCodeScenarios
     [UseCulture("en-US")]
     public void ExtractsCodeCorrectly1()
     {
-        TestHelpers.Should.Error(() =>
+        TestHelpers.ShouldHelper.Error(() =>
                 Should.NotThrow(() => methodCall()),
             @"`methodCall()` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
     }
@@ -14,7 +14,7 @@ public class ExtractsCodeScenarios
     [Fact]
     public void ExtractsCodeCorrectly2()
     {
-        TestHelpers.Should.Error(() =>
+        TestHelpers.ShouldHelper.Error(() =>
                 Should.Throw<Exception>(() => noThrowMethodCall()),
             "`noThrowMethodCall()` should throw System.Exception but did not");
     }
@@ -23,7 +23,7 @@ public class ExtractsCodeScenarios
     [UseCulture("en-US")]
     public void ExtractsCodeCorrectly3()
     {
-        TestHelpers.Should.Error(() =>
+        TestHelpers.ShouldHelper.Error(() =>
                 Should.NotThrow(() => { methodCallWithParameters(1, 2); }),
             @"`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
     }
@@ -32,7 +32,7 @@ public class ExtractsCodeScenarios
     [UseCulture("en-US")]
     public void ExtractsCodeCorrectly4()
     {
-        TestHelpers.Should.Error(
+        TestHelpers.ShouldHelper.Error(
             () => Should.NotThrow(() =>
             {
                 if (methodCall1())
@@ -47,7 +47,7 @@ public class ExtractsCodeScenarios
     [UseCulture("en-US")]
     public void ExtractsCodeCorrectly5()
     {
-        TestHelpers.Should.Error(() =>
+        TestHelpers.ShouldHelper.Error(() =>
                 Should.NotThrow(() =>
                 {
                     if (methodCall1())

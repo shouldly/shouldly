@@ -1,6 +1,4 @@
-﻿using Should = Shouldly.Tests.TestHelpers.Should;
-
-public class DocsExample
+﻿public class DocsExample
 {
     [Fact]
     public void Docs()
@@ -10,7 +8,7 @@ public class DocsExample
         var skinner = new Person { Name = "Skinner" };
         var barney = new Person { Name = "Barney" };
         var theBeSharps = new List<Person> { homer, skinner, barney };
-        Should.Error(() =>
+        ShouldHelper.Error(() =>
                 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney }),
             @"theBeSharps
     should be
