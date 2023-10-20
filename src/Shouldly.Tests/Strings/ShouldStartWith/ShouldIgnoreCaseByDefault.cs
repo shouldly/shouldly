@@ -9,16 +9,20 @@ public class ShouldIgnoreCaseByDefault
                 "Cheese".ShouldStartWith("Ce"),
 
             errorWithSource:
-            @"""Cheese""
-    should start with
-""Ce""
-    but was not",
+            """
+            "Cheese"
+                should start with
+            "Ce"
+                but was not
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should start with
-""Ce""
-    but was not");
+            """
+            "Cheese"
+                should start with
+            "Ce"
+                but was not
+            """);
     }
 
     [Fact]

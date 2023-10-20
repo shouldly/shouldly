@@ -7,16 +7,22 @@ public class ShouldBeNullOrEmpty
     {
         Verify.ShouldFail(() =>
                 "a".ShouldBeNullOrEmpty("Some additional context"),
-            errorWithSource: @"""a""
-    should be null or empty
+            errorWithSource:
+            """
+            "a"
+                should be null or empty
 
-Additional Info:
-    Some additional context",
-            errorWithoutSource: @"""a""
-    should be null or empty
+            Additional Info:
+                Some additional context
+            """,
+            errorWithoutSource:
+            """
+            "a"
+                should be null or empty
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -26,16 +32,22 @@ Additional Info:
 
         Verify.ShouldFail(() =>
                 singleLetter.ShouldBeNullOrEmpty("Some additional context"),
-            errorWithSource: @"singleLetter (""a"")
-    should be null or empty
+            errorWithSource:
+            """
+            singleLetter ("a")
+                should be null or empty
 
-Additional Info:
-    Some additional context",
-            errorWithoutSource: @"""a""
-    should be null or empty
+            Additional Info:
+                Some additional context
+            """,
+            errorWithoutSource:
+            """
+            "a"
+                should be null or empty
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

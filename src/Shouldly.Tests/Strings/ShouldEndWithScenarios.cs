@@ -11,23 +11,27 @@ public class ShouldEndWithScenarios
                 cheeseVar.ShouldEndWith("ze", Case.Insensitive, "Some additional context"),
 
             errorWithSource:
-            @"cheeseVar
-    should end with
-""ze""
-    but was
-""Cheese""
+            """
+            cheeseVar
+                should end with
+            "ze"
+                but was
+            "Cheese"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should end with
-""ze""
-    but did not
+            """
+            "Cheese"
+                should end with
+            "ze"
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -38,23 +42,27 @@ Additional Info:
                 cheeseVar.ShouldEndWith("Se", Case.Sensitive, "Some additional context"),
 
             errorWithSource:
-            @"cheeseVar
-    should end with
-""Se""
-    but was
-""Cheese""
+            """
+            cheeseVar
+                should end with
+            "Se"
+                but was
+            "Cheese"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should end with
-""Se""
-    but did not
+            """
+            "Cheese"
+                should end with
+            "Se"
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

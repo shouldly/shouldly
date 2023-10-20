@@ -9,16 +9,20 @@ public class BasicScenarioCaseSensitive
                 "Cheese".ShouldStartWith("cH", Case.Sensitive),
 
             errorWithSource:
-            @"""Cheese""
-    should start with
-""cH""
-    but was not",
+            """
+            "Cheese"
+                should start with
+            "cH"
+                but was not
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should start with
-""cH""
-    but was not");
+            """
+            "Cheese"
+                should start with
+            "cH"
+                but was not
+            """);
     }
 
     [Fact]

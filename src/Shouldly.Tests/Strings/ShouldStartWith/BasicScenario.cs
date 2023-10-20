@@ -9,22 +9,26 @@ public class BasicScenario
                 "Cheese".ShouldStartWith("Ce", customMessage: "Some additional context"),
 
             errorWithSource:
-            @"""Cheese""
-    should start with
-""Ce""
-    but was not
+            """
+            "Cheese"
+                should start with
+            "Ce"
+                but was not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should start with
-""Ce""
-    but was not
+            """
+            "Cheese"
+                should start with
+            "Ce"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

@@ -9,22 +9,26 @@ public class ShouldMatch
                 "Cheese".ShouldMatch(@"\d+", "Some additional context"),
 
             errorWithSource:
-            @"""Cheese""
-    should match
-""\d+""
-    but was not
+            """
+            "Cheese"
+                should match
+            "\d+"
+                but was not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should match
-""\d+""
-    but was not
+            """
+            "Cheese"
+                should match
+            "\d+"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

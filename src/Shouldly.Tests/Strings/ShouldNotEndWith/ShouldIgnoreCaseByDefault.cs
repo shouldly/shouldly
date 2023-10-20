@@ -10,23 +10,27 @@ public class ShouldIgnoreCaseByDefault
                 str.ShouldNotEndWith("SE", "Some additional context"),
 
             errorWithSource:
-            @"str
-    should not end with
-""SE""
-    but was
-""Cheese""
+            """
+            str
+                should not end with
+            "SE"
+                but was
+            "Cheese"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Cheese""
-    should not end with
-""SE""
-    but did
+            """
+            "Cheese"
+                should not end with
+            "SE"
+                but did
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

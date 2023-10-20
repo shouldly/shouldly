@@ -41,27 +41,39 @@ internal class StringShouldBeAssertion : IAssertion
 
         var differences = _diffHighlighter.HighlightDifferences(_expectedTrimmed, _actualTrimmed);
 
-        var actual = codeText == actualValue ? " not" : $@"
-{actualValue}";
+        var actual = codeText == actualValue ?
+            " not" :
+            $"""
+
+             {actualValue}
+             """;
         var message =
-            $@"{codeText}
-    {_shouldlyMethod}{withOption}
-{expectedValue}
-    but was{actual}";
+            $"""
+             {codeText}
+                 {_shouldlyMethod}{withOption}
+             {expectedValue}
+                 but was{actual}
+             """;
 
         if (differences != null)
         {
-            message += $@"
-    difference
-{differences}";
+            message +=
+                $"""
+                 
+                     difference
+                 {differences}
+                 """;
         }
 
         if (customMessage != null)
         {
-            message += $@"
+            message +=
+                $"""
 
-Additional Info:
-    {customMessage}";
+
+                 Additional Info:
+                     {customMessage}
+                 """;
         }
 
         return message;
