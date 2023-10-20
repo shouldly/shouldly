@@ -2,5 +2,5 @@
 
 interface ICodeTextGetter
 {
-    string? GetCodeText(object? actual, System.Diagnostics.StackTrace? stackTrace = null);
+    string? GetCodeText(object? actual, StackTrace? stackTrace = null);
 }
