@@ -2,7 +2,7 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
+class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
 {
     private const string ShouldBeAssertion = "ShouldHaveSingleItem";
 

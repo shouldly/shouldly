@@ -3,7 +3,7 @@ using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context)
     {

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace Shouldly;
 
-internal static class Is
+static class Is
 {
     public static bool InRange<T>([DisallowNull] T comparable, T? from, T? to)
         where T : IComparable<T>

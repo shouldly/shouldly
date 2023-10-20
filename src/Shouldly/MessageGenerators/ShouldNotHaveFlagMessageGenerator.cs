@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.MessageGenerators;
 
-internal class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
+class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context)
     {

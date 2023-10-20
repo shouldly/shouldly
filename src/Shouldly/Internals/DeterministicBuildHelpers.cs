@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.Internals;
 
-internal static class DeterministicBuildHelpers
+static class DeterministicBuildHelpers
 {
     private static readonly Regex DeterministicPathRegex = new(@"^/_\d*/");
     

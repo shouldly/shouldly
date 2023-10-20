@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBeSubsetOf");
 

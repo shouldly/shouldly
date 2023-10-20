@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("Should(Not)?BeEmpty");
 

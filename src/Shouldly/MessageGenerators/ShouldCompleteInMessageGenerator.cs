@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.MessageGenerators;
 
-internal class ShouldCompleteInMessageGenerator : ShouldlyMessageGenerator
+class ShouldCompleteInMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context)
     {

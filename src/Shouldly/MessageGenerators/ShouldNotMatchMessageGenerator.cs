@@ -2,7 +2,7 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldNotMatchMessageGenerator : ShouldlyMessageGenerator
+class ShouldNotMatchMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldNotMatch");
 

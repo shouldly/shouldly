@@ -2,7 +2,7 @@
 
 namespace Shouldly.Internals.Assertions;
 
-internal class StringShouldBeAssertion : IAssertion
+class StringShouldBeAssertion : IAssertion
 {
     private readonly string? _expected;
     private readonly string? _actual;

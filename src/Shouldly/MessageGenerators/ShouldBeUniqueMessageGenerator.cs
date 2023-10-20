@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBeUnique");
 

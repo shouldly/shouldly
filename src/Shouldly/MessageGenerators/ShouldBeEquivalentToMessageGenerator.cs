@@ -2,7 +2,7 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
 {
     private const string DefaultRootValue = "<root>";
     private const int IndentSize = 4;

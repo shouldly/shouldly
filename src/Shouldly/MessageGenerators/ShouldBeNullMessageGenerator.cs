@@ -2,7 +2,7 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeNullMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeNullMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("Should(Not)?BeNull");
 

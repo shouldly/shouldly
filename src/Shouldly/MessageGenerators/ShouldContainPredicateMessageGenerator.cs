@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
+class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context)
     {

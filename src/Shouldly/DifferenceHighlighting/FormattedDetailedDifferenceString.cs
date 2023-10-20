@@ -2,7 +2,7 @@
 
 namespace Shouldly.DifferenceHighlighting;
 
-internal class FormattedDetailedDifferenceString
+class FormattedDetailedDifferenceString
 {
     private readonly string _actualValue;
     private readonly string _expectedValue;

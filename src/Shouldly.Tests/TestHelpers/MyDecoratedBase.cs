@@ -1,4 +1,4 @@
 ﻿namespace Shouldly.Tests.TestHelpers;
 
 [UseCulture("en-AU")]
-internal class MyDecoratedBase { }
+class MyDecoratedBase { }

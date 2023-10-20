@@ -6,7 +6,7 @@ using Shouldly;
 // ReSharper disable CheckNamespace
 namespace ExpressionToString;
 
-internal class ExpressionStringBuilder : ExpressionVisitor
+class ExpressionStringBuilder : ExpressionVisitor
 {
     // ReSharper disable InconsistentNaming
     private readonly StringBuilder builder = new();

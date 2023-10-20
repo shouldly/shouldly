@@ -1,3 +1,3 @@
 namespace Shouldly.Tests.TestHelpers;
 
-internal class MyDecoratedThing : MyDecoratedBase { }
+class MyDecoratedThing : MyDecoratedBase { }

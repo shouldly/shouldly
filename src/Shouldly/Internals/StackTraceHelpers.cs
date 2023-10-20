@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Shouldly.Internals;
 
-internal static class StackTraceHelpers
+static class StackTraceHelpers
 {
     public static string GetStackTrace(Exception exception, [NotNull] ref string? cachedValue)
     {

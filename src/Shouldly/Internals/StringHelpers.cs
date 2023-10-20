@@ -5,7 +5,7 @@ using Shouldly.Internals;
 
 namespace Shouldly;
 
-internal static class StringHelpers
+static class StringHelpers
 {
     internal static string? ToStringAwesomely(this object? value)
     {

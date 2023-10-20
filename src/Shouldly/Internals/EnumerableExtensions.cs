@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Internals;
 
-internal static class EnumerableExtensions
+static class EnumerableExtensions
 {
     public static IEnumerable<(int Index, T Value)> AsIndexed<T>(this IEnumerable<T> source)
     {

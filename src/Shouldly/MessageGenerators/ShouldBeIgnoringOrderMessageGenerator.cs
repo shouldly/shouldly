@@ -2,7 +2,7 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context)
     {

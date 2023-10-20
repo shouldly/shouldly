@@ -2,12 +2,12 @@
 
 namespace Shouldly.Internals;
 
-internal interface IEnumerableProxy
+interface IEnumerableProxy
 {
     object ProxiedValue { get; }
 }
 
-internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
+sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
 {
     public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
     {

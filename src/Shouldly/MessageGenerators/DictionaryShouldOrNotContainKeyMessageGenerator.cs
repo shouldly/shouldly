@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
+class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("Should(Not)?ContainKey");
 

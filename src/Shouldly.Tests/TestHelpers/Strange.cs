@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace Shouldly.Tests.TestHelpers;
 
-internal class Strange : IEnumerable<Strange>
+class Strange : IEnumerable<Strange>
 {
     private readonly string? _thing;
 

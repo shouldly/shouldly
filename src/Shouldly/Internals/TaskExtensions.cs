@@ -1,7 +1,7 @@
 ﻿namespace Shouldly;
 
 // http://blogs.msdn.com/b/pfxteam/archive/2011/11/10/10235834.aspx
-internal static class TaskExtensions
+static class TaskExtensions
 {
     private struct VoidTypeStruct { }
 

@@ -3,7 +3,7 @@ using ExpressionToString;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldAllBeMessageGenerator : ShouldlyMessageGenerator
+class ShouldAllBeMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldAllBe");
 

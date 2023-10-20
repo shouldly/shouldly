@@ -1,6 +1,6 @@
 namespace Shouldly;
 
-internal static class ShouldlyEnvironmentContext
+static class ShouldlyEnvironmentContext
 {
     public static bool IsWindows()
         => System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);

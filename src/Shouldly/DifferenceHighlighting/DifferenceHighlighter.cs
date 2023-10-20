@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.DifferenceHighlighting;
 
-internal static class DifferenceHighlighter
+static class DifferenceHighlighter
 {
     private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new()
     {

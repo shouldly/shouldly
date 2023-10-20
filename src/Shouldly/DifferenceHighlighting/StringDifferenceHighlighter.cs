@@ -2,7 +2,7 @@
 
 namespace Shouldly.DifferenceHighlighting;
 
-internal class StringDifferenceHighlighter : IStringDifferenceHighlighter
+class StringDifferenceHighlighter : IStringDifferenceHighlighter
 {
     private const int maxDiffLength = 21;
     private const int maxNumberOfDiffs = 10;

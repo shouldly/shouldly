@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBePositiveMessageGenerator : ShouldlyMessageGenerator
+class ShouldBePositiveMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBePositive");
 

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
+class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldNotContainValueForKey");
 

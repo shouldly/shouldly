@@ -2,7 +2,7 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeBooleanMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeBooleanMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBe(True|False)");
 

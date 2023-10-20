@@ -7,7 +7,7 @@ namespace Shouldly.DifferenceHighlighting;
 /// Highlights differences between IEnumerables of the same type,
 /// marking differences with asterisks
 /// </summary>
-internal class EnumerableDifferenceHighlighter : IDifferenceHighlighter
+class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 {
     private const int MaxElementsToShow = 1000;
     private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter;

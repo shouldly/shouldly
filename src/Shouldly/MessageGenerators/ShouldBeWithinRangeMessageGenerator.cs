@@ -2,7 +2,7 @@ using Shouldly.DifferenceHighlighting;
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context)
     {

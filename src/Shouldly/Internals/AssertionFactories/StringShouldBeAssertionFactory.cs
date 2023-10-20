@@ -4,7 +4,7 @@ using Shouldly.Internals.Assertions;
 
 namespace Shouldly.Internals.AssertionFactories;
 
-internal static class StringShouldBeAssertionFactory
+static class StringShouldBeAssertionFactory
 {
     public static IAssertion Create(string? expected, string? actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null!)
     {

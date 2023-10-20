@@ -3,7 +3,7 @@ using Shouldly.MessageGenerators;
 
 namespace Shouldly;
 
-internal class ShouldBeTypeMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeTypeMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBe(Not)?(OfType|AssignableTo)");
 

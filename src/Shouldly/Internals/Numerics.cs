@@ -6,7 +6,7 @@ namespace NUnit.Framework.Constraints;
 /// <summary>
 ///     The Numerics class contains common operations on numeric values.
 /// </summary>
-internal static class Numerics
+static class Numerics
 {
     /// <summary>
     ///     Checks the type of the object, returning true if

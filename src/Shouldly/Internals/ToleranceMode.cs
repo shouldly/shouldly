@@ -3,7 +3,7 @@
 /// <summary>
 ///     Modes in which the tolerance value for a comparison can be interpreted.
 /// </summary>
-internal enum ToleranceMode
+enum ToleranceMode
 {
     /// <summary>
     ///     The tolerance was created with a value, without specifying

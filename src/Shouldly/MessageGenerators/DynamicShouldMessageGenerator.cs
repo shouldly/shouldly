@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Shouldly.MessageGenerators;
 
-internal class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
+class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("HaveProperty", RegexOptions.Compiled);
     private static readonly Regex DynamicObjectNameExtractor = new(@"DynamicShould.HaveProperty\((?<dynamicObjectName>.*?),(?<propertyName>.*?)[\),]", RegexOptions.Compiled);
