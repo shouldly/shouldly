@@ -9,22 +9,26 @@ public class ObjectArrayScenario
                 new object[] { 1, 2, 3, 4, 2 }.ShouldBeUnique("Some additional context"),
 
             errorWithSource:
-            @"new object[] { 1, 2, 3, 4, 2 }
-    should be unique but
-[2]
-    was duplicated
+            """
+            new object[] { 1, 2, 3, 4, 2 }
+                should be unique but
+            [2]
+                was duplicated
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2, 3, 4, 2]
-    should be unique but
-[2]
-    was duplicated
+            """
+            [1, 2, 3, 4, 2]
+                should be unique but
+            [2]
+                was duplicated
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

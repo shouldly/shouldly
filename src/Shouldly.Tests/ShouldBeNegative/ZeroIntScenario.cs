@@ -10,19 +10,23 @@ public class ZeroIntScenario
                 val.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"val
-    should be negative but
-0
-    is positive
+            """
+            val
+                should be negative but
+            0
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0
-    should be negative but is positive
+            """
+            0
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

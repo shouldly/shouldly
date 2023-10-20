@@ -11,20 +11,24 @@ public class DoubleScenario
                 @double.ShouldBePositive("Some additional context"),
 
             errorWithSource:
-            @"@double
-    should be positive but
--3.5d
-    is negative
+            """
+            @double
+                should be positive but
+            -3.5d
+                is negative
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"-3.5d
-    should be positive but is negative
+            """
+            -3.5d
+                should be positive but is negative
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

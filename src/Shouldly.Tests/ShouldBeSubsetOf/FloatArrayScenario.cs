@@ -9,26 +9,30 @@ public class FloatArrayScenario
                 new[] { 1f, 2f, 5f }.ShouldBeSubsetOf(new[] { 2f, 3f, 4f }, "Some additional context"),
 
             errorWithSource:
-            @"new[] { 1f, 2f, 5f }
-    should be subset of
-[2f, 3f, 4f]
-    but
-[1f, 5f]
-    are outside subset
+            """
+            new[] { 1f, 2f, 5f }
+                should be subset of
+            [2f, 3f, 4f]
+                but
+            [1f, 5f]
+                are outside subset
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1f, 2f, 5f]
-    should be subset of
-[2f, 3f, 4f]
-    but
-[1f, 5f]
-    are outside subset
+            """
+            [1f, 2f, 5f]
+                should be subset of
+            [2f, 3f, 4f]
+                but
+            [1f, 5f]
+                are outside subset
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

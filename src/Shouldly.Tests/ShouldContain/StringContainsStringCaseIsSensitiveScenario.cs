@@ -10,17 +10,21 @@ public class StringContainsStringCaseIsSensitiveScenario
                 target.ShouldContain("legendary", Case.Sensitive),
 
             errorWithSource:
-            @"target
-    should contain
-""legendary""
-    but was actually
-""Shouldly is LEGENDARY""",
+            """
+            target
+                should contain
+            "legendary"
+                but was actually
+            "Shouldly is LEGENDARY"
+            """,
 
             errorWithoutSource:
-            @"""Shouldly is LEGENDARY""
-    should contain
-""legendary""
-    but did not");
+            """
+            "Shouldly is LEGENDARY"
+                should contain
+            "legendary"
+                but did not
+            """);
     }
 
     [Fact]

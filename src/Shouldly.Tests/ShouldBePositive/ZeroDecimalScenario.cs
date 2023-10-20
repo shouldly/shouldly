@@ -11,19 +11,23 @@ public class ZeroDecimalScenario
 
 // TODO is zero negative?
             errorWithSource:
-            @"val
-    should be positive but
-0m
-    is negative
+            """
+            val
+                should be positive but
+            0m
+                is negative
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0m
-    should be positive but is negative
+            """
+            0m
+                should be positive but is negative
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

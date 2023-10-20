@@ -12,17 +12,21 @@ public class BoxedIntScenario
                 _boxedInt.ShouldBeSameAs(_differentBoxedInt),
 
             errorWithSource:
-            @"_boxedInt
-    should be same as
-1
-    but was
-1",
+            """
+            _boxedInt
+                should be same as
+            1
+                but was
+            1
+            """,
 
             errorWithoutSource:
-            @"1
-    should be same as
-1
-    but was not");
+            """
+            1
+                should be same as
+            1
+                but was not
+            """);
     }
 
     [Fact]

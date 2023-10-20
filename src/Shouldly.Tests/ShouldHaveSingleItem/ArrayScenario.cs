@@ -9,23 +9,27 @@ public class ArrayScenario
                 new[] { 1, 2 }.ShouldHaveSingleItem("Some additional context"),
 
             errorWithSource:
-            @"new[] { 1, 2 }
-    should have single item but had
-2
-    items and was
-[1, 2]
+            """
+            new[] { 1, 2 }
+                should have single item but had
+            2
+                items and was
+            [1, 2]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2]
-    should have single item but had
-2
-    items
+            """
+            [1, 2]
+                should have single item but had
+            2
+                items
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

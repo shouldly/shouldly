@@ -11,21 +11,25 @@ public class PredicateClosureScenario
                 arr.ShouldContain(i => i > capturedOuterVar, "Some additional context"),
 
             errorWithSource:
-            @"arr
-    should contain an element satisfying the condition
-(i > capturedOuterVar)
-    but does not
+            """
+            arr
+                should contain an element satisfying the condition
+            (i > capturedOuterVar)
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2, 3]
-    should contain an element satisfying the condition
-(i > capturedOuterVar)
-    but does not
+            """
+            [1, 2, 3]
+                should contain an element satisfying the condition
+            (i > capturedOuterVar)
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

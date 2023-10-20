@@ -10,19 +10,23 @@ public class NullScenario
                 myNullRef.ShouldBeNull("Some additional context"),
 
             errorWithSource:
-            @"myNullRef
-    should be null but was
-""Hello World""
+            """
+            myNullRef
+                should be null but was
+            "Hello World"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Hello World""
-    should be null but was
+            """
+            "Hello World"
+                should be null but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -39,19 +43,23 @@ Additional Info:
                 myNullRef.ShouldBeNull("Some additional context"),
 
             errorWithSource:
-            @"myNullRef
-    should be null but was
-0
+            """
+            myNullRef
+                should be null but was
+            0
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0
-    should be null but was
+            """
+            0
+                should be null but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

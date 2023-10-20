@@ -9,22 +9,26 @@ public class RepeatedDuplicateScenario
                 new[] { 1, 1, 2, 2, 2, 1 }.ShouldBeUnique("Some additional context"),
 
             errorWithSource:
-            @"new[] { 1, 1, 2, 2, 2, 1 }
-    should be unique but
-[1, 2]
-    was duplicated
+            """
+            new[] { 1, 1, 2, 2, 2, 1 }
+                should be unique but
+            [1, 2]
+                was duplicated
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 1, 2, 2, 2, 1]
-    should be unique but
-[1, 2]
-    was duplicated
+            """
+            [1, 1, 2, 2, 2, 1]
+                should be unique but
+            [1, 2]
+                was duplicated
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -34,21 +38,25 @@ Additional Info:
                 new[] { 1, 1, 2, 2, 2, 1 }.ShouldBeUnique(EqualityComparer<int>.Default, "Some additional context"),
 
             errorWithSource:
-            @"new[] { 1, 1, 2, 2, 2, 1 }
-    should be unique but
-[1, 2]
-    was duplicated
+            """
+            new[] { 1, 1, 2, 2, 2, 1 }
+                should be unique but
+            [1, 2]
+                was duplicated
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 1, 2, 2, 2, 1]
-    should be unique but
-[1, 2]
-    was duplicated
+            """
+            [1, 1, 2, 2, 2, 1]
+                should be unique but
+            [1, 2]
+                was duplicated
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

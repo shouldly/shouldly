@@ -10,17 +10,21 @@ public class StringContainsStringCaseIsInsensitiveScenario
                 target.ShouldContain("legend-wait for it-ary"),
 
             errorWithSource:
-            @"target
-    should contain (case insensitive comparison)
-""legend-wait for it-ary""
-    but was actually
-""Shouldly is legendary""",
+            """
+            target
+                should contain (case insensitive comparison)
+            "legend-wait for it-ary"
+                but was actually
+            "Shouldly is legendary"
+            """,
 
             errorWithoutSource:
-            @"""Shouldly is legendary""
-    should contain (case insensitive comparison)
-""legend-wait for it-ary""
-    but did not");
+            """
+            "Shouldly is legendary"
+                should contain (case insensitive comparison)
+            "legend-wait for it-ary"
+                but did not
+            """);
     }
 
     [Fact]

@@ -9,15 +9,19 @@ public class CollectionPredicateWithCountScenario
         Verify.ShouldFail(() =>
                 collection.ShouldContain(x => x == "c", 5),
             errorWithSource:
-            @"collection
-    should contain 5 element(s) satisfying the condition
-(x == ""c"")
-    but does not",
+            """
+            collection
+                should contain 5 element(s) satisfying the condition
+            (x == "c")
+                but does not
+            """,
             errorWithoutSource:
-            @"[""a"", ""b"", ""c"", ""c""]
-    should contain 5 element(s) satisfying the condition
-(x == ""c"")
-    but does not");
+            """
+            ["a", "b", "c", "c"]
+                should contain 5 element(s) satisfying the condition
+            (x == "c")
+                but does not
+            """);
     }
 
     [Fact]
@@ -27,21 +31,25 @@ public class CollectionPredicateWithCountScenario
         Verify.ShouldFail(() =>
                 collection.ShouldContain(x => x == "c", 5, "custom message"),
             errorWithSource:
-            @"collection
-    should contain 5 element(s) satisfying the condition
-(x == ""c"")
-    but does not
+            """
+            collection
+                should contain 5 element(s) satisfying the condition
+            (x == "c")
+                but does not
 
-Additional Info:
-    custom message",
+            Additional Info:
+                custom message
+            """,
             errorWithoutSource:
-            @"[""a"", ""b"", ""c"", ""c""]
-    should contain 5 element(s) satisfying the condition
-(x == ""c"")
-    but does not
+            """
+            ["a", "b", "c", "c"]
+                should contain 5 element(s) satisfying the condition
+            (x == "c")
+                but does not
 
-Additional Info:
-    custom message");
+            Additional Info:
+                custom message
+            """);
     }
 
     [Fact]
@@ -51,21 +59,25 @@ Additional Info:
         Verify.ShouldFail(() =>
                 collection.ShouldContain(x => x == "c", 5, "custom message"),
             errorWithSource:
-            @"collection
-    should contain 5 element(s) satisfying the condition
-(x == ""c"")
-    but does not
+            """
+            collection
+                should contain 5 element(s) satisfying the condition
+            (x == "c")
+                but does not
 
-Additional Info:
-    custom message",
+            Additional Info:
+                custom message
+            """,
             errorWithoutSource:
-            @"[""a"", ""b"", ""c"", ""c""]
-    should contain 5 element(s) satisfying the condition
-(x == ""c"")
-    but does not
+            """
+            ["a", "b", "c", "c"]
+                should contain 5 element(s) satisfying the condition
+            (x == "c")
+                but does not
 
-Additional Info:
-    custom message");
+            Additional Info:
+                custom message
+            """);
     }
 
     [Fact]
