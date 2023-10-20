@@ -10,24 +10,28 @@ public class ActionDelegateThrowsDifferentExceptionScenario
                 action.ShouldThrow<InvalidOperationException>("Some additional context"),
 
             errorWithSource:
-            @"`action()`
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            `action()`
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"delegate
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            delegate
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -38,23 +42,27 @@ Additional Info:
                 action.ShouldThrow(typeof(InvalidOperationException), "Some additional context"),
 
             errorWithSource:
-            @"`action()`
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            `action()`
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"delegate
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            delegate
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

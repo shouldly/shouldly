@@ -24,10 +24,12 @@ public class FuncOfTaskScenarioAsync
         {
             var inner = e.Flatten().InnerException;
             var ex = inner.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task` should throw System.InvalidOperationException but did not
-                            Additional Info:
-                            Some additional context");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                `task` should throw System.InvalidOperationException but did not
+                Additional Info:
+                Some additional context
+                """);
         }
     }
 
@@ -66,10 +68,12 @@ public class FuncOfTaskScenarioAsync
         {
             var inner = e.Flatten().InnerException;
             var ex = inner.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task` should throw System.InvalidOperationException but did not
-                            Additional Info:
-                            Some additional context");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                `task` should throw System.InvalidOperationException but did not
+                Additional Info:
+                Some additional context
+                """);
         }
     }
 
@@ -126,12 +130,14 @@ public class FuncOfTaskScenarioAsync
         catch (Exception e)
         {
             var ex = e.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                    Task `doSomething()`
-                    should throw 
-                    System.TimeoutException
-                    but threw
-                    System.DivideByZeroException");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Task `doSomething()`
+                should throw
+                System.TimeoutException
+                but threw
+                System.DivideByZeroException
+                """);
         }
     }
 
@@ -146,12 +152,14 @@ public class FuncOfTaskScenarioAsync
         catch (Exception e)
         {
             var ex = e.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                    Task `async () => await doSomething()`
-                    should throw 
-                    System.TimeoutException
-                    but threw
-                    System.DivideByZeroException");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Task `async () => await doSomething()`
+                should throw
+                System.TimeoutException
+                but threw
+                System.DivideByZeroException
+                """);
         }
     }
 
@@ -166,11 +174,13 @@ public class FuncOfTaskScenarioAsync
         catch (Exception e)
         {
             var ex = e.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                    Task `async () => await doSomething()`
-                    should throw 
-                    System.Exception
-                    but did not");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Task `async () => await doSomething()`
+                should throw
+                System.Exception
+                but did not
+                """);
             return;
         }
 

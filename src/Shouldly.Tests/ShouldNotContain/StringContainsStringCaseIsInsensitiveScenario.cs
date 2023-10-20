@@ -10,11 +10,13 @@ public class StringContainsStringCaseIsInsensitiveScenario
                 target.ShouldNotContain("LEGENDARY"),
 
             errorWithSource:
-            @"target
-    should not contain (case insensitive comparison)
-""LEGENDARY""
-    but was actually
-""Shouldly is legendary""",
+            """
+            target
+                should not contain (case insensitive comparison)
+            "LEGENDARY"
+                but was actually
+            "Shouldly is legendary"
+            """,
 
             errorWithoutSource:
             """

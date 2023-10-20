@@ -17,9 +17,11 @@ public class FuncOfTaskScenarioAsync
         {
             var inner = e.Flatten().InnerException;
             var ex = inner.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task` should not throw but threw System.InvalidOperationException with message ""exception message""
-                            Additional Info: Some additional context");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                `task` should not throw but threw System.InvalidOperationException with message "exception message"
+                Additional Info: Some additional context
+                """);
         }
     }
 
@@ -42,13 +44,17 @@ public class FuncOfTaskScenarioAsync
         {
             var inner = e.Flatten().InnerException;
             var ex = inner.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task`
-                            should not throw but threw
-                            System.AggregateException");
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            Additional Info:
-                            Some additional context");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                `task`
+                should not throw but threw
+                System.AggregateException
+                """);
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Additional Info:
+                Some additional context
+                """);
         }
     }
 

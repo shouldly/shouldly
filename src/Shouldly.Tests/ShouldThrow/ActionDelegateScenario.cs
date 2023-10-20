@@ -10,22 +10,26 @@ public class ActionDelegateScenario
                 action.ShouldThrow<NotImplementedException>("Some additional context"),
 
             errorWithSource:
-            @"`action()`
-    should throw
-System.NotImplementedException
-    but did not
+            """
+            `action()`
+                should throw
+            System.NotImplementedException
+                but did not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"delegate
-    should throw
-System.NotImplementedException
-    but did not
+            """
+            delegate
+                should throw
+            System.NotImplementedException
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -36,22 +40,26 @@ Additional Info:
                 action.ShouldThrow(typeof(NotImplementedException), "Some additional context"),
 
             errorWithSource:
-            @"`action()`
-    should throw
-System.NotImplementedException
-    but did not
+            """
+            `action()`
+                should throw
+            System.NotImplementedException
+                but did not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"delegate
-    should throw
-System.NotImplementedException
-    but did not
+            """
+            delegate
+                should throw
+            System.NotImplementedException
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

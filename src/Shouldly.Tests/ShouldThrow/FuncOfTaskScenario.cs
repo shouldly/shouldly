@@ -13,22 +13,26 @@ public class FuncOfTaskScenario
                 task.ShouldThrow<InvalidOperationException>("Some additional context"),
 
             errorWithSource:
-            @"Task `task`
-    should throw
-System.InvalidOperationException
-    but did not
+            """
+            Task `task`
+                should throw
+            System.InvalidOperationException
+                but did not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Task
-    should throw
-System.InvalidOperationException
-    but did not
+            """
+            Task
+                should throw
+            System.InvalidOperationException
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -42,22 +46,26 @@ Additional Info:
                 task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
 
             errorWithSource:
-            @"Task `task`
-    should throw
-System.InvalidOperationException
-    but did not
+            """
+            Task `task`
+                should throw
+            System.InvalidOperationException
+                but did not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Task
-    should throw
-System.InvalidOperationException
-    but did not
+            """
+            Task
+                should throw
+            System.InvalidOperationException
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

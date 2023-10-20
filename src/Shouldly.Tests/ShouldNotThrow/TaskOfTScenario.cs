@@ -14,24 +14,28 @@ public class TaskOfTScenario
                 task.ShouldNotThrow("Some additional context"),
 
             errorWithSource:
-            @"Task `task`
-    should not throw but threw
-System.RankException
-    with message
-""Attempted to operate on an array with the incorrect number of dimensions.""
+            """
+            Task `task`
+                should not throw but threw
+            System.RankException
+                with message
+            "Attempted to operate on an array with the incorrect number of dimensions."
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Task
-    should not throw but threw
-System.RankException
-    with message
-""Attempted to operate on an array with the incorrect number of dimensions.""
+            """
+            Task
+                should not throw but threw
+            System.RankException
+                with message
+            "Attempted to operate on an array with the incorrect number of dimensions."
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
