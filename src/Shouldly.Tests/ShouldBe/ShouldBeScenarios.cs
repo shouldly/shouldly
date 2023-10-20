@@ -488,10 +488,7 @@ Additional Info:
 
     public class BadEquatable : IEquatable<BadEquatable>
     {
-        public bool Equals(BadEquatable? other)
-        {
-            return false;
-        }
+        public bool Equals(BadEquatable? other) => false;
     }
 
     public class BaseClass
@@ -503,16 +500,11 @@ Additional Info:
         public bool EqualsResult { private get; set; }
 
         // ReSharper disable once CSharpWarnings::CS0659
-        public override bool Equals(object? obj)
-        {
-            return EqualsResult;
-        }
+        public override bool Equals(object? obj) => EqualsResult;
 
-        public override int GetHashCode()
-        {
+        public override int GetHashCode() =>
             // Just to stop build warning
-            return 0;
-        }
+            0;
     }
 
     private const string ThisOtherString = "this other string";

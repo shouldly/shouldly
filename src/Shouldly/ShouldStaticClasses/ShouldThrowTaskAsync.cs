@@ -97,10 +97,8 @@ public static partial class Should
     }
 
     /*** Should.NotThrowAsync(Func<Task>) ***/
-    public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null)
-    {
-        return NotThrowAsyncInternal(actual, customMessage);
-    }
+    public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null) =>
+        NotThrowAsyncInternal(actual, customMessage);
 
     internal static Task NotThrowAsyncInternal(
         [InstantHandle] Func<Task> actual,

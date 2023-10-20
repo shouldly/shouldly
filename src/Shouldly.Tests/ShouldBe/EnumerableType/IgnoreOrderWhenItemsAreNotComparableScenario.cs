@@ -76,10 +76,8 @@ public class IgnoreOrderWhenItemsAreNotComparableScenario
     {
         private readonly int identity;
 
-        public YourAverageNonComparableType(int identity)
-        {
+        public YourAverageNonComparableType(int identity) =>
             this.identity = identity;
-        }
 
         protected bool Equals(YourAverageNonComparableType? other)
         {
@@ -88,19 +86,11 @@ public class IgnoreOrderWhenItemsAreNotComparableScenario
             return Equals(identity, other.identity);
         }
 
-        public override bool Equals(object? obj)
-        {
-            return Equals(obj as YourAverageNonComparableType);
-        }
+        public override bool Equals(object? obj) =>
+            Equals(obj as YourAverageNonComparableType);
 
-        public override int GetHashCode()
-        {
-            return identity.GetHashCode();
-        }
+        public override int GetHashCode() => identity.GetHashCode();
 
-        public override string ToString()
-        {
-            return identity.ToString();
-        }
+        public override string ToString() => identity.ToString();
     }
 }

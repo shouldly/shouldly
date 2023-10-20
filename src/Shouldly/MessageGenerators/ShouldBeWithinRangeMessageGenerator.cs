@@ -4,12 +4,10 @@ namespace Shouldly.MessageGenerators;
 
 class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return (context.ShouldMethod.StartsWith("ShouldBe", StringComparison.Ordinal) || context.ShouldMethod.StartsWith("ShouldNotBe", StringComparison.Ordinal))
-               && !context.ShouldMethod.Contains("Contain")
-               && context.Tolerance != null;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        (context.ShouldMethod.StartsWith("ShouldBe", StringComparison.Ordinal) || context.ShouldMethod.StartsWith("ShouldNotBe", StringComparison.Ordinal))
+        && !context.ShouldMethod.Contains("Contain")
+        && context.Tolerance != null;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

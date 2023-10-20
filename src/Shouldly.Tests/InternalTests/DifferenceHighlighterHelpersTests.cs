@@ -138,55 +138,35 @@ public class DifferenceHighlighterHelpersTests
     {
         private readonly string _description;
 
-        public EqualType(string description)
-        {
+        public EqualType(string description) => 
             _description = description;
-        }
 
-        public override string ToString()
-        {
-            return _description;
-        }
+        public override string ToString() => _description;
 
-        public override bool Equals(object? obj)
-        {
-            return obj is EqualType other
-                   && _description == other._description;
-        }
+        public override bool Equals(object? obj) =>
+            obj is EqualType other
+            && _description == other._description;
 
-        public override int GetHashCode()
-        {
-            return _description != null ? _description.GetHashCode() : 0;
-        }
+        public override int GetHashCode() =>
+            _description != null ? _description.GetHashCode() : 0;
     }
 
     private class NonEqualType
     {
         private readonly string _description;
 
-        public NonEqualType(string description)
-        {
+        public NonEqualType(string description) =>
             _description = description;
-        }
 
-        public override string ToString()
-        {
-            return _description;
-        }
+        public override string ToString() => _description;
     }
 
     private class PureEnumerable : IEnumerable
     {
         private readonly List<int> _numbers = new();
 
-        public void Add(int number)
-        {
-            _numbers.Add(number);
-        }
+        public void Add(int number) => _numbers.Add(number);
 
-        public IEnumerator GetEnumerator()
-        {
-            return _numbers.GetEnumerator();
-        }
+        public IEnumerator GetEnumerator() => _numbers.GetEnumerator();
     }
 }

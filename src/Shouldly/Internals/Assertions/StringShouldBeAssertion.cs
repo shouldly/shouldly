@@ -94,8 +94,6 @@ class StringShouldBeAssertion : IAssertion
         return value[..5000];
     }
 
-    public bool IsSatisfied()
-    {
-        return _compare(_actual, _expected);
-    }
+    public bool IsSatisfied() =>
+        _compare(_actual, _expected);
 }

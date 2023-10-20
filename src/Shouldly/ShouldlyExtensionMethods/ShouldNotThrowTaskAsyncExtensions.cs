@@ -5,14 +5,10 @@
 public static partial class ShouldNotThrowTaskAsyncExtensions
 {
     /*** ShouldNotThrowAsync(Task) ***/
-    public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null)
-    {
-        return Should.NotThrowAsync(task, customMessage);
-    }
+    public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null) =>
+        Should.NotThrowAsync(task, customMessage);
 
     /*** ShouldNotThrowAsync(Func<Task>) ***/
-    public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage = null)
-    {
-        return Should.NotThrowAsync(actual, customMessage);
-    }
+    public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage = null) =>
+        Should.NotThrowAsync(actual, customMessage);
 }

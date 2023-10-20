@@ -4,15 +4,13 @@ namespace Shouldly.MessageGenerators;
 
 class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context is
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context is
         {
             ShouldMethod: "ShouldBe",
             Expected: not Expression,
             Actual: IEnumerable<string>,
         };
-    }
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

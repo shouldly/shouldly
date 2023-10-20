@@ -4,10 +4,8 @@ class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBeUnique");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod) && context.HasRelevantActual;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod) && context.HasRelevantActual;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

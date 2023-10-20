@@ -21,8 +21,9 @@ public static class ShouldlyCoreExtensions
     /// </summary>
     internal static bool IsSystemDynamicMachinery(this MethodBase method)
     {
-        return method.DeclaringType is null
-               || (method.DeclaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
+        var declaringType = method.DeclaringType;
+        return declaringType is null ||
+               (declaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
     }
 
     public static void AssertAwesomely<T>(

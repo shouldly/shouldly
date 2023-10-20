@@ -62,23 +62,15 @@ public class ExtractsCodeScenarios
     {
     }
 
-    private void methodCallWithParameters(int i, int i1)
-    {
+    private void methodCallWithParameters(int i, int i1) =>
         throw new();
-    }
 
-    private void methodCall2()
-    {
+    private void methodCall2() =>
         throw new();
-    }
 
-    private bool methodCall1()
-    {
-        return true;
-    }
+    private bool methodCall1() =>
+        true;
 
-    private void methodCall()
-    {
+    private void methodCall() =>
         throw new();
-    }
 }

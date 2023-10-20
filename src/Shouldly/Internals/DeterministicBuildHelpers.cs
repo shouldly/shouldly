@@ -31,9 +31,6 @@ static class DeterministicBuildHelpers
 
         return fileName;
     }
-    
-    internal static bool PathAppearsToBeDeterministic(string fileName)
-    {
-        return DeterministicPathRegex.IsMatch(fileName);
-    }
+
+    internal static bool PathAppearsToBeDeterministic(string fileName) => DeterministicPathRegex.IsMatch(fileName);
 }

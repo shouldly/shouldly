@@ -38,11 +38,8 @@ public class Person
     public string? Name { get; set; }
     public int Salary { get; set; }
 
-    public override string? ToString()
-    {
-        return Name;
-    }
+    public override string? ToString() => Name;
 }
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

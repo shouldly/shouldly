@@ -15,11 +15,9 @@ partial class StackTraceTests
             ThrowingAction = throwingAction ?? throw new ArgumentNullException(nameof(throwingAction));
         }
 
-        public override string ToString()
-        {
-            return InShouldlyAssembly ? ThrowingAction.Method.Name :
+        public override string ToString() =>
+            InShouldlyAssembly ? ThrowingAction.Method.Name :
                 ExceptionType.Name + " thrown directly";
-        }
 
         public Exception? Catch()
         {

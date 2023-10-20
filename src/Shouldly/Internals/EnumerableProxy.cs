@@ -33,13 +33,7 @@ sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
         _baseReentrable = baseReentrable;
     }
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        return _baseReentrable.GetEnumerator();
-    }
+    public IEnumerator<T> GetEnumerator() => _baseReentrable.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

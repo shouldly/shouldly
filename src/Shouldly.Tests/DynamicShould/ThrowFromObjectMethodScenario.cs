@@ -4,15 +4,10 @@ public class ThrowFromObjectMethodScenario
 {
     private class Foo
     {
-        public object NoExceptionMethod()
-        {
-            return this;
-        }
+        public object NoExceptionMethod() => this;
 
-        public object ExceptionMethod()
-        {
+        public object ExceptionMethod() =>
             throw new InvalidOperationException();
-        }
     }
 
     [Fact]

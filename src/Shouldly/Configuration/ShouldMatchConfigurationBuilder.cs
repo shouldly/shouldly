@@ -97,8 +97,5 @@ public class ShouldMatchConfigurationBuilder
         return this;
     }
 
-    public ShouldMatchConfiguration Build()
-    {
-        return _config;
-    }
+    public ShouldMatchConfiguration Build() => _config;
 }

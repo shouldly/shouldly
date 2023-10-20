@@ -4,10 +4,8 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
 {
     private static readonly Regex Validator = new("ShouldContainKeyAndValue");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

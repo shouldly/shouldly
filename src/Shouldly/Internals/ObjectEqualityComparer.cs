@@ -23,10 +23,9 @@ class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>
         return obj.GetHashCode();
     }
 
-    public override bool Equals(object? obj) => obj is ObjectEqualityComparer<T>;
+    public override bool Equals(object? obj) =>
+        obj is ObjectEqualityComparer<T>;
 
-    public override int GetHashCode()
-    {
-        return GetType().Name.GetHashCode();
-    }
+    public override int GetHashCode() =>
+        GetType().Name.GetHashCode();
 }

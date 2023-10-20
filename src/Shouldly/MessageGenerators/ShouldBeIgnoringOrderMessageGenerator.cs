@@ -2,10 +2,8 @@
 
 class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.IgnoreOrder;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.IgnoreOrder;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

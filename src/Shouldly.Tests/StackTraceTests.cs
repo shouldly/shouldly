@@ -26,10 +26,8 @@ public static partial class StackTraceTests
         shouldlyEndingWhitespace.ShouldBe(defaultEndingWhitespace);
     }
 
-    private static string GetEndingWhitespace(string value)
-    {
-        return value[value.TrimEnd().Length..];
-    }
+    private static string GetEndingWhitespace(string value) =>
+        value[value.TrimEnd().Length..];
 
     public static IEnumerable<object[]> ExceptionThrowers()
     {

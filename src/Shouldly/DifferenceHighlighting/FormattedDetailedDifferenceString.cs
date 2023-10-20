@@ -35,10 +35,8 @@ class FormattedDetailedDifferenceString
         actualCodeStringBuilder = new();
     }
 
-    public override string ToString()
-    {
-        return GenerateFormattedString();
-    }
+    public override string ToString() =>
+        GenerateFormattedString();
 
     public string GenerateFormattedString()
     {

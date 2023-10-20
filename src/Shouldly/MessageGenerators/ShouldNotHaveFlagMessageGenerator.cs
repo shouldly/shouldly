@@ -2,10 +2,8 @@
 
 class ShouldNotHaveFlagMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.ShouldMethod == "ShouldNotHaveFlag";
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.ShouldMethod == "ShouldNotHaveFlag";
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

@@ -25,15 +25,11 @@ public static partial class ShouldBeNullExtensions
 
     [ContractAnnotation("actual:null => halt")]
     public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
-        where T : class
-    {
-        return actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
-    }
+        where T : class =>
+        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
 
     [ContractAnnotation("actual:null => halt")]
     public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
-        where T : struct
-    {
-        return actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
-    }
+        where T : struct =>
+        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
 }

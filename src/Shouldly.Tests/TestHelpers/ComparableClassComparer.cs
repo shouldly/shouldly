@@ -10,8 +10,6 @@ public class ComparableClassComparer : IEqualityComparer<ComparableClass>
         return x.Property == y.Property;
     }
 
-    public int GetHashCode(ComparableClass obj)
-    {
-        return EqualityComparer<string?>.Default.GetHashCode(obj.Property!);
-    }
+    public int GetHashCode(ComparableClass obj) =>
+        EqualityComparer<string?>.Default.GetHashCode(obj.Property!);
 }

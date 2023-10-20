@@ -2,12 +2,10 @@ namespace Shouldly.MessageGenerators;
 
 class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
-               && context.ShouldMethod.Contains("Contain")
-               && context.Expected is Expression;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
+        && context.ShouldMethod.Contains("Contain")
+        && context.Expected is Expression;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

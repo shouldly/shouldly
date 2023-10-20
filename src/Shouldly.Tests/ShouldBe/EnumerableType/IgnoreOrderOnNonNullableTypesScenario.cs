@@ -80,10 +80,8 @@ public class IgnoreOrderOnNonNullableTypesScenario
             this.identity = identity;
         }
 
-        public bool Equals(NonNullableType other)
-        {
-            return identity == other.identity;
-        }
+        public bool Equals(NonNullableType other) =>
+            identity == other.identity;
 
         public override bool Equals(object? obj)
         {
@@ -92,14 +90,8 @@ public class IgnoreOrderOnNonNullableTypesScenario
                    Equals(type);
         }
 
-        public override int GetHashCode()
-        {
-            return identity;
-        }
+        public override int GetHashCode() => identity;
 
-        public override string ToString()
-        {
-            return identity.ToString();
-        }
+        public override string ToString() => identity.ToString();
     }
 }
