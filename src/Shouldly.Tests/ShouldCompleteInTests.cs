@@ -13,13 +13,15 @@ public class ShouldCompleteInTests
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
             Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait(), TimeSpan.FromSeconds(1), "Some additional context"));
-        ex.Message.ShouldContainWithoutWhitespace(@"
-    Delegate
-        should complete in
-    00:00:01
-        but did not
-    Additional Info:
-    Some additional context");
+        ex.Message.ShouldContainWithoutWhitespace(
+            """
+            Delegate
+                should complete in
+            00:00:01
+                but did not
+            Additional Info:
+            Some additional context
+            """);
     }
 
     [Fact]
@@ -29,13 +31,15 @@ public class ShouldCompleteInTests
             Should.CompleteIn(
                 () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()),
                 TimeSpan.FromMilliseconds(10), "Some additional context"));
-        ex.Message.ShouldContainWithoutWhitespace(@"
-    Task
-        should complete in
-    00:00:00.0100000
-        but did not
-    Additional Info:
-    Some additional context");
+        ex.Message.ShouldContainWithoutWhitespace(
+            """
+            Task
+                should complete in
+            00:00:00.0100000
+                but did not
+            Additional Info:
+            Some additional context
+            """);
     }
 
     [Fact]
@@ -63,13 +67,15 @@ public class ShouldCompleteInTests
             return "";
         }, TimeSpan.FromSeconds(1), "Some additional context"));
 
-        ex.Message.ShouldContainWithoutWhitespace(@"
-    Delegate
-        should complete in
-    00:00:01
-        but did not
-    Additional Info:
-    Some additional context");
+        ex.Message.ShouldContainWithoutWhitespace(
+            """
+            Delegate
+                should complete in
+            00:00:01
+                but did not
+            Additional Info:
+            Some additional context
+            """);
     }
 
     [Fact]
@@ -84,13 +90,15 @@ public class ShouldCompleteInTests
             });
         }, TimeSpan.FromSeconds(1), "Some additional context"));
 
-        ex.Message.ShouldContainWithoutWhitespace(@"
-    Task
-        should complete in
-    00:00:01
-        but did not
-    Additional Info:
-    Some additional context");
+        ex.Message.ShouldContainWithoutWhitespace(
+            """
+            Task
+                should complete in
+            00:00:01
+                but did not
+            Additional Info:
+            Some additional context
+            """);
     }
 
     [Fact]
