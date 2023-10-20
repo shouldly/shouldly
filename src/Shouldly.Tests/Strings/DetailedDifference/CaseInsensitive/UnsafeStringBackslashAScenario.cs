@@ -14,7 +14,7 @@ public class UnsafeStringBackslashAScenario
     should be with options: Ignoring case
 ""Stringone BackslashA""
     but was
-""StringOne" + "\a" + @"BackslashA""
+""StringOneBackslashA""
     difference
 Difference     |                                               |                                                     
                |                                              \|/                                                    
@@ -25,7 +25,7 @@ Expected Code  | 83   116  114  105  110  103  111  110  101  32   66   97   99 
 Actual Code    | 83   116  114  105  110  103  79   110  101  7    66   97   99   107  115  108  97   115  104  65   ",
 
             errorWithoutSource:
-            @"""StringOne" + "\a" + @"BackslashA""
+            @"""StringOneBackslashA""
     should be with options: Ignoring case
 ""Stringone BackslashA""
     but was not
