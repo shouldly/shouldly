@@ -1,6 +1,4 @@
 using Shouldly.Internals.AssertionFactories;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly;
 

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
 {

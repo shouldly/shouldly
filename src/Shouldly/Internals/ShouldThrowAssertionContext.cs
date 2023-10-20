@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 class ShouldThrowAssertionContext : ShouldlyAssertionContext
 {

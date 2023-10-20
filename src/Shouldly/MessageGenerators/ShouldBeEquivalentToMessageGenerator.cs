@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Shouldly.MessageGenerators;
+﻿namespace Shouldly.MessageGenerators;
 
 class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
 {

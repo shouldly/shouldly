@@ -1,6 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using Shouldly;
-
 namespace NUnit.Framework.Constraints;
 
 /// <summary>

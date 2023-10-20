@@ -1,4 +1,3 @@
-using System.Collections;
 using NUnit.Framework.Constraints;
 
 namespace Shouldly;

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Shouldly.MessageGenerators;
+﻿namespace Shouldly.MessageGenerators;
 
 class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
 {

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Text;
-
 namespace Shouldly.DifferenceHighlighting;
 
 /// <summary>

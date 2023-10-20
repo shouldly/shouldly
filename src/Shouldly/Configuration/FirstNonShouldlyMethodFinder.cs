@@ -1,8 +1,4 @@
 using Shouldly.Internals;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 
 namespace Shouldly.Configuration;
 

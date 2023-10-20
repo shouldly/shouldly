@@ -1,7 +1,4 @@
-﻿using System.Linq.Expressions;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using Shouldly.Internals;
+﻿using Shouldly.Internals;
 
 namespace Shouldly;
 

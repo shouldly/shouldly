@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
 namespace Shouldly;

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using DiffEngine;
+﻿using DiffEngine;
 using Shouldly.Configuration;
 using Shouldly.Internals;
 using Shouldly.Internals.AssertionFactories;

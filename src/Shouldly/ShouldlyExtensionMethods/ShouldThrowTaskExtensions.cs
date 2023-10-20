@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 [DebuggerStepThrough]
 [ShouldlyMethods]

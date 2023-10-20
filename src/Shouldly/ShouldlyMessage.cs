@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using Shouldly.DifferenceHighlighting;
+﻿using Shouldly.DifferenceHighlighting;
 using Shouldly.MessageGenerators;
 
 namespace Shouldly;

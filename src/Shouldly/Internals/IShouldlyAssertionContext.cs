@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace Shouldly;
 
 public interface IShouldlyAssertionContext

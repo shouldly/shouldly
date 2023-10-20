@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Shouldly.DifferenceHighlighting;
+﻿namespace Shouldly.DifferenceHighlighting;
 
 class StringDifferenceHighlighter : IStringDifferenceHighlighter
 {

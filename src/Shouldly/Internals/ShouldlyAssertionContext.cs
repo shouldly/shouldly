@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Linq.Expressions;
 using Shouldly.Internals;
 
 namespace Shouldly;

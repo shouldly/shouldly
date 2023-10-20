@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Shouldly.Internals;
+﻿namespace Shouldly.Internals;
 
 interface IEnumerableProxy
 {

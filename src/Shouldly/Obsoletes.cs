@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Shouldly.Configuration;
 
 namespace Shouldly

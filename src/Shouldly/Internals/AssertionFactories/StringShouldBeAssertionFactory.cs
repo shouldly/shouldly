@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Shouldly.DifferenceHighlighting;
+﻿using Shouldly.DifferenceHighlighting;
 using Shouldly.Internals.Assertions;
 
 namespace Shouldly.Internals.AssertionFactories;

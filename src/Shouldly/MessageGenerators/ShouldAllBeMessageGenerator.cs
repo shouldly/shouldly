@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using ExpressionToString;
 
 namespace Shouldly.MessageGenerators;

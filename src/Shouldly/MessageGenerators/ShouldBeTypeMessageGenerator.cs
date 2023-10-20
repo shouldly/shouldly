@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Shouldly.MessageGenerators;
+﻿using Shouldly.MessageGenerators;
 
 namespace Shouldly;
 

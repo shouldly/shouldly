@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 namespace Shouldly.MessageGenerators;
 
 class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator

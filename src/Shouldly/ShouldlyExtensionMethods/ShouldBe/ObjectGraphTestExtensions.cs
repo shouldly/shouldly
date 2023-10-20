@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 [ShouldlyMethods]
 public static partial class ObjectGraphTestExtensions

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 static class TypeExtensions
 {

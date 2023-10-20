@@ -1,9 +1,4 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Text;
-
-namespace Shouldly.Internals;
+﻿namespace Shouldly.Internals;
 
 static class StackTraceHelpers
 {

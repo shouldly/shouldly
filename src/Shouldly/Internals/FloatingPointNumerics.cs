@@ -4,8 +4,6 @@
 // obtain a copy of the license at http://nunit.org
 // ****************************************************************
 
-using System.Runtime.InteropServices;
-
 namespace NUnit.Framework.Constraints;
 
 /// <summary>Helper routines for working with floating point numbers</summary>

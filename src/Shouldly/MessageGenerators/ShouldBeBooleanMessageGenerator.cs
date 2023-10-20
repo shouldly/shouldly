@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Shouldly.MessageGenerators;
+﻿namespace Shouldly.MessageGenerators;
 
 class ShouldBeBooleanMessageGenerator : ShouldlyMessageGenerator
 {
