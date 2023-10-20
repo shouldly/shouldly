@@ -688,6 +688,12 @@ namespace Shouldly
             where T : System.IComparable<T> { }
         public static void ShouldNotBeInRange<T>([System.Diagnostics.CodeAnalysis.DisallowNull] this T actual, T? from, T? to, string? customMessage = null)
             where T : System.IComparable<T> { }
+        public static void ShouldNotBeNegative(this decimal actual, string? customMessage = null) { }
+        public static void ShouldNotBeNegative(this double actual, string? customMessage = null) { }
+        public static void ShouldNotBeNegative(this float actual, string? customMessage = null) { }
+        public static void ShouldNotBeNegative(this int actual, string? customMessage = null) { }
+        public static void ShouldNotBeNegative(this long actual, string? customMessage = null) { }
+        public static void ShouldNotBeNegative(this short actual, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBeOfType(this object? actual, System.Type expected, System.Func<string?>? customMessage) { }
@@ -702,6 +708,12 @@ namespace Shouldly
         public static void ShouldNotBeOneOf<T>(this T actual, T[] expected, System.Func<string?>? customMessage) { }
         public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage) { }
         public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
+        public static void ShouldNotBePositive(this decimal actual, string? customMessage = null) { }
+        public static void ShouldNotBePositive(this double actual, string? customMessage = null) { }
+        public static void ShouldNotBePositive(this float actual, string? customMessage = null) { }
+        public static void ShouldNotBePositive(this int actual, string? customMessage = null) { }
+        public static void ShouldNotBePositive(this long actual, string? customMessage = null) { }
+        public static void ShouldNotBePositive(this short actual, string? customMessage = null) { }
         [System.Obsolete("Func based customMessage overloads have been removed. Pass in a string for the cu" +
             "stomMessage.", true)]
         public static void ShouldNotBeSameAs(this object? actual, object? expected, System.Func<string?>? customMessage) { }
