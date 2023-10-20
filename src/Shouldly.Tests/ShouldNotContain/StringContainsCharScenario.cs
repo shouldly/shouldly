@@ -11,23 +11,27 @@ public class StringContainsCharScenario
                 Target.ShouldNotContain('F', "Some additional context"),
 
             errorWithSource:
-            @"Target
-    should not contain
-F
-    but was actually
-""Foo""
+            """
+            Target
+                should not contain
+            F
+                but was actually
+            "Foo"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Foo""
-    should not contain
-F
-    but did
+            """
+            "Foo"
+                should not contain
+            F
+                but did
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

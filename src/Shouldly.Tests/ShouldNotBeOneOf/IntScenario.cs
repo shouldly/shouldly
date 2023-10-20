@@ -10,17 +10,21 @@ public class IntScenario
                 one.ShouldNotBeOneOf(1, 2, 3),
 
             errorWithSource:
-            @"one
-    should not be one of
-[1, 2, 3]
-    but was
-1",
+            """
+            one
+                should not be one of
+            [1, 2, 3]
+                but was
+            1
+            """,
 
             errorWithoutSource:
-            @"1
-    should not be one of
-[1, 2, 3]
-    but was");
+            """
+            1
+                should not be one of
+            [1, 2, 3]
+                but was
+            """);
     }
 
     [Fact]

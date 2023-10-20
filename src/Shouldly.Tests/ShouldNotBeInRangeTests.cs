@@ -11,23 +11,27 @@ public class ShouldNotBeInRangeTests
                 @decimal.ShouldNotBeInRange(1.4m, 1.6m, "Some additional context"),
 
             errorWithSource:
-            @"@decimal
-    should not be in range
-{ from = 1.4, to = 1.6 }
-    but was
-1.5m
+            """
+            @decimal
+                should not be in range
+            { from = 1.4, to = 1.6 }
+                but was
+            1.5m
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"1.5m
-    should not be in range
-{ from = 1.4, to = 1.6 }
-    but was
+            """
+            1.5m
+                should not be in range
+            { from = 1.4, to = 1.6 }
+                but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

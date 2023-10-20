@@ -13,22 +13,26 @@ public class PredicateObjectScenario
                     "Some additional context"),
 
             errorWithSource:
-            @"new[] { a, b, c }
-    should not contain an element satisfying the condition
-o.GetType().FullName.Equals(""System.Object"")
-    but does
+            """
+            new[] { a, b, c }
+                should not contain an element satisfying the condition
+            o.GetType().FullName.Equals("System.Object")
+                but does
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[System.Object (000000), System.Object (000000), System.Object (000000)]
-    should not contain an element satisfying the condition
-o.GetType().FullName.Equals(""System.Object"")
-    but does
+            """
+            [System.Object (000000), System.Object (000000), System.Object (000000)]
+                should not contain an element satisfying the condition
+            o.GetType().FullName.Equals("System.Object")
+                but does
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

@@ -28,12 +28,14 @@ public class ShouldMatchApprovedScenarios
             ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
             : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
 
-        var errorMsg = $@"To approve the changes run this command:
-{cmd}
-----------------------------
+        var errorMsg = $"""
+                        To approve the changes run this command:
+                        {cmd}
+                        ----------------------------
 
-Approval file {approvalPath}.approved.txt
-    does not exist";
+                        Approval file {approvalPath}.approved.txt
+                            does not exist
+                        """;
 
         Verify.ShouldFail(() =>
                 "Bar".ShouldMatchApproved(c => c.NoDiff()),

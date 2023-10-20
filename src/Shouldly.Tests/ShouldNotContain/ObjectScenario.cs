@@ -13,23 +13,27 @@ public class ObjectScenario
                 target.ShouldNotContain(c, "Some additional context"),
 
             errorWithSource:
-            @"target
-    should not contain
-System.Object (000000)
-    but was actually
-[System.Object (000000), System.Object (000000), System.Object (000000)]
+            """
+            target
+                should not contain
+            System.Object (000000)
+                but was actually
+            [System.Object (000000), System.Object (000000), System.Object (000000)]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[System.Object (000000), System.Object (000000), System.Object (000000)]
-    should not contain
-System.Object (000000)
-    but did
+            """
+            [System.Object (000000), System.Object (000000), System.Object (000000)]
+                should not contain
+            System.Object (000000)
+                but did
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

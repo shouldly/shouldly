@@ -17,10 +17,12 @@ public class StringContainsStringCaseIsInsensitiveScenario
 ""Shouldly is legendary""",
 
             errorWithoutSource:
-            @"""Shouldly is legendary""
-    should not contain (case insensitive comparison)
-""LEGENDARY""
-    but did");
+            """
+            "Shouldly is legendary"
+                should not contain (case insensitive comparison)
+            "LEGENDARY"
+                but did
+            """);
     }
 
     [Fact]

@@ -10,23 +10,27 @@ public class BasicScenario
                 zulu.ShouldNotBeSameAs(zulu, "Some additional context"),
 
             errorWithSource:
-            @"zulu
-    should not be same as
-System.Object (000000)
-    but was
-System.Object (000000)
+            """
+            zulu
+                should not be same as
+            System.Object (000000)
+                but was
+            System.Object (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"System.Object (000000)
-    should not be same as
-System.Object (000000)
-    but was
+            """
+            System.Object (000000)
+                should not be same as
+            System.Object (000000)
+                but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

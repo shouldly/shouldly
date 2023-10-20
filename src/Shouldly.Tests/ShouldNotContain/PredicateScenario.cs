@@ -9,22 +9,26 @@ public class PredicateScenario
                 new[] { 1, 2, 3 }.ShouldNotContain(i => i < 4, "Some additional context"),
 
             errorWithSource:
-            @"new[] { 1, 2, 3 }
-    should not contain an element satisfying the condition
-(i < 4)
-    but does
+            """
+            new[] { 1, 2, 3 }
+                should not contain an element satisfying the condition
+            (i < 4)
+                but does
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2, 3]
-    should not contain an element satisfying the condition
-(i < 4)
-    but does
+            """
+            [1, 2, 3]
+                should not contain an element satisfying the condition
+            (i < 4)
+                but does
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

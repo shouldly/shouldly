@@ -29,22 +29,26 @@ public class ComparerScenario
                 comparison1.ShouldNotContain(comparison2, new ComparableClassComparer(), "Some additional context"),
 
             errorWithSource:
-            @"comparison1
-    should not contain
-Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    but was actually
-[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+            """
+            comparison1
+                should not contain
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
+                but was actually
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
-    should not contain
-Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    but did
+            """
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+                should not contain
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
+                but did
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

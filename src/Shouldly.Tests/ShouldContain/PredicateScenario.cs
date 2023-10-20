@@ -20,13 +20,15 @@ public class PredicateScenario
             """,
 
             errorWithoutSource:
-            @"[1, 2, 3]
-    should contain an element satisfying the condition
-(i > 4)
-    but does not
+            """
+            [1, 2, 3]
+                should contain an element satisfying the condition
+            (i > 4)
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
