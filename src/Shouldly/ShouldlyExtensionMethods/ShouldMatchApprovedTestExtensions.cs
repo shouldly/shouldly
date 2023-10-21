@@ -28,7 +28,7 @@ public static partial class ShouldMatchApprovedTestExtensions
             throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
         if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(outputFolder))
             throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
-        
+
         if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
         {
             outputFolder = Path.Combine(outputFolder, config.ApprovalFileSubFolder);

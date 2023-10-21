@@ -138,7 +138,7 @@ public class DifferenceHighlighterHelpersTests
     {
         private readonly string _description;
 
-        public EqualType(string description) => 
+        public EqualType(string description) =>
             _description = description;
 
         public override string ToString() => _description;
