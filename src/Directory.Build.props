@@ -13,6 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
+    <PackageReference Include="IndexRange" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
 </Project>
