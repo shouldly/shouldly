@@ -26,7 +26,15 @@ public static partial class ObjectGraphTestExtensions
 
         var type = GetTypeToCompare(actual, expected, path, customMessage, shouldlyMethod);
 
-        if (type.GetTypeInfo().IsValueType)
+        if (type == typeof(string))
+        {
+            CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
+        }
+        else if (typeof(IEnumerable).IsAssignableFrom(type))
+        {
+            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
+        }
+        else if (type.GetTypeInfo().IsValueType)
         {
             CompareValueTypes((ValueType)actual, (ValueType)expected, path, customMessage, shouldlyMethod);
         }
