@@ -16,25 +16,53 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
     {
         Debug.Assert(context.Expected is byte[]);
         Debug.Assert(context.Actual is byte[]);
-        try
-        {
-            var codePart = context.CodePart;
-            byte[] expectedBytes = (byte[])context.Expected;
-            byte[] actualBytes = (byte[])context.Actual;
-            context.Expected = ExtractPixels(expectedBytes);
-            context.Actual = ExtractPixels(actualBytes);
-            return new ShouldBeMessageGenerator().GenerateErrorMessage(context);
-        }
-        catch (Exception)
+        byte[] expectedBytes = (byte[])context.Expected;
+        byte[] actualBytes = (byte[])context.Actual;
+        Bitmap? expectedBitmap = ConvertToBitmap(expectedBytes);
+        Bitmap? actualBitmap = ConvertToBitmap(actualBytes);
+
+        if (expectedBitmap is null || actualBitmap is null)
         {
             return new ShouldBeMessageGenerator().GenerateErrorMessage(context);
         }
+
+        if (!expectedBitmap.RawFormat.Equals(actualBitmap.RawFormat))
+        {
+            return $@"{context.CodePart} image format {context.ShouldMethod.PascalToSpaced()} {expectedBitmap.RawFormat} but was {actualBitmap.RawFormat}";
+        }
+
+        if (!expectedBitmap.Width.Equals(actualBitmap.Width) || !expectedBitmap.Height.Equals(actualBitmap.Height))
+        {
+            return $@"{context.CodePart} dimensions [Width x Height] {context.ShouldMethod.PascalToSpaced()} [{expectedBitmap.Width} x {expectedBitmap.Height}] but were [{actualBitmap.Width} x {actualBitmap.Height}]";
+        }
+
+        context.Expected = ExtractPixels(expectedBitmap);
+        context.Actual = ExtractPixels(actualBitmap);
+        return new ShouldBeMessageGenerator().GenerateErrorMessage(context);
     }
 
-    private static byte[][] ExtractPixels(byte[] imageBytes)
+    private static Bitmap? ConvertToBitmap(byte[] imageBytes)
     {
-        using MemoryStream stream = new MemoryStream(imageBytes);
-        using Bitmap bitmap = new Bitmap(stream);
+        try
+        {
+            using MemoryStream stream = new MemoryStream(imageBytes);
+            Bitmap bitmap = new Bitmap(stream);
+            return bitmap;
+            
+        }
+        catch (ArgumentException)
+        {
+            return null;
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+       
+    }
+
+    private static byte[][] ExtractPixels(Bitmap bitmap)
+    {
         int width = bitmap.Width;
         int height = bitmap.Height;
 
@@ -50,7 +78,8 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
                 {
                     Array.Reverse(convertedPixel);
                 }
-                pixelData[x*width+y] = convertedPixel;
+
+                pixelData[y*width+x] = convertedPixel;
             }
         }
         return pixelData;

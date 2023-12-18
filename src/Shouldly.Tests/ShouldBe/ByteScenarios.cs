@@ -8,42 +8,71 @@ namespace Shouldly.Tests.ShouldBe;
 public class ByteScenarios
 {
    [Fact]
-    public void ImageBytesShouldBeEqual()
+    public void ImageBytes2x2ShouldBeEqual()
     {
-        byte[] expectedImage = Generate2x2Image(Color.Red, Color.Green, Color.Blue, Color.Blue, ImageFormat.Jpeg);
+        byte[] expectedImage = GenerateImage(2, 2, new Color[]{ Color.Red, Color.Green, Color.Blue, Color.Blue}, ImageFormat.Jpeg);
         byte[] actualImage = (byte[])expectedImage.Clone();
         expectedImage.ShouldBe(actualImage);
     }
 
     [Fact]
-    public void ImageBytesShouldNotBeEqual()
+    public void ImageBytes2x2ShouldNotBeEqual()
     {
-        byte[] expectedImage = Generate2x2Image(Color.Red, Color.Green, Color.Blue, Color.Blue, ImageFormat.Png);
-        byte[] actualImage = Generate2x2Image(Color.White, Color.White, Color.White, Color.White, ImageFormat.Png);
+        byte[] expectedImage = GenerateImage(2, 2, new Color[] { Color.Red, Color.Red, Color.Blue, Color.White }, ImageFormat.Png);
+        byte[] actualImage = GenerateImage(2,2, new Color[] { Color.White, Color.White, Color.White, Color.White }, ImageFormat.Png);
         Should.Throw<ShouldAssertException>(
-            () =>expectedImage.ShouldBe(actualImage),
-            customMessage:
+            () =>expectedImage.ShouldBe(actualImage))
+            .Message.ShouldBe(
              """
-Shouldly.ShouldAssertException : expectedImage
+expectedImage
     should be
 [[255, 255, 255, 255], [255, 255, 255, 255], [255, 255, 255, 255], [255, 255, 255, 255]]
     but was
-[[255, 255, 0, 0], [255, 0, 0, 255], [255, 0, 128, 0], [255, 0, 0, 255]]
+[[255, 255, 0, 0], [255, 255, 0, 0], [255, 0, 0, 255], [255, 255, 255, 255]]
     difference
-[*[255, 255, 0, 0] *, *[255, 0, 0, 255] *, *[255, 0, 128, 0] *, *[255, 0, 0, 255] *]
+[*[255, 255, 0, 0]*, *[255, 255, 0, 0]*, *[255, 0, 0, 255]*, [255, 255, 255, 255]]
 """
 );
     }
 
-[Fact]
+    [Fact]
+    public void ImageBytesDifferentSizeShouldNotBeEqual()
+    {
+        byte[] expectedImage = GenerateImage(2, 3, new Color[] { Color.White, Color.White, Color.White, Color.White, Color.Black, Color.Black }, ImageFormat.Png);
+        byte[] actualImage = GenerateImage(3, 2, new Color[] { Color.White, Color.White, Color.White, Color.White, Color.Black, Color.Black }, ImageFormat.Png);
+        Should.Throw<ShouldAssertException>(
+            () => expectedImage.ShouldBe(actualImage))
+            .Message.ShouldBe(
+             """
+expectedImage dimensions [Width x Height] should be [3 x 2] but were [2 x 3]
+"""
+);
+    }
+
+    [Fact]
+    public void ImageBytesDifferentFormatShouldNotBeEqual()
+    {
+        byte[] expectedImage = GenerateImage(2, 3, new Color[] { Color.White, Color.White, Color.White, Color.White, Color.Black, Color.Black }, ImageFormat.Png);
+        byte[] actualImage = GenerateImage(2, 3, new Color[] { Color.White, Color.White, Color.White, Color.White, Color.Black, Color.Black }, ImageFormat.Jpeg);
+        Should.Throw<ShouldAssertException>(
+            () => expectedImage.ShouldBe(actualImage))
+            .Message.ShouldBe(
+             """
+expectedImage image format should be Jpeg but was Png
+"""
+);
+    }
+
+    [Fact]
     public void RegularBytesThrowMessageTest()
     {
         byte[] expected = { 1, 1, 0, 1, 0, 0, 0, 0 };
         byte[] actual = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        Should.Throw<ShouldAssertException>(()=>expected.ShouldBe(actual),
-            customMessage:
+        Should.Throw<ShouldAssertException>(
+            ()=>expected.ShouldBe(actual))
+            .Message.ShouldBe(
             """
-Shouldly.ShouldAssertException : expected
+expected
     should be
 [0, 0, 0, 0, 0, 0, 0, 0, 0]
     but was
@@ -57,17 +86,23 @@ Shouldly.ShouldAssertException : expected
 
 
 
-    private static byte[] Generate2x2Image(Color pixel1, Color pixel2, Color pixel3, Color pixel4, ImageFormat format)
+    private static byte[] GenerateImage(int width, int height, Color[] pixels, ImageFormat format)
     {
-        using Bitmap bitmap = new Bitmap(2, 2);
-        bitmap.SetPixel(0, 0, pixel1);
-        bitmap.SetPixel(1, 0, pixel2);
-        bitmap.SetPixel(0, 1, pixel3);
-        bitmap.SetPixel(1, 1, pixel4);
+        using Bitmap bitmap = new Bitmap(width, height);
+
+        int index = 0;
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                bitmap.SetPixel(x, y, pixels[index]);
+                index++;
+            }
+        }
+
         using MemoryStream stream = new MemoryStream();
         bitmap.Save(stream, format);
-        byte[] byteArray = stream.ToArray();
-        return byteArray;
+        return stream.ToArray();
     }
-    
+
 }
