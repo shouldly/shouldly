@@ -258,6 +258,7 @@ public abstract class ShouldlyMessage
     {
         new ShouldHaveFlagMessageGenerator(),
         new ShouldNotHaveFlagMessageGenerator(),
+        new ImageShouldBeEqualGenerator(),
         new ShouldBeNullOrEmptyMessageGenerator(),
         new ShouldBeEmptyMessageGenerator(),
         new ShouldAllBeMessageGenerator(),
