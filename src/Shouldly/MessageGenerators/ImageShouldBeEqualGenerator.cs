@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Shouldly.MessageGenerators;
 
@@ -28,7 +29,8 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
 
         if (!expectedBitmap.RawFormat.Equals(actualBitmap.RawFormat))
         {
-            return $@"{context.CodePart} image format {context.ShouldMethod.PascalToSpaced()} {expectedBitmap.RawFormat} but was {actualBitmap.RawFormat}";
+
+            return $@"{context.CodePart} image format {context.ShouldMethod.PascalToSpaced()} {GetImageName(expectedBitmap.RawFormat)} but was {GetImageName(actualBitmap.RawFormat)}";
         }
 
         if (!expectedBitmap.Width.Equals(actualBitmap.Width) || !expectedBitmap.Height.Equals(actualBitmap.Height))
@@ -48,7 +50,7 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
             using MemoryStream stream = new MemoryStream(imageBytes);
             Bitmap bitmap = new Bitmap(stream);
             return bitmap;
-            
+
         }
         catch (ArgumentException)
         {
@@ -58,7 +60,7 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
         {
             throw new Exception(e.Message);
         }
-       
+
     }
 
     private static byte[][] ExtractPixels(Bitmap bitmap)
@@ -66,7 +68,7 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
         int width = bitmap.Width;
         int height = bitmap.Height;
 
-        byte[][] pixelData = new byte[height*width][];
+        byte[][] pixelData = new byte[height * width][];
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -79,10 +81,24 @@ class ImageShouldBeEqualGenerator : ShouldlyMessageGenerator
                     Array.Reverse(convertedPixel);
                 }
 
-                pixelData[y*width+x] = convertedPixel;
+                pixelData[y * width + x] = convertedPixel;
             }
         }
         return pixelData;
+    }
+
+    private static string GetImageName(ImageFormat format)
+    {
+        if (format == ImageFormat.Jpeg) return "JPEG";
+        if (format == ImageFormat.Bmp) return "BMP";
+        if (format == ImageFormat.Png) return "PNG";
+        if (format == ImageFormat.Emf) return "EMF";
+        if (format == ImageFormat.Exif) return "EXIF";
+        if (format == ImageFormat.Gif) return "GIF";
+        if (format == ImageFormat.Icon) return "ICON";
+        if (format == ImageFormat.MemoryBmp) return "MEMORY_BMP";
+        if (format == ImageFormat.Tiff) return "TIFF";
+        return "Wmf";
     }
 }
 
