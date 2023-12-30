@@ -253,6 +253,7 @@ namespace Shouldly
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this T? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] T? expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this System.Collections.Generic.IEnumerable<T>? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] System.Collections.Generic.IEnumerable<T>? expected, System.Collections.Generic.IEqualityComparer<T> comparer, bool ignoreOrder = false, string? customMessage = null) { }
         public static void ShouldBeAssignableTo(this object? actual, System.Type expected, string? customMessage = null) { }
+        [return: System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")]
         public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null) { }
         public static void ShouldBeGreaterThan<T>(this T? actual, T? expected, string? customMessage = null)
             where T : System.IComparable<T>? { }
