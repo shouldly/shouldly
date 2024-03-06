@@ -12,7 +12,7 @@
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' or $(TargetFramework) == 'net48' ">
     <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
 </Project>

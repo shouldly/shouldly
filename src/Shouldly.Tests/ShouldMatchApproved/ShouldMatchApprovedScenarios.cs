@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using DiffEngine;
 
 namespace Shouldly.Tests.ShouldMatchApproved;
 
@@ -143,7 +142,7 @@ Actual Code    | 70   111  111  ",
     {
         Should.Throw<ShouldMatchApprovedException>(() => "".ShouldMatchApproved(c => c.NoDiff()));
 
-        ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(DiffRunner.Disabled);
+        ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(true);
     }
 
     [Fact]

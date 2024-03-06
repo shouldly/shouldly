@@ -10,7 +10,7 @@ public static partial class StackTraceTests
 
         var stackTraceLines = exception.StackTrace!.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-        stackTraceLines.First().ShouldContain(exceptionThrower.ThrowingAction.Method.Name);
+        stackTraceLines[0].ShouldContain(exceptionThrower.ThrowingAction.Method.Name);
     }
 
     [Theory(Skip = "flaky test. intermittent null ref")]
@@ -34,11 +34,9 @@ public static partial class StackTraceTests
         return new ExceptionThrowerCollectionBuilder()
             .Add<ShouldAssertException>(
                 throwDirectly: () => throw new ShouldAssertException(null),
-                throwInShouldlyAssembly: new Action[]
-                {
                     FailingUserCode_ShouldBeTrue,
                     FailingUserCode_ShouldContain
-                })
+                )
 
             .Add<ShouldlyTimeoutException>(
                 throwDirectly: () => throw new ShouldlyTimeoutException(null, null))
