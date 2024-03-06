@@ -1,5 +1,4 @@
-﻿using DiffEngine;
-using Shouldly.Configuration;
+﻿using Shouldly.Configuration;
 using Shouldly.Internals;
 using Shouldly.Internals.AssertionFactories;
 
@@ -41,11 +40,6 @@ public static partial class ShouldMatchApprovedTestExtensions
 
         if (!File.Exists(approvedFile))
         {
-            if (!config.PreventDiff)
-            {
-                DiffRunner.Launch(receivedFile, approvedFile);
-            }
-
             throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
     does not exist", receivedFile, approvedFile);
         }
@@ -58,11 +52,6 @@ public static partial class ShouldMatchApprovedTestExtensions
 
         if (!contentsMatch)
         {
-            if (!config.PreventDiff)
-            {
-                DiffRunner.Launch(receivedFile, approvedFile);
-            }
-
             throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
         }
 

@@ -1,8 +1,8 @@
 ﻿using Shouldly.Tests.ConventionTests;
-
+namespace DocumentationExamples;
 public class ShouldMatchApprovedExamples
 {
-    ITestOutputHelper _testOutputHelper;
+    readonly ITestOutputHelper _testOutputHelper;
 
     public ShouldMatchApprovedExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;

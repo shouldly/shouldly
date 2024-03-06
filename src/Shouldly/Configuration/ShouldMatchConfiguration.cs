@@ -1,6 +1,4 @@
-﻿using DiffEngine;
-
-namespace Shouldly.Configuration;
+﻿namespace Shouldly.Configuration;
 
 public class ShouldMatchConfiguration
 {
@@ -22,7 +20,7 @@ public class ShouldMatchConfiguration
 
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
     public string? FilenameDiscriminator { get; set; }
-    public bool PreventDiff { get; set; } = DiffRunner.Disabled;
+    public bool PreventDiff { get; set; } = true;
 
     /// <summary>
     /// File extension without the.
