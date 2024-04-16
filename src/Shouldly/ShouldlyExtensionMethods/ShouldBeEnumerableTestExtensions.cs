@@ -31,21 +31,24 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
-    public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
+    public static IEnumerable<T> ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
-        var actualCount = actual.Count(condition);
-        if (actualCount != expectedCount)
+        var matchingElements = actual.Where(condition).ToList();
+        if (matchingElements.Count != expectedCount)
         {
             throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
         }
+        return matchingElements;
     }
 
-    public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
+    public static IEnumerable<T> ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
-        if (!actual.Any(condition))
+        var matchingElements = actual.Where(condition).ToList();
+        if (matchingElements.Count == 0)
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+        return matchingElements;
     }
 
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
@@ -208,5 +211,15 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage)
     {
         actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, customMessage);
+    }
+    
+    public static T ShouldContainSingle<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
+    {
+        var condition = elementPredicate.Compile();
+        var matched = actual.SingleOrDefault(condition);
+        if (matched is null)
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+
+        return matched;
     }
 }

@@ -1,0 +1,330 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "DiffEngine/11.3.0": {
+        "type": "package",
+        "dependencies": {
+          "EmptyFiles": "4.4.0",
+          "System.Management": "6.0.1"
+        },
+        "compile": {
+          "lib/net7.0/DiffEngine.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/DiffEngine.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "EmptyFiles/4.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/EmptyFiles.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/EmptyFiles.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/EmptyFiles.targets": {}
+        }
+      },
+      "System.CodeDom/6.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/_._": {}
+        }
+      },
+      "System.Management/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net6.0/System.Management.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "Shouldly/4.2.1": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DiffEngine": "11.3.0",
+          "EmptyFiles": "4.4.0"
+        },
+        "compile": {
+          "bin/placeholder/Shouldly.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shouldly.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DiffEngine/11.3.0": {
+      "sha512": "k0ZgZqd09jLZQjR8FyQbSQE86Q7QZnjEzq1LPHtj1R2AoWO8sjV5x+jlSisL7NZAbUOI4y+7Bog8gkr9WIRBGw==",
+      "type": "package",
+      "path": "diffengine/11.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "diffengine.11.3.0.nupkg.sha512",
+        "diffengine.nuspec",
+        "icon.png",
+        "lib/net461/DiffEngine.dll",
+        "lib/net461/DiffEngine.xml",
+        "lib/net48/DiffEngine.dll",
+        "lib/net48/DiffEngine.xml",
+        "lib/net5.0/DiffEngine.dll",
+        "lib/net5.0/DiffEngine.xml",
+        "lib/net6.0/DiffEngine.dll",
+        "lib/net6.0/DiffEngine.xml",
+        "lib/net7.0/DiffEngine.dll",
+        "lib/net7.0/DiffEngine.xml",
+        "lib/netcoreapp2.0/DiffEngine.dll",
+        "lib/netcoreapp2.0/DiffEngine.xml",
+        "lib/netcoreapp2.1/DiffEngine.dll",
+        "lib/netcoreapp2.1/DiffEngine.xml",
+        "lib/netcoreapp3.0/DiffEngine.dll",
+        "lib/netcoreapp3.0/DiffEngine.xml",
+        "lib/netcoreapp3.1/DiffEngine.dll",
+        "lib/netcoreapp3.1/DiffEngine.xml",
+        "lib/netstandard2.0/DiffEngine.dll",
+        "lib/netstandard2.0/DiffEngine.xml",
+        "lib/netstandard2.1/DiffEngine.dll",
+        "lib/netstandard2.1/DiffEngine.xml"
+      ]
+    },
+    "EmptyFiles/4.4.0": {
+      "sha512": "gwJEfIGS7FhykvtZoscwXj/XwW+mJY6UbAZk+qtLKFUGWC95kfKXnj8VkxsZQnWBxJemM/q664rGLN5nf+OHZw==",
+      "type": "package",
+      "path": "emptyfiles/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "EmptyFiles/archive/empty.7z",
+        "EmptyFiles/archive/empty.bz2",
+        "EmptyFiles/archive/empty.gz",
+        "EmptyFiles/archive/empty.tar",
+        "EmptyFiles/archive/empty.xz",
+        "EmptyFiles/archive/empty.zip",
+        "EmptyFiles/document/empty.docx",
+        "EmptyFiles/document/empty.odt",
+        "EmptyFiles/document/empty.pdf",
+        "EmptyFiles/document/empty.rtf",
+        "EmptyFiles/image/empty.avif",
+        "EmptyFiles/image/empty.bmp",
+        "EmptyFiles/image/empty.dds",
+        "EmptyFiles/image/empty.dib",
+        "EmptyFiles/image/empty.emf",
+        "EmptyFiles/image/empty.exif",
+        "EmptyFiles/image/empty.gif",
+        "EmptyFiles/image/empty.heic",
+        "EmptyFiles/image/empty.heif",
+        "EmptyFiles/image/empty.ico",
+        "EmptyFiles/image/empty.j2c",
+        "EmptyFiles/image/empty.jfif",
+        "EmptyFiles/image/empty.jp2",
+        "EmptyFiles/image/empty.jpc",
+        "EmptyFiles/image/empty.jpe",
+        "EmptyFiles/image/empty.jpg",
+        "EmptyFiles/image/empty.jxr",
+        "EmptyFiles/image/empty.pbm",
+        "EmptyFiles/image/empty.pcx",
+        "EmptyFiles/image/empty.pgm",
+        "EmptyFiles/image/empty.png",
+        "EmptyFiles/image/empty.ppm",
+        "EmptyFiles/image/empty.rle",
+        "EmptyFiles/image/empty.tga",
+        "EmptyFiles/image/empty.tif",
+        "EmptyFiles/image/empty.wdp",
+        "EmptyFiles/image/empty.webp",
+        "EmptyFiles/image/empty.wmp",
+        "EmptyFiles/sheet/empty.ods",
+        "EmptyFiles/sheet/empty.xlsx",
+        "EmptyFiles/slide/empty.odp",
+        "EmptyFiles/slide/empty.pptx",
+        "build/EmptyFiles.targets",
+        "buildTransitive/EmptyFiles.targets",
+        "emptyfiles.4.4.0.nupkg.sha512",
+        "emptyfiles.nuspec",
+        "icon.png",
+        "lib/net461/EmptyFiles.dll",
+        "lib/net461/EmptyFiles.xml",
+        "lib/net5.0/EmptyFiles.dll",
+        "lib/net5.0/EmptyFiles.xml",
+        "lib/net6.0/EmptyFiles.dll",
+        "lib/net6.0/EmptyFiles.xml",
+        "lib/net7.0/EmptyFiles.dll",
+        "lib/net7.0/EmptyFiles.xml",
+        "lib/netstandard2.0/EmptyFiles.dll",
+        "lib/netstandard2.0/EmptyFiles.xml",
+        "lib/netstandard2.1/EmptyFiles.dll",
+        "lib/netstandard2.1/EmptyFiles.xml"
+      ]
+    },
+    "System.CodeDom/6.0.0": {
+      "sha512": "CPc6tWO1LAer3IzfZufDBRL+UZQcj5uS207NHALQzP84Vp/z6wF0Aa0YZImOQY8iStY0A2zI/e3ihKNPfUm8XA==",
+      "type": "package",
+      "path": "system.codedom/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.CodeDom.dll",
+        "lib/net461/System.CodeDom.xml",
+        "lib/net6.0/System.CodeDom.dll",
+        "lib/net6.0/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.6.0.0.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Management/6.0.1": {
+      "sha512": "10J1D0h/lioojphfJ4Fuh5ZUThT/xOVHdV9roGBittKKNP2PMjrvibEdbVTGZcPra1399Ja3tqIJLyQrc5Wmhg==",
+      "type": "package",
+      "path": "system.management/6.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/_._",
+        "lib/net6.0/System.Management.dll",
+        "lib/net6.0/System.Management.xml",
+        "lib/netcoreapp3.1/System.Management.dll",
+        "lib/netcoreapp3.1/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net6.0/System.Management.dll",
+        "runtimes/win/lib/net6.0/System.Management.xml",
+        "runtimes/win/lib/netcoreapp3.1/System.Management.dll",
+        "runtimes/win/lib/netcoreapp3.1/System.Management.xml",
+        "system.management.6.0.1.nupkg.sha512",
+        "system.management.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Shouldly/4.2.1": {
+      "type": "project",
+      "path": "../src/Shouldly/Shouldly.csproj",
+      "msbuildProject": "../src/Shouldly/Shouldly.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "Shouldly >= 4.2.1"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\user\\.nuget\\packages\\": {},
+    "D:\\visual studio\\shared\\NuGetPackages": {},
+    "D:\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\repos\\shouldly\\Test\\Test.csproj",
+      "projectName": "Test",
+      "projectPath": "D:\\repos\\shouldly\\Test\\Test.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "D:\\repos\\shouldly\\Test\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\visual studio\\shared\\NuGetPackages",
+        "D:\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "D:\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {
+            "D:\\repos\\shouldly\\src\\Shouldly\\Shouldly.csproj": {
+              "projectPath": "D:\\repos\\shouldly\\src\\Shouldly\\Shouldly.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "D:\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
