@@ -37,7 +37,7 @@ public static partial class ShouldBeEnumerableTestExtensions
                 new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
-    public static IEnumerable<T> ShouldContain<T>(this IEnumerable<T> actual,
+    public static IList<T> ShouldContain<T>(this IEnumerable<T> actual,
         [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
@@ -52,7 +52,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         return matchingElements;
     }
 
-    public static IEnumerable<T> ShouldContain<T>(this IEnumerable<T> actual,
+    public static IList<T> ShouldContain<T>(this IEnumerable<T> actual,
         [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
