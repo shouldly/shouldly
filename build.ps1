@@ -9,7 +9,7 @@ $logsDir = Join-Path $artifactsDir 'Logs'
 
 $dotnetArgs = @(
     '--configuration', $configuration
-    '/p:ContinuousIntegrationBuild=' + ($env:CI -or $env:TF_BUILD)
+    '/p:CI=' + ($env:CI -or $env:TF_BUILD)
 )
 
 # Build
