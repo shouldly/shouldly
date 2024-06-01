@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Shouldly\buildTransitive\Shouldly.targets" />
   <PropertyGroup>
     <TargetFrameworks>net7.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net7.0;net48</TargetFrameworks>
