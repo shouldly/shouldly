@@ -17,13 +17,13 @@ public class ShouldCompleteInTests
         var ex = Should.Throw<ShouldlyTimeoutException>(
             () => Should.CompleteIn(
                 () => Thread.Sleep(TimeSpan.FromSeconds(5)),
-                TimeSpan.FromSeconds(1),
+                TimeSpan.FromMilliseconds(1),
                 "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Delegate
                 should complete in
-            00:00:01
+            00:00:00.0010000
                 but did not
             Additional Info:
             Some additional context
