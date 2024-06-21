@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldThrowAsync;
 public class FuncOfTaskScenarioAsync
 {
     [Fact]
-    public void ShouldThrowAWobbly()
+    public async Task ShouldThrowAWobbly()
     {
         try
         {
@@ -17,8 +17,7 @@ public class FuncOfTaskScenarioAsync
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            var result = task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
-            result.Wait();
+            await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
         catch (AggregateException e)
         {
@@ -49,7 +48,7 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldThrowAWobbly_ExceptionTypePassedIn()
+    public async Task ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
         try
         {
@@ -61,8 +60,7 @@ public class FuncOfTaskScenarioAsync
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            var result = task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
-            result.Wait();
+            await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
         catch (AggregateException e)
         {
@@ -78,25 +76,23 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldPass()
+    public async Task ShouldPass()
     {
         var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
             CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
 
-        var result = task.ShouldThrowAsync<InvalidOperationException>();
-        result.Wait();
+        await task.ShouldThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
-    public void ShouldPass_ExceptionTypePassedIn()
+    public async Task ShouldPass_ExceptionTypePassedIn()
     {
         var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
             CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
 
-        var result = task.ShouldThrowAsync(typeof(InvalidOperationException));
-        result.Wait();
+        await task.ShouldThrowAsync(typeof(InvalidOperationException));
     }
 
     [Fact]

@@ -3,7 +3,7 @@
 public class FuncOfTaskScenarioAsync
 {
     [Fact]
-    public void ShouldThrowAWobbly()
+    public async Task ShouldThrowAWobbly()
     {
         try
         {
@@ -11,7 +11,7 @@ public class FuncOfTaskScenarioAsync
                 CancellationToken.None, TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            task.ShouldNotThrowAsync("Some additional context").Wait();
+            await task.ShouldNotThrowAsync("Some additional context");
         }
         catch (AggregateException e)
         {
@@ -26,7 +26,7 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldThrowAWobbly_WithNestedTasks()
+    public async Task ShouldThrowAWobbly_WithNestedTasks()
     {
         try
         {
@@ -38,7 +38,7 @@ public class FuncOfTaskScenarioAsync
                 }, TaskCreationOptions.AttachedToParent);
             });
 
-            task.ShouldNotThrowAsync("Some additional context").Wait();
+            await task.ShouldNotThrowAsync("Some additional context");
         }
         catch (AggregateException e)
         {
@@ -59,12 +59,12 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldPass()
+    public async Task ShouldPass()
     {
         var task = Task.Factory.StartNew(() => { },
             CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
 
-        task.ShouldNotThrowAsync().Wait();
+        await task.ShouldNotThrowAsync();
     }
 }
