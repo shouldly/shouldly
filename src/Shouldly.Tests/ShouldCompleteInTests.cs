@@ -5,14 +5,20 @@ public class ShouldCompleteInTests
     [Fact]
     public void ShouldCompleteIn_WhenFinishBeforeTimeout()
     {
-        Should.NotThrow(() => Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(0.5)).Wait(), TimeSpan.FromSeconds(5)));
+        Should.NotThrow(
+            () => Should.CompleteIn(
+                () => Thread.Sleep(TimeSpan.FromSeconds(0.5)),
+                TimeSpan.FromSeconds(5)));
     }
 
     [Fact]
     public void ShouldCompleteIn_WhenFinishAfterTimeout()
     {
-        var ex = Should.Throw<ShouldlyTimeoutException>(() =>
-            Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait(), TimeSpan.FromSeconds(1), "Some additional context"));
+        var ex = Should.Throw<ShouldlyTimeoutException>(
+            () => Should.CompleteIn(
+                () => Thread.Sleep(TimeSpan.FromSeconds(5)),
+                TimeSpan.FromSeconds(1),
+                "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Delegate
@@ -29,8 +35,10 @@ public class ShouldCompleteInTests
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
             Should.CompleteIn(
-                () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()),
-                TimeSpan.FromMilliseconds(10), "Some additional context"));
+                () => Task.Factory.StartNew(
+                    () => Thread.Sleep(TimeSpan.FromSeconds(5))),
+                TimeSpan.FromMilliseconds(10),
+                "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Task
@@ -45,27 +53,37 @@ public class ShouldCompleteInTests
     [Fact]
     public void ShouldCompleteIn_WhenThrowsNonTimeoutException()
     {
-        Should.Throw<NotImplementedException>(() => Should.CompleteIn(() => throw new NotImplementedException(), TimeSpan.FromSeconds(1)));
+        Should.Throw<NotImplementedException>(
+            () => Should.CompleteIn(
+                () => throw new NotImplementedException(),
+                TimeSpan.FromSeconds(1)));
     }
 
     [Fact]
     public void ShouldCompleteInT_WhenFinishBeforeTimeout()
     {
-        Should.NotThrow(() => Should.CompleteIn(() =>
-        {
-            Task.Delay(TimeSpan.FromSeconds(1)).Wait();
-            return "";
-        }, TimeSpan.FromSeconds(5)));
+        Should.NotThrow(
+            () => Should.CompleteIn(
+            () =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+                return "";
+            },
+            TimeSpan.FromSeconds(5)));
     }
 
     [Fact]
     public void ShouldCompleteInT_WhenFinishAfterTimeout()
     {
-        var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
-        {
-            Task.Delay(TimeSpan.FromSeconds(5)).Wait();
-            return "";
-        }, TimeSpan.FromSeconds(1), "Some additional context"));
+        var ex = Should.Throw<ShouldlyTimeoutException>(
+            () => Should.CompleteIn(
+                () =>
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    return "";
+                },
+                TimeSpan.FromSeconds(1),
+                "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
@@ -81,14 +99,18 @@ public class ShouldCompleteInTests
     [Fact]
     public void ShouldCompleteInTaskT_WhenFinishAfterTimeout()
     {
-        var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                Task.Delay(TimeSpan.FromSeconds(5)).Wait();
-                return "";
-            });
-        }, TimeSpan.FromSeconds(1), "Some additional context"));
+        var ex = Should.Throw<ShouldlyTimeoutException>(
+            () => Should.CompleteIn(() =>
+                {
+                    return Task.Factory.StartNew(
+                        () =>
+                        {
+                            Thread.Sleep(TimeSpan.FromSeconds(5));
+                            return "";
+                        });
+                },
+                TimeSpan.FromSeconds(1),
+                "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
