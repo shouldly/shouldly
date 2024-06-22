@@ -63,7 +63,7 @@ public static partial class Should
             if (inner is ShouldlyTimeoutException exception)
             {
                 var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
-                throw new ShouldCompleteInException(message, exception);
+                throw new ShouldCompleteInException(message, null);
             }
 
             PreserveStackTrace(inner);
