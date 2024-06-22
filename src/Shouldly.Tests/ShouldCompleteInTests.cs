@@ -104,6 +104,8 @@ public class ShouldCompleteInTests
     [Fact]
     public void ShouldCompleteInT_WhenThrowsNonTimeoutException()
     {
-        Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => throw new NotImplementedException()), TimeSpan.FromSeconds(2)));
+        Should.Throw<NotImplementedException>(
+            () => Should.CompleteIn(new Func<string>(
+                () => throw new NotImplementedException()), TimeSpan.FromSeconds(2)));
     }
 }

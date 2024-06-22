@@ -5,9 +5,13 @@ public static partial class Should
     /*** CompleteIn(Action) ***/
     public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage = null)
     {
-        var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
+        var actual = Task.Factory.StartNew(
+            action,
+            CancellationToken.None,
+            TaskCreationOptions.None,
             TaskScheduler.Default);
-        CompleteIn(actual, timeout, customMessage, "Delegate");
+        CompleteInAsync(actual, timeout, customMessage, "Delegate")
+            .GetAwaiter().GetResult();
     }
 
     /*** CompleteIn(Func<T>) ***/
@@ -15,60 +19,93 @@ public static partial class Should
     {
         var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
-        CompleteIn(actual, timeout, customMessage, "Delegate");
-        return actual.Result;
+        return CompleteInAsync(actual, timeout, customMessage, "Delegate")
+            .GetAwaiter().GetResult();
     }
 
     /*** CompleteIn(Func<Task>) ***/
     public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null)
     {
-        CompleteIn(actual(), timeout, customMessage, "Task");
+        CompleteInAsync(actual(), timeout, customMessage, "Task")
+            .GetAwaiter().GetResult();
     }
 
     /*** CompleteIn(Func<Task<T>>) ***/
     public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
     {
         var task = actual();
-        CompleteIn(task, timeout, customMessage, "Task");
-        return task.Result;
+        return CompleteInAsync(task, timeout, customMessage, "Task")
+            .GetAwaiter().GetResult();
     }
 
     /*** CompleteIn(Task<T>) ***/
     public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null)
     {
-        CompleteIn(actual, timeout, customMessage, "Task");
+        CompleteInAsync(actual, timeout, customMessage, "Task")
+            .GetAwaiter().GetResult();
     }
 
     /*** CompleteIn(Task<T>) ***/
     public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
     {
-        CompleteIn(actual, timeout, customMessage, "Task");
-        return actual.Result;
+        return CompleteInAsync(actual, timeout, customMessage, "Task")
+            .GetAwaiter().GetResult();
     }
 
-    private static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage, string what)
+    private static async Task CompleteInAsync(Task actual, TimeSpan timeout, string? customMessage, string what)
     {
-        try
+        var winner = await Task.WhenAny(actual, Task.Delay(timeout));
+        if (winner == actual)
         {
-            actual.TimeoutAfter(timeout).Wait();
-        }
-        catch (AggregateException ae)
-        {
-            var flattened = ae.Flatten();
-            if (flattened.InnerExceptions.Count != 1)
-                throw;
-
-            var inner = flattened.InnerException!;
-            // When exception is a timeout exception we can provide a better error, otherwise rethrow
-            if (inner is ShouldlyTimeoutException exception)
+            switch (actual.Status)
             {
-                var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
-                throw new ShouldCompleteInException(message, null);
+                case TaskStatus.Faulted:
+                    throw BuildInnerException(actual);
+                case TaskStatus.Canceled:
+                    throw new TaskCanceledException();
+                case TaskStatus.RanToCompletion:
+                    return;
+                default:
+                    throw new("Unreachable");
             }
-
-            PreserveStackTrace(inner);
-            throw inner;
         }
+
+        throw BuildCompleteInException(timeout, customMessage, what);
+    }
+
+    static async Task<T> CompleteInAsync<T>(Task<T> actual, TimeSpan timeout, string? customMessage, string what)
+    {
+        var winner = await Task.WhenAny(actual, Task.Delay(timeout));
+        if (winner == actual)
+        {
+            switch (actual.Status)
+            {
+                case TaskStatus.Faulted:
+                    throw BuildInnerException(actual);
+                case TaskStatus.Canceled:
+                    throw new TaskCanceledException();
+                case TaskStatus.RanToCompletion:
+                    return actual.Result;
+                default:
+                    throw new("Unreachable");
+            }
+        }
+
+        throw BuildCompleteInException(timeout, customMessage, what);
+    }
+
+    static Exception BuildInnerException(Task actual)
+    {
+        var aggregateException = actual.Exception!;
+        var inner = aggregateException.InnerExceptions[0];
+        PreserveStackTrace(inner);
+        return inner;
+    }
+
+    static ShouldCompleteInException BuildCompleteInException(TimeSpan timeout, string? customMessage, string what)
+    {
+        var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
+        return new ShouldCompleteInException(message, null);
     }
 
     private static void PreserveStackTrace(Exception exception)
