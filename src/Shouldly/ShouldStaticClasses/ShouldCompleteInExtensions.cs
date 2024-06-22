@@ -5,11 +5,7 @@ public static partial class Should
     /*** CompleteIn(Action) ***/
     public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage = null)
     {
-        var actual = Task.Factory.StartNew(
-            action,
-            CancellationToken.None,
-            TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
         CompleteInAsync(actual, timeout, customMessage, "Delegate")
             .GetAwaiter().GetResult();
     }
@@ -17,40 +13,58 @@ public static partial class Should
     /*** CompleteIn(Func<T>) ***/
     public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, string? customMessage = null)
     {
-        var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
         return CompleteInAsync(actual, timeout, customMessage, "Delegate")
             .GetAwaiter().GetResult();
     }
 
     /*** CompleteIn(Func<Task>) ***/
+    //[Obsolete("Use CompleteInAsync. Will be remove in version 5")]
     public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null)
     {
-        CompleteInAsync(actual(), timeout, customMessage, "Task")
+        CompleteInAsync(actual, timeout, customMessage)
             .GetAwaiter().GetResult();
     }
+
+    /*** CompleteInAsync(Func<Task>) ***/
+    public static Task CompleteInAsync(Func<Task> actual, TimeSpan timeout, string? customMessage = null)
+        => CompleteInAsync(actual(), timeout, customMessage, "Task");
 
     /*** CompleteIn(Func<Task<T>>) ***/
     public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
+        => CompleteInAsync(actual, timeout, customMessage)
+            .GetAwaiter().GetResult();
+
+    /*** CompleteInAsync(Func<Task<T>>) ***/
+    public static Task<T> CompleteInAsync<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
     {
         var task = actual();
-        return CompleteInAsync(task, timeout, customMessage, "Task")
-            .GetAwaiter().GetResult();
+        return CompleteInAsync(task, timeout, customMessage, "Task");
     }
 
     /*** CompleteIn(Task<T>) ***/
+    //[Obsolete("Use CompleteInAsync. Will be remove in version 5")]
     public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null)
     {
-        CompleteInAsync(actual, timeout, customMessage, "Task")
+        CompleteInAsync(actual, timeout, customMessage)
             .GetAwaiter().GetResult();
     }
 
+    /*** CompleteInAsync(Task<T>) ***/
+    public static Task CompleteInAsync(Task actual, TimeSpan timeout, string? customMessage = null)
+        => CompleteInAsync(actual, timeout, customMessage, "Task");
+
     /*** CompleteIn(Task<T>) ***/
+    //[Obsolete("Use CompleteInAsync. Will be remove in version 5")]
     public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
     {
-        return CompleteInAsync(actual, timeout, customMessage, "Task")
+        return CompleteInAsync(actual, timeout, customMessage)
             .GetAwaiter().GetResult();
     }
+
+    /*** CompleteInAsync(Task<T>) ***/
+    public static Task<T> CompleteInAsync<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
+        => CompleteInAsync(actual, timeout, customMessage, "Task");
 
     private static async Task CompleteInAsync(Task actual, TimeSpan timeout, string? customMessage, string what)
     {

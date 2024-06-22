@@ -104,6 +104,10 @@ namespace Shouldly
         public static T CompleteIn<T>(System.Func<System.Threading.Tasks.Task<T>> actual, System.TimeSpan timeout, string? customMessage = null) { }
         public static T CompleteIn<T>(System.Func<T> function, System.TimeSpan timeout, string? customMessage = null) { }
         public static T CompleteIn<T>(System.Threading.Tasks.Task<T> actual, System.TimeSpan timeout, string? customMessage = null) { }
+        public static System.Threading.Tasks.Task CompleteInAsync(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeout, string? customMessage = null) { }
+        public static System.Threading.Tasks.Task CompleteInAsync(System.Threading.Tasks.Task actual, System.TimeSpan timeout, string? customMessage = null) { }
+        public static System.Threading.Tasks.Task<T> CompleteInAsync<T>(System.Func<System.Threading.Tasks.Task<T>> actual, System.TimeSpan timeout, string? customMessage = null) { }
+        public static System.Threading.Tasks.Task<T> CompleteInAsync<T>(System.Threading.Tasks.Task<T> actual, System.TimeSpan timeout, string? customMessage = null) { }
         public static void NotThrow(System.Action action, string? customMessage = null) { }
         public static void NotThrow(System.Func<System.Threading.Tasks.Task> action, string? customMessage = null) { }
         public static void NotThrow(System.Threading.Tasks.Task action, string? customMessage = null) { }
