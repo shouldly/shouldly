@@ -5,7 +5,7 @@ namespace Shouldly.Tests.Strings;
 [ShouldlyMethods]
 public static class Verify
 {
-    private static readonly Regex MatchGetHashCode = new("\\(\\d{5,8}\\)");
+    private static readonly Regex MatchGetHashCode = new(@"\(-?\d{6,10}\)");
 
     public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string>? messageScrubber = null)
     {
