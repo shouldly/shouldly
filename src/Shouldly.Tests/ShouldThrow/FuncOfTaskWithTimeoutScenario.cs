@@ -5,7 +5,7 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var tcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         var perpetualTask = tcs.Task;
 
         var ex = Should.Throw<ShouldCompleteInException>(
@@ -17,7 +17,7 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
-        var tcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         var perpetualTask = tcs.Task;
         
         var ex = Should.Throw(
@@ -43,7 +43,7 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldPass()
     {
-        var tcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         tcs.SetException(new InvalidOperationException());
         var faultedTask = tcs.Task;
 
@@ -56,7 +56,7 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var tcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         tcs.SetException(new InvalidOperationException());
         var faultedTask = tcs.Task;
 
