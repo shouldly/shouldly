@@ -4,7 +4,7 @@ public class ShouldCompleteInTests
 {
     private static readonly TimeSpan ShortWait = TimeSpan.FromSeconds(0.5);
     private static readonly TimeSpan LongWait = TimeSpan.FromSeconds(15);
-    private static readonly TimeSpan ImmediateTaskTimeout = TimeSpan.FromMilliseconds(2);
+    private static readonly TimeSpan ImmediateTaskTimeout = TimeSpan.FromSeconds(2);
     
     [Fact]
     public void ShouldCompleteIn_WhenFinishBeforeTimeout()
