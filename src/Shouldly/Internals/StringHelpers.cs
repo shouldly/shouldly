@@ -80,7 +80,7 @@ static class StringHelpers
 
         var toString = value.ToString();
         if (toString == objectType.FullName)
-            return $"{value} ({value.GetHashCode()})";
+            return $"{value} ({value.GetHashCode():D6})";
 
         return toString; // ToString() may return null.
     }

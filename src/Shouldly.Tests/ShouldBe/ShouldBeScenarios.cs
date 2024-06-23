@@ -230,7 +230,7 @@ public class ShouldBeScenarios
             """
             new BaseClass()
                 should be
-            Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (000000)
                 but was
             Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
 
@@ -242,7 +242,7 @@ public class ShouldBeScenarios
             """
             Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
                 should be
-            Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (0)
+            Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (000000)
                 but was not
 
             Additional Info:
