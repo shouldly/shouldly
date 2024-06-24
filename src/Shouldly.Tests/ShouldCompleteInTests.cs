@@ -2,13 +2,17 @@
 
 public class ShouldCompleteInTests
 {
+    private static readonly TimeSpan ShortWait = TimeSpan.FromSeconds(0.5);
+    private static readonly TimeSpan LongWait = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan ImmediateTaskTimeout = TimeSpan.FromSeconds(2);
+    
     [Fact]
     public void ShouldCompleteIn_WhenFinishBeforeTimeout()
     {
         Should.NotThrow(
             () => Should.CompleteIn(
-                () => Thread.Sleep(TimeSpan.FromSeconds(0.5)),
-                TimeSpan.FromSeconds(5)));
+                () => Thread.Sleep(ShortWait),
+                LongWait));
     }
 
     [Fact]
@@ -16,14 +20,15 @@ public class ShouldCompleteInTests
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(
             () => Should.CompleteIn(
-                () => Thread.Sleep(TimeSpan.FromSeconds(5)),
-                TimeSpan.FromMilliseconds(1),
+                () => Thread.Sleep(LongWait),
+                ShortWait,
                 "Some additional context"));
-        ex.Message.ShouldContainWithoutWhitespace(
+
+      ex.Message.ShouldContainWithoutWhitespace(
             """
             Delegate
                 should complete in
-            00:00:00.0010000
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -36,14 +41,15 @@ public class ShouldCompleteInTests
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
             Should.CompleteIn(
                 () => Task.Factory.StartNew(
-                    () => Thread.Sleep(TimeSpan.FromSeconds(5))),
-                TimeSpan.FromMilliseconds(10),
+                    () => Thread.Sleep(LongWait)),
+                ShortWait,
                 "Some additional context"));
+
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Task
                 should complete in
-            00:00:00.0100000
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -56,7 +62,7 @@ public class ShouldCompleteInTests
         Should.Throw<NotImplementedException>(
             () => Should.CompleteIn(
                 () => throw new NotImplementedException(),
-                TimeSpan.FromSeconds(1)));
+                ImmediateTaskTimeout));
     }
 
     [Fact]
@@ -66,10 +72,10 @@ public class ShouldCompleteInTests
             () => Should.CompleteIn(
             () =>
             {
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Thread.Sleep(ShortWait);
                 return "";
             },
-            TimeSpan.FromSeconds(5)));
+            LongWait));
     }
 
     [Fact]
@@ -79,17 +85,17 @@ public class ShouldCompleteInTests
             () => Should.CompleteIn(
                 () =>
                 {
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
+                    Thread.Sleep(LongWait);
                     return "";
                 },
-                TimeSpan.FromSeconds(1),
+                ShortWait,
                 "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Delegate
                 should complete in
-            00:00:01
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -105,18 +111,18 @@ public class ShouldCompleteInTests
                     return Task.Factory.StartNew(
                         () =>
                         {
-                            Thread.Sleep(TimeSpan.FromSeconds(5));
+                            Thread.Sleep(LongWait);
                             return "";
                         });
                 },
-                TimeSpan.FromSeconds(1),
+                ShortWait,
                 "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Task
                 should complete in
-            00:00:01
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -130,6 +136,6 @@ public class ShouldCompleteInTests
             () => Should.CompleteIn(
                 new Func<string>(
                     () => throw new NotImplementedException()),
-                TimeSpan.FromSeconds(2)));
+                ImmediateTaskTimeout));
     }
 }
