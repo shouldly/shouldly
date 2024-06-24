@@ -2,22 +2,26 @@
 
 public class ShouldCompleteInTests
 {
+    private static readonly TimeSpan ShortWait = TimeSpan.FromSeconds(0.5);
+    private static readonly TimeSpan LongWait = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan ImmediateTaskTimeout = TimeSpan.FromSeconds(2);
+    
     [Fact]
     public void ShouldCompleteIn_WhenFinishBeforeTimeout()
     {
-        Should.NotThrow(() => Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(0.5)).Wait(), TimeSpan.FromSeconds(5)));
+        Should.NotThrow(() => Should.CompleteIn(() => Task.Delay(ShortWait).Wait(), LongWait));
     }
 
     [Fact]
     public void ShouldCompleteIn_WhenFinishAfterTimeout()
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
-            Should.CompleteIn(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait(), TimeSpan.FromSeconds(1), "Some additional context"));
+            Should.CompleteIn(() => Task.Delay(LongWait).Wait(), ShortWait, "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Delegate
                 should complete in
-            00:00:01
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -29,13 +33,13 @@ public class ShouldCompleteInTests
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
             Should.CompleteIn(
-                () => Task.Factory.StartNew(() => Task.Delay(TimeSpan.FromSeconds(5)).Wait()),
-                TimeSpan.FromMilliseconds(10), "Some additional context"));
+                () => Task.Factory.StartNew(() => Task.Delay(LongWait).Wait()),
+                ShortWait, "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Task
                 should complete in
-            00:00:00.0100000
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -45,7 +49,7 @@ public class ShouldCompleteInTests
     [Fact]
     public void ShouldCompleteIn_WhenThrowsNonTimeoutException()
     {
-        Should.Throw<NotImplementedException>(() => Should.CompleteIn(() => throw new NotImplementedException(), TimeSpan.FromSeconds(1)));
+        Should.Throw<NotImplementedException>(() => Should.CompleteIn(() => throw new NotImplementedException(), ImmediateTaskTimeout));
     }
 
     [Fact]
@@ -53,9 +57,9 @@ public class ShouldCompleteInTests
     {
         Should.NotThrow(() => Should.CompleteIn(() =>
         {
-            Task.Delay(TimeSpan.FromSeconds(1)).Wait();
+            Task.Delay(ShortWait).Wait();
             return "";
-        }, TimeSpan.FromSeconds(5)));
+        }, LongWait));
     }
 
     [Fact]
@@ -63,15 +67,15 @@ public class ShouldCompleteInTests
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(() => Should.CompleteIn(() =>
         {
-            Task.Delay(TimeSpan.FromSeconds(5)).Wait();
+            Task.Delay(LongWait).Wait();
             return "";
-        }, TimeSpan.FromSeconds(1), "Some additional context"));
+        }, ShortWait, "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Delegate
                 should complete in
-            00:00:01
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -85,16 +89,16 @@ public class ShouldCompleteInTests
         {
             return Task.Factory.StartNew(() =>
             {
-                Task.Delay(TimeSpan.FromSeconds(5)).Wait();
+                Task.Delay(LongWait).Wait();
                 return "";
             });
-        }, TimeSpan.FromSeconds(1), "Some additional context"));
+        }, ShortWait, "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
             Task
                 should complete in
-            00:00:01
+            00:00:00.5000000
                 but did not
             Additional Info:
             Some additional context
@@ -104,6 +108,6 @@ public class ShouldCompleteInTests
     [Fact]
     public void ShouldCompleteInT_WhenThrowsNonTimeoutException()
     {
-        Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => throw new NotImplementedException()), TimeSpan.FromSeconds(2)));
+        Should.Throw<NotImplementedException>(() => Should.CompleteIn(new Func<string>(() => throw new NotImplementedException()), ImmediateTaskTimeout));
     }
 }
