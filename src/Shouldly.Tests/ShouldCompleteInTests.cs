@@ -40,7 +40,7 @@ public class ShouldCompleteInTests
     {
         var ex = Should.Throw<ShouldlyTimeoutException>(() =>
             Should.CompleteIn(
-                () => Task.Factory.StartNew(
+                () => Task.Run(
                     () => Thread.Sleep(LongWait)),
                 ShortWait,
                 "Some additional context"));
@@ -108,7 +108,7 @@ public class ShouldCompleteInTests
         var ex = Should.Throw<ShouldlyTimeoutException>(
             () => Should.CompleteIn(() =>
                 {
-                    return Task.Factory.StartNew(
+                    return Task.Run(
                         () =>
                         {
                             Thread.Sleep(LongWait);

@@ -5,13 +5,11 @@ public class TaskOfTWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Factory.StartNew(() =>
+        var task = Task.Run(() =>
             {
                 Task.Delay(5000).Wait();
                 return "foo";
-            },
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+            });
 
         var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
 
@@ -31,9 +29,7 @@ public class TaskOfTWithTimeoutScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => "foo",
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => "foo");
 
         var result = task.ShouldNotThrow(TimeSpan.FromSeconds(3));
         result.ShouldBe("foo");

@@ -7,9 +7,7 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Factory.StartNew(() => throw new InvalidOperationException("exception message"),
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+            var task = Task.Run(() => throw new InvalidOperationException("exception message"));
 
             await task.ShouldNotThrowAsync("Some additional context");
         }
@@ -28,12 +26,12 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Factory.StartNew(() => {
-                var child1 = Task.Factory.StartNew(() => {
-                    var child2 = Task.Factory.StartNew(() =>
-                        throw new InvalidOperationException(), TaskCreationOptions.AttachedToParent);
+            var task = Task.Run(() => {
+                var child1 = Task.Run(() => {
+                    var child2 = Task.Run(() =>
+                        throw new InvalidOperationException());
                     throw new InvalidOperationException();
-                }, TaskCreationOptions.AttachedToParent);
+                });
             });
 
             await task.ShouldNotThrowAsync("Some additional context");
@@ -57,9 +55,7 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => { },
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => { });
 
         await task.ShouldNotThrowAsync();
     }

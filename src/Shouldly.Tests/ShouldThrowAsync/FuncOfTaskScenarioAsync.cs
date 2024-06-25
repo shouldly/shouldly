@@ -1,4 +1,5 @@
-﻿using Xunit.Sdk;
+﻿using System.Diagnostics;
+using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync;
 
@@ -9,13 +10,11 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
                 {
                     var a = 1 + 1;
-                    Console.WriteLine(a);
-                },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    Debug.WriteLine(a);
+                });
 
             await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
@@ -50,13 +49,11 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
                 {
                     var a = 1 + 1;
-                    Console.WriteLine(a);
-                },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    Debug.WriteLine(a);
+                });
 
             await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
@@ -74,9 +71,7 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
         await task.ShouldThrowAsync<InvalidOperationException>();
     }
@@ -84,9 +79,7 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
         await task.ShouldThrowAsync(typeof(InvalidOperationException));
     }

@@ -30,9 +30,7 @@ public class FuncOfTaskOfTWithTimeoutScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => "foo",
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => "foo");
 
         var result = task.ShouldNotThrow(TimeSpan.FromSeconds(2.0));
         result.ShouldBe("foo");
