@@ -5,22 +5,20 @@ public class TaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
-
-        var ex = Should.Throw<ShouldCompleteInException>(() => task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var perpetualTask = tcs.Task;
+        
+        var ex = Should.Throw<ShouldCompleteInException>(() => perpetualTask.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
-    [Fact(Skip = "flaky")]
+    [Fact]
     public void ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => { Task.Delay(5000).Wait(); },
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var perpetualTask = tcs.Task;
 
-        var ex = Should.Throw(() => task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"), typeof(ShouldCompleteInException));
+        var ex = Should.Throw(() => perpetualTask.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"), typeof(ShouldCompleteInException));
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
@@ -35,11 +33,11 @@ public class TaskWithTimeoutScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        tcs.SetException(new InvalidOperationException());
+        var faultedTask = tcs.Task;
 
-        var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(2));
+        var ex = faultedTask.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(2));
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
     }
@@ -47,11 +45,11 @@ public class TaskWithTimeoutScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        tcs.SetException(new InvalidOperationException());
+        var faultedTask = tcs.Task;
 
-        var ex = task.ShouldThrow(TimeSpan.FromSeconds(2), typeof(InvalidOperationException));
+        var ex = faultedTask.ShouldThrow(TimeSpan.FromSeconds(2), typeof(InvalidOperationException));
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
     }
