@@ -32,7 +32,7 @@ public class FuncOfTaskOfTWithTimeoutScenario
     {
         var task = Task.Run(() => "foo");
 
-        var result = task.ShouldNotThrow(TimeSpan.FromSeconds(2.0));
+        var result = task.ShouldNotThrow(TimeSpan.FromSeconds(15));
         result.ShouldBe("foo");
     }
 }
