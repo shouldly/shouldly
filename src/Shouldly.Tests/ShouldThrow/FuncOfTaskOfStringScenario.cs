@@ -5,9 +5,7 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void FuncOfTaskOfStringScenarioShouldFail()
     {
-        var task = Task.Factory.StartNew(() => "Foo",
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => "Foo");
 
         Verify.ShouldFail(() =>
                 task.ShouldThrow<InvalidOperationException>("Some additional context"),
@@ -38,9 +36,7 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void FuncOfTaskOfStringScenarioShouldFail_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => "Foo",
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => "Foo");
 
         Verify.ShouldFail(() =>
                 task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
@@ -71,9 +67,7 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew<string>(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
         var ex = task.ShouldThrow<InvalidOperationException>();
 
@@ -84,9 +78,7 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew<string>(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
         var ex = task.ShouldThrow(typeof(InvalidOperationException));
 

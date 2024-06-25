@@ -6,9 +6,7 @@ public class TaskOfTScenario
     [UseCulture("en-US")]
     public void TaskOfTScenarioShouldFail()
     {
-        var task = Task.Factory.StartNew<string>(() => throw new RankException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new RankException());
 
         Verify.ShouldFail(() =>
                 task.ShouldNotThrow("Some additional context"),
@@ -41,9 +39,7 @@ public class TaskOfTScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => "foo",
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => "foo");
 
         var result = task.ShouldNotThrow();
         result.ShouldBe("foo");

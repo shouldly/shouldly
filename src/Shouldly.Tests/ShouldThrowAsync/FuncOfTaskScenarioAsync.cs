@@ -1,32 +1,28 @@
-﻿using Xunit.Sdk;
+﻿using System.Diagnostics;
+using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync;
 
 public class FuncOfTaskScenarioAsync
 {
     [Fact]
-    public void ShouldThrowAWobbly()
+    public async Task ShouldThrowAWobbly()
     {
         try
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
                 {
                     var a = 1 + 1;
-                    Console.WriteLine(a);
-                },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    Debug.WriteLine(a);
+                });
 
-            var result = task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
-            result.Wait();
+            await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should throw System.InvalidOperationException but did not
+                `await task` should throw System.InvalidOperationException but did not
                 Additional Info:
                 Some additional context
                 """);
@@ -49,28 +45,23 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldThrowAWobbly_ExceptionTypePassedIn()
+    public async Task ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
         try
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
                 {
                     var a = 1 + 1;
-                    Console.WriteLine(a);
-                },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+                    Debug.WriteLine(a);
+                });
 
-            var result = task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
-            result.Wait();
+            await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should throw System.InvalidOperationException but did not
+                `await task` should throw System.InvalidOperationException but did not
                 Additional Info:
                 Some additional context
                 """);
@@ -78,25 +69,19 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldPass()
+    public async Task ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
-        var result = task.ShouldThrowAsync<InvalidOperationException>();
-        result.Wait();
+        await task.ShouldThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
-    public void ShouldPass_ExceptionTypePassedIn()
+    public async Task ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
-        var result = task.ShouldThrowAsync(typeof(InvalidOperationException));
-        result.Wait();
+        await task.ShouldThrowAsync(typeof(InvalidOperationException));
     }
 
     [Fact]

@@ -6,9 +6,7 @@ public class FuncOfTaskOfStringScenario
     [UseCulture("en-US")]
     public void FuncOfTaskOfStringScenarioShouldFail()
     {
-        var task = Task.Factory.StartNew<string>(() => throw new RankException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new RankException());
         Verify.ShouldFail(() =>
                 task.ShouldNotThrow("Some additional context"),
 
@@ -40,9 +38,7 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => "Foo",
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => "Foo");
 
         var result = task.ShouldNotThrow();
         result.ShouldBe("Foo");

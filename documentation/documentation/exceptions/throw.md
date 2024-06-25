@@ -39,7 +39,7 @@ Func<Task> doSomething = async () =>
 };
 var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
 ```
-<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L107-L113' title='Snippet source file'>snippet source</a> | <a href='#snippet-shouldthrowasync' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L103-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-shouldthrowasync' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**

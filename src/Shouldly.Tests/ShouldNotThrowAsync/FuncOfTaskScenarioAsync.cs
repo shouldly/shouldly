@@ -3,50 +3,44 @@
 public class FuncOfTaskScenarioAsync
 {
     [Fact]
-    public void ShouldThrowAWobbly()
+    public async Task ShouldThrowAWobbly()
     {
         try
         {
-            var task = Task.Factory.StartNew(() => throw new InvalidOperationException("exception message"),
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+            var task = Task.Run(() => throw new InvalidOperationException("exception message"));
 
-            task.ShouldNotThrowAsync("Some additional context").Wait();
+            await task.ShouldNotThrowAsync("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should not throw but threw System.InvalidOperationException with message "exception message"
+                `await task` should not throw but threw System.InvalidOperationException with message "exception message"
                 Additional Info: Some additional context
                 """);
         }
     }
 
     [Fact]
-    public void ShouldThrowAWobbly_WithNestedTasks()
+    public async Task ShouldThrowAWobbly_WithNestedTasks()
     {
         try
         {
-            var task = Task.Factory.StartNew(() => {
-                var child1 = Task.Factory.StartNew(() => {
-                    var child2 = Task.Factory.StartNew(() =>
-                        throw new InvalidOperationException(), TaskCreationOptions.AttachedToParent);
+            var task = Task.Run(() => {
+                var child1 = Task.Run(() => {
+                    var child2 = Task.Run(() =>
+                        throw new InvalidOperationException());
                     throw new InvalidOperationException();
-                }, TaskCreationOptions.AttachedToParent);
+                });
             });
 
-            task.ShouldNotThrowAsync("Some additional context").Wait();
+            await task.ShouldNotThrowAsync("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task`
+                `await task`
                 should not throw but threw
                 System.AggregateException
                 """);
@@ -59,12 +53,10 @@ public class FuncOfTaskScenarioAsync
     }
 
     [Fact]
-    public void ShouldPass()
+    public async Task ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => { },
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => { });
 
-        task.ShouldNotThrowAsync().Wait();
+        await task.ShouldNotThrowAsync();
     }
 }
