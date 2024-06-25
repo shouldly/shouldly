@@ -19,13 +19,11 @@ public class FuncOfTaskScenarioAsync
 
             await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should throw System.InvalidOperationException but did not
+                `await task` should throw System.InvalidOperationException but did not
                 Additional Info:
                 Some additional context
                 """);
@@ -62,13 +60,11 @@ public class FuncOfTaskScenarioAsync
 
             await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should throw System.InvalidOperationException but did not
+                `await task` should throw System.InvalidOperationException but did not
                 Additional Info:
                 Some additional context
                 """);

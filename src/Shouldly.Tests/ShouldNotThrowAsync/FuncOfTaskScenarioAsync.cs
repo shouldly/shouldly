@@ -13,13 +13,11 @@ public class FuncOfTaskScenarioAsync
 
             await task.ShouldNotThrowAsync("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should not throw but threw System.InvalidOperationException with message "exception message"
+                `await task` should not throw but threw System.InvalidOperationException with message "exception message"
                 Additional Info: Some additional context
                 """);
         }
@@ -40,13 +38,11 @@ public class FuncOfTaskScenarioAsync
 
             await task.ShouldNotThrowAsync("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task`
+                `await task`
                 should not throw but threw
                 System.AggregateException
                 """);
