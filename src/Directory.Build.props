@@ -11,8 +11,5 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
-  </ItemGroup>
+  
 </Project>
