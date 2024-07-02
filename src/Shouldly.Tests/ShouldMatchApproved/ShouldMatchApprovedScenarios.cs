@@ -165,7 +165,7 @@ Actual Code    | 70   111  111  ",
     [Fact]
     public async Task CanFindTestAttributeInAsync()
     {
-        await Task.Delay(200);
+        await Task.Yield();
 
         "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
     }
@@ -173,7 +173,7 @@ Actual Code    | 70   111  111  ",
     [Fact]
     public async Task HandlesAsync()
     {
-        await Task.Delay(200);
+        await Task.Yield();
 
         "Foo".ShouldMatchApproved();
     }

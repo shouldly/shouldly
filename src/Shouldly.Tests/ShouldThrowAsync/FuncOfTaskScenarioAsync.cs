@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Extensions.Time.Testing;
 using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync;
@@ -10,11 +10,7 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Run(() =>
-                {
-                    var a = 1 + 1;
-                    Debug.WriteLine(a);
-                });
+            var task = Task.CompletedTask;
 
             await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
@@ -34,11 +30,14 @@ public class FuncOfTaskScenarioAsync
     {
         // Arrange.
         // Cancel this calling code after 5 seconds.
-        var cancellationTokenSource = new CancellationTokenSource(5);
-        var task = Task.Delay(TimeSpan.FromSeconds(10), cancellationTokenSource.Token);
+        var timeProvider = new FakeTimeProvider();
+        var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5), timeProvider);
+        var task = Task.Delay(TimeSpan.FromSeconds(10), timeProvider, cancellationTokenSource.Token);
 
         // Act.
-        var result = await Should.ThrowAsync<TaskCanceledException>(() => task);
+        var assertTask = Should.ThrowAsync<TaskCanceledException>(() => task);
+        timeProvider.Advance(TimeSpan.FromSeconds(6));
+        var result = await assertTask;
 
         // Assert.
         result.ShouldNotBeNull();
@@ -49,11 +48,7 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Run(() =>
-                {
-                    var a = 1 + 1;
-                    Debug.WriteLine(a);
-                });
+            var task = Task.CompletedTask;
 
             await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
@@ -71,7 +66,7 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass()
     {
-        var task = Task.Run(() => throw new InvalidOperationException());
+        var task = Task.FromException(new InvalidOperationException());
 
         await task.ShouldThrowAsync<InvalidOperationException>();
     }
@@ -79,7 +74,7 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Run(() => throw new InvalidOperationException());
+        var task = Task.FromException(new InvalidOperationException());
 
         await task.ShouldThrowAsync(typeof(InvalidOperationException));
     }
@@ -90,10 +85,8 @@ public class FuncOfTaskScenarioAsync
         try
         {
             #region ShouldThrowAsync
-            Func<Task> doSomething = async () =>
-            {
-                await Task.Delay(1);
-            };
+
+            Task doSomething() => Task.CompletedTask;
             var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
             #endregion
         }
@@ -109,7 +102,7 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            Func<Task> doSomething = () => throw new DivideByZeroException();
+            Task doSomething() => throw new DivideByZeroException();
             await Should.ThrowAsync<TimeoutException>(() => doSomething());
         }
         catch (Exception e)

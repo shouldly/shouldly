@@ -2,12 +2,12 @@ namespace Shouldly.Tests.ShouldNotThrow;
 
 public class FuncOfTaskOfTWithTimeoutScenario
 {
-    [Fact(Skip = "TODO: flaky test")]
+    [Fact]
     public void ShouldThrowAWobbly()
     {
         var task = Task.Run(async () =>
         {
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(15));
             return "foo";
         });
 

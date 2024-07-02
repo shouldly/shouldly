@@ -15,12 +15,14 @@
     <PackageReference Include="PublicApiGenerator" Version="11.1.0" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="8.6.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Runtime" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.1" />
     <Reference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
 </Project>

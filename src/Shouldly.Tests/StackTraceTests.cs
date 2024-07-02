@@ -2,7 +2,7 @@
 
 public static partial class StackTraceTests
 {
-    [Theory(Skip = "flaky test. intermittent null ref")]
+    [Theory]
     [MemberData(nameof(ExceptionThrowers))]
     public static void Top_stack_frame_is_user_code(ExceptionThrower exceptionThrower)
     {
@@ -13,7 +13,7 @@ public static partial class StackTraceTests
         stackTraceLines.First().ShouldContain(exceptionThrower.ThrowingAction.Method.Name);
     }
 
-    [Theory(Skip = "flaky test. intermittent null ref")]
+    [Theory]
     [MemberData(nameof(ExceptionThrowers))]
     public static void Stack_trace_is_trimmed_the_same_as_default_exception_stack_traces(ExceptionThrower exceptionThrower)
     {

@@ -5,9 +5,9 @@ public class TaskOfTWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Run(() =>
+        var task = Task.Run(async () =>
             {
-                Task.Delay(5000).Wait();
+                await Task.Delay(TimeSpan.FromSeconds(15));
                 return "foo";
             });
 
