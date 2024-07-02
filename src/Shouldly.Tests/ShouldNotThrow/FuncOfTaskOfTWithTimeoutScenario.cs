@@ -1,3 +1,5 @@
+using static Shouldly.Tests.CommonWaitDurations;
+
 namespace Shouldly.Tests.ShouldNotThrow;
 
 public class FuncOfTaskOfTWithTimeoutScenario
@@ -7,21 +9,21 @@ public class FuncOfTaskOfTWithTimeoutScenario
     {
         var task = Task.Run(async () =>
         {
-            await Task.Delay(TimeSpan.FromSeconds(15));
+            await Task.Delay(LongWait);
             return "foo";
         });
 
         var ex = Should.Throw<ShouldCompleteInException>(() =>
-            task.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
+            task.ShouldNotThrow(ShortWait, "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
     private string ChuckedAWobblyErrorMessage =
-        """
+        $"""
         Task
                 should complete in
-            00:00:00.5000000
+            {ShortWait}
                 but did not
             Additional Info:
             Some additional context
@@ -32,7 +34,7 @@ public class FuncOfTaskOfTWithTimeoutScenario
     {
         var task = Task.Run(() => "foo");
 
-        var result = task.ShouldNotThrow(TimeSpan.FromSeconds(15));
+        var result = task.ShouldNotThrow(LongWait);
         result.ShouldBe("foo");
     }
 }
