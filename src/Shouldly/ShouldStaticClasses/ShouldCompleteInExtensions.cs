@@ -32,7 +32,7 @@ public static partial class Should
         var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
         CompleteIn(actual, timeout, customMessage, "Delegate");
-        return actual.GetAwaiter().GetResult();
+        return actual.Result;
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public static partial class Should
     {
         var task = actual();
         CompleteIn(task, timeout, customMessage, "Task");
-        return task.GetAwaiter().GetResult();
+        return task.Result;
     }
 
     /// <summary>
