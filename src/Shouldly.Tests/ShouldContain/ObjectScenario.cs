@@ -9,7 +9,7 @@ public class ObjectScenario
         var b = new object();
         var c = new object();
         var d = new object();
-        var target = new[] { a, b, c };
+        object[] target = [a, b, c];
 
         Verify.ShouldFail(() =>
                 target.ShouldContain(d, "Some additional context"),
@@ -44,7 +44,7 @@ public class ObjectScenario
         var a = new object();
         var b = new object();
         var c = new object();
-        var target = new[] { a, b, c };
+        object[] target = [a, b, c];
         target.ShouldContain(b);
     }
 }

@@ -2,8 +2,8 @@
 
 public class IntegerArrayScenario
 {
-    private readonly int[] _ascendingTarget = { 1, 2, 3, 4, 5 };
-    private readonly int[] _descendingTarget = { 5, 4, 3, 2, 1 };
+    private readonly int[] _ascendingTarget = [1, 2, 3, 4, 5];
+    private readonly int[] _descendingTarget = [5, 4, 3, 2, 1];
 
     [Fact]
     public void ShouldFailWithDefaultDirection()

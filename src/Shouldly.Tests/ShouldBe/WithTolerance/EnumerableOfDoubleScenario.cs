@@ -7,7 +7,7 @@ public class EnumerableOfDoubleScenario
     public void EnumerableOfDoubleScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.24, 3.24 }, 0.01, "Some additional context"),
+                new[] { MathEx.PI, MathEx.PI }.ShouldBe([3.24, 3.24], 0.01, "Some additional context"),
 
             errorWithSource:
             """
@@ -44,6 +44,6 @@ public class EnumerableOfDoubleScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { MathEx.PI, MathEx.PI }.ShouldBe(new[] { 3.14, 3.14 }, 0.01);
+        new[] { MathEx.PI, MathEx.PI }.ShouldBe([3.14, 3.14], 0.01);
     }
 }

@@ -6,7 +6,7 @@ public class StringArrayScenario
     public void StringArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2" }, "Some additional context"),
+                new[] { "1", "2", "3" }.ShouldBeSubsetOf(["1", "2"], "Some additional context"),
 
             errorWithSource:
             """
@@ -38,6 +38,6 @@ public class StringArrayScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { "1", "2", "3" }.ShouldBeSubsetOf(new[] { "1", "2", "3", "4" });
+        new[] { "1", "2", "3" }.ShouldBeSubsetOf(["1", "2", "3", "4"]);
     }
 }

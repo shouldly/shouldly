@@ -6,7 +6,7 @@ public class IgnoreOrderFalseIEnumerableMethodYieldReturn
     public void IgnoreOrderFalseIEnumerableMethodYieldReturnShouldFail()
     {
         Verify.ShouldFail(() =>
-                GetEnumerable().ShouldBe(new[] { 1, 2 }, false, "Some additional context"),
+                GetEnumerable().ShouldBe([1, 2], false, "Some additional context"),
 
             errorWithSource:
             """
@@ -39,7 +39,7 @@ public class IgnoreOrderFalseIEnumerableMethodYieldReturn
     [Fact]
     public void ShouldPass()
     {
-        GetEnumerable().ShouldBe(new[] { 1 });
+        GetEnumerable().ShouldBe([1]);
     }
 
     private static IEnumerable<int> GetEnumerable()

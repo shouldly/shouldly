@@ -33,7 +33,7 @@ partial class StackTraceTests
                 return ex;
             }
 
-            throw new UnreachableException($"`ExceptionThrower.Catch` should always catch and return an exception. In this case, ThrowingAction did not throw the expected exception (`{ExceptionType}`).");
+            throw new UnreachableException($"`ExceptionThrower.Catch` should always catch and return an exception. In this case, `ThrowingAction` did not throw the expected exception (`{ExceptionType}`).");
         }
     }
 }

@@ -6,7 +6,7 @@ public class IntegerArrayScenario
     public void IntegerArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { 99, 2, 3, 5 }.ShouldBe(new[] { 1, 2, 3, 4 }, "Some additional context"),
+                new[] { 99, 2, 3, 5 }.ShouldBe([1, 2, 3, 4], "Some additional context"),
 
             errorWithSource:
             """
@@ -39,6 +39,6 @@ public class IntegerArrayScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { 1, 2, 3, 4 }.ShouldBe(new[] { 1, 2, 3, 4 });
+        new[] { 1, 2, 3, 4 }.ShouldBe([1, 2, 3, 4]);
     }
 }

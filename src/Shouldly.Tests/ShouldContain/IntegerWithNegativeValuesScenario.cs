@@ -2,7 +2,7 @@
 
 public class IntegerWithNegativeValuesScenario
 {
-    private readonly int[] _target = { 2, 3, 4, 5, 4, 123665, 11234, -13562377 };
+    private readonly int[] _target = [2, 3, 4, 5, 4, 123665, 11234, -13562377];
 
     [Fact]
     public void IntegerWithNegativeValuesScenarioShouldFail()

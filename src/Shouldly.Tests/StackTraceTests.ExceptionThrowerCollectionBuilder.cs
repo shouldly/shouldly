@@ -4,7 +4,7 @@ partial class StackTraceTests
 {
     private sealed class ExceptionThrowerCollectionBuilder
     {
-        private readonly List<ExceptionThrower> exceptionThrowers = new();
+        private readonly List<ExceptionThrower> exceptionThrowers = [];
 
         /// <param name="throwDirectly">Required to cover the code path where the stack trace is not trimmed.</param>
         /// <param name="throwInShouldlyAssembly">Required to cover the code path where the stack trace is trimmed.</param>

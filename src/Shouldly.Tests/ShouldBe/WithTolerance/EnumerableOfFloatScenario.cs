@@ -7,7 +7,7 @@ public class EnumerableOfFloatScenario
     public void EnumerableOfFloatScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.24f, 3.24f }, 0.01, "Some additional context"),
+                new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe([3.24f, 3.24f], 0.01, "Some additional context"),
 
             errorWithSource:
             """
@@ -44,6 +44,6 @@ public class EnumerableOfFloatScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe(new[] { 3.14f, 3.14f }, 0.01);
+        new[] { (float)MathEx.PI, (float)MathEx.PI }.ShouldBe([3.14f, 3.14f], 0.01);
     }
 }
