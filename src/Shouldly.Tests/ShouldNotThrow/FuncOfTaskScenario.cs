@@ -6,7 +6,7 @@ public class FuncOfTaskScenario
     [UseCulture("en-US")]
     public void FuncOfTaskScenarioShouldFail()
     {
-        var task = Task.FromException(new RankException());
+        var task = Task.Run(() => throw new RankException());
 
         Verify.ShouldFail(() =>
                 task.ShouldNotThrow("Some additional context"),
@@ -39,7 +39,7 @@ public class FuncOfTaskScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.CompletedTask;
+        var task = Task.Run(() => { });
 
         task.ShouldNotThrow();
     }
