@@ -6,7 +6,7 @@ public class DecimalArrayScenario
     public void DecimalArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { 1m, 2m, 5m }.ShouldBeSubsetOf(new[] { 2m, 3m, 4m }, "Some additional context"),
+                new[] { 1m, 2m, 5m }.ShouldBeSubsetOf([2m, 3m, 4m], "Some additional context"),
 
             errorWithSource:
             """
@@ -38,6 +38,6 @@ public class DecimalArrayScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { 1m }.ShouldBeSubsetOf(new[] { 1m, 2m, 3m });
+        new[] { 1m }.ShouldBeSubsetOf([1m, 2m, 3m]);
     }
 }

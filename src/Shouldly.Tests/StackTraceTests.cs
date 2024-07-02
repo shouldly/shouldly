@@ -1,24 +1,26 @@
-﻿namespace Shouldly.Tests;
+﻿using static Shouldly.Tests.CommonWaitDurations;
+
+namespace Shouldly.Tests;
 
 public static partial class StackTraceTests
 {
-    [Theory(Skip = "flaky test. intermittent null ref")]
+    [Theory]
     [MemberData(nameof(ExceptionThrowers))]
     public static void Top_stack_frame_is_user_code(ExceptionThrower exceptionThrower)
     {
         var exception = exceptionThrower.Catch()!;
 
-        var stackTraceLines = exception.StackTrace!.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var stackTraceLines = exception.StackTrace!.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
         stackTraceLines.First().ShouldContain(exceptionThrower.ThrowingAction.Method.Name);
     }
 
-    [Theory(Skip = "flaky test. intermittent null ref")]
+    [Theory]
     [MemberData(nameof(ExceptionThrowers))]
     public static void Stack_trace_is_trimmed_the_same_as_default_exception_stack_traces(ExceptionThrower exceptionThrower)
     {
-        var shouldlyException = exceptionThrower.Catch()!;
-        var defaultException = new ExceptionThrower(typeof(Exception), false, () => throw new()).Catch()!;
+        var shouldlyException = exceptionThrower.Catch();
+        var defaultException = new ExceptionThrower(typeof(Exception), false, () => throw new()).Catch();
 
         var shouldlyEndingWhitespace = GetEndingWhitespace(shouldlyException.StackTrace!);
         var defaultEndingWhitespace = GetEndingWhitespace(defaultException.StackTrace!);
@@ -29,16 +31,16 @@ public static partial class StackTraceTests
     private static string GetEndingWhitespace(string value) =>
         value[value.TrimEnd().Length..];
 
-    public static IEnumerable<object[]> ExceptionThrowers()
+    public static TheoryData<ExceptionThrower> ExceptionThrowers()
     {
-        return new ExceptionThrowerCollectionBuilder()
+        return new TheoryData<ExceptionThrower>(new ExceptionThrowerCollectionBuilder()
             .Add<ShouldAssertException>(
                 throwDirectly: () => throw new ShouldAssertException(null),
-                throwInShouldlyAssembly: new Action[]
-                {
+                throwInShouldlyAssembly:
+                [
                     FailingUserCode_ShouldBeTrue,
                     FailingUserCode_ShouldContain
-                })
+                ])
 
             .Add<ShouldlyTimeoutException>(
                 throwDirectly: () => throw new ShouldlyTimeoutException(null, null))
@@ -50,8 +52,7 @@ public static partial class StackTraceTests
             .Add<ShouldMatchApprovedException>(
                 throwDirectly: () => throw new ShouldMatchApprovedException(null, null, null))
 
-            .Build()
-            .Select(exceptionThrower => new object[] { exceptionThrower });
+            .Build());
     }
 
     private static void FailingUserCode_ShouldBeTrue()
@@ -68,6 +69,6 @@ public static partial class StackTraceTests
     private static void FailingUserCode_CompleteIn()
     {
         // Throws a different exception type
-        Should.CompleteIn(Task.Delay(15), TimeSpan.Zero);
+        Should.CompleteIn(Task.Delay(LongWait), TimeSpan.Zero);
     }
 }

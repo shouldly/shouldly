@@ -2,8 +2,8 @@
 
 public class DoubleArrayScenario
 {
-    private readonly double[] _ascendingTarget = { 1.1, 1.2, 1.3, 1.4, 1.5 };
-    private readonly double[] _descendingTarget = { 1.5, 1.4, 1.3, 1.2, 1.1 };
+    private readonly double[] _ascendingTarget = [1.1, 1.2, 1.3, 1.4, 1.5];
+    private readonly double[] _descendingTarget = [1.5, 1.4, 1.3, 1.2, 1.1];
 
     [Fact]
     [UseCulture("en-US")]

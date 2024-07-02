@@ -6,7 +6,7 @@ public class EnumerableOfStringIsSensitiveScenario
     public void EnumerableOfStringIsSensitiveScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { "foo" }.ShouldBe(new[] { "FoO" }, Case.Sensitive, "Some additional context"),
+                new[] { "foo" }.ShouldBe(["FoO"], Case.Sensitive, "Some additional context"),
 
             errorWithSource:
             """
@@ -39,6 +39,6 @@ public class EnumerableOfStringIsSensitiveScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { "foo" }.ShouldBe(new[] { "foo" }, Case.Sensitive);
+        new[] { "foo" }.ShouldBe(["foo"], Case.Sensitive);
     }
 }

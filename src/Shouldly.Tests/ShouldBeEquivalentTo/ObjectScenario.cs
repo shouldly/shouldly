@@ -145,13 +145,13 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" },
+            Colors = ["red", "blue"],
             Child = new()
             {
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "ugly", "intelligent" },
-                Colors = new[] { "purple", "orange" }
+                Colors = ["purple", "orange"]
             }
         };
 
@@ -160,13 +160,13 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" },
+            Colors = ["red", "blue"],
             Child = new()
             {
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "beautiful", "intelligent" },
-                Colors = new[] { "purple", "orange" }
+                Colors = ["purple", "orange"]
             }
         };
 
@@ -216,13 +216,13 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" },
+            Colors = ["red", "blue"],
             Child = new()
             {
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "beautiful", "intelligent" },
-                Colors = new[] { "purple", "orange" }
+                Colors = ["purple", "orange"]
             }
         };
         subject.Child.Child = subject;
@@ -232,13 +232,13 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" },
+            Colors = ["red", "blue"],
             Child = new()
             {
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "beautiful", "dumb" },
-                Colors = new[] { "purple", "orange" }
+                Colors = ["purple", "orange"]
             }
         };
         expected.Child.Child = expected;
@@ -296,14 +296,14 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" },
+            Colors = ["red", "blue"],
             TitleField = "Mr",
             Child = new()
             {
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "beautiful", "intelligent" },
-                Colors = new[] { "purple", "orange" }
+                Colors = ["purple", "orange"]
             }
         };
 
@@ -313,13 +313,13 @@ public class ObjectScenario
             TitleField = "Mr",
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" },
+            Colors = ["red", "blue"],
             Child = new()
             {
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "beautiful", "intelligent" },
-                Colors = new[] { "purple", "orange" }
+                Colors = ["purple", "orange"]
             }
         };
 
@@ -334,7 +334,7 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" }
+            Colors = ["red", "blue"]
         };
         subject.Child = subject;
 
@@ -343,7 +343,7 @@ public class ObjectScenario
             Id = 5,
             Name = "Bob",
             Adjectives = new[] { "funny", "wise" },
-            Colors = new[] { "red", "blue" }
+            Colors = ["red", "blue"]
         };
         expected.Child = expected;
 

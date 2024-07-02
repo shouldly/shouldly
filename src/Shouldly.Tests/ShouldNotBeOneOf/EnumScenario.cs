@@ -7,7 +7,7 @@ public class EnumScenario
     {
         var someFlags = SomeFlags.Val1;
         Verify.ShouldFail(() =>
-                someFlags.ShouldNotBeOneOf(new[] { SomeFlags.Val1 }, "Some additional context"),
+                someFlags.ShouldNotBeOneOf([SomeFlags.Val1], "Some additional context"),
 
             errorWithSource:
             """

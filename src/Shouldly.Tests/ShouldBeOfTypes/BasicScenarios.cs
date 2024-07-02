@@ -15,14 +15,14 @@ public class BasicScenarios
     {
         var arr = new object[] { new Added(), new Changed(), new Removed() };
 
-        arr.ShouldBeOfTypes(new[] { typeof(Added), typeof(Changed), typeof(Removed) }, "additional context");
+        arr.ShouldBeOfTypes([typeof(Added), typeof(Changed), typeof(Removed)], "additional context");
     }
 
     [Fact]
     public void FailsIfTypesDontMatchExactly()
     {
         Verify.ShouldFail(() =>
-                new object[] { new Added(), new Changed() }.ShouldBeOfTypes(new[] { typeof(Added), typeof(object) }, "Some additional context"),
+                new object[] { new Added(), new Changed() }.ShouldBeOfTypes([typeof(Added), typeof(object)], "Some additional context"),
 
             errorWithSource:
             """
@@ -54,7 +54,7 @@ Additional Info:
     public void FailsIfActualAndExpectedAreDifferentLengths()
     {
         Verify.ShouldFail(() =>
-                new object[] { new Added(), new Changed() }.ShouldBeOfTypes(new[] { typeof(Added) }, "Some additional context"),
+                new object[] { new Added(), new Changed() }.ShouldBeOfTypes([typeof(Added)], "Some additional context"),
 
             errorWithSource:
             """

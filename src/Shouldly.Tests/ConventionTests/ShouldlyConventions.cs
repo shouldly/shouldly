@@ -30,7 +30,7 @@ public class ShouldlyConventions
         var ex = Should.Throw<ConventionFailedException>(() =>
         {
             var convention = new ShouldlyMethodsShouldHaveCustomMessageOverload();
-            var types = Types.InCollection(new[] { typeof(TestWithMissingOverloads) }, "Sample");
+            var types = Types.InCollection([typeof(TestWithMissingOverloads)], "Sample");
             Convention.Is(convention, types);
         });
 

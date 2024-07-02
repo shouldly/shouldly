@@ -85,7 +85,7 @@ public class ShouldBeEnumerableTypeScenarios
     public void DifferentOrderWithMissingItemFromExpectedScenario()
     {
         Verify.ShouldFail(() =>
-                new List<int> { 1, 3, 2 }.ShouldBe(new[] { 1, 3 }, true, "Some additional context"),
+                new List<int> { 1, 3, 2 }.ShouldBe([1, 3], true, "Some additional context"),
 
             errorWithSource:
             """
@@ -120,7 +120,7 @@ public class ShouldBeEnumerableTypeScenarios
     public void DifferentOrderWithMissingItemFromActualScenario()
     {
         Verify.ShouldFail(() =>
-                new List<int> { 1, 3 }.ShouldBe(new[] { 1, 2, 3 }, true, "Some additional context"),
+                new List<int> { 1, 3 }.ShouldBe([1, 2, 3], true, "Some additional context"),
 
             errorWithSource:
             """
@@ -155,7 +155,7 @@ public class ShouldBeEnumerableTypeScenarios
     public void DifferentCollectionTypeScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 3, 2 }, false, "Some additional context"),
+                new List<int> { 1, 2, 3 }.ShouldBe([1, 3, 2], false, "Some additional context"),
 
             errorWithSource:
             """
@@ -191,7 +191,7 @@ public class ShouldBeEnumerableTypeScenarios
         IEnumerable<int>? something = null;
         // ReSharper disable once ExpressionIsAlwaysNull
         Verify.ShouldFail(() =>
-                something.ShouldBe(new[] { 1, 2, 3 }, "Some additional context"),
+                something.ShouldBe([1, 2, 3], "Some additional context"),
 
             errorWithSource:
             """
@@ -231,11 +231,11 @@ public class ShouldBeEnumerableTypeScenarios
 
         IList<IFoo> a = new List<IFoo> { foo };
 
-        a.ShouldBe(new IFoo[] { foo });
+        a.ShouldBe([foo]);
     }
 
     private interface IFoo { }
     private class Foo : IFoo { }
-    private readonly List<string> _thisOtherStringList = new() { "1", "3" };
-    private readonly List<string> _thisString = new() { "1", "2" };
+    private readonly List<string> _thisOtherStringList = ["1", "3"];
+    private readonly List<string> _thisString = ["1", "2"];
 }

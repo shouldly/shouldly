@@ -6,16 +6,16 @@ public static partial class ObjectGraphTestExtensions
     private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
     public static void ShouldBeEquivalentTo(
-        [NotNullIfNotNull("expected")] this object? actual,
-        [NotNullIfNotNull("actual")] object? expected,
+        [NotNullIfNotNull(nameof(expected))] this object? actual,
+        [NotNullIfNotNull(nameof(actual))] object? expected,
         string? customMessage = null)
     {
         CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
     }
 
     private static void CompareObjects(
-        [NotNullIfNotNull("expected")] this object? actual,
-        [NotNullIfNotNull("actual")] object? expected,
+        [NotNullIfNotNull(nameof(expected))] this object? actual,
+        [NotNullIfNotNull(nameof(actual))] object? expected,
         IList<string> path,
         IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage,

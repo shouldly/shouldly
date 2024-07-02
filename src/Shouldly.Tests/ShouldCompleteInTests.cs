@@ -1,11 +1,9 @@
-﻿namespace Shouldly.Tests;
+﻿using static Shouldly.Tests.CommonWaitDurations;
+
+namespace Shouldly.Tests;
 
 public class ShouldCompleteInTests
 {
-    private static readonly TimeSpan ShortWait = TimeSpan.FromSeconds(0.5);
-    private static readonly TimeSpan LongWait = TimeSpan.FromSeconds(15);
-    private static readonly TimeSpan ImmediateTaskTimeout = TimeSpan.FromSeconds(2);
-    
     [Fact]
     public void ShouldCompleteIn_WhenFinishBeforeTimeout()
     {
@@ -25,10 +23,10 @@ public class ShouldCompleteInTests
                 "Some additional context"));
 
       ex.Message.ShouldContainWithoutWhitespace(
-            """
+            $"""
             Delegate
                 should complete in
-            00:00:00.5000000
+            {ShortWait}
                 but did not
             Additional Info:
             Some additional context
@@ -46,10 +44,10 @@ public class ShouldCompleteInTests
                 "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
-            """
+            $"""
             Task
                 should complete in
-            00:00:00.5000000
+            {ShortWait}
                 but did not
             Additional Info:
             Some additional context
@@ -92,10 +90,10 @@ public class ShouldCompleteInTests
                 "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
-            """
+            $"""
             Delegate
                 should complete in
-            00:00:00.5000000
+            {ShortWait}
                 but did not
             Additional Info:
             Some additional context
@@ -119,10 +117,10 @@ public class ShouldCompleteInTests
                 "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(
-            """
+            $"""
             Task
                 should complete in
-            00:00:00.5000000
+            {ShortWait}
                 but did not
             Additional Info:
             Some additional context

@@ -2,8 +2,8 @@
 
 public class StringArrayScenario
 {
-    private readonly string[] _ascendingTarget = { "a", "b", "c", "d", "e" };
-    private readonly string[] _descendingTarget = { "e", "d", "c", "b", "a" };
+    private readonly string[] _ascendingTarget = ["a", "b", "c", "d", "e"];
+    private readonly string[] _descendingTarget = ["e", "d", "c", "b", "a"];
 
     [Fact]
     public void ShouldFailWithDefaultDirection()

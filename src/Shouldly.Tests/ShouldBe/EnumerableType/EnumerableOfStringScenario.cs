@@ -6,7 +6,7 @@ public class EnumerableOfStringScenario
     public void EnumerableOfStringScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { "foo" }.ShouldBe(new[] { "foo2" }, "Some additional context"),
+                new[] { "foo" }.ShouldBe(["foo2"], "Some additional context"),
 
             errorWithSource:
             """
@@ -39,6 +39,6 @@ public class EnumerableOfStringScenario
     [Fact]
     public void ShouldPass()
     {
-        new[] { "foo" }.ShouldBe(new[] { "foo" });
+        new[] { "foo" }.ShouldBe(["foo"]);
     }
 }

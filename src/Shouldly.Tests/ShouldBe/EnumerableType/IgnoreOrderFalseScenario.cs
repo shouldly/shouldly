@@ -6,7 +6,7 @@ public class IgnoreOrderFalseScenario
     public void IgnoreOrderFalseScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new List<int> { 1, 4, 2 }.ShouldBe(new[] { 1, 2, 3 }, false, "Some additional context"),
+                new List<int> { 1, 4, 2 }.ShouldBe([1, 2, 3], false, "Some additional context"),
 
             errorWithSource:
             """
@@ -39,6 +39,6 @@ public class IgnoreOrderFalseScenario
     [Fact]
     public void ShouldPass()
     {
-        new List<int> { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 }, ignoreOrder: false);
+        new List<int> { 1, 2, 3 }.ShouldBe([1, 2, 3], ignoreOrder: false);
     }
 }

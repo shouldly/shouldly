@@ -4,10 +4,11 @@ public class NonRetraversableEnumerable
 {
     private static IEnumerable<int> CreateTestEnumerable()
     {
-        var foo = new TestEnumerable(new[] {
+        var foo = new TestEnumerable([
             new[] { 1, 2, 3 },
             new[] { 4, 5, 6 },
-            new[] { 7, 8, 9 } });
+            new[] { 7, 8, 9 }
+        ]);
 
         return foo.ReadLine();
     }
@@ -16,7 +17,7 @@ public class NonRetraversableEnumerable
     public void ActualEnumerableShouldOnlyBeTraversedOnce()
     {
         Verify.ShouldFail(
-            () => CreateTestEnumerable().ShouldBe(new[] { 3, 2, 1 }),
+            () => CreateTestEnumerable().ShouldBe([3, 2, 1]),
             errorWithSource:
             """
             CreateTestEnumerable()
@@ -42,7 +43,7 @@ public class NonRetraversableEnumerable
     public void ActualEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
     {
         Verify.ShouldFail(
-            () => CreateTestEnumerable().ShouldBe(new[] { 2, 3, 4 }, ignoreOrder: true),
+            () => CreateTestEnumerable().ShouldBe([2, 3, 4], ignoreOrder: true),
             errorWithSource:
             """
             CreateTestEnumerable()
@@ -140,13 +141,13 @@ public class NonRetraversableEnumerable
         var fooEnum = CreateTestEnumerable();
 
         fooEnum.ShouldSatisfyAllConditions(
-            () => fooEnum.ShouldBe(new[] { 1, 2, 3 }),
+            () => fooEnum.ShouldBe([1, 2, 3]),
             () => fooEnum.First().ShouldBe(4),
             () => fooEnum.First().ShouldBe(5),
             () => fooEnum.First().ShouldBe(6),
             () => fooEnum.Any().ShouldBeFalse(),
             () => fooEnum.First().ShouldBe(7),
-            () => fooEnum.ShouldBe(new[] { 8, 9 }));
+            () => fooEnum.ShouldBe([8, 9]));
     }
 
     private class TestEnumerable
