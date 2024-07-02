@@ -14,5 +14,5 @@ internal static class CommonWaitDurations
         TimeSpan.FromSeconds(IsRunningOnContinuousIntegration ? 15 : 5);
 
     public static TimeSpan ImmediateTaskTimeout =>
-        TimeSpan.FromSeconds(IsRunningOnContinuousIntegration ? 2 : 0.1);
+        TimeSpan.FromSeconds(IsRunningOnContinuousIntegration ? 2 : 0.5);
 }
