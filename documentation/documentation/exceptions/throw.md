@@ -31,23 +31,20 @@ System.DivideByZeroException
 ## ShouldThrowAsync
 
 <!-- snippet: ShouldThrowAsync -->
-<a id='snippet-shouldthrowasync'></a>
+<a id='snippet-ShouldThrowAsync'></a>
 ```cs
-Func<Task> doSomething = async () =>
-{
-    await Task.Delay(1);
-};
+Task doSomething() => Task.CompletedTask;
 var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
 ```
-<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L103-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-shouldthrowasync' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Shouldly.Tests/ShouldThrowAsync/FuncOfTaskScenarioAsync.cs#L91-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowAsync' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Exception**
 
-Task `doSomething()` <!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
+Task `doSomething()`<!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
     should throw
 System.DivideByZeroException
-    but did not <!-- endInclude -->
+    but did not<!-- endInclude -->
 
 
 ## ShouldThrow Action Extension
