@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Time.Testing;
+﻿#if NET8_0_OR_GREATER
+using Microsoft.Extensions.Time.Testing;
+#endif
 using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync;
@@ -25,6 +27,7 @@ public class FuncOfTaskScenarioAsync
         }
     }
 
+#if NET8_0_OR_GREATER
     [Fact]
     public async Task ShouldThrowAWobbly_WhenATaskIsCancelled()
     {
@@ -42,6 +45,7 @@ public class FuncOfTaskScenarioAsync
         // Assert.
         result.ShouldNotBeNull();
     }
+#endif
 
     [Fact]
     public async Task ShouldThrowAWobbly_ExceptionTypePassedIn()

@@ -3,7 +3,6 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net8.0;net48</TargetFrameworks>
     <Optimize>false</Optimize>
-    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
@@ -23,7 +22,6 @@
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.1" />
     <Reference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
 </Project>
