@@ -56,7 +56,7 @@ if ($IsWindows) {
 # Run tests for each project
 foreach ($project in $testProjects) {
     Write-Host "Testing $project..." -ForegroundColor Cyan
-    dotnet test $project --no-build @dotnetArgs --logger trx --results-directory $testResultsDir /bl:"$logsDir/test-$(Split-Path $project -Leaf).binlog"
+    dotnet test $project --no-build @dotnetArgs --logger trx --results-directory $testResultsDir /bl:"$logsDir/test-$(Split-Path $project -Leaf).binlog" --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true" -- RunConfiguration.CollectSourceInformation=true
     if ($LASTEXITCODE -ne 0) { 
         Write-Error "Tests for $project failed with exit code $LASTEXITCODE"
         exit 1 
