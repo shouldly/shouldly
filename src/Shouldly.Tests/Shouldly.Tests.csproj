@@ -17,6 +17,7 @@
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
     <PackageReference Include="Polyfill" Version="5.6.0" PrivateAssets="all" />
+    <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net48' ">
     <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="8.6.0" />
