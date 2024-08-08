@@ -25,7 +25,7 @@
     <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1505</WarningsNotAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="11.3.0" />
+    <PackageReference Include="DiffEngine" Version="15.4.4" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <None Include="buildTransitive\Shouldly.targets" Pack="true" PackagePath="buildTransitive\Shouldly.targets" />
