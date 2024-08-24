@@ -1,15 +1,17 @@
 ﻿namespace Shouldly.Tests.Dictionaries;
 
+using static DictionaryTestData;
+
 public class ShouldContainKeyAndValue
 {
     [Fact]
-    public void ShouldContainKeyAndValueWithClassesShouldFail()
+    public void ShouldContainKeyAndValueWithClassesShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKeyAndValue(new(), new(), "Some additional context"),
+                ClassDictionary().ShouldContainKeyAndValue(new(), new(), "Some additional context"),
 
             errorWithSource:
-            @"_classDictionary
+            @"ClassDictionary()
     should contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -32,13 +34,13 @@ Additional Info:
     }
 
     [Fact]
-    public void GuidScenarioShouldFail()
+    public void GuidScenarioShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                _guidDictionary.ShouldContainKeyAndValue(_missingGuidKey, _missingGuidValue, "Some additional context"),
+                GuidDictionary().ShouldContainKeyAndValue(MissingGuidKey, MissingGuidValue, "Some additional context"),
 
             errorWithSource:
-            @"_guidDictionary
+            @"GuidDictionary()
     should contain key
 1924e617-2fc2-47ae-ad38-b6f30ec2226b
     with value
@@ -49,7 +51,7 @@ Additional Info:
     Some additional context",
 
             errorWithoutSource:
-            @"[[efc7ee91-6b19-4dff-88a8-affae77ad870 => b951fb9f-07c3-4060-bd80-055e63946497]]
+            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
     should contain key
 1924e617-2fc2-47ae-ad38-b6f30ec2226b
     with value
@@ -61,13 +63,13 @@ Additional Info:
     }
 
     [Fact]
-    public void OnlyKeyMatchesShouldFail()
+    public void OnlyKeyMatchesShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
+                ClassDictionary().ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"_classDictionary
+            @"ClassDictionary()
     should contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -92,13 +94,13 @@ Additional Info:
     }
 
     [Fact]
-    public void OnlyValueMatchesShouldFail()
+    public void OnlyValueMatchesShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                _classDictionary.ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
+                ClassDictionary().ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
-            @"_classDictionary
+            @"ClassDictionary()
     should contain key
 Shouldly.Tests.TestHelpers.MyThing (000000)
     with value
@@ -121,13 +123,13 @@ Additional Info:
     }
 
     [Fact]
-    public void StringScenarioShouldFail()
+    public void StringScenarioShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                _stringDictionary.ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
+                StringDictionary().ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
 
             errorWithSource:
-            @"_stringDictionary
+            @"StringDictionary()
     should contain key
 ""bar""
     with value
@@ -150,7 +152,7 @@ Additional Info:
     }
 
     [Fact]
-    public void ValueIsNullShouldFail()
+    public void ValueIsNullShouldFailForDictionary()
     {
         var dictionaryWithNullValue = new Dictionary<MyThing, MyThing?>
         {
@@ -185,31 +187,382 @@ Additional Info:
     }
 
     [Fact]
-    public void ShouldPass()
+    public void ShouldContainKeyAndValueWithClassesShouldFailForIDictionary()
     {
-        _classDictionary.ShouldContainKeyAndValue(ThingKey, ThingValue);
-        _guidDictionary.ShouldContainKeyAndValue(GuidKey, GuidValue);
-        _stringDictionary.ShouldContainKeyAndValue("Foo", "Bar");
+        Verify.ShouldFail(() =>
+                ClassIDictionary().ShouldContainKeyAndValue(new(), new(), "Some additional context"),
+
+            errorWithSource:
+            @"ClassIDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
     }
 
-    private readonly Dictionary<MyThing, MyThing> _classDictionary = new()
+    [Fact]
+    public void GuidScenarioShouldFailForIDictionary()
     {
-        { ThingKey, ThingValue }
-    };
-    private readonly Dictionary<Guid, Guid> _guidDictionary = new()
-    {
-        { GuidKey, GuidValue }
-    };
-    private readonly Dictionary<string, string> _stringDictionary = new()
-    {
-        { "Foo", "Bar" }
-    };
+        Verify.ShouldFail(() =>
+                GuidIDictionary().ShouldContainKeyAndValue(MissingGuidKey, MissingGuidValue, "Some additional context"),
 
-    private static readonly MyThing ThingKey = new();
-    private static readonly MyThing ThingValue = new();
+            errorWithSource:
+            @"GuidIDictionary()
+    should contain key
+1924e617-2fc2-47ae-ad38-b6f30ec2226b
+    with value
+f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+    but the key does not exist
 
-    private static readonly Guid GuidKey = new("efc7ee91-6b19-4dff-88a8-affae77ad870");
-    private static readonly Guid GuidValue = new("b951fb9f-07c3-4060-bd80-055e63946497");
-    private readonly Guid _missingGuidKey = new("1924e617-2fc2-47ae-ad38-b6f30ec2226b");
-    private readonly Guid _missingGuidValue = new("f08a0b08-c9f4-49bb-a4d4-be06e88b69c8");
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+    should contain key
+1924e617-2fc2-47ae-ad38-b6f30ec2226b
+    with value
+f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void OnlyKeyMatchesShouldFailForIDictionary()
+    {
+        Verify.ShouldFail(() =>
+                ClassIDictionary().ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
+
+            errorWithSource:
+            @"ClassIDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+Shouldly.Tests.TestHelpers.MyThing (000000)
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+Shouldly.Tests.TestHelpers.MyThing (000000)
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void OnlyValueMatchesShouldFailForIDictionary()
+    {
+        Verify.ShouldFail(() =>
+                ClassIDictionary().ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
+
+            errorWithSource:
+            @"ClassIDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void StringScenarioShouldFailForIDictionary()
+    {
+        Verify.ShouldFail(() =>
+                StringIDictionary().ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
+
+            errorWithSource:
+            @"StringIDictionary()
+    should contain key
+""bar""
+    with value
+""baz""
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[""Foo"" => ""Bar""]]
+    should contain key
+""bar""
+    with value
+""baz""
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void ValueIsNullShouldFailForIDictionary()
+    {
+        IDictionary<MyThing, MyThing?> dictionaryWithNullValue = new Dictionary<MyThing, MyThing?>
+        {
+            { ThingKey, null }
+        };
+        Verify.ShouldFail(() =>
+                dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
+
+            errorWithSource:
+            @"dictionaryWithNullValue
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+null
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+null
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void ShouldContainKeyAndValueWithClassesShouldFailForIReadOnlyDictionary()
+    {
+        Verify.ShouldFail(() =>
+                ClassIReadOnlyDictionary().ShouldContainKeyAndValue(new(), new(), "Some additional context"),
+
+            errorWithSource:
+            @"ClassIReadOnlyDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void GuidScenarioShouldFailForIReadOnlyDictionary()
+    {
+        Verify.ShouldFail(() =>
+                GuidIReadOnlyDictionary().ShouldContainKeyAndValue(MissingGuidKey, MissingGuidValue, "Some additional context"),
+
+            errorWithSource:
+            @"GuidIReadOnlyDictionary()
+    should contain key
+1924e617-2fc2-47ae-ad38-b6f30ec2226b
+    with value
+f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+    should contain key
+1924e617-2fc2-47ae-ad38-b6f30ec2226b
+    with value
+f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void OnlyKeyMatchesShouldFailForIReadOnlyDictionary()
+    {
+        Verify.ShouldFail(() =>
+                ClassIReadOnlyDictionary().ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
+
+            errorWithSource:
+            @"ClassIReadOnlyDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+Shouldly.Tests.TestHelpers.MyThing (000000)
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+Shouldly.Tests.TestHelpers.MyThing (000000)
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void OnlyValueMatchesShouldFailForIReadOnlyDictionary()
+    {
+        Verify.ShouldFail(() =>
+                ClassIReadOnlyDictionary().ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
+
+            errorWithSource:
+            @"ClassIReadOnlyDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void StringScenarioShouldFailForIReadOnlyDictionary()
+    {
+        Verify.ShouldFail(() =>
+                StringIReadOnlyDictionary().ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
+
+            errorWithSource:
+            @"StringIReadOnlyDictionary()
+    should contain key
+""bar""
+    with value
+""baz""
+    but the key does not exist
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[""Foo"" => ""Bar""]]
+    should contain key
+""bar""
+    with value
+""baz""
+    but the key does not exist
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void ValueIsNullShouldFailForIReadOnlyDictionary()
+    {
+        IReadOnlyDictionary<MyThing, MyThing?> dictionaryWithNullValue = new Dictionary<MyThing, MyThing?>
+        {
+            { ThingKey, null }
+        };
+        Verify.ShouldFail(() =>
+                dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
+
+            errorWithSource:
+            @"dictionaryWithNullValue
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+null
+
+Additional Info:
+    Some additional context",
+
+            errorWithoutSource:
+            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+null
+
+Additional Info:
+    Some additional context");
+    }
+
+    [Fact]
+    public void ShouldPass()
+    {
+        ClassDictionary().ShouldContainKeyAndValue(ThingKey, ThingValue);
+        GuidDictionary().ShouldContainKeyAndValue(GuidKey, GuidValue);
+        StringDictionary().ShouldContainKeyAndValue("Foo", "Bar");
+
+        ClassIDictionary().ShouldContainKeyAndValue(ThingKey, ThingValue);
+        GuidIDictionary().ShouldContainKeyAndValue(GuidKey, GuidValue);
+        StringIDictionary().ShouldContainKeyAndValue("Foo", "Bar");
+
+        ClassIReadOnlyDictionary().ShouldContainKeyAndValue(ThingKey, ThingValue);
+        GuidIReadOnlyDictionary().ShouldContainKeyAndValue(GuidKey, GuidValue);
+        StringIReadOnlyDictionary().ShouldContainKeyAndValue("Foo", "Bar");
+    }
 }
