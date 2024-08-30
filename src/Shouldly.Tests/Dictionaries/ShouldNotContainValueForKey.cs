@@ -361,6 +361,7 @@ Additional Info:
     Some additional context");
     }
 
+#if NET9_0_OR_GREATER
     [Fact]
     public void ClassScenarioShouldFailForIReadOnlyDictionary()
     {
@@ -538,6 +539,7 @@ null
 Additional Info:
     Some additional context");
     }
+#endif
 
     [Fact]
     public void ShouldPass()
@@ -550,8 +552,10 @@ Additional Info:
         GuidIDictionary().ShouldNotContainValueForKey(GuidKey, Guid.NewGuid());
         StringIDictionary().ShouldNotContainValueForKey("Foo", "baz");
 
+#if NET9_0_OR_GREATER
         ClassIReadOnlyDictionary().ShouldNotContainValueForKey(ThingKey, new());
         GuidIReadOnlyDictionary().ShouldNotContainValueForKey(GuidKey, Guid.NewGuid());
         StringIReadOnlyDictionary().ShouldNotContainValueForKey("Foo", "baz");
+#endif
     }
 }

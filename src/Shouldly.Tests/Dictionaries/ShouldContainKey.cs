@@ -154,6 +154,7 @@ Additional Info:
     Some additional context");
     }
 
+#if NET9_0_OR_GREATER
     [Fact]
     public void ClassScenarioShouldFailForIReadOnlyDictionary()
     {
@@ -228,6 +229,7 @@ Additional Info:
 Additional Info:
     Some additional context");
     }
+#endif
 
     [Fact]
     public void ShouldPass()
@@ -240,8 +242,10 @@ Additional Info:
         GuidIDictionary().ShouldContainKey(GuidKey);
         StringIDictionary().ShouldContainKey("Foo");
 
+#if NET9_0_OR_GREATER
         ClassIReadOnlyDictionary().ShouldContainKey(ThingKey);
         GuidIReadOnlyDictionary().ShouldContainKey(GuidKey);
         StringIReadOnlyDictionary().ShouldContainKey("Foo");
+#endif
     }
 }
