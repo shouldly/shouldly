@@ -20,7 +20,7 @@
     <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net48' ">
-    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="8.8.0" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="8.9.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Runtime" />
