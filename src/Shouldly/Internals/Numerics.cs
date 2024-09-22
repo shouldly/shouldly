@@ -14,7 +14,7 @@ static class Numerics
     public static bool IsNumericType([NotNullWhen(true)] object? obj)
     {
         return obj is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort
-#if NET5_0_OR_GREATER
+#if NET8_0_OR_GREATER
             or Half
 #endif
             ;
@@ -37,7 +37,7 @@ static class Numerics
         if (expected is float || actual is float)
             return AreEqual(Convert.ToSingle(expected), Convert.ToSingle(actual), ref tolerance);
 
-#if NET5_0_OR_GREATER
+#if NET8_0_OR_GREATER
         if (expected is Half h1 && actual is Half h2)
             return AreEqual(h1, h2, ref tolerance);
 #endif
@@ -136,7 +136,7 @@ static class Numerics
         }
     }
 
-#if NET5_0_OR_GREATER
+#if NET8_0_OR_GREATER
     private static bool AreEqual(Half expected, Half actual, ref Tolerance tolerance)
     {
         if (Half.IsNaN(expected) && Half.IsNaN(actual))
