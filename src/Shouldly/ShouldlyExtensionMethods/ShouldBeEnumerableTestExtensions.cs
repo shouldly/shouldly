@@ -83,6 +83,12 @@ public static partial class ShouldBeEnumerableTestExtensions
         return actual.Single();
     }
 
+    public static void ShouldHaveCount<T>([NotNull] this IEnumerable<T>? actual, int expected, string? customMessage = null)
+    {
+        if (actual == null || actual.Count() != expected)
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+    }
+
     public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
