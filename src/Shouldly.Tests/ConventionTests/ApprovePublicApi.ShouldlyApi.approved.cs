@@ -167,20 +167,28 @@ namespace Shouldly
     {
         public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null)
             where TKey :  notnull { }
+        public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, string? customMessage = null)
+            where TKey :  notnull { }
         [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
         public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null)
             where TKey :  notnull { }
         public static void ShouldContainKeyAndValue<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null)
+            where TKey :  notnull { }
+        public static void ShouldContainKeyAndValue<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, TValue val, string? customMessage = null)
             where TKey :  notnull { }
         [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
         public static void ShouldContainKeyAndValue<TKey, TValue>(this System.Collections.Generic.IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null)
             where TKey :  notnull { }
         public static void ShouldNotContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null)
             where TKey :  notnull { }
+        public static void ShouldNotContainKey<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, string? customMessage = null)
+            where TKey :  notnull { }
         [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
         public static void ShouldNotContainKey<TKey, TValue>(this System.Collections.Generic.IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null)
             where TKey :  notnull { }
         public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null)
+            where TKey :  notnull { }
+        public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, TValue val, string? customMessage = null)
             where TKey :  notnull { }
         [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
         public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null)

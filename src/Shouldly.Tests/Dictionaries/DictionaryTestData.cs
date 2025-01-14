@@ -21,6 +21,14 @@ internal static class DictionaryTestData
     public static IReadOnlyDictionary<Guid, Guid> GuidIReadOnlyDictionary() => GuidDictionary();
     public static IReadOnlyDictionary<string, string> StringIReadOnlyDictionary() => StringDictionary();
 
+    public static List<KeyValuePair<MyThing, MyThing>> ClassKeyValuePairList() => new(_classDictionary);
+    public static List<KeyValuePair<Guid, Guid>> GuidKeyValuePairList() => new(_guidDictionary);
+    public static List<KeyValuePair<string, string>> StringKeyValuePairList() => new(_stringDictionary);
+
+    public static IEnumerable<KeyValuePair<MyThing, MyThing>> ClassIEnumerableOfKeyValuePair() => ClassKeyValuePairList();
+    public static IEnumerable<KeyValuePair<Guid, Guid>> GuidIEnumerableOfKeyValuePair() => GuidKeyValuePairList();
+    public static IEnumerable<KeyValuePair<string, string>> StringIEnumerableOfKeyValuePair() => StringKeyValuePairList();
+
     private static readonly Dictionary<MyThing, MyThing> _classDictionary = new()
     {
         { ThingKey, ThingValue }
