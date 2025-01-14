@@ -5,15 +5,17 @@ public class ArrayScenario
     [Fact]
     public void ArrayScenarioShouldFail()
     {
+        var testList = new[] { 1, 2 };
         Verify.ShouldFail(() =>
-                new[] { 1, 2 }.ShouldHaveCount(3, "Some additional context"),
+                testList.ShouldHaveCount(3, "Some additional context"),
 
             errorWithSource:
             """
-            new[] { 1, 2 }
+            testList
                 should have 3 items but had
             2
-                items
+                items and was
+            [1, 2]
 
             Additional Info:
                 Some additional context
@@ -42,7 +44,8 @@ public class ArrayScenario
             new[] { 1, 2 }
                 should have 1 item but had
             2
-                items
+                items and was
+            [1, 2]
 
             Additional Info:
                 Some additional context
@@ -71,7 +74,8 @@ public class ArrayScenario
             new[] { 1 }
                 should have 3 items but had
             1
-                item
+                item and was
+            [1]
 
             Additional Info:
                 Some additional context
