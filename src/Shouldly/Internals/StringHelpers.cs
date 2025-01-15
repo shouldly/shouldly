@@ -87,7 +87,7 @@ static class StringHelpers
 
     internal static string PascalToSpaced(this string pascal)
     {
-        return Regex.Replace(pascal, @"([A-Z])", match => " " + match.Value.ToLower()).Trim();
+        return Regex.Replace(pascal, "([A-Z])", match => " " + match.Value.ToLower()).Trim();
     }
 
     internal static string Quotify(this string input) =>

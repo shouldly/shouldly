@@ -9,7 +9,7 @@ class ShouldNotMatchMessageGenerator : ShouldlyMessageGenerator
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        const string format = @"{0} should not match {1} but did";
+        const string format = "{0} should not match {1} but did";
 
         var codePart = context.CodePart;
         var expected = context.Expected.ToStringAwesomely();

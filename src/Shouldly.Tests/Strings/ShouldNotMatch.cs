@@ -28,6 +28,6 @@ public class ShouldNotMatch
     [Fact]
     public void ShouldPass()
     {
-        "Cheese".ShouldNotMatch(@"Cat");
+        "Cheese".ShouldNotMatch("Cat");
     }
 }
