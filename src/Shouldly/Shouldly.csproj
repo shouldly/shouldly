@@ -14,7 +14,7 @@
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
     <PackageIcon>assets/logo_128x128.png</PackageIcon>
     <PackageProjectUrl>https://docs.shouldly.org</PackageProjectUrl>
-    <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
     <PackageReleaseNotes>https://github.com/shouldly/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
