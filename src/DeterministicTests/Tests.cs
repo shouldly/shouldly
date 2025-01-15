@@ -6,6 +6,6 @@ public class Tests
     [Fact]
     public void ShouldPass()
     {
-        "Cheese".ShouldMatch(@"C.e{2}s[e]");
+        "Cheese".ShouldMatch("C.e{2}s[e]");
     }
 }

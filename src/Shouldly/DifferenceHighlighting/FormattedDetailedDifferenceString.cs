@@ -52,7 +52,7 @@ class FormattedDetailedDifferenceString
         {
             var isEqual = CheckEquality(index, minLenOfStrings);
 
-            differenceStringLineOneBuilder.Append($"{(isEqual ? " " : @" | "),-5}");
+            differenceStringLineOneBuilder.Append($"{(isEqual ? " " : " | "),-5}");
             differenceStringLineTwoBuilder.Append($"{(isEqual ? " " : @"\|/"),-5}");
             indexStringBuilder.Append($"{index + _indexOffset,-5}");
             expectedValueStringBuilder.Append($"{(index < _expectedValue.Length ? _expectedValue[index].ToSafeString() : ""),-5}");

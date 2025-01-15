@@ -9,7 +9,7 @@ public class ShouldMatchApprovedException : ShouldAssertException
 
     private static string GenerateMessage(string? message, string? receivedFile, string? approvedFile)
     {
-        var msg = @"To approve the changes run this command:";
+        var msg = "To approve the changes run this command:";
 
         if (ShouldlyEnvironmentContext.IsWindows())
         {

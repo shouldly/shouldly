@@ -22,7 +22,7 @@ public class ShouldMatchApprovedScenarios
     {
         var approvalPath = IsWindows()
             ? @"C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.MissingApprovedFile"
-            : @"/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
+            : "/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
 
         var cmd = IsWindows()
             ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
