@@ -122,15 +122,15 @@ toVerify.ShouldMatchApproved(c => c.WithStringCompareOptions(options))
 ```
 
 
-### WithDescriminator
+### WithDiscriminator
 
-By default the approved and received files are named `${MethodName}.approved.txt`, `WithDescriminator` allows you to descriminate multiple files, useful for data driven tests which can have multiple executions of a single method. For example
+By default the approved and received files are named `${MethodName}.approved.txt`, `WithDiscriminator` allows you to discriminate multiple files, useful for data driven tests which can have multiple executions of a single method. For example
 
 ```
 [Fact]
 public void Simpsons()
 {
-  toVerify.ShouldMatchApproved(c => c.WithDescriminator("Bart"));
+  toVerify.ShouldMatchApproved(c => c.WithDiscriminator("Bart"));
 }
 ```
 
