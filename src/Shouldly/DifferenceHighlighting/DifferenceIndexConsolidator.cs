@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.DifferenceHighlighting;
 
-internal class DifferenceIndexConsolidator
+class DifferenceIndexConsolidator
 {
     private readonly int _maxDiffLength;
     private readonly int _maxLengthOfStrings;

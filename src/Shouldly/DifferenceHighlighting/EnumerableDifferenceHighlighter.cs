@@ -1,26 +1,20 @@
-using System.Collections;
-using System.Text;
-
 namespace Shouldly.DifferenceHighlighting;
 
 /// <summary>
 /// Highlights differences between IEnumerables of the same type,
 /// marking differences with asterisks
 /// </summary>
-internal class EnumerableDifferenceHighlighter : IDifferenceHighlighter
+class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 {
     private const int MaxElementsToShow = 1000;
-    private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter;
+    private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter = new();
 
-    public EnumerableDifferenceHighlighter()
-    {
-        _itemDifferenceHighlighter = new();
-    }
-
-    public bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context is { Expected: IEnumerable and not string, Actual: IEnumerable and not string };
-    }
+    public bool CanProcess(IShouldlyAssertionContext context) =>
+        context is
+        {
+            Expected: IEnumerable and not string,
+            Actual: IEnumerable and not string
+        };
 
     public string? HighlightDifferences(IShouldlyAssertionContext context)
     {

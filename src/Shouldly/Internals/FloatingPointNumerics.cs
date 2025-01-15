@@ -4,8 +4,6 @@
 // obtain a copy of the license at http://nunit.org
 // ****************************************************************
 
-using System.Runtime.InteropServices;
-
 namespace NUnit.Framework.Constraints;
 
 /// <summary>Helper routines for working with floating point numbers</summary>
@@ -26,7 +24,7 @@ namespace NUnit.Framework.Constraints;
 ///         as low as 0.0000001 for small numbers or as high as 10.0 for large numbers.
 ///     </para>
 /// </remarks>
-internal static class FloatingPointNumerics
+static class FloatingPointNumerics
 {
     /// <summary>Compares two floating point values for equality</summary>
     /// <param name="left">First floating point value to be compared</param>

@@ -11,23 +11,27 @@ public class DecimalScenario
                 val.ShouldBeInRange(1.6m, 1.7m, "Some additional context"),
 
             errorWithSource:
-            @"val
-    should be in range
-{ from = 1.6, to = 1.7 }
-    but was
-1.5m
+            """
+            val
+                should be in range
+            { from = 1.6, to = 1.7 }
+                but was
+            1.5m
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"1.5m
-    should be in range
-{ from = 1.6, to = 1.7 }
-    but was not
+            """
+            1.5m
+                should be in range
+            { from = 1.6, to = 1.7 }
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

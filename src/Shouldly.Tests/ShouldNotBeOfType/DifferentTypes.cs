@@ -10,23 +10,27 @@ public class BasicTypesScenario
                 one.ShouldNotBeOfType<int>("Some additional context"),
 
             errorWithSource:
-            @"one
-    should not be of type
-System.Int32
-    but was
-1
+            """
+            one
+                should not be of type
+            System.Int32
+                but was
+            1
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"1
-    should not be of type
-System.Int32
-    but was
+            """
+            1
+                should not be of type
+            System.Int32
+                but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

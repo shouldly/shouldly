@@ -5,14 +5,11 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Factory.StartNew(
-            () => { Task.Delay(5000).Wait(); },
-            CancellationToken.None,
-            TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var perpetualTask = tcs.Task;
 
         var ex = Should.Throw<ShouldCompleteInException>(
-            () => task.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.1), "Some additional context"));
+            () => perpetualTask.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.1), "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
@@ -20,14 +17,11 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(
-            () => { Task.Delay(5000).Wait(); },
-            CancellationToken.None,
-            TaskCreationOptions.None,
-            TaskScheduler.Default);
-
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var perpetualTask = tcs.Task;
+        
         var ex = Should.Throw(
-            () => task.ShouldThrow(
+            () => perpetualTask.ShouldThrow(
                 TimeSpan.FromSeconds(0.1),
                 "Some additional context",
                 typeof(ShouldCompleteInException)),
@@ -36,21 +30,24 @@ public class FuncOfTaskWithTimeoutScenario
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
-    private string ChuckedAWobblyErrorMessage = @"Task
-        should complete in
-    00:00:00.1000000
-        but did not
-    Additional Info:
-    Some additional context";
+    private string ChuckedAWobblyErrorMessage =
+        """
+        Task
+                should complete in
+            00:00:00.1000000
+                but did not
+            Additional Info:
+            Some additional context
+        """;
 
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        tcs.SetException(new InvalidOperationException());
+        var faultedTask = tcs.Task;
 
-        var ex = task.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
+        var ex = faultedTask.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
 
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
@@ -59,11 +56,11 @@ public class FuncOfTaskWithTimeoutScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
+        tcs.SetException(new InvalidOperationException());
+        var faultedTask = tcs.Task;
 
-        var ex = task.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
+        var ex = faultedTask.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
 
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();

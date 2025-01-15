@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net8.0;net9.0</TargetFrameworks>
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
@@ -27,13 +27,12 @@
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="11.3.0" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <None Include="buildTransitive\Shouldly.targets" Pack="true" PackagePath="buildTransitive\Shouldly.targets" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
-    <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[5.0.0]" />
+    <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[8.0.0]" />
   </ItemGroup>
 </Project>

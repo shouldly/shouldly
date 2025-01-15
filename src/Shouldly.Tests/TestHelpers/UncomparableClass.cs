@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Tests.TestHelpers;
 
-internal class UncomparableClass
+class UncomparableClass
 {
     private readonly string _description;
 
@@ -9,8 +9,5 @@ internal class UncomparableClass
         _description = description;
     }
 
-    public override string ToString()
-    {
-        return _description;
-    }
+    public override string ToString() => _description;
 }

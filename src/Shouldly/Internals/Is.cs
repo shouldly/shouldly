@@ -1,17 +1,13 @@
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
 namespace Shouldly;
 
-internal static class Is
+static class Is
 {
     public static bool InRange<T>([DisallowNull] T comparable, T? from, T? to)
-        where T : IComparable<T>
-    {
-        return comparable.CompareTo(from) >= 0 && comparable.CompareTo(to) <= 0;
-    }
+        where T : IComparable<T> =>
+        comparable.CompareTo(from) >= 0 &&
+        comparable.CompareTo(to) <= 0;
 
     public static bool Same(object? actual, object? expected)
     {
@@ -23,28 +19,20 @@ internal static class Is
         return ReferenceEquals(actual, expected);
     }
 
-    public static bool Equal<T>(T? expected, T? actual)
-    {
-        return Equal(expected, actual, GetEqualityComparer<T>());
-    }
+    public static bool Equal<T>(T? expected, T? actual) =>
+        Equal(expected, actual, GetEqualityComparer<T>());
 
-    public static bool Equal<T>(T? expected, T? actual, IEqualityComparer<T> comparer)
-    {
-        return comparer.Equals(actual, expected);
-    }
+    public static bool Equal<T>(T? expected, T? actual, IEqualityComparer<T> comparer) =>
+        comparer.Equals(actual, expected);
 
-    private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null)
-    {
-        return new EqualityComparer<T>(innerComparer);
-    }
+    private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
+        new EqualityComparer<T>(innerComparer);
 
-    public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
-    {
+    public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
         // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
         // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
         // and move the contents to the overload that supports accepting the comparer method.
-        return Equal(actual, expected, GetEqualityComparer<T>());
-    }
+        Equal(actual, expected, GetEqualityComparer<T>());
 
     public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
     {
@@ -71,13 +59,11 @@ internal static class Is
         }
     }
 
-    public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected)
-    {
+    public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
         // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
         // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
         // and move the contents to the overload that supports accepting the comparer method.
-        return EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
-    }
+        EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
 
     public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
     {
@@ -163,35 +149,22 @@ internal static class Is
         }
     }
 
-    public static bool Equal(decimal actual, decimal expected, decimal tolerance)
-    {
-        return Math.Abs(actual - expected) < tolerance;
-    }
+    public static bool Equal(decimal actual, decimal expected, decimal tolerance) =>
+        Math.Abs(actual - expected) < tolerance;
 
-    public static bool Equal(double actual, double expected, double tolerance)
-    {
-        return Math.Abs(actual - expected) < tolerance;
-    }
+    public static bool Equal(double actual, double expected, double tolerance) =>
+        Math.Abs(actual - expected) < tolerance;
 
-    public static bool Equal(DateTime actual, DateTime expected, TimeSpan tolerance)
-    {
-        return (actual - expected).Duration() < tolerance;
-    }
+    public static bool Equal(DateTime actual, DateTime expected, TimeSpan tolerance) =>
+        (actual - expected).Duration() < tolerance;
 
-    public static bool Equal(DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance)
-    {
-        return (actual - expected).Duration() < tolerance;
-    }
+    public static bool Equal(DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance) =>
+        (actual - expected).Duration() < tolerance;
 
-    public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
-    {
-        return (actual - expected).Duration() < tolerance;
-    }
+    public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance) => (actual - expected).Duration() < tolerance;
 
-    public static bool StringMatchingRegex(string actual, [RegexPattern] string regexPattern)
-    {
-        return Regex.IsMatch(actual, regexPattern);
-    }
+    public static bool StringMatchingRegex(string actual, [RegexPattern] string regexPattern) =>
+        Regex.IsMatch(actual, regexPattern);
 
     public static bool StringContainingIgnoreCase(string? actual, string expected)
     {
@@ -271,53 +244,34 @@ internal static class Is
     }
 
     public static bool GreaterThanOrEqualTo<T>(T? comparable, T? expected)
-        where T : IComparable<T>?
-    {
-        return Compare(comparable, expected) >= 0;
-    }
+        where T : IComparable<T>? =>
+        Compare(comparable, expected) >= 0;
 
-    public static bool GreaterThanOrEqualTo<T>(T? actual, T? expected, IComparer<T> comparer)
-    {
-        return Compare(actual, expected, comparer) >= 0;
-    }
+    public static bool GreaterThanOrEqualTo<T>(T? actual, T? expected, IComparer<T> comparer) =>
+        Compare(actual, expected, comparer) >= 0;
 
     public static bool LessThanOrEqualTo<T>(T? comparable, T? expected)
-        where T : IComparable<T>?
-    {
-        return Compare(comparable, expected) <= 0;
-    }
+        where T : IComparable<T>? =>
+        Compare(comparable, expected) <= 0;
 
-    public static bool LessThanOrEqualTo<T>(T? actual, T? expected, IComparer<T> comparer)
-    {
-        return Compare(actual, expected, comparer) <= 0;
-    }
+    public static bool LessThanOrEqualTo<T>(T? actual, T? expected, IComparer<T> comparer) => Compare(actual, expected, comparer) <= 0;
 
     public static bool GreaterThan<T>(T? comparable, T? expected)
-        where T : IComparable<T>?
-    {
-        return Compare(comparable, expected) > 0;
-    }
+        where T : IComparable<T>? =>
+        Compare(comparable, expected) > 0;
 
-    public static bool GreaterThan<T>(T? actual, T? expected, IComparer<T> comparer)
-    {
-        return Compare(actual, expected, comparer) > 0;
-    }
+    public static bool GreaterThan<T>(T? actual, T? expected, IComparer<T> comparer) =>
+        Compare(actual, expected, comparer) > 0;
 
     public static bool LessThan<T>(T? comparable, T? expected)
-        where T : IComparable<T>?
-    {
-        return Compare(comparable, expected) < 0;
-    }
+        where T : IComparable<T>? =>
+        Compare(comparable, expected) < 0;
 
-    public static bool LessThan<T>(T? actual, T? expected, IComparer<T> comparer)
-    {
-        return Compare(actual, expected, comparer) < 0;
-    }
+    public static bool LessThan<T>(T? actual, T? expected, IComparer<T> comparer) =>
+        Compare(actual, expected, comparer) < 0;
 
-    private static decimal Compare<T>(T? actual, T? expected, IComparer<T> comparer)
-    {
-        return comparer.Compare(actual, expected);
-    }
+    private static decimal Compare<T>(T? actual, T? expected, IComparer<T> comparer) =>
+        comparer.Compare(actual, expected);
 
     private static decimal Compare<T>(T? comparable, T? expected)
         where T : IComparable<T>?

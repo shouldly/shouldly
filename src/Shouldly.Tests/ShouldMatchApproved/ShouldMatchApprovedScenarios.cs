@@ -28,12 +28,14 @@ public class ShouldMatchApprovedScenarios
             ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
             : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
 
-        var errorMsg = $@"To approve the changes run this command:
-{cmd}
-----------------------------
+        var errorMsg = $"""
+                        To approve the changes run this command:
+                        {cmd}
+                        ----------------------------
 
-Approval file {approvalPath}.approved.txt
-    does not exist";
+                        Approval file {approvalPath}.approved.txt
+                            does not exist
+                        """;
 
         Verify.ShouldFail(() =>
                 "Bar".ShouldMatchApproved(c => c.NoDiff()),
@@ -163,7 +165,7 @@ Actual Code    | 70   111  111  ",
     [Fact]
     public async Task CanFindTestAttributeInAsync()
     {
-        await Task.Delay(200);
+        await Task.Yield();
 
         "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
     }
@@ -171,7 +173,7 @@ Actual Code    | 70   111  111  ",
     [Fact]
     public async Task HandlesAsync()
     {
-        await Task.Delay(200);
+        await Task.Yield();
 
         "Foo".ShouldMatchApproved();
     }

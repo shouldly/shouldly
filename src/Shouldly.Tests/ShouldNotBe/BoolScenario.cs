@@ -10,22 +10,26 @@ public class BoolScenario
                 myFalseValue.ShouldNotBe(false, "Some additional context"),
 
             errorWithSource:
-            @"myFalseValue
-    should not be
-False
-    but was
+            """
+            myFalseValue
+                should not be
+            False
+                but was
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"False
-    should not be
-False
-    but was
+            """
+            False
+                should not be
+            False
+                but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

@@ -1,8 +1,4 @@
 using Shouldly.Internals;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 
 namespace Shouldly.Configuration;
 
@@ -33,8 +29,7 @@ public class FirstNonShouldlyMethodFinder : ITestMethodFinder
         throw new InvalidOperationException("Cannot find a non-Shouldly method in the stack trace.");
     }
 
-    private static bool IsCompilerGenerated(MethodBase method)
-    {
-        return method.IsDefined(typeof(CompilerGeneratedAttribute), inherit: true) || AnonMethod.IsMatch(method.Name);
-    }
+    private static bool IsCompilerGenerated(MethodBase method) =>
+        method.IsDefined(typeof(CompilerGeneratedAttribute), inherit: true) ||
+        AnonMethod.IsMatch(method.Name);
 }

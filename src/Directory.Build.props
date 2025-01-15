@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <LangVersion>11</LangVersion>
+    <LangVersion>13</LangVersion>
     <Nullable>enable</Nullable>
     <Version>4.2.1</Version>
     <AnalysisLevel>5</AnalysisLevel>
@@ -13,6 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
+    <PackageReference Include="IndexRange" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
 </Project>

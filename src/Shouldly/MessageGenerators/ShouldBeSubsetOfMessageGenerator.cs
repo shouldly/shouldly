@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Text.RegularExpressions;
+﻿namespace Shouldly.MessageGenerators;
 
-namespace Shouldly.MessageGenerators;
-
-internal class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBeSubsetOf");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

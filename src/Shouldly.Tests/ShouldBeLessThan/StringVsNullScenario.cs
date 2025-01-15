@@ -10,23 +10,27 @@ public class StringVsNullScenario
                 bee.ShouldBeLessThan(null, "Some additional context"),
 
             errorWithSource:
-            @"bee
-    should be less than
-null
-    but was
-""b""
+            """
+            bee
+                should be less than
+            null
+                but was
+            "b"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""b""
-    should be less than
-null
-    but was not
+            """
+            "b"
+                should be less than
+            null
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

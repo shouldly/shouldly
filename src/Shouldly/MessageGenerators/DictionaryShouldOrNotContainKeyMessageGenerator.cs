@@ -1,15 +1,11 @@
-using System.Text.RegularExpressions;
-
 namespace Shouldly.MessageGenerators;
 
-internal class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
+class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("Should(Not)?ContainKey");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

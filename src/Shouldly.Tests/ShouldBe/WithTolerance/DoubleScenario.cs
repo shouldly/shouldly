@@ -11,27 +11,31 @@ public class DoubleScenario
                 pi.ShouldBe(3.24d, 0.01d, "Some additional context"),
 
             errorWithSource:
-            @"pi
-    should be within
-0.01d
-    of
-3.24d
-    but was
-3.14159d
+            """
+            pi
+                should be within
+            0.01d
+                of
+            3.24d
+                but was
+            3.14159d
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"3.14159d
-    should be within
-0.01d
-    of
-3.24d
-    but was not
+            """
+            3.14159d
+                should be within
+            0.01d
+                of
+            3.24d
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

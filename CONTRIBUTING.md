@@ -9,7 +9,7 @@ Contributing to Shouldly
  * [Forking a GitHub repository](http://help.github.com/fork-a-repo/)
  * [The simple guide to GIT guide](http://rogerdudler.github.com/git-guide/)
  * [Open an issue](https://github.com/shouldly/shouldly/issues) if you encounter a bug or have a suggestion for improvements/features
- * [Submit documentation improvements](http://shouldly.readthedocs.org/en/latest) by submitting pull requests, the docs are in the `docs` folder in this repo
+ * [Submit documentation improvements](http://shouldly.readthedocs.org/en/latest) by submitting pull requests, the docs are in the `documentation` folder in this repo
 
 Once you're familiar with Git and GitHub, clone the repository and start contributing.
 

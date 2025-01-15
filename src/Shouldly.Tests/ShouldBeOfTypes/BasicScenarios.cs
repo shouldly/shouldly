@@ -15,26 +15,28 @@ public class BasicScenarios
     {
         var arr = new object[] { new Added(), new Changed(), new Removed() };
 
-        arr.ShouldBeOfTypes(new[] { typeof(Added), typeof(Changed), typeof(Removed) }, "additional context");
+        arr.ShouldBeOfTypes([typeof(Added), typeof(Changed), typeof(Removed)], "additional context");
     }
 
     [Fact]
     public void FailsIfTypesDontMatchExactly()
     {
         Verify.ShouldFail(() =>
-                new object[] { new Added(), new Changed() }.ShouldBeOfTypes(new[] { typeof(Added), typeof(object) }, "Some additional context"),
+                new object[] { new Added(), new Changed() }.ShouldBeOfTypes([typeof(Added), typeof(object)], "Some additional context"),
 
             errorWithSource:
-            @"new object[] { new Added(), new Changed() }
-    should be
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, System.Object]
-    but was
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
-    difference
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
+            """
+            new object[] { new Added(), new Changed() }
+                should be
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, System.Object]
+                but was
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
+                difference
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
             @"[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
@@ -52,30 +54,34 @@ Additional Info:
     public void FailsIfActualAndExpectedAreDifferentLengths()
     {
         Verify.ShouldFail(() =>
-                new object[] { new Added(), new Changed() }.ShouldBeOfTypes(new[] { typeof(Added) }, "Some additional context"),
+                new object[] { new Added(), new Changed() }.ShouldBeOfTypes([typeof(Added)], "Some additional context"),
 
             errorWithSource:
-            @"new object[] { new Added(), new Changed() }
-    should be
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added]
-    but was
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
-    difference
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
+            """
+            new object[] { new Added(), new Changed() }
+                should be
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added]
+                but was
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
+                difference
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
-    should be
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added]
-    but was not
-    difference
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
+            """
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
+                should be
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added]
+                but was not
+                difference
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     private class Added { }

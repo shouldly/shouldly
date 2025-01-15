@@ -1,15 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace Shouldly.MessageGenerators;
 
-namespace Shouldly.MessageGenerators;
-
-internal class ShouldBeBooleanMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeBooleanMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBe(True|False)");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

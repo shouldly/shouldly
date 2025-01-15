@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <Compile Include="..\Shouldly.Tests\ConventionTests\IgnoreOnAppVeyorLinuxFact.cs" Link="IgnoreOnAppVeyorLinuxFact.cs" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="PublicApiGenerator" Version="11.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
-    <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[3.1.0]" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" PrivateAssets="all" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="PublicApiGenerator" Version="11.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
+    <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

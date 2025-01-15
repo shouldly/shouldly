@@ -10,23 +10,27 @@ public class StringScenario
                 aVar.ShouldBeGreaterThanOrEqualTo("b", "Some additional context"),
 
             errorWithSource:
-            @"aVar
-    should be greater than or equal to
-""b""
-    but was
-""a""
+            """
+            aVar
+                should be greater than or equal to
+            "b"
+                but was
+            "a"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""a""
-    should be greater than or equal to
-""b""
-    but was not
+            """
+            "a"
+                should be greater than or equal to
+            "b"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

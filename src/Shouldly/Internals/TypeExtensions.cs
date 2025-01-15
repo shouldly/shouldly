@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
+﻿namespace Shouldly;
 
-namespace Shouldly;
-
-internal static class TypeExtensions
+static class TypeExtensions
 {
     public static bool IsValueType(this Type type) =>
         type.GetTypeInfo().IsValueType;

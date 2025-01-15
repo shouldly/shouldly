@@ -10,19 +10,23 @@ public class ZeroDecimalScenario
                 val.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"val
-    should be negative but
-0m
-    is positive
+            """
+            val
+                should be negative but
+            0m
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0m
-    should be negative but is positive
+            """
+            0m
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

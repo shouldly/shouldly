@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 [DebuggerStepThrough]
 [ShouldlyMethods]

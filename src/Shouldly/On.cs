@@ -1,6 +1,6 @@
 ﻿namespace Shouldly;
 
-internal static class On
+static class On
 {
     public static IDisposable Dispose(Action action) => new OnDisposeAction(action);
 

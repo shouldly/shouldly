@@ -1,13 +1,9 @@
-﻿using System.Collections;
+﻿namespace Shouldly.MessageGenerators;
 
-namespace Shouldly.MessageGenerators;
-
-internal class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.IgnoreOrder;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.IgnoreOrder;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

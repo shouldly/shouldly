@@ -4,10 +4,7 @@ public abstract class Pet
 {
     public abstract string? Name { get; set; }
 
-    public override string? ToString()
-    {
-        return Name;
-    }
+    public override string? ToString() => Name;
 }
 
 public class Cat : Pet
@@ -34,8 +31,5 @@ public class Person
     public string? Name { get; set; }
     public int Salary { get; set; }
 
-    public override string? ToString()
-    {
-        return Name;
-    }
+    public override string? ToString() => Name;
 }

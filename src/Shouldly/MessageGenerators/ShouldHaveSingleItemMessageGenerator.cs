@@ -1,15 +1,11 @@
-﻿using System.Collections;
+﻿namespace Shouldly.MessageGenerators;
 
-namespace Shouldly.MessageGenerators;
-
-internal class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
+class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
 {
     private const string ShouldBeAssertion = "ShouldHaveSingleItem";
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.ShouldMethod.Equals(ShouldBeAssertion, StringComparison.OrdinalIgnoreCase);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.ShouldMethod.Equals(ShouldBeAssertion, StringComparison.OrdinalIgnoreCase);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

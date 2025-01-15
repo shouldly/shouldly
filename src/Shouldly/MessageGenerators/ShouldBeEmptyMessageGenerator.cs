@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Text.RegularExpressions;
-
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("Should(Not)?BeEmpty");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod) && !context.HasRelevantActual;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

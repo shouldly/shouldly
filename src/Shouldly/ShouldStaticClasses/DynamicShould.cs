@@ -7,10 +7,8 @@ namespace Shouldly;
 public static partial class DynamicShould
 {
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
-        where TException : Exception
-    {
-        return Should.Throw<TException>(actual, customMessage);
-    }
+        where TException : Exception =>
+        Should.Throw<TException>(actual, customMessage);
 
     public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
     {

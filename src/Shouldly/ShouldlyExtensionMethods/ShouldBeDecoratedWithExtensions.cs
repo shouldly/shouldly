@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 [DebuggerStepThrough]
 [ShouldlyMethods]
@@ -14,8 +11,6 @@ public static partial class ShouldBeDecoratedWithExtensions
             throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).GetTypeInfo().Name, customMessage).ToString());
     }
 
-    private static bool HasAttribute(this Type type, Type attributeType)
-    {
-        return type.GetTypeInfo().GetCustomAttributes(attributeType, true).Any();
-    }
+    private static bool HasAttribute(this Type type, Type attributeType) =>
+        type.GetTypeInfo().GetCustomAttributes(attributeType, true).Any();
 }

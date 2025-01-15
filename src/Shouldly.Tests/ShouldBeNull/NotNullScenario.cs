@@ -11,18 +11,22 @@ public class NotNullScenario
                 myNullRef.ShouldNotBeNull("Some additional context"),
 
             errorWithSource:
-            @"myNullRef
-    should not be null but was
+            """
+            myNullRef
+                should not be null but was
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"null
-    should not be null but was
+            """
+            null
+                should not be null but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -41,18 +45,22 @@ Additional Info:
                 myNullRef.ShouldNotBeNull("Some additional context"),
 
             errorWithSource:
-            @"myNullRef
-    should not be null but was
+            """
+            myNullRef
+                should not be null but was
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"null
-    should not be null but was
+            """
+            null
+                should not be null but was
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

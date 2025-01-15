@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace Shouldly;
 
@@ -10,10 +8,8 @@ public static partial class Should
 {
     /*** Should.Throw(Action) ***/
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
-        where TException : Exception
-    {
-        return ThrowInternal<TException>(actual, customMessage);
-    }
+        where TException : Exception =>
+        ThrowInternal<TException>(actual, customMessage);
 
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Action actual,
@@ -38,10 +34,8 @@ public static partial class Should
     }
 
     /*** Should.Throw(Action) ***/
-    public static Exception Throw([InstantHandle] Action actual, Type exceptionType, string? customMessage = null)
-    {
-        return ThrowInternal(actual, customMessage, exceptionType);
-    }
+    public static Exception Throw([InstantHandle] Action actual, Type exceptionType, string? customMessage = null) =>
+        ThrowInternal(actual, customMessage, exceptionType);
 
     internal static Exception ThrowInternal([InstantHandle] Action actual, string? customMessage, Type exceptionType,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -65,10 +59,8 @@ public static partial class Should
 
     /*** Should.Throw(Func<T>) ***/
     public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null)
-        where TException : Exception
-    {
-        return ThrowInternal<TException>(actual, customMessage);
-    }
+        where TException : Exception =>
+        ThrowInternal<TException>(actual, customMessage);
 
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Func<object?> actual,
@@ -93,15 +85,11 @@ public static partial class Should
     }
 
     /*** Should.Throw(Func<T>) ***/
-    public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType)
-    {
-        return ThrowInternal(actual, null, exceptionType);
-    }
+    public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType) =>
+        ThrowInternal(actual, null, exceptionType);
 
-    public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType)
-    {
-        return ThrowInternal(actual, customMessage, exceptionType);
-    }
+    public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType) =>
+        ThrowInternal(actual, customMessage, exceptionType);
 
     internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -143,10 +131,8 @@ public static partial class Should
     }
 
     /*** Should.NotThrow(Func<T>) ***/
-    public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null)
-    {
-        return NotThrowInternal(action, customMessage);
-    }
+    public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null) =>
+        NotThrowInternal(action, customMessage);
 
     /// <summary>
     /// Used to differentiate between the extension methods and the static methods

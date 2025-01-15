@@ -27,21 +27,25 @@ public class ComparerScenario
                 comparison1.ShouldBeUnique(new ComparableClassComparer(), "Some additional context"),
 
             errorWithSource:
-            @"comparison1
-    should be unique but
-[Shouldly.Tests.TestHelpers.ComparableClass (000000)]
-    was duplicated
+            """
+            comparison1
+                should be unique but
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+                was duplicated
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
-    should be unique but
-[Shouldly.Tests.TestHelpers.ComparableClass (000000)]
-    was duplicated
+            """
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+                should be unique but
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+                was duplicated
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Reflection;
 using Shouldly.Internals;
 
 namespace Shouldly.Configuration;

@@ -5,10 +5,8 @@ namespace Shouldly.Tests.ConventionTests;
 
 public static class TypeExtensions
 {
-    public static bool HasAttribute<TAttribute>(this Type type)
-    {
-        return type.GetCustomAttributes(typeof(TAttribute), true).Any();
-    }
+    public static bool HasAttribute<TAttribute>(this Type type) =>
+        type.GetCustomAttributes(typeof(TAttribute), true).Any();
 
     public static bool HasAttribute(this Type type, string attributeName)
     {

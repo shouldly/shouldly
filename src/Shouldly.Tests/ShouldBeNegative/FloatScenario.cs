@@ -10,20 +10,24 @@ public class FloatScenario
                 @float.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"@float
-    should be negative but
-3f
-    is positive
+            """
+            @float
+                should be negative but
+            3f
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"3f
-    should be negative but is positive
+            """
+            3f
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

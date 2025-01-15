@@ -10,23 +10,27 @@ public class FalseScenario
                 myValue.ShouldBeFalse("Some additional context"),
 
             errorWithSource:
-            @"myValue
-    should be
-False
-    but was
-True
+            """
+            myValue
+                should be
+            False
+                but was
+            True
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"True
-    should be
-False
-    but was not
+            """
+            True
+                should be
+            False
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

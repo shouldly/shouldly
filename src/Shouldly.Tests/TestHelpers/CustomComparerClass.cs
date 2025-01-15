@@ -1,6 +1,6 @@
 ﻿namespace Shouldly.Tests.TestHelpers;
 
-internal class CustomComparer<T> : IComparer<T>
+class CustomComparer<T> : IComparer<T>
 {
     public int Compare(T? x, T? y)
     {
@@ -12,7 +12,7 @@ internal class CustomComparer<T> : IComparer<T>
     }
 }
 
-internal class Custom
+class Custom
 {
     public int Val { get; set; }
 }

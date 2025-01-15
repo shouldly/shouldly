@@ -13,6 +13,6 @@ public class SuccessScenarios
     [Fact]
     public void EmptyArrayIsSubsetOfAnything()
     {
-        new int[0].ShouldBeSubsetOf(new[] { 1, 2, 3, 4 }, "Some additional context");
+        new int[0].ShouldBeSubsetOf([1, 2, 3, 4], "Some additional context");
     }
 }

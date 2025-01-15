@@ -1,4 +1,6 @@
-﻿namespace Shouldly.Tests;
+﻿using System.Diagnostics;
+
+namespace Shouldly.Tests;
 
 partial class StackTraceTests
 {
@@ -15,24 +17,23 @@ partial class StackTraceTests
             ThrowingAction = throwingAction ?? throw new ArgumentNullException(nameof(throwingAction));
         }
 
-        public override string ToString()
-        {
-            return InShouldlyAssembly ? ThrowingAction.Method.Name :
+        public override string ToString() =>
+            InShouldlyAssembly ? ThrowingAction.Method.Name :
                 ExceptionType.Name + " thrown directly";
-        }
 
-        public Exception? Catch()
+        public Exception Catch()
         {
             // Don’t rely on a framework for this in case of the outside chance that the framework manipulates the stack trace.
             try
             {
                 ThrowingAction.Invoke();
-                return null;
             }
             catch (Exception ex) when (ex.GetType() == ExceptionType)
             {
                 return ex;
             }
+
+            throw new UnreachableException($"`ExceptionThrower.Catch` should always catch and return an exception. In this case, `ThrowingAction` did not throw the expected exception (`{ExceptionType}`).");
         }
     }
 }

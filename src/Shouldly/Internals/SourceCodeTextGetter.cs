@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
+﻿namespace Shouldly.Internals;
 
-namespace Shouldly.Internals;
-
-internal class ActualCodeTextGetter : ICodeTextGetter
+class ActualCodeTextGetter : ICodeTextGetter
 {
     private bool _determinedOriginatingFrame;
     private string? _shouldMethod;

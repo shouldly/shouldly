@@ -39,12 +39,14 @@ Additional Info:
     Some additional context",
 
             errorWithoutSource:
-            @"Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    should be one of
-[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
-    but was not
+            """
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
+                should be one of
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

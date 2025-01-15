@@ -34,12 +34,12 @@ public class ShouldlyWebsiteExampleTests
     {
         private static IList<string> GetMap()
         {
-            return new[]
-            {
+            return
+            [
                 "aoo",
                 "boo",
                 "coo"
-            };
+            ];
         }
 
         [Fact]
@@ -67,14 +67,14 @@ public class ShouldlyWebsiteExampleTests
         public void Shouldly_CompareTwoCollections()
         {
             TestHelpers.Should.Error(
-                () => new[] { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 4 }),
+                () => new[] { 1, 2, 3 }.ShouldBe([1, 2, 4]),
                 "new[] {1, 2, 3} should be [1, 2, 4] but was [1, 2, 3] difference [1, 2, *3*]");
         }
 
         [Fact]
         public void Shouldly_CompareTwoCollections_HappyPath()
         {
-            new[] { 1, 2, 3 }.ShouldBe(new[] { 1, 2, 3 });
+            new[] { 1, 2, 3 }.ShouldBe([1, 2, 3]);
         }
     }
 

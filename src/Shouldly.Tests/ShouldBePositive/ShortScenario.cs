@@ -10,20 +10,24 @@ public class ShortScenario
                 @short.ShouldBePositive("Some additional context"),
 
             errorWithSource:
-            @"@short
-    should be positive but
--3
-    is negative
+            """
+            @short
+                should be positive but
+            -3
+                is negative
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"-3
-    should be positive but is negative
+            """
+            -3
+                should be positive but is negative
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

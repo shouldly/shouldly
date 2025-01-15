@@ -10,24 +10,28 @@ public class BasicTypesScenario
                 two.ShouldBeAssignableTo<double>("Some additional context"),
 
             errorWithSource:
-            @"two
-    should be assignable to
-System.Double
-    but was
-System.Int32
+            """
+            two
+                should be assignable to
+            System.Double
+                but was
+            System.Int32
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"2
-    should be assignable to
-System.Double
-    but was
-System.Int32
+            """
+            2
+                should be assignable to
+            System.Double
+                but was
+            System.Int32
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

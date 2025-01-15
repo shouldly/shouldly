@@ -23,10 +23,8 @@ public class ShouldThrowMethod
         return string.Equals(Name, other.Name) && Parameters.All(p => other.Parameters.Any(op => p.Name == op.Name && TypeEqual(p.ParameterType, op.ParameterType)));
     }
 
-    private static bool TypeEqual(Type pt1, Type pt2)
-    {
-        return pt1.FormatType() == pt2.FormatType();
-    }
+    private static bool TypeEqual(Type pt1, Type pt2) =>
+        pt1.FormatType() == pt2.FormatType();
 
     public override bool Equals(object? obj)
     {
@@ -36,10 +34,7 @@ public class ShouldThrowMethod
         return Equals((ShouldThrowMethod)obj);
     }
 
-    public override string ToString()
-    {
-        return _throwMethod.FormatMethod();
-    }
+    public override string ToString() => _throwMethod.FormatMethod();
 
     public override int GetHashCode()
     {

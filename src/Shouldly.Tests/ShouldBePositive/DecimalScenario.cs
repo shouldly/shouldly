@@ -11,20 +11,24 @@ public class DecimalScenario
                 @decimal.ShouldBePositive("Some additional context"),
 
             errorWithSource:
-            @"@decimal
-    should be positive but
--3.5m
-    is negative
+            """
+            @decimal
+                should be positive but
+            -3.5m
+                is negative
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"-3.5m
-    should be positive but is negative
+            """
+            -3.5m
+                should be positive but is negative
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

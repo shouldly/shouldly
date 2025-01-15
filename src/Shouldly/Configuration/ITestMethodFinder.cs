@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Shouldly.Configuration;
 
 public interface ITestMethodFinder

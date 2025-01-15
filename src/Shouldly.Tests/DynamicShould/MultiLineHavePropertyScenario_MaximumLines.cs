@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-
-namespace Shouldly.Tests.DynamicShould;
+﻿namespace Shouldly.Tests.DynamicShould;
 
 public class MultiLineHavePropertyScenario_MaximumLines
 {

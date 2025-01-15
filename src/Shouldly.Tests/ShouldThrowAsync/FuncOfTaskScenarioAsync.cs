@@ -1,98 +1,86 @@
-﻿using Xunit.Sdk;
+﻿#if NET8_0_OR_GREATER
+using Microsoft.Extensions.Time.Testing;
+#endif
+using Xunit.Sdk;
 
 namespace Shouldly.Tests.ShouldThrowAsync;
 
 public class FuncOfTaskScenarioAsync
 {
     [Fact]
-    public void ShouldThrowAWobbly()
+    public async Task ShouldThrowAWobbly()
     {
         try
         {
-            var task = Task.Factory.StartNew(() =>
-                {
-                    var a = 1 + 1;
-                    Console.WriteLine(a);
-                },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+            var task = Task.CompletedTask;
 
-            var result = task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
-            result.Wait();
+            await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task` should throw System.InvalidOperationException but did not
-                            Additional Info:
-                            Some additional context");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                `await task` should throw System.InvalidOperationException but did not
+                Additional Info:
+                Some additional context
+                """);
         }
     }
 
+#if NET8_0_OR_GREATER
     [Fact]
     public async Task ShouldThrowAWobbly_WhenATaskIsCancelled()
     {
         // Arrange.
         // Cancel this calling code after 5 seconds.
-        var cancellationTokenSource = new CancellationTokenSource(5);
-        var task = Task.Delay(TimeSpan.FromSeconds(10), cancellationTokenSource.Token);
+        var timeProvider = new FakeTimeProvider();
+        var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5), timeProvider);
+        var task = Task.Delay(TimeSpan.FromSeconds(10), timeProvider, cancellationTokenSource.Token);
 
         // Act.
-        var result = await Should.ThrowAsync<TaskCanceledException>(() => task);
+        var assertTask = Should.ThrowAsync<TaskCanceledException>(() => task);
+        timeProvider.Advance(TimeSpan.FromSeconds(6));
+        var result = await assertTask;
 
         // Assert.
         result.ShouldNotBeNull();
     }
+#endif
 
     [Fact]
-    public void ShouldThrowAWobbly_ExceptionTypePassedIn()
+    public async Task ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
         try
         {
-            var task = Task.Factory.StartNew(() =>
-                {
-                    var a = 1 + 1;
-                    Console.WriteLine(a);
-                },
-                CancellationToken.None, TaskCreationOptions.None,
-                TaskScheduler.Default);
+            var task = Task.CompletedTask;
 
-            var result = task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
-            result.Wait();
+            await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
-        catch (AggregateException e)
+        catch (ShouldAssertException ex)
         {
-            var inner = e.Flatten().InnerException;
-            var ex = inner.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                            `task` should throw System.InvalidOperationException but did not
-                            Additional Info:
-                            Some additional context");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                `await task` should throw System.InvalidOperationException but did not
+                Additional Info:
+                Some additional context
+                """);
         }
     }
 
     [Fact]
-    public void ShouldPass()
+    public async Task ShouldPass()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.FromException(new InvalidOperationException());
 
-        var result = task.ShouldThrowAsync<InvalidOperationException>();
-        result.Wait();
+        await task.ShouldThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
-    public void ShouldPass_ExceptionTypePassedIn()
+    public async Task ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.FromException(new InvalidOperationException());
 
-        var result = task.ShouldThrowAsync(typeof(InvalidOperationException));
-        result.Wait();
+        await task.ShouldThrowAsync(typeof(InvalidOperationException));
     }
 
     [Fact]
@@ -101,10 +89,8 @@ public class FuncOfTaskScenarioAsync
         try
         {
             #region ShouldThrowAsync
-            Func<Task> doSomething = async () =>
-            {
-                await Task.Delay(1);
-            };
+
+            Task doSomething() => Task.CompletedTask;
             var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething());
             #endregion
         }
@@ -120,18 +106,20 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            Func<Task> doSomething = () => throw new DivideByZeroException();
+            Task doSomething() => throw new DivideByZeroException();
             await Should.ThrowAsync<TimeoutException>(() => doSomething());
         }
         catch (Exception e)
         {
             var ex = e.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                    Task `doSomething()`
-                    should throw 
-                    System.TimeoutException
-                    but threw
-                    System.DivideByZeroException");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Task `doSomething()`
+                should throw
+                System.TimeoutException
+                but threw
+                System.DivideByZeroException
+                """);
         }
     }
 
@@ -146,12 +134,14 @@ public class FuncOfTaskScenarioAsync
         catch (Exception e)
         {
             var ex = e.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                    Task `async () => await doSomething()`
-                    should throw 
-                    System.TimeoutException
-                    but threw
-                    System.DivideByZeroException");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Task `async () => await doSomething()`
+                should throw
+                System.TimeoutException
+                but threw
+                System.DivideByZeroException
+                """);
         }
     }
 
@@ -166,11 +156,13 @@ public class FuncOfTaskScenarioAsync
         catch (Exception e)
         {
             var ex = e.ShouldBeOfType<ShouldAssertException>();
-            ex.Message.ShouldContainWithoutWhitespace(@"
-                    Task `async () => await doSomething()`
-                    should throw 
-                    System.Exception
-                    but did not");
+            ex.Message.ShouldContainWithoutWhitespace(
+                """
+                Task `async () => await doSomething()`
+                should throw
+                System.Exception
+                but did not
+                """);
             return;
         }
 

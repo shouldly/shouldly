@@ -12,16 +12,20 @@ public class StringScenario
                 ThisString.ShouldNotBe(ThisString),
 
             errorWithSource:
-            @"ThisString
-    should not be
-""this string""
-    but was",
+            """
+            ThisString
+                should not be
+            "this string"
+                but was
+            """,
 
             errorWithoutSource:
-            @"""this string""
-    should not be
-""this string""
-    but was");
+            """
+            "this string"
+                should not be
+            "this string"
+                but was
+            """);
     }
 
     [Fact]

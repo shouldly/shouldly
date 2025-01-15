@@ -1,17 +1,11 @@
-﻿using Shouldly;
-using Shouldly.Tests.ConventionTests;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
+﻿using Shouldly.Tests.ConventionTests;
 
 public class ShouldMatchApprovedExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldMatchApprovedExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldMatchApprovedExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [IgnoreOnAppVeyorLinuxFact]
     public void ApprovedFileDoesNotExist()

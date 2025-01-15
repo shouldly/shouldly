@@ -23,10 +23,8 @@ public class ShouldlyMethodsShouldHaveCustomMessageOverload : IConvention<Types>
             failingTypes);
     }
 
-    private static string FormatKey(MethodInfo shouldlyMethods)
-    {
-        return shouldlyMethods.FormatMethod(true);
-    }
+    private static string FormatKey(MethodInfo shouldlyMethods) =>
+        shouldlyMethods.FormatMethod(true);
 
     private static bool HasNoCustomMessageOverload(IGrouping<string, MethodInfo> shouldlyMethod)
     {
@@ -36,10 +34,9 @@ public class ShouldlyMethodsShouldHaveCustomMessageOverload : IConvention<Types>
         return !hasFuncStringOverload || !hasStringOverload;
     }
 
-    private static bool IsCustomMessageParameter<T>(ParameterInfo p)
-    {
-        return p.Name == "customMessage" && p.ParameterType == typeof(T);
-    }
+    private static bool IsCustomMessageParameter<T>(ParameterInfo p) =>
+        p.Name == "customMessage" &&
+        p.ParameterType == typeof(T);
 
     public string ConventionReason => "API Consistency";
 }

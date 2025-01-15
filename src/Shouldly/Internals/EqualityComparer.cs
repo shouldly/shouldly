@@ -1,4 +1,3 @@
-using System.Collections;
 using NUnit.Framework.Constraints;
 
 namespace Shouldly;
@@ -7,7 +6,7 @@ namespace Shouldly;
  * Code heavily influenced by code from xunit assert equality comparer
  * at https://github.com/xunit/xunit/blob/master/src/xunit2.assert/Asserts/Sdk/AssertEqualityComparer.cs
  */
-internal class EqualityComparer<T> : IEqualityComparer<T>
+class EqualityComparer<T> : IEqualityComparer<T>
 {
     private static readonly IEqualityComparer DefaultInnerComparer = new EqualityComparerAdapter(new EqualityComparer<object>());
 

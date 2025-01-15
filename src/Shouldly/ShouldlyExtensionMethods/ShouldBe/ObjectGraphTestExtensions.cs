@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 [ShouldlyMethods]
 public static partial class ObjectGraphTestExtensions
@@ -11,16 +6,16 @@ public static partial class ObjectGraphTestExtensions
     private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
     public static void ShouldBeEquivalentTo(
-        [NotNullIfNotNull("expected")] this object? actual,
-        [NotNullIfNotNull("actual")] object? expected,
+        [NotNullIfNotNull(nameof(expected))] this object? actual,
+        [NotNullIfNotNull(nameof(actual))] object? expected,
         string? customMessage = null)
     {
         CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
     }
 
     private static void CompareObjects(
-        [NotNullIfNotNull("expected")] this object? actual,
-        [NotNullIfNotNull("actual")] object? expected,
+        [NotNullIfNotNull(nameof(expected))] this object? actual,
+        [NotNullIfNotNull(nameof(actual))] object? expected,
         IList<string> path,
         IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage,
@@ -31,7 +26,15 @@ public static partial class ObjectGraphTestExtensions
 
         var type = GetTypeToCompare(actual, expected, path, customMessage, shouldlyMethod);
 
-        if (type.GetTypeInfo().IsValueType)
+        if (type == typeof(string))
+        {
+            CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
+        }
+        else if (typeof(IEnumerable).IsAssignableFrom(type))
+        {
+            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
+        }
+        else if (type.GetTypeInfo().IsValueType)
         {
             CompareValueTypes((ValueType)actual, (ValueType)expected, path, customMessage, shouldlyMethod);
         }
@@ -186,17 +189,19 @@ public static partial class ObjectGraphTestExtensions
             new ExpectedEquivalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());
     }
 
-    private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)
-    {
-        return comparisons.TryGetValue(actual, out var list)
-               && list.Contains(expected);
-    }
+    private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected) =>
+        comparisons.TryGetValue(actual, out var list)
+        && list.Contains(expected);
 
     private static void Record(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected)
     {
         if (comparisons.TryGetValue(actual, out var list))
+        {
             list.Add(expected);
+        }
         else
+        {
             comparisons.Add(actual, new List<object?>(new[] { expected }));
+        }
     }
 }

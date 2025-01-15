@@ -10,28 +10,32 @@ public class StringScenario
                 subject.ShouldBeEquivalentTo("Goodbye", "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [System.String]
+            """
+            Comparing object equivalence, at path:
+            subject [System.String]
+            
+                Expected value to be
+            "Goodbye"
+                but was
+            "Hello"
 
-    Expected value to be
-""Goodbye""
-    but was
-""Hello""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [System.String]
+            """
+            Comparing object equivalence, at path:
+            <root> [System.String]
+            
+                Expected value to be
+            "Goodbye"
+                but was
+            "Hello"
 
-    Expected value to be
-""Goodbye""
-    but was
-""Hello""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -42,28 +46,32 @@ Additional Info:
                 subject.ShouldBeEquivalentTo("HELLO", "Some additional context"),
 
             errorWithSource:
-            @"Comparing object equivalence, at path:
-subject [System.String]
+            """
+            Comparing object equivalence, at path:
+            subject [System.String]
+            
+                Expected value to be
+            "HELLO"
+                but was
+            "Hello"
 
-    Expected value to be
-""HELLO""
-    but was
-""Hello""
-
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root> [System.String]
+            """
+            Comparing object equivalence, at path:
+            <root> [System.String]
+            
+                Expected value to be
+            "HELLO"
+                but was
+            "Hello"
 
-    Expected value to be
-""HELLO""
-    but was
-""Hello""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

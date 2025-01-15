@@ -1,16 +1,13 @@
-﻿using System.Text.RegularExpressions;
-using Shouldly.MessageGenerators;
+﻿using Shouldly.MessageGenerators;
 
 namespace Shouldly;
 
-internal class ShouldBeTypeMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeTypeMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldBe(Not)?(OfType|AssignableTo)");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        Validator.IsMatch(context.ShouldMethod);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

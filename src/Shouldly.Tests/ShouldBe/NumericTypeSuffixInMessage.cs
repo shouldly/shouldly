@@ -16,16 +16,20 @@ public class NumericTypeSuffixInMessage
                 uLong.ShouldBe(3UL),
 
             errorWithSource:
-            @"uLong
-    should be
-3uL
-    but was
-2uL",
+            """
+            uLong
+                should be
+            3uL
+                but was
+            2uL
+            """,
 
             errorWithoutSource:
-            @"2uL
-    should be
-3uL
-    but was not");
+            """
+            2uL
+                should be
+            3uL
+                but was not
+            """);
     }
 }

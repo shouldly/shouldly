@@ -1,6 +1,4 @@
 using Shouldly.Internals.AssertionFactories;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Shouldly;
 
@@ -12,8 +10,8 @@ public static partial class ShouldBeStringTestExtensions
     /// Perform a string comparison with sensitivity options
     /// </summary>
     public static void ShouldBe(
-        [NotNullIfNotNull("expected")] this string? actual,
-        [NotNullIfNotNull("actual")] string? expected,
+        [NotNullIfNotNull(nameof(expected))] this string? actual,
+        [NotNullIfNotNull(nameof(actual))] string? expected,
         string? customMessage = null)
     {
         // ReSharper disable once IntroduceOptionalParameters.Global
@@ -24,16 +22,16 @@ public static partial class ShouldBeStringTestExtensions
     /// Perform a string comparison with sensitivity options
     /// </summary>
     public static void ShouldBe(
-        [NotNullIfNotNull("expected")] this string? actual,
-        [NotNullIfNotNull("actual")] string? expected,
+        [NotNullIfNotNull(nameof(expected))] this string? actual,
+        [NotNullIfNotNull(nameof(actual))] string? expected,
         StringCompareShould options)
     {
         ShouldBe(actual, expected, (string?)null, options);
     }
 
     public static void ShouldBe(
-        [NotNullIfNotNull("expected")] this string? actual,
-        [NotNullIfNotNull("actual")] string? expected,
+        [NotNullIfNotNull(nameof(expected))] this string? actual,
+        [NotNullIfNotNull(nameof(actual))] string? expected,
         string? customMessage,
         StringCompareShould options)
     {

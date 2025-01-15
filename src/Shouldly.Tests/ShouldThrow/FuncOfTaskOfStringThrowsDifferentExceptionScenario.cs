@@ -11,24 +11,28 @@ public class FuncOfTaskOfStringThrowsDifferentExceptionScenario
                 action.ShouldThrow<InvalidOperationException>("Some additional context"),
 
             errorWithSource:
-            @"Task `action`
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            Task `action`
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Task
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            Task
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -40,32 +44,34 @@ Additional Info:
                 action.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
 
             errorWithSource:
-            @"Task `action`
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            Task `action`
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Task
-    should throw
-System.InvalidOperationException
-    but threw
-System.RankException
+            """
+            Task
+                should throw
+            System.InvalidOperationException
+                but threw
+            System.RankException
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Factory.StartNew<string>(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
         var ex = task.ShouldThrow<InvalidOperationException>();
 
@@ -76,9 +82,7 @@ Additional Info:
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Factory.StartNew<string>(() => throw new InvalidOperationException(),
-            CancellationToken.None, TaskCreationOptions.None,
-            TaskScheduler.Default);
+        var task = Task.Run(() => throw new InvalidOperationException());
 
         var ex = task.ShouldThrow(typeof(InvalidOperationException));
 

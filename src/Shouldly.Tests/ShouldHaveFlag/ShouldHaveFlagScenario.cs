@@ -13,22 +13,26 @@ public class ShouldHaveFlagScenario
         Verify.ShouldFail(() =>
                 actual.ShouldHaveFlag(value, "Some additional context"),
             errorWithSource:
-            @"actual
-    should have flag
-TestEnum.FlagOne
-    but had
-TestEnum.FlagTwo
+            """
+            actual
+                should have flag
+            TestEnum.FlagOne
+                but had
+            TestEnum.FlagTwo
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
             errorWithoutSource:
-            @"TestEnum.FlagTwo
-    should have flag
-TestEnum.FlagOne
-    but did not
+            """
+            TestEnum.FlagTwo
+                should have flag
+            TestEnum.FlagOne
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

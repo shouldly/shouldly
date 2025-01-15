@@ -17,23 +17,27 @@ public class NestedBlockLambdaScenario
             },
 
             errorWithSource:
-            @"`if (true) { throw new(""Dummy message.""); }`
-    should not throw but threw
-System.Exception
-    with message
-""Dummy message.""
+            """
+            `if (true) { throw new("Dummy message."); }`
+                should not throw but threw
+            System.Exception
+                with message
+            "Dummy message."
 
-Additional Info:
-    Additional info",
+            Additional Info:
+                Additional info
+            """,
 
             errorWithoutSource:
-            @"Task
-    should not throw but threw
-System.Exception
-    with message
-""Dummy message.""
+            """
+            Task
+                should not throw but threw
+            System.Exception
+                with message
+            "Dummy message."
 
-Additional Info:
-    Additional info");
+            Additional Info:
+                Additional info
+            """);
     }
 }

@@ -10,19 +10,23 @@ public class ZeroFloatScenario
                 val.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"val
-    should be negative but
-0f
-    is positive
+            """
+            val
+                should be negative but
+            0f
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0f
-    should be negative but is positive
+            """
+            0f
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

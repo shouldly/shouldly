@@ -1,6 +1,6 @@
 ﻿namespace Shouldly;
 
-internal static class Utils
+static class Utils
 {
     public static IDisposable WithSynchronizationContext(SynchronizationContext? synchronizationContext)
     {

@@ -2,12 +2,10 @@
 
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.ShouldMethod is "ShouldBe" or "ShouldNotBe";
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.ShouldMethod is "ShouldBe" or "ShouldNotBe";
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

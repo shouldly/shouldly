@@ -56,23 +56,14 @@ public class EqualityComparerTests
 
     private class NonComparableObject
     {
-        public override bool Equals(object? obj)
-        {
-            return true;
-        }
+        public override bool Equals(object? obj) => true;
 
-        public override int GetHashCode()
-        {
-            return 42;
-        }
+        public override int GetHashCode() => 42;
     }
 
     private class SpyComparable : IComparable
     {
-        public int CompareTo(object? obj)
-        {
-            return 0;
-        }
+        public int CompareTo(object? obj) => 0;
     }
 
     private class SpyComparableGeneric : IComparable<SpyComparableGeneric>

@@ -7,26 +7,30 @@ public class EnumScenario
     {
         var someFlags = SomeFlags.Val1;
         Verify.ShouldFail(() =>
-                someFlags.ShouldBeOneOf(new[] { SomeFlags.Val2 }, "Some additional context"),
+                someFlags.ShouldBeOneOf([SomeFlags.Val2], "Some additional context"),
 
             errorWithSource:
-            @"someFlags
-    should be one of
-[SomeFlags.Val2]
-    but was
-SomeFlags.Val1
+            """
+            someFlags
+                should be one of
+            [SomeFlags.Val2]
+                but was
+            SomeFlags.Val1
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"SomeFlags.Val1
-    should be one of
-[SomeFlags.Val2]
-    but was not
+            """
+            SomeFlags.Val1
+                should be one of
+            [SomeFlags.Val2]
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

@@ -1,17 +1,11 @@
 ﻿using Shouldly.ShouldlyExtensionMethods;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
 
 public class ShouldHaveFlagNotHaveFlagExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldHaveFlagNotHaveFlagExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldHaveFlagNotHaveFlagExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldHaveFlag()

@@ -1,13 +1,11 @@
-﻿using System.Collections;
+﻿namespace Shouldly.Internals;
 
-namespace Shouldly.Internals;
-
-internal interface IEnumerableProxy
+interface IEnumerableProxy
 {
     object ProxiedValue { get; }
 }
 
-internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
+sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
 {
     public static IEnumerable<T>? WrapNonCollection(IEnumerable<T>? baseEnum)
     {
@@ -35,13 +33,7 @@ internal sealed class EnumerableProxy<T> : IEnumerable<T>, IEnumerableProxy
         _baseReentrable = baseReentrable;
     }
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        return _baseReentrable.GetEnumerator();
-    }
+    public IEnumerator<T> GetEnumerator() => _baseReentrable.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

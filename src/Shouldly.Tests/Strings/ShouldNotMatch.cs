@@ -9,16 +9,20 @@ public class ShouldNotMatch
                 "Cheese".ShouldNotMatch(@"\w+", "Some additional context"),
 
             errorWithSource:
-            @"""Cheese"" should not match ""\w+"" but did
+            """
+            "Cheese" should not match "\w+" but did
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""Cheese"" should not match ""\w+"" but did
+            """
+            "Cheese" should not match "\w+" but did
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

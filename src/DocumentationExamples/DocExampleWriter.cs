@@ -5,11 +5,7 @@ using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Shouldly;
 using Shouldly.Configuration;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
 
 public static class DocExampleWriter
 {

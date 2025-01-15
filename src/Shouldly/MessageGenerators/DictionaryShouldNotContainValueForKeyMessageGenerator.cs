@@ -1,17 +1,10 @@
-using System.Collections;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-
 namespace Shouldly.MessageGenerators;
 
-internal class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
+class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
 {
     private static readonly Regex Validator = new("ShouldNotContainValueForKey");
 
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return Validator.IsMatch(context.ShouldMethod);
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) => Validator.IsMatch(context.ShouldMethod);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

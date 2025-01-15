@@ -14,27 +14,31 @@ public class DateTimeScenario
                 date.ShouldNotBe(expected, TimeSpan.FromHours(1.5), "Some additional context"),
 
             errorWithSource:
-            $@"date
-    should not be within
-01:30:00
-    of
-{expectedString}
-    but was
-{dateString}
+            $"""
+             date
+                 should not be within
+             01:30:00
+                 of
+             {expectedString}
+                 but was
+             {dateString}
 
-Additional Info:
-    Some additional context",
+             Additional Info:
+                 Some additional context
+             """,
 
             errorWithoutSource:
-            $@"{dateString}
-    should not be within
-01:30:00
-    of
-{expectedString}
-    but was not
+            $"""
+             {dateString}
+                 should not be within
+             01:30:00
+                 of
+             {expectedString}
+                 but was not
 
-Additional Info:
-    Some additional context");
+             Additional Info:
+                 Some additional context
+             """);
     }
 
     [Fact]

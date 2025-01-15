@@ -1,15 +1,13 @@
 namespace Shouldly.MessageGenerators;
 
-internal class ShouldBeginEndWithMessageGenerator : ShouldlyMessageGenerator
+class ShouldBeginEndWithMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context.ShouldMethod is
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context.ShouldMethod is
             "ShouldBeginWith" or
             "ShouldNotBeginWith" or
             "ShouldEndWith" or
             "ShouldNotEndWith";
-    }
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

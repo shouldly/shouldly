@@ -23,36 +23,40 @@ public class IgnoreOrderOnNonNullableTypesScenario
                 Actual.ShouldBe(expected, true, "Some additional context"),
 
             errorWithSource:
-            @"Actual
-    should be (ignoring order)
-[2, 3]
-    but
-Actual
-    is missing
-[3]
-    and
-[2, 3]
-    is missing
-[1]
+            """
+            Actual
+                should be (ignoring order)
+            [2, 3]
+                but
+            Actual
+                is missing
+            [3]
+                and
+            [2, 3]
+                is missing
+            [1]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2]
-    should be (ignoring order)
-[2, 3]
-    but
-[1, 2]
-    is missing
-[3]
-    and
-[2, 3]
-    is missing
-[1]
+            """
+            [1, 2]
+                should be (ignoring order)
+            [2, 3]
+                but
+            [1, 2]
+                is missing
+            [3]
+                and
+            [2, 3]
+                is missing
+            [1]
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -76,10 +80,8 @@ Additional Info:
             this.identity = identity;
         }
 
-        public bool Equals(NonNullableType other)
-        {
-            return identity == other.identity;
-        }
+        public bool Equals(NonNullableType other) =>
+            identity == other.identity;
 
         public override bool Equals(object? obj)
         {
@@ -88,14 +90,8 @@ Additional Info:
                    Equals(type);
         }
 
-        public override int GetHashCode()
-        {
-            return identity;
-        }
+        public override int GetHashCode() => identity;
 
-        public override string ToString()
-        {
-            return identity.ToString();
-        }
+        public override string ToString() => identity.ToString();
     }
 }

@@ -1,11 +1,6 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Text;
+﻿namespace Shouldly.Internals;
 
-namespace Shouldly.Internals;
-
-internal static class StackTraceHelpers
+static class StackTraceHelpers
 {
     public static string GetStackTrace(Exception exception, [NotNull] ref string? cachedValue)
     {

@@ -1,6 +1,6 @@
 namespace Shouldly.DifferenceHighlighting;
 
-internal class ItemDifferenceHighlighter
+class ItemDifferenceHighlighter
 {
     public const string HighlightCharacter = "*";
 

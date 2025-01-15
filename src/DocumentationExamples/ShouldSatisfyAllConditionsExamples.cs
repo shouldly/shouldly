@@ -1,18 +1,9 @@
-﻿using Shouldly;
-using Simpsons;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace DocumentationExamples;
-
-public class ShouldSatisfyAllConditionsExamples
+﻿public class ShouldSatisfyAllConditionsExamples
 {
-    private readonly ITestOutputHelper _testOutputHelper;
+    ITestOutputHelper _testOutputHelper;
 
-    public ShouldSatisfyAllConditionsExamples(ITestOutputHelper testOutputHelper)
-    {
+    public ShouldSatisfyAllConditionsExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
-    }
 
     [Fact]
     public void ShouldSatisfyAllConditions()

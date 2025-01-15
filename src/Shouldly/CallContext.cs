@@ -2,7 +2,7 @@
 
 namespace Shouldly;
 
-internal static class CallContext
+static class CallContext
 {
     private static readonly ConcurrentDictionary<string, AsyncLocal<object?>> state = new();
 

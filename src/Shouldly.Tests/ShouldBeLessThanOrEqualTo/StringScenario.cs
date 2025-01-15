@@ -10,23 +10,27 @@ public class StringScenario
                 bee.ShouldBeLessThanOrEqualTo("a", "Some additional context"),
 
             errorWithSource:
-            @"bee
-    should be less than or equal to
-""a""
-    but was
-""b""
+            """
+            bee
+                should be less than or equal to
+            "a"
+                but was
+            "b"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""b""
-    should be less than or equal to
-""a""
-    but was not
+            """
+            "b"
+                should be less than or equal to
+            "a"
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

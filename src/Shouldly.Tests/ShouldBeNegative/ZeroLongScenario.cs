@@ -10,19 +10,23 @@ public class ZeroLongScenario
                 val.ShouldBeNegative("Some additional context"),
 
             errorWithSource:
-            @"val
-    should be negative but
-0L
-    is positive
+            """
+            val
+                should be negative but
+            0L
+                is positive
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"0L
-    should be negative but is positive
+            """
+            0L
+                should be negative but is positive
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

@@ -2,8 +2,8 @@
 
 public class IntegerArrayScenario
 {
-    private readonly int[] _ascendingTarget = { 1, 2, 3, 4, 5 };
-    private readonly int[] _descendingTarget = { 5, 4, 3, 2, 1 };
+    private readonly int[] _ascendingTarget = [1, 2, 3, 4, 5];
+    private readonly int[] _descendingTarget = [5, 4, 3, 2, 1];
 
     [Fact]
     public void ShouldFailWithDefaultDirection()
@@ -12,22 +12,26 @@ public class IntegerArrayScenario
                 _descendingTarget.ShouldBeInOrder("Some additional context"),
 
             errorWithSource:
-            @"_descendingTarget
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-4
+            """
+            _descendingTarget
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            4
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[5, 4, 3, 2, 1]
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-4
+            """
+            [5, 4, 3, 2, 1]
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            4
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -37,22 +41,26 @@ Additional Info:
                 _descendingTarget.ShouldBeInOrder(SortDirection.Ascending, "Some additional context"),
 
             errorWithSource:
-            @"_descendingTarget
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-4
+            """
+            _descendingTarget
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            4
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[5, 4, 3, 2, 1]
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-4
+            """
+            [5, 4, 3, 2, 1]
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            4
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -62,22 +70,26 @@ Additional Info:
                 _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, "Some additional context"),
 
             errorWithSource:
-            @"_ascendingTarget
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-2
+            """
+            _ascendingTarget
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            2
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2, 3, 4, 5]
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-2
+            """
+            [1, 2, 3, 4, 5]
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            2
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -87,22 +99,26 @@ Additional Info:
                 _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, Comparer<int>.Default, "Some additional context"),
 
             errorWithSource:
-            @"_ascendingTarget
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-2
+            """
+            _ascendingTarget
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            2
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2, 3, 4, 5]
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-2
+            """
+            [1, 2, 3, 4, 5]
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            2
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

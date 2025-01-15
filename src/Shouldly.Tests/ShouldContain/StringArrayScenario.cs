@@ -2,7 +2,7 @@
 
 public class StringArrayScenario
 {
-    private readonly string[] _target = { "a", "b", "c" };
+    private readonly string[] _target = ["a", "b", "c"];
 
     [Fact]
     public void StringArrayScenarioShouldFail()
@@ -11,23 +11,27 @@ public class StringArrayScenario
                 _target.ShouldContain("d", "Some additional context"),
 
             errorWithSource:
-            @"_target
-    should contain
-""d""
-    but was actually
-[""a"", ""b"", ""c""]
+            """
+            _target
+                should contain
+            "d"
+                but was actually
+            ["a", "b", "c"]
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""a"", ""b"", ""c""]
-    should contain
-""d""
-    but did not
+            """
+            ["a", "b", "c"]
+                should contain
+            "d"
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

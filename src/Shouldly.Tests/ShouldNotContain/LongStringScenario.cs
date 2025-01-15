@@ -11,17 +11,21 @@ public class LongStringScenario
                 _target.ShouldNotContain("zzzz"),
 
             errorWithSource:
-            @"_target
-    should not contain (case insensitive comparison)
-""zzzz""
-    but was actually
-""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""",
+            """
+            _target
+                should not contain (case insensitive comparison)
+            "zzzz"
+                but was actually
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+            """,
 
             errorWithoutSource:
-            @"""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...""
-    should not contain (case insensitive comparison)
-""zzzz""
-    but did");
+            """
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+                should not contain (case insensitive comparison)
+            "zzzz"
+                but did
+            """);
     }
 
     [Fact]

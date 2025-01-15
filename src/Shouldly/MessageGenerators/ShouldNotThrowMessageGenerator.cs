@@ -1,11 +1,10 @@
 ﻿namespace Shouldly.MessageGenerators;
 
-internal class ShouldNotThrowMessageGenerator : ShouldlyMessageGenerator
+class ShouldNotThrowMessageGenerator : ShouldlyMessageGenerator
 {
-    public override bool CanProcess(IShouldlyAssertionContext context)
-    {
-        return context is ShouldThrowAssertionContext && context.IsNegatedAssertion;
-    }
+    public override bool CanProcess(IShouldlyAssertionContext context) =>
+        context is ShouldThrowAssertionContext &&
+        context.IsNegatedAssertion;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

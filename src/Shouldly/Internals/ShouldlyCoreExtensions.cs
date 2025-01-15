@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 public static class ShouldlyCoreExtensions
 {
@@ -15,7 +12,7 @@ public static class ShouldlyCoreExtensions
     }
 
     /// <summary>
-    /// Required to support the <see cref="DynamicShould.HaveProperty(object,string,System.Func{string?}?)"/> method that takes
+    /// Required to support the <see cref="DynamicShould.HaveProperty"/> method that takes
     /// in a <see langword="dynamic"/> as a parameter. Having a method that takes a dynamic really stuffs up the
     /// stack trace because the runtime binder has to inject a whole heap of methods. Our normal way of just taking
     /// the next frame doesn't work. The following two lines seem to work for now, but this feels like a hack. The
@@ -24,8 +21,9 @@ public static class ShouldlyCoreExtensions
     /// </summary>
     internal static bool IsSystemDynamicMachinery(this MethodBase method)
     {
-        return method.DeclaringType is null
-               || (method.DeclaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
+        var declaringType = method.DeclaringType;
+        return declaringType is null ||
+               (declaringType.FullName?.StartsWith("System.Dynamic", StringComparison.Ordinal) ?? false);
     }
 
     public static void AssertAwesomely<T>(

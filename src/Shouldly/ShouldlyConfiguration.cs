@@ -34,17 +34,13 @@ public static partial class ShouldlyConfiguration
         return new EnableSourceInErrorsDisposable();
     }
 
-    public static bool IsSourceDisabledInErrors()
-    {
-        return (bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
-    }
+    public static bool IsSourceDisabledInErrors() =>
+        (bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
 
     private class EnableSourceInErrorsDisposable : IDisposable
     {
-        public void Dispose()
-        {
+        public void Dispose() =>
             CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
-        }
     }
 
     public static double DefaultFloatingPointTolerance = 0.0d;

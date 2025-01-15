@@ -8,18 +8,22 @@ public class ShouldBeNullOrWhiteSpace
         Verify.ShouldFail(
             () => "a".ShouldBeNullOrWhiteSpace("Some additional context"),
             errorWithSource:
-            @"""a""
-    should be null or white space
+            """
+            "a"
+                should be null or white space
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""a""
-    should be null or white space
+            """
+            "a"
+                should be null or white space
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -30,18 +34,22 @@ Additional Info:
             () => oneLetter.ShouldBeNullOrWhiteSpace("Some additional context"),
 
             errorWithSource:
-            @"oneLetter (""a"")
-    should be null or white space
+            """
+            oneLetter ("a")
+                should be null or white space
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""a""
-    should be null or white space
+            """
+            "a"
+                should be null or white space
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

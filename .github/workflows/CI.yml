@@ -2,43 +2,68 @@ name: CI
 
 on:
   push:
-    branches: [ '*' ] # excludes tags
-  pull_request:       # Pull requests to anything should gain this status info
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
 
 env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+  NUGET_XMLDOC_MODE: skip
+  TERM: xterm
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - os: macos-latest
+            os-name: macos
+          - os: ubuntu-latest
+            os-name: linux
+          - os: windows-latest
+            os-name: windows
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        filter: tree:0
+        show-progress: false
 
-    - uses: actions/setup-dotnet@v3
+    - uses: actions/setup-dotnet@v4
 
     - name: Pack and test
       run: ./build.ps1
 
     - name: Upload Received
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: received-results
+        name: received-results-${{ matrix.os-name }}
         path: |
           **/*.received.*
 
     - name: Upload packages artifact
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: Packages
+        name: packages-${{ matrix.os-name }}
         path: artifacts/Packages
 
     - name: Upload logs artifact
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: Logs
+        name: logs-${{ matrix.os-name }}
         path: artifacts/Logs
+  

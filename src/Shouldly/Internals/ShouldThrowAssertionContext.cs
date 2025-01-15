@@ -1,9 +1,6 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿namespace Shouldly;
 
-namespace Shouldly;
-
-internal class ShouldThrowAssertionContext : ShouldlyAssertionContext
+class ShouldThrowAssertionContext : ShouldlyAssertionContext
 {
     public string? ExceptionMessage { get; }
 

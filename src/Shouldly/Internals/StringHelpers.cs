@@ -1,11 +1,8 @@
-﻿using System.Linq.Expressions;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using Shouldly.Internals;
+﻿using Shouldly.Internals;
 
 namespace Shouldly;
 
-internal static class StringHelpers
+static class StringHelpers
 {
     internal static string? ToStringAwesomely(this object? value)
     {
@@ -83,7 +80,7 @@ internal static class StringHelpers
 
         var toString = value.ToString();
         if (toString == objectType.FullName)
-            return $"{value} ({value.GetHashCode()})";
+            return $"{value} ({value.GetHashCode():D6})";
 
         return toString; // ToString() may return null.
     }
@@ -93,27 +90,17 @@ internal static class StringHelpers
         return Regex.Replace(pascal, @"([A-Z])", match => " " + match.Value.ToLower()).Trim();
     }
 
-    internal static string Quotify(this string input)
-    {
-        return input.Replace('\'', '"');
-    }
+    internal static string Quotify(this string input) =>
+        input.Replace('\'', '"');
 
-    internal static string StripWhitespace(this string input)
-    {
-        return Regex.Replace(input, @"[\r\n\t\s]", "");
-    }
+    internal static string StripWhitespace(this string input) =>
+        Regex.Replace(input, @"[\r\n\t\s]", "");
 
-    internal static string CollapseWhitespace(this string input)
-    {
-        var collapseWhitespace = Regex.Replace(input, @"[\r\n\t\s]+", " ");
-        return collapseWhitespace;
-    }
+    internal static string CollapseWhitespace(this string input) =>
+        Regex.Replace(input, @"[\r\n\t\s]+", " ");
 
-    internal static string StripLambdaExpressionSyntax(this string input)
-    {
-        var result = Regex.Replace(input, @"^\(*\s*\)*\s*=>\s*", "");
-        return result;
-    }
+    internal static string StripLambdaExpressionSyntax(this string input) =>
+        Regex.Replace(input, @"^\(*\s*\)*\s*=>\s*", "");
 
     internal static string RemoveVariableAssignment(this string input)
     {
@@ -122,11 +109,8 @@ internal static class StringHelpers
         return collapseWhitespace;
     }
 
-    internal static string RemoveBlock(this string input)
-    {
-        var result = Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
-        return result;
-    }
+    internal static string RemoveBlock(this string input) =>
+        Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
 
     internal static string Clip(this string stringToClip, int maximumStringLength)
     {
@@ -176,26 +160,19 @@ internal static class StringHelpers
         return c.ToString();
     }
 
-    internal static bool IsNullOrWhiteSpace(this string? s)
-    {
-        return string.IsNullOrWhiteSpace(s);
-    }
+    internal static bool IsNullOrWhiteSpace(this string? s) =>
+        string.IsNullOrWhiteSpace(s);
 
-    internal static string? NormalizeLineEndings(this string? s)
-    {
-        return s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
-    }
+    internal static string? NormalizeLineEndings(this string? s) =>
+        s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
 
     private static string CommaDelimited<T>(this IEnumerable<T> enumerable)
-        where T : class?
-    {
-        return enumerable.DelimitWith(", ");
-    }
+        where T : class? =>
+        enumerable.DelimitWith(", ");
 
     private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator)
-        where T : class?
-    {
-        return string.Join(separator,
+        where T : class? =>
+        string.Join(separator,
             enumerable.Select(i =>
                 {
                     if (Equals(i, null))
@@ -203,15 +180,10 @@ internal static class StringHelpers
                     return i.ToString();
                 })
                 .ToArray());
-    }
 
-    private static string ToStringAwesomely(this Enum value)
-    {
-        return value.GetType().Name + "." + value;
-    }
+    private static string ToStringAwesomely(this Enum value) =>
+        value.GetType().Name + "." + value;
 
-    private static string ToStringAwesomely(this DateTime value)
-    {
-        return value.ToString("o");
-    }
+    private static string ToStringAwesomely(this DateTime value) =>
+        value.ToString("o");
 }

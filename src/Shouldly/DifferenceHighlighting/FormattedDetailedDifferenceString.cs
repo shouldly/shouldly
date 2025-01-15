@@ -1,8 +1,6 @@
-﻿using System.Text;
+﻿namespace Shouldly.DifferenceHighlighting;
 
-namespace Shouldly.DifferenceHighlighting;
-
-internal class FormattedDetailedDifferenceString
+class FormattedDetailedDifferenceString
 {
     private readonly string _actualValue;
     private readonly string _expectedValue;
@@ -37,10 +35,8 @@ internal class FormattedDetailedDifferenceString
         actualCodeStringBuilder = new();
     }
 
-    public override string ToString()
-    {
-        return GenerateFormattedString();
-    }
+    public override string ToString() =>
+        GenerateFormattedString();
 
     public string GenerateFormattedString()
     {

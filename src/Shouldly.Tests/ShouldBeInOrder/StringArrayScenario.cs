@@ -2,8 +2,8 @@
 
 public class StringArrayScenario
 {
-    private readonly string[] _ascendingTarget = { "a", "b", "c", "d", "e" };
-    private readonly string[] _descendingTarget = { "e", "d", "c", "b", "a" };
+    private readonly string[] _ascendingTarget = ["a", "b", "c", "d", "e"];
+    private readonly string[] _descendingTarget = ["e", "d", "c", "b", "a"];
 
     [Fact]
     public void ShouldFailWithDefaultDirection()
@@ -12,22 +12,26 @@ public class StringArrayScenario
                 _descendingTarget.ShouldBeInOrder("Some additional context"),
 
             errorWithSource:
-            @"_descendingTarget
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-d
+            """
+            _descendingTarget
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            d
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""e"", ""d"", ""c"", ""b"", ""a""]
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-d
+            """
+            ["e", "d", "c", "b", "a"]
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            d
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -37,22 +41,26 @@ Additional Info:
                 _descendingTarget.ShouldBeInOrder(SortDirection.Ascending, "Some additional context"),
 
             errorWithSource:
-            @"_descendingTarget
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-d
+            """
+            _descendingTarget
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            d
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""e"", ""d"", ""c"", ""b"", ""a""]
-    should be in ascending order but was not.
-    The first out-of-order item was found at index 1:
-d
+            """
+            ["e", "d", "c", "b", "a"]
+                should be in ascending order but was not.
+                The first out-of-order item was found at index 1:
+            d
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -62,22 +70,26 @@ Additional Info:
                 _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, "Some additional context"),
 
             errorWithSource:
-            @"_ascendingTarget
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-b
+            """
+            _ascendingTarget
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            b
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""a"", ""b"", ""c"", ""d"", ""e""]
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-b
+            """
+            ["a", "b", "c", "d", "e"]
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            b
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -87,22 +99,26 @@ Additional Info:
                 _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, Comparer<string>.Default, "Some additional context"),
 
             errorWithSource:
-            @"_ascendingTarget
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-b
+            """
+            _ascendingTarget
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            b
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""a"", ""b"", ""c"", ""d"", ""e""]
-    should be in descending order but was not.
-    The first out-of-order item was found at index 1:
-b
+            """
+            ["a", "b", "c", "d", "e"]
+                should be in descending order but was not.
+                The first out-of-order item was found at index 1:
+            b
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

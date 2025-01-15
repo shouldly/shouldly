@@ -7,7 +7,7 @@ public class DifferenceHighlighterHelpersTests
     [Fact]
     public void HighlightDifferencesBetween_IntegerListsSameExceptOne_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { 2, 2, 3 }.ShouldBe(new[] { 1, 2, 3 }))
+        Should.Throw<ShouldAssertException>(() => new[] { 2, 2, 3 }.ShouldBe([1, 2, 3]))
             .Message.ShouldContain("[*2*, 2, 3]");
     }
 
@@ -21,14 +21,14 @@ public class DifferenceHighlighterHelpersTests
     [Fact]
     public void HighlightDifferencesBetween_ListsActualHasMoreElements_HighlightsMissingElements()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { 1, 2, 3 }.ShouldBe(new[] { 1 }))
+        Should.Throw<ShouldAssertException>(() => new[] { 1, 2, 3 }.ShouldBe([1]))
             .Message.ShouldContain("[1, *2*, *3*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_ListsActualHasLessElements_HighlightsMissingElements()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { 1 }.ShouldBe(new[] { 1, 2, 3 }))
+        Should.Throw<ShouldAssertException>(() => new[] { 1 }.ShouldBe([1, 2, 3]))
             .Message.ShouldContain("[1, *, *]");
     }
 
@@ -49,49 +49,52 @@ public class DifferenceHighlighterHelpersTests
     [Fact]
     public void HighlightDifferencesBetween_ListsSameElementsInDifferentOrder_HighlightAllAsDifferent()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { 2, 3, 1 }.ShouldBe(new[] { 1, 2, 3 }))
+        Should.Throw<ShouldAssertException>(() => new[] { 2, 3, 1 }.ShouldBe([1, 2, 3]))
             .Message.ShouldContain("[*2*, *3*, *1*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_StringLists_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { "rita", "sue", "betty" }.ShouldBe(new[] { "rita", "sue", "bob" }))
+        Should.Throw<ShouldAssertException>(() => new[] { "rita", "sue", "betty" }.ShouldBe(["rita", "sue", "bob"]))
             .Message.ShouldContain("[\"rita\", \"sue\", *\"betty\"*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_EnumLists_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { Weapons.Screwdriver, Weapons.Axe }.ShouldBe(new[] { Weapons.Chainsaw, Weapons.Axe }))
+        Should.Throw<ShouldAssertException>(() => new[] { Weapons.Screwdriver, Weapons.Axe }.ShouldBe([Weapons.Chainsaw, Weapons.Axe
+            ]))
             .Message.ShouldContain("[*Weapons.Screwdriver*, Weapons.Axe]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_BoolLists_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { true, true, false }.ShouldBe(new[] { true, false, true }))
+        Should.Throw<ShouldAssertException>(() => new[] { true, true, false }.ShouldBe([true, false, true]))
             .Message.ShouldContain("[True, *True*, *False*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_ListOfObjectWithEqualsDefined_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { new EqualType("t1"), new EqualType("t3") }.ShouldBe(new[] { new EqualType("t1"), new EqualType("t2") }))
+        Should.Throw<ShouldAssertException>(() => new[] { new EqualType("t1"), new EqualType("t3") }.ShouldBe([new EqualType("t1"), new EqualType("t2")
+            ]))
             .Message.ShouldContain("[t1, *t3*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_ListOfObjectWithoutEqualsDefined_HighlightsEverythingAsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new[] { new NonEqualType("t1"), new NonEqualType("t2") }.ShouldBe(new[] { new NonEqualType("t1"), new NonEqualType("t2") }))
+        Should.Throw<ShouldAssertException>(() => new[] { new NonEqualType("t1"), new NonEqualType("t2") }.ShouldBe([new NonEqualType("t1"), new NonEqualType("t2")
+            ]))
             .Message.ShouldContain("[*t1*, *t2*]");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_GenericList_HighlightsDifference()
     {
-        Should.Throw<ShouldAssertException>(() => new List<int> { 1, 4, 3 }.ShouldBe(new() { 1, 2, 3 }))
+        Should.Throw<ShouldAssertException>(() => new List<int> { 1, 4, 3 }.ShouldBe([1, 2, 3]))
             .Message.ShouldContain("[1, *4*, 3]");
     }
 
@@ -138,55 +141,35 @@ public class DifferenceHighlighterHelpersTests
     {
         private readonly string _description;
 
-        public EqualType(string description)
-        {
+        public EqualType(string description) =>
             _description = description;
-        }
 
-        public override string ToString()
-        {
-            return _description;
-        }
+        public override string ToString() => _description;
 
-        public override bool Equals(object? obj)
-        {
-            return obj is EqualType other
-                   && _description == other._description;
-        }
+        public override bool Equals(object? obj) =>
+            obj is EqualType other
+            && _description == other._description;
 
-        public override int GetHashCode()
-        {
-            return _description != null ? _description.GetHashCode() : 0;
-        }
+        public override int GetHashCode() =>
+            _description != null ? _description.GetHashCode() : 0;
     }
 
     private class NonEqualType
     {
         private readonly string _description;
 
-        public NonEqualType(string description)
-        {
+        public NonEqualType(string description) =>
             _description = description;
-        }
 
-        public override string ToString()
-        {
-            return _description;
-        }
+        public override string ToString() => _description;
     }
 
     private class PureEnumerable : IEnumerable
     {
-        private readonly List<int> _numbers = new();
+        private readonly List<int> _numbers = [];
 
-        public void Add(int number)
-        {
-            _numbers.Add(number);
-        }
+        public void Add(int number) => _numbers.Add(number);
 
-        public IEnumerator GetEnumerator()
-        {
-            return _numbers.GetEnumerator();
-        }
+        public IEnumerator GetEnumerator() => _numbers.GetEnumerator();
     }
 }
