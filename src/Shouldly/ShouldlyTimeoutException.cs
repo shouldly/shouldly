@@ -1,8 +1,9 @@
 ﻿using Shouldly.Internals;
+using Shouldly.Internals.XunitV3Markers;
 
 namespace Shouldly;
 
-public class ShouldlyTimeoutException : TimeoutException
+public class ShouldlyTimeoutException : TimeoutException, ITestTimeoutException
 {
     public ShouldlyTimeoutException()
     {

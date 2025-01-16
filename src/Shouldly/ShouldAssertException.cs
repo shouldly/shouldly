@@ -1,9 +1,10 @@
 ﻿using Shouldly.Internals;
+using Shouldly.Internals.XunitV3Markers;
 
 namespace Shouldly;
 
 [Serializable]
-public class ShouldAssertException : Exception
+public class ShouldAssertException : Exception, IAssertionException
 {
     public ShouldAssertException(string? message) : base(message)
     {
