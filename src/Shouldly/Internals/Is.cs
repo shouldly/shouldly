@@ -150,18 +150,18 @@ static class Is
     }
 
     public static bool Equal(decimal actual, decimal expected, decimal tolerance) =>
-        Math.Abs(actual - expected) < tolerance;
+        Math.Abs(actual - expected) <= tolerance;
 
     public static bool Equal(double actual, double expected, double tolerance) =>
-        Math.Abs(actual - expected) < tolerance;
+        Math.Abs(actual - expected) <= tolerance;
 
     public static bool Equal(DateTime actual, DateTime expected, TimeSpan tolerance) =>
-        (actual - expected).Duration() < tolerance;
+        (actual - expected).Duration() <= tolerance;
 
     public static bool Equal(DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance) =>
-        (actual - expected).Duration() < tolerance;
+        (actual - expected).Duration() <= tolerance;
 
-    public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance) => (actual - expected).Duration() < tolerance;
+    public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance) => (actual - expected).Duration() <= tolerance;
 
     public static bool StringMatchingRegex(string actual, [RegexPattern] string regexPattern) =>
         Regex.IsMatch(actual, regexPattern);

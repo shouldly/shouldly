@@ -43,4 +43,46 @@ public class TimeSpanScenario
         var timeSpan = TimeSpan.FromHours(1);
         timeSpan.ShouldBe(timeSpan.Add(TimeSpan.FromHours(1.1d)), TimeSpan.FromHours(1.5d));
     }
+
+    [Fact]
+    public void ShouldPassWithZeroTolerance()
+    {
+        var timeSpan = TimeSpan.FromHours(1);
+        timeSpan.ShouldBe(timeSpan, TimeSpan.Zero);
+    }
+
+    [Fact]
+    public void TimeSpanScenarioShouldFailWithZeroTolerance()
+    {
+        var timeSpan = TimeSpan.FromHours(1);
+        Verify.ShouldFail(() =>
+                timeSpan.ShouldNotBe(timeSpan, TimeSpan.Zero, "Some additional context"),
+
+            errorWithSource:
+            """
+            timeSpan
+                should not be within
+            00:00:00
+                of
+            01:00:00
+                but was
+            01:00:00
+
+            Additional Info:
+                Some additional context
+            """,
+
+            errorWithoutSource:
+            """
+            01:00:00
+                should not be within
+            00:00:00
+                of
+            01:00:00
+                but was not
+
+            Additional Info:
+                Some additional context
+            """);
+    }
 }

@@ -44,4 +44,11 @@ public class DecimalScenario
         const decimal pi = (decimal)MathEx.PI;
         pi.ShouldBe(3.14m, 0.01m);
     }
+
+    [Fact]
+    public void ShouldPassWithZeroTolerance()
+    {
+        const decimal pi = (decimal)MathEx.PI;
+        pi.ShouldBe(pi, 0);
+    }
 }

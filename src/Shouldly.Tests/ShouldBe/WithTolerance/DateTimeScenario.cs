@@ -81,4 +81,11 @@ public class DateTimeScenario
         var date = new DateTime(2000, 6, 1);
         date.ShouldBe(new(2000, 6, 1, 1, 0, 1), TimeSpan.FromHours(1.5d));
     }
+
+    [Fact]
+    public void ShouldPassWithZeroTolerance()
+    {
+        var date = new DateTime(2000, 6, 1);
+        date.ShouldBe(date, TimeSpan.Zero);
+    }
 }
