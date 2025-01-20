@@ -46,4 +46,11 @@ public class DateTimeOffsetScenario
         var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
         date.ShouldBe(new(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero), TimeSpan.FromHours(1.5));
     }
+
+    [Fact]
+    public void ShouldPassWithZeroTolerance()
+    {
+        var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
+        date.ShouldBe(date, TimeSpan.Zero);
+    }
 }
