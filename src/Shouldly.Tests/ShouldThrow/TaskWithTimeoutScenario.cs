@@ -22,13 +22,15 @@ public class TaskWithTimeoutScenario
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
 
-    private string ChuckedAWobblyErrorMessage = @"
-    Task
-        should complete in
-    00:00:00.5000000
-        but did not
-    Additional Info:
-    Some additional context";
+    private string ChuckedAWobblyErrorMessage = """
+                                                
+                                                    Task
+                                                        should complete in
+                                                    00:00:00.5000000
+                                                        but did not
+                                                    Additional Info:
+                                                    Some additional context
+                                                """;
 
     [Fact]
     public void ShouldPass()

@@ -10,39 +10,49 @@ public class CaseAndLineEndingInsensitiveScenario
                 str.ShouldBe("line1\r\nLine3", "Some additional context", StringCompareShould.IgnoreLineEndings | StringCompareShould.IgnoreCase),
 
             errorWithSource:
-            @"str
-    should be with options: Ignoring line endings, Ignoring case
-""line1" + "\n" + @"Line3""
-    but was
-""line1" + "\n" + @"line2""
-    difference
-Difference     |                                                    |   
-               |                                                   \|/  
-Index          | 0    1    2    3    4    5    6    7    8    9    10   
-Expected Value | l    i    n    e    1    \n   L    i    n    e    3    
-Actual Value   | l    i    n    e    1    \n   l    i    n    e    2    
-Expected Code  | 108  105  110  101  49   10   76   105  110  101  51   
-Actual Code    | 108  105  110  101  49   10   108  105  110  101  50   
+            """
+            str
+                should be with options: Ignoring line endings, Ignoring case
+            "line1
+            """ + "\n" + """
+                         Line3"
+                             but was
+                         "line1
+                         """ + "\n" + """
+                                      line2"
+                                          difference
+                                      Difference     |                                                    |   
+                                                     |                                                   \|/  
+                                      Index          | 0    1    2    3    4    5    6    7    8    9    10   
+                                      Expected Value | l    i    n    e    1    \n   L    i    n    e    3    
+                                      Actual Value   | l    i    n    e    1    \n   l    i    n    e    2    
+                                      Expected Code  | 108  105  110  101  49   10   76   105  110  101  51   
+                                      Actual Code    | 108  105  110  101  49   10   108  105  110  101  50   
 
-Additional Info:
-    Some additional context",
+                                      Additional Info:
+                                          Some additional context
+                                      """,
 
             errorWithoutSource:
-            @"""line1" + "\n" + @"line2""
-    should be with options: Ignoring line endings, Ignoring case
-""line1" + "\n" + @"Line3""
-    but was not
-    difference
-Difference     |                                                    |   
-               |                                                   \|/  
-Index          | 0    1    2    3    4    5    6    7    8    9    10   
-Expected Value | l    i    n    e    1    \n   L    i    n    e    3    
-Actual Value   | l    i    n    e    1    \n   l    i    n    e    2    
-Expected Code  | 108  105  110  101  49   10   76   105  110  101  51   
-Actual Code    | 108  105  110  101  49   10   108  105  110  101  50   
+            @"""line1" + "\n" + """
+                                line2"
+                                    should be with options: Ignoring line endings, Ignoring case
+                                "line1
+                                """ + "\n" + """
+                                             Line3"
+                                                 but was not
+                                                 difference
+                                             Difference     |                                                    |   
+                                                            |                                                   \|/  
+                                             Index          | 0    1    2    3    4    5    6    7    8    9    10   
+                                             Expected Value | l    i    n    e    1    \n   L    i    n    e    3    
+                                             Actual Value   | l    i    n    e    1    \n   l    i    n    e    2    
+                                             Expected Code  | 108  105  110  101  49   10   76   105  110  101  51   
+                                             Actual Code    | 108  105  110  101  49   10   108  105  110  101  50   
 
-Additional Info:
-    Some additional context");
+                                             Additional Info:
+                                                 Some additional context
+                                             """);
     }
 
     [Fact]

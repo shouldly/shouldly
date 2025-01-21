@@ -11,22 +11,26 @@ public class ShouldContainKey
                 ClassDictionary().ShouldContainKey(new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does not
+            """
+            ClassDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does not
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -36,22 +40,26 @@ Additional Info:
                 GuidDictionary().ShouldContainKey(MissingGuidKey, "Some additional context"),
 
             errorWithSource:
-            @"GuidDictionary()
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    but does not
+            """
+            GuidDictionary()
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    but does not
+            """
+            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -61,22 +69,26 @@ Additional Info:
                 StringDictionary().ShouldContainKey("bar", "Some additional context"),
 
             errorWithSource:
-            @"StringDictionary()
-    should contain key
-""bar""
-    but does not
+            """
+            StringDictionary()
+                should contain key
+            "bar"
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should contain key
-""bar""
-    but does not
+            """
+            [["Foo" => "Bar"]]
+                should contain key
+            "bar"
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -86,22 +98,26 @@ Additional Info:
                 ClassIDictionary().ShouldContainKey(new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassIDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does not
+            """
+            ClassIDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does not
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -111,22 +127,26 @@ Additional Info:
                 GuidIDictionary().ShouldContainKey(MissingGuidKey, "Some additional context"),
 
             errorWithSource:
-            @"GuidIDictionary()
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    but does not
+            """
+            GuidIDictionary()
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    but does not
+            """
+            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -136,22 +156,26 @@ Additional Info:
                 StringIDictionary().ShouldContainKey("bar", "Some additional context"),
 
             errorWithSource:
-            @"StringIDictionary()
-    should contain key
-""bar""
-    but does not
+            """
+            StringIDictionary()
+                should contain key
+            "bar"
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should contain key
-""bar""
-    but does not
+            """
+            [["Foo" => "Bar"]]
+                should contain key
+            "bar"
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
 #if NET9_0_OR_GREATER
@@ -162,22 +186,26 @@ Additional Info:
                 ClassIReadOnlyDictionary().ShouldContainKey(new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassIReadOnlyDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does not
+            """
+            ClassIReadOnlyDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but does not
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -187,22 +215,26 @@ Additional Info:
                 GuidIReadOnlyDictionary().ShouldContainKey(MissingGuidKey, "Some additional context"),
 
             errorWithSource:
-            @"GuidIReadOnlyDictionary()
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    but does not
+            """
+            GuidIReadOnlyDictionary()
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    but does not
+            """
+            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -212,22 +244,26 @@ Additional Info:
                 StringIReadOnlyDictionary().ShouldContainKey("bar", "Some additional context"),
 
             errorWithSource:
-            @"StringIReadOnlyDictionary()
-    should contain key
-""bar""
-    but does not
+            """
+            StringIReadOnlyDictionary()
+                should contain key
+            "bar"
+                but does not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should contain key
-""bar""
-    but does not
+            """
+            [["Foo" => "Bar"]]
+                should contain key
+            "bar"
+                but does not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 #endif
 

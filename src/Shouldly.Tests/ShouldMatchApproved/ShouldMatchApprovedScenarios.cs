@@ -25,8 +25,12 @@ public class ShouldMatchApprovedScenarios
             : "/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.MissingApprovedFile";
 
         var cmd = IsWindows()
-            ? $@"copy /Y ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt"""
-            : $@"cp ""{approvalPath}.received.txt"" ""{approvalPath}.approved.txt""";
+            ? $"""
+               copy /Y "{approvalPath}.received.txt" "{approvalPath}.approved.txt"
+               """
+            : $"""
+               cp "{approvalPath}.received.txt" "{approvalPath}.approved.txt"
+               """;
 
         var errorMsg = $"""
                         To approve the changes run this command:
@@ -72,49 +76,57 @@ public class ShouldMatchApprovedScenarios
     public void DifferencesUseShouldlyMessages()
     {
         var cmd = IsWindows()
-            ? @"copy /Y ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt"""
-            : @"cp ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt"" ""/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt""";
+            ? """
+              copy /Y "C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt" "C:\PathToCode\shouldly\src\Shouldly.Tests\ShouldMatchApproved\ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt"
+              """
+            : """
+              cp "/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.received.txt" "/PathToCode/shouldly/src/Shouldly.Tests/ShouldMatchApproved/ShouldMatchApprovedScenarios.DifferencesUseShouldlyMessages.approved.txt"
+              """;
 
         var str = "Foo";
         Verify.ShouldFail(() =>
                 str.ShouldMatchApproved(c => c.NoDiff()),
 
             errorWithSource:
-            $@"To approve the changes run this command:
-{cmd}
-----------------------------
+            $"""
+             To approve the changes run this command:
+             {cmd}
+             ----------------------------
 
-str
-    should match approved with options: Ignoring line endings
-""Bar""
-    but was
-""Foo""
-    difference
-Difference     |  |    |    |   
-               | \|/  \|/  \|/  
-Index          | 0    1    2    
-Expected Value | B    a    r    
-Actual Value   | F    o    o    
-Expected Code  | 66   97   114  
-Actual Code    | 70   111  111  ",
+             str
+                 should match approved with options: Ignoring line endings
+             "Bar"
+                 but was
+             "Foo"
+                 difference
+             Difference     |  |    |    |   
+                            | \|/  \|/  \|/  
+             Index          | 0    1    2    
+             Expected Value | B    a    r    
+             Actual Value   | F    o    o    
+             Expected Code  | 66   97   114  
+             Actual Code    | 70   111  111  
+             """,
 
             errorWithoutSource:
-            $@"To approve the changes run this command:
-{cmd}
-----------------------------
+            $"""
+             To approve the changes run this command:
+             {cmd}
+             ----------------------------
 
-""Foo""
-    should match approved with options: Ignoring line endings
-""Bar""
-    but was not
-    difference
-Difference     |  |    |    |   
-               | \|/  \|/  \|/  
-Index          | 0    1    2    
-Expected Value | B    a    r    
-Actual Value   | F    o    o    
-Expected Code  | 66   97   114  
-Actual Code    | 70   111  111  ",
+             "Foo"
+                 should match approved with options: Ignoring line endings
+             "Bar"
+                 but was not
+                 difference
+             Difference     |  |    |    |   
+                            | \|/  \|/  \|/  
+             Index          | 0    1    2    
+             Expected Value | B    a    r    
+             Actual Value   | F    o    o    
+             Expected Code  | 66   97   114  
+             Actual Code    | 70   111  111  
+             """,
 
             messageScrubber:
             _scrubber);

@@ -10,33 +10,43 @@ public class UnsafeStringControlCharacterScenario
                 str.ShouldBe("Stringone\u0001ControlChar", StringCompareShould.IgnoreCase),
 
             errorWithSource:
-            @"str
-    should be with options: Ignoring case
-""Stringone" + "\u0001" + @"ControlChar""
-    but was
-""StringOne" + "\u0000" + @"ControlChar""
-    difference
-Difference     |                                               |                                                          
-               |                                              \|/                                                         
-Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   
-Expected Value | S    t    r    i    n    g    o    n    e    \u1; C    o    n    t    r    o    l    C    h    a    r    
-Actual Value   | S    t    r    i    n    g    O    n    e    \u0; C    o    n    t    r    o    l    C    h    a    r    
-Expected Code  | 83   116  114  105  110  103  111  110  101  1    67   111  110  116  114  111  108  67   104  97   114  
-Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110  116  114  111  108  67   104  97   114  ",
+            """
+            str
+                should be with options: Ignoring case
+            "Stringone
+            """ + "\u0001" + """
+                             ControlChar"
+                                 but was
+                             "StringOne
+                             """ + "\u0000" + """
+                                              ControlChar"
+                                                  difference
+                                              Difference     |                                               |                                                          
+                                                             |                                              \|/                                                         
+                                              Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   
+                                              Expected Value | S    t    r    i    n    g    o    n    e    \u1; C    o    n    t    r    o    l    C    h    a    r    
+                                              Actual Value   | S    t    r    i    n    g    O    n    e    \u0; C    o    n    t    r    o    l    C    h    a    r    
+                                              Expected Code  | 83   116  114  105  110  103  111  110  101  1    67   111  110  116  114  111  108  67   104  97   114  
+                                              Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110  116  114  111  108  67   104  97   114  
+                                              """,
 
             errorWithoutSource:
-            @"""StringOne" + "\u0000" + @"ControlChar""
-    should be with options: Ignoring case
-""Stringone" + "\u0001" + @"ControlChar""
-    but was not
-    difference
-Difference     |                                               |                                                          
-               |                                              \|/                                                         
-Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   
-Expected Value | S    t    r    i    n    g    o    n    e    \u1; C    o    n    t    r    o    l    C    h    a    r    
-Actual Value   | S    t    r    i    n    g    O    n    e    \u0; C    o    n    t    r    o    l    C    h    a    r    
-Expected Code  | 83   116  114  105  110  103  111  110  101  1    67   111  110  116  114  111  108  67   104  97   114  
-Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110  116  114  111  108  67   104  97   114  ");
+            @"""StringOne" + "\u0000" + """
+                                        ControlChar"
+                                            should be with options: Ignoring case
+                                        "Stringone
+                                        """ + "\u0001" + """
+                                                         ControlChar"
+                                                             but was not
+                                                             difference
+                                                         Difference     |                                               |                                                          
+                                                                        |                                              \|/                                                         
+                                                         Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   
+                                                         Expected Value | S    t    r    i    n    g    o    n    e    \u1; C    o    n    t    r    o    l    C    h    a    r    
+                                                         Actual Value   | S    t    r    i    n    g    O    n    e    \u0; C    o    n    t    r    o    l    C    h    a    r    
+                                                         Expected Code  | 83   116  114  105  110  103  111  110  101  1    67   111  110  116  114  111  108  67   104  97   114  
+                                                         Actual Code    | 83   116  114  105  110  103  79   110  101  0    67   111  110  116  114  111  108  67   104  97   114  
+                                                         """);
     }
 
     [Fact]

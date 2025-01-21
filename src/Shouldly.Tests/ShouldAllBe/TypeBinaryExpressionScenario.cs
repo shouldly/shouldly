@@ -11,26 +11,30 @@ public class TypeBinaryExpressionScenario
                 objects.ShouldAllBe(x => x is string, "Some additional context"),
 
             errorWithSource:
-            @"objects
-    should satisfy the condition
-(x Is String)
-    but
-[1]
-    do not
+            """
+            objects
+                should satisfy the condition
+            (x Is String)
+                but
+            [1]
+                do not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[""1"", 1]
-    should satisfy the condition
-(x Is String)
-    but
-[1]
-    do not
+            """
+            ["1", 1]
+                should satisfy the condition
+            (x Is String)
+                but
+            [1]
+                do not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

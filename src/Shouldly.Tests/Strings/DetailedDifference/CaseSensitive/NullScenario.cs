@@ -10,17 +10,21 @@ public static class NullScenario
                 str.ShouldBe("null"),
 
             errorWithSource:
-            @"str
-    should be
-""null""
-    but was
-null",
+            """
+            str
+                should be
+            "null"
+                but was
+            null
+            """,
 
             errorWithoutSource:
-            @"null
-    should be
-""null""
-    but was not");
+            """
+            null
+                should be
+            "null"
+                but was not
+            """);
     }
 
     [Fact]
@@ -31,16 +35,20 @@ null",
                 str.ShouldBe(null),
 
             errorWithSource:
-            @"str
-    should be
-null
-    but was
-""null""",
+            """
+            str
+                should be
+            null
+                but was
+            "null"
+            """,
 
             errorWithoutSource:
-            @"""null""
-    should be
-null
-    but was not");
+            """
+            "null"
+                should be
+            null
+                but was not
+            """);
     }
 }

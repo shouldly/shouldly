@@ -29,14 +29,16 @@ public class ComparerScenario
                 comparison1.ShouldBeOneOf(comparison2, new ComparableClassComparer(), "Some additional context"),
 
             errorWithSource:
-            @"comparison1
-    should be one of
-[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
-    but was
-Shouldly.Tests.TestHelpers.ComparableClass (000000)
+            """
+            comparison1
+                should be one of
+            [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+                but was
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
             """
