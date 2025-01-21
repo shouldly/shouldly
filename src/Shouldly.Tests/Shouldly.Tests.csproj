@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net48</TargetFrameworks>
+    <OutputType>Exe</OutputType>
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
