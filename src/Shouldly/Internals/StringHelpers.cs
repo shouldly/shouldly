@@ -72,7 +72,7 @@ static class StringHelpers
             return ExpressionToString.ExpressionStringBuilder.ToString(binaryExpression);
         }
 
-        if (objectType.IsGenericType() && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)) {
+        if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)) {
             var key = objectType.GetProperty("Key")!.GetValue(value, null);
             var v = objectType.GetProperty("Value")!.GetValue(value, null);
             return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";

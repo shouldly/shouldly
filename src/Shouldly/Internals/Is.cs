@@ -276,7 +276,7 @@ static class Is
     private static decimal Compare<T>(T? comparable, T? expected)
         where T : IComparable<T>?
     {
-        if (!typeof(T).IsValueType())
+        if (!typeof(T).IsValueType)
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
             if (comparable == null)

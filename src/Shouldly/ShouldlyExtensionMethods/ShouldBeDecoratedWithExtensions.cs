@@ -8,9 +8,9 @@ public static partial class ShouldBeDecoratedWithExtensions
         where T : Attribute
     {
         if (!actual.HasAttribute(typeof(T)))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).GetTypeInfo().Name, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).Name, customMessage).ToString());
     }
 
     private static bool HasAttribute(this Type type, Type attributeType) =>
-        type.GetTypeInfo().GetCustomAttributes(attributeType, true).Any();
+        type.GetCustomAttributes(attributeType, true).Any();
 }
