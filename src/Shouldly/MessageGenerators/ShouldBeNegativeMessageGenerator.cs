@@ -11,13 +11,17 @@ class ShouldBeNegativeMessageGenerator : ShouldlyMessageGenerator
     {
         var codePart = context.CodePart;
         var actual = context.Actual.ToStringAwesomely();
-        var actualValue = codePart != actual ? $@"
-{actual}
-    " : " ";
+        var actualValue = codePart != actual ? $"""
+
+                                                {actual}
+                                                    
+                                                """ : " ";
 
         var should = context.ShouldMethod.PascalToSpaced();
         return
-            $@"{codePart}
-    {should} but{actualValue}is positive";
+            $"""
+             {codePart}
+                 {should} but{actualValue}is positive
+             """;
     }
 }

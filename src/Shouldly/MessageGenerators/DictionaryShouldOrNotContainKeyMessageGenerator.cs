@@ -10,10 +10,12 @@ class DictionaryShouldOrNotContainKeyMessageGenerator : ShouldlyMessageGenerator
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
         const string format =
-            @"{0}
-    {1}
-{2}
-    but does{3}";
+            """
+            {0}
+                {1}
+            {2}
+                but does{3}
+            """;
 
         var codePart = context.CodePart ?? context.Actual.ToStringAwesomely();
         var expected = context.Expected.ToStringAwesomely();

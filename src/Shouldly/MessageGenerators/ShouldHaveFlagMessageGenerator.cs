@@ -11,12 +11,16 @@ class ShouldHaveFlagMessageGenerator : ShouldlyMessageGenerator
         var expected = context.Expected.ToStringAwesomely();
 
         var actual = context.Actual.ToStringAwesomely();
-        var actualString = codePart == actual ? " did not" : $@" had
-{actual}";
+        var actualString = codePart == actual ? " did not" : $"""
+                                                               had
+                                                              {actual}
+                                                              """;
 
-        return $@"{codePart}
-    should have flag
-{expected}
-    but{actualString}";
+        return $"""
+                {codePart}
+                    should have flag
+                {expected}
+                    but{actualString}
+                """;
     }
 }

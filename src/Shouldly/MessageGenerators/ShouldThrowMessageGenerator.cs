@@ -28,23 +28,29 @@ class ShouldThrowMessageGenerator : ShouldlyMessageGenerator
         string errorMessage;
         if (context.HasRelevantActual)
         {
-            errorMessage = string.Format($@"{codePart.Replace("{", "{{").Replace("}", "}}")}
-    should throw
-{expected}
-    but threw
-{context.Actual}", codePart, expected, context.Actual, maybeInvokeMethod);
+            errorMessage = string.Format($"""
+                                          {codePart.Replace("{", "{{").Replace("}", "}}")}
+                                              should throw
+                                          {expected}
+                                              but threw
+                                          {context.Actual}
+                                          """, codePart, expected, context.Actual, maybeInvokeMethod);
         }
         else
         {
-            errorMessage = $@"{codePart}
-    should throw
-{expected}
-    but did not";
+            errorMessage = $"""
+                            {codePart}
+                                should throw
+                            {expected}
+                                but did not
+                            """;
         }
 
         errorMessage += throwContext.ExceptionMessage != null ?
-            $@" with message
-""{throwContext.ExceptionMessage}"""
+            $"""
+              with message
+             "{throwContext.ExceptionMessage}"
+             """
             : string.Empty;
 
         return errorMessage;

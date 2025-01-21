@@ -298,10 +298,12 @@ public abstract class ShouldlyMessage
         var message = GenerateShouldMessage();
         if (ShouldlyAssertionContext.CustomMessage != null)
         {
-            message += $@"
+            message += $"""
 
-Additional Info:
-    {ShouldlyAssertionContext.CustomMessage}";
+
+                        Additional Info:
+                            {ShouldlyAssertionContext.CustomMessage}
+                        """;
         }
 
         return message;
@@ -335,30 +337,38 @@ Additional Info:
             ? "an element satisfying the condition"
             : "";
         return
-            $@"{codePart}
-    {shouldMethod} {conditionString}
-{expected}
-    but does{(isNegatedAssertion ? "" : " not")}";
+            $"""
+             {codePart}
+                 {shouldMethod} {conditionString}
+             {expected}
+                 but does{(isNegatedAssertion ? "" : " not")}
+             """;
     }
 
     private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
     {
         var codePart = context.CodePart;
         var actual = context.Actual.ToStringAwesomely();
-        var actualString = codePart == actual ? context.IsNegatedAssertion ? string.Empty : " not" : $@"
-{actual}";
+        var actualString = codePart == actual ? context.IsNegatedAssertion ? string.Empty : " not" : $"""
+
+             {actual}
+             """;
 
         var message =
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()}
-{context.Expected.ToStringAwesomely()}
-    but was{actualString}";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()}
+             {context.Expected.ToStringAwesomely()}
+                 but was{actualString}
+             """;
 
         if (DifferenceHighlighter.CanHighlightDifferences(context))
         {
-            message += $@"
-    difference
-{DifferenceHighlighter.HighlightDifferences(context)}";
+            message += $"""
+                        
+                            difference
+                        {DifferenceHighlighter.HighlightDifferences(context)}
+                        """;
         }
 
         return message;

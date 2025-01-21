@@ -9,13 +9,15 @@ class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
         context.ShouldMethod == "ShouldBeEquivalentTo";
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context) =>
-        $@"Comparing object equivalence, at path:
-{FormatPath(context)}
-
-    Expected value to be
-{context.Expected.ToStringAwesomely()}
-    but was
-{context.Actual.ToStringAwesomely()}";
+        $"""
+         Comparing object equivalence, at path:
+         {FormatPath(context)}
+         
+             Expected value to be
+         {context.Expected.ToStringAwesomely()}
+             but was
+         {context.Actual.ToStringAwesomely()}
+         """;
 
     private static string FormatPath(IShouldlyAssertionContext context)
     {

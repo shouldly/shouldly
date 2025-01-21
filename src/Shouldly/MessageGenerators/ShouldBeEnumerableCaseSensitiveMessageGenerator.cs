@@ -34,17 +34,21 @@ class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
 
         var expected = context.Expected.ToStringAwesomely();
         var format =
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()}
-{expected}
-    but was{caseSensitivity}{actual}";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()}
+             {expected}
+                 but was{caseSensitivity}{actual}
+             """;
 
         if (DifferenceHighlighter.CanHighlightDifferences(context))
         {
             format +=
-                $@"
-    difference
-{DifferenceHighlighter.HighlightDifferences(context)}";
+                $"""
+                 
+                     difference
+                 {DifferenceHighlighter.HighlightDifferences(context)}
+                 """;
         }
 
         return format;

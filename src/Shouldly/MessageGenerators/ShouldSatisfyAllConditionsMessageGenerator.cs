@@ -13,9 +13,11 @@ class ShouldSatisfyAllConditionsMessageGenerator : ShouldlyMessageGenerator
         var expected = context.Expected?.ToString();
 
         return
-            $@"{codePart}
-    should satisfy all the conditions specified, but does not.
-The following errors were found ...
-{expected}";
+            $"""
+             {codePart}
+                 should satisfy all the conditions specified, but does not.
+             The following errors were found ...
+             {expected}
+             """;
     }
 }

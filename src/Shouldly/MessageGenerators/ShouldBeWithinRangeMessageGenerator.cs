@@ -22,25 +22,31 @@ class ShouldBeWithinRangeMessageGenerator : ShouldlyMessageGenerator
         }
         else
         {
-            actual = $@"
-{actualValue}";
+            actual = $"""
+
+                      {actualValue}
+                      """;
         }
 
         var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
         var message =
-            $@"{codePart}
-    should {negated}be within
-{tolerance}
-    of
-{expected}
-    but was{actual}";
+            $"""
+             {codePart}
+                 should {negated}be within
+             {tolerance}
+                 of
+             {expected}
+                 but was{actual}
+             """;
 
         if (DifferenceHighlighter.CanHighlightDifferences(context))
         {
-            message += $@"
-    difference
-{DifferenceHighlighter.HighlightDifferences(context)}";
+            message += $"""
+                        
+                            difference
+                        {DifferenceHighlighter.HighlightDifferences(context)}
+                        """;
         }
 
         return message;

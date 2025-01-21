@@ -18,9 +18,11 @@ class ShouldBeUniqueMessageGenerator : ShouldlyMessageGenerator
         }
 
         return
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} but
-{actual}
-    was duplicated";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()} but
+             {actual}
+                 was duplicated
+             """;
     }
 }

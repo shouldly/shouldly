@@ -13,12 +13,14 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
         Debug.Assert(context.Key is object);
 
         const string format =
-            @"{0}
-    should contain key
-{1}
-    with value
-{2}
-{3}";
+            """
+            {0}
+                should contain key
+            {1}
+                with value
+            {2}
+            {3}
+            """;
 
         var codePart = context.CodePart;
         var dictionary = (IDictionary)context.Actual;
@@ -30,8 +32,10 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
         {
             var actualValueString = dictionary[context.Key].ToStringAwesomely();
             var valueString =
-                $@"    but value was
-{actualValueString}";
+                $"""
+                     but value was
+                 {actualValueString}
+                 """;
             return string.Format(format, codePart, keyValue, expected, valueString);
         }
 

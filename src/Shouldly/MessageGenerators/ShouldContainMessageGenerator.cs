@@ -12,13 +12,17 @@ class ShouldContainMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : string.Empty;
         var actual = context.Actual.ToStringAwesomely();
-        var but = codePart == actual ? context.IsNegatedAssertion ? "did" : "did not" : $@"was actually
-{actual}";
+        var but = codePart == actual ? context.IsNegatedAssertion ? "did" : "did not" : $"""
+             was actually
+             {actual}
+             """;
 
         return
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()}{caseSensitivity}
-{context.Expected.ToStringAwesomely()}
-    but {but}";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()}{caseSensitivity}
+             {context.Expected.ToStringAwesomely()}
+                 but {but}
+             """;
     }
 }

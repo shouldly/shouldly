@@ -13,11 +13,13 @@ class ShouldAllBeMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var expected = context.Expected.ToStringAwesomely();
         var expression = ExpressionStringBuilder.ToString(context.Filter);
-        return $@"{codePart}
-    should satisfy the condition
-{expression}
-    but
-{expected}
-    do not";
+        return $"""
+                {codePart}
+                    should satisfy the condition
+                {expression}
+                    but
+                {expected}
+                    do not
+                """;
     }
 }

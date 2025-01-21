@@ -27,16 +27,20 @@ class ShouldBeMessageGenerator : ShouldlyMessageGenerator
         }
 
         var message =
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()}
-{expected}
-    but was{actual}";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()}
+             {expected}
+                 but was{actual}
+             """;
 
         if (DifferenceHighlighter.CanHighlightDifferences(context))
         {
-            message += $@"
-    difference
-{DifferenceHighlighter.HighlightDifferences(context)}";
+            message += $"""
+                        
+                            difference
+                        {DifferenceHighlighter.HighlightDifferences(context)}
+                        """;
         }
 
         return message;
