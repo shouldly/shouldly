@@ -5,14 +5,14 @@ public class BasicScenario
     [Fact]
     public void BasicScenarioShouldFail()
     {
-        var zulu = new object();
-        var tutsie = new object();
+        var apple = new object();
+        var orange = new object();
         Verify.ShouldFail(() =>
-                zulu.ShouldBeSameAs(tutsie, "Some additional context"),
+                apple.ShouldBeSameAs(orange, "Some additional context"),
 
             errorWithSource:
             """
-            zulu
+            apple
                 should be same as
             System.Object (000000)
                 but was
@@ -37,8 +37,8 @@ public class BasicScenario
     [Fact]
     public void ShouldPass()
     {
-        var zulu = new object();
+        var apple = new object();
 
-        zulu.ShouldBeSameAs(zulu);
+        apple.ShouldBeSameAs(apple);
     }
 }
