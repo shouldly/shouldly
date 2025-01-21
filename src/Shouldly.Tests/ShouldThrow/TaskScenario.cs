@@ -5,7 +5,7 @@ public class TaskScenario
     [Fact]
     public void TaskScenarioShouldFail()
     {
-        var task = Task.Run(() => { });
+        var task = Task.Run(() => { }, TestContext.Current.CancellationToken);
 
         Verify.ShouldFail(() =>
                 task.ShouldThrow<InvalidOperationException>("Some additional context"),
@@ -36,7 +36,7 @@ public class TaskScenario
     [Fact]
     public void TaskScenarioShouldFail_ExceptionTypePassedIn()
     {
-        var task = Task.Run(() => { });
+        var task = Task.Run(() => { }, TestContext.Current.CancellationToken);
 
         Verify.ShouldFail(() =>
                 task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
@@ -67,7 +67,7 @@ public class TaskScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Run(() => throw new InvalidOperationException());
+        var task = Task.Run(() => throw new InvalidOperationException(), TestContext.Current.CancellationToken);
 
         var ex = task.ShouldThrow<InvalidOperationException>();
 
@@ -78,7 +78,7 @@ public class TaskScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Run(() => throw new InvalidOperationException());
+        var task = Task.Run(() => throw new InvalidOperationException(), TestContext.Current.CancellationToken);
 
         var ex = task.ShouldThrow(typeof(InvalidOperationException));
 
