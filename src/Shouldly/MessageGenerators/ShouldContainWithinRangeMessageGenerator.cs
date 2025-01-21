@@ -15,15 +15,19 @@ class ShouldContainWithinRangeMessageGenerator : ShouldlyMessageGenerator
         var actualValue = context.Actual.ToStringAwesomely();
         var negated = context.ShouldMethod.Contains("Not") ? "not " : string.Empty;
 
-        var actualValueString = codePart == actualValue ? " not" : $@"
-{actualValue}";
+        var actualValueString = codePart == actualValue ? " not" : $"""
+
+                                                                    {actualValue}
+                                                                    """;
 
         return
-            $@"{codePart}
-    should {negated}contain
-{expected}
-    within
-{tolerance}
-    but was{actualValueString}";
+            $"""
+             {codePart}
+                 should {negated}contain
+             {expected}
+                 within
+             {tolerance}
+                 but was{actualValueString}
+             """;
     }
 }

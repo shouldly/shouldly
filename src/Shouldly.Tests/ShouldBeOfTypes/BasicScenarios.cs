@@ -39,15 +39,17 @@ public class BasicScenarios
             """,
 
             errorWithoutSource:
-            @"[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
-    should be
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, System.Object]
-    but was not
-    difference
-[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
+            """
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
+                should be
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, System.Object]
+                but was not
+                difference
+            [Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

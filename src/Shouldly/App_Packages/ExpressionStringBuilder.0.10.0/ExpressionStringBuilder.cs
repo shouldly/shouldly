@@ -231,7 +231,7 @@ class ExpressionStringBuilder : ExpressionVisitor
         // hack: the only way to detect anonymous types right now
         var isDefined = type.IsDefined(typeof(CompilerGeneratedAttribute), false);
         return isDefined
-               && (type.IsGenericType() && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
+               && (type.IsGenericType && type.Name.Contains("AnonymousType") || type.Name.Contains("DisplayClass"))
                && (type.Name.StartsWith("<>", StringComparison.Ordinal) || type.Name.StartsWith("VB$", StringComparison.Ordinal));
     }
 

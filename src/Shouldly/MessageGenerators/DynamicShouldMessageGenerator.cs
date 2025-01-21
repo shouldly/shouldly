@@ -22,12 +22,12 @@ class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
             var codeLine = string.Join("", File.ReadAllLines(testFileName).ToArray().Skip(assertionLineNumber.Value - 1).Select(s => s.Trim()));
             var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
 
-            const string format = @"Dynamic object ""{0}"" should contain property ""{1}"" but does not.";
+            const string format = """Dynamic object "{0}" should contain property "{1}" but does not.""";
             return string.Format(format, dynamicObjectName.ToString().Trim(), propertyName?.ToString()?.Trim());
         }
         else
         {
-            const string format = @"Dynamic object should contain property ""{0}"" but does not.";
+            const string format = """Dynamic object should contain property "{0}" but does not.""";
             return string.Format(format, propertyName?.ToString()?.Trim());
         }
     }

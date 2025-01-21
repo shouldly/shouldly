@@ -38,7 +38,9 @@ class EqualityComparer<T> : IEqualityComparer<T>
             y.TryGetEnumerable(out var enumerableY))
         {
             var enumeratorX = enumerableX.GetEnumerator();
+            using var enumeratorXDispose = enumeratorX as IDisposable;
             var enumeratorY = enumerableY.GetEnumerator();
+            using var enumeratorYDispose = enumeratorY as IDisposable;
             var equalityComparer = _innerComparerFactory();
 
             while (true)

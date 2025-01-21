@@ -46,8 +46,10 @@ public static partial class ShouldMatchApprovedTestExtensions
                 DiffRunner.Launch(receivedFile, approvedFile);
             }
 
-            throw new ShouldMatchApprovedException($@"Approval file {approvedFile}
-    does not exist", receivedFile, approvedFile);
+            throw new ShouldMatchApprovedException($"""
+                                                    Approval file {approvedFile}
+                                                        does not exist
+                                                    """, receivedFile, approvedFile);
         }
 
         var approvedFileContents = File.ReadAllText(approvedFile);

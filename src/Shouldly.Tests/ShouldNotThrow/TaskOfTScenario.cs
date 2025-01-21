@@ -6,7 +6,7 @@ public class TaskOfTScenario
     [UseCulture("en-US")]
     public void TaskOfTScenarioShouldFail()
     {
-        var task = Task.Run(() => throw new RankException());
+        var task = Task.Run(() => throw new RankException(), TestContext.Current.CancellationToken);
 
         Verify.ShouldFail(() =>
                 task.ShouldNotThrow("Some additional context"),

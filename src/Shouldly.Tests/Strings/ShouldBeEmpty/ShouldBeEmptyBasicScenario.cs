@@ -9,19 +9,23 @@ public class ShouldBeEmptyBasicScenario
                 "a".ShouldBeEmpty("Some additional context"),
 
             errorWithSource:
-            @"""a""
-    should be empty but was
-""a""
+            """
+            "a"
+                should be empty but was
+            "a"
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"""a""
-    should be empty but was not empty
+            """
+            "a"
+                should be empty but was not empty
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

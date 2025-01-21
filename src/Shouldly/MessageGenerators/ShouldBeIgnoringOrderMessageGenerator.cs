@@ -26,30 +26,38 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         var missingFromActual = expected.Where(e => !actual.Any(a => Is.Equal(e, a))).ToArray();
 
         var actualMissingMessage = missingFromActual.Any()
-            ? $@"{codePart}
-    is missing
-{missingFromActual.ToStringAwesomely()}"
+            ? $"""
+               {codePart}
+                   is missing
+               {missingFromActual.ToStringAwesomely()}
+               """
             : string.Empty;
         var expectedMissingMessage = missingFromExpected.Any()
-            ? $@"{expected.ToStringAwesomely()}
-    is missing
-{missingFromExpected.ToStringAwesomely()}"
+            ? $"""
+               {expected.ToStringAwesomely()}
+                   is missing
+               {missingFromExpected.ToStringAwesomely()}
+               """
             : string.Empty;
 
         // "first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 
         const string format =
-            @"{0}
-    {1} (ignoring order)
-{2}
-    but
-{3}";
+            """
+            {0}
+                {1} (ignoring order)
+            {2}
+                but
+            {3}
+            """;
 
         var hasBothActualAndExpectedMissingItems = !string.IsNullOrEmpty(actualMissingMessage) && !string.IsNullOrEmpty(expectedMissingMessage);
         var missingMessage = hasBothActualAndExpectedMissingItems
-            ? $@"{actualMissingMessage}
-    and
-{expectedMissingMessage}"
+            ? $"""
+               {actualMissingMessage}
+                   and
+               {expectedMissingMessage}
+               """
             : $"{actualMissingMessage}{expectedMissingMessage}";
         return string.Format(format, codePart, context.ShouldMethod.PascalToSpaced(), expectedFormattedValue, missingMessage);
     }

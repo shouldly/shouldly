@@ -12,13 +12,15 @@ public class DocsExample
         var theBeSharps = new List<Person> { homer, skinner, barney };
         TestHelpers.Should.Error(() =>
                 theBeSharps.ShouldBe(new[] { apu, homer, skinner, barney }),
-            @"theBeSharps
-    should be
-[Apu, Homer, Skinner, Barney]
-    but was
-[Homer, Skinner, Barney]
-    difference
-[*Homer *, *Skinner *, *Barney *, *]");
+            """
+            theBeSharps
+                should be
+            [Apu, Homer, Skinner, Barney]
+                but was
+            [Homer, Skinner, Barney]
+                difference
+            [*Homer *, *Skinner *, *Barney *, *]
+            """);
     }
 
     private class Person

@@ -13,12 +13,16 @@ class ShouldBeBooleanMessageGenerator : ShouldlyMessageGenerator
         var expected = context.Expected.ToStringAwesomely();
 
         var actual = context.Actual.ToStringAwesomely();
-        var actualString = codePart == actual ? " not" : $@"
-{actual}";
+        var actualString = codePart == actual ? " not" : $"""
 
-        return $@"{codePart}
-    should be
-{expected}
-    but was{actualString}";
+                                                          {actual}
+                                                          """;
+
+        return $"""
+                {codePart}
+                    should be
+                {expected}
+                    but was{actualString}
+                """;
     }
 }

@@ -18,42 +18,54 @@ class ShouldNotThrowMessageGenerator : ShouldlyMessageGenerator
         if (codePart == "null" && !throwContext.IsAsync)
         {
             errorMessage =
-                $@"delegate
-    should not throw but threw
-{expected}";
+                $"""
+                 delegate
+                     should not throw but threw
+                 {expected}
+                 """;
         }
         else if (codePart == "null" && throwContext.IsAsync)
         {
             errorMessage =
-                $@"Task
-    should not throw but threw
-{expected}";
+                $"""
+                 Task
+                     should not throw but threw
+                 {expected}
+                 """;
         }
         else if (isExtensionMethod && !throwContext.IsAsync)
         {
             errorMessage =
-                $@"`{codePart}()`
-    should not throw but threw
-{expected}";
+                $"""
+                 `{codePart}()`
+                     should not throw but threw
+                 {expected}
+                 """;
         }
         else if (isExtensionMethod && throwContext.IsAsync)
         {
             errorMessage =
-                $@"Task `{codePart}`
-    should not throw but threw
-{expected}";
+                $"""
+                 Task `{codePart}`
+                     should not throw but threw
+                 {expected}
+                 """;
         }
         else
         {
             errorMessage =
-                $@"`{codePart}`
-    should not throw but threw
-{expected}";
+                $"""
+                 `{codePart}`
+                     should not throw but threw
+                 {expected}
+                 """;
         }
 
-        errorMessage += $@"
-    with message
-""{throwContext.ExceptionMessage}""";
+        errorMessage += $"""
+                         
+                             with message
+                         "{throwContext.ExceptionMessage}"
+                         """;
 
         return errorMessage;
     }

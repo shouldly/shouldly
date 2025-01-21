@@ -7,7 +7,7 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.Run(() => throw new InvalidOperationException("exception message"));
+            var task = Task.Run(() => throw new InvalidOperationException("exception message"), TestContext.Current.CancellationToken);
 
             await task.ShouldNotThrowAsync("Some additional context");
         }
@@ -32,7 +32,7 @@ public class FuncOfTaskScenarioAsync
                         throw new InvalidOperationException());
                     throw new InvalidOperationException();
                 });
-            });
+            }, TestContext.Current.CancellationToken);
 
             await task.ShouldNotThrowAsync("Some additional context");
         }
@@ -55,7 +55,7 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass()
     {
-        var task = Task.Run(() => { });
+        var task = Task.Run(() => { }, TestContext.Current.CancellationToken);
 
         await task.ShouldNotThrowAsync();
     }

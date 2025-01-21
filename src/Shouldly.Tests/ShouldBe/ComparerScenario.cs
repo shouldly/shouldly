@@ -21,22 +21,26 @@ public class ComparerScenario
                 comparison1.ShouldBe(comparison2, new ComparableClassComparer(), "Some additional context"),
 
             errorWithSource:
-            @"comparison1
-    should be
-Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    but was
-Shouldly.Tests.TestHelpers.ComparableClass (000000)
+            """
+            comparison1
+                should be
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
+                but was
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    should be
-Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    but was not
+            """
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
+                should be
+            Shouldly.Tests.TestHelpers.ComparableClass (000000)
+                but was not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }

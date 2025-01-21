@@ -21,17 +21,21 @@ class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
             }
 
             return
-                $@"{codePart}
-    {shouldMethod} but was{(context.Expected == null ? " null" : "")}";
+                $"""
+                 {codePart}
+                     {shouldMethod} but was{(context.Expected == null ? " null" : "")}
+                 """;
         }
 
         string details;
         if (context.Expected is IEnumerable enumerable and not string)
         {
             var count = enumerable?.Cast<object?>().Count() ?? 0;
-            details = $@" had
-{count}
-    item{(count == 1 ? string.Empty : "s")} and";
+            details = $"""
+                        had
+                       {count}
+                           item{(count == 1 ? string.Empty : "s")} and
+                       """;
         }
         else
         {
@@ -46,12 +50,16 @@ class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
         }
         else
         {
-            expectedString = $@"
-{expected}";
+            expectedString = $"""
+
+                              {expected}
+                              """;
         }
 
         return
-            $@"{codePart}
-    {shouldMethod} but{details} was{expectedString}";
+            $"""
+             {codePart}
+                 {shouldMethod} but{details} was{expectedString}
+             """;
     }
 }

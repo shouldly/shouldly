@@ -11,10 +11,14 @@ class ShouldBeNullMessageGenerator : ShouldlyMessageGenerator
     {
         var expected = context.Expected.ToStringAwesomely();
         var codePart = context.CodePart == "null" ? expected : context.CodePart;
-        var expectedValue = context.IsNegatedAssertion || expected == codePart ? string.Empty : $@"
-{expected}";
+        var expectedValue = context.IsNegatedAssertion || expected == codePart ? string.Empty : $"""
 
-        return $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} but was{expectedValue}";
+             {expected}
+             """;
+
+        return $"""
+                {codePart}
+                    {context.ShouldMethod.PascalToSpaced()} but was{expectedValue}
+                """;
     }
 }

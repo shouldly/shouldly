@@ -34,7 +34,7 @@ public static partial class ObjectGraphTestExtensions
         {
             CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
         }
-        else if (type.GetTypeInfo().IsValueType)
+        else if (type.IsValueType)
         {
             CompareValueTypes((ValueType)actual, (ValueType)expected, path, customMessage, shouldlyMethod);
         }

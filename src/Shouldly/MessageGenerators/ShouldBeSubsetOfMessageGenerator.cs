@@ -18,11 +18,13 @@ class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
         var count = missing.Count;
 
         return
-            $@"{codePart}
-    should be subset of
-{expected}
-    but
-{missing.ToStringAwesomely()}
-    {(count > 1 ? "are" : "is")} outside subset";
+            $"""
+             {codePart}
+                 should be subset of
+             {expected}
+                 but
+             {missing.ToStringAwesomely()}
+                 {(count > 1 ? "are" : "is")} outside subset
+             """;
     }
 }

@@ -11,12 +11,16 @@ class ShouldBePositiveMessageGenerator : ShouldlyMessageGenerator
     {
         var codePart = context.CodePart;
         var actual = context.Actual.ToStringAwesomely();
-        var actualValue = codePart != actual ? $@"
-{actual}
-    " : " ";
+        var actualValue = codePart != actual ? $"""
+
+                                                {actual}
+                                                    
+                                                """ : " ";
 
         return
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()} but{actualValue}is negative";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()} but{actualValue}is negative
+             """;
     }
 }

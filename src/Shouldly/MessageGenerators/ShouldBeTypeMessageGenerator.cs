@@ -14,13 +14,17 @@ class ShouldBeTypeMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var actualType = context.Actual?.GetType().FullName;
 
-        var actualString = codePart == actualType || codePart == "null" ? " not" : $@"
-{actualType ?? "null"}";
+        var actualString = codePart == actualType || codePart == "null" ? " not" : $"""
+
+             {actualType ?? "null"}
+             """;
 
         return
-            $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()}
-{context.Expected.ToStringAwesomely()}
-    but was{actualString}";
+            $"""
+             {codePart}
+                 {context.ShouldMethod.PascalToSpaced()}
+             {context.Expected.ToStringAwesomely()}
+                 but was{actualString}
+             """;
     }
 }

@@ -11,26 +11,30 @@ public class ShouldContainKeyAndValue
                 ClassDictionary().ShouldContainKeyAndValue(new(), new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            ClassDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -40,26 +44,30 @@ Additional Info:
                 GuidDictionary().ShouldContainKeyAndValue(MissingGuidKey, MissingGuidValue, "Some additional context"),
 
             errorWithSource:
-            @"GuidDictionary()
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    with value
-f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
-    but the key does not exist
+            """
+            GuidDictionary()
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                with value
+            f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    with value
-f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
-    but the key does not exist
+            """
+            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                with value
+            f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -69,28 +77,32 @@ Additional Info:
                 ClassDictionary().ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+            """
+            ClassDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            Shouldly.Tests.TestHelpers.MyThing (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            Shouldly.Tests.TestHelpers.MyThing (000000)
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -100,26 +112,30 @@ Additional Info:
                 ClassDictionary().ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
-            @"ClassDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            ClassDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -129,26 +145,30 @@ Additional Info:
                 StringDictionary().ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
 
             errorWithSource:
-            @"StringDictionary()
-    should contain key
-""bar""
-    with value
-""baz""
-    but the key does not exist
+            """
+            StringDictionary()
+                should contain key
+            "bar"
+                with value
+            "baz"
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should contain key
-""bar""
-    with value
-""baz""
-    but the key does not exist
+            """
+            [["Foo" => "Bar"]]
+                should contain key
+            "bar"
+                with value
+            "baz"
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -162,28 +182,32 @@ Additional Info:
                 dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"dictionaryWithNullValue
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-null
+            """
+            dictionaryWithNullValue
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-null
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            null
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -193,26 +217,30 @@ Additional Info:
                 ClassIDictionary().ShouldContainKeyAndValue(new(), new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassIDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            ClassIDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -222,26 +250,30 @@ Additional Info:
                 GuidIDictionary().ShouldContainKeyAndValue(MissingGuidKey, MissingGuidValue, "Some additional context"),
 
             errorWithSource:
-            @"GuidIDictionary()
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    with value
-f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
-    but the key does not exist
+            """
+            GuidIDictionary()
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                with value
+            f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    with value
-f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
-    but the key does not exist
+            """
+            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                with value
+            f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -251,28 +283,32 @@ Additional Info:
                 ClassIDictionary().ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassIDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+            """
+            ClassIDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            Shouldly.Tests.TestHelpers.MyThing (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            Shouldly.Tests.TestHelpers.MyThing (000000)
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -282,26 +318,30 @@ Additional Info:
                 ClassIDictionary().ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
-            @"ClassIDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            ClassIDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -311,26 +351,30 @@ Additional Info:
                 StringIDictionary().ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
 
             errorWithSource:
-            @"StringIDictionary()
-    should contain key
-""bar""
-    with value
-""baz""
-    but the key does not exist
+            """
+            StringIDictionary()
+                should contain key
+            "bar"
+                with value
+            "baz"
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should contain key
-""bar""
-    with value
-""baz""
-    but the key does not exist
+            """
+            [["Foo" => "Bar"]]
+                should contain key
+            "bar"
+                with value
+            "baz"
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -344,28 +388,32 @@ Additional Info:
                 dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"dictionaryWithNullValue
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-null
+            """
+            dictionaryWithNullValue
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-null
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            null
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
 #if NET9_0_OR_GREATER
@@ -376,26 +424,30 @@ Additional Info:
                 ClassIReadOnlyDictionary().ShouldContainKeyAndValue(new(), new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassIReadOnlyDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            ClassIReadOnlyDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -405,26 +457,30 @@ Additional Info:
                 GuidIReadOnlyDictionary().ShouldContainKeyAndValue(MissingGuidKey, MissingGuidValue, "Some additional context"),
 
             errorWithSource:
-            @"GuidIReadOnlyDictionary()
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    with value
-f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
-    but the key does not exist
+            """
+            GuidIReadOnlyDictionary()
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                with value
+            f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-    should contain key
-1924e617-2fc2-47ae-ad38-b6f30ec2226b
-    with value
-f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
-    but the key does not exist
+            """
+            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+                should contain key
+            1924e617-2fc2-47ae-ad38-b6f30ec2226b
+                with value
+            f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -434,28 +490,32 @@ Additional Info:
                 ClassIReadOnlyDictionary().ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"ClassIReadOnlyDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+            """
+            ClassIReadOnlyDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            Shouldly.Tests.TestHelpers.MyThing (000000)
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            Shouldly.Tests.TestHelpers.MyThing (000000)
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -465,26 +525,30 @@ Additional Info:
                 ClassIReadOnlyDictionary().ShouldContainKeyAndValue(new(), ThingValue, "Some additional context"),
 
             errorWithSource:
-            @"ClassIReadOnlyDictionary()
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            ClassIReadOnlyDictionary()
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but the key does not exist
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -494,26 +558,30 @@ Additional Info:
                 StringIReadOnlyDictionary().ShouldContainKeyAndValue("bar", "baz", "Some additional context"),
 
             errorWithSource:
-            @"StringIReadOnlyDictionary()
-    should contain key
-""bar""
-    with value
-""baz""
-    but the key does not exist
+            """
+            StringIReadOnlyDictionary()
+                should contain key
+            "bar"
+                with value
+            "baz"
+                but the key does not exist
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[""Foo"" => ""Bar""]]
-    should contain key
-""bar""
-    with value
-""baz""
-    but the key does not exist
+            """
+            [["Foo" => "Bar"]]
+                should contain key
+            "bar"
+                with value
+            "baz"
+                but the key does not exist
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -527,28 +595,32 @@ Additional Info:
                 dictionaryWithNullValue.ShouldContainKeyAndValue(ThingKey, new(), "Some additional context"),
 
             errorWithSource:
-            @"dictionaryWithNullValue
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-null
+            """
+            dictionaryWithNullValue
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
-    should contain key
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    with value
-Shouldly.Tests.TestHelpers.MyThing (000000)
-    but value was
-null
+            """
+            [[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+                should contain key
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                with value
+            Shouldly.Tests.TestHelpers.MyThing (000000)
+                but value was
+            null
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 #endif
 

@@ -18,22 +18,26 @@ public class ThrowFromObjectMethodScenario
                     .Throw<InvalidOperationException>(() => ((dynamic)new Foo()).NoExceptionMethod(), "Some additional context"),
 
             errorWithSource:
-            @"`(dynamic)new Foo()).NoExceptionMethod(`
-    should throw
-System.InvalidOperationException
-    but did not
+            """
+            `(dynamic)new Foo()).NoExceptionMethod(`
+                should throw
+            System.InvalidOperationException
+                but did not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"delegate
-    should throw
-System.InvalidOperationException
-    but did not
+            """
+            delegate
+                should throw
+            System.InvalidOperationException
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
@@ -44,22 +48,26 @@ Additional Info:
                     .Throw<ArgumentException>(() => ((dynamic)new Foo()).NoExceptionMethod(), "Some additional context"),
 
             errorWithSource:
-            @"`(dynamic)new Foo()).NoExceptionMethod(`
-    should throw
-System.ArgumentException
-    but did not
+            """
+            `(dynamic)new Foo()).NoExceptionMethod(`
+                should throw
+            System.ArgumentException
+                but did not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"delegate
-    should throw
-System.ArgumentException
-    but did not
+            """
+            delegate
+                should throw
+            System.ArgumentException
+                but did not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

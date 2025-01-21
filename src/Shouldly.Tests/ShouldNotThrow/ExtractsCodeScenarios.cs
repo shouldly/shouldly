@@ -8,7 +8,9 @@ public class ExtractsCodeScenarios
     {
         TestHelpers.Should.Error(() =>
                 Should.NotThrow(() => methodCall()),
-            @"`methodCall()` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+            """
+            `methodCall()` should not throw but threw System.Exception with message "Exception of type 'System.Exception' was thrown."
+            """);
     }
 
     [Fact]
@@ -25,7 +27,9 @@ public class ExtractsCodeScenarios
     {
         TestHelpers.Should.Error(() =>
                 Should.NotThrow(() => { methodCallWithParameters(1, 2); }),
-            @"`methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+            """
+            `methodCallWithParameters(1, 2);` should not throw but threw System.Exception with message "Exception of type 'System.Exception' was thrown."
+            """);
     }
 
     [Fact]
@@ -40,7 +44,9 @@ public class ExtractsCodeScenarios
                     methodCallWithParameters(1, 2);
                 }
             }),
-            @"`if (methodCall1()) { methodCallWithParameters(1, 2); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+            """
+            `if (methodCall1()) { methodCallWithParameters(1, 2); }` should not throw but threw System.Exception with message "Exception of type 'System.Exception' was thrown."
+            """);
     }
 
     [Fact]
@@ -55,7 +61,9 @@ public class ExtractsCodeScenarios
                         methodCall2();
                     }
                 }),
-            @"`if (methodCall1()) { methodCall2(); }` should not throw but threw System.Exception with message ""Exception of type 'System.Exception' was thrown.""");
+            """
+            `if (methodCall1()) { methodCall2(); }` should not throw but threw System.Exception with message "Exception of type 'System.Exception' was thrown."
+            """);
     }
 
     private void noThrowMethodCall()

@@ -13,19 +13,25 @@ public class ShouldMatchApprovedException : ShouldAssertException
 
         if (ShouldlyEnvironmentContext.IsWindows())
         {
-            msg += $@"
-copy /Y ""{receivedFile}"" ""{approvedFile}""";
+            msg += $"""
+
+                    copy /Y "{receivedFile}" "{approvedFile}"
+                    """;
         }
         else
         {
-            msg += $@"
-cp ""{receivedFile}"" ""{approvedFile}""";
+            msg += $"""
+
+                    cp "{receivedFile}" "{approvedFile}"
+                    """;
         }
 
-        msg += $@"
-----------------------------
+        msg += $"""
 
-{message}";
+                ----------------------------
+
+                {message}
+                """;
 
         return msg;
     }

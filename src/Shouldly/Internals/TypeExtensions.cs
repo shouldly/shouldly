@@ -2,14 +2,6 @@
 
 static class TypeExtensions
 {
-    public static bool IsValueType(this Type type) =>
-        type.GetTypeInfo().IsValueType;
-    public static bool IsGenericType(this Type type) =>
-        type.GetTypeInfo().IsGenericType;
-
-    public static bool IsDefined(this Type type, Type attributeType, bool inherit) =>
-        type.GetTypeInfo().IsDefined(attributeType, inherit);
-
     public static bool TryGetEnumerable(this object obj,  [NotNullWhen(true)] out IEnumerable? enumerable)
     {
         enumerable = obj as IEnumerable;
@@ -37,7 +29,7 @@ static class TypeExtensions
 
     private static bool IsMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
     {
-        if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+        if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
         {
             elementType = type.GetGenericArguments()[0];
             return true;
@@ -49,7 +41,7 @@ static class TypeExtensions
 
     private static bool IsReadOnlyMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
     {
-        if (type.IsGenericType() && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
+        if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
         {
             elementType = type.GetGenericArguments()[0];
             return true;

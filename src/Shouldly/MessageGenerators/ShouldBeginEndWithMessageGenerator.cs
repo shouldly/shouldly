@@ -28,13 +28,17 @@ class ShouldBeginEndWithMessageGenerator : ShouldlyMessageGenerator
         }
         else
         {
-            actual = $@" was
-{actualValue}";
+            actual = $"""
+                       was
+                      {actualValue}
+                      """;
         }
 
-        return $@"{codePart}
-    {context.ShouldMethod.PascalToSpaced()}
-{expected}
-    but{actual}";
+        return $"""
+                {codePart}
+                    {context.ShouldMethod.PascalToSpaced()}
+                {expected}
+                    but{actual}
+                """;
     }
 }

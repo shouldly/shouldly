@@ -60,16 +60,18 @@ public class NullScenario
             """,
 
             errorWithoutSource:
-            @"Comparing object equivalence, at path:
-<root>
+            """
+            Comparing object equivalence, at path:
+            <root>
+            
+                Expected value to be
+            null
+                but was
+            "Hello"
 
-    Expected value to be
-null
-    but was
-""Hello""
-
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

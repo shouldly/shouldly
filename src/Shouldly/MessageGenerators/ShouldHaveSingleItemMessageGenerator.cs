@@ -16,17 +16,21 @@ class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
         if (codePart != "null")
         {
             return
-                $@"{codePart}
-    {should} but had
-{count}
-    items and was
-{expected}";
+                $"""
+                 {codePart}
+                     {should} but had
+                 {count}
+                     items and was
+                 {expected}
+                 """;
         }
 
         return
-            $@"{expected}
-    {should} but had
-{count}
-    items";
+            $"""
+             {expected}
+                 {should} but had
+             {count}
+                 items
+             """;
     }
 }

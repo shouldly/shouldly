@@ -12,12 +12,14 @@ class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGen
         Debug.Assert(context.Key is object);
 
         const string format =
-            @"{0}
-    should not contain key
-{1}
-    with value
-{2}
-    {3}";
+            """
+            {0}
+                should not contain key
+            {1}
+                with value
+            {2}
+                {3}
+            """;
 
         var codePart = context.CodePart;
         var dictionary = (IDictionary)context.Actual;

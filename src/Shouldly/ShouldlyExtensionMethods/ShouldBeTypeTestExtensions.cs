@@ -15,7 +15,7 @@ public static partial class ShouldBeTestExtensions
     {
         actual.AssertAwesomely(v =>
         {
-            if (actual == null && !expected.IsValueType())
+            if (actual == null && !expected.IsValueType)
                 return true;
 
             return expected.IsInstanceOfType(v);

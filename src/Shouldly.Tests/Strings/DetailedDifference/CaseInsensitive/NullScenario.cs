@@ -10,17 +10,21 @@ public static class NullScenario
                 str.ShouldBe("null", StringCompareShould.IgnoreCase),
 
             errorWithSource:
-            @"str
-    should be with options: Ignoring case
-""null""
-    but was
-null",
+            """
+            str
+                should be with options: Ignoring case
+            "null"
+                but was
+            null
+            """,
 
             errorWithoutSource:
-            @"null
-    should be with options: Ignoring case
-""null""
-    but was not");
+            """
+            null
+                should be with options: Ignoring case
+            "null"
+                but was not
+            """);
     }
 
     [Fact]
@@ -31,16 +35,20 @@ null",
                 str.ShouldBe(null, StringCompareShould.IgnoreCase),
 
             errorWithSource:
-            @"str
-    should be with options: Ignoring case
-null
-    but was
-""null""",
+            """
+            str
+                should be with options: Ignoring case
+            null
+                but was
+            "null"
+            """,
 
             errorWithoutSource:
-            @"""null""
-    should be with options: Ignoring case
-null
-    but was not");
+            """
+            "null"
+                should be with options: Ignoring case
+            null
+                but was not
+            """);
     }
 }

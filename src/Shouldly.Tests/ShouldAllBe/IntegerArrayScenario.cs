@@ -9,26 +9,30 @@ public class IntegerArrayScenario
                 new[] { 1, 2, 3 }.ShouldAllBe(x => x < 2, "Some additional context"),
 
             errorWithSource:
-            @"new[] { 1, 2, 3 }
-    should satisfy the condition
-(x < 2)
-    but
-[2, 3]
-    do not
+            """
+            new[] { 1, 2, 3 }
+                should satisfy the condition
+            (x < 2)
+                but
+            [2, 3]
+                do not
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"[1, 2, 3]
-    should satisfy the condition
-(x < 2)
-    but
-[2, 3]
-    do not
+            """
+            [1, 2, 3]
+                should satisfy the condition
+            (x < 2)
+                but
+            [2, 3]
+                do not
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

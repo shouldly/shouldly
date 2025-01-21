@@ -12,16 +12,20 @@ public class MultiLineHavePropertyScenario
                     .HaveProperty(testDynamicObject, "foo", "Some additional context"),
 
             errorWithSource:
-            @"Dynamic object ""testDynamicObject"" should contain property ""foo"" but does not." + @"
+            """
+            Dynamic object "testDynamicObject" should contain property "foo" but does not.
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"Dynamic object should contain property ""foo"" but does not." + @"
+            """
+            Dynamic object should contain property "foo" but does not.
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]

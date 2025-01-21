@@ -20,16 +20,20 @@ class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
         if (context.IsNegatedAssertion)
         {
             return
-                $@"{codePart}
-    {should} {elementPhrase} satisfying the condition
-{expected}
-    but does{""}";
+                $"""
+                 {codePart}
+                     {should} {elementPhrase} satisfying the condition
+                 {expected}
+                     but does{""}
+                 """;
         }
 
         return
-            $@"{codePart}
-    {should} {elementPhrase} satisfying the condition
-{expected}
-    but does not";
+            $"""
+             {codePart}
+                 {should} {elementPhrase} satisfying the condition
+             {expected}
+                 but does not
+             """;
     }
 }

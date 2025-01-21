@@ -6,7 +6,7 @@ public class TaskScenario
     [UseCulture("en-US")]
     public void TaskScenarioShouldFail()
     {
-        var task = Task.Run(() => throw new RankException());
+        var task = Task.Run(() => throw new RankException(), TestContext.Current.CancellationToken);
 
         Verify.ShouldFail(() =>
                 task.ShouldNotThrow("Some additional context"),
@@ -39,7 +39,7 @@ public class TaskScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Run(() => { });
+        var task = Task.Run(() => { }, TestContext.Current.CancellationToken);
 
         task.ShouldNotThrow();
     }

@@ -10,11 +10,15 @@ class ShouldBeNullOrWhiteSpaceMessageGenerator : ShouldlyMessageGenerator
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
         var format = context.CodePartMatchesActual ?
-            @"{0}
-    {1}"
+            """
+            {0}
+                {1}
+            """
             :
-            @"{0} ({2})
-    {1}";
+            """
+            {0} ({2})
+                {1}
+            """;
 
         var codePart = context.CodePart;
 

@@ -71,7 +71,7 @@ public class FuncOfTaskOfStringThrowsDifferentExceptionScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Run(() => throw new InvalidOperationException());
+        var task = Task.Run(() => throw new InvalidOperationException(), TestContext.Current.CancellationToken);
 
         var ex = task.ShouldThrow<InvalidOperationException>();
 
@@ -82,7 +82,7 @@ public class FuncOfTaskOfStringThrowsDifferentExceptionScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Run(() => throw new InvalidOperationException());
+        var task = Task.Run(() => throw new InvalidOperationException(), TestContext.Current.CancellationToken);
 
         var ex = task.ShouldThrow(typeof(InvalidOperationException));
 

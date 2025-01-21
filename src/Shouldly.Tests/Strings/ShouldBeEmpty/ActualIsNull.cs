@@ -11,18 +11,22 @@ public class ActualIsNull
                 str.ShouldBeEmpty("Some additional context"),
 
             errorWithSource:
-            @"str
-    should be empty but was
-null
+            """
+            str
+                should be empty but was
+            null
 
-Additional Info:
-    Some additional context",
+            Additional Info:
+                Some additional context
+            """,
 
             errorWithoutSource:
-            @"null
-    should be empty but was not empty
+            """
+            null
+                should be empty but was not empty
 
-Additional Info:
-    Some additional context");
+            Additional Info:
+                Some additional context
+            """);
     }
 }
