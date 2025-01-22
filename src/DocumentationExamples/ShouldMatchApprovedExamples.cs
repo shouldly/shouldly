@@ -1,13 +1,11 @@
-﻿using Shouldly.Tests.ConventionTests;
-
-public class ShouldMatchApprovedExamples
+﻿public class ShouldMatchApprovedExamples
 {
     ITestOutputHelper _testOutputHelper;
 
     public ShouldMatchApprovedExamples(ITestOutputHelper testOutputHelper) =>
         _testOutputHelper = testOutputHelper;
 
-    [IgnoreOnAppVeyorLinuxFact]
+    [Fact]
     public void ApprovedFileDoesNotExist()
     {
         DocExampleWriter.Document(
@@ -24,7 +22,7 @@ public class ShouldMatchApprovedExamples
             });
     }
 
-    [IgnoreOnAppVeyorLinuxFact]
+    [Fact]
     public void ApprovedFileIsDifferent()
     {
         DocExampleWriter.Document(
