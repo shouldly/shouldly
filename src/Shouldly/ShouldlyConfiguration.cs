@@ -41,6 +41,7 @@ public static partial class ShouldlyConfiguration
             return true;
         }
 #if NET8_0_OR_GREATER
+        // For Native AOT let's disable source in errors until we have a better solution
         return !RuntimeFeature.IsDynamicCodeSupported;
 #else
         return false;
