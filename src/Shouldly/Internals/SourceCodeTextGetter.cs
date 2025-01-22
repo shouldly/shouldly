@@ -11,17 +11,17 @@ class ActualCodeTextGetter : ICodeTextGetter
 
     public string? GetCodeText(object? actual, StackTrace? stackTrace)
     {
-        if (ShouldlyConfiguration.IsSourceDisabledInErrors())
-            return actual.ToStringAwesomely();
-        
-        try
+        if (!ShouldlyConfiguration.IsSourceDisabledInErrors())
         {
-            ParseStackTrace(stackTrace);
-        }
-        catch
-        {
-            // ignored
-            // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
+            try
+            {
+                ParseStackTrace(stackTrace);
+            }
+            catch
+            {
+                // ignored
+                // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
+            }
         }
 
         return GetCodePart() ?? actual.ToStringAwesomely();
@@ -60,28 +60,26 @@ class ActualCodeTextGetter : ICodeTextGetter
 
     private string? GetCodePart()
     {
+        if (!_determinedOriginatingFrame) return null;
+        
         string? codePart = null;
+        var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
 
-        if (_determinedOriginatingFrame)
+        var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
+        if (indexOf > 0)
         {
-            var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
+            codePart = codeLines[..(indexOf - 1)].Trim();
 
-            var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
-            if (indexOf > 0)
+            // When the static method is used instead of the extension method,
+            // the code part will be "Should".
+            // Using EndsWith to cater for being inside a lambda
+            if (codePart.EndsWith("Should", StringComparison.Ordinal))
             {
-                codePart = codeLines[..(indexOf - 1)].Trim();
-
-                // When the static method is used instead of the extension method,
-                // the code part will be "Should".
-                // Using EndsWith to cater for being inside a lambda
-                if (codePart.EndsWith("Should", StringComparison.Ordinal))
-                {
-                    codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
-                }
-                else
-                {
-                    codePart = codePart.RemoveVariableAssignment().RemoveBlock();
-                }
+                codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
+            }
+            else
+            {
+                codePart = codePart.RemoveVariableAssignment().RemoveBlock();
             }
         }
 
