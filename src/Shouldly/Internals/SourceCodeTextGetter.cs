@@ -20,7 +20,8 @@ class ActualCodeTextGetter : ICodeTextGetter
         }
         catch
         {
-            // ignored - If we fail to parse the stack trace, we'll just use a placeholder
+            // ignored
+            // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
         }
 
         return GetCodePart() ?? actual.ToStringAwesomely();
