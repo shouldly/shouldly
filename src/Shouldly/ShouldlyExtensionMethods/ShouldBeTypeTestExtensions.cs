@@ -15,9 +15,12 @@ public static partial class ShouldBeTestExtensions
     {
         actual.AssertAwesomely(v =>
         {
-            if (actual == null && !expected.IsValueType)
-                return true;
-
+            if (v == null)
+            {
+                return !expected.IsValueType ||
+                       (expected.IsGenericType && expected.GetGenericTypeDefinition() == typeof(Nullable<>));
+            }
+            
             return expected.IsInstanceOfType(v);
         }, actual, expected, customMessage);
     }
