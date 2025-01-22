@@ -1,25 +1,31 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel;
+using JetBrains.Annotations;
 
 namespace Shouldly;
 
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldSatisfyAllConditionsTestExtensions
 {
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
     {
         ShouldSatisfyAllConditions(actual, (string?)null, CreateParameterlessActions(actual, conditions));
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
     {
         ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
     {
         ShouldSatisfyAllConditions(actual, (string?)null, conditions);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
     {
         var errorMessages = new List<Exception>();

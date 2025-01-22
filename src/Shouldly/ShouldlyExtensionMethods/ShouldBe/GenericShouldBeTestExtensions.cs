@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using JetBrains.Annotations;
 using Shouldly.Internals;
 
@@ -5,8 +6,10 @@ namespace Shouldly;
 
 [DebuggerStepThrough]
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldBeTestExtensions
 {
+    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this T? actual,
@@ -19,6 +22,7 @@ public static partial class ShouldBeTestExtensions
             actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this T? actual,
         [NotNullIfNotNull(nameof(actual))] T? expected,
@@ -28,18 +32,21 @@ public static partial class ShouldBeTestExtensions
         actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null,expected:null => halt")]
     public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null)
     {
         actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null,expected:null => halt")]
     public static void ShouldNotBe<T>(this T? actual, T? expected, IEqualityComparer<T> comparer, string? customMessage = null)
     {
         actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
@@ -48,6 +55,7 @@ public static partial class ShouldBeTestExtensions
         ShouldBe(actual, expected, ignoreOrder, (string?)null);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
@@ -74,6 +82,7 @@ public static partial class ShouldBeTestExtensions
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
@@ -91,11 +100,13 @@ public static partial class ShouldBeTestExtensions
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, string? customMessage = null)
     {
         actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeSameAs(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
@@ -104,6 +115,7 @@ public static partial class ShouldBeTestExtensions
         actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeSameAs(this object? actual, object? expected, string? customMessage = null)
     {
         actual.AssertAwesomely(v => !Is.Same(v, expected), actual, expected, customMessage);

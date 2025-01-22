@@ -5,35 +5,42 @@ namespace Shouldly;
 public static partial class Should
 {
     /*** Should.Throw(Task) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>(Task actual, string? customMessage = null)
         where TException : Exception
     {
         return Throw<TException>(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw(Task actual, Type exceptionType, string? customMessage = null) =>
         ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
 
     /*** Should.Throw(Func<Task>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<Task> actual, string? customMessage = null)
         where TException : Exception =>
         Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
 
     /*** Should.Throw(Func<Task>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType, string? customMessage = null) => ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
 
     /*** Should.Throw(Task, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null)
         where TException : Exception =>
         Throw<TException>(() => actual, timeoutAfter, customMessage);
 
     /*** Should.Throw(Task, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType, string? customMessage = null)
     {
         return ThrowInternal(() => actual, timeoutAfter, customMessage, exceptionType);
     }
 
     /*** Should.Throw(Func<Task>, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null)
         where TException : Exception =>
         ThrowInternal<TException>(actual, timeoutAfter, customMessage);
@@ -66,9 +73,11 @@ public static partial class Should
     }
 
     /*** Should.Throw(Func<Task>, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType) =>
         ThrowInternal(actual, timeoutAfter, null, exceptionType);
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType) =>
         ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
 
@@ -102,30 +111,35 @@ public static partial class Should
     }
 
     /*** Should.NotThrow(Task) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow(Task action, string? customMessage = null)
     {
         NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
     /*** Should.NotThrow(Task<T>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T NotThrow<T>(Task<T> action, string? customMessage = null)
     {
         return NotThrow(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
     /*** Should.NotThrow(Func<Task>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow([InstantHandle] Func<Task> action, string? customMessage = null)
     {
         NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
     /*** Should.NotThrow(Task, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow(Task action, TimeSpan timeoutAfter, string? customMessage = null)
     {
         NotThrowInternal(() => action, timeoutAfter, customMessage);
     }
 
     /*** Should.NotThrow(Func<Task>, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null)
     {
         NotThrowInternal(action, timeoutAfter, customMessage);
@@ -153,14 +167,17 @@ public static partial class Should
     }
 
     /*** Should.NotThrow(Func<Task<T>>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string? customMessage = null) =>
         NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
 
     /*** Should.NotThrow(Task<T>, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, string? customMessage = null) =>
         NotThrow(() => action, timeoutAfter, customMessage);
 
     /*** Should.NotThrow(Func<Task<T>>, TimeSpan) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null) =>
         NotThrowInternal(action, timeoutAfter, customMessage);
 

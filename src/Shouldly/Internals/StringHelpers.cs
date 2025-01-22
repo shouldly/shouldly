@@ -160,9 +160,6 @@ static class StringHelpers
         return c.ToString();
     }
 
-    internal static bool IsNullOrWhiteSpace(this string? s) =>
-        string.IsNullOrWhiteSpace(s);
-
     internal static string? NormalizeLineEndings(this string? s) =>
         s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
 

@@ -42,6 +42,18 @@ public class ShouldlyConventions
     {
         Convention.Is(new ShouldThrowMatchesExtensionsConvention(), _shouldlyMethodClasses);
     }
+
+    [Fact]
+    public void MethodsShouldNotBeInlined()
+    {
+        Convention.Is(new MethodsShouldNotBeInlinedConvention(), _shouldlyMethodClasses);
+    }
+
+    [Fact]
+    public void ExtensionClassesShouldNotBeBrowsable()
+    {
+        Convention.Is(new ExtensionMethodsShouldNotBeBrowsableConvention(), _shouldlyMethodClasses);
+    }
 }
 
 public static class TestWithMissingOverloads

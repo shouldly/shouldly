@@ -1,14 +1,17 @@
+using System.ComponentModel;
 using Shouldly.Internals.AssertionFactories;
 
 namespace Shouldly;
 
 [DebuggerStepThrough]
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldBeStringTestExtensions
 {
     /// <summary>
     /// Perform a string comparison with sensitivity options
     /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,
         [NotNullIfNotNull(nameof(actual))] string? expected,
@@ -21,6 +24,7 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Perform a string comparison with sensitivity options
     /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,
         [NotNullIfNotNull(nameof(actual))] string? expected,
@@ -29,6 +33,7 @@ public static partial class ShouldBeStringTestExtensions
         ShouldBe(actual, expected, (string?)null, options);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,
         [NotNullIfNotNull(nameof(actual))] string? expected,

@@ -5,20 +5,21 @@ namespace Shouldly;
 public static partial class Should
 {
     /*** Should.ThrowAsync(Task) ***/
-
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
         where TException : Exception
     {
         return ThrowAsync<TException>(() => task, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null)
     {
         return ThrowAsync(() => task, exceptionType, customMessage);
     }
 
     /*** Should.ThrowAsync(Func<Task>) ***/
-
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null)
         where TException : Exception
     {
@@ -67,6 +68,7 @@ public static partial class Should
     }
 
     /*** Should.ThrowAsync(Func<Task>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType, string? customMessage = null)
     {
         var stackTrace = new StackTrace(true);
@@ -91,12 +93,14 @@ public static partial class Should
     }
 
     /*** Should.NotThrowAsync(Task) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task NotThrowAsync(Task task, string? customMessage = null)
     {
         return NotThrowAsyncInternal(() => task, customMessage);
     }
 
     /*** Should.NotThrowAsync(Func<Task>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null) =>
         NotThrowAsyncInternal(actual, customMessage);
 

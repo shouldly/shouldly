@@ -1,8 +1,12 @@
-﻿namespace Shouldly.ShouldlyExtensionMethods;
+﻿using System.ComponentModel;
+
+namespace Shouldly.ShouldlyExtensionMethods;
 
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldHaveEnumExtensions
 {
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
     {
         CheckEnumHasFlagAttribute(actual);
@@ -12,6 +16,7 @@ public static partial class ShouldHaveEnumExtensions
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
     {
         CheckEnumHasFlagAttribute(actual);

@@ -1,36 +1,43 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel;
+using JetBrains.Annotations;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly;
 
 [DebuggerStepThrough]
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldBeEnumerableTestExtensions
 {
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
     {
         if (!actual.Contains(expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
     {
         if (!actual.Contains(expected, comparer))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
     {
         if (actual.Contains(expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
     {
         if (actual.Contains(expected, comparer))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
@@ -41,6 +48,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
@@ -48,6 +56,7 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
@@ -55,6 +64,7 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
@@ -63,18 +73,21 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
     {
         if (actual == null || actual.Any())
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
     {
         if (actual == null || !actual.Any())
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ShouldHaveSingleItem<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
     {
         if (actual == null || actual.Count() != 1)
@@ -83,18 +96,21 @@ public static partial class ShouldBeEnumerableTestExtensions
         return actual.Single();
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null)
     {
         if (actual.Equals(expected))
@@ -105,6 +121,7 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string? customMessage = null)
     {
         if (actual.Equals(expected))
@@ -115,6 +132,7 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null)
     {
         var duplicates = GetDuplicates(actual);
@@ -122,11 +140,13 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer)
     {
         ShouldBeUnique(actual, comparer, null);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage)
     {
         var duplicates = GetDuplicates(actual, comparer);
@@ -134,6 +154,7 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, string? customMessage = null)
     {
         actual.AssertAwesomelyWithCaseSensitivity(
@@ -144,16 +165,19 @@ public static partial class ShouldBeEnumerableTestExtensions
             customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, string? customMessage = null)
     {
         ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, string? customMessage = null)
     {
         ShouldBeInOrder(actual, expectedSortDirection, (IComparer<T>?)null, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T>? customComparer, string? customMessage = null)
     {
         if (customComparer == null)
@@ -200,11 +224,13 @@ public static partial class ShouldBeEnumerableTestExtensions
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, params Type[] expected)
     {
         ShouldBeOfTypes(actual, expected, (string?)null);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage)
     {
         actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, customMessage);

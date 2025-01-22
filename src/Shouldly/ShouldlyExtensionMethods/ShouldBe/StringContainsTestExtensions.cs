@@ -7,6 +7,7 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
     /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage = null)
     {
         var strippedActual = actual.Quotify().StripWhitespace();
@@ -15,6 +16,7 @@ public static partial class ShouldBeStringTestExtensions
         strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
     {
         actual.AssertAwesomely(
@@ -25,6 +27,7 @@ public static partial class ShouldBeStringTestExtensions
             customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
     {
         actual.AssertAwesomely(v =>
@@ -34,11 +37,13 @@ public static partial class ShouldBeStringTestExtensions
         }, actual.Clip(100, "..."), expected, caseSensitivity, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null)
     {
         actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null)
     {
         actual.AssertAwesomely(v => !Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);

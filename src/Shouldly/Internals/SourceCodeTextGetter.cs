@@ -13,7 +13,16 @@ class ActualCodeTextGetter : ICodeTextGetter
     {
         if (ShouldlyConfiguration.IsSourceDisabledInErrors())
             return actual.ToStringAwesomely();
-        ParseStackTrace(stackTrace);
+        
+        try
+        {
+            ParseStackTrace(stackTrace);
+        }
+        catch
+        {
+            // ignored - If we fail to parse the stack trace, we'll just use a placeholder
+        }
+
         return GetCodePart();
     }
 
@@ -42,16 +51,15 @@ class ActualCodeTextGetter : ICodeTextGetter
 
         var fileName = originatingFrame.frame.GetFileName();
         fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
-        _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
         _shouldMethod = shouldlyFrame.method.Name;
         FileName = fileName;
         LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
+        _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
     }
 
     private string GetCodePart()
     {
-        var codePart = "Shouldly uses your source code to generate its great error messages, build your test project with full debug information to get better error messages" +
-                       "\nThe provided expression";
+        var codePart = "The provided expression";
 
         if (_determinedOriginatingFrame)
         {
@@ -110,9 +118,9 @@ class ActualCodeTextGetter : ICodeTextGetter
                 continue;
             }
 
-            if (parentheses.ContainsKey(currentChar))
+            if (parentheses.TryGetValue(currentChar, out var parenthesis))
             {
-                openParentheses.Add(parentheses[currentChar]);
+                openParentheses.Add(parenthesis);
             }
             else if (openParentheses.Count > 0 && openParentheses.Last() == currentChar)
             {
