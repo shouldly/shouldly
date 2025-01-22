@@ -10,57 +10,77 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
     {
         if (!actual.Contains(expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
-    public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
+    public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer,
+        string? customMessage = null)
     {
         if (!actual.Contains(expected, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
     {
         if (actual.Contains(expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
-    public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
+    public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer,
+        string? customMessage = null)
     {
         if (actual.Contains(expected, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
-    public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
+    public static IList<T> ShouldContain<T>(this IEnumerable<T> actual,
+        [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
-        var actualCount = actual.Count(condition);
-        if (actualCount != expectedCount)
+        var matchingElements = actual.Where(condition).ToList();
+        if (matchingElements.Count != expectedCount)
         {
-            throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage)
+                    .ToString());
         }
+
+        return matchingElements;
     }
 
-    public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
+    public static IList<T> ShouldContain<T>(this IEnumerable<T> actual,
+        [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
-        if (!actual.Any(condition))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+        var matchingElements = actual.Where(condition).ToList();
+        if (matchingElements.Count == 0)
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+        return matchingElements;
     }
 
-    public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
+    public static void ShouldNotContain<T>(this IEnumerable<T> actual,
+        [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
         if (actual.Any(condition))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
     }
 
-    public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
+    public static void ShouldAllBe<T>(this IEnumerable<T> actual,
+        [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
     {
         var condition = elementPredicate.Compile();
         var actualResults = actual.Where(part => !condition(part));
         if (actualResults.Any())
-            throw new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual,
+                    customMessage).ToString());
     }
 
     public static void ShouldBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
@@ -83,43 +103,52 @@ public static partial class ShouldBeEnumerableTestExtensions
         return actual.Single();
     }
 
-    public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null)
+    public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance,
+        string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
     }
 
-    public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, string? customMessage = null)
+    public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance,
+        string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
     }
 
-    public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null)
+    public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected,
+        string? customMessage = null)
     {
         if (actual.Equals(expected))
             return;
 
         var missing = actual.Except(expected);
         if (missing.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
-    public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string? customMessage = null)
+    public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected,
+        IEqualityComparer<T> comparer, string? customMessage = null)
     {
         if (actual.Equals(expected))
             return;
 
         var missing = actual.Except(expected, comparer);
         if (missing.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
 
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null)
     {
         var duplicates = GetDuplicates(actual);
         if (duplicates.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage)
+                .ToString());
     }
 
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer)
@@ -127,14 +156,17 @@ public static partial class ShouldBeEnumerableTestExtensions
         ShouldBeUnique(actual, comparer, null);
     }
 
-    public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage)
+    public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer,
+        string? customMessage)
     {
         var duplicates = GetDuplicates(actual, comparer);
         if (duplicates.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage)
+                .ToString());
     }
 
-    public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, string? customMessage = null)
+    public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity,
+        string? customMessage = null)
     {
         actual.AssertAwesomelyWithCaseSensitivity(
             v => Is.EnumerableStringEqualWithCaseSensitivity(v, expected, caseSensitivity),
@@ -149,21 +181,25 @@ public static partial class ShouldBeEnumerableTestExtensions
         ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
     }
 
-    public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, string? customMessage = null)
+    public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection,
+        string? customMessage = null)
     {
         ShouldBeInOrder(actual, expectedSortDirection, (IComparer<T>?)null, customMessage);
     }
 
-    public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection, IComparer<T>? customComparer, string? customMessage = null)
+    public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, SortDirection expectedSortDirection,
+        IComparer<T>? customComparer, string? customMessage = null)
     {
         if (customComparer == null)
             customComparer = Comparer<T>.Default;
 
         var isOutOfOrder = expectedSortDirection == SortDirection.Ascending
-            ? (Func<int, bool>)(r => r > 0) // If 'ascending', the previous value should never be greater than the current value
-            : r => r < 0;  // If 'descending', the previous value should never be less than the current value
+            ? (Func<int, bool>)(r =>
+                r > 0) // If 'ascending', the previous value should never be greater than the current value
+            : r => r < 0; // If 'descending', the previous value should never be less than the current value
 
-        ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
+        ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)),
+            customMessage);
     }
 
     private static HashSet<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
@@ -182,7 +218,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         return duplicates;
     }
 
-    private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, string? customMessage)
+    private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection,
+        Func<T, T, bool> isOutOfOrder, string? customMessage)
     {
         var previousItem = default(T);
         var currentIndex = -1;
@@ -193,7 +230,8 @@ public static partial class ShouldBeEnumerableTestExtensions
                 && isOutOfOrder(previousItem!, currentItem))
             {
                 throw new ShouldAssertException(
-                    new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage).ToString());
+                    new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem,
+                        customMessage).ToString());
             }
 
             previousItem = currentItem;
@@ -208,5 +246,17 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage)
     {
         actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, customMessage);
+    }
+
+    public static T ShouldContainSingle<T>(this IEnumerable<T> actual,
+        [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null)
+    {
+        var condition = elementPredicate.Compile();
+        var matched = actual.SingleOrDefault(condition);
+        if (matched is null)
+            throw new ShouldAssertException(
+                new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+
+        return matched;
     }
 }
