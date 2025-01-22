@@ -8,7 +8,7 @@ class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGen
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        Debug.Assert(context.Actual is IDictionary);
+        Debug.Assert(context.Actual is IDictionary || context.Actual is IEnumerable);
         Debug.Assert(context.Key is object);
 
         const string format =
@@ -22,7 +22,7 @@ class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGen
             """;
 
         var codePart = context.CodePart;
-        var dictionary = (IDictionary)context.Actual;
+        var dictionary = context.Actual as IDictionary ?? DictionaryShouldContainKeyAndValueMessageGenerator.Convert((IEnumerable)context.Actual);
         var keyExists = dictionary.Contains(context.Key);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();

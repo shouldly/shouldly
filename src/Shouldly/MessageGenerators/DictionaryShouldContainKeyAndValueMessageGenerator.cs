@@ -9,7 +9,7 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        Debug.Assert(context.Actual is IDictionary);
+        Debug.Assert(context.Actual is IDictionary || context.Actual is IEnumerable);
         Debug.Assert(context.Key is object);
 
         const string format =
@@ -23,7 +23,7 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             """;
 
         var codePart = context.CodePart;
-        var dictionary = (IDictionary)context.Actual;
+        var dictionary = context.Actual as IDictionary ?? Convert((IEnumerable)context.Actual);
         var keyExists = dictionary.Contains(context.Key);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
@@ -40,5 +40,21 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
         }
 
         return string.Format(format, codePart, keyValue, expected, "    but the key does not exist");
+    }
+
+    internal static Dictionary<object, object?> Convert(IEnumerable list)
+    {
+        var result = new Dictionary<object, object?>();
+        PropertyInfo? keyProperty = null;
+        PropertyInfo? valueProperty = null;
+
+        foreach (var entry in list)
+        {
+            var key = (keyProperty ?? entry.GetType().GetProperty("Key"))?.GetValue(entry, null);
+            var value = (valueProperty ?? entry.GetType().GetProperty("Value"))?.GetValue(entry, null);
+            result.Add(key!, value);
+        }
+
+        return result;
     }
 }
