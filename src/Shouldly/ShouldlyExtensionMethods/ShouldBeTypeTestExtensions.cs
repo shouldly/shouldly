@@ -5,7 +5,7 @@ namespace Shouldly;
 public static partial class ShouldBeTestExtensions
 {
     [MethodImpl(MethodImplOptions.NoInlining)]
-    [return: NotNullIfNotNull("actual")] 
+    [return: NotNullIfNotNull(nameof(actual))] 
     public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
     {
         ShouldBeAssignableTo(actual, typeof(T), customMessage);

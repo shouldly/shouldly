@@ -34,8 +34,18 @@ public static partial class ShouldlyConfiguration
         return new EnableSourceInErrorsDisposable();
     }
 
-    public static bool IsSourceDisabledInErrors() =>
-        (bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
+    public static bool IsSourceDisabledInErrors()
+    {
+        if ((bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true)
+        {
+            return true;
+        }
+#if NET8_0_OR_GREATER
+        return !RuntimeFeature.IsDynamicCodeSupported;
+#else
+        return false;
+#endif
+    }
 
     private class EnableSourceInErrorsDisposable : IDisposable
     {

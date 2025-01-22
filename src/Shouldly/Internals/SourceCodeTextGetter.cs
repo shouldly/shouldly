@@ -23,7 +23,7 @@ class ActualCodeTextGetter : ICodeTextGetter
             // ignored - If we fail to parse the stack trace, we'll just use a placeholder
         }
 
-        return GetCodePart();
+        return GetCodePart() ?? actual.ToStringAwesomely();
     }
 
     private void ParseStackTrace(StackTrace? stackTrace)
@@ -57,9 +57,9 @@ class ActualCodeTextGetter : ICodeTextGetter
         _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
     }
 
-    private string GetCodePart()
+    private string? GetCodePart()
     {
-        var codePart = "The provided expression";
+        string? codePart = null;
 
         if (_determinedOriginatingFrame)
         {
@@ -67,18 +67,20 @@ class ActualCodeTextGetter : ICodeTextGetter
 
             var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
             if (indexOf > 0)
+            {
                 codePart = codeLines[..(indexOf - 1)].Trim();
 
-            // When the static method is used instead of the extension method,
-            // the code part will be "Should".
-            // Using EndsWith to cater for being inside a lambda
-            if (codePart.EndsWith("Should", StringComparison.Ordinal))
-            {
-                codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
-            }
-            else
-            {
-                codePart = codePart.RemoveVariableAssignment().RemoveBlock();
+                // When the static method is used instead of the extension method,
+                // the code part will be "Should".
+                // Using EndsWith to cater for being inside a lambda
+                if (codePart.EndsWith("Should", StringComparison.Ordinal))
+                {
+                    codePart = GetCodePartFromParameter(indexOf, codeLines, codePart);
+                }
+                else
+                {
+                    codePart = codePart.RemoveVariableAssignment().RemoveBlock();
+                }
             }
         }
 
