@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 namespace Shouldly;
 
 [ShouldlyMethods]
-[EditorBrowsable]
 public static partial class DynamicShould
 {
     [MethodImpl(MethodImplOptions.NoInlining)]
