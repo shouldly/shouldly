@@ -37,7 +37,7 @@ public class ExtensionMethodsShouldNotBeBrowsableConvention : IConvention<Types>
         }
         
         result.Is(
-            $"The following Shouldly extension classes are missing the EditorBrowsable(EditorBrowsableState.Never) attribute",
+            "The following Shouldly extension classes are missing the EditorBrowsable(EditorBrowsableState.Never) attribute",
             failedClasses);
     }
 

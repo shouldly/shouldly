@@ -27,7 +27,7 @@ public class MethodsShouldNotBeInlinedConvention : IConvention<Types>
         }
         
         result.Is(
-            $"The following Shouldly methods are missing the NoInlining attribute",
+            "The following Shouldly methods are missing the NoInlining attribute",
             failedMethods);
     }
 
