@@ -1,4 +1,5 @@
-﻿using DiffEngine;
+﻿using System.ComponentModel;
+using DiffEngine;
 using Shouldly.Configuration;
 using Shouldly.Internals;
 using Shouldly.Internals.AssertionFactories;
@@ -6,8 +7,10 @@ using Shouldly.Internals.AssertionFactories;
 namespace Shouldly;
 
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldMatchApprovedTestExtensions
 {
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null)
     {
         var codeGetter = new ActualCodeTextGetter();

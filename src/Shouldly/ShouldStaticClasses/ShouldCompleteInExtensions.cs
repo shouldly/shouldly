@@ -11,6 +11,7 @@ public static partial class Should
     /// <param name="timeout">The maximum time allowed for the action to complete.</param>
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <exception cref="ShouldCompleteInException">Thrown when the action does not complete within the specified timeout.</exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage = null)
     {
         var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
@@ -27,6 +28,7 @@ public static partial class Should
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <returns>The result of the function if it completes within the timeout.</returns>
     /// <exception cref="ShouldCompleteInException">Thrown when the function does not complete within the specified timeout.</exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, string? customMessage = null)
     {
         var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
@@ -42,6 +44,7 @@ public static partial class Should
     /// <param name="timeout">The maximum time allowed for the function to complete.</param>
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <exception cref="ShouldCompleteInException">Thrown when the function does not complete within the specified timeout.</exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null)
     {
         CompleteIn(actual(), timeout, customMessage, "Task");
@@ -56,6 +59,7 @@ public static partial class Should
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <returns>The result of the asynchronous function if it completes within the timeout.</returns>
     /// <exception cref="ShouldCompleteInException">Thrown when the function does not complete within the specified timeout.</exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null)
     {
         var task = actual();
@@ -70,6 +74,7 @@ public static partial class Should
     /// <param name="timeout">The maximum time allowed for the task to complete.</param>
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <exception cref="ShouldCompleteInException">Thrown when the task does not complete within the specified timeout.</exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null)
     {
         CompleteIn(actual, timeout, customMessage, "Task");
@@ -84,6 +89,7 @@ public static partial class Should
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <returns>The result of the task if it completes within the timeout.</returns>
     /// <exception cref="ShouldCompleteInException">Thrown when the task does not complete within the specified timeout.</exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null)
     {
         CompleteIn(actual, timeout, customMessage, "Task");

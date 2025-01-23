@@ -1,10 +1,14 @@
-﻿namespace Shouldly;
+﻿using System.ComponentModel;
+
+namespace Shouldly;
 
 [ShouldlyMethods]
+[EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ObjectGraphTestExtensions
 {
     private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,

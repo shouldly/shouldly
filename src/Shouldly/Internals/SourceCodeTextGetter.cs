@@ -11,10 +11,20 @@ class ActualCodeTextGetter : ICodeTextGetter
 
     public string? GetCodeText(object? actual, StackTrace? stackTrace)
     {
-        if (ShouldlyConfiguration.IsSourceDisabledInErrors())
-            return actual.ToStringAwesomely();
-        ParseStackTrace(stackTrace);
-        return GetCodePart();
+        if (!ShouldlyConfiguration.IsSourceDisabledInErrors())
+        {
+            try
+            {
+                ParseStackTrace(stackTrace);
+            }
+            catch
+            {
+                // ignored
+                // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
+            }
+        }
+
+        return GetCodePart() ?? actual.ToStringAwesomely();
     }
 
     private void ParseStackTrace(StackTrace? stackTrace)
@@ -42,24 +52,23 @@ class ActualCodeTextGetter : ICodeTextGetter
 
         var fileName = originatingFrame.frame.GetFileName();
         fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
-        _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
         _shouldMethod = shouldlyFrame.method.Name;
         FileName = fileName;
         LineNumber = originatingFrame.frame.GetFileLineNumber() - 1;
+        _determinedOriginatingFrame = fileName != null && File.Exists(fileName);
     }
 
-    private string GetCodePart()
+    private string? GetCodePart()
     {
-        var codePart = "Shouldly uses your source code to generate its great error messages, build your test project with full debug information to get better error messages" +
-                       "\nThe provided expression";
+        if (!_determinedOriginatingFrame) return null;
+        
+        string? codePart = null;
+        var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
 
-        if (_determinedOriginatingFrame)
+        var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
+        if (indexOf > 0)
         {
-            var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
-
-            var indexOf = codeLines.IndexOf(_shouldMethod!, StringComparison.Ordinal);
-            if (indexOf > 0)
-                codePart = codeLines[..(indexOf - 1)].Trim();
+            codePart = codeLines[..(indexOf - 1)].Trim();
 
             // When the static method is used instead of the extension method,
             // the code part will be "Should".
@@ -110,9 +119,9 @@ class ActualCodeTextGetter : ICodeTextGetter
                 continue;
             }
 
-            if (parentheses.ContainsKey(currentChar))
+            if (parentheses.TryGetValue(currentChar, out var parenthesis))
             {
-                openParentheses.Add(parentheses[currentChar]);
+                openParentheses.Add(parenthesis);
             }
             else if (openParentheses.Count > 0 && openParentheses.Last() == currentChar)
             {

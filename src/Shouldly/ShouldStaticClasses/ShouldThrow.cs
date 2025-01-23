@@ -7,6 +7,7 @@ namespace Shouldly;
 public static partial class Should
 {
     /*** Should.Throw(Action) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
         where TException : Exception =>
         ThrowInternal<TException>(actual, customMessage);
@@ -34,6 +35,7 @@ public static partial class Should
     }
 
     /*** Should.Throw(Action) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Action actual, Type exceptionType, string? customMessage = null) =>
         ThrowInternal(actual, customMessage, exceptionType);
 
@@ -58,6 +60,7 @@ public static partial class Should
     }
 
     /*** Should.Throw(Func<T>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null)
         where TException : Exception =>
         ThrowInternal<TException>(actual, customMessage);
@@ -85,9 +88,11 @@ public static partial class Should
     }
 
     /*** Should.Throw(Func<T>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType) =>
         ThrowInternal(actual, null, exceptionType);
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType) =>
         ThrowInternal(actual, customMessage, exceptionType);
 
@@ -112,6 +117,7 @@ public static partial class Should
     }
 
     /*** Should.NotThrow(Action) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow([InstantHandle] Action action, string? customMessage = null)
     {
         NotThrowInternal(action, customMessage);
@@ -131,6 +137,7 @@ public static partial class Should
     }
 
     /*** Should.NotThrow(Func<T>) ***/
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null) =>
         NotThrowInternal(action, customMessage);
 

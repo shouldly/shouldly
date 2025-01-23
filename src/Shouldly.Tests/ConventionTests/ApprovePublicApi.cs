@@ -6,7 +6,7 @@ namespace Shouldly.Tests.ConventionTests
 {
     public class ApprovePublicApi
     {
-        [IgnoreOnAppVeyorLinuxFact]
+        [Fact]
         public void ShouldlyApi()
         {
             var assembly = typeof(Should).Assembly;
