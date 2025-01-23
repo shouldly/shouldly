@@ -3,7 +3,7 @@
   <PropertyGroup>
     <LangVersion>13</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>4.2.1</Version>
+    <Version>4.3.0</Version>
     <AnalysisLevel>5</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
