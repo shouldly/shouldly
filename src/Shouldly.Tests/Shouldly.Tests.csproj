@@ -13,7 +13,7 @@
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
     <PackageReference Include="xunit.v3" Version="1.0.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" PrivateAssets="all" />
-    <PackageReference Include="PublicApiGenerator" Version="11.3.0" />
+    <PackageReference Include="PublicApiGenerator" Version="11.4.1" />
     <PackageReference Include="System.Memory" Version="4.6.0" />
     <PackageReference Include="System.Collections.Immutable" Version="9.0.1" />
     <PackageReference Include="Polyfill" Version="7.12.0" PrivateAssets="all" />
