@@ -154,7 +154,9 @@ namespace Shouldly
     public static class ShouldBeBooleanExtensions
     {
         public static void ShouldBeFalse([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(true)] this bool actual, string? customMessage = null) { }
+        public static void ShouldBeFalse([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(true)] this bool? actual, string? customMessage = null) { }
         public static void ShouldBeTrue([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(false)] this bool actual, string? customMessage = null) { }
+        public static void ShouldBeTrue([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(false)] this bool? actual, string? customMessage = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeDecoratedWithExtensions
