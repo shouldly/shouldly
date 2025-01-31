@@ -65,6 +65,11 @@ namespace Shouldly
     {
         public ExpectedShouldlyMessage(object? expected, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
+    [Shouldly.ShouldlyMethods]
+    public static class GuidShouldBeTestExtensions
+    {
+        public static void ShouldBeEmpty(this System.Guid actual, string? customMessage = null) { }
+    }
     public interface IShouldlyAssertionContext
     {
         object? Actual { get; set; }
