@@ -1,6 +1,4 @@
-using Shouldly.Internals;
-
-namespace Shouldly.Configuration;
+namespace Shouldly;
 
 public class TestMethodInfo
 {
