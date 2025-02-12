@@ -2,6 +2,8 @@
 
 Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net), Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuitive and give great error messages.
 
+`ShouldMatchApproved` exists in the [Shouldly.Match](https://www.nuget.org/packages/Shouldly.Match/) nuget.
+
 
 ## Approved File does not exist
 
