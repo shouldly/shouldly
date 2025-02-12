@@ -1,32 +1,25 @@
-using Shouldly.Internals;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Shouldly.Configuration;
 
-public class TestMethodInfo
+public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
 {
-    public TestMethodInfo(StackFrame callingFrame)
+    public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
     {
-        var fileName = callingFrame.GetFileName();
-        fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
-        SourceFileDirectory = Path.GetDirectoryName(fileName);
-
-        var method = callingFrame.GetMethod();
-        var originalMethodInfo = GetOriginalMethodInfoForStateMachineMethod(method);
-
-        MethodName = originalMethodInfo?.MethodName ?? method?.Name;
-        DeclaringTypeName = (originalMethodInfo?.DeclaringType ?? method?.DeclaringType)?.Name;
-    }
-
-    private readonly struct OriginalMethodInfo
-    {
-        public OriginalMethodInfo(string methodName, Type declaringType)
+        foreach (var frame in stackTrace.GetFrames().Skip(startAt))
         {
-            MethodName = methodName;
-            DeclaringType = declaringType;
+            var method = frame.GetMethod();
+            var originalMethod = GetOriginalMethodInfoForStateMachineMethod(method);
+            method = originalMethod != null ? originalMethod.Value.DeclaringType.GetMethod(originalMethod.Value.MethodName) : method;
+
+            if ((method?.IsDefined(typeof(T), inherit: true)).GetValueOrDefault())
+            {
+                return new(frame);
+            }
         }
 
-        public string MethodName { get; }
-        public Type DeclaringType { get; }
+        throw new InvalidOperationException($"Cannot find a method in the stack trace with attribute {typeof(T).FullName}.");
     }
 
     private static OriginalMethodInfo? GetOriginalMethodInfoForStateMachineMethod(MethodBase? method)
@@ -59,7 +52,15 @@ public class TestMethodInfo
             a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
     }
 
-    public string? SourceFileDirectory { get; }
-    public string? MethodName { get; }
-    public string? DeclaringTypeName { get; }
+    private readonly struct OriginalMethodInfo
+    {
+        public OriginalMethodInfo(string methodName, Type declaringType)
+        {
+            MethodName = methodName;
+            DeclaringType = declaringType;
+        }
+
+        public string MethodName { get; }
+        public Type DeclaringType { get; }
+    }
 }

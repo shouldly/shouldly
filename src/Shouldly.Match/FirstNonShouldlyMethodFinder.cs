@@ -1,3 +1,7 @@
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using Shouldly.Internals;
 
 namespace Shouldly.Configuration;

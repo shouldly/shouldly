@@ -1,5 +1,3 @@
-using Shouldly.Configuration;
-
 namespace Shouldly;
 
 public static partial class ShouldlyConfiguration

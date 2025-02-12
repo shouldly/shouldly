@@ -481,33 +481,6 @@ namespace Shouldly
         public TaskShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
 }
-namespace Shouldly.Configuration
-{
-    public delegate string FilenameGenerator(Shouldly.Configuration.TestMethodInfo testMethodInfo, string? discriminator, string fileType, string fileExtension);
-    public class FindMethodUsingAttribute<T> : Shouldly.Configuration.ITestMethodFinder
-        where T : System.Attribute
-    {
-        public FindMethodUsingAttribute() { }
-        public Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
-    }
-    public class FirstNonShouldlyMethodFinder : Shouldly.Configuration.ITestMethodFinder
-    {
-        public FirstNonShouldlyMethodFinder() { }
-        public int Offset { get; set; }
-        public Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
-    }
-    public interface ITestMethodFinder
-    {
-        Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
-    }
-    public class TestMethodInfo
-    {
-        public TestMethodInfo(System.Diagnostics.StackFrame callingFrame) { }
-        public string? DeclaringTypeName { get; }
-        public string? MethodName { get; }
-        public string? SourceFileDirectory { get; }
-    }
-}
 namespace Shouldly.ShouldlyExtensionMethods
 {
     [Shouldly.ShouldlyMethods]
