@@ -1,12 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using DiffEngine;
-using Shouldly.Configuration;
-using Shouldly.Internals;
-using Shouldly.Internals.AssertionFactories;
-
-namespace Shouldly;
+﻿namespace Shouldly;
 
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]

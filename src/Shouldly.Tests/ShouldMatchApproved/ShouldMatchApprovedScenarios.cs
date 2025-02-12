@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using DiffEngine;
-using Shouldly.Configuration;
 
 namespace Shouldly.Tests.ShouldMatchApproved;
 

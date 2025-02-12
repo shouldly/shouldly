@@ -1,6 +1,4 @@
-﻿using DiffEngine;
-
-namespace Shouldly.Configuration;
+﻿namespace Shouldly;
 
 public class ShouldMatchConfiguration
 {

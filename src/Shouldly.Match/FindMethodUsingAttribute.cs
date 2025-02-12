@@ -1,7 +1,4 @@
-using System.Diagnostics;
-using System.Reflection;
-
-namespace Shouldly.Configuration;
+namespace Shouldly;
 
 public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
 {
