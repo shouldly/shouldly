@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using DiffEngine;
 using Shouldly.Configuration;
 using Shouldly.Internals;
@@ -17,7 +19,7 @@ public static partial class ShouldMatchApprovedTestExtensions
         var stackTrace = new StackTrace(true);
         codeGetter.GetCodeText(actual, stackTrace);
 
-        var configurationBuilder = new ShouldMatchConfigurationBuilder(ShouldlyConfiguration.ShouldMatchApprovedDefaults.Build());
+        var configurationBuilder = new ShouldMatchConfigurationBuilder(ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build());
         configureOptions?.Invoke(configurationBuilder);
         var config = configurationBuilder.Build();
 

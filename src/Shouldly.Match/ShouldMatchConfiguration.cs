@@ -4,6 +4,16 @@ namespace Shouldly.Configuration;
 
 public class ShouldMatchConfiguration
 {
+    public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; } =
+        new(new()
+        {
+            StringCompareOptions = StringCompareShould.IgnoreLineEndings,
+            TestMethodFinder = new FirstNonShouldlyMethodFinder(),
+            FileExtension = "txt",
+            FilenameGenerator = (testMethodInfo, discriminator, type, extension)
+                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
+        });
+
     public ShouldMatchConfiguration()
     {
     }

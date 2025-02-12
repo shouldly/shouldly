@@ -335,11 +335,6 @@ namespace Shouldly
         public ShouldMatchApprovedException(string? message, string? receivedFile, string? approvedFile) { }
     }
     [Shouldly.ShouldlyMethods]
-    public static class ShouldMatchApprovedTestExtensions
-    {
-        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.Configuration.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null) { }
-    }
-    [Shouldly.ShouldlyMethods]
     public static class ShouldNotThrowTaskAsyncExtensions
     {
         public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null) { }
@@ -434,7 +429,6 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
-        public static Shouldly.Configuration.ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }
@@ -505,36 +499,6 @@ namespace Shouldly.Configuration
     public interface ITestMethodFinder
     {
         Shouldly.Configuration.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
-    }
-    public class ShouldMatchConfiguration
-    {
-        public ShouldMatchConfiguration() { }
-        public ShouldMatchConfiguration(Shouldly.Configuration.ShouldMatchConfiguration initialConfig) { }
-        public string? ApprovalFileSubFolder { get; set; }
-        public string FileExtension { get; set; }
-        public string? FilenameDiscriminator { get; set; }
-        public Shouldly.Configuration.FilenameGenerator FilenameGenerator { get; set; }
-        public bool PreventDiff { get; set; }
-        public System.Func<string, string>? Scrubber { get; set; }
-        public Shouldly.StringCompareShould StringCompareOptions { get; set; }
-        public Shouldly.Configuration.ITestMethodFinder TestMethodFinder { get; set; }
-    }
-    public class ShouldMatchConfigurationBuilder
-    {
-        public ShouldMatchConfigurationBuilder(Shouldly.Configuration.ShouldMatchConfiguration initialConfig) { }
-        public Shouldly.Configuration.ShouldMatchConfiguration Build() { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.Configuration.ShouldMatchConfiguration> configure) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
-            where T : System.Attribute { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder NoDiff() { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder UseCallerLocation() { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithFilenameGenerator(Shouldly.Configuration.FilenameGenerator filenameGenerator) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithScrubber(System.Func<string, string> scrubber) { }
-        public Shouldly.Configuration.ShouldMatchConfigurationBuilder WithStringCompareOptions(Shouldly.StringCompareShould stringCompareOptions) { }
     }
     public class TestMethodInfo
     {

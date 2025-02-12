@@ -15,15 +15,6 @@ public static partial class ShouldlyConfiguration
 
     public static List<string> CompareAsObjectTypes { get; }
 
-    public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; } =
-        new(new()
-        {
-            StringCompareOptions = StringCompareShould.IgnoreLineEndings,
-            TestMethodFinder = new FirstNonShouldlyMethodFinder(),
-            FileExtension = "txt",
-            FilenameGenerator = (testMethodInfo, discriminator, type, extension)
-                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
-        });
 
     /// <summary>
     /// When set to true shouldly will not try and create better error messages using your source code
