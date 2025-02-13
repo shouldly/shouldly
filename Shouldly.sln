@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeterministicTests", "src\DeterministicTests\DeterministicTests.csproj", "{7EDC01F8-D021-4EF4-82A1-F18F22433F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Match", "src\Shouldly.Match\Shouldly.Match.csproj", "{8F88B200-6712-4E5F-B10A-373A2181E7E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Approvals", "src\Shouldly.Approvals\Shouldly.Approvals.csproj", "{8F88B200-6712-4E5F-B10A-373A2181E7E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

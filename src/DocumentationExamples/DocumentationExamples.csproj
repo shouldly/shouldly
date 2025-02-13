@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
-    <ProjectReference Include="..\Shouldly.Match\Shouldly.Match.csproj" />
+    <ProjectReference Include="..\Shouldly.Approvals\Shouldly.Approvals.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.1" PrivateAssets="all" />

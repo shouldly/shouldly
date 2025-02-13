@@ -2,7 +2,7 @@
 
 Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net), Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuitive and give great error messages.
 
-`ShouldMatchApproved` exists in the [Shouldly.Match](https://www.nuget.org/packages/Shouldly.Match/) nuget.
+`ShouldMatchApproved` exists in the [Shouldly.Approvals](https://www.nuget.org/packages/Shouldly.Approvals/) nuget.
 
 
 ## Approved File does not exist
@@ -221,5 +221,5 @@ All of the instance based configuration can be changed globally through `Shouldl
 
 ### Diff tools
 
-Shouldly.Match uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools
+Shouldly.Approvals uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools
 
