@@ -5,9 +5,9 @@ public class NonRetraversableEnumerable
     private static IEnumerable<int> CreateTestEnumerable()
     {
         var foo = new TestEnumerable([
-            new[] { 1, 2, 3 },
-            new[] { 4, 5, 6 },
-            new[] { 7, 8, 9 }
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
         ]);
 
         return foo.ReadLine();

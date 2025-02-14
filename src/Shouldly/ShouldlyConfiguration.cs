@@ -4,11 +4,11 @@ public static partial class ShouldlyConfiguration
 {
     static ShouldlyConfiguration()
     {
-        CompareAsObjectTypes = new()
-        {
+        CompareAsObjectTypes =
+        [
             "Newtonsoft.Json.Linq.JToken",
             "Shouldly.Tests.TestHelpers.Strange"
-        };
+        ];
     }
 
     public static List<string> CompareAsObjectTypes { get; }

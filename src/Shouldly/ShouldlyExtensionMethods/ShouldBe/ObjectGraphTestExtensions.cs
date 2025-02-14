@@ -139,13 +139,13 @@ public static partial class ObjectGraphTestExtensions
 
         if (actualList.Count != expectedList.Count)
         {
-            var newPath = path.Concat(new[] { "Count" });
+            var newPath = path.Concat(["Count"]);
             ThrowException(actualList.Count, expectedList.Count, newPath, customMessage, shouldlyMethod);
         }
 
         for (var i = 0; i < actualList.Count; i++)
         {
-            var newPath = path.Concat(new[] { $"Element [{i}]" });
+            var newPath = path.Concat([$"Element [{i}]"]);
             CompareObjects(actualList[i], expectedList[i], newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
         }
     }
@@ -159,7 +159,7 @@ public static partial class ObjectGraphTestExtensions
             var actualValue = field.GetValue(actual);
             var expectedValue = field.GetValue(expected);
 
-            var newPath = path.Concat(new[] { field.Name });
+            var newPath = path.Concat([field.Name]);
             CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
         }
     }
@@ -177,10 +177,10 @@ public static partial class ObjectGraphTestExtensions
                 throw new NotSupportedException("Comparing types that have indexers is not supported.");
             }
 
-            var actualValue = property.GetValue(actual, Array.Empty<object>());
-            var expectedValue = property.GetValue(expected, Array.Empty<object>());
+            var actualValue = property.GetValue(actual, []);
+            var expectedValue = property.GetValue(expected, []);
 
-            var newPath = path.Concat(new[] { property.Name });
+            var newPath = path.Concat([property.Name]);
             CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
         }
     }
@@ -205,7 +205,7 @@ public static partial class ObjectGraphTestExtensions
         }
         else
         {
-            comparisons.Add(actual, new List<object?>(new[] { expected }));
+            comparisons.Add(actual, new List<object?>([expected]));
         }
     }
 }
