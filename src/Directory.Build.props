@@ -6,12 +6,33 @@
     <Version>4.3.0</Version>
     <AnalysisLevel>5</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Shouldly.Approvals' Or '$(MSBuildProjectName)' == 'Shouldly'">
+    <Deterministic>true</Deterministic>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <EmbedAllSources>true</EmbedAllSources>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)/src/sn.snk</AssemblyOriginatorKeyFile>
+    <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
+    <Authors>Jake Ginnivan, Joseph Woodward, Simon Cropp</Authors>
+    <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
+    <PackageIcon>assets/logo_128x128.png</PackageIcon>
+    <PackageProjectUrl>https://docs.shouldly.org</PackageProjectUrl>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/shouldly/shouldly.git</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/shouldly/shouldly/releases/tag/$(Version)</PackageReleaseNotes>
+    <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
+    <PackageOutputPath>..\..\nugets</PackageOutputPath>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <ContinuousIntegrationBuild Condition=" '$(CI)' == 'true' ">true</ContinuousIntegrationBuild>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1505</WarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>

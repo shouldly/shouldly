@@ -2,6 +2,8 @@
 
 Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net), Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuitive and give great error messages.
 
+`ShouldMatchApproved` exists in the [Shouldly.Approvals](https://www.nuget.org/packages/Shouldly.Approvals/) nuget.
+
 
 ## Approved File does not exist
 
@@ -211,50 +213,13 @@ Will turn `Today is 01/01/2016` into `Today is <date>` in the received file.
 
 ## Configuration
 
-Because this feature is quite new shouldly doesn't have many Diff tools or know all the places it shouldn't open the diff tool. The global configuration of Shouldly is very easy to change and extend. If you do add a difftool or a should not open difftool strategy then please submit a pull request so everyone gets the benefits!
-
 
 ### Changing default options
 
 All of the instance based configuration can be changed globally through `ShouldlyConfiguration.ShouldMatchApprovedDefaults`. For example to make the default behaviour be line ending sensitive you can just run this before any tests execute `ShouldlyConfiguration.ShouldMatchApprovedDefaults.DoNotIgnoreLineEndings()`
 
 
-### Adding a difftool
+### Diff tools
 
-So Shouldly doesn't support your favorite difftool yet. No worries, it's easy to add your own.
+Shouldly.Approvals uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools
 
-```
-var diffomatic3000 = new DiffTool(
-    "Diffomatic3000",
-    @"diffomatic3000\diffomatic3000.exe",
-    (received, approved, approvedExists) => string.Format("\"{0}\" \"{1}\"", received, approved));
-ShouldlyConfiguration.DiffTools.RegisterDiffTool(diffomatic3000);
-```
-
-This will discover diffomatic3000.exe if it's in your PATH or if it exists in any Program Files directory under diffomatic3000\diffomatic3000.exe
-
-If you do this, please submit a PR to add it to the `KnownDiffTools`, you can also test how it works by running the Shouldly.Tests\TestDiffTools project!
-
-
-### Adding a do not launch difftool strategy
-
-We don't really want to be opening difftools in nCrunch, or on the build server and a number of other scenarios. So `ShouldlyConfiguration.DiffTools.KnownDoNotLaunchStrategies` allows you to add in scenarios which Shouldly doesn't know about yet. Once again, please submit PR's if you need to do this :)
-
-Currently the only strategy is to check for environmental variables, but you can implement `IShouldNotLaunchDiffTool` to implement any logic you want. Assuming it's just an environmental variable:
-
-```
-ShouldlyConfiguration.DiffTools.AddDoNotLaunchStrategy(new DoNotLaunchWhenEnvVariableIsPresent("NCRUNCH"));
-```
-
-
-### Setting Diff tool priority
-
-Shouldly launches the first found difftool, if you want to give priority to another difftool you can do that.
-
-```
-ShouldlyConfiguration.DiffTools.SetDiffToolPriorities(
-  KnownDiffTools.Instance.BeyondCompare4,
-  KnownDiffTools.Instance.KDiff3);
-```
-
-The priority tools will be checked before falling back to the entire known difftool list.

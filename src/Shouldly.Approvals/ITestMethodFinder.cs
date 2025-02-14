@@ -1,4 +1,4 @@
-namespace Shouldly.Configuration;
+namespace Shouldly;
 
 public interface ITestMethodFinder
 {

@@ -9,7 +9,19 @@ namespace Shouldly.Tests.ConventionTests
         [Fact]
         public void ShouldlyApi()
         {
-            var assembly = typeof(Should).Assembly;
+            var publicApi = GenerateApi(typeof(Should).Assembly);
+            publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
+        }
+
+        [Fact]
+        public void ShouldlyApprovalsApi()
+        {
+            var publicApi = GenerateApi(typeof(ShouldMatchApprovedTestExtensions).Assembly);
+            publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
+        }
+
+        private static string GenerateApi(Assembly assembly)
+        {
             var options = new ApiGeneratorOptions
             {
                 IncludeAssemblyAttributes = false,
@@ -17,8 +29,7 @@ namespace Shouldly.Tests.ConventionTests
                     .Where(x => !x.IsDefined(typeof(ObsoleteAttribute)))
                     .ToArray()
             };
-            var publicApi = assembly.GeneratePublicApi(options);
-            publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
+            return assembly.GeneratePublicApi(options);
         }
     }
 }
