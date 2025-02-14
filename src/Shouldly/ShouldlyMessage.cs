@@ -254,8 +254,8 @@ public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
 
 public abstract class ShouldlyMessage
 {
-    private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators = new ShouldlyMessageGenerator[]
-    {
+    private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators =
+    [
         new ShouldHaveFlagMessageGenerator(),
         new ShouldNotHaveFlagMessageGenerator(),
         new ShouldBeNullOrEmptyMessageGenerator(),
@@ -289,7 +289,7 @@ public abstract class ShouldlyMessage
         new ShouldBeTypeMessageGenerator(),
         new ShouldBeInOrderMessageGenerator(),
         new ShouldBeEquivalentToMessageGenerator()
-    };
+    ];
 
     protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
 

@@ -2,10 +2,7 @@
 
 static class DifferenceHighlighter
 {
-    private static readonly List<IDifferenceHighlighter> _differenceHighlighters = new()
-    {
-        new EnumerableDifferenceHighlighter()
-    };
+    private static readonly List<IDifferenceHighlighter> _differenceHighlighters = [new EnumerableDifferenceHighlighter()];
 
     /// <summary>
     /// Compares an actual value against an expected one and creates

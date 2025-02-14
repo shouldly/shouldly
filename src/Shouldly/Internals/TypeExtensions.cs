@@ -56,7 +56,7 @@ static class TypeExtensions
         return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
             ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
             ?.MakeGenericMethod(elementType)
-            .Invoke(null, new[] { readOnlyMemory })!;
+            .Invoke(null, [readOnlyMemory])!;
     }
 
     private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
@@ -67,6 +67,6 @@ static class TypeExtensions
                 && method.GetParameters()[0].ParameterType == objectType
                 && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
                 && returnElementType == genericParameterType)
-            ?.Invoke(null, new[] { obj })!;
+            ?.Invoke(null, [obj])!;
     }
 }
