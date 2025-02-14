@@ -29,7 +29,7 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class DynamicShould
     {
-        public static void HaveProperty([System.Runtime.CompilerServices.Dynamic] object dynamicTestObject, string propertyName, string? customMessage = null) { }
+        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null) { }
         public static TException Throw<TException>(System.Action actual, string? customMessage = null)
             where TException : System.Exception { }
     }
