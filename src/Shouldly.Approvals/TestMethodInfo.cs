@@ -51,11 +51,9 @@ public class TestMethodInfo
         return null;
     }
 
-    private static bool ContainsAttribute(MemberInfo member, string attributeName)
-    {
-        return member.CustomAttributes.Any(a =>
+    private static bool ContainsAttribute(MemberInfo member, string attributeName) =>
+        member.CustomAttributes.Any(a =>
             a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
-    }
 
     public string? SourceFileDirectory { get; }
     public string? MethodName { get; }

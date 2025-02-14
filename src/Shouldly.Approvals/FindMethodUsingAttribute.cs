@@ -43,11 +43,9 @@ public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
         return null;
     }
 
-    private static bool ContainsAttribute(MemberInfo member, string attributeName)
-    {
-        return member.CustomAttributes.Any(a =>
+    private static bool ContainsAttribute(MemberInfo member, string attributeName) =>
+        member.CustomAttributes.Any(a =>
             a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
-    }
 
     private readonly struct OriginalMethodInfo
     {
