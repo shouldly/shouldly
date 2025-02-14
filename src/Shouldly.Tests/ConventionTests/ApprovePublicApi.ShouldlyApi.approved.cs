@@ -330,10 +330,6 @@ namespace Shouldly
     {
         public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
-    public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
-    {
-        public ShouldMatchApprovedException(string? message, string? receivedFile, string? approvedFile) { }
-    }
     [Shouldly.ShouldlyMethods]
     public static class ShouldNotThrowTaskAsyncExtensions
     {

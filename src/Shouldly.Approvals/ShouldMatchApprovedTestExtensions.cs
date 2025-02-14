@@ -2,7 +2,7 @@
 
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
-public static partial class ShouldMatchApprovedTestExtensions
+public static class ShouldMatchApprovedTestExtensions
 {
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null)
