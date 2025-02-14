@@ -3,7 +3,7 @@
 public class UnsafeStringBackslashVScenario
 {
     private const char VerticalTab = '\v';
-    
+
     [Fact]
     public void UnsafeStringBackslashVScenarioShouldFail()
     {

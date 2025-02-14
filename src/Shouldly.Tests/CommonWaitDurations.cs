@@ -7,7 +7,7 @@ internal static class CommonWaitDurations
             ?.Equals("true", StringComparison.OrdinalIgnoreCase)
         ?? false;
 
-    public static TimeSpan ShortWait => 
+    public static TimeSpan ShortWait =>
         TimeSpan.FromSeconds(IsRunningOnContinuousIntegration ? 0.5 : 0.2);
 
     public static TimeSpan LongWait =>

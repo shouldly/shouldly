@@ -3,7 +3,7 @@
 public class UnsafeStringBackslashFScenario
 {
     private const char FormFeed = '\f';
-    
+
     [Fact]
     public void UnsafeStringBackslashFScenarioShouldFail()
     {

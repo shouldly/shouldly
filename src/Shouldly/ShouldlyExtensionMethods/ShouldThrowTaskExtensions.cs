@@ -16,7 +16,7 @@ public static partial class ShouldThrowTaskExtensions
     }
 
     /*** ShouldThrow(Task) ***/
-    [MethodImpl(MethodImplOptions.NoInlining)]    
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception ShouldThrow(this Task actual, Type exceptionType)
     {
         return ShouldThrow(() => actual, exceptionType);

@@ -40,7 +40,7 @@ public class NullIsAssignableToTypeScenario
         MyThing? myThing = null;
         myThing.ShouldBeAssignableTo<MyBase>("Some additional context");
     }
-    
+
     [Fact]
     public void ShouldPassWithNullValueType()
     {

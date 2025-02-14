@@ -3,7 +3,7 @@
 public class InsensitiveToLineEndingsScenario
 {
     private const char LineFeed = '\n';
-    
+
     [Fact]
     public void InsensitiveToLineEndingsScenarioShouldFail()
     {

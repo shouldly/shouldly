@@ -61,7 +61,7 @@ class ActualCodeTextGetter : ICodeTextGetter
     private string? GetCodePart()
     {
         if (!_determinedOriginatingFrame) return null;
-        
+
         string? codePart = null;
         var codeLines = string.Join("\n", File.ReadAllLines(FileName!).Skip(LineNumber).ToArray());
 

@@ -5,7 +5,7 @@ namespace Shouldly;
 public static partial class ShouldBeTestExtensions
 {
     [MethodImpl(MethodImplOptions.NoInlining)]
-    [return: NotNullIfNotNull(nameof(actual))] 
+    [return: NotNullIfNotNull(nameof(actual))]
     public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
     {
         ShouldBeAssignableTo(actual, typeof(T), customMessage);
@@ -22,7 +22,7 @@ public static partial class ShouldBeTestExtensions
                 return !expected.IsValueType ||
                        (expected.IsGenericType && expected.GetGenericTypeDefinition() == typeof(Nullable<>));
             }
-            
+
             return expected.IsInstanceOfType(v);
         }, actual, expected, customMessage);
     }

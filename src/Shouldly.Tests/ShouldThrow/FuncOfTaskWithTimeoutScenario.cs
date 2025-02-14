@@ -19,7 +19,7 @@ public class FuncOfTaskWithTimeoutScenario
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         var perpetualTask = tcs.Task;
-        
+
         var ex = Should.Throw(
             () => perpetualTask.ShouldThrow(
                 TimeSpan.FromSeconds(0.1),

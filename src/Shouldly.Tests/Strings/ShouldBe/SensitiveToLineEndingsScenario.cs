@@ -4,7 +4,7 @@ public class SensitiveToLineEndingsScenario
 {
     private const string Lf = "\n";
     private const string CrLf = "\r\n";
-    
+
     [Fact]
     public void SensitiveToLineEndingsScenarioShouldFail()
     {

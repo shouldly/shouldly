@@ -3,7 +3,7 @@
 public class UnsafeStringSpaceScenario
 {
     private const char Tab = '\t';
-    
+
     [Fact]
     public void UnsafeStringSpaceScenarioShouldFail()
     {

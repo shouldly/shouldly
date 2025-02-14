@@ -7,7 +7,7 @@ public class TaskWithTimeoutScenario
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         var perpetualTask = tcs.Task;
-        
+
         var ex = Should.Throw<ShouldCompleteInException>(() => perpetualTask.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(0.5), "Some additional context"));
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }

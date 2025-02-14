@@ -15,18 +15,18 @@ public class ExtensionMethodsShouldNotBeBrowsableConvention : IConvention<Types>
                 var methods = t.GetMethods()
                     .Where(m => m.IsStatic && m.Name.StartsWith("Should", StringComparison.Ordinal))
                     .ToList();
-                
+
                 return methods.Any() && methods.All(m =>
                     m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.ExtensionAttribute), false)
                         .Any());
             })
             .ToList();
-        
-        List<string> failedClasses = []; 
-        
+
+        List<string> failedClasses = [];
+
         foreach (var shouldlyExtensionMethodClass in shouldlyExtensionMethodClasses)
         {
-            var browsableAttributes = 
+            var browsableAttributes =
                 shouldlyExtensionMethodClass.GetCustomAttributes<EditorBrowsableAttribute>()
                     .FirstOrDefault();
 
@@ -35,7 +35,7 @@ public class ExtensionMethodsShouldNotBeBrowsableConvention : IConvention<Types>
                 failedClasses.Add(shouldlyExtensionMethodClass.FormatType());
             }
         }
-        
+
         result.Is(
             "The following Shouldly extension classes are missing the EditorBrowsable(EditorBrowsableState.Never) attribute",
             failedClasses);

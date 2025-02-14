@@ -3,7 +3,7 @@
 public class CaseAndLineEndingInsensitiveScenario
 {
     private const string Lf = "\n";
-    
+
     [Fact]
     public void CaseAndLineEndingInsensitiveScenarioShouldFail()
     {

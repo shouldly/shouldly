@@ -16,7 +16,7 @@ public class MethodsShouldNotBeInlinedConvention : IConvention<Types>
         var extensionMethods = shouldlyMethods.Where(m => m.Name.StartsWith("Should", StringComparison.Ordinal)).ToList();
         var staticMethods = shouldlyMethods.Where(m => !m.Name.StartsWith("Should", StringComparison.Ordinal)).ToList();
 
-        List<string> failedMethods = []; 
+        List<string> failedMethods = [];
         foreach (var extensionMethod in extensionMethods.Concat(staticMethods))
         {
             var flags = extensionMethod.GetMethodImplementationFlags();
@@ -25,7 +25,7 @@ public class MethodsShouldNotBeInlinedConvention : IConvention<Types>
                 failedMethods.Add(extensionMethod.FormatMethod());
             }
         }
-        
+
         result.Is(
             "The following Shouldly methods are missing the NoInlining attribute",
             failedMethods);

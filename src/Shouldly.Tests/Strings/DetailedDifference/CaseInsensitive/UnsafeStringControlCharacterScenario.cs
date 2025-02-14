@@ -4,7 +4,7 @@ public class UnsafeStringControlCharacterScenario
 {
     private const char NullChar = '\0';
     private const char StartOfHeading = '\u0001';
-    
+
     [Fact]
     public void UnsafeStringControlCharacterScenarioShouldFail()
     {
