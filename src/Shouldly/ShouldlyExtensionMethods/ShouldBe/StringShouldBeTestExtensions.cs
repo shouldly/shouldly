@@ -30,7 +30,7 @@ public static partial class ShouldBeStringTestExtensions
         [NotNullIfNotNull(nameof(actual))] string? expected,
         StringCompareShould options)
     {
-        ShouldBe(actual, expected, (string?)null, options);
+        ShouldBe(actual, expected, null, options);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]

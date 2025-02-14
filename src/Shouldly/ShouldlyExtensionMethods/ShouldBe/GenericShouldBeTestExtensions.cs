@@ -52,7 +52,7 @@ public static partial class ShouldBeTestExtensions
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
         bool ignoreOrder = false)
     {
-        ShouldBe(actual, expected, ignoreOrder, (string?)null);
+        ShouldBe(actual, expected, ignoreOrder, null);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]

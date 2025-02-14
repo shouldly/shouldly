@@ -5,7 +5,7 @@ public static partial class ShouldBeTestExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeOneOf<T>(this T? actual, params T[] expected)
     {
-        ShouldBeOneOf(actual, expected, (string?)null);
+        ShouldBeOneOf(actual, expected, null);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -27,7 +27,7 @@ public static partial class ShouldBeTestExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeOneOf<T>(this T? actual, params T[] expected)
     {
-        ShouldNotBeOneOf(actual, expected, (string?)null);
+        ShouldNotBeOneOf(actual, expected, null);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]

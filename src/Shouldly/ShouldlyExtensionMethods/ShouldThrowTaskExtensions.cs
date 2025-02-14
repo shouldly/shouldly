@@ -37,7 +37,7 @@ public static partial class ShouldThrowTaskExtensions
     /*** ShouldThrow(Func<Task>) ***/
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception ShouldThrow(this Func<Task> actual, Type exceptionType) =>
-        ShouldThrow(actual, (string?)null, exceptionType);
+        ShouldThrow(actual, null, exceptionType);
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception ShouldThrow(this Func<Task> actual, string? customMessage, Type exceptionType) =>
@@ -73,7 +73,7 @@ public static partial class ShouldThrowTaskExtensions
     /*** ShouldThrow(Func<Task>, TimeSpan) ***/
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType) =>
-        ShouldThrow(actual, timeoutAfter, (string?)null, exceptionType);
+        ShouldThrow(actual, timeoutAfter, null, exceptionType);
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType) =>

@@ -10,7 +10,7 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
     {
-        ShouldSatisfyAllConditions(actual, (string?)null, CreateParameterlessActions(actual, conditions));
+        ShouldSatisfyAllConditions(actual, null, CreateParameterlessActions(actual, conditions));
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -22,7 +22,7 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
     {
-        ShouldSatisfyAllConditions(actual, (string?)null, conditions);
+        ShouldSatisfyAllConditions(actual, null, conditions);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]

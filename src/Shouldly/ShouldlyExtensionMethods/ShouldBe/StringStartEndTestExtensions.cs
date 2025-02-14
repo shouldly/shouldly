@@ -29,7 +29,7 @@ public static partial class ShouldBeStringTestExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotEndWith(this string? actual, string expected, Case caseSensitivity)
     {
-        ShouldNotEndWith(actual, expected, (string?)null, caseSensitivity);
+        ShouldNotEndWith(actual, expected, null, caseSensitivity);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]

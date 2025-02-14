@@ -227,7 +227,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, params Type[] expected)
     {
-        ShouldBeOfTypes(actual, expected, (string?)null);
+        ShouldBeOfTypes(actual, expected, null);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
