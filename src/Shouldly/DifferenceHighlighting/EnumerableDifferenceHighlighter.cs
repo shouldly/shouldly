@@ -7,7 +7,6 @@ namespace Shouldly.DifferenceHighlighting;
 class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 {
     private const int MaxElementsToShow = 1000;
-    private readonly ItemDifferenceHighlighter _itemDifferenceHighlighter = new();
 
     public bool CanProcess(IShouldlyAssertionContext context) =>
         context is
@@ -60,7 +59,7 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
     {
         if (expectedList.Count() <= itemPosition)
         {
-            return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
+            return ItemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
         }
 
         if (actualList.Count() <= itemPosition)
@@ -73,6 +72,6 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
             return actualList.ElementAt(itemPosition).ToStringAwesomely();
         }
 
-        return _itemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
+        return ItemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
     }
 }

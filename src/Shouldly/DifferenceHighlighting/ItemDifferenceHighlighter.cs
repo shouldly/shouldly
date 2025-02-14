@@ -1,11 +1,9 @@
 namespace Shouldly.DifferenceHighlighting;
 
-class ItemDifferenceHighlighter
+static class ItemDifferenceHighlighter
 {
     public const string HighlightCharacter = "*";
 
-    public string HighlightItem(string? item)
-    {
-        return HighlightCharacter + item + HighlightCharacter;
-    }
+    public static string HighlightItem(string? item) =>
+        HighlightCharacter + item + HighlightCharacter;
 }
