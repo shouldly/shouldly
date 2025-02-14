@@ -7,15 +7,15 @@
     <AnalysisLevel>5</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>CS1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Shouldly.Approvals' Or '$(MSBuildProjectName)' == 'Shouldly'">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ImplicitUsings>enable</ImplicitUsings>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
     <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Shouldly.Approvals' Or '$(MSBuildProjectName)' == 'Shouldly'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <EmbedAllSources>true</EmbedAllSources>
     <AssemblyOriginatorKeyFile>$(SolutionDir)/src/sn.snk</AssemblyOriginatorKeyFile>
