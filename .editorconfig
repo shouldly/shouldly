@@ -156,7 +156,7 @@ dotnet_diagnostic.CA1858.severity = error
 #dotnet_diagnostic.CA1860.severity = error
 
 # Avoid constant arrays as arguments
-#dotnet_diagnostic.CA1861.severity = error
+dotnet_diagnostic.CA1861.severity = error
 
 # Use the StringComparison method overloads to perform case-insensitive string comparisons
 dotnet_diagnostic.CA1862.severity = error
