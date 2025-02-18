@@ -1,0 +1,8 @@
+﻿```
+simpsonsFamily
+    should be superset of
+[Bart, Lisa, Maggie, Ralph]
+    but
+[Ralph]
+    is outside superset
+```
