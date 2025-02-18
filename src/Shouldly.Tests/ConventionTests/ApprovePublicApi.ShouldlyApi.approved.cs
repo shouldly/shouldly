@@ -206,6 +206,8 @@ namespace Shouldly
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string? customMessage) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage = null) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
+        public static void ShouldBeSupersetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage = null) { }
+        public static void ShouldBeSupersetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         public static void ShouldBeUnique<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEqualityComparer<T> comparer) { }
         public static void ShouldBeUnique<T>(this System.Collections.Generic.IEnumerable<T> actual, string? customMessage = null) { }
         public static void ShouldBeUnique<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage) { }

@@ -133,6 +133,28 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldBeSupersetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null)
+    {
+        if (actual.Equals(expected))
+            return;
+
+        var extra = expected.Except(actual);
+        if (extra.Any())
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldBeSupersetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string? customMessage = null)
+    {
+        if (actual.Equals(expected))
+            return;
+
+        var extra = expected.Except(actual, comparer);
+        if (extra.Any())
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null)
     {
         var duplicates = GetDuplicates(actual);
