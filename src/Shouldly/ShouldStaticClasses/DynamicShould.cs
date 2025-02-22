@@ -15,11 +15,20 @@ public static partial class DynamicShould
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
     {
-        if (dynamicTestObject is IDynamicMetaObjectProvider)
+        if (dynamicTestObject is IDynamicMetaObjectProvider metaProvider)
         {
-            var dynamicAsDictionary = (IDictionary<string, object>)dynamicTestObject;
-
-            if (!dynamicAsDictionary.ContainsKey(propertyName))
+            // If the test object is an ExpandoObject or delegates property get/set to a dictionary, then the property wouldn't exist on the runtime type.
+            if (metaProvider is IDictionary<string, object> dynamicAsDictionary)
+            {
+                if (!dynamicAsDictionary.ContainsKey(propertyName))
+                {
+                    throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                }
+                return;
+            }
+            var meta = metaProvider.GetMetaObject(Expression.Constant(metaProvider));
+            var property = meta.RuntimeType?.GetProperty(propertyName);
+            if (property is null)
             {
                 throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
             }
