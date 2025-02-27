@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeEquivalentTo;
+namespace Shouldly.Tests.ShouldBeEquivalentTo;
 
 public class ObjectScenario
 {
@@ -178,7 +178,7 @@ public class ObjectScenario
             Comparing object equivalence, at path:
             subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
                 Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-                    Adjectives [System.String[]]
+                    Adjectives [System.Collections.IEnumerable]
                         Element [0] [System.String]
             
                 Expected value to be
@@ -195,7 +195,7 @@ public class ObjectScenario
             Comparing object equivalence, at path:
             <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
                 Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-                    Adjectives [System.String[]]
+                    Adjectives [System.Collections.IEnumerable]
                         Element [0] [System.String]
             
                 Expected value to be
@@ -251,7 +251,7 @@ public class ObjectScenario
             Comparing object equivalence, at path:
             subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
                 Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-                    Adjectives [System.String[]]
+                    Adjectives [System.Collections.IEnumerable]
                         Element [1] [System.String]
             
                 Expected value to be
@@ -268,7 +268,7 @@ public class ObjectScenario
             Comparing object equivalence, at path:
             <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
                 Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
-                    Adjectives [System.String[]]
+                    Adjectives [System.Collections.IEnumerable]
                         Element [1] [System.String]
             
                 Expected value to be
@@ -319,6 +319,44 @@ public class ObjectScenario
                 Id = 6,
                 Name = "Sally",
                 Adjectives = new[] { "beautiful", "intelligent" },
+                Colors = ["purple", "orange"]
+            }
+        };
+
+        subject.ShouldBeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public void ShouldPassWhenComplexObjectContainsPropertiesWithDifferentTypes()
+    {
+        var subject = new FakeObject
+        {
+            Id = 5,
+            Name = "Bob",
+            Adjectives = new[] { "funny", "wise" },
+            Colors = ["red", "blue"],
+            TitleField = "Mr",
+            Child = new()
+            {
+                Id = 6,
+                Name = "Sally",
+                Adjectives = new[] { "beautiful", "intelligent" },
+                Colors = ["purple", "orange"]
+            }
+        };
+
+        var expected = new FakeObject
+        {
+            Id = 5,
+            TitleField = "Mr",
+            Name = "Bob",
+            Adjectives = new List<string> { "funny", "wise" }.Where(_ => true),
+            Colors = new [] {"red", "blue"}.AsReadOnly(),
+            Child = new()
+            {
+                Id = 6,
+                Name = "Sally",
+                Adjectives = new List<string> { "beautiful", "intelligent" },
                 Colors = ["purple", "orange"]
             }
         };
