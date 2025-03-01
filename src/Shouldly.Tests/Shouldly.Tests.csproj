@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
+    <None Include="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly.Approvals\Shouldly.Approvals.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2" PrivateAssets="all" />
@@ -15,7 +16,7 @@
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
     <PackageReference Include="xunit.v3" Version="1.1.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2" PrivateAssets="all" />
-    <PackageReference Include="PublicApiGenerator" Version="11.4.1" />
+    <PackageReference Include="PublicApiGenerator" Version="11.4.5" />
     <PackageReference Include="System.Memory" Version="4.6.0" />
     <PackageReference Include="System.Collections.Immutable" Version="9.0.1" />
     <PackageReference Include="Polyfill" Version="7.16.1" PrivateAssets="all" />

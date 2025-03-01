@@ -450,8 +450,8 @@ namespace Shouldly
     public class ShouldlyThrowMessage : Shouldly.ShouldlyMessage
     {
         public ShouldlyThrowMessage(object? expected, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
-        public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
         public ShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
+        public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
     public class ShouldlyTimeoutException : System.TimeoutException
     {
