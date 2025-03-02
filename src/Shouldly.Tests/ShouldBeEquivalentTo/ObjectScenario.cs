@@ -327,7 +327,47 @@ public class ObjectScenario
     }
 
     [Fact]
-    public void ShouldPassWhenComplexObjectContainsPropertiesWithDifferentTypes()
+    public void ShouldPassWhenComplexObjectContainsPropertiesWithDifferentTypesAndCompareUsingRuntimeIsFalse()
+    {
+        var subject = new FakeObject
+        {
+            Id = 5,
+            Name = "Bob",
+            Adjectives = new[] { "funny", "wise" },
+            Colors = ["red", "blue"],
+            TitleField = "Mr",
+            Child = new()
+            {
+                Id = 6,
+                Name = "Sally",
+                Adjectives = new[] { "beautiful", "intelligent" },
+                Colors = ["purple", "orange"]
+            }
+        };
+
+        var expected = new FakeObject
+        {
+            Id = 5,
+            TitleField = "Mr",
+            Name = "Bob",
+            Adjectives = new List<string> { "funny", "wise" }.Where(_ => true),
+            Colors = new [] {"red", "blue"}.AsReadOnly(),
+            Child = new()
+            {
+                Id = 6,
+                Name = "Sally",
+                Adjectives = new List<string> { "beautiful", "intelligent" },
+                Colors = ["purple", "orange"]
+            }
+        };
+
+        var options = new EquivalencyOptions { CompareUsingRuntimeTypes = false };
+
+        subject.ShouldBeEquivalentTo(expected, options);
+    }
+
+    [Fact]
+    public void ShouldPassWhenComplexObjectContainsPropertiesWithDifferentTypesAndUsingDefaultOptions()
     {
         var subject = new FakeObject
         {
@@ -362,6 +402,59 @@ public class ObjectScenario
         };
 
         subject.ShouldBeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public void ShouldFailWhenComplexObjectContainsPropertiesWithDifferentTypesAndCompareUsingRuntimeIsTrue()
+    {
+        var subject = new FakeObject
+        {
+            Id = 5,
+            Name = "Bob",
+            Adjectives = new[] { "funny", "wise" }
+        };
+
+        var expected = new FakeObject
+        {
+            Id = 5,
+            Name = "Bob",
+            Adjectives = new List<string> { "funny", "wise" }
+        };
+
+        var options = new EquivalencyOptions { CompareUsingRuntimeTypes = true };
+
+        Verify.ShouldFail(() =>
+                subject.ShouldBeEquivalentTo(expected, options, "Some additional context"),
+
+            errorWithSource:
+            """
+            Comparing object equivalence, at path:
+            subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Adjectives
+
+                Expected value to be
+            System.Collections.Generic.List`1[System.String]
+                but was
+            System.String[]
+
+            Additional Info:
+                Some additional context
+            """,
+
+            errorWithoutSource:
+            """
+            Comparing object equivalence, at path:
+            <root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+                Adjectives
+
+                Expected value to be
+            System.Collections.Generic.List`1[System.String]
+                but was
+            System.String[]
+
+            Additional Info:
+                Some additional context
+            """);
     }
 
     [Fact]
