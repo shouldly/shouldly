@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace Shouldly;
 
@@ -36,10 +36,7 @@ public static partial class ObjectGraphTestExtensions
         }
         else if (type.IsSet(out var setType))
         {
-            typeof(ObjectGraphTestExtensions)
-                .GetMethod(nameof(CompareSets), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(setType)
-                .Invoke(null, [actual, expected, path, previousComparisons, customMessage, shouldlyMethod]);
+            CompareSets(setType, actual, expected, path, previousComparisons, customMessage, shouldlyMethod);
         }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
@@ -137,7 +134,24 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod);
     }
 
-    private static void CompareSets<T>(ISet<T> actual, ISet<T> expected,
+    private static void CompareSets(Type setType, object? actual, object? expected,
+        IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    {
+        try
+        {
+            typeof(ObjectGraphTestExtensions)
+                .GetMethod(nameof(CompareTypedSets), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(setType)
+                .Invoke(null, [actual, expected, path, previousComparisons, customMessage, shouldlyMethod]);
+        }
+        catch (TargetInvocationException e)
+        {
+            throw e.InnerException!;
+        }
+    }
+
+    private static void CompareTypedSets<T>(ISet<T> actual, ISet<T> expected,
         IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
