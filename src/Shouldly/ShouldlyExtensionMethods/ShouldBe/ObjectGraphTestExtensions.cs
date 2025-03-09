@@ -34,6 +34,13 @@ public static partial class ObjectGraphTestExtensions
         {
             CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
         }
+        else if (type.IsSet(out var setType))
+        {
+            typeof(ObjectGraphTestExtensions)
+                .GetMethod(nameof(CompareSets), BindingFlags.NonPublic | BindingFlags.Static)!
+                .MakeGenericMethod(setType)
+                .Invoke(null, [actual, expected, path, previousComparisons, customMessage, shouldlyMethod]);
+        }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
             CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
@@ -130,6 +137,34 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod);
     }
 
+    private static void CompareSets<T>(ISet<T> actual, ISet<T> expected,
+        IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    {
+        if (actual.SetEquals(expected))
+            return;
+
+        var missingInActual = expected.Except(actual).ToList();
+        var missingInExpected = actual.Except(expected).ToList();
+
+        List<string> messages = customMessage is null || customMessage.Length == 0
+            ? []
+            : [customMessage];
+
+        if (missingInActual.Count > 0)
+            messages.Add($"{missingInActual.ToStringAwesomely()} is expected but not found");
+
+        if (missingInExpected.Count > 0)
+            messages.Add($"{missingInExpected.ToStringAwesomely()} is not expected but found");
+
+        ThrowException(
+            actual,
+            expected,
+            path,
+            messages.Count > 0 ? string.Join("; ", messages) : null,
+            shouldlyMethod);
+    }
+
     private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
         IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
@@ -191,6 +226,19 @@ public static partial class ObjectGraphTestExtensions
     {
         throw new ShouldAssertException(
             new ExpectedEquivalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());
+    }
+
+    private static bool IsSet(this Type type, [NotNullWhen(true)] out Type? setType)
+    {
+        if (type.GetInterfaces().FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ISet<>))
+            is { } setInterface)
+        {
+            setType = setInterface.GetGenericArguments()[0];
+            return true;
+        }
+
+        setType = null;
+        return false;
     }
 
     private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected) =>
