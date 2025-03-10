@@ -14,7 +14,7 @@ public class SetScenario
             errorWithSource:
             """
             Comparing object equivalence, at path:
-            [1, 2, 3, 4] [System.Collections.Generic.HashSet`1[[System.Int32]]]
+            [1, 2, 3, 4] [System.Collections.Generic.HashSet[[System.Int32]]]
 
                 Expected value to be
             [1, 2, 3, 4, 5]
@@ -28,7 +28,7 @@ public class SetScenario
             errorWithoutSource:
             """
             Comparing object equivalence, at path:
-            <root> [System.Collections.Generic.HashSet`1[[System.Int32]]]
+            <root> [System.Collections.Generic.HashSet[[System.Int32]]]
 
                 Expected value to be
             [1, 2, 3, 4, 5]
@@ -52,7 +52,7 @@ public class SetScenario
             errorWithSource:
             """
             Comparing object equivalence, at path:
-            [1, 2, 3, 4, 5, 6] [System.Collections.Generic.HashSet`1[[System.Int32]]]
+            [1, 2, 3, 4, 5, 6] [System.Collections.Generic.HashSet[[System.Int32]]]
 
                 Expected value to be
             [1, 2, 3, 4, 5]
@@ -66,7 +66,7 @@ public class SetScenario
             errorWithoutSource:
             """
             Comparing object equivalence, at path:
-            <root> [System.Collections.Generic.HashSet`1[[System.Int32]]]
+            <root> [System.Collections.Generic.HashSet[[System.Int32]]]
 
                 Expected value to be
             [1, 2, 3, 4, 5]
@@ -90,7 +90,7 @@ public class SetScenario
             errorWithSource:
             """
             Comparing object equivalence, at path:
-            [1, 2, 6, 4, 3] [System.Collections.Generic.HashSet`1[[System.Int32]]]
+            [1, 2, 6, 4, 3] [System.Collections.Generic.HashSet[[System.Int32]]]
 
                 Expected value to be
             [1, 2, 3, 4, 5]
@@ -104,7 +104,7 @@ public class SetScenario
             errorWithoutSource:
             """
             Comparing object equivalence, at path:
-            <root> [System.Collections.Generic.HashSet`1[[System.Int32]]]
+            <root> [System.Collections.Generic.HashSet[[System.Int32]]]
 
                 Expected value to be
             [1, 2, 3, 4, 5]
@@ -127,9 +127,14 @@ public class SetScenario
 
     private static string MessageScrubber(string original)
     {
-        const string pattern = @"\[\[System\.Int32,[^\]]+\]\]";
-        const string replacement = "[[System.Int32]]";
+        const string pattern1 = @"\[System\.Int32,[^\]]+\]";
+        const string replacement1 = "[System.Int32]";
+        const string pattern2 = @"HashSet\`[0-9]";
+        const string replacement2 = "HashSet";
 
-        return Regex.Replace(original, pattern, replacement);
+        return Regex.Replace(
+            Regex.Replace(original, pattern1, replacement1),
+            pattern2,
+            replacement2);
     }
 }

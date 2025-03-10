@@ -34,6 +34,10 @@ public static partial class ObjectGraphTestExtensions
         {
             CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
         }
+        else if (typeof(IDictionary).IsAssignableFrom(type))
+        {
+            CompareDictionaries((IDictionary)actual, (IDictionary)expected, path, previousComparisons, customMessage, shouldlyMethod);
+        }
         else if (type.IsSet(out var setType))
         {
             CompareSets(setType, actual, expected, path, previousComparisons, customMessage, shouldlyMethod);
@@ -134,6 +138,26 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod);
     }
 
+    private static void CompareDictionaries(IDictionary actual, IDictionary expected,
+        IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
+        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    {
+        var keysPath = path.Concat(["Keys"]);
+        var actualKeys = new HashSet<object?>(actual.Keys.Cast<object?>());
+        var expectedKeys = new HashSet<object?>(expected.Keys.Cast<object?>());
+        CompareTypedSets(actualKeys, expectedKeys, keysPath, previousComparisons, customMessage, shouldlyMethod);
+
+        foreach (var key in actual.Keys)
+        {
+            keysPath = path.Concat([
+                $"Value [{key.ToStringAwesomely() ?? "<Unknown>"}]"
+            ]);
+            var actualValue = actual[key];
+            var expectedValue = expected[key];
+            CompareObjects(actualValue, expectedValue, keysPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+        }
+    }
+
     private static void CompareSets(Type setType, object? actual, object? expected,
         IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
@@ -147,7 +171,11 @@ public static partial class ObjectGraphTestExtensions
         }
         catch (TargetInvocationException e)
         {
-            throw e.InnerException!;
+            if (e.InnerException is not ShouldAssertException shouldAssertException)
+            {
+                throw;
+            }
+            throw shouldAssertException;
         }
     }
 
