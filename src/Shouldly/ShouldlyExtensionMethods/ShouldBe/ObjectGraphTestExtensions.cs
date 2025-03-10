@@ -160,9 +160,7 @@ public static partial class ObjectGraphTestExtensions
             keysPath = path.Concat([
                 $"Value [{key.ToStringAwesomely() ?? "<Unknown>"}]"
             ]);
-            var actualValue = actual[key];
-            var expectedValue = expected[key];
-            CompareObjects(actualValue, expectedValue, keysPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+            CompareObjects(actual[key], expected[key], keysPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
         }
     }
 
