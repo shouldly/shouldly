@@ -117,6 +117,14 @@ public static partial class ObjectGraphTestExtensions
         {
             CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod);
         }
+        else if (typeof(IDictionary).IsAssignableFrom(type))
+        {
+            CompareDictionaries((IDictionary)actual, (IDictionary)expected, path, previousComparisons, customMessage, shouldlyMethod);
+        }
+        else if (type.IsSet(out var setType))
+        {
+            CompareSets(setType, actual, expected, path, previousComparisons, customMessage, shouldlyMethod);
+        }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
             CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
