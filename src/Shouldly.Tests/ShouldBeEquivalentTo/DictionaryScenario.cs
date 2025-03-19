@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.Tests.ShouldBeEquivalentTo;
@@ -217,7 +218,7 @@ public class DictionaryScenario
      }
 
      [Fact]
-     public void ShouldPass()
+     public void ShouldPassWhenDictionaryIsIDictionary()
      {
         var subject = new Dictionary<int, int>
         {
@@ -236,6 +237,30 @@ public class DictionaryScenario
          subject.ShouldBeEquivalentTo(expected);
      }
 
+     [Fact]
+     public void ShouldPassWhenDictionaryIsIReadOnlyDictionary()
+     {
+        var subject = new TestReadOnlyDictionary(
+           new Dictionary<int, int>
+            {
+                [1] = 2,
+                [4] = 8,
+                [3] = 5,
+                [2] = 3
+            }
+        );
+        var expected = new TestReadOnlyDictionary(
+            new Dictionary<int, int>
+            {
+                [1] = 2,
+                [2] = 3,
+                [3] = 5,
+                [4] = 8
+            }
+        );
+         subject.ShouldBeEquivalentTo(expected);
+     }
+
     private static string MessageScrubber(string original)
     {
         const string pattern1 = @"\[System\.Int32,[^\]]+\]";
@@ -247,5 +272,27 @@ public class DictionaryScenario
             Regex.Replace(original, pattern1, replacement1),
             pattern2,
             replacement2);
+    }
+
+    private class TestReadOnlyDictionary : IReadOnlyDictionary<int, int>
+    {
+        private readonly IDictionary<int, int> dictionary;
+
+        public TestReadOnlyDictionary(IDictionary<int, int> dictionary) => this.dictionary = dictionary;
+
+        public IEnumerator<KeyValuePair<int, int>> GetEnumerator() => dictionary.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => dictionary.GetEnumerator();
+
+        public int Count => dictionary.Count;
+
+        public bool ContainsKey(int key) => dictionary.ContainsKey(key);
+
+        public bool TryGetValue(int key, out int value) => dictionary.TryGetValue(key, out value);
+
+        public int this[int key] => dictionary[key];
+
+        public IEnumerable<int> Keys => dictionary.Keys;
+        public IEnumerable<int> Values => dictionary.Values;
     }
 }
