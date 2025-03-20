@@ -4,8 +4,8 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="15.9.0" />
     <PackageReference Include="EmptyFiles" Version="8.8.0" PrivateAssets="None" />
+    <PackageReference Include="DiffEngine" Version="15.10.1" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
