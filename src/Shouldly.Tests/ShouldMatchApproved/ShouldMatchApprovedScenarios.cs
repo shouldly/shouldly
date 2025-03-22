@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using DiffEngine;
@@ -155,7 +155,7 @@ public class ShouldMatchApprovedScenarios
     {
         Should.Throw<ShouldMatchApprovedException>(() => "".ShouldMatchApproved(c => c.NoDiff()));
 
-        ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(DiffRunner.Disabled);
+        ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(false);
     }
 
     [Fact]
