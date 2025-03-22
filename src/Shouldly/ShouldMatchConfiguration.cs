@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 public class ShouldMatchConfiguration
 {
@@ -30,7 +30,8 @@ public class ShouldMatchConfiguration
 
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
     public string? FilenameDiscriminator { get; set; }
-    public bool PreventDiff { get; set; } = DiffRunner.Disabled;
+    public bool PreventDiff { get; set; } = false; // DiffRunner.Disabled;
+    public IDiffEngine? DiffEngine { get; set; }
 
     /// <summary>
     /// File extension without the.

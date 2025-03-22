@@ -1,4 +1,8 @@
-﻿namespace Shouldly;
+using System.ComponentModel;
+using Shouldly.Internals;
+using Shouldly.Internals.AssertionFactories;
+
+namespace Shouldly;
 
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
@@ -38,9 +42,9 @@ public static class ShouldMatchApprovedTestExtensions
 
         if (!File.Exists(approvedFile))
         {
-            if (!config.PreventDiff)
+            if (!config.PreventDiff && config.DiffEngine != null)
             {
-                DiffRunner.Launch(receivedFile, approvedFile);
+                config.DiffEngine.Launch(receivedFile, approvedFile);
             }
 
             throw new ShouldMatchApprovedException($"""
@@ -57,9 +61,9 @@ public static class ShouldMatchApprovedTestExtensions
 
         if (!contentsMatch)
         {
-            if (!config.PreventDiff)
+            if (!config.PreventDiff && config.DiffEngine != null)
             {
-                DiffRunner.Launch(receivedFile, approvedFile);
+                config.DiffEngine.Launch(receivedFile, approvedFile);
             }
 
             throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
