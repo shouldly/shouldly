@@ -30,7 +30,7 @@ public class ShouldMatchConfiguration
 
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
     public string? FilenameDiscriminator { get; set; }
-    public bool PreventDiff { get; set; } = false; // DiffRunner.Disabled;
+    public bool PreventDiff { get; set; } = false;
     public IDiffEngine? DiffEngine { get; set; }
 
     /// <summary>
