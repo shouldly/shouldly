@@ -192,4 +192,33 @@ public class ShouldMatchApprovedScenarios
 
     public static bool IsWindows()
         => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+    [Fact]
+    public void DiffConfiguresDiffEngine()
+    {
+        var defaultConfig = ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build();
+        var builder = new ShouldMatchConfigurationBuilder(defaultConfig);
+        builder.Diff();
+        var newConfig = builder.Build();
+
+        newConfig.ShouldNotBe(defaultConfig);
+        defaultConfig.DiffEngine.ShouldBeNull();
+        newConfig.DiffEngine.ShouldBeOfType<DiffEngine>();
+    }
+
+    [Fact]
+    public void DiffEngineIsCarriedThroughBuilder()
+    {
+        var defaultBuilder = ShouldMatchConfiguration.ShouldMatchApprovedDefaults;
+        var defaultConfig = defaultBuilder.Build();
+        var builder = new ShouldMatchConfigurationBuilder(defaultConfig);
+        builder.Diff();
+        var configWithDiff = builder.Build();
+        var newBuilder = new ShouldMatchConfigurationBuilder(configWithDiff);
+        var newConfig = newBuilder.Build();
+
+        defaultConfig.DiffEngine.ShouldBeNull();
+        configWithDiff.DiffEngine.ShouldBeOfType<DiffEngine>();
+        newConfig.DiffEngine.ShouldBeOfType<DiffEngine>();
+    }
 }

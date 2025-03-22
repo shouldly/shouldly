@@ -21,6 +21,7 @@ public class ShouldMatchConfiguration
         StringCompareOptions = initialConfig.StringCompareOptions;
         FilenameDiscriminator = initialConfig.FilenameDiscriminator;
         PreventDiff = initialConfig.PreventDiff;
+        DiffEngine = initialConfig.DiffEngine;
         FileExtension = initialConfig.FileExtension;
         TestMethodFinder = initialConfig.TestMethodFinder;
         ApprovalFileSubFolder = initialConfig.ApprovalFileSubFolder;
