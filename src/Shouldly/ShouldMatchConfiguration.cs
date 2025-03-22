@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 public class ShouldMatchConfiguration
 {
@@ -21,6 +21,7 @@ public class ShouldMatchConfiguration
         StringCompareOptions = initialConfig.StringCompareOptions;
         FilenameDiscriminator = initialConfig.FilenameDiscriminator;
         PreventDiff = initialConfig.PreventDiff;
+        DiffEngine = initialConfig.DiffEngine;
         FileExtension = initialConfig.FileExtension;
         TestMethodFinder = initialConfig.TestMethodFinder;
         ApprovalFileSubFolder = initialConfig.ApprovalFileSubFolder;
@@ -30,7 +31,8 @@ public class ShouldMatchConfiguration
 
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
     public string? FilenameDiscriminator { get; set; }
-    public bool PreventDiff { get; set; } = DiffRunner.Disabled;
+    public bool PreventDiff { get; set; } = false;
+    public IDiffEngine? DiffEngine { get; set; }
 
     /// <summary>
     /// File extension without the.
