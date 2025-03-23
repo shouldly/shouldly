@@ -2,7 +2,12 @@
 
 Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net), Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuitive and give great error messages.
 
-`ShouldMatchApproved` exists in the [Shouldly.Approvals](https://www.nuget.org/packages/Shouldly.Approvals/) nuget.
+To configure failed approvals to display a comparison of the approved and failed files, install the [Shouldly.DiffEngine](https://www.nuget.org/packages/Shouldly.DiffEngine/) nuget package and confgure it as follows:
+
+```
+// In your test setup
+ShouldlyConfiguration.ShouldMatchApprovedDefaults.ConfigureDiffEngine();
+```
 
 
 ## Approved File does not exist
@@ -139,6 +144,15 @@ public void Simpsons()
 Will result in a approved file with the name `Simpsons.Bart.approved.txt`
 
 
+### Diff
+
+Opens the diff viewer if the files do not match. Requires the [Shouldly.DiffEngine](https://www.nuget.org/packages/Shouldly.DiffEngine/) package to be installed.
+
+```csharp
+toVerify.ShouldMatchApproved(c => c.Diff())
+```
+
+
 ### NoDiff
 
 Prevents the diff viewer from opening up. Doing this you can use Shouldly's error messages to verify the changes then run the command in the exception message to approve the changes.
@@ -221,5 +235,9 @@ All of the instance based configuration can be changed globally through `Shouldl
 
 ### Diff tools
 
-Shouldly.Approvals uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools
+Shouldly.DiffEngine uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools. Use the following to configure enable the diff viewer when not disabled within DiffEngine:
 
+```
+// In your test setup
+ShouldlyConfiguration.ShouldMatchApprovedDefaults.ConfigureDiffEngine();
+```
