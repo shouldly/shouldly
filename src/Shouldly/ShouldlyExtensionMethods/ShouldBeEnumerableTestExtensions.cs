@@ -18,7 +18,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (!actual.Contains(expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable contains the expected value using the specified comparer.
     /// </summary>
@@ -28,7 +28,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (!actual.Contains(expected, comparer))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable does not contain the expected value.
     /// </summary>
@@ -38,7 +38,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual.Contains(expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable does not contain the expected value using the specified comparer.
     /// </summary>
@@ -62,7 +62,7 @@ public static partial class ShouldBeEnumerableTestExtensions
             throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
         }
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable contains at least one element matching the predicate.
     /// </summary>
@@ -73,7 +73,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (!actual.Any(condition))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable does not contain any elements matching the predicate.
     /// </summary>
@@ -84,7 +84,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual.Any(condition))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that all elements in the enumerable satisfy the predicate.
     /// </summary>
@@ -106,7 +106,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual == null || actual.Any())
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable is not empty.
     /// </summary>
@@ -116,7 +116,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual == null || !actual.Any())
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable contains exactly one element and returns it.
     /// </summary>
@@ -138,7 +138,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable contains a double value within the specified tolerance.
     /// </summary>
@@ -162,7 +162,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (missing.Any())
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable is a subset of the expected enumerable using the specified comparer.
     /// </summary>
@@ -187,7 +187,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (duplicates.Any())
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable contains only unique elements using the specified comparer.
     /// </summary>
@@ -196,7 +196,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         ShouldBeUnique(actual, comparer, null);
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable contains only unique elements using the specified comparer.
     /// </summary>
@@ -230,7 +230,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         ShouldBeInOrder(actual, SortDirection.Ascending, customMessage);
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable is in the specified order.
     /// </summary>
@@ -239,7 +239,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         ShouldBeInOrder(actual, expectedSortDirection, (IComparer<T>?)null, customMessage);
     }
-    
+
     /// <summary>
     /// Asserts that the enumerable is in the specified order using the specified comparer.
     /// </summary>
@@ -248,11 +248,11 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         if (customComparer == null)
             customComparer = Comparer<T>.Default;
-    
+
         var isOutOfOrder = expectedSortDirection == SortDirection.Ascending
             ? (Func<int, bool>)(r => r > 0) // If 'ascending', the previous value should never be greater than the current value
             : r => r < 0;  // If 'descending', the previous value should never be less than the current value
-    
+
         ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage);
     }
 
@@ -298,7 +298,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         ShouldBeOfTypes(actual, expected, null);
     }
-    
+
     /// <summary>
     /// Asserts that the elements in the enumerable are of the specified types.
     /// </summary>

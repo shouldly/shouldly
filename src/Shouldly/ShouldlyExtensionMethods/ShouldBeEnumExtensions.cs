@@ -18,7 +18,7 @@ public static partial class ShouldHaveEnumExtensions
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
         }
     }
-    
+
     /// <summary>
     /// Asserts that the enum value does not have the specified flag.
     /// </summary>

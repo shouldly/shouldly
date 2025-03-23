@@ -21,7 +21,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         if (!dictionary.ContainsKey(key))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the dictionary does not contain the specified key.
     /// </summary>
@@ -32,7 +32,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         if (dictionary.ContainsKey(key))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the dictionary contains the specified key with the specified value.
     /// </summary>
@@ -43,7 +43,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         if (!dictionary.ContainsKey(key) || !Equals(dictionary[key], val))
             throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the dictionary does not contain the specified value for the specified key.
     /// </summary>
