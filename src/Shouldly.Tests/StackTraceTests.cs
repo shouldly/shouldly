@@ -1,4 +1,4 @@
-using static Shouldly.Tests.CommonWaitDurations;
+﻿using static Shouldly.Tests.CommonWaitDurations;
 
 namespace Shouldly.Tests;
 
