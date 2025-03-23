@@ -3,28 +3,43 @@ using JetBrains.Annotations;
 
 namespace Shouldly;
 
+/// <summary>
+/// Provides extension methods for validating that objects satisfy multiple conditions
+/// </summary>
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldSatisfyAllConditionsTestExtensions
 {
+    /// <summary>
+    /// Asserts that the actual value satisfies all specified conditions
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
     {
         ShouldSatisfyAllConditions(actual, null, CreateParameterlessActions(actual, conditions));
     }
 
+    /// <summary>
+    /// Asserts that the actual value satisfies all specified conditions with a custom message
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
     {
         ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
     }
 
+    /// <summary>
+    /// Asserts that the actual object satisfies all specified conditions
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
     {
         ShouldSatisfyAllConditions(actual, null, conditions);
     }
 
+    /// <summary>
+    /// Asserts that the actual object satisfies all specified conditions with a custom message
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
     {

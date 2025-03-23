@@ -1,5 +1,8 @@
 namespace Shouldly;
 
+/// <summary>
+/// Configuration settings for Shouldly's behavior
+/// </summary>
 public static partial class ShouldlyConfiguration
 {
     static ShouldlyConfiguration()
@@ -11,6 +14,9 @@ public static partial class ShouldlyConfiguration
         ];
     }
 
+    /// <summary>
+    /// List of type names that should be compared as objects rather than using their Equals method
+    /// </summary>
     public static List<string> CompareAsObjectTypes { get; }
 
 
@@ -23,6 +29,9 @@ public static partial class ShouldlyConfiguration
         return new EnableSourceInErrorsDisposable();
     }
 
+    /// <summary>
+    /// Determines if source code should be excluded from error messages
+    /// </summary>
     public static bool IsSourceDisabledInErrors()
     {
         if ((bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true)
@@ -43,6 +52,13 @@ public static partial class ShouldlyConfiguration
             CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
     }
 
+    /// <summary>
+    /// Default tolerance used for floating point comparisons
+    /// </summary>
     public static double DefaultFloatingPointTolerance = 0.0d;
+    
+    /// <summary>
+    /// Default timeout period for asynchronous operations
+    /// </summary>
     public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);
 }

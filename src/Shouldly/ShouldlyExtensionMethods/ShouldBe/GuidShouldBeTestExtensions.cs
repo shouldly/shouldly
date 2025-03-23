@@ -6,6 +6,9 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class GuidShouldBeTestExtensions
 {
+    /// <summary>
+    /// Asserts that a Guid is empty
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeEmpty(this Guid actual, string? customMessage = null)
     {

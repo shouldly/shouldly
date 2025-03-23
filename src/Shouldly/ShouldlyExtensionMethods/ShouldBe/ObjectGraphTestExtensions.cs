@@ -8,6 +8,9 @@ public static partial class ObjectGraphTestExtensions
 {
     private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.Instance;
 
+    /// <summary>
+    /// Asserts that an object is equivalent to another object by comparing all properties and fields
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
