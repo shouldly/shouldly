@@ -16,7 +16,7 @@ namespace Shouldly.Tests.ConventionTests
         [Fact]
         public void DiffEngineApi()
         {
-            var publicApi = GenerateApi(typeof(DiffEngine).Assembly);
+            var publicApi = GenerateApi(typeof(DiffEngineDiffViewer).Assembly);
             publicApi.ShouldMatchApproved(b => b.WithFileExtension("cs"));
         }
 

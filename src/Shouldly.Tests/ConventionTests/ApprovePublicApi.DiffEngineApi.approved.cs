@@ -1,8 +1,8 @@
 namespace Shouldly
 {
-    public class DiffEngine : Shouldly.IDiffViewer
+    public class DiffEngineDiffViewer : Shouldly.IDiffViewer
     {
-        public static Shouldly.DiffEngine Instance { get; }
+        public static Shouldly.DiffEngineDiffViewer Instance { get; }
         public void Launch(string receivedFile, string approvedFile) { }
     }
     public static class ShouldMatchConfigurationBuilderExtensions

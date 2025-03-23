@@ -2,13 +2,13 @@ using DiffEngine;
 
 namespace Shouldly;
 
-public class DiffEngine : IDiffViewer
+public class DiffEngineDiffViewer : IDiffViewer
 {
-    private DiffEngine()
+    private DiffEngineDiffViewer()
     {
     }
 
-    public static DiffEngine Instance { get; } = new DiffEngine();
+    public static DiffEngineDiffViewer Instance { get; } = new DiffEngineDiffViewer();
 
     public void Launch(string receivedFile, string approvedFile)
         => DiffRunner.Launch(receivedFile, approvedFile);

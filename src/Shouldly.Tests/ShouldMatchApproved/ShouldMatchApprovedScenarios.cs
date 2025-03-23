@@ -203,7 +203,7 @@ public class ShouldMatchApprovedScenarios
 
         newConfig.ShouldNotBe(defaultConfig);
         defaultConfig.DiffViewer.ShouldBeNull();
-        newConfig.DiffViewer.ShouldBeOfType<DiffEngine>();
+        newConfig.DiffViewer.ShouldBeOfType<DiffEngineDiffViewer>();
     }
 
     [Fact]
@@ -218,7 +218,7 @@ public class ShouldMatchApprovedScenarios
         var newConfig = newBuilder.Build();
 
         defaultConfig.DiffViewer.ShouldBeNull();
-        configWithDiff.DiffViewer.ShouldBeOfType<DiffEngine>();
-        newConfig.DiffViewer.ShouldBeOfType<DiffEngine>();
+        configWithDiff.DiffViewer.ShouldBeOfType<DiffEngineDiffViewer>();
+        newConfig.DiffViewer.ShouldBeOfType<DiffEngineDiffViewer>();
     }
 }

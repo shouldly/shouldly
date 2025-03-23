@@ -7,7 +7,7 @@ public static class ShouldMatchConfigurationBuilderExtensions
     public static ShouldMatchConfigurationBuilder ConfigureDiffEngine(this ShouldMatchConfigurationBuilder builder)
         => builder.Configure(configuration =>
         {
-            configuration.DiffViewer = DiffEngine.Instance;
+            configuration.DiffViewer = DiffEngineDiffViewer.Instance;
             if (DiffRunner.Disabled)
                 configuration.PreventDiff = true;
         });
