@@ -5,7 +5,7 @@ namespace Shouldly;
 public static partial class ShouldBeTestExtensions
 {
     /// <summary>
-    /// Asserts that the actual object is assignable to the specified type.
+    /// Asserts that the actual object is assignable to the type <typeparamref name="T"/>.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [return: NotNullIfNotNull(nameof(actual))]
@@ -14,7 +14,7 @@ public static partial class ShouldBeTestExtensions
         ShouldBeAssignableTo(actual, typeof(T), customMessage);
         return (T?)actual;
     }
-    
+
     /// <summary>
     /// Asserts that the actual object is assignable to the specified type.
     /// </summary>
@@ -28,13 +28,13 @@ public static partial class ShouldBeTestExtensions
                 return !expected.IsValueType ||
                        (expected.IsGenericType && expected.GetGenericTypeDefinition() == typeof(Nullable<>));
             }
-    
+
             return expected.IsInstanceOfType(v);
         }, actual, expected, customMessage);
     }
-    
+
     /// <summary>
-    /// Asserts that the actual object is exactly of the specified type.
+    /// Asserts that the actual object is exactly of the type <typeparamref name="T"/>.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ShouldBeOfType<T>([NotNull] this object? actual, string? customMessage = null)
@@ -42,7 +42,7 @@ public static partial class ShouldBeTestExtensions
         ShouldBeOfType(actual, typeof(T), customMessage);
         return (T)actual;
     }
-    
+
     /// <summary>
     /// Asserts that the actual object is exactly of the specified type.
     /// </summary>
@@ -52,16 +52,16 @@ public static partial class ShouldBeTestExtensions
         actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage);
         Debug.Assert(actual != null);
     }
-    
+
     /// <summary>
-    /// Asserts that the actual object is not assignable to the specified type.
+    /// Asserts that the actual object is not assignable to the type <typeparamref name="T"/>.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeAssignableTo<T>(this object? actual, string? customMessage = null)
     {
         ShouldNotBeAssignableTo(actual, typeof(T), customMessage);
     }
-    
+
     /// <summary>
     /// Asserts that the actual object is not assignable to the specified type.
     /// </summary>
@@ -70,16 +70,16 @@ public static partial class ShouldBeTestExtensions
     {
         actual.AssertAwesomely(v => !expected.IsInstanceOfType(v), actual, expected, customMessage);
     }
-    
+
     /// <summary>
-    /// Asserts that the actual object is not exactly of the specified type.
+    /// Asserts that the actual object is not exactly of the type <typeparamref name="T"/>.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null)
     {
         ShouldNotBeOfType(actual, typeof(T), customMessage);
     }
-    
+
     /// <summary>
     /// Asserts that the actual object is not exactly of the specified type.
     /// </summary>
