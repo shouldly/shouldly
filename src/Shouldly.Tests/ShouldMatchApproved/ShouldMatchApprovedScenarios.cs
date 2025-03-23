@@ -194,7 +194,7 @@ public class ShouldMatchApprovedScenarios
         => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
     [Fact]
-    public void DiffConfiguresDiffEngine()
+    public void DiffConfiguresDiffViewer()
     {
         var defaultConfig = ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build();
         var builder = new ShouldMatchConfigurationBuilder(defaultConfig);
@@ -207,7 +207,7 @@ public class ShouldMatchApprovedScenarios
     }
 
     [Fact]
-    public void DiffEngineIsCarriedThroughBuilder()
+    public void DiffViewerIsCarriedThroughBuilder()
     {
         var defaultBuilder = ShouldMatchConfiguration.ShouldMatchApprovedDefaults;
         var defaultConfig = defaultBuilder.Build();
