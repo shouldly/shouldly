@@ -9,7 +9,7 @@ public static partial class ShouldThrowExtensions
 {
     /*** ShouldThrow(Action) ***/
     /// <summary>
-    /// Verifies that the action throws a specific exception type.
+    /// Verifies that the action throws a <typeparamref name="TException"/> exception.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException ShouldThrow<TException>(this Action actual, string? customMessage = null)
@@ -18,7 +18,7 @@ public static partial class ShouldThrowExtensions
 
     /*** ShouldThrow(Func<T>) ***/
     /// <summary>
-    /// Verifies that the function throws a specific exception type.
+    /// Verifies that the function throws a <typeparamref name="TException"/> exception.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException ShouldThrow<TException>(this Func<object?> actual, string? customMessage = null)

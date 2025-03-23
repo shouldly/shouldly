@@ -9,7 +9,7 @@ public static partial class ShouldThrowAsyncExtensions
 {
     /*** ShouldThrowAsync(Task) ***/
     /// <summary>
-    /// Asynchronously verifies that the Task throws a specific exception type.
+    /// Asynchronously verifies that the Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ShouldThrowAsync<TException>(this Task task, string? customMessage = null)
@@ -26,7 +26,7 @@ public static partial class ShouldThrowAsyncExtensions
 
     /*** ShouldThrowAsync(Func<Task>) ***/
     /// <summary>
-    /// Asynchronously verifies that the function returning a Task throws a specific exception type.
+    /// Asynchronously verifies that the function returning a Task throws an <typeparamref name="TException"/> exception.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual, string? customMessage = null)
