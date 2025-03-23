@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 namespace Shouldly;
 
@@ -6,7 +6,7 @@ public static partial class Should
 {
     /*** Should.ThrowAsync(Task) ***/
     /// <summary>
-    /// Asynchronously verifies that the provided task throws an exception of type TException
+    /// Asynchronously verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
@@ -26,7 +26,7 @@ public static partial class Should
 
     /*** Should.ThrowAsync(Func<Task>) ***/
     /// <summary>
-    /// Asynchronously verifies that the provided task function throws an exception of type TException
+    /// Asynchronously verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null)

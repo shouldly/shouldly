@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 namespace Shouldly;
 
@@ -6,7 +6,7 @@ public static partial class Should
 {
     /*** Should.Throw(Task) ***/
     /// <summary>
-    /// Verifies that the provided task throws an exception of type TException
+    /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>(Task actual, string? customMessage = null)
@@ -24,7 +24,7 @@ public static partial class Should
 
     /*** Should.Throw(Func<Task>) ***/
     /// <summary>
-    /// Verifies that the provided task function throws an exception of type TException
+    /// Verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<Task> actual, string? customMessage = null)
@@ -40,7 +40,7 @@ public static partial class Should
 
     /*** Should.Throw(Task, TimeSpan) ***/
     /// <summary>
-    /// Verifies that the provided task throws an exception of type TException within the specified timeout
+    /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/> within the specified timeout
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null)
@@ -59,7 +59,7 @@ public static partial class Should
 
     /*** Should.Throw(Func<Task>, TimeSpan) ***/
     /// <summary>
-    /// Verifies that the provided task function throws an exception of type TException within the specified timeout
+    /// Verifies that the provided task function throws an exception of type <typeparamref name="TException"/> within the specified timeout
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null)

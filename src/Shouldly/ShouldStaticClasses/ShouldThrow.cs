@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 namespace Shouldly;
 
@@ -8,7 +8,7 @@ public static partial class Should
 {
     /*** Should.Throw(Action) ***/
     /// <summary>
-    /// Verifies that the provided action throws an exception of type TException
+    /// Verifies that the provided action throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
@@ -67,7 +67,7 @@ public static partial class Should
 
     /*** Should.Throw(Func<T>) ***/
     /// <summary>
-    /// Verifies that the provided function throws an exception of type TException
+    /// Verifies that the provided function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null)
