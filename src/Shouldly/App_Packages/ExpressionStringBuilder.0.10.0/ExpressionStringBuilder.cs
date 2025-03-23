@@ -1,4 +1,4 @@
-
+﻿
 
 // ReSharper disable CheckNamespace
 namespace ExpressionToString;
