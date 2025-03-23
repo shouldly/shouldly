@@ -1,6 +1,6 @@
 namespace Shouldly
 {
-    public class DiffEngine : Shouldly.IDiffEngine
+    public class DiffEngine : Shouldly.IDiffViewer
     {
         public static Shouldly.DiffEngine Instance { get; }
         public void Launch(string receivedFile, string approvedFile) { }

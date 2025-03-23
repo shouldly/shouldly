@@ -2,7 +2,7 @@ using DiffEngine;
 
 namespace Shouldly;
 
-public class DiffEngine : IDiffEngine
+public class DiffEngine : IDiffViewer
 {
     private DiffEngine()
     {

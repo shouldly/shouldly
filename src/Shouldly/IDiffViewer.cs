@@ -1,6 +1,6 @@
 namespace Shouldly;
 
-public interface IDiffEngine
+public interface IDiffViewer
 {
     void Launch(string receivedFile, string approvedFile);
 }

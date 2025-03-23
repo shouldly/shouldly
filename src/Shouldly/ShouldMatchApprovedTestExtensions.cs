@@ -42,9 +42,9 @@ public static class ShouldMatchApprovedTestExtensions
 
         if (!File.Exists(approvedFile))
         {
-            if (!config.PreventDiff && config.DiffEngine != null)
+            if (!config.PreventDiff && config.DiffViewer != null)
             {
-                config.DiffEngine.Launch(receivedFile, approvedFile);
+                config.DiffViewer.Launch(receivedFile, approvedFile);
             }
 
             throw new ShouldMatchApprovedException($"""
@@ -61,9 +61,9 @@ public static class ShouldMatchApprovedTestExtensions
 
         if (!contentsMatch)
         {
-            if (!config.PreventDiff && config.DiffEngine != null)
+            if (!config.PreventDiff && config.DiffViewer != null)
             {
-                config.DiffEngine.Launch(receivedFile, approvedFile);
+                config.DiffViewer.Launch(receivedFile, approvedFile);
             }
 
             throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);

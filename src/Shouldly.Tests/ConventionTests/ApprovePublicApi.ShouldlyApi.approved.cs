@@ -83,7 +83,7 @@ namespace Shouldly
     {
         public static void ShouldBeEmpty(this System.Guid actual, string? customMessage = null) { }
     }
-    public interface IDiffEngine
+    public interface IDiffViewer
     {
         void Launch(string receivedFile, string approvedFile);
     }
@@ -365,7 +365,7 @@ namespace Shouldly
         public ShouldMatchConfiguration() { }
         public ShouldMatchConfiguration(Shouldly.ShouldMatchConfiguration initialConfig) { }
         public string? ApprovalFileSubFolder { get; set; }
-        public Shouldly.IDiffEngine? DiffEngine { get; set; }
+        public Shouldly.IDiffViewer? DiffViewer { get; set; }
         public string FileExtension { get; set; }
         public string? FilenameDiscriminator { get; set; }
         public Shouldly.FilenameGenerator FilenameGenerator { get; set; }
