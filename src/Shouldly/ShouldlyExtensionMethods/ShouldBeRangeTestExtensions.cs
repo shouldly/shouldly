@@ -10,7 +10,7 @@ public static partial class ShouldBeTestExtensions
     {
         ShouldBeOneOf(actual, expected, null);
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is one of the expected values.
     /// </summary>
@@ -21,7 +21,7 @@ public static partial class ShouldBeTestExtensions
         if (!expected.Contains(actual!))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is one of the expected values using the specified comparer.
     /// </summary>
@@ -32,7 +32,7 @@ public static partial class ShouldBeTestExtensions
         if (!expected.Contains(actual!, comparer))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is not one of the expected values.
     /// </summary>
@@ -41,7 +41,7 @@ public static partial class ShouldBeTestExtensions
     {
         ShouldNotBeOneOf(actual, expected, null);
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is not one of the expected values.
     /// </summary>
@@ -52,7 +52,7 @@ public static partial class ShouldBeTestExtensions
         if (expected.Contains(actual!))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is not one of the expected values using the specified comparer.
     /// </summary>
@@ -63,7 +63,7 @@ public static partial class ShouldBeTestExtensions
         if (expected.Contains(actual!, comparer))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is within the specified range.
     /// </summary>
@@ -73,7 +73,7 @@ public static partial class ShouldBeTestExtensions
     {
         actual.AssertAwesomely(v => Is.InRange(v, from, to), actual, new { from, to }, customMessage);
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is not within the specified range.
     /// </summary>

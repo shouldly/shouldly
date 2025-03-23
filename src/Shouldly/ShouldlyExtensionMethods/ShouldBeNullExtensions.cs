@@ -20,7 +20,7 @@ public static partial class ShouldBeNullExtensions
         if (actual != null)
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is null.
     /// </summary>
@@ -32,7 +32,7 @@ public static partial class ShouldBeNullExtensions
         if (actual != null)
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
     }
-    
+
     /// <summary>
     /// Asserts that the actual value is not null.
     /// </summary>
@@ -41,7 +41,7 @@ public static partial class ShouldBeNullExtensions
     public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
         where T : class =>
         actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
-    
+
     /// <summary>
     /// Asserts that the actual value is not null.
     /// </summary>
