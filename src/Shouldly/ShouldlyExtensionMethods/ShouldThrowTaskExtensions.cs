@@ -9,7 +9,7 @@ public static partial class ShouldThrowTaskExtensions
 {
     /*** ShouldThrow(Task) ***/
     /// <summary>
-    /// Verifies that the Task throws a specific exception type.
+    /// Verifies that the Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException ShouldThrow<TException>(this Task actual, string? customMessage = null)
@@ -39,7 +39,7 @@ public static partial class ShouldThrowTaskExtensions
 
     /*** ShouldThrow(Func<Task>) ***/
     /// <summary>
-    /// Verifies that the function returning a Task throws a specific exception type.
+    /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException ShouldThrow<TException>(this Func<Task> actual, string? customMessage = null)
@@ -63,7 +63,7 @@ public static partial class ShouldThrowTaskExtensions
 
     /*** ShouldThrow(Task, TimeSpan) ***/
     /// <summary>
-    /// Verifies that the Task throws a specific exception type within the specified timeout.
+    /// Verifies that the Task throws a <typeparamref name="TException"/> exception within the specified timeout.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string? customMessage = null)
@@ -93,7 +93,7 @@ public static partial class ShouldThrowTaskExtensions
 
     /*** ShouldThrow(Func<Task>, TimeSpan) ***/
     /// <summary>
-    /// Verifies that the function returning a Task throws a specific exception type within the specified timeout.
+    /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception within the specified timeout.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null)
