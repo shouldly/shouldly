@@ -1,4 +1,4 @@
-﻿public class ShouldBeInRangeExamples
+public class ShouldBeInRangeExamples
 {
     ITestOutputHelper _testOutputHelper;
 

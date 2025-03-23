@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 /// <summary>
 /// Specifies the direction for sorting operations

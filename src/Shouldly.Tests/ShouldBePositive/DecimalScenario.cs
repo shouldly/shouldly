@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBePositive;
+namespace Shouldly.Tests.ShouldBePositive;
 
 [UseCulture("en-US")]
 public class DecimalScenario

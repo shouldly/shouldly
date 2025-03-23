@@ -1,4 +1,4 @@
-﻿public class ShouldMatchApprovedExamples
+public class ShouldMatchApprovedExamples
 {
     ITestOutputHelper _testOutputHelper;
 

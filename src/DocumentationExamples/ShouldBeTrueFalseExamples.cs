@@ -1,4 +1,4 @@
-﻿public class ShouldBeTrueFalseExamples
+public class ShouldBeTrueFalseExamples
 {
     ITestOutputHelper _testOutputHelper;
 

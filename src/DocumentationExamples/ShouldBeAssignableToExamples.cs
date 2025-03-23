@@ -1,4 +1,4 @@
-﻿public class ShouldBeAssignableToExamples
+public class ShouldBeAssignableToExamples
 {
     ITestOutputHelper _testOutputHelper;
 

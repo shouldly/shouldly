@@ -1,4 +1,4 @@
-﻿public class ShouldCompleteInExamples
+public class ShouldCompleteInExamples
 {
     ITestOutputHelper _testOutputHelper;
 

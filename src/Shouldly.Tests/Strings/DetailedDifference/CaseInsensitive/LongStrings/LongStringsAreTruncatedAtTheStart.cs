@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings;
+namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings;
 
 public class LongStringsAreTruncatedAtTheStart
 {

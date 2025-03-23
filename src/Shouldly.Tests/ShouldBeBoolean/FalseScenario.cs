@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeBoolean;
+namespace Shouldly.Tests.ShouldBeBoolean;
 
 public class FalseScenario
 {

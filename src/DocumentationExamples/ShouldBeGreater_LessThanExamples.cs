@@ -1,4 +1,4 @@
-﻿public class ShouldBeGreater_LessThanExamples
+public class ShouldBeGreater_LessThanExamples
 {
     ITestOutputHelper _testOutputHelper;
 

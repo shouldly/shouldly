@@ -1,4 +1,4 @@
-﻿namespace Shouldly.DifferenceHighlighting;
+namespace Shouldly.DifferenceHighlighting;
 
 class FormattedDetailedDifferenceString
 {

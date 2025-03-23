@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.WithTolerance;
+namespace Shouldly.Tests.ShouldBe.WithTolerance;
 
 public class DoubleScenario
 {

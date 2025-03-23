@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Internals.Assertions;
+namespace Shouldly.Internals.Assertions;
 
 interface IAssertion
 {

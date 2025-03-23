@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 /// <summary>
 /// Specifies options for string comparison operations

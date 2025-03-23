@@ -1,4 +1,4 @@
-﻿public class EnumerableShouldBeUniqueExamples
+public class EnumerableShouldBeUniqueExamples
 {
     ITestOutputHelper _testOutputHelper;
 

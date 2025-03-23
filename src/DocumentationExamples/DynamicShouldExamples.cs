@@ -1,4 +1,4 @@
-﻿public class DynamicShouldExamples
+public class DynamicShouldExamples
 {
     ITestOutputHelper _testOutputHelper;
 

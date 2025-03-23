@@ -1,4 +1,4 @@
-﻿public class EnumerableShouldBeEmptyExamples
+public class EnumerableShouldBeEmptyExamples
 {
     ITestOutputHelper _testOutputHelper;
 
