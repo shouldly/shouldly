@@ -50,7 +50,7 @@ public static class ShouldMatchApprovedTestExtensions
             throw new ShouldMatchApprovedException($"""
                                                     Approval file {approvedFile}
                                                         does not exist
-                                                    """, receivedFile, approvedFile);
+                                                    """, receivedFile, approvedFile, !config.PreventDiff && config.DiffViewer == null);
         }
 
         var approvedFileContents = File.ReadAllText(approvedFile);
@@ -66,7 +66,7 @@ public static class ShouldMatchApprovedTestExtensions
                 config.DiffViewer.Launch(receivedFile, approvedFile);
             }
 
-            throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
+            throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile, !config.PreventDiff && config.DiffViewer == null);
         }
 
         File.Delete(receivedFile);

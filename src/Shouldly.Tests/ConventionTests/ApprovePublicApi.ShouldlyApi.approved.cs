@@ -353,7 +353,7 @@ namespace Shouldly
     }
     public class ShouldMatchApprovedException : Shouldly.ShouldAssertException
     {
-        public ShouldMatchApprovedException(string? message, string? receivedFile, string? approvedFile) { }
+        public ShouldMatchApprovedException(string? message, string? receivedFile, string? approvedFile, bool viewerNotPresent) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
