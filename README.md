@@ -50,7 +50,7 @@ dotnet add package Shouldly
 To have `ShouldMatchApproval` display a diff of the expected and actual files, you will need to install the `Shouldly.DiffEngine` package and configure it.
 
 ```bash
-Install-Package Shouldly.ShouldlyShouldMatchApproved
+Install-Package Shouldly.DiffEngine
 ```
 
 ```csharp
