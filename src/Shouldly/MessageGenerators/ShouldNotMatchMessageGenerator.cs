@@ -1,4 +1,4 @@
-﻿namespace Shouldly.MessageGenerators;
+namespace Shouldly.MessageGenerators;
 
 class ShouldNotMatchMessageGenerator : ShouldlyMessageGenerator
 {

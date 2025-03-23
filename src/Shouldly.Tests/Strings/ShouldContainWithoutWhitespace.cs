@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Strings;
+namespace Shouldly.Tests.Strings;
 
 public class ShouldContainWithoutWhitespace
 {

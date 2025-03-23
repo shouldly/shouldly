@@ -1,4 +1,4 @@
-﻿using Shouldly.MessageGenerators;
+using Shouldly.MessageGenerators;
 
 namespace Shouldly;
 

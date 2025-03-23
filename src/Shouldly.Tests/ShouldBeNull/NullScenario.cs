@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeNull;
+namespace Shouldly.Tests.ShouldBeNull;
 
 public class NullScenario
 {

@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldNotBeOfType;
+namespace Shouldly.Tests.ShouldNotBeOfType;
 
 public class DerivedTypeScenario
 {

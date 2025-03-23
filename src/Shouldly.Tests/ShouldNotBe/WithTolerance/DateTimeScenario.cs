@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldNotBe.WithTolerance;
+namespace Shouldly.Tests.ShouldNotBe.WithTolerance;
 
 public class DateTimeScenario
 {

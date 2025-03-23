@@ -1,4 +1,4 @@
-﻿public class EnumerableShouldNotContainExamples
+public class EnumerableShouldNotContainExamples
 {
     ITestOutputHelper _testOutputHelper;
 

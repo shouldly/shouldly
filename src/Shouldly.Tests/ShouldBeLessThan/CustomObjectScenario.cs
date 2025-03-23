@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeLessThan;
+namespace Shouldly.Tests.ShouldBeLessThan;
 
 public class CustomObjectScenario
 {

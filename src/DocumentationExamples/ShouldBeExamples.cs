@@ -1,4 +1,4 @@
-﻿public class ShouldBeExamples
+public class ShouldBeExamples
 {
     ITestOutputHelper _testOutputHelper;
 

@@ -1,4 +1,4 @@
-﻿#if NET8_0_OR_GREATER
+#if NET8_0_OR_GREATER
 using Microsoft.Extensions.Time.Testing;
 #endif
 using Xunit.Sdk;

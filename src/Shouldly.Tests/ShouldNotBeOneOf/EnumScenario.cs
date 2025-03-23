@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldNotBeOneOf;
+namespace Shouldly.Tests.ShouldNotBeOneOf;
 
 public class EnumScenario
 {

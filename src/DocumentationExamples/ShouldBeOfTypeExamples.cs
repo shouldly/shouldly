@@ -1,4 +1,4 @@
-﻿public class ShouldBeOfTypeExamples
+public class ShouldBeOfTypeExamples
 {
     ITestOutputHelper _testOutputHelper;
 

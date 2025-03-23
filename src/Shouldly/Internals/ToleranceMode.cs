@@ -1,4 +1,4 @@
-﻿namespace NUnit.Framework.Constraints;
+namespace NUnit.Framework.Constraints;
 
 /// <summary>
 ///     Modes in which the tolerance value for a comparison can be interpreted.

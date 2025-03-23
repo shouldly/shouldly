@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Strings.ShouldBeEmpty;
+namespace Shouldly.Tests.Strings.ShouldBeEmpty;
 
 public class ActualIsNull
 {
