@@ -125,7 +125,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         if (actual == null || actual.Count() != 1)
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
-    
+
         return actual.Single();
     }
 
@@ -157,7 +157,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         if (actual.Equals(expected))
             return;
-    
+
         var missing = actual.Except(expected);
         if (missing.Any())
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
@@ -171,7 +171,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         if (actual.Equals(expected))
             return;
-    
+
         var missing = actual.Except(expected, comparer);
         if (missing.Any())
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
