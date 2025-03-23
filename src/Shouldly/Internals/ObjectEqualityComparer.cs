@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 [Serializable]
 class ObjectEqualityComparer<T> : System.Collections.Generic.EqualityComparer<T>

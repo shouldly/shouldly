@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeGreaterThan;
+namespace Shouldly.Tests.ShouldBeGreaterThan;
 
 public class IntScenario
 {

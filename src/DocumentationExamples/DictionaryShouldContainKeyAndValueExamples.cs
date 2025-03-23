@@ -1,4 +1,4 @@
-﻿public class DictionaryShouldContainKeyAndValueExamples
+public class DictionaryShouldContainKeyAndValueExamples
 {
     ITestOutputHelper _testOutputHelper;
 

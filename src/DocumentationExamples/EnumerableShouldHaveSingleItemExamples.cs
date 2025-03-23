@@ -1,4 +1,4 @@
-﻿public class EnumerableShouldHaveSingleItemExamples
+public class EnumerableShouldHaveSingleItemExamples
 {
     ITestOutputHelper _testOutputHelper;
 

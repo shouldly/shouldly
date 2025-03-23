@@ -1,4 +1,4 @@
-﻿using Shouldly.Internals;
+using Shouldly.Internals;
 using Shouldly.Internals.XunitV3Markers;
 
 namespace Shouldly;

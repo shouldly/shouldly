@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings;
+namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings;
 
 // Just after the edge case for the start of string truncation. Now, both start and end should be truncated.
 public class LongStringsAreTruncatedAtTheStartAndTheEndBorderConditionOne

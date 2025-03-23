@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]

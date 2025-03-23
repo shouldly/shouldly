@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeOfTypes;
+namespace Shouldly.Tests.ShouldBeOfTypes;
 
 public class BasicScenarios
 {

@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldThrow;
+namespace Shouldly.Tests.ShouldThrow;
 
 public class NestedAwaitsDoNotDeadlockScenario
 {

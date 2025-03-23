@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeSameAs;
+namespace Shouldly.Tests.ShouldBeSameAs;
 
 public class BasicScenario
 {

@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Internals;
+namespace Shouldly.Internals;
 
 static class StackTraceHelpers
 {

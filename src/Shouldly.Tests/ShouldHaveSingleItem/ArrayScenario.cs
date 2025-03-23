@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldHaveSingleItem;
+namespace Shouldly.Tests.ShouldHaveSingleItem;
 
 public class ArrayScenario
 {

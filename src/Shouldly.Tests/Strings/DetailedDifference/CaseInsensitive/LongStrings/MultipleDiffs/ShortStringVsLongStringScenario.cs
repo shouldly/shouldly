@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs;
+namespace Shouldly.Tests.Strings.DetailedDifference.CaseInsensitive.LongStrings.MultipleDiffs;
 
 public class ShortStringVsLongStringScenario
 {

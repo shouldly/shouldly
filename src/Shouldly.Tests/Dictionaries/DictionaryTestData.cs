@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Dictionaries;
+namespace Shouldly.Tests.Dictionaries;
 
 internal static class DictionaryTestData
 {

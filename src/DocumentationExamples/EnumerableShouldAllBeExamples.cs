@@ -1,4 +1,4 @@
-﻿public class EnumerableShouldAllBeExamples
+public class EnumerableShouldAllBeExamples
 {
     ITestOutputHelper _testOutputHelper;
 

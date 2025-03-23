@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.TestHelpers;
+namespace Shouldly.Tests.TestHelpers;
 
 [Flags]
 enum SomeFlags

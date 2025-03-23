@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using TestStack.ConventionTests;
 using TestStack.ConventionTests.ConventionData;
 
