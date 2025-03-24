@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldNotBe;
+namespace Shouldly.Tests.ShouldNotBe;
 
 public class NumbersOfDifferentTypesScenario
 {

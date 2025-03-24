@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.ShouldBeSubsetOf;
+namespace Shouldly.Tests.ShouldBe.ShouldBeSubsetOf;
 
 public class ComparerScenario
 {

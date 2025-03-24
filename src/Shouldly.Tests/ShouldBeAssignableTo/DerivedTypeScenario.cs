@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeAssignableTo;
+namespace Shouldly.Tests.ShouldBeAssignableTo;
 
 public class DerivedTypeScenario
 {

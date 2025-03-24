@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.Strings.ShouldNotEndWith;
+namespace Shouldly.Tests.Strings.ShouldNotEndWith;
 
 public class BasicScenarioCaseSensitive
 {

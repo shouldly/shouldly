@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeEmpty;
+namespace Shouldly.Tests.ShouldBeEmpty;
 
 public class GuidScenario
 {

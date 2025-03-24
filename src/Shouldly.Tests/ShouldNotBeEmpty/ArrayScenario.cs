@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldNotBeEmpty;
+namespace Shouldly.Tests.ShouldNotBeEmpty;
 
 public class ArrayScenario
 {

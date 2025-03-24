@@ -1,4 +1,4 @@
-﻿public class EnumerableShouldBeSubsetOfExamples
+public class EnumerableShouldBeSubsetOfExamples
 {
     ITestOutputHelper _testOutputHelper;
 

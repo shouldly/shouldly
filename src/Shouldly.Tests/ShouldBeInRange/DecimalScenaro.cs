@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBeInRange;
+namespace Shouldly.Tests.ShouldBeInRange;
 
 public class DecimalScenario
 {

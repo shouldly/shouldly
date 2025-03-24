@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 [Flags]
 public enum StringCompareShould

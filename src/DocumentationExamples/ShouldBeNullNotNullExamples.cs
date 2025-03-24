@@ -1,4 +1,4 @@
-﻿public class ShouldBeNullNotNullExamples
+public class ShouldBeNullNotNullExamples
 {
     ITestOutputHelper _testOutputHelper;
 

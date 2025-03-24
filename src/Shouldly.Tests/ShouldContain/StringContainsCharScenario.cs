@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldContain;
+namespace Shouldly.Tests.ShouldContain;
 
 public class StringContainsCharScenario
 {

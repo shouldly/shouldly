@@ -1,4 +1,4 @@
-﻿namespace Simpsons;
+namespace Simpsons;
 
 public abstract class Pet
 {

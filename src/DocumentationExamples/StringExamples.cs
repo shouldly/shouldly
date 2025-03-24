@@ -1,4 +1,4 @@
-﻿public class StringExamples
+public class StringExamples
 {
     ITestOutputHelper _testOutputHelper;
 

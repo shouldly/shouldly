@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.ShouldBeOneOf;
+namespace Shouldly.Tests.ShouldBe.ShouldBeOneOf;
 
 public class ComparerScenario
 {

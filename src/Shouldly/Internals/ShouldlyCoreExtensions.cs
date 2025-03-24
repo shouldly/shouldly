@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 public static class ShouldlyCoreExtensions
 {

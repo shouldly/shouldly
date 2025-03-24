@@ -1,4 +1,4 @@
-﻿namespace Shouldly;
+namespace Shouldly;
 
 public class ShouldMatchConfiguration
 {

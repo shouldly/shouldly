@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldBe.ShouldBeUnique;
+namespace Shouldly.Tests.ShouldBe.ShouldBeUnique;
 
 public class ComparerScenario
 {

@@ -1,4 +1,4 @@
-﻿using Shouldly.ShouldlyExtensionMethods;
+using Shouldly.ShouldlyExtensionMethods;
 
 public class ShouldHaveFlagNotHaveFlagExamples
 {

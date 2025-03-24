@@ -1,4 +1,4 @@
-﻿namespace Shouldly.Tests.ShouldSatisfyAllConditions;
+namespace Shouldly.Tests.ShouldSatisfyAllConditions;
 
 public class GenericMultipleConditionsScenario_MultiLine2
 {
