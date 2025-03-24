@@ -11,5 +11,11 @@ public static partial class GuidShouldBeTestExtensions
     {
         actual.AssertAwesomely(v => Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage);
     }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldNotBeEmpty(this Guid actual, string? customMessage = null)
+    {
+        actual.AssertAwesomely(v => !Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage);
+    }
 }
 
