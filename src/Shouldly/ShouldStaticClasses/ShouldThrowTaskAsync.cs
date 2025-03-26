@@ -5,6 +5,9 @@ namespace Shouldly;
 public static partial class Should
 {
     /*** Should.ThrowAsync(Task) ***/
+    /// <summary>
+    /// Asynchronously verifies that the provided task throws an exception of type <typeparamref name="TException"/>
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
         where TException : Exception
@@ -12,6 +15,9 @@ public static partial class Should
         return ThrowAsync<TException>(() => task, customMessage);
     }
 
+    /// <summary>
+    /// Asynchronously verifies that the provided task throws an exception of the specified type
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null)
     {
@@ -19,6 +25,9 @@ public static partial class Should
     }
 
     /*** Should.ThrowAsync(Func<Task>) ***/
+    /// <summary>
+    /// Asynchronously verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null)
         where TException : Exception
@@ -68,6 +77,9 @@ public static partial class Should
     }
 
     /*** Should.ThrowAsync(Func<Task>) ***/
+    /// <summary>
+    /// Asynchronously verifies that the provided task function throws an exception of the specified type
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType, string? customMessage = null)
     {
@@ -93,6 +105,9 @@ public static partial class Should
     }
 
     /*** Should.NotThrowAsync(Task) ***/
+    /// <summary>
+    /// Asynchronously verifies that the provided task does not throw any exceptions
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task NotThrowAsync(Task task, string? customMessage = null)
     {
@@ -100,6 +115,9 @@ public static partial class Should
     }
 
     /*** Should.NotThrowAsync(Func<Task>) ***/
+    /// <summary>
+    /// Asynchronously verifies that the provided task function does not throw any exceptions
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null) =>
         NotThrowAsyncInternal(actual, customMessage);

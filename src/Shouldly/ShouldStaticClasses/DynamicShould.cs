@@ -4,14 +4,23 @@ using JetBrains.Annotations;
 
 namespace Shouldly;
 
+/// <summary>
+/// Provides assertion methods for dynamic objects
+/// </summary>
 [ShouldlyMethods]
 public static partial class DynamicShould
 {
+    /// <summary>
+    /// Verifies that the provided action throws an exception of type TException
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
         where TException : Exception =>
         Should.Throw<TException>(actual, customMessage);
 
+    /// <summary>
+    /// Verifies that the dynamic object has the specified property
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
     {
