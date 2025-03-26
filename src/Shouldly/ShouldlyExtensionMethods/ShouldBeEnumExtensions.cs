@@ -6,6 +6,9 @@ namespace Shouldly.ShouldlyExtensionMethods;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldHaveEnumExtensions
 {
+    /// <summary>
+    /// Asserts that the enum value has the specified flag.
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
     {
@@ -16,6 +19,9 @@ public static partial class ShouldHaveEnumExtensions
         }
     }
 
+    /// <summary>
+    /// Asserts that the enum value does not have the specified flag.
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
     {

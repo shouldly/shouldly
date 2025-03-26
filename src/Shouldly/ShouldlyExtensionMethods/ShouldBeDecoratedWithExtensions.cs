@@ -7,6 +7,9 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldBeDecoratedWithExtensions
 {
+    /// <summary>
+    /// Asserts that the type is decorated with the specified attribute.
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeDecoratedWith<T>(this Type actual, string? customMessage = null)
         where T : Attribute

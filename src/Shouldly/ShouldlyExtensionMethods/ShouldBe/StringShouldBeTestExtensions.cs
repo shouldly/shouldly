@@ -33,6 +33,9 @@ public static partial class ShouldBeStringTestExtensions
         ShouldBe(actual, expected, null, options);
     }
 
+    /// <summary>
+    /// Perform a string comparison with sensitivity options and custom message
+    /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,

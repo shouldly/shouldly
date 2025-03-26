@@ -3,8 +3,14 @@ using Shouldly.MessageGenerators;
 
 namespace Shouldly;
 
+/// <summary>
+/// Message for assertions that only have an expected value
+/// </summary>
 public class ExpectedShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with the expected value
+    /// </summary>
     public ExpectedShouldlyMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected);
@@ -12,8 +18,14 @@ public class ExpectedShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that only have an actual value
+/// </summary>
 public class ActualShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with the actual value
+    /// </summary>
     public ActualShouldlyMessage(object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, actual: actual)
@@ -24,8 +36,14 @@ public class ActualShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that have both expected and actual values
+/// </summary>
 public class ExpectedActualShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with expected and actual values
+    /// </summary>
     public ExpectedActualShouldlyMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
@@ -36,8 +54,14 @@ public class ExpectedActualShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that filter actual values with a predicate
+/// </summary>
 public class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with a filter expression and result
+    /// </summary>
     public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object? result, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, result, actual)
@@ -49,8 +73,14 @@ public class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that compare expected and actual values with case sensitivity options
+/// </summary>
 public class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with expected and actual values and case sensitivity setting
+    /// </summary>
     public ExpectedActualWithCaseSensitivityShouldlyMessage(object? expected, object? actual,
         Case? caseSensitivity,
         string? customMessage,
@@ -65,8 +95,14 @@ public class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that compare expected and actual values with a tolerance
+/// </summary>
 public class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with expected and actual values and a tolerance
+    /// </summary>
     public ExpectedActualToleranceShouldlyMessage(object? expected, object? actual, object tolerance,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -80,8 +116,14 @@ public class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that compare expected and actual values ignoring order
+/// </summary>
 public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with expected and actual values that ignores order
+    /// </summary>
     public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -95,8 +137,14 @@ public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that compare expected and actual values with a key
+/// </summary>
 public class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message with expected and actual values and a key
+    /// </summary>
     public ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -111,8 +159,14 @@ public class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that check the order of elements
+/// </summary>
 public class ExpectedOrderShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for order assertions
+    /// </summary>
     public ExpectedOrderShouldlyMessage(object? actual, SortDirection expectedDirection, int outOfOrderIndex, object? outOfOrderObject,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -127,8 +181,14 @@ public class ExpectedOrderShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that check object equivalence
+/// </summary>
 public class ExpectedEquivalenceShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for equivalence assertions
+    /// </summary>
     public ExpectedEquivalenceShouldlyMessage(object? expected, object? actual, IEnumerable<string> path, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
@@ -139,8 +199,14 @@ public class ExpectedEquivalenceShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that check exceptions
+/// </summary>
 public class ShouldlyThrowMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for exception assertions with an exception message
+    /// </summary>
     public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
     {
@@ -148,6 +214,9 @@ public class ShouldlyThrowMessage : ShouldlyMessage
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
 
+    /// <summary>
+    /// Creates a new message for exception assertions with expected and actual values
+    /// </summary>
     public ShouldlyThrowMessage(object? expected, object? actual, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
     {
@@ -158,6 +227,9 @@ public class ShouldlyThrowMessage : ShouldlyMessage
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
 
+    /// <summary>
+    /// Creates a new message for exception assertions with only an expected value
+    /// </summary>
     public ShouldlyThrowMessage(object? expected, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
     {
@@ -166,8 +238,14 @@ public class ShouldlyThrowMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that check if a collection contains items with a specific count
+/// </summary>
 public class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for containment assertions with a match count
+    /// </summary>
     public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual)
@@ -179,14 +257,23 @@ public class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that check exceptions in asynchronous operations
+/// </summary>
 public class TaskShouldlyThrowMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for task exception assertions with an exception
+    /// </summary>
     public TaskShouldlyThrowMessage(object? expected, Exception exception, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exception.Message, isAsync: true, shouldlyMethod: shouldlyMethod);
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
 
+    /// <summary>
+    /// Creates a new message for task exception assertions with expected and actual values
+    /// </summary>
     public TaskShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true, shouldlyMethod: shouldlyMethod)
@@ -196,6 +283,9 @@ public class TaskShouldlyThrowMessage : ShouldlyMessage
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
 
+    /// <summary>
+    /// Creates a new message for task exception assertions with only an expected value
+    /// </summary>
     public TaskShouldlyThrowMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
         ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, isAsync: true, shouldlyMethod: shouldlyMethod);
@@ -203,8 +293,14 @@ public class TaskShouldlyThrowMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Message for assertions that check if an operation completes within a specified time
+/// </summary>
 public class CompleteInShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for completion time assertions
+    /// </summary>
     public CompleteInShouldlyMessage(string what, TimeSpan timeout,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
@@ -218,10 +314,13 @@ public class CompleteInShouldlyMessage : ShouldlyMessage
 }
 
 /// <summary>
-/// Async methods need stacktrace before we get asynchronous
+/// Message for assertions that check exceptions in asynchronous operations
 /// </summary>
 public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for async exception assertions with a stack trace
+    /// </summary>
     public AsyncShouldlyThrowShouldlyMessage(Type exception, string? customMessage, StackTrace stackTrace,
         [CallerMemberName] string shouldlyMethod = null!)
     {
@@ -229,6 +328,9 @@ public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
 
+    /// <summary>
+    /// Creates a new message for async exception assertions with expected and actual types
+    /// </summary>
     public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace stackTrace)
     {
         ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true)
@@ -240,10 +342,13 @@ public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
 }
 
 /// <summary>
-/// Async methods need stacktrace before we get asynchronous
+/// Message for assertions that verify asynchronous operations do not throw exceptions
 /// </summary>
 public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
 {
+    /// <summary>
+    /// Creates a new message for async not-throw assertions
+    /// </summary>
     public AsyncShouldlyNotThrowShouldlyMessage(Type exception, string? customMessage, StackTrace stackTrace, string exceptionMessage,
         [CallerMemberName] string shouldlyMethod = null!)
     {
@@ -252,6 +357,9 @@ public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
     }
 }
 
+/// <summary>
+/// Base class for all Shouldly assertion messages
+/// </summary>
 public abstract class ShouldlyMessage
 {
     private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators =
@@ -293,6 +401,9 @@ public abstract class ShouldlyMessage
 
     protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
 
+    /// <summary>
+    /// Converts the message to a string representation
+    /// </summary>
     public override string ToString()
     {
         var message = GenerateShouldMessage();
