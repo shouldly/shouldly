@@ -16,23 +16,36 @@ public static partial class ObjectGraphTestExtensions
     public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
+        EquivalencyOptions options,
         string? customMessage = null)
     {
-        CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
+        CompareObjects(actual, expected, null, new List<string>(), new Dictionary<object, IList<object?>>(), options, customMessage);
     }
 
-    private static void CompareObjects(
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
+        string? customMessage = null)
+    {
+        CompareObjects(actual, expected, null, new List<string>(), new Dictionary<object, IList<object?>>(), new (), customMessage);
+    }
+
+    private static void CompareObjects([NotNullIfNotNull(nameof(expected))] this object? actual,
+        [NotNullIfNotNull(nameof(actual))] object? expected,
+        Type? forcedType,
         IList<string> path,
         IDictionary<object, IList<object?>> previousComparisons,
+        EquivalencyOptions options,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)
     {
         if (BothValuesAreNull(actual, expected, path, customMessage, shouldlyMethod))
             return;
 
-        var type = GetTypeToCompare(actual, expected, path, customMessage, shouldlyMethod);
+        var type = forcedType ?? GetTypeToCompare(actual, expected, path, customMessage, shouldlyMethod);
+
+        AddTypeToPath(type, path);
 
         if (type == typeof(string))
         {
@@ -40,7 +53,7 @@ public static partial class ObjectGraphTestExtensions
         }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
-            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
+            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, options, customMessage, shouldlyMethod);
         }
         else if (type.IsValueType)
         {
@@ -48,7 +61,7 @@ public static partial class ObjectGraphTestExtensions
         }
         else
         {
-            CompareReferenceTypes(actual, expected, type, path, previousComparisons, customMessage, shouldlyMethod);
+            CompareReferenceTypes(actual, expected, type, path, previousComparisons, options, customMessage, shouldlyMethod);
         }
     }
 
@@ -83,13 +96,16 @@ public static partial class ObjectGraphTestExtensions
         if (actualType != expectedType)
             ThrowException(actualType, expectedType, path, customMessage, shouldlyMethod);
 
+        return actualType;
+    }
+
+    private static void AddTypeToPath(Type actualType, IList<string> path)
+    {
         var typeName = $" [{actualType.FullName}]";
         if (path.Count == 0)
             path.Add(typeName);
         else
             path[path.Count - 1] += typeName;
-
-        return actualType;
     }
 
     private static void CompareValueTypes(ValueType actual, ValueType expected, IEnumerable<string> path,
@@ -99,9 +115,15 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod);
     }
 
-    private static void CompareReferenceTypes(object actual, object expected, Type type,
-        IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
-        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    private static void CompareReferenceTypes(
+        object actual,
+        object expected,
+        Type type,
+        IList<string> path,
+        IDictionary<object, IList<object?>> previousComparisons,
+        EquivalencyOptions options,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!)
     {
         if (ReferenceEquals(actual, expected) ||
             previousComparisons.Contains(actual, expected))
@@ -115,15 +137,15 @@ public static partial class ObjectGraphTestExtensions
         }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
-            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod);
+            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, options, customMessage, shouldlyMethod);
         }
         else
         {
             var fields = type.GetFields(DefaultBindingFlags);
-            CompareFields(actual, expected, fields, path, previousComparisons, customMessage, shouldlyMethod);
+            CompareFields(actual, expected, fields, path, previousComparisons, options, customMessage, shouldlyMethod);
 
             var properties = type.GetProperties(DefaultBindingFlags);
-            CompareProperties(actual, expected, properties, path, previousComparisons, customMessage, shouldlyMethod);
+            CompareProperties(actual, expected, properties, path, previousComparisons, options, customMessage, shouldlyMethod);
         }
     }
 
@@ -134,9 +156,14 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod);
     }
 
-    private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
-        IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
-        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    private static void CompareEnumerables(
+        IEnumerable actual,
+        IEnumerable expected,
+        IEnumerable<string> path,
+        IDictionary<object, IList<object?>> previousComparisons,
+        EquivalencyOptions options,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!)
     {
         var expectedList = expected.Cast<object?>().ToList();
         var actualList = actual.Cast<object?>().ToList();
@@ -150,13 +177,19 @@ public static partial class ObjectGraphTestExtensions
         for (var i = 0; i < actualList.Count; i++)
         {
             var newPath = path.Concat([$"Element [{i}]"]);
-            CompareObjects(actualList[i], expectedList[i], newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+            CompareObjects(actualList[i], expectedList[i], null, newPath.ToList(), previousComparisons, options, customMessage, shouldlyMethod);
         }
     }
 
-    private static void CompareFields(object actual, object expected, IEnumerable<FieldInfo> fields,
-        IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
-        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    private static void CompareFields(
+        object actual,
+        object expected,
+        IEnumerable<FieldInfo> fields,
+        IList<string> path,
+        IDictionary<object, IList<object?>> previousComparisons,
+        EquivalencyOptions options,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!)
     {
         foreach (var field in fields)
         {
@@ -164,13 +197,21 @@ public static partial class ObjectGraphTestExtensions
             var expectedValue = field.GetValue(expected);
 
             var newPath = path.Concat([field.Name]);
-            CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+            var forcedType = options.CompareUsingRuntimeTypes ? null : field.FieldType;
+
+            CompareObjects(actualValue, expectedValue, forcedType, newPath.ToList(), previousComparisons,options, customMessage, shouldlyMethod);
         }
     }
 
-    private static void CompareProperties(object actual, object expected, IEnumerable<PropertyInfo> properties,
-        IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
-        string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
+    private static void CompareProperties(
+        object actual,
+        object expected,
+        IEnumerable<PropertyInfo> properties,
+        IList<string> path,
+        IDictionary<object, IList<object?>> previousComparisons,
+        EquivalencyOptions options,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!)
     {
         foreach (var property in properties)
         {
@@ -185,7 +226,9 @@ public static partial class ObjectGraphTestExtensions
             var expectedValue = property.GetValue(expected, []);
 
             var newPath = path.Concat([property.Name]);
-            CompareObjects(actualValue, expectedValue, newPath.ToList(), previousComparisons, customMessage, shouldlyMethod);
+            var forcedType = options.CompareUsingRuntimeTypes ? null : property.PropertyType;
+
+            CompareObjects(actualValue, expectedValue, forcedType, newPath.ToList(), previousComparisons, options, customMessage, shouldlyMethod);
         }
     }
 
