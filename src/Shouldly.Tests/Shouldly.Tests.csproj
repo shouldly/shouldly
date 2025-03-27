@@ -9,7 +9,7 @@
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <None Include="**\*.approved.cs;**\*.received.cs" />
-    <ProjectReference Include="..\Shouldly.Approvals\Shouldly.Approvals.csproj" />
+    <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />

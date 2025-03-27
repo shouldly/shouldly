@@ -155,7 +155,7 @@ public class ShouldMatchApprovedScenarios
     {
         Should.Throw<ShouldMatchApprovedException>(() => "".ShouldMatchApproved(c => c.NoDiff()));
 
-        ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(DiffRunner.Disabled);
+        ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build().PreventDiff.ShouldBe(false);
     }
 
     [Fact]
@@ -192,4 +192,33 @@ public class ShouldMatchApprovedScenarios
 
     public static bool IsWindows()
         => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+    [Fact]
+    public void DiffConfiguresDiffViewer()
+    {
+        var defaultConfig = ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build();
+        var builder = new ShouldMatchConfigurationBuilder(defaultConfig);
+        builder.Diff();
+        var newConfig = builder.Build();
+
+        newConfig.ShouldNotBe(defaultConfig);
+        defaultConfig.DiffViewer.ShouldBeNull();
+        newConfig.DiffViewer.ShouldBeOfType<DiffEngineDiffViewer>();
+    }
+
+    [Fact]
+    public void DiffViewerIsCarriedThroughBuilder()
+    {
+        var defaultBuilder = ShouldMatchConfiguration.ShouldMatchApprovedDefaults;
+        var defaultConfig = defaultBuilder.Build();
+        var builder = new ShouldMatchConfigurationBuilder(defaultConfig);
+        builder.Diff();
+        var configWithDiff = builder.Build();
+        var newBuilder = new ShouldMatchConfigurationBuilder(configWithDiff);
+        var newConfig = newBuilder.Build();
+
+        defaultConfig.DiffViewer.ShouldBeNull();
+        configWithDiff.DiffViewer.ShouldBeOfType<DiffEngineDiffViewer>();
+        newConfig.DiffViewer.ShouldBeOfType<DiffEngineDiffViewer>();
+    }
 }

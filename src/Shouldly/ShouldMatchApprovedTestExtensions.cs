@@ -1,3 +1,7 @@
+using System.ComponentModel;
+using Shouldly.Internals;
+using Shouldly.Internals.AssertionFactories;
+
 namespace Shouldly;
 
 [ShouldlyMethods]
@@ -38,15 +42,15 @@ public static class ShouldMatchApprovedTestExtensions
 
         if (!File.Exists(approvedFile))
         {
-            if (!config.PreventDiff)
+            if (!config.PreventDiff && config.DiffViewer != null)
             {
-                DiffRunner.Launch(receivedFile, approvedFile);
+                config.DiffViewer.Launch(receivedFile, approvedFile);
             }
 
             throw new ShouldMatchApprovedException($"""
                                                     Approval file {approvedFile}
                                                         does not exist
-                                                    """, receivedFile, approvedFile);
+                                                    """, receivedFile, approvedFile, !config.PreventDiff && config.DiffViewer == null);
         }
 
         var approvedFileContents = File.ReadAllText(approvedFile);
@@ -57,12 +61,12 @@ public static class ShouldMatchApprovedTestExtensions
 
         if (!contentsMatch)
         {
-            if (!config.PreventDiff)
+            if (!config.PreventDiff && config.DiffViewer != null)
             {
-                DiffRunner.Launch(receivedFile, approvedFile);
+                config.DiffViewer.Launch(receivedFile, approvedFile);
             }
 
-            throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile);
+            throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile, !config.PreventDiff && config.DiffViewer == null);
         }
 
         File.Delete(receivedFile);

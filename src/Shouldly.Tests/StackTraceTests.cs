@@ -50,7 +50,7 @@ public static partial class StackTraceTests
                 throwInShouldlyAssembly: FailingUserCode_CompleteIn)
 
             .Add<ShouldMatchApprovedException>(
-                throwDirectly: () => throw new ShouldMatchApprovedException(null, null, null))
+                throwDirectly: () => throw new ShouldMatchApprovedException(null, null, null, false))
 
             .Build());
     }
