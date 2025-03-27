@@ -69,6 +69,7 @@ namespace Shouldly
     public static class GuidShouldBeTestExtensions
     {
         public static void ShouldBeEmpty(this System.Guid actual, string? customMessage = null) { }
+        public static void ShouldNotBeEmpty(this System.Guid actual, string? customMessage = null) { }
     }
     public interface IShouldlyAssertionContext
     {
