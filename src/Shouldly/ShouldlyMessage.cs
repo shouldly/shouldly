@@ -385,6 +385,7 @@ public abstract class ShouldlyMessage
         new ShouldBeIgnoringOrderMessageGenerator(),
         new ShouldSatisfyAllConditionsMessageGenerator(),
         new ShouldBeSubsetOfMessageGenerator(),
+        new ShouldBeSupersetOfMessageGenerator(),
         new ShouldHaveSingleItemMessageGenerator(),
         new ShouldBeBooleanMessageGenerator(),
         new ShouldNotThrowMessageGenerator(),
@@ -476,7 +477,7 @@ public abstract class ShouldlyMessage
         if (DifferenceHighlighter.CanHighlightDifferences(context))
         {
             message += $"""
-                        
+
                             difference
                         {DifferenceHighlighter.HighlightDifferences(context)}
                         """;
