@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30128.36
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70055B25-BE01-4932-84F1-A0BE47A93BFC}"
 	ProjectSection(SolutionItems) = preProject
 		src\.editorconfig = src\.editorconfig
 		src\Directory.Build.props = src\Directory.Build.props
-		README.md = README.md
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shouldly", "src\Shouldly\Shouldly.csproj", "{9440E071-488A-49AC-96D7-E72BEBC38418}"
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationExamples", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeterministicTests", "src\DeterministicTests\DeterministicTests.csproj", "{7EDC01F8-D021-4EF4-82A1-F18F22433F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.Approvals", "src\Shouldly.Approvals\Shouldly.Approvals.csproj", "{8F88B200-6712-4E5F-B10A-373A2181E7E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shouldly.DiffEngine", "src\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj", "{8F88B200-6712-4E5F-B10A-373A2181E7E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,6 +21,7 @@ public class ShouldMatchConfiguration
         StringCompareOptions = initialConfig.StringCompareOptions;
         FilenameDiscriminator = initialConfig.FilenameDiscriminator;
         PreventDiff = initialConfig.PreventDiff;
+        DiffViewer = initialConfig.DiffViewer;
         FileExtension = initialConfig.FileExtension;
         TestMethodFinder = initialConfig.TestMethodFinder;
         ApprovalFileSubFolder = initialConfig.ApprovalFileSubFolder;
@@ -30,7 +31,8 @@ public class ShouldMatchConfiguration
 
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
     public string? FilenameDiscriminator { get; set; }
-    public bool PreventDiff { get; set; } = DiffRunner.Disabled;
+    public bool PreventDiff { get; set; } = false;
+    public IDiffViewer? DiffViewer { get; set; }
 
     /// <summary>
     /// File extension without the.
