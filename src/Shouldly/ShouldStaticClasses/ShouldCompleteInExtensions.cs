@@ -2,6 +2,9 @@ using System.Runtime.ExceptionServices;
 
 namespace Shouldly;
 
+/// <summary>
+/// Static class providing assertion methods for Shouldly
+/// </summary>
 public static partial class Should
 {
     /// <summary>

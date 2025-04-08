@@ -1,7 +1,17 @@
 namespace Shouldly;
 
+/// <summary>
+/// Finds a test method in the stack trace that has a specific attribute
+/// </summary>
+/// <typeparam name="T">The attribute type to search for</typeparam>
 public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
 {
+    /// <summary>
+    /// Gets test method information from the stack trace
+    /// </summary>
+    /// <param name="stackTrace">The stack trace to analyze</param>
+    /// <param name="startAt">The frame index to start searching from</param>
+    /// <returns>Information about the found test method</returns>
     public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
     {
         foreach (var frame in stackTrace.GetFrames().Skip(startAt))

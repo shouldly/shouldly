@@ -4,10 +4,19 @@ using Shouldly.Internals.AssertionFactories;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for approval testing
+/// </summary>
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class ShouldMatchApprovedTestExtensions
 {
+    /// <summary>
+    /// Verifies that a string matches an approved file
+    /// </summary>
+    /// <param name="actual">The actual string to verify</param>
+    /// <param name="configureOptions">Optional action to configure the approval options</param>
+    /// <param name="customMessage">Optional custom message to display if the assertion fails</param>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null)
     {

@@ -398,8 +398,10 @@ public abstract class ShouldlyMessage
         new ShouldBeInOrderMessageGenerator(),
         new ShouldBeEquivalentToMessageGenerator()
     ];
-
-    protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
+/// <summary>
+/// The assertion context for the current shouldly assertion
+/// </summary>
+protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
 
     /// <summary>
     /// Converts the message to a string representation

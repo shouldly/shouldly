@@ -6,14 +6,13 @@
     <Version>4.3.0</Version>
     <AnalysisLevel>5</AnalysisLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>CS1591</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Shouldly.Approvals' Or '$(MSBuildProjectName)' == 'Shouldly'">
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Shouldly.DiffEngine' Or '$(MSBuildProjectName)' == 'Shouldly'">
     <Deterministic>true</Deterministic>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

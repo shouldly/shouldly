@@ -2,6 +2,9 @@ using System.ComponentModel;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for asynchronous exception assertions
+/// </summary>
 [DebuggerStepThrough]
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]

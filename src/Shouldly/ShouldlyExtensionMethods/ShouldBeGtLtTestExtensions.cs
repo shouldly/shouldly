@@ -1,5 +1,8 @@
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for comparison assertions
+/// </summary>
 public static partial class ShouldBeTestExtensions
 {
     /// <summary>

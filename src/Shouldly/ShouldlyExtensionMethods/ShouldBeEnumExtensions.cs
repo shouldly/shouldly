@@ -2,6 +2,9 @@ using System.ComponentModel;
 
 namespace Shouldly.ShouldlyExtensionMethods;
 
+/// <summary>
+/// Extension methods for enum assertions
+/// </summary>
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldHaveEnumExtensions

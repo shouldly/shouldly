@@ -4,6 +4,9 @@ using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for null assertions
+/// </summary>
 [DebuggerStepThrough]
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]

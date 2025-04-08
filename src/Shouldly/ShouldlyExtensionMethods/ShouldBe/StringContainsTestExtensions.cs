@@ -2,6 +2,9 @@ using JetBrains.Annotations;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for string assertions
+/// </summary>
 public static partial class ShouldBeStringTestExtensions
 {
     /// <summary>

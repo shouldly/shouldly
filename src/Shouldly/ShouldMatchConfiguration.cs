@@ -1,7 +1,13 @@
 namespace Shouldly;
 
+/// <summary>
+/// Configuration for approval testing
+/// </summary>
 public class ShouldMatchConfiguration
 {
+    /// <summary>
+    /// Default configuration for approval testing
+    /// </summary>
     public static ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; } =
         new(new()
         {
@@ -12,10 +18,17 @@ public class ShouldMatchConfiguration
                 => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
         });
 
+    /// <summary>
+    /// Initializes a new instance of the ShouldMatchConfiguration class with default values
+    /// </summary>
     public ShouldMatchConfiguration()
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the ShouldMatchConfiguration class with values from another configuration
+    /// </summary>
+    /// <param name="initialConfig">The configuration to copy values from</param>
     public ShouldMatchConfiguration(ShouldMatchConfiguration initialConfig)
     {
         StringCompareOptions = initialConfig.StringCompareOptions;
@@ -29,9 +42,24 @@ public class ShouldMatchConfiguration
         FilenameGenerator = initialConfig.FilenameGenerator;
     }
 
+    /// <summary>
+    /// Options for string comparison
+    /// </summary>
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
+    
+    /// <summary>
+    /// Optional discriminator to add to the filename
+    /// </summary>
     public string? FilenameDiscriminator { get; set; }
+    
+    /// <summary>
+    /// Whether to prevent showing a diff when the test fails
+    /// </summary>
     public bool PreventDiff { get; set; } = false;
+    
+    /// <summary>
+    /// The diff viewer to use when the test fails
+    /// </summary>
     public IDiffViewer? DiffViewer { get; set; }
 
     /// <summary>
@@ -39,7 +67,14 @@ public class ShouldMatchConfiguration
     /// </summary>
     public string FileExtension { get; set; } = "txt";
 
+    /// <summary>
+    /// The test method finder to use to locate the test method
+    /// </summary>
     public ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
+    
+    /// <summary>
+    /// Optional subfolder for approval files
+    /// </summary>
     public string? ApprovalFileSubFolder { get; set; }
 
     /// <summary>
@@ -49,6 +84,9 @@ public class ShouldMatchConfiguration
     /// </summary>
     public Func<string, string>? Scrubber { get; set; }
 
+    /// <summary>
+    /// Generator for approval file names
+    /// </summary>
     public FilenameGenerator FilenameGenerator { get; set; } =
         (testMethodInfo, discriminator, type, extension)
             => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}";
