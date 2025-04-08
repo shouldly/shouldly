@@ -63,7 +63,7 @@ public class ShouldMatchConfiguration
     public IDiffViewer? DiffViewer { get; set; }
 
     /// <summary>
-    /// File extension without the.
+    /// File extension without the period
     /// </summary>
     public string FileExtension { get; set; } = "txt";
 
