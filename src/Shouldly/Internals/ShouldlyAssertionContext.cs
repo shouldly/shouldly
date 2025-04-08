@@ -7,64 +7,40 @@ namespace Shouldly;
 /// </summary>
 public class ShouldlyAssertionContext : IShouldlyAssertionContext
 {
-    /// <summary>
-    /// The name of the should method being called
-    /// </summary>
+    /// <inheritdoc/>
     public string ShouldMethod { get; set; }
-    
-    /// <summary>
-    /// The code part being evaluated
-    /// </summary>
+
+    /// <inheritdoc/>
     public string? CodePart { get; set; }
-    
-    /// <summary>
-    /// The file name where the assertion is made
-    /// </summary>
+
+    /// <inheritdoc/>
     public string? FileName { get; set; }
-    
-    /// <summary>
-    /// The line number where the assertion is made
-    /// </summary>
+
+    /// <inheritdoc/>
     public int? LineNumber { get; set; }
 
-    /// <summary>
-    /// The key being used in the assertion
-    /// </summary>
+    /// <inheritdoc/>
     public object? Key { get; set; }
-    
-    /// <summary>
-    /// The expected value in the assertion
-    /// </summary>
+
+    /// <inheritdoc/>
     public object? Expected { get; set; }
-    
-    /// <summary>
-    /// The actual value in the assertion
-    /// </summary>
+
+    /// <inheritdoc/>
     public object? Actual { get; set; }
-    
-    /// <summary>
-    /// The tolerance for numeric comparisons
-    /// </summary>
+
+    /// <inheritdoc/>
     public object? Tolerance { get; set; }
-    
-    /// <summary>
-    /// Case sensitivity setting for string comparisons
-    /// </summary>
+
+    /// <inheritdoc/>
     public Case? CaseSensitivity { get; set; }
-    
-    /// <summary>
-    /// Whether the code part matches the actual value
-    /// </summary>
+
+    /// <inheritdoc/>
     public bool CodePartMatchesActual => CodePart == Actual.ToStringAwesomely();
 
-    /// <summary>
-    /// The timeout for assertions that wait for a condition
-    /// </summary>
+    /// <inheritdoc/>
     public TimeSpan? Timeout { get; set; }
 
-    /// <summary>
-    /// Whether to ignore the order when comparing collections
-    /// </summary>
+    /// <inheritdoc/>
     public bool IgnoreOrder { get; set; }
 
     // For now, this property cannot just check to see if "Actual != null". The term is overloaded.
@@ -72,54 +48,34 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     // cases it means that the value is relevant, but during execution we got a null. (eg: Foo.ShouldBe(bar) where
     // Foo is null). So for now, it is a flag needs to be set externally to determine whether or not the "Actual" value
     // is relevant.
-    /// <summary>
-    /// Whether the actual value is relevant for the assertion
-    /// </summary>
+    /// <inheritdoc/>
     public bool HasRelevantActual { get; set; }
-    
-    /// <summary>
-    /// Whether the key is relevant for the assertion
-    /// </summary>
+
+    /// <inheritdoc/>
     public bool HasRelevantKey { get; set; }
 
-    /// <summary>
-    /// Whether the assertion is negated (e.g., ShouldNotBe instead of ShouldBe)
-    /// </summary>
+    /// <inheritdoc/>
     public bool IsNegatedAssertion => ShouldMethod.Contains("Not");
-    
-    /// <summary>
-    /// Custom message to display when the assertion fails
-    /// </summary>
+
+    /// <inheritdoc/>
     public string? CustomMessage { get; set; }
-    
-    /// <summary>
-    /// Filter expression for collection assertions
-    /// </summary>
+
+    /// <inheritdoc/>
     public Expression? Filter { get; set; }
-    
-    /// <summary>
-    /// The expected match count for collection assertions
-    /// </summary>
+
+    /// <inheritdoc/>
     public int? MatchCount { get; set; }
-    
-    /// <summary>
-    /// The sort direction for ordered collection assertions
-    /// </summary>
+
+    /// <inheritdoc/>
     public SortDirection SortDirection { get; set; }
-    
-    /// <summary>
-    /// The index of the out-of-order element in collection assertions
-    /// </summary>
+
+    /// <inheritdoc/>
     public int OutOfOrderIndex { get; set; }
-    
-    /// <summary>
-    /// The out-of-order object in collection assertions
-    /// </summary>
+
+    /// <inheritdoc/>
     public object? OutOfOrderObject { get; set; }
-    
-    /// <summary>
-    /// The path to the property being asserted
-    /// </summary>
+
+    /// <inheritdoc/>
     public IEnumerable<string>? Path { get; set; }
 
     /// <summary>
