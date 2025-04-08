@@ -2,6 +2,9 @@ using System.ComponentModel;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for attribute decoration assertions
+/// </summary>
 [DebuggerStepThrough]
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]

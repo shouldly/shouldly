@@ -2,6 +2,9 @@ using System.ComponentModel;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for object graph comparison assertions
+/// </summary>
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ObjectGraphTestExtensions

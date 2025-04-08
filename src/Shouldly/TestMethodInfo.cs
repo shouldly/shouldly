@@ -2,8 +2,15 @@ using Shouldly.Internals;
 
 namespace Shouldly;
 
+/// <summary>
+/// Contains information about a test method
+/// </summary>
 public class TestMethodInfo
 {
+    /// <summary>
+    /// Initializes a new instance of the TestMethodInfo class
+    /// </summary>
+    /// <param name="callingFrame">The stack frame of the calling method</param>
     public TestMethodInfo(StackFrame callingFrame)
     {
         var fileName = callingFrame.GetFileName();
@@ -57,7 +64,18 @@ public class TestMethodInfo
         member.CustomAttributes.Any(a =>
             a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
 
+    /// <summary>
+    /// The directory containing the source file of the test method
+    /// </summary>
     public string? SourceFileDirectory { get; }
+    
+    /// <summary>
+    /// The name of the test method
+    /// </summary>
     public string? MethodName { get; }
+    
+    /// <summary>
+    /// The name of the type declaring the test method
+    /// </summary>
     public string? DeclaringTypeName { get; }
 }

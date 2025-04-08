@@ -6,6 +6,9 @@ using System.Runtime.CompilerServices;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for dictionary assertions
+/// </summary>
 [DebuggerStepThrough]
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]

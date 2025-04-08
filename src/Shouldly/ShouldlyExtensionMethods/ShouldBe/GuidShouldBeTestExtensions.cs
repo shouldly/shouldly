@@ -2,6 +2,9 @@ using System.ComponentModel;
 
 namespace Shouldly;
 
+/// <summary>
+/// Extension methods for Guid assertions
+/// </summary>
 [ShouldlyMethods]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class GuidShouldBeTestExtensions

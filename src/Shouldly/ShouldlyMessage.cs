@@ -399,6 +399,9 @@ public abstract class ShouldlyMessage
         new ShouldBeEquivalentToMessageGenerator()
     ];
 
+    /// <summary>
+    /// The assertion context for the current shouldly assertion
+    /// </summary>
     protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
 
     /// <summary>

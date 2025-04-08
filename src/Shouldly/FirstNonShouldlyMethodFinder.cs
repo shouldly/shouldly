@@ -2,6 +2,9 @@ using Shouldly.Internals;
 
 namespace Shouldly;
 
+/// <summary>
+/// Finds the first method in the stack trace that is not from the Shouldly library
+/// </summary>
 public class FirstNonShouldlyMethodFinder : ITestMethodFinder
 {
     private static readonly Regex AnonMethod = new(@"<(\w|_)+>b_.+");
@@ -13,6 +16,7 @@ public class FirstNonShouldlyMethodFinder : ITestMethodFinder
     /// </summary>
     public int Offset { get; set; }
 
+    /// <inheritdoc/>
     public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
     {
         foreach (var (i, frame) in stackTrace.GetFrames().AsIndexed().Skip(startAt))
