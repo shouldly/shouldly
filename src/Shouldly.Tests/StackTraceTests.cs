@@ -8,7 +8,7 @@ public static partial class StackTraceTests
     [MemberData(nameof(ExceptionThrowers))]
     public static void Top_stack_frame_is_user_code(ExceptionThrower exceptionThrower)
     {
-        var exception = exceptionThrower.Catch()!;
+        var exception = exceptionThrower.Catch();
 
         var stackTraceLines = exception.StackTrace!.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 

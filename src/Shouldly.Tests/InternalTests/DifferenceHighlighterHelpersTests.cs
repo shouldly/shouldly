@@ -36,14 +36,16 @@ public class DifferenceHighlighterHelpersTests
     public void HighlightDifferencesBetween_DifferentTypes_DisplaysActualWithoutHighlight()
     {
         Should.Throw<ShouldAssertException>(() => new[] { "hi", "mum" }.ShouldBe<object>(new[] { 1, 2 }))
-            .Message.ShouldContain("[*\"hi\"*, *\"mum\"*]");
+            .Message.ShouldContain("""[*"hi"*, *"mum"*]""");
     }
 
     [Fact]
     public void HighlightDifferencesBetween_NotEnumerables_DisplaysActualWithoutHighlight()
     {
         Should.Throw<ShouldAssertException>(() => "hello".ShouldBe("goodbye"))
-            .Message.ShouldContain("\"hello\"");
+            .Message.ShouldContain("""
+                                   "hello"
+                                   """);
     }
 
     [Fact]
@@ -57,7 +59,7 @@ public class DifferenceHighlighterHelpersTests
     public void HighlightDifferencesBetween_StringLists_HighlightsDifference()
     {
         Should.Throw<ShouldAssertException>(() => new[] { "rita", "sue", "betty" }.ShouldBe(["rita", "sue", "bob"]))
-            .Message.ShouldContain("[\"rita\", \"sue\", *\"betty\"*]");
+            .Message.ShouldContain("""["rita", "sue", *"betty"*]""");
     }
 
     [Fact]

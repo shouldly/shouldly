@@ -10,7 +10,6 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldThrowAsyncExtensions
 {
-    /*** ShouldThrowAsync(Task) ***/
     /// <summary>
     /// Asynchronously verifies that the Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
@@ -19,7 +18,6 @@ public static partial class ShouldThrowAsyncExtensions
         where TException : Exception =>
         Should.ThrowAsync<TException>(task, customMessage);
 
-    /*** ShouldThrowAsync(Task) ***/
     /// <summary>
     /// Asynchronously verifies that the Task throws an exception of the specified type.
     /// </summary>
@@ -27,7 +25,6 @@ public static partial class ShouldThrowAsyncExtensions
     public static Task<Exception> ShouldThrowAsync(this Task task, Type exceptionType, string? customMessage = null) =>
         Should.ThrowAsync(task, exceptionType, customMessage);
 
-    /*** ShouldThrowAsync(Func<Task>) ***/
     /// <summary>
     /// Asynchronously verifies that the function returning a Task throws an <typeparamref name="TException"/> exception.
     /// </summary>
@@ -36,7 +33,6 @@ public static partial class ShouldThrowAsyncExtensions
         where TException : Exception =>
         Should.ThrowAsync<TException>(actual, customMessage);
 
-    /*** ShouldThrowAsync(Func<Task>) ***/
     /// <summary>
     /// Asynchronously verifies that the function returning a Task throws an exception of the specified type.
     /// </summary>

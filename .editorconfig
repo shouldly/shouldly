@@ -8,7 +8,7 @@ indent_size = 4
 charset = utf-8
 
 # Redundant accessor body
-resharper_redundant_accessor_body_highlighting = error
+resharper_redundant_accessor_body_highlighting = warning
 
 # Replace with field keyword
 resharper_replace_with_field_keyword_highlighting = error
@@ -216,7 +216,7 @@ resharper_object_creation_when_type_not_evident = target_typed
 
 # ReSharper inspection severities
 resharper_arrange_object_creation_when_type_evident_highlighting = error
-resharper_arrange_object_creation_when_type_not_evident_highlighting = error
+resharper_arrange_object_creation_when_type_not_evident_highlighting = warning
 resharper_arrange_redundant_parentheses_highlighting = error
 resharper_arrange_static_member_qualifier_highlighting = error
 resharper_arrange_this_qualifier_highlighting = error
@@ -228,7 +228,7 @@ resharper_convert_to_using_declaration_highlighting = error
 resharper_css_not_resolved_highlighting = warning
 resharper_field_can_be_made_read_only_local_highlighting = none
 resharper_merge_into_logical_pattern_highlighting = warning
-resharper_merge_into_pattern_highlighting = error
+resharper_merge_into_pattern_highlighting = warning
 resharper_method_has_async_overload_highlighting = warning
 # because stop rider giving errors before source generators have run
 resharper_partial_type_with_single_part_highlighting = warning
@@ -244,7 +244,7 @@ resharper_redundant_lambda_signature_parentheses_highlighting = error
 resharper_replace_substring_with_range_indexer_highlighting = warning
 resharper_suggest_var_or_type_built_in_types_highlighting = error
 resharper_suggest_var_or_type_elsewhere_highlighting = error
-resharper_suggest_var_or_type_simple_types_highlighting = error
+resharper_suggest_var_or_type_simple_types_highlighting = warning
 resharper_unnecessary_whitespace_highlighting = error
 resharper_use_await_using_highlighting = warning
 resharper_use_deconstruction_highlighting = warning
@@ -275,10 +275,10 @@ csharp_style_var_when_type_is_apparent = true:error
 csharp_style_var_elsewhere = true:error
 
 # Prefer method-like constructs to have a block body
-csharp_style_expression_bodied_methods = true:error
-csharp_style_expression_bodied_local_functions = true:error
-csharp_style_expression_bodied_constructors = true:error
-csharp_style_expression_bodied_operators = true:error
+csharp_style_expression_bodied_methods = true:warning
+csharp_style_expression_bodied_local_functions = true:warning
+csharp_style_expression_bodied_constructors = true:warning
+csharp_style_expression_bodied_operators = true:warning
 resharper_place_expr_method_on_single_line = false
 
 # Prefer property-like constructs to have an expression-body
@@ -348,7 +348,7 @@ indent_size = 2
 
 # Verify settings
 [*.{received,verified}.{txt,xml,json,md,sql,csv,html,md}]
-charset = "utf-8-bom"
+charset = utf-8
 end_of_line = lf
 indent_size = unset
 indent_style = unset

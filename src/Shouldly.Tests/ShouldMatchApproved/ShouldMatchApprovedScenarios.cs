@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using DiffEngine;
 
 namespace Shouldly.Tests.ShouldMatchApproved;
 
@@ -69,7 +68,7 @@ public class ShouldMatchApprovedScenarios
 
         exception.ShouldNotBeNull();
         // text is limited to 5000 char. but then the diff results in 5000*2+some extraneous text
-        exception!.Message.Length.ShouldBeLessThan(12000);
+        exception.Message.Length.ShouldBeLessThan(12000);
     }
 
     [Fact]
@@ -99,13 +98,13 @@ public class ShouldMatchApprovedScenarios
                  but was
              "Foo"
                  difference
-             Difference     |  |    |    |   
-                            | \|/  \|/  \|/  
-             Index          | 0    1    2    
-             Expected Value | B    a    r    
-             Actual Value   | F    o    o    
-             Expected Code  | 66   97   114  
-             Actual Code    | 70   111  111  
+             Difference     |  |    |    |
+                            | \|/  \|/  \|/
+             Index          | 0    1    2
+             Expected Value | B    a    r
+             Actual Value   | F    o    o
+             Expected Code  | 66   97   114
+             Actual Code    | 70   111  111
              """,
 
             errorWithoutSource:
@@ -119,13 +118,13 @@ public class ShouldMatchApprovedScenarios
              "Bar"
                  but was not
                  difference
-             Difference     |  |    |    |   
-                            | \|/  \|/  \|/  
-             Index          | 0    1    2    
-             Expected Value | B    a    r    
-             Actual Value   | F    o    o    
-             Expected Code  | 66   97   114  
-             Actual Code    | 70   111  111  
+             Difference     |  |    |    |
+                            | \|/  \|/  \|/
+             Index          | 0    1    2
+             Expected Value | B    a    r
+             Actual Value   | F    o    o
+             Expected Code  | 66   97   114
+             Actual Code    | 70   111  111
              """,
 
             messageScrubber:

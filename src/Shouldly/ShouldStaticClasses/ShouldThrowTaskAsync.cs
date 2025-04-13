@@ -4,7 +4,6 @@ namespace Shouldly;
 
 public static partial class Should
 {
-    /*** Should.ThrowAsync(Task) ***/
     /// <summary>
     /// Asynchronously verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
@@ -24,7 +23,6 @@ public static partial class Should
         return ThrowAsync(() => task, exceptionType, customMessage);
     }
 
-    /*** Should.ThrowAsync(Func<Task>) ***/
     /// <summary>
     /// Asynchronously verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
@@ -76,7 +74,6 @@ public static partial class Should
         }
     }
 
-    /*** Should.ThrowAsync(Func<Task>) ***/
     /// <summary>
     /// Asynchronously verifies that the provided task function throws an exception of the specified type
     /// </summary>
@@ -104,7 +101,6 @@ public static partial class Should
         });
     }
 
-    /*** Should.NotThrowAsync(Task) ***/
     /// <summary>
     /// Asynchronously verifies that the provided task does not throw any exceptions
     /// </summary>
@@ -114,7 +110,6 @@ public static partial class Should
         return NotThrowAsyncInternal(() => task, customMessage);
     }
 
-    /*** Should.NotThrowAsync(Func<Task>) ***/
     /// <summary>
     /// Asynchronously verifies that the provided task function does not throw any exceptions
     /// </summary>

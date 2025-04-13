@@ -56,7 +56,7 @@ public static partial class ShouldlyConfiguration
     /// Default tolerance used for floating point comparisons
     /// </summary>
     public static double DefaultFloatingPointTolerance = 0.0d;
-    
+
     /// <summary>
     /// Default timeout period for asynchronous operations
     /// </summary>
