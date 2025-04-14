@@ -24,7 +24,6 @@ public static partial class ShouldBeStringTestExtensions
         Debug.Assert(actual != null);
     }
 
-    /*** ShouldNotStartWith ***/
     /// <summary>
     /// Asserts that a string does not start with another string
     /// </summary>
@@ -34,7 +33,6 @@ public static partial class ShouldBeStringTestExtensions
         actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
     }
 
-    /*** ShouldNotEndWith ***/
     /// <summary>
     /// Asserts that a string does not end with another string
     /// </summary>

@@ -6,7 +6,6 @@ namespace Shouldly;
 [ShouldlyMethods]
 public static partial class Should
 {
-    /*** Should.Throw(Action) ***/
     /// <summary>
     /// Verifies that the provided action throws an exception of type <typeparamref name="TException"/>
     /// </summary>
@@ -37,7 +36,6 @@ public static partial class Should
         throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString());
     }
 
-    /*** Should.Throw(Action) ***/
     /// <summary>
     /// Verifies that the provided action throws an exception of the specified type
     /// </summary>
@@ -65,7 +63,6 @@ public static partial class Should
         throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString());
     }
 
-    /*** Should.Throw(Func<T>) ***/
     /// <summary>
     /// Verifies that the provided function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
@@ -96,7 +93,6 @@ public static partial class Should
         throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString());
     }
 
-    /*** Should.Throw(Func<T>) ***/
     /// <summary>
     /// Verifies that the provided function throws an exception of the specified type
     /// </summary>
@@ -131,7 +127,6 @@ public static partial class Should
         throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString());
     }
 
-    /*** Should.NotThrow(Action) ***/
     /// <summary>
     /// Verifies that the provided action does not throw any exceptions
     /// </summary>
@@ -154,7 +149,6 @@ public static partial class Should
         }
     }
 
-    /*** Should.NotThrow(Func<T>) ***/
     /// <summary>
     /// Verifies that the provided function does not throw any exceptions and returns its result
     /// </summary>

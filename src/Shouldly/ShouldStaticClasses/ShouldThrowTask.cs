@@ -4,7 +4,6 @@ namespace Shouldly;
 
 public static partial class Should
 {
-    /*** Should.Throw(Task) ***/
     /// <summary>
     /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
@@ -22,7 +21,6 @@ public static partial class Should
     public static Exception Throw(Task actual, Type exceptionType, string? customMessage = null) =>
         ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
 
-    /*** Should.Throw(Func<Task>) ***/
     /// <summary>
     /// Verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
@@ -31,14 +29,12 @@ public static partial class Should
         where TException : Exception =>
         Throw<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
 
-    /*** Should.Throw(Func<Task>) ***/
     /// <summary>
     /// Verifies that the provided task function throws an exception of the specified type
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType, string? customMessage = null) => ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
 
-    /*** Should.Throw(Task, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/> within the specified timeout
     /// </summary>
@@ -47,7 +43,6 @@ public static partial class Should
         where TException : Exception =>
         Throw<TException>(() => actual, timeoutAfter, customMessage);
 
-    /*** Should.Throw(Task, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task throws an exception of the specified type within the specified timeout
     /// </summary>
@@ -57,7 +52,6 @@ public static partial class Should
         return ThrowInternal(() => actual, timeoutAfter, customMessage, exceptionType);
     }
 
-    /*** Should.Throw(Func<Task>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task function throws an exception of type <typeparamref name="TException"/> within the specified timeout
     /// </summary>
@@ -93,7 +87,6 @@ public static partial class Should
         throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod).ToString());
     }
 
-    /*** Should.Throw(Func<Task>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task function throws an exception of the specified type within the specified timeout
     /// </summary>
@@ -137,7 +130,6 @@ public static partial class Should
         throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod).ToString());
     }
 
-    /*** Should.NotThrow(Task) ***/
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions
     /// </summary>
@@ -147,7 +139,6 @@ public static partial class Should
         NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
-    /*** Should.NotThrow(Task<T>) ***/
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions and returns its result
     /// </summary>
@@ -157,7 +148,6 @@ public static partial class Should
         return NotThrow(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
-    /*** Should.NotThrow(Func<Task>) ***/
     /// <summary>
     /// Verifies that the provided task function does not throw any exceptions
     /// </summary>
@@ -167,7 +157,6 @@ public static partial class Should
         NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
-    /*** Should.NotThrow(Task, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions within the specified timeout
     /// </summary>
@@ -177,7 +166,6 @@ public static partial class Should
         NotThrowInternal(() => action, timeoutAfter, customMessage);
     }
 
-    /*** Should.NotThrow(Func<Task>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task function does not throw any exceptions within the specified timeout
     /// </summary>
@@ -208,7 +196,6 @@ public static partial class Should
         }
     }
 
-    /*** Should.NotThrow(Func<Task<T>>) ***/
     /// <summary>
     /// Verifies that the provided task function does not throw any exceptions and returns its result
     /// </summary>
@@ -216,7 +203,6 @@ public static partial class Should
     public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string? customMessage = null) =>
         NotThrow(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
 
-    /*** Should.NotThrow(Task<T>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions within the specified timeout and returns its result
     /// </summary>
@@ -224,7 +210,6 @@ public static partial class Should
     public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, string? customMessage = null) =>
         NotThrow(() => action, timeoutAfter, customMessage);
 
-    /*** Should.NotThrow(Func<Task<T>>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the provided task function does not throw any exceptions within the specified timeout and returns its result
     /// </summary>

@@ -10,7 +10,6 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldThrowExtensions
 {
-    /*** ShouldThrow(Action) ***/
     /// <summary>
     /// Verifies that the action throws a <typeparamref name="TException"/> exception.
     /// </summary>
@@ -19,7 +18,6 @@ public static partial class ShouldThrowExtensions
         where TException : Exception =>
         Should.ThrowInternal<TException>(actual, customMessage);
 
-    /*** ShouldThrow(Func<T>) ***/
     /// <summary>
     /// Verifies that the function throws a <typeparamref name="TException"/> exception.
     /// </summary>
@@ -28,7 +26,6 @@ public static partial class ShouldThrowExtensions
         where TException : Exception =>
         Should.ThrowInternal<TException>(actual, customMessage);
 
-    /*** ShouldThrow(Action) ***/
     /// <summary>
     /// Verifies that the action throws an exception of the specified type.
     /// </summary>
@@ -36,7 +33,6 @@ public static partial class ShouldThrowExtensions
     public static Exception ShouldThrow(this Action actual, Type exceptionType, string? customMessage = null) =>
         Should.ThrowInternal(actual, customMessage, exceptionType);
 
-    /*** ShouldThrow(Func<T>) ***/
     /// <summary>
     /// Verifies that the function throws an exception of the specified type.
     /// </summary>
@@ -44,7 +40,6 @@ public static partial class ShouldThrowExtensions
     public static Exception ShouldThrow(this Func<object?> actual, Type exceptionType, string? customMessage = null) =>
         Should.ThrowInternal(actual, customMessage, exceptionType);
 
-    /*** ShouldNotThrow(Action) ***/
     /// <summary>
     /// Verifies that the action completes without throwing any exceptions.
     /// </summary>
@@ -52,7 +47,6 @@ public static partial class ShouldThrowExtensions
     public static void ShouldNotThrow(this Action action, string? customMessage = null) =>
         Should.NotThrowInternal(action, customMessage);
 
-    /*** ShouldNotThrow(Func<T>) ***/
     /// <summary>
     /// Verifies that the function completes without throwing any exceptions and returns the result.
     /// </summary>

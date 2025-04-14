@@ -10,7 +10,7 @@ public enum StringCompareShould
     /// Ignore case differences when comparing strings
     /// </summary>
     IgnoreCase = 1,
-    
+
     /// <summary>
     /// Ignore line ending differences when comparing strings
     /// </summary>

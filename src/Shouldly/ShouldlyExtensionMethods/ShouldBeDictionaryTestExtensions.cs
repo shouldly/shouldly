@@ -1,8 +1,4 @@
-
 using System.ComponentModel;
-#if NET9_0_OR_GREATER
-using System.Runtime.CompilerServices;
-#endif
 
 namespace Shouldly;
 

@@ -9,7 +9,7 @@ public enum SortDirection
     /// Sort in ascending order (smallest to largest)
     /// </summary>
     Ascending = 0,
-    
+
     /// <summary>
     /// Sort in descending order (largest to smallest)
     /// </summary>

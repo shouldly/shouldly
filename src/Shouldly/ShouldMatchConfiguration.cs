@@ -46,17 +46,17 @@ public class ShouldMatchConfiguration
     /// Options for string comparison
     /// </summary>
     public StringCompareShould StringCompareOptions { get; set; } = StringCompareShould.IgnoreLineEndings;
-    
+
     /// <summary>
     /// Optional discriminator to add to the filename
     /// </summary>
     public string? FilenameDiscriminator { get; set; }
-    
+
     /// <summary>
     /// Whether to prevent showing a diff when the test fails
     /// </summary>
     public bool PreventDiff { get; set; } = false;
-    
+
     /// <summary>
     /// The diff viewer to use when the test fails
     /// </summary>
@@ -71,7 +71,7 @@ public class ShouldMatchConfiguration
     /// The test method finder to use to locate the test method
     /// </summary>
     public ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
-    
+
     /// <summary>
     /// Optional subfolder for approval files
     /// </summary>

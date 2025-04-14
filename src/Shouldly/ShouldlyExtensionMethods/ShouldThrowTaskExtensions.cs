@@ -10,7 +10,6 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldThrowTaskExtensions
 {
-    /*** ShouldThrow(Task) ***/
     /// <summary>
     /// Verifies that the Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
@@ -21,7 +20,6 @@ public static partial class ShouldThrowTaskExtensions
         return ShouldThrow<TException>(() => actual, customMessage);
     }
 
-    /*** ShouldThrow(Task) ***/
     /// <summary>
     /// Verifies that the Task throws an exception of the specified type.
     /// </summary>
@@ -40,7 +38,6 @@ public static partial class ShouldThrowTaskExtensions
         return ShouldThrow(() => actual, customMessage, exceptionType);
     }
 
-    /*** ShouldThrow(Func<Task>) ***/
     /// <summary>
     /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
@@ -49,7 +46,6 @@ public static partial class ShouldThrowTaskExtensions
         where TException : Exception =>
         ShouldThrow<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
 
-    /*** ShouldThrow(Func<Task>) ***/
     /// <summary>
     /// Verifies that the function returning a Task throws an exception of the specified type.
     /// </summary>
@@ -64,7 +60,6 @@ public static partial class ShouldThrowTaskExtensions
     public static Exception ShouldThrow(this Func<Task> actual, string? customMessage, Type exceptionType) =>
         ShouldThrow(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
 
-    /*** ShouldThrow(Task, TimeSpan) ***/
     /// <summary>
     /// Verifies that the Task throws a <typeparamref name="TException"/> exception within the specified timeout.
     /// </summary>
@@ -75,7 +70,6 @@ public static partial class ShouldThrowTaskExtensions
         return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
     }
 
-    /*** ShouldThrow(Task, TimeSpan) ***/
     /// <summary>
     /// Verifies that the Task throws an exception of the specified type within the specified timeout.
     /// </summary>
@@ -94,7 +88,6 @@ public static partial class ShouldThrowTaskExtensions
         return ShouldThrow(() => actual, timeoutAfter, customMessage, exceptionType);
     }
 
-    /*** ShouldThrow(Func<Task>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception within the specified timeout.
     /// </summary>
@@ -103,7 +96,6 @@ public static partial class ShouldThrowTaskExtensions
         where TException : Exception =>
         Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
 
-    /*** ShouldThrow(Func<Task>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the function returning a Task throws an exception of the specified type within the specified timeout.
     /// </summary>
@@ -118,7 +110,6 @@ public static partial class ShouldThrowTaskExtensions
     public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType) =>
         Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
 
-    /*** ShouldNotThrow(Task) ***/
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions.
     /// </summary>
@@ -128,7 +119,6 @@ public static partial class ShouldThrowTaskExtensions
         Should.NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
-    /*** ShouldNotThrow(Task<T>) ***/
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions and returns the result.
     /// </summary>
@@ -138,7 +128,6 @@ public static partial class ShouldThrowTaskExtensions
         return ShouldNotThrow(() => action, customMessage);
     }
 
-    /*** ShouldNotThrow(Func<Task>) ***/
     /// <summary>
     /// Verifies that the function returning a Task completes without throwing any exceptions.
     /// </summary>
@@ -148,7 +137,6 @@ public static partial class ShouldThrowTaskExtensions
         Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
     }
 
-    /*** ShouldNotThrow(Task, TimeSpan) ***/
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions within the specified timeout.
     /// </summary>
@@ -158,7 +146,6 @@ public static partial class ShouldThrowTaskExtensions
         ShouldNotThrow(() => action, timeoutAfter, customMessage);
     }
 
-    /*** ShouldNotThrow(Func<Task>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the function returning a Task completes without throwing any exceptions within the specified timeout.
     /// </summary>
@@ -168,7 +155,6 @@ public static partial class ShouldThrowTaskExtensions
         Should.NotThrowInternal(action, timeoutAfter, customMessage);
     }
 
-    /*** ShouldNotThrow(Func<Task<T>>) ***/
     /// <summary>
     /// Verifies that the function returning a Task completes without throwing any exceptions and returns the result.
     /// </summary>
@@ -176,7 +162,6 @@ public static partial class ShouldThrowTaskExtensions
     public static T ShouldNotThrow<T>(this Func<Task<T>> action, string? customMessage = null) =>
         Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
 
-    /*** ShouldNotThrow(Task<T>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions within the specified timeout and returns the result.
     /// </summary>
@@ -184,7 +169,6 @@ public static partial class ShouldThrowTaskExtensions
     public static T ShouldNotThrow<T>(this Task<T> action, TimeSpan timeoutAfter, string? customMessage = null) =>
         ShouldNotThrow(() => action, timeoutAfter, customMessage);
 
-    /*** ShouldNotThrow(Func<Task<T>>, TimeSpan) ***/
     /// <summary>
     /// Verifies that the function returning a Task completes without throwing any exceptions within the specified timeout and returns the result.
     /// </summary>

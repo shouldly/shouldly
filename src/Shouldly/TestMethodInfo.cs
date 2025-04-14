@@ -68,12 +68,12 @@ public class TestMethodInfo
     /// The directory containing the source file of the test method
     /// </summary>
     public string? SourceFileDirectory { get; }
-    
+
     /// <summary>
     /// The name of the test method
     /// </summary>
     public string? MethodName { get; }
-    
+
     /// <summary>
     /// The name of the type declaring the test method
     /// </summary>

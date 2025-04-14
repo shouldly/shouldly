@@ -9,7 +9,7 @@ public enum Case
     /// Perform case-sensitive string comparison
     /// </summary>
     Sensitive,
-    
+
     /// <summary>
     /// Perform case-insensitive string comparison
     /// </summary>
