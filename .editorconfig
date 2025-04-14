@@ -179,7 +179,7 @@ dotnet_diagnostic.CA1869.severity = error
 dotnet_diagnostic.CA1870.severity = error
 
 # Microsoft .NET properties
-trim_trailing_whitespace = true
+trim_trailing_whitespace = false
 csharp_preferred_modifier_order = public, private, protected, internal, new, static, abstract, virtual, sealed, readonly, override, extern, unsafe, volatile, async:suggestion
 resharper_namespace_body = file_scoped
 dotnet_naming_rule.private_constants_rule.severity = warning
