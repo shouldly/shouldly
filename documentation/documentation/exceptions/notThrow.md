@@ -28,6 +28,24 @@ System.DivideByZeroException
 ```
 <!-- endInclude -->
 
+## ShouldNotThrowAsync
+
+<!-- snippet: ShouldNotThrowAsync -->
+<a id='snippet-ShouldNotThrowAsync'></a>
+```cs
+Task doSomething() => Task.FromException(new Exception() { });
+await Should.NotThrowAsync(() => doSomething());
+```
+<sup><a href='/src/Shouldly.Tests/ShouldNotThrowAsync/FuncOfTaskScenarioAsync.cs#L91-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowAsync' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+<!-- include: FuncOfTaskScenarioAsync.ShouldNotThrowAsync.approved.txt -->
+```
+Task `doSomething()`
+    should not throw but threw
+```
+ 
 ## ShouldNotThrow Action Extension
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowActionExtension.codeSample.approved.cs -->
