@@ -40,13 +40,14 @@ var exception = await Should.ThrowAsync<DivideByZeroException>(() => doSomething
 <!-- endSnippet -->
 
 **Exception**
-
-Task `doSomething()`<!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
+<!-- include: FuncOfTaskScenarioAsync.ShouldThrowAsync.approved.txt -->
+```
+Task `doSomething()`
     should throw
 System.DivideByZeroException
-    but did not<!-- endInclude -->
-
-
+    but did not
+```
+<!-- endInclude -->
 ## ShouldThrow Action Extension
 
 <!-- snippet: ShouldThrowExamples.ShouldThrowActionExtension.codeSample.approved.cs -->
