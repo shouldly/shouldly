@@ -2,9 +2,9 @@ namespace Shouldly.Internals;
 
 static class DeterministicBuildHelpers
 {
-    private static readonly Regex DeterministicPathRegex = new(@"^/_\d*/");
+    private static readonly Regex deterministicPathRegex = new(@"^/_\d*/");
 
-    private static readonly Lazy<IEnumerable<(string, string)>> LazySourcePathMap
+    private static readonly Lazy<IEnumerable<(string, string)>> lazySourcePathMap
         = new(() =>
         {
             var shouldlySourcePathMap = Environment.GetEnvironmentVariable("SHOULDLY_SOURCE_PATH_MAP") ?? "";
@@ -15,7 +15,7 @@ static class DeterministicBuildHelpers
                 .Select(x => (x[0], x[1]));
         });
 
-    private static IEnumerable<(string, string)> SourcePathMap => LazySourcePathMap.Value;
+    private static IEnumerable<(string, string)> SourcePathMap => lazySourcePathMap.Value;
 
     internal static string? ResolveDeterministicPaths(string? fileName)
     {
@@ -30,5 +30,5 @@ static class DeterministicBuildHelpers
         return fileName;
     }
 
-    internal static bool PathAppearsToBeDeterministic(string fileName) => DeterministicPathRegex.IsMatch(fileName);
+    internal static bool PathAppearsToBeDeterministic(string fileName) => deterministicPathRegex.IsMatch(fileName);
 }

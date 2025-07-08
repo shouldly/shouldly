@@ -8,10 +8,7 @@ static class On
     {
         private Action? action;
 
-        public OnDisposeAction(Action action)
-        {
-            this.action = action;
-        }
+        public OnDisposeAction(Action action) => this.action = action;
 
         public void Dispose() => Interlocked.Exchange(ref action, null)?.Invoke();
     }
