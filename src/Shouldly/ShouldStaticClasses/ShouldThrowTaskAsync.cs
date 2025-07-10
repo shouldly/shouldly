@@ -10,18 +10,14 @@ public static partial class Should
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
         where TException : Exception
-    {
-        return ThrowAsync<TException>(() => task, customMessage);
-    }
+        => ThrowAsync<TException>(() => task, customMessage);
 
     /// <summary>
     /// Asynchronously verifies that the provided task throws an exception of the specified type
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null)
-    {
-        return ThrowAsync(() => task, exceptionType, customMessage);
-    }
+        => ThrowAsync(() => task, exceptionType, customMessage);
 
     /// <summary>
     /// Asynchronously verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
@@ -54,15 +50,12 @@ public static partial class Should
                 }))
                 .ContinueWith(x =>
                 {
-                    switch (x.Result)
+                    return x.Result switch
                     {
-                        case ShouldAssertException assert:
-                            throw assert;
-                        case TException expectedException:
-                            return expectedException;
-                        default:
-                            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);
-                    }
+                        ShouldAssertException assert => throw assert,
+                        TException expectedException => expectedException,
+                        _ => throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result),
+                    };
                 });
         }
         catch (Exception e)
@@ -106,9 +99,7 @@ public static partial class Should
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task NotThrowAsync(Task task, string? customMessage = null)
-    {
-        return NotThrowAsyncInternal(() => task, customMessage);
-    }
+        => NotThrowAsyncInternal(() => task, customMessage);
 
     /// <summary>
     /// Asynchronously verifies that the provided task function does not throw any exceptions
