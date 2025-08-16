@@ -39,6 +39,7 @@
   * [Contain](documentation/enumerable/contain.md)
   * [Unique](documentation/enumerable/unique.md)
   * [SubsetOf](documentation/enumerable/subsetOf.md)
+  * [SupersetOf](documentation/enumerable/supersetOf.md)
   * [Have](documentation/enumerable/have.md)
 * [Dictionary](documentation/dictionary/README.md)
   * [ContainKey](documentation/dictionary/containKey.md)
