@@ -132,9 +132,7 @@ public static partial class Should
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow([InstantHandle] Action action, string? customMessage = null)
-    {
-        NotThrowInternal(action, customMessage);
-    }
+        => NotThrowInternal(action, customMessage);
 
     internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!)

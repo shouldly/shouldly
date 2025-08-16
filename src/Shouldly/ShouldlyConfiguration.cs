@@ -5,14 +5,11 @@ namespace Shouldly;
 /// </summary>
 public static partial class ShouldlyConfiguration
 {
-    static ShouldlyConfiguration()
-    {
-        CompareAsObjectTypes =
+    static ShouldlyConfiguration() => CompareAsObjectTypes =
         [
             "Newtonsoft.Json.Linq.JToken",
             "Shouldly.Tests.TestHelpers.Strange"
         ];
-    }
 
     /// <summary>
     /// List of type names that should be compared as objects rather than using their Equals method
