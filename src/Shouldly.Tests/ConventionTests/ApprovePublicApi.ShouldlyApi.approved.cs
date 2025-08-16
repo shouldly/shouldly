@@ -33,6 +33,11 @@ namespace Shouldly
         public static TException Throw<TException>(System.Action actual, string? customMessage = null)
             where TException : System.Exception { }
     }
+    public class EquivalencyOptions
+    {
+        public EquivalencyOptions() { }
+        public bool CompareUsingRuntimeTypes { get; set; }
+    }
     public class ExpectedActualIgnoreOrderShouldlyMessage : Shouldly.ShouldlyMessage
     {
         public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
@@ -120,6 +125,7 @@ namespace Shouldly
     public static class ObjectGraphTestExtensions
     {
         public static void ShouldBeEquivalentTo([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this object? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] object? expected, string? customMessage = null) { }
+        public static void ShouldBeEquivalentTo([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this object? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] object? expected, Shouldly.EquivalencyOptions options, string? customMessage = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class Should
