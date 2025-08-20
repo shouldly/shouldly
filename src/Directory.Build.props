@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <LangVersion>13</LangVersion>
+    <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
     <Version>4.3.0</Version>
     <AnalysisLevel>5</AnalysisLevel>
