@@ -5,6 +5,7 @@ class ShouldContainMessageGenerator : ShouldlyMessageGenerator
     public override bool CanProcess(IShouldlyAssertionContext context) =>
         context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
         && context.ShouldMethod.Contains("Contain")
+        && !context.IgnoreOrder
         && context.Expected is not Expression;
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)

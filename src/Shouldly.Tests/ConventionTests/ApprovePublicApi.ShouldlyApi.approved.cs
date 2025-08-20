@@ -236,6 +236,8 @@ namespace Shouldly
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, string? customMessage = null) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null) { }
         public static void ShouldContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
+        public static void ShouldContainSameElementsAs<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage = null) { }
+        public static void ShouldContainSameElementsAs<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
         public static T ShouldHaveSingleItem<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<T>? actual, string? customMessage = null) { }
         public static void ShouldNotBeEmpty<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<T>? actual, string? customMessage = null) { }
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Linq.Expressions.Expression<System.Func<T, bool>> elementPredicate, string? customMessage = null) { }

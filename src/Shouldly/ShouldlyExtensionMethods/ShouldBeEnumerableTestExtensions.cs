@@ -310,4 +310,17 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, customMessage);
     }
+    /// <summary>
+    /// Asserts that the enumerable contains the same elements as the expected enumerable, regardless of order.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldContainSameElementsAs<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null) =>
+        actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected, customMessage);
+
+    /// <summary>
+    /// Asserts that the enumerable contains the same elements as the expected enumerable, regardless of order, using the specified comparer.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldContainSameElementsAs<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string? customMessage = null) =>
+        actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected, comparer), actual, expected, customMessage);
 }
