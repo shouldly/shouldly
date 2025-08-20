@@ -1,6 +1,10 @@
 ![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)  
 ========
 
+> **⚠️ PLAYGROUND REPOSITORY ⚠️**  
+> **This repository is a playground/fork and is NOT intended to be merged back to the original Shouldly project.**  
+> **For the official Shouldly library, please visit: https://github.com/shouldly/shouldly**
+
 [![CI](https://github.com/shouldly/shouldly/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/shouldly/shouldly/actions/workflows/CI.yml)
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) 
 [![NuGet](https://img.shields.io/nuget/vpre/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
