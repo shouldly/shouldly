@@ -10,7 +10,7 @@ public static partial class StackTraceTests
     {
         var exception = exceptionThrower.Catch();
 
-        var stackTraceLines = exception.StackTrace!.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var stackTraceLines = exception.StackTrace!.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
         stackTraceLines.First().ShouldContain(exceptionThrower.ThrowingAction.Method.Name);
     }
