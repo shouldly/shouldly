@@ -47,7 +47,7 @@ Alternatively if you're using .NET Core then you can install Shouldly via the co
 dotnet add package Shouldly
 ```
 
-To have `ShouldMatchApproval` display a diff of the expected and actual files, you will need to install the `Shouldly.DiffEngine` package and configure it.
+To have `ShouldMatchApproved` display a diff of the expected and actual files, you will need to install the `Shouldly.DiffEngine` package and configure it.
 
 ```bash
 Install-Package Shouldly.DiffEngine
