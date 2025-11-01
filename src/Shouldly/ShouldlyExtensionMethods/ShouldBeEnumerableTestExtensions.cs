@@ -181,6 +181,32 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the enumerable is a superset of the expected enumerable.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldBeSupersetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null)
+    {
+        if (actual.Equals(expected))
+            return;
+        var missing = expected.Except(actual);
+        if (missing.Any())
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+    }
+
+    /// <summary>
+    /// Asserts that the enumerable is a superset of the expected enumerable using the specified comparer.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldBeSupersetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string? customMessage = null)
+    {
+        if (actual.Equals(expected))
+            return;
+        var missing = expected.Except(actual, comparer);
+        if (missing.Any())
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+    }
+
+    /// <summary>
     /// Asserts that the enumerable contains only unique elements.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]

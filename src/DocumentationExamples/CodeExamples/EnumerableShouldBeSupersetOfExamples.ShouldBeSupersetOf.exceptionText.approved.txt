@@ -1,0 +1,8 @@
+```
+simpsonsKids
+    should be superset of
+[Lisa, Bart, Maggie, Homer, Marge]
+    but
+[Homer, Marge]
+    are outside superset
+```
