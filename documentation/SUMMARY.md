@@ -21,7 +21,7 @@
   * [InRange](documentation/equality/inRange.md)
   * [MatchApproved](documentation/equality/matchApproved.md)
   * [Enumerable](documentation/enumerable/shouldBe.md)
-  * [SameAs](documentation/enumerable/shouldBe.md)
+  * [SameAs](documentation/equality/sameAs.md)
   * [String](documentation/string/shouldBe.md)
   * [ExampleClasses](documentation/equality/exampleClasses.md)
 * [String](documentation/string/README.md)
