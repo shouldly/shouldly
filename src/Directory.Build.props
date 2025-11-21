@@ -17,7 +17,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <EmbedAllSources>true</EmbedAllSources>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)/src/sn.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)sn.snk</AssemblyOriginatorKeyFile>
     <Description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</Description>
     <Authors>Jake Ginnivan, Joseph Woodward, Simon Cropp</Authors>
     <PackageTags>test;unit;testing;TDD;AAA;should;testunit;rspec;assert;assertion;framework</PackageTags>
