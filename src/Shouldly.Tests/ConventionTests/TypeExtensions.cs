@@ -5,12 +5,15 @@ namespace Shouldly.Tests.ConventionTests;
 
 public static class TypeExtensions
 {
-    public static bool HasAttribute<TAttribute>(this Type type) =>
-        type.GetCustomAttributes(typeof(TAttribute), true).Any();
-
-    public static bool HasAttribute(this Type type, string attributeName)
+    extension(Type type)
     {
-        return type.GetCustomAttributes(true).Cast<Attribute>().Any(a => a.GetType().FullName == attributeName);
+        public bool HasAttribute<TAttribute>() =>
+            type.GetCustomAttributes(typeof(TAttribute), true).Any();
+
+        public bool HasAttribute(string attributeName)
+        {
+            return type.GetCustomAttributes(true).Cast<Attribute>().Any(a => a.GetType().FullName == attributeName);
+        }
     }
 
     public static string FormatMethod(this MethodInfo shouldlyMethod, bool removeCustomMessage = false)

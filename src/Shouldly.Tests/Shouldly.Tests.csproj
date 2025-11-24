@@ -4,7 +4,7 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net48</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <Optimize>false</Optimize>
-    <NoWarn>CA1861</NoWarn>
+    <NoWarn>$(NoWarn);CA1861;CS8620</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />

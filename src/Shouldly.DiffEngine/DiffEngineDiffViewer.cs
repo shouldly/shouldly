@@ -14,7 +14,7 @@ public class DiffEngineDiffViewer : IDiffViewer
     /// <summary>
     /// Gets the singleton instance of the DiffEngineDiffViewer
     /// </summary>
-    public static DiffEngineDiffViewer Instance { get; } = new DiffEngineDiffViewer();
+    public static DiffEngineDiffViewer Instance { get; } = new ();
 
     /// <inheritdoc/>
     public void Launch(string receivedFile, string approvedFile)

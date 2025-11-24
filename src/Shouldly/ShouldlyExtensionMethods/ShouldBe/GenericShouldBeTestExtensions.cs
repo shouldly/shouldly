@@ -9,115 +9,114 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldBeTestExtensions
 {
-    /// <summary>
-    /// Asserts that an actual value is equal to the expected value
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this T? actual,
-        [NotNullIfNotNull(nameof(actual))] T? expected,
-        string? customMessage = null)
+    extension<T>([NotNullIfNotNull("expected")] T? actual)
     {
-        if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
-            actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
-        else
-            actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
-    }
-
-    /// <summary>
-    /// Asserts that an actual value is equal to the expected value using the specified comparer
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this T? actual,
-        [NotNullIfNotNull(nameof(actual))] T? expected,
-        IEqualityComparer<T> comparer,
-        string? customMessage = null)
-    {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
-    }
-
-    /// <summary>
-    /// Asserts that an actual value is not equal to the expected value
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [ContractAnnotation("actual:null,expected:null => halt")]
-    public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null)
-    {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
-    }
-
-    /// <summary>
-    /// Asserts that an actual value is not equal to the expected value using the specified comparer
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [ContractAnnotation("actual:null,expected:null => halt")]
-    public static void ShouldNotBe<T>(this T? actual, T? expected, IEqualityComparer<T> comparer, string? customMessage = null)
-    {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
-    }
-
-    /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
-        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        bool ignoreOrder = false)
-    {
-        ShouldBe(actual, expected, ignoreOrder, null);
-    }
-
-    /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
-        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        bool ignoreOrder,
-        string? customMessage)
-    {
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        expected = EnumerableProxy<T>.WrapNonCollection(expected);
-
-        if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
+        /// <summary>
+        /// Asserts that an actual value is equal to the expected value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] T? expected,
+            string? customMessage = null)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, customMessage);
+            if (ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string))
+                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<T>()), actual, expected, customMessage);
+            else
+                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
         }
-        else
+
+        /// <summary>
+        /// Asserts that an actual value is equal to the expected value using the specified comparer
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] T? expected,
+            IEqualityComparer<T> comparer,
+            string? customMessage = null)
         {
-            if (ignoreOrder)
+            actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
+        }
+    }
+
+    extension<T>(T? actual)
+    {
+        /// <summary>
+        /// Asserts that an actual value is not equal to the expected value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        [ContractAnnotation("actual:null,expected:null => halt")]
+        public void ShouldNotBe(T? expected, string? customMessage = null)
+        {
+            actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage);
+        }
+
+        /// <summary>
+        /// Asserts that an actual value is not equal to the expected value using the specified comparer
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        [ContractAnnotation("actual:null,expected:null => halt")]
+        public void ShouldNotBe(T? expected, IEqualityComparer<T> comparer, string? customMessage = null)
+        {
+            actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), actual, expected, customMessage);
+        }
+    }
+
+    extension<T>([NotNullIfNotNull("expected")] IEnumerable<T>? actual)
+    {
+        /// <summary>
+        /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
+            bool ignoreOrder = false)
+        {
+            ShouldBe(actual, expected, ignoreOrder, null);
+        }
+
+        /// <summary>
+        /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
+            bool ignoreOrder,
+            string? customMessage)
+        {
+            actual = EnumerableProxy<T>.WrapNonCollection(actual);
+            expected = EnumerableProxy<T>.WrapNonCollection(expected);
+
+            if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
             {
-                actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected, customMessage);
+                actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, customMessage);
             }
             else
             {
-                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
+                if (ignoreOrder)
+                {
+                    actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected), actual, expected, customMessage);
+                }
+                else
+                {
+                    actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage);
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable using the specified comparer, optionally ignoring order
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
-        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        IEqualityComparer<T> comparer,
-        bool ignoreOrder = false,
-        string? customMessage = null)
-    {
-        if (ignoreOrder)
+        /// <summary>
+        /// Asserts that an enumerable is equal to another enumerable using the specified comparer, optionally ignoring order
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
+            IEqualityComparer<T> comparer,
+            bool ignoreOrder = false,
+            string? customMessage = null)
         {
-            actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected, comparer), actual, expected, customMessage);
-        }
-        else
-        {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
+            if (ignoreOrder)
+            {
+                actual.AssertAwesomelyIgnoringOrder(v => Is.EqualIgnoreOrder(v, expected, comparer), actual, expected, customMessage);
+            }
+            else
+            {
+                actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage);
+            }
         }
     }
 

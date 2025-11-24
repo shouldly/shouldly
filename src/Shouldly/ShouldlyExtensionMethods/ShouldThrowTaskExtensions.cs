@@ -10,105 +10,117 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldThrowTaskExtensions
 {
-    /// <summary>
-    /// Verifies that the Task throws a <typeparamref name="TException"/> exception.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static TException ShouldThrow<TException>(this Task actual, string? customMessage = null)
-        where TException : Exception
+    extension(Task actual)
     {
-        return ShouldThrow<TException>(() => actual, customMessage);
+        /// <summary>
+        /// Verifies that the Task throws a <typeparamref name="TException"/> exception.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public TException ShouldThrow<TException>(string? customMessage = null)
+            where TException : Exception
+        {
+            return ShouldThrow<TException>(() => actual, customMessage);
+        }
+
+        /// <summary>
+        /// Verifies that the Task throws an exception of the specified type.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(Type exceptionType)
+        {
+            return ShouldThrow(() => actual, exceptionType);
+        }
+
+        /// <summary>
+        /// Verifies that the Task throws an exception of the specified type with a custom message.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(string? customMessage, Type exceptionType)
+        {
+            return ShouldThrow(() => actual, customMessage, exceptionType);
+        }
     }
 
-    /// <summary>
-    /// Verifies that the Task throws an exception of the specified type.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Task actual, Type exceptionType)
+    extension(Func<Task> actual)
     {
-        return ShouldThrow(() => actual, exceptionType);
+        /// <summary>
+        /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public TException ShouldThrow<TException>(string? customMessage = null)
+            where TException : Exception =>
+            ShouldThrow<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+
+        /// <summary>
+        /// Verifies that the function returning a Task throws an exception of the specified type.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(Type exceptionType) =>
+            ShouldThrow(actual, null, exceptionType);
+
+        /// <summary>
+        /// Verifies that the function returning a Task throws an exception of the specified type with a custom message.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(string? customMessage, Type exceptionType) =>
+            ShouldThrow(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
     }
 
-    /// <summary>
-    /// Verifies that the Task throws an exception of the specified type with a custom message.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Task actual, string? customMessage, Type exceptionType)
+    extension(Task actual)
     {
-        return ShouldThrow(() => actual, customMessage, exceptionType);
+        /// <summary>
+        /// Verifies that the Task throws a <typeparamref name="TException"/> exception within the specified timeout.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public TException ShouldThrow<TException>(TimeSpan timeoutAfter, string? customMessage = null)
+            where TException : Exception
+        {
+            return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
+        }
+
+        /// <summary>
+        /// Verifies that the Task throws an exception of the specified type within the specified timeout.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(TimeSpan timeoutAfter, Type exceptionType)
+        {
+            return ShouldThrow(() => actual, timeoutAfter, exceptionType);
+        }
+
+        /// <summary>
+        /// Verifies that the Task throws an exception of the specified type within the specified timeout with a custom message.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
+        {
+            return ShouldThrow(() => actual, timeoutAfter, customMessage, exceptionType);
+        }
     }
 
-    /// <summary>
-    /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static TException ShouldThrow<TException>(this Func<Task> actual, string? customMessage = null)
-        where TException : Exception =>
-        ShouldThrow<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
-
-    /// <summary>
-    /// Verifies that the function returning a Task throws an exception of the specified type.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Func<Task> actual, Type exceptionType) =>
-        ShouldThrow(actual, null, exceptionType);
-
-    /// <summary>
-    /// Verifies that the function returning a Task throws an exception of the specified type with a custom message.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Func<Task> actual, string? customMessage, Type exceptionType) =>
-        ShouldThrow(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType);
-
-    /// <summary>
-    /// Verifies that the Task throws a <typeparamref name="TException"/> exception within the specified timeout.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static TException ShouldThrow<TException>(this Task actual, TimeSpan timeoutAfter, string? customMessage = null)
-        where TException : Exception
+    extension(Func<Task> actual)
     {
-        return ShouldThrow<TException>(() => actual, timeoutAfter, customMessage);
+        /// <summary>
+        /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception within the specified timeout.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public TException ShouldThrow<TException>(TimeSpan timeoutAfter, string? customMessage = null)
+            where TException : Exception =>
+            Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
+
+        /// <summary>
+        /// Verifies that the function returning a Task throws an exception of the specified type within the specified timeout.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(TimeSpan timeoutAfter, Type exceptionType) =>
+            ShouldThrow(actual, timeoutAfter, null, exceptionType);
+
+        /// <summary>
+        /// Verifies that the function returning a Task throws an exception of the specified type within the specified timeout with a custom message.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public Exception ShouldThrow(TimeSpan timeoutAfter, string? customMessage, Type exceptionType) =>
+            Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
     }
-
-    /// <summary>
-    /// Verifies that the Task throws an exception of the specified type within the specified timeout.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Task actual, TimeSpan timeoutAfter, Type exceptionType)
-    {
-        return ShouldThrow(() => actual, timeoutAfter, exceptionType);
-    }
-
-    /// <summary>
-    /// Verifies that the Task throws an exception of the specified type within the specified timeout with a custom message.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Task actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType)
-    {
-        return ShouldThrow(() => actual, timeoutAfter, customMessage, exceptionType);
-    }
-
-    /// <summary>
-    /// Verifies that the function returning a Task throws a <typeparamref name="TException"/> exception within the specified timeout.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null)
-        where TException : Exception =>
-        Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
-
-    /// <summary>
-    /// Verifies that the function returning a Task throws an exception of the specified type within the specified timeout.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType) =>
-        ShouldThrow(actual, timeoutAfter, null, exceptionType);
-
-    /// <summary>
-    /// Verifies that the function returning a Task throws an exception of the specified type within the specified timeout with a custom message.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType) =>
-        Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
 
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions.

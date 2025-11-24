@@ -22,8 +22,6 @@ public class ShouldlyTimeoutException : TimeoutException, ITestTimeoutException
     {
     }
 
-    private string? stackTrace;
-
     /// <inheritdoc/>
-    public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref stackTrace);
+    public override string StackTrace => StackTraceHelpers.GetStackTrace(this, ref field);
 }

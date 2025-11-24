@@ -8,43 +8,40 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldBeStringTestExtensions
 {
-    /// <summary>
-    /// Perform a string comparison with sensitivity options
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe(
-        [NotNullIfNotNull(nameof(expected))] this string? actual,
-        [NotNullIfNotNull(nameof(actual))] string? expected,
-        string? customMessage = null)
+    extension([NotNullIfNotNull("expected")] string? actual)
     {
-        // ReSharper disable once IntroduceOptionalParameters.Global
-        ShouldBe(actual, expected, customMessage, 0);
-    }
+        /// <summary>
+        /// Perform a string comparison with sensitivity options
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] string? expected,
+            string? customMessage = null)
+        {
+            // ReSharper disable once IntroduceOptionalParameters.Global
+            ShouldBe(actual, expected, customMessage, 0);
+        }
 
-    /// <summary>
-    /// Perform a string comparison with sensitivity options
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe(
-        [NotNullIfNotNull(nameof(expected))] this string? actual,
-        [NotNullIfNotNull(nameof(actual))] string? expected,
-        StringCompareShould options)
-    {
-        ShouldBe(actual, expected, null, options);
-    }
+        /// <summary>
+        /// Perform a string comparison with sensitivity options
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] string? expected,
+            StringCompareShould options)
+        {
+            ShouldBe(actual, expected, null, options);
+        }
 
-    /// <summary>
-    /// Perform a string comparison with sensitivity options and custom message
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBe(
-        [NotNullIfNotNull(nameof(expected))] this string? actual,
-        [NotNullIfNotNull(nameof(actual))] string? expected,
-        string? customMessage,
-        StringCompareShould options)
-    {
-        var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
-        ExecuteAssertion(assertion, customMessage);
+        /// <summary>
+        /// Perform a string comparison with sensitivity options and custom message
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldBe([NotNullIfNotNull(nameof(actual))] string? expected,
+            string? customMessage,
+            StringCompareShould options)
+        {
+            var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
+            ExecuteAssertion(assertion, customMessage);
+        }
     }
 
     private static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage)

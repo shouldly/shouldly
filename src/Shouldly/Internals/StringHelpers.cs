@@ -85,51 +85,54 @@ static class StringHelpers
         return toString; // ToString() may return null.
     }
 
-    internal static string PascalToSpaced(this string pascal)
+    extension(string pascal)
     {
-        return Regex.Replace(pascal, "([A-Z])", match => " " + match.Value.ToLower()).Trim();
-    }
-
-    internal static string Quotify(this string input) =>
-        input.Replace('\'', '"');
-
-    internal static string StripWhitespace(this string input) =>
-        Regex.Replace(input, @"[\r\n\t\s]", "");
-
-    internal static string CollapseWhitespace(this string input) =>
-        Regex.Replace(input, @"[\r\n\t\s]+", " ");
-
-    internal static string StripLambdaExpressionSyntax(this string input) =>
-        Regex.Replace(input, @"^\(*\s*\)*\s*=>\s*", "");
-
-    internal static string RemoveVariableAssignment(this string input)
-    {
-        var collapseWhitespace = Regex.Replace(input, @"^\w*\s+\w*\s*=[^>]\s*", "");
-        collapseWhitespace = Regex.Replace(collapseWhitespace, @"\(\)\s*=\>\s*", "");
-        return collapseWhitespace;
-    }
-
-    internal static string RemoveBlock(this string input) =>
-        Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
-
-    internal static string Clip(this string stringToClip, int maximumStringLength)
-    {
-        if (stringToClip.Length > maximumStringLength)
+        internal string PascalToSpaced()
         {
-            stringToClip = stringToClip[..maximumStringLength];
+            return Regex.Replace(pascal, "([A-Z])", match => " " + match.Value.ToLower()).Trim();
         }
 
-        return stringToClip;
-    }
+        internal string Quotify() =>
+            pascal.Replace('\'', '"');
 
-    internal static string Clip(this string stringToClip, int maximumStringLength, string ellipsis)
-    {
-        if (stringToClip.Length > maximumStringLength)
+        internal string StripWhitespace() =>
+            Regex.Replace(pascal, @"[\r\n\t\s]", "");
+
+        internal string CollapseWhitespace() =>
+            Regex.Replace(pascal, @"[\r\n\t\s]+", " ");
+
+        internal string StripLambdaExpressionSyntax() =>
+            Regex.Replace(pascal, @"^\(*\s*\)*\s*=>\s*", "");
+
+        internal string RemoveVariableAssignment()
         {
-            stringToClip = stringToClip[..maximumStringLength] + ellipsis;
+            var collapseWhitespace = Regex.Replace(pascal, @"^\w*\s+\w*\s*=[^>]\s*", "");
+            collapseWhitespace = Regex.Replace(collapseWhitespace, @"\(\)\s*=\>\s*", "");
+            return collapseWhitespace;
         }
 
-        return stringToClip;
+        internal string RemoveBlock() =>
+            Regex.Replace(pascal, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
+
+        internal string Clip(int maximumStringLength)
+        {
+            if (pascal.Length > maximumStringLength)
+            {
+                pascal = pascal[..maximumStringLength];
+            }
+
+            return pascal;
+        }
+
+        internal string Clip(int maximumStringLength, string ellipsis)
+        {
+            if (pascal.Length > maximumStringLength)
+            {
+                pascal = pascal[..maximumStringLength] + ellipsis;
+            }
+
+            return pascal;
+        }
     }
 
     internal static string ToSafeString(this char c)
@@ -163,20 +166,21 @@ static class StringHelpers
     internal static string? NormalizeLineEndings(this string? s) =>
         s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
 
-    private static string CommaDelimited<T>(this IEnumerable<T> enumerable)
-        where T : class? =>
-        enumerable.DelimitWith(", ");
+    extension<T>(IEnumerable<T> enumerable) where T : class?
+    {
+        private string CommaDelimited() =>
+            enumerable.DelimitWith(", ");
 
-    private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator)
-        where T : class? =>
-        string.Join(separator,
-            enumerable.Select(i =>
-                {
-                    if (Equals(i, null))
-                        return null;
-                    return i.ToString();
-                })
-                .ToArray());
+        string DelimitWith(string? separator) =>
+            string.Join(separator,
+                enumerable.Select(i =>
+                    {
+                        if (Equals(i, null))
+                            return null;
+                        return i.ToString();
+                    })
+                    .ToArray());
+    }
 
     private static string ToStringAwesomely(this Enum value) =>
         value.GetType().Name + "." + value;

@@ -27,46 +27,52 @@ static class TypeExtensions
         return enumerable != null;
     }
 
-    private static bool IsMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
+    extension(Type type)
     {
-        if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+        private bool IsMemory([NotNullWhen(true)] out Type? elementType)
         {
-            elementType = type.GetGenericArguments()[0];
-            return true;
+            if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+            {
+                elementType = type.GetGenericArguments()[0];
+                return true;
+            }
+
+            elementType = null;
+            return false;
         }
 
-        elementType = null;
-        return false;
+        bool IsReadOnlyMemory([NotNullWhen(true)] out Type? elementType)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
+            {
+                elementType = type.GetGenericArguments()[0];
+                return true;
+            }
+
+            elementType = null;
+            return false;
+        }
     }
 
-    private static bool IsReadOnlyMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
+    extension(object readOnlyMemory)
     {
-        if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
+        private IEnumerable ToEnumerable(Type elementType)
         {
-            elementType = type.GetGenericArguments()[0];
-            return true;
+            return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
+                ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                ?.MakeGenericMethod(elementType)
+                .Invoke(null, [readOnlyMemory])!;
         }
 
-        elementType = null;
-        return false;
-    }
-
-    private static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
-    {
-        return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
-            ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-            ?.MakeGenericMethod(elementType)
-            .Invoke(null, [readOnlyMemory])!;
-    }
-
-    private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
-    {
-        return objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-            .SingleOrDefault(method =>
-                method.Name == "op_Implicit"
-                && method.GetParameters()[0].ParameterType == objectType
-                && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
-                && returnElementType == genericParameterType)
-            ?.Invoke(null, [obj])!;
+        object ToReadOnlyMemory(Type objectType, Type genericParameterType)
+        {
+            return objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .SingleOrDefault(method =>
+                    method.Name == "op_Implicit"
+                    && method.GetParameters()[0].ParameterType == objectType
+                    && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
+                    && returnElementType == genericParameterType)
+                ?.Invoke(null, [readOnlyMemory])!;
+        }
     }
 }

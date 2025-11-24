@@ -58,10 +58,12 @@ public class ShouldlyConventions
 
 public static class TestWithMissingOverloads
 {
-    public static void ShouldTest(this object foo) { }
-
-    public static void ShouldAlsoFail(this object foo) { }
-    public static void ShouldAlsoFail(this object foo, string customMessage) { }
-    public static void ShouldAlsoFail(this object foo, int param) { }
-    public static void ShouldAlsoFail(this object foo, int param, string customMessage) { }
+    extension(object foo)
+    {
+        public void ShouldTest() { }
+        public void ShouldAlsoFail() { }
+        public void ShouldAlsoFail(string customMessage) { }
+        public void ShouldAlsoFail(int param) { }
+        public void ShouldAlsoFail(int param, string customMessage) { }
+    }
 }

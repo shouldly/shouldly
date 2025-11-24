@@ -9,29 +9,32 @@ namespace Shouldly.ShouldlyExtensionMethods;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldHaveEnumExtensions
 {
-    /// <summary>
-    /// Asserts that the enum value has the specified flag.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
+    extension(Enum actual)
     {
-        CheckEnumHasFlagAttribute(actual);
-        if (!actual.HasFlag(expectedFlag))
+        /// <summary>
+        /// Asserts that the enum value has the specified flag.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldHaveFlag(Enum expectedFlag, string? customMessage = null)
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+            CheckEnumHasFlagAttribute(actual);
+            if (!actual.HasFlag(expectedFlag))
+            {
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+            }
         }
-    }
 
-    /// <summary>
-    /// Asserts that the enum value does not have the specified flag.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
-    {
-        CheckEnumHasFlagAttribute(actual);
-        if (actual.HasFlag(expectedFlag))
+        /// <summary>
+        /// Asserts that the enum value does not have the specified flag.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldNotHaveFlag(Enum expectedFlag, string? customMessage = null)
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+            CheckEnumHasFlagAttribute(actual);
+            if (actual.HasFlag(expectedFlag))
+            {
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+            }
         }
     }
 

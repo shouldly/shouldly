@@ -10,56 +10,62 @@ namespace Shouldly;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static partial class ShouldSatisfyAllConditionsTestExtensions
 {
-    /// <summary>
-    /// Asserts that the actual value satisfies all specified conditions
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
+    extension<T>(T actual)
     {
-        ShouldSatisfyAllConditions(actual, null, CreateParameterlessActions(actual, conditions));
-    }
-
-    /// <summary>
-    /// Asserts that the actual value satisfies all specified conditions with a custom message
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
-    {
-        ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
-    }
-
-    /// <summary>
-    /// Asserts that the actual object satisfies all specified conditions
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
-    {
-        ShouldSatisfyAllConditions(actual, null, conditions);
-    }
-
-    /// <summary>
-    /// Asserts that the actual object satisfies all specified conditions with a custom message
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
-    {
-        var errorMessages = new List<Exception>();
-        foreach (var action in conditions)
+        /// <summary>
+        /// Asserts that the actual value satisfies all specified conditions
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldSatisfyAllConditions([InstantHandle] params Action<T>[] conditions)
         {
-            try
-            {
-                action.Invoke();
-            }
-            catch (Exception exc)
-            {
-                errorMessages.Add(exc);
-            }
+            ShouldSatisfyAllConditions(actual, null, CreateParameterlessActions(actual, conditions));
         }
 
-        if (errorMessages.Any())
+        /// <summary>
+        /// Asserts that the actual value satisfies all specified conditions with a custom message
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldSatisfyAllConditions(string? customMessage, [InstantHandle] params Action<T>[] conditions)
         {
-            var errorMessageString = BuildErrorMessageString(errorMessages);
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString());
+            ShouldSatisfyAllConditions(actual, customMessage, CreateParameterlessActions(actual, conditions));
+        }
+    }
+
+    extension(object? actual)
+    {
+        /// <summary>
+        /// Asserts that the actual object satisfies all specified conditions
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldSatisfyAllConditions([InstantHandle] params Action[] conditions)
+        {
+            ShouldSatisfyAllConditions(actual, null, conditions);
+        }
+
+        /// <summary>
+        /// Asserts that the actual object satisfies all specified conditions with a custom message
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public void ShouldSatisfyAllConditions(string? customMessage, [InstantHandle] params Action[] conditions)
+        {
+            var errorMessages = new List<Exception>();
+            foreach (var action in conditions)
+            {
+                try
+                {
+                    action.Invoke();
+                }
+                catch (Exception exc)
+                {
+                    errorMessages.Add(exc);
+                }
+            }
+
+            if (errorMessages.Any())
+            {
+                var errorMessageString = BuildErrorMessageString(errorMessages);
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString());
+            }
         }
     }
 
