@@ -8,14 +8,14 @@ namespace Shouldly;
  */
 class EqualityComparer<T> : IEqualityComparer<T>
 {
-    private static readonly IEqualityComparer DefaultInnerComparer = new EqualityComparerAdapter(new EqualityComparer<object>());
+    private static readonly IEqualityComparer defaultInnerComparer = new EqualityComparerAdapter(new EqualityComparer<object>());
 
     private readonly Func<IEqualityComparer> _innerComparerFactory;
 
     public EqualityComparer(IEqualityComparer? innerComparer = null)
     {
         // Use a thunk to delay evaluation of DefaultInnerComparer
-        _innerComparerFactory = () => innerComparer ?? DefaultInnerComparer;
+        _innerComparerFactory = () => innerComparer ?? defaultInnerComparer;
     }
 
     public bool Equals(T? x, T? y)
