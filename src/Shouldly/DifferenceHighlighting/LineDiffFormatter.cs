@@ -11,6 +11,10 @@ class LineDiffFormatter
         _caseSensitivity = caseSensitivity;
     }
 
+    private const string ExpectedPrefix = "Expected: ";
+    private const string ActualPrefix =   "Actual:   ";
+    private static readonly string ContextPrefix = new(' ', ExpectedPrefix.Length);
+
     public string FormatLineDiff(string expected, string actual)
     {
         var expectedLines = expected.Split('\n');
@@ -40,36 +44,36 @@ class LineDiffFormatter
         // Leading context
         var contextStart = Math.Max(0, commonPrefixLines - MaxContextLines);
         if (contextStart > 0)
-            sb.AppendLine("  ...");
+            sb.AppendLine($"{ContextPrefix}...");
 
         for (var i = contextStart; i < commonPrefixLines; i++)
         {
-            sb.AppendLine($"  {DisplayLine(expectedLines[i])}");
+            sb.AppendLine($"{ContextPrefix}{DisplayLine(expectedLines[i])}");
         }
 
-        // Down marker above removed line
+        // Down marker above expected line
         if (charDiffPos >= 0)
         {
-            sb.Append(' ', charDiffPos + 2); // +2 for "- " prefix
+            sb.Append(' ', charDiffPos + ExpectedPrefix.Length);
             sb.AppendLine(downMarker.ToString());
         }
 
-        // Removed lines (from expected)
+        // Expected lines (removed from expected)
         for (var i = expectedChangeStart; i < expectedChangeEnd; i++)
         {
-            sb.AppendLine($"- {DisplayLine(expectedLines[i])}");
+            sb.AppendLine($"{ExpectedPrefix}{DisplayLine(expectedLines[i])}");
         }
 
-        // Added lines (from actual)
+        // Actual lines (added in actual)
         for (var i = actualChangeStart; i < actualChangeEnd; i++)
         {
-            sb.AppendLine($"+ {DisplayLine(actualLines[i])}");
+            sb.AppendLine($"{ActualPrefix}{DisplayLine(actualLines[i])}");
         }
 
-        // Up marker below added line
+        // Up marker below actual line
         if (charDiffPos >= 0)
         {
-            sb.Append(' ', charDiffPos + 2); // +2 for "+ " prefix
+            sb.Append(' ', charDiffPos + ActualPrefix.Length);
             sb.AppendLine(upMarker.ToString());
         }
 
@@ -77,11 +81,11 @@ class LineDiffFormatter
         var contextEnd = Math.Min(expectedLines.Length, expectedChangeEnd + MaxContextLines);
         for (var i = expectedChangeEnd; i < contextEnd; i++)
         {
-            sb.AppendLine($"  {DisplayLine(expectedLines[i])}");
+            sb.AppendLine($"{ContextPrefix}{DisplayLine(expectedLines[i])}");
         }
 
         if (contextEnd < expectedLines.Length)
-            sb.AppendLine("  ...");
+            sb.AppendLine($"{ContextPrefix}...");
 
         // Remove final newline
         if (sb.Length > 0 && sb[^1] == '\n')

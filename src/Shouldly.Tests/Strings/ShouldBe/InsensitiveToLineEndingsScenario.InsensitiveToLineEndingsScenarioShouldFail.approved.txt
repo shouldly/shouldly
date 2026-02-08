@@ -7,11 +7,11 @@ Line3"
 "line1
 line2"
     difference
-  line1
-  ▼
-- Line3
-+ line2
-  ▲
+          line1
+          ▼
+Expected: Line3
+Actual:   line2
+          ▲
 
 Additional Info:
     Some additional context
@@ -23,11 +23,11 @@ line2"
 Line3"
     but was not
     difference
-  line1
-  ▼
-- Line3
-+ line2
-  ▲
+          line1
+          ▼
+Expected: Line3
+Actual:   line2
+          ▲
 
 Additional Info:
     Some additional context
