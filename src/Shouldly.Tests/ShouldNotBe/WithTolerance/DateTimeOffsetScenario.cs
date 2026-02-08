@@ -3,6 +3,7 @@ namespace Shouldly.Tests.ShouldNotBe.WithTolerance;
 public class DateTimeOffsetScenario
 {
     [Fact]
+    [UseCulture("en-US")]
     public void DateTimeOffsetScenarioShouldFail()
     {
         var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
