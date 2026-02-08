@@ -5,7 +5,7 @@ ThisString
     but was
 "this string"
     difference
-                ▼ ▼▼▼▼
+                ▼▼▼▼▼▼
 Expected: "this other string"
 Actual:   "this string"
 
@@ -17,7 +17,7 @@ Additional Info:
 "this other string"
     but was not
     difference
-                ▼ ▼▼▼▼
+                ▼▼▼▼▼▼
 Expected: "this other string"
 Actual:   "this string"
 

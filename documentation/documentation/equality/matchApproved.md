@@ -68,10 +68,10 @@ simpsonsQuote
     but was
 "Me fail english? That's unpossible"
     difference
-           ▼▼ ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+           ▼  ▼▼▼▼▼ ▼▼▼ ▼ ▼ ▼▼▼▼ ▼ ▼▼
 Expected: "Hi Super Nintendo Chalmers"
 Actual:   "Me fail english? That's unpossible"
-           ▲▲ ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+           ▲▲▲▲▲ ▲ ▲▲▲▲▲▲▲▲ ▲▲▲ ▲▲▲▲ ▲ ▲▲▲▲
 ```
 <!-- endInclude -->
 

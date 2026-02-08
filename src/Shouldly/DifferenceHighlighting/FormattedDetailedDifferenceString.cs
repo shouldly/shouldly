@@ -36,10 +36,14 @@ class FormattedDetailedDifferenceString
         var expectedDiffEnd = _expectedValue.Length - commonSuffixLen;
         var actualDiffEnd = _actualValue.Length - commonSuffixLen;
 
+        // Run alignment on the diff regions to find actual edits
+        var expectedDiffRegion = _expectedValue[commonPrefixLen..expectedDiffEnd];
+        var actualDiffRegion = _actualValue[commonPrefixLen..actualDiffEnd];
+        var (expectedEdits, actualEdits) = EditDistanceAligner.Align(
+            expectedDiffRegion, actualDiffRegion, _caseSensitivity);
+
         // Map to display positions
         var displayDiffStart = ComputeDisplayOffset(commonPrefixLen);
-        var expectedDisplayWidth = ComputeDisplayWidth(_expectedValue, commonPrefixLen, expectedDiffEnd);
-        var actualDisplayWidth = ComputeDisplayWidth(_actualValue, commonPrefixLen, actualDiffEnd);
 
         var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
         var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
@@ -49,24 +53,24 @@ class FormattedDetailedDifferenceString
 
         var sb = new StringBuilder();
 
-        // Top markers (expected diff region)
-        if (expectedDisplayWidth > 0)
+        // Top markers (expected edits)
+        var topMarkers = BuildMarkerLine(downMarker, expectedDiffRegion, expectedEdits);
+        if (topMarkers.Length > 0)
         {
             sb.Append(' ', markerOffset);
-            sb.AppendLine(BuildMarkerLine(downMarker, commonPrefixLen, expectedDiffEnd,
-                _expectedValue, _actualValue));
+            sb.AppendLine(topMarkers);
         }
 
         sb.AppendLine($"{prefix}{expectedDisplay}");
         sb.Append($"Actual:   {actualDisplay}");
 
-        // Bottom markers (actual diff region)
-        if (actualDisplayWidth > 0)
+        // Bottom markers (actual edits)
+        var bottomMarkers = BuildMarkerLine(upMarker, actualDiffRegion, actualEdits);
+        if (bottomMarkers.Length > 0)
         {
             sb.AppendLine();
             sb.Append(' ', markerOffset);
-            sb.Append(BuildMarkerLine(upMarker, commonPrefixLen, actualDiffEnd,
-                _actualValue, _expectedValue));
+            sb.Append(bottomMarkers);
         }
 
         return sb.ToString();
@@ -127,13 +131,13 @@ class FormattedDetailedDifferenceString
     private static int CharDisplayWidth(char c) =>
         c.NeedsEscaping() ? c.ToSafeString().Length : 1;
 
-    private string BuildMarkerLine(char marker, int startIndex, int endIndex, string value, string otherValue)
+    private static string BuildMarkerLine(char marker, string region, bool[] edits)
     {
         var markerSb = new StringBuilder();
-        for (var i = startIndex; i < endIndex; i++)
+        for (var i = 0; i < region.Length; i++)
         {
-            var w = CharDisplayWidth(value[i]);
-            if (i >= otherValue.Length || !CharsEqual(value[i], otherValue[i]))
+            var w = CharDisplayWidth(region[i]);
+            if (edits[i])
                 markerSb.Append(marker, w);
             else
                 markerSb.Append(' ', w);
