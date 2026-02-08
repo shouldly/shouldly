@@ -42,35 +42,48 @@ class FormattedDetailedDifferenceString
         var (expectedEdits, actualEdits) = EditDistanceAligner.Align(
             expectedDiffRegion, actualDiffRegion, _caseSensitivity);
 
-        // Map to display positions
-        var displayDiffStart = ComputeDisplayOffset(commonPrefixLen);
-
-        var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
-        var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
-
-        var prefix = "Expected: ";
-        var markerOffset = prefix.Length + displayDiffStart;
+        // Suppress markers when strings are too different — they become noise
+        var totalChars = _expectedValue.Length + _actualValue.Length;
+        var editCount = CountEdits(expectedEdits) + CountEdits(actualEdits);
+        var showMarkers = totalChars > 0 && editCount * 2 <= totalChars;
 
         var sb = new StringBuilder();
+        var prefix = "Expected: ";
 
-        // Top markers (expected edits)
-        var topMarkers = BuildMarkerLine(downMarker, expectedDiffRegion, expectedEdits);
-        if (topMarkers.Length > 0)
+        if (showMarkers)
         {
-            sb.Append(' ', markerOffset);
-            sb.AppendLine(topMarkers);
+            // Map to display positions
+            var displayDiffStart = ComputeDisplayOffset(commonPrefixLen);
+
+            var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
+            var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
+
+            var markerOffset = prefix.Length + displayDiffStart;
+
+            // Top markers (expected edits)
+            var topMarkers = BuildMarkerLine(downMarker, expectedDiffRegion, expectedEdits);
+            if (topMarkers.Length > 0)
+            {
+                sb.Append(' ', markerOffset);
+                sb.AppendLine(topMarkers);
+            }
+
+            sb.AppendLine($"{prefix}{expectedDisplay}");
+            sb.Append($"Actual:   {actualDisplay}");
+
+            // Bottom markers (actual edits)
+            var bottomMarkers = BuildMarkerLine(upMarker, actualDiffRegion, actualEdits);
+            if (bottomMarkers.Length > 0)
+            {
+                sb.AppendLine();
+                sb.Append(' ', markerOffset);
+                sb.Append(bottomMarkers);
+            }
         }
-
-        sb.AppendLine($"{prefix}{expectedDisplay}");
-        sb.Append($"Actual:   {actualDisplay}");
-
-        // Bottom markers (actual edits)
-        var bottomMarkers = BuildMarkerLine(upMarker, actualDiffRegion, actualEdits);
-        if (bottomMarkers.Length > 0)
+        else
         {
-            sb.AppendLine();
-            sb.Append(' ', markerOffset);
-            sb.Append(bottomMarkers);
+            sb.AppendLine($"{prefix}{expectedDisplay}");
+            sb.Append($"Actual:   {actualDisplay}");
         }
 
         return sb.ToString();
@@ -130,6 +143,14 @@ class FormattedDetailedDifferenceString
 
     private static int CharDisplayWidth(char c) =>
         c.NeedsEscaping() ? c.ToSafeString().Length : 1;
+
+    private static int CountEdits(bool[] edits)
+    {
+        var count = 0;
+        foreach (var e in edits)
+            if (e) count++;
+        return count;
+    }
 
     private static string BuildMarkerLine(char marker, string region, bool[] edits)
     {

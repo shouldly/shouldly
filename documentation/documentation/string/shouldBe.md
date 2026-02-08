@@ -19,10 +19,8 @@ target
     but was
 "Homer"
     difference
-           ▼▼▼▼
 Expected: "Bart"
 Actual:   "Homer"
-           ▲▲▲▲▲
 ```
 <!-- endInclude -->
 

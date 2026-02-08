@@ -5,10 +5,8 @@ str
     but was
 "SamplE"
     difference
-           ▼▼▼▼▼▼
 Expected: "sAMPLe"
 Actual:   "SamplE"
-           ▲▲▲▲▲▲
 
 Additional Info:
     Some additional context
@@ -18,10 +16,8 @@ Additional Info:
 "sAMPLe"
     but was not
     difference
-           ▼▼▼▼▼▼
 Expected: "sAMPLe"
 Actual:   "SamplE"
-           ▲▲▲▲▲▲
 
 Additional Info:
     Some additional context
