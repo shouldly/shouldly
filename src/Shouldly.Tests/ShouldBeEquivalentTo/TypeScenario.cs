@@ -7,34 +7,6 @@ public class TypeScenario
     {
         const string subject = "Hello";
         Verify.ShouldFail(() =>
-                subject.ShouldBeEquivalentTo(5, "Some additional context"),
-
-            errorWithSource:
-            """
-            Comparing object equivalence, at path:
-            subject
-            
-                Expected value to be
-            System.Int32
-                but was
-            System.String
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Comparing object equivalence, at path:
-            <root>
-            
-                Expected value to be
-            System.Int32
-                but was
-            System.String
-
-            Additional Info:
-                Some additional context
-            """);
+            subject.ShouldBeEquivalentTo(5, "Some additional context"));
     }
 }

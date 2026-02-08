@@ -7,35 +7,7 @@ public class ValueTypeScenario
     {
         const int subject = 5;
         Verify.ShouldFail(() =>
-                subject.ShouldBeEquivalentTo(3, "Some additional context"),
-
-            errorWithSource:
-            """
-            Comparing object equivalence, at path:
-            subject [System.Int32]
-            
-                Expected value to be
-            3
-                but was
-            5
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Comparing object equivalence, at path:
-            <root> [System.Int32]
-            
-                Expected value to be
-            3
-                but was
-            5
-
-            Additional Info:
-                Some additional context
-            """);
+            subject.ShouldBeEquivalentTo(3, "Some additional context"));
     }
 
     [Fact]

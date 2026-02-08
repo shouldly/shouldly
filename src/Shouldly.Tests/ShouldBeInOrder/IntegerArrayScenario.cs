@@ -9,116 +9,28 @@ public class IntegerArrayScenario
     public void ShouldFailWithDefaultDirection()
     {
         Verify.ShouldFail(() =>
-                _descendingTarget.ShouldBeInOrder("Some additional context"),
-
-            errorWithSource:
-            """
-            _descendingTarget
-                should be in ascending order but was not.
-                The first out-of-order item was found at index 1:
-            4
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [5, 4, 3, 2, 1]
-                should be in ascending order but was not.
-                The first out-of-order item was found at index 1:
-            4
-
-            Additional Info:
-                Some additional context
-            """);
+            _descendingTarget.ShouldBeInOrder("Some additional context"));
     }
 
     [Fact]
     public void ShouldFailWhenAscendingIsSpecified()
     {
         Verify.ShouldFail(() =>
-                _descendingTarget.ShouldBeInOrder(SortDirection.Ascending, "Some additional context"),
-
-            errorWithSource:
-            """
-            _descendingTarget
-                should be in ascending order but was not.
-                The first out-of-order item was found at index 1:
-            4
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [5, 4, 3, 2, 1]
-                should be in ascending order but was not.
-                The first out-of-order item was found at index 1:
-            4
-
-            Additional Info:
-                Some additional context
-            """);
+            _descendingTarget.ShouldBeInOrder(SortDirection.Ascending, "Some additional context"));
     }
 
     [Fact]
     public void ShouldFailWhenDescendingIsSpecified()
     {
         Verify.ShouldFail(() =>
-                _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, "Some additional context"),
-
-            errorWithSource:
-            """
-            _ascendingTarget
-                should be in descending order but was not.
-                The first out-of-order item was found at index 1:
-            2
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [1, 2, 3, 4, 5]
-                should be in descending order but was not.
-                The first out-of-order item was found at index 1:
-            2
-
-            Additional Info:
-                Some additional context
-            """);
+            _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, "Some additional context"));
     }
 
     [Fact]
     public void ShouldFailWhenDescendingIsSpecifiedAndComparerIsGiven()
     {
         Verify.ShouldFail(() =>
-                _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, Comparer<int>.Default, "Some additional context"),
-
-            errorWithSource:
-            """
-            _ascendingTarget
-                should be in descending order but was not.
-                The first out-of-order item was found at index 1:
-            2
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [1, 2, 3, 4, 5]
-                should be in descending order but was not.
-                The first out-of-order item was found at index 1:
-            2
-
-            Additional Info:
-                Some additional context
-            """);
+            _ascendingTarget.ShouldBeInOrder(SortDirection.Descending, Comparer<int>.Default, "Some additional context"));
     }
 
     [Fact]

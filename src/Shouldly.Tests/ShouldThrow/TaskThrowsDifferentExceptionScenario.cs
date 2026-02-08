@@ -7,31 +7,7 @@ public class TaskThrowsDifferentExceptionScenario
     {
         var task = Task.Run(() => throw new RankException(), TestContext.Current.CancellationToken);
         Verify.ShouldFail(() =>
-                task.ShouldThrow<InvalidOperationException>("Some additional context"),
-
-            errorWithSource:
-            """
-            Task `task`
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """);
+            task.ShouldThrow<InvalidOperationException>("Some additional context"));
     }
 
     [Fact]
@@ -39,31 +15,7 @@ public class TaskThrowsDifferentExceptionScenario
     {
         var task = Task.Run(() => throw new RankException(), TestContext.Current.CancellationToken);
         Verify.ShouldFail(() =>
-                task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
-
-            errorWithSource:
-            """
-            Task `task`
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """);
+            task.ShouldThrow("Some additional context", typeof(InvalidOperationException)));
     }
 
     [Fact]

@@ -9,26 +9,6 @@ public class ActualIsNotDecoratedScenario
 
         // ReSharper disable once ExpressionIsAlwaysNull
         Verify.ShouldFail(() =>
-                myThingType.ShouldBeDecoratedWith<UseCultureAttribute>("Some additional context"),
-            errorWithSource:
-            """
-            myThingType
-                should be decorated with 
-            "UseCultureAttribute"
-                but does not
-
-            Additional Info:
-                Some additional context
-            """,
-            errorWithoutSource:
-            """
-            null
-                should be decorated with 
-            "UseCultureAttribute"
-                but does not
-
-            Additional Info:
-                Some additional context
-            """);
+            myThingType.ShouldBeDecoratedWith<UseCultureAttribute>("Some additional context"));
     }
 }

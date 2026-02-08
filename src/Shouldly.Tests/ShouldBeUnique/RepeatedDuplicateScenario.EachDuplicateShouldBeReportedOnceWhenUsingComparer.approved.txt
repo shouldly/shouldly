@@ -1,0 +1,16 @@
+---- With Source ----
+new[] { 1, 1, 2, 2, 2, 1 }
+    should be unique but
+[1, 2]
+    was duplicated
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1, 1, 2, 2, 2, 1]
+    should be unique but
+[1, 2]
+    was duplicated
+
+Additional Info:
+    Some additional context

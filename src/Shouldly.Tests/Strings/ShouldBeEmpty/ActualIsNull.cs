@@ -8,25 +8,6 @@ public class ActualIsNull
         var str = (string?)null;
 
         Verify.ShouldFail(() =>
-                str.ShouldBeEmpty("Some additional context"),
-
-            errorWithSource:
-            """
-            str
-                should be empty but was
-            null
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            null
-                should be empty but was not empty
-
-            Additional Info:
-                Some additional context
-            """);
+            str.ShouldBeEmpty("Some additional context"));
     }
 }

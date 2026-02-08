@@ -1,0 +1,17 @@
+---- With Source ----
+Target
+    should not contain
+F
+    but was actually
+"Foo"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"Foo"
+    should not contain
+F
+    but did
+
+Additional Info:
+    Some additional context

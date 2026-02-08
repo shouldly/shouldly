@@ -1,0 +1,16 @@
+---- With Source ----
+myFalseValue
+    should not be
+False
+    but was
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+False
+    should not be
+False
+    but was
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,11 @@
+---- With Source ----
+_boxedInt
+    should be same as
+1
+    but was
+1
+---- Without Source ----
+1
+    should be same as
+1
+    but was not

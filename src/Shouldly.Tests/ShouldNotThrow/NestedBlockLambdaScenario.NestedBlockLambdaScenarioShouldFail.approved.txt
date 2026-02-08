@@ -1,0 +1,18 @@
+---- With Source ----
+`if (true) { throw new("Dummy message."); }`
+    should not throw but threw
+System.Exception
+    with message
+"Dummy message."
+
+Additional Info:
+    Additional info
+---- Without Source ----
+Task
+    should not throw but threw
+System.Exception
+    with message
+"Dummy message."
+
+Additional Info:
+    Additional info

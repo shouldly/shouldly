@@ -1,0 +1,16 @@
+---- With Source ----
+`action()`
+    should throw
+System.NotImplementedException
+    but did not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+delegate
+    should throw
+System.NotImplementedException
+    but did not
+
+Additional Info:
+    Some additional context

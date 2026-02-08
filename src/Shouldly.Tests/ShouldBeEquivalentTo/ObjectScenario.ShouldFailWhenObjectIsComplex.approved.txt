@@ -1,0 +1,28 @@
+---- With Source ----
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+        Adjectives [System.String[]]
+            Element [0] [System.String]
+
+    Expected value to be
+"beautiful"
+    but was
+"ugly"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Child [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+        Adjectives [System.String[]]
+            Element [0] [System.String]
+
+    Expected value to be
+"beautiful"
+    but was
+"ugly"
+
+Additional Info:
+    Some additional context

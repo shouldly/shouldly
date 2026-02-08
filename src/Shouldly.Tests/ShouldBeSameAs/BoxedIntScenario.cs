@@ -9,24 +9,7 @@ public class BoxedIntScenario
     public void BoxedIntScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                _boxedInt.ShouldBeSameAs(_differentBoxedInt),
-
-            errorWithSource:
-            """
-            _boxedInt
-                should be same as
-            1
-                but was
-            1
-            """,
-
-            errorWithoutSource:
-            """
-            1
-                should be same as
-            1
-                but was not
-            """);
+            _boxedInt.ShouldBeSameAs(_differentBoxedInt));
     }
 
     [Fact]

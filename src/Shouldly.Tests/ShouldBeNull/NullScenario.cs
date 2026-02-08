@@ -7,26 +7,7 @@ public class NullScenario
     {
         var myNullRef = "Hello World";
         Verify.ShouldFail(() =>
-                myNullRef.ShouldBeNull("Some additional context"),
-
-            errorWithSource:
-            """
-            myNullRef
-                should be null but was
-            "Hello World"
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "Hello World"
-                should be null but was
-
-            Additional Info:
-                Some additional context
-            """);
+            myNullRef.ShouldBeNull("Some additional context"));
     }
 
     [Fact]
@@ -40,26 +21,7 @@ public class NullScenario
     {
         var myNullRef = (int?)0;
         Verify.ShouldFail(() =>
-                myNullRef.ShouldBeNull("Some additional context"),
-
-            errorWithSource:
-            """
-            myNullRef
-                should be null but was
-            0
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            0
-                should be null but was
-
-            Additional Info:
-                Some additional context
-            """);
+            myNullRef.ShouldBeNull("Some additional context"));
     }
 
     [Fact]

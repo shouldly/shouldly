@@ -6,35 +6,7 @@ public class IgnoreOrderIEnumerableMethodYieldReturn
     public void IgnoreOrderIEnumerableMethodYieldReturnShouldFail()
     {
         Verify.ShouldFail(() =>
-                GetEnumerable().ShouldBe([1, 2], true, "Some additional context"),
-
-            errorWithSource:
-            """
-            GetEnumerable()
-                should be (ignoring order)
-            [1, 2]
-                but
-            GetEnumerable()
-                is missing
-            [2]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [1]
-                should be (ignoring order)
-            [1, 2]
-                but
-            [1]
-                is missing
-            [2]
-
-            Additional Info:
-                Some additional context
-            """);
+            GetEnumerable().ShouldBe([1, 2], true, "Some additional context"));
     }
 
     [Fact]

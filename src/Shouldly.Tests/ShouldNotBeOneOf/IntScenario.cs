@@ -7,24 +7,7 @@ public class IntScenario
     {
         var one = 1;
         Verify.ShouldFail(() =>
-                one.ShouldNotBeOneOf(1, 2, 3),
-
-            errorWithSource:
-            """
-            one
-                should not be one of
-            [1, 2, 3]
-                but was
-            1
-            """,
-
-            errorWithoutSource:
-            """
-            1
-                should not be one of
-            [1, 2, 3]
-                but was
-            """);
+            one.ShouldNotBeOneOf(1, 2, 3));
     }
 
     [Fact]

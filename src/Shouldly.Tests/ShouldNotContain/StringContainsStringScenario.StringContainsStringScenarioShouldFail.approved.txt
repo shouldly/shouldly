@@ -1,0 +1,11 @@
+---- With Source ----
+Target
+    should not contain (case insensitive comparison)
+"legendary"
+    but was actually
+"Shouldly is legendary"
+---- Without Source ----
+"Shouldly is legendary"
+    should not contain (case insensitive comparison)
+"legendary"
+    but did

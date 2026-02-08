@@ -6,23 +6,7 @@ public class ShouldNotMatch
     public void ShouldNotMatchShouldFail()
     {
         Verify.ShouldFail(() =>
-                "Cheese".ShouldNotMatch(@"\w+", "Some additional context"),
-
-            errorWithSource:
-            """
-            "Cheese" should not match "\w+" but did
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "Cheese" should not match "\w+" but did
-
-            Additional Info:
-                Some additional context
-            """);
+            "Cheese".ShouldNotMatch(@"\w+", "Some additional context"));
     }
 
     [Fact]

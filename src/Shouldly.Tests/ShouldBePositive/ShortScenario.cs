@@ -7,27 +7,7 @@ public class ShortScenario
     {
         var @short = (short)-3;
         Verify.ShouldFail(() =>
-                @short.ShouldBePositive("Some additional context"),
-
-            errorWithSource:
-            """
-            @short
-                should be positive but
-            -3
-                is negative
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            -3
-                should be positive but is negative
-
-            Additional Info:
-                Some additional context
-            """);
+            @short.ShouldBePositive("Some additional context"));
     }
 
     [Fact]

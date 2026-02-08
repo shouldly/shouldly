@@ -1,0 +1,16 @@
+---- With Source ----
+Task `task`
+    should throw
+System.InvalidOperationException
+    but did not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Task
+    should throw
+System.InvalidOperationException
+    but did not
+
+Additional Info:
+    Some additional context

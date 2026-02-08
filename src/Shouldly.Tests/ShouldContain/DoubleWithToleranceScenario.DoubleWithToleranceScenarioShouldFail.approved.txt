@@ -1,0 +1,21 @@
+---- With Source ----
+new[] { 1d, 2d, 3d }
+    should contain
+1.8d
+    within
+0.1d
+    but was
+[1d, 2d, 3d]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1d, 2d, 3d]
+    should contain
+1.8d
+    within
+0.1d
+    but was not
+
+Additional Info:
+    Some additional context

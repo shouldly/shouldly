@@ -20,43 +20,7 @@ public class IgnoreOrderOnNonNullableTypesScenario
             new(3),
         };
         Verify.ShouldFail(() =>
-                Actual.ShouldBe(expected, true, "Some additional context"),
-
-            errorWithSource:
-            """
-            Actual
-                should be (ignoring order)
-            [2, 3]
-                but
-            Actual
-                is missing
-            [3]
-                and
-            [2, 3]
-                is missing
-            [1]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [1, 2]
-                should be (ignoring order)
-            [2, 3]
-                but
-            [1, 2]
-                is missing
-            [3]
-                and
-            [2, 3]
-                is missing
-            [1]
-
-            Additional Info:
-                Some additional context
-            """);
+            Actual.ShouldBe(expected, true, "Some additional context"));
     }
 
     [Fact]

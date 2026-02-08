@@ -1,0 +1,16 @@
+---- With Source ----
+myThingType
+    should be decorated with 
+"UseCultureAttribute"
+    but does not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+null
+    should be decorated with 
+"UseCultureAttribute"
+    but does not
+
+Additional Info:
+    Some additional context

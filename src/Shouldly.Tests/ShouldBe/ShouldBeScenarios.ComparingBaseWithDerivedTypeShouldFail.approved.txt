@@ -1,0 +1,17 @@
+---- With Source ----
+new MyBase()
+    should be
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but was
+Shouldly.Tests.TestHelpers.MyBase (000000)
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Shouldly.Tests.TestHelpers.MyBase (000000)
+    should be
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but was not
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,15 @@
+---- With Source ----
+list
+    should be same as
+[1, 2, 3]
+    but was
+[1, 2, 3]
+    difference
+[1, 2, 3]
+---- Without Source ----
+[1, 2, 3]
+    should be same as
+[1, 2, 3]
+    but was not
+    difference
+[1, 2, 3]

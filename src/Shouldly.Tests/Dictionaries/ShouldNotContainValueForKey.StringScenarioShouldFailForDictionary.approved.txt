@@ -1,0 +1,20 @@
+---- With Source ----
+StringDictionary()
+    should not contain key
+"Foo"
+    with value
+"Bar"
+    but does
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[["Foo" => "Bar"]]
+    should not contain key
+"Foo"
+    with value
+"Bar"
+    but does
+
+Additional Info:
+    Some additional context

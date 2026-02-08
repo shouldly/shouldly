@@ -1,0 +1,21 @@
+---- With Source ----
+new[] { "foo" }
+    should be
+["different"]
+    but was (case insensitive comparison)
+["foo"]
+    difference
+[*"foo"*]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+["foo"]
+    should be
+["different"]
+    but was not (case insensitive comparison)
+    difference
+[*"foo"*]
+
+Additional Info:
+    Some additional context

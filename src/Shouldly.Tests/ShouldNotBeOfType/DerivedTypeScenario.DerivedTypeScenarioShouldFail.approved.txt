@@ -1,0 +1,17 @@
+---- With Source ----
+myThing
+    should not be of type
+Shouldly.Tests.TestHelpers.MyThing
+    but was
+Shouldly.Tests.TestHelpers.MyThing (000000)
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    should not be of type
+Shouldly.Tests.TestHelpers.MyThing
+    but was
+
+Additional Info:
+    Some additional context

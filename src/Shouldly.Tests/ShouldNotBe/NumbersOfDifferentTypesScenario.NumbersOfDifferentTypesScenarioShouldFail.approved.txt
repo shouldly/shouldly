@@ -1,0 +1,10 @@
+---- With Source ----
+aLong
+    should not be
+1L
+    but was
+---- Without Source ----
+1L
+    should not be
+1L
+    but was

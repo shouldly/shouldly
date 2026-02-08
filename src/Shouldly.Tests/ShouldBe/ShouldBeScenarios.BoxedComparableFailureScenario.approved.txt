@@ -1,0 +1,17 @@
+---- With Source ----
+a
+    should be
+0.1d
+    but was
+0
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+0
+    should be
+0.1d
+    but was not
+
+Additional Info:
+    Some additional context

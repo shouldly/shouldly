@@ -1,0 +1,17 @@
+---- With Source ----
+someFlags
+    should not be one of
+[SomeFlags.Val1]
+    but was
+SomeFlags.Val1
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+SomeFlags.Val1
+    should not be one of
+[SomeFlags.Val1]
+    but was
+
+Additional Info:
+    Some additional context

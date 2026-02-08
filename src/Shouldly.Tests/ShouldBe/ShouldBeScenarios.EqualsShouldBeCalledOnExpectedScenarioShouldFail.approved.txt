@@ -1,0 +1,17 @@
+---- With Source ----
+new BaseClass()
+    should be
+Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (000000)
+    but was
+Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Shouldly.Tests.ShouldBe.ShouldBeScenarios+BaseClass (000000)
+    should be
+Shouldly.Tests.ShouldBe.ShouldBeScenarios+SubclassWithStubbedEquals (000000)
+    but was not
+
+Additional Info:
+    Some additional context

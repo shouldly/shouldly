@@ -1,0 +1,14 @@
+---- With Source ----
+@double
+    should be positive but
+-3.5d
+    is negative
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+-3.5d
+    should be positive but is negative
+
+Additional Info:
+    Some additional context

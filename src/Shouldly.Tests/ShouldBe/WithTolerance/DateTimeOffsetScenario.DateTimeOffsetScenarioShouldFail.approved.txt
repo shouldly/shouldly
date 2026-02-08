@@ -1,0 +1,21 @@
+---- With Source ----
+date
+    should be within
+01:00:00
+    of
+01/06/2000 01:00:01 +00:00
+    but was
+01/06/2000 00:00:00 +00:00
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+01/06/2000 00:00:00 +00:00
+    should be within
+01:00:00
+    of
+01/06/2000 01:00:01 +00:00
+    but was not
+
+Additional Info:
+    Some additional context

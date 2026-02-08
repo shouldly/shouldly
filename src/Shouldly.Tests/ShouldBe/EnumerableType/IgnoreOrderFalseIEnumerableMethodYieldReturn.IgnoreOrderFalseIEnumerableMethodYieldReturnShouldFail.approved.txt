@@ -1,0 +1,21 @@
+---- With Source ----
+GetEnumerable()
+    should be
+[1, 2]
+    but was
+[1]
+    difference
+[1, *]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1]
+    should be
+[1, 2]
+    but was not
+    difference
+[1, *]
+
+Additional Info:
+    Some additional context

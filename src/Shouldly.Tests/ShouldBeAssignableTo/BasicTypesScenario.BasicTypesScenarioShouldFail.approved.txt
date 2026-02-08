@@ -1,0 +1,18 @@
+---- With Source ----
+two
+    should be assignable to
+System.Double
+    but was
+System.Int32
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+2
+    should be assignable to
+System.Double
+    but was
+System.Int32
+
+Additional Info:
+    Some additional context

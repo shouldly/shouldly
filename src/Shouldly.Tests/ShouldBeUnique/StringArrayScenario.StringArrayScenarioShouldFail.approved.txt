@@ -1,0 +1,16 @@
+---- With Source ----
+new[] { "string2", "string1", "string42", "string2" }
+    should be unique but
+["string2"]
+    was duplicated
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+["string2", "string1", "string42", "string2"]
+    should be unique but
+["string2"]
+    was duplicated
+
+Additional Info:
+    Some additional context

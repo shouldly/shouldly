@@ -8,31 +8,7 @@ public class FuncOfTaskOfStringThrowsDifferentExceptionScenario
         var action = new Func<Task<string>>(() => throw new RankException());
 
         Verify.ShouldFail(() =>
-                action.ShouldThrow<InvalidOperationException>("Some additional context"),
-
-            errorWithSource:
-            """
-            Task `action`
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """);
+            action.ShouldThrow<InvalidOperationException>("Some additional context"));
     }
 
     [Fact]
@@ -41,31 +17,7 @@ public class FuncOfTaskOfStringThrowsDifferentExceptionScenario
         var action = new Func<Task<string>>(() => throw new RankException());
 
         Verify.ShouldFail(() =>
-                action.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
-
-            errorWithSource:
-            """
-            Task `action`
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should throw
-            System.InvalidOperationException
-                but threw
-            System.RankException
-
-            Additional Info:
-                Some additional context
-            """);
+            action.ShouldThrow("Some additional context", typeof(InvalidOperationException)));
     }
 
     [Fact]

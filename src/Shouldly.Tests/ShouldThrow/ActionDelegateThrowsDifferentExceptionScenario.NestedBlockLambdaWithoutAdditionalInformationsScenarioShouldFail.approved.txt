@@ -1,0 +1,18 @@
+---- With Source ----
+`action()`
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+delegate
+    should throw
+System.InvalidOperationException
+    but threw
+System.RankException
+
+Additional Info:
+    Some additional context

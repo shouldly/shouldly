@@ -7,30 +7,7 @@ public class StringScenario
     {
         var beeeee = "b";
         Verify.ShouldFail(() =>
-                beeeee.ShouldBeLessThan("a", "Some additional context"),
-
-            errorWithSource:
-            """
-            beeeee
-                should be less than
-            "a"
-                but was
-            "b"
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "b"
-                should be less than
-            "a"
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            beeeee.ShouldBeLessThan("a", "Some additional context"));
     }
 
     [Fact]

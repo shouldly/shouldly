@@ -1,0 +1,22 @@
+---- With Source ----
+dictionaryWithNullValue
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+null
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but value was
+null
+
+Additional Info:
+    Some additional context

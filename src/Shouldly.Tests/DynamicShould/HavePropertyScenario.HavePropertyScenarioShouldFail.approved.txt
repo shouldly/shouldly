@@ -1,0 +1,10 @@
+---- With Source ----
+Dynamic object "testDynamicObject" should contain property "foo" but does not.
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Dynamic object should contain property "foo" but does not.
+
+Additional Info:
+    Some additional context

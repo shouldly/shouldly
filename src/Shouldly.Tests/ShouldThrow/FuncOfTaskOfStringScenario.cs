@@ -8,29 +8,7 @@ public class FuncOfTaskOfStringScenario
         var task = Task.Run(() => "Foo");
 
         Verify.ShouldFail(() =>
-                task.ShouldThrow<InvalidOperationException>("Some additional context"),
-
-            errorWithSource:
-            """
-            Task `task`
-                should throw
-            System.InvalidOperationException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should throw
-            System.InvalidOperationException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            task.ShouldThrow<InvalidOperationException>("Some additional context"));
     }
 
     [Fact]
@@ -39,29 +17,7 @@ public class FuncOfTaskOfStringScenario
         var task = Task.Run(() => "Foo");
 
         Verify.ShouldFail(() =>
-                task.ShouldThrow("Some additional context", typeof(InvalidOperationException)),
-
-            errorWithSource:
-            """
-            Task `task`
-                should throw
-            System.InvalidOperationException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should throw
-            System.InvalidOperationException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            task.ShouldThrow("Some additional context", typeof(InvalidOperationException)));
     }
 
     [Fact]

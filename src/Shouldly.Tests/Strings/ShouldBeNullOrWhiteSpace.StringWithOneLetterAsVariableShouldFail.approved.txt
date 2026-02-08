@@ -1,0 +1,12 @@
+---- With Source ----
+oneLetter ("a")
+    should be null or white space
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"a"
+    should be null or white space
+
+Additional Info:
+    Some additional context

@@ -7,27 +7,7 @@ public class LongScenario
     {
         var val = -3L;
         Verify.ShouldFail(() =>
-                val.ShouldBePositive("Some additional context"),
-
-            errorWithSource:
-            """
-            val
-                should be positive but
-            -3L
-                is negative
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            -3L
-                should be positive but is negative
-
-            Additional Info:
-                Some additional context
-            """);
+            val.ShouldBePositive("Some additional context"));
     }
 
     [Fact]

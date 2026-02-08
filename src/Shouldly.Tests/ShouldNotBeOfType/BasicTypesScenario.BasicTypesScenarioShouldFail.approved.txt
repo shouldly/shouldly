@@ -1,0 +1,17 @@
+---- With Source ----
+one
+    should not be of type
+System.Int32
+    but was
+1
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+1
+    should not be of type
+System.Int32
+    but was
+
+Additional Info:
+    Some additional context

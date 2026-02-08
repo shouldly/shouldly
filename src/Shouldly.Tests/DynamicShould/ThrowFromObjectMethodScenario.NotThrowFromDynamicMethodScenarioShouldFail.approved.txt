@@ -1,0 +1,16 @@
+---- With Source ----
+`(dynamic)new Foo()).NoExceptionMethod(`
+    should throw
+System.InvalidOperationException
+    but did not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+delegate
+    should throw
+System.InvalidOperationException
+    but did not
+
+Additional Info:
+    Some additional context

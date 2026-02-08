@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Shouldly.Tests.Strings;
@@ -6,6 +7,31 @@ namespace Shouldly.Tests.Strings;
 public static class Verify
 {
     private static readonly Regex MatchGetHashCode = new(@"\(-?\d{6,10}\)");
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldFail(Action action, Func<string, string>? messageScrubber = null)
+    {
+        Func<string, string> scrub = messageScrubber != null
+            ? v => MatchGetHashCode.Replace(messageScrubber(v), "(000000)")
+            : v => MatchGetHashCode.Replace(v, "(000000)");
+
+        var sourceEnabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
+
+        string sourceDisabledMsg;
+        using (ShouldlyConfiguration.DisableSourceInErrors())
+        {
+            sourceDisabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
+        }
+
+        var combined = $"""
+            ---- With Source ----
+            {sourceEnabledMsg}
+            ---- Without Source ----
+            {sourceDisabledMsg}
+            """;
+
+        combined.ShouldMatchApproved(c => c.NoDiff());
+    }
 
     public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string>? messageScrubber = null)
     {

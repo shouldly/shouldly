@@ -1,0 +1,17 @@
+---- With Source ----
+nullString
+    should be
+""
+    but was
+null
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+null
+    should be
+""
+    but was not
+
+Additional Info:
+    Some additional context

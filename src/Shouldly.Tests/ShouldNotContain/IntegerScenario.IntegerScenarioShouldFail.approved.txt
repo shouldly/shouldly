@@ -1,0 +1,17 @@
+---- With Source ----
+_target
+    should not contain
+3
+    but was actually
+[1, 2, 3, 4, 5]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1, 2, 3, 4, 5]
+    should not contain
+3
+    but did
+
+Additional Info:
+    Some additional context

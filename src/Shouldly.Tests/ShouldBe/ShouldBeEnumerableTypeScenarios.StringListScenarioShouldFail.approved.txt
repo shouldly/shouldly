@@ -1,0 +1,21 @@
+---- With Source ----
+_thisString
+    should be
+["1", "3"]
+    but was (case sensitive comparison)
+["1", "2"]
+    difference
+["1", *"2"*]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+["1", "2"]
+    should be
+["1", "3"]
+    but was not (case sensitive comparison)
+    difference
+["1", *"2"*]
+
+Additional Info:
+    Some additional context

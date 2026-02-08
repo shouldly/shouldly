@@ -1,0 +1,16 @@
+---- With Source ----
+"Cheese"
+    should match
+"\d+"
+    but was not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"Cheese"
+    should match
+"\d+"
+    but was not
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,11 @@
+---- With Source ----
+target
+    should contain
+"legendary"
+    but was actually
+"Shouldly is LEGENDARY"
+---- Without Source ----
+"Shouldly is LEGENDARY"
+    should contain
+"legendary"
+    but did not

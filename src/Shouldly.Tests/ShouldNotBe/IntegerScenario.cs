@@ -7,23 +7,7 @@ public class IntegerScenario
     {
         const int one = 1;
         Verify.ShouldFail(() =>
-                one.ShouldNotBe(1),
-
-            errorWithSource:
-            """
-            one
-                should not be
-            1
-                but was
-            """,
-
-            errorWithoutSource:
-            """
-            1
-                should not be
-            1
-                but was
-            """);
+            one.ShouldNotBe(1));
     }
 
     [Fact]

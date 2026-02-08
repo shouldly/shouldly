@@ -1,0 +1,16 @@
+---- With Source ----
+arr
+    should not contain an element satisfying the condition
+(i < capturedOuterVar)
+    but does
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1, 2, 3]
+    should not contain an element satisfying the condition
+(i < capturedOuterVar)
+    but does
+
+Additional Info:
+    Some additional context

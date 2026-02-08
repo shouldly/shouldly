@@ -1,0 +1,21 @@
+---- With Source ----
+GetEmptyEnumerable()
+    should be
+[2, 4]
+    but was
+[]
+    difference
+[*, *]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[]
+    should be
+[2, 4]
+    but was not
+    difference
+[*, *]
+
+Additional Info:
+    Some additional context

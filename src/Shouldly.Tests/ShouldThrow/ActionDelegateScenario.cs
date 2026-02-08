@@ -7,29 +7,7 @@ public class ActionDelegateScenario
     {
         var action = () => { };
         Verify.ShouldFail(() =>
-                action.ShouldThrow<NotImplementedException>("Some additional context"),
-
-            errorWithSource:
-            """
-            `action()`
-                should throw
-            System.NotImplementedException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            delegate
-                should throw
-            System.NotImplementedException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            action.ShouldThrow<NotImplementedException>("Some additional context"));
     }
 
     [Fact]
@@ -37,29 +15,7 @@ public class ActionDelegateScenario
     {
         var action = () => { };
         Verify.ShouldFail(() =>
-                action.ShouldThrow(typeof(NotImplementedException), "Some additional context"),
-
-            errorWithSource:
-            """
-            `action()`
-                should throw
-            System.NotImplementedException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            delegate
-                should throw
-            System.NotImplementedException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            action.ShouldThrow(typeof(NotImplementedException), "Some additional context"));
     }
 
     [Fact]

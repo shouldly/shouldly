@@ -1,0 +1,20 @@
+---- With Source ----
+new[] { 1, 2, 5 }
+    should be subset of
+[2, 3, 4]
+    but
+[1, 5]
+    are outside subset
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1, 2, 5]
+    should be subset of
+[2, 3, 4]
+    but
+[1, 5]
+    are outside subset
+
+Additional Info:
+    Some additional context

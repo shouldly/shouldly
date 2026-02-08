@@ -1,0 +1,16 @@
+---- With Source ----
+ClassIReadOnlyDictionary()
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but does
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but does
+
+Additional Info:
+    Some additional context

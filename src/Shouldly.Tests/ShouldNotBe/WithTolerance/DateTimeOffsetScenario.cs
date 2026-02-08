@@ -11,34 +11,7 @@ public class DateTimeOffsetScenario
         var expectedString = expected.ToString();
 
         Verify.ShouldFail(() =>
-                date.ShouldNotBe(expected, TimeSpan.FromHours(1.5), "Some additional context"),
-
-            errorWithSource:
-            $"""
-             date
-                 should not be within
-             01:30:00
-                 of
-             {expectedString}
-                 but was
-             {dateString}
-
-             Additional Info:
-                 Some additional context
-             """,
-
-            errorWithoutSource:
-            $"""
-             {dateString}
-                 should not be within
-             01:30:00
-                 of
-             {expectedString}
-                 but was not
-
-             Additional Info:
-                 Some additional context
-             """);
+            date.ShouldNotBe(expected, TimeSpan.FromHours(1.5), "Some additional context"));
     }
 
     [Fact]

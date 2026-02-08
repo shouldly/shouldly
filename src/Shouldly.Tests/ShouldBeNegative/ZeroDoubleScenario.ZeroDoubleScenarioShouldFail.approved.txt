@@ -1,0 +1,14 @@
+---- With Source ----
+val
+    should be negative but
+0d
+    is positive
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+0d
+    should be negative but is positive
+
+Additional Info:
+    Some additional context

@@ -8,27 +8,7 @@ public class DecimalScenario
     {
         var @decimal = -3.5m;
         Verify.ShouldFail(() =>
-                @decimal.ShouldBePositive("Some additional context"),
-
-            errorWithSource:
-            """
-            @decimal
-                should be positive but
-            -3.5m
-                is negative
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            -3.5m
-                should be positive but is negative
-
-            Additional Info:
-                Some additional context
-            """);
+            @decimal.ShouldBePositive("Some additional context"));
     }
 
     [Fact]

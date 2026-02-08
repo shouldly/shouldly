@@ -7,30 +7,7 @@ public class StringVsNullScenario
     {
         var bee = "b";
         Verify.ShouldFail(() =>
-                bee.ShouldBeLessThan(null, "Some additional context"),
-
-            errorWithSource:
-            """
-            bee
-                should be less than
-            null
-                but was
-            "b"
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "b"
-                should be less than
-            null
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            bee.ShouldBeLessThan(null, "Some additional context"));
     }
 
     [Fact]

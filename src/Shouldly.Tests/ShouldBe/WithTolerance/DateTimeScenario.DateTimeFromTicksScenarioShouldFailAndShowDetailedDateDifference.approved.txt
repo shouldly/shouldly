@@ -1,0 +1,17 @@
+---- With Source ----
+date
+    should be
+2016-04-13T18:27:17.5106000
+    but was
+2016-04-13T18:27:17.5100000
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+2016-04-13T18:27:17.5100000
+    should be
+2016-04-13T18:27:17.5106000
+    but was not
+
+Additional Info:
+    Some additional context

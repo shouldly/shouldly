@@ -1,0 +1,24 @@
+---- With Source ----
+new[] { 2, 3, 4 }
+    should be (ignoring order)
+[1, 2, 3]
+    but
+new[] { 2, 3, 4 }
+    is missing
+[1]
+    and
+[1, 2, 3]
+    is missing
+[4]
+---- Without Source ----
+[2, 3, 4]
+    should be (ignoring order)
+[1, 2, 3]
+    but
+[2, 3, 4]
+    is missing
+[1]
+    and
+[1, 2, 3]
+    is missing
+[4]

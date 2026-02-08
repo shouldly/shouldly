@@ -1,0 +1,17 @@
+---- With Source ----
+actual
+    should have flag
+TestEnum.FlagOne
+    but had
+TestEnum.FlagTwo
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+TestEnum.FlagTwo
+    should have flag
+TestEnum.FlagOne
+    but did not
+
+Additional Info:
+    Some additional context

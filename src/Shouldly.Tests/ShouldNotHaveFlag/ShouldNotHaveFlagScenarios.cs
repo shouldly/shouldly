@@ -11,28 +11,7 @@ public class ShouldNotHaveFlagScenarios
         var value = TestEnum.FlagOne;
 
         Verify.ShouldFail(() =>
-                actual.ShouldNotHaveFlag(value, "Some additional context"),
-            errorWithSource:
-            """
-            actual
-                should not have flag
-            TestEnum.FlagOne
-                but it had
-            TestEnum.FlagOne
-
-            Additional Info:
-                Some additional context
-            """,
-            errorWithoutSource:
-            """
-            TestEnum.FlagOne
-                should not have flag
-            TestEnum.FlagOne
-                but had
-
-            Additional Info:
-                Some additional context
-            """);
+            actual.ShouldNotHaveFlag(value, "Some additional context"));
     }
 
     [Fact]

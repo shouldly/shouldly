@@ -1,0 +1,12 @@
+---- With Source ----
+myNullRef
+    should not be null but was
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+null
+    should not be null but was
+
+Additional Info:
+    Some additional context

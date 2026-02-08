@@ -8,30 +8,6 @@ public class DerivedTypeScenario
         var myThing = new MyThing();
         // ReSharper disable once ExpressionIsAlwaysNull
         Verify.ShouldFail(() =>
-                myThing.ShouldBeOfType<MyBase>("Some additional context"),
-
-            errorWithSource:
-            """
-            myThing
-                should be of type
-            Shouldly.Tests.TestHelpers.MyBase
-                but was
-            Shouldly.Tests.TestHelpers.MyThing
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                should be of type
-            Shouldly.Tests.TestHelpers.MyBase
-                but was
-            Shouldly.Tests.TestHelpers.MyThing
-
-            Additional Info:
-                Some additional context
-            """);
+            myThing.ShouldBeOfType<MyBase>("Some additional context"));
     }
 }

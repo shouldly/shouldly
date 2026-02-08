@@ -1,0 +1,20 @@
+---- With Source ----
+GuidIReadOnlyDictionary()
+    should not contain key
+edae0d73-8e4c-4251-85c8-e5497c7ccad1
+    with value
+fa1e5f58-578f-43d4-b4d6-67eae06a5d17
+    but does
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+    should not contain key
+edae0d73-8e4c-4251-85c8-e5497c7ccad1
+    with value
+fa1e5f58-578f-43d4-b4d6-67eae06a5d17
+    but does
+
+Additional Info:
+    Some additional context
