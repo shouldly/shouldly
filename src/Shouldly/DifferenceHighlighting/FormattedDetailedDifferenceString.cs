@@ -41,8 +41,8 @@ class FormattedDetailedDifferenceString
         var expectedDisplayWidth = ComputeDisplayWidth(_expectedValue, commonPrefixLen, expectedDiffEnd);
         var actualDisplayWidth = ComputeDisplayWidth(_actualValue, commonPrefixLen, actualDiffEnd);
 
-        var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▾' : 'v';
-        var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▴' : '^';
+        var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
+        var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
 
         var prefix = "Expected: ";
         var markerOffset = prefix.Length + displayDiffStart;

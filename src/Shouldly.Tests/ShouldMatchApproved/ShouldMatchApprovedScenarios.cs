@@ -98,10 +98,10 @@ public class ShouldMatchApprovedScenarios
                  but was
              "Foo"
                  difference
-                        ▾▾▾
+                        ▼▼▼
              Expected: "Bar"
              Actual:   "Foo"
-                        ▴▴▴
+                        ▲▲▲
              """,
 
             errorWithoutSource:
@@ -115,10 +115,10 @@ public class ShouldMatchApprovedScenarios
              "Bar"
                  but was not
                  difference
-                        ▾▾▾
+                        ▼▼▼
              Expected: "Bar"
              Actual:   "Foo"
-                        ▴▴▴
+                        ▲▲▲
              """,
 
             messageScrubber:

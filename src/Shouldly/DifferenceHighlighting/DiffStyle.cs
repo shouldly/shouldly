@@ -6,7 +6,7 @@ namespace Shouldly;
 public enum DiffStyle
 {
     /// <summary>
-    /// Use Unicode markers (▾/▴) for difference highlighting
+    /// Use Unicode markers (▼/▲) for difference highlighting
     /// </summary>
     Unicode,
 

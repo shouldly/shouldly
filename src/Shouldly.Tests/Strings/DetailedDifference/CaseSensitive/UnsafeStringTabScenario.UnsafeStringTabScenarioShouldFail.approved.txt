@@ -5,17 +5,17 @@ str
     but was
 "StringOne	Tab"
     difference
-                 ▾▾▾▾
+                 ▼▼▼▼
 Expected: "Stringone Tab"
 Actual:   "StringOne\tTab"
-                 ▴▴▴▴▴
+                 ▲▲▲▲▲
 ---- Without Source ----
 "StringOne	Tab"
     should be
 "Stringone Tab"
     but was not
     difference
-                 ▾▾▾▾
+                 ▼▼▼▼
 Expected: "Stringone Tab"
 Actual:   "StringOne\tTab"
-                 ▴▴▴▴▴
+                 ▲▲▲▲▲

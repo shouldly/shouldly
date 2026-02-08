@@ -5,17 +5,17 @@ str
     but was
 "StringOne Space"
     difference
-                    ▾▾
+                    ▼▼
 Expected: "Stringone\tSpace"
 Actual:   "StringOne Space"
-                    ▴
+                    ▲
 ---- Without Source ----
 "StringOne Space"
     should be with options: Ignoring case
 "Stringone	Space"
     but was not
     difference
-                    ▾▾
+                    ▼▼
 Expected: "Stringone\tSpace"
 Actual:   "StringOne Space"
-                    ▴
+                    ▲

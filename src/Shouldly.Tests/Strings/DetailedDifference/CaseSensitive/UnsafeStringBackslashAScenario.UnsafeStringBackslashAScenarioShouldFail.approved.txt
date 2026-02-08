@@ -5,17 +5,17 @@ str
     but was
 "StringOneBackslashA"
     difference
-                 ▾▾▾▾
+                 ▼▼▼▼
 Expected: "Stringone BackslashA"
 Actual:   "StringOne\aBackslashA"
-                 ▴▴▴▴▴
+                 ▲▲▲▲▲
 ---- Without Source ----
 "StringOneBackslashA"
     should be
 "Stringone BackslashA"
     but was not
     difference
-                 ▾▾▾▾
+                 ▼▼▼▼
 Expected: "Stringone BackslashA"
 Actual:   "StringOne\aBackslashA"
-                 ▴▴▴▴▴
+                 ▲▲▲▲▲

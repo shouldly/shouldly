@@ -7,22 +7,22 @@ str
     difference
 4 differences
 [1] at index 5:
-                    ▾
+                    ▼
     Expected: "1a,1b.1c,1d,1e,1f,1g,1h,1i"...
     Actual:   "1a,1b,1c,1d,1e,1f,1g,1h,1i"...
-                    ▴
+                    ▲
 
 [2] at index 26:
-                                      ▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾
+                                      ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
     Expected: ..."1c,1d,1e,1f,1g,1h,1i.1j,1k,1l,1m,1n,1O,1p"...
     Actual:   ..."1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p"...
-                                      ▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴
+                                      ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
 [3] at index 43:
-                     ▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾
+                     ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
     Expected: ...",1i.1j,1k,1l,1m,1n,1O,1p,1q,1r,1s,1t,1u,1"...
     Actual:   ...",1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1"...
-                     ▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴
+                     ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
   ... and 1 more difference(s)
 ---- Without Source ----
 "1a,1b,1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1v"
@@ -32,20 +32,20 @@ str
     difference
 4 differences
 [1] at index 5:
-                    ▾
+                    ▼
     Expected: "1a,1b.1c,1d,1e,1f,1g,1h,1i"...
     Actual:   "1a,1b,1c,1d,1e,1f,1g,1h,1i"...
-                    ▴
+                    ▲
 
 [2] at index 26:
-                                      ▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾
+                                      ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
     Expected: ..."1c,1d,1e,1f,1g,1h,1i.1j,1k,1l,1m,1n,1O,1p"...
     Actual:   ..."1c,1d,1e,1f,1g,1h,1i,1j,1k,1l,1m,1n,1o,1p"...
-                                      ▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴
+                                      ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
 [3] at index 43:
-                     ▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾
+                     ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
     Expected: ...",1i.1j,1k,1l,1m,1n,1O,1p,1q,1r,1s,1t,1u,1"...
     Actual:   ...",1i,1j,1k,1l,1m,1n,1o,1p,1q,1r,1s,1t,1u,1"...
-                     ▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴
+                     ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
   ... and 1 more difference(s)

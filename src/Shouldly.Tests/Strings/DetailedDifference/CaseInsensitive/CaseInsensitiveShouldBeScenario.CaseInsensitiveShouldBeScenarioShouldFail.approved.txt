@@ -7,7 +7,7 @@ str
     difference
 Expected: "Stringone"
 Actual:   "StringOneX"
-                    ▴
+                    ▲
 ---- Without Source ----
 "StringOneX"
     should be with options: Ignoring case
@@ -16,4 +16,4 @@ Actual:   "StringOneX"
     difference
 Expected: "Stringone"
 Actual:   "StringOneX"
-                    ▴
+                    ▲

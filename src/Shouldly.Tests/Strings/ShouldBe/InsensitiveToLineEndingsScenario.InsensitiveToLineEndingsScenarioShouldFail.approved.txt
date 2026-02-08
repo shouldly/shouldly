@@ -10,7 +10,7 @@ line2"
   line1
 - Line3
 + line2
-  ▴
+  ▲
 
 Additional Info:
     Some additional context
@@ -25,7 +25,7 @@ Line3"
   line1
 - Line3
 + line2
-  ▴
+  ▲
 
 Additional Info:
     Some additional context

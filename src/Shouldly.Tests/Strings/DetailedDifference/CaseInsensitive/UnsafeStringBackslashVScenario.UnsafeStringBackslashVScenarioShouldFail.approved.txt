@@ -5,17 +5,17 @@ str
     but was
 "StringOneBackslashV"
     difference
-                    ▾
+                    ▼
 Expected: "Stringone BackslashV"
 Actual:   "StringOne\vBackslashV"
-                    ▴▴
+                    ▲▲
 ---- Without Source ----
 "StringOneBackslashV"
     should be with options: Ignoring case
 "Stringone BackslashV"
     but was not
     difference
-                    ▾
+                    ▼
 Expected: "Stringone BackslashV"
 Actual:   "StringOne\vBackslashV"
-                    ▴▴
+                    ▲▲

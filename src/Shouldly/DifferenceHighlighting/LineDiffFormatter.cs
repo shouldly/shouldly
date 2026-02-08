@@ -27,7 +27,7 @@ class LineDiffFormatter
 
         var sb = new StringBuilder();
 
-        var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▴' : '^';
+        var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
 
         // Leading context
         var contextStart = Math.Max(0, commonPrefixLines - MaxContextLines);

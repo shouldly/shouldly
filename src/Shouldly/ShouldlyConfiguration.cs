@@ -64,7 +64,7 @@ public static partial class ShouldlyConfiguration
 
     /// <summary>
     /// Controls the character set used for string difference markers.
-    /// Unicode uses ▾/▴ markers, Ascii uses v/^ markers.
+    /// Unicode uses ▼/▲ markers, Ascii uses v/^ markers.
     /// </summary>
     public static DiffStyle DiffStyle { get; set; } = DiffStyle.Unicode;
 }
