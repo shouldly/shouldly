@@ -1,0 +1,21 @@
+---- With Source ----
+timeSpan
+    should not be within
+00:00:00
+    of
+01:00:00
+    but was
+01:00:00
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+01:00:00
+    should not be within
+00:00:00
+    of
+01:00:00
+    but was not
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,13 @@
+---- With Source ----
+str
+    should be empty but was
+null
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+null
+    should be empty but was not empty
+
+Additional Info:
+    Some additional context

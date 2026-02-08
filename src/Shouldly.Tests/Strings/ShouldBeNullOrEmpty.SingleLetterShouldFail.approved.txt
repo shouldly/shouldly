@@ -1,0 +1,12 @@
+---- With Source ----
+"a"
+    should be null or empty
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"a"
+    should be null or empty
+
+Additional Info:
+    Some additional context

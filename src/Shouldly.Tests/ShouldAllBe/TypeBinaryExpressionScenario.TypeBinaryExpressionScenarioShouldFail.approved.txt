@@ -1,0 +1,20 @@
+---- With Source ----
+objects
+    should satisfy the condition
+(x Is String)
+    but
+[1]
+    do not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+["1", 1]
+    should satisfy the condition
+(x Is String)
+    but
+[1]
+    do not
+
+Additional Info:
+    Some additional context

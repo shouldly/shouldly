@@ -12,30 +12,7 @@ public class ObjectScenario
         object[] target = [a, b, c];
 
         Verify.ShouldFail(() =>
-                target.ShouldContain(d, "Some additional context"),
-
-            errorWithSource:
-            """
-            target
-                should contain
-            System.Object (000000)
-                but was actually
-            [System.Object (000000), System.Object (000000), System.Object (000000)]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [System.Object (000000), System.Object (000000), System.Object (000000)]
-                should contain
-            System.Object (000000)
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            target.ShouldContain(d, "Some additional context"));
     }
 
     [Fact]

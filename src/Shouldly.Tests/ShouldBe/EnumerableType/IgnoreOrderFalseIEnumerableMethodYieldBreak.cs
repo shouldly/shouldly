@@ -6,34 +6,7 @@ public class IgnoreOrderFalseIEnumerableMethodYieldBreak
     public void IgnoreOrderFalseIEnumerableMethodYieldBreakShouldFail()
     {
         Verify.ShouldFail(() =>
-                GetEmptyEnumerable().ShouldBe([2, 4], false, "Some additional context"),
-
-            errorWithSource:
-            """
-            GetEmptyEnumerable()
-                should be
-            [2, 4]
-                but was
-            []
-                difference
-            [*, *]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            []
-                should be
-            [2, 4]
-                but was not
-                difference
-            [*, *]
-
-            Additional Info:
-                Some additional context
-            """);
+            GetEmptyEnumerable().ShouldBe([2, 4], false, "Some additional context"));
     }
 
     [Fact]

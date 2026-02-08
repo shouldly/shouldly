@@ -17,122 +17,28 @@ public class NonRetraversableEnumerable
     public void ActualEnumerableShouldOnlyBeTraversedOnce()
     {
         Verify.ShouldFail(
-            () => CreateTestEnumerable().ShouldBe([3, 2, 1]),
-            errorWithSource:
-            """
-            CreateTestEnumerable()
-                should be
-            [3, 2, 1]
-                but was
-            [1, 2, 3]
-                difference
-            [*1*, 2, *3*]
-            """,
-            errorWithoutSource:
-            """
-            [1, 2, 3]
-                should be
-            [3, 2, 1]
-                but was not
-                difference
-            [*1*, 2, *3*]
-            """);
+            () => CreateTestEnumerable().ShouldBe([3, 2, 1]));
     }
 
     [Fact]
     public void ActualEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
     {
         Verify.ShouldFail(
-            () => CreateTestEnumerable().ShouldBe([2, 3, 4], ignoreOrder: true),
-            errorWithSource:
-            """
-            CreateTestEnumerable()
-                should be (ignoring order)
-            [2, 3, 4]
-                but
-            CreateTestEnumerable()
-                is missing
-            [4]
-                and
-            [2, 3, 4]
-                is missing
-            [1]
-            """,
-            errorWithoutSource:
-            """
-            [1, 2, 3]
-                should be (ignoring order)
-            [2, 3, 4]
-                but
-            [1, 2, 3]
-                is missing
-            [4]
-                and
-            [2, 3, 4]
-                is missing
-            [1]
-            """);
+            () => CreateTestEnumerable().ShouldBe([2, 3, 4], ignoreOrder: true));
     }
 
     [Fact]
     public void ExpectedEnumerableShouldOnlyBeTraversedOnce()
     {
         Verify.ShouldFail(
-            () => new[] { 3, 2, 1 }.ShouldBe(CreateTestEnumerable()),
-            errorWithSource:
-            """
-            new[] { 3, 2, 1 }
-                should be
-            [1, 2, 3]
-                but was
-            [3, 2, 1]
-                difference
-            [*3*, 2, *1*]
-            """,
-            errorWithoutSource:
-            """
-            [3, 2, 1]
-                should be
-            [1, 2, 3]
-                but was not
-                difference
-            [*3*, 2, *1*]
-            """);
+            () => new[] { 3, 2, 1 }.ShouldBe(CreateTestEnumerable()));
     }
 
     [Fact]
     public void ExpectedEnumerableShouldOnlyBeTraversedOnceWhenIgnoringOrder()
     {
         Verify.ShouldFail(
-            () => new[] { 2, 3, 4 }.ShouldBe(CreateTestEnumerable(), ignoreOrder: true),
-            errorWithSource:
-            """
-            new[] { 2, 3, 4 }
-                should be (ignoring order)
-            [1, 2, 3]
-                but
-            new[] { 2, 3, 4 }
-                is missing
-            [1]
-                and
-            [1, 2, 3]
-                is missing
-            [4]
-            """,
-            errorWithoutSource:
-            """
-            [2, 3, 4]
-                should be (ignoring order)
-            [1, 2, 3]
-                but
-            [2, 3, 4]
-                is missing
-            [1]
-                and
-            [1, 2, 3]
-                is missing
-            [4]
-            """);
+            () => new[] { 2, 3, 4 }.ShouldBe(CreateTestEnumerable(), ignoreOrder: true));
     }
 
     [Fact]

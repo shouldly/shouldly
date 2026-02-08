@@ -1,0 +1,21 @@
+---- With Source ----
+new object[] { new Added(), new Changed() }
+    should be
+[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added]
+    but was
+[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
+    difference
+[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed]
+    should be
+[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added]
+    but was not
+    difference
+[Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Added, *Shouldly.Tests.ShouldBeOfTypes.BasicScenarios+Changed*]
+
+Additional Info:
+    Some additional context

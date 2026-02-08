@@ -13,23 +13,6 @@ public class NumericTypeSuffixInMessage
     {
         const ulong uLong = 2UL;
         Verify.ShouldFail(() =>
-                uLong.ShouldBe(3UL),
-
-            errorWithSource:
-            """
-            uLong
-                should be
-            3uL
-                but was
-            2uL
-            """,
-
-            errorWithoutSource:
-            """
-            2uL
-                should be
-            3uL
-                but was not
-            """);
+            uLong.ShouldBe(3UL));
     }
 }

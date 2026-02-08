@@ -1,0 +1,17 @@
+---- With Source ----
+str
+    should not end with
+"SE"
+    but was
+"Cheese"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"Cheese"
+    should not end with
+"SE"
+    but did
+
+Additional Info:
+    Some additional context

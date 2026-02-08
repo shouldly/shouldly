@@ -1,0 +1,17 @@
+---- With Source ----
+one
+    should be greater than or equal to
+7
+    but was
+1
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+1
+    should be greater than or equal to
+7
+    but was not
+
+Additional Info:
+    Some additional context

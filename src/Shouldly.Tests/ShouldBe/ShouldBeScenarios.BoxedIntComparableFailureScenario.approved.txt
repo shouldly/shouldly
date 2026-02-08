@@ -1,0 +1,17 @@
+---- With Source ----
+(object)12
+    should be
+"string"
+    but was
+12
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+12
+    should be
+"string"
+    but was not
+
+Additional Info:
+    Some additional context

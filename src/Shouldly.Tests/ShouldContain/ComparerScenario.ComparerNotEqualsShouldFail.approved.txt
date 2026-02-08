@@ -1,0 +1,17 @@
+---- With Source ----
+comparison1
+    should contain
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but was actually
+[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+    should contain
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but did not
+
+Additional Info:
+    Some additional context

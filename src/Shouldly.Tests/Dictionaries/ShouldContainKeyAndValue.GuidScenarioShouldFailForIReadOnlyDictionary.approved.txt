@@ -1,0 +1,20 @@
+---- With Source ----
+GuidIReadOnlyDictionary()
+    should contain key
+1924e617-2fc2-47ae-ad38-b6f30ec2226b
+    with value
+f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+    but the key does not exist
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
+    should contain key
+1924e617-2fc2-47ae-ad38-b6f30ec2226b
+    with value
+f08a0b08-c9f4-49bb-a4d4-be06e88b69c8
+    but the key does not exist
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,17 @@
+---- With Source ----
+aVar
+    should be greater than or equal to
+"b"
+    but was
+"a"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"a"
+    should be greater than or equal to
+"b"
+    but was not
+
+Additional Info:
+    Some additional context

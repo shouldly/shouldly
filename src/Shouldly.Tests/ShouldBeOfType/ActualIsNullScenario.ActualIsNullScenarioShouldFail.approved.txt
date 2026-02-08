@@ -1,0 +1,17 @@
+---- With Source ----
+myThing
+    should be of type
+Shouldly.Tests.TestHelpers.MyBase
+    but was
+null
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+null
+    should be of type
+Shouldly.Tests.TestHelpers.MyBase
+    but was not
+
+Additional Info:
+    Some additional context

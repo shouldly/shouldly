@@ -1,0 +1,17 @@
+---- With Source ----
+myGuid
+    should be empty
+00000000-0000-0000-0000-000000000000
+    but was
+00000001-0002-0003-0405-060708090a0b
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+00000001-0002-0003-0405-060708090a0b
+    should be empty
+00000000-0000-0000-0000-000000000000
+    but was not
+
+Additional Info:
+    Some additional context

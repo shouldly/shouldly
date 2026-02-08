@@ -1,0 +1,17 @@
+---- With Source ----
+myValue
+    should be
+False
+    but was
+True
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+True
+    should be
+False
+    but was not
+
+Additional Info:
+    Some additional context

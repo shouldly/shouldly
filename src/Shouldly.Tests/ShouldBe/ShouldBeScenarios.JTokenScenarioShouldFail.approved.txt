@@ -1,0 +1,21 @@
+---- With Source ----
+new Strange()
+    should be
+[] (string)
+    but was
+[] (null)
+    difference
+[]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[] (null)
+    should be
+[] (string)
+    but was not
+    difference
+[]
+
+Additional Info:
+    Some additional context

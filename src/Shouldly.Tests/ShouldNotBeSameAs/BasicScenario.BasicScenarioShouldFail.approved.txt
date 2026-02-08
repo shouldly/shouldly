@@ -1,0 +1,17 @@
+---- With Source ----
+apple
+    should not be same as
+System.Object (000000)
+    but was
+System.Object (000000)
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+System.Object (000000)
+    should not be same as
+System.Object (000000)
+    but was
+
+Additional Info:
+    Some additional context

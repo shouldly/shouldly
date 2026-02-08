@@ -1,0 +1,14 @@
+---- With Source ----
+@float
+    should be negative but
+3f
+    is positive
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+3f
+    should be negative but is positive
+
+Additional Info:
+    Some additional context

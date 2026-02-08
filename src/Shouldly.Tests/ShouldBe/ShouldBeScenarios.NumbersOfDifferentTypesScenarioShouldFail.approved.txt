@@ -1,0 +1,17 @@
+---- With Source ----
+aLong
+    should be
+1L
+    but was
+2L
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+2L
+    should be
+1L
+    but was not
+
+Additional Info:
+    Some additional context

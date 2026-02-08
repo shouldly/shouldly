@@ -1,0 +1,17 @@
+---- With Source ----
+new UncomparableClass("ted")
+    should be
+bob
+    but was
+ted
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+ted
+    should be
+bob
+    but was not
+
+Additional Info:
+    Some additional context

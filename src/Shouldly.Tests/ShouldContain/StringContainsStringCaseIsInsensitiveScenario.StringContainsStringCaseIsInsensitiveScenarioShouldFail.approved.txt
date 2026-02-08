@@ -1,0 +1,11 @@
+---- With Source ----
+target
+    should contain (case insensitive comparison)
+"legend-wait for it-ary"
+    but was actually
+"Shouldly is legendary"
+---- Without Source ----
+"Shouldly is legendary"
+    should contain (case insensitive comparison)
+"legend-wait for it-ary"
+    but did not

@@ -1,0 +1,20 @@
+---- With Source ----
+ClassIDictionary()
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
+    should contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context

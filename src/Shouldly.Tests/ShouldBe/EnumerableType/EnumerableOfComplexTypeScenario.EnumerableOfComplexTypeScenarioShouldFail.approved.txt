@@ -1,0 +1,21 @@
+---- With Source ----
+_aEnumerable
+    should be
+[Name(Joeyjojoshabadoo Jr) Enabled(True)]
+    but was
+[Name(Joe) Enabled(True)]
+    difference
+[*Name(Joe) Enabled(True)*]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[Name(Joe) Enabled(True)]
+    should be
+[Name(Joeyjojoshabadoo Jr) Enabled(True)]
+    but was not
+    difference
+[*Name(Joe) Enabled(True)*]
+
+Additional Info:
+    Some additional context

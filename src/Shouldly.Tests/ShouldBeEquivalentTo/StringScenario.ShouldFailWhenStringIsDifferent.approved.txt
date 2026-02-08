@@ -1,0 +1,22 @@
+---- With Source ----
+Comparing object equivalence, at path:
+subject [System.String]
+
+    Expected value to be
+"Goodbye"
+    but was
+"Hello"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Comparing object equivalence, at path:
+<root> [System.String]
+
+    Expected value to be
+"Goodbye"
+    but was
+"Hello"
+
+Additional Info:
+    Some additional context

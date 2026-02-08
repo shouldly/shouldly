@@ -6,23 +6,7 @@ public class ShouldIgnoreCaseByDefault
     public void ShouldIgnoreCaseByDefaultShouldFail()
     {
         Verify.ShouldFail(() =>
-                "Cheese".ShouldStartWith("Ce"),
-
-            errorWithSource:
-            """
-            "Cheese"
-                should start with
-            "Ce"
-                but was not
-            """,
-
-            errorWithoutSource:
-            """
-            "Cheese"
-                should start with
-            "Ce"
-                but was not
-            """);
+            "Cheese".ShouldStartWith("Ce"));
     }
 
     [Fact]

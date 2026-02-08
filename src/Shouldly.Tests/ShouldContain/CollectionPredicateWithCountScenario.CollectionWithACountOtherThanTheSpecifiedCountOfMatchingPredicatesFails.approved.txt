@@ -1,0 +1,10 @@
+---- With Source ----
+collection
+    should contain 5 element(s) satisfying the condition
+(x == "c")
+    but does not
+---- Without Source ----
+["a", "b", "c", "c"]
+    should contain 5 element(s) satisfying the condition
+(x == "c")
+    but does not

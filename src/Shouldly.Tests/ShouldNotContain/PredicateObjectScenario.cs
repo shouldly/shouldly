@@ -9,30 +9,8 @@ public class PredicateObjectScenario
         var b = new object();
         var c = new object();
         Verify.ShouldFail(() =>
-                new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName!.Equals("System.Object"),
-                    "Some additional context"),
-
-            errorWithSource:
-            """
-            new[] { a, b, c }
-                should not contain an element satisfying the condition
-            o.GetType().FullName.Equals("System.Object")
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [System.Object (000000), System.Object (000000), System.Object (000000)]
-                should not contain an element satisfying the condition
-            o.GetType().FullName.Equals("System.Object")
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            new[] { a, b, c }.ShouldNotContain(o => o.GetType().FullName!.Equals("System.Object"),
+                "Some additional context"));
     }
 
     [Fact]

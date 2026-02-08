@@ -6,32 +6,14 @@ public class NestedBlockLambdaWithoutAdditionalInformationsScenario
     public void NestedBlockLambdaWithoutAdditionalInformationsScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
+        {
+            Should.NotThrow(() =>
             {
-                Should.NotThrow(() =>
+                if (true)
                 {
-                    if (true)
-                    {
-                        throw new("Dummy message.");
-                    }
-                });
-            },
-
-            errorWithSource:
-            """
-            `if (true) { throw new("Dummy message."); }`
-                should not throw but threw
-            System.Exception
-                with message
-            "Dummy message."
-            """,
-
-            errorWithoutSource:
-            """
-            Task
-                should not throw but threw
-            System.Exception
-                with message
-            "Dummy message."
-            """);
+                    throw new("Dummy message.");
+                }
+            });
+        });
     }
 }

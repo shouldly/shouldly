@@ -1,0 +1,11 @@
+---- With Source ----
+_target
+    should not contain (case insensitive comparison)
+"zzzz"
+    but was actually
+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+---- Without Source ----
+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
+    should not contain (case insensitive comparison)
+"zzzz"
+    but did

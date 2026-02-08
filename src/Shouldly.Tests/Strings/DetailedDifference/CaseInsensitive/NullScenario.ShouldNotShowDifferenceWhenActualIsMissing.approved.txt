@@ -1,0 +1,11 @@
+---- With Source ----
+str
+    should be with options: Ignoring case
+"null"
+    but was
+null
+---- Without Source ----
+null
+    should be with options: Ignoring case
+"null"
+    but was not

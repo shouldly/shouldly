@@ -1,0 +1,24 @@
+---- With Source ----
+Comparing object equivalence, at path:
+subject [System.Int32[]]
+    Count
+
+    Expected value to be
+5
+    but was
+6
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Comparing object equivalence, at path:
+<root> [System.Int32[]]
+    Count
+
+    Expected value to be
+5
+    but was
+6
+
+Additional Info:
+    Some additional context

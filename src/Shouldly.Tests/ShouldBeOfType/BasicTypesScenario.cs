@@ -7,31 +7,7 @@ public class BasicTypesScenario
     {
         var one = 1;
         Verify.ShouldFail(() =>
-                one.ShouldBeOfType<string>("Some additional context"),
-
-            errorWithSource:
-            """
-            one
-                should be of type
-            System.String
-                but was
-            System.Int32
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            1
-                should be of type
-            System.String
-                but was
-            System.Int32
-
-            Additional Info:
-                Some additional context
-            """);
+            one.ShouldBeOfType<string>("Some additional context"));
     }
 
     [Fact]

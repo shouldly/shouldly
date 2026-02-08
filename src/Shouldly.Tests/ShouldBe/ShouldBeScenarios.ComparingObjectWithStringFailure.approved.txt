@@ -1,0 +1,17 @@
+---- With Source ----
+new object()
+    should be
+"this string"
+    but was
+System.Object (000000)
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+System.Object (000000)
+    should be
+"this string"
+    but was not
+
+Additional Info:
+    Some additional context

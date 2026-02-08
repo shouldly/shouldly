@@ -1,0 +1,17 @@
+---- With Source ----
+cheeseVar
+    should end with
+"ze"
+    but was
+"Cheese"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+"Cheese"
+    should end with
+"ze"
+    but did not
+
+Additional Info:
+    Some additional context

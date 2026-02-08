@@ -18,28 +18,6 @@ public class ComparerScenario
         var comparison2 = new ComparableClass { Property = "Elephant", IgnoredProperty = "Dog" };
 
         Verify.ShouldFail(() =>
-                comparison1.ShouldNotBe(comparison2, new ComparableClassComparer(), "Some additional context"),
-
-            errorWithSource:
-            """
-            comparison1
-                should not be
-            Shouldly.Tests.TestHelpers.ComparableClass (000000)
-                but was
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Shouldly.Tests.TestHelpers.ComparableClass (000000)
-                should not be
-            Shouldly.Tests.TestHelpers.ComparableClass (000000)
-                but was
-
-            Additional Info:
-                Some additional context
-            """);
+            comparison1.ShouldNotBe(comparison2, new ComparableClassComparer(), "Some additional context"));
     }
 }

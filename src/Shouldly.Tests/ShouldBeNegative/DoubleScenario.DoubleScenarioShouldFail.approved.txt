@@ -1,0 +1,14 @@
+---- With Source ----
+@decimal
+    should be negative but
+3.5d
+    is positive
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+3.5d
+    should be negative but is positive
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,16 @@
+---- With Source ----
+comparison1
+    should not be
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but was
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    should not be
+Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but was
+
+Additional Info:
+    Some additional context

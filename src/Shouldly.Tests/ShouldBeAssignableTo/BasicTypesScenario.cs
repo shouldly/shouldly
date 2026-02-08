@@ -7,31 +7,7 @@ public class BasicTypesScenario
     {
         var two = 2;
         Verify.ShouldFail(() =>
-                two.ShouldBeAssignableTo<double>("Some additional context"),
-
-            errorWithSource:
-            """
-            two
-                should be assignable to
-            System.Double
-                but was
-            System.Int32
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            2
-                should be assignable to
-            System.Double
-                but was
-            System.Int32
-
-            Additional Info:
-                Some additional context
-            """);
+            two.ShouldBeAssignableTo<double>("Some additional context"));
     }
 
     [Fact]

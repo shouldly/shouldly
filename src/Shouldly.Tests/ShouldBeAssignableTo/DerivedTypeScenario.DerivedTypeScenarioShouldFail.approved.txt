@@ -1,0 +1,18 @@
+---- With Source ----
+myThing
+    should be assignable to
+System.String
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    should be assignable to
+System.String
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+
+Additional Info:
+    Some additional context

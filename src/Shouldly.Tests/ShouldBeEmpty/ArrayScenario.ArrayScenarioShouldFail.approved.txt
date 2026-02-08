@@ -1,0 +1,17 @@
+---- With Source ----
+new[] { 1 }
+    should be empty but had
+1
+    item and was
+[1]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1]
+    should be empty but had
+1
+    item and was not empty
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,24 @@
+---- With Source ----
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Id [System.Int32]
+
+    Expected value to be
+6
+    but was
+5
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Id [System.Int32]
+
+    Expected value to be
+6
+    but was
+5
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,24 @@
+---- With Source ----
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Name [System.String]
+
+    Expected value to be
+"Sally"
+    but was
+"Bob"
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+Comparing object equivalence, at path:
+<root> [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Name [System.String]
+
+    Expected value to be
+"Sally"
+    but was
+"Bob"
+
+Additional Info:
+    Some additional context

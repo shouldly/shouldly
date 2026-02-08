@@ -7,30 +7,7 @@ public class EqualScenario
     {
         var one = 1;
         Verify.ShouldFail(() =>
-                one.ShouldBeGreaterThan(1, "Some additional context"),
-
-            errorWithSource:
-            """
-            one
-                should be greater than
-            1
-                but was
-            1
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            1
-                should be greater than
-            1
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            one.ShouldBeGreaterThan(1, "Some additional context"));
     }
 
     [Fact]

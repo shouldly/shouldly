@@ -8,25 +8,7 @@ public class NotNullScenario
         string? myNullRef = null;
         // ReSharper disable once ExpressionIsAlwaysNull
         Verify.ShouldFail(() =>
-                myNullRef.ShouldNotBeNull("Some additional context"),
-
-            errorWithSource:
-            """
-            myNullRef
-                should not be null but was
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            null
-                should not be null but was
-
-            Additional Info:
-                Some additional context
-            """);
+            myNullRef.ShouldNotBeNull("Some additional context"));
     }
 
     [Fact]
@@ -42,25 +24,7 @@ public class NotNullScenario
         int? myNullRef = null;
         // ReSharper disable once ExpressionIsAlwaysNull
         Verify.ShouldFail(() =>
-                myNullRef.ShouldNotBeNull("Some additional context"),
-
-            errorWithSource:
-            """
-            myNullRef
-                should not be null but was
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            null
-                should not be null but was
-
-            Additional Info:
-                Some additional context
-            """);
+            myNullRef.ShouldNotBeNull("Some additional context"));
     }
 
     [Fact]

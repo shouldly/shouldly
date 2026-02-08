@@ -1,0 +1,15 @@
+---- With Source ----
+CreateTestEnumerable()
+    should be
+[3, 2, 1]
+    but was
+[1, 2, 3]
+    difference
+[*1*, 2, *3*]
+---- Without Source ----
+[1, 2, 3]
+    should be
+[3, 2, 1]
+    but was not
+    difference
+[*1*, 2, *3*]

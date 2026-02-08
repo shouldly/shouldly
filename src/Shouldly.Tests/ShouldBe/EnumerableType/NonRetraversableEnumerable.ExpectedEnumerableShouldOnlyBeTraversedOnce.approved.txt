@@ -1,0 +1,15 @@
+---- With Source ----
+new[] { 3, 2, 1 }
+    should be
+[1, 2, 3]
+    but was
+[3, 2, 1]
+    difference
+[*3*, 2, *1*]
+---- Without Source ----
+[3, 2, 1]
+    should be
+[1, 2, 3]
+    but was not
+    difference
+[*3*, 2, *1*]

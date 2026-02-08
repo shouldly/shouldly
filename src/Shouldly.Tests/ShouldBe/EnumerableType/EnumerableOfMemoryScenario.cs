@@ -9,30 +9,7 @@ public class EnumerableOfMemoryScenario
         var bar = new byte[] { 1, 2 }.AsMemory();
 
         Verify.ShouldFail(() =>
-                foo.ShouldBe(bar, "Some additional context"),
-
-            errorWithSource:
-            """
-            foo
-                should be
-            [1, 2]
-                but was
-            [1, 2, 3]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [1, 2, 3]
-                should be
-            [1, 2]
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            foo.ShouldBe(bar, "Some additional context"));
     }
 
     [Fact]

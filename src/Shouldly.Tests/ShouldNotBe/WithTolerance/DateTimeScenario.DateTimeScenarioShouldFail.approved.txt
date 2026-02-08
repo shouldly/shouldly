@@ -1,0 +1,21 @@
+---- With Source ----
+date
+    should not be within
+01:30:00
+    of
+2000-06-01T01:00:01.0000000
+    but was
+2000-06-01T00:00:00.0000000
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+2000-06-01T00:00:00.0000000
+    should not be within
+01:30:00
+    of
+2000-06-01T01:00:01.0000000
+    but was not
+
+Additional Info:
+    Some additional context

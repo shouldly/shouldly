@@ -1,0 +1,10 @@
+---- With Source ----
+ThisString
+    should not be
+"this string"
+    but was
+---- Without Source ----
+"this string"
+    should not be
+"this string"
+    but was

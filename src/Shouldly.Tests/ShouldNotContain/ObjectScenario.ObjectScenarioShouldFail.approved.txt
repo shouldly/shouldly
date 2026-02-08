@@ -1,0 +1,17 @@
+---- With Source ----
+target
+    should not contain
+System.Object (000000)
+    but was actually
+[System.Object (000000), System.Object (000000), System.Object (000000)]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[System.Object (000000), System.Object (000000), System.Object (000000)]
+    should not contain
+System.Object (000000)
+    but did
+
+Additional Info:
+    Some additional context

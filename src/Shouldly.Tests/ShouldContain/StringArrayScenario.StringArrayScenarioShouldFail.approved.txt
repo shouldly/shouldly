@@ -1,0 +1,17 @@
+---- With Source ----
+_target
+    should contain
+"d"
+    but was actually
+["a", "b", "c"]
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+["a", "b", "c"]
+    should contain
+"d"
+    but did not
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,20 @@
+---- With Source ----
+new[] { 1, 2, 3 }
+    should satisfy the condition
+(x < 2)
+    but
+[2, 3]
+    do not
+
+Additional Info:
+    Some additional context
+---- Without Source ----
+[1, 2, 3]
+    should satisfy the condition
+(x < 2)
+    but
+[2, 3]
+    do not
+
+Additional Info:
+    Some additional context
