@@ -9,19 +9,8 @@ simpsonsQuote
     but was
 "Me fail english? That's unpossible"
     difference
-Difference     |  |    |         |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |        
-               | \|/  \|/       \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/       
-Index          | 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20   ...  
-Expected Value | H    i    \s   S    u    p    e    r    \s   N    i    n    t    e    n    d    o    \s   C    h    a    ...  
-Actual Value   | M    e    \s   f    a    i    l    \s   e    n    g    l    i    s    h    ?    \s   T    h    a    t    ...  
-Expected Code  | 72   105  32   83   117  112  101  114  32   78   105  110  116  101  110  100  111  32   67   104  97   ...  
-Actual Code    | 77   101  32   102  97   105  108  32   101  110  103  108  105  115  104  63   32   84   104  97   116  ...  
-
-Difference     |       |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |   
-               |      \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
-Index          | ...  13   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28   29   30   31   32   33   
-Expected Value | ...  e    n    d    o    \s   C    h    a    l    m    e    r    s                                            
-Actual Value   | ...  s    h    ?    \s   T    h    a    t    '    s    \s   u    n    p    o    s    s    i    b    l    e    
-Expected Code  | ...  101  110  100  111  32   67   104  97   108  109  101  114  115                                          
-Actual Code    | ...  115  104  63   32   84   104  97   116  39   115  32   117  110  112  111  115  115  105  98   108  101  
+           ▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾
+Expected: "Hi Super Nintendo Chalmers"
+Actual:   "Me fail english? That's unpossible"
+           ▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴
 ```
