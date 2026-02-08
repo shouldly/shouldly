@@ -27,7 +27,15 @@ class LineDiffFormatter
 
         var sb = new StringBuilder();
 
+        var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
         var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
+
+        // Pre-compute character-level marker position when exactly one line changed
+        var removedCount = expectedChangeEnd - expectedChangeStart;
+        var addedCount = actualChangeEnd - actualChangeStart;
+        var charDiffPos = removedCount == 1 && addedCount == 1
+            ? FindFirstCharDifference(expectedLines[expectedChangeStart], actualLines[actualChangeStart])
+            : -1;
 
         // Leading context
         var contextStart = Math.Max(0, commonPrefixLines - MaxContextLines);
@@ -37,6 +45,13 @@ class LineDiffFormatter
         for (var i = contextStart; i < commonPrefixLines; i++)
         {
             sb.AppendLine($"  {DisplayLine(expectedLines[i])}");
+        }
+
+        // Down marker above removed line
+        if (charDiffPos >= 0)
+        {
+            sb.Append(' ', charDiffPos + 2); // +2 for "- " prefix
+            sb.AppendLine(downMarker.ToString());
         }
 
         // Removed lines (from expected)
@@ -51,19 +66,11 @@ class LineDiffFormatter
             sb.AppendLine($"+ {DisplayLine(actualLines[i])}");
         }
 
-        // Character-level marker when exactly one line changed
-        var removedCount = expectedChangeEnd - expectedChangeStart;
-        var addedCount = actualChangeEnd - actualChangeStart;
-        if (removedCount == 1 && addedCount == 1)
+        // Up marker below added line
+        if (charDiffPos >= 0)
         {
-            var charDiffPos = FindFirstCharDifference(
-                expectedLines[expectedChangeStart],
-                actualLines[actualChangeStart]);
-            if (charDiffPos >= 0)
-            {
-                sb.Append(' ', charDiffPos + 2); // +2 for "+ " prefix
-                sb.AppendLine(upMarker.ToString());
-            }
+            sb.Append(' ', charDiffPos + 2); // +2 for "+ " prefix
+            sb.AppendLine(upMarker.ToString());
         }
 
         // Trailing context

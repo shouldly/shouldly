@@ -24,10 +24,10 @@ theSimpsonsCat.Name
     but was
 "Santas little helper"
     difference
-            ▼▼▼▼▼▼▼▼▼
+            ▼▼▼▼▼▼ ▼▼
 Expected: "Snowball 2"
 Actual:   "Santas little helper"
-            ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+            ▲▲▲▲▲▲ ▲▲▲▲▲▲▲▲▲▲▲▲
 ```
 <!-- endInclude -->
 

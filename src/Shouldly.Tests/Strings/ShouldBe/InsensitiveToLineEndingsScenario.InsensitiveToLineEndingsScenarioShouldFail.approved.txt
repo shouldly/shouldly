@@ -8,6 +8,7 @@ Line3"
 line2"
     difference
   line1
+  ▼
 - Line3
 + line2
   ▲
@@ -23,6 +24,7 @@ Line3"
     but was not
     difference
   line1
+  ▼
 - Line3
 + line2
   ▲
