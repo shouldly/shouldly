@@ -49,11 +49,16 @@ class FormattedDetailedDifferenceString
 
         var sb = new StringBuilder();
 
+        var expectedDiffLen = expectedDiffEnd - commonPrefixLen;
+        var actualDiffLen = actualDiffEnd - commonPrefixLen;
+        var canComparePerChar = expectedDiffLen == actualDiffLen;
+
         // Top markers (expected diff region)
         if (expectedDisplayWidth > 0)
         {
             sb.Append(' ', markerOffset);
-            sb.AppendLine(new string(downMarker, expectedDisplayWidth));
+            sb.AppendLine(BuildMarkerLine(downMarker, commonPrefixLen, expectedDiffEnd,
+                _expectedValue, canComparePerChar ? _actualValue : null, expectedDisplayWidth));
         }
 
         sb.AppendLine($"{prefix}{expectedDisplay}");
@@ -64,7 +69,8 @@ class FormattedDetailedDifferenceString
         {
             sb.AppendLine();
             sb.Append(' ', markerOffset);
-            sb.Append(new string(upMarker, actualDisplayWidth));
+            sb.Append(BuildMarkerLine(upMarker, commonPrefixLen, actualDiffEnd,
+                _actualValue, canComparePerChar ? _expectedValue : null, actualDisplayWidth));
         }
 
         return sb.ToString();
@@ -124,6 +130,28 @@ class FormattedDetailedDifferenceString
 
     private static int CharDisplayWidth(char c) =>
         c.NeedsEscaping() ? c.ToSafeString().Length : 1;
+
+    private string BuildMarkerLine(char marker, int startIndex, int endIndex, string value, string? otherValue, int totalWidth)
+    {
+        if (otherValue == null)
+            return new string(marker, totalWidth);
+
+        var markerSb = new StringBuilder(totalWidth);
+        for (var i = startIndex; i < endIndex; i++)
+        {
+            var w = CharDisplayWidth(value[i]);
+            if (!CharsEqual(value[i], otherValue[i]))
+                markerSb.Append(marker, w);
+            else
+                markerSb.Append(' ', w);
+        }
+
+        // Trim trailing spaces
+        while (markerSb.Length > 0 && markerSb[markerSb.Length - 1] == ' ')
+            markerSb.Length--;
+
+        return markerSb.ToString();
+    }
 
     private int FindCommonPrefixLength()
     {

@@ -5,17 +5,17 @@ str
     but was
 "StringOne Space"
     difference
-                 ▼▼▼▼▼
+                 ▼  ▼▼
 Expected: "Stringone\tSpace"
 Actual:   "StringOne Space"
-                 ▲▲▲▲
+                 ▲  ▲
 ---- Without Source ----
 "StringOne Space"
     should be
 "Stringone	Space"
     but was not
     difference
-                 ▼▼▼▼▼
+                 ▼  ▼▼
 Expected: "Stringone\tSpace"
 Actual:   "StringOne Space"
-                 ▲▲▲▲
+                 ▲  ▲
