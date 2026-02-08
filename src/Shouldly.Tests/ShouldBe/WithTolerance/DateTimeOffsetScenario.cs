@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance;
 public class DateTimeOffsetScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void DateTimeOffsetScenarioShouldFail()
     {
         var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
@@ -11,7 +10,8 @@ public class DateTimeOffsetScenario
         var expected = new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero);
         var expectedDate = expected.ToString();
         Verify.ShouldFail(() =>
-            date.ShouldBe(expected, TimeSpan.FromHours(1), "Some additional context"));
+            date.ShouldBe(expected, TimeSpan.FromHours(1), "Some additional context"),
+            messageScrubber: msg => msg.Replace(dateString, "<date>").Replace(expectedDate, "<expected>"));
     }
 
     [Fact]
