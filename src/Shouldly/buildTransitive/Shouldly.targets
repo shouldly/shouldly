@@ -31,7 +31,7 @@
     
     <!--
         This target is used to set the SHOULDLY_SOURCE_PATH_MAP environment variable when running tests with VSTestNoBuild=true.
-        This is necessary because the VSTest task does not run the CoreCompile target, so the PathMap is not set.    
+        This is necessary because the VSTest task does not run the CoreCompile target, so the PathMap is not set.
     -->
     <Target Name="SetShouldlyPathMaps" BeforeTargets="VSTest" Condition=" '$(DisableShouldlyPathMaps)' != 'true' AND '$(VSTestNoBuild)' == 'true' ">
         <PropertyGroup>
@@ -44,5 +44,27 @@
             <ShouldlyPathMaps>%(_ShouldlyPathMaps.Identity)</ShouldlyPathMaps>
         </PropertyGroup>
         <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(ShouldlyPathMaps)" Condition=" '$(ShouldlyPathMaps)' != '' " />
+    </Target>
+
+    <!--
+        This target is the equivalent of SetShouldlyPathMaps for Microsoft Testing Platform (MTP).
+        MTP test projects (e.g. TUnit, MSTest with runner mode) use InvokeTestingPlatform instead of VSTest.
+        This hooks in before InvokeTestingPlatform launches the test executable, ensuring the environment
+        variable is inherited by the test process.
+        Note: This covers the `dotnet msbuild -t:Test` path. For the `dotnet test` MTP experience (which
+        launches the test exe directly without MSBuild), Shouldly falls back to reading the PathMap file
+        at runtime from the output directory.
+    -->
+    <Target Name="SetShouldlyPathMapsForMTP" BeforeTargets="InvokeTestingPlatform" Condition=" '$(DisableShouldlyPathMaps)' != 'true' ">
+        <PropertyGroup>
+            <_ShouldlyPathMapsFilePath>$([MSBuild]::EnsureTrailingSlash('$(OutputPath)'))ShouldlyPathMaps_$(AssemblyName)</_ShouldlyPathMapsFilePath>
+        </PropertyGroup>
+        <ReadLinesFromFile File="$(_ShouldlyPathMapsFilePath)" Condition=" Exists('$(_ShouldlyPathMapsFilePath)') ">
+            <Output TaskParameter="Lines" ItemName="_ShouldlyMTPPathMaps" />
+        </ReadLinesFromFile>
+        <PropertyGroup>
+            <_ShouldlyMTPPathMaps>%(_ShouldlyMTPPathMaps.Identity)</_ShouldlyMTPPathMaps>
+        </PropertyGroup>
+        <SetEnvVar EnvName="SHOULDLY_SOURCE_PATH_MAP" EnvValue="$(_ShouldlyMTPPathMaps)" Condition=" '$(_ShouldlyMTPPathMaps)' != '' " />
     </Target>
 </Project>

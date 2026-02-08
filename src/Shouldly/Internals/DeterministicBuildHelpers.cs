@@ -8,6 +8,15 @@ static class DeterministicBuildHelpers
         = new(() =>
         {
             var shouldlySourcePathMap = Environment.GetEnvironmentVariable("SHOULDLY_SOURCE_PATH_MAP") ?? "";
+
+            // Fallback: read from ShouldlyPathMaps file in the output directory.
+            // This is needed for Microsoft Testing Platform (MTP) where the test exe is launched
+            // directly and doesn't inherit the env var set during MSBuild.
+            if (string.IsNullOrEmpty(shouldlySourcePathMap))
+            {
+                shouldlySourcePathMap = TryReadPathMapsFile() ?? "";
+            }
+
             return shouldlySourcePathMap
                 .Split(',')
                 .Select(x => x.Split('='))
@@ -31,4 +40,27 @@ static class DeterministicBuildHelpers
     }
 
     internal static bool PathAppearsToBeDeterministic(string fileName) => DeterministicPathRegex.IsMatch(fileName);
+
+    private static string? TryReadPathMapsFile()
+    {
+        try
+        {
+            var baseDir = AppContext.BaseDirectory;
+            var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
+            if (entryAssembly != null)
+            {
+                var pathMapsFile = Path.Combine(baseDir, $"ShouldlyPathMaps_{entryAssembly.GetName().Name}");
+                if (File.Exists(pathMapsFile))
+                {
+                    return File.ReadAllText(pathMapsFile).Trim();
+                }
+            }
+        }
+        catch
+        {
+            // Silently fail - source expressions just won't resolve deterministic paths
+        }
+
+        return null;
+    }
 }
