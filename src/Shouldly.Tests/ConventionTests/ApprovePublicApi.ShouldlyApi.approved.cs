@@ -26,6 +26,11 @@ namespace Shouldly
     {
         public CompleteInShouldlyMessage(string what, System.TimeSpan timeout, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
+    public enum DiffStyle
+    {
+        Unicode = 0,
+        Ascii = 1,
+    }
     [Shouldly.ShouldlyMethods]
     public static class DynamicShould
     {
@@ -487,6 +492,7 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
+        public static Shouldly.DiffStyle DiffStyle { get; set; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }

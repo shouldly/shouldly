@@ -5,111 +5,154 @@ class FormattedDetailedDifferenceString
     private readonly string _actualValue;
     private readonly string _expectedValue;
     private readonly Case _caseSensitivity;
-    private readonly int _indexOffset;
-    private readonly StringBuilder differenceStringLineOneBuilder;
-    private readonly StringBuilder actualCodeStringBuilder;
-    private readonly StringBuilder differenceStringLineTwoBuilder;
-    private readonly StringBuilder indexStringBuilder;
-    private readonly StringBuilder expectedValueStringBuilder;
-    private readonly StringBuilder actualValueStringBuilder;
-    private readonly StringBuilder expectedCodeStringBuilder;
+    private readonly bool _prefixWithEllipsis;
+    private readonly bool _suffixWithEllipsis;
 
-    private readonly bool _prefixWithDots;
-    private readonly bool _suffixWithDots;
-
-    internal FormattedDetailedDifferenceString(string actualValue, string expectedValue, Case? caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
+    internal FormattedDetailedDifferenceString(
+        string actualValue,
+        string expectedValue,
+        Case? caseSensitivity,
+        bool prefixWithEllipsis = false,
+        bool suffixWithEllipsis = false)
     {
         _actualValue = actualValue;
         _expectedValue = expectedValue;
         _caseSensitivity = caseSensitivity ?? Case.Sensitive;
-        _indexOffset = indexOffset;
-        _prefixWithDots = prefixWithDots;
-        _suffixWithDots = suffixWithDots;
-
-        differenceStringLineOneBuilder = new();
-        differenceStringLineTwoBuilder = new();
-        indexStringBuilder = new();
-        expectedValueStringBuilder = new();
-        actualValueStringBuilder = new();
-        expectedCodeStringBuilder = new();
-        actualCodeStringBuilder = new();
+        _prefixWithEllipsis = prefixWithEllipsis;
+        _suffixWithEllipsis = suffixWithEllipsis;
     }
 
-    public override string ToString() =>
-        GenerateFormattedString();
+    public override string ToString() => GenerateFormattedString();
 
     public string GenerateFormattedString()
     {
-        var maxLengthOfStrings = Math.Max(_actualValue.Length, _expectedValue.Length);
-        var minLenOfStrings = Math.Min(_actualValue.Length, _expectedValue.Length);
+        var expectedDisplay = BuildDisplayString(_expectedValue);
+        var actualDisplay = BuildDisplayString(_actualValue);
 
-        if (_prefixWithDots)
+        // Find diff region via prefix/suffix matching on source chars
+        var commonPrefixLen = FindCommonPrefixLength();
+        var commonSuffixLen = FindCommonSuffixLength(commonPrefixLen);
+
+        var expectedDiffEnd = _expectedValue.Length - commonSuffixLen;
+        var actualDiffEnd = _actualValue.Length - commonSuffixLen;
+
+        // Map to display positions
+        var displayDiffStart = ComputeDisplayOffset(commonPrefixLen);
+        var expectedDisplayWidth = ComputeDisplayWidth(_expectedValue, commonPrefixLen, expectedDiffEnd);
+        var actualDisplayWidth = ComputeDisplayWidth(_actualValue, commonPrefixLen, actualDiffEnd);
+
+        var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▾' : 'v';
+        var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▴' : '^';
+
+        var prefix = "Expected: ";
+        var markerOffset = prefix.Length + displayDiffStart;
+
+        var sb = new StringBuilder();
+
+        // Top markers (expected diff region)
+        if (expectedDisplayWidth > 0)
         {
-            AddDots();
+            sb.Append(' ', markerOffset);
+            sb.AppendLine(new string(downMarker, expectedDisplayWidth));
         }
 
-        for (var index = 0; index < maxLengthOfStrings; index++)
-        {
-            var isEqual = CheckEquality(index, minLenOfStrings);
+        sb.AppendLine($"{prefix}{expectedDisplay}");
+        sb.Append($"Actual:   {actualDisplay}");
 
-            differenceStringLineOneBuilder.Append($"{(isEqual ? " " : " | "),-5}");
-            differenceStringLineTwoBuilder.Append($"{(isEqual ? " " : @"\|/"),-5}");
-            indexStringBuilder.Append($"{index + _indexOffset,-5}");
-            expectedValueStringBuilder.Append($"{(index < _expectedValue.Length ? _expectedValue[index].ToSafeString() : ""),-5}");
-            actualValueStringBuilder.Append($"{(index < _actualValue.Length ? _actualValue[index].ToSafeString() : ""),-5}");
-            expectedCodeStringBuilder.Append($"{(index < _expectedValue.Length ? ((int)_expectedValue[index]).ToString() : ""),-5}");
-            actualCodeStringBuilder.Append($"{(index < _actualValue.Length ? ((int)_actualValue[index]).ToString() : ""),-5}");
+        // Bottom markers (actual diff region)
+        if (actualDisplayWidth > 0)
+        {
+            sb.AppendLine();
+            sb.Append(' ', markerOffset);
+            sb.Append(new string(upMarker, actualDisplayWidth));
         }
 
-        if (_suffixWithDots)
-        {
-            AddDots();
-        }
-
-        return GetFormattedString();
+        return sb.ToString();
     }
 
-    private void AddDots()
+    private string BuildDisplayString(string value)
     {
-        differenceStringLineOneBuilder.Append("     ");
-        differenceStringLineTwoBuilder.Append("     ");
-        indexStringBuilder.Append("...  ");
-        expectedValueStringBuilder.Append("...  ");
-        actualValueStringBuilder.Append("...  ");
-        expectedCodeStringBuilder.Append("...  ");
-        actualCodeStringBuilder.Append("...  ");
-    }
+        var sb = new StringBuilder();
 
-    private bool CheckEquality(int index, int minLengthOfStrings)
-    {
-        var isEqual = false;
-        if (index < minLengthOfStrings)
+        if (_prefixWithEllipsis)
+            sb.Append("...");
+
+        sb.Append('"');
+
+        foreach (var c in value)
         {
-            if (_caseSensitivity == Case.Insensitive)
-            {
-                isEqual = StringComparer.OrdinalIgnoreCase.Equals(_actualValue[index].ToString(), _expectedValue[index].ToString());
-            }
+            if (c.NeedsEscaping())
+                sb.Append(c.ToSafeString());
             else
-            {
-                isEqual = Equals(_actualValue[index], _expectedValue[index]);
-            }
+                sb.Append(c);
         }
 
-        return isEqual;
+        sb.Append('"');
+
+        if (_suffixWithEllipsis)
+            sb.Append("...");
+
+        return sb.ToString();
     }
 
-    private string GetFormattedString()
+    private int ComputeDisplayOffset(int sourceIndex)
     {
-        var output = new StringBuilder();
-        output.AppendLine("Difference     | " + differenceStringLineOneBuilder);
-        output.AppendLine("               | " + differenceStringLineTwoBuilder);
-        output.AppendLine("Index          | " + indexStringBuilder);
-        output.AppendLine("Expected Value | " + expectedValueStringBuilder);
-        output.AppendLine("Actual Value   | " + actualValueStringBuilder);
-        output.AppendLine("Expected Code  | " + expectedCodeStringBuilder);
-        output.Append("Actual Code    | " + actualCodeStringBuilder);
+        // Account for optional "..." prefix and opening quote
+        var offset = _prefixWithEllipsis ? 4 : 1;
 
-        var outputString = output.ToString();
-        return outputString;
+        // Use expected for offset computation (prefix is identical in both strings)
+        var value = _expectedValue.Length > 0 ? _expectedValue : _actualValue;
+        var len = Math.Min(sourceIndex, value.Length);
+
+        for (var i = 0; i < len; i++)
+        {
+            offset += CharDisplayWidth(value[i]);
+        }
+
+        return offset;
+    }
+
+    private static int ComputeDisplayWidth(string value, int startIndex, int endIndex)
+    {
+        var width = 0;
+        for (var i = startIndex; i < endIndex && i < value.Length; i++)
+        {
+            width += CharDisplayWidth(value[i]);
+        }
+        return width;
+    }
+
+    private static int CharDisplayWidth(char c) =>
+        c.NeedsEscaping() ? c.ToSafeString().Length : 1;
+
+    private int FindCommonPrefixLength()
+    {
+        var minLen = Math.Min(_expectedValue.Length, _actualValue.Length);
+        for (var i = 0; i < minLen; i++)
+        {
+            if (!CharsEqual(_expectedValue[i], _actualValue[i]))
+                return i;
+        }
+        return minLen;
+    }
+
+    private int FindCommonSuffixLength(int commonPrefixLength)
+    {
+        var maxSuffixLen = Math.Min(_expectedValue.Length, _actualValue.Length) - commonPrefixLength;
+        for (var i = 0; i < maxSuffixLen; i++)
+        {
+            if (!CharsEqual(
+                    _expectedValue[_expectedValue.Length - 1 - i],
+                    _actualValue[_actualValue.Length - 1 - i]))
+                return i;
+        }
+        return maxSuffixLen;
+    }
+
+    private bool CharsEqual(char a, char b)
+    {
+        if (_caseSensitivity == Case.Insensitive)
+            return StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), b.ToString());
+        return a == b;
     }
 }
