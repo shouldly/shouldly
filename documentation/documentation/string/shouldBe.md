@@ -18,9 +18,6 @@ target
 "Bart"
     but was
 "Homer"
-    difference
-Expected: "Bart"
-Actual:   "Homer"
 ```
 <!-- endInclude -->
 

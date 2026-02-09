@@ -41,7 +41,7 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         return result;
     }
 
-    private string FormatCharacterMode(string expected, string actual)
+    private string? FormatCharacterMode(string expected, string actual)
     {
         // Find the diff region using prefix/suffix matching
         var commonPrefix = FindCommonPrefixLength(expected, actual);
@@ -55,6 +55,7 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
             var diff = new FormattedDetailedDifferenceString(
                 actual, expected, _sensitivity);
             var result = diff.GenerateFormattedString();
+            if (result == null) return null;
             var shortHint = DetectSmartHint(expected, actual);
             if (shortHint != null)
                 result += Environment.NewLine + shortHint;
@@ -95,6 +96,7 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
                 prefixEllipsis, suffixEllipsis);
 
             var formatted = diff.GenerateFormattedString();
+            if (formatted == null) continue;
             if (totalDiffs > 1)
                 formatted = IndentLines(formatted, "    ");
 

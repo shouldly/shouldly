@@ -22,9 +22,9 @@ class FormattedDetailedDifferenceString
         _suffixWithEllipsis = suffixWithEllipsis;
     }
 
-    public override string ToString() => GenerateFormattedString();
+    public override string? ToString() => GenerateFormattedString();
 
-    public string GenerateFormattedString()
+    public string? GenerateFormattedString()
     {
         var expectedDisplay = BuildDisplayString(_expectedValue);
         var actualDisplay = BuildDisplayString(_actualValue);
@@ -82,8 +82,7 @@ class FormattedDetailedDifferenceString
         }
         else
         {
-            sb.AppendLine($"{prefix}{expectedDisplay}");
-            sb.Append($"Actual:   {actualDisplay}");
+            return null;
         }
 
         return sb.ToString();

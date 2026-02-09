@@ -23,9 +23,6 @@ theSimpsonsCat.Name
 "Snowball 2"
     but was
 "Santas little helper"
-    difference
-Expected: "Snowball 2"
-Actual:   "Santas little helper"
 ```
 <!-- endInclude -->
 

@@ -97,9 +97,6 @@ public class ShouldMatchApprovedScenarios
              "Bar"
                  but was
              "Foo"
-                 difference
-             Expected: "Bar"
-             Actual:   "Foo"
              """,
 
             errorWithoutSource:
@@ -112,9 +109,6 @@ public class ShouldMatchApprovedScenarios
                  should match approved with options: Ignoring line endings
              "Bar"
                  but was not
-                 difference
-             Expected: "Bar"
-             Actual:   "Foo"
              """,
 
             messageScrubber:
