@@ -134,7 +134,7 @@ static class StringHelpers
 
     internal static string ToSafeString(this char c)
     {
-        if (char.IsControl(c) || char.IsWhiteSpace(c))
+        if (char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' '))
         {
             switch (c)
             {
@@ -150,15 +150,18 @@ static class StringHelpers
                     return @"\v";
                 case '\f':
                     return @"\f";
-                case ' ':
-                    return @"\s";
+                case '\0':
+                    return @"\0";
                 default:
-                    return $"\\u{(int)c:X};";
+                    return $"\\u{(int)c:X4};";
             }
         }
 
         return c.ToString();
     }
+
+    internal static bool NeedsEscaping(this char c) =>
+        char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' ');
 
     internal static string? NormalizeLineEndings(this string? s) =>
         s == null ? null : Regex.Replace(s, @"\r\n?", "\n");

@@ -97,14 +97,6 @@ public class ShouldMatchApprovedScenarios
              "Bar"
                  but was
              "Foo"
-                 difference
-             Difference     |  |    |    |   
-                            | \|/  \|/  \|/  
-             Index          | 0    1    2    
-             Expected Value | B    a    r    
-             Actual Value   | F    o    o    
-             Expected Code  | 66   97   114  
-             Actual Code    | 70   111  111  
              """,
 
             errorWithoutSource:
@@ -117,14 +109,6 @@ public class ShouldMatchApprovedScenarios
                  should match approved with options: Ignoring line endings
              "Bar"
                  but was not
-                 difference
-             Difference     |  |    |    |   
-                            | \|/  \|/  \|/  
-             Index          | 0    1    2    
-             Expected Value | B    a    r    
-             Actual Value   | F    o    o    
-             Expected Code  | 66   97   114  
-             Actual Code    | 70   111  111  
              """,
 
             messageScrubber:

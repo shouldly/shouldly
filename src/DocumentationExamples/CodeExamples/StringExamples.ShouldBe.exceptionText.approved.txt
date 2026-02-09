@@ -4,12 +4,4 @@ target
 "Bart"
     but was
 "Homer"
-    difference
-Difference     |  |    |    |    |    |   
-               | \|/  \|/  \|/  \|/  \|/  
-Index          | 0    1    2    3    4    
-Expected Value | B    a    r    t         
-Actual Value   | H    o    m    e    r    
-Expected Code  | 66   97   114  116       
-Actual Code    | 72   111  109  101  114  
 ```
