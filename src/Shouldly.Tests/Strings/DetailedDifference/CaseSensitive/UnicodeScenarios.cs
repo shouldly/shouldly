@@ -77,4 +77,13 @@ public class UnicodeScenarios
         Verify.ShouldFail(() =>
             str.ShouldBe("hello مرحبآ world"));
     }
+
+    [Fact]
+    public void ActualNewlineVsLiteralBackslashRN()
+    {
+        // Actual \r\n characters vs the literal text "\r\n"
+        var str = "line1\r\nline2";
+        Verify.ShouldFail(() =>
+            str.ShouldBe(@"line1\r\nline2"));
+    }
 }
