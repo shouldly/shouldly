@@ -38,6 +38,11 @@ namespace Shouldly
         public static TException Throw<TException>(System.Action actual, string? customMessage = null)
             where TException : System.Exception { }
     }
+    public enum EscapeStyle
+    {
+        CStyle = 0,
+        ControlPictures = 1,
+    }
     public class ExpectedActualIgnoreOrderShouldlyMessage : Shouldly.ShouldlyMessage
     {
         public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
@@ -493,6 +498,7 @@ namespace Shouldly
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
         public static Shouldly.DiffStyle DiffStyle { get; set; }
+        public static Shouldly.EscapeStyle EscapeStyle { get; set; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }

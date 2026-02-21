@@ -67,4 +67,10 @@ public static partial class ShouldlyConfiguration
     /// Unicode uses ▼/▲ markers, Ascii uses v/^ markers.
     /// </summary>
     public static DiffStyle DiffStyle { get; set; } = DiffStyle.Unicode;
+
+    /// <summary>
+    /// Controls how control characters are displayed in string difference output.
+    /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊).
+    /// </summary>
+    public static EscapeStyle EscapeStyle { get; set; } = EscapeStyle.CStyle;
 }

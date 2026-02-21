@@ -86,4 +86,21 @@ public class UnicodeScenarios
         Verify.ShouldFail(() =>
             str.ShouldBe(@"line1\r\nline2"));
     }
+
+    [Fact]
+    public void ControlPicturesEscapeStyle()
+    {
+        var previous = ShouldlyConfiguration.EscapeStyle;
+        try
+        {
+            ShouldlyConfiguration.EscapeStyle = EscapeStyle.ControlPictures;
+            var str = "line1\r\nline2";
+            Verify.ShouldFail(() =>
+                str.ShouldBe(@"line1\r\nline2"));
+        }
+        finally
+        {
+            ShouldlyConfiguration.EscapeStyle = previous;
+        }
+    }
 }

@@ -136,6 +136,23 @@ static class StringHelpers
     {
         if (char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' '))
         {
+            if (ShouldlyConfiguration.EscapeStyle == EscapeStyle.ControlPictures)
+            {
+                // Unicode control pictures (U+2400 block)
+                return c switch
+                {
+                    '\0' => "\u2400", // ␀ NUL
+                    '\a' => "\u2407", // ␇ BEL
+                    '\t' => "\u2409", // ␉ HT
+                    '\n' => "\u240A", // ␊ LF
+                    '\v' => "\u240B", // ␋ VT
+                    '\f' => "\u240C", // ␌ FF
+                    '\r' => "\u240D", // ␍ CR
+                    _ when (int)c <= 0x26 => ((char)(0x2400 + c)).ToString(), // Other control chars
+                    _ => $"\\u{(int)c:X4};"
+                };
+            }
+
             switch (c)
             {
                 case '\r':
