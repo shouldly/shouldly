@@ -1,0 +1,21 @@
+---- With Source ----
+str
+    should be
+"café"
+    but was
+"café"
+    difference
+              ▼
+Expected: "café"
+Actual:   "café"
+              ▲▲
+---- Without Source ----
+"café"
+    should be
+"café"
+    but was not
+    difference
+              ▼
+Expected: "café"
+Actual:   "café"
+              ▲▲

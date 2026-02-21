@@ -1,0 +1,21 @@
+---- With Source ----
+str
+    should be
+"hello مرحبآ world"
+    but was
+"hello مرحبا world"
+    difference
+                     ▼
+Expected: "hello مرحبآ world"
+Actual:   "hello مرحبا world"
+                     ▲
+---- Without Source ----
+"hello مرحبا world"
+    should be
+"hello مرحبآ world"
+    but was not
+    difference
+                     ▼
+Expected: "hello مرحبآ world"
+Actual:   "hello مرحبا world"
+                     ▲
