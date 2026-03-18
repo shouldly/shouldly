@@ -8,6 +8,11 @@ namespace Shouldly
     {
         public ActualShouldlyMessage(object? actual, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
+    public sealed class AssertionScope : System.IDisposable
+    {
+        public AssertionScope() { }
+        public void Dispose() { }
+    }
     public class AsyncShouldlyNotThrowShouldlyMessage : Shouldly.ShouldlyMessage
     {
         public AsyncShouldlyNotThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace stackTrace, string exceptionMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }

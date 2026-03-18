@@ -21,7 +21,7 @@ public static partial class ShouldBeNullExtensions
         where T : class
     {
         if (actual != null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public static partial class ShouldBeNullExtensions
         where T : struct
     {
         if (actual != null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -42,8 +42,14 @@ public static partial class ShouldBeNullExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
     public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
-        where T : class =>
-        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+        where T : class
+    {
+        if (actual != null) return actual;
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
+#pragma warning disable CS8777 // Parameter must have a non-null value when exiting - ThrowHelper.ThrowOrRecord may not throw when AssertionScope is active
+        return default!;
+#pragma warning restore CS8777
+    }
 
     /// <summary>
     /// Asserts that the actual value is not null.
@@ -51,6 +57,12 @@ public static partial class ShouldBeNullExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
     public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
-        where T : struct =>
-        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+        where T : struct
+    {
+        if (actual != null) return actual.Value;
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
+#pragma warning disable CS8777
+        return default;
+#pragma warning restore CS8777
+    }
 }

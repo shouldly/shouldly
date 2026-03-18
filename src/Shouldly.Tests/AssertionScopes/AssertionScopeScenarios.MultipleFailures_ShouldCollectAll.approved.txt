@@ -1,0 +1,46 @@
+---- With Source ----
+
+--------------- Error 1 ---------------
+    1
+        should be
+    2
+        but was not
+
+--------------- Error 2 ---------------
+    "actual"
+        should be
+    "expected"
+        but was not
+        difference
+    Difference     |  |    |    |    |    |    |    |    |   
+                   | \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
+    Index          | 0    1    2    3    4    5    6    7    
+    Expected Value | e    x    p    e    c    t    e    d    
+    Actual Value   | a    c    t    u    a    l              
+    Expected Code  | 101  120  112  101  99   116  101  100  
+    Actual Code    | 97   99   116  117  97   108            
+
+-----------------------------------------
+---- Without Source ----
+
+--------------- Error 1 ---------------
+    1
+        should be
+    2
+        but was not
+
+--------------- Error 2 ---------------
+    "actual"
+        should be
+    "expected"
+        but was not
+        difference
+    Difference     |  |    |    |    |    |    |    |    |   
+                   | \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
+    Index          | 0    1    2    3    4    5    6    7    
+    Expected Value | e    x    p    e    c    t    e    d    
+    Actual Value   | a    c    t    u    a    l              
+    Expected Code  | 101  120  112  101  99   116  101  100  
+    Actual Code    | 97   99   116  117  97   108            
+
+-----------------------------------------

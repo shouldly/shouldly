@@ -18,7 +18,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!dictionary.ContainsKey(key))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString()));
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (dictionary.ContainsKey(key))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString()));
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!dictionary.ContainsKey(key) || !Equals(dictionary[key], val))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString()));
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!dictionary.ContainsKey(key) || Equals(dictionary[key], val))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key,  customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key,  customMessage).ToString()));
     }
 
 #if NET9_0_OR_GREATER
@@ -64,7 +64,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!dictionary.ContainsKey(key))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString()));
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (dictionary.ContainsKey(key))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage).ToString()));
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!dictionary.ContainsKey(key) || !Equals(dictionary[key], val))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString()));
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!dictionary.ContainsKey(key) || Equals(dictionary[key], val))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage).ToString()));
     }
 #endif
 }

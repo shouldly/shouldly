@@ -192,12 +192,11 @@ public static partial class ObjectGraphTestExtensions
         }
     }
 
-    [DoesNotReturn]
     private static void ThrowException(object? actual, object? expected, IEnumerable<string> path,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!)
     {
-        throw new ShouldAssertException(
-            new ExpectedEquivalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(
+            new ExpectedEquivalenceShouldlyMessage(expected, actual, path, customMessage, shouldlyMethod).ToString()));
     }
 
     private static bool Contains(this IDictionary<object, IList<object?>> comparisons, object actual, object? expected) =>

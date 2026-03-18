@@ -29,7 +29,7 @@ public static partial class DynamicShould
 
             if (!dynamicAsDictionary.ContainsKey(propertyName))
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString()));
             }
         }
         else
@@ -38,7 +38,7 @@ public static partial class DynamicShould
             var properties = dynamicAsObject.GetType().GetProperties();
             if (!properties.Select(x => x.Name).Contains(propertyName))
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString()));
             }
         }
     }
