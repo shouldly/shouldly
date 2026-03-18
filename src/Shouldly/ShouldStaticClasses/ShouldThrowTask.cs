@@ -85,10 +85,12 @@ public static partial class Should
             if (e is TException exception)
                 return exception;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString()));
+            return default!;
         }
 
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -131,10 +133,12 @@ public static partial class Should
                 return e;
             }
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString()));
+            return default!;
         }
 
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -202,7 +206,7 @@ public static partial class Should
         {
             ex = (ex as AggregateException)?.InnerException ?? ex;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod, actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod, actualExpression).ToString()));
         }
     }
 
@@ -251,7 +255,8 @@ public static partial class Should
         {
             ex = (ex as AggregateException)?.InnerException ?? ex;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod, actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod, actualExpression).ToString()));
+            return default!;
         }
     }
 

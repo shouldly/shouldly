@@ -43,7 +43,7 @@ public static partial class DynamicShould
 
         if (!HasProperty(instance, propertyName))
         {
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: receiverExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: receiverExpression).ToString()));
         }
     }
 

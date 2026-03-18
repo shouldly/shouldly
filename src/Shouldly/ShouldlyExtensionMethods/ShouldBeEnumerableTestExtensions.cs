@@ -19,7 +19,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Contains(expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Contains(expected, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual.Contains(expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual.Contains(expected, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         var actualCount = actual.Count(condition);
         if (actualCount != expectedCount)
         {
-            throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage, actualExpression: actualExpression).ToString()));
         }
     }
 
@@ -74,7 +74,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var condition = elementPredicate.Compile();
         if (!actual.Any(condition))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var condition = elementPredicate.Compile();
         if (actual.Any(condition))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -97,28 +97,32 @@ public static partial class ShouldBeEnumerableTestExtensions
         var condition = elementPredicate.Compile();
         var actualResults = actual.Where(part => !condition(part));
         if (actualResults.Any())
-            throw new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
     /// Asserts that the enumerable is empty.
     /// </summary>
+#pragma warning disable CS8777 // Parameter must have a non-null value when exiting - ThrowHelper.ThrowOrRecord may not throw when AssertionScope is active
     public static void ShouldBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual == null || actual.Any())
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString()));
     }
+#pragma warning restore CS8777
 
     /// <summary>
     /// Asserts that the enumerable is not empty.
     /// </summary>
+#pragma warning disable CS8777
     public static void ShouldNotBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual == null || !actual.Any())
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString()));
     }
+#pragma warning restore CS8777
 
     /// <summary>
     /// Asserts that the enumerable contains exactly one element and returns it.
@@ -127,7 +131,12 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual == null || actual.Count() != 1)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+        {
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString()));
+#pragma warning disable CS8777
+            return default!;
+#pragma warning restore CS8777
+        }
 
         return actual.Single();
     }
@@ -139,7 +148,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -149,7 +158,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -163,7 +172,7 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         var missing = actual.Except(expected);
         if (missing.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -177,7 +186,7 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         var missing = actual.Except(expected, comparer);
         if (missing.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -188,7 +197,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var duplicates = GetDuplicates(actual);
         if (duplicates.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -199,7 +208,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var duplicates = GetDuplicates(actual, comparer);
         if (duplicates.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -276,8 +285,9 @@ public static partial class ShouldBeEnumerableTestExtensions
             if (++currentIndex > 0 // We only need to start comparing once we've passed the first item in the list
                 && isOutOfOrder(previousItem!, currentItem))
             {
-                throw new ShouldAssertException(
-                    new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage, actualExpression: actualExpression).ToString());
+                ThrowHelper.ThrowOrRecord(
+                    new ShouldAssertException(new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage, actualExpression: actualExpression).ToString()));
+                return;
             }
 
             previousItem = currentItem;

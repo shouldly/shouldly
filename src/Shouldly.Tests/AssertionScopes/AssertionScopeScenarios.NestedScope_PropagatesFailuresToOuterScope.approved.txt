@@ -1,0 +1,17 @@
+2 assertions in this scope failed:
+--------------- Error 1 ---------------
+    1
+        should be
+    2
+        but was not
+
+--------------- Error 2 ---------------
+    "inner"
+        should be
+    "outer"
+        but was not
+        difference
+    Expected: "outer"
+    Actual:   "inner"
+
+-----------------------------------------

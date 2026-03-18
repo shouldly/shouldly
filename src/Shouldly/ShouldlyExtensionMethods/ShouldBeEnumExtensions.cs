@@ -18,7 +18,7 @@ public static partial class ShouldHaveEnumExtensions
         CheckEnumHasFlagAttribute(actual);
         if (!actual.HasFlag(expectedFlag))
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString()));
         }
     }
 
@@ -31,7 +31,7 @@ public static partial class ShouldHaveEnumExtensions
         CheckEnumHasFlagAttribute(actual);
         if (actual.HasFlag(expectedFlag))
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString()));
         }
     }
 

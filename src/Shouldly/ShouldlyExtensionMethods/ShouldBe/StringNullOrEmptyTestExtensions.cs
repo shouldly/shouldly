@@ -13,17 +13,19 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!string.IsNullOrEmpty(actual))
-            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
     /// Asserts that a string is not null or empty
     /// </summary>
     [ContractAnnotation("actual:null => halt")]
+#pragma warning disable CS8777 // Parameter must have a non-null value when exiting - ThrowHelper.ThrowOrRecord may not throw when AssertionScope is active
     public static void ShouldNotBeNullOrEmpty([NotNull] this string? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (string.IsNullOrEmpty(actual))
-            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString()));
     }
+#pragma warning restore CS8777
 }

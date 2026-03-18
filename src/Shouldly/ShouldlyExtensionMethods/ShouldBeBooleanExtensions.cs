@@ -19,7 +19,7 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -31,10 +31,13 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual is null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(true, customMessage, actualExpression: actualExpression).ToString());
+        {
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(true, customMessage, actualExpression: actualExpression).ToString()));
+            return;
+        }
 
         if (actual.Value != true)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -46,7 +49,7 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 
     /// <summary>
@@ -58,9 +61,12 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual is null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(false, customMessage, actualExpression: actualExpression).ToString());
+        {
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(false, customMessage, actualExpression: actualExpression).ToString()));
+            return;
+        }
 
         if (actual.Value != false)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage, actualExpression: actualExpression).ToString()));
     }
 }

@@ -53,10 +53,11 @@ public static class ShouldlyCoreExtensions
         }
         catch (ArgumentException ex)
         {
-            throw new ShouldAssertException(ex.Message, ex);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(ex.Message, ex));
+            return;
         }
 
-        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString()));
     }
 
     /// <summary>
@@ -84,11 +85,12 @@ public static class ShouldlyCoreExtensions
         }
         catch (ArgumentException ex)
         {
-            throw new ShouldAssertException(ex.Message, ex);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(ex.Message, ex));
+            return;
         }
 
         var message = new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression);
-        throw new ShouldAssertException(message.ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(message.ToString()));
     }
 
     /// <summary>
@@ -115,10 +117,11 @@ public static class ShouldlyCoreExtensions
         }
         catch (ArgumentException ex)
         {
-            throw new ShouldAssertException(ex.Message, ex);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(ex.Message, ex));
+            return;
         }
 
-        throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString()));
     }
 
     /// <summary>
@@ -146,10 +149,11 @@ public static class ShouldlyCoreExtensions
         }
         catch (ArgumentException ex)
         {
-            throw new ShouldAssertException(ex.Message, ex);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(ex.Message, ex));
+            return;
         }
 
-        throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod, actualExpression).ToString()));
     }
 
     /// <summary>
@@ -177,9 +181,11 @@ public static class ShouldlyCoreExtensions
         }
         catch (ArgumentException ex)
         {
-            throw new ShouldAssertException(ex.Message, ex);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(ex.Message, ex));
+            return;
         }
 
-        throw new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression).ToString()));
     }
+
 }

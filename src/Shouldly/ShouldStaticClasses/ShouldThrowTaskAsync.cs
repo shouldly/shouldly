@@ -52,10 +52,12 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace, actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace, actualExpression).ToString()));
+            return default!;
         }
 
-        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -81,10 +83,12 @@ public static partial class Should
             if (e.GetType() == exceptionType)
                 return e;
 
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, e.GetType(), customMessage, actualExpression: actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, e.GetType(), customMessage, actualExpression: actualExpression).ToString()));
+            return default!;
         }
 
-        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace, shouldlyMethod, actualExpression).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -127,13 +131,15 @@ public static partial class Should
                 if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                 {
                     var inner = flattened.InnerException;
-                    throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), customMessage, stackTrace, inner.Message, shouldlyMethod, actualExpression).ToString());
+                    ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), customMessage, stackTrace, inner.Message, shouldlyMethod, actualExpression).ToString()));
+                    return;
                 }
 
-                throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(aggregate.GetType(), customMessage, stackTrace, aggregate.Message, shouldlyMethod, actualExpression).ToString());
+                ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(aggregate.GetType(), customMessage, stackTrace, aggregate.Message, shouldlyMethod, actualExpression).ToString()));
+                return;
             }
 
-            throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(ex.GetType(), customMessage, stackTrace, ex.Message, shouldlyMethod, actualExpression).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(ex.GetType(), customMessage, stackTrace, ex.Message, shouldlyMethod, actualExpression).ToString()));
         }
     }
 }
