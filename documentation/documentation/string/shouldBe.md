@@ -18,6 +18,10 @@ target
 "Bart"
     but was
 "Homer"
+    difference
+Expected: "Bart"
+Actual:   "Homer"
+Strings differ significantly
 ```
 <!-- endInclude -->
 
