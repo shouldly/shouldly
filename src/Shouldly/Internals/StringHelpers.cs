@@ -132,11 +132,12 @@ static class StringHelpers
         return stringToClip;
     }
 
-    internal static string ToSafeString(this char c)
+    internal static string ToSafeString(this char c, EscapeStyle? escapeStyleOverride = null)
     {
         if (char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' '))
         {
-            if (ShouldlyConfiguration.EscapeStyle == EscapeStyle.ControlPictures)
+            var escapeStyle = escapeStyleOverride ?? ShouldlyConfiguration.EscapeStyle;
+            if (escapeStyle == EscapeStyle.ControlPictures)
             {
                 // Unicode control pictures (U+2400 block)
                 return c switch
@@ -150,6 +151,21 @@ static class StringHelpers
                     '\r' => "\u240D", // ␍ CR
                     _ when (int)c <= 0x26 => ((char)(0x2400 + c)).ToString(), // Other control chars
                     _ => $"\\u{(int)c:X4};"
+                };
+            }
+
+            if (escapeStyle == EscapeStyle.Descriptive)
+            {
+                return c switch
+                {
+                    '\0' => "<NUL>",
+                    '\a' => "<BEL>",
+                    '\t' => "<TAB>",
+                    '\n' => "<LF>",
+                    '\v' => "<VT>",
+                    '\f' => "<FF>",
+                    '\r' => "<CR>",
+                    _ => $"<U+{(int)c:X4}>"
                 };
             }
 

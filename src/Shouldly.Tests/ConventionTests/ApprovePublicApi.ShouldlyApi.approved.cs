@@ -42,6 +42,7 @@ namespace Shouldly
     {
         CStyle = 0,
         ControlPictures = 1,
+        Descriptive = 2,
     }
     public class ExpectedActualIgnoreOrderShouldlyMessage : Shouldly.ShouldlyMessage
     {

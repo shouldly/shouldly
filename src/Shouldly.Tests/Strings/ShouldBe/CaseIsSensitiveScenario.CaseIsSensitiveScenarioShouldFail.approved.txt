@@ -4,6 +4,10 @@ str
 "sAMPLe"
     but was
 "SamplE"
+    difference
+Expected: "sAMPLe"
+Actual:   "SamplE"
+Strings differ significantly
 
 Additional Info:
     Some additional context
@@ -12,6 +16,10 @@ Additional Info:
     should be
 "sAMPLe"
     but was not
+    difference
+Expected: "sAMPLe"
+Actual:   "SamplE"
+Strings differ significantly
 
 Additional Info:
     Some additional context

@@ -4,6 +4,10 @@ str
 "different"
     but was
 "SamplE"
+    difference
+Expected: "different"
+Actual:   "SamplE"
+Strings differ significantly
 
 Additional Info:
     Some additional context
@@ -12,6 +16,10 @@ Additional Info:
     should be with options: Ignoring case
 "different"
     but was not
+    difference
+Expected: "different"
+Actual:   "SamplE"
+Strings differ significantly
 
 Additional Info:
     Some additional context

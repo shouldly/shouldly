@@ -29,6 +29,29 @@ class FormattedDetailedDifferenceString
         var expectedDisplay = BuildDisplayString(_expectedValue);
         var actualDisplay = BuildDisplayString(_actualValue);
 
+        // Detect collision: display strings look identical but source strings differ
+        // This happens when one has real control chars and the other has literal escape text
+        if (expectedDisplay == actualDisplay && _expectedValue != _actualValue)
+        {
+            var expectedHasControlChars = _expectedValue.Any(c => c.NeedsEscaping());
+            var actualHasControlChars = _actualValue.Any(c => c.NeedsEscaping());
+
+            // Use ASCII-safe descriptive names when DiffStyle is Ascii, otherwise Unicode control pictures
+            var fallbackEscape = ShouldlyConfiguration.DiffStyle == DiffStyle.Ascii
+                ? EscapeStyle.Descriptive
+                : EscapeStyle.ControlPictures;
+
+            if (expectedHasControlChars && !actualHasControlChars)
+                expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
+            else if (actualHasControlChars && !expectedHasControlChars)
+                actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+            else if (expectedHasControlChars && actualHasControlChars)
+            {
+                expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
+                actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+            }
+        }
+
         // Find diff region via prefix/suffix matching on source chars
         var commonPrefixLen = FindCommonPrefixLength();
         var commonSuffixLen = FindCommonSuffixLength(commonPrefixLen);
@@ -82,13 +105,16 @@ class FormattedDetailedDifferenceString
         }
         else
         {
-            return null;
+            // Show Expected/Actual lines without markers, plus a hint
+            sb.AppendLine($"{prefix}{expectedDisplay}");
+            sb.AppendLine($"Actual:   {actualDisplay}");
+            sb.Append("Strings differ significantly");
         }
 
         return sb.ToString();
     }
 
-    private string BuildDisplayString(string value)
+    private string BuildDisplayString(string value, EscapeStyle? escapeStyleOverride = null)
     {
         var sb = new StringBuilder();
 
@@ -100,7 +126,7 @@ class FormattedDetailedDifferenceString
         foreach (var c in value)
         {
             if (c.NeedsEscaping())
-                sb.Append(c.ToSafeString());
+                sb.Append(c.ToSafeString(escapeStyleOverride));
             else
                 sb.Append(c);
         }
