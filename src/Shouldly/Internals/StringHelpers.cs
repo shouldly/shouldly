@@ -149,6 +149,7 @@ static class StringHelpers
                     '\v' => "\u240B", // ␋ VT
                     '\f' => "\u240C", // ␌ FF
                     '\r' => "\u240D", // ␍ CR
+                    '\u007F' => "\u2421", // ␡ DEL
                     _ when (int)c <= 0x26 => ((char)(0x2400 + c)).ToString(), // Other control chars
                     _ => $"\\u{(int)c:X4};"
                 };
@@ -165,6 +166,7 @@ static class StringHelpers
                     '\v' => "<VT>",
                     '\f' => "<FF>",
                     '\r' => "<CR>",
+                    '\u007F' => "<DEL>",
                     _ => $"<U+{(int)c:X4}>"
                 };
             }

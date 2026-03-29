@@ -191,8 +191,6 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         // Check for CRLF vs LF difference
         var expectedHasCrlf = expected.Contains("\r\n");
         var actualHasCrlf = actual.Contains("\r\n");
-        var expectedHasLf = expected.Contains('\n') && !expectedHasCrlf;
-        var actualHasLf = actual.Contains('\n') && !actualHasCrlf;
 
         // More nuanced: check if after normalizing line endings the strings are equal
         var normalizedExpected = expected.Replace("\r\n", "\n");
@@ -228,8 +226,7 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
             return false;
 
         if (_sensitivity == Case.Insensitive)
-            return StringComparer.OrdinalIgnoreCase.Equals(
-                expected[index].ToString(), actual[index].ToString());
+            return char.ToUpperInvariant(expected[index]) == char.ToUpperInvariant(actual[index]);
 
         return expected[index] == actual[index];
     }
@@ -257,11 +254,12 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var maxSuffix = Math.Min(expected.Length, actual.Length) - commonPrefix;
         for (var i = 0; i < maxSuffix; i++)
         {
-            if (_sensitivity == Case.Insensitive
-                ? !StringComparer.OrdinalIgnoreCase.Equals(
-                    expected[expected.Length - 1 - i].ToString(),
-                    actual[actual.Length - 1 - i].ToString())
-                : expected[expected.Length - 1 - i] != actual[actual.Length - 1 - i])
+            var ec = expected[expected.Length - 1 - i];
+            var ac = actual[actual.Length - 1 - i];
+            var equal = _sensitivity == Case.Insensitive
+                ? char.ToUpperInvariant(ec) == char.ToUpperInvariant(ac)
+                : ec == ac;
+            if (!equal)
                 return i;
         }
         return maxSuffix;

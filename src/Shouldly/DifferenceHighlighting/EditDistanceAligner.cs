@@ -2,11 +2,24 @@ namespace Shouldly.DifferenceHighlighting;
 
 static class EditDistanceAligner
 {
+    private const int MaxAlignmentSize = 200;
+
     internal static (bool[] expectedEdits, bool[] actualEdits) Align(
         string expected, string actual, Case caseSensitivity)
     {
         var m = expected.Length;
         var n = actual.Length;
+
+        // For very large diff regions, skip alignment — the DP matrix would be too expensive.
+        // Return all-true arrays so every char is marked as an edit.
+        if (m > MaxAlignmentSize || n > MaxAlignmentSize)
+        {
+            var allExpected = new bool[m];
+            var allActual = new bool[n];
+            Array.Fill(allExpected, true);
+            Array.Fill(allActual, true);
+            return (allExpected, allActual);
+        }
 
         // Build DP matrix
         var dp = new int[m + 1, n + 1];
@@ -72,7 +85,7 @@ static class EditDistanceAligner
     private static bool CharsEqual(char a, char b, Case caseSensitivity)
     {
         if (caseSensitivity == Case.Insensitive)
-            return StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), b.ToString());
+            return char.ToUpperInvariant(a) == char.ToUpperInvariant(b);
         return a == b;
     }
 }

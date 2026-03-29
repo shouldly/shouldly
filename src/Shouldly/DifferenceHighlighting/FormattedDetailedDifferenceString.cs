@@ -234,7 +234,7 @@ class FormattedDetailedDifferenceString
     private bool CharsEqual(char a, char b)
     {
         if (_caseSensitivity == Case.Insensitive)
-            return StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), b.ToString());
+            return char.ToUpperInvariant(a) == char.ToUpperInvariant(b);
         return a == b;
     }
 
