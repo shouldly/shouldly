@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Shouldly.DifferenceHighlighting;
 
 class FormattedDetailedDifferenceString
@@ -101,6 +103,15 @@ class FormattedDetailedDifferenceString
                 sb.AppendLine();
                 sb.Append(' ', markerOffset);
                 sb.Append(bottomMarkers);
+            }
+
+            // When edited chars are visually ambiguous (combining marks, zero-width, format chars),
+            // show codepoints so the user can see what actually differs
+            var codepointHint = BuildCodepointHint(expectedDiffRegion, expectedEdits, actualDiffRegion, actualEdits, commonPrefixLen);
+            if (codepointHint != null)
+            {
+                sb.AppendLine();
+                sb.Append(codepointHint);
             }
         }
         else
@@ -226,4 +237,65 @@ class FormattedDetailedDifferenceString
             return StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), b.ToString());
         return a == b;
     }
+
+    /// <summary>
+    /// Returns true if a character is visually ambiguous — invisible or modifies
+    /// an adjacent character rather than being distinct on its own.
+    /// </summary>
+    private static bool IsVisuallyAmbiguous(char c)
+    {
+        var category = char.GetUnicodeCategory(c);
+        return category is
+            UnicodeCategory.NonSpacingMark or        // combining accents, diacritics
+            UnicodeCategory.SpacingCombiningMark or   // combining marks that take space
+            UnicodeCategory.EnclosingMark or          // enclosing combining marks
+            UnicodeCategory.Format;                   // zero-width chars, BOM, bidi marks
+    }
+
+    private static string? BuildCodepointHint(
+        string expectedRegion, bool[] expectedEdits,
+        string actualRegion, bool[] actualEdits,
+        int regionStartIndex)
+    {
+        var expectedEditedChars = GetEditedChars(expectedRegion, expectedEdits);
+        var actualEditedChars = GetEditedChars(actualRegion, actualEdits);
+
+        // Only show hint when the edit is small and contains visually ambiguous chars.
+        // Large diffs that happen to contain a variation selector aren't helped by codepoints.
+        var hasAmbiguous = expectedEditedChars.Any(IsVisuallyAmbiguous)
+                        || actualEditedChars.Any(IsVisuallyAmbiguous);
+        if (!hasAmbiguous) return null;
+        if (expectedEditedChars.Count > 3 || actualEditedChars.Count > 3) return null;
+
+        var sb = new StringBuilder();
+        sb.Append($"Difference at index {regionStartIndex}: ");
+
+        if (expectedEditedChars.Count > 0)
+            sb.Append(FormatCodepoints(expectedEditedChars));
+        else
+            sb.Append("(empty)");
+
+        sb.Append(" vs ");
+
+        if (actualEditedChars.Count > 0)
+            sb.Append(FormatCodepoints(actualEditedChars));
+        else
+            sb.Append("(empty)");
+
+        return sb.ToString();
+    }
+
+    private static List<char> GetEditedChars(string region, bool[] edits)
+    {
+        var chars = new List<char>();
+        for (var i = 0; i < region.Length && i < edits.Length; i++)
+        {
+            if (edits[i])
+                chars.Add(region[i]);
+        }
+        return chars;
+    }
+
+    private static string FormatCodepoints(List<char> chars) =>
+        string.Join(" ", chars.Select(c => $"U+{(int)c:X4}"));
 }

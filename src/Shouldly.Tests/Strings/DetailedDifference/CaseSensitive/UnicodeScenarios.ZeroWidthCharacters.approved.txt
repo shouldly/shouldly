@@ -8,6 +8,7 @@ str
 Expected: "foobar"
 Actual:   "foo​bar"
               ▲
+Difference at index 3: (empty) vs U+200B
 ---- Without Source ----
 "foo​bar"
     should be
@@ -17,3 +18,4 @@ Actual:   "foo​bar"
 Expected: "foobar"
 Actual:   "foo​bar"
               ▲
+Difference at index 3: (empty) vs U+200B
