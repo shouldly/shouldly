@@ -16,8 +16,8 @@ static class EditDistanceAligner
         {
             var allExpected = new bool[m];
             var allActual = new bool[n];
-            Array.Fill(allExpected, true);
-            Array.Fill(allActual, true);
+            for (var i = 0; i < m; i++) allExpected[i] = true;
+            for (var i = 0; i < n; i++) allActual[i] = true;
             return (allExpected, allActual);
         }
 
