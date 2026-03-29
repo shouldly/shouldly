@@ -4,22 +4,16 @@ static class EditDistanceAligner
 {
     private const int MaxAlignmentSize = 200;
 
-    internal static (bool[] expectedEdits, bool[] actualEdits) Align(
+    internal static (bool[]? expectedEdits, bool[]? actualEdits) Align(
         string expected, string actual, Case caseSensitivity)
     {
         var m = expected.Length;
         var n = actual.Length;
 
         // For very large diff regions, skip alignment — the DP matrix would be too expensive.
-        // Return all-true arrays so every char is marked as an edit.
+        // Return null to signal the caller should skip marker generation entirely.
         if (m > MaxAlignmentSize || n > MaxAlignmentSize)
-        {
-            var allExpected = new bool[m];
-            var allActual = new bool[n];
-            for (var i = 0; i < m; i++) allExpected[i] = true;
-            for (var i = 0; i < n; i++) allActual[i] = true;
-            return (allExpected, allActual);
-        }
+            return (null, null);
 
         // Build DP matrix
         var dp = new int[m + 1, n + 1];

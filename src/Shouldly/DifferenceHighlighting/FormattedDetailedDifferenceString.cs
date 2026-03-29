@@ -67,10 +67,14 @@ class FormattedDetailedDifferenceString
         var (expectedEdits, actualEdits) = EditDistanceAligner.Align(
             expectedDiffRegion, actualDiffRegion, _caseSensitivity);
 
-        // Suppress markers when strings are too different — they become noise
-        var totalChars = _expectedValue.Length + _actualValue.Length;
-        var editCount = CountEdits(expectedEdits) + CountEdits(actualEdits);
-        var showMarkers = totalChars > 0 && editCount * 2 <= totalChars;
+        // Suppress markers when alignment was skipped (too large) or strings are too different
+        var showMarkers = false;
+        if (expectedEdits != null && actualEdits != null)
+        {
+            var totalChars = _expectedValue.Length + _actualValue.Length;
+            var editCount = CountEdits(expectedEdits) + CountEdits(actualEdits);
+            showMarkers = totalChars > 0 && editCount * 2 <= totalChars;
+        }
 
         var sb = new StringBuilder();
         var prefix = "Expected: ";
@@ -86,7 +90,7 @@ class FormattedDetailedDifferenceString
             var markerOffset = prefix.Length + displayDiffStart;
 
             // Top markers (expected edits)
-            var topMarkers = BuildMarkerLine(downMarker, expectedDiffRegion, expectedEdits);
+            var topMarkers = BuildMarkerLine(downMarker, expectedDiffRegion, expectedEdits!);
             if (topMarkers.Length > 0)
             {
                 sb.Append(' ', markerOffset);
@@ -97,7 +101,7 @@ class FormattedDetailedDifferenceString
             sb.Append($"Actual:   {actualDisplay}");
 
             // Bottom markers (actual edits)
-            var bottomMarkers = BuildMarkerLine(upMarker, actualDiffRegion, actualEdits);
+            var bottomMarkers = BuildMarkerLine(upMarker, actualDiffRegion, actualEdits!);
             if (bottomMarkers.Length > 0)
             {
                 sb.AppendLine();
@@ -107,7 +111,7 @@ class FormattedDetailedDifferenceString
 
             // When edited chars are visually ambiguous (combining marks, zero-width, format chars),
             // show codepoints so the user can see what actually differs
-            var codepointHint = BuildCodepointHint(expectedDiffRegion, expectedEdits, actualDiffRegion, actualEdits, commonPrefixLen);
+            var codepointHint = BuildCodepointHint(expectedDiffRegion, expectedEdits!, actualDiffRegion, actualEdits!, commonPrefixLen);
             if (codepointHint != null)
             {
                 sb.AppendLine();

@@ -98,7 +98,7 @@ class LineDiffFormatter
     {
         // Show trailing \r explicitly since it's invisible
         if (line.Length > 0 && line[line.Length - 1] == '\r')
-            return line[..^1] + "\\r";
+            return line[..^1] + '\r'.ToSafeString();
         return line;
     }
 
@@ -155,7 +155,7 @@ class LineDiffFormatter
     private bool CharsEqual(char a, char b)
     {
         if (_caseSensitivity == Case.Insensitive)
-            return StringComparer.OrdinalIgnoreCase.Equals(a.ToString(), b.ToString());
+            return char.ToUpperInvariant(a) == char.ToUpperInvariant(b);
         return a == b;
     }
 }

@@ -193,8 +193,8 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var actualHasCrlf = actual.Contains("\r\n");
 
         // More nuanced: check if after normalizing line endings the strings are equal
-        var normalizedExpected = expected.Replace("\r\n", "\n");
-        var normalizedActual = actual.Replace("\r\n", "\n");
+        var normalizedExpected = expected.NormalizeLineEndings()!;
+        var normalizedActual = actual.NormalizeLineEndings()!;
 
         if (expectedHasCrlf && !actualHasCrlf && normalizedExpected == normalizedActual)
             return "Line endings differ: expected uses CRLF (\\r\\n), actual uses LF (\\n)";
