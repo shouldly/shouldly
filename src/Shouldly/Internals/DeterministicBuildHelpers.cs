@@ -70,16 +70,19 @@ static class DeterministicBuildHelpers
 
     private static string? TryReadPathMapsFile()
     {
-        try
-        {
-            // Scan candidate directories for all ShouldlyPathMaps_* files and merge them.
-            // We can't rely on the entry assembly name because under VSTest the entry
-            // assembly is "testhost", not the test project that the sidecar was written for.
-            // Multiple test assemblies may share an output directory, so we merge all mappings.
-            var allMappings = new List<string>();
+        // Scan candidate directories for all ShouldlyPathMaps_* files and merge them.
+        // We can't rely on the entry assembly name because under VSTest the entry
+        // assembly is "testhost", not the test project that the sidecar was written for.
+        // Multiple test assemblies may share an output directory, so we merge all mappings.
+        var allMappings = new List<string>();
 
-            foreach (var dir in GetCandidateDirectories())
+        foreach (var dir in GetCandidateDirectories())
+        {
+            try
             {
+                if (!Directory.Exists(dir))
+                    continue;
+
                 var matches = Directory.GetFiles(dir, "ShouldlyPathMaps_*")
                     .OrderBy(path => path, StringComparer.Ordinal);
 
@@ -90,16 +93,15 @@ static class DeterministicBuildHelpers
                         allMappings.Add(contents);
                 }
             }
-
-            if (allMappings.Count > 0)
-                return string.Join(",", allMappings);
-        }
-        catch
-        {
-            // Silently fail - source expressions just won't resolve deterministic paths
+            catch
+            {
+                // Continue to next candidate directory
+            }
         }
 
-        return null;
+        return allMappings.Count > 0
+            ? string.Join(",", allMappings)
+            : null;
     }
 
     private static IEnumerable<string> GetCandidateDirectories()
