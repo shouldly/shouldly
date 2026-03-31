@@ -33,9 +33,12 @@ public static class ShouldMatchApprovedTestExtensions
 
         var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
         var discriminator = config.FilenameDiscriminator == null ? null : "." + config.FilenameDiscriminator;
-        var outputFolder = testMethodInfo.SourceFileDirectory ?? "";
+        var outputFolder = testMethodInfo.SourceFileDirectory;
 
-        if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder) && !string.IsNullOrEmpty(outputFolder))
+        if (string.IsNullOrEmpty(outputFolder))
+            throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+
+        if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
         {
             outputFolder = Path.Combine(outputFolder, config.ApprovalFileSubFolder);
         }
@@ -43,8 +46,8 @@ public static class ShouldMatchApprovedTestExtensions
         var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "approved", config.FileExtension));
         var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "received", config.FileExtension));
 
-        if (string.IsNullOrEmpty(testMethodInfo.SourceFileDirectory))
-            throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+        // Check the resolved file path, not the raw source directory — a custom FilenameGenerator
+        // may produce an absolute path that resolves the deterministic prefix itself.
         if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(approvedFile))
             throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
 

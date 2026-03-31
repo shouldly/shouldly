@@ -7,16 +7,32 @@ static class DeterministicBuildHelpers
     private static readonly Lazy<IEnumerable<(string, string)>> LazySourcePathMap
         = new(ResolveSourcePathMappings);
 
+    private static readonly Lazy<string?> LazyDiscoveredRepoRoot
+        = new(TryDiscoverRepoRoot);
+
     private static IEnumerable<(string, string)> SourcePathMap => LazySourcePathMap.Value;
 
     internal static string? ResolveDeterministicPaths(string? fileName)
     {
+        if (fileName == null)
+            return null;
+
         foreach (var (path, placeholder) in SourcePathMap)
         {
-            if (fileName?.StartsWith(placeholder, StringComparison.Ordinal) == true)
+            if (fileName.StartsWith(placeholder, StringComparison.Ordinal))
             {
                 return fileName.Replace(placeholder, path);
             }
+        }
+
+        // Last resort: if we discovered a repo root but have no explicit mappings,
+        // use regex to handle any numbered deterministic prefix (/_/, /_0/, /_10/, etc.)
+        var repoRoot = LazyDiscoveredRepoRoot.Value;
+        if (repoRoot != null)
+        {
+            var match = DeterministicPathRegex.Match(fileName);
+            if (match.Success)
+                return repoRoot + fileName.Remove(0, match.Length);
         }
 
         return fileName;
@@ -36,11 +52,6 @@ static class DeterministicBuildHelpers
         if (fileContents != null)
             return ParsePathMapFormat(fileContents);
 
-        // Priority 3: Runtime repo root discovery
-        var repoRoot = TryDiscoverRepoRoot();
-        if (repoRoot != null)
-            return GenerateRepoRootMappings(repoRoot);
-
         return [];
     }
 
@@ -57,32 +68,14 @@ static class DeterministicBuildHelpers
     {
         try
         {
-            var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
-            if (entryAssembly == null)
-                return null;
-
-            var assemblyName = entryAssembly.GetName().Name;
-            var fileName = $"ShouldlyPathMaps_{assemblyName}";
-
-            // Try AppContext.BaseDirectory first
-            var baseDir = AppContext.BaseDirectory;
-            var pathMapsFile = Path.Combine(baseDir, fileName);
-            if (File.Exists(pathMapsFile))
-                return File.ReadAllText(pathMapsFile).Trim();
-
-            // Fallback: try the directory containing the entry assembly.
-            // Under coverage tool hosts, AppContext.BaseDirectory may point elsewhere
-            // but Assembly.Location still points to the original output directory.
-            var assemblyLocation = entryAssembly.Location;
-            if (!string.IsNullOrEmpty(assemblyLocation))
+            // Scan candidate directories for any ShouldlyPathMaps_* file.
+            // We can't rely on the entry assembly name because under VSTest the entry
+            // assembly is "testhost", not the test project that the sidecar was written for.
+            foreach (var dir in GetCandidateDirectories())
             {
-                var assemblyDir = Path.GetDirectoryName(assemblyLocation);
-                if (assemblyDir != null && assemblyDir != baseDir)
-                {
-                    pathMapsFile = Path.Combine(assemblyDir, fileName);
-                    if (File.Exists(pathMapsFile))
-                        return File.ReadAllText(pathMapsFile).Trim();
-                }
+                var match = Directory.GetFiles(dir, "ShouldlyPathMaps_*").FirstOrDefault();
+                if (match != null)
+                    return File.ReadAllText(match).Trim();
             }
         }
         catch
@@ -93,6 +86,28 @@ static class DeterministicBuildHelpers
         return null;
     }
 
+    private static IEnumerable<string> GetCandidateDirectories()
+    {
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // Try AppContext.BaseDirectory first
+        var baseDir = AppContext.BaseDirectory;
+        if (seen.Add(baseDir))
+            yield return baseDir;
+
+        // Fallback: try the directory containing the entry assembly.
+        // Under coverage tool hosts, AppContext.BaseDirectory may point elsewhere
+        // but Assembly.Location still points to the original output directory.
+        var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
+        var assemblyLocation = entryAssembly?.Location;
+        if (!string.IsNullOrEmpty(assemblyLocation))
+        {
+            var assemblyDir = Path.GetDirectoryName(assemblyLocation);
+            if (assemblyDir != null && seen.Add(assemblyDir))
+                yield return assemblyDir;
+        }
+    }
+
     private static string? TryDiscoverRepoRoot()
     {
         try
@@ -100,7 +115,9 @@ static class DeterministicBuildHelpers
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
             while (dir != null)
             {
-                if (Directory.Exists(Path.Combine(dir.FullName, ".git")) ||
+                var gitPath = Path.Combine(dir.FullName, ".git");
+                if (Directory.Exists(gitPath) ||
+                    File.Exists(gitPath) || // .git can be a file in worktrees/submodules
                     File.Exists(Path.Combine(dir.FullName, "global.json")))
                 {
                     return EnsureTrailingSlash(dir.FullName);
@@ -115,14 +132,6 @@ static class DeterministicBuildHelpers
         }
 
         return null;
-    }
-
-    private static IEnumerable<(string, string)> GenerateRepoRootMappings(string repoRoot)
-    {
-        // Generate mappings for /_/ through /_9/ to cover numbered deterministic prefixes
-        yield return (repoRoot, "/_/");
-        for (var i = 0; i <= 9; i++)
-            yield return (repoRoot, $"/_{i}/");
     }
 
     private static string EnsureTrailingSlash(string path)
