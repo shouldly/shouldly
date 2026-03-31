@@ -33,20 +33,24 @@ public static class ShouldMatchApprovedTestExtensions
 
         var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
         var discriminator = config.FilenameDiscriminator == null ? null : "." + config.FilenameDiscriminator;
-        var outputFolder = testMethodInfo.SourceFileDirectory;
-        if (string.IsNullOrEmpty(outputFolder))
-            throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
-        if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(outputFolder))
-            throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+        var outputFolder = testMethodInfo.SourceFileDirectory ?? "";
 
-        if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
+        if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder) && !string.IsNullOrEmpty(outputFolder))
         {
             outputFolder = Path.Combine(outputFolder, config.ApprovalFileSubFolder);
-            Directory.CreateDirectory(outputFolder);
         }
 
         var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "approved", config.FileExtension));
         var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "received", config.FileExtension));
+
+        if (string.IsNullOrEmpty(testMethodInfo.SourceFileDirectory))
+            throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+        if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(approvedFile))
+            throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+
+        if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
+            Directory.CreateDirectory(outputFolder);
+
         File.WriteAllText(receivedFile, actual);
 
         if (!File.Exists(approvedFile))
