@@ -53,7 +53,11 @@ public static class ShouldMatchApprovedTestExtensions
             throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
 
         if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
-            Directory.CreateDirectory(outputFolder);
+        {
+            var directoryToCreate = Path.GetDirectoryName(receivedFile);
+            if (!string.IsNullOrEmpty(directoryToCreate))
+                Directory.CreateDirectory(directoryToCreate);
+        }
 
         File.WriteAllText(receivedFile, actual);
 

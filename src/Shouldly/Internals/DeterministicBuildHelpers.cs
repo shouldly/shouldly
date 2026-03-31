@@ -128,18 +128,24 @@ static class DeterministicBuildHelpers
     {
         try
         {
-            var dir = new DirectoryInfo(AppContext.BaseDirectory);
-            while (dir != null)
+            // Walk up from each candidate directory (AppContext.BaseDirectory, then Assembly.Location).
+            // Under coverage/tooling hosts that redirect AppContext.BaseDirectory, the assembly
+            // location may be the only path that leads to the actual repo root.
+            foreach (var candidate in GetCandidateDirectories())
             {
-                var gitPath = Path.Combine(dir.FullName, ".git");
-                if (Directory.Exists(gitPath) ||
-                    File.Exists(gitPath) || // .git can be a file in worktrees/submodules
-                    File.Exists(Path.Combine(dir.FullName, "global.json")))
+                var dir = new DirectoryInfo(candidate);
+                while (dir != null)
                 {
-                    return EnsureTrailingSlash(dir.FullName);
-                }
+                    var gitPath = Path.Combine(dir.FullName, ".git");
+                    if (Directory.Exists(gitPath) ||
+                        File.Exists(gitPath) || // .git can be a file in worktrees/submodules
+                        File.Exists(Path.Combine(dir.FullName, "global.json")))
+                    {
+                        return EnsureTrailingSlash(dir.FullName);
+                    }
 
-                dir = dir.Parent;
+                    dir = dir.Parent;
+                }
             }
         }
         catch
