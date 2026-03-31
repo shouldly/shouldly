@@ -32,7 +32,11 @@ static class DeterministicBuildHelpers
         {
             var match = DeterministicPathRegex.Match(fileName);
             if (match.Success)
-                return repoRoot + fileName.Remove(0, match.Length);
+            {
+                var candidate = repoRoot + fileName.Remove(0, match.Length);
+                if (File.Exists(candidate))
+                    return candidate;
+            }
         }
 
         return fileName;
@@ -68,15 +72,27 @@ static class DeterministicBuildHelpers
     {
         try
         {
-            // Scan candidate directories for any ShouldlyPathMaps_* file.
+            // Scan candidate directories for all ShouldlyPathMaps_* files and merge them.
             // We can't rely on the entry assembly name because under VSTest the entry
             // assembly is "testhost", not the test project that the sidecar was written for.
+            // Multiple test assemblies may share an output directory, so we merge all mappings.
+            var allMappings = new List<string>();
+
             foreach (var dir in GetCandidateDirectories())
             {
-                var match = Directory.GetFiles(dir, "ShouldlyPathMaps_*").FirstOrDefault();
-                if (match != null)
-                    return File.ReadAllText(match).Trim();
+                var matches = Directory.GetFiles(dir, "ShouldlyPathMaps_*")
+                    .OrderBy(path => path, StringComparer.Ordinal);
+
+                foreach (var match in matches)
+                {
+                    var contents = File.ReadAllText(match).Trim();
+                    if (!string.IsNullOrEmpty(contents))
+                        allMappings.Add(contents);
+                }
             }
+
+            if (allMappings.Count > 0)
+                return string.Join(",", allMappings);
         }
         catch
         {

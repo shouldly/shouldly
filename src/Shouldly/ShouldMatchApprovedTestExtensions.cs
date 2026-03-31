@@ -46,9 +46,10 @@ public static class ShouldMatchApprovedTestExtensions
         var approvedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "approved", config.FileExtension));
         var receivedFile = Path.Combine(outputFolder, config.FilenameGenerator(testMethodInfo, discriminator, "received", config.FileExtension));
 
-        // Check the resolved file path, not the raw source directory — a custom FilenameGenerator
+        // Check the resolved file paths, not the raw source directory — a custom FilenameGenerator
         // may produce an absolute path that resolves the deterministic prefix itself.
-        if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(approvedFile))
+        if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(approvedFile) ||
+            DeterministicBuildHelpers.PathAppearsToBeDeterministic(receivedFile))
             throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
 
         if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
