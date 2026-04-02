@@ -243,6 +243,14 @@ namespace Shouldly
         public static void ShouldNotContain<T>(this System.Collections.Generic.IEnumerable<T> actual, T expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null) { }
     }
     [Shouldly.ShouldlyMethods]
+    public static class ShouldBeFileSystemInfoTestExtensions
+    {
+        public static void ShouldExist(this System.IO.DirectoryInfo actual, string? customMessage = null) { }
+        public static void ShouldExist(this System.IO.FileInfo actual, string? customMessage = null) { }
+        public static void ShouldNotExist(this System.IO.DirectoryInfo actual, string? customMessage = null) { }
+        public static void ShouldNotExist(this System.IO.FileInfo actual, string? customMessage = null) { }
+    }
+    [Shouldly.ShouldlyMethods]
     public static class ShouldBeNullExtensions
     {
         public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
