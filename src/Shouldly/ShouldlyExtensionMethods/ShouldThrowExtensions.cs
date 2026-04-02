@@ -53,4 +53,11 @@ public static partial class ShouldThrowExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ShouldNotThrow<T>(this Func<T> action, string? customMessage = null) =>
         Should.NotThrowInternal(action, customMessage);
+
+    /// <summary>
+    /// Verifies that the function does not throw an exception of type <typeparamref name="TException"/>.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldNotThrow<TException>(this Action action, string? customMessage = null)  where TException : Exception =>
+        Should.NotThrowInternal<TException>(action, customMessage);
 }
