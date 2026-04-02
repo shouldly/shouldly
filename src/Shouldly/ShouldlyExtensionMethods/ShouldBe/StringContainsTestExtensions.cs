@@ -63,4 +63,64 @@ public static partial class ShouldBeStringTestExtensions
     {
         actual.AssertAwesomely(v => !Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage);
     }
+
+    /// <summary>
+    /// Asserts that the specified string contains all the expected values.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldContainAll(this string actual, string[] expectedValues, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    {
+        actual.AssertAwesomely(v =>
+        {
+            return expectedValues.All(expected =>
+                caseSensitivity == Case.Sensitive
+                    ? Is.StringContainingUsingCaseSensitivity(v, expected)
+                    : Is.StringContainingIgnoreCase(v, expected));
+        }, actual.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage);
+    }
+
+    /// <summary>
+    /// Asserts that the specified string contains at least one of the provided expected values.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldContainAny(this string actual, string[] expectedValues, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    {
+        actual.AssertAwesomely(v =>
+        {
+            return expectedValues.Any(expected =>
+                caseSensitivity == Case.Sensitive
+                    ? Is.StringContainingUsingCaseSensitivity(v, expected)
+                    : Is.StringContainingIgnoreCase(v, expected));
+        }, actual.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage);
+    }
+
+    /// <summary>
+    /// Asserts that the specified string does not contain all of the provided expected values.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldNotContainAll(this string actual, string[] expectedValues, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    {
+        actual.AssertAwesomely(v =>
+        {
+            return !expectedValues.All(expected =>
+                caseSensitivity == Case.Sensitive
+                    ? Is.StringContainingUsingCaseSensitivity(v, expected)
+                    : Is.StringContainingIgnoreCase(v, expected));
+        }, actual.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage);
+    }
+
+    /// <summary>
+    /// Asserts that the specified string does not contain any of the provided expected values.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ShouldNotContainAny(this string actual, string[] expectedValues, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    {
+        actual.AssertAwesomely(v =>
+        {
+            return !expectedValues.Any(expected =>
+                caseSensitivity == Case.Sensitive
+                    ? Is.StringContainingUsingCaseSensitivity(v, expected)
+                    : Is.StringContainingIgnoreCase(v, expected));
+        }, actual.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage);
+    }
 }

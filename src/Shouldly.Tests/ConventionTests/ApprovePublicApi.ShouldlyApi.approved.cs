@@ -263,12 +263,16 @@ namespace Shouldly
         public static void ShouldBeNullOrEmpty(this string? actual, string? customMessage = null) { }
         public static void ShouldBeNullOrWhiteSpace(this string? actual, string? customMessage = null) { }
         public static void ShouldContain(this string actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
+        public static void ShouldContainAll(this string actual, string[] expectedValues, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
+        public static void ShouldContainAny(this string actual, string[] expectedValues, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage = null) { }
         public static void ShouldEndWith([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         public static void ShouldMatch(this string actual, string regexPattern, string? customMessage = null) { }
         public static void ShouldNotBeNullOrEmpty([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string? customMessage = null) { }
         public static void ShouldNotBeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.NotNull] this string? actual, string? customMessage = null) { }
         public static void ShouldNotContain(this string actual, string expected, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
+        public static void ShouldNotContainAll(this string actual, string[] expectedValues, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
+        public static void ShouldNotContainAny(this string actual, string[] expectedValues, Shouldly.Case caseSensitivity = 1, string? customMessage = null) { }
         public static void ShouldNotEndWith(this string? actual, string expected, Shouldly.Case caseSensitivity) { }
         public static void ShouldNotEndWith(this string? actual, string expected, string? customMessage = null, Shouldly.Case caseSensitivity = 1) { }
         public static void ShouldNotMatch(this string actual, string regexPattern, string? customMessage = null) { }
