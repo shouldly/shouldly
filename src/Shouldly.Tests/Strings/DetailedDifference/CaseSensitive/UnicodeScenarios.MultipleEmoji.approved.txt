@@ -5,17 +5,17 @@ str
     but was
 "I ❤️ cats 🐱"
     difference
-             ▼▼ ▼▼▼   ▼
+             ▼▼ ▼▼▼  ▼▼
 Expected: "I 💙 dogs 🐶"
 Actual:   "I ❤️ cats 🐱"
-             ▲▲ ▲▲▲   ▲
+             ▲▲ ▲▲▲  ▲▲
 ---- Without Source ----
 "I ❤️ cats 🐱"
     should be
 "I 💙 dogs 🐶"
     but was not
     difference
-             ▼▼ ▼▼▼   ▼
+             ▼▼ ▼▼▼  ▼▼
 Expected: "I 💙 dogs 🐶"
 Actual:   "I ❤️ cats 🐱"
-             ▲▲ ▲▲▲   ▲
+             ▲▲ ▲▲▲  ▲▲

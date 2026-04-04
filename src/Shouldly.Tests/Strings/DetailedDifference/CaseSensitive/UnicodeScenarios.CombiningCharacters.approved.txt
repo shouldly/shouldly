@@ -8,7 +8,7 @@ str
               ▼
 Expected: "café"
 Actual:   "café"
-              ▲▲
+              ▲
 Difference at index 3: U+00E9 vs U+0065 U+0301
 ---- Without Source ----
 "café"
@@ -19,5 +19,5 @@ Difference at index 3: U+00E9 vs U+0065 U+0301
               ▼
 Expected: "café"
 Actual:   "café"
-              ▲▲
+              ▲
 Difference at index 3: U+00E9 vs U+0065 U+0301

@@ -107,14 +107,19 @@ class LineDiffFormatter
         a = a.TrimEnd('\r');
         b = b.TrimEnd('\r');
 
-        var minLen = Math.Min(a.Length, b.Length);
+        var aClusters = GraphemeClusterHelper.GetGraphemeClusters(a);
+        var bClusters = GraphemeClusterHelper.GetGraphemeClusters(b);
+
+        var minLen = Math.Min(aClusters.Length, bClusters.Length);
+        var displayOffset = 0;
         for (var i = 0; i < minLen; i++)
         {
-            if (!CharsEqual(a[i], b[i]))
-                return i;
+            if (!GraphemeClusterHelper.ClustersEqual(aClusters[i], bClusters[i], _caseSensitivity))
+                return displayOffset;
+            displayOffset += GraphemeClusterHelper.ClusterDisplayWidth(aClusters[i]);
         }
-        if (a.Length != b.Length)
-            return minLen;
+        if (aClusters.Length != bClusters.Length)
+            return displayOffset;
         return -1;
     }
 

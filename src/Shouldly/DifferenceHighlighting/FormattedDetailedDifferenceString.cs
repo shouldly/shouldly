@@ -54,26 +54,32 @@ class FormattedDetailedDifferenceString
             }
         }
 
-        // Find diff region via prefix/suffix matching on source chars
-        var commonPrefixLen = FindCommonPrefixLength();
-        var commonSuffixLen = FindCommonSuffixLength(commonPrefixLen);
+        // Split into grapheme clusters for alignment
+        var expectedClusters = GraphemeClusterHelper.GetGraphemeClusters(_expectedValue);
+        var actualClusters = GraphemeClusterHelper.GetGraphemeClusters(_actualValue);
 
-        var expectedDiffEnd = _expectedValue.Length - commonSuffixLen;
-        var actualDiffEnd = _actualValue.Length - commonSuffixLen;
+        // Find diff region via prefix/suffix matching on clusters
+        var commonPrefixLen = FindCommonClusterPrefixLength(expectedClusters, actualClusters);
+        var commonSuffixLen = FindCommonClusterSuffixLength(expectedClusters, actualClusters, commonPrefixLen);
 
-        // Run alignment on the diff regions to find actual edits
-        var expectedDiffRegion = _expectedValue[commonPrefixLen..expectedDiffEnd];
-        var actualDiffRegion = _actualValue[commonPrefixLen..actualDiffEnd];
-        var (expectedEdits, actualEdits) = EditDistanceAligner.Align(
-            expectedDiffRegion, actualDiffRegion, _caseSensitivity);
+        var expectedDiffEnd = expectedClusters.Length - commonSuffixLen;
+        var actualDiffEnd = actualClusters.Length - commonSuffixLen;
+
+        // Extract diff region clusters
+        var expectedDiffClusters = SubArray(expectedClusters, commonPrefixLen, expectedDiffEnd);
+        var actualDiffClusters = SubArray(actualClusters, commonPrefixLen, actualDiffEnd);
+
+        // Run alignment on grapheme clusters
+        var (expectedEdits, actualEdits) = EditDistanceAligner.AlignClusters(
+            expectedDiffClusters, actualDiffClusters, _caseSensitivity);
 
         // Suppress markers when alignment was skipped (too large) or strings are too different
         var showMarkers = false;
         if (expectedEdits != null && actualEdits != null)
         {
-            var totalChars = _expectedValue.Length + _actualValue.Length;
+            var totalClusters = expectedClusters.Length + actualClusters.Length;
             var editCount = CountEdits(expectedEdits) + CountEdits(actualEdits);
-            showMarkers = totalChars > 0 && editCount * 2 <= totalChars;
+            showMarkers = totalClusters > 0 && editCount * 2 <= totalClusters;
         }
 
         var sb = new StringBuilder();
@@ -81,16 +87,16 @@ class FormattedDetailedDifferenceString
 
         if (showMarkers)
         {
-            // Map to display positions
-            var displayDiffStart = ComputeDisplayOffset(commonPrefixLen);
+            // Compute display offset to the start of the diff region
+            var displayDiffStart = ComputeDisplayOffset(expectedClusters, commonPrefixLen);
 
             var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
             var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
 
             var markerOffset = prefix.Length + displayDiffStart;
 
-            // Top markers (expected edits)
-            var topMarkers = BuildMarkerLine(downMarker, expectedDiffRegion, expectedEdits!);
+            // Top markers (expected edits) — one marker per display column of each edited cluster
+            var topMarkers = BuildClusterMarkerLine(downMarker, expectedDiffClusters, expectedEdits!);
             if (topMarkers.Length > 0)
             {
                 sb.Append(' ', markerOffset);
@@ -101,7 +107,7 @@ class FormattedDetailedDifferenceString
             sb.Append($"Actual:   {actualDisplay}");
 
             // Bottom markers (actual edits)
-            var bottomMarkers = BuildMarkerLine(upMarker, actualDiffRegion, actualEdits!);
+            var bottomMarkers = BuildClusterMarkerLine(upMarker, actualDiffClusters, actualEdits!);
             if (bottomMarkers.Length > 0)
             {
                 sb.AppendLine();
@@ -109,9 +115,11 @@ class FormattedDetailedDifferenceString
                 sb.Append(bottomMarkers);
             }
 
-            // When edited chars are visually ambiguous (combining marks, zero-width, format chars),
-            // show codepoints so the user can see what actually differs
-            var codepointHint = BuildCodepointHint(expectedDiffRegion, expectedEdits!, actualDiffRegion, actualEdits!, commonPrefixLen);
+            // Codepoint hints for visually ambiguous clusters
+            var codepointHint = BuildClusterCodepointHint(
+                expectedDiffClusters, expectedEdits!,
+                actualDiffClusters, actualEdits!,
+                commonPrefixLen);
             if (codepointHint != null)
             {
                 sb.AppendLine();
@@ -154,50 +162,35 @@ class FormattedDetailedDifferenceString
         return sb.ToString();
     }
 
-    private int ComputeDisplayOffset(int sourceIndex)
+    /// <summary>
+    /// Computes the display column offset from the start of the quoted string to
+    /// the given cluster index, accounting for ellipsis prefix, quote char,
+    /// and the display width of each preceding cluster.
+    /// </summary>
+    private int ComputeDisplayOffset(string[] clusters, int clusterIndex)
     {
         // Account for optional "..." prefix and opening quote
         var offset = _prefixWithEllipsis ? 4 : 1;
 
-        // Use expected for offset computation (prefix is identical in both strings)
-        var value = _expectedValue.Length > 0 ? _expectedValue : _actualValue;
-        var len = Math.Min(sourceIndex, value.Length);
-
+        var len = Math.Min(clusterIndex, clusters.Length);
         for (var i = 0; i < len; i++)
         {
-            offset += CharDisplayWidth(value[i]);
+            offset += GraphemeClusterHelper.ClusterDisplayWidth(clusters[i]);
         }
 
         return offset;
     }
 
-    private static int ComputeDisplayWidth(string value, int startIndex, int endIndex)
-    {
-        var width = 0;
-        for (var i = startIndex; i < endIndex && i < value.Length; i++)
-        {
-            width += CharDisplayWidth(value[i]);
-        }
-        return width;
-    }
-
-    private static int CharDisplayWidth(char c) =>
-        c.NeedsEscaping() ? c.ToSafeString().Length : 1;
-
-    private static int CountEdits(bool[] edits)
-    {
-        var count = 0;
-        foreach (var e in edits)
-            if (e) count++;
-        return count;
-    }
-
-    private static string BuildMarkerLine(char marker, string region, bool[] edits)
+    /// <summary>
+    /// Builds a marker line where each edited cluster gets markers spanning its display width.
+    /// </summary>
+    private static string BuildClusterMarkerLine(char marker, string[] clusters, bool[] edits)
     {
         var markerSb = new StringBuilder();
-        for (var i = 0; i < region.Length; i++)
+        for (var i = 0; i < clusters.Length; i++)
         {
-            var w = CharDisplayWidth(region[i]);
+            var w = GraphemeClusterHelper.ClusterDisplayWidth(clusters[i]);
+            if (w == 0) w = 1; // Ensure zero-width clusters still get a marker
             if (edits[i])
                 markerSb.Append(marker, w);
             else
@@ -211,95 +204,88 @@ class FormattedDetailedDifferenceString
         return markerSb.ToString();
     }
 
-    private int FindCommonPrefixLength()
+    private static int CountEdits(bool[] edits)
     {
-        var minLen = Math.Min(_expectedValue.Length, _actualValue.Length);
+        var count = 0;
+        foreach (var e in edits)
+            if (e) count++;
+        return count;
+    }
+
+    private int FindCommonClusterPrefixLength(string[] expected, string[] actual)
+    {
+        var minLen = Math.Min(expected.Length, actual.Length);
         for (var i = 0; i < minLen; i++)
         {
-            if (!CharsEqual(_expectedValue[i], _actualValue[i]))
+            if (!GraphemeClusterHelper.ClustersEqual(expected[i], actual[i], _caseSensitivity))
                 return i;
         }
         return minLen;
     }
 
-    private int FindCommonSuffixLength(int commonPrefixLength)
+    private int FindCommonClusterSuffixLength(string[] expected, string[] actual, int commonPrefixLength)
     {
-        var maxSuffixLen = Math.Min(_expectedValue.Length, _actualValue.Length) - commonPrefixLength;
+        var maxSuffixLen = Math.Min(expected.Length, actual.Length) - commonPrefixLength;
         for (var i = 0; i < maxSuffixLen; i++)
         {
-            if (!CharsEqual(
-                    _expectedValue[_expectedValue.Length - 1 - i],
-                    _actualValue[_actualValue.Length - 1 - i]))
+            if (!GraphemeClusterHelper.ClustersEqual(
+                    expected[expected.Length - 1 - i],
+                    actual[actual.Length - 1 - i],
+                    _caseSensitivity))
                 return i;
         }
         return maxSuffixLen;
     }
 
-    private bool CharsEqual(char a, char b)
+    private static string[] SubArray(string[] source, int start, int end)
     {
-        if (_caseSensitivity == Case.Insensitive)
-            return char.ToUpperInvariant(a) == char.ToUpperInvariant(b);
-        return a == b;
+        var length = end - start;
+        if (length <= 0) return Array.Empty<string>();
+        var result = new string[length];
+        Array.Copy(source, start, result, 0, length);
+        return result;
     }
 
-    /// <summary>
-    /// Returns true if a character is visually ambiguous — invisible or modifies
-    /// an adjacent character rather than being distinct on its own.
-    /// </summary>
-    private static bool IsVisuallyAmbiguous(char c)
-    {
-        var category = char.GetUnicodeCategory(c);
-        return category is
-            UnicodeCategory.NonSpacingMark or        // combining accents, diacritics
-            UnicodeCategory.SpacingCombiningMark or   // combining marks that take space
-            UnicodeCategory.EnclosingMark or          // enclosing combining marks
-            UnicodeCategory.Format;                   // zero-width chars, BOM, bidi marks
-    }
-
-    private static string? BuildCodepointHint(
-        string expectedRegion, bool[] expectedEdits,
-        string actualRegion, bool[] actualEdits,
+    private static string? BuildClusterCodepointHint(
+        string[] expectedClusters, bool[] expectedEdits,
+        string[] actualClusters, bool[] actualEdits,
         int regionStartIndex)
     {
-        var expectedEditedChars = GetEditedChars(expectedRegion, expectedEdits);
-        var actualEditedChars = GetEditedChars(actualRegion, actualEdits);
+        var expectedEditedClusters = GetEditedClusters(expectedClusters, expectedEdits);
+        var actualEditedClusters = GetEditedClusters(actualClusters, actualEdits);
 
-        // Only show hint when the edit is small and contains visually ambiguous chars.
-        // Large diffs that happen to contain a variation selector aren't helped by codepoints.
-        var hasAmbiguous = expectedEditedChars.Any(IsVisuallyAmbiguous)
-                        || actualEditedChars.Any(IsVisuallyAmbiguous);
+        // Only show hint when the edit is small and contains visually ambiguous clusters
+        var hasAmbiguous = expectedEditedClusters.Any(GraphemeClusterHelper.IsClusterVisuallyAmbiguous)
+                        || actualEditedClusters.Any(GraphemeClusterHelper.IsClusterVisuallyAmbiguous);
         if (!hasAmbiguous) return null;
-        if (expectedEditedChars.Count > 3 || actualEditedChars.Count > 3) return null;
+        if (expectedEditedClusters.Count > 3 || actualEditedClusters.Count > 3) return null;
 
         var sb = new StringBuilder();
         sb.Append($"Difference at index {regionStartIndex}: ");
 
-        if (expectedEditedChars.Count > 0)
-            sb.Append(FormatCodepoints(expectedEditedChars));
+        if (expectedEditedClusters.Count > 0)
+            sb.Append(GraphemeClusterHelper.FormatClusterCodepoints(expectedEditedClusters));
         else
             sb.Append("(empty)");
 
         sb.Append(" vs ");
 
-        if (actualEditedChars.Count > 0)
-            sb.Append(FormatCodepoints(actualEditedChars));
+        if (actualEditedClusters.Count > 0)
+            sb.Append(GraphemeClusterHelper.FormatClusterCodepoints(actualEditedClusters));
         else
             sb.Append("(empty)");
 
         return sb.ToString();
     }
 
-    private static List<char> GetEditedChars(string region, bool[] edits)
+    private static List<string> GetEditedClusters(string[] clusters, bool[] edits)
     {
-        var chars = new List<char>();
-        for (var i = 0; i < region.Length && i < edits.Length; i++)
+        var result = new List<string>();
+        for (var i = 0; i < clusters.Length && i < edits.Length; i++)
         {
             if (edits[i])
-                chars.Add(region[i]);
+                result.Add(clusters[i]);
         }
-        return chars;
+        return result;
     }
-
-    private static string FormatCodepoints(List<char> chars) =>
-        string.Join(" ", chars.Select(c => $"U+{(int)c:X4}"));
 }

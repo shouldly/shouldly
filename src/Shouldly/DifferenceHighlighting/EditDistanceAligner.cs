@@ -4,18 +4,20 @@ static class EditDistanceAligner
 {
     private const int MaxAlignmentSize = 200;
 
-    internal static (bool[]? expectedEdits, bool[]? actualEdits) Align(
-        string expected, string actual, Case caseSensitivity)
+    /// <summary>
+    /// Aligns two sequences of grapheme clusters using edit distance, returning
+    /// per-cluster edit flags. Each element in the returned bool[] corresponds
+    /// to a grapheme cluster (not a UTF-16 char).
+    /// </summary>
+    internal static (bool[]? expectedEdits, bool[]? actualEdits) AlignClusters(
+        string[] expected, string[] actual, Case caseSensitivity)
     {
         var m = expected.Length;
         var n = actual.Length;
 
-        // For very large diff regions, skip alignment — the DP matrix would be too expensive.
-        // Return null to signal the caller should skip marker generation entirely.
         if (m > MaxAlignmentSize || n > MaxAlignmentSize)
             return (null, null);
 
-        // Build DP matrix
         var dp = new int[m + 1, n + 1];
         for (var i = 0; i <= m; i++) dp[i, 0] = i;
         for (var j = 0; j <= n; j++) dp[0, j] = j;
@@ -24,16 +26,16 @@ static class EditDistanceAligner
         {
             for (var j = 1; j <= n; j++)
             {
-                var substituteCost = CharsEqual(expected[i - 1], actual[j - 1], caseSensitivity) ? 0 : 1;
+                var substituteCost = GraphemeClusterHelper.ClustersEqual(
+                    expected[i - 1], actual[j - 1], caseSensitivity) ? 0 : 1;
                 dp[i, j] = Math.Min(
                     Math.Min(
-                        dp[i - 1, j] + 1,      // delete from expected
-                        dp[i, j - 1] + 1),      // insert into actual
-                    dp[i - 1, j - 1] + substituteCost); // match or substitute
+                        dp[i - 1, j] + 1,
+                        dp[i, j - 1] + 1),
+                    dp[i - 1, j - 1] + substituteCost);
             }
         }
 
-        // Backtrace to recover alignment
         var expectedEdits = new bool[m];
         var actualEdits = new bool[n];
 
@@ -43,11 +45,11 @@ static class EditDistanceAligner
         {
             if (bi > 0 && bj > 0)
             {
-                var substituteCost = CharsEqual(expected[bi - 1], actual[bj - 1], caseSensitivity) ? 0 : 1;
+                var substituteCost = GraphemeClusterHelper.ClustersEqual(
+                    expected[bi - 1], actual[bj - 1], caseSensitivity) ? 0 : 1;
 
                 if (dp[bi, bj] == dp[bi - 1, bj - 1] + substituteCost)
                 {
-                    // Match or substitute
                     if (substituteCost == 1)
                     {
                         expectedEdits[bi - 1] = true;
@@ -61,25 +63,16 @@ static class EditDistanceAligner
 
             if (bi > 0 && dp[bi, bj] == dp[bi - 1, bj] + 1)
             {
-                // Delete from expected
                 expectedEdits[bi - 1] = true;
                 bi--;
             }
             else
             {
-                // Insert into actual
                 actualEdits[bj - 1] = true;
                 bj--;
             }
         }
 
         return (expectedEdits, actualEdits);
-    }
-
-    private static bool CharsEqual(char a, char b, Case caseSensitivity)
-    {
-        if (caseSensitivity == Case.Insensitive)
-            return char.ToUpperInvariant(a) == char.ToUpperInvariant(b);
-        return a == b;
     }
 }

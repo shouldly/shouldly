@@ -5,17 +5,17 @@ str
     but was
 "hello 🎉 world"
     difference
-                  ▼
+                 ▼▼
 Expected: "hello 🎊 world"
 Actual:   "hello 🎉 world"
-                  ▲
+                 ▲▲
 ---- Without Source ----
 "hello 🎉 world"
     should be
 "hello 🎊 world"
     but was not
     difference
-                  ▼
+                 ▼▼
 Expected: "hello 🎊 world"
 Actual:   "hello 🎉 world"
-                  ▲
+                 ▲▲
