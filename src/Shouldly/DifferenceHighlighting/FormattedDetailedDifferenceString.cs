@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Shouldly.DifferenceHighlighting;
 
 class FormattedDetailedDifferenceString
