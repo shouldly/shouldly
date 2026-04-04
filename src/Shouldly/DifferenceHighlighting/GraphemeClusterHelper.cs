@@ -17,7 +17,93 @@ static class GraphemeClusterHelper
         {
             clusters.Add(enumerator.GetTextElement());
         }
-        return clusters.ToArray();
+
+        // Post-process: merge emoji sequences that older .NET runtimes (e.g. net48)
+        // don't recognize as single grapheme clusters. Modern .NET (8+) handles these
+        // natively, but net48's StringInfo uses an older Unicode standard.
+        return MergeEmojiSequences(clusters);
+    }
+
+    /// <summary>
+    /// Merges adjacent clusters that form a single visual emoji:
+    /// - Regional indicator pairs (flag emoji like 🇫🇷)
+    /// - Emoji + skin tone modifier (👋🏽)
+    /// - Emoji + variation selector (❤️)
+    /// - ZWJ sequences (emoji joined by U+200D)
+    /// </summary>
+    private static string[] MergeEmojiSequences(List<string> clusters)
+    {
+        if (clusters.Count <= 1) return clusters.ToArray();
+
+        var merged = new List<string>();
+        var i = 0;
+        while (i < clusters.Count)
+        {
+            var current = clusters[i];
+
+            // Try to merge with subsequent clusters
+            while (i + 1 < clusters.Count && ShouldMergeWithNext(current, clusters[i + 1]))
+            {
+                i++;
+                current += clusters[i];
+            }
+
+            merged.Add(current);
+            i++;
+        }
+
+        return merged.ToArray();
+    }
+
+    private static bool ShouldMergeWithNext(string current, string next)
+    {
+        // Merge regional indicator pairs into flag emoji
+        if (IsRegionalIndicator(current) && IsRegionalIndicator(next))
+            return true;
+
+        // Merge emoji + skin tone modifier
+        if (ContainsSurrogatePairEmoji(current) && IsSkinToneModifier(next))
+            return true;
+
+        // Merge emoji + variation selector (U+FE0F or U+FE0E)
+        if (next.Length == 1 && (next[0] == '\uFE0F' || next[0] == '\uFE0E'))
+            return true;
+
+        // Merge ZWJ sequences: current + ZWJ + next emoji
+        if (next.Length == 1 && next[0] == '\u200D') // ZWJ
+            return true;
+        if (current.Length > 0 && current[current.Length - 1] == '\u200D')
+            return true;
+
+        return false;
+    }
+
+    private static bool IsRegionalIndicator(string cluster)
+    {
+        // Regional indicators are U+1F1E6 to U+1F1FF, each encoded as a surrogate pair
+        if (cluster.Length < 2) return false;
+        if (!char.IsHighSurrogate(cluster[0]) || !char.IsLowSurrogate(cluster[1])) return false;
+        var cp = char.ConvertToUtf32(cluster[0], cluster[1]);
+        return cp >= 0x1F1E6 && cp <= 0x1F1FF;
+    }
+
+    private static bool IsSkinToneModifier(string cluster)
+    {
+        // Skin tone modifiers are U+1F3FB to U+1F3FF, each a surrogate pair
+        if (cluster.Length < 2) return false;
+        if (!char.IsHighSurrogate(cluster[0]) || !char.IsLowSurrogate(cluster[1])) return false;
+        var cp = char.ConvertToUtf32(cluster[0], cluster[1]);
+        return cp >= 0x1F3FB && cp <= 0x1F3FF;
+    }
+
+    private static bool ContainsSurrogatePairEmoji(string cluster)
+    {
+        for (var i = 0; i < cluster.Length - 1; i++)
+        {
+            if (char.IsHighSurrogate(cluster[i]) && char.IsLowSurrogate(cluster[i + 1]))
+                return true;
+        }
+        return false;
     }
 
     /// <summary>
