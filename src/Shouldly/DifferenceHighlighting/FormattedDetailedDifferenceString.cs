@@ -278,7 +278,7 @@ class FormattedDetailedDifferenceString
 
     private static List<string> GetEditedClusters(string[] clusters, bool[] edits)
     {
-        var result = new List<string>();
+        var result = new List<string>(Math.Min(clusters.Length, 4));
         for (var i = 0; i < clusters.Length && i < edits.Length; i++)
         {
             if (edits[i])

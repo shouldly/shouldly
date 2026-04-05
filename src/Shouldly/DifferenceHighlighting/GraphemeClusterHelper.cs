@@ -11,7 +11,8 @@ static class GraphemeClusterHelper
     /// </summary>
     internal static string[] GetGraphemeClusters(string value)
     {
-        var clusters = new List<string>();
+        // Pre-size: cluster count <= char count (equality for pure ASCII)
+        var clusters = new List<string>(value.Length);
         var enumerator = StringInfo.GetTextElementEnumerator(value);
         while (enumerator.MoveNext())
         {
@@ -21,7 +22,21 @@ static class GraphemeClusterHelper
         // Post-process: merge emoji sequences that older .NET runtimes (e.g. net48)
         // don't recognize as single grapheme clusters. Modern .NET (8+) handles these
         // natively, but net48's StringInfo uses an older Unicode standard.
+        // Fast-path: skip merge entirely when no surrogate pairs exist (pure BMP text).
+        if (!ContainsAnySurrogatePairs(value))
+            return clusters.ToArray();
+
         return MergeEmojiSequences(clusters);
+    }
+
+    private static bool ContainsAnySurrogatePairs(string value)
+    {
+        for (var i = 0; i < value.Length - 1; i++)
+        {
+            if (char.IsHighSurrogate(value[i]))
+                return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -35,7 +50,7 @@ static class GraphemeClusterHelper
     {
         if (clusters.Count <= 1) return clusters.ToArray();
 
-        var merged = new List<string>();
+        var merged = new List<string>(clusters.Count);
         var i = 0;
         while (i < clusters.Count)
         {
@@ -192,26 +207,29 @@ static class GraphemeClusterHelper
     /// </summary>
     internal static string FormatClusterCodepoints(List<string> clusters)
     {
-        var parts = new List<string>();
-        foreach (var cluster in clusters)
+        var sb = new StringBuilder();
+        for (var c = 0; c < clusters.Count; c++)
         {
-            var codepoints = new List<string>();
+            if (c > 0) sb.Append(", ");
+            var cluster = clusters[c];
+            var first = true;
             for (var i = 0; i < cluster.Length; i++)
             {
+                if (!first) sb.Append(' ');
+                first = false;
                 if (char.IsHighSurrogate(cluster[i]) && i + 1 < cluster.Length && char.IsLowSurrogate(cluster[i + 1]))
                 {
                     var cp = char.ConvertToUtf32(cluster[i], cluster[i + 1]);
-                    codepoints.Add($"U+{cp:X4}");
+                    sb.Append($"U+{cp:X4}");
                     i++; // skip low surrogate
                 }
                 else
                 {
-                    codepoints.Add($"U+{(int)cluster[i]:X4}");
+                    sb.Append($"U+{(int)cluster[i]:X4}");
                 }
             }
-            parts.Add(string.Join(" ", codepoints));
         }
-        return string.Join(", ", parts);
+        return sb.ToString();
     }
 
     /// <summary>
@@ -222,6 +240,61 @@ static class GraphemeClusterHelper
         if (caseSensitivity == Case.Insensitive)
             return string.Compare(a, b, StringComparison.OrdinalIgnoreCase) == 0;
         return string.Equals(a, b, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// Finds the display-column offset of the first cluster that differs between two strings.
+    /// For BMP-only text (the common case), uses lazy enumeration to avoid materializing full
+    /// cluster arrays. Falls back to full array approach when surrogates are present (emoji).
+    /// Returns -1 if strings are equal.
+    /// </summary>
+    internal static int FindFirstClusterDifference(string a, string b, Case caseSensitivity)
+    {
+        // If either string has surrogates, fall back to array approach for correct emoji merging
+        if (ContainsAnySurrogatePairs(a) || ContainsAnySurrogatePairs(b))
+        {
+            return FindFirstClusterDifferenceViaArrays(a, b, caseSensitivity);
+        }
+
+        // Fast path: BMP-only text — enumerate lazily, stop at first difference
+        var enumA = StringInfo.GetTextElementEnumerator(a);
+        var enumB = StringInfo.GetTextElementEnumerator(b);
+
+        var displayOffset = 0;
+        while (true)
+        {
+            var hasA = enumA.MoveNext();
+            var hasB = enumB.MoveNext();
+
+            if (!hasA && !hasB) return -1;
+            if (!hasA || !hasB) return displayOffset;
+
+            var clusterA = enumA.GetTextElement();
+            var clusterB = enumB.GetTextElement();
+
+            if (!ClustersEqual(clusterA, clusterB, caseSensitivity))
+                return displayOffset;
+
+            displayOffset += ClusterDisplayWidth(clusterA);
+        }
+    }
+
+    private static int FindFirstClusterDifferenceViaArrays(string a, string b, Case caseSensitivity)
+    {
+        var aClusters = GetGraphemeClusters(a);
+        var bClusters = GetGraphemeClusters(b);
+
+        var minLen = Math.Min(aClusters.Length, bClusters.Length);
+        var displayOffset = 0;
+        for (var i = 0; i < minLen; i++)
+        {
+            if (!ClustersEqual(aClusters[i], bClusters[i], caseSensitivity))
+                return displayOffset;
+            displayOffset += ClusterDisplayWidth(aClusters[i]);
+        }
+        if (aClusters.Length != bClusters.Length)
+            return displayOffset;
+        return -1;
     }
 
     private static bool IsCjkOrWideChar(char c)

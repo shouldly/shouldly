@@ -104,23 +104,8 @@ class LineDiffFormatter
 
     private int FindFirstCharDifference(string a, string b)
     {
-        a = a.TrimEnd('\r');
-        b = b.TrimEnd('\r');
-
-        var aClusters = GraphemeClusterHelper.GetGraphemeClusters(a);
-        var bClusters = GraphemeClusterHelper.GetGraphemeClusters(b);
-
-        var minLen = Math.Min(aClusters.Length, bClusters.Length);
-        var displayOffset = 0;
-        for (var i = 0; i < minLen; i++)
-        {
-            if (!GraphemeClusterHelper.ClustersEqual(aClusters[i], bClusters[i], _caseSensitivity))
-                return displayOffset;
-            displayOffset += GraphemeClusterHelper.ClusterDisplayWidth(aClusters[i]);
-        }
-        if (aClusters.Length != bClusters.Length)
-            return displayOffset;
-        return -1;
+        return GraphemeClusterHelper.FindFirstClusterDifference(
+            a.TrimEnd('\r'), b.TrimEnd('\r'), _caseSensitivity);
     }
 
     private int FindCommonPrefixLineCount(string[] expected, string[] actual)
@@ -157,10 +142,4 @@ class LineDiffFormatter
         return StringComparer.Ordinal.Equals(a, b);
     }
 
-    private bool CharsEqual(char a, char b)
-    {
-        if (_caseSensitivity == Case.Insensitive)
-            return char.ToUpperInvariant(a) == char.ToUpperInvariant(b);
-        return a == b;
-    }
 }
