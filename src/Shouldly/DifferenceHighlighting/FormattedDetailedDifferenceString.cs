@@ -26,6 +26,10 @@ class FormattedDetailedDifferenceString
 
     public string? GenerateFormattedString()
     {
+        // Track the effective escape style used per side (null = global default)
+        EscapeStyle? expectedEscapeStyle = null;
+        EscapeStyle? actualEscapeStyle = null;
+
         var expectedDisplay = BuildDisplayString(_expectedValue);
         var actualDisplay = BuildDisplayString(_actualValue);
 
@@ -42,11 +46,19 @@ class FormattedDetailedDifferenceString
                 : EscapeStyle.ControlPictures;
 
             if (expectedHasControlChars && !actualHasControlChars)
+            {
+                expectedEscapeStyle = fallbackEscape;
                 expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
+            }
             else if (actualHasControlChars && !expectedHasControlChars)
+            {
+                actualEscapeStyle = fallbackEscape;
                 actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+            }
             else if (expectedHasControlChars && actualHasControlChars)
             {
+                expectedEscapeStyle = fallbackEscape;
+                actualEscapeStyle = fallbackEscape;
                 expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
                 actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
             }
@@ -86,7 +98,7 @@ class FormattedDetailedDifferenceString
         if (showMarkers)
         {
             // Compute display offset to the start of the diff region
-            var displayDiffStart = ComputeDisplayOffset(expectedClusters, commonPrefixLen);
+            var displayDiffStart = ComputeDisplayOffset(expectedClusters, commonPrefixLen, expectedEscapeStyle);
 
             var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
             var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
@@ -94,7 +106,7 @@ class FormattedDetailedDifferenceString
             var markerOffset = prefix.Length + displayDiffStart;
 
             // Top markers (expected edits) — one marker per display column of each edited cluster
-            var topMarkers = BuildClusterMarkerLine(downMarker, expectedDiffClusters, expectedEdits!);
+            var topMarkers = BuildClusterMarkerLine(downMarker, expectedDiffClusters, expectedEdits!, expectedEscapeStyle);
             if (topMarkers.Length > 0)
             {
                 sb.Append(' ', markerOffset);
@@ -105,7 +117,7 @@ class FormattedDetailedDifferenceString
             sb.Append($"Actual:   {actualDisplay}");
 
             // Bottom markers (actual edits)
-            var bottomMarkers = BuildClusterMarkerLine(upMarker, actualDiffClusters, actualEdits!);
+            var bottomMarkers = BuildClusterMarkerLine(upMarker, actualDiffClusters, actualEdits!, actualEscapeStyle);
             if (bottomMarkers.Length > 0)
             {
                 sb.AppendLine();
@@ -163,7 +175,7 @@ class FormattedDetailedDifferenceString
     /// the given cluster index, accounting for ellipsis prefix, quote char,
     /// and the display width of each preceding cluster.
     /// </summary>
-    private int ComputeDisplayOffset(string[] clusters, int clusterIndex)
+    private int ComputeDisplayOffset(string[] clusters, int clusterIndex, EscapeStyle? escapeStyle)
     {
         // Account for optional "..." prefix and opening quote
         var offset = _prefixWithEllipsis ? 4 : 1;
@@ -171,7 +183,7 @@ class FormattedDetailedDifferenceString
         var len = Math.Min(clusterIndex, clusters.Length);
         for (var i = 0; i < len; i++)
         {
-            offset += GraphemeClusterHelper.ClusterDisplayWidth(clusters[i]);
+            offset += GraphemeClusterHelper.ClusterDisplayWidth(clusters[i], escapeStyle);
         }
 
         return offset;
@@ -180,12 +192,12 @@ class FormattedDetailedDifferenceString
     /// <summary>
     /// Builds a marker line where each edited cluster gets markers spanning its display width.
     /// </summary>
-    private static string BuildClusterMarkerLine(char marker, string[] clusters, bool[] edits)
+    private static string BuildClusterMarkerLine(char marker, string[] clusters, bool[] edits, EscapeStyle? escapeStyle)
     {
         var markerSb = new StringBuilder();
         for (var i = 0; i < clusters.Length; i++)
         {
-            var w = GraphemeClusterHelper.ClusterDisplayWidth(clusters[i]);
+            var w = GraphemeClusterHelper.ClusterDisplayWidth(clusters[i], escapeStyle);
             if (w == 0) w = 1; // Ensure zero-width clusters still get a marker
             if (edits[i])
                 markerSb.Append(marker, w);

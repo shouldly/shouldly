@@ -129,13 +129,16 @@ static class GraphemeClusterHelper
     /// - Combining marks (zero-width): 0 columns
     /// - Everything else: 1 column
     /// </summary>
-    internal static int ClusterDisplayWidth(string cluster)
+    internal static int ClusterDisplayWidth(string cluster) =>
+        ClusterDisplayWidth(cluster, escapeStyleOverride: null);
+
+    internal static int ClusterDisplayWidth(string cluster, EscapeStyle? escapeStyleOverride)
     {
         if (cluster.Length == 0) return 0;
 
         // Single char that needs escaping — use escape string length
         if (cluster.Length == 1 && cluster[0].NeedsEscaping())
-            return cluster[0].ToSafeString().Length;
+            return cluster[0].ToSafeString(escapeStyleOverride).Length;
 
         // Multi-char cluster containing surrogate pairs or variation selectors → emoji, likely 2 columns
         if (cluster.Length > 1)
@@ -161,7 +164,7 @@ static class GraphemeClusterHelper
                     continue;
 
                 if (cluster[i].NeedsEscaping())
-                    baseWidth += cluster[i].ToSafeString().Length;
+                    baseWidth += cluster[i].ToSafeString(escapeStyleOverride).Length;
                 else
                     baseWidth += IsCjkOrWideChar(cluster[i]) ? 2 : 1;
             }

@@ -59,7 +59,7 @@ simpsonsQuote.ShouldMatchApproved();
 <!-- include: ShouldMatchApprovedExamples.ApprovedFileIsDifferent.exceptionText.approved.txt -->
 ```
 To approve the changes run this command:
-cp "/Users/stuart/conductor/workspaces/shouldly/beirut/src/DocumentationExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "/Users/stuart/conductor/workspaces/shouldly/beirut/src/DocumentationExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
+copy /Y "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
 ----------------------------
 
 simpsonsQuote

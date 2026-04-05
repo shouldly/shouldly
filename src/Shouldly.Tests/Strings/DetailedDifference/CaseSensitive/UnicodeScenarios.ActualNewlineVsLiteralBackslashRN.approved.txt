@@ -9,7 +9,7 @@ line2"
                 ▼▼▼▼
 Expected: "line1\r\nline2"
 Actual:   "line1␍␊line2"
-                ▲▲▲▲
+                ▲▲
 ---- Without Source ----
 "line1
 line2"
@@ -20,4 +20,4 @@ line2"
                 ▼▼▼▼
 Expected: "line1\r\nline2"
 Actual:   "line1␍␊line2"
-                ▲▲▲▲
+                ▲▲
