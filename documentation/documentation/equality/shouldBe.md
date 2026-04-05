@@ -26,7 +26,6 @@ theSimpsonsCat.Name
     difference
 Expected: "Snowball 2"
 Actual:   "Santas little helper"
-Strings differ significantly
 ```
 <!-- endInclude -->
 

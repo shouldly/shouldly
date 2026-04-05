@@ -59,7 +59,7 @@ simpsonsQuote.ShouldMatchApproved();
 <!-- include: ShouldMatchApprovedExamples.ApprovedFileIsDifferent.exceptionText.approved.txt -->
 ```
 To approve the changes run this command:
-copy /Y "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "C:\PathToCode\shouldly\src\DocumentationExamples\ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
+cp "/Users/stuart/conductor/workspaces/shouldly/beirut/src/DocumentationExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt" "/Users/stuart/conductor/workspaces/shouldly/beirut/src/DocumentationExamples/ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"
 ----------------------------
 
 simpsonsQuote
@@ -70,7 +70,6 @@ simpsonsQuote
     difference
 Expected: "Hi Super Nintendo Chalmers"
 Actual:   "Me fail english? That's unpossible"
-Strings differ significantly
 ```
 <!-- endInclude -->
 

@@ -126,10 +126,8 @@ class FormattedDetailedDifferenceString
         }
         else
         {
-            // Show Expected/Actual lines without markers, plus a hint
             sb.AppendLine($"{prefix}{expectedDisplay}");
-            sb.AppendLine($"Actual:   {actualDisplay}");
-            sb.Append("Strings differ significantly");
+            sb.Append($"Actual:   {actualDisplay}");
         }
 
         return sb.ToString();

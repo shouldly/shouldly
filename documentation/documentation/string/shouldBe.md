@@ -21,7 +21,6 @@ target
     difference
 Expected: "Bart"
 Actual:   "Homer"
-Strings differ significantly
 ```
 <!-- endInclude -->
 

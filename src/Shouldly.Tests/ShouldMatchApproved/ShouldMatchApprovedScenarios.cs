@@ -100,7 +100,6 @@ public class ShouldMatchApprovedScenarios
                  difference
              Expected: "Bar"
              Actual:   "Foo"
-             Strings differ significantly
              """,
 
             errorWithoutSource:
@@ -116,7 +115,6 @@ public class ShouldMatchApprovedScenarios
                  difference
              Expected: "Bar"
              Actual:   "Foo"
-             Strings differ significantly
              """,
 
             messageScrubber:

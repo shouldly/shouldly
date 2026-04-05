@@ -7,7 +7,6 @@ str
     difference
 Expected: "sAMPLe"
 Actual:   "SamplE"
-Strings differ significantly
 
 Additional Info:
     Some additional context
@@ -19,7 +18,6 @@ Additional Info:
     difference
 Expected: "sAMPLe"
 Actual:   "SamplE"
-Strings differ significantly
 
 Additional Info:
     Some additional context
