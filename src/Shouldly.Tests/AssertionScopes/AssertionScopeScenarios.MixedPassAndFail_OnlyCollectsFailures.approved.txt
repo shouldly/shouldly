@@ -1,0 +1,46 @@
+---- With Source ----
+
+--------------- Error 1 ---------------
+    2
+        should be
+    3
+        but was not
+
+--------------- Error 2 ---------------
+    "a"
+        should be
+    "b"
+        but was not
+        difference
+    Difference     |  |   
+                   | \|/  
+    Index          | 0    
+    Expected Value | b    
+    Actual Value   | a    
+    Expected Code  | 98   
+    Actual Code    | 97   
+
+-----------------------------------------
+---- Without Source ----
+
+--------------- Error 1 ---------------
+    2
+        should be
+    3
+        but was not
+
+--------------- Error 2 ---------------
+    "a"
+        should be
+    "b"
+        but was not
+        difference
+    Difference     |  |   
+                   | \|/  
+    Index          | 0    
+    Expected Value | b    
+    Actual Value   | a    
+    Expected Code  | 98   
+    Actual Code    | 97   
+
+-----------------------------------------

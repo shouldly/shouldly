@@ -19,7 +19,7 @@ public static partial class ShouldBeTestExtensions
     {
         // Enumerable.Contains on an array always tolerates null.
         if (!expected.Contains(actual!))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public static partial class ShouldBeTestExtensions
     {
         // Enumerable.Contains on an array always tolerates null.
         if (!expected.Contains(actual!, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public static partial class ShouldBeTestExtensions
     {
         // Enumerable.Contains on an array always tolerates null.
         if (expected.Contains(actual!))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public static partial class ShouldBeTestExtensions
     {
         // Enumerable.Contains on an array always tolerates null.
         if (expected.Contains(actual!, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>

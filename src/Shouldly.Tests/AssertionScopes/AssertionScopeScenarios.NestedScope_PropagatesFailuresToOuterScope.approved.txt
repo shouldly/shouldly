@@ -1,0 +1,46 @@
+---- With Source ----
+
+--------------- Error 1 ---------------
+    1
+        should be
+    2
+        but was not
+
+--------------- Error 2 ---------------
+    "inner"
+        should be
+    "outer"
+        but was not
+        difference
+    Difference     |  |    |    |             
+                   | \|/  \|/  \|/            
+    Index          | 0    1    2    3    4    
+    Expected Value | o    u    t    e    r    
+    Actual Value   | i    n    n    e    r    
+    Expected Code  | 111  117  116  101  114  
+    Actual Code    | 105  110  110  101  114  
+
+-----------------------------------------
+---- Without Source ----
+
+--------------- Error 1 ---------------
+    1
+        should be
+    2
+        but was not
+
+--------------- Error 2 ---------------
+    "inner"
+        should be
+    "outer"
+        but was not
+        difference
+    Difference     |  |    |    |             
+                   | \|/  \|/  \|/            
+    Index          | 0    1    2    3    4    
+    Expected Value | o    u    t    e    r    
+    Actual Value   | i    n    n    e    r    
+    Expected Code  | 111  117  116  101  114  
+    Actual Code    | 105  110  110  101  114  
+
+-----------------------------------------

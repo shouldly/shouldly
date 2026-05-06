@@ -19,7 +19,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
     {
         if (!actual.Contains(expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
     {
         if (!actual.Contains(expected, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null)
     {
         if (actual.Contains(expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null)
     {
         if (actual.Contains(expected, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         var actualCount = actual.Count(condition);
         if (actualCount != expectedCount)
         {
-            throw new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldContainWithCountShouldlyMessage(elementPredicate.Body, actual, expectedCount, customMessage).ToString()));
         }
     }
 
@@ -74,7 +74,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var condition = elementPredicate.Compile();
         if (!actual.Any(condition))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var condition = elementPredicate.Compile();
         if (actual.Any(condition))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(elementPredicate.Body, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -97,28 +97,32 @@ public static partial class ShouldBeEnumerableTestExtensions
         var condition = elementPredicate.Compile();
         var actualResults = actual.Where(part => !condition(part));
         if (actualResults.Any())
-            throw new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ActualFilteredWithPredicateShouldlyMessage(elementPredicate.Body, actualResults, actual, customMessage).ToString()));
     }
 
     /// <summary>
     /// Asserts that the enumerable is empty.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+#pragma warning disable CS8777 // Parameter must have a non-null value when exiting - ThrowHelper.ThrowOrRecord may not throw when AssertionScope is active
     public static void ShouldBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
     {
         if (actual == null || actual.Any())
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
     }
+#pragma warning restore CS8777
 
     /// <summary>
     /// Asserts that the enumerable is not empty.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+#pragma warning disable CS8777
     public static void ShouldNotBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
     {
         if (actual == null || !actual.Any())
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
     }
+#pragma warning restore CS8777
 
     /// <summary>
     /// Asserts that the enumerable contains exactly one element and returns it.
@@ -127,7 +131,12 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static T ShouldHaveSingleItem<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null)
     {
         if (actual == null || actual.Count() != 1)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+        {
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString()));
+#pragma warning disable CS8777
+            return default!;
+#pragma warning restore CS8777
+        }
 
         return actual.Single();
     }
@@ -139,7 +148,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString()));
     }
 
     /// <summary>
@@ -149,7 +158,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, string? customMessage = null)
     {
         if (!actual.Any(a => Math.Abs(expected - a) < tolerance))
-            throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage).ToString()));
     }
 
     /// <summary>
@@ -163,7 +172,7 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         var missing = actual.Except(expected);
         if (missing.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -177,7 +186,7 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         var missing = actual.Except(expected, comparer);
         if (missing.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -188,7 +197,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var duplicates = GetDuplicates(actual);
         if (duplicates.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString()));
     }
 
     /// <summary>
@@ -208,7 +217,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var duplicates = GetDuplicates(actual, comparer);
         if (duplicates.Any())
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage).ToString()));
     }
 
     /// <summary>
@@ -285,8 +294,9 @@ public static partial class ShouldBeEnumerableTestExtensions
             if (++currentIndex > 0 // We only need to start comparing once we've passed the first item in the list
                 && isOutOfOrder(previousItem!, currentItem))
             {
-                throw new ShouldAssertException(
-                    new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage).ToString());
+                ThrowHelper.ThrowOrRecord(
+                    new ShouldAssertException(new ExpectedOrderShouldlyMessage(actual, expectedSortDirection, currentIndex, currentItem, customMessage).ToString()));
+                return;
             }
 
             previousItem = currentItem;

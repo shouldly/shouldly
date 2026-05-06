@@ -57,11 +57,13 @@ public static partial class Should
                     switch (x.Result)
                     {
                         case ShouldAssertException assert:
-                            throw assert;
+                            ThrowHelper.ThrowOrRecord(assert);
+                            return default!;
                         case TException expectedException:
                             return expectedException;
                         default:
-                            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result);
+                            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), x.Result.GetType(), customMessage, stackTrace).ToString(), x.Result));
+                            return default!;
                     }
                 });
         }
@@ -70,7 +72,8 @@ public static partial class Should
             if (e is TException exception)
                 return Task.FromResult(exception);
 
-            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace).ToString()));
+            return Task.FromResult(default(TException)!);
         }
     }
 
@@ -86,18 +89,23 @@ public static partial class Should
             if (t.IsFaulted)
             {
                 if (t.Exception == null)
-                    throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
+                {
+                    ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString()));
+                    return default!;
+                }
 
                 return HandleTaskAggregateException(t.Exception, customMessage, exceptionType);
             }
 
             if (t.IsCanceled)
             {
-                throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString(),
-                    new TaskCanceledException("Task is cancelled"));
+                ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString(),
+                    new TaskCanceledException("Task is cancelled")));
+                return default!;
             }
 
-            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace).ToString()));
+            return default!;
         });
     }
 
@@ -131,10 +139,11 @@ public static partial class Should
                 if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                 {
                     var inner = flattened.InnerException;
-                    throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), customMessage, stackTrace, inner.Message, shouldlyMethod).ToString());
+                    ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), customMessage, stackTrace, inner.Message, shouldlyMethod).ToString()));
+                    return;
                 }
 
-                throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(t.Exception.GetType(), customMessage, stackTrace, t.Exception.Message, shouldlyMethod).ToString());
+                ThrowHelper.ThrowOrRecord(new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(t.Exception.GetType(), customMessage, stackTrace, t.Exception.Message, shouldlyMethod).ToString()));
             }
         });
     }
