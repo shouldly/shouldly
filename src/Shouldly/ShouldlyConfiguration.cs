@@ -61,4 +61,16 @@ public static partial class ShouldlyConfiguration
     /// Default timeout period for asynchronous operations
     /// </summary>
     public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);
+
+    /// <summary>
+    /// Controls the character set used for string difference markers.
+    /// Unicode uses ▼/▲ markers, Ascii uses v/^ markers.
+    /// </summary>
+    public static DiffStyle DiffStyle { get; set; } = DiffStyle.Unicode;
+
+    /// <summary>
+    /// Controls how control characters are displayed in string difference output.
+    /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊).
+    /// </summary>
+    public static EscapeStyle EscapeStyle { get; set; } = EscapeStyle.CStyle;
 }

@@ -132,10 +132,45 @@ static class StringHelpers
         return stringToClip;
     }
 
-    internal static string ToSafeString(this char c)
+    internal static string ToSafeString(this char c, EscapeStyle? escapeStyleOverride = null)
     {
-        if (char.IsControl(c) || char.IsWhiteSpace(c))
+        if (char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' '))
         {
+            var escapeStyle = escapeStyleOverride ?? ShouldlyConfiguration.EscapeStyle;
+            if (escapeStyle == EscapeStyle.ControlPictures)
+            {
+                // Unicode control pictures (U+2400 block)
+                return c switch
+                {
+                    '\0' => "\u2400", // ␀ NUL
+                    '\a' => "\u2407", // ␇ BEL
+                    '\t' => "\u2409", // ␉ HT
+                    '\n' => "\u240A", // ␊ LF
+                    '\v' => "\u240B", // ␋ VT
+                    '\f' => "\u240C", // ␌ FF
+                    '\r' => "\u240D", // ␍ CR
+                    '\u007F' => "\u2421", // ␡ DEL
+                    _ when (int)c <= 0x26 => ((char)(0x2400 + c)).ToString(), // Other control chars
+                    _ => $"\\u{(int)c:X4};"
+                };
+            }
+
+            if (escapeStyle == EscapeStyle.Descriptive)
+            {
+                return c switch
+                {
+                    '\0' => "<NUL>",
+                    '\a' => "<BEL>",
+                    '\t' => "<TAB>",
+                    '\n' => "<LF>",
+                    '\v' => "<VT>",
+                    '\f' => "<FF>",
+                    '\r' => "<CR>",
+                    '\u007F' => "<DEL>",
+                    _ => $"<U+{(int)c:X4}>"
+                };
+            }
+
             switch (c)
             {
                 case '\r':
@@ -150,15 +185,18 @@ static class StringHelpers
                     return @"\v";
                 case '\f':
                     return @"\f";
-                case ' ':
-                    return @"\s";
+                case '\0':
+                    return @"\0";
                 default:
-                    return $"\\u{(int)c:X};";
+                    return $"\\u{(int)c:X4};";
             }
         }
 
         return c.ToString();
     }
+
+    internal static bool NeedsEscaping(this char c) =>
+        char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' ');
 
     internal static string? NormalizeLineEndings(this string? s) =>
         s == null ? null : Regex.Replace(s, @"\r\n?", "\n");

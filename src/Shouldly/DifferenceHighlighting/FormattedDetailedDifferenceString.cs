@@ -5,111 +5,295 @@ class FormattedDetailedDifferenceString
     private readonly string _actualValue;
     private readonly string _expectedValue;
     private readonly Case _caseSensitivity;
-    private readonly int _indexOffset;
-    private readonly StringBuilder differenceStringLineOneBuilder;
-    private readonly StringBuilder actualCodeStringBuilder;
-    private readonly StringBuilder differenceStringLineTwoBuilder;
-    private readonly StringBuilder indexStringBuilder;
-    private readonly StringBuilder expectedValueStringBuilder;
-    private readonly StringBuilder actualValueStringBuilder;
-    private readonly StringBuilder expectedCodeStringBuilder;
+    private readonly bool _prefixWithEllipsis;
+    private readonly bool _suffixWithEllipsis;
 
-    private readonly bool _prefixWithDots;
-    private readonly bool _suffixWithDots;
-
-    internal FormattedDetailedDifferenceString(string actualValue, string expectedValue, Case? caseSensitivity, int indexOffset, bool prefixWithDots = false, bool suffixWithDots = false)
+    internal FormattedDetailedDifferenceString(
+        string actualValue,
+        string expectedValue,
+        Case? caseSensitivity,
+        bool prefixWithEllipsis = false,
+        bool suffixWithEllipsis = false)
     {
         _actualValue = actualValue;
         _expectedValue = expectedValue;
         _caseSensitivity = caseSensitivity ?? Case.Sensitive;
-        _indexOffset = indexOffset;
-        _prefixWithDots = prefixWithDots;
-        _suffixWithDots = suffixWithDots;
-
-        differenceStringLineOneBuilder = new();
-        differenceStringLineTwoBuilder = new();
-        indexStringBuilder = new();
-        expectedValueStringBuilder = new();
-        actualValueStringBuilder = new();
-        expectedCodeStringBuilder = new();
-        actualCodeStringBuilder = new();
+        _prefixWithEllipsis = prefixWithEllipsis;
+        _suffixWithEllipsis = suffixWithEllipsis;
     }
 
-    public override string ToString() =>
-        GenerateFormattedString();
+    public override string? ToString() => GenerateFormattedString();
 
-    public string GenerateFormattedString()
+    public string? GenerateFormattedString()
     {
-        var maxLengthOfStrings = Math.Max(_actualValue.Length, _expectedValue.Length);
-        var minLenOfStrings = Math.Min(_actualValue.Length, _expectedValue.Length);
+        // Track the effective escape style used per side (null = global default)
+        EscapeStyle? expectedEscapeStyle = null;
+        EscapeStyle? actualEscapeStyle = null;
 
-        if (_prefixWithDots)
+        var expectedDisplay = BuildDisplayString(_expectedValue);
+        var actualDisplay = BuildDisplayString(_actualValue);
+
+        // Detect collision: display strings look identical but source strings differ
+        // This happens when one has real control chars and the other has literal escape text
+        if (expectedDisplay == actualDisplay && _expectedValue != _actualValue)
         {
-            AddDots();
-        }
+            var expectedHasControlChars = _expectedValue.Any(c => c.NeedsEscaping());
+            var actualHasControlChars = _actualValue.Any(c => c.NeedsEscaping());
 
-        for (var index = 0; index < maxLengthOfStrings; index++)
-        {
-            var isEqual = CheckEquality(index, minLenOfStrings);
+            // Use ASCII-safe descriptive names when DiffStyle is Ascii, otherwise Unicode control pictures
+            var fallbackEscape = ShouldlyConfiguration.DiffStyle == DiffStyle.Ascii
+                ? EscapeStyle.Descriptive
+                : EscapeStyle.ControlPictures;
 
-            differenceStringLineOneBuilder.Append($"{(isEqual ? " " : " | "),-5}");
-            differenceStringLineTwoBuilder.Append($"{(isEqual ? " " : @"\|/"),-5}");
-            indexStringBuilder.Append($"{index + _indexOffset,-5}");
-            expectedValueStringBuilder.Append($"{(index < _expectedValue.Length ? _expectedValue[index].ToSafeString() : ""),-5}");
-            actualValueStringBuilder.Append($"{(index < _actualValue.Length ? _actualValue[index].ToSafeString() : ""),-5}");
-            expectedCodeStringBuilder.Append($"{(index < _expectedValue.Length ? ((int)_expectedValue[index]).ToString() : ""),-5}");
-            actualCodeStringBuilder.Append($"{(index < _actualValue.Length ? ((int)_actualValue[index]).ToString() : ""),-5}");
-        }
-
-        if (_suffixWithDots)
-        {
-            AddDots();
-        }
-
-        return GetFormattedString();
-    }
-
-    private void AddDots()
-    {
-        differenceStringLineOneBuilder.Append("     ");
-        differenceStringLineTwoBuilder.Append("     ");
-        indexStringBuilder.Append("...  ");
-        expectedValueStringBuilder.Append("...  ");
-        actualValueStringBuilder.Append("...  ");
-        expectedCodeStringBuilder.Append("...  ");
-        actualCodeStringBuilder.Append("...  ");
-    }
-
-    private bool CheckEquality(int index, int minLengthOfStrings)
-    {
-        var isEqual = false;
-        if (index < minLengthOfStrings)
-        {
-            if (_caseSensitivity == Case.Insensitive)
+            if (expectedHasControlChars && !actualHasControlChars)
             {
-                isEqual = StringComparer.OrdinalIgnoreCase.Equals(_actualValue[index].ToString(), _expectedValue[index].ToString());
+                expectedEscapeStyle = fallbackEscape;
+                expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
             }
+            else if (actualHasControlChars && !expectedHasControlChars)
+            {
+                actualEscapeStyle = fallbackEscape;
+                actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+            }
+            else if (expectedHasControlChars && actualHasControlChars)
+            {
+                expectedEscapeStyle = fallbackEscape;
+                actualEscapeStyle = fallbackEscape;
+                expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
+                actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+            }
+        }
+
+        // Split into grapheme clusters for alignment
+        var expectedClusters = GraphemeClusterHelper.GetGraphemeClusters(_expectedValue);
+        var actualClusters = GraphemeClusterHelper.GetGraphemeClusters(_actualValue);
+
+        // Find diff region via prefix/suffix matching on clusters
+        var commonPrefixLen = FindCommonClusterPrefixLength(expectedClusters, actualClusters);
+        var commonSuffixLen = FindCommonClusterSuffixLength(expectedClusters, actualClusters, commonPrefixLen);
+
+        var expectedDiffEnd = expectedClusters.Length - commonSuffixLen;
+        var actualDiffEnd = actualClusters.Length - commonSuffixLen;
+
+        // Extract diff region clusters
+        var expectedDiffClusters = SubArray(expectedClusters, commonPrefixLen, expectedDiffEnd);
+        var actualDiffClusters = SubArray(actualClusters, commonPrefixLen, actualDiffEnd);
+
+        // Run alignment on grapheme clusters
+        var (expectedEdits, actualEdits) = EditDistanceAligner.AlignClusters(
+            expectedDiffClusters, actualDiffClusters, _caseSensitivity);
+
+        // Suppress markers when alignment was skipped (too large) or strings are too different
+        var showMarkers = false;
+        if (expectedEdits != null && actualEdits != null)
+        {
+            var totalClusters = expectedClusters.Length + actualClusters.Length;
+            var editCount = CountEdits(expectedEdits) + CountEdits(actualEdits);
+            showMarkers = totalClusters > 0 && editCount * 2 <= totalClusters;
+        }
+
+        var sb = new StringBuilder();
+        var prefix = "Expected: ";
+
+        if (showMarkers)
+        {
+            // Compute display offset to the start of the diff region
+            var displayDiffStart = ComputeDisplayOffset(expectedClusters, commonPrefixLen, expectedEscapeStyle);
+
+            var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
+            var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
+
+            var markerOffset = prefix.Length + displayDiffStart;
+
+            // Top markers (expected edits) — one marker per display column of each edited cluster
+            var topMarkers = BuildClusterMarkerLine(downMarker, expectedDiffClusters, expectedEdits!, expectedEscapeStyle);
+            if (topMarkers.Length > 0)
+            {
+                sb.Append(' ', markerOffset);
+                sb.AppendLine(topMarkers);
+            }
+
+            sb.AppendLine($"{prefix}{expectedDisplay}");
+            sb.Append($"Actual:   {actualDisplay}");
+
+            // Bottom markers (actual edits)
+            var bottomMarkers = BuildClusterMarkerLine(upMarker, actualDiffClusters, actualEdits!, actualEscapeStyle);
+            if (bottomMarkers.Length > 0)
+            {
+                sb.AppendLine();
+                sb.Append(' ', markerOffset);
+                sb.Append(bottomMarkers);
+            }
+
+            // Codepoint hints for visually ambiguous clusters
+            var codepointHint = BuildClusterCodepointHint(
+                expectedDiffClusters, expectedEdits!,
+                actualDiffClusters, actualEdits!,
+                commonPrefixLen);
+            if (codepointHint != null)
+            {
+                sb.AppendLine();
+                sb.Append(codepointHint);
+            }
+        }
+        else
+        {
+            sb.AppendLine($"{prefix}{expectedDisplay}");
+            sb.Append($"Actual:   {actualDisplay}");
+        }
+
+        return sb.ToString();
+    }
+
+    private string BuildDisplayString(string value, EscapeStyle? escapeStyleOverride = null)
+    {
+        var sb = new StringBuilder();
+
+        if (_prefixWithEllipsis)
+            sb.Append("...");
+
+        sb.Append('"');
+
+        foreach (var c in value)
+        {
+            if (c.NeedsEscaping())
+                sb.Append(c.ToSafeString(escapeStyleOverride));
             else
-            {
-                isEqual = Equals(_actualValue[index], _expectedValue[index]);
-            }
+                sb.Append(c);
         }
 
-        return isEqual;
+        sb.Append('"');
+
+        if (_suffixWithEllipsis)
+            sb.Append("...");
+
+        return sb.ToString();
     }
 
-    private string GetFormattedString()
+    /// <summary>
+    /// Computes the display column offset from the start of the quoted string to
+    /// the given cluster index, accounting for ellipsis prefix, quote char,
+    /// and the display width of each preceding cluster.
+    /// </summary>
+    private int ComputeDisplayOffset(string[] clusters, int clusterIndex, EscapeStyle? escapeStyle)
     {
-        var output = new StringBuilder();
-        output.AppendLine("Difference     | " + differenceStringLineOneBuilder);
-        output.AppendLine("               | " + differenceStringLineTwoBuilder);
-        output.AppendLine("Index          | " + indexStringBuilder);
-        output.AppendLine("Expected Value | " + expectedValueStringBuilder);
-        output.AppendLine("Actual Value   | " + actualValueStringBuilder);
-        output.AppendLine("Expected Code  | " + expectedCodeStringBuilder);
-        output.Append("Actual Code    | " + actualCodeStringBuilder);
+        // Account for optional "..." prefix and opening quote
+        var offset = _prefixWithEllipsis ? 4 : 1;
 
-        var outputString = output.ToString();
-        return outputString;
+        var len = Math.Min(clusterIndex, clusters.Length);
+        for (var i = 0; i < len; i++)
+        {
+            offset += GraphemeClusterHelper.ClusterDisplayWidth(clusters[i], escapeStyle);
+        }
+
+        return offset;
+    }
+
+    /// <summary>
+    /// Builds a marker line where each edited cluster gets markers spanning its display width.
+    /// </summary>
+    private static string BuildClusterMarkerLine(char marker, string[] clusters, bool[] edits, EscapeStyle? escapeStyle)
+    {
+        var markerSb = new StringBuilder();
+        for (var i = 0; i < clusters.Length; i++)
+        {
+            var w = GraphemeClusterHelper.ClusterDisplayWidth(clusters[i], escapeStyle);
+            if (w == 0) w = 1; // Ensure zero-width clusters still get a marker
+            if (edits[i])
+                markerSb.Append(marker, w);
+            else
+                markerSb.Append(' ', w);
+        }
+
+        // Trim trailing spaces
+        while (markerSb.Length > 0 && markerSb[markerSb.Length - 1] == ' ')
+            markerSb.Length--;
+
+        return markerSb.ToString();
+    }
+
+    private static int CountEdits(bool[] edits)
+    {
+        var count = 0;
+        foreach (var e in edits)
+            if (e) count++;
+        return count;
+    }
+
+    private int FindCommonClusterPrefixLength(string[] expected, string[] actual)
+    {
+        var minLen = Math.Min(expected.Length, actual.Length);
+        for (var i = 0; i < minLen; i++)
+        {
+            if (!GraphemeClusterHelper.ClustersEqual(expected[i], actual[i], _caseSensitivity))
+                return i;
+        }
+        return minLen;
+    }
+
+    private int FindCommonClusterSuffixLength(string[] expected, string[] actual, int commonPrefixLength)
+    {
+        var maxSuffixLen = Math.Min(expected.Length, actual.Length) - commonPrefixLength;
+        for (var i = 0; i < maxSuffixLen; i++)
+        {
+            if (!GraphemeClusterHelper.ClustersEqual(
+                    expected[expected.Length - 1 - i],
+                    actual[actual.Length - 1 - i],
+                    _caseSensitivity))
+                return i;
+        }
+        return maxSuffixLen;
+    }
+
+    private static string[] SubArray(string[] source, int start, int end)
+    {
+        var length = end - start;
+        if (length <= 0) return Array.Empty<string>();
+        var result = new string[length];
+        Array.Copy(source, start, result, 0, length);
+        return result;
+    }
+
+    private static string? BuildClusterCodepointHint(
+        string[] expectedClusters, bool[] expectedEdits,
+        string[] actualClusters, bool[] actualEdits,
+        int regionStartIndex)
+    {
+        var expectedEditedClusters = GetEditedClusters(expectedClusters, expectedEdits);
+        var actualEditedClusters = GetEditedClusters(actualClusters, actualEdits);
+
+        // Only show hint when the edit is small and contains visually ambiguous clusters
+        var hasAmbiguous = expectedEditedClusters.Any(GraphemeClusterHelper.IsClusterVisuallyAmbiguous)
+                        || actualEditedClusters.Any(GraphemeClusterHelper.IsClusterVisuallyAmbiguous);
+        if (!hasAmbiguous) return null;
+        if (expectedEditedClusters.Count > 3 || actualEditedClusters.Count > 3) return null;
+
+        var sb = new StringBuilder();
+        sb.Append($"Difference at index {regionStartIndex}: ");
+
+        if (expectedEditedClusters.Count > 0)
+            sb.Append(GraphemeClusterHelper.FormatClusterCodepoints(expectedEditedClusters));
+        else
+            sb.Append("(empty)");
+
+        sb.Append(" vs ");
+
+        if (actualEditedClusters.Count > 0)
+            sb.Append(GraphemeClusterHelper.FormatClusterCodepoints(actualEditedClusters));
+        else
+            sb.Append("(empty)");
+
+        return sb.ToString();
+    }
+
+    private static List<string> GetEditedClusters(string[] clusters, bool[] edits)
+    {
+        var result = new List<string>(Math.Min(clusters.Length, 4));
+        for (var i = 0; i < clusters.Length && i < edits.Length; i++)
+        {
+            if (edits[i])
+                result.Add(clusters[i]);
+        }
+        return result;
     }
 }
