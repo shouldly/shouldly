@@ -59,7 +59,7 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
         if (errorMessages.Any())
         {
             var errorMessageString = BuildErrorMessageString(errorMessages);
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage).ToString()));
         }
     }
 

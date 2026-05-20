@@ -17,7 +17,7 @@ public static partial class ShouldBeBooleanExtensions
     public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool actual, string? customMessage = null)
     {
         if (!actual)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -27,10 +27,13 @@ public static partial class ShouldBeBooleanExtensions
     public static void ShouldBeTrue([DoesNotReturnIf(false)] this bool? actual, string? customMessage = null)
     {
         if (actual is null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(true, customMessage).ToString());
+        {
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(true, customMessage).ToString()));
+            return;
+        }
 
         if (actual.Value != true)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -40,7 +43,7 @@ public static partial class ShouldBeBooleanExtensions
     public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool actual, string? customMessage = null)
     {
         if (actual)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString()));
     }
 
     /// <summary>
@@ -50,9 +53,12 @@ public static partial class ShouldBeBooleanExtensions
     public static void ShouldBeFalse([DoesNotReturnIf(true)] this bool? actual, string? customMessage = null)
     {
         if (actual is null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(false, customMessage).ToString());
+        {
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(false, customMessage).ToString()));
+            return;
+        }
 
         if (actual.Value != false)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage).ToString()));
     }
 }

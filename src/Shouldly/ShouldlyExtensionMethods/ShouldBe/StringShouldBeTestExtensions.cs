@@ -55,9 +55,10 @@ public static partial class ShouldBeStringTestExtensions
         }
         catch (ArgumentException ex)
         {
-            throw new ShouldAssertException(ex.Message, ex);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(ex.Message, ex));
+            return;
         }
 
-        throw new ShouldAssertException(assertion.GenerateMessage(customMessage));
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(assertion.GenerateMessage(customMessage)));
     }
 }

@@ -1,0 +1,25 @@
+```
+--------------- Error 1 ---------------
+    homer.Name
+        should be
+    "Mr.Burns"
+        but was
+    "Homer"
+        difference
+    Difference     |  |    |    |    |    |    |    |    |   
+                   | \|/  \|/  \|/  \|/  \|/  \|/  \|/  \|/  
+    Index          | 0    1    2    3    4    5    6    7    
+    Expected Value | M    r    .    B    u    r    n    s    
+    Actual Value   | H    o    m    e    r                   
+    Expected Code  | 77   114  46   66   117  114  110  115  
+    Actual Code    | 72   111  109  101  114                 
+
+--------------- Error 2 ---------------
+    homer.Salary
+        should be greater than
+    1000000
+        but was
+    30000
+
+-----------------------------------------
+```

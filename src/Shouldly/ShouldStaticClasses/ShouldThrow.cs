@@ -30,10 +30,12 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod).ToString(), e));
+            return default!;
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -57,10 +59,12 @@ public static partial class Should
                 return e;
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e));
+            return default!;
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -87,10 +91,12 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage: customMessage, shouldlyMethod).ToString(), e);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage: customMessage, shouldlyMethod).ToString(), e));
+            return default!;
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -121,10 +127,12 @@ public static partial class Should
                 return e;
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e);
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod).ToString(), e));
+            return default!;
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString());
+        ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod).ToString()));
+        return default!;
     }
 
     /// <summary>
@@ -145,7 +153,7 @@ public static partial class Should
         }
         catch (Exception ex)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString()));
         }
     }
 
@@ -168,7 +176,8 @@ public static partial class Should
         }
         catch (Exception ex)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), ex.Message, customMessage, shouldlyMethod).ToString()));
+            return default!;
         }
     }
 }

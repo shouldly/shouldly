@@ -18,7 +18,7 @@ public static partial class ShouldBeDecoratedWithExtensions
         where T : Attribute
     {
         if (!actual.HasAttribute(typeof(T)))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).Name, customMessage).ToString());
+            ThrowHelper.ThrowOrRecord(new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).Name, customMessage).ToString()));
     }
 
     private static bool HasAttribute(this Type type, Type attributeType) =>
