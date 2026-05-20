@@ -10,7 +10,7 @@
     <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1" PrivateAssets="all" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="PublicApiGenerator" Version="11.5.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
