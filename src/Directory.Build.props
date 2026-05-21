@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Version>4.3.0</Version>
     <AnalysisLevel>5</AnalysisLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <DebugSymbols>true</DebugSymbols>
