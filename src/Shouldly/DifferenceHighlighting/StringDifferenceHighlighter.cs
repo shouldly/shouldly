@@ -24,8 +24,14 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
 
         if (StringsEqual(expected, actual)) return null;
 
-        // Mode selection
-        if (expected.Contains('\n') && actual.Contains('\n'))
+        // Mode selection: prefer line mode when both sides are multi-line, or when either
+        // is multi-line and the strings are too long for char-mode markers to be readable.
+        var expectedHasNewline = expected.Contains('\n');
+        var actualHasNewline = actual.Contains('\n');
+        var maxLen = Math.Max(expected.Length, actual.Length);
+
+        if ((expectedHasNewline && actualHasNewline)
+            || ((expectedHasNewline || actualHasNewline) && maxLen > MaxDisplayLength))
             return FormatLineMode(expected, actual);
 
         return FormatCharacterMode(expected, actual);
@@ -74,7 +80,7 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var showCount = Math.Min(totalDiffs, MaxDiffRegions);
 
         if (totalDiffs > 1)
-            output.AppendLine($"{totalDiffs} difference{(totalDiffs > 1 ? "s" : "")}");
+            output.AppendLine($"{totalDiffs} differences");
 
         for (var i = 0; i < showCount; i++)
         {
@@ -186,8 +192,12 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         return string.Join(Environment.NewLine, lines.Select(l => indent + l));
     }
 
-    private static string? DetectSmartHint(string expected, string actual)
+    private string? DetectSmartHint(string expected, string actual)
     {
+        var comparer = _sensitivity == Case.Insensitive
+            ? StringComparer.OrdinalIgnoreCase
+            : StringComparer.Ordinal;
+
         // Check for CRLF vs LF difference
         var expectedHasCrlf = expected.Contains("\r\n");
         var actualHasCrlf = actual.Contains("\r\n");
@@ -196,24 +206,26 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var normalizedExpected = expected.NormalizeLineEndings()!;
         var normalizedActual = actual.NormalizeLineEndings()!;
 
-        if (expectedHasCrlf && !actualHasCrlf && normalizedExpected == normalizedActual)
+        if (expectedHasCrlf && !actualHasCrlf && comparer.Equals(normalizedExpected, normalizedActual))
             return "Line endings differ: expected uses CRLF (\\r\\n), actual uses LF (\\n)";
 
-        if (!expectedHasCrlf && actualHasCrlf && normalizedExpected == normalizedActual)
+        if (!expectedHasCrlf && actualHasCrlf && comparer.Equals(normalizedExpected, normalizedActual))
             return "Line endings differ: expected uses LF (\\n), actual uses CRLF (\\r\\n)";
 
         // Check for tab vs space difference
         if (expected.Contains('\t') && !actual.Contains('\t') && actual.Contains(' '))
         {
             var tabNormalized = expected.Replace("\t", "    ");
-            if (tabNormalized == actual || expected.Replace('\t', ' ') == actual.Replace('\t', ' '))
+            if (comparer.Equals(tabNormalized, actual)
+                || comparer.Equals(expected.Replace('\t', ' '), actual.Replace('\t', ' ')))
                 return "Whitespace differs: expected uses tab (\\t), actual uses spaces";
         }
 
         if (!expected.Contains('\t') && actual.Contains('\t') && expected.Contains(' '))
         {
             var tabNormalized = actual.Replace("\t", "    ");
-            if (tabNormalized == expected || expected.Replace('\t', ' ') == actual.Replace('\t', ' '))
+            if (comparer.Equals(tabNormalized, expected)
+                || comparer.Equals(expected.Replace('\t', ' '), actual.Replace('\t', ' ')))
                 return "Whitespace differs: expected uses spaces, actual uses tab (\\t)";
         }
 

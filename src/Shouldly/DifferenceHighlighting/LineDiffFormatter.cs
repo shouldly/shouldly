@@ -104,8 +104,7 @@ class LineDiffFormatter
 
     private int FindFirstCharDifference(string a, string b)
     {
-        return GraphemeClusterHelper.FindFirstClusterDifference(
-            a.TrimEnd('\r'), b.TrimEnd('\r'), _caseSensitivity);
+        return GraphemeClusterHelper.FindFirstClusterDifference(a, b, _caseSensitivity);
     }
 
     private int FindCommonPrefixLineCount(string[] expected, string[] actual)
@@ -134,9 +133,6 @@ class LineDiffFormatter
 
     private bool LinesEqual(string a, string b)
     {
-        a = a.TrimEnd('\r');
-        b = b.TrimEnd('\r');
-
         if (_caseSensitivity == Case.Insensitive)
             return StringComparer.OrdinalIgnoreCase.Equals(a, b);
         return StringComparer.Ordinal.Equals(a, b);

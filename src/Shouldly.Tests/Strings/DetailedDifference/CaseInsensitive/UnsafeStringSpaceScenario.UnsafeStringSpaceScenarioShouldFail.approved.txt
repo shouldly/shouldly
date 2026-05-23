@@ -9,6 +9,7 @@ str
 Expected: "Stringone\tSpace"
 Actual:   "StringOne Space"
                     ▲
+Whitespace differs: expected uses tab (\t), actual uses spaces
 ---- Without Source ----
 "StringOne Space"
     should be with options: Ignoring case
@@ -19,3 +20,4 @@ Actual:   "StringOne Space"
 Expected: "Stringone\tSpace"
 Actual:   "StringOne Space"
                     ▲
+Whitespace differs: expected uses tab (\t), actual uses spaces

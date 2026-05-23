@@ -126,10 +126,11 @@ class FormattedDetailedDifferenceString
             }
 
             // Codepoint hints for visually ambiguous clusters
+            var charOffsetOfDiff = ComputeCharOffset(expectedClusters, commonPrefixLen);
             var codepointHint = BuildClusterCodepointHint(
                 expectedDiffClusters, expectedEdits!,
                 actualDiffClusters, actualEdits!,
-                commonPrefixLen);
+                charOffsetOfDiff);
             if (codepointHint != null)
             {
                 sb.AppendLine();
@@ -168,6 +169,19 @@ class FormattedDetailedDifferenceString
             sb.Append("...");
 
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Converts a grapheme-cluster index into a UTF-16 char offset in the original string,
+    /// so it can be reported alongside other "index" values in the codebase.
+    /// </summary>
+    private static int ComputeCharOffset(string[] clusters, int clusterIndex)
+    {
+        var offset = 0;
+        var len = Math.Min(clusterIndex, clusters.Length);
+        for (var i = 0; i < len; i++)
+            offset += clusters[i].Length;
+        return offset;
     }
 
     /// <summary>
