@@ -31,9 +31,11 @@ static class GraphemeClusterHelper
 
     private static bool ContainsAnySurrogatePairs(string value)
     {
-        for (var i = 0; i < value.Length - 1; i++)
+        // Take the slow path for any surrogate code unit — including a lone trailing
+        // high surrogate from malformed input — so emoji-aware cluster merging runs.
+        for (var i = 0; i < value.Length; i++)
         {
-            if (char.IsHighSurrogate(value[i]))
+            if (char.IsSurrogate(value[i]))
                 return true;
         }
         return false;

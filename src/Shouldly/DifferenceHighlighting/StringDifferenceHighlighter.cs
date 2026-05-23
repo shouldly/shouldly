@@ -173,6 +173,12 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var windowStart = Math.Max(0, diffStart - MaxContextChars);
         var windowEnd = Math.Min(maxLen, diffEnd + MaxContextChars + 1);
 
+        // Cap the extracted window so a very wide diff region (e.g. an entirely
+        // different long string) can't bypass MaxDisplayLength and bloat the message.
+        const int maxWindowSize = MaxDisplayLength + 2 * MaxContextChars;
+        if (windowEnd - windowStart > maxWindowSize)
+            windowEnd = windowStart + maxWindowSize;
+
         var expectedWindow = SafeSubstring(expected, windowStart, windowEnd);
         var actualWindow = SafeSubstring(actual, windowStart, windowEnd);
 
