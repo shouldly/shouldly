@@ -190,8 +190,12 @@ static class GraphemeClusterHelper
     }
 
     /// <summary>
-    /// Returns true if a grapheme cluster is visually ambiguous — invisible or modifies
-    /// an adjacent character rather than being distinct on its own.
+    /// Returns true when a cluster is either visually invisible, or likely to be
+    /// rendered with a width that doesn't match our estimate — so the marker line
+    /// can't be trusted and the codepoint hint should be shown instead.
+    /// Triggers for: combining marks, formatting chars (incl. ZWJ, VS16), regional
+    /// indicators (flag emoji — width varies by font support), and RTL chars
+    /// (terminals reorder bidi runs, shifting markers off the intended glyph).
     /// </summary>
     internal static bool IsClusterVisuallyAmbiguous(string cluster)
     {
@@ -203,8 +207,38 @@ static class GraphemeClusterHelper
                 or UnicodeCategory.EnclosingMark
                 or UnicodeCategory.Format)
                 return true;
+
+            if (char.IsHighSurrogate(cluster[i]) && i + 1 < cluster.Length && char.IsLowSurrogate(cluster[i + 1]))
+            {
+                var cp = char.ConvertToUtf32(cluster[i], cluster[i + 1]);
+                if (cp >= 0x1F1E6 && cp <= 0x1F1FF) // regional indicators (flag emoji)
+                    return true;
+                i++;
+                continue;
+            }
+
+            if (IsRtlChar(cluster[i]))
+                return true;
         }
         return false;
+    }
+
+    private static bool IsRtlChar(char c)
+    {
+        // Hebrew, Arabic, Syriac, Thaana, NKo, and Arabic presentation forms.
+        // Terminals reorder bidi runs visually, so markers placed by logical
+        // position won't sit over the intended glyph.
+        return c >= '֐' && c <= '׿'    // Hebrew
+            || c >= '؀' && c <= 'ۿ'    // Arabic
+            || c >= '܀' && c <= 'ݏ'    // Syriac
+            || c >= 'ݐ' && c <= 'ݿ'    // Arabic Supplement
+            || c >= 'ހ' && c <= '޿'    // Thaana
+            || c >= '߀' && c <= '߿'    // NKo
+            || c >= 'ࡠ' && c <= '࡯'    // Syriac Supplement
+            || c >= 'ࢠ' && c <= 'ࣿ'    // Arabic Extended-A
+            || c >= 'יִ' && c <= 'ﭏ'    // Hebrew Presentation Forms
+            || c >= 'ﭐ' && c <= '﷿'    // Arabic Presentation Forms-A
+            || c >= 'ﹰ' && c <= '﻿';   // Arabic Presentation Forms-B
     }
 
     /// <summary>
@@ -304,14 +338,20 @@ static class GraphemeClusterHelper
 
     private static bool IsCjkOrWideChar(char c)
     {
-        // CJK Unified Ideographs and common CJK ranges
-        // Note: this is a simplified check covering the most common ranges
-        return c >= '\u4E00' && c <= '\u9FFF'   // CJK Unified Ideographs
+        // Wide (East-Asian) ranges per Unicode East_Asian_Width=W/F.
+        // Simplified \u2014 covers what shows up in diff messages.
+        return c >= '\u1100' && c <= '\u115F'    // Hangul Jamo (leading consonants)
+            || c >= '\u2E80' && c <= '\u2EFF'    // CJK Radicals Supplement
+            || c >= '\u2F00' && c <= '\u2FDF'    // Kangxi Radicals
+            || c >= '\u3000' && c <= '\u318F'    // CJK Symbols/Punct, Hiragana, Katakana, Bopomofo, Hangul Compat Jamo
+            || c >= '\u31A0' && c <= '\u31FF'    // Bopomofo Extended, CJK Strokes, Katakana Phonetic Extensions
             || c >= '\u3400' && c <= '\u4DBF'    // CJK Extension A
+            || c >= '\u4E00' && c <= '\u9FFF'    // CJK Unified Ideographs
+            || c >= '\uA000' && c <= '\uA4CF'    // Yi Syllables/Radicals
+            || c >= '\uAC00' && c <= '\uD7AF'    // Hangul Syllables
             || c >= '\uF900' && c <= '\uFAFF'    // CJK Compatibility Ideographs
-            || c >= '\u3000' && c <= '\u303F'     // CJK Symbols and Punctuation
-            || c >= '\uFF01' && c <= '\uFF60'     // Fullwidth Forms
-            || c >= '\uFFE0' && c <= '\uFFE6'     // Fullwidth Signs
-            || c >= '\uAC00' && c <= '\uD7AF';    // Hangul Syllables
+            || c >= '\uFE30' && c <= '\uFE4F'    // CJK Compatibility Forms
+            || c >= '\uFF01' && c <= '\uFF60'    // Fullwidth Forms
+            || c >= '\uFFE0' && c <= '\uFFE6';   // Fullwidth Signs
     }
 }

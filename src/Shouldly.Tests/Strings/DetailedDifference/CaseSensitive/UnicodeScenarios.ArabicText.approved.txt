@@ -9,6 +9,7 @@ str
 Expected: "hello مرحبآ world"
 Actual:   "hello مرحبا world"
                      ▲
+Difference at index 10: U+0622 vs U+0627
 ---- Without Source ----
 "hello مرحبا world"
     should be
@@ -19,3 +20,4 @@ Actual:   "hello مرحبا world"
 Expected: "hello مرحبآ world"
 Actual:   "hello مرحبا world"
                      ▲
+Difference at index 10: U+0622 vs U+0627
