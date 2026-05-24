@@ -1,19 +1,20 @@
-using System.Reflection;
-
 namespace Shouldly.Tests.TestHelpers;
 
-// Bridges to ShouldlyConfiguration.WithEscapeStyle, which is internal so the
-// scoped-override mechanism isn't part of the library's public API. Tests need
-// scoped overrides to avoid racing with parallel readers of the global config;
-// since Shouldly is strong-named and granting IVT to the test assembly would
-// require signing it, we hop the access barrier with reflection here.
+// Test-only IDisposable wrapper around the EscapeStyle save/restore dance.
+// EscapeStyle is AsyncLocal-backed in Shouldly, so this naturally doesn't
+// race with parallel readers — the override only applies to the current
+// logical call context.
 static class EscapeStyleScope
 {
-    private static readonly MethodInfo WithEscapeStyle =
-        typeof(ShouldlyConfiguration).GetMethod(
-            "WithEscapeStyle",
-            BindingFlags.Static | BindingFlags.NonPublic)!;
+    public static IDisposable For(EscapeStyle escapeStyle)
+    {
+        var previous = ShouldlyConfiguration.EscapeStyle;
+        ShouldlyConfiguration.EscapeStyle = escapeStyle;
+        return new Restore(previous);
+    }
 
-    public static IDisposable For(EscapeStyle escapeStyle) =>
-        (IDisposable)WithEscapeStyle.Invoke(null, [escapeStyle])!;
+    private sealed class Restore(EscapeStyle previous) : IDisposable
+    {
+        public void Dispose() => ShouldlyConfiguration.EscapeStyle = previous;
+    }
 }

@@ -73,29 +73,16 @@ public static partial class ShouldlyConfiguration
     /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊),
     /// Descriptive uses ASCII-safe names (&lt;CR&gt;, &lt;LF&gt;).
     /// </summary>
+    /// <remarks>
+    /// Scoped to the logical call context, same pattern as <see cref="DisableSourceInErrors"/>.
+    /// Flows down through async/await and Task.Run by default; concurrent
+    /// contexts get their own value.
+    /// </remarks>
     public static EscapeStyle EscapeStyle
     {
-        get => (EscapeStyle?)CallContext.LogicalGetData(EscapeStyleKey) ?? _escapeStyle;
-        set => _escapeStyle = value;
+        get => (EscapeStyle?)CallContext.LogicalGetData(EscapeStyleKey) ?? EscapeStyle.CStyle;
+        set => CallContext.LogicalSetData(EscapeStyleKey, value);
     }
 
-    private static EscapeStyle _escapeStyle = EscapeStyle.CStyle;
     private const string EscapeStyleKey = "ShouldlyEscapeStyle";
-
-    /// <summary>
-    /// Scopes an <see cref="EscapeStyle"/> override to the current logical call
-    /// context. Internal-only — exists so concurrent tests can override the
-    /// style without leaking it to parallel readers via the static field.
-    /// </summary>
-    internal static IDisposable WithEscapeStyle(EscapeStyle escapeStyle)
-    {
-        CallContext.LogicalSetData(EscapeStyleKey, escapeStyle);
-        return new EscapeStyleScope();
-    }
-
-    private class EscapeStyleScope : IDisposable
-    {
-        public void Dispose() =>
-            CallContext.LogicalSetData(EscapeStyleKey, null);
-    }
 }
