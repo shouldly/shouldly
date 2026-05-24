@@ -3,7 +3,7 @@ result
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
 --------------- Error 1 ---------------
-    r => r
+    r
         should be of type
     System.Single
         but was
@@ -13,7 +13,7 @@ The following errors were found ...
         Some additional context
 
 --------------- Error 2 ---------------
-    r => r
+    r
         should be greater than
     5
         but was

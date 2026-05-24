@@ -21,8 +21,16 @@ public static partial class ShouldlyConfiguration
 
 
     /// <summary>
-    /// When set to true shouldly will not try and create better error messages using your source code
+    /// When active, Shouldly omits the source-level expression of the actual argument from error messages
+    /// and formats the value alone (for example: <c>False should be True but was not</c>).
     /// </summary>
+    /// <remarks>
+    /// Suppresses both sources of expression text: the legacy stack-trace + source-file parser and the
+    /// modern compile-time capture supplied via <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/>.
+    /// Most callers will not need to set this; it predates compile-time expression capture and was originally
+    /// added to give users a fallback when PDBs/source files were unavailable. That fallback is no longer
+    /// necessary, but the flag is retained as a preference toggle.
+    /// </remarks>
     public static IDisposable DisableSourceInErrors()
     {
         CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", true);
@@ -30,7 +38,7 @@ public static partial class ShouldlyConfiguration
     }
 
     /// <summary>
-    /// Determines if source code should be excluded from error messages
+    /// Returns true when expression text should be omitted from error messages. See <see cref="DisableSourceInErrors"/>.
     /// </summary>
     public static bool IsSourceDisabledInErrors()
     {

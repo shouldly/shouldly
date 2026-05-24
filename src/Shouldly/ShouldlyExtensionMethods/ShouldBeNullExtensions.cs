@@ -17,11 +17,14 @@ public static partial class ShouldBeNullExtensions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:notnull => halt")]
-    public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
+    public static void ShouldBeNull<T>(
+        this T? actual,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : class
     {
         if (actual != null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
     /// <summary>
@@ -29,11 +32,14 @@ public static partial class ShouldBeNullExtensions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:notnull => halt")]
-    public static void ShouldBeNull<T>(this T? actual, string? customMessage = null)
+    public static void ShouldBeNull<T>(
+        this T? actual,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : struct
     {
         if (actual != null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
     /// <summary>
@@ -41,16 +47,22 @@ public static partial class ShouldBeNullExtensions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
-    public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
+    public static T ShouldNotBeNull<T>(
+        [NotNull] this T? actual,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : class =>
-        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
 
     /// <summary>
     /// Asserts that the actual value is not null.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
-    public static T ShouldNotBeNull<T>([NotNull] this T? actual, string? customMessage = null)
+    public static T ShouldNotBeNull<T>(
+        [NotNull] this T? actual,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : struct =>
-        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
 }

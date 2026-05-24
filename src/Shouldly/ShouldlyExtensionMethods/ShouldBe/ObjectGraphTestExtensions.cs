@@ -19,7 +19,8 @@ public static partial class ObjectGraphTestExtensions
     public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
-        string? customMessage = null)
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage);
     }

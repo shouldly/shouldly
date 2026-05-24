@@ -8,7 +8,8 @@ public static partial class Should
     /// Asynchronously verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null)
+    public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null,
+        [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
         where TException : Exception
     {
         return ThrowAsync<TException>(() => task, customMessage);
@@ -18,7 +19,8 @@ public static partial class Should
     /// Asynchronously verifies that the provided task throws an exception of the specified type
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null)
+    public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null,
+        [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
         return ThrowAsync(() => task, exceptionType, customMessage);
     }
@@ -27,7 +29,8 @@ public static partial class Should
     /// Asynchronously verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null)
+    public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception
     {
         var stackTrace = new StackTrace(true);
@@ -78,7 +81,8 @@ public static partial class Should
     /// Asynchronously verifies that the provided task function throws an exception of the specified type
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType, string? customMessage = null)
+    public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var stackTrace = new StackTrace(true);
         return actual().ContinueWith(t =>
@@ -105,7 +109,8 @@ public static partial class Should
     /// Asynchronously verifies that the provided task does not throw any exceptions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task NotThrowAsync(Task task, string? customMessage = null)
+    public static Task NotThrowAsync(Task task, string? customMessage = null,
+        [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
         return NotThrowAsyncInternal(() => task, customMessage);
     }
@@ -114,7 +119,8 @@ public static partial class Should
     /// Asynchronously verifies that the provided task function does not throw any exceptions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null) =>
+    public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         NotThrowAsyncInternal(actual, customMessage);
 
     internal static Task NotThrowAsyncInternal(

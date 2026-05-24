@@ -13,7 +13,8 @@ public static partial class DynamicShould
     /// Verifies that the provided action throws an exception of type TException
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null)
+    public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
         Should.Throw<TException>(actual, customMessage);
 
@@ -21,7 +22,8 @@ public static partial class DynamicShould
     /// Verifies that the dynamic object has the specified property
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null)
+    public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null,
+        [CallerArgumentExpression(nameof(dynamicTestObject))] string? actualExpression = null)
     {
         if (dynamicTestObject is IDynamicMetaObjectProvider)
         {

@@ -85,19 +85,28 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     /// <param name="expected">The expected value</param>
     /// <param name="actual">The actual value</param>
     /// <param name="stackTrace">The stack trace</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument, if captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>. When provided, supersedes stack-trace parsing.</param>
     public ShouldlyAssertionContext(
         string shouldlyMethod,
         object? expected = null,
         object? actual = null,
-        StackTrace? stackTrace = null)
+        StackTrace? stackTrace = null,
+        string? actualExpression = null)
     {
-        var actualCodeGetter = new ActualCodeTextGetter();
         Expected = expected;
         Actual = actual;
         ShouldMethod = shouldlyMethod;
 
-        CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
-        FileName = actualCodeGetter.FileName;
-        LineNumber = actualCodeGetter.LineNumber;
+        if (actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors())
+        {
+            CodePart = actualExpression;
+        }
+        else
+        {
+            var actualCodeGetter = new ActualCodeTextGetter();
+            CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
+            FileName = actualCodeGetter.FileName;
+            LineNumber = actualCodeGetter.LineNumber;
+        }
     }
 }

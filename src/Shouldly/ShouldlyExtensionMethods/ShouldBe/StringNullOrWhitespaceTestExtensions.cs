@@ -10,10 +10,11 @@ public static partial class ShouldBeStringTestExtensions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:notnull => halt")]
-    public static void ShouldBeNullOrWhiteSpace(this string? actual, string? customMessage = null)
+    public static void ShouldBeNullOrWhiteSpace(this string? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!string.IsNullOrWhiteSpace(actual))
-            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage).ToString());
+            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
     /// <summary>
@@ -21,9 +22,10 @@ public static partial class ShouldBeStringTestExtensions
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
-    public static void ShouldNotBeNullOrWhiteSpace([NotNull] this string? actual, string? customMessage = null)
+    public static void ShouldNotBeNullOrWhiteSpace([NotNull] this string? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (string.IsNullOrWhiteSpace(actual))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
 }

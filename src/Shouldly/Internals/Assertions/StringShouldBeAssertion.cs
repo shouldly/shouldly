@@ -11,6 +11,7 @@ class StringShouldBeAssertion : IAssertion
     private readonly IStringDifferenceHighlighter _diffHighlighter;
     private readonly string _options;
     private readonly string _shouldlyMethod;
+    private readonly string? _actualExpression;
 
     public StringShouldBeAssertion(
         string? expected,
@@ -19,7 +20,8 @@ class StringShouldBeAssertion : IAssertion
         ICodeTextGetter codeTextGetter,
         IStringDifferenceHighlighter diffHighlighter,
         string options,
-        string shouldlyMethod)
+        string shouldlyMethod,
+        string? actualExpression = null)
     {
         _expected = expected;
         _actual = actual;
@@ -28,13 +30,16 @@ class StringShouldBeAssertion : IAssertion
         _diffHighlighter = diffHighlighter;
         _options = options;
         _shouldlyMethod = shouldlyMethod;
+        _actualExpression = actualExpression;
     }
 
     public string GenerateMessage(string? customMessage)
     {
         var _actualTrimmed = Trim(_actual);
         var _expectedTrimmed = Trim(_expected);
-        var codeText = _codeTextGetter.GetCodeText(_actual);
+        var codeText = _actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors()
+            ? _actualExpression
+            : _codeTextGetter.GetCodeText(_actual);
         var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
         var actualValue = _actualTrimmed.ToStringAwesomely();
         var expectedValue = _expectedTrimmed.ToStringAwesomely();

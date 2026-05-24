@@ -44,6 +44,12 @@ public class ShouldlyConventions
     }
 
     [Fact]
+    public void ShouldlyMethodsShouldCaptureActualExpression()
+    {
+        Convention.Is(new ShouldlyMethodsShouldHaveActualExpressionParameter(), _shouldlyMethodClasses);
+    }
+
+    [Fact]
     public void MethodsShouldNotBeInlined()
     {
         Convention.Is(new MethodsShouldNotBeInlinedConvention(), _shouldlyMethodClasses);
