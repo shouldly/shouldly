@@ -502,7 +502,6 @@ namespace Shouldly
         public static Shouldly.EscapeStyle EscapeStyle { get; set; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
-        public static System.IDisposable WithEscapeStyle(Shouldly.EscapeStyle escapeStyle) { }
     }
     public static class ShouldlyCoreExtensions
     {
