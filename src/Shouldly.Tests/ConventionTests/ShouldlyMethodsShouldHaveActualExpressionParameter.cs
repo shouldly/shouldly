@@ -69,7 +69,11 @@ public class ShouldlyMethodsShouldHaveActualExpressionParameter : IConvention<Ty
         method.GetParameters().Any(p =>
             p.Name == "actualExpression" &&
             p.ParameterType == typeof(string) &&
-            p.IsDefined(typeof(CallerArgumentExpressionAttribute), inherit: false));
+            // Compare by FullName, not Type identity: on net48 the test project's polyfilled
+            // CallerArgumentExpressionAttribute and the internal one in Shouldly.dll's
+            // netstandard2.0 build are distinct types in different assemblies.
+            p.GetCustomAttributesData().Any(a =>
+                a.AttributeType.FullName == "System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"));
 
     private static string FormatKey(MethodInfo method) =>
         $"{method.DeclaringType?.Name}.{method.FormatMethod()}";
