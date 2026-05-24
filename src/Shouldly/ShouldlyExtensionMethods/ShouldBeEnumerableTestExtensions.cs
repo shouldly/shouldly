@@ -211,19 +211,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     /// Asserts that the enumerable contains only unique elements using the specified comparer.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer)
-    {
-        // Deliberately no CallerArgumentExpression: see ShouldBe(IEnumerable<T>, IEnumerable<T>, bool)
-        // for the equivalent rationale — an optional `string? actualExpression` here would shadow
-        // the customMessage slot of the 3-arg overload at positional call sites.
-        ShouldBeUnique(actual, comparer, null, actualExpression: null);
-    }
-
-    /// <summary>
-    /// Asserts that the enumerable contains only unique elements using the specified comparer.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage,
+    public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var duplicates = GetDuplicates(actual, comparer);
@@ -337,6 +325,6 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, false, customMessage, actualExpression);
+        actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, customMessage, actualExpression: actualExpression);
     }
 }

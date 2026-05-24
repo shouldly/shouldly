@@ -63,33 +63,16 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order
+    /// Asserts that an enumerable is equal to another enumerable. Pass <paramref name="ignoreOrder"/>
+    /// as a named argument (<c>ignoreOrder: true</c>) to compare without regard to element order.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [OverloadResolutionPriority(1)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        bool ignoreOrder = false)
-    {
-        // Deliberately no CallerArgumentExpression here: a trailing optional `string? actualExpression`
-        // would shadow the customMessage slot when the user calls the 4-arg overload positionally
-        // (e.g. xs.ShouldBe(ys, false, "msg") would bind "msg" to actualExpression).
-        // The 4-arg overload receives `null` and the underlying assertion falls back to
-        // stack-trace parsing to recover the call-site expression for this entry point.
-        ShouldBe(actual, expected, ignoreOrder, null, actualExpression: null);
-    }
-
-    /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [OverloadResolutionPriority(1)]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
-        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        bool ignoreOrder,
-        string? customMessage,
+        string? customMessage = null,
+        bool ignoreOrder = false,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
@@ -113,15 +96,17 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable using the specified comparer, optionally ignoring order
+    /// Asserts that an enumerable is equal to another enumerable using the specified comparer. Pass
+    /// <paramref name="ignoreOrder"/> as a named argument (<c>ignoreOrder: true</c>) to compare
+    /// without regard to element order.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
         IEqualityComparer<T> comparer,
-        bool ignoreOrder = false,
         string? customMessage = null,
+        bool ignoreOrder = false,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (ignoreOrder)

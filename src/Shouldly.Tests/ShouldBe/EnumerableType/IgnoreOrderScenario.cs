@@ -6,7 +6,7 @@ public class IgnoreOrderScenario
     public void IgnoreOrderScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-            new List<int> { 1, 4, 2 }.ShouldBe([1, 2, 3], true, "Some additional context"));
+            new List<int> { 1, 4, 2 }.ShouldBe([1, 2, 3], "Some additional context", ignoreOrder: true));
     }
 
     [Fact]

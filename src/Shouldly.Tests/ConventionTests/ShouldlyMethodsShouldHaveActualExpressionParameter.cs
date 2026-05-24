@@ -59,11 +59,7 @@ public class ShouldlyMethodsShouldHaveActualExpressionParameter : IConvention<Ty
         return ExemptForwardingOverloads.Contains(key);
     }
 
-    private static readonly HashSet<string> ExemptForwardingOverloads =
-    [
-        "ShouldBeTestExtensions.ShouldBe(IEnumerable`1,IEnumerable`1,Boolean)",
-        "ShouldBeEnumerableTestExtensions.ShouldBeUnique(IEnumerable`1,IEqualityComparer`1)",
-    ];
+    private static readonly HashSet<string> ExemptForwardingOverloads = [];
 
     private static bool HasActualExpressionParameter(MethodInfo method) =>
         method.GetParameters().Any(p =>
