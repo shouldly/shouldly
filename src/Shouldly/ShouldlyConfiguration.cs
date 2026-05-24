@@ -73,5 +73,28 @@ public static partial class ShouldlyConfiguration
     /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊),
     /// Descriptive uses ASCII-safe names (&lt;CR&gt;, &lt;LF&gt;).
     /// </summary>
-    public static EscapeStyle EscapeStyle { get; set; } = EscapeStyle.CStyle;
+    public static EscapeStyle EscapeStyle
+    {
+        get => (EscapeStyle?)CallContext.LogicalGetData(EscapeStyleKey) ?? _escapeStyle;
+        set => _escapeStyle = value;
+    }
+
+    private static EscapeStyle _escapeStyle = EscapeStyle.CStyle;
+    private const string EscapeStyleKey = "ShouldlyEscapeStyle";
+
+    /// <summary>
+    /// Overrides <see cref="EscapeStyle"/> for the current logical call context only.
+    /// Use with a <c>using</c> statement so concurrent tests aren't affected.
+    /// </summary>
+    public static IDisposable WithEscapeStyle(EscapeStyle escapeStyle)
+    {
+        CallContext.LogicalSetData(EscapeStyleKey, escapeStyle);
+        return new EscapeStyleScope();
+    }
+
+    private class EscapeStyleScope : IDisposable
+    {
+        public void Dispose() =>
+            CallContext.LogicalSetData(EscapeStyleKey, null);
+    }
 }
