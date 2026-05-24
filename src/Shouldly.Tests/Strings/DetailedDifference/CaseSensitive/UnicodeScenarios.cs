@@ -90,17 +90,11 @@ public class UnicodeScenarios
     [Fact]
     public void ControlPicturesEscapeStyle()
     {
-        var previous = ShouldlyConfiguration.EscapeStyle;
-        try
+        using (EscapeStyleScope.For(EscapeStyle.ControlPictures))
         {
-            ShouldlyConfiguration.EscapeStyle = EscapeStyle.ControlPictures;
             var str = "line1\r\nline2";
             Verify.ShouldFail(() =>
                 str.ShouldBe(@"line1\r\nline2"));
-        }
-        finally
-        {
-            ShouldlyConfiguration.EscapeStyle = previous;
         }
     }
 }
