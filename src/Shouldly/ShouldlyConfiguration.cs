@@ -70,7 +70,8 @@ public static partial class ShouldlyConfiguration
 
     /// <summary>
     /// Controls how control characters are displayed in string difference output.
-    /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊).
+    /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊),
+    /// Descriptive uses ASCII-safe names (&lt;CR&gt;, &lt;LF&gt;).
     /// </summary>
     public static EscapeStyle EscapeStyle { get; set; } = EscapeStyle.CStyle;
 }

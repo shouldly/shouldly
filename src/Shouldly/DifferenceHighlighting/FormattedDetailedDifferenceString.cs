@@ -5,21 +5,27 @@ class FormattedDetailedDifferenceString
     private readonly string _actualValue;
     private readonly string _expectedValue;
     private readonly Case _caseSensitivity;
-    private readonly bool _prefixWithEllipsis;
-    private readonly bool _suffixWithEllipsis;
+    private readonly bool _expectedPrefixEllipsis;
+    private readonly bool _expectedSuffixEllipsis;
+    private readonly bool _actualPrefixEllipsis;
+    private readonly bool _actualSuffixEllipsis;
 
     internal FormattedDetailedDifferenceString(
         string actualValue,
         string expectedValue,
         Case? caseSensitivity,
-        bool prefixWithEllipsis = false,
-        bool suffixWithEllipsis = false)
+        bool expectedPrefixEllipsis = false,
+        bool expectedSuffixEllipsis = false,
+        bool actualPrefixEllipsis = false,
+        bool actualSuffixEllipsis = false)
     {
         _actualValue = actualValue;
         _expectedValue = expectedValue;
         _caseSensitivity = caseSensitivity ?? Case.Sensitive;
-        _prefixWithEllipsis = prefixWithEllipsis;
-        _suffixWithEllipsis = suffixWithEllipsis;
+        _expectedPrefixEllipsis = expectedPrefixEllipsis;
+        _expectedSuffixEllipsis = expectedSuffixEllipsis;
+        _actualPrefixEllipsis = actualPrefixEllipsis;
+        _actualSuffixEllipsis = actualSuffixEllipsis;
     }
 
     public override string? ToString() => GenerateFormattedString();
@@ -30,8 +36,8 @@ class FormattedDetailedDifferenceString
         EscapeStyle? expectedEscapeStyle = null;
         EscapeStyle? actualEscapeStyle = null;
 
-        var expectedDisplay = BuildDisplayString(_expectedValue);
-        var actualDisplay = BuildDisplayString(_actualValue);
+        var expectedDisplay = BuildDisplayString(_expectedValue, _expectedPrefixEllipsis, _expectedSuffixEllipsis);
+        var actualDisplay = BuildDisplayString(_actualValue, _actualPrefixEllipsis, _actualSuffixEllipsis);
 
         // Detect collision: display strings look identical but source strings differ
         // This happens when one has real control chars and the other has literal escape text
@@ -48,19 +54,19 @@ class FormattedDetailedDifferenceString
             if (expectedHasControlChars && !actualHasControlChars)
             {
                 expectedEscapeStyle = fallbackEscape;
-                expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
+                expectedDisplay = BuildDisplayString(_expectedValue, _expectedPrefixEllipsis, _expectedSuffixEllipsis, fallbackEscape);
             }
             else if (actualHasControlChars && !expectedHasControlChars)
             {
                 actualEscapeStyle = fallbackEscape;
-                actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+                actualDisplay = BuildDisplayString(_actualValue, _actualPrefixEllipsis, _actualSuffixEllipsis, fallbackEscape);
             }
             else if (expectedHasControlChars && actualHasControlChars)
             {
                 expectedEscapeStyle = fallbackEscape;
                 actualEscapeStyle = fallbackEscape;
-                expectedDisplay = BuildDisplayString(_expectedValue, fallbackEscape);
-                actualDisplay = BuildDisplayString(_actualValue, fallbackEscape);
+                expectedDisplay = BuildDisplayString(_expectedValue, _expectedPrefixEllipsis, _expectedSuffixEllipsis, fallbackEscape);
+                actualDisplay = BuildDisplayString(_actualValue, _actualPrefixEllipsis, _actualSuffixEllipsis, fallbackEscape);
             }
         }
 
@@ -97,19 +103,22 @@ class FormattedDetailedDifferenceString
 
         if (showMarkers)
         {
-            // Compute display offset to the start of the diff region
-            var displayDiffStart = ComputeDisplayOffset(expectedClusters, commonPrefixLen, expectedEscapeStyle);
+            // Compute display offset to the start of the diff region per side — each side
+            // may have a different ellipsis prefix, escape style, or cluster widths.
+            var expectedDisplayDiffStart = ComputeDisplayOffset(expectedClusters, commonPrefixLen, _expectedPrefixEllipsis, expectedEscapeStyle);
+            var actualDisplayDiffStart = ComputeDisplayOffset(actualClusters, commonPrefixLen, _actualPrefixEllipsis, actualEscapeStyle);
 
             var downMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▼' : 'v';
             var upMarker = ShouldlyConfiguration.DiffStyle == DiffStyle.Unicode ? '▲' : '^';
 
-            var markerOffset = prefix.Length + displayDiffStart;
+            var expectedMarkerOffset = prefix.Length + expectedDisplayDiffStart;
+            var actualMarkerOffset = "Actual:   ".Length + actualDisplayDiffStart;
 
             // Top markers (expected edits) — one marker per display column of each edited cluster
             var topMarkers = BuildClusterMarkerLine(downMarker, expectedDiffClusters, expectedEdits!, expectedEscapeStyle);
             if (topMarkers.Length > 0)
             {
-                sb.Append(' ', markerOffset);
+                sb.Append(' ', expectedMarkerOffset);
                 sb.AppendLine(topMarkers);
             }
 
@@ -121,7 +130,7 @@ class FormattedDetailedDifferenceString
             if (bottomMarkers.Length > 0)
             {
                 sb.AppendLine();
-                sb.Append(' ', markerOffset);
+                sb.Append(' ', actualMarkerOffset);
                 sb.Append(bottomMarkers);
             }
 
@@ -146,11 +155,11 @@ class FormattedDetailedDifferenceString
         return sb.ToString();
     }
 
-    private string BuildDisplayString(string value, EscapeStyle? escapeStyleOverride = null)
+    private static string BuildDisplayString(string value, bool prefixEllipsis, bool suffixEllipsis, EscapeStyle? escapeStyleOverride = null)
     {
         var sb = new StringBuilder();
 
-        if (_prefixWithEllipsis)
+        if (prefixEllipsis)
             sb.Append("...");
 
         sb.Append('"');
@@ -165,7 +174,7 @@ class FormattedDetailedDifferenceString
 
         sb.Append('"');
 
-        if (_suffixWithEllipsis)
+        if (suffixEllipsis)
             sb.Append("...");
 
         return sb.ToString();
@@ -189,10 +198,10 @@ class FormattedDetailedDifferenceString
     /// the given cluster index, accounting for ellipsis prefix, quote char,
     /// and the display width of each preceding cluster.
     /// </summary>
-    private int ComputeDisplayOffset(string[] clusters, int clusterIndex, EscapeStyle? escapeStyle)
+    private static int ComputeDisplayOffset(string[] clusters, int clusterIndex, bool prefixEllipsis, EscapeStyle? escapeStyle)
     {
         // Account for optional "..." prefix and opening quote
-        var offset = _prefixWithEllipsis ? 4 : 1;
+        var offset = prefixEllipsis ? 4 : 1;
 
         var len = Math.Min(clusterIndex, clusters.Length);
         for (var i = 0; i < len; i++)

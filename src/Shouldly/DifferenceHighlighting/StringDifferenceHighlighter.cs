@@ -85,8 +85,7 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         for (var i = 0; i < showCount; i++)
         {
             var region = regions[i];
-            var (windowExpected, windowActual, prefixEllipsis, suffixEllipsis) =
-                ExtractContextWindow(expected, actual, region.Start, region.End, maxLen);
+            var window = ExtractContextWindow(expected, actual, region.Start, region.End);
 
             if (i > 0)
             {
@@ -98,8 +97,9 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
                 output.AppendLine($"[{i + 1}] at index {region.Start}:");
 
             var diff = new FormattedDetailedDifferenceString(
-                windowActual, windowExpected, _sensitivity,
-                prefixEllipsis, suffixEllipsis);
+                window.Actual, window.Expected, _sensitivity,
+                window.ExpectedPrefixEllipsis, window.ExpectedSuffixEllipsis,
+                window.ActualPrefixEllipsis, window.ActualSuffixEllipsis);
 
             var formatted = diff.GenerateFormattedString();
             if (formatted == null) continue;
@@ -167,9 +167,9 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         return regions;
     }
 
-    private static (string expected, string actual, bool prefixEllipsis, bool suffixEllipsis)
-        ExtractContextWindow(string expected, string actual, int diffStart, int diffEnd, int maxLen)
+    private static ContextWindow ExtractContextWindow(string expected, string actual, int diffStart, int diffEnd)
     {
+        var maxLen = Math.Max(expected.Length, actual.Length);
         var windowStart = Math.Max(0, diffStart - MaxContextChars);
         var windowEnd = Math.Min(maxLen, diffEnd + MaxContextChars + 1);
 
@@ -182,7 +182,37 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var expectedWindow = SafeSubstring(expected, windowStart, windowEnd);
         var actualWindow = SafeSubstring(actual, windowStart, windowEnd);
 
-        return (expectedWindow, actualWindow, windowStart > 0, windowEnd < maxLen);
+        // Per-side ellipsis: only mark a side as truncated when its own length
+        // extends past the window — otherwise short sides get a misleading "...".
+        return new ContextWindow(
+            expectedWindow,
+            actualWindow,
+            ExpectedPrefixEllipsis: windowStart > 0 && expectedWindow.Length > 0,
+            ActualPrefixEllipsis: windowStart > 0 && actualWindow.Length > 0,
+            ExpectedSuffixEllipsis: windowEnd < expected.Length,
+            ActualSuffixEllipsis: windowEnd < actual.Length);
+    }
+
+    private readonly struct ContextWindow
+    {
+        public string Expected { get; }
+        public string Actual { get; }
+        public bool ExpectedPrefixEllipsis { get; }
+        public bool ActualPrefixEllipsis { get; }
+        public bool ExpectedSuffixEllipsis { get; }
+        public bool ActualSuffixEllipsis { get; }
+
+        public ContextWindow(string Expected, string Actual,
+            bool ExpectedPrefixEllipsis, bool ActualPrefixEllipsis,
+            bool ExpectedSuffixEllipsis, bool ActualSuffixEllipsis)
+        {
+            this.Expected = Expected;
+            this.Actual = Actual;
+            this.ExpectedPrefixEllipsis = ExpectedPrefixEllipsis;
+            this.ActualPrefixEllipsis = ActualPrefixEllipsis;
+            this.ExpectedSuffixEllipsis = ExpectedSuffixEllipsis;
+            this.ActualSuffixEllipsis = ActualSuffixEllipsis;
+        }
     }
 
     private static string SafeSubstring(string value, int start, int end)
