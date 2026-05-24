@@ -61,4 +61,28 @@ public static partial class ShouldlyConfiguration
     /// Default timeout period for asynchronous operations
     /// </summary>
     public static TimeSpan DefaultTaskTimeout = TimeSpan.FromSeconds(10);
+
+    /// <summary>
+    /// Controls the character set used for string difference markers.
+    /// Unicode uses ▼/▲ markers, Ascii uses v/^ markers.
+    /// </summary>
+    public static DiffStyle DiffStyle { get; set; } = DiffStyle.Unicode;
+
+    /// <summary>
+    /// Controls how control characters are displayed in string difference output.
+    /// CStyle uses escape sequences (\r, \n), ControlPictures uses Unicode symbols (␍, ␊),
+    /// Descriptive uses ASCII-safe names (&lt;CR&gt;, &lt;LF&gt;).
+    /// </summary>
+    /// <remarks>
+    /// Scoped to the logical call context, same pattern as <see cref="DisableSourceInErrors"/>.
+    /// Flows down through async/await and Task.Run by default; concurrent
+    /// contexts get their own value.
+    /// </remarks>
+    public static EscapeStyle EscapeStyle
+    {
+        get => (EscapeStyle?)CallContext.LogicalGetData(EscapeStyleKey) ?? EscapeStyle.CStyle;
+        set => CallContext.LogicalSetData(EscapeStyleKey, value);
+    }
+
+    private const string EscapeStyleKey = "ShouldlyEscapeStyle";
 }

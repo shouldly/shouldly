@@ -7,13 +7,11 @@ Line3"
 "line1
 line2"
     difference
-Difference     |                                                    |   
-               |                                                   \|/  
-Index          | 0    1    2    3    4    5    6    7    8    9    10   
-Expected Value | l    i    n    e    1    \n   L    i    n    e    3    
-Actual Value   | l    i    n    e    1    \n   l    i    n    e    2    
-Expected Code  | 108  105  110  101  49   10   76   105  110  101  51   
-Actual Code    | 108  105  110  101  49   10   108  105  110  101  50   
+          line1
+              ▼
+Expected: Line3
+Actual:   line2
+              ▲
 
 Additional Info:
     Some additional context
@@ -25,13 +23,11 @@ line2"
 Line3"
     but was not
     difference
-Difference     |                                                    |   
-               |                                                   \|/  
-Index          | 0    1    2    3    4    5    6    7    8    9    10   
-Expected Value | l    i    n    e    1    \n   L    i    n    e    3    
-Actual Value   | l    i    n    e    1    \n   l    i    n    e    2    
-Expected Code  | 108  105  110  101  49   10   76   105  110  101  51   
-Actual Code    | 108  105  110  101  49   10   108  105  110  101  50   
+          line1
+              ▼
+Expected: Line3
+Actual:   line2
+              ▲
 
 Additional Info:
     Some additional context

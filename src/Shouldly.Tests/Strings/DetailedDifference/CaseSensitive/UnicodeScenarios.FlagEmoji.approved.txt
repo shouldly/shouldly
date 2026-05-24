@@ -1,0 +1,21 @@
+---- With Source ----
+str
+    should be
+"Visit 🇩🇪 Germany"
+    but was
+"Visit 🇫🇷 France"
+    difference
+                 ▼▼ ▼▼ ▼  ▼
+Expected: "Visit 🇩🇪 Germany"
+Actual:   "Visit 🇫🇷 France"
+                 ▲▲ ▲   ▲▲
+---- Without Source ----
+"Visit 🇫🇷 France"
+    should be
+"Visit 🇩🇪 Germany"
+    but was not
+    difference
+                 ▼▼ ▼▼ ▼  ▼
+Expected: "Visit 🇩🇪 Germany"
+Actual:   "Visit 🇫🇷 France"
+                 ▲▲ ▲   ▲▲

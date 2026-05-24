@@ -1,0 +1,21 @@
+---- With Source ----
+str
+    should be
+"foobar"
+    but was
+"foo​bar"
+    difference
+Expected: "foobar"
+Actual:   "foo​bar"
+              ▲
+Difference at index 3: (empty) vs U+200B
+---- Without Source ----
+"foo​bar"
+    should be
+"foobar"
+    but was not
+    difference
+Expected: "foobar"
+Actual:   "foo​bar"
+              ▲
+Difference at index 3: (empty) vs U+200B

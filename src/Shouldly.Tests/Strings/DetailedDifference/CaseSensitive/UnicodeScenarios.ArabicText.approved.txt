@@ -1,0 +1,23 @@
+---- With Source ----
+str
+    should be
+"hello مرحبآ world"
+    but was
+"hello مرحبا world"
+    difference
+                     ▼
+Expected: "hello مرحبآ world"
+Actual:   "hello مرحبا world"
+                     ▲
+Difference at index 10: U+0622 vs U+0627
+---- Without Source ----
+"hello مرحبا world"
+    should be
+"hello مرحبآ world"
+    but was not
+    difference
+                     ▼
+Expected: "hello مرحبآ world"
+Actual:   "hello مرحبا world"
+                     ▲
+Difference at index 10: U+0622 vs U+0627

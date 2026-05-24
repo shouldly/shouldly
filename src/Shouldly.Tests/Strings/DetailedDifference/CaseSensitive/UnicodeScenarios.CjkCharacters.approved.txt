@@ -1,0 +1,21 @@
+---- With Source ----
+str
+    should be
+"hello 世间"
+    but was
+"hello 世界"
+    difference
+                   ▼▼
+Expected: "hello 世间"
+Actual:   "hello 世界"
+                   ▲▲
+---- Without Source ----
+"hello 世界"
+    should be
+"hello 世间"
+    but was not
+    difference
+                   ▼▼
+Expected: "hello 世间"
+Actual:   "hello 世界"
+                   ▲▲

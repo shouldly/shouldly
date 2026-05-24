@@ -26,12 +26,23 @@ namespace Shouldly
     {
         public CompleteInShouldlyMessage(string what, System.TimeSpan timeout, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null) { }
     }
+    public enum DiffStyle
+    {
+        Unicode = 0,
+        Ascii = 1,
+    }
     [Shouldly.ShouldlyMethods]
     public static class DynamicShould
     {
         public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null) { }
         public static TException Throw<TException>(System.Action actual, string? customMessage = null)
             where TException : System.Exception { }
+    }
+    public enum EscapeStyle
+    {
+        CStyle = 0,
+        ControlPictures = 1,
+        Descriptive = 2,
     }
     public class ExpectedActualIgnoreOrderShouldlyMessage : Shouldly.ShouldlyMessage
     {
@@ -487,6 +498,8 @@ namespace Shouldly
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
+        public static Shouldly.DiffStyle DiffStyle { get; set; }
+        public static Shouldly.EscapeStyle EscapeStyle { get; set; }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
     }
