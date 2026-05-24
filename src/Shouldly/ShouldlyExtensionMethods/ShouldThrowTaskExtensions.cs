@@ -104,7 +104,7 @@ public static partial class ShouldThrowTaskExtensions
     public static TException ShouldThrow<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage);
+        Should.ThrowInternal<TException>(actual, timeoutAfter, customMessage, actualExpression: actualExpression);
 
     /// <summary>
     /// Verifies that the function returning a Task throws an exception of the specified type within the specified timeout.
@@ -120,7 +120,7 @@ public static partial class ShouldThrowTaskExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception ShouldThrow(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType);
+        Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType, actualExpression: actualExpression);
 
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions.
@@ -129,7 +129,7 @@ public static partial class ShouldThrowTaskExtensions
     public static void ShouldNotThrow(this Task action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        Should.NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+        Should.NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ public static partial class ShouldThrowTaskExtensions
     public static void ShouldNotThrow(this Func<Task> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+        Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -169,7 +169,7 @@ public static partial class ShouldThrowTaskExtensions
     public static void ShouldNotThrow(this Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        Should.NotThrowInternal(action, timeoutAfter, customMessage);
+        Should.NotThrowInternal(action, timeoutAfter, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -178,7 +178,7 @@ public static partial class ShouldThrowTaskExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ShouldNotThrow<T>(this Func<Task<T>> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage);
+        Should.NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
 
     /// <summary>
     /// Verifies that the Task completes without throwing any exceptions within the specified timeout and returns the result.
@@ -194,5 +194,5 @@ public static partial class ShouldThrowTaskExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ShouldNotThrow<T>(this Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        Should.NotThrowInternal(action, timeoutAfter, customMessage);
+        Should.NotThrowInternal(action, timeoutAfter, customMessage, actualExpression: actualExpression);
 }

@@ -112,6 +112,15 @@ static class StringHelpers
     internal static string RemoveBlock(this string input) =>
         Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
 
+    // Normalizes a CallerArgumentExpression-captured delegate expression (Action/Func)
+    // so failure messages render the inner body the same way the legacy stack-trace
+    // parser did: strip the `() =>` lambda prefix, collapse multi-line whitespace,
+    // strip a single outer `{ ... }` block, and trim.
+    internal static string? NormalizeDelegateExpression(this string? input) =>
+        input is null
+            ? null
+            : input.StripLambdaExpressionSyntax().CollapseWhitespace().RemoveBlock().Trim();
+
     internal static string Clip(this string stringToClip, int maximumStringLength)
     {
         if (stringToClip.Length > maximumStringLength)

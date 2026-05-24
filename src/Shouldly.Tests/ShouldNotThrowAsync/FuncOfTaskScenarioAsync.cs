@@ -15,7 +15,7 @@ public class FuncOfTaskScenarioAsync
         {
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `await task` should not throw but threw System.InvalidOperationException with message "exception message"
+                `task` should not throw but threw System.InvalidOperationException with message "exception message"
                 Additional Info: Some additional context
                 """);
         }
@@ -40,7 +40,7 @@ public class FuncOfTaskScenarioAsync
         {
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `await task`
+                `task`
                 should not throw but threw
                 System.AggregateException
                 """);

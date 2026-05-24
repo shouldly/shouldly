@@ -17,7 +17,7 @@ public static partial class ShouldThrowAsyncExtensions
     public static Task<TException> ShouldThrowAsync<TException>(this Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowAsync<TException>(task, customMessage);
+        Should.ThrowAsync<TException>(task, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the Task throws an exception of the specified type.
@@ -25,7 +25,7 @@ public static partial class ShouldThrowAsyncExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ShouldThrowAsync(this Task task, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null) =>
-        Should.ThrowAsync(task, exceptionType, customMessage);
+        Should.ThrowAsync(task, exceptionType, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the function returning a Task throws an <typeparamref name="TException"/> exception.
@@ -34,7 +34,7 @@ public static partial class ShouldThrowAsyncExtensions
     public static Task<TException> ShouldThrowAsync<TException>(this Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowAsync<TException>(actual, customMessage);
+        Should.ThrowAsync<TException>(actual, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the function returning a Task throws an exception of the specified type.
@@ -42,5 +42,5 @@ public static partial class ShouldThrowAsyncExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task<Exception> ShouldThrowAsync(this Func<Task> actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        Should.ThrowAsync(actual, exceptionType, customMessage);
+        Should.ThrowAsync(actual, exceptionType, customMessage, actualExpression);
 }

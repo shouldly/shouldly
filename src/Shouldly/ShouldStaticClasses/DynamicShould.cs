@@ -16,7 +16,7 @@ public static partial class DynamicShould
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.Throw<TException>(actual, customMessage);
+        Should.Throw<TException>(actual, customMessage, actualExpression);
 
     /// <summary>
     /// Verifies that the dynamic object has the specified property
@@ -31,7 +31,7 @@ public static partial class DynamicShould
 
             if (!dynamicAsDictionary.ContainsKey(propertyName))
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: actualExpression).ToString());
             }
         }
         else
@@ -40,7 +40,7 @@ public static partial class DynamicShould
             var properties = dynamicAsObject.GetType().GetProperties();
             if (!properties.Select(x => x.Name).Contains(propertyName))
             {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage).ToString());
+                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: actualExpression).ToString());
             }
         }
     }

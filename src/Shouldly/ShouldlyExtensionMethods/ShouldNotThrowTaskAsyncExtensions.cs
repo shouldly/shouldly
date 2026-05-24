@@ -16,7 +16,7 @@ public static partial class ShouldNotThrowTaskAsyncExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null) =>
-        Should.NotThrowAsync(task, customMessage);
+        Should.NotThrowAsync(task, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the function returning a Task completes without throwing any exceptions.
@@ -24,5 +24,5 @@ public static partial class ShouldNotThrowTaskAsyncExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        Should.NotThrowAsync(actual, customMessage);
+        Should.NotThrowAsync(actual, customMessage, actualExpression);
 }

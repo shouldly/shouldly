@@ -21,7 +21,7 @@ public static partial class Should
     {
         var actual = Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
-        CompleteInInternal(actual, timeout, customMessage, "Delegate");
+        CompleteInInternal(actual, timeout, customMessage, "Delegate", actualExpression);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public static partial class Should
     {
         var actual = Task.Factory.StartNew(function, CancellationToken.None, TaskCreationOptions.None,
             TaskScheduler.Default);
-        CompleteInInternal(actual, timeout, customMessage, "Delegate");
+        CompleteInInternal(actual, timeout, customMessage, "Delegate", actualExpression);
         return actual.Result;
     }
 
@@ -56,7 +56,7 @@ public static partial class Should
     public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        CompleteInInternal(actual(), timeout, customMessage, "Task");
+        CompleteInInternal(actual(), timeout, customMessage, "Task", actualExpression);
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var task = actual();
-        CompleteInInternal(task, timeout, customMessage, "Task");
+        CompleteInInternal(task, timeout, customMessage, "Task", actualExpression);
         return task.Result;
     }
 
@@ -90,7 +90,7 @@ public static partial class Should
     public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        CompleteInInternal(actual, timeout, customMessage, "Task");
+        CompleteInInternal(actual, timeout, customMessage, "Task", actualExpression);
     }
 
     /// <summary>
@@ -107,12 +107,13 @@ public static partial class Should
     public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        CompleteInInternal(actual, timeout, customMessage, "Task");
+        CompleteInInternal(actual, timeout, customMessage, "Task", actualExpression);
         return actual.Result;
     }
 
-    private static void CompleteInInternal(Task actual, TimeSpan timeout, string? customMessage, string what)
+    private static void CompleteInInternal(Task actual, TimeSpan timeout, string? customMessage, string what, string? actualExpression = null)
     {
+        actualExpression = actualExpression.NormalizeDelegateExpression();
         try
         {
             actual.TimeoutAfter(timeout).Wait();
@@ -127,7 +128,7 @@ public static partial class Should
             // When exception is a timeout exception we can provide a better error, otherwise rethrow
             if (inner is ShouldlyTimeoutException exception)
             {
-                var message = new CompleteInShouldlyMessage(what, timeout, customMessage).ToString();
+                var message = new CompleteInShouldlyMessage(what, timeout, customMessage, actualExpression: actualExpression).ToString();
                 throw new ShouldCompleteInException(message, exception);
             }
 

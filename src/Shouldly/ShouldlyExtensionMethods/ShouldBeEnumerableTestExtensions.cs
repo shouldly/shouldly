@@ -324,7 +324,9 @@ public static partial class ShouldBeEnumerableTestExtensions
     [Obsolete("Use the array overload with a collection expression: actual.ShouldBeOfTypes([typeof(A), typeof(B)]). The array overload captures the call-site expression via CallerArgumentExpression.")]
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, params Type[] expected)
     {
-        ShouldBeOfTypes(actual, expected, null);
+        // Pass actualExpression: null so CAE doesn't capture this forwarder's local
+        // parameter name; the stack-trace fallback recovers the user's call-site expression.
+        ShouldBeOfTypes(actual, expected, customMessage: null, actualExpression: null);
     }
 
     /// <summary>
