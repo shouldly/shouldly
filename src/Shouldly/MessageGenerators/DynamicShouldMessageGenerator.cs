@@ -14,21 +14,31 @@ class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
 
         var propertyName = context.Expected;
 
-        var testFileName = context.FileName;
-        var assertionLineNumber = context.LineNumber;
-
-        if (testFileName != null && assertionLineNumber != null)
+        // Prefer CodePart (CAE-supplied or stack-walked expression) over re-reading the source
+        // file. CodePart is "null" when DisableSourceInErrors is set or the call was dynamic-dispatched
+        // such that neither CAE fired nor the stack-walker recovered the receiver — fall back in that case.
+        var codePart = context.CodePart;
+        var hasExpression = !string.IsNullOrEmpty(codePart) && codePart != "null";
+        if (hasExpression)
         {
-            var codeLine = string.Join("", File.ReadAllLines(testFileName).ToArray().Skip(assertionLineNumber.Value - 1).Select(s => s.Trim()));
-            var dynamicObjectName = DynamicObjectNameExtractor.Match(codeLine).Groups["dynamicObjectName"];
-
             const string format = """Dynamic object "{0}" should contain property "{1}" but does not.""";
-            return string.Format(format, dynamicObjectName.ToString().Trim(), propertyName?.ToString()?.Trim());
+            return string.Format(format, codePart!.Trim(), propertyName?.ToString()?.Trim());
         }
-        else
+
+        // Legacy fallback: parse the source line via regex when FileName/LineNumber are available
+        // (covers older callers and any edge case where the receiver expression wasn't captured).
+        if (context.FileName != null && context.LineNumber != null)
         {
-            const string format = """Dynamic object should contain property "{0}" but does not.""";
-            return string.Format(format, propertyName?.ToString()?.Trim());
+            var codeLine = string.Join("", File.ReadAllLines(context.FileName).Skip(context.LineNumber.Value - 1).Select(s => s.Trim()));
+            var match = DynamicObjectNameExtractor.Match(codeLine);
+            if (match.Success)
+            {
+                const string format = """Dynamic object "{0}" should contain property "{1}" but does not.""";
+                return string.Format(format, match.Groups["dynamicObjectName"].ToString().Trim(), propertyName?.ToString()?.Trim());
+            }
         }
+
+        const string genericFormat = """Dynamic object should contain property "{0}" but does not.""";
+        return string.Format(genericFormat, propertyName?.ToString()?.Trim());
     }
 }

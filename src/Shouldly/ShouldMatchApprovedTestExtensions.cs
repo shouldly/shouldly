@@ -79,7 +79,7 @@ public static class ShouldMatchApprovedTestExtensions
         var approvedFileContents = File.ReadAllText(approvedFile);
         var receivedFileContents = File.ReadAllText(receivedFile);
         var assertion = StringShouldBeAssertionFactory
-            .Create(approvedFileContents, receivedFileContents, config.StringCompareOptions);
+            .Create(approvedFileContents, receivedFileContents, config.StringCompareOptions, actualExpression: actualExpression);
         var contentsMatch = assertion.IsSatisfied();
 
         if (!contentsMatch)

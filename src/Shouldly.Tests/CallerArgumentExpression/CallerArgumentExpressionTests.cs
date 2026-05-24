@@ -36,4 +36,13 @@ public class CallerArgumentExpressionTests
             ex.Message.ShouldNotContain("ready");
         }
     }
+
+    [Fact]
+    public void ShouldBeEquivalentTo_uses_caller_expression()
+    {
+        var widget = new { Name = "left" };
+        var other = new { Name = "right" };
+        var ex = Should.Throw<ShouldAssertException>(() => widget.ShouldBeEquivalentTo(other));
+        ex.Message.ShouldContain("widget");
+    }
 }
