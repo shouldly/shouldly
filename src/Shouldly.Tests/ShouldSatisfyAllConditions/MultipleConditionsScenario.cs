@@ -8,9 +8,11 @@ public class MultipleConditionsScenario
         var result = 4;
         Verify.ShouldFail(() =>
             result.ShouldSatisfyAllConditions(
-                "Some additional context",
-                () => result.ShouldBeOfType<float>("Some additional context"),
-                () => result.ShouldBeGreaterThan(5, "Some additional context")));
+                [
+                    () => result.ShouldBeOfType<float>("Some additional context"),
+                    () => result.ShouldBeGreaterThan(5, "Some additional context")
+                ],
+                "Some additional context"));
     }
 
     [Fact]
@@ -18,7 +20,9 @@ public class MultipleConditionsScenario
     {
         var result = 4;
         result.ShouldSatisfyAllConditions(
+        [
             () => result.ShouldBeOfType<int>(),
-            () => result.ShouldBeGreaterThan(3));
+            () => result.ShouldBeGreaterThan(3)
+        ]);
     }
 }

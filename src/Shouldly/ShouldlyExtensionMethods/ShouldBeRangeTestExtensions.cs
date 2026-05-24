@@ -6,6 +6,7 @@ public static partial class ShouldBeTestExtensions
     /// Asserts that the actual value is one of the expected values.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+    [Obsolete("Use the array overload with a collection expression: actual.ShouldBeOneOf([a, b, c]). The array overload captures the call-site expression via CallerArgumentExpression.")]
     public static void ShouldBeOneOf<T>(this T? actual, params T[] expected)
     {
         ShouldBeOneOf(actual, expected, customMessage: null, actualExpression: null);
@@ -15,7 +16,8 @@ public static partial class ShouldBeTestExtensions
     /// Asserts that the actual value is one of the expected values.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage,
+    [OverloadResolutionPriority(1)]
+    public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         // Enumerable.Contains on an array always tolerates null.
@@ -39,6 +41,7 @@ public static partial class ShouldBeTestExtensions
     /// Asserts that the actual value is not one of the expected values.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+    [Obsolete("Use the array overload with a collection expression: actual.ShouldNotBeOneOf([a, b, c]). The array overload captures the call-site expression via CallerArgumentExpression.")]
     public static void ShouldNotBeOneOf<T>(this T? actual, params T[] expected)
     {
         ShouldNotBeOneOf(actual, expected, customMessage: null, actualExpression: null);
@@ -48,7 +51,8 @@ public static partial class ShouldBeTestExtensions
     /// Asserts that the actual value is not one of the expected values.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage,
+    [OverloadResolutionPriority(1)]
+    public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         // Enumerable.Contains on an array always tolerates null.

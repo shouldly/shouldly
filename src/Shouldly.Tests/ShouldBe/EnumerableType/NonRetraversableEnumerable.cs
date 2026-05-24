@@ -47,13 +47,15 @@ public class NonRetraversableEnumerable
         var fooEnum = CreateTestEnumerable();
 
         fooEnum.ShouldSatisfyAllConditions(
+        [
             () => fooEnum.ShouldBe([1, 2, 3]),
             () => fooEnum.First().ShouldBe(4),
             () => fooEnum.First().ShouldBe(5),
             () => fooEnum.First().ShouldBe(6),
             () => fooEnum.Any().ShouldBeFalse(),
             () => fooEnum.First().ShouldBe(7),
-            () => fooEnum.ShouldBe([8, 9]));
+            () => fooEnum.ShouldBe([8, 9])
+        ]);
     }
 
     private class TestEnumerable

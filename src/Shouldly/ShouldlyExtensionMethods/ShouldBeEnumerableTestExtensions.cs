@@ -321,6 +321,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     /// Asserts that the elements in the enumerable are of the specified types.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+    [Obsolete("Use the array overload with a collection expression: actual.ShouldBeOfTypes([typeof(A), typeof(B)]). The array overload captures the call-site expression via CallerArgumentExpression.")]
     public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, params Type[] expected)
     {
         ShouldBeOfTypes(actual, expected, null);
@@ -330,7 +331,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     /// Asserts that the elements in the enumerable are of the specified types.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage,
+    [OverloadResolutionPriority(1)]
+    public static void ShouldBeOfTypes<T>(this IEnumerable<T> actual, Type[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.Select(x => x!.GetType()).ToArray().ShouldBe(expected, false, customMessage, actualExpression);

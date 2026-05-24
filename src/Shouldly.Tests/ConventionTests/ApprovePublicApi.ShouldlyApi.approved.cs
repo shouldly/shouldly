@@ -234,8 +234,12 @@ namespace Shouldly
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeInOrder<T>(this System.Collections.Generic.IEnumerable<T> actual, Shouldly.SortDirection expectedSortDirection, System.Collections.Generic.IComparer<T>? customComparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldBeOfTypes([type" +
+            "of(A), typeof(B)]). The array overload captures the call-site expression via Cal" +
+            "lerArgumentExpression.")]
         public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, params System.Type[] expected) { }
-        public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string? customMessage, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+        public static void ShouldBeOfTypes<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Type[] expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeSubsetOf<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEnumerable<T> expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeUnique<T>(this System.Collections.Generic.IEnumerable<T> actual, System.Collections.Generic.IEqualityComparer<T> comparer) { }
@@ -330,8 +334,12 @@ namespace Shouldly
         public static void ShouldBeNegative(this short actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeOfType([System.Diagnostics.CodeAnalysis.NotNull] this object? actual, System.Type expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static T ShouldBeOfType<T>([System.Diagnostics.CodeAnalysis.NotNull] this object? actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldBeOneOf([a, b, " +
+            "c]). The array overload captures the call-site expression via CallerArgumentExpr" +
+            "ession.")]
         public static void ShouldBeOneOf<T>(this T? actual, params T[] expected) { }
-        public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+        public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeOneOf<T>(this T? actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBePositive(this decimal actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBePositive(this double actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
@@ -351,8 +359,12 @@ namespace Shouldly
             where T : System.IComparable<T> { }
         public static void ShouldNotBeOfType(this object? actual, System.Type expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldNotBeOneOf([a, " +
+            "b, c]). The array overload captures the call-site expression via CallerArgumentE" +
+            "xpression.")]
         public static void ShouldNotBeOneOf<T>(this T? actual, params T[] expected) { }
-        public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+        public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBeSameAs(this object? actual, object? expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
     }
@@ -414,10 +426,26 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
     {
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllCondi" +
+            "tions([() => ..., () => ...]). The array overload captures the call-site express" +
+            "ion via CallerArgumentExpression.")]
         public static void ShouldSatisfyAllConditions(this object? actual, params System.Action[] conditions) { }
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllCondi" +
+            "tions([() => ..., () => ...], \"message\"). The array overload captures the call-s" +
+            "ite expression via CallerArgumentExpression.")]
         public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, params System.Action[] conditions) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+        public static void ShouldSatisfyAllConditions(this object? actual, System.Action[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllCondi" +
+            "tions([() => ..., () => ...]). The array overload captures the call-site express" +
+            "ion via CallerArgumentExpression.")]
         public static void ShouldSatisfyAllConditions<T>(this T actual, params System.Action<T>[] conditions) { }
+        [System.Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllCondi" +
+            "tions([() => ..., () => ...], \"message\"). The array overload captures the call-s" +
+            "ite expression via CallerArgumentExpression.")]
         public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, params System.Action<T>[] conditions) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Action<T>[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions

@@ -41,6 +41,10 @@ public class ShouldlyMethodsShouldHaveActualExpressionParameter : IConvention<Ty
         if (method.DeclaringType?.Namespace != "Shouldly") return true;
         if (typeof(object).GetMethods().Any(m => m.Name == method.Name)) return true;
 
+        // Obsolete overloads are out of scope — users should migrate to the array form which has CAE.
+        if (method.IsDefined(typeof(ObsoleteAttribute), inherit: false))
+            return true;
+
         // Methods with `params` arrays cannot be CAE-decorated on the receiver — the optional
         // expression parameter has to come after `params`, which the language forbids.
         var parameters = method.GetParameters();
