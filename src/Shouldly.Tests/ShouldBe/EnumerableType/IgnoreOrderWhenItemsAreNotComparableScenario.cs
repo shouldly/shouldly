@@ -22,7 +22,7 @@ public class IgnoreOrderWhenItemsAreNotComparableScenario
         };
         Verify.ShouldFail(() =>
 
-            Actual.ShouldBe(expected, true, "Some additional context"));
+            Actual.ShouldBe(expected, "Some additional context", ignoreOrder: true));
     }
 
     [Fact]

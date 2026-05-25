@@ -51,6 +51,6 @@ public class ComparerScenario
         }.AsEnumerable();
 
         Verify.ShouldFail(() =>
-            comparison1.ShouldBe(comparison2, new ComparableClassComparer(), false, "Some additional context"));
+            comparison1.ShouldBe(comparison2, new ComparableClassComparer(), "Some additional context"));
     }
 }
