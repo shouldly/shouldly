@@ -7,7 +7,9 @@ public class HavePropertyScenario
     {
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Bar = "BarPropertyValue";
-        Verify.ShouldFail(() => Shouldly.DynamicShould.HaveProperty(testDynamicObject, "foo", "Some additional context"));
+        Verify.ShouldFail(
+            () => Shouldly.DynamicShould.HaveProperty(testDynamicObject, "foo", "Some additional context"),
+            allowStackWalking: true);
     }
 
     [Fact]

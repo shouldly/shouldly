@@ -60,6 +60,54 @@ public static partial class ShouldlyConfiguration
             CallContext.LogicalSetData("ShouldlyDisableSourceInErrors", null);
     }
 
+    private static int _assertCallerArgumentExpressionIsUsedCount;
+
+    /// <summary>
+    /// Test infrastructure: arms a process-wide trip-wire that throws
+    /// <see cref="InvalidOperationException"/> if Shouldly ever falls back to stack-trace
+    /// parsing to recover an assertion's call-site expression. Use to prove that
+    /// <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/> capture is
+    /// wired all the way through to the assertion message on a given test run.
+    /// Stack-walking that is deliberately requested (via <see cref="DisableSourceInErrors"/>) or
+    /// suppressed (via <see cref="AllowStackWalking"/>) does not trigger the trip-wire.
+    /// </summary>
+    public static IDisposable AssertCallerArgumentExpressionIsUsed()
+    {
+        System.Threading.Interlocked.Increment(ref _assertCallerArgumentExpressionIsUsedCount);
+        return new DisarmTripWireDisposable();
+    }
+
+    /// <summary>
+    /// Test infrastructure: scoped opt-out of the trip-wire armed by
+    /// <see cref="AssertCallerArgumentExpressionIsUsed"/>. Use this around code paths that
+    /// legitimately cannot use <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/>
+    /// — for example, calls that go through dynamic dispatch (where CAE doesn't fire) or
+    /// obsolete <c>params</c>-array overloads.
+    /// </summary>
+    public static IDisposable AllowStackWalking()
+    {
+        CallContext.LogicalSetData("ShouldlyAllowStackWalking", true);
+        return new AllowStackWalkingDisposable();
+    }
+
+    internal static bool IsCallerArgumentExpressionRequired()
+    {
+        if (_assertCallerArgumentExpressionIsUsedCount == 0) return false;
+        if ((bool?)CallContext.LogicalGetData("ShouldlyAllowStackWalking") == true) return false;
+        if (IsSourceDisabledInErrors()) return false;
+        return true;
+    }
+
+    private class DisarmTripWireDisposable : IDisposable
+    {
+        public void Dispose() => System.Threading.Interlocked.Decrement(ref _assertCallerArgumentExpressionIsUsedCount);
+    }
+
+    private class AllowStackWalkingDisposable : IDisposable
+    {
+        public void Dispose() => CallContext.LogicalSetData("ShouldlyAllowStackWalking", null);
+    }
+
     /// <summary>
     /// Default tolerance used for floating point comparisons
     /// </summary>

@@ -37,9 +37,21 @@ class StringShouldBeAssertion : IAssertion
     {
         var _actualTrimmed = Trim(_actual);
         var _expectedTrimmed = Trim(_expected);
-        var codeText = _actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors()
-            ? _actualExpression
-            : _codeTextGetter.GetCodeText(_actual);
+        string? codeText;
+        if (_actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors())
+        {
+            codeText = _actualExpression;
+        }
+        else
+        {
+            if (ShouldlyConfiguration.IsCallerArgumentExpressionRequired())
+                throw new InvalidOperationException(
+                    $"String assertion '{_shouldlyMethod}' fell back to stack-trace parsing despite the " +
+                    $"{nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed)} trip-wire being armed. " +
+                    $"Wrap the call site in {nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
+
+            codeText = _codeTextGetter.GetCodeText(_actual);
+        }
         var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
         var actualValue = _actualTrimmed.ToStringAwesomely();
         var expectedValue = _expectedTrimmed.ToStringAwesomely();

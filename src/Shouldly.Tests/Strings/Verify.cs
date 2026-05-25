@@ -9,13 +9,25 @@ public static class Verify
     private static readonly Regex MatchGetHashCode = new(@"\(-?\d{6,10}\)");
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldFail(Action action, Func<string, string>? messageScrubber = null)
+    public static void ShouldFail(Action action, Func<string, string>? messageScrubber = null, bool allowStackWalking = false)
     {
         Func<string, string> scrub = messageScrubber != null
             ? v => MatchGetHashCode.Replace(messageScrubber(v), "(000000)")
             : v => MatchGetHashCode.Replace(v, "(000000)");
 
-        var sourceEnabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
+        string sourceEnabledMsg;
+        if (allowStackWalking)
+        {
+            // Scenarios that legitimately cannot use [CallerArgumentExpression] — e.g. dynamic
+            // dispatch where the runtime binder doesn't honor the attribute — opt out of the
+            // module-initializer-armed trip-wire.
+            using (ShouldlyConfiguration.AllowStackWalking())
+                sourceEnabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
+        }
+        else
+        {
+            sourceEnabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
+        }
 
         string sourceDisabledMsg;
         using (ShouldlyConfiguration.DisableSourceInErrors())

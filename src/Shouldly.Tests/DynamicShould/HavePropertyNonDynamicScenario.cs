@@ -14,8 +14,9 @@ public class HavePropertyNonDynamicScenario
         testDynamicObject.Bar = "BarPropertyValue";
 
         Verify.ShouldFail(() =>
-            Shouldly.DynamicShould
-                .HaveProperty(testDynamicObject, "foo", "Some additional context"));
+                Shouldly.DynamicShould
+                    .HaveProperty(testDynamicObject, "foo", "Some additional context"),
+            allowStackWalking: true);
     }
 
     [Fact]
