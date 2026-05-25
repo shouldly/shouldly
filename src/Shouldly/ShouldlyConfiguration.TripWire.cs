@@ -32,8 +32,11 @@ public static partial class ShouldlyConfiguration
     /// </summary>
     internal static IDisposable AllowStackWalking()
     {
+        // Capture the prior value so nested scopes compose correctly: when an inner scope
+        // disposes it restores the outer scope's "true" rather than clearing the flag.
+        var prior = (bool?)CallContext.LogicalGetData("ShouldlyAllowStackWalking");
         CallContext.LogicalSetData("ShouldlyAllowStackWalking", true);
-        return new AllowStackWalkingDisposable();
+        return new AllowStackWalkingDisposable(prior);
     }
 
     internal static bool IsCallerArgumentExpressionRequired()
@@ -49,8 +52,8 @@ public static partial class ShouldlyConfiguration
         public void Dispose() => System.Threading.Interlocked.Decrement(ref _assertCallerArgumentExpressionIsUsedCount);
     }
 
-    private class AllowStackWalkingDisposable : IDisposable
+    private class AllowStackWalkingDisposable(bool? prior) : IDisposable
     {
-        public void Dispose() => CallContext.LogicalSetData("ShouldlyAllowStackWalking", null);
+        public void Dispose() => CallContext.LogicalSetData("ShouldlyAllowStackWalking", prior);
     }
 }

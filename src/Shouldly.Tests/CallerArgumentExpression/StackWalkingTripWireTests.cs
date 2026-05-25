@@ -48,4 +48,24 @@ public class StackWalkingTripWireTests
         var context = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: "someVariable");
         context.CodePart.ShouldBe("someVariable");
     }
+
+    [Fact]
+    public void AllowStackWalking_nests_correctly()
+    {
+        using (TripWireAccess.AllowStackWalking())
+        {
+            using (TripWireAccess.AllowStackWalking())
+            {
+                // Inner scope active — no throw.
+                _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
+            }
+
+            // Inner scope disposed, outer scope still active — must still suppress the trip-wire.
+            _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
+        }
+
+        // Both scopes disposed — the trip-wire is armed again.
+        Should.Throw<InvalidOperationException>(() =>
+            new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null));
+    }
 }

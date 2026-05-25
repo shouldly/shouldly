@@ -42,22 +42,28 @@ public static partial class DynamicShould
         var instance = dynamicTestObject();
         var receiverExpression = actualExpression.NormalizeDelegateExpression();
 
-        if (instance is IDynamicMetaObjectProvider)
+        if (!HasProperty(instance, propertyName))
         {
-            var dynamicAsDictionary = (IDictionary<string, object>)instance;
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: receiverExpression).ToString());
+        }
+    }
 
-            if (!dynamicAsDictionary.ContainsKey(propertyName))
-            {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: receiverExpression).ToString());
-            }
-        }
-        else
+    private static bool HasProperty(object? instance, string propertyName)
+    {
+        // ExpandoObject (and other property-bag dynamics) — fastest direct check.
+        if (instance is IDictionary<string, object> bag)
+            return bag.ContainsKey(propertyName);
+
+        // Other IDynamicMetaObjectProvider implementations (e.g. user subclasses of DynamicObject)
+        // — ask the meta-object for its dynamic member names rather than assuming IDictionary.
+        if (instance is IDynamicMetaObjectProvider provider)
         {
-            var properties = instance?.GetType().GetProperties() ?? [];
-            if (!properties.Select(x => x.Name).Contains(propertyName))
-            {
-                throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: receiverExpression).ToString());
-            }
+            var metaObject = provider.GetMetaObject(Expression.Constant(provider));
+            return metaObject.GetDynamicMemberNames().Contains(propertyName);
         }
+
+        // Plain CLR object — fall through to reflected properties.
+        var properties = instance?.GetType().GetProperties() ?? [];
+        return properties.Select(x => x.Name).Contains(propertyName);
     }
 }
