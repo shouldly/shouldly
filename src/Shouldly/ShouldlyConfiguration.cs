@@ -92,7 +92,7 @@ public static partial class ShouldlyConfiguration
 
     internal static bool IsCallerArgumentExpressionRequired()
     {
-        if (_assertCallerArgumentExpressionIsUsedCount == 0) return false;
+        if (System.Threading.Volatile.Read(ref _assertCallerArgumentExpressionIsUsedCount) == 0) return false;
         if ((bool?)CallContext.LogicalGetData("ShouldlyAllowStackWalking") == true) return false;
         if (IsSourceDisabledInErrors()) return false;
         return true;

@@ -10,12 +10,12 @@ namespace Shouldly
     }
     public class AsyncShouldlyNotThrowShouldlyMessage : Shouldly.ShouldlyMessage
     {
-        public AsyncShouldlyNotThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace stackTrace, string exceptionMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null, string? actualExpression = null) { }
+        public AsyncShouldlyNotThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace? stackTrace, string exceptionMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null, string? actualExpression = null) { }
     }
     public class AsyncShouldlyThrowShouldlyMessage : Shouldly.ShouldlyMessage
     {
-        public AsyncShouldlyThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace stackTrace, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null, string? actualExpression = null) { }
-        public AsyncShouldlyThrowShouldlyMessage(System.Type expected, System.Type actual, string? customMessage, System.Diagnostics.StackTrace stackTrace, string? actualExpression = null) { }
+        public AsyncShouldlyThrowShouldlyMessage(System.Type exception, string? customMessage, System.Diagnostics.StackTrace? stackTrace, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null, string? actualExpression = null) { }
+        public AsyncShouldlyThrowShouldlyMessage(System.Type expected, System.Type actual, string? customMessage, System.Diagnostics.StackTrace? stackTrace, string? actualExpression = null) { }
     }
     public enum Case
     {

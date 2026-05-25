@@ -40,7 +40,10 @@ public static partial class Should
         where TException : Exception
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
-        var stackTrace = new StackTrace(true);
+        // Stack trace is only consulted when CAE didn't provide an expression. Allocate
+        // lazily so the happy path (CAE supplied) doesn't pay for a PDB-reading stack walk
+        // it will never read.
+        var stackTrace = actualExpression == null ? new StackTrace(true) : null;
         try
         {
             return actual()
@@ -97,7 +100,7 @@ public static partial class Should
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
-        var stackTrace = new StackTrace(true);
+        var stackTrace = actualExpression == null ? new StackTrace(true) : null;
         return actual().ContinueWith(t =>
         {
             if (t.IsFaulted)
@@ -143,7 +146,7 @@ public static partial class Should
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
-        var stackTrace = new StackTrace(true);
+        var stackTrace = actualExpression == null ? new StackTrace(true) : null;
         return actual().ContinueWith(t =>
         {
             if (t.IsFaulted)

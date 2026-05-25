@@ -330,7 +330,7 @@ public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message for async exception assertions with a stack trace
     /// </summary>
-    public AsyncShouldlyThrowShouldlyMessage(Type exception, string? customMessage, StackTrace stackTrace,
+    public AsyncShouldlyThrowShouldlyMessage(Type exception, string? customMessage, StackTrace? stackTrace,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
@@ -341,7 +341,7 @@ public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message for async exception assertions with expected and actual types
     /// </summary>
-    public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace stackTrace, string? actualExpression = null)
+    public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace? stackTrace, string? actualExpression = null)
     {
         ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true, actualExpression: actualExpression)
         {
@@ -359,7 +359,7 @@ public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message for async not-throw assertions
     /// </summary>
-    public AsyncShouldlyNotThrowShouldlyMessage(Type exception, string? customMessage, StackTrace stackTrace, string exceptionMessage,
+    public AsyncShouldlyNotThrowShouldlyMessage(Type exception, string? customMessage, StackTrace? stackTrace, string exceptionMessage,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
