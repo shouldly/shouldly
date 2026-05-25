@@ -71,7 +71,7 @@ public static partial class ShouldlyConfiguration
     /// Stack-walking that is deliberately requested (via <see cref="DisableSourceInErrors"/>) or
     /// suppressed (via <see cref="AllowStackWalking"/>) does not trigger the trip-wire.
     /// </summary>
-    public static IDisposable AssertCallerArgumentExpressionIsUsed()
+    internal static IDisposable AssertCallerArgumentExpressionIsUsed()
     {
         System.Threading.Interlocked.Increment(ref _assertCallerArgumentExpressionIsUsedCount);
         return new DisarmTripWireDisposable();
@@ -84,7 +84,7 @@ public static partial class ShouldlyConfiguration
     /// — for example, calls that go through dynamic dispatch (where CAE doesn't fire) or
     /// obsolete <c>params</c>-array overloads.
     /// </summary>
-    public static IDisposable AllowStackWalking()
+    internal static IDisposable AllowStackWalking()
     {
         CallContext.LogicalSetData("ShouldlyAllowStackWalking", true);
         return new AllowStackWalkingDisposable();

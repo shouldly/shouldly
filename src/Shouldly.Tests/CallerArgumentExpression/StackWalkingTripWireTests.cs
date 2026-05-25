@@ -1,9 +1,9 @@
 namespace Shouldly.Tests.CallerArgumentExpression;
 
 /// <summary>
-/// Verifies the trip-wire armed by <see cref="ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed"/>
-/// (enabled for the whole test run by <see cref="ModuleInitializer"/>) fires when expected and
-/// stays silent on the deliberate opt-outs.
+/// Verifies the trip-wire armed by <see cref="ModuleInitializer"/> (via the internal
+/// <c>AssertCallerArgumentExpressionIsUsed</c> helper on <see cref="ShouldlyConfiguration"/>)
+/// fires when expected and stays silent on the deliberate opt-outs.
 /// </summary>
 public class StackWalkingTripWireTests
 {
@@ -16,13 +16,13 @@ public class StackWalkingTripWireTests
             new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null));
 
         ex.Message.ShouldContain("FakeAssertionMethod");
-        ex.Message.ShouldContain(nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed));
+        ex.Message.ShouldContain("AssertCallerArgumentExpressionIsUsed");
     }
 
     [Fact]
     public void Trip_wire_is_suppressed_inside_AllowStackWalking_scope()
     {
-        using (ShouldlyConfiguration.AllowStackWalking())
+        using (TripWireAccess.AllowStackWalking())
         {
             // No throw — the scope opts out of the trip-wire for code paths that legitimately
             // cannot use CAE (e.g. dynamic dispatch).
