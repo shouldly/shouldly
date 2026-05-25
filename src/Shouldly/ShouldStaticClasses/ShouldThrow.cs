@@ -36,7 +36,7 @@ public static partial class Should
             throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public static partial class Should
             throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -96,10 +96,10 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage: customMessage, shouldlyMethod, actualExpression).ToString(), e);
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage: customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -137,7 +137,7 @@ public static partial class Should
             throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage: customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
