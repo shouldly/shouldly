@@ -47,10 +47,10 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options, actualExpression: actualExpression);
-        ExecuteAssertion(assertion, customMessage, actualExpression);
+        ExecuteAssertion(assertion, customMessage);
     }
 
-    private static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage, string? actualExpression = null)
+    private static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage)
     {
         try
         {
