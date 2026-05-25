@@ -11,30 +11,9 @@ namespace Shouldly;
 public static partial class ShouldSatisfyAllConditionsTestExtensions
 {
     /// <summary>
-    /// Asserts that the actual value satisfies all specified conditions
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllConditions([() => ..., () => ...]). The array overload captures the call-site expression via CallerArgumentExpression.")]
-    public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] params Action<T>[] conditions)
-    {
-        ShouldSatisfyAllConditions(actual, conditions, customMessage: null, actualExpression: null);
-    }
-
-    /// <summary>
-    /// Asserts that the actual value satisfies all specified conditions with a custom message
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllConditions([() => ..., () => ...], \"message\"). The array overload captures the call-site expression via CallerArgumentExpression.")]
-    public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, [InstantHandle] params Action<T>[] conditions)
-    {
-        ShouldSatisfyAllConditions(actual, conditions, customMessage, actualExpression: null);
-    }
-
-    /// <summary>
     /// Asserts that the actual value satisfies all specified conditions.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    [OverloadResolutionPriority(1)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Action<T>[] conditions, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -42,20 +21,9 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
     }
 
     /// <summary>
-    /// Asserts that the actual object satisfies all specified conditions
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllConditions([() => ..., () => ...]). The array overload captures the call-site expression via CallerArgumentExpression.")]
-    public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] params Action[] conditions)
-    {
-        ShouldSatisfyAllConditions(actual, conditions, customMessage: null, actualExpression: null);
-    }
-
-    /// <summary>
     /// Asserts that the actual object satisfies all specified conditions with a custom message
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    [OverloadResolutionPriority(1)]
     public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] Action[] conditions, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -77,16 +45,6 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
             var errorMessageString = BuildErrorMessageString(errorMessages);
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage, actualExpression: actualExpression).ToString());
         }
-    }
-
-    /// <summary>
-    /// Asserts that the actual object satisfies all specified conditions with a custom message.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [Obsolete("Use the array overload with a collection expression: actual.ShouldSatisfyAllConditions([() => ..., () => ...], \"message\"). The array overload captures the call-site expression via CallerArgumentExpression.")]
-    public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, [InstantHandle] params Action[] conditions)
-    {
-        ShouldSatisfyAllConditions(actual, conditions, customMessage, actualExpression: null);
     }
 
     private static Action[] CreateParameterlessActions<T>(T parameter, params Action<T>[] actions) {
