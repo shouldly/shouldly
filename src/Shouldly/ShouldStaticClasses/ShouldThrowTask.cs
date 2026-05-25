@@ -277,7 +277,7 @@ public static partial class Should
         }
     }
 
-    private static Exception HandleTaskAggregateException(AggregateException exceptionFromTask, string? customMessage, Type exceptionType)
+    private static Exception HandleTaskAggregateException(AggregateException exceptionFromTask, string? customMessage, Type exceptionType, string? actualExpression = null)
     {
         var innerException = exceptionFromTask.InnerException
                              ?? throw new ArgumentException("The specified exception is not from Task.Exception or it would have at least one inner exception.", nameof(exceptionFromTask));
@@ -285,6 +285,6 @@ public static partial class Should
         if (innerException.GetType() == exceptionType)
             return innerException;
 
-        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, innerException.GetType(), customMessage).ToString());
+        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, innerException.GetType(), customMessage, actualExpression: actualExpression).ToString());
     }
 }

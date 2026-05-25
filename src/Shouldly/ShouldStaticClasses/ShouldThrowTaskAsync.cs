@@ -105,7 +105,7 @@ public static partial class Should
                 if (t.Exception == null)
                     throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
 
-                return HandleTaskAggregateException(t.Exception, customMessage, exceptionType);
+                return HandleTaskAggregateException(t.Exception, customMessage, exceptionType, actualExpression);
             }
 
             if (t.IsCanceled)
