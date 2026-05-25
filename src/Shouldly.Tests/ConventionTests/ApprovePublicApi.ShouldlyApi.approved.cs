@@ -34,7 +34,7 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class DynamicShould
     {
-        public static void HaveProperty(dynamic dynamicTestObject, string propertyName, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dynamicTestObject")] string? actualExpression = null) { }
+        public static void HaveProperty(System.Func<object?> dynamicTestObject, string propertyName, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dynamicTestObject")] string? actualExpression = null) { }
         public static TException Throw<TException>(System.Action actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
             where TException : System.Exception { }
     }

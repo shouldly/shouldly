@@ -8,9 +8,8 @@ public class MultiLineHavePropertyScenario
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Bar = "BarPropertyValue";
         Verify.ShouldFail(() =>
-                Shouldly.DynamicShould
-                    .HaveProperty(testDynamicObject, "foo", "Some additional context"),
-            allowStackWalking: true);
+            Shouldly.DynamicShould
+                .HaveProperty(() => testDynamicObject, "foo", "Some additional context"));
     }
 
     [Fact]
@@ -19,6 +18,6 @@ public class MultiLineHavePropertyScenario
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Foo = "FooPropertyValue";
         Shouldly.DynamicShould
-            .HaveProperty(testDynamicObject, "Foo");
+            .HaveProperty(() => testDynamicObject, "Foo");
     }
 }
