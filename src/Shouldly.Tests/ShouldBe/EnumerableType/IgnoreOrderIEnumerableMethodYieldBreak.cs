@@ -6,13 +6,13 @@ public class IgnoreOrderIEnumerableMethodYieldBreak
     public void IgnoreOrderIEnumerableMethodYieldBreakShouldFail()
     {
         Verify.ShouldFail(() =>
-            GetEmptyEnumerable().ShouldBe([2, 4], "Some additional context", ignoreOrder: true));
+            GetEmptyEnumerable().ShouldBe([2, 4], true, "Some additional context"));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        GetEmptyEnumerable().ShouldBe(new int[0], ignoreOrder: true);
+        GetEmptyEnumerable().ShouldBe(new int[0], true);
     }
 
     private static IEnumerable<int> GetEmptyEnumerable()

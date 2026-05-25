@@ -20,7 +20,7 @@ public class IgnoreOrderOnNonNullableTypesScenario
             new(3),
         };
         Verify.ShouldFail(() =>
-            Actual.ShouldBe(expected, "Some additional context", ignoreOrder: true));
+            Actual.ShouldBe(expected, true, "Some additional context"));
     }
 
     [Fact]

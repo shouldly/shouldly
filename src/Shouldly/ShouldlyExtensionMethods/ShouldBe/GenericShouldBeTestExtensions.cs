@@ -64,15 +64,14 @@ public static partial class ShouldBeTestExtensions
 
     /// <summary>
     /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order.
-    /// Pass <paramref name="ignoreOrder"/> as a named argument (<c>ignoreOrder: true</c>).
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [OverloadResolutionPriority(1)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        string? customMessage = null,
         bool ignoreOrder = false,
+        string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
@@ -96,34 +95,15 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
-    /// Obsolete legacy overload kept so existing callers that pass <c>ignoreOrder</c>
-    /// positionally (e.g. <c>actual.ShouldBe(expected, true)</c>) keep compiling. Migrate to
-    /// the named form (<c>actual.ShouldBe(expected, ignoreOrder: true)</c>) or the
-    /// <c>customMessage</c>-first overload.
+    /// Asserts that an enumerable is equal to another enumerable using the specified comparer, optionally ignoring order.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    [Obsolete("Use the customMessage-first overload, or pass ignoreOrder as a named argument: actual.ShouldBe(expected, ignoreOrder: true).")]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
-        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        bool ignoreOrder,
-        string? customMessage = null,
-        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ShouldBe(actual, expected, customMessage, ignoreOrder, actualExpression);
-
-    /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable using the specified comparer,
-    /// optionally ignoring order. Pass <paramref name="ignoreOrder"/> as a named argument
-    /// (<c>ignoreOrder: true</c>).
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [OverloadResolutionPriority(1)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
         IEqualityComparer<T> comparer,
-        string? customMessage = null,
         bool ignoreOrder = false,
+        string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (ignoreOrder)
@@ -135,23 +115,6 @@ public static partial class ShouldBeTestExtensions
             actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
         }
     }
-
-    /// <summary>
-    /// Obsolete legacy overload kept so existing callers that pass <c>ignoreOrder</c>
-    /// positionally keep compiling. Migrate to the named form
-    /// (<c>actual.ShouldBe(expected, comparer, ignoreOrder: true)</c>) or the
-    /// <c>customMessage</c>-first overload.
-    /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [Obsolete("Use the customMessage-first overload, or pass ignoreOrder as a named argument: actual.ShouldBe(expected, comparer, ignoreOrder: true).")]
-    public static void ShouldBe<T>(
-        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
-        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        IEqualityComparer<T> comparer,
-        bool ignoreOrder,
-        string? customMessage = null,
-        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ShouldBe(actual, expected, comparer, customMessage, ignoreOrder, actualExpression);
 
     /// <summary>
     /// Asserts that a decimal enumerable is equal to another decimal enumerable within the specified tolerance
