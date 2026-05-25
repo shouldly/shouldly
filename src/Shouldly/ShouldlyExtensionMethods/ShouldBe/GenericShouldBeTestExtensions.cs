@@ -63,16 +63,15 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable. Pass <paramref name="ignoreOrder"/>
-    /// as a named argument (<c>ignoreOrder: true</c>) to compare without regard to element order.
+    /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     [OverloadResolutionPriority(1)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        string? customMessage = null,
         bool ignoreOrder = false,
+        string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
@@ -96,17 +95,15 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
-    /// Asserts that an enumerable is equal to another enumerable using the specified comparer. Pass
-    /// <paramref name="ignoreOrder"/> as a named argument (<c>ignoreOrder: true</c>) to compare
-    /// without regard to element order.
+    /// Asserts that an enumerable is equal to another enumerable using the specified comparer, optionally ignoring order.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
         IEqualityComparer<T> comparer,
-        string? customMessage = null,
         bool ignoreOrder = false,
+        string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (ignoreOrder)

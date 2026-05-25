@@ -6,13 +6,13 @@ public class IgnoreOrderIEnumerableMethodYieldReturn
     public void IgnoreOrderIEnumerableMethodYieldReturnShouldFail()
     {
         Verify.ShouldFail(() =>
-            GetEnumerable().ShouldBe([1, 2], "Some additional context", ignoreOrder: true));
+            GetEnumerable().ShouldBe([1, 2], true, "Some additional context"));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        GetEnumerable().ShouldBe([1], ignoreOrder: true);
+        GetEnumerable().ShouldBe([1], true);
     }
 
     private static IEnumerable<int> GetEnumerable()

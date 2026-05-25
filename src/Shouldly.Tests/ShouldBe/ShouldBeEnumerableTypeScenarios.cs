@@ -15,28 +15,28 @@ public class ShouldBeEnumerableTypeScenarios
         var first = new List<int> { 1, 3, 2 };
         var second = new[] { 1, 3, 4 };
         Verify.ShouldFail(() =>
-            first.ShouldBe(second, "Some additional context", ignoreOrder: true));
+            first.ShouldBe(second, true, "Some additional context"));
     }
 
     [Fact]
     public void DifferentOrderWithMissingItemFromExpectedScenario()
     {
         Verify.ShouldFail(() =>
-            new List<int> { 1, 3, 2 }.ShouldBe([1, 3], "Some additional context", ignoreOrder: true));
+            new List<int> { 1, 3, 2 }.ShouldBe([1, 3], true, "Some additional context"));
     }
 
     [Fact]
     public void DifferentOrderWithMissingItemFromActualScenario()
     {
         Verify.ShouldFail(() =>
-            new List<int> { 1, 3 }.ShouldBe([1, 2, 3], "Some additional context", ignoreOrder: true));
+            new List<int> { 1, 3 }.ShouldBe([1, 2, 3], true, "Some additional context"));
     }
 
     [Fact]
     public void DifferentCollectionTypeScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-            new List<int> { 1, 2, 3 }.ShouldBe([1, 3, 2], "Some additional context"));
+            new List<int> { 1, 2, 3 }.ShouldBe([1, 3, 2], false, "Some additional context"));
     }
 
     [Fact]

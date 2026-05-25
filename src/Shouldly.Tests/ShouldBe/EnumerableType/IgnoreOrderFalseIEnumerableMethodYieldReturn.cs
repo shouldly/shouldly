@@ -6,7 +6,7 @@ public class IgnoreOrderFalseIEnumerableMethodYieldReturn
     public void IgnoreOrderFalseIEnumerableMethodYieldReturnShouldFail()
     {
         Verify.ShouldFail(() =>
-            GetEnumerable().ShouldBe([1, 2], "Some additional context"));
+            GetEnumerable().ShouldBe([1, 2], false, "Some additional context"));
     }
 
     [Fact]
