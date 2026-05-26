@@ -2,71 +2,45 @@ namespace Shouldly;
 
 static class TypeExtensions
 {
-    public static bool TryGetEnumerable(this object obj,  [NotNullWhen(true)] out IEnumerable? enumerable)
+    public static bool TryGetEnumerable(this object obj, [NotNullWhen(true)] out IEnumerable? enumerable)
     {
         enumerable = obj as IEnumerable;
 
-        if (enumerable == null && obj != null)
+        if (enumerable == null && obj != null && TryGetMemoryArray(obj, out var array))
         {
-            var objectType = obj.GetType();
-            if (objectType.IsMemory(out var genericParameterType))
-            {
-                var readOnlyMemory = obj.ToReadOnlyMemory(objectType, genericParameterType);
-
-                if (readOnlyMemory != null)
-                {
-                    enumerable = readOnlyMemory.ToEnumerable(genericParameterType);
-                }
-            }
-            else if (objectType.IsReadOnlyMemory(out genericParameterType))
-            {
-                enumerable = obj.ToEnumerable(genericParameterType);
-            }
+            enumerable = array;
         }
 
         return enumerable != null;
     }
 
-    private static bool IsMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
+    // Memory<T>/ReadOnlyMemory<T> don't implement IEnumerable, so the boxed value
+    // can't be enumerated directly. We invoke their public ToArray() method via
+    // reflection on the already-closed generic type — no MakeGenericMethod is
+    // needed, so this path is safe under native AOT. ToArray allocates once per
+    // call, which is acceptable for the failure-message formatting path; the
+    // equality path uses Memory<T>-typed ShouldBe overloads that walk the Span
+    // directly without allocating.
+    [UnconditionalSuppressMessage("Trimming", "IL2075",
+        Justification = "Targets Memory<T>/ReadOnlyMemory<T> — BCL types whose public ToArray() method is part of their stable contract and preserved by the trimmer.")]
+    private static bool TryGetMemoryArray(object obj, [NotNullWhen(true)] out Array? array)
     {
-        if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Memory`1")
+        var type = obj.GetType();
+        if (type.IsGenericType)
         {
-            elementType = type.GetGenericArguments()[0];
-            return true;
+            var def = type.GetGenericTypeDefinition();
+            if (def == typeof(Memory<>) || def == typeof(ReadOnlyMemory<>))
+            {
+                var toArray = type.GetMethod("ToArray", BindingFlags.Public | BindingFlags.Instance, binder: null, types: Type.EmptyTypes, modifiers: null);
+                if (toArray is not null)
+                {
+                    array = (Array)toArray.Invoke(obj, null)!;
+                    return true;
+                }
+            }
         }
 
-        elementType = null;
+        array = null;
         return false;
-    }
-
-    private static bool IsReadOnlyMemory(this Type type, [NotNullWhen(true)] out Type? elementType)
-    {
-        if (type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.ReadOnlyMemory`1")
-        {
-            elementType = type.GetGenericArguments()[0];
-            return true;
-        }
-
-        elementType = null;
-        return false;
-    }
-
-    private static IEnumerable ToEnumerable(this object readOnlyMemory, Type elementType)
-    {
-        return (IEnumerable)Type.GetType("System.Runtime.InteropServices.MemoryMarshal, System.Memory")
-            ?.GetMethod("ToEnumerable", BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-            ?.MakeGenericMethod(elementType)
-            .Invoke(null, [readOnlyMemory])!;
-    }
-
-    private static object ToReadOnlyMemory(this object obj, Type objectType, Type genericParameterType)
-    {
-        return objectType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-            .SingleOrDefault(method =>
-                method.Name == "op_Implicit"
-                && method.GetParameters()[0].ParameterType == objectType
-                && method.ReturnType.IsReadOnlyMemory(out var returnElementType)
-                && returnElementType == genericParameterType)
-            ?.Invoke(null, [obj])!;
     }
 }

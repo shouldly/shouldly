@@ -13,4 +13,35 @@
             <FileWrites Include="$(_ShouldlyPathMapsFilePath)" Condition=" '$(PathMap)' != '' " />
         </ItemGroup>
     </Target>
+
+    <!--
+        On net8.0+ Shouldly relies on CallerArgumentExpression (C# 10) to capture the caller's
+        source expression. With an older LangVersion the compiler will not emit the expression
+        text, so assertion failure messages fall back to a formatted value instead. Warn the
+        consumer so they can raise LangVersion or suppress this advisory.
+    -->
+    <Target Name="_ShouldlyWarnUnsupportedLangVersion"
+            BeforeTargets="CoreCompile"
+            Condition=" '$(ShouldlySkipLangVersionCheck)' != 'true'
+                        AND $([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))
+                        AND ( '$(LangVersion)' == 'ISO-1'
+                              OR '$(LangVersion)' == 'ISO-2'
+                              OR '$(LangVersion)' == '1'
+                              OR '$(LangVersion)' == '2'
+                              OR '$(LangVersion)' == '3'
+                              OR '$(LangVersion)' == '4'
+                              OR '$(LangVersion)' == '5'
+                              OR '$(LangVersion)' == '6'
+                              OR '$(LangVersion)' == '7'
+                              OR '$(LangVersion)' == '7.0'
+                              OR '$(LangVersion)' == '7.1'
+                              OR '$(LangVersion)' == '7.2'
+                              OR '$(LangVersion)' == '7.3'
+                              OR '$(LangVersion)' == '8'
+                              OR '$(LangVersion)' == '8.0'
+                              OR '$(LangVersion)' == '9'
+                              OR '$(LangVersion)' == '9.0' ) ">
+        <Warning Code="SHOULDLY0001"
+                 Text="Shouldly: LangVersion '$(LangVersion)' is older than C# 10. On $(TargetFramework) Shouldly captures caller expressions via CallerArgumentExpression (a C# 10 feature) — with an older LangVersion failure messages will show formatted values instead of the original expression. Set &lt;LangVersion&gt;10.0&lt;/LangVersion&gt; or higher, or set &lt;ShouldlySkipLangVersionCheck&gt;true&lt;/ShouldlySkipLangVersionCheck&gt; to suppress this warning." />
+    </Target>
 </Project>

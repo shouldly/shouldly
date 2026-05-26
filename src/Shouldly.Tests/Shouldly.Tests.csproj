@@ -5,6 +5,8 @@
     <OutputType>Exe</OutputType>
     <Optimize>false</Optimize>
     <NoWarn>CA1861</NoWarn>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />

@@ -104,6 +104,8 @@ static class DeterministicBuildHelpers
             : null;
     }
 
+    [UnconditionalSuppressMessage("SingleFile", "IL3000",
+        Justification = "Assembly.Location returns an empty string in single-file and native-AOT scenarios. The string.IsNullOrEmpty guard already handles that case correctly; AppContext.BaseDirectory remains the primary path.")]
     private static IEnumerable<string> GetCandidateDirectories()
     {
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

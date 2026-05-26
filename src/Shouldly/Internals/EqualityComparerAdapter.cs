@@ -1,4 +1,4 @@
-namespace Shouldly;
+namespace Shouldly.Internals;
 
 /*
  * Code heavily influenced by code from xunit assert equality comparer adapter

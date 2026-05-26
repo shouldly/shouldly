@@ -16,6 +16,7 @@ public static partial class ObjectGraphTestExtensions
     /// Supports value types, reference types, strings, and enumerables.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+    [RequiresUnreferencedCode("Walks the actual/expected object graph using reflection over each runtime type's public fields and properties. The trimmer cannot statically determine which members are read.")]
     public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
@@ -25,6 +26,7 @@ public static partial class ObjectGraphTestExtensions
         CompareObjects(actual, expected, new List<string>(), new Dictionary<object, IList<object?>>(), customMessage, actualExpression: actualExpression);
     }
 
+    [RequiresUnreferencedCode("Reflects over fields and properties of the runtime type.")]
     private static void CompareObjects(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
@@ -107,6 +109,7 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
     }
 
+    [RequiresUnreferencedCode("Reflects over fields and properties of the runtime type.")]
     private static void CompareReferenceTypes(object actual, object expected, Type type,
         IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
@@ -144,6 +147,7 @@ public static partial class ObjectGraphTestExtensions
             ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
     }
 
+    [RequiresUnreferencedCode("Recurses into CompareObjects which reflects over the runtime type.")]
     private static void CompareEnumerables(IEnumerable actual, IEnumerable expected,
         IEnumerable<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
@@ -165,6 +169,7 @@ public static partial class ObjectGraphTestExtensions
         }
     }
 
+    [RequiresUnreferencedCode("Recurses into CompareObjects which reflects over the runtime type.")]
     private static void CompareFields(object actual, object expected, IEnumerable<FieldInfo> fields,
         IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
@@ -180,6 +185,7 @@ public static partial class ObjectGraphTestExtensions
         }
     }
 
+    [RequiresUnreferencedCode("Recurses into CompareObjects which reflects over the runtime type.")]
     private static void CompareProperties(object actual, object expected, IEnumerable<PropertyInfo> properties,
         IList<string> path, IDictionary<object, IList<object?>> previousComparisons,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!,

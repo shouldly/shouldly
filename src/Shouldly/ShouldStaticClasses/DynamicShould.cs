@@ -33,6 +33,7 @@ public static partial class DynamicShould
     /// dispatched and the caller expression can be captured.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
+    [RequiresUnreferencedCode("DynamicShould.HaveProperty reflects over the runtime type's public properties when the instance is a plain CLR object. The trimmer cannot statically determine which properties are read.")]
     public static void HaveProperty(
         [InstantHandle] Func<object?> dynamicTestObject,
         string propertyName,
@@ -48,6 +49,7 @@ public static partial class DynamicShould
         }
     }
 
+    [RequiresUnreferencedCode("Reflects over the runtime type's public properties when the instance is a plain CLR object.")]
     private static bool HasProperty(object? instance, string propertyName)
     {
         // ExpandoObject (and other property-bag dynamics) — fastest direct check.
