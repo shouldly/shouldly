@@ -64,8 +64,9 @@ public static partial class ShouldBeTestExtensions
 
     // Walks two spans element-wise via Shouldly's own equality comparer so the
     // element comparison stays consistent with ShouldBe on any other collection
-    // (numerics, IEquatable, IComparable, etc.). Zero allocation per element —
-    // the only cost is a single comparer instance per assertion.
+    // (numerics, IEquatable, IComparable, etc.). Avoids the per-call array
+    // allocation a ToArray()+SequenceEqual path would incur; value-type elements
+    // are still boxed inside the comparer's object-based numeric/reference checks.
     private static bool SpanSequenceEqual<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b)
     {
         if (a.Length != b.Length) return false;
