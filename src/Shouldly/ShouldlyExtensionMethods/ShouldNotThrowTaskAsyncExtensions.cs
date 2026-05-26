@@ -14,13 +14,15 @@ public static partial class ShouldNotThrowTaskAsyncExtensions
     /// Asynchronously verifies that the Task completes without throwing any exceptions.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null) =>
-        Should.NotThrowAsync(task, customMessage);
+    public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null,
+        [CallerArgumentExpression(nameof(task))] string? actualExpression = null) =>
+        Should.NotThrowAsync(task, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the function returning a Task completes without throwing any exceptions.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage = null) =>
-        Should.NotThrowAsync(actual, customMessage);
+    public static Task ShouldNotThrowAsync(this Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
+        Should.NotThrowAsync(actual, customMessage, actualExpression);
 }

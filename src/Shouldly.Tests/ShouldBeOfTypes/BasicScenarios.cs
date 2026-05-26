@@ -7,7 +7,7 @@ public class BasicScenarios
     {
         var arr = new object[] { new Added(), new Changed(), new Removed() };
 
-        arr.ShouldBeOfTypes(typeof(Added), typeof(Changed), typeof(Removed));
+        arr.ShouldBeOfTypes([typeof(Added), typeof(Changed), typeof(Removed)]);
     }
 
     [Fact]

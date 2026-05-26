@@ -13,12 +13,13 @@ public static partial class ShouldHaveEnumExtensions
     /// Asserts that the enum value has the specified flag.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
+    public static void ShouldHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         CheckEnumHasFlagAttribute(actual);
         if (!actual.HasFlag(expectedFlag))
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString());
         }
     }
 
@@ -26,12 +27,13 @@ public static partial class ShouldHaveEnumExtensions
     /// Asserts that the enum value does not have the specified flag.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null)
+    public static void ShouldNotHaveFlag(this Enum actual, Enum expectedFlag, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         CheckEnumHasFlagAttribute(actual);
         if (actual.HasFlag(expectedFlag))
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString());
         }
     }
 

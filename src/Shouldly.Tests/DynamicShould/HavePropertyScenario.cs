@@ -7,7 +7,8 @@ public class HavePropertyScenario
     {
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Bar = "BarPropertyValue";
-        Verify.ShouldFail(() => Shouldly.DynamicShould.HaveProperty(testDynamicObject, "foo", "Some additional context"));
+        Verify.ShouldFail(() =>
+            Shouldly.DynamicShould.HaveProperty(() => testDynamicObject, "foo", "Some additional context"));
     }
 
     [Fact]
@@ -15,6 +16,6 @@ public class HavePropertyScenario
     {
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Foo = "FooPropertyValue";
-        Shouldly.DynamicShould.HaveProperty(testDynamicObject, "Foo");
+        Shouldly.DynamicShould.HaveProperty(() => testDynamicObject, "Foo");
     }
 }

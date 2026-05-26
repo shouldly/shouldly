@@ -10,7 +10,7 @@ public class MultiLineHavePropertyScenario_MaximumLines
         Verify.ShouldFail(() =>
             Shouldly.DynamicShould
                 .HaveProperty(
-                    testDynamicObject,
+                    () => testDynamicObject,
                     "foo",
                     "Some additional context"));
     }
@@ -22,7 +22,7 @@ public class MultiLineHavePropertyScenario_MaximumLines
         testDynamicObject.Foo = "FooPropertyValue";
         Shouldly.DynamicShould
             .HaveProperty(
-                testDynamicObject,
+                () => testDynamicObject,
                 "Foo");
     }
 }

@@ -8,9 +8,10 @@ public static partial class ShouldBeStringTestExtensions
     /// Asserts that a string starts with another string
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
+        actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
         Debug.Assert(actual != null);
     }
 
@@ -18,9 +19,10 @@ public static partial class ShouldBeStringTestExtensions
     /// Asserts that a string ends with another string
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
+        actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
         Debug.Assert(actual != null);
     }
 
@@ -28,26 +30,29 @@ public static partial class ShouldBeStringTestExtensions
     /// Asserts that a string does not start with another string
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null)
+    public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
+        actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
     /// Asserts that a string does not end with another string
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotEndWith(this string? actual, string expected, Case caseSensitivity)
+    public static void ShouldNotEndWith(this string? actual, string expected, Case caseSensitivity,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        ShouldNotEndWith(actual, expected, null, caseSensitivity);
+        ShouldNotEndWith(actual, expected, null, caseSensitivity, actualExpression);
     }
 
     /// <summary>
     /// Asserts that a string does not end with another string
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotEndWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive)
+    public static void ShouldNotEndWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage);
+        actual.AssertAwesomely(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
     }
 }

@@ -56,6 +56,7 @@ public static class Verify
 
         action
             .ShouldSatisfyAllConditions(
+            [
                 () =>
                 {
                     using (ShouldlyConfiguration.DisableSourceInErrors())
@@ -68,6 +69,7 @@ public static class Verify
                 {
                     var sourceEnabledExceptionMsg = messageScrubber(Should.Throw<ShouldAssertException>(action).Message);
                     sourceEnabledExceptionMsg.ShouldBe(errorWithSource, "Source available", StringCompareShould.IgnoreLineEndings);
-                });
+                }
+            ]);
     }
 }

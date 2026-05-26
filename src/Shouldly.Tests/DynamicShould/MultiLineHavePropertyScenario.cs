@@ -9,7 +9,7 @@ public class MultiLineHavePropertyScenario
         testDynamicObject.Bar = "BarPropertyValue";
         Verify.ShouldFail(() =>
             Shouldly.DynamicShould
-                .HaveProperty(testDynamicObject, "foo", "Some additional context"));
+                .HaveProperty(() => testDynamicObject, "foo", "Some additional context"));
     }
 
     [Fact]
@@ -18,6 +18,6 @@ public class MultiLineHavePropertyScenario
         dynamic testDynamicObject = new ExpandoObject();
         testDynamicObject.Foo = "FooPropertyValue";
         Shouldly.DynamicShould
-            .HaveProperty(testDynamicObject, "Foo");
+            .HaveProperty(() => testDynamicObject, "Foo");
     }
 }

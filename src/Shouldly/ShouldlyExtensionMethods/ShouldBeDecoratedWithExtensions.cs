@@ -14,11 +14,12 @@ public static partial class ShouldBeDecoratedWithExtensions
     /// Asserts that the type is decorated with the specified attribute.
     /// </summary>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeDecoratedWith<T>(this Type actual, string? customMessage = null)
+    public static void ShouldBeDecoratedWith<T>(this Type actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : Attribute
     {
         if (!actual.HasAttribute(typeof(T)))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).Name, customMessage).ToString());
+            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).Name, customMessage, actualExpression: actualExpression).ToString());
     }
 
     private static bool HasAttribute(this Type type, Type attributeType) =>

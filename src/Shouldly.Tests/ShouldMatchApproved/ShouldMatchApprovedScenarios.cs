@@ -7,8 +7,8 @@ namespace Shouldly.Tests.ShouldMatchApproved;
 public class ShouldMatchApprovedScenarios
 {
     private readonly Func<string, string> _scrubber = v => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-        ? Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src")
-        : Regex.Replace(v, @"\/([U,u]sers|[H,h]ome).+?shouldly\/src", "/PathToCode/shouldly/src");
+        ? Regex.Replace(v, @"\w:.+?shouldly(?:\\[^\\]+)*?\\src", "C:\\PathToCode\\shouldly\\src")
+        : Regex.Replace(v, @"\/([U,u]sers|[H,h]ome).+?shouldly(?:\/[^\/]+)*?\/src", "/PathToCode/shouldly/src");
 
     [Fact]
     public void Simple()

@@ -17,8 +17,10 @@ public static class ShouldMatchApprovedTestExtensions
     /// <param name="actual">The actual string to verify</param>
     /// <param name="configureOptions">Optional action to configure the approval options</param>
     /// <param name="customMessage">Optional custom message to display if the assertion fails</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null)
+    public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var codeGetter = new ActualCodeTextGetter();
         var stackTrace = new StackTrace(true);
@@ -77,7 +79,7 @@ public static class ShouldMatchApprovedTestExtensions
         var approvedFileContents = File.ReadAllText(approvedFile);
         var receivedFileContents = File.ReadAllText(receivedFile);
         var assertion = StringShouldBeAssertionFactory
-            .Create(approvedFileContents, receivedFileContents, config.StringCompareOptions);
+            .Create(approvedFileContents, receivedFileContents, config.StringCompareOptions, actualExpression: actualExpression);
         var contentsMatch = assertion.IsSatisfied();
 
         if (!contentsMatch)

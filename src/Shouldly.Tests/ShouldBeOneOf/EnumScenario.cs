@@ -13,6 +13,6 @@ public class EnumScenario
     [Fact]
     public void ShouldPass()
     {
-        SomeFlags.Val1.ShouldBeOneOf(SomeFlags.Val1, SomeFlags.Val2);
+        SomeFlags.Val1.ShouldBeOneOf([SomeFlags.Val1, SomeFlags.Val2]);
     }
 }
