@@ -71,6 +71,24 @@ public static partial class ShouldBeTestExtensions
     {
         if (a.Length != b.Length) return false;
 
+#if NET8_0_OR_GREATER
+        // Fast path for integral primitives: bitwise equality matches value
+        // equality (no NaN/-0.0 quirks like float/double), so we can defer to
+        // the vectorised BCL comparison and skip both the comparer allocation
+        // and the per-element boxing inside Internals.EqualityComparer<T>.
+        // The typeof(T) chain folds to a constant per generic instantiation.
+        // Gated on net8+: the netstandard2.0 SequenceEqual<T> overload
+        // constrains T to IEquatable<T>.
+        if (typeof(T) == typeof(byte) || typeof(T) == typeof(sbyte) ||
+            typeof(T) == typeof(short) || typeof(T) == typeof(ushort) ||
+            typeof(T) == typeof(int) || typeof(T) == typeof(uint) ||
+            typeof(T) == typeof(long) || typeof(T) == typeof(ulong) ||
+            typeof(T) == typeof(char))
+        {
+            return a.SequenceEqual(b);
+        }
+#endif
+
         IEqualityComparer<T> comparer = new Internals.EqualityComparer<T>();
         for (var i = 0; i < a.Length; i++)
         {
