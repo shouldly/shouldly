@@ -34,6 +34,9 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class DynamicShould
     {
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("DynamicShould.HaveProperty reflects over the runtime type\'s public properties whe" +
+            "n the instance is a plain CLR object. The trimmer cannot statically determine wh" +
+            "ich properties are read.")]
         public static void HaveProperty(System.Func<object?> dynamicTestObject, string propertyName, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dynamicTestObject")] string? actualExpression = null) { }
         public static TException Throw<TException>(System.Action actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
             where TException : System.Exception { }
@@ -81,12 +84,17 @@ namespace Shouldly
         where T : System.Attribute
     {
         public FindMethodUsingAttribute() { }
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() and reflects over types and attr" +
+            "ibutes to locate a method with the requested attribute. Method metadata may be t" +
+            "rimmed away.")]
         public Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
     }
     public class FirstNonShouldlyMethodFinder : Shouldly.ITestMethodFinder
     {
         public FirstNonShouldlyMethodFinder() { }
         public int Offset { get; set; }
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the first non-Shouldly" +
+            " method. Method metadata may be trimmed away.")]
         public Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
     }
     [Shouldly.ShouldlyMethods]
@@ -125,11 +133,16 @@ namespace Shouldly
     }
     public interface ITestMethodFinder
     {
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Implementations walk the stack trace via StackFrame.GetMethod() to locate the tes" +
+            "t method. Method metadata may be trimmed away.")]
         Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
     }
     [Shouldly.ShouldlyMethods]
     public static class ObjectGraphTestExtensions
     {
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Walks the actual/expected object graph using reflection over each runtime type\'s " +
+            "public fields and properties. The trimmer cannot statically determine which memb" +
+            "ers are read.")]
         public static void ShouldBeEquivalentTo([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this object? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] object? expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
     }
     [Shouldly.ShouldlyMethods]
@@ -296,6 +309,8 @@ namespace Shouldly
         public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBe(this double actual, double expected, double tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBe(this float actual, float expected, double tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldBe<T>(this System.Memory<T> actual, System.Memory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldBe<T>(this System.ReadOnlyMemory<T> actual, System.ReadOnlyMemory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this T? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] T? expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this System.Collections.Generic.IEnumerable<T>? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder = false, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
@@ -338,6 +353,8 @@ namespace Shouldly
         public static void ShouldNotBe(this System.DateTime actual, System.DateTime expected, System.TimeSpan tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe(this System.DateTimeOffset actual, System.DateTimeOffset expected, System.TimeSpan tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldNotBe<T>(this System.Memory<T> actual, System.Memory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldNotBe<T>(this System.ReadOnlyMemory<T> actual, System.ReadOnlyMemory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe<T>(this T? actual, T? expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBeAssignableTo(this object? actual, System.Type expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
@@ -365,6 +382,8 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
     {
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("ShouldMatchApproved walks the stack trace to locate the test method and its sourc" +
+            "e file. Methods and types reflected at runtime may be removed by the trimmer.")]
         public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
     }
     public class ShouldMatchConfiguration
@@ -547,6 +566,8 @@ namespace Shouldly
     }
     public class TestMethodInfo
     {
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Uses StackFrame.GetMethod() and reflects over the declaring type to detect async " +
+            "state machines. Method metadata may be trimmed away.")]
         public TestMethodInfo(System.Diagnostics.StackFrame callingFrame) { }
         public string? DeclaringTypeName { get; }
         public string? MethodName { get; }

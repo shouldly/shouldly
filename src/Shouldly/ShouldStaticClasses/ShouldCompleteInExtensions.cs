@@ -15,7 +15,6 @@ public static partial class Should
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     /// <exception cref="ShouldCompleteInException">Thrown when the action does not complete within the specified timeout.</exception>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void CompleteIn(Action action, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
@@ -34,7 +33,6 @@ public static partial class Should
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     /// <returns>The result of the function if it completes within the timeout.</returns>
     /// <exception cref="ShouldCompleteInException">Thrown when the function does not complete within the specified timeout.</exception>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T CompleteIn<T>(Func<T> function, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(function))] string? actualExpression = null)
     {
@@ -52,7 +50,6 @@ public static partial class Should
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     /// <exception cref="ShouldCompleteInException">Thrown when the function does not complete within the specified timeout.</exception>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void CompleteIn(Func<Task> actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -69,7 +66,6 @@ public static partial class Should
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     /// <returns>The result of the asynchronous function if it completes within the timeout.</returns>
     /// <exception cref="ShouldCompleteInException">Thrown when the function does not complete within the specified timeout.</exception>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T CompleteIn<T>(Func<Task<T>> actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -86,7 +82,6 @@ public static partial class Should
     /// <param name="customMessage">Optional custom message to use if the assertion fails.</param>
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     /// <exception cref="ShouldCompleteInException">Thrown when the task does not complete within the specified timeout.</exception>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void CompleteIn(Task actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -103,7 +98,6 @@ public static partial class Should
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     /// <returns>The result of the task if it completes within the timeout.</returns>
     /// <exception cref="ShouldCompleteInException">Thrown when the task does not complete within the specified timeout.</exception>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T CompleteIn<T>(Task<T> actual, TimeSpan timeout, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {

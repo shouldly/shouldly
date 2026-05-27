@@ -50,7 +50,11 @@ class StringShouldBeAssertion : IAssertion
                     $"{nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed)} trip-wire being armed. " +
                     $"Wrap the call site in {nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
 
+#if NETSTANDARD2_0
             codeText = _codeTextGetter.GetCodeText(_actual);
+#else
+            codeText = _actual.ToStringAwesomely();
+#endif
         }
         var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
         var actualValue = _actualTrimmed.ToStringAwesomely();

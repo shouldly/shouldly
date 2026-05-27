@@ -15,7 +15,6 @@ public static partial class ShouldBeNullExtensions
     /// <summary>
     /// Asserts that the actual value is null.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:notnull => halt")]
     public static void ShouldBeNull<T>(
         this T? actual,
@@ -30,7 +29,6 @@ public static partial class ShouldBeNullExtensions
     /// <summary>
     /// Asserts that the actual value is null.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:notnull => halt")]
     public static void ShouldBeNull<T>(
         this T? actual,
@@ -45,7 +43,6 @@ public static partial class ShouldBeNullExtensions
     /// <summary>
     /// Asserts that the actual value is not null.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
     public static T ShouldNotBeNull<T>(
         [NotNull] this T? actual,
@@ -57,7 +54,6 @@ public static partial class ShouldBeNullExtensions
     /// <summary>
     /// Asserts that the actual value is not null.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null => halt")]
     public static T ShouldNotBeNull<T>(
         [NotNull] this T? actual,

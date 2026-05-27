@@ -72,10 +72,9 @@ static class StringHelpers
             return ExpressionToString.ExpressionStringBuilder.ToString(binaryExpression);
         }
 
-        if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)) {
-            var key = objectType.GetProperty("Key")!.GetValue(value, null);
-            var v = objectType.GetProperty("Value")!.GetValue(value, null);
-            return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
+        if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+        {
+            return FormatKeyValuePair(objectType, value);
         }
 
         var toString = value.ToString();
@@ -83,6 +82,15 @@ static class StringHelpers
             return $"{value} ({value.GetHashCode():D6})";
 
         return toString; // ToString() may return null.
+    }
+
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "KeyValuePair<TKey, TValue> is a BCL type whose Key and Value properties define its public contract and are preserved by the trimmer.")]
+    private static string FormatKeyValuePair(Type keyValuePairType, object value)
+    {
+        var key = keyValuePairType.GetProperty("Key")!.GetValue(value, null);
+        var v = keyValuePairType.GetProperty("Value")!.GetValue(value, null);
+        return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
     }
 
     internal static string PascalToSpaced(this string pascal)
