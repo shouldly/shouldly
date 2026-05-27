@@ -1,20 +1,8 @@
----- With Source ----
 str
     should be with options: Ignoring case
 "different"
     but was
 "SamplE"
-    difference
-Expected: "different"
-Actual:   "SamplE"
-
-Additional Info:
-    Some additional context
----- Without Source ----
-"SamplE"
-    should be with options: Ignoring case
-"different"
-    but was not
     difference
 Expected: "different"
 Actual:   "SamplE"

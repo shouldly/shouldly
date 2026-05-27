@@ -38,7 +38,7 @@ class StringShouldBeAssertion : IAssertion
         var _actualTrimmed = Trim(_actual);
         var _expectedTrimmed = Trim(_expected);
         string? codeText;
-        if (_actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors())
+        if (_actualExpression != null)
         {
             codeText = _actualExpression;
         }
@@ -51,7 +51,9 @@ class StringShouldBeAssertion : IAssertion
                     $"Wrap the call site in {nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
 
 #if NETSTANDARD2_0
-            codeText = _codeTextGetter.GetCodeText(_actual);
+            codeText = ShouldlyConfiguration.IsSourceDisabledInErrors()
+                ? _actual.ToStringAwesomely()
+                : _codeTextGetter.GetCodeText(_actual);
 #else
             codeText = _actual.ToStringAwesomely();
 #endif

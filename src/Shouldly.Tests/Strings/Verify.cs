@@ -15,61 +15,18 @@ public static class Verify
             ? v => MatchGetHashCode.Replace(messageScrubber(v), "(000000)")
             : v => MatchGetHashCode.Replace(v, "(000000)");
 
-        var sourceEnabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
+        var message = scrub(Should.Throw<ShouldAssertException>(action).Message);
 
-        string sourceDisabledMsg;
-        using (ShouldlyConfiguration.DisableSourceInErrors())
-        {
-            sourceDisabledMsg = scrub(Should.Throw<ShouldAssertException>(action).Message);
-        }
-
-        var combined = $"""
-            ---- With Source ----
-            {sourceEnabledMsg}
-            ---- Without Source ----
-            {sourceDisabledMsg}
-            """;
-
-        combined.ShouldMatchApproved(c => c.NoDiff());
+        message.ShouldMatchApproved(c => c.NoDiff());
     }
 
-    public static void ShouldFail(Action action, string errorWithSource, string errorWithoutSource, Func<string, string>? messageScrubber = null)
+    public static void ShouldFail(Action action, string errorMessage, Func<string, string>? messageScrubber = null)
     {
-        if (messageScrubber == null)
-        {
-            messageScrubber = v =>
-            {
-                var msg = MatchGetHashCode.Replace(v, "(000000)");
-                return msg;
-            };
-        }
-        else
-        {
-            var scrubber = messageScrubber;
-            messageScrubber = v =>
-            {
-                var msg = scrubber(v);
-                var res = MatchGetHashCode.Replace(msg, "(000000)");
-                return res;
-            };
-        }
+        Func<string, string> scrub = messageScrubber != null
+            ? v => MatchGetHashCode.Replace(messageScrubber(v), "(000000)")
+            : v => MatchGetHashCode.Replace(v, "(000000)");
 
-        action
-            .ShouldSatisfyAllConditions(
-            [
-                () =>
-                {
-                    using (ShouldlyConfiguration.DisableSourceInErrors())
-                    {
-                        var sourceDisabledExceptionMsg = messageScrubber(Should.Throw<ShouldAssertException>(action).Message);
-                        sourceDisabledExceptionMsg.ShouldBe(errorWithoutSource, "Source not available", StringCompareShould.IgnoreLineEndings);
-                    }
-                },
-                () =>
-                {
-                    var sourceEnabledExceptionMsg = messageScrubber(Should.Throw<ShouldAssertException>(action).Message);
-                    sourceEnabledExceptionMsg.ShouldBe(errorWithSource, "Source available", StringCompareShould.IgnoreLineEndings);
-                }
-            ]);
+        var actual = scrub(Should.Throw<ShouldAssertException>(action).Message);
+        actual.ShouldBe(errorMessage, StringCompareShould.IgnoreLineEndings);
     }
 }

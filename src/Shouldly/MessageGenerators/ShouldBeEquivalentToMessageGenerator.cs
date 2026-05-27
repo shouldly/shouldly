@@ -2,7 +2,6 @@ namespace Shouldly.MessageGenerators;
 
 class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
 {
-    private const string DefaultRootValue = "<root>";
     private const int IndentSize = 4;
 
     public override bool CanProcess(IShouldlyAssertionContext context) =>
@@ -12,7 +11,7 @@ class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
         $"""
          Comparing object equivalence, at path:
          {FormatPath(context)}
-         
+
              Expected value to be
          {context.Expected.ToStringAwesomely()}
              but was
@@ -21,7 +20,7 @@ class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
 
     private static string FormatPath(IShouldlyAssertionContext context)
     {
-        var result = new StringBuilder(ShouldlyConfiguration.IsSourceDisabledInErrors() ? DefaultRootValue : context.CodePart);
+        var result = new StringBuilder(context.CodePart);
         if (context.Path != null)
         {
             var i = 0;

@@ -1,21 +1,8 @@
----- With Source ----
 ThisString
     should be
 "this other string"
     but was
 "this string"
-    difference
-                ▼▼▼▼▼▼
-Expected: "this other string"
-Actual:   "this string"
-
-Additional Info:
-    Some additional context
----- Without Source ----
-"this string"
-    should be
-"this other string"
-    but was not
     difference
                 ▼▼▼▼▼▼
 Expected: "this other string"

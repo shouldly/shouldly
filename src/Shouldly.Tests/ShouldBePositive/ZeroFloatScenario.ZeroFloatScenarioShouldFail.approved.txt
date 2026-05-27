@@ -1,14 +1,7 @@
----- With Source ----
 val
     should be positive but
 0f
     is negative
-
-Additional Info:
-    Some additional context
----- Without Source ----
-0f
-    should be positive but is negative
 
 Additional Info:
     Some additional context

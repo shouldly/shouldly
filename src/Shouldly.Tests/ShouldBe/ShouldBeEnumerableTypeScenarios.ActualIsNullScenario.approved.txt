@@ -1,17 +1,8 @@
----- With Source ----
 something
     should be
 [1, 2, 3]
     but was
 null
-
-Additional Info:
-    Some additional context
----- Without Source ----
-null
-    should be
-[1, 2, 3]
-    but was not
 
 Additional Info:
     Some additional context

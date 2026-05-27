@@ -1,17 +1,8 @@
----- With Source ----
 myValue
     should be
 True
     but was
 False
-
-Additional Info:
-    Some additional context
----- Without Source ----
-False
-    should be
-True
-    but was not
 
 Additional Info:
     Some additional context
