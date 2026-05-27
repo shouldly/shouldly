@@ -10,7 +10,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Strip out whitespace (whitespace, tabs, line-endings, etc) and compare the two strings
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContainWithoutWhitespace(this string actual, object? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -23,7 +22,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string contains another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -38,7 +36,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string does not contain another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -52,7 +49,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string matches a regular expression pattern
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -62,7 +58,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string does not match a regular expression pattern
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {

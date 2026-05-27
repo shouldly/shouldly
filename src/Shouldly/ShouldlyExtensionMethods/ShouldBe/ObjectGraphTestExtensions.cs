@@ -15,7 +15,6 @@ public static partial class ObjectGraphTestExtensions
     /// Asserts that an object is equivalent to another object by comparing all properties and fields.
     /// Supports value types, reference types, strings, and enumerables.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [RequiresUnreferencedCode("Walks the actual/expected object graph using reflection over each runtime type's public fields and properties. The trimmer cannot statically determine which members are read.")]
     public static void ShouldBeEquivalentTo(
         [NotNullIfNotNull(nameof(expected))] this object? actual,

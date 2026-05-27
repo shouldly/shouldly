@@ -13,7 +13,6 @@ public static partial class ShouldBeBooleanExtensions
     /// <summary>
     /// Asserts that the boolean value is true
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeTrue(
         [DoesNotReturnIf(false)] this bool actual,
         string? customMessage = null,
@@ -26,7 +25,6 @@ public static partial class ShouldBeBooleanExtensions
     /// <summary>
     /// Asserts that the nullable boolean value is true
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeTrue(
         [DoesNotReturnIf(false)] this bool? actual,
         string? customMessage = null,
@@ -42,7 +40,6 @@ public static partial class ShouldBeBooleanExtensions
     /// <summary>
     /// Asserts that the boolean value is false
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeFalse(
         [DoesNotReturnIf(true)] this bool actual,
         string? customMessage = null,
@@ -55,7 +52,6 @@ public static partial class ShouldBeBooleanExtensions
     /// <summary>
     /// Asserts that the nullable boolean value is false
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeFalse(
         [DoesNotReturnIf(true)] this bool? actual,
         string? customMessage = null,

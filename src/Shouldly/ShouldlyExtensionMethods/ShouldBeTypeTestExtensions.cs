@@ -7,7 +7,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is assignable to the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [return: NotNullIfNotNull(nameof(actual))]
     public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
@@ -19,7 +18,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is assignable to the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeAssignableTo(this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -38,7 +36,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is exactly of the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T ShouldBeOfType<T>([NotNull] this object? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -49,7 +46,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is exactly of the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeOfType([NotNull] this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -60,7 +56,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is not assignable to the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeAssignableTo<T>(this object? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -70,7 +65,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is not assignable to the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeAssignableTo(this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -80,7 +74,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is not exactly of the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -90,7 +83,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is not exactly of the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeOfType(this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {

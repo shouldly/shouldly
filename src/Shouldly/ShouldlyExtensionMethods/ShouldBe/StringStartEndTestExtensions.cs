@@ -7,7 +7,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string starts with another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -18,7 +17,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string ends with another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -29,7 +27,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string does not start with another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -39,7 +36,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string does not end with another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotEndWith(this string? actual, string expected, Case caseSensitivity,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -49,7 +45,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string does not end with another string
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotEndWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Insensitive,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
