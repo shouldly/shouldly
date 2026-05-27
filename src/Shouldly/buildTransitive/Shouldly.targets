@@ -41,7 +41,7 @@
                               OR '$(LangVersion)' == '8.0'
                               OR '$(LangVersion)' == '9'
                               OR '$(LangVersion)' == '9.0' ) ">
-        <Warning Code="SHLD0001"
+        <Warning Code="SHLDLY0001"
                  Text="Shouldly: LangVersion '$(LangVersion)' is older than C# 10. On $(TargetFramework) Shouldly captures caller expressions via CallerArgumentExpression (a C# 10 feature) — with an older LangVersion failure messages will show formatted values instead of the original expression. Set &lt;LangVersion&gt;10.0&lt;/LangVersion&gt; or higher, or set &lt;ShouldlySkipLangVersionCheck&gt;true&lt;/ShouldlySkipLangVersionCheck&gt; to suppress this warning." />
     </Target>
 </Project>
