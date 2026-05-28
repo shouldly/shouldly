@@ -14,6 +14,7 @@ public static partial class Should
         where TException : Exception =>
         ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Action actual,
         string? customMessage,
@@ -45,6 +46,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal([InstantHandle] Action actual, string? customMessage, Type exceptionType,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
@@ -75,6 +77,7 @@ public static partial class Should
         where TException : Exception =>
         ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Func<object?> actual,
         string? customMessage,
@@ -113,6 +116,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
@@ -144,6 +148,7 @@ public static partial class Should
         NotThrowInternal(action, customMessage, actualExpression: actualExpression);
     }
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
@@ -169,6 +174,7 @@ public static partial class Should
     /// <summary>
     /// Used to differentiate between the extension methods and the static methods
     /// </summary>
+    [DebuggerDisableUserUnhandledExceptions]
     internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
