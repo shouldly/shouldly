@@ -17,6 +17,6 @@
     <PackageReference Include="System.Memory" Version="4.6.3" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net8.0' ">
-    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
+    <PackageReference Include="PolySharp" Version="1.16.0" PrivateAssets="all" />
   </ItemGroup>
 </Project>
