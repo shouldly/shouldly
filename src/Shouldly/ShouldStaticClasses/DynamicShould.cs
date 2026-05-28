@@ -21,7 +21,6 @@ public static partial class DynamicShould
     /// <summary>
     /// Verifies that the provided action throws an exception of type TException
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
@@ -32,7 +31,7 @@ public static partial class DynamicShould
     /// wrapped in a lambda (<c>() =&gt; myDynamic</c>) so the call site stays statically
     /// dispatched and the caller expression can be captured.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
+    [RequiresUnreferencedCode("DynamicShould.HaveProperty reflects over the runtime type's public properties when the instance is a plain CLR object. The trimmer cannot statically determine which properties are read.")]
     public static void HaveProperty(
         [InstantHandle] Func<object?> dynamicTestObject,
         string propertyName,
@@ -48,6 +47,7 @@ public static partial class DynamicShould
         }
     }
 
+    [RequiresUnreferencedCode("Reflects over the runtime type's public properties when the instance is a plain CLR object.")]
     private static bool HasProperty(object? instance, string propertyName)
     {
         // ExpandoObject (and other property-bag dynamics) — fastest direct check.

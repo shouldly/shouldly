@@ -1,21 +1,9 @@
----- With Source ----
 str
     should be
 "line1\r\nline2"
     but was
 "line1
 line2"
-    difference
-                ▼▼▼▼
-Expected: "line1\r\nline2"
-Actual:   "line1␍␊line2"
-                ▲▲
----- Without Source ----
-"line1
-line2"
-    should be
-"line1\r\nline2"
-    but was not
     difference
                 ▼▼▼▼
 Expected: "line1\r\nline2"

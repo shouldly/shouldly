@@ -1,20 +1,8 @@
----- With Source ----
 str
     should be with options: Ignoring case
 "Stringone	Space"
     but was
 "StringOne Space"
-    difference
-                    ▼▼
-Expected: "Stringone\tSpace"
-Actual:   "StringOne Space"
-                    ▲
-Whitespace differs: expected uses tab (\t), actual uses spaces
----- Without Source ----
-"StringOne Space"
-    should be with options: Ignoring case
-"Stringone	Space"
-    but was not
     difference
                     ▼▼
 Expected: "Stringone\tSpace"

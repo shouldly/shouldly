@@ -1,20 +1,8 @@
----- With Source ----
 str
     should be with options: Ignoring case
 "Stringone Tab"
     but was
 "StringOne	Tab"
-    difference
-                    ▼
-Expected: "Stringone Tab"
-Actual:   "StringOne\tTab"
-                    ▲▲
-Whitespace differs: expected uses spaces, actual uses tab (\t)
----- Without Source ----
-"StringOne	Tab"
-    should be with options: Ignoring case
-"Stringone Tab"
-    but was not
     difference
                     ▼
 Expected: "Stringone Tab"

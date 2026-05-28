@@ -19,6 +19,7 @@ public static class ShouldMatchApprovedTestExtensions
     /// <param name="customMessage">Optional custom message to display if the assertion fails</param>
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     [MethodImpl(MethodImplOptions.NoInlining)]
+    [RequiresUnreferencedCode("ShouldMatchApproved walks the stack trace to locate the test method and its source file. Methods and types reflected at runtime may be removed by the trimmer.")]
     public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {

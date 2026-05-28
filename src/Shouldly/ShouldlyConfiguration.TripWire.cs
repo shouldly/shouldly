@@ -14,8 +14,8 @@ public static partial class ShouldlyConfiguration
     /// expression. Use to prove that
     /// <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/> capture is
     /// wired all the way through to the assertion message on a given test run.
-    /// Stack-walking that is deliberately requested (via <see cref="DisableSourceInErrors"/>) or
-    /// suppressed (via <see cref="AllowStackWalking"/>) does not trigger the trip-wire.
+    /// Stack-walking that is deliberately suppressed (via <see cref="DisableSourceInErrors"/> or
+    /// <see cref="AllowStackWalking"/>) does not trigger the trip-wire.
     /// </summary>
     internal static IDisposable AssertCallerArgumentExpressionIsUsed()
     {

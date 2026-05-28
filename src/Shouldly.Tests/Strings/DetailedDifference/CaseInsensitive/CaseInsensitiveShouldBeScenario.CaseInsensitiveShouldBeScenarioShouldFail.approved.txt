@@ -1,18 +1,8 @@
----- With Source ----
 str
     should be with options: Ignoring case
 "Stringone"
     but was
 "StringOneX"
-    difference
-Expected: "Stringone"
-Actual:   "StringOneX"
-                    ▲
----- Without Source ----
-"StringOneX"
-    should be with options: Ignoring case
-"Stringone"
-    but was not
     difference
 Expected: "Stringone"
 Actual:   "StringOneX"

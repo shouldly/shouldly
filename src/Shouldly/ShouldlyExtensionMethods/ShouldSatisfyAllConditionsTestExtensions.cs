@@ -13,7 +13,6 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
     /// <summary>
     /// Asserts that the actual value satisfies all specified conditions.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions<T>(this T actual, [InstantHandle] Action<T>[] conditions, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -23,7 +22,6 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
     /// <summary>
     /// Asserts that the actual object satisfies all specified conditions with a custom message
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldSatisfyAllConditions(this object? actual, [InstantHandle] Action[] conditions, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {

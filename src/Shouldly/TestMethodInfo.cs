@@ -11,6 +11,7 @@ public class TestMethodInfo
     /// Initializes a new instance of the TestMethodInfo class
     /// </summary>
     /// <param name="callingFrame">The stack frame of the calling method</param>
+    [RequiresUnreferencedCode("Uses StackFrame.GetMethod() and reflects over the declaring type to detect async state machines. Method metadata may be trimmed away.")]
     public TestMethodInfo(StackFrame callingFrame)
     {
         var fileName = callingFrame.GetFileName();

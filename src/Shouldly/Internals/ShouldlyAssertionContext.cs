@@ -97,7 +97,7 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
         Actual = actual;
         ShouldMethod = shouldlyMethod;
 
-        if (actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors())
+        if (actualExpression != null)
         {
             CodePart = actualExpression;
         }
@@ -106,10 +106,21 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
             if (ShouldlyConfiguration.IsCallerArgumentExpressionRequired())
                 throw TripWireException(shouldlyMethod);
 
-            var actualCodeGetter = new ActualCodeTextGetter();
-            CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
-            FileName = actualCodeGetter.FileName;
-            LineNumber = actualCodeGetter.LineNumber;
+#if NETSTANDARD2_0
+            if (ShouldlyConfiguration.IsSourceDisabledInErrors())
+            {
+                CodePart = actual.ToStringAwesomely();
+            }
+            else
+            {
+                var actualCodeGetter = new ActualCodeTextGetter();
+                CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
+                FileName = actualCodeGetter.FileName;
+                LineNumber = actualCodeGetter.LineNumber;
+            }
+#else
+            CodePart = actual.ToStringAwesomely();
+#endif
         }
     }
 

@@ -8,7 +8,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is greater than the expected value using the specified comparer.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeGreaterThan<T>(
         this T? actual,
         T? expected,
@@ -22,7 +21,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is greater than the expected value.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeGreaterThan<T>(
         this T? actual,
         T? expected,
@@ -36,7 +34,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is less than the expected value using the specified comparer.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeLessThan<T>(
         this T? actual,
         T? expected,
@@ -50,7 +47,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is less than the expected value.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeLessThan<T>(
         this T? actual,
         T? expected,
@@ -64,7 +60,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is greater than or equal to the expected value using the specified comparer.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeGreaterThanOrEqualTo<T>(
         this T? actual,
         T? expected,
@@ -78,7 +73,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is greater than or equal to the expected value.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeGreaterThanOrEqualTo<T>(
         this T? actual,
         T? expected,
@@ -92,7 +86,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is less than or equal to the expected value using the specified comparer.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeLessThanOrEqualTo<T>(
         this T? actual,
         T? expected,
@@ -106,7 +99,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is less than or equal to the expected value.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeLessThanOrEqualTo<T>(
         this T? actual,
         T? expected,

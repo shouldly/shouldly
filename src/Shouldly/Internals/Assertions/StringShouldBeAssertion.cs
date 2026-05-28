@@ -38,7 +38,7 @@ class StringShouldBeAssertion : IAssertion
         var _actualTrimmed = Trim(_actual);
         var _expectedTrimmed = Trim(_expected);
         string? codeText;
-        if (_actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors())
+        if (_actualExpression != null)
         {
             codeText = _actualExpression;
         }
@@ -50,7 +50,13 @@ class StringShouldBeAssertion : IAssertion
                     $"{nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed)} trip-wire being armed. " +
                     $"Wrap the call site in {nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
 
-            codeText = _codeTextGetter.GetCodeText(_actual);
+#if NETSTANDARD2_0
+            codeText = ShouldlyConfiguration.IsSourceDisabledInErrors()
+                ? _actual.ToStringAwesomely()
+                : _codeTextGetter.GetCodeText(_actual);
+#else
+            codeText = _actual.ToStringAwesomely();
+#endif
         }
         var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
         var actualValue = _actualTrimmed.ToStringAwesomely();

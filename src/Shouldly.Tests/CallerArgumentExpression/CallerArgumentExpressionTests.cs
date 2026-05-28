@@ -27,17 +27,6 @@ public class CallerArgumentExpressionTests
     }
 
     [Fact]
-    public void Works_without_pdbs_via_DisableSourceInErrors_compat()
-    {
-        var ready = false;
-        using (ShouldlyConfiguration.DisableSourceInErrors())
-        {
-            var ex = Should.Throw<ShouldAssertException>(() => ready.ShouldBeTrue());
-            ex.Message.ShouldNotContain("ready");
-        }
-    }
-
-    [Fact]
     public void ShouldBeEquivalentTo_uses_caller_expression()
     {
         var widget = new { Name = "left" };

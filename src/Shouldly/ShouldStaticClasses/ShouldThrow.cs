@@ -9,12 +9,12 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided action throws an exception of type <typeparamref name="TException"/>
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
         ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Action actual,
         string? customMessage,
@@ -42,11 +42,11 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided action throws an exception of the specified type
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Action actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal([InstantHandle] Action actual, string? customMessage, Type exceptionType,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
@@ -72,12 +72,12 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided function throws an exception of type <typeparamref name="TException"/>
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
         ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Func<object?> actual,
         string? customMessage,
@@ -105,7 +105,6 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided function throws an exception of the specified type
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(actual, null, exceptionType, actualExpression: actualExpression);
@@ -113,11 +112,11 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided function throws an exception of the specified type
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
@@ -143,13 +142,13 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided action does not throw any exceptions
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void NotThrow([InstantHandle] Action action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
         NotThrowInternal(action, customMessage, actualExpression: actualExpression);
     }
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
@@ -168,7 +167,6 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided function does not throw any exceptions and returns its result
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
         NotThrowInternal(action, customMessage, actualExpression: actualExpression);
@@ -176,6 +174,7 @@ public static partial class Should
     /// <summary>
     /// Used to differentiate between the extension methods and the static methods
     /// </summary>
+    [DebuggerDisableUserUnhandledExceptions]
     internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)

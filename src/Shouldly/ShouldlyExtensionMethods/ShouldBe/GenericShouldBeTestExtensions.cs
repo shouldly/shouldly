@@ -12,7 +12,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an actual value is equal to the expected value
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null,expected:notnull => halt;actual:notnull,expected:null => halt")]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this T? actual,
@@ -29,7 +28,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an actual value is equal to the expected value using the specified comparer
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this T? actual,
         [NotNullIfNotNull(nameof(actual))] T? expected,
@@ -43,7 +41,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an actual value is not equal to the expected value
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null,expected:null => halt")]
     public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
@@ -54,7 +51,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an actual value is not equal to the expected value using the specified comparer
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [ContractAnnotation("actual:null,expected:null => halt")]
     public static void ShouldNotBe<T>(this T? actual, T? expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
@@ -65,7 +61,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [OverloadResolutionPriority(1)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
@@ -97,7 +92,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an enumerable is equal to another enumerable using the specified comparer, optionally ignoring order.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
@@ -119,7 +113,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that a decimal enumerable is equal to another decimal enumerable within the specified tolerance
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -129,7 +122,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an object is the same instance as another object
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBeSameAs(
         [NotNullIfNotNull(nameof(expected))] this object? actual,
         [NotNullIfNotNull(nameof(actual))] object? expected,
@@ -142,7 +134,6 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that an object is not the same instance as another object
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldNotBeSameAs(this object? actual, object? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {

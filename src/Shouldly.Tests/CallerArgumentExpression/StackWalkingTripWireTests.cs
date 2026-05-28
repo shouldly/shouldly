@@ -35,8 +35,8 @@ public class StackWalkingTripWireTests
     {
         using (ShouldlyConfiguration.DisableSourceInErrors())
         {
-            // No throw — when the user has deliberately turned off source-in-errors, falling
-            // back to the value-only message is the expected behaviour.
+            // No throw — the user has deliberately opted out of stack-walking, so falling back
+            // to the value-only message is the expected behaviour.
             _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
         }
     }

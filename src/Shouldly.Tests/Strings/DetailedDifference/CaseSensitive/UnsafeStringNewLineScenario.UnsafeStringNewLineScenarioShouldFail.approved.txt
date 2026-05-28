@@ -1,21 +1,9 @@
----- With Source ----
 str
     should be
 "Stringone
 NewLine"
     but was
 "StringOneNoNewLine"
-    difference
-                 ▼  ▼▼▼▼
-Expected: "Stringone\r\nNewLine"
-Actual:   "StringOneNoNewLine"
-                 ▲  ▲▲
----- Without Source ----
-"StringOneNoNewLine"
-    should be
-"Stringone
-NewLine"
-    but was not
     difference
                  ▼  ▼▼▼▼
 Expected: "Stringone\r\nNewLine"

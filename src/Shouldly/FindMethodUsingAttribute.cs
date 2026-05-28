@@ -7,6 +7,7 @@ namespace Shouldly;
 public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
 {
     /// <inheritdoc/>
+    [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() and reflects over types and attributes to locate a method with the requested attribute. Method metadata may be trimmed away.")]
     public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
     {
         foreach (var frame in stackTrace.GetFrames().Skip(startAt))

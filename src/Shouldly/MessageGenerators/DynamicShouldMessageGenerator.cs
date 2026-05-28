@@ -14,9 +14,7 @@ class DynamicShouldMessageGenerator : ShouldlyMessageGenerator
         var propertyName = context.Expected;
         var codePart = context.CodePart;
 
-        // CodePart is "null" when DisableSourceInErrors is set (the value-only fallback). In that
-        // case render the generic form without the receiver name.
-        if (string.IsNullOrEmpty(codePart) || codePart == "null")
+        if (string.IsNullOrEmpty(codePart))
         {
             const string genericFormat = """Dynamic object should contain property "{0}" but does not.""";
             return string.Format(genericFormat, propertyName?.ToString()?.Trim());

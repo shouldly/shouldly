@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net8.0;net9.0</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
+    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <Nullable>annotations</Nullable>
@@ -9,6 +10,7 @@
   <ItemGroup>
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <None Include="buildTransitive\Shouldly.targets" Pack="true" PackagePath="buildTransitive\Shouldly.targets" />
+    <InternalsVisibleTo Include="Shouldly.Approvals" Key="$(ShouldlyPublicKey)" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

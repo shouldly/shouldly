@@ -1,0 +1,7 @@
+foo
+    should not be
+[1, 2, 3]
+    but was
+
+Additional Info:
+    Some additional context

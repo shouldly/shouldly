@@ -1,14 +1,4 @@
----- With Source ----
 one
-    should be of type
-System.String
-    but was
-System.Int32
-
-Additional Info:
-    Some additional context
----- Without Source ----
-1
     should be of type
 System.String
     but was
