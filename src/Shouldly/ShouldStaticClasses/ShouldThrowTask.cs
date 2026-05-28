@@ -61,6 +61,7 @@ public static partial class Should
         where TException : Exception =>
         ThrowInternal<TException>(actual, timeoutAfter, customMessage, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
         string? customMessage,
@@ -104,6 +105,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(actual, timeoutAfter, customMessage, exceptionType, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal(
         [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
         string? customMessage,
@@ -180,6 +182,7 @@ public static partial class Should
         NotThrowInternal(action, timeoutAfter, customMessage, actualExpression: actualExpression);
     }
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static void NotThrowInternal(
         [InstantHandle] Func<Task> action, TimeSpan timeoutAfter,
         string? customMessage,
@@ -224,6 +227,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
         NotThrowInternal(action, timeoutAfter, customMessage, actualExpression: actualExpression);
 
+    [DebuggerDisableUserUnhandledExceptions]
     internal static T NotThrowInternal<T>(
         [InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter,
         [InstantHandle] string? customMessage,
@@ -258,16 +262,5 @@ public static partial class Should
         {
             CompleteIn(actual, timeoutAfter, customMessage);
         }
-    }
-
-    private static Exception HandleTaskAggregateException(AggregateException exceptionFromTask, string? customMessage, Type exceptionType, string? actualExpression = null)
-    {
-        var innerException = exceptionFromTask.InnerException
-                             ?? throw new ArgumentException("The specified exception is not from Task.Exception or it would have at least one inner exception.", nameof(exceptionFromTask));
-
-        if (innerException.GetType() == exceptionType)
-            return innerException;
-
-        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, innerException.GetType(), customMessage, actualExpression: actualExpression).ToString());
     }
 }
