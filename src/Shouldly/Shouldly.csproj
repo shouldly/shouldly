@@ -4,6 +4,9 @@
     <SignAssembly>true</SignAssembly>
     <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <Nullable>annotations</Nullable>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <None Include="buildTransitive\Shouldly.targets" Pack="true" PackagePath="buildTransitive\Shouldly.targets" />
@@ -11,7 +14,9 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
-    <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[8.0.0]" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net8.0' ">
+    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
   </ItemGroup>
 </Project>

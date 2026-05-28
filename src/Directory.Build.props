@@ -35,7 +35,4 @@
     <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1505</WarningsNotAsErrors>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="IndexRange" Version="1.1.1" PrivateAssets="all" />
-  </ItemGroup>
 </Project>
