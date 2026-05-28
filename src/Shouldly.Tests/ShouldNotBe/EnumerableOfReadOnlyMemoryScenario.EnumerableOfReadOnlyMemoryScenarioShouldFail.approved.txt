@@ -1,13 +1,4 @@
----- With Source ----
 foo
-    should not be
-[1, 2, 3]
-    but was
-
-Additional Info:
-    Some additional context
----- Without Source ----
-[1, 2, 3]
     should not be
 [1, 2, 3]
     but was

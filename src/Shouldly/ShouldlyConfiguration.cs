@@ -20,15 +20,16 @@ public static partial class ShouldlyConfiguration
     public static List<string> CompareAsObjectTypes { get; }
 
     /// <summary>
-    /// When active, Shouldly omits the source-level expression of the actual argument from error messages
-    /// and formats the value alone (for example: <c>False should be True but was not</c>).
+    /// Suppresses the legacy stack-trace + source-file parser that recovers the actual argument's
+    /// expression text when <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/>
+    /// did not supply one (e.g. callers compiled against Shouldly's netstandard2.0 build with an older
+    /// C# compiler). When the toggle is active and no CAE-supplied expression is available, error
+    /// messages format the value alone (for example: <c>False should be True but was not</c>).
     /// </summary>
     /// <remarks>
-    /// Suppresses both sources of expression text: the legacy stack-trace + source-file parser and the
-    /// modern compile-time capture supplied via <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/>.
-    /// Most callers will not need to set this; it predates compile-time expression capture and was originally
-    /// added to give users a fallback when PDBs/source files were unavailable. That fallback is no longer
-    /// necessary, but the flag is retained as a preference toggle.
+    /// CAE-supplied expressions are always honoured — this toggle does not suppress them. On net8.0+
+    /// the toggle is effectively a no-op because Shouldly never walks the stack to recover source
+    /// text on those frameworks.
     /// </remarks>
     public static IDisposable DisableSourceInErrors()
     {
@@ -37,21 +38,11 @@ public static partial class ShouldlyConfiguration
     }
 
     /// <summary>
-    /// Returns true when expression text should be omitted from error messages. See <see cref="DisableSourceInErrors"/>.
+    /// Returns true when the stack-trace fallback for recovering an assertion's call-site
+    /// expression is suppressed. See <see cref="DisableSourceInErrors"/>.
     /// </summary>
-    public static bool IsSourceDisabledInErrors()
-    {
-        if ((bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true)
-        {
-            return true;
-        }
-#if NET8_0_OR_GREATER
-        // For Native AOT let's disable source in errors until we have a better solution
-        return !RuntimeFeature.IsDynamicCodeSupported;
-#else
-        return false;
-#endif
-    }
+    public static bool IsSourceDisabledInErrors() =>
+        (bool?)CallContext.LogicalGetData("ShouldlyDisableSourceInErrors") == true;
 
     private class EnableSourceInErrorsDisposable : IDisposable
     {
@@ -81,9 +72,8 @@ public static partial class ShouldlyConfiguration
     /// Descriptive uses ASCII-safe names (&lt;CR&gt;, &lt;LF&gt;).
     /// </summary>
     /// <remarks>
-    /// Scoped to the logical call context, same pattern as <see cref="DisableSourceInErrors"/>.
-    /// Flows down through async/await and Task.Run by default; concurrent
-    /// contexts get their own value.
+    /// Scoped to the logical call context. Flows down through async/await and
+    /// Task.Run by default; concurrent contexts get their own value.
     /// </remarks>
     public static EscapeStyle EscapeStyle
     {

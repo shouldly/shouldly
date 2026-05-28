@@ -1,13 +1,4 @@
----- With Source ----
 StringDictionary()
-    should contain key
-"bar"
-    but does not
-
-Additional Info:
-    Some additional context
----- Without Source ----
-[["Foo" => "Bar"]]
     should contain key
 "bar"
     but does not

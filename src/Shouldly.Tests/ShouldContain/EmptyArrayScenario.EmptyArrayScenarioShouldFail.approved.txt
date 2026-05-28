@@ -1,17 +1,8 @@
----- With Source ----
 target
     should contain
 1
     but was actually
 []
-
-Additional Info:
-    Some additional context
----- Without Source ----
-[]
-    should contain
-1
-    but did not
 
 Additional Info:
     Some additional context

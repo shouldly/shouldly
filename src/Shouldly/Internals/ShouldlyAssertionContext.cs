@@ -97,7 +97,7 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
         Actual = actual;
         ShouldMethod = shouldlyMethod;
 
-        if (actualExpression != null && !ShouldlyConfiguration.IsSourceDisabledInErrors())
+        if (actualExpression != null)
         {
             CodePart = actualExpression;
         }
@@ -107,15 +107,18 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
                 throw TripWireException(shouldlyMethod);
 
 #if NETSTANDARD2_0
-            var actualCodeGetter = new ActualCodeTextGetter();
-            CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
-            FileName = actualCodeGetter.FileName;
-            LineNumber = actualCodeGetter.LineNumber;
+            if (ShouldlyConfiguration.IsSourceDisabledInErrors())
+            {
+                CodePart = actual.ToStringAwesomely();
+            }
+            else
+            {
+                var actualCodeGetter = new ActualCodeTextGetter();
+                CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
+                FileName = actualCodeGetter.FileName;
+                LineNumber = actualCodeGetter.LineNumber;
+            }
 #else
-            // On net8.0+ we don't walk the stack to recover source text — callers
-            // are expected to supply CallerArgumentExpression. When they don't (or
-            // when source is suppressed via configuration), fall back to a value
-            // formatted from the actual argument so messages remain coherent.
             CodePart = actual.ToStringAwesomely();
 #endif
         }

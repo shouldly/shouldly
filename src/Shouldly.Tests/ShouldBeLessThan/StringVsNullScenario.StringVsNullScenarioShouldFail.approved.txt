@@ -1,17 +1,8 @@
----- With Source ----
 bee
     should be less than
 null
     but was
 "b"
-
-Additional Info:
-    Some additional context
----- Without Source ----
-"b"
-    should be less than
-null
-    but was not
 
 Additional Info:
     Some additional context

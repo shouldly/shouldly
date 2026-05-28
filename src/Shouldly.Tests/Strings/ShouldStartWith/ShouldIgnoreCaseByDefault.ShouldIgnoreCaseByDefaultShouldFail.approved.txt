@@ -1,9 +1,3 @@
----- With Source ----
-"Cheese"
-    should start with
-"Ce"
-    but was not
----- Without Source ----
 "Cheese"
     should start with
 "Ce"

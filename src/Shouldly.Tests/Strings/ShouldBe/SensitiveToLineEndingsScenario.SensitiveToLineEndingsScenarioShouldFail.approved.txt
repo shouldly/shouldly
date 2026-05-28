@@ -1,4 +1,3 @@
----- With Source ----
 str
     should be
 "line1
@@ -6,23 +5,6 @@ line2"
     but was
 "line1
 line2"
-    difference
-               ▼
-Expected: line1\r
-Actual:   line1
-               ▲
-          line2
-Line endings differ: expected uses CRLF (\r\n), actual uses LF (\n)
-
-Additional Info:
-    Some additional context
----- Without Source ----
-"line1
-line2"
-    should be
-"line1
-line2"
-    but was not
     difference
                ▼
 Expected: line1\r

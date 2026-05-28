@@ -1,19 +1,8 @@
----- With Source ----
 str
     should be
 "StringOne"
     but was
 "Stringone"
-    difference
-                 ▼
-Expected: "StringOne"
-Actual:   "Stringone"
-                 ▲
----- Without Source ----
-"Stringone"
-    should be
-"StringOne"
-    but was not
     difference
                  ▼
 Expected: "StringOne"

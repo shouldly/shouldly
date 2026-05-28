@@ -1,11 +1,5 @@
----- With Source ----
 str
     should be
 "null"
     but was
 null
----- Without Source ----
-null
-    should be
-"null"
-    but was not

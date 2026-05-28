@@ -42,9 +42,7 @@ public class ShouldMatchApprovedScenarios
 
         Verify.ShouldFail(() =>
                 "Bar".ShouldMatchApproved(c => c.NoDiff()),
-
-            errorWithSource: errorMsg,
-            errorWithoutSource: errorMsg,
+            errorMsg,
             messageScrubber: _scrubber);
     }
 
@@ -85,8 +83,6 @@ public class ShouldMatchApprovedScenarios
         var str = "Foo";
         Verify.ShouldFail(() =>
                 str.ShouldMatchApproved(c => c.NoDiff()),
-
-            errorWithSource:
             $"""
              To approve the changes run this command:
              {cmd}
@@ -101,24 +97,7 @@ public class ShouldMatchApprovedScenarios
              Expected: "Bar"
              Actual:   "Foo"
              """,
-
-            errorWithoutSource:
-            $"""
-             To approve the changes run this command:
-             {cmd}
-             ----------------------------
-
-             "Foo"
-                 should match approved with options: Ignoring line endings
-             "Bar"
-                 but was not
-                 difference
-             Expected: "Bar"
-             Actual:   "Foo"
-             """,
-
-            messageScrubber:
-            _scrubber);
+            messageScrubber: _scrubber);
     }
 
     [Fact]
