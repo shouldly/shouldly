@@ -124,26 +124,11 @@ public static partial class ObjectGraphTestExtensions
 
         previousComparisons.Record(actual, expected);
 
-        if (type == typeof(string))
-        {
-            CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod, actualExpression);
-        }
-        else if (type == typeof(Uri))
-        {
-            CompareUris((Uri)actual, (Uri)expected, path, customMessage, shouldlyMethod, actualExpression);
-        }
-        else if (typeof(IEnumerable).IsAssignableFrom(type))
-        {
-            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
-        }
-        else
-        {
-            var fields = type.GetFields(DefaultBindingFlags);
-            CompareFields(actual, expected, fields, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
+        var fields = type.GetFields(DefaultBindingFlags);
+        CompareFields(actual, expected, fields, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
 
-            var properties = type.GetProperties(DefaultBindingFlags);
-            CompareProperties(actual, expected, properties, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
-        }
+        var properties = type.GetProperties(DefaultBindingFlags);
+        CompareProperties(actual, expected, properties, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
     }
 
     private static void CompareStrings(string actual, string expected, IEnumerable<string> path,
