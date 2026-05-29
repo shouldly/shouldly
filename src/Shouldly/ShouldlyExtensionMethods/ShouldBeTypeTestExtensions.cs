@@ -12,7 +12,9 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         ShouldBeAssignableTo(actual, typeof(T), customMessage, actualExpression);
-        return (T?)actual;
+        // The assertion above does not throw when an AssertionScope is active, so guard the
+        // cast to avoid an InvalidCastException short-circuiting the scope on failure.
+        return actual is T value ? value : default;
     }
 
     /// <summary>
@@ -40,7 +42,9 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         ShouldBeOfType(actual, typeof(T), customMessage, actualExpression);
-        return (T)actual;
+        // The assertion above does not throw when an AssertionScope is active, so guard the
+        // cast to avoid an InvalidCastException short-circuiting the scope on failure.
+        return actual is T value ? value : default!;
     }
 
     /// <summary>

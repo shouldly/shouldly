@@ -132,6 +132,40 @@ public class AssertionScopeScenarios
     }
 
     [Fact]
+    public void ShouldBeOfType_FailureInsideScope_DoesNotShortCircuitScope()
+    {
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                object actual = "hello";
+                actual.ShouldBeOfType<int>();
+                1.ShouldBe(2);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldContain("Error 2");
+    }
+
+    [Fact]
+    public void ShouldBeAssignableTo_FailureInsideScope_DoesNotShortCircuitScope()
+    {
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                object actual = "hello";
+                actual.ShouldBeAssignableTo<int>();
+                1.ShouldBe(2);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldContain("Error 2");
+    }
+
+    [Fact]
     public void EmptyScope_DisposesCleanly()
     {
         using (new AssertionScope())
