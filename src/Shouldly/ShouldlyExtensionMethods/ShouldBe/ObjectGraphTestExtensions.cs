@@ -40,6 +40,11 @@ public static partial class ObjectGraphTestExtensions
 
         var type = GetTypeToCompare(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
 
+        // Under an active AssertionScope a recorded failure does not throw, so GetTypeToCompare
+        // returns null on a type mismatch. Stop here rather than casting to a mismatched type.
+        if (type == null)
+            return;
+
         if (type == typeof(string))
         {
             CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod, actualExpression);
@@ -72,16 +77,20 @@ public static partial class ObjectGraphTestExtensions
                 return true;
 
             ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
+            // A failure was recorded (the call above does not throw inside an AssertionScope).
+            // Signal the caller to stop comparing so it does not dereference the null value.
+            return true;
         }
         else if (actual == null)
         {
             ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
+            return true;
         }
 
         return false;
     }
 
-    private static Type GetTypeToCompare(object actual, object expected, IList<string> path,
+    private static Type? GetTypeToCompare(object actual, object expected, IList<string> path,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
@@ -89,7 +98,12 @@ public static partial class ObjectGraphTestExtensions
         var actualType = actual.GetType();
 
         if (actualType != expectedType)
+        {
             ThrowException(actualType, expectedType, path, customMessage, shouldlyMethod, actualExpression);
+            // The recorded failure does not throw inside an AssertionScope; return null so the
+            // caller stops rather than casting the value to the mismatched type.
+            return null;
+        }
 
         var typeName = $" [{actualType.FullName}]";
         if (path.Count == 0)
@@ -159,6 +173,9 @@ public static partial class ObjectGraphTestExtensions
         {
             var newPath = path.Concat(["Count"]);
             ThrowException(actualList.Count, expectedList.Count, newPath, customMessage, shouldlyMethod, actualExpression);
+            // Counts differ and the failure has been recorded; stop before indexing the lists,
+            // which would throw inside an AssertionScope where the call above does not.
+            return;
         }
 
         for (var i = 0; i < actualList.Count; i++)

@@ -166,6 +166,54 @@ public class AssertionScopeScenarios
     }
 
     [Fact]
+    public void ShouldBeEquivalentTo_NullMismatchInsideScope_DoesNotShortCircuitScope()
+    {
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                "actual".ShouldBeEquivalentTo(null);
+                1.ShouldBe(2);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldContain("Error 2");
+    }
+
+    [Fact]
+    public void ShouldBeEquivalentTo_TypeMismatchInsideScope_DoesNotShortCircuitScope()
+    {
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                "hello".ShouldBeEquivalentTo(5);
+                1.ShouldBe(2);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldContain("Error 2");
+    }
+
+    [Fact]
+    public void ShouldBeEquivalentTo_EnumerableCountMismatchInsideScope_DoesNotShortCircuitScope()
+    {
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                new[] { 1, 2 }.ShouldBeEquivalentTo(new[] { 1 });
+                1.ShouldBe(2);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldContain("Error 2");
+    }
+
+    [Fact]
     public void EmptyScope_DisposesCleanly()
     {
         using (new AssertionScope())
