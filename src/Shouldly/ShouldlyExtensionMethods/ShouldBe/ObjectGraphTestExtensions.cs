@@ -44,6 +44,10 @@ public static partial class ObjectGraphTestExtensions
         {
             CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod, actualExpression);
         }
+        else if (type == typeof(Uri))
+        {
+            CompareUris((Uri)actual, (Uri)expected, path, customMessage, shouldlyMethod, actualExpression);
+        }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
             CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
@@ -120,22 +124,11 @@ public static partial class ObjectGraphTestExtensions
 
         previousComparisons.Record(actual, expected);
 
-        if (type == typeof(string))
-        {
-            CompareStrings((string)actual, (string)expected, path, customMessage, shouldlyMethod, actualExpression);
-        }
-        else if (typeof(IEnumerable).IsAssignableFrom(type))
-        {
-            CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
-        }
-        else
-        {
-            var fields = type.GetFields(DefaultBindingFlags);
-            CompareFields(actual, expected, fields, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
+        var fields = type.GetFields(DefaultBindingFlags);
+        CompareFields(actual, expected, fields, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
 
-            var properties = type.GetProperties(DefaultBindingFlags);
-            CompareProperties(actual, expected, properties, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
-        }
+        var properties = type.GetProperties(DefaultBindingFlags);
+        CompareProperties(actual, expected, properties, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
     }
 
     private static void CompareStrings(string actual, string expected, IEnumerable<string> path,
@@ -143,6 +136,14 @@ public static partial class ObjectGraphTestExtensions
         string? actualExpression = null)
     {
         if (!actual.Equals(expected, StringComparison.Ordinal))
+            ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
+    }
+
+    private static void CompareUris(Uri actual, Uri expected, IEnumerable<string> path,
+        string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+    {
+        if (!actual.Equals(expected))
             ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
     }
 
