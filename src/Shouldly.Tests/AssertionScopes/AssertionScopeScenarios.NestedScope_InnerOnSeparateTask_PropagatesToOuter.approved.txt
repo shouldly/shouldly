@@ -1,0 +1,14 @@
+2 assertions in this scope failed:
+---------------- Error 1 ----------------
+    1
+        should be
+    2
+        but was not
+
+---------------- Error 2 ----------------
+    3
+        should be
+    4
+        but was not
+
+-----------------------------------------

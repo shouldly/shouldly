@@ -262,7 +262,7 @@ public class AssertionScopeScenarios
     public void NestedScope_CleanInner_DoesNotAffectOuterReport()
     {
         // A nested scope with no failures contributes nothing; only the outer failure is reported.
-        var ex = Assert.Throws<ShouldAssertException>(() =>
+        Verify.ShouldFail(() =>
         {
             using (new AssertionScope())
             {
@@ -274,16 +274,13 @@ public class AssertionScopeScenarios
                 2.ShouldBe(3);
             }
         });
-
-        ex.Message.ShouldContain("Error 1");
-        ex.Message.ShouldNotContain("Error 2");
     }
 
     [Fact]
     public void NestedScope_CollectsInnerThenOuterFailuresInOrder()
     {
         // Failures from a disposed inner scope are reported before later outer failures.
-        var ex = Assert.Throws<ShouldAssertException>(() =>
+        Verify.ShouldFail(() =>
         {
             using (new AssertionScope())
             {
@@ -295,19 +292,13 @@ public class AssertionScopeScenarios
                 "outer".ShouldBe("outer-expected");
             }
         });
-
-        var innerIndex = ex.Message.IndexOf("inner-expected", StringComparison.Ordinal);
-        var outerIndex = ex.Message.IndexOf("outer-expected", StringComparison.Ordinal);
-        innerIndex.ShouldBeGreaterThan(-1);
-        outerIndex.ShouldBeGreaterThan(-1);
-        innerIndex.ShouldBeLessThan(outerIndex);
     }
 
     [Fact]
     public void NestedScope_InnerDoubleDispose_DoesNotDuplicateFailures()
     {
         // Disposing the inner scope twice must not propagate its failures to the outer scope twice.
-        var ex = Assert.Throws<ShouldAssertException>(() =>
+        Verify.ShouldFail(() =>
         {
             using (new AssertionScope())
             {
@@ -317,9 +308,6 @@ public class AssertionScopeScenarios
                 inner.Dispose();
             }
         });
-
-        ex.Message.ShouldContain("Error 1");
-        ex.Message.ShouldNotContain("Error 2");
     }
 
     [Fact]
@@ -343,8 +331,7 @@ public class AssertionScopeScenarios
             }
         });
 
-        ex.Message.ShouldContain("Error 1");
-        ex.Message.ShouldContain("Error 2");
+        ex.Message.ShouldMatchApproved(c => c.NoDiff());
     }
 
     [Fact]
