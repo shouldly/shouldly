@@ -6,6 +6,13 @@ namespace Shouldly;
 /// Collects assertion failures and reports them all at once when disposed.
 /// Nested scopes propagate failures to the outermost scope.
 /// </summary>
+/// <remarks>
+/// Because failures are recorded rather than thrown while a scope is active, assertions cannot
+/// short-circuit. Assertions that normally return a value (such as <c>ShouldNotBeNull</c> or
+/// <c>Should.Throw&lt;T&gt;</c>) return <see langword="null"/>/<see langword="default"/> when they
+/// fail inside a scope, and nullability/contract annotations (for example <c>[NotNull]</c>) no
+/// longer hold. Guard such results defensively when chaining off them inside a scope.
+/// </remarks>
 public sealed class AssertionScope : IDisposable
 {
     private static readonly AsyncLocal<AssertionScope?> currentScope = new();

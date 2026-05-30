@@ -65,6 +65,23 @@ using (new AssertionScope())
 - When the scope is disposed, all recorded failures are thrown as a single `ShouldAssertException`
 - Without an `AssertionScope`, assertions behave as usual — failing immediately on the first error
 
+## Return values and nullability inside a scope
+
+Because a failing assertion is recorded rather than thrown, it cannot short-circuit the rest of your test while a scope is active. Two consequences follow:
+
+- Assertions that normally return a value — for example `ShouldNotBeNull()`, `Should.Throw<T>()` or `ShouldBeOfType<T>()` — return `null`/`default` when they fail inside a scope, because there is no valid value to hand back.
+- Assertions that normally narrow nullability or guarantee a condition on return (via `[NotNull]`, `[ContractAnnotation]`, etc.) no longer make that guarantee inside a scope, since they can record a failure and continue.
+
+The recorded failure is always reported when the scope is disposed, so the cause is never lost. But if you chain off such a result inside a scope, guard it defensively — otherwise dereferencing the unchecked value will end the scope early and any later assertions won't be collected:
+
+```cs
+using var scope = new AssertionScope();
+
+var name = customer.Name.ShouldNotBeNull(); // may be null inside a scope if this failed
+if (name is not null)
+    name.Length.ShouldBeGreaterThan(0);
+```
+
 ## Comparison with ShouldSatisfyAllConditions
 
 `ShouldSatisfyAllConditions` and `AssertionScope` both collect multiple failures, but they work differently:
