@@ -57,6 +57,8 @@ public sealed class AssertionScope : IDisposable
         }
     }
 
+    private const int DividerWidth = 41;
+
     private string BuildMessage()
     {
         var sb = new StringBuilder();
@@ -67,15 +69,30 @@ public sealed class AssertionScope : IDisposable
         {
             if (errorCount > 1)
                 sb.AppendLine();
-            sb.AppendLine($"--------------- Error {errorCount} ---------------");
+            sb.AppendLine(Divider($"Error {errorCount}"));
             var lines = failure.Message?.Replace("\r\n", "\n").Split('\n') ?? [];
             var paddedLines = lines.Select(l => string.IsNullOrEmpty(l) ? l : "    " + l);
             sb.AppendLine(string.Join(Environment.NewLine, paddedLines.ToArray()));
             errorCount++;
         }
 
-        sb.AppendLine("-----------------------------------------");
+        sb.AppendLine(Divider());
 
         return sb.ToString().TrimEnd();
+    }
+
+    /// <summary>
+    /// Builds a divider line of a fixed width so the error headers and the closing
+    /// divider always align in monospaced output, regardless of the error number.
+    /// </summary>
+    private static string Divider(string? label = null)
+    {
+        if (string.IsNullOrEmpty(label))
+            return new string('-', DividerWidth);
+
+        var text = $" {label} ";
+        var dashes = Math.Max(DividerWidth - text.Length, 2);
+        var left = dashes / 2;
+        return new string('-', left) + text + new string('-', dashes - left);
     }
 }

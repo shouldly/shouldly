@@ -1,5 +1,5 @@
 1 assertion in this scope failed:
---------------- Error 1 ---------------
+---------------- Error 1 ----------------
     1
         should be
     2
