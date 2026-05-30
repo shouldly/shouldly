@@ -65,11 +65,12 @@ public sealed class AssertionScope : IDisposable
         sb.AppendLine($"{failureCount} assertion{(failureCount == 1 ? "" : "s")} in this scope failed:");
         foreach (var failure in failures)
         {
+            if (errorCount > 1)
+                sb.AppendLine();
             sb.AppendLine($"--------------- Error {errorCount} ---------------");
             var lines = failure.Message?.Replace("\r\n", "\n").Split('\n') ?? [];
             var paddedLines = lines.Select(l => string.IsNullOrEmpty(l) ? l : "    " + l);
             sb.AppendLine(string.Join(Environment.NewLine, paddedLines.ToArray()));
-            sb.AppendLine();
             errorCount++;
         }
 
