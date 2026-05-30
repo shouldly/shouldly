@@ -21,11 +21,11 @@ mrBurns.ShouldSatisfyAllConditions(
 mrBurns
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
---------------- Error 1 ---------------
+---------------- Error 1 ----------------
     mrBurns.Name (null)
         should not be null or empty
 
---------------- Error 2 ---------------
+---------------- Error 2 ----------------
     mrBurns.Name
         should be
     "Mr.Burns"
@@ -60,11 +60,11 @@ mrBurns.ShouldSatisfyAllConditions(
 mrBurns
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
---------------- Error 1 ---------------
+---------------- Error 1 ----------------
     p.Name (null)
         should not be null or empty
 
---------------- Error 2 ---------------
+---------------- Error 2 ----------------
     p.Name
         should be
     "Mr.Burns"

@@ -49,23 +49,6 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
         return actions.Select(a => new Action(() => a(parameter))).ToArray();
     }
 
-    private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages)
-    {
-        var errorCount = 1;
-        var sb = new StringBuilder();
-        foreach (var errorMessage in errorMessages)
-        {
-            sb.AppendLine($"--------------- Error {errorCount} ---------------");
-            var lines = errorMessage.Message.Replace("\r\n", "\n").Split('\n');
-            var paddedLines = lines.Select(l => string.IsNullOrEmpty(l) ? l : "    " + l);
-            var value = string.Join("\r\n", paddedLines.ToArray());
-            sb.AppendLine(value);
-            sb.AppendLine();
-            errorCount++;
-        }
-
-        sb.AppendLine("-----------------------------------------");
-
-        return sb.ToString().TrimEnd();
-    }
+    private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages) =>
+        AssertionErrorFormatter.FormatErrors(errorMessages.Select(e => e.Message));
 }

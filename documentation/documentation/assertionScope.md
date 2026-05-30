@@ -37,6 +37,7 @@ homer.Salary.ShouldBeGreaterThan(1000000);
     1000000
         but was
     30000
+
 -----------------------------------------
 ```
 <!-- endInclude -->
