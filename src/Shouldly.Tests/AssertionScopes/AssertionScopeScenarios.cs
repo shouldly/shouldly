@@ -255,6 +255,119 @@ public class AssertionScopeScenarios
         ex.Message.ShouldContain("Error 3");
     }
 
+    // The following tests characterise nested-scope behaviour. The exact semantics are not
+    // contractual - they simply pin down that nesting behaves reasonably and does not explode.
+
+    [Fact]
+    public void NestedScope_CleanInner_DoesNotAffectOuterReport()
+    {
+        // A nested scope with no failures contributes nothing; only the outer failure is reported.
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                using (new AssertionScope())
+                {
+                    1.ShouldBe(1);
+                }
+
+                2.ShouldBe(3);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldNotContain("Error 2");
+    }
+
+    [Fact]
+    public void NestedScope_CollectsInnerThenOuterFailuresInOrder()
+    {
+        // Failures from a disposed inner scope are reported before later outer failures.
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                using (new AssertionScope())
+                {
+                    "inner".ShouldBe("inner-expected");
+                }
+
+                "outer".ShouldBe("outer-expected");
+            }
+        });
+
+        var innerIndex = ex.Message.IndexOf("inner-expected", StringComparison.Ordinal);
+        var outerIndex = ex.Message.IndexOf("outer-expected", StringComparison.Ordinal);
+        innerIndex.ShouldBeGreaterThan(-1);
+        outerIndex.ShouldBeGreaterThan(-1);
+        innerIndex.ShouldBeLessThan(outerIndex);
+    }
+
+    [Fact]
+    public void NestedScope_InnerDoubleDispose_DoesNotDuplicateFailures()
+    {
+        // Disposing the inner scope twice must not propagate its failures to the outer scope twice.
+        var ex = Assert.Throws<ShouldAssertException>(() =>
+        {
+            using (new AssertionScope())
+            {
+                var inner = new AssertionScope();
+                1.ShouldBe(2);
+                inner.Dispose();
+                inner.Dispose();
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldNotContain("Error 2");
+    }
+
+    [Fact]
+    public async Task NestedScope_InnerOnSeparateTask_PropagatesToOuter()
+    {
+        // An inner scope created on a pool thread still flows from the outer scope and merges
+        // back into it without races.
+        var ex = await Assert.ThrowsAsync<ShouldAssertException>(async () =>
+        {
+            using (new AssertionScope())
+            {
+                1.ShouldBe(2);
+
+                await Task.Run(() =>
+                {
+                    using (new AssertionScope())
+                    {
+                        3.ShouldBe(4);
+                    }
+                }, TestContext.Current.CancellationToken);
+            }
+        });
+
+        ex.Message.ShouldContain("Error 1");
+        ex.Message.ShouldContain("Error 2");
+    }
+
+    [Fact]
+    public async Task NestedScope_DisposedOutOfOrder_DoesNotThrow()
+    {
+        // Disposing scopes out of nesting order is misuse. Capture that it fails safe (no
+        // exception) rather than exploding; the inner failure is simply not reported. Run on a
+        // forked execution context so the dangling AsyncLocal state cannot leak into other tests.
+        await Task.Run(() =>
+        {
+            var outer = new AssertionScope();
+            var inner = new AssertionScope();
+
+            1.ShouldBe(2);
+
+            Should.NotThrow(() =>
+            {
+                outer.Dispose();
+                inner.Dispose();
+            });
+        }, TestContext.Current.CancellationToken);
+    }
+
     [Fact]
     public async Task AsyncScope_CapturesFailures()
     {
