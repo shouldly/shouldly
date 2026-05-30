@@ -21,7 +21,7 @@ homer.Salary.ShouldBeGreaterThan(1000000);
 <!-- include: AssertionScopeExamples.BasicUsage.exceptionText.approved.txt -->
 ```
 2 assertions in this scope failed:
---------------- Error 1 ---------------
+---------------- Error 1 ----------------
     homer.Name
         should be
     "Mr.Burns"
@@ -31,13 +31,12 @@ homer.Salary.ShouldBeGreaterThan(1000000);
     Expected: "Mr.Burns"
     Actual:   "Homer"
 
---------------- Error 2 ---------------
+---------------- Error 2 ----------------
     homer.Salary
         should be greater than
     1000000
         but was
     30000
-
 -----------------------------------------
 ```
 <!-- endInclude -->
