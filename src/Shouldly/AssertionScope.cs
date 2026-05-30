@@ -68,7 +68,7 @@ public sealed class AssertionScope : IDisposable
             sb.AppendLine($"--------------- Error {errorCount} ---------------");
             var lines = failure.Message?.Replace("\r\n", "\n").Split('\n') ?? [];
             var paddedLines = lines.Select(l => string.IsNullOrEmpty(l) ? l : "    " + l);
-            sb.AppendLine(string.Join("\r\n", paddedLines.ToArray()));
+            sb.AppendLine(string.Join(Environment.NewLine, paddedLines.ToArray()));
             sb.AppendLine();
             errorCount++;
         }
