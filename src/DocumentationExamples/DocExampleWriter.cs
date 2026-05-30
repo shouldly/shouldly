@@ -8,8 +8,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public static class DocExampleWriter
 {
-    private static readonly Regex scrubberRegex = new(@"\w:.+?shouldly\\src", RegexOptions.Compiled);
-    private static readonly Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
+    // Matches an absolute path (Windows "X:\..." or Unix "/...") up to a "src" path segment,
+    // capturing the remainder. Used to normalise machine-specific paths in the docs.
+    private static readonly Regex scrubberRegex = new(@"(?:[A-Za-z]:\\|/)[^\s""]*?[\\/]src[\\/]([^\s""]*)", RegexOptions.Compiled);
+
+    // Normalise OS-specific output so the docs render identically on Windows and Unix: the approve
+    // command (cp vs copy /Y) and the absolute path (forward vs back slashes, drive vs root).
+    private static readonly Func<string, string> scrubber = v =>
+        scrubberRegex.Replace(
+            v.Replace("cp \"", "copy /Y \""),
+            m => @"C:\PathToCode\shouldly\src\" + m.Groups[1].Value.Replace('/', '\\'));
 
     private static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup = new();
 
