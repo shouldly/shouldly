@@ -427,8 +427,36 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
     {
-        public static void ShouldSatisfyAllConditions(this object? actual, System.Action[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
-        public static void ShouldSatisfyAllConditions<T>(this T actual, System.Action<T>[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldSatisfy(this object? actual, System.Action[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldSatisfy<T>(this T actual, System.Action<T>[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Without a CallerArgumentExpression the asserted expression is recovered by walkin" +
+            "g the stack trace and reading source, which the trimmer cannot preserve. Use Sho" +
+            "uldSatisfy instead.")]
+        [System.Obsolete("Use ShouldSatisfy instead. This overload cannot capture the asserted expression v" +
+            "ia CallerArgumentExpression and falls back to stack-trace parsing, which is not " +
+            "trim- or AOT-safe.")]
+        public static void ShouldSatisfyAllConditions(this object? actual, params System.Action[] conditions) { }
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Without a CallerArgumentExpression the asserted expression is recovered by walkin" +
+            "g the stack trace and reading source, which the trimmer cannot preserve. Use Sho" +
+            "uldSatisfy instead.")]
+        [System.Obsolete("Use ShouldSatisfy instead. This overload cannot capture the asserted expression v" +
+            "ia CallerArgumentExpression and falls back to stack-trace parsing, which is not " +
+            "trim- or AOT-safe.")]
+        public static void ShouldSatisfyAllConditions(this object? actual, string? customMessage, params System.Action[] conditions) { }
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Without a CallerArgumentExpression the asserted expression is recovered by walkin" +
+            "g the stack trace and reading source, which the trimmer cannot preserve. Use Sho" +
+            "uldSatisfy instead.")]
+        [System.Obsolete("Use ShouldSatisfy instead. This overload cannot capture the asserted expression v" +
+            "ia CallerArgumentExpression and falls back to stack-trace parsing, which is not " +
+            "trim- or AOT-safe.")]
+        public static void ShouldSatisfyAllConditions<T>(this T actual, params System.Action<T>[] conditions) { }
+        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Without a CallerArgumentExpression the asserted expression is recovered by walkin" +
+            "g the stack trace and reading source, which the trimmer cannot preserve. Use Sho" +
+            "uldSatisfy instead.")]
+        [System.Obsolete("Use ShouldSatisfy instead. This overload cannot capture the asserted expression v" +
+            "ia CallerArgumentExpression and falls back to stack-trace parsing, which is not " +
+            "trim- or AOT-safe.")]
+        public static void ShouldSatisfyAllConditions<T>(this T actual, string? customMessage, params System.Action<T>[] conditions) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowAsyncExtensions

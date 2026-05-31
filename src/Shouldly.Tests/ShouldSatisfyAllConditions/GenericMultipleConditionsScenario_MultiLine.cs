@@ -7,7 +7,7 @@ public class GenericMultipleConditionsScenario_MultiLine
     {
         var result = 4;
         Verify.ShouldFail(() =>
-            result.ShouldSatisfyAllConditions(
+            result.ShouldSatisfy(
             [
                 r => r.ShouldBeOfType<float>("Some additional context"),
                 r => r.ShouldBeGreaterThan(5, "Some additional context")
@@ -18,7 +18,7 @@ public class GenericMultipleConditionsScenario_MultiLine
     public void ShouldPass()
     {
         var result = 4;
-        result.ShouldSatisfyAllConditions(
+        result.ShouldSatisfy(
         [
             r
                 => r.ShouldBeOfType<int>(),

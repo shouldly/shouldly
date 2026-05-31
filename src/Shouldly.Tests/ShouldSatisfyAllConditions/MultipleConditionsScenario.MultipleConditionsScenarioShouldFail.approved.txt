@@ -1,7 +1,7 @@
 result
     should satisfy all the conditions specified, but does not.
 The following errors were found ...
---------------- Error 1 ---------------
+---------------- Error 1 ----------------
     result
         should be of type
     System.Single
@@ -11,7 +11,7 @@ The following errors were found ...
     Additional Info:
         Some additional context
 
---------------- Error 2 ---------------
+---------------- Error 2 ----------------
     result
         should be greater than
     5
