@@ -311,6 +311,10 @@ namespace Shouldly
         public static void ShouldBe(this float actual, float expected, double tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBe<T>(this System.Memory<T> actual, System.Memory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBe<T>(this System.ReadOnlyMemory<T> actual, System.ReadOnlyMemory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(-1)]
+        public static void ShouldBe<T>(this System.ReadOnlySpan<T> actual, System.ReadOnlySpan<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(-1)]
+        public static void ShouldBe<T>(this System.Span<T> actual, System.ReadOnlySpan<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this T? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] T? expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         [System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
         public static void ShouldBe<T>([System.Diagnostics.CodeAnalysis.NotNullIfNotNull("expected")] this System.Collections.Generic.IEnumerable<T>? actual, [System.Diagnostics.CodeAnalysis.NotNullIfNotNull("actual")] System.Collections.Generic.IEnumerable<T>? expected, bool ignoreOrder = false, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
@@ -355,6 +359,10 @@ namespace Shouldly
         public static void ShouldNotBe(this System.TimeSpan actual, System.TimeSpan expected, System.TimeSpan tolerance, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe<T>(this System.Memory<T> actual, System.Memory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe<T>(this System.ReadOnlyMemory<T> actual, System.ReadOnlyMemory<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(-1)]
+        public static void ShouldNotBe<T>(this System.ReadOnlySpan<T> actual, System.ReadOnlySpan<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        [System.Runtime.CompilerServices.OverloadResolutionPriority(-1)]
+        public static void ShouldNotBe<T>(this System.Span<T> actual, System.ReadOnlySpan<T> expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBe<T>(this T? actual, T? expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldNotBeAssignableTo(this object? actual, System.Type expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }

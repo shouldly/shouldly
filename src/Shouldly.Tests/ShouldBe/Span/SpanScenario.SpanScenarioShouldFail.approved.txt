@@ -1,0 +1,10 @@
+new[] { 99, 2, 3, 5 }.AsSpan()
+    should be
+[1, 2, 3, 4]
+    but was
+[99, 2, 3, 5]
+    difference
+[*99*, 2, 3, *5*]
+
+Additional Info:
+    Some additional context
