@@ -2,9 +2,10 @@ namespace Shouldly;
 
 /// <summary>
 /// Formats a set of assertion failure messages into the numbered "Error N" block layout
-/// used by ShouldSatisfyAllConditions. Each error is followed by a blank line and the block
-/// is terminated with a closing divider; dividers are a fixed width so they align in
-/// monospaced output regardless of the error number.
+/// used by ShouldSatisfy (and its obsolete ShouldSatisfyAllConditions alias, which delegates
+/// into it). Each error is followed by a blank line and the block is terminated with a closing
+/// divider; dividers are a fixed width so they align in monospaced output regardless of the
+/// error number.
 /// </summary>
 internal static class AssertionErrorFormatter
 {
