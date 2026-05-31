@@ -31,13 +31,11 @@ public class SpanShouldBeBehaviourTests
     }
 
     [Fact]
-    [Fact]
     public void SpanOfComplexTypeUsesElementEquality()
     {
         // double comparison goes through Shouldly's own comparer, not bitwise SequenceEqual
         ReadOnlySpan<double> actual = [1.0, 2.0, 3.0];
         actual.ShouldBe([1.0, 2.0, 3.0]);
-    }
     }
 
     [Fact]
