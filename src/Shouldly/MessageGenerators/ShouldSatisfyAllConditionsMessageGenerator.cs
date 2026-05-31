@@ -2,7 +2,9 @@ namespace Shouldly.MessageGenerators;
 
 class ShouldSatisfyAllConditionsMessageGenerator : ShouldlyMessageGenerator
 {
-    private static readonly Regex Validator = new("ShouldSatisfyAllConditions");
+    // Matches both the primary ShouldSatisfy and the obsolete ShouldSatisfyAllConditions overloads
+    // (the latter delegates into ShouldSatisfy, so the captured ShouldMethod is "ShouldSatisfy").
+    private static readonly Regex Validator = new("ShouldSatisfy");
 
     public override bool CanProcess(IShouldlyAssertionContext context) =>
         Validator.IsMatch(context.ShouldMethod);

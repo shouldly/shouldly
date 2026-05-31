@@ -12,7 +12,7 @@ public class ShouldSatisfyAllConditionsExamples
             () =>
             {
                 var mrBurns = new Person { Name = null };
-                mrBurns.ShouldSatisfyAllConditions(
+                mrBurns.ShouldSatisfy(
                 [
                     () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
                     () => mrBurns.Name.ShouldBe("Mr.Burns")
@@ -28,7 +28,7 @@ public class ShouldSatisfyAllConditionsExamples
             () =>
             {
                 var mrBurns = new Person { Name = null };
-                mrBurns.ShouldSatisfyAllConditions(
+                mrBurns.ShouldSatisfy(
                 [
                     p => p.Name.ShouldNotBeNullOrEmpty(),
                     p => p.Name.ShouldBe("Mr.Burns")
