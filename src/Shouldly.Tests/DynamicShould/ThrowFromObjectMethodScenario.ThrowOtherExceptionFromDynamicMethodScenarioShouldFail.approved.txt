@@ -1,4 +1,4 @@
-`(dynamic)new Foo()).NoExceptionMethod(`
+`((dynamic)new Foo()).NoExceptionMethod()`
     should throw
 System.ArgumentException
     but did not

@@ -117,8 +117,51 @@ static class StringHelpers
         return collapseWhitespace;
     }
 
-    internal static string RemoveBlock(this string input) =>
-        Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
+    // Strips a single outer `{ ... }` or `( ... )` block, but only when the
+    // brackets genuinely wrap the whole expression. A naive regex would greedily
+    // match the first opening and last closing bracket even when they aren't a
+    // pair (e.g. `((dynamic)new Foo()).NoExceptionMethod()` would lose its real
+    // outer parens), so we balance the brackets to confirm the match.
+    internal static string RemoveBlock(this string input)
+    {
+        var trimmed = input.Trim();
+        if (trimmed.Length < 2)
+            return input;
+
+        var open = trimmed[0];
+        var close = open switch
+        {
+            '{' => '}',
+            '(' => ')',
+            _ => '\0'
+        };
+
+        if (close == '\0' || trimmed[^1] != close)
+            return input;
+
+        var depth = 0;
+        for (var i = 0; i < trimmed.Length; i++)
+        {
+            if (trimmed[i] == open)
+            {
+                depth++;
+            }
+            else if (trimmed[i] == close)
+            {
+                depth--;
+                if (depth == 0)
+                {
+                    // The opening bracket only wraps the whole expression when
+                    // its match is the final character; otherwise leave as-is.
+                    return i == trimmed.Length - 1
+                        ? trimmed[1..^1].Trim()
+                        : input;
+                }
+            }
+        }
+
+        return input;
+    }
 
     // Normalizes a CallerArgumentExpression-captured delegate expression (Action/Func)
     // so failure messages render the inner body the same way the legacy stack-trace
