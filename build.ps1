@@ -43,11 +43,11 @@ if (Test-Path $testResultsDir) {
 }
 
 # Define test projects
-$testProjects = @("src\Shouldly.Tests\Shouldly.Tests.csproj")
+$testProjects = @("src/Shouldly.Tests/Shouldly.Tests.csproj")
 
 # Add DocumentationExamples project only on Windows
 if ($IsWindows) {
-    $testProjects += "src\DocumentationExamples\DocumentationExamples.csproj"
+    $testProjects += "src/DocumentationExamples/DocumentationExamples.csproj"
     Write-Host "Running on Windows. Including DocumentationExamples project." -ForegroundColor Cyan
 } else {
     Write-Host "Not running on Windows. Skipping DocumentationExamples project." -ForegroundColor Yellow
