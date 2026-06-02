@@ -43,11 +43,11 @@ if (Test-Path $testResultsDir) {
 }
 
 # Define test projects
-$testProjects = @("src\Shouldly.Tests\Shouldly.Tests.csproj")
+$testProjects = @("src/Shouldly.Tests/Shouldly.Tests.csproj")
 
 # Add DocumentationExamples project only on Windows
 if ($IsWindows) {
-    $testProjects += "src\DocumentationExamples\DocumentationExamples.csproj"
+    $testProjects += "src/DocumentationExamples/DocumentationExamples.csproj"
     Write-Host "Running on Windows. Including DocumentationExamples project." -ForegroundColor Cyan
 } else {
     Write-Host "Not running on Windows. Skipping DocumentationExamples project." -ForegroundColor Yellow
@@ -56,7 +56,7 @@ if ($IsWindows) {
 # Run tests for each project
 foreach ($project in $testProjects) {
     Write-Host "Testing $project..." -ForegroundColor Cyan
-    dotnet test $project --no-build @dotnetArgs --logger trx --results-directory $testResultsDir /bl:"$logsDir/test-$(Split-Path $project -Leaf).binlog" --logger "GitHubActions;summary.includePassedTests=true;summary.includeSkippedTests=true" -- RunConfiguration.CollectSourceInformation=true
+    dotnet test --project $project --no-build @dotnetArgs --results-directory $testResultsDir --report-xunit-trx --report-github --report-github-summary-include-passed --report-github-summary-include-skipped /bl:"$logsDir/test-$(Split-Path $project -Leaf).binlog"
     if ($LASTEXITCODE -ne 0) { 
         Write-Error "Tests for $project failed with exit code $LASTEXITCODE"
         exit 1 
