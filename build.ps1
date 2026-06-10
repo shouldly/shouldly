@@ -30,10 +30,13 @@ Write-Host "Packing..." -ForegroundColor Cyan
 if (Test-Path $packagesDir) {
     Remove-Item -Recurse -Force $packagesDir
 }
-dotnet pack src\Shouldly --no-build --output $packagesDir @dotnetArgs /bl:"$logsDir/pack.binlog"
-if ($LASTEXITCODE -ne 0) { 
-    Write-Error "Pack failed with exit code $LASTEXITCODE"
-    exit 1 
+$packProjects = @("src\Shouldly", "src\Shouldly.DiffEngine")
+foreach ($project in $packProjects) {
+    dotnet pack $project --no-build --output $packagesDir @dotnetArgs /bl:"$logsDir/pack-$(Split-Path $project -Leaf).binlog"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Pack for $project failed with exit code $LASTEXITCODE"
+        exit 1
+    }
 }
 
 # Test
