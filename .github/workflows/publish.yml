@@ -1,0 +1,52 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - '[0-9]+\.[0-9]+\.[0-9]+'
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: release       # secret scoping + optional approval gate
+    permissions:
+      id-token: write          # Required for OIDC token (NuGet trusted publishing)
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+
+      - name: Validate tag matches project version
+        shell: bash
+        run: |
+          PROJECT_VERSION=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' src/Directory.Build.props)
+          if [ "$PROJECT_VERSION" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::Tag (${GITHUB_REF_NAME}) doesn't match <Version> ($PROJECT_VERSION) in src/Directory.Build.props"
+            exit 1
+          fi
+
+      # Reuses the same script CI runs: build + pack (src/Shouldly -> artifacts/Packages) + test.
+      - name: Build, pack and test
+        run: ./build.ps1
+        shell: pwsh
+
+      - name: NuGet login (OIDC)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}   # nuget.org profile name, NOT email
+
+      - name: Push to NuGet
+        run: >
+          dotnet nuget push ./artifacts/Packages/*.nupkg
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
