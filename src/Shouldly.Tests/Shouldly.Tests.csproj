@@ -11,7 +11,7 @@
     <None Include="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.3.0" PrivateAssets="all" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.3.1" PrivateAssets="all" />
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
     <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
     <PackageReference Include="PublicApiGenerator" Version="11.5.4" />
