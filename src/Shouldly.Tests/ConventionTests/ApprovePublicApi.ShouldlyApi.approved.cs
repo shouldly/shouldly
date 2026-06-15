@@ -166,6 +166,7 @@ namespace Shouldly
         public static T NotThrow<T>(System.Threading.Tasks.Task<T> action, System.TimeSpan timeoutAfter, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("action")] string? actualExpression = null) { }
         public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null) { }
+        public static void Satisfy(System.Action[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("conditions")] string? actualExpression = null) { }
         public static System.Exception Throw(System.Func<object?> actual, System.Type exceptionType, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static System.Exception Throw(System.Action actual, System.Type exceptionType, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static System.Exception Throw(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, System.Type exceptionType, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
@@ -435,7 +436,6 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
     {
-        public static void ShouldSatisfy(this object? actual, System.Action[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldSatisfy<T>(this T actual, System.Action<T>[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Without a CallerArgumentExpression the asserted expression is recovered by walkin" +
             "g the stack trace and reading source, which the trimmer cannot preserve. Use Sho" +

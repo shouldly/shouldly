@@ -48,13 +48,13 @@ public class NonRetraversableEnumerable
 
         fooEnum.ShouldSatisfy(
         [
-            () => fooEnum.ShouldBe([1, 2, 3]),
-            () => fooEnum.First().ShouldBe(4),
-            () => fooEnum.First().ShouldBe(5),
-            () => fooEnum.First().ShouldBe(6),
-            () => fooEnum.Any().ShouldBeFalse(),
-            () => fooEnum.First().ShouldBe(7),
-            () => fooEnum.ShouldBe([8, 9])
+            e => e.ShouldBe([1, 2, 3]),
+            e => e.First().ShouldBe(4),
+            e => e.First().ShouldBe(5),
+            e => e.First().ShouldBe(6),
+            e => e.Any().ShouldBeFalse(),
+            e => e.First().ShouldBe(7),
+            e => e.ShouldBe([8, 9])
         ]);
     }
 

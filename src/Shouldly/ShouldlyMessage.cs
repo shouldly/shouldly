@@ -394,6 +394,7 @@ public abstract class ShouldlyMessage
         new ShouldContainMessageGenerator(),
         new ShouldContainPredicateMessageGenerator(),
         new ShouldBeIgnoringOrderMessageGenerator(),
+        new ShouldSatisfyMessageGenerator(),
         new ShouldSatisfyAllConditionsMessageGenerator(),
         new ShouldBeSubsetOfMessageGenerator(),
         new ShouldHaveSingleItemMessageGenerator(),
