@@ -1,6 +1,7 @@
 var mrBurns = new Person { Name = null };
-mrBurns.ShouldSatisfy(
+var homer = new Person { Name = "Homer" };
+Should.Satisfy(
                 [
                     () => mrBurns.Name.ShouldNotBeNullOrEmpty(),
-                    () => mrBurns.Name.ShouldBe("Mr.Burns")
+                    () => homer.Name.ShouldBe("Mr.Burns")
                 ]);

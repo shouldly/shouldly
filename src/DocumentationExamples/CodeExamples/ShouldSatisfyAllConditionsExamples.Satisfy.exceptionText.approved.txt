@@ -1,17 +1,19 @@
 ```
-mrBurns
-    should satisfy all the conditions specified, but does not.
+The conditions specified should all be satisfied, but were not.
 The following errors were found ...
 ---------------- Error 1 ----------------
     mrBurns.Name (null)
         should not be null or empty
 
 ---------------- Error 2 ----------------
-    mrBurns.Name
+    homer.Name
         should be
     "Mr.Burns"
         but was
-    null
+    "Homer"
+        difference
+    Expected: "Mr.Burns"
+    Actual:   "Homer"
 
 -----------------------------------------
 ```

@@ -19,7 +19,8 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
         "trace and reading source, which the trimmer cannot preserve. Use ShouldSatisfy instead.";
 
     /// <summary>
-    /// Asserts that the actual value satisfies all specified conditions.
+    /// Asserts that the actual value satisfies all specified conditions, where each condition
+    /// is applied to the value under test.
     /// </summary>
     public static void ShouldSatisfy<T>(this T actual, [InstantHandle] Action<T>[] conditions, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
@@ -27,28 +28,15 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
         ShouldSatisfy(actual, CreateParameterlessActions(actual, conditions), customMessage, actualExpression);
     }
 
-    /// <summary>
-    /// Asserts that the actual object satisfies all specified conditions.
-    /// </summary>
-    public static void ShouldSatisfy(this object? actual, [InstantHandle] Action[] conditions, string? customMessage = null,
-        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    // Core for the subject-based entry points (the ShouldSatisfy<T> extension and the obsolete
+    // overloads). Kept named "ShouldSatisfy" so the captured ShouldMethod stays "ShouldSatisfy"
+    // and the stack-walking code-part parser (used by the obsolete overloads) keeps working.
+    private static void ShouldSatisfy(object? actual, [InstantHandle] Action[] conditions, string? customMessage,
+        string? actualExpression)
     {
-        var errorMessages = new List<Exception>();
-        foreach (var action in conditions)
+        var errorMessageString = CollectConditionFailures(conditions);
+        if (errorMessageString != null)
         {
-            try
-            {
-                action.Invoke();
-            }
-            catch (Exception exc)
-            {
-                errorMessages.Add(exc);
-            }
-        }
-
-        if (errorMessages.Any())
-        {
-            var errorMessageString = BuildErrorMessageString(errorMessages);
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage, actualExpression: actualExpression).ToString());
         }
     }
@@ -113,6 +101,28 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
         return actions.Select(a => new Action(() => a(parameter))).ToArray();
     }
 
-    private static string BuildErrorMessageString(IEnumerable<Exception> errorMessages) =>
-        AssertionErrorFormatter.FormatErrors(errorMessages.Select(e => e.Message));
+    /// <summary>
+    /// Runs every condition, collecting all failures, and returns the formatted error block
+    /// (or <c>null</c> when every condition passed). Shared by <see cref="ShouldSatisfy{T}"/>
+    /// and <see cref="Should.Satisfy"/>.
+    /// </summary>
+    internal static string? CollectConditionFailures([InstantHandle] IEnumerable<Action> conditions)
+    {
+        var errorMessages = new List<Exception>();
+        foreach (var action in conditions)
+        {
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception exc)
+            {
+                errorMessages.Add(exc);
+            }
+        }
+
+        return errorMessages.Count == 0
+            ? null
+            : AssertionErrorFormatter.FormatErrors(errorMessages.Select(e => e.Message));
+    }
 }

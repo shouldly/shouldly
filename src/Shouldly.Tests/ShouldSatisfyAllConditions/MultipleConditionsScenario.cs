@@ -1,16 +1,20 @@
 namespace Shouldly.Tests.ShouldSatisfyAllConditions;
 
+// Should.Satisfy is the static form, for a group of unrelated assertions that share no common
+// subject. When the assertions all hang off one value, use the value.ShouldSatisfy(...) extension
+// overload instead (see GenericMultipleConditionsScenario).
 public class MultipleConditionsScenario
 {
     [Fact]
     public void MultipleConditionsScenarioShouldFail()
     {
-        var result = 4;
+        var name = "Homer";
+        var age = 4;
         Verify.ShouldFail(() =>
-            result.ShouldSatisfy(
+            Should.Satisfy(
                 [
-                    () => result.ShouldBeOfType<float>("Some additional context"),
-                    () => result.ShouldBeGreaterThan(5, "Some additional context")
+                    () => name.ShouldBe("Marge", "Some additional context"),
+                    () => age.ShouldBeGreaterThan(5, "Some additional context")
                 ],
                 "Some additional context"));
     }
@@ -18,11 +22,12 @@ public class MultipleConditionsScenario
     [Fact]
     public void ShouldPass()
     {
-        var result = 4;
-        result.ShouldSatisfy(
+        var name = "Homer";
+        var age = 4;
+        Should.Satisfy(
         [
-            () => result.ShouldBeOfType<int>(),
-            () => result.ShouldBeGreaterThan(3)
+            () => name.ShouldBe("Homer"),
+            () => age.ShouldBeGreaterThan(3)
         ]);
     }
 }
