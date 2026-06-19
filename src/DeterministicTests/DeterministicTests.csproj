@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="2.0.2">
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="2.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
