@@ -133,6 +133,29 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the enumerable contains the expected number of elements.
+    /// </summary>
+    public static void ShouldHaveCount<T>([NotNull] this IEnumerable<T>? actual, int expected, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        if (actual == null)
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+
+        // Use the count directly when the source can provide it without enumerating (arrays, lists, etc.).
+        if (actual.TryGetNonEnumeratedCount(out var count))
+        {
+            if (count != expected)
+                throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            return;
+        }
+
+        // Otherwise materialize once so a lazy source isn't enumerated again when building the failure message.
+        var actualItems = actual.ToList();
+        if (actualItems.Count != expected)
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actualItems, customMessage, actualExpression: actualExpression).ToString());
+    }
+
+    /// <summary>
     /// Asserts that the enumerable contains a float value within the specified tolerance.
     /// </summary>
     public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null,
@@ -249,6 +272,27 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage, actualExpression);
     }
+
+#if !NET6_0_OR_GREATER
+    // Polyfill of Enumerable.TryGetNonEnumeratedCount (introduced in .NET 6) for the netstandard2.0 target.
+    private static bool TryGetNonEnumeratedCount<T>(this IEnumerable<T> source, out int count)
+    {
+        if (source is ICollection<T> genericCollection)
+        {
+            count = genericCollection.Count;
+            return true;
+        }
+
+        if (source is ICollection collection)
+        {
+            count = collection.Count;
+            return true;
+        }
+
+        count = 0;
+        return false;
+    }
+#endif
 
     private static HashSet<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
     {
