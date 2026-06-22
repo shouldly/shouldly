@@ -27,7 +27,7 @@ public static partial class ShouldBeStringTestExtensions
     {
         actual.AssertAwesomely(
             v => caseSensitivity == Case.Sensitive ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected),
-            actual.Clip(100, "..."),
+            actual?.Clip(100, "..."),
             expected,
             caseSensitivity,
             customMessage, actualExpression: actualExpression);
@@ -43,7 +43,7 @@ public static partial class ShouldBeStringTestExtensions
         {
             var b = caseSensitivity == Case.Sensitive ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected);
             return b;
-        }, actual.Clip(100, "..."), expected, caseSensitivity, customMessage, actualExpression: actualExpression);
+        }, actual?.Clip(100, "..."), expected, caseSensitivity, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
