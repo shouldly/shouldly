@@ -50,10 +50,6 @@ public static partial class ObjectGraphTestExtensions
         }
         else if (typeof(Type).IsAssignableFrom(type))
         {
-            // A Type's runtime type is the internal RuntimeType, so guard with
-            // IsAssignableFrom rather than `type == typeof(Type)`. Reflecting over a
-            // Type's own properties trips on Type.DeclaringMethod (#1050); compare by
-            // identity instead, matching how Uri/string are treated as leaf values.
             CompareTypes((Type)actual, (Type)expected, path, customMessage, shouldlyMethod, actualExpression);
         }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
