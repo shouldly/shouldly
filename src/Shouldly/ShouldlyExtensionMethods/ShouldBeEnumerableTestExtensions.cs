@@ -122,6 +122,21 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the enumerable is null or empty.
+    /// </summary>
+    /// <remarks>
+    /// Use this only when null and empty are interchangeable for the contract under test.
+    /// When you know which to expect, prefer <c>ShouldBeNull()</c> or <c>ShouldBeEmpty()</c>;
+    /// for the inverse, <c>ShouldNotBeEmpty()</c> already rejects null.
+    /// </remarks>
+    public static void ShouldBeNullOrEmpty<T>(this IEnumerable<T>? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        if (actual != null && actual.Any())
+            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+    }
+
+    /// <summary>
     /// Asserts that the enumerable contains exactly one element and returns it.
     /// </summary>
     public static T ShouldHaveSingleItem<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
