@@ -1,0 +1,9 @@
+new[] { 1, 2, 3 }
+    should be superset of
+[2, 3, 4]
+    but
+[4]
+    is missing
+
+Additional Info:
+    Some additional context
