@@ -10,10 +10,6 @@ public class TypeScenario
             subject.ShouldBeEquivalentTo(5, "Some additional context"));
     }
 
-    // Regression tests for https://github.com/shouldly/shouldly/issues/1050
-    // Comparing System.Type values used to walk every Type property and trip on
-    // Type.DeclaringMethod ("Method may only be called on a Type for which
-    // Type.IsGenericParameter is true"), surfaced as a TargetInvocationException.
     [Fact]
     public void ShouldPassWhenTypesAreEqual()
     {
