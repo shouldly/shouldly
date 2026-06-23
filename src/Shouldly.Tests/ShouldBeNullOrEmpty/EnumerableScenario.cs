@@ -22,8 +22,7 @@ public class EnumerableScenario
             new[] { 1, 2, 3 }.ShouldBeNullOrEmpty("Some additional context"));
     }
 
-    // Adding the IEnumerable<T> overload must not make calls on a string ambiguous
-    // (string is IEnumerable<char>); the more specific string overload still wins.
+    // string is IEnumerable<char>, so guard that the more specific string overload still wins.
     [Fact]
     public void StringStillBindsToStringOverload()
     {
