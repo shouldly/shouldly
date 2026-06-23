@@ -10,4 +10,12 @@ public class NullStringScenario
         Verify.ShouldFail(() =>
             actual.ShouldContain("legendary"));
     }
+
+    [Fact]
+    public void NullStringShouldNotContainShouldPass()
+    {
+        string actual = null!;
+
+        actual.ShouldNotContain("legendary");
+    }
 }
