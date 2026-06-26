@@ -1,0 +1,10 @@
+Comparing object equivalence, at path:
+typeof(int) [System.RuntimeType]
+
+    Expected value to be
+System.String
+    but was
+System.Int32
+
+Additional Info:
+    Some additional context

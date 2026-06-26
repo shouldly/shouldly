@@ -48,6 +48,10 @@ public static partial class ObjectGraphTestExtensions
         {
             CompareUris((Uri)actual, (Uri)expected, path, customMessage, shouldlyMethod, actualExpression);
         }
+        else if (typeof(Type).IsAssignableFrom(type))
+        {
+            CompareTypes((Type)actual, (Type)expected, path, customMessage, shouldlyMethod, actualExpression);
+        }
         else if (typeof(IEnumerable).IsAssignableFrom(type))
         {
             CompareEnumerables((IEnumerable)actual, (IEnumerable)expected, path, previousComparisons, customMessage, shouldlyMethod, actualExpression);
@@ -140,6 +144,14 @@ public static partial class ObjectGraphTestExtensions
     }
 
     private static void CompareUris(Uri actual, Uri expected, IEnumerable<string> path,
+        string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+    {
+        if (!actual.Equals(expected))
+            ThrowException(actual, expected, path, customMessage, shouldlyMethod, actualExpression);
+    }
+
+    private static void CompareTypes(Type actual, Type expected, IEnumerable<string> path,
         string? customMessage, [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
