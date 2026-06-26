@@ -1,0 +1,5 @@
+actual
+    should contain (case insensitive comparison)
+"legendary"
+    but was actually
+null
