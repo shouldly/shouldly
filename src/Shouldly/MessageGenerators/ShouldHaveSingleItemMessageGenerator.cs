@@ -10,9 +10,31 @@ class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
         var codePart = context.CodePart;
-        var expected = context.Expected.ToStringAwesomely();
-        var count = (context.Expected as IEnumerable)?.Cast<object>().Count() ?? 0;
+        var expected = context.Expected;
         var should = context.ShouldMethod.PascalToSpaced();
+
+        if (expected is null)
+        {
+            if (codePart != "null")
+            {
+                return
+                    $"""
+                     {codePart}
+                         {should} but was
+                     null
+                     """;
+            }
+
+            return
+                $"""
+                 null
+                     {should}
+                 """;
+        }
+
+        var expectedString = expected.ToStringAwesomely();
+        var count = (expected as IEnumerable)?.Cast<object>().Count() ?? 0;
+
         if (codePart != "null")
         {
             return
@@ -21,13 +43,13 @@ class ShouldHaveSingleItemMessageGenerator : ShouldlyMessageGenerator
                      {should} but had
                  {count}
                      items and was
-                 {expected}
+                 {expectedString}
                  """;
         }
 
         return
             $"""
-             {expected}
+             {expectedString}
                  {should} but had
              {count}
                  items
