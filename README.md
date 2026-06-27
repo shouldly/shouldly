@@ -1,5 +1,7 @@
-![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)  
-========
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84_dark.png">
+  <img alt="Shouldly Logo" src="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png">
+</picture>
 
 [![CI](https://github.com/shouldly/shouldly/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/shouldly/shouldly/actions/workflows/CI.yml)
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) 
