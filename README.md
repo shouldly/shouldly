@@ -3,6 +3,8 @@
   <img alt="Shouldly Logo" width="350" src="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo.svg">
 </picture>
 
+---
+
 [![CI](https://github.com/shouldly/shouldly/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/shouldly/shouldly/actions/workflows/CI.yml)
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) 
 [![NuGet](https://img.shields.io/nuget/vpre/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
