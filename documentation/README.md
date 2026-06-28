@@ -78,14 +78,16 @@ What is meant by "full" is that when you set up your "release" configuration in 
 
 ## Currently maintained by
 
-* [Jake Ginnivan](https://github.com/JakeGinnivan)
-* [Joseph Woodward](https://github.com/JosephWoodward)
+* [Stuart Lang](https://github.com/slang25)
+* [Simon Cropp](https://github.com/SimonCropp)
+* [Joseph Musser](https://github.com/jnm2)
 
 If you are interested in helping out, jump on [Gitter](https://gitter.im/shouldly/shouldly) and have a chat.
 
 
 ## Brought to you by
 
+* Joseph Woodward
 * Dave Newman
 * Xerxes Battiwalla
 * Anthony Egerton
