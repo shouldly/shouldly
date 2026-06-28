@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84_dark.png">
-  <img alt="Shouldly Logo" src="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_dark.svg">
+  <img alt="Shouldly Logo" width="350" src="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo.svg">
 </picture>
 
 [![CI](https://github.com/shouldly/shouldly/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/shouldly/shouldly/actions/workflows/CI.yml)
