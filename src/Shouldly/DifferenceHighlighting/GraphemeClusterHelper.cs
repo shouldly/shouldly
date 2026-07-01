@@ -124,69 +124,71 @@ static class GraphemeClusterHelper
     }
 
     /// <summary>
-    /// Estimates the terminal display width of a grapheme cluster.
-    /// - Control chars that need escaping: width of their escape representation
-    /// - Emoji / surrogate pairs: 2 columns
-    /// - CJK ideographs: 2 columns
-    /// - Combining marks (zero-width): 0 columns
-    /// - Everything else: 1 column
+    /// Estimates the terminal display width of a grapheme cluster using
+    /// wcwidth tables (<see cref="UnicodeWidth"/>), plus cluster-level rules:
+    /// - Chars that need escaping: width of their escape representation
+    /// - ZWJ sequences (family emoji): width of the first glyph only
+    /// - VS16 after a narrow char: upgrades it to 2 columns
+    /// - Skin tone modifiers: compose into the preceding emoji
     /// </summary>
     internal static int ClusterDisplayWidth(string cluster) =>
         ClusterDisplayWidth(cluster, escapeStyleOverride: null);
 
     internal static int ClusterDisplayWidth(string cluster, EscapeStyle? escapeStyleOverride)
     {
-        if (cluster.Length == 0) return 0;
+        var width = 0;
+        var lastMeasuredCodepoint = -1; // last codepoint that occupied columns (for VS16/skin tone composition)
 
-        // Single char that needs escaping — use escape string length
-        if (cluster.Length == 1 && cluster[0].NeedsEscaping())
-            return cluster[0].ToSafeString(escapeStyleOverride).Length;
-
-        // Multi-char cluster containing surrogate pairs or variation selectors → emoji, likely 2 columns
-        if (cluster.Length > 1)
+        for (var i = 0; i < cluster.Length; i++)
         {
-            // Check if it contains surrogate pairs (emoji) or emoji variation selector (U+FE0F)
-            for (var i = 0; i < cluster.Length; i++)
+            int codepoint;
+            if (char.IsHighSurrogate(cluster[i]) && i + 1 < cluster.Length && char.IsLowSurrogate(cluster[i + 1]))
             {
-                if (i < cluster.Length - 1 && char.IsHighSurrogate(cluster[i]) && char.IsLowSurrogate(cluster[i + 1]))
-                    return 2;
-                if (cluster[i] == '\uFE0F') // Variation Selector-16 (emoji presentation)
-                    return 2;
+                codepoint = char.ConvertToUtf32(cluster[i], cluster[i + 1]);
+                i++;
+            }
+            else
+            {
+                codepoint = cluster[i];
             }
 
-            // Multi-char cluster with combining marks — base char width
-            // (e.g. 'e' + combining acute = 1 column)
-            var baseWidth = 0;
-            for (var i = 0; i < cluster.Length; i++)
-            {
-                var category = char.GetUnicodeCategory(cluster[i]);
-                if (category is UnicodeCategory.NonSpacingMark
-                    or UnicodeCategory.SpacingCombiningMark
-                    or UnicodeCategory.EnclosingMark)
-                    continue;
+            // ZWJ: the remaining codepoints compose into the preceding glyph (family emoji etc.)
+            if (codepoint == 0x200D)
+                break;
 
-                if (cluster[i].NeedsEscaping())
-                    baseWidth += cluster[i].ToSafeString(escapeStyleOverride).Length;
-                else
-                    baseWidth += IsCjkOrWideChar(cluster[i]) ? 2 : 1;
+            // VS16 requests emoji presentation, upgrading a narrow char to wide
+            if (codepoint == 0xFE0F)
+            {
+                if (lastMeasuredCodepoint >= 0 && UnicodeWidth.IsVs16NarrowToWide(lastMeasuredCodepoint))
+                {
+                    width += 1;
+                    lastMeasuredCodepoint = -1;
+                }
+                continue;
             }
-            return baseWidth > 0 ? baseWidth : 1;
+
+            // Skin tone modifiers compose into the preceding emoji glyph
+            if (codepoint is >= 0x1F3FB and <= 0x1F3FF && lastMeasuredCodepoint >= 0)
+                continue;
+
+            // Escaped chars are displayed as their escape text (e.g. "\n", "<LF>")
+            if (codepoint <= 0xFFFF && ((char)codepoint).NeedsEscaping())
+            {
+                width += ((char)codepoint).ToSafeString(escapeStyleOverride).Length;
+                lastMeasuredCodepoint = -1;
+                continue;
+            }
+
+            // C0/C1 controls (-1) always take the escape path above, so w is 0, 1 or 2 here
+            var w = UnicodeWidth.GetWidth(codepoint);
+            if (w > 0)
+            {
+                width += w;
+                lastMeasuredCodepoint = codepoint;
+            }
         }
 
-        // Single char
-        var c = cluster[0];
-
-        var cat = char.GetUnicodeCategory(c);
-        if (cat is UnicodeCategory.NonSpacingMark
-            or UnicodeCategory.SpacingCombiningMark
-            or UnicodeCategory.EnclosingMark
-            or UnicodeCategory.Format)
-            return 0;
-
-        if (IsCjkOrWideChar(c))
-            return 2;
-
-        return 1;
+        return width;
     }
 
     /// <summary>
@@ -334,24 +336,5 @@ static class GraphemeClusterHelper
         if (aClusters.Length != bClusters.Length)
             return displayOffset;
         return -1;
-    }
-
-    private static bool IsCjkOrWideChar(char c)
-    {
-        // Wide (East-Asian) ranges per Unicode East_Asian_Width=W/F.
-        // Simplified \u2014 covers what shows up in diff messages.
-        return c >= '\u1100' && c <= '\u115F'    // Hangul Jamo (leading consonants)
-            || c >= '\u2E80' && c <= '\u2EFF'    // CJK Radicals Supplement
-            || c >= '\u2F00' && c <= '\u2FDF'    // Kangxi Radicals
-            || c >= '\u3000' && c <= '\u318F'    // CJK Symbols/Punct, Hiragana, Katakana, Bopomofo, Hangul Compat Jamo
-            || c >= '\u31A0' && c <= '\u31FF'    // Bopomofo Extended, CJK Strokes, Katakana Phonetic Extensions
-            || c >= '\u3400' && c <= '\u4DBF'    // CJK Extension A
-            || c >= '\u4E00' && c <= '\u9FFF'    // CJK Unified Ideographs
-            || c >= '\uA000' && c <= '\uA4CF'    // Yi Syllables/Radicals
-            || c >= '\uAC00' && c <= '\uD7AF'    // Hangul Syllables
-            || c >= '\uF900' && c <= '\uFAFF'    // CJK Compatibility Ideographs
-            || c >= '\uFE30' && c <= '\uFE4F'    // CJK Compatibility Forms
-            || c >= '\uFF01' && c <= '\uFF60'    // Fullwidth Forms
-            || c >= '\uFFE0' && c <= '\uFFE6';   // Fullwidth Signs
     }
 }

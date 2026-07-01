@@ -1,0 +1,10 @@
+str
+    should be
+"sign ䷁ x"
+    but was
+"sign ䷀ x"
+    difference
+                ▼▼
+Expected: "sign ䷁ x"
+Actual:   "sign ䷀ x"
+                ▲▲

@@ -79,6 +79,24 @@ public class UnicodeScenarios
     }
 
     [Fact]
+    public void NarrowAstralCharacters()
+    {
+        // Mathematical alphanumerics are astral (surrogate pair) but render 1 column wide
+        var str = "id 𝐀𝐁𝐂 end";
+        Verify.ShouldFail(() =>
+            str.ShouldBe("id 𝐀𝐗𝐂 end"));
+    }
+
+    [Fact]
+    public void WideNonCjkCharacters()
+    {
+        // Yijing hexagrams (U+4DC0) are outside the CJK ideograph blocks but render 2 columns wide
+        var str = "sign ䷀ x";
+        Verify.ShouldFail(() =>
+            str.ShouldBe("sign ䷁ x"));
+    }
+
+    [Fact]
     public void ActualNewlineVsLiteralBackslashRN()
     {
         // Actual \r\n characters vs the literal text "\r\n"
