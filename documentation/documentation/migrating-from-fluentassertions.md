@@ -386,28 +386,6 @@ The following errors were found ...
 | `Implement<TInterface>()` | `typeof(IFoo).IsAssignableFrom(typeof(MyType)).ShouldBeTrue()` |
 
 
-## Automating the rename
-
-The bulk of a migration — turning `value.Should().X(…)` into `value.ShouldX(…)` — can be
-scripted. A community tool exists for exactly this (not officially maintained by Shouldly):
-
-- [galadril/Shouldly.FromFluentAssertions](https://github.com/galadril/Shouldly.FromFluentAssertions)
-  — a best-effort PowerShell script that rewrites FluentAssertions calls, strips `AssertionScope`
-  blocks, and swaps the package reference. Its authors note the result "might not be 100%
-  buildable," so treat it as a first pass: rebuild and run your tests afterward.
-
-If your project also still has classic NUnit `Assert.*` calls,
-[agoda-com/Shouldly.FromAssert](https://github.com/agoda-com/Shouldly.FromAssert) is a Roslyn
-analyzer/code-fix that converts *those* (not FluentAssertions) to Shouldly.
-
-Whatever you use, **review the result against the gotchas above** — especially case sensitivity,
-`BeEquivalentTo`, and `ThrowExactly` — because those need a human decision, not a rename.
-
-If your goal is simply to get off the commercial FluentAssertions license *without* changing test
-code, note that [AwesomeAssertions](https://awesomeassertions.org/) is a free, drop-in fork of the
-FluentAssertions API. That is a different choice from adopting Shouldly, but worth knowing about.
-
-
 ## Further reading
 
 - [Getting Started](getting-started.md)
