@@ -7,6 +7,7 @@
 ## Documentation
 
 * [Getting Started](documentation/getting-started.md)
+* [Migrating from FluentAssertions](documentation/migrating-from-fluentassertions.md)
 * [Configuration](documentation/configuration.md)
 * [Equality](documentation/equality/README.md)
   * [ShouldBe](documentation/equality/shouldBe.md)
