@@ -381,13 +381,3 @@ expression and isn't trimming/AOT-safe. Prefer `ShouldSatisfy` or `Should.Satisf
 | `AllSatisfy(x => x.Should()…)` | `foreach` loop of assertions ([see above](#per-element-assertions-allsatisfy); `ShouldAllBe` is only for boolean predicates) |
 | `ContainInOrder(…)` / `ContainEquivalentOf(…)` | [see above](#no-drop-in-for-containinorder-or-containequivalentof) |
 | `Implement<TInterface>()` | `typeof(IFoo).IsAssignableFrom(typeof(MyType)).ShouldBeTrue()` |
-
-
-## Further reading
-
-- [Getting Started](getting-started.md)
-- [Equality assertions](equality/README.md)
-- [Enumerable assertions](enumerable/README.md)
-- [String assertions](string/README.md)
-- [Exception assertions](exceptions/README.md)
-- [ShouldSatisfy](satisfyAllConditions.md)
