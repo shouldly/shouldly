@@ -40,7 +40,8 @@ result.ShouldBe(5);
 
 ## Quick reference
 
-Direct name mappings. Rows marked with a warning sign are not a plain rename, so check the note.
+Direct name mappings. Where a mapping is not a plain rename, a note in parentheses says what
+changed.
 
 ### Equality and identity
 
@@ -57,6 +58,7 @@ Direct name mappings. Rows marked with a warning sign are not a plain rename, so
 | `x.Should().BeOfType<T>()` | `x.ShouldBeOfType<T>()` |
 | `x.Should().NotBeOfType<T>()` | `x.ShouldNotBeOfType<T>()` |
 | `x.Should().BeAssignableTo<T>()` | `x.ShouldBeAssignableTo<T>()` |
+| `x.Should().BeOneOf(a, b)` | `x.ShouldBeOneOf([a, b])` (takes an array, not `params`) |
 | `x.Should().BeEquivalentTo(y)` | `x.ShouldBeEquivalentTo(y)` (see [caveats](#object-equivalence-shouldbeequivalentto)) |
 
 ### Comparisons and ranges
@@ -85,14 +87,14 @@ Direct name mappings. Rows marked with a warning sign are not a plain rename, so
 | `c.Should().Contain(x => …)` | `c.ShouldContain(x => …)` |
 | `c.Should().BeEmpty()` | `c.ShouldBeEmpty()` |
 | `c.Should().NotBeEmpty()` | `c.ShouldNotBeEmpty()` |
-| `c.Should().HaveCount(n)` | `c.Count.ShouldBe(n)` ⚠️ (no `ShouldHaveCount`) |
+| `c.Should().HaveCount(n)` | `c.Count.ShouldBe(n)` (no `ShouldHaveCount`) |
 | `c.Should().HaveCountGreaterThan(n)` | `c.Count.ShouldBeGreaterThan(n)` |
 | `c.Should().Equal(a, b, c)` | `c.ShouldBe([a, b, c])` (order-sensitive) |
-| `c.Should().BeEquivalentTo(other)` | `c.ShouldBe(other, ignoreOrder: true)` ⚠️ (not `ShouldBeEquivalentTo`; [see below](#collections-order-and-element-equality)) |
-| `c.Should().OnlyHaveUniqueItems()` | `c.ShouldBeUnique()` ⚠️ (not `ShouldAllBeUnique`) |
+| `c.Should().BeEquivalentTo(other)` | `c.ShouldBe(other, ignoreOrder: true)` (not `ShouldBeEquivalentTo`; [see below](#collections-order-and-element-equality)) |
+| `c.Should().OnlyHaveUniqueItems()` | `c.ShouldBeUnique()` (not `ShouldAllBeUnique`) |
 | `c.Should().OnlyContain(x => …)` | `c.ShouldAllBe(x => …)` |
-| `c.Should().AllBeAssignableTo<T>()` | `c.ShouldAllBe(x => x is T)` ⚠️ (no `ShouldAllBeAssignableTo`) |
-| `c.Should().AllSatisfy(x => x.Should()…)` | `foreach (var x in c) { … }` ⚠️ (assertion per element; [see below](#per-element-assertions-allsatisfy)) |
+| `c.Should().AllBeAssignableTo<T>()` | `c.ShouldAllBe(x => x is T)` (no `ShouldAllBeAssignableTo`) |
+| `c.Should().AllSatisfy(x => x.Should()…)` | `foreach (var x in c) { … }` (assertion per element; [see below](#per-element-assertions-allsatisfy)) |
 | `c.Should().ContainSingle()` | `c.ShouldHaveSingleItem()` |
 | `c.Should().ContainSingle().Which.Should().Be(v)` | `c.ShouldHaveSingleItem().ShouldBe(v)` |
 | `c.Should().BeSubsetOf(other)` | `c.ShouldBeSubsetOf(other)` |
@@ -108,18 +110,18 @@ Direct name mappings. Rows marked with a warning sign are not a plain rename, so
 | `d.Should().ContainKey(k)` | `d.ShouldContainKey(k)` |
 | `d.Should().NotContainKey(k)` | `d.ShouldNotContainKey(k)` |
 | `d.Should().Contain(k, v)` | `d.ShouldContainKeyAndValue(k, v)` |
-| `d.Should().ContainValue(v)` | `d.Values.ShouldContain(v)` ⚠️ (no `ShouldContainValue`) |
-| `d.Should().NotContainValue(v)` | `d.Values.ShouldNotContain(v)` ⚠️ (no `ShouldNotContainValue`) |
+| `d.Should().ContainValue(v)` | `d.Values.ShouldContain(v)` (no `ShouldContainValue`) |
+| `d.Should().NotContainValue(v)` | `d.Values.ShouldNotContain(v)` (no `ShouldNotContainValue`) |
 
 ### Strings
 
 | FluentAssertions | Shouldly |
 |---|---|
 | `s.Should().Be("x")` | `s.ShouldBe("x")` (exact, case-sensitive) |
-| `s.Should().Contain("x")` | `s.ShouldContain("x")` ⚠️ ([case-insensitive by default](#strings-are-case-insensitive-by-default)) |
+| `s.Should().Contain("x")` | `s.ShouldContain("x")` ([case-insensitive by default](#strings-are-case-insensitive-by-default)) |
 | `s.Should().ContainEquivalentOf("x")` | `s.ShouldContain("x")` (both ignore case, a rare case where the default matches) |
-| `s.Should().StartWith("x")` | `s.ShouldStartWith("x")` ⚠️ (case-insensitive by default) |
-| `s.Should().EndWith("x")` | `s.ShouldEndWith("x")` ⚠️ (case-insensitive by default) |
+| `s.Should().StartWith("x")` | `s.ShouldStartWith("x")` (case-insensitive by default) |
+| `s.Should().EndWith("x")` | `s.ShouldEndWith("x")` (case-insensitive by default) |
 | `s.Should().Match("re*ex")` | `s.ShouldMatch(regex)` (Shouldly takes a regex, FA `Match` takes a wildcard) |
 | `s.Should().MatchRegex("re.ex")` | `s.ShouldMatch("re.ex")` |
 | `s.Should().BeNullOrEmpty()` | `s.ShouldBeNullOrEmpty()` |
@@ -130,10 +132,11 @@ Direct name mappings. Rows marked with a warning sign are not a plain rename, so
 | FluentAssertions | Shouldly |
 |---|---|
 | `act.Should().Throw<T>()` | `act.ShouldThrow<T>()` |
-| `act.Should().ThrowExactly<T>()` | `act.ShouldThrow<T>()` then `ex.ShouldBeOfType<T>()` ⚠️ (no `ShouldThrowExactly`) |
+| `act.Should().ThrowExactly<T>()` | `act.ShouldThrow<T>()` then `ex.ShouldBeOfType<T>()` (no `ShouldThrowExactly`) |
 | `act.Should().NotThrow()` | `act.ShouldNotThrow()` |
+| `await act.Should().NotThrowAsync()` | `await act.ShouldNotThrowAsync()` |
 | `(await act.Should().ThrowAsync<T>())` | `await act.ShouldThrowAsync<T>()` |
-| `act.Should().Throw<T>().WithMessage("x*")` | `act.ShouldThrow<T>().Message.ShouldContain("x")` ⚠️ (no `WithMessage`) |
+| `act.Should().Throw<T>().WithMessage("x*")` | `act.ShouldThrow<T>().Message.ShouldContain("x")` (no `WithMessage`) |
 
 
 ## Behavioral differences to watch for
@@ -156,6 +159,13 @@ weakens these assertions. Pass `Case.Sensitive` to keep the old behavior:
 
 ```csharp
 "Hello".ShouldContain("hello", Case.Sensitive);   // fails, as FA would
+```
+
+```text
+"Hello"
+    should contain
+"hello"
+    but did not
 ```
 
 Note the asymmetry: string `ShouldBe` is exact and case-sensitive (`"Hello".ShouldBe("hello")`
@@ -226,6 +236,33 @@ result.ShouldHaveSingleItem().ShouldBe(5);
 (`ShouldContain` on a string is case-insensitive, see the warning above, so add `Case.Sensitive`
 if the original `.Contain` relied on case.)
 
+### Custom messages (`because`)
+
+Every FluentAssertions assertion accepts a reason with format arguments, which FA weaves into the
+failure sentence. The Shouldly counterpart is the `customMessage` parameter, a plain string with
+no format arguments, so use interpolation:
+
+```csharp
+// FA
+count.Should().Be(3, "the cache warms {0} entries on startup", entries);
+
+// Shouldly
+count.ShouldBe(3, $"the cache warms {entries} entries on startup");
+```
+
+The message is appended to the failure output under "Additional Info":
+
+```text
+count
+    should be
+3
+    but was
+2
+
+Additional Info:
+    the cache warms 42 entries on startup
+```
+
 ### Per-element assertions (`AllSatisfy`)
 
 FA's `AllSatisfy` runs an assertion action against every element. It is not the same as
@@ -277,7 +314,16 @@ var dto  = new Dto            { Name = "Bob", Age = 30 };
 var full = new PersonExtended { Name = "Bob", Age = 30, Extra = "x" };
 
 dto.ShouldBeEquivalentTo(full);
-// -> Expected value to be PersonExtended but was Dto
+```
+
+```text
+Comparing object equivalence, at path:
+dto
+
+    Expected value to be
+PersonExtended
+    but was
+Dto
 ```
 
 FluentAssertions is deliberately looser here. Its `BeEquivalentTo` is direction-sensitive and
