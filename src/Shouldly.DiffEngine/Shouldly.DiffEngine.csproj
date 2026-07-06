@@ -4,8 +4,8 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EmptyFiles" Version="8.18.1" PrivateAssets="None" />
-    <PackageReference Include="DiffEngine" Version="19.2.0" />
+    <PackageReference Include="EmptyFiles" Version="8.18.2" PrivateAssets="None" />
+    <PackageReference Include="DiffEngine" Version="19.3.0" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
   </ItemGroup>
   <ItemGroup>
