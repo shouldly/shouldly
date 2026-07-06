@@ -1,5 +1,5 @@
 Target
-    should not contain (case insensitive comparison)
+    should not contain
 "legendary"
     but was actually
 "Shouldly is legendary"

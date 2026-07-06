@@ -1,17 +1,18 @@
 namespace Shouldly.Tests.Strings.ShouldStartWith;
 
-public class BasicScenarioCaseInSensitive
+public class ShouldBeCaseSensitiveByDefault
 {
     [Fact]
-    public void BasicScenarioCaseInSensitiveShouldFail()
+    public void ShouldBeCaseSensitiveByDefaultShouldFail()
     {
         Verify.ShouldFail(() =>
-            "Cheese".ShouldStartWith("Ce", Case.Insensitive, "Some additional context"));
+            "Cheese".ShouldStartWith("ch"));
     }
 
     [Fact]
     public void ShouldPass()
     {
+        "Cheese".ShouldStartWith("Ch");
         "Cheese".ShouldStartWith("CH", Case.Insensitive);
     }
 }

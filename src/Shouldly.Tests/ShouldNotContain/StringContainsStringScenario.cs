@@ -15,5 +15,6 @@ public class StringContainsStringScenario
     public void ShouldPass()
     {
         Target.ShouldNotContain("legend-wait for it-ary");
+        Target.ShouldNotContain("LEGENDARY");
     }
 }

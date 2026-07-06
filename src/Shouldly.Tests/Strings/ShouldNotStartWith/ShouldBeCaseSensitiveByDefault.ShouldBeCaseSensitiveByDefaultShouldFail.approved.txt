@@ -1,6 +1,6 @@
 "Cheese"
     should not start with
-"cH"
+"Ch"
     but was
 
 Additional Info:

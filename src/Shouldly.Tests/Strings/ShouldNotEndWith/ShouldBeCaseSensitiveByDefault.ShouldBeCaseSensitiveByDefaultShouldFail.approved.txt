@@ -1,6 +1,6 @@
 str
     should not end with
-"SE"
+"se"
     but was
 "Cheese"
 

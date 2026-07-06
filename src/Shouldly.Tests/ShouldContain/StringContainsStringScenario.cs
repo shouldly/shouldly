@@ -12,6 +12,13 @@ public class StringContainsStringScenario
     }
 
     [Fact]
+    public void CaseMismatchShouldFail()
+    {
+        Verify.ShouldFail(() =>
+            Target.ShouldContain("LEGENDARY"));
+    }
+
+    [Fact]
     public void ShouldPass()
     {
         Target.ShouldContain("legendary");

@@ -22,7 +22,7 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string contains another string
     /// </summary>
-    public static void ShouldContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
+    public static void ShouldContain(this string actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(
@@ -36,7 +36,7 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string does not contain another string
     /// </summary>
-    public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity = Case.Insensitive, string? customMessage = null,
+    public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(v =>

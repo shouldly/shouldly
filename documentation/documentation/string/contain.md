@@ -17,7 +17,7 @@ target.ShouldContain("Bart");
 <!-- include: StringExamples.ShouldContain.exceptionText.approved.txt -->
 ```
 target
-    should contain (case insensitive comparison)
+    should contain
 "Bart"
     but was actually
 "Homer"
@@ -65,7 +65,7 @@ target.ShouldNotContain("Home");
 <!-- include: StringExamples.ShouldNotContain.exceptionText.approved.txt -->
 ```
 target
-    should not contain (case insensitive comparison)
+    should not contain
 "Home"
     but was actually
 "Homer"

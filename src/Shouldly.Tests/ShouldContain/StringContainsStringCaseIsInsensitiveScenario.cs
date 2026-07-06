@@ -7,12 +7,12 @@ public class StringContainsStringCaseIsInsensitiveScenario
     {
         const string target = "Shouldly is legendary";
         Verify.ShouldFail(() =>
-            target.ShouldContain("legend-wait for it-ary"));
+            target.ShouldContain("legend-wait for it-ary", Case.Insensitive));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        "Shouldly is legendary".ShouldContain("LEGENDARY");
+        "Shouldly is legendary".ShouldContain("LEGENDARY", Case.Insensitive);
     }
 }

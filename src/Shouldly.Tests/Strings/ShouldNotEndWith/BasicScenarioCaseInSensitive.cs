@@ -7,7 +7,7 @@ public class BasicScenarioCaseInSensitive
     {
         var str = "Cheese";
         Verify.ShouldFail(() =>
-            str.ShouldNotEndWith("SE", "Some additional context"));
+            str.ShouldNotEndWith("SE", "Some additional context", Case.Insensitive));
     }
 
     [Fact]

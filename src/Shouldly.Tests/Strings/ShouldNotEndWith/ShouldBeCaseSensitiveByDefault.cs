@@ -1,18 +1,19 @@
 namespace Shouldly.Tests.Strings.ShouldNotEndWith;
 
-public class ShouldIgnoreCaseByDefault
+public class ShouldBeCaseSensitiveByDefault
 {
     [Fact]
-    public void ShouldIgnoreCaseByDefaultShouldFail()
+    public void ShouldBeCaseSensitiveByDefaultShouldFail()
     {
         var str = "Cheese";
         Verify.ShouldFail(() =>
-            str.ShouldNotEndWith("SE", "Some additional context"));
+            str.ShouldNotEndWith("se", "Some additional context"));
     }
 
     [Fact]
     public void ShouldPass()
     {
+        "Cheese".ShouldNotEndWith("SE");
         "Cheese".ShouldNotEndWith("ze");
     }
 }

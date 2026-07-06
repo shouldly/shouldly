@@ -1,5 +1,5 @@
 _target
-    should not contain (case insensitive comparison)
+    should not contain
 "zzzz"
     but was actually
 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."

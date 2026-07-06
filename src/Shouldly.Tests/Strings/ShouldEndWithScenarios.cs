@@ -23,8 +23,8 @@ public class ShouldEndWithScenarios
     public void ShouldPass()
     {
         "Cheese".ShouldEndWith("se");
-        "Cheese".ShouldEndWith("SE");
-        "Cheese".ShouldEndWith("Se");
+        "Cheese".ShouldEndWith("SE", Case.Insensitive);
+        "Cheese".ShouldEndWith("Se", Case.Insensitive);
         "Cheese".ShouldEndWith("se", Case.Sensitive);
     }
 }
