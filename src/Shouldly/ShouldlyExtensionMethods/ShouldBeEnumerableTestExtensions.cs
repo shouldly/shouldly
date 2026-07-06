@@ -210,9 +210,6 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeSupersetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (actual.Equals(expected))
-            return;
-
         var missing = expected.Except(actual);
         if (missing.Any())
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
@@ -224,9 +221,6 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeSupersetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (actual.Equals(expected))
-            return;
-
         var missing = expected.Except(actual, comparer);
         if (missing.Any())
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
