@@ -16,7 +16,7 @@ public class ShouldEndWithScenarios
     {
         var cheeseVar = "Cheese";
         Verify.ShouldFail(() =>
-            cheeseVar.ShouldEndWith("Se", Case.Sensitive, "Some additional context"));
+            cheeseVar.ShouldEndWith("Se", customMessage: "Some additional context"));
     }
 
     [Fact]
