@@ -3,7 +3,7 @@ namespace Shouldly;
 /// <summary>
 /// Interface for finding test methods in a stack trace
 /// </summary>
-public interface ITestMethodFinder
+internal interface ITestMethodFinder
 {
     /// <summary>
     /// Gets test method information from the stack trace

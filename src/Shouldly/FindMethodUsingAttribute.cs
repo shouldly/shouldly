@@ -4,7 +4,7 @@ namespace Shouldly;
 /// Finds a test method in the stack trace that has a specific attribute
 /// </summary>
 /// <typeparam name="T">The attribute type to search for</typeparam>
-public class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
+internal class FindMethodUsingAttribute<T> : ITestMethodFinder where T : Attribute
 {
     /// <inheritdoc/>
     [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() and reflects over types and attributes to locate a method with the requested attribute. Method metadata may be trimmed away.")]

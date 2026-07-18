@@ -86,23 +86,6 @@ namespace Shouldly
         public ExpectedShouldlyMessage(object? expected, string? customMessage, [System.Runtime.CompilerServices.CallerMemberName] string shouldlyMethod = null, string? actualExpression = null) { }
     }
     public delegate string FilenameGenerator(Shouldly.TestMethodInfo testMethodInfo, string? discriminator, string fileType, string fileExtension);
-    public class FindMethodUsingAttribute<T> : Shouldly.ITestMethodFinder
-        where T : System.Attribute
-    {
-        public FindMethodUsingAttribute() { }
-        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() and reflects over types and attr" +
-            "ibutes to locate a method with the requested attribute. Method metadata may be t" +
-            "rimmed away.")]
-        public Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
-    }
-    public class FirstNonShouldlyMethodFinder : Shouldly.ITestMethodFinder
-    {
-        public FirstNonShouldlyMethodFinder() { }
-        public int Offset { get; set; }
-        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the first non-Shouldly" +
-            " method. Method metadata may be trimmed away.")]
-        public Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0) { }
-    }
     [Shouldly.ShouldlyMethods]
     public static class GuidShouldBeTestExtensions
     {
@@ -137,12 +120,6 @@ namespace Shouldly
         Shouldly.SortDirection SortDirection { get; set; }
         System.TimeSpan? Timeout { get; set; }
         object? Tolerance { get; set; }
-    }
-    public interface ITestMethodFinder
-    {
-        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Implementations walk the stack trace via StackFrame.GetMethod() to locate the tes" +
-            "t method. Method metadata may be trimmed away.")]
-        Shouldly.TestMethodInfo GetTestMethodInfo(System.Diagnostics.StackTrace stackTrace, int startAt = 0);
     }
     [Shouldly.ShouldlyMethods]
     public static class ObjectGraphTestExtensions
@@ -419,7 +396,6 @@ namespace Shouldly
         public bool PreventDiff { get; set; }
         public System.Func<string, string>? Scrubber { get; set; }
         public Shouldly.StringCompareShould StringCompareOptions { get; set; }
-        public Shouldly.ITestMethodFinder TestMethodFinder { get; set; }
         public static Shouldly.ShouldMatchConfigurationBuilder ShouldMatchApprovedDefaults { get; }
     }
     public class ShouldMatchConfigurationBuilder
@@ -616,9 +592,6 @@ namespace Shouldly
     }
     public class TestMethodInfo
     {
-        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Uses StackFrame.GetMethod() and reflects over the declaring type to detect async " +
-            "state machines. Method metadata may be trimmed away.")]
-        public TestMethodInfo(System.Diagnostics.StackFrame callingFrame) { }
         public string? DeclaringTypeName { get; }
         public string? MethodName { get; }
         public string? SourceFileDirectory { get; }

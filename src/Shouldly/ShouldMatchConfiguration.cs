@@ -70,7 +70,7 @@ public class ShouldMatchConfiguration
     /// <summary>
     /// The test method finder to use to locate the test method
     /// </summary>
-    public ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
+    internal ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
 
     /// <summary>
     /// Optional subfolder for approval files

@@ -5,7 +5,7 @@ namespace Shouldly;
 /// <summary>
 /// Finds the first method in the stack trace that is not from the Shouldly library
 /// </summary>
-public class FirstNonShouldlyMethodFinder : ITestMethodFinder
+internal class FirstNonShouldlyMethodFinder : ITestMethodFinder
 {
     private static readonly Regex AnonMethod = new(@"<(\w|_)+>b_.+");
 
