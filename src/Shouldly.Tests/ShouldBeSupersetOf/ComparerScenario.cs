@@ -9,6 +9,16 @@ public class ComparerScenario
     }
 
     [Fact]
+    public void ComparerPartialMatchShouldFail()
+    {
+        var comparison1 = new[] { "A" };
+        var comparison2 = new[] { "a", "B" };
+
+        Verify.ShouldFail(() =>
+            comparison1.ShouldBeSupersetOf(comparison2, StringComparer.OrdinalIgnoreCase, "Some additional context"));
+    }
+
+    [Fact]
     public void ComparerNotEqualsShouldFail()
     {
         var comparison1 = new[]
