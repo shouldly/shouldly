@@ -24,5 +24,3 @@ updates:
     versions:
     - 16.9.1
   - dependency-name: FluentAssertions
-    update-types:
-    - all
