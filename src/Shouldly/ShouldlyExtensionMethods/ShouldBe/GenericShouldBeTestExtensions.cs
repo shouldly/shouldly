@@ -59,6 +59,18 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
+    /// Asserts that an enumerable is equal to a read-only collection.
+    /// </summary>
+    public static void ShouldBe<T>(
+        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
+        [NotNullIfNotNull(nameof(actual))] IReadOnlyCollection<T>? expected,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        ShouldBe(actual, expected, ignoreOrder: false, customMessage, actualExpression);
+    }
+
+    /// <summary>
     /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order.
     /// </summary>
     [OverloadResolutionPriority(1)]
