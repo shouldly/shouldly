@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Shouldly\buildTransitive\Shouldly.targets" />
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <!--
+      Pinned to an older LangVersion on purpose. [OverloadResolutionPriority] is only
+      honoured by the compiler from C# 13, so this project guards that Shouldly's core
+      overload sets stay unambiguous for consumers on LangVersion < 13. See issue #1278.
+      The successful compile of this project IS the regression test.
+    -->
+    <LangVersion>12</LangVersion>
+    <!-- Analyzer style rules are noise here; this project only guards overload resolution. -->
+    <NoWarn>$(NoWarn);CA1861</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
+  </ItemGroup>
+</Project>

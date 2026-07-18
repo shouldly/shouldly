@@ -59,13 +59,32 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
+    /// Asserts that an enumerable is equal to another enumerable.
+    /// </summary>
+    // This overload deliberately has the same parameter count (arity) as the scalar
+    // ShouldBe<T>(T?, T?, ...). When the arities match, the C# "more specific parameter type"
+    // tie-break selects this enumerable overload over the scalar one at every LangVersion —
+    // [OverloadResolutionPriority] is only honoured on C# 13+, so we must not rely on it alone
+    // to disambiguate a core overload set (see issue #1278). The ignoreOrder flag lives on the
+    // separate overload below so this arity stays aligned.
+    [OverloadResolutionPriority(1)]
+    public static void ShouldBe<T>(
+        [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
+        [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        actual.ShouldBe(expected, ignoreOrder: false, customMessage, actualExpression);
+    }
+
+    /// <summary>
     /// Asserts that an enumerable is equal to another enumerable, optionally ignoring order.
     /// </summary>
     [OverloadResolutionPriority(1)]
     public static void ShouldBe<T>(
         [NotNullIfNotNull(nameof(expected))] this IEnumerable<T>? actual,
         [NotNullIfNotNull(nameof(actual))] IEnumerable<T>? expected,
-        bool ignoreOrder = false,
+        bool ignoreOrder,
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
