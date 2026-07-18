@@ -12,8 +12,7 @@ class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var expected = context.Expected.ToStringAwesomely();
 
-        // The extension method computes the elements outside the subset (honoring any
-        // custom comparer) and passes them as the actual value, so no recomputation happens here.
+        // The extension method computes the elements outside the subset (honoring any custom comparer) and passes them as the actual value, so no recomputation happens here.
         var missing = (context.Actual as IEnumerable ?? Enumerable.Empty<object>()).Cast<object>().ToList();
 
         return
