@@ -94,7 +94,7 @@ changed.
 | `c.Should().OnlyHaveUniqueItems()` | `c.ShouldBeUnique()` (not `ShouldAllBeUnique`) |
 | `c.Should().OnlyContain(x => …)` | `c.ShouldAllBe(x => …)` |
 | `c.Should().AllBeAssignableTo<T>()` | `c.ShouldAllBe(x => x is T)` (no `ShouldAllBeAssignableTo`) |
-| `c.Should().AllSatisfy(x => x.Should()…)` | `foreach (var x in c) { … }` (assertion per element; [see below](#per-element-assertions-allsatisfy)) |
+| `c.Should().AllSatisfy(x => x.Should()…)` | `Should.Satisfy([.. c.Select(x => new Action(() => …))])` (assertion per element, all failures aggregated; [see below](#per-element-assertions-allsatisfy)) |
 | `c.Should().ContainSingle()` | `c.ShouldHaveSingleItem()` |
 | `c.Should().ContainSingle().Which.Should().Be(v)` | `c.ShouldHaveSingleItem().ShouldBe(v)` |
 | `c.Should().BeSubsetOf(other)` | `c.ShouldBeSubsetOf(other)` |
@@ -118,10 +118,10 @@ changed.
 | FluentAssertions | Shouldly |
 |---|---|
 | `s.Should().Be("x")` | `s.ShouldBe("x")` (exact, case-sensitive) |
-| `s.Should().Contain("x")` | `s.ShouldContain("x")` ([case-insensitive by default](#strings-are-case-insensitive-by-default)) |
-| `s.Should().ContainEquivalentOf("x")` | `s.ShouldContain("x")` (both ignore case, a rare case where the default matches) |
-| `s.Should().StartWith("x")` | `s.ShouldStartWith("x")` (case-insensitive by default) |
-| `s.Should().EndWith("x")` | `s.ShouldEndWith("x")` (case-insensitive by default) |
+| `s.Should().Contain("x")` | `s.ShouldContain("x")` ([case-sensitive by default](#strings-are-case-sensitive-by-default), matches FA) |
+| `s.Should().ContainEquivalentOf("x")` | `s.ShouldContain("x", Case.Insensitive)` (FA ignores case, so pass `Case.Insensitive`) |
+| `s.Should().StartWith("x")` | `s.ShouldStartWith("x")` (case-sensitive by default, matches FA) |
+| `s.Should().EndWith("x")` | `s.ShouldEndWith("x")` (case-sensitive by default, matches FA) |
 | `s.Should().Match("re*ex")` | `s.ShouldMatch(regex)` (Shouldly takes a regex, FA `Match` takes a wildcard) |
 | `s.Should().MatchRegex("re.ex")` | `s.ShouldMatch("re.ex")` |
 | `s.Should().BeNullOrEmpty()` | `s.ShouldBeNullOrEmpty()` |
@@ -143,22 +143,15 @@ changed.
 
 These are the traps. Read them before you trust a bulk find-and-replace.
 
-### Strings are case-insensitive by default
+### Strings are case-sensitive by default
 
-This is the single most surprising difference, because it can make a test pass when it should fail.
 Shouldly's string `ShouldContain`, `ShouldStartWith`, `ShouldEndWith` (and their `Not…` forms)
-ignore case by default:
+are case-sensitive by default, matching FluentAssertions' `Contain`, `StartWith`, and `EndWith`,
+so a straight rename preserves the behavior:
 
 ```csharp
-"Hello".ShouldContain("hello");     // PASSES, case is ignored
-"Hello".ShouldStartWith("HELLO");   // PASSES, case is ignored
-```
-
-FluentAssertions' `Contain` and `StartWith` are case-sensitive, so a straight rename quietly
-weakens these assertions. Pass `Case.Sensitive` to keep the old behavior:
-
-```csharp
-"Hello".ShouldContain("hello", Case.Sensitive);   // fails, as FA would
+"Hello".ShouldContain("hello");     // fails, case matters
+"Hello".ShouldStartWith("HELLO");   // fails, case matters
 ```
 
 ```text
@@ -168,8 +161,13 @@ weakens these assertions. Pass `Case.Sensitive` to keep the old behavior:
     but did not
 ```
 
-Note the asymmetry: string `ShouldBe` is exact and case-sensitive (`"Hello".ShouldBe("hello")`
-fails), so only the substring, prefix, and suffix assertions are affected.
+When you do want a case-insensitive comparison — for example FA's `ContainEquivalentOf`, which
+ignores case — pass `Case.Insensitive`:
+
+```csharp
+"Hello".Should().ContainEquivalentOf("hello");    // FA, ignores case
+"Hello".ShouldContain("hello", Case.Insensitive); // Shouldly equivalent
+```
 
 ### `ShouldBe` is strongly typed
 
@@ -237,8 +235,8 @@ markup.ShouldContain("mud-elevation-1");
 result.ShouldHaveSingleItem().ShouldBe(5);
 ```
 
-(`ShouldContain` on a string is case-insensitive, see the warning above, so add `Case.Sensitive`
-if the original `.Contain` relied on case.)
+(`ShouldContain` on a string is case-sensitive, matching FA's `.Contain`; add `Case.Insensitive`
+if you want to ignore case.)
 
 ### Custom messages (`because`)
 
@@ -269,16 +267,25 @@ Additional Info:
 
 ### Per-element assertions (`AllSatisfy`)
 
-FA's `AllSatisfy` runs an assertion action against every element. It is not the same as
-`ShouldAllBe`, which takes a boolean predicate. Map each one to the right tool:
+FA's `AllSatisfy` runs an assertion action against every element and reports every failing
+element at once. It is not the same as `ShouldAllBe`, which takes a boolean predicate. Map each
+one to the right tool:
 
 ```csharp
 // FA, a boolean predicate: use ShouldAllBe
 items.Should().OnlyContain(x => x.IsActive);
 items.ShouldAllBe(x => x.IsActive);
 
-// FA, an assertion action per element: use a foreach (Shouldly has no AllSatisfy)
+// FA, an assertion action per element: project each element into a condition and pass them to
+// Should.Satisfy, which runs them all and aggregates every failure just like AllSatisfy.
 inputs.Should().AllSatisfy(i => i.GetAttribute("type").Should().Be("checkbox"));
+Should.Satisfy([.. inputs.Select(i => new Action(() => i.GetAttribute("type").ShouldBe("checkbox")))]);
+```
+
+If you do not need the aggregated report, a plain `foreach` of assertions also works, but it stops
+at the first failing element rather than listing them all:
+
+```csharp
 foreach (var i in inputs)
     i.GetAttribute("type").ShouldBe("checkbox");
 ```
@@ -304,7 +311,7 @@ Two collection assertions have no Shouldly counterpart:
   ```
 - `ContainEquivalentOf(item)` on a collection (structural match of an element) has no equivalent.
   Assert with `ShouldContain(x => …)` on the members you care about, or loop. On a string it just
-  means a case-insensitive substring, which is exactly what `ShouldContain` already does.
+  means a case-insensitive substring, which is `ShouldContain(x, Case.Insensitive)`.
 
 
 ## Object equivalence: `ShouldBeEquivalentTo`
@@ -460,6 +467,5 @@ expression and isn't trimming/AOT-safe. Prefer `ShouldSatisfy` or `Should.Satisf
 | `AssertionScope` | `ShouldSatisfy` or `Should.Satisfy` |
 | `.And` / `.Which` chaining | Separate statements, or use the value a `Should…` returns |
 | `SatisfyRespectively(…)` | `ShouldSatisfy` with one condition per element (indexed manually) |
-| `AllSatisfy(x => x.Should()…)` | `foreach` loop of assertions ([see above](#per-element-assertions-allsatisfy); `ShouldAllBe` is only for boolean predicates) |
 | `ContainInOrder(…)` / `ContainEquivalentOf(…)` | [see above](#no-drop-in-for-containinorder-or-containequivalentof) |
 | `Implement<TInterface>()` | `typeof(IFoo).IsAssignableFrom(typeof(MyType)).ShouldBeTrue()` |
