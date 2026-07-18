@@ -1,0 +1,7 @@
+new string?[] { null, null }
+    should be unique but
+[null]
+    was duplicated
+
+Additional Info:
+    Some additional context

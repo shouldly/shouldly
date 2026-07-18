@@ -9,24 +9,23 @@ class ActualCodeTextGetter : ICodeTextGetter
     public string? FileName { get; private set; }
     public int LineNumber { get; private set; }
 
+    [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the call site. Method metadata may be trimmed away.")]
     public string? GetCodeText(object? actual, StackTrace? stackTrace)
     {
-        if (!ShouldlyConfiguration.IsSourceDisabledInErrors())
+        try
         {
-            try
-            {
-                ParseStackTrace(stackTrace);
-            }
-            catch
-            {
-                // ignored
-                // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
-            }
+            ParseStackTrace(stackTrace);
+        }
+        catch
+        {
+            // ignored
+            // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
         }
 
         return GetCodePart() ?? actual.ToStringAwesomely();
     }
 
+    [RequiresUnreferencedCode("Uses StackFrame.GetMethod() which requires unreferenced metadata.")]
     private void ParseStackTrace(StackTrace? stackTrace)
     {
         stackTrace ??= new(fNeedFileInfo: true);

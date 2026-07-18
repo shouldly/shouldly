@@ -1,0 +1,22 @@
+Comparing object equivalence, found 2 differences:
+
+at path:
+subject [System.Collections.Generic.List<System.Int32>]
+    Element [0] [System.Int32]
+
+    Expected value to be
+3
+    but was
+1
+
+at path:
+subject [System.Collections.Generic.List<System.Int32>]
+    Element [2] [System.Int32]
+
+    Expected value to be
+1
+    but was
+3
+
+Additional Info:
+    Some additional context

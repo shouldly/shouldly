@@ -1,0 +1,7 @@
+CreateTestEnumerable()
+    should be
+[3, 2, 1]
+    but was
+[1, 2, 3]
+    difference
+[*1*, 2, *3*]

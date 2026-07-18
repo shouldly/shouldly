@@ -1,0 +1,8 @@
+Target
+    should contain
+B
+    but was actually
+"Foo"
+
+Additional Info:
+    Some additional context

@@ -1,6 +1,9 @@
 # Overview
 
-![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_dark.svg">
+  <img alt="Shouldly Logo" width="350" src="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo.svg">
+</picture>
 
 [![CI](https://github.com/shouldly/shouldly/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/shouldly/shouldly/actions/workflows/CI.yml)
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly)
@@ -75,14 +78,16 @@ What is meant by "full" is that when you set up your "release" configuration in 
 
 ## Currently maintained by
 
-* [Jake Ginnivan](https://github.com/JakeGinnivan)
-* [Joseph Woodward](https://github.com/JosephWoodward)
+* [Stuart Lang](https://github.com/slang25)
+* [Simon Cropp](https://github.com/SimonCropp)
+* [Joseph Musser](https://github.com/jnm2)
 
 If you are interested in helping out, jump on [Gitter](https://gitter.im/shouldly/shouldly) and have a chat.
 
 
 ## Brought to you by
 
+* Joseph Woodward
 * Dave Newman
 * Xerxes Battiwalla
 * Anthony Egerton

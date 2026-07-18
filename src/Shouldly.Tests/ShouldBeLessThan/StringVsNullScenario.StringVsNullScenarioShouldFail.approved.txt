@@ -1,0 +1,8 @@
+bee
+    should be less than
+null
+    but was
+"b"
+
+Additional Info:
+    Some additional context

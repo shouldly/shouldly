@@ -1,0 +1,8 @@
+myThing
+    should be assignable to
+System.Int32
+    but was
+null
+
+Additional Info:
+    Some additional context

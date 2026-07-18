@@ -56,6 +56,35 @@ System.DivideByZeroException
 ```
 <!-- endInclude -->
 
+## ShouldNotThrow specific exception
+
+`ShouldNotThrow<TException>` verifies that a specific exception type is not thrown. Exceptions of other types are not caught and will propagate to the caller.
+
+<!-- snippet: ShouldNotThrowExamples.ShouldNotThrowSpecificException.codeSample.approved.cs -->
+<a id='snippet-ShouldNotThrowExamples.ShouldNotThrowSpecificException.codeSample.approved.cs'></a>
+```cs
+var homer = new Person { Name = "Homer", Salary = 30000 };
+var denominator = 0;
+Should.NotThrow<DivideByZeroException>(() =>
+                {
+                    var y = homer.Salary / denominator;
+                });
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldNotThrowExamples.ShouldNotThrowSpecificException.codeSample.approved.cs#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldNotThrowExamples.ShouldNotThrowSpecificException.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldNotThrowExamples.ShouldNotThrowSpecificException.exceptionText.approved.txt -->
+```
+`var y = homer.Salary / denominator;`
+    should not throw
+System.DivideByZeroException
+    but did, with message
+"Attempted to divide by zero."
+```
+<!-- endInclude -->
+
 ## ShouldNotThrowFunc
 
 <!-- snippet: ShouldNotThrowExamples.ShouldNotThrowFunc.codeSample.approved.cs -->

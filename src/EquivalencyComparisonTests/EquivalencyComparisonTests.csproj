@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <NoWarn>CA1861</NoWarn>
+    <!-- This project intentionally references FluentAssertions 7.x (the last Apache-2.0 licensed
+         version) to document behavioral differences between Shouldly's ShouldBeEquivalentTo and
+         FluentAssertions' BeEquivalentTo. It is a comparison/characterization suite, not part of
+         the shipped product. -->
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
+    <PackageReference Include="FluentAssertions" Version="7.2.0" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="GitHubActionsTestLogger" Version="3.0.4" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

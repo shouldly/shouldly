@@ -12,7 +12,7 @@ public class DynamicShouldExamples
             () =>
             {
                 dynamic theFuture = new ExpandoObject();
-                DynamicShould.HaveProperty(theFuture, "RobotTeachers");
+                DynamicShould.HaveProperty(() => theFuture, "RobotTeachers");
             },
             _testOutputHelper);
     }

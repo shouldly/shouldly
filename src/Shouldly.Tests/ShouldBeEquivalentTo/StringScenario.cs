@@ -7,35 +7,7 @@ public class StringScenario
     {
         const string subject = "Hello";
         Verify.ShouldFail(() =>
-                subject.ShouldBeEquivalentTo("Goodbye", "Some additional context"),
-
-            errorWithSource:
-            """
-            Comparing object equivalence, at path:
-            subject [System.String]
-            
-                Expected value to be
-            "Goodbye"
-                but was
-            "Hello"
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Comparing object equivalence, at path:
-            <root> [System.String]
-            
-                Expected value to be
-            "Goodbye"
-                but was
-            "Hello"
-
-            Additional Info:
-                Some additional context
-            """);
+            subject.ShouldBeEquivalentTo("Goodbye", "Some additional context"));
     }
 
     [Fact]
@@ -43,35 +15,7 @@ public class StringScenario
     {
         const string subject = "Hello";
         Verify.ShouldFail(() =>
-                subject.ShouldBeEquivalentTo("HELLO", "Some additional context"),
-
-            errorWithSource:
-            """
-            Comparing object equivalence, at path:
-            subject [System.String]
-            
-                Expected value to be
-            "HELLO"
-                but was
-            "Hello"
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Comparing object equivalence, at path:
-            <root> [System.String]
-            
-                Expected value to be
-            "HELLO"
-                but was
-            "Hello"
-
-            Additional Info:
-                Some additional context
-            """);
+            subject.ShouldBeEquivalentTo("HELLO", "Some additional context"));
     }
 
     [Fact]

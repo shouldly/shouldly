@@ -8,30 +8,7 @@ public class StringContainsCharScenario
     public void StringContainsCharScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                Target.ShouldContain('B', "Some additional context"),
-
-            errorWithSource:
-            """
-            Target
-                should contain
-            B
-                but was actually
-            "Foo"
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "Foo"
-                should contain
-            B
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            Target.ShouldContain('B', "Some additional context"));
     }
 
     [Fact]

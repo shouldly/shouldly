@@ -17,6 +17,7 @@ public class FirstNonShouldlyMethodFinder : ITestMethodFinder
     public int Offset { get; set; }
 
     /// <inheritdoc/>
+    [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the first non-Shouldly method. Method metadata may be trimmed away.")]
     public TestMethodInfo GetTestMethodInfo(StackTrace stackTrace, int startAt = 0)
     {
         foreach (var (i, frame) in stackTrace.GetFrames().AsIndexed().Skip(startAt))

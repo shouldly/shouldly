@@ -7,24 +7,7 @@ public static class NullScenario
     {
         var str = (string?)null;
         Verify.ShouldFail(() =>
-                str.ShouldBe("null"),
-
-            errorWithSource:
-            """
-            str
-                should be
-            "null"
-                but was
-            null
-            """,
-
-            errorWithoutSource:
-            """
-            null
-                should be
-            "null"
-                but was not
-            """);
+            str.ShouldBe("null"));
     }
 
     [Fact]
@@ -32,23 +15,6 @@ public static class NullScenario
     {
         var str = "null";
         Verify.ShouldFail(() =>
-                str.ShouldBe(null),
-
-            errorWithSource:
-            """
-            str
-                should be
-            null
-                but was
-            "null"
-            """,
-
-            errorWithoutSource:
-            """
-            "null"
-                should be
-            null
-                but was not
-            """);
+            str.ShouldBe(null));
     }
 }

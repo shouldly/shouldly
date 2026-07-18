@@ -1,0 +1,10 @@
+str
+    should be
+"StringOne"
+    but was
+"Stringone"
+    difference
+                 ▼
+Expected: "StringOne"
+Actual:   "Stringone"
+                 ▲

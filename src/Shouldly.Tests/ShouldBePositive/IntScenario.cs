@@ -7,27 +7,7 @@ public class IntScenario
     {
         var @int = -3;
         Verify.ShouldFail(() =>
-                @int.ShouldBePositive("Some additional context"),
-
-            errorWithSource:
-            """
-            @int
-                should be positive but
-            -3
-                is negative
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            -3
-                should be positive but is negative
-
-            Additional Info:
-                Some additional context
-            """);
+            @int.ShouldBePositive("Some additional context"));
     }
 
     [Fact]

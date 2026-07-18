@@ -1,0 +1,9 @@
+str
+    should be with options: Ignoring case
+"Stringone"
+    but was
+"StringOneX"
+    difference
+Expected: "Stringone"
+Actual:   "StringOneX"
+                    ▲

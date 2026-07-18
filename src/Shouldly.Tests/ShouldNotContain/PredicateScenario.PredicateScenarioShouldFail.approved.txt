@@ -1,0 +1,9 @@
+new[] { 1, 2, 3 }
+    should not contain an element satisfying the condition
+(i < 4)
+    but
+[1, 2, 3]
+    do
+
+Additional Info:
+    Some additional context

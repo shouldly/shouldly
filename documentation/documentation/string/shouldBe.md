@@ -19,15 +19,12 @@ target
     but was
 "Homer"
     difference
-Difference     |  |    |    |    |    |   
-               | \|/  \|/  \|/  \|/  \|/  
-Index          | 0    1    2    3    4    
-Expected Value | B    a    r    t         
-Actual Value   | H    o    m    e    r    
-Expected Code  | 66   97   114  116       
-Actual Code    | 72   111  109  101  114  
+Expected: "Bart"
+Actual:   "Homer"
 ```
 <!-- endInclude -->
+
+> **A note on alignment.** The `▼`/`▲` markers point at the differing grapheme clusters using estimated terminal widths. On terminals or fonts that render emoji, CJK, or other wide characters at different widths than expected, markers may shift by a column. When the difference involves a combining mark, zero-width character, flag emoji, or right-to-left script, a `Difference at index N: U+XXXX vs U+YYYY` line is appended so the codepoints are unambiguous regardless of how your terminal renders the glyphs.
 
 
 ## ShouldNotBe

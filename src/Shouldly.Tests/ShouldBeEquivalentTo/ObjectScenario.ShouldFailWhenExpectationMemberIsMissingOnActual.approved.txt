@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [<anonymous type>]
+    Nickname
+
+    Expected a public member named
+"Nickname"
+    but was not found on
+Shouldly.Tests.ShouldBeEquivalentTo.FakeObject
+
+Additional Info:
+    Some additional context

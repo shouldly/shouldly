@@ -26,7 +26,7 @@ static class Is
         comparer.Equals(actual, expected);
 
     private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
-        new EqualityComparer<T>(innerComparer);
+        new Internals.EqualityComparer<T>(innerComparer);
 
     public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
         // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which

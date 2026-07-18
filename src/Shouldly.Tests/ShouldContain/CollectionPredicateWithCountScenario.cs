@@ -7,21 +7,7 @@ public class CollectionPredicateWithCountScenario
     {
         var collection = new[] { "a", "b", "c", "c" };
         Verify.ShouldFail(() =>
-                collection.ShouldContain(x => x == "c", 5),
-            errorWithSource:
-            """
-            collection
-                should contain 5 element(s) satisfying the condition
-            (x == "c")
-                but does not
-            """,
-            errorWithoutSource:
-            """
-            ["a", "b", "c", "c"]
-                should contain 5 element(s) satisfying the condition
-            (x == "c")
-                but does not
-            """);
+            collection.ShouldContain(x => x == "c", 5));
     }
 
     [Fact]
@@ -29,27 +15,7 @@ public class CollectionPredicateWithCountScenario
     {
         var collection = new[] { "a", "b", "c", "c" };
         Verify.ShouldFail(() =>
-                collection.ShouldContain(x => x == "c", 5, "custom message"),
-            errorWithSource:
-            """
-            collection
-                should contain 5 element(s) satisfying the condition
-            (x == "c")
-                but does not
-
-            Additional Info:
-                custom message
-            """,
-            errorWithoutSource:
-            """
-            ["a", "b", "c", "c"]
-                should contain 5 element(s) satisfying the condition
-            (x == "c")
-                but does not
-
-            Additional Info:
-                custom message
-            """);
+            collection.ShouldContain(x => x == "c", 5, "custom message"));
     }
 
     [Fact]
@@ -57,27 +23,7 @@ public class CollectionPredicateWithCountScenario
     {
         var collection = new[] { "a", "b", "c", "c" };
         Verify.ShouldFail(() =>
-                collection.ShouldContain(x => x == "c", 5, "custom message"),
-            errorWithSource:
-            """
-            collection
-                should contain 5 element(s) satisfying the condition
-            (x == "c")
-                but does not
-
-            Additional Info:
-                custom message
-            """,
-            errorWithoutSource:
-            """
-            ["a", "b", "c", "c"]
-                should contain 5 element(s) satisfying the condition
-            (x == "c")
-                but does not
-
-            Additional Info:
-                custom message
-            """);
+            collection.ShouldContain(x => x == "c", 5, "custom message"));
     }
 
     [Fact]

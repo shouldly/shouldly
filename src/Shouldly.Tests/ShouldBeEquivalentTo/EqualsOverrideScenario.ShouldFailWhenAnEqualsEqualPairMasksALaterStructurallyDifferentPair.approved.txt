@@ -1,0 +1,12 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatableHolder]
+    Second [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatable]
+        Data [System.String]
+
+    Expected value to be
+"different"
+    but was
+"two"
+
+Additional Info:
+    Some additional context

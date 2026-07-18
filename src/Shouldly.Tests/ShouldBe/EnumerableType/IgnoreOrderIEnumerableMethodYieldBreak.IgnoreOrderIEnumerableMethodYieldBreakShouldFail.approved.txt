@@ -1,0 +1,10 @@
+GetEmptyEnumerable()
+    should be (ignoring order)
+[2, 4]
+    but
+GetEmptyEnumerable()
+    is missing
+[2, 4]
+
+Additional Info:
+    Some additional context

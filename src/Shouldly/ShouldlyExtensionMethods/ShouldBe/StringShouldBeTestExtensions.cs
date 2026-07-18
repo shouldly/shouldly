@@ -11,39 +11,39 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Perform a string comparison with sensitivity options
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,
         [NotNullIfNotNull(nameof(actual))] string? expected,
-        string? customMessage = null)
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         // ReSharper disable once IntroduceOptionalParameters.Global
-        ShouldBe(actual, expected, customMessage, 0);
+        ShouldBe(actual, expected, customMessage, 0, actualExpression);
     }
 
     /// <summary>
     /// Perform a string comparison with sensitivity options
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,
         [NotNullIfNotNull(nameof(actual))] string? expected,
-        StringCompareShould options)
+        StringCompareShould options,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        ShouldBe(actual, expected, null, options);
+        ShouldBe(actual, expected, null, options, actualExpression);
     }
 
     /// <summary>
     /// Perform a string comparison with sensitivity options and custom message
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ShouldBe(
         [NotNullIfNotNull(nameof(expected))] this string? actual,
         [NotNullIfNotNull(nameof(actual))] string? expected,
         string? customMessage,
-        StringCompareShould options)
+        StringCompareShould options,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options);
+        var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options, actualExpression: actualExpression);
         ExecuteAssertion(assertion, customMessage);
     }
 

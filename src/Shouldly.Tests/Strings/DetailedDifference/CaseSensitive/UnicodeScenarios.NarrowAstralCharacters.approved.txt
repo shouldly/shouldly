@@ -1,0 +1,10 @@
+str
+    should be
+"id 𝐀𝐗𝐂 end"
+    but was
+"id 𝐀𝐁𝐂 end"
+    difference
+               ▼
+Expected: "id 𝐀𝐗𝐂 end"
+Actual:   "id 𝐀𝐁𝐂 end"
+               ▲

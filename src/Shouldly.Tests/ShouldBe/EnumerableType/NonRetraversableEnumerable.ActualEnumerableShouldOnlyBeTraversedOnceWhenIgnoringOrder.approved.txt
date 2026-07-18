@@ -1,0 +1,11 @@
+CreateTestEnumerable()
+    should be (ignoring order)
+[2, 3, 4]
+    but
+CreateTestEnumerable()
+    is missing
+[4]
+    and
+[2, 3, 4]
+    is missing
+[1]

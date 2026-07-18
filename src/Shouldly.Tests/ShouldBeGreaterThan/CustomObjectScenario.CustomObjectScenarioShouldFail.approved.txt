@@ -1,0 +1,8 @@
+customA
+    should be greater than
+Shouldly.Tests.TestHelpers.Custom (000000)
+    but was
+Shouldly.Tests.TestHelpers.Custom (000000)
+
+Additional Info:
+    Some additional context

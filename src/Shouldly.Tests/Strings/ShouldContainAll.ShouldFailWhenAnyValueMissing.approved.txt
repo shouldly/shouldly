@@ -1,0 +1,5 @@
+target
+    should contain all
+"name, slim, eminem"
+    but was actually
+"my name is slim shady"

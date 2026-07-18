@@ -1,91 +1,40 @@
-﻿namespace Shouldly.Tests.Strings;
+namespace Shouldly.Tests.Strings;
 
 public class ShouldNotContainAny
 {
     [Fact]
-    public void ShouldNotContainAny_ShouldPass_WhenNoValuesPresent()
+    public void ShouldPassWhenNoValuesPresent()
     {
         "my name is slim shady".ShouldNotContainAny(["marshall", "mathers"]);
     }
 
     [Fact]
-    public void ShouldNotContainAny_ShouldThrow_WhenAnyValuePresent()
+    public void ShouldFailWhenAnyValuePresent()
     {
-        Verify.ShouldFail(
-            () => "my name is slim shady".ShouldNotContainAny(["name", "foo"]),
-
-            errorWithSource:
-            """
-            "my name is slim shady"
-                should not contain any (case insensitive comparison)
-            "name, foo"
-                but did
-            """,
-
-            errorWithoutSource:
-            """
-            "my name is slim shady"
-                should not contain any (case insensitive comparison)
-            "name, foo"
-                but did
-            """);
+        var target = "my name is slim shady";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAny(["name", "foo"]));
     }
 
     [Fact]
-    public void ShouldNotContainAny_WithCaseSensitive_ShouldFailIfCaseMatches()
+    public void CaseSensitiveShouldFailIfCaseMatches()
     {
-        Verify.ShouldFail(
-            () => "Hello World".ShouldNotContainAny(["Hello"], Case.Sensitive),
-
-            errorWithSource:
-            """
-            "Hello World"
-                should not contain any
-            "Hello"
-                but did
-            """,
-
-            errorWithoutSource:
-            """
-            "Hello World"
-                should not contain any
-            "Hello"
-                but did
-            """);
+        var target = "Hello World";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAny(["Hello"], Case.Sensitive));
     }
 
     [Fact]
-    public void ShouldNotContainAny_WithCaseInsensitive_ShouldPassIfValuesAbsentIgnoringCase()
+    public void CaseInsensitiveShouldPassIfValuesAbsentIgnoringCase()
     {
         "Hello World".ShouldNotContainAny(["mars"], Case.Insensitive);
     }
 
     [Fact]
-    public void ShouldNotContainAny_ShouldIncludeCustomMessage_WhenProvided()
+    public void ShouldIncludeCustomMessageWhenProvided()
     {
-        Verify.ShouldFail(
-            () => "my name is slim shady".ShouldNotContainAny(["name", "slim"], Case.Insensitive, "Custom error message"),
-
-            errorWithSource:
-            """
-            "my name is slim shady"
-                should not contain any (case insensitive comparison)
-            "name, slim"
-                but did
-
-            Additional Info:
-                Custom error message
-            """,
-
-            errorWithoutSource:
-            """
-            "my name is slim shady"
-                should not contain any (case insensitive comparison)
-            "name, slim"
-                but did
-
-            Additional Info:
-                Custom error message
-            """);
+        var target = "my name is slim shady";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAny(["name", "slim"], Case.Insensitive, "Custom error message"));
     }
 }

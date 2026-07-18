@@ -1,0 +1,10 @@
+str
+    should be
+"Stringone BackslashV"
+    but was
+"StringOneBackslashV"
+    difference
+                 ▼  ▼
+Expected: "Stringone BackslashV"
+Actual:   "StringOne\vBackslashV"
+                 ▲  ▲▲

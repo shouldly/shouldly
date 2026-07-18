@@ -1,0 +1,6 @@
+myNullRef
+    should be null but was
+0
+
+Additional Info:
+    Some additional context

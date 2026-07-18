@@ -1,0 +1,10 @@
+str
+    should be
+"foobar"
+    but was
+"foo​bar"
+    difference
+Expected: "foobar"
+Actual:   "foo​bar"
+              ▲
+Difference at index 3: (empty) vs U+200B

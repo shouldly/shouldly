@@ -7,34 +7,43 @@ public class TypeScenario
     {
         const string subject = "Hello";
         Verify.ShouldFail(() =>
-                subject.ShouldBeEquivalentTo(5, "Some additional context"),
+            subject.ShouldBeEquivalentTo(5, "Some additional context"));
+    }
 
-            errorWithSource:
-            """
-            Comparing object equivalence, at path:
-            subject
-            
-                Expected value to be
-            System.Int32
-                but was
-            System.String
+    [Fact]
+    public void ShouldPassWhenTypesAreEqual()
+    {
+        typeof(int).ShouldBeEquivalentTo(typeof(int));
+    }
 
-            Additional Info:
-                Some additional context
-            """,
+    [Fact]
+    public void ShouldPassWhenTypeIsPropertyOfContainingObject()
+    {
+        var subject = new TypeHolder { Type = typeof(int) };
+        var expected = new TypeHolder { Type = typeof(int) };
 
-            errorWithoutSource:
-            """
-            Comparing object equivalence, at path:
-            <root>
-            
-                Expected value to be
-            System.Int32
-                but was
-            System.String
+        subject.ShouldBeEquivalentTo(expected);
+    }
 
-            Additional Info:
-                Some additional context
-            """);
+    [Fact]
+    public void ShouldPassForListOfTypes()
+    {
+        new List<Type> { typeof(int), typeof(string) }
+            .ShouldBeEquivalentTo(new List<Type> { typeof(int), typeof(string) });
+    }
+
+    [Fact]
+    public void ShouldFailWhenTypesDiffer()
+    {
+        var subject = new TypeHolder { Type = typeof(int) };
+        var expected = new TypeHolder { Type = typeof(string) };
+
+        Verify.ShouldFail(() =>
+            subject.ShouldBeEquivalentTo(expected, "Some additional context"));
+    }
+
+    public class TypeHolder
+    {
+        public Type Type { get; set; } = null!;
     }
 }

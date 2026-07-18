@@ -1,0 +1,19 @@
+```
+The conditions specified should all be satisfied, but were not.
+The following errors were found ...
+---------------- Error 1 ----------------
+    mrBurns.Name (null)
+        should not be null or empty
+
+---------------- Error 2 ----------------
+    homer.Name
+        should be
+    "Mr.Burns"
+        but was
+    "Homer"
+        difference
+    Expected: "Mr.Burns"
+    Actual:   "Homer"
+
+-----------------------------------------
+```

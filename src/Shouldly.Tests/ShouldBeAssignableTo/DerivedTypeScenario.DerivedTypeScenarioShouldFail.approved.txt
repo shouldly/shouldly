@@ -1,0 +1,8 @@
+myThing
+    should be assignable to
+System.String
+    but was
+Shouldly.Tests.TestHelpers.MyThing
+
+Additional Info:
+    Some additional context

@@ -79,25 +79,63 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     public IEnumerable<string>? Path { get; set; }
 
     /// <summary>
+    /// The differences collected by an equivalency comparison, when this context belongs to a
+    /// ShouldBeEquivalentTo failure.
+    /// </summary>
+    internal IReadOnlyList<Equivalency.EquivalencyDifference>? EquivalencyDifferences { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the ShouldlyAssertionContext class
     /// </summary>
     /// <param name="shouldlyMethod">The name of the should method being called</param>
     /// <param name="expected">The expected value</param>
     /// <param name="actual">The actual value</param>
     /// <param name="stackTrace">The stack trace</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument, if captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>. When provided, supersedes stack-trace parsing.</param>
     public ShouldlyAssertionContext(
         string shouldlyMethod,
         object? expected = null,
         object? actual = null,
-        StackTrace? stackTrace = null)
+        StackTrace? stackTrace = null,
+        string? actualExpression = null)
     {
-        var actualCodeGetter = new ActualCodeTextGetter();
         Expected = expected;
         Actual = actual;
         ShouldMethod = shouldlyMethod;
 
-        CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
-        FileName = actualCodeGetter.FileName;
-        LineNumber = actualCodeGetter.LineNumber;
+        if (actualExpression != null)
+        {
+            CodePart = actualExpression;
+        }
+        else
+        {
+            if (ShouldlyConfiguration.IsCallerArgumentExpressionRequired())
+                throw TripWireException(shouldlyMethod);
+
+#if NETSTANDARD2_0
+            if (ShouldlyConfiguration.IsSourceDisabledInErrors())
+            {
+                CodePart = actual.ToStringAwesomely();
+            }
+            else
+            {
+                var actualCodeGetter = new ActualCodeTextGetter();
+                CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
+                FileName = actualCodeGetter.FileName;
+                LineNumber = actualCodeGetter.LineNumber;
+            }
+#else
+            CodePart = actual.ToStringAwesomely();
+#endif
+        }
     }
+
+    private static InvalidOperationException TripWireException(string shouldlyMethod) =>
+        new(
+            $"Assertion '{shouldlyMethod}' fell back to stack-trace parsing despite the " +
+            $"{nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed)} trip-wire being armed. " +
+            "Either the public method is missing its [CallerArgumentExpression] parameter, the captured " +
+            "value is not threaded through to the message constructor, or the call site cannot use CAE " +
+            $"(e.g. dynamic dispatch, obsolete params overloads) — wrap such call sites in " +
+            $"{nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
 }

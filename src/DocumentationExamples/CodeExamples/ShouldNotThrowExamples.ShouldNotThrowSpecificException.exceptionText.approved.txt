@@ -1,0 +1,7 @@
+```
+`var y = homer.Salary / denominator;`
+    should not throw
+System.DivideByZeroException
+    but did, with message
+"Attempted to divide by zero."
+```

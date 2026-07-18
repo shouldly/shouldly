@@ -1,0 +1,8 @@
+target
+    should not contain any (case insensitive comparison)
+"name, slim"
+    but was actually
+"my name is slim shady"
+
+Additional Info:
+    Custom error message

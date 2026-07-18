@@ -1,0 +1,8 @@
+Comparing object equivalence, at path:
+subject [System.Collections.Generic.Dictionary<System.Int32, System.Int32>]
+
+    Found key(s) not present on the expectation
+[5]
+
+Additional Info:
+    Some additional context

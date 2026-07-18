@@ -1,0 +1,8 @@
+someFlags
+    should not be one of
+[SomeFlags.Val1]
+    but was
+SomeFlags.Val1
+
+Additional Info:
+    Some additional context

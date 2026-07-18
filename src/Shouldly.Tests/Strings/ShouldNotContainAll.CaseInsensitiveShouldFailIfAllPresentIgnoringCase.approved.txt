@@ -1,0 +1,5 @@
+target
+    should not contain all (case insensitive comparison)
+"hello"
+    but was actually
+"Hello World"

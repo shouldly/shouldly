@@ -6,34 +6,12 @@ public class BasicScenarioCaseInSensitive
     public void BasicScenarioCaseInSensitiveShouldFail()
     {
         Verify.ShouldFail(() =>
-                "Cheese".ShouldStartWith("Ce", Case.Insensitive, "Some additional context"),
-
-            errorWithSource:
-            """
-            "Cheese"
-                should start with
-            "Ce"
-                but was not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "Cheese"
-                should start with
-            "Ce"
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            "Cheese".ShouldStartWith("Ce", Case.Insensitive, "Some additional context"));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        "Cheese".ShouldStartWith("CH");
+        "Cheese".ShouldStartWith("CH", Case.Insensitive);
     }
 }

@@ -1,0 +1,16 @@
+str
+    should be with options: Ignoring line endings, Ignoring case
+"line1
+Line3"
+    but was
+"line1
+line2"
+    difference
+          line1
+              ▼
+Expected: Line3
+Actual:   line2
+              ▲
+
+Additional Info:
+    Some additional context

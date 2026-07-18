@@ -1,0 +1,7 @@
+Task `task`
+    should throw
+System.InvalidOperationException
+    but did not
+
+Additional Info:
+    Some additional context

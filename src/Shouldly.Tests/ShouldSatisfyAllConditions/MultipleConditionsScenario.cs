@@ -1,85 +1,33 @@
 namespace Shouldly.Tests.ShouldSatisfyAllConditions;
 
+// Should.Satisfy is the static form, for a group of unrelated assertions that share no common
+// subject. When the assertions all hang off one value, use the value.ShouldSatisfy(...) extension
+// overload instead (see GenericMultipleConditionsScenario).
 public class MultipleConditionsScenario
 {
     [Fact]
     public void MultipleConditionsScenarioShouldFail()
     {
-        var result = 4;
+        var name = "Homer";
+        var age = 4;
         Verify.ShouldFail(() =>
-                result.ShouldSatisfyAllConditions(
-                    "Some additional context",
-                    () => result.ShouldBeOfType<float>("Some additional context"),
-                    () => result.ShouldBeGreaterThan(5, "Some additional context")),
-
-            errorWithSource:
-            """
-            result
-                should satisfy all the conditions specified, but does not.
-            The following errors were found ...
-            --------------- Error 1 ---------------
-                result
-                    should be of type
-                System.Single
-                    but was
-                System.Int32
-            
-                Additional Info:
-                    Some additional context
-
-            --------------- Error 2 ---------------
-                result
-                    should be greater than
-                5
-                    but was
-                4
-            
-                Additional Info:
-                    Some additional context
-
-            -----------------------------------------
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            4
-                should satisfy all the conditions specified, but does not.
-            The following errors were found ...
-            --------------- Error 1 ---------------
-                4
-                    should be of type
-                System.Single
-                    but was
-                System.Int32
-            
-                Additional Info:
-                    Some additional context
-
-            --------------- Error 2 ---------------
-                4
-                    should be greater than
-                5
-                    but was not
-            
-                Additional Info:
-                    Some additional context
-
-            -----------------------------------------
-
-            Additional Info:
-                Some additional context
-            """);
+            Should.Satisfy(
+                [
+                    () => name.ShouldBe("Marge", "Some additional context"),
+                    () => age.ShouldBeGreaterThan(5, "Some additional context")
+                ],
+                "Some additional context"));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        var result = 4;
-        result.ShouldSatisfyAllConditions(
-            () => result.ShouldBeOfType<int>(),
-            () => result.ShouldBeGreaterThan(3));
+        var name = "Homer";
+        var age = 4;
+        Should.Satisfy(
+        [
+            () => name.ShouldBe("Homer"),
+            () => age.ShouldBeGreaterThan(3)
+        ]);
     }
 }

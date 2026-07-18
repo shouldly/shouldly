@@ -8,24 +8,7 @@ public class LongStringScenario
     public void LongStringScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                _target.ShouldNotContain("zzzz"),
-
-            errorWithSource:
-            """
-            _target
-                should not contain (case insensitive comparison)
-            "zzzz"
-                but was actually
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
-            """,
-
-            errorWithoutSource:
-            """
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa..."
-                should not contain (case insensitive comparison)
-            "zzzz"
-                but did
-            """);
+            _target.ShouldNotContain("zzzz"));
     }
 
     [Fact]

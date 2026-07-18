@@ -1,0 +1,8 @@
+new object()
+    should be
+"this string"
+    but was
+System.Object (000000)
+
+Additional Info:
+    Some additional context

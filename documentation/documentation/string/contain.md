@@ -17,7 +17,7 @@ target.ShouldContain("Bart");
 <!-- include: StringExamples.ShouldContain.exceptionText.approved.txt -->
 ```
 target
-    should contain (case insensitive comparison)
+    should contain
 "Bart"
     but was actually
 "Homer"
@@ -65,7 +65,7 @@ target.ShouldNotContain("Home");
 <!-- include: StringExamples.ShouldNotContain.exceptionText.approved.txt -->
 ```
 target
-    should not contain (case insensitive comparison)
+    should not contain
 "Home"
     but was actually
 "Homer"
@@ -89,7 +89,7 @@ target.ShouldContainAll(["Homer", "Bart"]);
 <!-- include: StringExamples.ShouldContainAll.exceptionText.approved.txt -->
 ```
 target
-    should contain all (case insensitive comparison)
+    should contain all
 "Homer, Bart"
     but was actually
 "Homer Simpson"
@@ -112,7 +112,7 @@ target.ShouldContainAny(["Bart", "Marge"]);
 <!-- include: StringExamples.ShouldContainAny.exceptionText.approved.txt -->
 ```
 target
-    should contain any (case insensitive comparison)
+    should contain any
 "Bart, Marge"
     but was actually
 "Homer"
@@ -135,7 +135,7 @@ target.ShouldNotContainAll(["Homer", "Simpson"]);
 <!-- include: StringExamples.ShouldNotContainAll.exceptionText.approved.txt -->
 ```
 target
-    should not contain all (case insensitive comparison)
+    should not contain all
 "Homer, Simpson"
     but was actually
 "Homer Simpson"
@@ -158,7 +158,7 @@ target.ShouldNotContainAny(["Home", "Moe"]);
 <!-- include: StringExamples.ShouldNotContainAny.exceptionText.approved.txt -->
 ```
 target
-    should not contain any (case insensitive comparison)
+    should not contain any
 "Home, Moe"
     but was actually
 "Homer"

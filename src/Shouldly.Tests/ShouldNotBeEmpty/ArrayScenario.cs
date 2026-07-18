@@ -6,25 +6,7 @@ public class ArrayScenario
     public void ArrayScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new int[0].ShouldNotBeEmpty("Some additional context"),
-
-            errorWithSource:
-            """
-            new int[0]
-                should not be empty but was
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            []
-                should not be empty but was
-
-            Additional Info:
-                Some additional context
-            """);
+            new int[0].ShouldNotBeEmpty("Some additional context"));
     }
 
     [Fact]

@@ -6,34 +6,7 @@ public class EnumerableOfStringIsSensitiveScenario
     public void EnumerableOfStringIsSensitiveScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new[] { "foo" }.ShouldBe(["FoO"], Case.Sensitive, "Some additional context"),
-
-            errorWithSource:
-            """
-            new[] { "foo" }
-                should be
-            ["FoO"]
-                but was (case sensitive comparison)
-            ["foo"]
-                difference
-            [*"foo"*]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            ["foo"]
-                should be
-            ["FoO"]
-                but was not (case sensitive comparison)
-                difference
-            [*"foo"*]
-
-            Additional Info:
-                Some additional context
-            """);
+            new[] { "foo" }.ShouldBe(["FoO"], Case.Sensitive, "Some additional context"));
     }
 
     [Fact]

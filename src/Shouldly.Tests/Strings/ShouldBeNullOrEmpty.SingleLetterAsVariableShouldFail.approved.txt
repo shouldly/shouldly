@@ -1,0 +1,5 @@
+singleLetter ("a")
+    should be null or empty
+
+Additional Info:
+    Some additional context

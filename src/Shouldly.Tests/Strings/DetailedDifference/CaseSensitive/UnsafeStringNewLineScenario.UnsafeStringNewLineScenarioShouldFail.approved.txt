@@ -1,0 +1,11 @@
+str
+    should be
+"Stringone
+NewLine"
+    but was
+"StringOneNoNewLine"
+    difference
+                 ▼  ▼▼▼▼
+Expected: "Stringone\r\nNewLine"
+Actual:   "StringOneNoNewLine"
+                 ▲  ▲▲

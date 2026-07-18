@@ -12,61 +12,56 @@ class ShouldNotThrowMessageGenerator : ShouldlyMessageGenerator
         var isExtensionMethod = context.ShouldMethod == "ShouldNotThrow";
         var codePart = context.CodePart;
 
-        var expected = context.Expected.ToStringAwesomely();
-
-        string errorMessage;
-        if (codePart == "null" && !throwContext.IsAsync)
+        string subject;
+        if (codePart == "null")
         {
-            errorMessage =
-                $"""
-                 delegate
-                     should not throw but threw
-                 {expected}
-                 """;
+            subject = throwContext.IsAsync ? "Task" : "delegate";
         }
-        else if (codePart == "null" && throwContext.IsAsync)
+        else if (isExtensionMethod)
         {
-            errorMessage =
-                $"""
-                 Task
-                     should not throw but threw
-                 {expected}
-                 """;
-        }
-        else if (isExtensionMethod && !throwContext.IsAsync)
-        {
-            errorMessage =
-                $"""
-                 `{codePart}()`
-                     should not throw but threw
-                 {expected}
-                 """;
-        }
-        else if (isExtensionMethod && throwContext.IsAsync)
-        {
-            errorMessage =
-                $"""
-                 Task `{codePart}`
-                     should not throw but threw
-                 {expected}
-                 """;
+            subject = throwContext.IsAsync ? $"Task `{codePart}`" : $"`{codePart}()`";
         }
         else
         {
-            errorMessage =
+            subject = $"`{codePart}`";
+        }
+
+        // NotThrow<TException> carries the disallowed type in Expected and the thrown
+        // exception in Actual; the non-generic NotThrow stores the thrown type in Expected.
+        if (context.Expected is Type expectedType && context.Actual is Exception thrown)
+        {
+            var thrownType = thrown.GetType();
+            if (thrownType == expectedType)
+            {
+                return
+                    $"""
+                     {subject}
+                         should not throw
+                     {expectedType.ToStringAwesomely()}
+                         but did, with message
+                     "{thrown.Message}"
+                     """;
+            }
+
+            return
                 $"""
-                 `{codePart}`
-                     should not throw but threw
-                 {expected}
+                 {subject}
+                     should not throw
+                 {expectedType.ToStringAwesomely()}
+                     but threw
+                 {thrownType.ToStringAwesomely()}
+                     with message
+                 "{thrown.Message}"
                  """;
         }
 
-        errorMessage += $"""
-                         
-                             with message
-                         "{throwContext.ExceptionMessage}"
-                         """;
-
-        return errorMessage;
+        return
+            $"""
+             {subject}
+                 should not throw but threw
+             {context.Expected.ToStringAwesomely()}
+                 with message
+             "{throwContext.ExceptionMessage}"
+             """;
     }
 }

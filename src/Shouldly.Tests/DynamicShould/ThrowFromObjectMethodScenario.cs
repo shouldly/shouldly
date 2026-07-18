@@ -14,60 +14,16 @@ public class ThrowFromObjectMethodScenario
     public void NotThrowFromDynamicMethodScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                Shouldly.DynamicShould
-                    .Throw<InvalidOperationException>(() => ((dynamic)new Foo()).NoExceptionMethod(), "Some additional context"),
-
-            errorWithSource:
-            """
-            `(dynamic)new Foo()).NoExceptionMethod(`
-                should throw
-            System.InvalidOperationException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            delegate
-                should throw
-            System.InvalidOperationException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            Shouldly.DynamicShould
+                .Throw<InvalidOperationException>(() => ((dynamic)new Foo()).NoExceptionMethod(), "Some additional context"));
     }
 
     [Fact]
     public void ThrowOtherExceptionFromDynamicMethodScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                Shouldly.DynamicShould
-                    .Throw<ArgumentException>(() => ((dynamic)new Foo()).NoExceptionMethod(), "Some additional context"),
-
-            errorWithSource:
-            """
-            `(dynamic)new Foo()).NoExceptionMethod(`
-                should throw
-            System.ArgumentException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            delegate
-                should throw
-            System.ArgumentException
-                but did not
-
-            Additional Info:
-                Some additional context
-            """);
+            Shouldly.DynamicShould
+                .Throw<ArgumentException>(() => ((dynamic)new Foo()).NoExceptionMethod(), "Some additional context"));
     }
 
     [Fact]

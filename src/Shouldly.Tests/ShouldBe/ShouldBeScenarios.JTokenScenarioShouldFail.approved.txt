@@ -1,0 +1,10 @@
+new Strange()
+    should be
+[] (string)
+    but was
+[] (null)
+    difference
+[]
+
+Additional Info:
+    Some additional context

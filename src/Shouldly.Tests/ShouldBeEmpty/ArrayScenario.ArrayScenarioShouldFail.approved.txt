@@ -1,0 +1,8 @@
+new[] { 1 }
+    should be empty but had
+1
+    item and was
+[1]
+
+Additional Info:
+    Some additional context

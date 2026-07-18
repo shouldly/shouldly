@@ -6,9 +6,11 @@ namespace Shouldly.Tests.ShouldMatchApproved;
 
 public class ShouldMatchApprovedScenarios
 {
+    // Anchors on the repo-relative `src/Shouldly.Tests` suffix so the checkout can live
+    // anywhere (e.g. /tmp, a worktree, or a folder not named "shouldly").
     private readonly Func<string, string> _scrubber = v => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-        ? Regex.Replace(v, @"\w:.+?shouldly\\src", "C:\\PathToCode\\shouldly\\src")
-        : Regex.Replace(v, @"\/([U,u]sers|[H,h]ome).+?shouldly\/src", "/PathToCode/shouldly/src");
+        ? Regex.Replace(v, @"\w:.+?\\src\\Shouldly\.Tests", @"C:\PathToCode\shouldly\src\Shouldly.Tests")
+        : Regex.Replace(v, @"/[^""\r\n]+?/src/Shouldly\.Tests", "/PathToCode/shouldly/src/Shouldly.Tests");
 
     [Fact]
     public void Simple()
@@ -42,9 +44,7 @@ public class ShouldMatchApprovedScenarios
 
         Verify.ShouldFail(() =>
                 "Bar".ShouldMatchApproved(c => c.NoDiff()),
-
-            errorWithSource: errorMsg,
-            errorWithoutSource: errorMsg,
+            errorMsg,
             messageScrubber: _scrubber);
     }
 
@@ -85,8 +85,6 @@ public class ShouldMatchApprovedScenarios
         var str = "Foo";
         Verify.ShouldFail(() =>
                 str.ShouldMatchApproved(c => c.NoDiff()),
-
-            errorWithSource:
             $"""
              To approve the changes run this command:
              {cmd}
@@ -98,37 +96,10 @@ public class ShouldMatchApprovedScenarios
                  but was
              "Foo"
                  difference
-             Difference     |  |    |    |   
-                            | \|/  \|/  \|/  
-             Index          | 0    1    2    
-             Expected Value | B    a    r    
-             Actual Value   | F    o    o    
-             Expected Code  | 66   97   114  
-             Actual Code    | 70   111  111  
+             Expected: "Bar"
+             Actual:   "Foo"
              """,
-
-            errorWithoutSource:
-            $"""
-             To approve the changes run this command:
-             {cmd}
-             ----------------------------
-
-             "Foo"
-                 should match approved with options: Ignoring line endings
-             "Bar"
-                 but was not
-                 difference
-             Difference     |  |    |    |   
-                            | \|/  \|/  \|/  
-             Index          | 0    1    2    
-             Expected Value | B    a    r    
-             Actual Value   | F    o    o    
-             Expected Code  | 66   97   114  
-             Actual Code    | 70   111  111  
-             """,
-
-            messageScrubber:
-            _scrubber);
+            messageScrubber: _scrubber);
     }
 
     [Fact]

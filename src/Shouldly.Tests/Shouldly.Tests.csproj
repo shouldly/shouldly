@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net9.0</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net48</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <Optimize>false</Optimize>
@@ -11,19 +11,15 @@
     <None Include="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.4.1" PrivateAssets="all" />
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
-    <PackageReference Include="xunit.v3" Version="2.0.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1" PrivateAssets="all" />
-    <PackageReference Include="PublicApiGenerator" Version="11.4.6" />
-    <PackageReference Include="System.Memory" Version="4.6.3" />
-    <PackageReference Include="System.Collections.Immutable" Version="9.0.1" />
-    <PackageReference Include="Polyfill" Version="7.30.0" PrivateAssets="all" />
-    <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" PrivateAssets="all" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="PublicApiGenerator" Version="11.5.4" />
+    <PackageReference Include="Polyfill" Version="11.0.1" PrivateAssets="all" />
+    <PackageReference Include="GitHubActionsTestLogger" Version="3.0.4" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net48' ">
-    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.4.0" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.8.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Runtime" />
@@ -31,5 +27,6 @@
     <Reference Include="System" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <Reference Include="System.Memory" Version="4.5.3" />
+    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
   </ItemGroup>
 </Project>

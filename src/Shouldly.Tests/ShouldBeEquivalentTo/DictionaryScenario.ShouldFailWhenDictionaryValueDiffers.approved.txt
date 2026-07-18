@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [System.Collections.Generic.Dictionary<System.String, System.Int32>]
+    ["b"] [System.Int32]
+
+    Expected value to be
+3
+    but was
+2
+
+Additional Info:
+    Some additional context

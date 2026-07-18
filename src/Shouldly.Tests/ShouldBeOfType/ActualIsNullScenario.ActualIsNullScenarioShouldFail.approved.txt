@@ -1,0 +1,8 @@
+myThing
+    should be of type
+Shouldly.Tests.TestHelpers.MyBase
+    but was
+null
+
+Additional Info:
+    Some additional context

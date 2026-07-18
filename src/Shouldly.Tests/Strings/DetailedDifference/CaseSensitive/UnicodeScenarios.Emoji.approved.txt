@@ -1,0 +1,10 @@
+str
+    should be
+"hello 🎊 world"
+    but was
+"hello 🎉 world"
+    difference
+                 ▼▼
+Expected: "hello 🎊 world"
+Actual:   "hello 🎉 world"
+                 ▲▲

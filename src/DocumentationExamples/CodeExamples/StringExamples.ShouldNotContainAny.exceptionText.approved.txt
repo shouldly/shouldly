@@ -1,6 +1,6 @@
 ```
 target
-    should not contain any (case insensitive comparison)
+    should not contain any
 "Home, Moe"
     but was actually
 "Homer"

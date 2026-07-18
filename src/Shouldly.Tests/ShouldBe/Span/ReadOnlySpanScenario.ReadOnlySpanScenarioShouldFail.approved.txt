@@ -1,0 +1,10 @@
+"hello".AsSpan()
+    should be
+[w, o, r, l, d]
+    but was
+[h, e, l, l, o]
+    difference
+[*h*, *e*, *l*, l, *o*]
+
+Additional Info:
+    Some additional context

@@ -103,6 +103,8 @@ millionaires.ShouldNotContain(m => m.Salary < 1000000);
 millionaires
     should not contain an element satisfying the condition
 (m.Salary < 1000000)
-    but does
+    but
+[Homer]
+    do
 ```
 <!-- endInclude -->

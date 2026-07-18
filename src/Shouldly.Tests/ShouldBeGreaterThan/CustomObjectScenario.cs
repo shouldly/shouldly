@@ -9,30 +9,7 @@ public class CustomObjectScenario
         var customB = new Custom { Val = 2 };
         var comparer = new CustomComparer<Custom>();
         Verify.ShouldFail(() =>
-                customA.ShouldBeGreaterThan(customB, comparer, "Some additional context"),
-
-            errorWithSource:
-            """
-            customA
-                should be greater than
-            Shouldly.Tests.TestHelpers.Custom (000000)
-                but was
-            Shouldly.Tests.TestHelpers.Custom (000000)
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            Shouldly.Tests.TestHelpers.Custom (000000)
-                should be greater than
-            Shouldly.Tests.TestHelpers.Custom (000000)
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            customA.ShouldBeGreaterThan(customB, comparer, "Some additional context"));
     }
 
     [Fact]

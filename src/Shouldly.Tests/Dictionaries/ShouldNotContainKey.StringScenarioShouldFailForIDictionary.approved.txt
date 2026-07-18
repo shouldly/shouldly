@@ -1,0 +1,7 @@
+StringIDictionary()
+    should not contain key
+"Foo"
+    but does
+
+Additional Info:
+    Some additional context

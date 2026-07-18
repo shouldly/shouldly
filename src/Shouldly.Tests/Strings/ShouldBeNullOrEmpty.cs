@@ -6,23 +6,7 @@ public class ShouldBeNullOrEmpty
     public void SingleLetterShouldFail()
     {
         Verify.ShouldFail(() =>
-                "a".ShouldBeNullOrEmpty("Some additional context"),
-            errorWithSource:
-            """
-            "a"
-                should be null or empty
-
-            Additional Info:
-                Some additional context
-            """,
-            errorWithoutSource:
-            """
-            "a"
-                should be null or empty
-
-            Additional Info:
-                Some additional context
-            """);
+            "a".ShouldBeNullOrEmpty("Some additional context"));
     }
 
     [Fact]
@@ -31,23 +15,7 @@ public class ShouldBeNullOrEmpty
         var singleLetter = "a";
 
         Verify.ShouldFail(() =>
-                singleLetter.ShouldBeNullOrEmpty("Some additional context"),
-            errorWithSource:
-            """
-            singleLetter ("a")
-                should be null or empty
-
-            Additional Info:
-                Some additional context
-            """,
-            errorWithoutSource:
-            """
-            "a"
-                should be null or empty
-
-            Additional Info:
-                Some additional context
-            """);
+            singleLetter.ShouldBeNullOrEmpty("Some additional context"));
     }
 
     [Fact]

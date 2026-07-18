@@ -1,120 +1,54 @@
-﻿namespace Shouldly.Tests.Strings;
+namespace Shouldly.Tests.Strings;
 
 public class ShouldNotContainAll
 {
     [Fact]
-    public void ShouldNotContainAll_ShouldPass_WhenNotAllValuesPresent()
+    public void ShouldPassWhenNotAllValuesPresent()
     {
         "my name is slim shady".ShouldNotContainAll(["name", "slim", "eminem"]);
     }
 
     [Fact]
-    public void ShouldNotContainAll_ShouldThrow_WhenAllValuesPresent()
+    public void ShouldFailWhenAllValuesPresent()
     {
-        Verify.ShouldFail(
-            () => "my name is slim shady".ShouldNotContainAll(["name", "slim", "shady"]),
-
-            errorWithSource:
-            """
-            "my name is slim shady"
-                should not contain all (case insensitive comparison)
-            "name, slim, shady"
-                but did
-            """,
-
-            errorWithoutSource:
-            """
-            "my name is slim shady"
-                should not contain all (case insensitive comparison)
-            "name, slim, shady"
-                but did
-            """);
+        var target = "my name is slim shady";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAll(["name", "slim", "shady"]));
     }
 
     [Fact]
-    public void ShouldNotContainAll_WithCaseSensitive_ShouldFailIfAllMatch()
+    public void CaseSensitiveShouldFailIfAllMatch()
     {
-        Verify.ShouldFail(
-            () => "Hello World".ShouldNotContainAll(["Hello"], Case.Sensitive),
-
-            errorWithSource:
-            """
-            "Hello World"
-                should not contain all
-            "Hello"
-                but did
-            """,
-
-            errorWithoutSource:
-            """
-            "Hello World"
-                should not contain all
-            "Hello"
-                but did
-            """);
+        var target = "Hello World";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAll(["Hello"], Case.Sensitive));
     }
 
     [Fact]
-    public void ShouldNotContainAll_WithCaseSensitive_ShouldPassIfCaseDoesNotMatch()
+    public void CaseSensitiveShouldPassIfCaseDoesNotMatch()
     {
         "Hello World".ShouldNotContainAll(["hello"], Case.Sensitive);
     }
 
     [Fact]
-    public void ShouldNotContainAll_WithCaseInsensitive_ShouldFailIfAllPresentIgnoringCase()
+    public void CaseInsensitiveShouldFailIfAllPresentIgnoringCase()
     {
-        Verify.ShouldFail(
-            () => "Hello World".ShouldNotContainAll(["hello"], Case.Insensitive),
-
-            errorWithSource:
-            """
-            "Hello World"
-                should not contain all (case insensitive comparison)
-            "hello"
-                but did
-            """,
-
-            errorWithoutSource:
-            """
-            "Hello World"
-                should not contain all (case insensitive comparison)
-            "hello"
-                but did
-            """);
+        var target = "Hello World";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAll(["hello"], Case.Insensitive));
     }
 
     [Fact]
-    public void ShouldNotContainAll_WithCaseInsensitive_ShouldPassIfNotAllPresentIgnoringCase()
+    public void CaseInsensitiveShouldPassIfNotAllPresentIgnoringCase()
     {
         "Hello World".ShouldNotContainAll(["hello", "mars"], Case.Insensitive);
     }
 
     [Fact]
-    public void ShouldNotContainAll_ShouldIncludeCustomMessage_WhenProvided()
+    public void ShouldIncludeCustomMessageWhenProvided()
     {
-        Verify.ShouldFail(
-            () => "my name is slim shady".ShouldNotContainAll(["name", "slim", "shady"], Case.Insensitive, "Custom error message"),
-
-            errorWithSource:
-            """
-            "my name is slim shady"
-                should not contain all (case insensitive comparison)
-            "name, slim, shady"
-                but did
-
-            Additional Info:
-                Custom error message
-            """,
-
-            errorWithoutSource:
-            """
-            "my name is slim shady"
-                should not contain all (case insensitive comparison)
-            "name, slim, shady"
-                but did
-
-            Additional Info:
-                Custom error message
-            """);
+        var target = "my name is slim shady";
+        Verify.ShouldFail(() =>
+            target.ShouldNotContainAll(["name", "slim", "shady"], Case.Insensitive, "Custom error message"));
     }
 }

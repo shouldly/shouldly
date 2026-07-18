@@ -7,6 +7,7 @@
 ## Documentation
 
 * [Getting Started](documentation/getting-started.md)
+* [Migrating from FluentAssertions](documentation/migrating-from-fluentassertions.md)
 * [Configuration](documentation/configuration.md)
 * [Equality](documentation/equality/README.md)
   * [ShouldBe](documentation/equality/shouldBe.md)
@@ -21,7 +22,7 @@
   * [InRange](documentation/equality/inRange.md)
   * [MatchApproved](documentation/equality/matchApproved.md)
   * [Enumerable](documentation/enumerable/shouldBe.md)
-  * [SameAs](documentation/enumerable/shouldBe.md)
+  * [SameAs](documentation/equality/sameAs.md)
   * [String](documentation/string/shouldBe.md)
   * [ExampleClasses](documentation/equality/exampleClasses.md)
 * [String](documentation/string/README.md)
@@ -50,3 +51,4 @@
 * [CompleteIn](documentation/completeIn.md)
 * [DynamicShould](documentation/dynamicShould.md)
 * [Upgrade 3 to 4](documentation/upgrade/3to4.md)
+* [Upgrade 4 to 5](documentation/upgrade/4to5.md)

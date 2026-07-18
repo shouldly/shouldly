@@ -1,0 +1,29 @@
+The conditions specified should all be satisfied, but were not.
+The following errors were found ...
+---------------- Error 1 ----------------
+    name
+        should be
+    "Marge"
+        but was
+    "Homer"
+        difference
+    Expected: "Marge"
+    Actual:   "Homer"
+
+    Additional Info:
+        Some additional context
+
+---------------- Error 2 ----------------
+    age
+        should be greater than
+    5
+        but was
+    4
+
+    Additional Info:
+        Some additional context
+
+-----------------------------------------
+
+Additional Info:
+    Some additional context

@@ -15,7 +15,7 @@ public class FuncOfTaskScenarioAsync
         {
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `await task` should not throw but threw System.InvalidOperationException with message "exception message"
+                `task` should not throw but threw System.InvalidOperationException with message "exception message"
                 Additional Info: Some additional context
                 """);
         }
@@ -40,7 +40,7 @@ public class FuncOfTaskScenarioAsync
         {
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `await task`
+                `task`
                 should not throw but threw
                 System.AggregateException
                 """);
@@ -58,5 +58,25 @@ public class FuncOfTaskScenarioAsync
         var task = Task.Run(() => { }, TestContext.Current.CancellationToken);
 
         await task.ShouldNotThrowAsync();
+    }
+
+    [Fact]
+    public async Task ShouldThrowAWobbly_WhenTaskIsCanceled()
+    {
+        var task = Task.FromCanceled(new CancellationToken(canceled: true));
+
+        var ex = await Shouldly.Should.ThrowAsync<ShouldAssertException>(() => task.ShouldNotThrowAsync("Some additional context"));
+
+        ex.Message.ShouldContainWithoutWhitespace(
+            """
+            `task`
+            should not throw but threw
+            System.Threading.Tasks.TaskCanceledException
+            """);
+        ex.Message.ShouldContainWithoutWhitespace(
+            """
+            Additional Info:
+            Some additional context
+            """);
     }
 }

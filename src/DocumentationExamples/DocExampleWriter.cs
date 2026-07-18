@@ -8,8 +8,21 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public static class DocExampleWriter
 {
-    private static readonly Regex scrubberRegex = new(@"\w:.+?shouldly\\src", RegexOptions.Compiled);
-    private static readonly Func<string, string> scrubber = v => scrubberRegex.Replace(v, "C:\\PathToCode\\shouldly\\src");
+    private static readonly Regex windowsPathRegex = new(@"\w:.+?\\src\\DocumentationExamples", RegexOptions.Compiled);
+    private static readonly Regex unixPathRegex = new(@"/[^""\r\n]+?/src/DocumentationExamples", RegexOptions.Compiled);
+    private static readonly Regex scrubbedPathRegex = new(@"C:\\PathToCode\\shouldly\\src\\DocumentationExamples[^""\s]*", RegexOptions.Compiled);
+    private static readonly Regex unixCopyCommandRegex = new(@"^cp (?=""C:\\PathToCode)", RegexOptions.Compiled | RegexOptions.Multiline);
+
+    // The approved files are generated with Windows paths and commands; rewrite unix
+    // equivalents to that form so the tests pass on any OS and checkout location.
+    private static readonly Func<string, string> scrubber = v =>
+    {
+        v = windowsPathRegex.Replace(v, @"C:\PathToCode\shouldly\src\DocumentationExamples");
+        v = unixPathRegex.Replace(v, @"C:\PathToCode\shouldly\src\DocumentationExamples");
+        v = scrubbedPathRegex.Replace(v, m => m.Value.Replace('/', '\\'));
+        v = unixCopyCommandRegex.Replace(v, "copy /Y ");
+        return v;
+    };
 
     private static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup = new();
 

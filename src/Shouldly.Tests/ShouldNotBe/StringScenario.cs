@@ -9,23 +9,7 @@ public class StringScenario
     public void StringScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                ThisString.ShouldNotBe(ThisString),
-
-            errorWithSource:
-            """
-            ThisString
-                should not be
-            "this string"
-                but was
-            """,
-
-            errorWithoutSource:
-            """
-            "this string"
-                should not be
-            "this string"
-                but was
-            """);
+            ThisString.ShouldNotBe(ThisString));
     }
 
     [Fact]

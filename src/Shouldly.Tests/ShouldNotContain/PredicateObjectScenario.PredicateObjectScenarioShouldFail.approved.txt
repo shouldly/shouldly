@@ -1,0 +1,9 @@
+new[] { a, b, c }
+    should not contain an element satisfying the condition
+o.GetType().FullName.Equals("System.Object")
+    but
+[System.Object (000000), System.Object (000000), System.Object (000000)]
+    do
+
+Additional Info:
+    Some additional context

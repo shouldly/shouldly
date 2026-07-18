@@ -1,0 +1,9 @@
+ClassDictionary()
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    but the key does not exist
+
+Additional Info:
+    Some additional context

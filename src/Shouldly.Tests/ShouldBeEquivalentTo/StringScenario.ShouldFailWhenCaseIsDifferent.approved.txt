@@ -1,0 +1,10 @@
+Comparing object equivalence, at path:
+subject [System.String]
+
+    Expected value to be
+"HELLO"
+    but was
+"Hello"
+
+Additional Info:
+    Some additional context

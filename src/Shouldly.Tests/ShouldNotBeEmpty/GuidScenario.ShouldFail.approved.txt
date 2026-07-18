@@ -1,0 +1,8 @@
+myGuid
+    should not be empty
+00000000-0000-0000-0000-000000000000
+    but was
+00000000-0000-0000-0000-000000000000
+
+Additional Info:
+    Some additional context

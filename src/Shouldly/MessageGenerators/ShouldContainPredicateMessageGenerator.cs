@@ -1,3 +1,5 @@
+using ExpressionToString;
+
 namespace Shouldly.MessageGenerators;
 
 class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
@@ -5,7 +7,7 @@ class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
     public override bool CanProcess(IShouldlyAssertionContext context) =>
         context.ShouldMethod.StartsWith("Should", StringComparison.Ordinal)
         && context.ShouldMethod.Contains("Contain")
-        && context.Expected is Expression;
+        && (context.Expected is Expression || context.Filter is not null);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
@@ -16,6 +18,19 @@ class ShouldContainPredicateMessageGenerator : ShouldlyMessageGenerator
             : "an element";
 
         var should = context.ShouldMethod.PascalToSpaced();
+        if (context.IsNegatedAssertion && context.Filter is { } filter)
+        {
+            return
+                $"""
+                 {codePart}
+                     {should} {elementPhrase} satisfying the condition
+                 {ExpressionStringBuilder.ToString(filter)}
+                     but
+                 {context.Expected.ToStringAwesomely()}
+                     do
+                 """;
+        }
+
         var expected = context.Expected.ToStringAwesomely();
         if (context.IsNegatedAssertion)
         {

@@ -1,0 +1,9 @@
+arr
+    should not contain an element satisfying the condition
+(i < capturedOuterVar)
+    but
+[1, 2, 3]
+    do
+
+Additional Info:
+    Some additional context

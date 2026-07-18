@@ -1,0 +1,10 @@
+str
+    should be
+"Stringone	Space"
+    but was
+"StringOne Space"
+    difference
+                 ▼  ▼▼
+Expected: "Stringone\tSpace"
+Actual:   "StringOne Space"
+                 ▲  ▲

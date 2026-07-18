@@ -1,0 +1,8 @@
+str
+    should not end with
+"se"
+    but was
+"Cheese"
+
+Additional Info:
+    Some additional context

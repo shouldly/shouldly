@@ -8,34 +8,7 @@ public class DecimalScenario
     {
         const decimal pi = (decimal)MathEx.PI;
         Verify.ShouldFail(() =>
-                pi.ShouldBe(3.24m, 0.01m, "Some additional context"),
-
-            errorWithSource:
-            """
-            pi
-                should be within
-            0.01m
-                of
-            3.24m
-                but was
-            3.14159m
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            3.14159m
-                should be within
-            0.01m
-                of
-            3.24m
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            pi.ShouldBe(3.24m, 0.01m, "Some additional context"));
     }
 
     [Fact]

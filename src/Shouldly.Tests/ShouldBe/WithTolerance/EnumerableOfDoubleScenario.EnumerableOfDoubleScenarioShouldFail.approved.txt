@@ -1,0 +1,12 @@
+new[] { MathEx.PI, MathEx.PI }
+    should be within
+0.01d
+    of
+[3.24d, 3.24d]
+    but was
+[3.14159d, 3.14159d]
+    difference
+[*3.14159d*, *3.14159d*]
+
+Additional Info:
+    Some additional context

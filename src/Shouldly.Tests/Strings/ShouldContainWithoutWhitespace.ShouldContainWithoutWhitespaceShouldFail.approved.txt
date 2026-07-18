@@ -1,0 +1,8 @@
+str
+    should contain without whitespace
+"Fun with space and missing quotes"
+    but was actually
+"Fun   with space   and "quotes""
+
+Additional Info:
+    Some additional context

@@ -8,27 +8,7 @@ public class DoubleScenario
     {
         var @decimal = 3.5;
         Verify.ShouldFail(() =>
-                @decimal.ShouldBeNegative("Some additional context"),
-
-            errorWithSource:
-            """
-            @decimal
-                should be negative but
-            3.5d
-                is positive
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            3.5d
-                should be negative but is positive
-
-            Additional Info:
-                Some additional context
-            """);
+            @decimal.ShouldBeNegative("Some additional context"));
     }
 
     [Fact]

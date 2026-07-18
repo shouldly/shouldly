@@ -1,0 +1,9 @@
+objects
+    should satisfy the condition
+(x Is String)
+    but
+[1]
+    do not
+
+Additional Info:
+    Some additional context

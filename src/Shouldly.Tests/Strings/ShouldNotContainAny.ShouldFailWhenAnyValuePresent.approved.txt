@@ -1,0 +1,5 @@
+target
+    should not contain any
+"name, foo"
+    but was actually
+"my name is slim shady"

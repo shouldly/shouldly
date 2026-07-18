@@ -1,0 +1,8 @@
+two
+    should not be assignable to
+System.Int32
+    but was
+2
+
+Additional Info:
+    Some additional context

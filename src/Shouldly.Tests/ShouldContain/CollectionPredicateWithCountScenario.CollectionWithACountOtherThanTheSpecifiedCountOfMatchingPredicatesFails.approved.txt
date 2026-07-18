@@ -1,0 +1,4 @@
+collection
+    should contain 5 element(s) satisfying the condition
+(x == "c")
+    but does not

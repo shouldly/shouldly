@@ -1,5 +1,9 @@
-![Shouldly Logo](https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_350x84.png)  
-========
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo_dark.svg">
+  <img alt="Shouldly Logo" width="350" src="https://raw.githubusercontent.com/shouldly/shouldly/master/assets/logo.svg">
+</picture>
+
+---
 
 [![CI](https://github.com/shouldly/shouldly/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/shouldly/shouldly/actions/workflows/CI.yml)
 [![NuGet](https://img.shields.io/nuget/dt/shouldly.svg)](https://www.nuget.org/packages/Shouldly) 
@@ -47,7 +51,7 @@ Alternatively if you're using .NET Core then you can install Shouldly via the co
 dotnet add package Shouldly
 ```
 
-To have `ShouldMatchApproval` display a diff of the expected and actual files, you will need to install the `Shouldly.DiffEngine` package and configure it.
+To have `ShouldMatchApproved` display a diff of the expected and actual files, you will need to install the `Shouldly.DiffEngine` package and configure it.
 
 ```bash
 Install-Package Shouldly.DiffEngine

@@ -1,0 +1,8 @@
+cheeseVar
+    should end with
+"Se"
+    but was
+"Cheese"
+
+Additional Info:
+    Some additional context

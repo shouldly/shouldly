@@ -1,0 +1,9 @@
+testResults
+    should not contain an element satisfying the condition
+result.Contains("error")
+    but
+["error: file not found", "error: timeout"]
+    do
+
+Additional Info:
+    Some additional context

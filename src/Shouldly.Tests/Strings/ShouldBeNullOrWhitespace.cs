@@ -6,24 +6,7 @@ public class ShouldBeNullOrWhiteSpace
     public void StringWithOneLetterShouldFail()
     {
         Verify.ShouldFail(
-            () => "a".ShouldBeNullOrWhiteSpace("Some additional context"),
-            errorWithSource:
-            """
-            "a"
-                should be null or white space
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "a"
-                should be null or white space
-
-            Additional Info:
-                Some additional context
-            """);
+            () => "a".ShouldBeNullOrWhiteSpace("Some additional context"));
     }
 
     [Fact]
@@ -31,25 +14,7 @@ public class ShouldBeNullOrWhiteSpace
     {
         var oneLetter = "a";
         Verify.ShouldFail(
-            () => oneLetter.ShouldBeNullOrWhiteSpace("Some additional context"),
-
-            errorWithSource:
-            """
-            oneLetter ("a")
-                should be null or white space
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            "a"
-                should be null or white space
-
-            Additional Info:
-                Some additional context
-            """);
+            () => oneLetter.ShouldBeNullOrWhiteSpace("Some additional context"));
     }
 
     [Fact]

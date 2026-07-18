@@ -39,11 +39,13 @@ public static class ShouldlyCoreExtensions
     /// <param name="originalExpected">The original expected value</param>
     /// <param name="customMessage">A custom message to display if the assertion fails</param>
     /// <param name="shouldlyMethod">The name of the shouldly method being called</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     public static void AssertAwesomely<T>(
         this T actual, Func<T, bool> specifiedConstraint,
         object? originalActual, object? originalExpected,
         string? customMessage = null,
-        [CallerMemberName] string shouldlyMethod = null!)
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
     {
         try
         {
@@ -54,7 +56,7 @@ public static class ShouldlyCoreExtensions
             throw new ShouldAssertException(ex.Message, ex);
         }
 
-        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod).ToString());
+        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -68,11 +70,13 @@ public static class ShouldlyCoreExtensions
     /// <param name="caseSensitivity">The case sensitivity to use for string comparisons</param>
     /// <param name="customMessage">A custom message to display if the assertion fails</param>
     /// <param name="shouldlyMethod">The name of the shouldly method being called</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     public static void AssertAwesomelyWithCaseSensitivity<T>(
         this T actual, Func<T, bool> specifiedConstraint,
         object? originalActual, object? originalExpected,
         Case caseSensitivity, string? customMessage = null,
-        [CallerMemberName] string shouldlyMethod = null!)
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
     {
         try
         {
@@ -83,7 +87,7 @@ public static class ShouldlyCoreExtensions
             throw new ShouldAssertException(ex.Message, ex);
         }
 
-        var message = new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod);
+        var message = new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression);
         throw new ShouldAssertException(message.ToString());
     }
 
@@ -97,11 +101,13 @@ public static class ShouldlyCoreExtensions
     /// <param name="originalExpected">The original expected value</param>
     /// <param name="customMessage">A custom message to display if the assertion fails</param>
     /// <param name="shouldlyMethod">The name of the shouldly method being called</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     public static void AssertAwesomelyIgnoringOrder<T>(
         this T actual, Func<T, bool> specifiedConstraint,
         object? originalActual, object? originalExpected,
         string? customMessage = null,
-        [CallerMemberName] string shouldlyMethod = null!)
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
     {
         try
         {
@@ -112,7 +118,7 @@ public static class ShouldlyCoreExtensions
             throw new ShouldAssertException(ex.Message, ex);
         }
 
-        throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod).ToString());
+        throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -126,11 +132,13 @@ public static class ShouldlyCoreExtensions
     /// <param name="tolerance">The tolerance for numeric comparisons</param>
     /// <param name="customMessage">A custom message to display if the assertion fails</param>
     /// <param name="shouldlyMethod">The name of the shouldly method being called</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     public static void AssertAwesomely<T>(
         this T actual, Func<T, bool> specifiedConstraint,
         object? originalActual, object? originalExpected, object tolerance,
         string? customMessage = null,
-        [CallerMemberName] string shouldlyMethod = null!)
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
     {
         try
         {
@@ -141,7 +149,7 @@ public static class ShouldlyCoreExtensions
             throw new ShouldAssertException(ex.Message, ex);
         }
 
-        throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod).ToString());
+        throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -155,11 +163,13 @@ public static class ShouldlyCoreExtensions
     /// <param name="caseSensitivity">The case sensitivity to use for string comparisons</param>
     /// <param name="customMessage">A custom message to display if the assertion fails</param>
     /// <param name="shouldlyMethod">The name of the shouldly method being called</param>
+    /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
     public static void AssertAwesomely<T>(
         this T actual, Func<T, bool> specifiedConstraint,
         object? originalActual, object? originalExpected, Case caseSensitivity,
         string? customMessage = null,
-        [CallerMemberName] string shouldlyMethod = null!)
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
     {
         try
         {
@@ -170,6 +180,6 @@ public static class ShouldlyCoreExtensions
             throw new ShouldAssertException(ex.Message, ex);
         }
 
-        throw new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod).ToString());
+        throw new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 }

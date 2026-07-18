@@ -1,0 +1,8 @@
+something
+    should be
+[1, 2, 3]
+    but was
+null
+
+Additional Info:
+    Some additional context

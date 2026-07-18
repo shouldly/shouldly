@@ -8,29 +8,13 @@ public class StringContainsStringScenario
     public void StringContainsStringScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                Target.ShouldNotContain("legendary"),
-
-            errorWithSource:
-            """
-            Target
-                should not contain (case insensitive comparison)
-            "legendary"
-                but was actually
-            "Shouldly is legendary"
-            """,
-
-            errorWithoutSource:
-            """
-            "Shouldly is legendary"
-                should not contain (case insensitive comparison)
-            "legendary"
-                but did
-            """);
+            Target.ShouldNotContain("legendary"));
     }
 
     [Fact]
     public void ShouldPass()
     {
         Target.ShouldNotContain("legend-wait for it-ary");
+        Target.ShouldNotContain("LEGENDARY");
     }
 }

@@ -1,0 +1,7 @@
+new[] { a, b, c }
+    should contain an element satisfying the condition
+o.GetType().FullName.Equals("")
+    but does not
+
+Additional Info:
+    Some additional context

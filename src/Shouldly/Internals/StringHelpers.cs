@@ -72,10 +72,9 @@ static class StringHelpers
             return ExpressionToString.ExpressionStringBuilder.ToString(binaryExpression);
         }
 
-        if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>)) {
-            var key = objectType.GetProperty("Key")!.GetValue(value, null);
-            var v = objectType.GetProperty("Value")!.GetValue(value, null);
-            return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
+        if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+        {
+            return FormatKeyValuePair(objectType, value);
         }
 
         var toString = value.ToString();
@@ -83,6 +82,15 @@ static class StringHelpers
             return $"{value} ({value.GetHashCode():D6})";
 
         return toString; // ToString() may return null.
+    }
+
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "KeyValuePair<TKey, TValue> is a BCL type whose Key and Value properties define its public contract and are preserved by the trimmer.")]
+    private static string FormatKeyValuePair(Type keyValuePairType, object value)
+    {
+        var key = keyValuePairType.GetProperty("Key")!.GetValue(value, null);
+        var v = keyValuePairType.GetProperty("Value")!.GetValue(value, null);
+        return $"[{key.ToStringAwesomely()} => {v.ToStringAwesomely()}]";
     }
 
     internal static string PascalToSpaced(this string pascal)
@@ -109,8 +117,60 @@ static class StringHelpers
         return collapseWhitespace;
     }
 
-    internal static string RemoveBlock(this string input) =>
-        Regex.Replace(input, @"^\s*({|\()\s*(?<inner>.*)\s*(}|\))$", "${inner}");
+    // Strips a single outer `{ ... }` or `( ... )` block, but only when the
+    // brackets genuinely wrap the whole expression. A naive regex would greedily
+    // match the first opening and last closing bracket even when they aren't a
+    // pair (e.g. `((dynamic)new Foo()).NoExceptionMethod()` would lose its real
+    // outer parens), so we balance the brackets to confirm the match.
+    internal static string RemoveBlock(this string input)
+    {
+        var trimmed = input.Trim();
+        if (trimmed.Length < 2)
+            return input;
+
+        var open = trimmed[0];
+        var close = open switch
+        {
+            '{' => '}',
+            '(' => ')',
+            _ => '\0'
+        };
+
+        if (close == '\0' || trimmed[^1] != close)
+            return input;
+
+        var depth = 0;
+        for (var i = 0; i < trimmed.Length; i++)
+        {
+            if (trimmed[i] == open)
+            {
+                depth++;
+            }
+            else if (trimmed[i] == close)
+            {
+                depth--;
+                if (depth == 0)
+                {
+                    // The opening bracket only wraps the whole expression when
+                    // its match is the final character; otherwise leave as-is.
+                    return i == trimmed.Length - 1
+                        ? trimmed[1..^1].Trim()
+                        : input;
+                }
+            }
+        }
+
+        return input;
+    }
+
+    // Normalizes a CallerArgumentExpression-captured delegate expression (Action/Func)
+    // so failure messages render the inner body the same way the legacy stack-trace
+    // parser did: strip the `() =>` lambda prefix, collapse multi-line whitespace,
+    // strip a single outer `{ ... }` block, and trim.
+    internal static string? NormalizeDelegateExpression(this string? input) =>
+        input is null
+            ? null
+            : input.StripLambdaExpressionSyntax().CollapseWhitespace().RemoveBlock().Trim();
 
     internal static string Clip(this string stringToClip, int maximumStringLength)
     {
@@ -132,10 +192,45 @@ static class StringHelpers
         return stringToClip;
     }
 
-    internal static string ToSafeString(this char c)
+    internal static string ToSafeString(this char c, EscapeStyle? escapeStyleOverride = null)
     {
-        if (char.IsControl(c) || char.IsWhiteSpace(c))
+        if (char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' '))
         {
+            var escapeStyle = escapeStyleOverride ?? ShouldlyConfiguration.EscapeStyle;
+            if (escapeStyle == EscapeStyle.ControlPictures)
+            {
+                // Unicode control pictures (U+2400 block)
+                return c switch
+                {
+                    '\0' => "\u2400", // ␀ NUL
+                    '\a' => "\u2407", // ␇ BEL
+                    '\t' => "\u2409", // ␉ HT
+                    '\n' => "\u240A", // ␊ LF
+                    '\v' => "\u240B", // ␋ VT
+                    '\f' => "\u240C", // ␌ FF
+                    '\r' => "\u240D", // ␍ CR
+                    '\u007F' => "\u2421", // ␡ DEL
+                    _ when (int)c <= 0x26 => ((char)(0x2400 + c)).ToString(), // Other control chars
+                    _ => $"\\u{(int)c:X4};"
+                };
+            }
+
+            if (escapeStyle == EscapeStyle.Descriptive)
+            {
+                return c switch
+                {
+                    '\0' => "<NUL>",
+                    '\a' => "<BEL>",
+                    '\t' => "<TAB>",
+                    '\n' => "<LF>",
+                    '\v' => "<VT>",
+                    '\f' => "<FF>",
+                    '\r' => "<CR>",
+                    '\u007F' => "<DEL>",
+                    _ => $"<U+{(int)c:X4}>"
+                };
+            }
+
             switch (c)
             {
                 case '\r':
@@ -150,15 +245,18 @@ static class StringHelpers
                     return @"\v";
                 case '\f':
                     return @"\f";
-                case ' ':
-                    return @"\s";
+                case '\0':
+                    return @"\0";
                 default:
-                    return $"\\u{(int)c:X};";
+                    return $"\\u{(int)c:X4};";
             }
         }
 
         return c.ToString();
     }
+
+    internal static bool NeedsEscaping(this char c) =>
+        char.IsControl(c) || (char.IsWhiteSpace(c) && c != ' ');
 
     internal static string? NormalizeLineEndings(this string? s) =>
         s == null ? null : Regex.Replace(s, @"\r\n?", "\n");

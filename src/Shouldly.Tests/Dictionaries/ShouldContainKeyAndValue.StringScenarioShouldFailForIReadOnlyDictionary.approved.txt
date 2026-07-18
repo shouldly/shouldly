@@ -1,0 +1,9 @@
+StringIReadOnlyDictionary()
+    should contain key
+"bar"
+    with value
+"baz"
+    but the key does not exist
+
+Additional Info:
+    Some additional context

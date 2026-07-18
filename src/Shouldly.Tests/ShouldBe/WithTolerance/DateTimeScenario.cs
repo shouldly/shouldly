@@ -10,34 +10,7 @@ public class DateTimeScenario
         var expected = new DateTime(2000, 6, 1, 1, 0, 1);
         var expectedString = expected.ToString("o");
         Verify.ShouldFail(() =>
-                date.ShouldBe(expected, TimeSpan.FromHours(1), "Some additional context"),
-
-            errorWithSource:
-            $"""
-             date
-                 should be within
-             01:00:00
-                 of
-             {expectedString}
-                 but was
-             {dateString}
-
-             Additional Info:
-                 Some additional context
-             """,
-
-            errorWithoutSource:
-            $"""
-             {dateString}
-                 should be within
-             01:00:00
-                 of
-             {expectedString}
-                 but was not
-
-             Additional Info:
-                 Some additional context
-             """);
+            date.ShouldBe(expected, TimeSpan.FromHours(1), "Some additional context"));
     }
 
     [Fact]
@@ -49,30 +22,7 @@ public class DateTimeScenario
         var expectedString = expected.ToString("o");
 
         Verify.ShouldFail(() =>
-                date.ShouldBe(expected, "Some additional context"),
-
-            errorWithSource:
-            $"""
-             date
-                 should be
-             {expectedString}
-                 but was
-             {dateString}
-
-             Additional Info:
-                 Some additional context
-             """,
-
-            errorWithoutSource:
-            $"""
-             {dateString}
-                 should be
-             {expectedString}
-                 but was not
-
-             Additional Info:
-                 Some additional context
-             """);
+            date.ShouldBe(expected, "Some additional context"));
     }
 
     [Fact]

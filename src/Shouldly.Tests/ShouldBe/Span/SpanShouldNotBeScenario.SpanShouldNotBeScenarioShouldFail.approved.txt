@@ -1,0 +1,9 @@
+new[] { 1, 2, 3 }.AsSpan()
+    should not be
+[1, 2, 3]
+    but was
+    difference
+[1, 2, 3]
+
+Additional Info:
+    Some additional context

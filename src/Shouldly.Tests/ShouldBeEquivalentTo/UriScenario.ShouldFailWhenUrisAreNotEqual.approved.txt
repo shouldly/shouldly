@@ -1,0 +1,10 @@
+Comparing object equivalence, at path:
+subject [System.Uri]
+
+    Expected value to be
+http://def/
+    but was
+http://abc/
+
+Additional Info:
+    Some additional context

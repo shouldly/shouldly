@@ -5,7 +5,7 @@ namespace Shouldly.Internals.AssertionFactories;
 
 static class StringShouldBeAssertionFactory
 {
-    public static IAssertion Create(string? expected, string? actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null!)
+    public static IAssertion Create(string? expected, string? actual, StringCompareShould options, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
     {
         var optionsList = new List<string>();
         if ((options & StringCompareShould.IgnoreLineEndings) != 0)
@@ -36,6 +36,7 @@ static class StringShouldBeAssertionFactory
             new ActualCodeTextGetter(),
             new StringDifferenceHighlighter(sensitivity),
             string.Join(", ", optionsList.ToArray()),
-            shouldlyMethod.PascalToSpaced());
+            shouldlyMethod.PascalToSpaced(),
+            actualExpression);
     }
 }

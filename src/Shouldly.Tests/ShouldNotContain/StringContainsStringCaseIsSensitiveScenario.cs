@@ -7,24 +7,7 @@ public class StringContainsStringCaseIsSensitiveScenario
     {
         const string target = "Shouldly is legendary";
         Verify.ShouldFail(() =>
-                target.ShouldNotContain("legendary", Case.Sensitive),
-
-            errorWithSource:
-            """
-            target
-                should not contain
-            "legendary"
-                but was actually
-            "Shouldly is legendary"
-            """,
-
-            errorWithoutSource:
-            """
-            "Shouldly is legendary"
-                should not contain
-            "legendary"
-                but did
-            """);
+            target.ShouldNotContain("legendary", Case.Sensitive));
     }
 
     [Fact]

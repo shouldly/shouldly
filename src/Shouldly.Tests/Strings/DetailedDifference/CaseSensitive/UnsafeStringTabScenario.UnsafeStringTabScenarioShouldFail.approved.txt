@@ -1,0 +1,10 @@
+str
+    should be
+"Stringone Tab"
+    but was
+"StringOne	Tab"
+    difference
+                 ▼  ▼
+Expected: "Stringone Tab"
+Actual:   "StringOne\tTab"
+                 ▲  ▲▲

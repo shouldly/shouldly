@@ -1,0 +1,10 @@
+new List<int> { 1, 4, 2 }
+    should be
+[1, 2, 3]
+    but was
+[1, 4, 2]
+    difference
+[1, *4*, *2*]
+
+Additional Info:
+    Some additional context

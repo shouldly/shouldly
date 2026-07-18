@@ -8,165 +8,35 @@ public class ShouldNotContainValueForKey
     public void ClassScenarioShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void GuidScenarioShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                GuidDictionary().ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            GuidDictionary()
-                should not contain key
-            edae0d73-8e4c-4251-85c8-e5497c7ccad1
-                with value
-            fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-                should not contain key
-            edae0d73-8e4c-4251-85c8-e5497c7ccad1
-                with value
-            fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            GuidDictionary().ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"));
     }
 
     [Fact]
     public void KeyAndValueExistShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void NoKeyExistsShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassDictionary().ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but the key does not exist
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but the key does not exist
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassDictionary().ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void StringScenarioShouldFailForDictionary()
     {
         Verify.ShouldFail(() =>
-                StringDictionary().ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
-
-            errorWithSource:
-            """
-            StringDictionary()
-                should not contain key
-            "Foo"
-                with value
-            "Bar"
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [["Foo" => "Bar"]]
-                should not contain key
-            "Foo"
-                with value
-            "Bar"
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            StringDictionary().ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"));
     }
 
     [Fact]
@@ -177,33 +47,7 @@ public class ShouldNotContainValueForKey
             { ThingKey, null }
         };
         Verify.ShouldFail(() =>
-                dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
-
-            errorWithSource:
-            """
-            dictionary
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            null
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            null
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"));
     }
 
 
@@ -211,165 +55,35 @@ public class ShouldNotContainValueForKey
     public void ClassScenarioShouldFailForIDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassIDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassIDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassIDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void GuidScenarioShouldFailForIDictionary()
     {
         Verify.ShouldFail(() =>
-                GuidIDictionary().ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            GuidIDictionary()
-                should not contain key
-            edae0d73-8e4c-4251-85c8-e5497c7ccad1
-                with value
-            fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-                should not contain key
-            edae0d73-8e4c-4251-85c8-e5497c7ccad1
-                with value
-            fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            GuidIDictionary().ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"));
     }
 
     [Fact]
     public void KeyAndValueExistShouldFailForIDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassIDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassIDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassIDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void NoKeyExistsShouldFailForIDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassIDictionary().ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassIDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but the key does not exist
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but the key does not exist
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassIDictionary().ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void StringScenarioShouldFailForIDictionary()
     {
         Verify.ShouldFail(() =>
-                StringIDictionary().ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
-
-            errorWithSource:
-            """
-            StringIDictionary()
-                should not contain key
-            "Foo"
-                with value
-            "Bar"
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [["Foo" => "Bar"]]
-                should not contain key
-            "Foo"
-                with value
-            "Bar"
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            StringIDictionary().ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"));
     }
 
     [Fact]
@@ -380,33 +94,7 @@ public class ShouldNotContainValueForKey
             { ThingKey, null }
         };
         Verify.ShouldFail(() =>
-                dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
-
-            errorWithSource:
-            """
-            dictionary
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            null
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            null
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"));
     }
 
 #if NET9_0_OR_GREATER
@@ -414,165 +102,35 @@ public class ShouldNotContainValueForKey
     public void ClassScenarioShouldFailForIReadOnlyDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassIReadOnlyDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassIReadOnlyDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassIReadOnlyDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void GuidScenarioShouldFailForIReadOnlyDictionary()
     {
         Verify.ShouldFail(() =>
-                GuidIReadOnlyDictionary().ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            GuidIReadOnlyDictionary()
-                should not contain key
-            edae0d73-8e4c-4251-85c8-e5497c7ccad1
-                with value
-            fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[edae0d73-8e4c-4251-85c8-e5497c7ccad1 => fa1e5f58-578f-43d4-b4d6-67eae06a5d17]]
-                should not contain key
-            edae0d73-8e4c-4251-85c8-e5497c7ccad1
-                with value
-            fa1e5f58-578f-43d4-b4d6-67eae06a5d17
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            GuidIReadOnlyDictionary().ShouldNotContainValueForKey(GuidKey, GuidValue, "Some additional context"));
     }
 
     [Fact]
     public void KeyAndValueExistShouldFailForIReadOnlyDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassIReadOnlyDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassIReadOnlyDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassIReadOnlyDictionary().ShouldNotContainValueForKey(ThingKey, ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void NoKeyExistsShouldFailForIReadOnlyDictionary()
     {
         Verify.ShouldFail(() =>
-                ClassIReadOnlyDictionary().ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"),
-
-            errorWithSource:
-            """
-            ClassIReadOnlyDictionary()
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but the key does not exist
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => Shouldly.Tests.TestHelpers.MyThing (000000)]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                but the key does not exist
-
-            Additional Info:
-                Some additional context
-            """);
+            ClassIReadOnlyDictionary().ShouldNotContainValueForKey(new(), ThingValue, "Some additional context"));
     }
 
     [Fact]
     public void StringScenarioShouldFailForIReadOnlyDictionary()
     {
         Verify.ShouldFail(() =>
-                StringIReadOnlyDictionary().ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"),
-
-            errorWithSource:
-            """
-            StringIReadOnlyDictionary()
-                should not contain key
-            "Foo"
-                with value
-            "Bar"
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [["Foo" => "Bar"]]
-                should not contain key
-            "Foo"
-                with value
-            "Bar"
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            StringIReadOnlyDictionary().ShouldNotContainValueForKey("Foo", "Bar", "Some additional context"));
     }
 
     [Fact]
@@ -583,33 +141,7 @@ public class ShouldNotContainValueForKey
             { ThingKey, null }
         };
         Verify.ShouldFail(() =>
-                dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"),
-
-            errorWithSource:
-            """
-            dictionary
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            null
-                but does
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [[Shouldly.Tests.TestHelpers.MyThing (000000) => null]]
-                should not contain key
-            Shouldly.Tests.TestHelpers.MyThing (000000)
-                with value
-            null
-                but does
-
-            Additional Info:
-                Some additional context
-            """);
+            dictionary.ShouldNotContainValueForKey(ThingKey, null, "Some additional context"));
     }
 #endif
 

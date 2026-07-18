@@ -1,0 +1,22 @@
+Comparing object equivalence, found 2 differences:
+
+at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Id [System.Int32]
+
+    Expected value to be
+6
+    but was
+5
+
+at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Name [System.String]
+
+    Expected value to be
+"Sally"
+    but was
+"Bob"
+
+Additional Info:
+    Some additional context

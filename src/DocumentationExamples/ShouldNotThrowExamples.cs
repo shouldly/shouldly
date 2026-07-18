@@ -39,6 +39,22 @@ public class ShouldNotThrowExamples
     }
 
     [Fact]
+    public void ShouldNotThrowSpecificException()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var homer = new Person { Name = "Homer", Salary = 30000 };
+                var denominator = 0;
+                Should.NotThrow<DivideByZeroException>(() =>
+                {
+                    var y = homer.Salary / denominator;
+                });
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
     public void ShouldNotThrowFunc()
     {
         DocExampleWriter.Document(

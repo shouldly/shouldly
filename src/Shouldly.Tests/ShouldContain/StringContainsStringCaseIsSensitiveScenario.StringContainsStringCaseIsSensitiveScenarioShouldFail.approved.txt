@@ -1,0 +1,5 @@
+target
+    should contain
+"legendary"
+    but was actually
+"Shouldly is LEGENDARY"

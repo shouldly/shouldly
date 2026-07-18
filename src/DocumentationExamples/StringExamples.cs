@@ -210,50 +210,50 @@ public class StringExamples
     }
 
     [Fact]
-public void ShouldContainAll()
-{
-    DocExampleWriter.Document(
-        () =>
-        {
-            var target = "Homer Simpson";
-            target.ShouldContainAll(["Homer", "Bart"]);
-        },
-        _testOutputHelper);
-}
+    public void ShouldContainAll()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var target = "Homer Simpson";
+                target.ShouldContainAll(["Homer", "Bart"]);
+            },
+            _testOutputHelper);
+    }
 
-[Fact]
-public void ShouldContainAny()
-{
-    DocExampleWriter.Document(
-        () =>
-        {
-            var target = "Homer";
-            target.ShouldContainAny(["Bart", "Marge"]);
-        },
-        _testOutputHelper);
-}
+    [Fact]
+    public void ShouldContainAny()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var target = "Homer";
+                target.ShouldContainAny(["Bart", "Marge"]);
+            },
+            _testOutputHelper);
+    }
 
-[Fact]
-public void ShouldNotContainAll()
-{
-    DocExampleWriter.Document(
-        () =>
-        {
-            var target = "Homer Simpson";
-            target.ShouldNotContainAll(["Homer", "Simpson"]);
-        },
-        _testOutputHelper);
-}
+    [Fact]
+    public void ShouldNotContainAll()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var target = "Homer Simpson";
+                target.ShouldNotContainAll(["Homer", "Simpson"]);
+            },
+            _testOutputHelper);
+    }
 
-[Fact]
-public void ShouldNotContainAny()
-{
-    DocExampleWriter.Document(
-        () =>
-        {
-            var target = "Homer";
-            target.ShouldNotContainAny(["Home", "Moe"]);
-        },
-        _testOutputHelper);
-}
+    [Fact]
+    public void ShouldNotContainAny()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var target = "Homer";
+                target.ShouldNotContainAny(["Home", "Moe"]);
+            },
+            _testOutputHelper);
+    }
 }

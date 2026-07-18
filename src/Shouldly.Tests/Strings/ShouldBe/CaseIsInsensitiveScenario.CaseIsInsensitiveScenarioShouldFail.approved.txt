@@ -1,0 +1,11 @@
+str
+    should be with options: Ignoring case
+"different"
+    but was
+"SamplE"
+    difference
+Expected: "different"
+Actual:   "SamplE"
+
+Additional Info:
+    Some additional context

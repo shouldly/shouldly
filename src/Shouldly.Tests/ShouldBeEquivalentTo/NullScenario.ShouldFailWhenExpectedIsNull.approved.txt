@@ -1,0 +1,10 @@
+Comparing object equivalence, at path:
+subject
+
+    Expected value to be
+null
+    but was
+"Hello"
+
+Additional Info:
+    Some additional context

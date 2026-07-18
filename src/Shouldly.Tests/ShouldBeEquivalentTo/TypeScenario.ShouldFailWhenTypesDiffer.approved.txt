@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.TypeScenario+TypeHolder]
+    Type [System.Type]
+
+    Expected value to be
+System.String
+    but was
+System.Int32
+
+Additional Info:
+    Some additional context

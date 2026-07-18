@@ -1,0 +1,9 @@
+Comparing object equivalence, at path:
+subject [System.Collections.Generic.List<System.Int32>]
+
+    Expected an element equivalent to
+3
+    but was not found
+
+Additional Info:
+    Some additional context

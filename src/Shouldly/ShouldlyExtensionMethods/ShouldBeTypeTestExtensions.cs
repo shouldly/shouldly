@@ -7,19 +7,19 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual object is assignable to the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
     [return: NotNullIfNotNull(nameof(actual))]
-    public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null)
+    public static T? ShouldBeAssignableTo<T>(this object? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        ShouldBeAssignableTo(actual, typeof(T), customMessage);
+        ShouldBeAssignableTo(actual, typeof(T), customMessage, actualExpression);
         return (T?)actual;
     }
 
     /// <summary>
     /// Asserts that the actual object is assignable to the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeAssignableTo(this object? actual, Type expected, string? customMessage = null)
+    public static void ShouldBeAssignableTo(this object? actual, Type expected, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(v =>
         {
@@ -30,62 +30,62 @@ public static partial class ShouldBeTestExtensions
             }
 
             return expected.IsInstanceOfType(v);
-        }, actual, expected, customMessage);
+        }, actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
     /// Asserts that the actual object is exactly of the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static T ShouldBeOfType<T>([NotNull] this object? actual, string? customMessage = null)
+    public static T ShouldBeOfType<T>([NotNull] this object? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        ShouldBeOfType(actual, typeof(T), customMessage);
+        ShouldBeOfType(actual, typeof(T), customMessage, actualExpression);
         return (T)actual;
     }
 
     /// <summary>
     /// Asserts that the actual object is exactly of the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeOfType([NotNull] this object? actual, Type expected, string? customMessage = null)
+    public static void ShouldBeOfType([NotNull] this object? actual, Type expected, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage);
+        actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage, actualExpression: actualExpression);
         Debug.Assert(actual != null);
     }
 
     /// <summary>
     /// Asserts that the actual object is not assignable to the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotBeAssignableTo<T>(this object? actual, string? customMessage = null)
+    public static void ShouldNotBeAssignableTo<T>(this object? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        ShouldNotBeAssignableTo(actual, typeof(T), customMessage);
+        ShouldNotBeAssignableTo(actual, typeof(T), customMessage, actualExpression);
     }
 
     /// <summary>
     /// Asserts that the actual object is not assignable to the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotBeAssignableTo(this object? actual, Type expected, string? customMessage = null)
+    public static void ShouldNotBeAssignableTo(this object? actual, Type expected, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !expected.IsInstanceOfType(v), actual, expected, customMessage);
+        actual.AssertAwesomely(v => !expected.IsInstanceOfType(v), actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
     /// Asserts that the actual object is not exactly of the type <typeparamref name="T"/>.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null)
+    public static void ShouldNotBeOfType<T>(this object? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        ShouldNotBeOfType(actual, typeof(T), customMessage);
+        ShouldNotBeOfType(actual, typeof(T), customMessage, actualExpression);
     }
 
     /// <summary>
     /// Asserts that the actual object is not exactly of the specified type.
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldNotBeOfType(this object? actual, Type expected, string? customMessage = null)
+    public static void ShouldNotBeOfType(this object? actual, Type expected, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage);
+        actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage, actualExpression: actualExpression);
     }
 }

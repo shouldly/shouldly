@@ -1,0 +1,8 @@
+target
+    should contain
+System.Object (000000)
+    but was actually
+[System.Object (000000), System.Object (000000), System.Object (000000)]
+
+Additional Info:
+    Some additional context

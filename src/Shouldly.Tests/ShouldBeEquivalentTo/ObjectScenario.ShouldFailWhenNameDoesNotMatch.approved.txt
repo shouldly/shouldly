@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FakeObject]
+    Name [System.String]
+
+    Expected value to be
+"Sally"
+    but was
+"Bob"
+
+Additional Info:
+    Some additional context

@@ -1,0 +1,8 @@
+new UncomparableClass("ted")
+    should be
+bob
+    but was
+ted
+
+Additional Info:
+    Some additional context

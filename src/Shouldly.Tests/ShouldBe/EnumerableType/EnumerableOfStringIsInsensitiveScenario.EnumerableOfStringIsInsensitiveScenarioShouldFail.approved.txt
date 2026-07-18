@@ -1,0 +1,10 @@
+new[] { "foo" }
+    should be
+["different"]
+    but was (case insensitive comparison)
+["foo"]
+    difference
+[*"foo"*]
+
+Additional Info:
+    Some additional context

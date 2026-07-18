@@ -13,34 +13,7 @@ public class FloatScenario
     {
         const float pi = (float)MathEx.PI;
         Verify.ShouldFail(() =>
-                pi.ShouldBe(3.24f, 0.01d, "Some additional context"),
-
-            errorWithSource:
-            """
-            pi
-                should be within
-            0.01d
-                of
-            3.24f
-                but was
-            3.14159f
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            3.14159f
-                should be within
-            0.01d
-                of
-            3.24f
-                but was not
-
-            Additional Info:
-                Some additional context
-            """);
+            pi.ShouldBe(3.24f, 0.01d, "Some additional context"));
     }
 
     [Fact]

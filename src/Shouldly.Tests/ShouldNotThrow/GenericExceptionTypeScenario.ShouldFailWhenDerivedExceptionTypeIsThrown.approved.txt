@@ -1,0 +1,10 @@
+`action`
+    should not throw
+System.SystemException
+    but threw
+System.InvalidOperationException
+    with message
+"the operation failed"
+
+Additional Info:
+    Some additional context

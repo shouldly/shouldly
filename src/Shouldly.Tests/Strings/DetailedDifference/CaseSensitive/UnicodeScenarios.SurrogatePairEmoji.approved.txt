@@ -1,0 +1,10 @@
+str
+    should be
+"wave 👋🏻 hi"
+    but was
+"wave 👋🏽 hi"
+    difference
+                ▼▼
+Expected: "wave 👋🏻 hi"
+Actual:   "wave 👋🏽 hi"
+                ▲▲

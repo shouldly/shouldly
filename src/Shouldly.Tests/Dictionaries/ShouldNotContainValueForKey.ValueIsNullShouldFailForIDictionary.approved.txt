@@ -1,0 +1,9 @@
+dictionary
+    should not contain key
+Shouldly.Tests.TestHelpers.MyThing (000000)
+    with value
+null
+    but does
+
+Additional Info:
+    Some additional context

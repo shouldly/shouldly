@@ -1,0 +1,10 @@
+GetEnumerable()
+    should be
+[1, 2]
+    but was
+[1]
+    difference
+[1, *]
+
+Additional Info:
+    Some additional context

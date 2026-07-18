@@ -7,23 +7,7 @@ public class NumbersOfDifferentTypesScenario
     {
         const long aLong = 1L;
         Verify.ShouldFail(() =>
-                aLong.ShouldNotBe(1),
-
-            errorWithSource:
-            """
-            aLong
-                should not be
-            1L
-                but was
-            """,
-
-            errorWithoutSource:
-            """
-            1L
-                should not be
-            1L
-                but was
-            """);
+            aLong.ShouldNotBe(1));
     }
 
     [Fact]

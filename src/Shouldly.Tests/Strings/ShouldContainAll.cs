@@ -3,89 +3,38 @@ namespace Shouldly.Tests.Strings;
 public class ShouldContainAll
 {
     [Fact]
-    public void ShouldContainAll_ShouldPass_WhenAllValuesPresent()
+    public void ShouldPassWhenAllValuesPresent()
     {
         "my name is slim shady".ShouldContainAll(["name", "slim", "shady"]);
     }
 
     [Fact]
-    public void ShouldContainAll_ShouldThrow_WhenAnyValueMissing()
+    public void ShouldFailWhenAnyValueMissing()
     {
-        Verify.ShouldFail(
-            () => "my name is slim shady".ShouldContainAll(["name", "slim", "eminem"]),
-
-            errorWithSource:
-            """
-            "my name is slim shady"
-                should contain all (case insensitive comparison)
-            "name, slim, eminem"
-                but did not
-            """,
-
-            errorWithoutSource:
-            """
-            "my name is slim shady"
-                should contain all (case insensitive comparison)
-            "name, slim, eminem"
-                but did not
-            """);
+        var target = "my name is slim shady";
+        Verify.ShouldFail(() =>
+            target.ShouldContainAll(["name", "slim", "eminem"]));
     }
 
     [Fact]
-    public void ShouldContainAll_WithCaseSensitive_ShouldFailIfCaseDoesNotMatch()
+    public void CaseSensitiveShouldFailIfCaseDoesNotMatch()
     {
-        Verify.ShouldFail(
-            () => "Hello World".ShouldContainAll(["hello"], Case.Sensitive),
-
-            errorWithSource:
-            """
-            "Hello World"
-                should contain all
-            "hello"
-                but did not
-            """,
-
-            errorWithoutSource:
-            """
-            "Hello World"
-                should contain all
-            "hello"
-                but did not
-            """);
+        var target = "Hello World";
+        Verify.ShouldFail(() =>
+            target.ShouldContainAll(["hello"], Case.Sensitive));
     }
 
     [Fact]
-    public void ShouldContainAll_WithCaseInsensitive_ShouldPassIfCaseDoesNotMatch()
+    public void CaseInsensitiveShouldPassIfCaseDoesNotMatch()
     {
         "Hello World".ShouldContainAll(["hello"], Case.Insensitive);
     }
 
     [Fact]
-    public void ShouldContainAll_ShouldIncludeCustomMessage_WhenProvided()
+    public void ShouldIncludeCustomMessageWhenProvided()
     {
-        Verify.ShouldFail(
-            () => "my name is slim shady".ShouldContainAll(["name", "slim", "eminem"], Case.Insensitive, "Custom error message"),
-
-            errorWithSource:
-            """
-            "my name is slim shady"
-                should contain all (case insensitive comparison)
-            "name, slim, eminem"
-                but did not
-
-            Additional Info:
-                Custom error message
-            """,
-
-            errorWithoutSource:
-            """
-            "my name is slim shady"
-                should contain all (case insensitive comparison)
-            "name, slim, eminem"
-                but did not
-
-            Additional Info:
-                Custom error message
-            """);
+        var target = "my name is slim shady";
+        Verify.ShouldFail(() =>
+            target.ShouldContainAll(["name", "slim", "eminem"], Case.Insensitive, "Custom error message"));
     }
 }

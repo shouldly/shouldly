@@ -25,4 +25,7 @@ public class IndexableObject
 
     // Indexing is different to standard properties, in that indexing is a property that takes an argument.
     public string this[int index] => _indexedStrings[index];
+
+    // Without at least one comparable member the vacuous-comparison guard would trip.
+    public int Count => _indexedStrings.Count;
 }

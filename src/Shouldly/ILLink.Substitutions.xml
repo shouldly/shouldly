@@ -1,0 +1,10 @@
+<linker>
+  <assembly fullname="Shouldly">
+    <!-- When a trimmed/AOT publish disables the feature switch, the reflection-based equivalency
+         shape provider becomes unreachable and is removed; ShouldBeEquivalentTo then requires a
+         registered (source-generated) provider and fails with an actionable error otherwise. -->
+    <type fullname="Shouldly.Equivalency.EquivalencyShapes" feature="Shouldly.Equivalency.IsReflectionEnabledByDefault" featurevalue="false">
+      <method signature="System.Boolean get_IsReflectionEnabledByDefault()" body="stub" value="false" />
+    </type>
+  </assembly>
+</linker>

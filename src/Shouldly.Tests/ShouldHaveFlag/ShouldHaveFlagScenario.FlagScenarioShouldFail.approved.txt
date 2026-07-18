@@ -1,0 +1,8 @@
+actual
+    should have flag
+TestEnum.FlagOne
+    but had
+TestEnum.FlagTwo
+
+Additional Info:
+    Some additional context

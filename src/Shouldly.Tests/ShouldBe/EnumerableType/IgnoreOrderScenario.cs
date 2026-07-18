@@ -6,43 +6,7 @@ public class IgnoreOrderScenario
     public void IgnoreOrderScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
-                new List<int> { 1, 4, 2 }.ShouldBe([1, 2, 3], true, "Some additional context"),
-
-            errorWithSource:
-            """
-            new List<int> { 1, 4, 2 }
-                should be (ignoring order)
-            [1, 2, 3]
-                but
-            new List<int> { 1, 4, 2 }
-                is missing
-            [3]
-                and
-            [1, 2, 3]
-                is missing
-            [4]
-
-            Additional Info:
-                Some additional context
-            """,
-
-            errorWithoutSource:
-            """
-            [1, 4, 2]
-                should be (ignoring order)
-            [1, 2, 3]
-                but
-            [1, 4, 2]
-                is missing
-            [3]
-                and
-            [1, 2, 3]
-                is missing
-            [4]
-
-            Additional Info:
-                Some additional context
-            """);
+            new List<int> { 1, 4, 2 }.ShouldBe([1, 2, 3], true, "Some additional context"));
     }
 
     [Fact]

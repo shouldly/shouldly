@@ -12,10 +12,19 @@ public static partial class GuidShouldBeTestExtensions
     /// <summary>
     /// Asserts that a Guid is equal to <see cref="Guid.Empty"/>
     /// </summary>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldBeEmpty(this Guid actual, string? customMessage = null)
+    public static void ShouldBeEmpty(this Guid actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage);
+        actual.AssertAwesomely(v => Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
+    }
+
+    /// <summary>
+    /// Asserts that a Guid is not equal to <see cref="Guid.Empty"/>
+    /// </summary>
+    public static void ShouldNotBeEmpty(this Guid actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        actual.AssertAwesomely(v => !Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
     }
 }
 

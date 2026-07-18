@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [System.Collections.Generic.HashSet<System.Int32>]
+    Count
+
+    Expected value to be
+5
+    but was
+4
+
+Additional Info:
+    Some additional context

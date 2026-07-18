@@ -1,0 +1,7 @@
+new[] { 1, 2, 2 }
+    should be unique but
+[2]
+    was duplicated
+
+Additional Info:
+    Some additional context
