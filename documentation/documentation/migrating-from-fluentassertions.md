@@ -87,10 +87,10 @@ changed.
 | `c.Should().Contain(x => …)` | `c.ShouldContain(x => …)` |
 | `c.Should().BeEmpty()` | `c.ShouldBeEmpty()` |
 | `c.Should().NotBeEmpty()` | `c.ShouldNotBeEmpty()` |
-| `c.Should().HaveCount(n)` | `c.Count.ShouldBe(n)` (no `ShouldHaveCount`) |
-| `c.Should().HaveCountGreaterThan(n)` | `c.Count.ShouldBeGreaterThan(n)` |
+| `c.Should().HaveCount(n)` | `c.ShouldHaveCount(n)` |
+| `c.Should().HaveCountGreaterThan(n)` | `c.Count.ShouldBeGreaterThan(n)` (no `ShouldHaveCountGreaterThan`) |
 | `c.Should().Equal(a, b, c)` | `c.ShouldBe([a, b, c])` (order-sensitive) |
-| `c.Should().BeEquivalentTo(other)` | `c.ShouldBe(other, ignoreOrder: true)` (not `ShouldBeEquivalentTo`; [see below](#collections-order-and-element-equality)) |
+| `c.Should().BeEquivalentTo(other)` | `c.ShouldBeEquivalentTo(other, new EquivalencyOptions { IgnoreOrder = true })` (structural + unordered; [see below](#collections-order-and-element-equality)) |
 | `c.Should().OnlyHaveUniqueItems()` | `c.ShouldBeUnique()` (not `ShouldAllBeUnique`) |
 | `c.Should().OnlyContain(x => …)` | `c.ShouldAllBe(x => …)` |
 | `c.Should().AllBeAssignableTo<T>()` | `c.ShouldAllBe(x => x is T)` (no `ShouldAllBeAssignableTo`) |
@@ -199,13 +199,17 @@ new[] { 1, 2, 3 }.ShouldBe([3, 2, 1]);                    // fails: order differ
 new[] { 1, 2, 3 }.ShouldBe([3, 2, 1], ignoreOrder: true); // passes
 ```
 
-So the two FluentAssertions collection methods map differently:
+So the FluentAssertions collection methods map like this:
 
-- `Should().Equal(…)` (ordered) becomes `ShouldBe(…)`
-- `Should().BeEquivalentTo(…)` (unordered) becomes `ShouldBe(…, ignoreOrder: true)`
+- `Should().Equal(…)` (ordered, element equality) becomes `ShouldBe(…)`
+- `Should().BeEquivalentTo(…)` (unordered, structural) becomes
+  `ShouldBeEquivalentTo(…, new EquivalencyOptions { IgnoreOrder = true })`
 
-Do not reach for `ShouldBeEquivalentTo` here. That is a deep object-graph comparison (next
-section), not an unordered collection check.
+`ShouldBe(…, ignoreOrder: true)` also compares order-insensitively, but it matches elements by their
+`Equals`, so it only lines up with FA's collection `BeEquivalentTo` when the elements are values (or
+override equality). For collections of reference types that should be compared *structurally*, use
+`ShouldBeEquivalentTo` with `IgnoreOrder` (see the
+[object equivalence](#object-equivalence-shouldbeequivalentto) section).
 
 Because `ShouldBe` uses each element's `Equals`, a collection of reference types that don't override
 equality is compared by reference:
@@ -305,53 +309,84 @@ Two collection assertions have no Shouldly counterpart:
 
 ## Object equivalence: `ShouldBeEquivalentTo`
 
-`ShouldBeEquivalentTo` walks the object graph and compares public fields and properties
-recursively, but it is strict about type. Both sides must be the same runtime type; two
-structurally identical objects of different types fail immediately:
+`ShouldBeEquivalentTo` walks the object graph and compares public fields and properties recursively.
+Like FA's `BeEquivalentTo`, it is **direction-sensitive**: comparison is driven by the *expected*
+value's members, and any extra members the actual value carries are ignored. It does **not** require
+the two sides to be the same type, so two structurally identical objects of different types are
+equivalent:
+
+```csharp
+var actual   = new Dto      { Name = "Bob", Age = 30 };
+var expected = new Customer { Name = "Bob", Age = 30 };
+
+actual.ShouldBeEquivalentTo(expected);   // passes: same members, same values
+```
+
+Because the expectation drives member selection, you assert a **subset** by passing an anonymous
+type (or any type) that carries only the members you care about. This is the direct replacement for
+FA's "project to a shape and compare" pattern:
+
+```csharp
+var person = new Person { Name = "Bob", Age = 30, Internal = "secret" };
+
+person.ShouldBeEquivalentTo(new { Name = "Bob", Age = 30 });   // passes: Internal is not checked
+```
+
+A member present on the expected value but missing on the actual value is a failure, and every
+difference is collected rather than stopping at the first:
 
 ```csharp
 var dto  = new Dto            { Name = "Bob", Age = 30 };
 var full = new PersonExtended { Name = "Bob", Age = 30, Extra = "x" };
 
-dto.ShouldBeEquivalentTo(full);
+full.ShouldBeEquivalentTo(dto);   // passes: dto's members all match; full's Extra is ignored
+dto.ShouldBeEquivalentTo(full);   // fails: full expects an Extra member dto doesn't have
 ```
 
 ```text
 Comparing object equivalence, at path:
-dto
+dto [PersonExtended]
+    Extra
 
-    Expected value to be
-PersonExtended
-    but was
+    Expected a public member named
+"Extra"
+    but was not found on
 Dto
 ```
 
-FluentAssertions is deliberately looser here. Its `BeEquivalentTo` is direction-sensitive and
-tolerant of extra members: it checks that every member of the expectation exists and matches on the
-subject, ignoring any extra members the subject carries. That is what makes FA's
-"map `List<A>` to `IEnumerable<B>` and compare shapes" tests work, and it is exactly what Shouldly
-does not replicate today.
+### Options
 
-Shouldly's version also has no fluent options. There is no `.Excluding(...)`, `.WithAutoConversion()`,
-custom member selection, or comparison rules. It is all-or-nothing structural equality of the same
-type.
+A second overload takes an `EquivalencyOptions`:
 
-If your FA equivalence test relied on any of that, there is no drop-in replacement yet. Practical
-options:
+```csharp
+actual.ShouldBeEquivalentTo(expected, new EquivalencyOptions
+{
+    IgnoreOrder = true,                          // compare collections order-insensitively
+    MembersToIgnore = { "CreatedAt", "Id" },     // skip these members anywhere in the graph
+});
+```
 
-- Project both sides to a common shape, an anonymous type, tuple, or record with just the members
-  you care about, then compare:
-  ```csharp
-  (dto.Name, dto.Age).ShouldBe((full.Name, full.Age));
-  ```
-- Assert the members individually with [`ShouldSatisfy`](satisfyAllConditions.md) so you still get
-  all failures at once.
-- Keep a dedicated equivalence library for the handful of tests that genuinely need FA-style
-  flexibility.
+- `MembersToIgnore` is the counterpart to FA's `.Excluding(...)`, matched by member name anywhere in
+  the graph.
+- `IgnoreOrder` makes sequences compare order-insensitively; sets and dictionaries are always
+  compared unordered/by key.
 
-Richer equivalency options are being added for v5
-([#1094](https://github.com/shouldly/shouldly/pull/1094),
-[#1101](https://github.com/shouldly/shouldly/pull/1101)).
+### What still differs from FA
+
+- **Sequences are ordered by default.** Opt into `IgnoreOrder` for FA's unordered collection
+  behavior.
+- **`Equals` overrides on complex types are ignored** — comparison is always member-wise, so a type
+  with a custom `Equals` is still compared property-by-property. (Well-known value-semantic types
+  such as `string`, `Guid`, `DateTime`, and `Uri` are treated as leaves and compared with `Equals`.)
+- **Comparers and tolerances** — a fluent `.WithAutoConversion()` switch, `.Using<T>(...)` custom
+  comparers, or approximate numeric/`DateTime` matching — are not exposed as options yet. Numeric
+  *leaves* are auto-converted across kinds, so `int` `5` is equivalent to `long` `5` or `double`
+  `5.0`.
+
+For the rare test that needs an FA feature with no counterpart today (custom comparison rules,
+member selection by predicate), assert the members individually with
+[`ShouldSatisfy`](satisfyAllConditions.md) so you still get every failure at once, or keep a
+dedicated equivalence library for those cases.
 
 
 ## Exceptions and messages
@@ -418,7 +453,8 @@ expression and isn't trimming/AOT-safe. Prefer `ShouldSatisfy` or `Should.Satisf
 
 | FluentAssertions | Shouldly today |
 |---|---|
-| `BeEquivalentTo(…)` with options (`.Excluding`, `.WithAutoConversion`, member selection) | Project to a common shape, or assert members with `ShouldSatisfy` |
+| `BeEquivalentTo(…).Excluding(…)` | `ShouldBeEquivalentTo(…, new EquivalencyOptions { MembersToIgnore = { … } })` |
+| `BeEquivalentTo(…)` with custom comparers / `.WithAutoConversion` | No fluent equivalent yet; assert members with `ShouldSatisfy`, or use an anonymous-type subset ([see above](#object-equivalence-shouldbeequivalentto)) |
 | `ThrowExactly<T>()` | `ShouldThrow<T>()` + `ex.ShouldBeOfType<T>()` |
 | `.WithMessage("x*")` | `ex.Message.ShouldContain("x")` or `ShouldMatch(regex)` |
 | `AssertionScope` | `ShouldSatisfy` or `Should.Satisfy` |
