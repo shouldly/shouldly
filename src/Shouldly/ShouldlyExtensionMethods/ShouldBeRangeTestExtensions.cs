@@ -5,6 +5,14 @@ public static partial class ShouldBeTestExtensions
     /// <summary>
     /// Asserts that the actual value is one of the expected values.
     /// </summary>
+    public static void ShouldBeOneOf<T>(this T? actual, params T[] expected)
+    {
+        ShouldBeOneOf(actual, expected, customMessage: null, actualExpression: null);
+    }
+
+    /// <summary>
+    /// Asserts that the actual value is one of the expected values.
+    /// </summary>
     public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
