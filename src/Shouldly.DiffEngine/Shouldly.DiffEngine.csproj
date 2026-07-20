@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EmptyFiles" Version="8.18.2" PrivateAssets="None" />
-    <PackageReference Include="DiffEngine" Version="19.3.2" />
+    <PackageReference Include="DiffEngine" Version="19.3.3" />
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
   </ItemGroup>
   <ItemGroup>
