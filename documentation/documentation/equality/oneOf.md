@@ -2,6 +2,14 @@
 
 `ShouldNotBeOneOf` is the inverse of `ShouldBeOneOf`.
 
+The candidates are passed as a single collection, not as individual arguments:
+
+```cs
+status.ShouldBeOneOf([Status.Active, Status.Pending]);
+```
+
+This was a `params` array in v4 — see the [4 to 5 upgrade guide](../upgrade/4to5.md).
+
 
 ## ShouldBeOneOf
 
