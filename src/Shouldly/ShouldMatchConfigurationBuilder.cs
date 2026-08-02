@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Shouldly;
 
 /// <summary>
@@ -71,21 +73,23 @@ public class ShouldMatchConfigurationBuilder
         Configure(c => c.ApprovalFileSubFolder = subfolder);
 
     /// <summary>
-    /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
+    /// No longer supported: ShouldMatchApproved no longer walks the stack. Have your helper method
+    /// capture <see cref="CallerMemberNameAttribute"/>/<see cref="CallerFilePathAttribute"/> parameters
+    /// and pass them to ShouldMatchApproved's <c>testMethodName</c>/<c>sourceFilePath</c> parameters.
     /// </summary>
-    public ShouldMatchConfigurationBuilder UseCallerLocation() =>
-        Configure(c => c.TestMethodFinder =
-            new FirstNonShouldlyMethodFinder
-            {
-                Offset = 1
-            });
+    [Obsolete("ShouldMatchApproved no longer walks the stack; it captures the test method via [CallerMemberName]/[CallerFilePath]. Have your helper method capture the same caller info parameters and pass them through to ShouldMatchApproved's testMethodName/sourceFilePath parameters.", error: true)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public ShouldMatchConfigurationBuilder UseCallerLocation() => this;
 
     /// <summary>
-    /// Tells shouldly to use this methods caller for naming. Useful when you have created a test helper
+    /// No longer supported: ShouldMatchApproved no longer walks the stack. Have your helper method
+    /// capture <see cref="CallerMemberNameAttribute"/>/<see cref="CallerFilePathAttribute"/> parameters
+    /// and pass them to ShouldMatchApproved's <c>testMethodName</c>/<c>sourceFilePath</c> parameters.
     /// </summary>
+    [Obsolete("ShouldMatchApproved no longer walks the stack; it captures the test method via [CallerMemberName]/[CallerFilePath]. Have your helper method capture the same caller info parameters and pass them through to ShouldMatchApproved's testMethodName/sourceFilePath parameters.", error: true)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
-        where T : Attribute =>
-        Configure(c => c.TestMethodFinder = new FindMethodUsingAttribute<T>());
+        where T : Attribute => this;
 
     /// <summary>
     /// Sets a scrubber function to modify the received content before comparison

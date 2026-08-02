@@ -12,10 +12,9 @@ public class ShouldMatchConfiguration
         new(new()
         {
             StringCompareOptions = StringCompareShould.IgnoreLineEndings,
-            TestMethodFinder = new FirstNonShouldlyMethodFinder(),
             FileExtension = "txt",
             FilenameGenerator = (testMethodInfo, discriminator, type, extension)
-                => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
+                => $"{testMethodInfo.SourceFileName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}"
         });
 
     /// <summary>
@@ -36,7 +35,6 @@ public class ShouldMatchConfiguration
         PreventDiff = initialConfig.PreventDiff;
         DiffViewer = initialConfig.DiffViewer;
         FileExtension = initialConfig.FileExtension;
-        TestMethodFinder = initialConfig.TestMethodFinder;
         ApprovalFileSubFolder = initialConfig.ApprovalFileSubFolder;
         Scrubber = initialConfig.Scrubber;
         FilenameGenerator = initialConfig.FilenameGenerator;
@@ -68,11 +66,6 @@ public class ShouldMatchConfiguration
     public string FileExtension { get; set; } = "txt";
 
     /// <summary>
-    /// The test method finder to use to locate the test method
-    /// </summary>
-    internal ITestMethodFinder TestMethodFinder { get; set; } = new FirstNonShouldlyMethodFinder();
-
-    /// <summary>
     /// Optional subfolder for approval files
     /// </summary>
     public string? ApprovalFileSubFolder { get; set; }
@@ -89,5 +82,5 @@ public class ShouldMatchConfiguration
     /// </summary>
     public FilenameGenerator FilenameGenerator { get; set; } =
         (testMethodInfo, discriminator, type, extension)
-            => $"{testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}";
+            => $"{testMethodInfo.SourceFileName}.{testMethodInfo.MethodName}{discriminator}.{type}.{extension}";
 }

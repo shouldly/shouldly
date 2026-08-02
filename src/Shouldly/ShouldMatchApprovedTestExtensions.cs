@@ -18,15 +18,13 @@ public static class ShouldMatchApprovedTestExtensions
     /// <param name="configureOptions">Optional action to configure the approval options</param>
     /// <param name="customMessage">Optional custom message to display if the assertion fails</param>
     /// <param name="actualExpression">The source-level expression of the actual argument captured at the call site via <see cref="CallerArgumentExpressionAttribute"/>.</param>
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    [RequiresUnreferencedCode("ShouldMatchApproved walks the stack trace to locate the test method and its source file. Methods and types reflected at runtime may be removed by the trimmer.")]
+    /// <param name="testMethodName">The name of the test method, captured at the call site via <see cref="CallerMemberNameAttribute"/>. Used to name the approval files. When wrapping this call in a helper method, capture the caller info on the helper and pass it through explicitly.</param>
+    /// <param name="sourceFilePath">The path of the source file containing the test method, captured at the call site via <see cref="CallerFilePathAttribute"/>. The approval files are placed next to it and prefixed with its file name. When wrapping this call in a helper method, capture the caller info on the helper and pass it through explicitly.</param>
     public static void ShouldMatchApproved(this string actual, Action<ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null,
-        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null,
+        [CallerMemberName] string testMethodName = "",
+        [CallerFilePath] string sourceFilePath = "")
     {
-        var codeGetter = new ActualCodeTextGetter();
-        var stackTrace = new StackTrace(true);
-        codeGetter.GetCodeText(actual, stackTrace);
-
         var configurationBuilder = new ShouldMatchConfigurationBuilder(ShouldMatchConfiguration.ShouldMatchApprovedDefaults.Build());
         configureOptions?.Invoke(configurationBuilder);
         var config = configurationBuilder.Build();
@@ -34,12 +32,13 @@ public static class ShouldMatchApprovedTestExtensions
         if (config.Scrubber != null)
             actual = config.Scrubber(actual);
 
-        var testMethodInfo = config.TestMethodFinder.GetTestMethodInfo(stackTrace, codeGetter.ShouldlyFrameOffset);
+        var resolvedSourceFilePath = DeterministicBuildHelpers.ResolveDeterministicPaths(sourceFilePath);
+        var testMethodInfo = new TestMethodInfo(testMethodName, resolvedSourceFilePath);
         var discriminator = config.FilenameDiscriminator == null ? null : "." + config.FilenameDiscriminator;
         var outputFolder = testMethodInfo.SourceFileDirectory;
 
         if (string.IsNullOrEmpty(outputFolder))
-            throw new($"Source information not available, make sure you are compiling with full debug information. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+            throw new($"Source information not available: the compiler did not supply a file path for the call site of '{testMethodName}'. If you are invoking ShouldMatchApproved through reflection or generated code, pass {nameof(testMethodName)} and {nameof(sourceFilePath)} explicitly.");
 
         if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
         {
@@ -53,7 +52,7 @@ public static class ShouldMatchApprovedTestExtensions
         // may produce an absolute path that resolves the deterministic prefix itself.
         if (DeterministicBuildHelpers.PathAppearsToBeDeterministic(approvedFile) ||
             DeterministicBuildHelpers.PathAppearsToBeDeterministic(receivedFile))
-            throw new($"Unable to resolve source file from deterministic build source path. Frame: {testMethodInfo.DeclaringTypeName}.{testMethodInfo.MethodName}");
+            throw new($"Unable to resolve source file from deterministic build source path. Test method: {testMethodInfo.SourceFileName}.{testMethodInfo.MethodName}");
 
         if (!string.IsNullOrEmpty(config.ApprovalFileSubFolder))
         {

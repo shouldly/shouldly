@@ -1,69 +1,24 @@
-using Shouldly.Internals;
-
 namespace Shouldly;
 
 /// <summary>
-/// Contains information about a test method
+/// Contains information about the test method that invoked <c>ShouldMatchApproved</c>,
+/// captured at compile time via <see cref="CallerMemberNameAttribute"/> and
+/// <see cref="CallerFilePathAttribute"/>.
 /// </summary>
 public class TestMethodInfo
 {
     /// <summary>
-    /// Initializes a new instance of the TestMethodInfo class
+    /// Initializes a new instance from a test method name and the full path of the source
+    /// file containing it
     /// </summary>
-    /// <param name="callingFrame">The stack frame of the calling method</param>
-    [RequiresUnreferencedCode("Uses StackFrame.GetMethod() and reflects over the declaring type to detect async state machines. Method metadata may be trimmed away.")]
-    internal TestMethodInfo(StackFrame callingFrame)
+    /// <param name="methodName">The name of the test method</param>
+    /// <param name="sourceFilePath">The full path of the source file containing the test method</param>
+    public TestMethodInfo(string? methodName, string? sourceFilePath)
     {
-        var fileName = callingFrame.GetFileName();
-        fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
-        SourceFileDirectory = Path.GetDirectoryName(fileName);
-
-        var method = callingFrame.GetMethod();
-        var originalMethodInfo = GetOriginalMethodInfoForStateMachineMethod(method);
-
-        MethodName = originalMethodInfo?.MethodName ?? method?.Name;
-        DeclaringTypeName = (originalMethodInfo?.DeclaringType ?? method?.DeclaringType)?.Name;
+        MethodName = methodName;
+        SourceFileDirectory = string.IsNullOrEmpty(sourceFilePath) ? null : Path.GetDirectoryName(sourceFilePath);
+        SourceFileName = string.IsNullOrEmpty(sourceFilePath) ? null : Path.GetFileNameWithoutExtension(sourceFilePath);
     }
-
-    private readonly struct OriginalMethodInfo
-    {
-        public OriginalMethodInfo(string methodName, Type declaringType)
-        {
-            MethodName = methodName;
-            DeclaringType = declaringType;
-        }
-
-        public string MethodName { get; }
-        public Type DeclaringType { get; }
-    }
-
-    private static OriginalMethodInfo? GetOriginalMethodInfoForStateMachineMethod(MethodBase? method)
-    {
-        if (method?.DeclaringType is { IsByRef: false } declaringType
-            && declaringType.DeclaringType is { } originalMethodDeclaringType
-            && ContainsAttribute(declaringType, "System.Runtime.CompilerServices.CompilerGeneratedAttribute")
-            && declaringType.GetInterface("System.Runtime.CompilerServices.IAsyncStateMachine") is object)
-        {
-            var stateMachineTypeName = declaringType.Name;
-            var openingAngleBracket = stateMachineTypeName.IndexOf('<');
-            if (openingAngleBracket != -1)
-            {
-                var closingAngleBracket = stateMachineTypeName.IndexOf('>', openingAngleBracket + 1);
-                if (closingAngleBracket != -1)
-                {
-                    var originalMethodName = stateMachineTypeName.Substring(openingAngleBracket + 1, closingAngleBracket - (openingAngleBracket + 1));
-
-                    return new OriginalMethodInfo(originalMethodName, originalMethodDeclaringType);
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private static bool ContainsAttribute(MemberInfo member, string attributeName) =>
-        member.CustomAttributes.Any(a =>
-            a.AttributeType.FullName?.StartsWith(attributeName, StringComparison.Ordinal) ?? false);
 
     /// <summary>
     /// The directory containing the source file of the test method
@@ -76,7 +31,16 @@ public class TestMethodInfo
     public string? MethodName { get; }
 
     /// <summary>
-    /// The name of the type declaring the test method
+    /// The name of the source file containing the test method, without its extension.
+    /// Under the usual one-class-per-file convention this matches the test class name.
     /// </summary>
-    public string? DeclaringTypeName { get; }
+    public string? SourceFileName { get; }
+
+    /// <summary>
+    /// The name of the type declaring the test method. Since Shouldly 5 this is derived from
+    /// the source file name rather than the runtime stack, so it matches the declaring type
+    /// only under the one-class-per-file naming convention.
+    /// </summary>
+    [Obsolete("Derived from the source file name since Shouldly 5. Use SourceFileName instead.")]
+    public string? DeclaringTypeName => SourceFileName;
 }
