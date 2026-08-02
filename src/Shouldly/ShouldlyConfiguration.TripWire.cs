@@ -1,9 +1,9 @@
 namespace Shouldly;
 
-// Internal test-infrastructure surface: a process-wide trip-wire that guarantees Shouldly
-// assertions use their compile-time-captured CallerArgumentExpression value instead of
-// falling back to stack-trace parsing. Reached from the test assembly via reflection
-// (see Shouldly.Tests/CallerArgumentExpression/TripWireAccess) so it stays off the public API.
+// A process-wide trip-wire that guarantees Shouldly assertions use their
+// compile-time-captured CallerArgumentExpression value instead of falling back to
+// stack-trace parsing. Public so that authors of custom assertion methods can prove
+// their [CallerArgumentExpression] wiring in their own test suites.
 public static partial class ShouldlyConfiguration
 {
     private static int _assertCallerArgumentExpressionIsUsedCount;
@@ -13,11 +13,12 @@ public static partial class ShouldlyConfiguration
     /// Shouldly ever falls back to stack-trace parsing to recover an assertion's call-site
     /// expression. Use to prove that
     /// <see cref="System.Runtime.CompilerServices.CallerArgumentExpressionAttribute"/> capture is
-    /// wired all the way through to the assertion message on a given test run.
+    /// wired all the way through to the assertion message on a given test run — for example, arm
+    /// it in a module initializer of the test suite covering your custom assertion methods.
     /// Stack-walking that is deliberately suppressed (via <see cref="DisableSourceInErrors"/> or
     /// <see cref="AllowStackWalking"/>) does not trigger the trip-wire.
     /// </summary>
-    internal static IDisposable AssertCallerArgumentExpressionIsUsed()
+    public static IDisposable AssertCallerArgumentExpressionIsUsed()
     {
         System.Threading.Interlocked.Increment(ref _assertCallerArgumentExpressionIsUsedCount);
         return new DisarmTripWireDisposable();
@@ -30,7 +31,7 @@ public static partial class ShouldlyConfiguration
     /// — for example, calls that go through dynamic dispatch (where CAE doesn't fire) or
     /// obsolete <c>params</c>-array overloads.
     /// </summary>
-    internal static IDisposable AllowStackWalking()
+    public static IDisposable AllowStackWalking()
     {
         // Capture the prior value so nested scopes compose correctly: when an inner scope
         // disposes it restores the outer scope's "true" rather than clearing the flag.
