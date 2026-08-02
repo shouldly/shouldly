@@ -5,6 +5,12 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
     private const int MaxContextChars = 20;
     private const int MaxDisplayLength = 60;
     private const int MaxDiffRegions = 3;
+    private const int MaxHintScanLength = 100_000;
+
+    // Line mode splits both whole strings into per-line arrays before diffing, so its memory
+    // cost is proportional to the input. Past this size fall back to character mode, which walks
+    // the differing span in O(1) memory, rather than allocating line arrays for a multi-MB value.
+    private const int MaxLineModeLength = 100_000;
 
     private readonly Case _sensitivity;
     private readonly Func<string, string> _transform;
@@ -30,8 +36,9 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         var actualHasNewline = actual.Contains('\n');
         var maxLen = Math.Max(expected.Length, actual.Length);
 
-        if ((expectedHasNewline && actualHasNewline)
-            || ((expectedHasNewline || actualHasNewline) && maxLen > MaxDisplayLength))
+        if (maxLen <= MaxLineModeLength
+            && ((expectedHasNewline && actualHasNewline)
+                || ((expectedHasNewline || actualHasNewline) && maxLen > MaxDisplayLength)))
             return FormatLineMode(expected, actual);
 
         return FormatCharacterMode(expected, actual);
@@ -68,16 +75,14 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
             return result;
         }
 
-        // For long strings, find individual diff positions within the diff region
-        var diffPositions = FindDiffPositions(expected, actual, commonPrefix, commonSuffix);
-        var regions = ConsolidateDiffPositions(diffPositions);
+        // For long strings, find individual diff regions within the diff span
+        var (regions, totalDiffs) = FindDiffRegions(expected, actual, commonPrefix, commonSuffix);
 
-        if (regions.Count == 0) return "";
+        if (totalDiffs == 0) return "";
 
         var output = new StringBuilder();
 
-        var totalDiffs = regions.Count;
-        var showCount = Math.Min(totalDiffs, MaxDiffRegions);
+        var showCount = regions.Count;
 
         if (totalDiffs > 1)
             output.AppendLine($"{totalDiffs} differences");
@@ -125,46 +130,51 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
         return output.ToString();
     }
 
-    private List<int> FindDiffPositions(string expected, string actual, int commonPrefix, int commonSuffix)
+    // Walks the differing span once, consolidating adjacent positions into regions as it goes.
+    // Only the first MaxDiffRegions regions are retained — the rest are counted and dropped — so
+    // comparing two entirely different multi-megabyte strings stays O(1) in memory.
+    private (List<DiffRegion> Regions, int Total) FindDiffRegions(string expected, string actual, int commonPrefix, int commonSuffix)
     {
-        var positions = new List<int>();
+        var regions = new List<DiffRegion>();
+        var total = 0;
         var expectedEnd = expected.Length - commonSuffix;
         var actualEnd = actual.Length - commonSuffix;
         var maxEnd = Math.Max(expectedEnd, actualEnd);
 
-        for (var i = commonPrefix; i < maxEnd; i++)
+        var start = -1;
+        var end = -1;
+
+        void Close()
         {
-            if (!CharAtIndexIsEqual(expected, actual, i))
-                positions.Add(i);
+            total++;
+            if (regions.Count < MaxDiffRegions)
+                regions.Add(new DiffRegion(start, end));
         }
 
-        return positions;
-    }
-
-    private static List<DiffRegion> ConsolidateDiffPositions(List<int> positions)
-    {
-        if (positions.Count == 0) return [];
-
-        var regions = new List<DiffRegion>();
-        var start = positions[0];
-        var end = positions[0];
-
-        for (var i = 1; i < positions.Count; i++)
+        for (var i = commonPrefix; i < maxEnd; i++)
         {
-            if (positions[i] - end <= 5) // Merge nearby diffs
+            if (CharAtIndexIsEqual(expected, actual, i))
+                continue;
+
+            if (start < 0)
             {
-                end = positions[i];
+                start = end = i;
+            }
+            else if (i - end <= 5) // Merge nearby diffs
+            {
+                end = i;
             }
             else
             {
-                regions.Add(new DiffRegion(start, end));
-                start = positions[i];
-                end = positions[i];
+                Close();
+                start = end = i;
             }
         }
 
-        regions.Add(new DiffRegion(start, end));
-        return regions;
+        if (start >= 0)
+            Close();
+
+        return (regions, total);
     }
 
     private static ContextWindow ExtractContextWindow(string expected, string actual, int diffStart, int diffEnd)
@@ -230,6 +240,11 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
 
     private string? DetectSmartHint(string expected, string actual)
     {
+        // Every check below needs a whole-string copy (line-ending normalisation, tab expansion).
+        // Past this size those allocations cost more than the hint is worth.
+        if (Math.Max(expected.Length, actual.Length) > MaxHintScanLength)
+            return null;
+
         var comparer = _sensitivity == Case.Insensitive
             ? StringComparer.OrdinalIgnoreCase
             : StringComparer.Ordinal;

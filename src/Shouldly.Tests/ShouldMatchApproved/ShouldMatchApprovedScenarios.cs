@@ -68,8 +68,9 @@ public class ShouldMatchApprovedScenarios
         }
 
         exception.ShouldNotBeNull();
-        // text is limited to 5000 char. but then the diff results in 5000*2+some extraneous text
-        exception.Message.Length.ShouldBeLessThan(12000);
+        // Each echoed value is capped at ShouldlyConfiguration.MaxStringLengthInMessages,
+        // and the difference section is windowed, so the whole message stays small.
+        exception.Message.Length.ShouldBeLessThan(3000);
     }
 
     [Fact]

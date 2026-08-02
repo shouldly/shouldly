@@ -82,4 +82,37 @@ public static partial class ShouldlyConfiguration
     }
 
     private const string EscapeStyleKey = "ShouldlyEscapeStyle";
+
+    /// <summary>
+    /// Maximum number of characters of the actual and expected values echoed back in string
+    /// assertion failure messages. Longer values are truncated, and the message says so along
+    /// with the value's full length.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This only bounds the verbatim echo. The <c>difference</c> section is always computed from
+    /// the full, untruncated values, so lowering this can never hide a difference — it just trims
+    /// the surrounding noise. Raise it when you want more of the raw value in the message.
+    /// </para>
+    /// <para>
+    /// Scoped to the logical call context. Flows down through async/await and
+    /// Task.Run by default; concurrent contexts get their own value.
+    /// </para>
+    /// </remarks>
+    public static int MaxStringLengthInMessages
+    {
+        get => (int?)CallContext.LogicalGetData(MaxStringLengthInMessagesKey) ?? DefaultMaxStringLengthInMessages;
+        set
+        {
+            if (value < 1)
+                throw new ArgumentOutOfRangeException(nameof(value), value,
+                    $"{nameof(MaxStringLengthInMessages)} must be at least 1.");
+
+            CallContext.LogicalSetData(MaxStringLengthInMessagesKey, value);
+        }
+    }
+
+    private const int DefaultMaxStringLengthInMessages = 1000;
+
+    private const string MaxStringLengthInMessagesKey = "ShouldlyMaxStringLengthInMessages";
 }

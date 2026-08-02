@@ -529,6 +529,7 @@ namespace Shouldly
         public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
         public static Shouldly.DiffStyle DiffStyle { get; set; }
         public static Shouldly.EscapeStyle EscapeStyle { get; set; }
+        public static int MaxStringLengthInMessages { get; set; }
         public static System.IDisposable AllowStackWalking() { }
         public static System.IDisposable AssertCallerArgumentExpressionIsUsed() { }
         public static System.IDisposable DisableSourceInErrors() { }

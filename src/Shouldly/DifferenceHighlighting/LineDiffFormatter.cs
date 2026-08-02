@@ -4,6 +4,10 @@ class LineDiffFormatter
 {
     private const int MaxContextLines = 2;
 
+    // Cap on the changed lines shown per side. The differ runs on untruncated values, so
+    // without this a pair of large, wholly different documents would echo both in full.
+    private const int MaxChangedLines = 20;
+
     private readonly Case _caseSensitivity;
 
     public LineDiffFormatter(Case caseSensitivity)
@@ -59,16 +63,10 @@ class LineDiffFormatter
         }
 
         // Expected lines (removed from expected)
-        for (var i = expectedChangeStart; i < expectedChangeEnd; i++)
-        {
-            sb.AppendLine($"{ExpectedPrefix}{DisplayLine(expectedLines[i])}");
-        }
+        AppendChangedLines(sb, expectedLines, expectedChangeStart, expectedChangeEnd, ExpectedPrefix);
 
         // Actual lines (added in actual)
-        for (var i = actualChangeStart; i < actualChangeEnd; i++)
-        {
-            sb.AppendLine($"{ActualPrefix}{DisplayLine(actualLines[i])}");
-        }
+        AppendChangedLines(sb, actualLines, actualChangeStart, actualChangeEnd, ActualPrefix);
 
         // Up marker below actual line
         if (charDiffPos >= 0)
@@ -92,6 +90,20 @@ class LineDiffFormatter
             sb.Length -= Environment.NewLine.Length;
 
         return sb.ToString();
+    }
+
+    private static void AppendChangedLines(StringBuilder sb, string[] lines, int start, int end, string prefix)
+    {
+        var shown = Math.Min(end - start, MaxChangedLines);
+
+        for (var i = start; i < start + shown; i++)
+        {
+            sb.AppendLine($"{prefix}{DisplayLine(lines[i])}");
+        }
+
+        var hidden = end - start - shown;
+        if (hidden > 0)
+            sb.AppendLine($"{prefix}... and {hidden} more line(s)");
     }
 
     private static string DisplayLine(string line)
