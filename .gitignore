@@ -25,7 +25,7 @@ docs/_build/
 **/.vs
 *.user
 *.received.*
-src/TestResults/
+TestResults/
 src/TestDiffTools/Main.approved.txt
 tools/*
 !tools/packages.config

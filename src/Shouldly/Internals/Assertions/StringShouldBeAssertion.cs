@@ -35,8 +35,9 @@ class StringShouldBeAssertion : IAssertion
 
     public string GenerateMessage(string? customMessage)
     {
-        var _actualTrimmed = Trim(_actual);
-        var _expectedTrimmed = Trim(_expected);
+        var actualValue = Echo(_actual);
+        var expectedValue = Echo(_expected);
+
         string? codeText;
         if (_actualExpression != null)
         {
@@ -50,19 +51,21 @@ class StringShouldBeAssertion : IAssertion
                     $"{nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed)} trip-wire being armed. " +
                     $"Wrap the call site in {nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
 
+            // No call-site text to show, so the rendered value stands in for it. Using the same
+            // echo means the "but was" line below collapses to " not" instead of repeating it.
 #if NETSTANDARD2_0
             codeText = ShouldlyConfiguration.IsSourceDisabledInErrors()
-                ? _actual.ToStringAwesomely()
+                ? actualValue
                 : _codeTextGetter.GetCodeText(_actual);
 #else
-            codeText = _actual.ToStringAwesomely();
+            codeText = actualValue;
 #endif
         }
         var withOption = string.IsNullOrEmpty(_options) ? null : $" with options: {_options}";
-        var actualValue = _actualTrimmed.ToStringAwesomely();
-        var expectedValue = _expectedTrimmed.ToStringAwesomely();
 
-        var differences = _diffHighlighter.HighlightDifferences(_expectedTrimmed, _actualTrimmed);
+        // Differences come from the full values. Truncating first would let a difference that
+        // sits past the echo budget disappear from the message entirely.
+        var differences = _diffHighlighter.HighlightDifferences(_expected, _actual);
 
         var actual = codeText == actualValue ?
             " not" :
@@ -102,19 +105,21 @@ class StringShouldBeAssertion : IAssertion
         return message;
     }
 
-    private static string? Trim(string? value)
+    // Renders a value for the "should be X but was Y" lines, clipped to
+    // ShouldlyConfiguration.MaxStringLengthInMessages. Truncation is always announced —
+    // silently swallowing the tail leaves no clue that the printed value is partial.
+    private static string? Echo(string? value)
     {
-        if (value == null)
+        var limit = ShouldlyConfiguration.MaxStringLengthInMessages;
+
+        if (value == null || value.Length <= limit)
         {
-            return null;
+            return value.ToStringAwesomely();
         }
 
-        if (value.Length <= 5000)
-        {
-            return value;
-        }
-
-        return value[..5000];
+        return $"{value[..limit].ToStringAwesomely()} " +
+               $"(truncated to {limit} of {value.Length} characters, see " +
+               $"{nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.MaxStringLengthInMessages)})";
     }
 
     public bool IsSatisfied() =>
