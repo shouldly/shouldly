@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
@@ -26,22 +25,18 @@ public static class DocExampleWriter
 
     private static readonly ConcurrentDictionary<string, List<MethodDeclarationSyntax>> FileMethodsLookup = new();
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder>? additionConfig = null)
+    public static void Document(Action shouldMethod, ITestOutputHelper testOutputHelper, Action<ShouldMatchConfigurationBuilder>? additionConfig = null,
+        [CallerMemberName] string testMethodName = "",
+        [CallerFilePath] string sourceFilePath = "")
     {
-        var stackTrace = new StackTrace(true);
-        var caller = stackTrace.GetFrame(1)!;
-        var callerFileName = caller.GetFileName()!;
-        var callerMethod = caller.GetMethod()!;
-
-        var testMethod = FileMethodsLookup.GetOrAdd(callerFileName, fn =>
+        var testMethod = FileMethodsLookup.GetOrAdd(sourceFilePath, fn =>
         {
             var callerFile = File.ReadAllText(fn);
             var syntaxTree = CSharpSyntaxTree.ParseText(callerFile);
             return syntaxTree.GetRoot()
                 .DescendantNodes()
                 .OfType<MethodDeclarationSyntax>().ToList();
-        }).Single(m => m.Identifier.ValueText == callerMethod.Name);
+        }).Single(m => m.Identifier.ValueText == testMethodName);
 
         var documentCall = testMethod.DescendantNodes()
             .OfType<InvocationExpressionSyntax>()
@@ -72,12 +67,11 @@ public static class DocExampleWriter
             {
                 configurationBuilder
                     .WithDiscriminator("codeSample")
-                    .UseCallerLocation()
                     .SubFolder("CodeExamples")
                     .WithScrubber(scrubber).WithFileExtension(".cs");
 
                 additionConfig?.Invoke(configurationBuilder);
-            });
+            }, testMethodName: testMethodName, sourceFilePath: sourceFilePath);
         }
         finally
         {
@@ -89,12 +83,11 @@ public static class DocExampleWriter
             {
                 configurationBuilder
                     .WithDiscriminator("exceptionText")
-                    .UseCallerLocation()
                     .SubFolder("CodeExamples")
                     .WithScrubber(scrubber);
 
                 additionConfig?.Invoke(configurationBuilder);
-            });
+            }, testMethodName: testMethodName, sourceFilePath: sourceFilePath);
         }
     }
 }

@@ -118,7 +118,7 @@ toVerify.ShouldMatchApproved(c => c.WithStringCompareOptions(options))
 
 ### WithDiscriminator
 
-By default the approved and received files are named `${MethodName}.approved.txt`, `WithDiscriminator` allows you to discriminate multiple files, useful for data driven tests which can have multiple executions of a single method. For example
+By default the approved and received files are named `{SourceFileName}.{MethodName}.approved.txt`, `WithDiscriminator` allows you to discriminate multiple files, useful for data driven tests which can have multiple executions of a single method. For example
 
 ```
 [Fact]
@@ -128,7 +128,7 @@ public void Simpsons()
 }
 ```
 
-Will result in a approved file with the name `Simpsons.Bart.approved.txt`
+Will result in an approved file with the name `SimpsonsTests.Simpsons.Bart.approved.txt` (for a test in `SimpsonsTests.cs`)
 
 
 ### Diff
@@ -167,11 +167,11 @@ toVerify.ShouldMatchApproved(c => c.SubFolder("Approvals"))
 ```
 
 
-### UseCallerLocation
+### Wrapping ShouldMatchApproved in a helper
 
-By default shouldly will walk the stacktrace to find the first non-shouldly method (not including anonymous methods and compiler generated stuff like the async state machine) and use that method for the approval filename. I.e a test named `MyTest` will result in a received filename of `MyTest.received.txt`.
+`ShouldMatchApproved` captures the calling test method at compile time via `[CallerMemberName]` and `[CallerFilePath]`, and uses them to name and place the approval files: a test named `MyTest` in `MyTests.cs` produces `MyTests.MyTest.received.txt` next to the source file.
 
-This setting tells shouldly to walk one more frame, this is really handy when you have created a utility function which calls `ShouldMatchApproved`.
+When you wrap `ShouldMatchApproved` in a utility method, capture the same caller info on your helper and pass it through — otherwise the files are named after the helper:
 
 ```
 [Fact]
@@ -180,25 +180,17 @@ public void MyTest()
     SomeUtilityMethod("Foo");
 }
 
-void SomeUtilityMethod(string toApprove)
+void SomeUtilityMethod(string toApprove,
+    [CallerMemberName] string testMethodName = "",
+    [CallerFilePath] string sourceFilePath = "")
 {
-    toApprove.ShouldMatchApproved(c => c.UseCallerLocation());
+    toApprove.ShouldMatchApproved(testMethodName: testMethodName, sourceFilePath: sourceFilePath);
 }
 
-// -> MyTest.received.txt - without UseCallerLocation() the file would be called SomeUtilityMethod.received.txt
+// -> MyTests.MyTest.received.txt - without the pass-through the file would be called MyTests.SomeUtilityMethod.received.txt
 ```
 
-
-### LocateTestMethodUsingAttribute
-
-If you want to locate your test method using an attribute that is easy too!
-
-```
-// XUnit
-"testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
-// NUnit
-"testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<TestAttribute>());
-```
+Helpers nested more than one level deep forward the same two parameters at each level. This replaces the `UseCallerLocation()` and `LocateTestMethodUsingAttribute<T>()` options from Shouldly 4, which pointed the old stack-walking mechanism at the right frame — see the [4 to 5 upgrade guide](../upgrade/4to5.md) for details.
 
 
 ### WithScrubber

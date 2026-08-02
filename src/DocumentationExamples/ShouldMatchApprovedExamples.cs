@@ -16,8 +16,6 @@ public class ShouldMatchApprovedExamples
             },
             _testOutputHelper, c =>
             {
-                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.approved.txt"));
-                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.received.txt", "ShouldMatchApprovedExamples.ApprovedFileDoesNotExist.received.txt"));
                 c.WithScrubber(s => s.Replace("c => c.NoDiff()", string.Empty));
             });
     }
@@ -35,8 +33,7 @@ public class ShouldMatchApprovedExamples
             {
                 // Scrubbing the generated docs is easier than altering the infrastructure to support this scenario
                 c.WithScrubber(s => s.Replace("c => c.NoDiff().WithDiscriminator(\"Different\")", string.Empty));
-                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.approved.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.approved.txt"));
-                c.WithScrubber(s => s.Replace("DocExampleWriter.Document.Different.received.txt", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent.received.txt"));
+                c.WithScrubber(s => s.Replace("ShouldMatchApprovedExamples.ApprovedFileIsDifferent.Different.", "ShouldMatchApprovedExamples.ApprovedFileIsDifferent."));
             });
     }
 }

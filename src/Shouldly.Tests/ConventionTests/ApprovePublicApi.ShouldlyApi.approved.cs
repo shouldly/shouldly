@@ -370,9 +370,7 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldMatchApprovedTestExtensions
     {
-        [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("ShouldMatchApproved walks the stack trace to locate the test method and its sourc" +
-            "e file. Methods and types reflected at runtime may be removed by the trimmer.")]
-        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldMatchApproved(this string actual, System.Action<Shouldly.ShouldMatchConfigurationBuilder>? configureOptions = null, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null, [System.Runtime.CompilerServices.CallerMemberName] string testMethodName = "", [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath = "") { }
     }
     public class ShouldMatchConfiguration
     {
@@ -394,10 +392,12 @@ namespace Shouldly
         public Shouldly.ShouldMatchConfiguration Build() { }
         public Shouldly.ShouldMatchConfigurationBuilder Configure(System.Action<Shouldly.ShouldMatchConfiguration> configure) { }
         public Shouldly.ShouldMatchConfigurationBuilder DoNotIgnoreLineEndings() { }
+        [System.Obsolete(@"ShouldMatchApproved no longer walks the stack; it captures the test method via [CallerMemberName]/[CallerFilePath]. Have your helper method capture the same caller info parameters and pass them through to ShouldMatchApproved's testMethodName/sourceFilePath parameters.", true)]
         public Shouldly.ShouldMatchConfigurationBuilder LocateTestMethodUsingAttribute<T>()
             where T : System.Attribute { }
         public Shouldly.ShouldMatchConfigurationBuilder NoDiff() { }
         public Shouldly.ShouldMatchConfigurationBuilder SubFolder(string subfolder) { }
+        [System.Obsolete(@"ShouldMatchApproved no longer walks the stack; it captures the test method via [CallerMemberName]/[CallerFilePath]. Have your helper method capture the same caller info parameters and pass them through to ShouldMatchApproved's testMethodName/sourceFilePath parameters.", true)]
         public Shouldly.ShouldMatchConfigurationBuilder UseCallerLocation() { }
         public Shouldly.ShouldMatchConfigurationBuilder WithDiscriminator(string fileDiscriminator) { }
         public Shouldly.ShouldMatchConfigurationBuilder WithFileExtension(string fileExtension) { }
@@ -582,9 +582,12 @@ namespace Shouldly
     }
     public class TestMethodInfo
     {
+        public TestMethodInfo(string? methodName, string? sourceFilePath) { }
+        [System.Obsolete("Derived from the source file name since Shouldly 5. Use SourceFileName instead.")]
         public string? DeclaringTypeName { get; }
         public string? MethodName { get; }
         public string? SourceFileDirectory { get; }
+        public string? SourceFileName { get; }
     }
 }
 namespace Shouldly.ShouldlyExtensionMethods

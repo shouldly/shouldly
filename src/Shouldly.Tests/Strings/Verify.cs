@@ -8,8 +8,9 @@ public static class Verify
 {
     private static readonly Regex MatchGetHashCode = new(@"\(-?\d{6,10}\)");
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static void ShouldFail(Action action, Func<string, string>? messageScrubber = null)
+    public static void ShouldFail(Action action, Func<string, string>? messageScrubber = null,
+        [CallerMemberName] string testMethodName = "",
+        [CallerFilePath] string sourceFilePath = "")
     {
         Func<string, string> scrub = messageScrubber != null
             ? v => MatchGetHashCode.Replace(messageScrubber(v), "(000000)")
@@ -17,7 +18,7 @@ public static class Verify
 
         var message = scrub(Should.Throw<ShouldAssertException>(action).Message);
 
-        message.ShouldMatchApproved(c => c.NoDiff());
+        message.ShouldMatchApproved(c => c.NoDiff(), testMethodName: testMethodName, sourceFilePath: sourceFilePath);
     }
 
     public static void ShouldFail(Action action, string errorMessage, Func<string, string>? messageScrubber = null)

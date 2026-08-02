@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -129,27 +130,29 @@ public class ShouldMatchApprovedScenarios
     }
 
     [Fact]
-    public void CanFindTestAttribute()
+    public void HelperForwardsCallerInfo()
     {
         FirstInCallStackToAssert();
     }
 
-    private static void FirstInCallStackToAssert()
+    private static void FirstInCallStackToAssert(
+        [CallerMemberName] string testMethodName = "",
+        [CallerFilePath] string sourceFilePath = "")
     {
-        AnotherInCallStack();
+        AnotherInCallStack(testMethodName, sourceFilePath);
     }
 
-    private static void AnotherInCallStack()
+    private static void AnotherInCallStack(string testMethodName, string sourceFilePath)
     {
-        "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
+        "testAttributes".ShouldMatchApproved(testMethodName: testMethodName, sourceFilePath: sourceFilePath);
     }
 
     [Fact]
-    public async Task CanFindTestAttributeInAsync()
+    public async Task HelperForwardsCallerInfoAsync()
     {
         await Task.Yield();
 
-        "testAttributes".ShouldMatchApproved(b => b.LocateTestMethodUsingAttribute<FactAttribute>());
+        FirstInCallStackToAssert();
     }
 
     [Fact]

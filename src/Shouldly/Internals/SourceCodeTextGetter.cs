@@ -5,7 +5,6 @@ class ActualCodeTextGetter : ICodeTextGetter
     private bool _determinedOriginatingFrame;
     private string? _shouldMethod;
 
-    public int ShouldlyFrameOffset { get; private set; }
     public string? FileName { get; private set; }
     public int LineNumber { get; private set; }
 
@@ -46,8 +45,6 @@ class ActualCodeTextGetter : ICodeTextGetter
         var originatingFrame = frames
                                    .FirstOrDefault(f => f.index > shouldlyFrame.index)
                                ?? throw new InvalidOperationException("The stack trace did not contain the caller of the Shouldly method.");
-
-        ShouldlyFrameOffset = originatingFrame.index;
 
         var fileName = originatingFrame.frame.GetFileName();
         fileName = DeterministicBuildHelpers.ResolveDeterministicPaths(fileName);
