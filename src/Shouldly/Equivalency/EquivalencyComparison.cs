@@ -13,10 +13,16 @@ internal sealed class EquivalencyComparison
     private readonly List<EquivalencyDifference> _differences = [];
     private readonly HashSet<VisitedPair> _visitedPairs = [];
 
-    private EquivalencyComparison(IEquivalencyShapeProvider shapes, EquivalencyOptions options)
+    // Pairs currently on the recursion stack (ancestors of the node being compared). Unlike
+    // _visitedPairs (a per-comparison dedup cache that only grows), entries are pushed on the way
+    // down and popped on the way back up, so this set always reflects the live ancestor chain.
+    private readonly HashSet<VisitedPair> _activePairs;
+
+    private EquivalencyComparison(IEquivalencyShapeProvider shapes, EquivalencyOptions options, HashSet<VisitedPair>? activePairs = null)
     {
         _shapes = shapes;
         _options = options;
+        _activePairs = activePairs ?? [];
     }
 
     public static void Assert(
@@ -60,40 +66,64 @@ internal sealed class EquivalencyComparison
         var annotatedPath = AnnotateWithType(path, comparisonType);
 
         var shape = _shapes.GetShape(comparisonType);
-        switch (shape.Kind)
+
+        // Cycle / identity guard for composite reference nodes. Leaves compare by value and cannot
+        // form cycles; value types are copied and cannot participate in reference-identity cycles.
+        // Tracking every composite kind here means a cycle that closes through a
+        // collection, dictionary or set terminates instead of recursing until StackOverflow.
+        var tracked = shape.Kind != EquivalencyNodeKind.Leaf && actual is not ValueType && expected is not ValueType;
+        VisitedPair pair = default;
+        if (tracked)
         {
-            case EquivalencyNodeKind.Leaf:
-                if (!LeafEquals(actual, expected))
-                    AddDifference(EquivalencyDifferenceKind.ValueMismatch, annotatedPath, expected, actual);
-                break;
+            if (ReferenceEquals(actual, expected))
+                return;
 
-            case EquivalencyNodeKind.Dictionary:
-                CompareDictionaries(actual, expected, shape, annotatedPath);
-                break;
+            pair = new(actual, expected);
 
-            case EquivalencyNodeKind.Set:
-                CompareUnordered(actual, expected, shape.ElementType, annotatedPath);
-                break;
+            // An in-progress ancestor pair reappearing is a cycle: treat it as equivalent (already
+            // being compared). A pair already recorded in _visitedPairs was fully compared earlier in
+            // this walk (a shared subgraph), so skip re-reporting the same differences.
+            if (_activePairs.Contains(pair) || !_visitedPairs.Add(pair))
+                return;
 
-            case EquivalencyNodeKind.Sequence:
-                CompareSequences(actual, expected, shape.ElementType, annotatedPath);
-                break;
+            _activePairs.Add(pair);
+        }
 
-            default:
-                CompareComplex(actual, expected, shape, annotatedPath);
-                break;
+        try
+        {
+            switch (shape.Kind)
+            {
+                case EquivalencyNodeKind.Leaf:
+                    if (!LeafEquals(actual, expected))
+                        AddDifference(EquivalencyDifferenceKind.ValueMismatch, annotatedPath, expected, actual);
+                    break;
+
+                case EquivalencyNodeKind.Dictionary:
+                    CompareDictionaries(actual, expected, shape, annotatedPath);
+                    break;
+
+                case EquivalencyNodeKind.Set:
+                    CompareUnordered(actual, expected, shape.ElementType, annotatedPath);
+                    break;
+
+                case EquivalencyNodeKind.Sequence:
+                    CompareSequences(actual, expected, shape.ElementType, annotatedPath);
+                    break;
+
+                default:
+                    CompareComplex(actual, expected, shape, annotatedPath);
+                    break;
+            }
+        }
+        finally
+        {
+            if (tracked)
+                _activePairs.Remove(pair);
         }
     }
 
     private void CompareComplex(object actual, object expected, EquivalencyTypeShape shape, List<string> path)
     {
-        if (ReferenceEquals(actual, expected))
-            return;
-
-        // Cycle tracking by reference identity; value types cannot participate in cycles.
-        if (actual is not ValueType && expected is not ValueType && !_visitedPairs.Add(new(actual, expected)))
-            return;
-
         var actualType = actual.GetType();
         var actualShape = actualType == shape.Type ? shape : _shapes.GetShape(actualType);
 
@@ -272,7 +302,11 @@ internal sealed class EquivalencyComparison
     /// <summary>Runs a full sub-comparison, discarding differences; used for order-insensitive matching.</summary>
     private bool IsEquivalent(object? actual, object? expected, Type? declaredType)
     {
-        var comparison = new EquivalencyComparison(_shapes, _options);
+        // Share the live ancestor set. Entries are pushed and popped in CompareNodes, so the set is restored
+        // when this returns and sibling trials never observe each other's entries. The sub-comparison
+        // still gets a fresh _visitedPairs, keeping each trial's shared-subgraph dedup independent - a
+        // pair fully compared in one trial must be re-derived in another rather than assumed equal.
+        var comparison = new EquivalencyComparison(_shapes, _options, _activePairs);
         comparison.CompareNodes(actual, expected, declaredType, []);
         return comparison._differences.Count == 0;
     }
