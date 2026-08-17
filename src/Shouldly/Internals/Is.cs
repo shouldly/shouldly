@@ -81,12 +81,17 @@ static class Is
         var expectedList = expected.ToList();
         foreach (var actualElement in actual)
         {
-            var match = expectedList.FirstOrDefault(x => Equal(x, actualElement, comparer));
-            if (!expectedList.Remove(match!)) // List<T>.Remove works fine when null is passed.
+            // Match by index rather than FirstOrDefault + Remove: when no element is equivalent,
+            // FirstOrDefault returns default(T), and Remove(default(T)) would succeed whenever
+            // default(T) (e.g. 0 or null) is present in the list.
+            var index = expectedList.FindIndex(x => Equal(x, actualElement, comparer));
+            if (index < 0)
                 return false;
+
+            expectedList.RemoveAt(index);
         }
 
-        return !expectedList.Any();
+        return expectedList.Count == 0;
     }
 
     public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
