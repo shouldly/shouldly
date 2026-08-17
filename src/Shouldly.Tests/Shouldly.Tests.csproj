@@ -13,7 +13,7 @@
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.4.2" PrivateAssets="all" />
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
-    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.0" />
     <PackageReference Include="PublicApiGenerator" Version="11.5.4" />
     <PackageReference Include="Polyfill" Version="11.2.0" PrivateAssets="all" />
     <PackageReference Include="GitHubActionsTestLogger" Version="3.0.5" PrivateAssets="all" />
