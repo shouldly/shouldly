@@ -10,7 +10,7 @@
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.0" />
     <PackageReference Include="PublicApiGenerator" Version="11.5.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
     <PackageReference Include="GitHubActionsTestLogger" Version="3.0.5" PrivateAssets="all" />
