@@ -44,23 +44,27 @@ public static partial class ShouldBeDictionaryTestExtensions
 
     /// <summary>
     /// Asserts that the dictionary contains the specified key with the specified value.
+    /// The value is compared the same way <c>ShouldBe</c> compares it, so collection values are
+    /// compared element-wise rather than by reference.
     /// </summary>
     public static void ShouldContainKeyAndValue<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key, TValue val, string? customMessage = null,
         [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
         where TKey : notnull
     {
-        if (!TryGetValue(dictionary, key, out var actual) || !Equals(actual, val))
+        if (!TryGetValue(dictionary, key, out var actual) || !Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
             throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage, actualExpression: actualExpression).ToString());
     }
 
     /// <summary>
     /// Asserts that the dictionary does not contain the specified value for the specified key.
+    /// The value is compared the same way <c>ShouldBe</c> compares it, so collection values are
+    /// compared element-wise rather than by reference.
     /// </summary>
     public static void ShouldNotContainValueForKey<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key, TValue val, string? customMessage = null,
         [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
         where TKey : notnull
     {
-        if (!TryGetValue(dictionary, key, out var actual) || Equals(actual, val))
+        if (!TryGetValue(dictionary, key, out var actual) || Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
             throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, customMessage, actualExpression: actualExpression).ToString());
     }
 

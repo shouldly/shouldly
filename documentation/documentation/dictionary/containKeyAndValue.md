@@ -50,3 +50,19 @@ websters
     but does
 ```
 <!-- endInclude -->
+
+
+## Value comparison
+
+The value is compared the same way [`ShouldBe`](../equality/shouldBe.md) compares it, not with `object.Equals`. Collection values are compared element-wise, numeric values honour `ShouldlyConfiguration.DefaultFloatingPointTolerance`, and `IEquatable<T>`/`IComparable<T>` are preferred over `Equals`:
+
+```cs
+var dictionary = new Dictionary<string, int[]> { ["key"] = [1, 2, 3] };
+
+// Passes — a different array instance with the same contents.
+dictionary.ShouldContainKeyAndValue("key", [1, 2, 3]);
+```
+
+This is not a member-wise comparison: a type that doesn't override `Equals` is still compared by reference. For member-wise comparison of a whole object graph, use `ShouldBeEquivalentTo`.
+
+The key, by contrast, is always looked up with the dictionary's own key comparer.

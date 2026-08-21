@@ -28,6 +28,18 @@ static class Is
     private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
         new Internals.EqualityComparer<T>(innerComparer);
 
+    /// <summary>
+    /// The comparer used to compare a single value of type <typeparamref name="T"/>: Shouldly's structural
+    /// comparer, except for <see cref="string"/> and the types registered in
+    /// <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>, which are compared with their own
+    /// <see cref="object.Equals(object)"/> rather than being walked as enumerables. Shared so that every
+    /// assertion comparing one value — <c>ShouldBe</c>, the dictionary value assertions — agrees on equality.
+    /// </summary>
+    public static IEqualityComparer<T> ScalarComparerFor<T>() =>
+        ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string)
+            ? new ObjectEqualityComparer<T>()
+            : GetEqualityComparer<T>();
+
     public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
         // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
         // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
