@@ -63,6 +63,8 @@ var dictionary = new Dictionary<string, int[]> { ["key"] = [1, 2, 3] };
 dictionary.ShouldContainKeyAndValue("key", [1, 2, 3]);
 ```
 
-This is not a member-wise comparison: a type that doesn't override `Equals` is still compared by reference. For member-wise comparison of a whole object graph, use `ShouldBeEquivalentTo`.
+This is not a member-wise comparison. A value that is neither a collection nor implements `IEquatable<T>`, `IComparable<T>`, or `IComparable` falls through to `object.Equals`, so a reference type that doesn't override it is still compared by reference. For member-wise comparison of a whole object graph, use `ShouldBeEquivalentTo`.
+
+One caveat, shared with `ShouldBe`: the *elements* of a collection value are compared without their static element type, so an element type that implements `IEquatable<T>` but doesn't override `Equals` (which [CA1067](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1067) flags) is compared by reference. `ShouldBe` on the value itself knows the element type and does honour it; it loses the same way one level deeper, on nested collections.
 
 The key, by contrast, is always looked up with the dictionary's own key comparer.

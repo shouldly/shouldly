@@ -100,6 +100,30 @@ public class DictionaryValueEquality
         StringDictionary().ShouldNotContainValueForKey("Foo", "bar");
     }
 
+    /// <summary>
+    /// A limitation shared with <c>ShouldBe</c>, pinned here so the divergence is deliberate rather than
+    /// discovered: the elements of a collection value are compared without their static element type, so an
+    /// element implementing <see cref="IEquatable{T}"/> without an <see cref="object.Equals(object)"/> override
+    /// (CA1067) falls back to reference equality. <c>ShouldBe</c> on the value itself has the element type
+    /// statically and honours it; it loses the same way one level deeper, on nested collections.
+    /// </summary>
+    [Fact]
+    public void ElementsOfACollectionValueDoNotHonourIEquatableWithoutAnEqualsOverride()
+    {
+        var element = new EquatableWithoutEqualsOverride(1);
+        var dictionary = new Dictionary<string, EquatableWithoutEqualsOverride[]> { ["key"] = [element] };
+        EquatableWithoutEqualsOverride[] equalButNotIdentical = [new(1)];
+
+        dictionary.ShouldNotContainValueForKey("key", equalButNotIdentical);
+
+        // The same elements do compare equal where the element type is statically known...
+        dictionary["key"].ShouldBe(equalButNotIdentical);
+
+        // ...and where the value is the equatable itself rather than an element of one.
+        new Dictionary<string, EquatableWithoutEqualsOverride> { ["key"] = element }
+            .ShouldContainKeyAndValue("key", new(1));
+    }
+
     [Fact]
     public void MissingKeyStillFailsBothAssertions()
     {
@@ -109,3 +133,16 @@ public class DictionaryValueEquality
         Should.Throw<ShouldAssertException>(() => dictionary.ShouldNotContainValueForKey("missing", [1, 2, 3]));
     }
 }
+
+#pragma warning disable CA1067 // Deliberately no object.Equals override — that shape is what this file pins.
+/// <summary>
+/// Implements <see cref="IEquatable{T}"/> without overriding <see cref="object.Equals(object)"/>, so a typed
+/// comparer and the object comparer disagree about two instances carrying the same value.
+/// </summary>
+file class EquatableWithoutEqualsOverride(int value) : IEquatable<EquatableWithoutEqualsOverride>
+{
+    private int Value { get; } = value;
+
+    public bool Equals(EquatableWithoutEqualsOverride? other) => other is not null && other.Value == Value;
+}
+#pragma warning restore CA1067
