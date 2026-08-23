@@ -325,6 +325,7 @@ namespace Shouldly
         public static void ShouldBeNegative(this short actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeOfType([System.Diagnostics.CodeAnalysis.NotNull] this object? actual, System.Type expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static T ShouldBeOfType<T>([System.Diagnostics.CodeAnalysis.NotNull] this object? actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
+        public static void ShouldBeOneOf<T>(this T? actual, params T[] expected) { }
         public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBeOneOf<T>(this T? actual, T[] expected, System.Collections.Generic.IEqualityComparer<T> comparer, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void ShouldBePositive(this decimal actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
