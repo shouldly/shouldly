@@ -1,0 +1,9 @@
+comparison1
+    should be superset of
+[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+    but
+[Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
+    are missing
+
+Additional Info:
+    Some additional context
