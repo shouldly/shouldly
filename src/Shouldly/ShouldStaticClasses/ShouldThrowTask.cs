@@ -126,7 +126,7 @@ public static partial class Should
         {
             e = (e as AggregateException)?.InnerException ?? e;
 
-            if (e.GetType() == exceptionType)
+            if (exceptionType.IsInstanceOfType(e))
             {
                 return e;
             }
