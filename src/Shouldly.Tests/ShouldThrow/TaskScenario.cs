@@ -41,4 +41,15 @@ public class TaskScenario
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
     }
+
+    [Fact]
+    public void ShouldPassWhenDerivedExceptionIsThrown_ExceptionTypePassedIn()
+    {
+        var expected = new ArgumentNullException();
+        var task = Task.FromException(expected);
+
+        var ex = task.ShouldThrow(typeof(ArgumentException));
+
+        ex.ShouldBeSameAs(expected);
+    }
 }

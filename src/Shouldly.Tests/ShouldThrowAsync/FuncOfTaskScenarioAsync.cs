@@ -168,4 +168,37 @@ public class FuncOfTaskScenarioAsync
 
         throw new XunitException("ShouldThrowAsync did not throw");
     }
+
+    [Fact]
+    public async Task ShouldPassWhenCanceledTaskThrowsDerivedException_ExceptionTypePassedIn()
+    {
+        var expected = new OperationCanceledException();
+
+        async Task ThrowAsync()
+        {
+            await Task.Yield();
+            throw expected;
+        }
+
+        var ex = await Should.ThrowAsync(ThrowAsync, typeof(Exception));
+
+        ex.ShouldBeSameAs(expected);
+    }
+
+    [Fact]
+    public async Task ShouldFailWhenExceptionIsNotAssignable_ExceptionTypePassedIn()
+    {
+        var task = Task.FromException(new InvalidOperationException());
+
+        try
+        {
+            await task.ShouldThrowAsync(typeof(ArgumentException));
+        }
+        catch (ShouldAssertException)
+        {
+            return;
+        }
+
+        throw new XunitException("ShouldThrowAsync did not throw");
+    }
 }

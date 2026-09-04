@@ -58,7 +58,7 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            if (e.GetType() == exceptionType)
+            if (exceptionType.IsInstanceOfType(e))
             {
                 return e;
             }
@@ -128,7 +128,7 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            if (e.GetType() == exceptionType)
+            if (exceptionType.IsInstanceOfType(e))
             {
                 return e;
             }
