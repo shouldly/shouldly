@@ -37,4 +37,15 @@ public class FuncOfObjectScenario
         ex.ShouldBeOfType<NotImplementedException>();
         ex.ShouldNotBe(null);
     }
+
+    [Fact]
+    public void ShouldPassWhenDerivedExceptionIsThrown_ExceptionTypePassedIn()
+    {
+        var expected = new ArgumentNullException();
+        var action = new Func<object>(() => throw expected);
+
+        var ex = action.ShouldThrow(typeof(ArgumentException));
+
+        ex.ShouldBeSameAs(expected);
+    }
 }

@@ -37,4 +37,15 @@ public class ActionDelegateScenario
         ex.ShouldBeOfType<NotImplementedException>();
         ex.ShouldNotBe(null);
     }
+
+    [Fact]
+    public void ShouldPassWhenDerivedExceptionIsThrown_ExceptionTypePassedIn()
+    {
+        var expected = new ArgumentNullException();
+        var action = new Action(() => throw expected);
+
+        var ex = action.ShouldThrow(typeof(ArgumentException));
+
+        ex.ShouldBeSameAs(expected);
+    }
 }

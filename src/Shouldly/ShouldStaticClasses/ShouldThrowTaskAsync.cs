@@ -78,7 +78,7 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            if (e.GetType() == exceptionType)
+            if (exceptionType.IsInstanceOfType(e))
                 return e;
 
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, e.GetType(), customMessage, actualExpression: actualExpression).ToString());
