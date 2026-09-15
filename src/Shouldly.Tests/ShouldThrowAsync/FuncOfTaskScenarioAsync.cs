@@ -12,15 +12,15 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.CompletedTask;
+            Func<Task> action = () => Task.CompletedTask;
 
-            await task.ShouldThrowAsync<InvalidOperationException>("Some additional context");
+            await action.ShouldThrowAsync<InvalidOperationException>("Some additional context");
         }
         catch (ShouldAssertException ex)
         {
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should throw System.InvalidOperationException but did not
+                `action` should throw System.InvalidOperationException but did not
                 Additional Info:
                 Some additional context
                 """);
@@ -52,15 +52,15 @@ public class FuncOfTaskScenarioAsync
     {
         try
         {
-            var task = Task.CompletedTask;
+            Func<Task> action = () => Task.CompletedTask;
 
-            await task.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
+            await action.ShouldThrowAsync(typeof(InvalidOperationException), "Some additional context");
         }
         catch (ShouldAssertException ex)
         {
             ex.Message.ShouldContainWithoutWhitespace(
                 """
-                `task` should throw System.InvalidOperationException but did not
+                `action` should throw System.InvalidOperationException but did not
                 Additional Info:
                 Some additional context
                 """);
@@ -70,17 +70,17 @@ public class FuncOfTaskScenarioAsync
     [Fact]
     public async Task ShouldPass()
     {
-        var task = Task.FromException(new InvalidOperationException());
+        Func<Task> action = () => Task.FromException(new InvalidOperationException());
 
-        await task.ShouldThrowAsync<InvalidOperationException>();
+        await action.ShouldThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
     public async Task ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.FromException(new InvalidOperationException());
+        Func<Task> action = () => Task.FromException(new InvalidOperationException());
 
-        await task.ShouldThrowAsync(typeof(InvalidOperationException));
+        await action.ShouldThrowAsync(typeof(InvalidOperationException));
     }
 
     [Fact]

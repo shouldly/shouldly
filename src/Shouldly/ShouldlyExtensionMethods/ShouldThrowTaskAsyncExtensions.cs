@@ -13,17 +13,19 @@ public static partial class ShouldThrowAsyncExtensions
     /// <summary>
     /// Asynchronously verifies that the Task throws a <typeparamref name="TException"/> exception.
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Task<TException> ShouldThrowAsync<TException>(this Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowAsync<TException>(task, customMessage, actualExpression);
+        Should.ThrowAsync<TException>(() => task, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the Task throws an exception of the specified type.
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Task<Exception> ShouldThrowAsync(this Task task, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null) =>
-        Should.ThrowAsync(task, exceptionType, customMessage, actualExpression);
+        Should.ThrowAsync(() => task, exceptionType, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the function returning a Task throws an <typeparamref name="TException"/> exception.
