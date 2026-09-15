@@ -7,6 +7,7 @@ public static partial class Should
     /// <summary>
     /// Asynchronously verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Task<TException> ThrowAsync<TException>(Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
         where TException : Exception
@@ -17,6 +18,7 @@ public static partial class Should
     /// <summary>
     /// Asynchronously verifies that the provided task throws an exception of the specified type
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
@@ -90,6 +92,7 @@ public static partial class Should
     /// <summary>
     /// Asynchronously verifies that the provided task does not throw any exceptions
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Task NotThrowAsync(Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {

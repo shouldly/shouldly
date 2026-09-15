@@ -6,10 +6,10 @@ public class FuncOfTaskWithTimeoutScenario
     public void ShouldThrowAWobbly()
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var perpetualTask = tcs.Task;
+        Func<Task> perpetual = () => tcs.Task;
 
         var ex = Should.Throw<ShouldCompleteInException>(
-            () => perpetualTask.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.1), "Some additional context"));
+            () => perpetual.ShouldThrow<ShouldCompleteInException>(TimeSpan.FromSeconds(0.1), "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
@@ -18,10 +18,10 @@ public class FuncOfTaskWithTimeoutScenario
     public void ShouldThrowAWobbly_ExceptionTypePassedIn()
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var perpetualTask = tcs.Task;
+        Func<Task> perpetual = () => tcs.Task;
 
         var ex = Should.Throw(
-            () => perpetualTask.ShouldThrow(
+            () => perpetual.ShouldThrow(
                 TimeSpan.FromSeconds(0.1),
                 "Some additional context",
                 typeof(ShouldCompleteInException)),
@@ -45,9 +45,9 @@ public class FuncOfTaskWithTimeoutScenario
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         tcs.SetException(new InvalidOperationException());
-        var faultedTask = tcs.Task;
+        Func<Task> faulted = () => tcs.Task;
 
-        var ex = faultedTask.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
+        var ex = faulted.ShouldThrow<InvalidOperationException>(TimeSpan.FromSeconds(10));
 
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
@@ -58,9 +58,9 @@ public class FuncOfTaskWithTimeoutScenario
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         tcs.SetException(new InvalidOperationException());
-        var faultedTask = tcs.Task;
+        Func<Task> faulted = () => tcs.Task;
 
-        var ex = faultedTask.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
+        var ex = faulted.ShouldThrow(TimeSpan.FromSeconds(10), typeof(InvalidOperationException));
 
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
