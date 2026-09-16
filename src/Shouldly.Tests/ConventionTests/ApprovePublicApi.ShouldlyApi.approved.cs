@@ -205,6 +205,12 @@ namespace Shouldly
         public static void ShouldBeTrue([System.Diagnostics.CodeAnalysis.DoesNotReturnIf(false)] this bool? actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
     }
     [Shouldly.ShouldlyMethods]
+    public static class ShouldBeCompletedSuccessfullyExtensions
+    {
+        public static void ShouldBeCompletedSuccessfully(this System.Threading.Tasks.Task task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null) { }
+        public static T ShouldBeCompletedSuccessfully<T>(this System.Threading.Tasks.Task<T> task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null) { }
+    }
+    [Shouldly.ShouldlyMethods]
     public static class ShouldBeDecoratedWithExtensions
     {
         public static void ShouldBeDecoratedWith<T>(this System.Type actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
