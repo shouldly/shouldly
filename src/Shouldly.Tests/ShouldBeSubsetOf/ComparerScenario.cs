@@ -29,6 +29,20 @@ public class ComparerScenario
     }
 
     [Fact]
+    public void ComparerPartialMatchWithoutSourceShouldFail()
+    {
+        var comparison1 = new[] { "A", "Z" };
+        var comparison2 = new[] { "a" };
+
+        // Without a call-site expression the message leads with the actual value, which must be the whole collection
+        using (ShouldlyConfiguration.DisableSourceInErrors())
+        {
+            Verify.ShouldFail(() =>
+                comparison1.ShouldBeSubsetOf(comparison2, StringComparer.OrdinalIgnoreCase, actualExpression: null));
+        }
+    }
+
+    [Fact]
     public void ComparerNotEqualsShouldFail()
     {
         var comparison1 = new[]

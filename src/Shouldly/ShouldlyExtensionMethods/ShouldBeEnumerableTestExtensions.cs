@@ -185,9 +185,9 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual.Equals(expected))
             return;
 
-        var missing = actual.Except(expected).ToList();
-        if (missing.Count > 0)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage, actualExpression: actualExpression).ToString());
+        var outside = actual.Except(expected).ToList();
+        if (outside.Count > 0)
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(outside, expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
     }
 
     /// <summary>
@@ -199,9 +199,9 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual.Equals(expected))
             return;
 
-        var missing = actual.Except(expected, comparer).ToList();
-        if (missing.Count > 0)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage, actualExpression: actualExpression).ToString());
+        var outside = actual.Except(expected, comparer).ToList();
+        if (outside.Count > 0)
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(outside, expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
     }
 
     /// <summary>

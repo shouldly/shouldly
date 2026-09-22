@@ -1,0 +1,9 @@
+actual
+    should be subset of
+[Equatable(1)]
+    but
+[Equatable(2)]
+    is outside subset
+
+Additional Info:
+    Some additional context
