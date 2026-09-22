@@ -212,7 +212,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var missing = expected.Except(actual).ToList();
         if (missing.Count > 0)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage, actualExpression: actualExpression).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(missing, expected, actual, customMessage, nameof(ShouldBeSupersetOf), actualExpression).ToString());
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         var missing = expected.Except(actual, comparer).ToList();
         if (missing.Count > 0)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, missing, customMessage, actualExpression: actualExpression).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(missing, expected, actual, customMessage, nameof(ShouldBeSupersetOf), actualExpression).ToString());
     }
 
     /// <summary>

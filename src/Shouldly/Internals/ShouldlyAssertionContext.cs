@@ -85,6 +85,12 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     internal IReadOnlyList<Equivalency.EquivalencyDifference>? EquivalencyDifferences { get; set; }
 
     /// <summary>
+    /// The items the assertion could not match, when the assertion computed them itself (so they
+    /// honor any custom comparer).
+    /// </summary>
+    internal IEnumerable? UnmatchedItems { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the ShouldlyAssertionContext class
     /// </summary>
     /// <param name="shouldlyMethod">The name of the should method being called</param>

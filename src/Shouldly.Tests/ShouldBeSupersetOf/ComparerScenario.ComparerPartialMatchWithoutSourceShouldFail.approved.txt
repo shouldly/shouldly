@@ -1,0 +1,6 @@
+["A"]
+    should be superset of
+["a", "B"]
+    but
+["B"]
+    is missing

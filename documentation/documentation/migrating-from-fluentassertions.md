@@ -98,6 +98,7 @@ changed.
 | `c.Should().ContainSingle()` | `c.ShouldHaveSingleItem()` |
 | `c.Should().ContainSingle().Which.Should().Be(v)` | `c.ShouldHaveSingleItem().ShouldBe(v)` |
 | `c.Should().BeSubsetOf(other)` | `c.ShouldBeSubsetOf(other)` |
+| `c.Should().Contain(items)` (all of several items) | `c.ShouldBeSupersetOf(items)` |
 | `c.Should().BeInAscendingOrder()` | `c.ShouldBeInOrder()` |
 | `c.Should().BeInDescendingOrder()` | `c.ShouldBeInOrder(SortDirection.Descending)` |
 | `c.Should().ContainInOrder(a, b)` | no equivalent; [see below](#no-drop-in-for-containinorder-or-containequivalentof) |
