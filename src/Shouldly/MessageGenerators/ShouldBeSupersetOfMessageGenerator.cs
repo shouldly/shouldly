@@ -24,8 +24,7 @@ class ShouldBeSupersetOfMessageGenerator : ShouldlyMessageGenerator
              """;
     }
 
-    // ShouldBeSupersetOf passes the items it found missing, so any custom comparer is honored.
-    // Recompute with default equality for other callers.
+    // ShouldBeSupersetOf passes the items it found missing, so any custom comparer is honored. Recompute with default equality for other callers.
     private static IEnumerable UnmatchedItems(IShouldlyAssertionContext context)
     {
         if (context is ShouldlyAssertionContext { UnmatchedItems: { } unmatchedItems })
