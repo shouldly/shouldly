@@ -24,8 +24,7 @@ public class EnumerableScenario
             new[] { 1, 2, 3 }.ShouldBeNullOrEmpty("Some additional context"));
     }
 
-    // string is IEnumerable<char>, so guard that the more specific string overload still wins.
-    // Both overloads behave the same at runtime, so check the compiler's binding via an expression tree.
+    // string is IEnumerable<char>, so guard that the more specific string overload still wins. Both overloads behave the same at runtime, so check the compiler's binding via an expression tree.
     [Fact]
     public void StringStillBindsToStringOverload()
     {
