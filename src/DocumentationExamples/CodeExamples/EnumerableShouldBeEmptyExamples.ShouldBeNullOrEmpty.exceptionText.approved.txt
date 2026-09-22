@@ -1,0 +1,4 @@
+```
+detentionOnTheLastDayOfSchool ([Bart])
+    should be null or empty
+```
