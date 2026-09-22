@@ -6,9 +6,9 @@ public class DateTimeOffsetScenario
     public void DateTimeOffsetScenarioShouldFail()
     {
         var date = new DateTimeOffset(new DateTime(2000, 6, 1), TimeSpan.Zero);
-        var dateString = date.ToString();
+        var dateString = date.ToString("o");
         var expected = new DateTimeOffset(new DateTime(2000, 6, 1, 1, 0, 1), TimeSpan.Zero);
-        var expectedDate = expected.ToString();
+        var expectedDate = expected.ToString("o");
         Verify.ShouldFail(() =>
             date.ShouldBe(expected, TimeSpan.FromHours(1), "Some additional context"),
             messageScrubber: msg => msg.Replace(dateString, "<date>").Replace(expectedDate, "<expected>"));
