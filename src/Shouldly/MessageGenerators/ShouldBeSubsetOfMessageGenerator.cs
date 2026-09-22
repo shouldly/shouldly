@@ -24,8 +24,7 @@ class ShouldBeSubsetOfMessageGenerator : ShouldlyMessageGenerator
              """;
     }
 
-    // ShouldBeSubsetOf passes the items it found outside the subset, so any custom comparer is honored.
-    // Recompute with default equality for other callers.
+    // ShouldBeSubsetOf passes the items it found outside the subset, so any custom comparer is honored. Recompute with default equality for other callers.
     private static IEnumerable UnmatchedItems(IShouldlyAssertionContext context)
     {
         if (context is ShouldlyAssertionContext { UnmatchedItems: { } unmatchedItems })

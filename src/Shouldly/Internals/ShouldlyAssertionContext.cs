@@ -85,8 +85,7 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     internal IReadOnlyList<Equivalency.EquivalencyDifference>? EquivalencyDifferences { get; set; }
 
     /// <summary>
-    /// The items the assertion could not match, when the assertion computed them itself (so they
-    /// honor any custom comparer).
+    /// The items the assertion could not match, when the assertion computed them itself (so they honor any custom comparer).
     /// </summary>
     internal IEnumerable? UnmatchedItems { get; set; }
 
