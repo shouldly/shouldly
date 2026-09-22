@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace Shouldly.Tests.ShouldBeNullOrEmpty;
 
 public class EnumerableScenario
@@ -23,9 +25,11 @@ public class EnumerableScenario
     }
 
     // string is IEnumerable<char>, so guard that the more specific string overload still wins.
+    // Both overloads behave the same at runtime, so check the compiler's binding via an expression tree.
     [Fact]
     public void StringStillBindsToStringOverload()
     {
-        "".ShouldBeNullOrEmpty();
+        Expression<Action> call = () => "".ShouldBeNullOrEmpty(null, null);
+        ((MethodCallExpression)call.Body).Method.DeclaringType.ShouldBe(typeof(ShouldBeStringTestExtensions));
     }
 }
