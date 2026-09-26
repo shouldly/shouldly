@@ -9,7 +9,6 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        Debug.Assert(context.Actual is IDictionary);
         Debug.Assert(context.Key is object);
 
         const string format =
@@ -23,14 +22,13 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             """;
 
         var codePart = context.CodePart;
-        var dictionary = (IDictionary)context.Actual;
-        var keyExists = dictionary.Contains(context.Key);
+        var keyExists = DictionaryMessageLookup.TryGetValue(context.Actual, context.Key, out var actualValue);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 
         if (keyExists)
         {
-            var actualValueString = dictionary[context.Key].ToStringAwesomely();
+            var actualValueString = actualValue.ToStringAwesomely();
             var valueString =
                 $"""
                      but value was
