@@ -1,4 +1,4 @@
-Task `task`
+Task `action`
     should throw
 System.InvalidOperationException
     but did not

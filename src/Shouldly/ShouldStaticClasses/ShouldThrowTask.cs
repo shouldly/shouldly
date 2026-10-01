@@ -7,6 +7,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/>
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static TException Throw<TException>(Task actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception
@@ -17,6 +18,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task throws an exception of the specified type
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Exception Throw(Task actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType, actualExpression: actualExpression);
@@ -39,6 +41,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/> within the specified timeout
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
@@ -47,6 +50,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task throws an exception of the specified type within the specified timeout
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
@@ -140,6 +144,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static void NotThrow(Task action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
@@ -149,6 +154,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions and returns its result
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static T NotThrow<T>(Task<T> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
@@ -167,6 +173,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions within the specified timeout
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static void NotThrow(Task action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
@@ -216,6 +223,7 @@ public static partial class Should
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions within the specified timeout and returns its result
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
         NotThrowInternal(() => action, timeoutAfter, customMessage, actualExpression: actualExpression);

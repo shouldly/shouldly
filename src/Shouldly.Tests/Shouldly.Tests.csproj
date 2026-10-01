@@ -11,15 +11,15 @@
     <None Include="**\*.approved.cs;**\*.received.cs" />
     <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.4.2" PrivateAssets="all" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="28.5.0" PrivateAssets="all" />
     <PackageReference Include="TestStack.ConventionTests" Version="4.0.2" />
-    <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.0" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.1" />
     <PackageReference Include="PublicApiGenerator" Version="11.5.4" />
-    <PackageReference Include="Polyfill" Version="11.2.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="11.4.1" PrivateAssets="all" />
     <PackageReference Include="GitHubActionsTestLogger" Version="3.0.5" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net48' ">
-    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.9.0" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.10.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Runtime" />

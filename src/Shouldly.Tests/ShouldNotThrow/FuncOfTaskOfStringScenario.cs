@@ -6,17 +6,18 @@ public class FuncOfTaskOfStringScenario
     [UseCulture("en-US")]
     public void FuncOfTaskOfStringScenarioShouldFail()
     {
-        var task = Task.Run(() => throw new RankException(), TestContext.Current.CancellationToken);
+        Func<Task<string>> action = () => Task.FromException<string>(new RankException());
+
         Verify.ShouldFail(() =>
-            task.ShouldNotThrow("Some additional context"));
+            action.ShouldNotThrow("Some additional context"));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Run(() => "Foo");
+        Func<Task<string>> action = () => Task.Run(() => "Foo");
 
-        var result = task.ShouldNotThrow();
+        var result = action.ShouldNotThrow();
         result.ShouldBe("Foo");
     }
 }

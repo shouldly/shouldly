@@ -6,10 +6,10 @@ public class FuncOfTaskWithTimeoutScenario
     public void ShouldThrowAWobbly()
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var perpetualTask = tcs.Task;
+        Func<Task> perpetual = () => tcs.Task;
 
         var ex = Should.Throw<ShouldCompleteInException>(() =>
-            perpetualTask.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
+            perpetual.ShouldNotThrow(TimeSpan.FromSeconds(0.5), "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
@@ -30,8 +30,8 @@ public class FuncOfTaskWithTimeoutScenario
     {
         var tcs = new TaskCompletionSource<object?>(TaskCreationOptions.RunContinuationsAsynchronously);
         tcs.SetResult(null);
-        var completedTask = tcs.Task;
+        Func<Task> completed = () => tcs.Task;
 
-        completedTask.ShouldNotThrow(TimeSpan.FromSeconds(2));
+        completed.ShouldNotThrow(TimeSpan.FromSeconds(2));
     }
 }
