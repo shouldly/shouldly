@@ -52,6 +52,19 @@ public class ExpectedActualShouldlyMessage : ShouldlyMessage
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
+
+    /// <summary>
+    /// Creates a new message with expected and actual values and the items the assertion could not match.
+    /// </summary>
+    internal ExpectedActualShouldlyMessage(IEnumerable unmatchedItems, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
+    {
+        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
+        {
+            HasRelevantActual = true,
+            UnmatchedItems = unmatchedItems
+        };
+        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
+    }
 }
 
 /// <summary>
