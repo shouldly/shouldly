@@ -59,6 +59,9 @@ static class StringHelpers
         if (value is DateTime dateTime)
             return dateTime.ToStringAwesomely();
 
+        if (value is DateTimeOffset dateTimeOffset)
+            return dateTimeOffset.ToStringAwesomely();
+
         if (value is ConstantExpression constantExpression)
             return constantExpression.Value.ToStringAwesomely();
 
@@ -280,5 +283,8 @@ static class StringHelpers
         value.GetType().Name + "." + value;
 
     private static string ToStringAwesomely(this DateTime value) =>
+        value.ToString("o");
+
+    private static string ToStringAwesomely(this DateTimeOffset value) =>
         value.ToString("o");
 }
