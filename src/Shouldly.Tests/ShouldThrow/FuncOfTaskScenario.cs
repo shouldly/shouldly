@@ -41,4 +41,49 @@ public class FuncOfTaskScenario
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
     }
+
+    [Fact]
+    public void ShouldPassWhenDerivedExceptionIsThrown_ExceptionTypePassedIn()
+    {
+        var expected = new ArgumentNullException();
+        Func<Task> action = () => Task.FromException(expected);
+
+        var ex = action.ShouldThrow(typeof(ArgumentException));
+
+        ex.ShouldBeSameAs(expected);
+    }
+
+    [Fact]
+    public void ShouldPassWhenCanceledTaskThrowsDerivedException()
+    {
+        var expected = new CustomCanceledException();
+
+        async Task ThrowAsync()
+        {
+            await Task.Yield();
+            throw expected;
+        }
+
+        var ex = Should.Throw<CustomCanceledException>(ThrowAsync);
+
+        ex.ShouldBeSameAs(expected);
+    }
+
+    [Fact]
+    public void ShouldPassWhenCanceledTaskThrowsDerivedException_ExceptionTypePassedIn()
+    {
+        var expected = new CustomCanceledException();
+
+        async Task ThrowAsync()
+        {
+            await Task.Yield();
+            throw expected;
+        }
+
+        var ex = Should.Throw(ThrowAsync, typeof(OperationCanceledException));
+
+        ex.ShouldBeSameAs(expected);
+    }
+
+    private class CustomCanceledException : OperationCanceledException;
 }
