@@ -106,6 +106,17 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         NotThrowAsyncInternal(actual, customMessage, actualExpression: actualExpression);
 
+    /// <summary>
+    /// Asynchronously verifies that the provided task function does not throw any exceptions and returns its result
+    /// </summary>
+    public static async Task<T> NotThrowAsync<T>(Func<Task<T>> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        var task = actual();
+        await NotThrowAsyncInternal(() => task, customMessage, actualExpression: actualExpression);
+        return await task;
+    }
+
     [DebuggerDisableUserUnhandledExceptions]
     internal static async Task NotThrowAsyncInternal(
         [InstantHandle] Func<Task> actual,
