@@ -87,6 +87,8 @@ changed.
 | `c.Should().Contain(x => …)` | `c.ShouldContain(x => …)` |
 | `c.Should().BeEmpty()` | `c.ShouldBeEmpty()` |
 | `c.Should().NotBeEmpty()` | `c.ShouldNotBeEmpty()` |
+| `c.Should().BeNullOrEmpty()` | `c.ShouldBeNullOrEmpty()` |
+| `c.Should().NotBeNullOrEmpty()` | `c.ShouldNotBeEmpty()` (already fails for null) |
 | `c.Should().HaveCount(n)` | `c.ShouldHaveCount(n)` |
 | `c.Should().HaveCountGreaterThan(n)` | `c.Count.ShouldBeGreaterThan(n)` (no `ShouldHaveCountGreaterThan`) |
 | `c.Should().Equal(a, b, c)` | `c.ShouldBe([a, b, c])` (order-sensitive) |
