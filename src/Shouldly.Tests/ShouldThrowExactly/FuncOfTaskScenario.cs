@@ -66,4 +66,24 @@ public class FuncOfTaskScenario
         Should.Throw<ShouldCompleteInException>(
             () => perpetual.ShouldThrowExactly<InvalidOperationException>(TimeSpan.FromSeconds(0.1)));
     }
+
+    [Fact]
+    public void AggregateExceptionThrownSynchronouslyShouldNotBeUnwrapped()
+    {
+        var expected = new AggregateException(new ArgumentException());
+        Func<Task> action = () => throw expected;
+
+        action.ShouldThrowExactly<AggregateException>().ShouldBeSameAs(expected);
+        Should.Throw<ShouldAssertException>(() => action.ShouldThrowExactly<ArgumentException>());
+    }
+
+    [Fact]
+    public void AggregateExceptionFaultingTheTaskShouldNotBeUnwrapped()
+    {
+        var expected = new AggregateException(new ArgumentException());
+        Func<Task> action = () => Task.FromException(expected);
+
+        action.ShouldThrowExactly<AggregateException>().ShouldBeSameAs(expected);
+        Should.Throw<ShouldAssertException>(() => action.ShouldThrowExactly<ArgumentException>());
+    }
 }

@@ -70,4 +70,14 @@ public class FuncOfTaskScenarioAsync
 
         ex.Message.ShouldMatchApproved(c => c.NoDiff());
     }
+
+    [Fact]
+    public async Task AggregateExceptionFaultingTheTaskShouldNotBeUnwrapped()
+    {
+        var expected = new AggregateException(new ArgumentException());
+        Func<Task> action = () => Task.FromException(expected);
+
+        (await action.ShouldThrowExactlyAsync<AggregateException>()).ShouldBeSameAs(expected);
+        await Should.ThrowAsync<ShouldAssertException>(() => action.ShouldThrowExactlyAsync<ArgumentException>());
+    }
 }

@@ -168,25 +168,52 @@ public static partial class Should
         where TException : Exception
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
-        try
-        {
-            RunAndWait(actual, timeoutAfter, customMessage);
-        }
-        catch (ShouldlyTimeoutException)
-        {
-            throw;
-        }
-        catch (Exception e)
-        {
-            e = (e as AggregateException)?.InnerException ?? e;
+        var e = RunAndCaptureException(actual, timeoutAfter, customMessage);
+        if (e == null)
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
 
-            if (e.GetType() == typeof(TException))
-                return (TException)e;
+        if (e.GetType() == typeof(TException))
+            return (TException)e;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+    }
+
+    /// <summary>
+    /// Runs the delegate and waits for its task, returning the exception the way <c>await</c> would surface it,
+    /// or null if it completed. An <see cref="AggregateException"/> thrown by the code under test is returned as is.
+    /// </summary>
+    private static Exception? RunAndCaptureException(Func<Task> actual, TimeSpan timeoutAfter, string? customMessage)
+    {
+        // Drop the sync context so continuations will not post to it, causing a deadlock
+        using (Utils.WithSynchronizationContext(null))
+        {
+            Task task;
+            try
+            {
+                task = actual();
+            }
+            catch (Exception e)
+            {
+                return e;
+            }
+
+            try
+            {
+                CompleteInInternal(task, timeoutAfter, customMessage, "Task", nameof(actual));
+            }
+            catch (ShouldlyTimeoutException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                // CompleteInInternal flattens the task's exceptions, which would unwrap an AggregateException
+                // the code itself threw; take the task's exception directly instead
+                return task.IsFaulted ? task.Exception!.InnerException! : e;
+            }
+
+            return null;
         }
-
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
