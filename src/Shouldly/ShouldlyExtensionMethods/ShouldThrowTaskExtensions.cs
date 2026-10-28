@@ -117,6 +117,24 @@ public static partial class ShouldThrowTaskExtensions
         Should.ThrowInternal(actual, timeoutAfter, customMessage, exceptionType, actualExpression: actualExpression);
 
     /// <summary>
+    /// Verifies that the function returning a Task throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ShouldThrowExactly<TException>(this Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        Should.ThrowExactlyInternal<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+
+    /// <summary>
+    /// Verifies that the function returning a Task throws an exception of exactly type <typeparamref name="TException"/> within the specified timeout.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ShouldThrowExactly<TException>(this Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        Should.ThrowExactlyInternal<TException>(actual, timeoutAfter, customMessage, actualExpression: actualExpression);
+
+    /// <summary>
     /// Verifies that the Task completes without throwing any exceptions.
     /// </summary>
     [Obsolete(TaskOverloadObsolescence.Message, error: true)]

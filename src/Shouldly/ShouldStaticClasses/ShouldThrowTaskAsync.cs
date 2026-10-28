@@ -90,6 +90,38 @@ public static partial class Should
     }
 
     /// <summary>
+    /// Asynchronously verifies that the provided task function throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static Task<TException> ThrowExactlyAsync<TException>(Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        ThrowExactlyAsyncInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+
+    [DebuggerDisableUserUnhandledExceptions]
+    internal static async Task<TException> ThrowExactlyAsyncInternal<TException>(Func<Task> actual, string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+        where TException : Exception
+    {
+        actualExpression = actualExpression.NormalizeDelegateExpression();
+        var stackTrace = actualExpression == null ? new StackTrace(true) : null;
+        try
+        {
+            await actual();
+        }
+        catch (Exception e)
+        {
+            if (e.GetType() == typeof(TException))
+                return (TException)e;
+
+            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+        }
+
+        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+    }
+
+    /// <summary>
     /// Asynchronously verifies that the provided task does not throw any exceptions
     /// </summary>
     [Obsolete(TaskOverloadObsolescence.Message, error: true)]

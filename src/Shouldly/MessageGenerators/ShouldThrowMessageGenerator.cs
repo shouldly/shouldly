@@ -24,13 +24,14 @@ class ShouldThrowMessageGenerator : ShouldlyMessageGenerator
         }
 
         var expected = context.Expected.ToStringAwesomely();
+        var shouldThrow = context.ShouldMethod.Contains("Exactly") ? "should throw exactly" : "should throw";
 
         string errorMessage;
         if (context.HasRelevantActual)
         {
             errorMessage = string.Format($"""
                                           {codePart.Replace("{", "{{").Replace("}", "}}")}
-                                              should throw
+                                              {shouldThrow}
                                           {expected}
                                               but threw
                                           {context.Actual}
@@ -40,7 +41,7 @@ class ShouldThrowMessageGenerator : ShouldlyMessageGenerator
         {
             errorMessage = $"""
                             {codePart}
-                                should throw
+                                {shouldThrow}
                             {expected}
                                 but did not
                             """;

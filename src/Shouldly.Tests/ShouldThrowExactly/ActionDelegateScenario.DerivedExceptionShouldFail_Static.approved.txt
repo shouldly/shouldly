@@ -1,0 +1,5 @@
+Task `throw new ArgumentNullException()`
+    should throw exactly
+System.ArgumentException
+    but threw
+System.ArgumentNullException

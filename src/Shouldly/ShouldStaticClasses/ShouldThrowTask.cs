@@ -142,6 +142,54 @@ public static partial class Should
     }
 
     /// <summary>
+    /// Verifies that the provided task function throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ThrowExactly<TException>([InstantHandle] Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        ThrowExactlyInternal<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+
+    /// <summary>
+    /// Verifies that the provided task function throws an exception of exactly type <typeparamref name="TException"/> within the specified timeout.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ThrowExactly<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        ThrowExactlyInternal<TException>(actual, timeoutAfter, customMessage, actualExpression: actualExpression);
+
+    [DebuggerDisableUserUnhandledExceptions]
+    internal static TException ThrowExactlyInternal<TException>(
+        [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+        where TException : Exception
+    {
+        actualExpression = actualExpression.NormalizeDelegateExpression();
+        try
+        {
+            RunAndWait(actual, timeoutAfter, customMessage);
+        }
+        catch (ShouldlyTimeoutException)
+        {
+            throw;
+        }
+        catch (Exception e)
+        {
+            e = (e as AggregateException)?.InnerException ?? e;
+
+            if (e.GetType() == typeof(TException))
+                return (TException)e;
+
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+        }
+
+        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+    }
+
+    /// <summary>
     /// Verifies that the provided task does not throw any exceptions
     /// </summary>
     [Obsolete(TaskOverloadObsolescence.Message, error: true)]

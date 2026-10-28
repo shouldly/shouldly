@@ -78,4 +78,24 @@ public class ShouldThrowExamples
             },
             _testOutputHelper);
     }
+
+    [Fact]
+    public void ShouldThrowExactly()
+    {
+        DocExampleWriter.Document(
+            () => { Should.ThrowExactly<ArgumentException>(() => new Person(null!)); },
+            _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldThrowExactlyExtension()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var func = () => new Person(null!);
+                func.ShouldThrowExactly<ArgumentException>();
+            },
+            _testOutputHelper);
+    }
 }

@@ -1,0 +1,7 @@
+`func()`
+    should throw exactly
+System.NotImplementedException
+    but did not
+
+Additional Info:
+    Some additional context

@@ -140,6 +140,59 @@ public static partial class Should
     }
 
     /// <summary>
+    /// Verifies that the provided action throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ThrowExactly<TException>([InstantHandle] Action actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+
+    /// <summary>
+    /// Verifies that the provided function throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ThrowExactly<TException>([InstantHandle] Func<object?> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+
+    [DebuggerDisableUserUnhandledExceptions]
+    internal static TException ThrowExactlyInternal<TException>(
+        [InstantHandle] Action actual,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+        where TException : Exception
+    {
+        actualExpression = actualExpression.NormalizeDelegateExpression();
+        try
+        {
+            actual();
+        }
+        catch (Exception e)
+        {
+            if (e.GetType() == typeof(TException))
+            {
+                return (TException)e;
+            }
+
+            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
+        }
+
+        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+    }
+
+    [DebuggerDisableUserUnhandledExceptions]
+    internal static TException ThrowExactlyInternal<TException>(
+        [InstantHandle] Func<object?> actual,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+        where TException : Exception =>
+        ThrowExactlyInternal<TException>(() => { _ = actual(); }, customMessage, shouldlyMethod, actualExpression);
+
+    /// <summary>
     /// Verifies that the provided action does not throw any exceptions
     /// </summary>
     public static void NotThrow([InstantHandle] Action action, string? customMessage = null,
