@@ -132,7 +132,8 @@ changed.
 | FluentAssertions | Shouldly |
 |---|---|
 | `act.Should().Throw<T>()` | `act.ShouldThrow<T>()` |
-| `act.Should().ThrowExactly<T>()` | `act.ShouldThrow<T>()` then `ex.ShouldBeOfType<T>()` (no `ShouldThrowExactly`) |
+| `act.Should().ThrowExactly<T>()` | `act.ShouldThrowExactly<T>()` |
+| `await act.Should().ThrowExactlyAsync<T>()` | `await act.ShouldThrowExactlyAsync<T>()` |
 | `act.Should().NotThrow()` | `act.ShouldNotThrow()` |
 | `await act.Should().NotThrowAsync()` | `await act.ShouldNotThrowAsync()` |
 | `(await act.Should().ThrowAsync<T>())` | `await act.ShouldThrowAsync<T>()` |
@@ -415,12 +416,11 @@ ex.Message.ShouldContain("jammed");
 ```
 
 Like FA's `Throw<T>`, `ShouldThrow<T>` matches derived exception types: asserting
-`ShouldThrow<ArgumentException>()` is satisfied by an `ArgumentNullException`. There is no
-`ThrowExactly`; if you need an exact type, check it explicitly:
+`ShouldThrow<ArgumentException>()` is satisfied by an `ArgumentNullException`. Like FA's
+`ThrowExactly<T>`, `ShouldThrowExactly<T>` requires the exact type:
 
 ```csharp
-var ex = act.ShouldThrow<ArgumentException>();
-ex.ShouldBeOfType<ArgumentException>();   // fails for the derived ArgumentNullException
+act.ShouldThrowExactly<ArgumentException>();   // fails for the derived ArgumentNullException
 ```
 
 
@@ -462,7 +462,6 @@ expression and isn't trimming/AOT-safe. Prefer `ShouldSatisfy` or `Should.Satisf
 |---|---|
 | `BeEquivalentTo(…).Excluding(…)` | `ShouldBeEquivalentTo(…, new EquivalencyOptions { MembersToIgnore = { … } })` |
 | `BeEquivalentTo(…)` with custom comparers / `.WithAutoConversion` | No fluent equivalent yet; assert members with `ShouldSatisfy`, or use an anonymous-type subset ([see above](#object-equivalence-shouldbeequivalentto)) |
-| `ThrowExactly<T>()` | `ShouldThrow<T>()` + `ex.ShouldBeOfType<T>()` |
 | `.WithMessage("x*")` | `ex.Message.ShouldContain("x")` or `ShouldMatch(regex)` |
 | `AssertionScope` | `ShouldSatisfy` or `Should.Satisfy` |
 | `.And` / `.Which` chaining | Separate statements, or use the value a `Should…` returns |

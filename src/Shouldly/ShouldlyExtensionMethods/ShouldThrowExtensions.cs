@@ -41,6 +41,24 @@ public static partial class ShouldThrowExtensions
         Should.ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
 
     /// <summary>
+    /// Verifies that the action throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ShouldThrowExactly<TException>(this Action actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        Should.ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+
+    /// <summary>
+    /// Verifies that the function throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static TException ShouldThrowExactly<TException>(this Func<object?> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        Should.ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+
+    /// <summary>
     /// Verifies that the action completes without throwing any exceptions.
     /// </summary>
     public static void ShouldNotThrow(this Action action, string? customMessage = null,

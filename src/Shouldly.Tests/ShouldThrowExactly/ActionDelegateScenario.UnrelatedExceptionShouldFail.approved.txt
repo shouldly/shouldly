@@ -1,0 +1,5 @@
+`action()`
+    should throw exactly
+System.InvalidOperationException
+    but threw
+System.RankException

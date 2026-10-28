@@ -1,6 +1,6 @@
 # Throw
 
-The exception assertions pass when the thrown exception is the expected type or derives from it, like a `catch` clause. This applies whether the type is given as a type argument or as a `Type`. To require the exact type, call `ShouldBeOfType` on the returned exception.
+The exception assertions pass when the thrown exception is the expected type or derives from it, like a `catch` clause. This applies whether the type is given as a type argument or as a `Type`. To require the exact type, use [`ThrowExactly`](#shouldthrowexactly).
 
 
 ## ShouldThrowAction
@@ -152,3 +152,65 @@ System.DivideByZeroException
     but did not
 ```
 <!-- endInclude -->
+
+
+## ShouldThrowExactly
+
+`ThrowExactly` and `ShouldThrowExactly` pass only when the thrown exception is exactly the expected type. A derived exception fails the assertion. They have the same overloads as the generic `Throw` and `ShouldThrow`, and return the exception.
+
+<!-- snippet: ShouldThrowExamples.ShouldThrowExactly.codeSample.approved.cs -->
+<a id='snippet-ShouldThrowExamples.ShouldThrowExactly.codeSample.approved.cs'></a>
+```cs
+Should.ThrowExactly<ArgumentException>(() => new Person(null!));
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowExactly.codeSample.approved.cs#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowExactly.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldThrowExamples.ShouldThrowExactly.exceptionText.approved.txt -->
+```
+`new Person(null!)`
+    should throw exactly
+System.ArgumentException
+    but threw
+System.ArgumentNullException
+```
+<!-- endInclude -->
+
+
+## ShouldThrowExactly Extension
+
+<!-- snippet: ShouldThrowExamples.ShouldThrowExactlyExtension.codeSample.approved.cs -->
+<a id='snippet-ShouldThrowExamples.ShouldThrowExactlyExtension.codeSample.approved.cs'></a>
+```cs
+var func = () => new Person(null!);
+func.ShouldThrowExactly<ArgumentException>();
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldThrowExamples.ShouldThrowExactlyExtension.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExamples.ShouldThrowExactlyExtension.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldThrowExamples.ShouldThrowExactlyExtension.exceptionText.approved.txt -->
+```
+`func()`
+    should throw exactly
+System.ArgumentException
+    but threw
+System.ArgumentNullException
+```
+<!-- endInclude -->
+
+
+## ShouldThrowExactlyAsync
+
+<!-- snippet: ShouldThrowExactlyAsync -->
+<a id='snippet-ShouldThrowExactlyAsync'></a>
+```cs
+Task<int> registerAsync(string name) => Task.FromException<int>(new ArgumentNullException(nameof(name)));
+var exception = await Should.ThrowExactlyAsync<ArgumentNullException>(() => registerAsync(null!));
+exception.ParamName.ShouldBe("name");
+```
+<sup><a href='/src/Shouldly.Tests/ShouldThrowExactly/FuncOfTaskScenarioAsync.cs#L44-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldThrowExactlyAsync' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

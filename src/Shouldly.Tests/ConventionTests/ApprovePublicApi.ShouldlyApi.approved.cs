@@ -188,6 +188,16 @@ namespace Shouldly
         [System.Obsolete(@"Pass a Func<Task> instead of a Task instance, e.g. Should.Throw<T>(DoWorkAsync) or Should.Throw<T>(() => task). A Task argument is evaluated before Shouldly runs, so an exception thrown synchronously (argument validation, for example) escapes the assertion instead of being caught by it.", true)]
         public static System.Threading.Tasks.Task<TException> ThrowAsync<TException>(System.Threading.Tasks.Task task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null)
             where TException : System.Exception { }
+        public static TException ThrowExactly<TException>(System.Action actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ThrowExactly<TException>(System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ThrowExactly<TException>(System.Func<object?> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ThrowExactly<TException>(System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static System.Threading.Tasks.Task<TException> ThrowExactlyAsync<TException>(System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
     }
     [System.Serializable]
     public class ShouldAssertException : System.Exception
@@ -467,6 +477,8 @@ namespace Shouldly
         [System.Obsolete(@"Pass a Func<Task> instead of a Task instance, e.g. Should.Throw<T>(DoWorkAsync) or Should.Throw<T>(() => task). A Task argument is evaluated before Shouldly runs, so an exception thrown synchronously (argument validation, for example) escapes the assertion instead of being caught by it.", true)]
         public static System.Threading.Tasks.Task<TException> ShouldThrowAsync<TException>(this System.Threading.Tasks.Task task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null)
             where TException : System.Exception { }
+        public static System.Threading.Tasks.Task<TException> ShouldThrowExactlyAsync<TException>(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldThrowExtensions
@@ -480,6 +492,10 @@ namespace Shouldly
         public static TException ShouldThrow<TException>(this System.Action actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
             where TException : System.Exception { }
         public static TException ShouldThrow<TException>(this System.Func<object?> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ShouldThrowExactly<TException>(this System.Action actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ShouldThrowExactly<TException>(this System.Func<object?> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
             where TException : System.Exception { }
     }
     [Shouldly.ShouldlyMethods]
@@ -518,6 +534,10 @@ namespace Shouldly
             where TException : System.Exception { }
         [System.Obsolete(@"Pass a Func<Task> instead of a Task instance, e.g. Should.Throw<T>(DoWorkAsync) or Should.Throw<T>(() => task). A Task argument is evaluated before Shouldly runs, so an exception thrown synchronously (argument validation, for example) escapes the assertion instead of being caught by it.", true)]
         public static TException ShouldThrow<TException>(this System.Threading.Tasks.Task actual, System.TimeSpan timeoutAfter, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ShouldThrowExactly<TException>(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
+            where TException : System.Exception { }
+        public static TException ShouldThrowExactly<TException>(this System.Func<System.Threading.Tasks.Task> actual, System.TimeSpan timeoutAfter, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null)
             where TException : System.Exception { }
     }
     public class ShouldlyAssertionContext : Shouldly.IShouldlyAssertionContext

@@ -1,0 +1,7 @@
+```
+`new Person(null!)`
+    should throw exactly
+System.ArgumentException
+    but threw
+System.ArgumentNullException
+```

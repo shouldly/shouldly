@@ -41,4 +41,13 @@ public static partial class ShouldThrowAsyncExtensions
     public static Task<Exception> ShouldThrowAsync(this Func<Task> actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         Should.ThrowAsync(actual, exceptionType, customMessage, actualExpression);
+
+    /// <summary>
+    /// Asynchronously verifies that the function returning a Task throws an exception of exactly type <typeparamref name="TException"/>.
+    /// A derived exception type does not match.
+    /// </summary>
+    public static Task<TException> ShouldThrowExactlyAsync<TException>(this Func<Task> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+        where TException : Exception =>
+        Should.ThrowExactlyAsyncInternal<TException>(actual, customMessage, actualExpression: actualExpression);
 }

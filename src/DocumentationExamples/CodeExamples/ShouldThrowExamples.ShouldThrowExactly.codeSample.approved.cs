@@ -1,0 +1,1 @@
+Should.ThrowExactly<ArgumentException>(() => new Person(null!));

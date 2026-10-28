@@ -374,6 +374,15 @@ public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
+
+    internal AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace? stackTrace, string shouldlyMethod, string? actualExpression)
+    {
+        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression)
+        {
+            HasRelevantActual = true
+        };
+        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
+    }
 }
 
 /// <summary>
