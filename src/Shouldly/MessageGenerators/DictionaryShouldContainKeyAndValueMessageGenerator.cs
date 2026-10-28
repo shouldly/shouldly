@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.MessageGenerators;
 
 class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenerator
@@ -9,7 +11,6 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        Debug.Assert(context.Actual is IDictionary);
         Debug.Assert(context.Key is object);
 
         const string format =
@@ -23,14 +24,13 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             """;
 
         var codePart = context.CodePart;
-        var dictionary = (IDictionary)context.Actual;
-        var keyExists = dictionary.Contains(context.Key);
+        var lookup = DictionaryKeyLookup.From(context);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 
-        if (keyExists)
+        if (lookup is { KeyExists: true })
         {
-            var actualValueString = dictionary[context.Key].ToStringAwesomely();
+            var actualValueString = lookup.Value.ToStringAwesomely();
             var valueString =
                 $"""
                      but value was
@@ -39,6 +39,9 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             return string.Format(format, codePart, keyValue, expected, valueString);
         }
 
-        return string.Format(format, codePart, keyValue, expected, "    but the key does not exist");
+        if (lookup is { KeyExists: false })
+            return string.Format(format, codePart, keyValue, expected, "    but the key does not exist");
+
+        return string.Format(format, codePart, keyValue, expected, "").TrimEnd();
     }
 }
