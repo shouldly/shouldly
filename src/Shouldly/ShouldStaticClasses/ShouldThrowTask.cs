@@ -74,25 +74,14 @@ public static partial class Should
         where TException : Exception
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
-        try
-        {
-            RunAndWait(actual, timeoutAfter, customMessage);
-        }
-        catch (ShouldlyTimeoutException)
-        {
-            throw;
-        }
-        catch (Exception e)
-        {
-            e = (e as AggregateException)?.InnerException ?? e;
+        var e = RunAndCaptureException(actual, timeoutAfter, customMessage);
+        if (e == null)
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
 
-            if (e is TException exception)
-                return exception;
+        if (e is TException exception)
+            return exception;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
-        }
-
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
@@ -118,27 +107,14 @@ public static partial class Should
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
-        try
-        {
-            RunAndWait(actual, timeoutAfter, customMessage);
-        }
-        catch (ShouldlyTimeoutException)
-        {
-            throw;
-        }
-        catch (Exception e)
-        {
-            e = (e as AggregateException)?.InnerException ?? e;
+        var e = RunAndCaptureException(actual, timeoutAfter, customMessage);
+        if (e == null)
+            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
 
-            if (exceptionType.IsInstanceOfType(e))
-            {
-                return e;
-            }
+        if (exceptionType.IsInstanceOfType(e))
+            return e;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
-        }
-
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
+        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     /// <summary>
