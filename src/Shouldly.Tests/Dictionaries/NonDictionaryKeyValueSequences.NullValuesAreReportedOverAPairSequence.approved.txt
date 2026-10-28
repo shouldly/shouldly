@@ -1,0 +1,10 @@
+pairs
+    should contain key
+"k"
+    with value
+"x"
+    but value was
+null
+
+Additional Info:
+    Some additional context

@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.MessageGenerators;
 
 class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGenerator
@@ -21,15 +23,13 @@ class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGen
             """;
 
         var codePart = context.CodePart;
-        var keyExists = DictionaryMessageLookup.TryGetValue(context.Actual, context.Key, out _);
+        var lookup = DictionaryKeyLookup.From(context);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 
-        if (keyExists)
-        {
-            return string.Format(format, codePart, keyValue, expected, "but does");
-        }
+        if (lookup is { KeyExists: false })
+            return string.Format(format, codePart, keyValue, expected, "but the key does not exist");
 
-        return string.Format(format, codePart, keyValue, expected, "but the key does not exist");
+        return string.Format(format, codePart, keyValue, expected, "but does");
     }
 }

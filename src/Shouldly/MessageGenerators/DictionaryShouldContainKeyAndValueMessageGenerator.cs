@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.MessageGenerators;
 
 class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenerator
@@ -22,13 +24,13 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             """;
 
         var codePart = context.CodePart;
-        var keyExists = DictionaryMessageLookup.TryGetValue(context.Actual, context.Key, out var actualValue);
+        var lookup = DictionaryKeyLookup.From(context);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 
-        if (keyExists)
+        if (lookup is { KeyExists: true })
         {
-            var actualValueString = actualValue.ToStringAwesomely();
+            var actualValueString = lookup.Value.ToStringAwesomely();
             var valueString =
                 $"""
                      but value was
@@ -37,6 +39,9 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             return string.Format(format, codePart, keyValue, expected, valueString);
         }
 
-        return string.Format(format, codePart, keyValue, expected, "    but the key does not exist");
+        if (lookup is { KeyExists: false })
+            return string.Format(format, codePart, keyValue, expected, "    but the key does not exist");
+
+        return string.Format(format, codePart, keyValue, expected, "").TrimEnd();
     }
 }

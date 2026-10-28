@@ -1,0 +1,10 @@
+Dictionary().Where(pair => true)
+    should contain key
+"a"
+    with value
+999
+    but value was
+1
+
+Additional Info:
+    Some additional context
