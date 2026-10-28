@@ -1,5 +1,7 @@
 # Throw
 
+The exception assertions pass when the thrown exception is the expected type or derives from it, like a `catch` clause. This applies whether the type is given as a type argument or as a `Type`. To require the exact type, call `ShouldBeOfType` on the returned exception.
+
 
 ## ShouldThrowAction
 

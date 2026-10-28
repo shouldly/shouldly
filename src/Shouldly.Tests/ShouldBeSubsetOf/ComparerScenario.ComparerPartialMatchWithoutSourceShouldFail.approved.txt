@@ -1,0 +1,6 @@
+["A", "Z"]
+    should be subset of
+["a"]
+    but
+["Z"]
+    is outside subset

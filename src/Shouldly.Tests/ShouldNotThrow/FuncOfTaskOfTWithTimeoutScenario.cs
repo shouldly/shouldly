@@ -7,14 +7,14 @@ public class FuncOfTaskOfTWithTimeoutScenario
     [Fact]
     public void ShouldThrowAWobbly()
     {
-        var task = Task.Run(async () =>
+        Func<Task<string>> action = () => Task.Run(async () =>
         {
             await Task.Delay(LongWait);
             return "foo";
         });
 
         var ex = Should.Throw<ShouldCompleteInException>(() =>
-            task.ShouldNotThrow(ShortWait, "Some additional context"));
+            action.ShouldNotThrow(ShortWait, "Some additional context"));
 
         ex.Message.ShouldContainWithoutWhitespace(ChuckedAWobblyErrorMessage);
     }
@@ -32,9 +32,9 @@ public class FuncOfTaskOfTWithTimeoutScenario
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Run(() => "foo");
+        Func<Task<string>> action = () => Task.Run(() => "foo");
 
-        var result = task.ShouldNotThrow(LongWait);
+        var result = action.ShouldNotThrow(LongWait);
         result.ShouldBe("foo");
     }
 }

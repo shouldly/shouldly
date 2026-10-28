@@ -85,6 +85,11 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     internal IReadOnlyList<Equivalency.EquivalencyDifference>? EquivalencyDifferences { get; set; }
 
     /// <summary>
+    /// The items the assertion could not match, when the assertion computed them itself (so they honor any custom comparer).
+    /// </summary>
+    internal IEnumerable? UnmatchedItems { get; set; }
+
+    /// <summary>
     /// The result of looking up <see cref="Key"/> in the actual sequence, when this context belongs to a
     /// dictionary key-and-value assertion. The assertion does the lookup with the dictionary's own comparer,
     /// so the message reports what the assertion saw rather than repeating the lookup over an untyped value.

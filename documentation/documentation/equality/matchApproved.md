@@ -2,11 +2,11 @@
 
 Based on the [ApprovalTest.Net](https://github.com/approvals/ApprovalTests.Net), Shouldly has `ShouldMatchApproved()` to do approval based testing. The main goal of Shouldly's approval testing is for it to be simple, intuitive and give great error messages.
 
-To configure failed approvals to display a comparison of the approved and failed files, install the [Shouldly.DiffEngine](https://www.nuget.org/packages/Shouldly.DiffEngine/) nuget package and confgure it as follows:
+To configure failed approvals to display a comparison of the approved and failed files, install the [Shouldly.DiffEngine](https://www.nuget.org/packages/Shouldly.DiffEngine/) NuGet package and configure it as follows:
 
 ```
 // In your test setup
-ShouldlyConfiguration.ShouldMatchApprovedDefaults.ConfigureDiffEngine();
+ShouldMatchConfiguration.ShouldMatchApprovedDefaults.ConfigureDiffEngine();
 ```
 
 
@@ -209,14 +209,14 @@ Will turn `Today is 01/01/2016` into `Today is <date>` in the received file.
 
 ### Changing default options
 
-All of the instance based configuration can be changed globally through `ShouldlyConfiguration.ShouldMatchApprovedDefaults`. For example to make the default behaviour be line ending sensitive you can just run this before any tests execute `ShouldlyConfiguration.ShouldMatchApprovedDefaults.DoNotIgnoreLineEndings()`
+All of the instance based configuration can be changed globally through `ShouldMatchConfiguration.ShouldMatchApprovedDefaults`. For example to make the default behaviour be line ending sensitive you can just run this before any tests execute `ShouldMatchConfiguration.ShouldMatchApprovedDefaults.DoNotIgnoreLineEndings()`
 
 
 ### Diff tools
 
-Shouldly.DiffEngine uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools. Use the following to configure enable the diff viewer when not disabled within DiffEngine:
+Shouldly.DiffEngine uses [DiffEngine](https://github.com/VerifyTests/DiffEngine) for launching diff tools. Use the following to enable the diff viewer when not disabled within DiffEngine:
 
 ```
 // In your test setup
-ShouldlyConfiguration.ShouldMatchApprovedDefaults.ConfigureDiffEngine();
+ShouldMatchConfiguration.ShouldMatchApprovedDefaults.ConfigureDiffEngine();
 ```

@@ -126,6 +126,11 @@ public static partial class Should
                 throw new ShouldCompleteInException(message, exception);
             }
 
+            // The timeout proxy turns cancellation into a new TaskCanceledException,
+            // so rethrow the task's own exception to keep the original instance
+            if (actual.IsCanceled)
+                actual.GetAwaiter().GetResult();
+
             ExceptionDispatchInfo.Capture(inner).Throw();
         }
     }

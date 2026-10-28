@@ -13,9 +13,10 @@ public static partial class ShouldNotThrowTaskAsyncExtensions
     /// <summary>
     /// Asynchronously verifies that the Task completes without throwing any exceptions.
     /// </summary>
+    [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Task ShouldNotThrowAsync(this Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null) =>
-        Should.NotThrowAsync(task, customMessage, actualExpression);
+        Should.NotThrowAsync(() => task, customMessage, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the function returning a Task completes without throwing any exceptions.

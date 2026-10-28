@@ -5,27 +5,27 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void FuncOfTaskOfStringScenarioShouldFail()
     {
-        var task = Task.Run(() => "Foo");
+        Func<Task<string>> action = () => Task.Run(() => "Foo");
 
         Verify.ShouldFail(() =>
-            task.ShouldThrow<InvalidOperationException>("Some additional context"));
+            action.ShouldThrow<InvalidOperationException>("Some additional context"));
     }
 
     [Fact]
     public void FuncOfTaskOfStringScenarioShouldFail_ExceptionTypePassedIn()
     {
-        var task = Task.Run(() => "Foo");
+        Func<Task<string>> action = () => Task.Run(() => "Foo");
 
         Verify.ShouldFail(() =>
-            task.ShouldThrow("Some additional context", typeof(InvalidOperationException)));
+            action.ShouldThrow("Some additional context", typeof(InvalidOperationException)));
     }
 
     [Fact]
     public void ShouldPass()
     {
-        var task = Task.Run(() => throw new InvalidOperationException(), TestContext.Current.CancellationToken);
+        Func<Task<string>> action = () => Task.FromException<string>(new InvalidOperationException());
 
-        var ex = task.ShouldThrow<InvalidOperationException>();
+        var ex = action.ShouldThrow<InvalidOperationException>();
 
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
@@ -34,9 +34,9 @@ public class FuncOfTaskOfStringScenario
     [Fact]
     public void ShouldPass_ExceptionTypePassedIn()
     {
-        var task = Task.Run(() => throw new InvalidOperationException(), TestContext.Current.CancellationToken);
+        Func<Task<string>> action = () => Task.FromException<string>(new InvalidOperationException());
 
-        var ex = task.ShouldThrow(typeof(InvalidOperationException));
+        var ex = action.ShouldThrow(typeof(InvalidOperationException));
 
         ex.ShouldNotBe(null);
         ex.ShouldBeOfType<InvalidOperationException>();
