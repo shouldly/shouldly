@@ -49,6 +49,33 @@ public class ShouldBeEnumerableTypeScenarios
     }
 
     [Fact]
+    public void ActualIsNullIgnoringOrderScenario()
+    {
+        IEnumerable<int>? something = null;
+        // ReSharper disable once ExpressionIsAlwaysNull
+        Verify.ShouldFail(() =>
+            something.ShouldBe([1, 2, 3], true, "Some additional context"));
+    }
+
+    [Fact]
+    public void ExpectedIsNullIgnoringOrderScenario()
+    {
+        IEnumerable<int>? expected = null;
+        // ReSharper disable once ExpressionIsAlwaysNull
+        Verify.ShouldFail(() =>
+            new List<int> { 1, 2, 3 }.ShouldBe(expected, true, "Some additional context"));
+    }
+
+    [Fact]
+    public void BothNullIgnoringOrderShouldPass()
+    {
+        IEnumerable<int>? actual = null;
+        IEnumerable<int>? expected = null;
+        // ReSharper disable once ExpressionIsAlwaysNull
+        actual.ShouldBe(expected, true);
+    }
+
+    [Fact]
     public void DifferentEnumerableTypesShouldPass()
     {
         _thisString.ToArray().ShouldBe(_thisString);

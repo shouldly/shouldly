@@ -1,0 +1,8 @@
+new List<int> { 1, 2, 3 }
+    should be
+null
+    but was
+[1, 2, 3]
+
+Additional Info:
+    Some additional context
