@@ -1,0 +1,6 @@
+value
+    should be null but was
+OptionalValue(42)
+
+Additional Info:
+    Some additional context
