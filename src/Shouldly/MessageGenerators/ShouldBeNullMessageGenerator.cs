@@ -9,18 +9,18 @@ class ShouldBeNullMessageGenerator : ShouldlyMessageGenerator
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        // Built-in ShouldBeNull/ShouldNotBeNull pass the value under test as Expected. Custom
-        // assertions using AssertAwesomely pass it as Actual, so prefer that when it's relevant.
-        var expected = (context.HasRelevantActual ? context.Actual : context.Expected).ToStringAwesomely();
-        var codePart = context.CodePart == "null" ? expected : context.CodePart;
-        var expectedValue = context.IsNegatedAssertion || expected == codePart ? string.Empty : $"""
+        // Built-in ShouldBeNull/ShouldNotBeNull pass the value under test as Expected; custom
+        // assertions using AssertAwesomely pass it as Actual.
+        var value = (context.HasRelevantActual ? context.Actual : context.Expected).ToStringAwesomely();
+        var codePart = context.CodePart == "null" ? value : context.CodePart;
+        var valuePart = context.IsNegatedAssertion || value == codePart ? string.Empty : $"""
 
-             {expected}
+             {value}
              """;
 
         return $"""
                 {codePart}
-                    {context.ShouldMethod.PascalToSpaced()} but was{expectedValue}
+                    {context.ShouldMethod.PascalToSpaced()} but was{valuePart}
                 """;
     }
 }
