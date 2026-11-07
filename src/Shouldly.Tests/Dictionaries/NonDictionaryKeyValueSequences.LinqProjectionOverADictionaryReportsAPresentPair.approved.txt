@@ -1,0 +1,9 @@
+Dictionary().Select(pair => pair)
+    should not contain key
+"a"
+    with value
+1
+    but does
+
+Additional Info:
+    Some additional context
