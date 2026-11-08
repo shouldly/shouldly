@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
+using Shouldly.Internals;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly;
@@ -127,6 +128,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeNullOrEmpty<T>(this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        // Snapshot one-shot sequences so the check and the failure message see the same items.
+        actual = EnumerableProxy<T>.WrapNonCollection(actual);
         if (actual != null && actual.Any())
             throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
@@ -137,6 +140,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotBeNullOrEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        // Snapshot one-shot sequences so the check and the failure message see the same items.
+        actual = EnumerableProxy<T>.WrapNonCollection(actual);
         if (actual == null || !actual.Any())
             throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
