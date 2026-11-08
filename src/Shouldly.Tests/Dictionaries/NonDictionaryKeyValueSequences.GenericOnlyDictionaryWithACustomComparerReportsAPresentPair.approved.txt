@@ -1,0 +1,9 @@
+headers
+    should not contain key
+"www-authenticate"
+    with value
+"Bearer"
+    but does
+
+Additional Info:
+    Some additional context

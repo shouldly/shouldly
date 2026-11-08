@@ -1,4 +1,5 @@
 using Shouldly.DifferenceHighlighting;
+using Shouldly.Internals;
 using Shouldly.MessageGenerators;
 
 namespace Shouldly;
@@ -171,6 +172,24 @@ public class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
             Key = key,
             HasRelevantActual = true,
             HasRelevantKey = true
+        };
+        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
+    }
+
+    /// <summary>
+    /// Creates a new message carrying the result of the assertion's own key lookup.
+    /// </summary>
+    internal ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key, DictionaryKeyLookup keyLookup,
+        string? customMessage,
+        [CallerMemberName] string shouldlyMethod = null!,
+        string? actualExpression = null)
+    {
+        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
+        {
+            Key = key,
+            HasRelevantActual = true,
+            HasRelevantKey = true,
+            KeyLookup = keyLookup
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }

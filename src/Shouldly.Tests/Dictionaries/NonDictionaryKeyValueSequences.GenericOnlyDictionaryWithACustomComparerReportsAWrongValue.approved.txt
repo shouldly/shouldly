@@ -1,0 +1,10 @@
+headers
+    should contain key
+"www-authenticate"
+    with value
+"Basic"
+    but value was
+"Bearer"
+
+Additional Info:
+    Some additional context
