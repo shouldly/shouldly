@@ -63,7 +63,10 @@ detentionOnTheLastDayOfSchool.ShouldBeNullOrEmpty();
 
 <!-- include: EnumerableShouldBeEmptyExamples.ShouldBeNullOrEmpty.exceptionText.approved.txt -->
 ```
-detentionOnTheLastDayOfSchool ([Bart])
-    should be null or empty
+detentionOnTheLastDayOfSchool
+    should be null or empty but had
+1
+    item and was
+[Bart]
 ```
 <!-- endInclude -->
