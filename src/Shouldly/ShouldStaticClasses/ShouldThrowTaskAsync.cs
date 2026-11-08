@@ -112,9 +112,10 @@ public static partial class Should
     public static async Task<T> NotThrowAsync<T>(Func<Task<T>> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        var task = actual();
-        await NotThrowAsyncInternal(() => task, customMessage, actualExpression: actualExpression);
-        return await task;
+        Task<T>? task = null;
+        await NotThrowAsyncInternal(() => task = actual(), customMessage, actualExpression: actualExpression);
+        // NotThrowAsyncInternal has awaited the task and verified it completed successfully
+        return await task!;
     }
 
     [DebuggerDisableUserUnhandledExceptions]
