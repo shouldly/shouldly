@@ -127,16 +127,18 @@ public static partial class Should
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
         var stackTrace = actualExpression == null ? new StackTrace(true) : null;
-        var task = actual();
+        Task? task = null;
         try
         {
+            // Invoked inside the try so an exception thrown before a task is returned fails the assertion too.
+            task = actual();
             await task;
         }
         catch (Exception ex)
         {
             // task.Exception preserves the full AggregateException so we can distinguish
             // single-inner from multi-inner faulted tasks (await only surfaces the first).
-            if (task.Exception is { } aggregate)
+            if (task?.Exception is { } aggregate)
             {
                 var flattened = aggregate.Flatten();
                 if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
