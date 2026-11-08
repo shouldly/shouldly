@@ -27,9 +27,12 @@ class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGen
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 
+        if (lookup is { KeyExists: true })
+            return string.Format(format, codePart, keyValue, expected, "but does");
+
         if (lookup is { KeyExists: false })
             return string.Format(format, codePart, keyValue, expected, "but the key does not exist");
 
-        return string.Format(format, codePart, keyValue, expected, "but does");
+        return string.Format(format, codePart, keyValue, expected, "").TrimEnd();
     }
 }

@@ -136,6 +136,18 @@ public class NonDictionaryKeyValueSequences
         message.ShouldContain("but does");
     }
 
+    // Without an IDictionary or the assertion's own lookup, the message cannot know whether the key is present,
+    // so it must not claim either way.
+    [Fact]
+    public void PublicMessageForShouldNotContainValueForKeyOverASequenceDoesNotClaimTheKeyIsPresent()
+    {
+        var message = new ExpectedActualKeyShouldlyMessage(1, PairList(), "z", null, "ShouldNotContainValueForKey", "pairs").ToString();
+
+        message.ShouldNotContain("but does");
+        message.ShouldNotContain("but the key does not exist");
+        message.ShouldEndWith("1");
+    }
+
     private sealed class HashtableWithThrowingIndexer : Hashtable
     {
         public override object? this[object key]
