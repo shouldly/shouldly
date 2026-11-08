@@ -15,4 +15,16 @@ public class FloatWithToleranceScenario
     {
         new[] { 1f, 2f, 3f }.ShouldContain(1.91f, 0.1d);
     }
+
+    [Fact]
+    public void ShouldPassWithZeroTolerance()
+    {
+        new[] { 1f, 2f, 3f }.ShouldContain(2f, 0d);
+    }
+
+    [Fact]
+    public void ShouldPassWhenDifferenceEqualsTolerance()
+    {
+        new[] { 1f, 2f, 3f }.ShouldContain(1.5f, 0.5d);
+    }
 }
