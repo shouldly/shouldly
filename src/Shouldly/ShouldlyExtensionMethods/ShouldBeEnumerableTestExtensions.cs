@@ -162,7 +162,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Any(a => Math.Abs(expected - a) <= tolerance))
+        if (!actual.Any(a => Is.Equal(a, expected, tolerance)))
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -172,7 +172,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Any(a => Math.Abs(expected - a) <= tolerance))
+        if (!actual.Any(a => Is.Equal(a, expected, tolerance)))
             throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(expected, actual, tolerance, customMessage, actualExpression: actualExpression).ToString());
     }
 

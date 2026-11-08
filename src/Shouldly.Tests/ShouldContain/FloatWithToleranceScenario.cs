@@ -27,4 +27,11 @@ public class FloatWithToleranceScenario
     {
         new[] { 1f, 2f, 3f }.ShouldContain(1.5f, 0.5d);
     }
+
+    [Fact]
+    public void ShouldFailWhenDifferenceJustExceedsTolerance()
+    {
+        Should.Throw<ShouldAssertException>(() =>
+            new[] { 1f, 2f, 3f }.ShouldContain(1.5f, 0.4999d));
+    }
 }

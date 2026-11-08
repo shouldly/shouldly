@@ -27,4 +27,11 @@ public class DoubleWithToleranceScenario
     {
         new[] { 1d, 2d, 3d }.ShouldContain(1.5d, 0.5d);
     }
+
+    [Fact]
+    public void ShouldFailWhenDifferenceJustExceedsTolerance()
+    {
+        Should.Throw<ShouldAssertException>(() =>
+            new[] { 1d, 2d, 3d }.ShouldContain(1.5d, 0.4999d));
+    }
 }
