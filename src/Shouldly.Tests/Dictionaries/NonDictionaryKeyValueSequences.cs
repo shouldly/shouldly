@@ -124,6 +124,27 @@ public class NonDictionaryKeyValueSequences
         Should.Throw<ShouldAssertException>(() => pairs.ShouldContainKeyAndValue("k", [1, 2, 4]));
     }
 
+    // A message built through the public constructor falls back to the non-generic IDictionary. The negative
+    // message only needs to know the key is present, so it must not read the value through the indexer.
+    [Fact]
+    public void PublicMessageForShouldNotContainValueForKeyDoesNotReadTheValue()
+    {
+        var dictionary = new HashtableWithThrowingIndexer { ["a"] = 1 };
+
+        var message = new ExpectedActualKeyShouldlyMessage(1, dictionary, "a", null, "ShouldNotContainValueForKey", "dictionary").ToString();
+
+        message.ShouldContain("but does");
+    }
+
+    private sealed class HashtableWithThrowingIndexer : Hashtable
+    {
+        public override object? this[object key]
+        {
+            get => throw new InvalidOperationException("The value should not be read.");
+            set => base[key] = value;
+        }
+    }
+
     private sealed class CaseInsensitiveHeaders : IDictionary<string, string>
     {
         private readonly Dictionary<string, string> _inner = new(StringComparer.OrdinalIgnoreCase);

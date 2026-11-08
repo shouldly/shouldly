@@ -23,7 +23,7 @@ class DictionaryShouldNotContainValueForKeyMessageGenerator : ShouldlyMessageGen
             """;
 
         var codePart = context.CodePart;
-        var lookup = DictionaryKeyLookup.From(context);
+        var lookup = DictionaryKeyLookup.From(context, readValue: false);
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 
