@@ -138,6 +138,18 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         NotThrowAsyncInternal(actual, customMessage, actualExpression: actualExpression);
 
+    /// <summary>
+    /// Asynchronously verifies that the provided task function does not throw any exceptions and returns its result
+    /// </summary>
+    public static async Task<T> NotThrowAsync<T>(Func<Task<T>> actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        Task<T>? task = null;
+        await NotThrowAsyncInternal(() => task = actual(), customMessage, actualExpression: actualExpression);
+        // NotThrowAsyncInternal has awaited the task and verified it completed successfully
+        return await task!;
+    }
+
     [DebuggerDisableUserUnhandledExceptions]
     internal static async Task NotThrowAsyncInternal(
         [InstantHandle] Func<Task> actual,
@@ -147,16 +159,18 @@ public static partial class Should
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
         var stackTrace = actualExpression == null ? new StackTrace(true) : null;
-        var task = actual();
+        Task? task = null;
         try
         {
+            // Invoked inside the try so an exception thrown before a task is returned fails the assertion too.
+            task = actual();
             await task;
         }
         catch (Exception ex)
         {
             // task.Exception preserves the full AggregateException so we can distinguish
             // single-inner from multi-inner faulted tasks (await only surfaces the first).
-            if (task.Exception is { } aggregate)
+            if (task?.Exception is { } aggregate)
             {
                 var flattened = aggregate.Flatten();
                 if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)

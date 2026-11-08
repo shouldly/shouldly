@@ -155,6 +155,7 @@ namespace Shouldly
         public static System.Threading.Tasks.Task NotThrowAsync(System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         [System.Obsolete(@"Pass a Func<Task> instead of a Task instance, e.g. Should.Throw<T>(DoWorkAsync) or Should.Throw<T>(() => task). A Task argument is evaluated before Shouldly runs, so an exception thrown synchronously (argument validation, for example) escapes the assertion instead of being caught by it.", true)]
         public static System.Threading.Tasks.Task NotThrowAsync(System.Threading.Tasks.Task task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null) { }
+        public static System.Threading.Tasks.Task<T> NotThrowAsync<T>(System.Func<System.Threading.Tasks.Task<T>> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static void Satisfy(System.Action[] conditions, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("conditions")] string? actualExpression = null) { }
         public static System.Exception Throw(System.Func<object?> actual, System.Type exceptionType, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         public static System.Exception Throw(System.Action actual, System.Type exceptionType, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
@@ -432,6 +433,7 @@ namespace Shouldly
         public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Func<System.Threading.Tasks.Task> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
         [System.Obsolete(@"Pass a Func<Task> instead of a Task instance, e.g. Should.Throw<T>(DoWorkAsync) or Should.Throw<T>(() => task). A Task argument is evaluated before Shouldly runs, so an exception thrown synchronously (argument validation, for example) escapes the assertion instead of being caught by it.", true)]
         public static System.Threading.Tasks.Task ShouldNotThrowAsync(this System.Threading.Tasks.Task task, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("task")] string? actualExpression = null) { }
+        public static System.Threading.Tasks.Task<T> ShouldNotThrowAsync<T>(this System.Func<System.Threading.Tasks.Task<T>> actual, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("actual")] string? actualExpression = null) { }
     }
     [Shouldly.ShouldlyMethods]
     public static class ShouldSatisfyAllConditionsTestExtensions
