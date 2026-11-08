@@ -132,6 +132,16 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the enumerable is neither null nor empty. Equivalent to <see cref="ShouldNotBeEmpty{T}"/>, which also fails for null.
+    /// </summary>
+    public static void ShouldNotBeNullOrEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        if (actual == null || !actual.Any())
+            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+    }
+
+    /// <summary>
     /// Asserts that the enumerable contains exactly one element and returns it.
     /// </summary>
     public static T ShouldHaveSingleItem<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,

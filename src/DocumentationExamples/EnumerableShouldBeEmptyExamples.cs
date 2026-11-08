@@ -42,4 +42,16 @@ public class EnumerableShouldBeEmptyExamples
             },
             _testOutputHelper);
     }
+
+    [Fact]
+    public void ShouldNotBeNullOrEmpty()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                List<Person>? springfieldNuclearSafetyInspections = null;
+                springfieldNuclearSafetyInspections.ShouldNotBeNullOrEmpty();
+            },
+            _testOutputHelper);
+    }
 }

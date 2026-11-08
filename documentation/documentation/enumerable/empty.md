@@ -70,3 +70,26 @@ detentionOnTheLastDayOfSchool
 [Bart]
 ```
 <!-- endInclude -->
+
+
+## ShouldNotBeNullOrEmpty
+
+Equivalent to `ShouldNotBeEmpty`, which also fails for null.
+
+<!-- snippet: EnumerableShouldBeEmptyExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs -->
+<a id='snippet-EnumerableShouldBeEmptyExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs'></a>
+```cs
+List<Person>? springfieldNuclearSafetyInspections = null;
+springfieldNuclearSafetyInspections.ShouldNotBeNullOrEmpty();
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/EnumerableShouldBeEmptyExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnumerableShouldBeEmptyExamples.ShouldNotBeNullOrEmpty.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: EnumerableShouldBeEmptyExamples.ShouldNotBeNullOrEmpty.exceptionText.approved.txt -->
+```
+springfieldNuclearSafetyInspections (null)
+    should not be null or empty
+```
+<!-- endInclude -->
