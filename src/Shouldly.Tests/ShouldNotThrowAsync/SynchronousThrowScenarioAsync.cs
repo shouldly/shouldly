@@ -1,7 +1,7 @@
 namespace Shouldly.Tests.ShouldNotThrowAsync;
 
 /// <summary>
-/// A delegate that throws before returning its task (argument validation in a non-async method, for example)
+/// A delegate that throws before returning its task (validation in a non-async method, for example)
 /// should fail the assertion rather than escape it.
 /// </summary>
 public class SynchronousThrowScenarioAsync
@@ -15,7 +15,7 @@ public class SynchronousThrowScenarioAsync
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
-            `action` should not throw but threw System.ArgumentException with message "Value must not be negative. (Parameter 'value')"
+            `action` should not throw but threw System.InvalidOperationException with message "Value must not be negative."
             Additional Info: Some additional context
             """);
     }
@@ -29,7 +29,7 @@ public class SynchronousThrowScenarioAsync
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
-            `action` should not throw but threw System.ArgumentException with message "Value must not be negative. (Parameter 'value')"
+            `action` should not throw but threw System.InvalidOperationException with message "Value must not be negative."
             Additional Info: Some additional context
             """);
     }
@@ -43,7 +43,7 @@ public class SynchronousThrowScenarioAsync
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
-            `action` should not throw but threw System.ArgumentException with message "Value must not be negative. (Parameter 'value')"
+            `action` should not throw but threw System.InvalidOperationException with message "Value must not be negative."
             Additional Info: Some additional context
             """);
     }
@@ -57,7 +57,7 @@ public class SynchronousThrowScenarioAsync
 
         ex.Message.ShouldContainWithoutWhitespace(
             """
-            `action` should not throw but threw System.ArgumentException with message "Value must not be negative. (Parameter 'value')"
+            `action` should not throw but threw System.InvalidOperationException with message "Value must not be negative."
             Additional Info: Some additional context
             """);
     }
@@ -74,7 +74,7 @@ public class SynchronousThrowScenarioAsync
     private static Task ValidateThenRun(int value)
     {
         if (value < 0)
-            throw new ArgumentException("Value must not be negative.", nameof(value));
+            throw new InvalidOperationException("Value must not be negative.");
 
         return Task.CompletedTask;
     }
@@ -82,7 +82,7 @@ public class SynchronousThrowScenarioAsync
     private static Task<int> ValidateThenGet(int value)
     {
         if (value < 0)
-            throw new ArgumentException("Value must not be negative.", nameof(value));
+            throw new InvalidOperationException("Value must not be negative.");
 
         return Task.FromResult(value);
     }
