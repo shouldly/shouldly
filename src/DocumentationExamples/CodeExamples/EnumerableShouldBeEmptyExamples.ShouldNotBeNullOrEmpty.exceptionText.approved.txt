@@ -1,0 +1,4 @@
+```
+springfieldNuclearSafetyInspections (null)
+    should not be null or empty
+```

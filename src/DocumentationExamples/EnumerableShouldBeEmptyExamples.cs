@@ -29,4 +29,29 @@ public class EnumerableShouldBeEmptyExamples
             }
             , _testOutputHelper);
     }
+
+    [Fact]
+    public void ShouldBeNullOrEmpty()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var bart = new Person { Name = "Bart" };
+                var detentionOnTheLastDayOfSchool = new List<Person> { bart };
+                detentionOnTheLastDayOfSchool.ShouldBeNullOrEmpty();
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldNotBeNullOrEmpty()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                List<Person>? springfieldNuclearSafetyInspections = null;
+                springfieldNuclearSafetyInspections.ShouldNotBeNullOrEmpty();
+            },
+            _testOutputHelper);
+    }
 }

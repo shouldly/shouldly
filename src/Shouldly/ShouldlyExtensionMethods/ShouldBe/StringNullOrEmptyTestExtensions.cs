@@ -8,7 +8,6 @@ public static partial class ShouldBeStringTestExtensions
     /// <summary>
     /// Asserts that a string is null or empty
     /// </summary>
-    [ContractAnnotation("actual:notnull => halt")]
     public static void ShouldBeNullOrEmpty(this string? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
