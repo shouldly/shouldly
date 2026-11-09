@@ -1,0 +1,5 @@
+```
+lookup
+    should be completed successfully but faulted with
+System.InvalidOperationException: Cache miss
+```

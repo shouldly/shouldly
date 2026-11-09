@@ -435,6 +435,7 @@ public abstract class ShouldlyMessage
         new ShouldAllBeMessageGenerator(),
         new DynamicShouldMessageGenerator(),
         new ShouldCompleteInMessageGenerator(),
+        new ShouldBeCompletedSuccessfullyMessageGenerator(),
         new ShouldBeNullOrWhiteSpaceMessageGenerator(),
         new DictionaryShouldContainKeyAndValueMessageGenerator(),
         new DictionaryShouldOrNotContainKeyMessageGenerator(),

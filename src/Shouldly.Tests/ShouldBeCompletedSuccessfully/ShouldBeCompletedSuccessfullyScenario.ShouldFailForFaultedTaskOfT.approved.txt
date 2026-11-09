@@ -1,0 +1,3 @@
+task
+    should be completed successfully but faulted with
+System.InvalidOperationException: boom

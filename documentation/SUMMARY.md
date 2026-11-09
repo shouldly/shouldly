@@ -49,6 +49,7 @@
   * [NotThrow](documentation/exceptions/notThrow.md)
 * [SatisfyAllConditions](documentation/satisfyAllConditions.md)
 * [CompleteIn](documentation/completeIn.md)
+* [CompletedSuccessfully](documentation/completedSuccessfully.md)
 * [DynamicShould](documentation/dynamicShould.md)
 * [Writing Custom Assertions](documentation/extending.md)
 * [Upgrade 3 to 4](documentation/upgrade/3to4.md)
