@@ -21,10 +21,8 @@ public class ShouldBeCompletedSuccessfullyScenario
     {
         var task = Task.FromException(new InvalidOperationException("boom"));
 
-        var ex = Should.Throw<ShouldAssertException>(() => task.ShouldBeCompletedSuccessfully());
-        ex.Message.ShouldContain("task");
-        ex.Message.ShouldContain(TaskStatus.RanToCompletion.ToString());
-        ex.Message.ShouldContain(TaskStatus.Faulted.ToString());
+        Verify.ShouldFail(() =>
+            task.ShouldBeCompletedSuccessfully("Some additional context"));
     }
 
     [Fact]
@@ -32,7 +30,29 @@ public class ShouldBeCompletedSuccessfullyScenario
     {
         var task = Task.FromException<int>(new InvalidOperationException("boom"));
 
-        Should.Throw<ShouldAssertException>(() => task.ShouldBeCompletedSuccessfully());
+        Verify.ShouldFail(() =>
+            task.ShouldBeCompletedSuccessfully());
+    }
+
+    [Fact]
+    public void ShouldFailForTaskFaultedWithMultipleExceptions()
+    {
+        var task = Task.WhenAll(
+            Task.FromException(new InvalidOperationException("first")),
+            Task.FromException(new ArgumentException("second")));
+
+        Verify.ShouldFail(() =>
+            task.ShouldBeCompletedSuccessfully());
+    }
+
+    [Fact]
+    public void ShouldIncludeStackTraceOfThrownException()
+    {
+        var task = ThrowAsync();
+
+        var ex = Should.Throw<ShouldAssertException>(() => task.ShouldBeCompletedSuccessfully());
+
+        ex.Message.ShouldContain(nameof(ThrowAsync));
     }
 
     [Fact]
@@ -40,7 +60,8 @@ public class ShouldBeCompletedSuccessfullyScenario
     {
         var task = Task.FromCanceled(new CancellationToken(canceled: true));
 
-        Should.Throw<ShouldAssertException>(() => task.ShouldBeCompletedSuccessfully());
+        Verify.ShouldFail(() =>
+            task.ShouldBeCompletedSuccessfully());
     }
 
     [Fact]
@@ -48,6 +69,13 @@ public class ShouldBeCompletedSuccessfullyScenario
     {
         var tcs = new TaskCompletionSource<int>();
 
-        Should.Throw<ShouldAssertException>(() => tcs.Task.ShouldBeCompletedSuccessfully());
+        Verify.ShouldFail(() =>
+            tcs.Task.ShouldBeCompletedSuccessfully());
+    }
+
+    static async Task ThrowAsync()
+    {
+        await Task.CompletedTask;
+        throw new InvalidOperationException("boom");
     }
 }

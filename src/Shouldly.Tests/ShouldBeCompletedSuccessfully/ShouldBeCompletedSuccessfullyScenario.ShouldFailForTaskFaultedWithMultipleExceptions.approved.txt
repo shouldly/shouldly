@@ -1,0 +1,4 @@
+task
+    should be completed successfully but faulted with
+[0] System.InvalidOperationException: first
+[1] System.ArgumentException: second
