@@ -3,22 +3,22 @@ namespace Shouldly.MessageGenerators;
 class ShouldBeCompletedSuccessfullyMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context) =>
-        context.ShouldMethod == "ShouldBeCompletedSuccessfully" &&
-        context.Actual is Task;
+        context.ShouldMethod == "ShouldBeCompletedSuccessfully";
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        var task = (Task)context.Actual!;
+        var task = context.Actual as Task;
         var codePart = context.CodePart == "null" ? "Task" : context.CodePart;
 
-        var outcome = task.Status switch
+        var outcome = task?.Status switch
         {
+            null => "but was null",
             TaskStatus.Faulted => $"""
                                    but faulted with
-                                   {FaultDescription(task.Exception!)}
+                                   {FaultDescription(task!.Exception!)}
                                    """,
             TaskStatus.Canceled => "but was canceled",
-            _ => $"but had not completed (status: {task.Status})"
+            _ => $"but had not completed (status: {task!.Status})"
         };
 
         return $"""

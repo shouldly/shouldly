@@ -22,7 +22,7 @@ public static partial class ShouldBeCompletedSuccessfullyExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
-        if (task.Status != TaskStatus.RanToCompletion)
+        if (task is null || task.Status != TaskStatus.RanToCompletion)
             throw new ShouldAssertException(new ActualShouldlyMessage(task, customMessage, actualExpression: actualExpression).ToString());
     }
 

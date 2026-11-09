@@ -73,6 +73,24 @@ public class ShouldBeCompletedSuccessfullyScenario
             tcs.Task.ShouldBeCompletedSuccessfully());
     }
 
+    [Fact]
+    public void ShouldFailForNullTask()
+    {
+        Task task = null!;
+
+        Verify.ShouldFail(() =>
+            task.ShouldBeCompletedSuccessfully());
+    }
+
+    [Fact]
+    public void ShouldFailForNullTaskOfT()
+    {
+        Task<int> task = null!;
+
+        Verify.ShouldFail(() =>
+            task.ShouldBeCompletedSuccessfully());
+    }
+
     static async Task ThrowAsync()
     {
         await Task.CompletedTask;
