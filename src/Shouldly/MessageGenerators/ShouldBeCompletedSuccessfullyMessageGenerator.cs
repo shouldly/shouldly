@@ -7,18 +7,18 @@ class ShouldBeCompletedSuccessfullyMessageGenerator : ShouldlyMessageGenerator
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        var task = context.Actual as Task;
+        var snapshot = context.Actual as TaskStatusSnapshot;
         var codePart = context.CodePart == "null" ? "Task" : context.CodePart;
 
-        var outcome = task?.Status switch
+        var outcome = snapshot?.Status switch
         {
             null => "but was null",
             TaskStatus.Faulted => $"""
                                    but faulted with
-                                   {FaultDescription(task!.Exception!)}
+                                   {FaultDescription(snapshot!.Exception!)}
                                    """,
             TaskStatus.Canceled => "but was canceled",
-            _ => $"but had not completed (status: {task!.Status})"
+            _ => $"but had not completed (status: {snapshot!.Status})"
         };
 
         return $"""
@@ -37,4 +37,13 @@ class ShouldBeCompletedSuccessfullyMessageGenerator : ShouldlyMessageGenerator
             ? inner[0].ToString()
             : string.Join(Environment.NewLine, inner.Select((e, i) => $"[{i}] {e}"));
     }
+}
+
+/// <summary>
+/// The status of a task at the moment ShouldBeCompletedSuccessfully checked it.
+/// </summary>
+sealed class TaskStatusSnapshot(TaskStatus status, AggregateException? exception)
+{
+    public TaskStatus Status { get; } = status;
+    public AggregateException? Exception { get; } = exception;
 }

@@ -22,8 +22,16 @@ public static partial class ShouldBeCompletedSuccessfullyExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
-        if (task is null || task.Status != TaskStatus.RanToCompletion)
-            throw new ShouldAssertException(new ActualShouldlyMessage(task, customMessage, actualExpression: actualExpression).ToString());
+        if (task is null)
+            throw new ShouldAssertException(new ActualShouldlyMessage(null, customMessage, actualExpression: actualExpression).ToString());
+
+        // Read the status once, so a task completing concurrently can't contradict the failure message.
+        var status = task.Status;
+        if (status != TaskStatus.RanToCompletion)
+        {
+            var snapshot = new MessageGenerators.TaskStatusSnapshot(status, status == TaskStatus.Faulted ? task.Exception : null);
+            throw new ShouldAssertException(new ActualShouldlyMessage(snapshot, customMessage, actualExpression: actualExpression).ToString());
+        }
     }
 
     /// <summary>
