@@ -76,8 +76,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
         if (Numerics.IsNumericType(x) &&
             Numerics.IsNumericType(y))
         {
-            var tolerance = Tolerance.Empty;
-            return Numerics.AreEqual(x, y, ref tolerance);
+            return Numerics.AreEqual(x, y);
         }
 
         // Enumerable?
