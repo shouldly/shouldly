@@ -23,7 +23,7 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
         // Compare as the assertion did, so a custom comparer's matches aren't highlighted as differences.
         var comparison = AssertionComparison.Of(context);
 
-        return HighlightDifferencesBetweenLists((IEnumerable)context.Actual!, (IEnumerable)context.Expected!, comparison.ElementsEqual);
+        return HighlightDifferencesBetweenLists((IEnumerable)context.Actual!, (IEnumerable)context.Expected!, (a, e) => ItemsEqual(a, e, comparison));
     }
 
     // Walks both sequences in step, a single pass each, stopping after
@@ -61,6 +61,25 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
         }
 
         return "[" + string.Join(", ", items) + "]";
+    }
+
+    // The assertion stops at its first difference, but the highlighter compares every position it
+    // shows, so a nested sequence there may never end. When one is longer than a message shows,
+    // compare it only as far as it's shown, as the top level is. A caller-supplied comparer is
+    // left to decide for itself.
+    private static bool ItemsEqual(object? actual, object? expected, AssertionComparison comparison)
+    {
+        if (!comparison.UsesCustomComparer
+            && actual is IEnumerable actualItems and not string
+            && expected is IEnumerable expectedItems and not string)
+        {
+            var actualRead = actualItems.ReadForMessage(out var actualTruncated);
+            var expectedRead = expectedItems.ReadForMessage(out var expectedTruncated);
+            if (actualTruncated || expectedTruncated)
+                return Is.Equal(actualRead, expectedRead);
+        }
+
+        return comparison.ElementsEqual(actual, expected);
     }
 
     private static string? GetComparedItemString(

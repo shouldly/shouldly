@@ -131,4 +131,18 @@ public class InfiniteSequenceScenario
 
         disposed.ShouldBeTrue();
     }
+
+    [Fact]
+    public void NestedInfiniteSequenceShouldFail()
+    {
+        // The assertion stops at index 0, but highlighting compares every position, so a nested
+        // infinite sequence further on must only be compared as far as the message shows it.
+        object[] actual = [0, new GuardedSequence()];
+        object[] expected = [1, new GuardedSequence()];
+
+        using (MaxEnumerableItemsScope.Of(5))
+        {
+            Verify.ShouldFail(() => actual.ShouldBe(expected));
+        }
+    }
 }
