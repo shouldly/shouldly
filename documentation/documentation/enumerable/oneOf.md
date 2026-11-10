@@ -8,6 +8,8 @@ status.ShouldBeOneOf([Status.Active, Status.Pending]);
 
 This was a `params` array in v4 — see the [4 to 5 upgrade guide](../upgrade/4to5.md).
 
+Without a comparer, the value is compared with each candidate the way [`ShouldBe`](../equality/shouldBe.md) compares values. Pass an `IEqualityComparer<T>` to compare differently.
+
 
 ## ShouldBeOneOf
 

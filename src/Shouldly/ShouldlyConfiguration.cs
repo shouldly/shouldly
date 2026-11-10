@@ -9,14 +9,20 @@ public static partial class ShouldlyConfiguration
     {
         CompareAsObjectTypes =
         [
-            "Newtonsoft.Json.Linq.JToken",
-            "Shouldly.Tests.TestHelpers.Strange"
+            "Newtonsoft.Json.Linq.JToken"
         ];
     }
 
     /// <summary>
-    /// List of type names that should be compared as objects rather than using their Equals method
+    /// Full names (<see cref="Type.FullName"/>) of enumerable types that <c>ShouldBe</c> should compare with
+    /// their own <see cref="object.Equals(object)"/> rather than element by element.
     /// </summary>
+    /// <remarks>
+    /// Defaults to <c>Newtonsoft.Json.Linq.JToken</c>. A name is matched against the type <c>ShouldBe</c>
+    /// compares: the value's type for the single-value overload (and the dictionary value assertions), or the
+    /// element type for the enumerable overload. Register types once, before any assertion runs (for example
+    /// from a module initializer), as the list is not thread-safe.
+    /// </remarks>
     public static List<string> CompareAsObjectTypes { get; }
 
     /// <summary>
@@ -51,7 +57,12 @@ public static partial class ShouldlyConfiguration
     }
 
     /// <summary>
-    /// Default tolerance used for floating point comparisons
+    /// Linear tolerance used when an assertion compares two <see cref="float"/> or <see cref="double"/> values
+    /// and wasn't given a tolerance of its own. Honoured by <c>ShouldBe</c>/<c>ShouldNotBe</c> (including
+    /// collections, spans and memory), the dictionary value assertions, and the leaf values compared by
+    /// <c>ShouldBeEquivalentTo</c>. Values compared with their own <c>Equals</c>, such as the members of a
+    /// record passed to <c>ShouldBe</c>, are compared exactly. <see cref="decimal"/> and integer values are
+    /// never affected. Defaults to 0 (exact comparison).
     /// </summary>
     public static double DefaultFloatingPointTolerance = 0.0d;
 
@@ -115,4 +126,36 @@ public static partial class ShouldlyConfiguration
     private const int DefaultMaxStringLengthInMessages = 1000;
 
     private const string MaxStringLengthInMessagesKey = "ShouldlyMaxStringLengthInMessages";
+
+    /// <summary>
+    /// Maximum number of items of an enumerable echoed back in assertion failure messages.
+    /// Longer enumerables are cut off after this many items and end with <c>...</c>.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This also bounds how far Shouldly reads a sequence to describe it, so a failing assertion
+    /// on an infinite or very long lazy sequence returns promptly instead of hanging. It applies to
+    /// the echoed values and to the <c>difference</c> section alike, and to nested enumerables.
+    /// </para>
+    /// <para>
+    /// Scoped to the logical call context. Flows down through async/await and
+    /// Task.Run by default; concurrent contexts get their own value.
+    /// </para>
+    /// </remarks>
+    public static int MaxEnumerableItemsInMessages
+    {
+        get => (int?)CallContext.LogicalGetData(MaxEnumerableItemsInMessagesKey) ?? DefaultMaxEnumerableItemsInMessages;
+        set
+        {
+            if (value < 1)
+                throw new ArgumentOutOfRangeException(nameof(value), value,
+                    $"{nameof(MaxEnumerableItemsInMessages)} must be at least 1.");
+
+            CallContext.LogicalSetData(MaxEnumerableItemsInMessagesKey, value);
+        }
+    }
+
+    private const int DefaultMaxEnumerableItemsInMessages = 1000;
+
+    private const string MaxEnumerableItemsInMessagesKey = "ShouldlyMaxEnumerableItemsInMessages";
 }

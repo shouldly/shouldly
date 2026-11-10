@@ -1,0 +1,9 @@
+new List<EquatableOnly> { new(1), new(2), new(3), new(2) }
+    should be subset of
+[EquatableOnly(1)]
+    but
+[EquatableOnly(2), EquatableOnly(3)]
+    are outside subset
+
+Additional Info:
+    Some additional context

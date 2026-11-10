@@ -280,6 +280,9 @@ class StringDifferenceHighlighter : IStringDifferenceHighlighter
                 return "Whitespace differs: expected uses spaces, actual uses tab (\\t)";
         }
 
+        if (UnicodeNormalization.DifferOnlyInNormalization(expected, actual, _sensitivity))
+            return UnicodeNormalization.BuildHint(expected, actual);
+
         return null;
     }
 

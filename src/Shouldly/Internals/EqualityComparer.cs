@@ -103,6 +103,11 @@ class EqualityComparer<T> : IEqualityComparer<T>
             }
         }
 
+        // KeyValuePair? Compare its key and value, so a dictionary's entries compare like its values do under
+        // ShouldBe and ShouldContainKeyAndValue, not by ValueType.Equals (#1408).
+        if (KeyValuePairs.TryEquals(x, y, _innerComparerFactory(), out var keyValuePairResult))
+            return keyValuePairResult;
+
         // Implements IEquatable<T>?
         if (x is IEquatable<T> equatable)
             return equatable.Equals(y);

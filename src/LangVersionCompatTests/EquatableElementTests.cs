@@ -28,6 +28,17 @@ public class EquatableElementTests
     public void ShouldNotBe_fails_for_lists_of_equal_elements() =>
         Should.Throw<ShouldAssertException>(() => List(1, 2, 3).ShouldNotBe(List(1, 2, 3)));
 
+    [Fact]
+    public void Membership_assertions_compare_elements_as_ShouldBe_does()
+    {
+        // Issue #1404: these took BCL default equality, so an array of equal elements didn't contain one.
+        List(1, 2).ToArray().ShouldContain(new Equatable(1));
+        List(1, 2).ShouldNotContain(new Equatable(3));
+        new Equatable(1).ShouldBeOneOf(List(2, 1).ToArray());
+        List(1, 1).ShouldBeSubsetOf(List(1));
+        Should.Throw<ShouldAssertException>(() => List(1, 1).ShouldBeUnique());
+    }
+
 #pragma warning disable CA1067 // Deliberately no object.Equals override: that is the shape issue #825 reports.
     private sealed class Equatable(int value) : IEquatable<Equatable>
     {

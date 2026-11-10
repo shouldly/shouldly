@@ -96,6 +96,13 @@ class FormattedDetailedDifferenceString
             var totalClusters = expectedClusters.Length + actualClusters.Length;
             var editCount = CountEdits(expectedEdits) + CountEdits(actualEdits);
             showMarkers = totalClusters > 0 && editCount * 2 <= totalClusters;
+
+            // A region that differs only in Unicode normalization renders identically on both
+            // lines, so the markers (and codepoint hint) are the only visible sign of the
+            // difference — show them however large the edit is relative to the string.
+            if (!showMarkers && totalClusters > 0)
+                showMarkers = UnicodeNormalization.DifferOnlyInNormalization(
+                    string.Concat(expectedDiffClusters), string.Concat(actualDiffClusters), _caseSensitivity);
         }
 
         var sb = new StringBuilder();

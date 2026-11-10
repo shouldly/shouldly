@@ -12,7 +12,8 @@ public static partial class ObjectGraphTestExtensions
 {
     /// <summary>
     /// Asserts that an object is equivalent to another object: leaf values (primitives, strings,
-    /// dates, and other value-semantic types) are compared with Equals, dictionaries are matched
+    /// dates, and other value-semantic types) are compared with Equals, with float and double values honouring
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> as ShouldBe does; dictionaries are matched
     /// by key, sets order-insensitively, other collections element-by-element in order, and
     /// everything else member-wise over the expectation's public properties and fields, recursively.
     /// All differences are collected and reported with their paths.

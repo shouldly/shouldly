@@ -1,0 +1,8 @@
+value
+    should be one of
+[EquatableOnly(1), EquatableOnly(2)]
+    but was
+EquatableOnly(3)
+
+Additional Info:
+    Some additional context

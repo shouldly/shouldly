@@ -1,0 +1,5 @@
+list
+    should be same as
+null
+    but was
+[1]

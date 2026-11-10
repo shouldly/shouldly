@@ -1,0 +1,12 @@
+str
+    should be
+"é"
+    but was
+"é"
+    difference
+           ▼
+Expected: "é"
+Actual:   "é"
+           ▲
+Difference at index 0: U+0065 U+0301 vs U+00E9
+Strings differ only in Unicode normalization: expected is NFD, actual is NFC

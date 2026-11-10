@@ -3,3 +3,4 @@ _boxedInt
 1
     but was
 1
+    which is a different instance (the two are equal by value)

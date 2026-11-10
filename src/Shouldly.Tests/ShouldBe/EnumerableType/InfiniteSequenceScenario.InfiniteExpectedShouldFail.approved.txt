@@ -1,0 +1,7 @@
+new[] { 0, 1 }
+    should be
+[0, 1, 2, 3, 4, ...]
+    but was
+[0, 1]
+    difference
+[0, 1, *, *, *, ...]
