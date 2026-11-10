@@ -110,6 +110,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
         if (actual == null || actual.Any())
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
@@ -120,6 +121,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotBeEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
         if (actual == null || !actual.Any())
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
@@ -130,6 +132,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeNullOrEmpty<T>(this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
         // Snapshot one-shot sequences so the check and the failure message see the same items.
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
         using var actualProxy = actual as EnumerableProxy<T>;
@@ -143,6 +146,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotBeNullOrEmpty<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
         // Snapshot one-shot sequences so the check and the failure message see the same items.
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
         using var actualProxy = actual as EnumerableProxy<T>;
@@ -156,6 +160,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static T ShouldHaveSingleItem<T>([NotNull] this IEnumerable<T>? actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
         if (actual == null || actual.Count() != 1)
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
 
@@ -168,6 +173,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldHaveCount<T>([NotNull] this IEnumerable<T>? actual, int expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
         if (actual == null)
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
 

@@ -86,6 +86,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
+        expected = NullEquivalence.Normalize(expected);
+
         // Registered types are compared with their own Equals, so check before wrapping: a proxy around a
         // non-collection value would compare by reference.
         if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
@@ -121,6 +124,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
+        expected = NullEquivalence.Normalize(expected);
+
         if (ignoreOrder)
         {
             actual.AssertAwesomelyIgnoringOrder(expected, comparer, isCustomComparer: true, customMessage, nameof(ShouldBe), actualExpression);

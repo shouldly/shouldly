@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+new Holder(default) [Shouldly.Tests.ShouldBeEquivalentTo.ImmutableArrayScenario+Holder]
+    Values
+
+    Expected value to be
+[] (System.Collections.Immutable.ImmutableArray`1[System.Int32])
+    but was
+null
+
+Additional Info:
+    Some additional context

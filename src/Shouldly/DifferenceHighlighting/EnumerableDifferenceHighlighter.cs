@@ -8,12 +8,16 @@ namespace Shouldly.DifferenceHighlighting;
 /// </summary>
 class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 {
+    // A default ImmutableArray<T> is IEnumerable but throws when enumerated, so it is left to the formatter, which
+    // prints it as null (#1406).
     public bool CanProcess(IShouldlyAssertionContext context) =>
         context is
         {
             Expected: IEnumerable and not string,
             Actual: IEnumerable and not string
-        };
+        } &&
+        !NullEquivalence.IsNull(context.Expected) &&
+        !NullEquivalence.IsNull(context.Actual);
 
     public string? HighlightDifferences(IShouldlyAssertionContext context)
     {
@@ -66,12 +70,14 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
     // The assertion stops at its first difference, but the highlighter compares every position it
     // shows, so a nested sequence there may never end. When one is longer than a message shows,
     // compare it only as far as it's shown, as the top level is. A caller-supplied comparer is
-    // left to decide for itself.
+    // left to decide for itself. A default ImmutableArray<T> can't be read, so the comparison treats it as null (#1406).
     private static bool ItemsEqual(object? actual, object? expected, AssertionComparison comparison)
     {
         if (!comparison.UsesCustomComparer
             && actual is IEnumerable actualItems and not string
-            && expected is IEnumerable expectedItems and not string)
+            && expected is IEnumerable expectedItems and not string
+            && !NullEquivalence.IsNull(actual)
+            && !NullEquivalence.IsNull(expected))
         {
             var actualRead = actualItems.ReadForMessage(out var actualTruncated);
             var expectedRead = expectedItems.ReadForMessage(out var expectedTruncated);

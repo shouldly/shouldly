@@ -48,6 +48,9 @@ internal sealed class EquivalencyComparison
 
     private void CompareNodes(object? actual, object? expected, Type? declaredType, List<string> path)
     {
+        actual = NullEquivalence.Normalize(actual);
+        expected = NullEquivalence.Normalize(expected);
+
         if (actual is null || expected is null)
         {
             // The path is deliberately left un-annotated with a type: with one side null there

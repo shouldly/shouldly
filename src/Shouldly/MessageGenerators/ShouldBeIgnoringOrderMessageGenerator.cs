@@ -5,7 +5,11 @@ namespace Shouldly.MessageGenerators;
 class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
 {
     public override bool CanProcess(IShouldlyAssertionContext context) =>
-        context.IgnoreOrder && context.Actual is IEnumerable && context.Expected is IEnumerable;
+        context.IgnoreOrder && IsWalkable(context.Actual) && IsWalkable(context.Expected);
+
+    // A default ImmutableArray<T> is IEnumerable but throws when enumerated; it is reported as null (#1406).
+    private static bool IsWalkable(object? value) =>
+        value is IEnumerable && !NullEquivalence.IsNull(value);
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {

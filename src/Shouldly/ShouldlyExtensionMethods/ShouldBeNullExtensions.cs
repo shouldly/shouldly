@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
+using Shouldly.Internals;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly;
@@ -22,7 +23,7 @@ public static partial class ShouldBeNullExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : class
     {
-        if (actual != null)
+        if (!NullEquivalence.IsNull(actual))
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -36,7 +37,7 @@ public static partial class ShouldBeNullExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : struct
     {
-        if (actual != null)
+        if (!NullEquivalence.IsNull(actual))
             throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -49,7 +50,9 @@ public static partial class ShouldBeNullExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : class =>
-        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+        actual is { } value && !NullEquivalence.IsNull(value)
+            ? value
+            : throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
 
     /// <summary>
     /// Asserts that the actual value is not null.
@@ -60,5 +63,7 @@ public static partial class ShouldBeNullExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : struct =>
-        actual ?? throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+        actual is { } value && !NullEquivalence.IsNull(value)
+            ? value
+            : throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
 }

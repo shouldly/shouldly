@@ -1,0 +1,7 @@
+DefaultArray
+    should not be
+null
+    but was
+
+Additional Info:
+    Some additional context
