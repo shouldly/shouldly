@@ -1,0 +1,7 @@
+new[] { 1, 0 }
+    should be (ignoring order)
+[0, 1, 2, ...]
+    but
+new[] { 1, 0 }
+    is missing
+[2, 3, ...]

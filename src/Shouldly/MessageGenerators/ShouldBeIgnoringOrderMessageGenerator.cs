@@ -19,8 +19,10 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
             throw new("`context.Actual` should be IEnumerable");
         }
 
-        var expected = expectedEnumerable.Cast<object>().ToArray();
-        var actual = actualEnumerable.Cast<object>().ToArray();
+        // Read only as far as a message can show, so an infinite sequence can't hang it. A side
+        // that was cut short may still hold matches for the other side's items further on.
+        var expected = expectedEnumerable.ReadForMessage(out var expectedTruncated);
+        var actual = actualEnumerable.ReadForMessage(out var actualTruncated);
         var codePart = context.CodePart;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
@@ -30,7 +32,7 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         // Match occurrences one-for-one, as Is.EqualIgnoreOrder does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.
         var missingFromActual = expected.ToList();
-        var missingFromExpected = new List<object>();
+        var missingFromExpected = new List<object?>();
         foreach (var actualItem in actual)
         {
             var index = missingFromActual.FindIndex(expectedItem => comparison.ElementsEqual(actualItem, expectedItem));
@@ -40,22 +42,22 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
                 missingFromActual.RemoveAt(index);
         }
 
-        var actualMissingMessage = missingFromActual.Any()
+        // An item is only known to be missing from a side that was read to the end; the unread
+        // rest of the side it came from may hold more such items.
+        var actualMissingMessage = !actualTruncated && missingFromActual.Any()
             ? $"""
                {codePart}
                    is missing
-               {missingFromActual.ToStringAwesomely()}
+               {missingFromActual.ToStringAwesomely(moreMayFollow: expectedTruncated)}
                """
             : string.Empty;
-        var expectedMissingMessage = missingFromExpected.Any()
+        var expectedMissingMessage = !expectedTruncated && missingFromExpected.Any()
             ? $"""
-               {expected.ToStringAwesomely()}
+               {expectedFormattedValue}
                    is missing
-               {missingFromExpected.ToStringAwesomely()}
+               {missingFromExpected.ToStringAwesomely(moreMayFollow: actualTruncated)}
                """
             : string.Empty;
-
-        // "first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 
         // A custom comparer decides case sensitivity itself, so only report a Case the caller passed.
         var caseSensitivity = comparison.UsesCustomComparer
@@ -66,6 +68,20 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
                 Case.Sensitive => ", case sensitive comparison",
                 _ => string.Empty
             };
+
+        if (actualMissingMessage.Length == 0 && expectedMissingMessage.Length == 0)
+        {
+            // Both sides were too long to tell what's missing, so show them as far as they were read.
+            return $"""
+                    {codePart}
+                        {context.ShouldMethod.PascalToSpaced()} (ignoring order{caseSensitivity})
+                    {expectedFormattedValue}
+                        but was
+                    {actual.ToStringAwesomely()}
+                    """;
+        }
+
+        // "first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 
         const string format =
             """

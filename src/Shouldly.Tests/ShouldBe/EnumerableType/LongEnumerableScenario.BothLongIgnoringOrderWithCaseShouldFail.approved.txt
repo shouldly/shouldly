@@ -1,0 +1,5 @@
+actual
+    should be (ignoring order, case insensitive comparison)
+["a", ...]
+    but was
+["A", ...]

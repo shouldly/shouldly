@@ -90,6 +90,37 @@ the searched string to 100 characters, since the useful information there is the
 haystack.
 
 
+## MaxEnumerableItemsInMessages
+
+How many items of a collection or sequence a failure message shows. Longer ones are cut off and
+end with `...`:
+
+```
+naturals
+    should be
+[0, 1]
+    but was
+[0, 1, 2, 3, 4, ...]
+    difference
+[0, 1, *2*, *3*, *4*, ...]
+```
+
+This also bounds how far Shouldly reads a sequence to describe it, so a failing assertion on an
+infinite or very long lazy sequence returns promptly instead of hanging. Unlike
+`MaxStringLengthInMessages`, it applies to the `difference` section too, since a sequence may never
+end: a difference past the limit is not shown. Raise it when you need to see further into long
+collections:
+
+```csharp
+ShouldlyConfiguration.MaxEnumerableItemsInMessages = 5000;
+```
+
+Scoped to the logical call context, so it flows through `async`/`await` and concurrent tests get
+their own value.
+
+**Default value:** 1000
+
+
 ## DiffStyle
 
 Character set used for the markers that point at a difference. `Unicode` uses `▼`/`▲`, `Ascii`
