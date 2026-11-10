@@ -1,0 +1,11 @@
+str
+    should be
+"Å"
+    but was
+"Å"
+    difference
+           ▼
+Expected: "Å"
+Actual:   "Å"
+           ▲
+Strings differ only in Unicode normalization: expected is NFC, actual is neither NFC nor NFD

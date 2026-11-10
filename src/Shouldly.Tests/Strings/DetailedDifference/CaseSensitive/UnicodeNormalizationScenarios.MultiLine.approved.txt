@@ -1,0 +1,17 @@
+str
+    should be
+"first line
+café
+last line"
+    but was
+"first line
+café
+last line"
+    difference
+          first line
+             ▼
+Expected: café
+Actual:   café
+             ▲
+          last line
+Strings differ only in Unicode normalization: expected is NFC, actual is NFD
