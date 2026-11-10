@@ -60,7 +60,7 @@ static class Numerics
         if (tolerance.Mode == ToleranceMode.Ulps)
             throw new InvalidOperationException("Ulps may only be specified for floating point arguments");
 
-        if (expected is decimal || actual is decimal)
+        if (expected is decimal || actual is decimal || MixesSignedWithUnsigned(expected, actual))
             return AreEqual(Convert.ToDecimal(expected), Convert.ToDecimal(actual), tolerance);
 
         if (expected is ulong || actual is ulong)
@@ -308,7 +308,7 @@ static class Numerics
         if (expected is double or float || actual is double or float)
             return Convert.ToDouble(expected).CompareTo(Convert.ToDouble(actual));
 
-        if (expected is decimal || actual is decimal)
+        if (expected is decimal || actual is decimal || MixesSignedWithUnsigned(expected, actual))
             return Convert.ToDecimal(expected).CompareTo(Convert.ToDecimal(actual));
 
         if (expected is ulong || actual is ulong)
@@ -322,6 +322,17 @@ static class Numerics
 
         return Convert.ToInt32(expected).CompareTo(Convert.ToInt32(actual));
     }
+
+    /// <summary>
+    ///     True when one value is a <see cref="uint"/> or <see cref="ulong"/> and the other a signed integer. Neither
+    ///     type holds both ranges, so converting a negative value to the unsigned type throws (#1426). Such pairs are
+    ///     compared in <see cref="decimal"/> instead, which holds every value of both exactly (as ShouldBeEquivalentTo
+    ///     does for mixed numeric types), so they stay exact and a linear tolerance may span zero. Smaller unsigned
+    ///     types already widen to <see cref="int"/> or <see cref="long"/> alongside a signed value.
+    /// </summary>
+    private static bool MixesSignedWithUnsigned(object expected, object actual) =>
+        (expected is uint or ulong && actual is sbyte or short or int or long) ||
+        (actual is uint or ulong && expected is sbyte or short or int or long);
 
     private static bool IsFloatingPoint(object value) =>
         value is double or float
