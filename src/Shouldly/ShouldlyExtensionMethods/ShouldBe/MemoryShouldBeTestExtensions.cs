@@ -63,9 +63,9 @@ public static partial class ShouldBeTestExtensions
     // (numerics, IEquatable, IComparable, etc.). Avoids the per-call array
     // allocation a ToArray()+SequenceEqual path would incur; value-type elements
     // are still boxed inside the comparer's object-based numeric/reference checks.
-    private static bool SpanSequenceEqual<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b)
+    private static bool SpanSequenceEqual<T>(ReadOnlySpan<T> actual, ReadOnlySpan<T> expected)
     {
-        if (a.Length != b.Length) return false;
+        if (actual.Length != expected.Length) return false;
 
 #if NET8_0_OR_GREATER
         // Fast path for integral primitives: bitwise equality matches value
@@ -81,14 +81,15 @@ public static partial class ShouldBeTestExtensions
             typeof(T) == typeof(long) || typeof(T) == typeof(ulong) ||
             typeof(T) == typeof(char))
         {
-            return a.SequenceEqual(b);
+            return actual.SequenceEqual(expected);
         }
 #endif
 
         IEqualityComparer<T> comparer = new Internals.EqualityComparer<T>();
-        for (var i = 0; i < a.Length; i++)
+        for (var i = 0; i < actual.Length; i++)
         {
-            if (!comparer.Equals(a[i], b[i]))
+            // Equals is called on the expected element, as everywhere else in ShouldBe (see Is.Equal).
+            if (!Is.Equal(actual[i], expected[i], comparer))
                 return false;
         }
 

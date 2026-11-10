@@ -19,11 +19,18 @@ static class Is
         return ReferenceEquals(actual, expected);
     }
 
-    public static bool Equal<T>(T? expected, T? actual) =>
-        Equal(expected, actual, GetEqualityComparer<T>());
+    public static bool Equal<T>(T? actual, T? expected) =>
+        Equal(actual, expected, GetEqualityComparer<T>());
 
-    public static bool Equal<T>(T? expected, T? actual, IEqualityComparer<T> comparer) =>
-        comparer.Equals(actual, expected);
+    /// <summary>
+    /// Whether <paramref name="actual"/> equals <paramref name="expected"/>. By design, the comparer is called as
+    /// <c>comparer.Equals(expected, actual)</c>, so the default comparer calls <c>Equals</c> on the expected
+    /// value: a broken <c>Equals</c> on the value under test can't make an assertion pass. Every comparison
+    /// between an actual and an expected value goes through here so that the order is the same everywhere
+    /// (issue #1076).
+    /// </summary>
+    public static bool Equal<T>(T? actual, T? expected, IEqualityComparer<T> comparer) =>
+        comparer.Equals(expected, actual);
 
     private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
         new Internals.EqualityComparer<T>(innerComparer);
@@ -105,7 +112,7 @@ static class Is
             // Match by index rather than FirstOrDefault + Remove: when no element is equivalent,
             // FirstOrDefault returns default(T), and Remove(default(T)) would succeed whenever
             // default(T) (e.g. 0 or null) is present in the list.
-            var index = expectedList.FindIndex(x => Equal(x, actualElement, comparer));
+            var index = expectedList.FindIndex(expectedElement => Equal(actualElement, expectedElement, comparer));
             if (index < 0)
                 return false;
 

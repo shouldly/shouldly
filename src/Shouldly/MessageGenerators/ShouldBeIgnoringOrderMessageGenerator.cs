@@ -22,8 +22,8 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
-        var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(e, a))).ToArray();
-        var missingFromActual = expected.Where(e => !actual.Any(a => Is.Equal(e, a))).ToArray();
+        var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(a, e))).ToArray();
+        var missingFromActual = expected.Where(e => !actual.Any(a => Is.Equal(a, e))).ToArray();
 
         var actualMissingMessage = missingFromActual.Any()
             ? $"""
