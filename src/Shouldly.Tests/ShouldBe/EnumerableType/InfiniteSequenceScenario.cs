@@ -105,4 +105,30 @@ public class InfiniteSequenceScenario
 
         naturals.ElementsRead.ShouldBe(1);
     }
+
+    [Fact]
+    public void InfiniteStringsIgnoringOrderWithCaseReleaseTheSource()
+    {
+        var disposed = false;
+
+        IEnumerable<string> Words()
+        {
+            try
+            {
+                for (var i = 0; ; i++)
+                    yield return "w" + i;
+            }
+            finally
+            {
+                disposed = true;
+            }
+        }
+
+        using (MaxEnumerableItemsScope.Of(5))
+        {
+            Should.Throw<ShouldAssertException>(() => Words().ShouldBe(["W0"], Case.Insensitive, ignoreOrder: true));
+        }
+
+        disposed.ShouldBeTrue();
+    }
 }
