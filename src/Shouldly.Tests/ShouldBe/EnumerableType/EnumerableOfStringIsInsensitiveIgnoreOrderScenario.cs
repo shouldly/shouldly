@@ -31,6 +31,33 @@ public class EnumerableOfStringIsInsensitiveIgnoreOrderScenario
     }
 
     [Fact]
+    public void SinglePassExpectedScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+            new[] { "A", "b" }.ShouldBe(SinglePass("B", "c"), Case.Insensitive, ignoreOrder: true));
+    }
+
+    [Fact]
+    public void SinglePassActualScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+            SinglePass("A", "b").ShouldBe(["B", "c"], Case.Insensitive, ignoreOrder: true));
+    }
+
+    // Yields its items once; enumerating it again yields nothing.
+    private static IEnumerable<string> SinglePass(params string[] items)
+    {
+        var remaining = new Queue<string>(items);
+        return Drain();
+
+        IEnumerable<string> Drain()
+        {
+            while (remaining.Count > 0)
+                yield return remaining.Dequeue();
+        }
+    }
+
+    [Fact]
     public void ShouldPass()
     {
         new[] { "A", "b" }.ShouldBe(["B", "a"], Case.Insensitive, ignoreOrder: true);

@@ -284,8 +284,12 @@ public static partial class ShouldBeEnumerableTestExtensions
             return;
         }
 
+        // The failure message reads both sequences again, so buffer single-pass ones.
+        var bufferedActual = EnumerableProxy<string>.WrapNonCollection(actual);
+        var bufferedExpected = EnumerableProxy<string>.WrapNonCollection(expected);
+
         var comparer = caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-        actual.AssertAwesomelyIgnoringOrder(expected, comparer, isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression,
+        bufferedActual.AssertAwesomelyIgnoringOrder(bufferedExpected, comparer, isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression,
             caseSensitivity);
     }
 
