@@ -63,6 +63,10 @@ public class ShouldBeEqualityScenario
         var dictionary = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 };
 
         Should.Throw<ShouldAssertException>(() => dictionary.Keys.ShouldNotContain("A"));
+        Should.Throw<ShouldAssertException>(() =>
+            new SortedList<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 }.Keys.ShouldNotContain("A"));
+        Should.Throw<ShouldAssertException>(() =>
+            new System.Collections.ObjectModel.ReadOnlyDictionary<string, int>(dictionary).Keys.ShouldNotContain("A"));
     }
 
     [Fact]

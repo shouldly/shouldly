@@ -130,11 +130,16 @@ static class Membership
             _ => false
         };
 
-    // Matched by generic type definition, so no MakeGenericType is needed and it stays AOT-safe.
+    // The BCL dictionaries' key views, whose Contains goes through the dictionary's key comparer. Matched by generic
+    // type definition, so no MakeGenericType is needed and it stays AOT-safe. SortedList's view is a private nested
+    // type, so it is matched by its declaring type and name.
     private static bool IsDictionaryKeyCollection(Type type) =>
         type.IsGenericType &&
         type.GetGenericTypeDefinition() is var definition &&
-        (definition == typeof(Dictionary<,>.KeyCollection) || definition == typeof(SortedDictionary<,>.KeyCollection));
+        (definition == typeof(Dictionary<,>.KeyCollection) ||
+         definition == typeof(SortedDictionary<,>.KeyCollection) ||
+         definition == typeof(System.Collections.ObjectModel.ReadOnlyDictionary<,>.KeyCollection) ||
+         (definition.DeclaringType == typeof(SortedList<,>) && definition.Name == "KeyList"));
 
     /// <summary>
     /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same answers as

@@ -70,6 +70,9 @@ public class ShouldBeEqualityScenario
     {
         new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 }.Keys.ShouldContain("A");
         new SortedDictionary<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 }.Keys.ShouldContain("A");
+        new SortedList<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 }.Keys.ShouldContain("A");
+        new System.Collections.ObjectModel.ReadOnlyDictionary<string, int>(
+            new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 }).Keys.ShouldContain("A");
     }
 
     [Fact]
