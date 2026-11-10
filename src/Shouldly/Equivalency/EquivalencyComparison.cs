@@ -473,8 +473,7 @@ internal sealed class EquivalencyComparison
             expected = Convert.ToDouble(expected);
         }
 
-        var tolerance = Tolerance.Empty;
-        return Numerics.AreEqual(expected, actual, ref tolerance);
+        return Numerics.AreEqual(expected, actual);
     }
 
     private void AddDifference(EquivalencyDifferenceKind kind, List<string> path, object? expected, object? actual, string? detail = null) =>
