@@ -1,0 +1,12 @@
+str
+    should be
+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacafé"
+    but was
+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacafé"
+    difference
+                                  ▼
+Expected: ..."aaaaaaaaaaaaaaaaacafé"
+Actual:   ..."aaaaaaaaaaaaaaaaacafé"
+                                  ▲
+Difference at index 20: U+00E9 vs U+0065 U+0301
+Strings differ only in Unicode normalization: expected is NFC, actual is NFD

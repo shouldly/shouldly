@@ -9,3 +9,4 @@ Expected: "café"
 Actual:   "café"
               ▲
 Difference at index 3: U+00E9 vs U+0065 U+0301
+Strings differ only in Unicode normalization: expected is NFC, actual is NFD

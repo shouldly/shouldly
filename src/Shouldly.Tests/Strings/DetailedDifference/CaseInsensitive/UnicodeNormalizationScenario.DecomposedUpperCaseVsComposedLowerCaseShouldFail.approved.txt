@@ -1,0 +1,12 @@
+str
+    should be with options: Ignoring case
+"é"
+    but was
+"É"
+    difference
+           ▼
+Expected: "é"
+Actual:   "É"
+           ▲
+Difference at index 0: U+00E9 vs U+0045 U+0301
+Strings differ only in Unicode normalization: expected is NFC, actual is NFD
