@@ -3,7 +3,7 @@
 
 ## Objects
 
-`ShouldBeExamples` works on all types and compares using `.Equals`.
+`ShouldBe` works on all types and compares using `.Equals`.
 
 <!-- snippet: ShouldBeObjects -->
 <a id='snippet-ShouldBeObjects'></a>
@@ -28,6 +28,40 @@ Expected: "Snowball 2"
 Actual:   "Santas little helper"
 ```
 <!-- endInclude -->
+
+### Which value's `Equals` is called
+
+`ShouldBe` calls `Equals` on the **expected** value and passes the actual value as the argument:
+
+```cs
+expected.Equals(actual)
+```
+
+So if the type under test has a broken `Equals` that accepts anything, the assertion still can't pass.
+
+A custom `IEqualityComparer<T>` gets the same order: `comparer.Equals(expected, actual)`.
+
+This applies to:
+
+- every `ShouldBe` and `ShouldNotBe` overload
+- collections, with or without `ignoreOrder`
+- spans and memory
+- the leaf values that `ShouldBeEquivalentTo` compares
+
+#### Asymmetric equality
+
+Order only matters when equality isn't symmetric, so that `a.Equals(b)` and `b.Equals(a)` disagree. A common case is a type that treats itself as equal to a `string`, when `string` knows nothing about it:
+
+```cs
+var path = new FilePath("C:\\file.txt");
+
+path.ShouldBe<object>("C:\\file.txt");   // fails: "C:\\file.txt".Equals(path) is false
+```
+
+To compare such a type, either:
+
+- state the type explicitly so its own equality is used: `path.ShouldBe<FilePath>("C:\\file.txt")`
+- or pass an `IEqualityComparer<T>` that defines the comparison you want
 
 
 ## Numeric

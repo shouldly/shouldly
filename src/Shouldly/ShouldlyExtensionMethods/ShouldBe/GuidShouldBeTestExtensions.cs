@@ -15,7 +15,7 @@ public static partial class GuidShouldBeTestExtensions
     public static void ShouldBeEmpty(this Guid actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
+        actual.AssertAwesomely(v => Is.Equal(v, Guid.Empty), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public static partial class GuidShouldBeTestExtensions
     public static void ShouldNotBeEmpty(this Guid actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(Guid.Empty, v), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
+        actual.AssertAwesomely(v => !Is.Equal(v, Guid.Empty), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
     }
 }
 

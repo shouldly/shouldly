@@ -8,6 +8,9 @@ class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
         context is
         {
             ShouldMethod: "ShouldBe",
+            // Order-insensitive comparisons belong to ShouldBeIgnoringOrderMessageGenerator, which reports what's
+            // missing rather than a positional diff.
+            IgnoreOrder: false,
             Expected: not Expression,
             Actual: IEnumerable<string>,
         };
@@ -15,7 +18,13 @@ class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
         var codePart = context.CodePart;
-        var caseSensitivity = context.CaseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : " (case sensitive comparison)";
+        // A custom comparer decides case sensitivity itself, so there's nothing accurate to say about it.
+        var caseSensitivity = context switch
+        {
+            ShouldlyAssertionContext { UsesCustomComparer: true } => string.Empty,
+            { CaseSensitivity: Case.Insensitive } => " (case insensitive comparison)",
+            _ => " (case sensitive comparison)"
+        };
         var actualValue = context.Actual.ToStringAwesomely();
         string actual;
         if (context.IsNegatedAssertion)

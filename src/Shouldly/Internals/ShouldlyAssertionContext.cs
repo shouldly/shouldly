@@ -90,6 +90,18 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
     internal IEnumerable? UnmatchedItems { get; set; }
 
     /// <summary>
+    /// The element equality a collection comparison used, called as <c>(actual, expected)</c>, so the failure
+    /// message honors any custom comparer.
+    /// </summary>
+    internal Func<object?, object?, bool>? ElementEquals { get; set; }
+
+    /// <summary>
+    /// Whether the assertion compared with a caller-supplied comparer, whose semantics (case sensitivity
+    /// included) the message can't describe.
+    /// </summary>
+    internal bool UsesCustomComparer { get; set; }
+
+    /// <summary>
     /// The result of looking up <see cref="Key"/> in the actual sequence, when this context belongs to a
     /// dictionary key-and-value assertion. The assertion does the lookup with the dictionary's own comparer,
     /// so the message reports what the assertion saw rather than repeating the lookup over an untyped value.

@@ -66,6 +66,20 @@ public class ExpectedActualShouldlyMessage : ShouldlyMessage
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
+
+    /// <summary>
+    /// Creates a new message with expected and actual values compared element by element with a custom comparer.
+    /// </summary>
+    internal ExpectedActualShouldlyMessage(Func<object?, object?, bool> customElementEquals, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
+    {
+        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
+        {
+            HasRelevantActual = true,
+            ElementEquals = customElementEquals,
+            UsesCustomComparer = true
+        };
+        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
+    }
 }
 
 /// <summary>
@@ -149,6 +163,22 @@ public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
         {
             IgnoreOrder = true,
             HasRelevantActual = true
+        };
+        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
+    }
+
+    /// <summary>
+    /// Creates a new message with expected and actual values that ignores order, using the element equality the
+    /// assertion compared with.
+    /// </summary>
+    internal ExpectedActualIgnoreOrderShouldlyMessage(Func<object?, object?, bool> elementEquals, object? expected, object? actual,
+        string? customMessage, string shouldlyMethod, string? actualExpression)
+    {
+        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
+        {
+            IgnoreOrder = true,
+            HasRelevantActual = true,
+            ElementEquals = elementEquals
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }

@@ -122,6 +122,53 @@ public static class ShouldlyCoreExtensions
     }
 
     /// <summary>
+    /// Asserts that two enumerables are equal ignoring order, comparing elements with <paramref name="comparer"/>;
+    /// the failure message reports missing elements using the same comparer.
+    /// </summary>
+    internal static void AssertAwesomelyIgnoringOrder<T>(
+        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer,
+        string? customMessage, string shouldlyMethod, string? actualExpression)
+    {
+        try
+        {
+            if (Is.EqualIgnoreOrder(actual, expected, comparer)) return;
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ShouldAssertException(ex.Message, ex);
+        }
+
+        var message = new ExpectedActualIgnoreOrderShouldlyMessage(
+            ElementEquals(comparer), expected, actual, customMessage, shouldlyMethod, actualExpression);
+        throw new ShouldAssertException(message.ToString());
+    }
+
+    /// <summary>
+    /// Asserts that two enumerables are equal in order, comparing elements with a caller-supplied
+    /// <paramref name="comparer"/>; the failure message highlights differences using the same comparer.
+    /// </summary>
+    internal static void AssertAwesomelyWithComparer<T>(
+        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer,
+        string? customMessage, string shouldlyMethod, string? actualExpression)
+    {
+        try
+        {
+            if (Is.Equal(actual, expected, comparer)) return;
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ShouldAssertException(ex.Message, ex);
+        }
+
+        var message = new ExpectedActualShouldlyMessage(
+            ElementEquals(comparer), expected, actual, customMessage, shouldlyMethod, actualExpression);
+        throw new ShouldAssertException(message.ToString());
+    }
+
+    private static Func<object?, object?, bool> ElementEquals<T>(IEqualityComparer<T> comparer) =>
+        (actual, expected) => Is.Equal((T?)actual, (T?)expected, comparer);
+
+    /// <summary>
     /// Asserts that the specified constraint is satisfied with a tolerance
     /// </summary>
     /// <typeparam name="T">The type of the actual value</typeparam>
