@@ -5,6 +5,9 @@
     <OutputType>Exe</OutputType>
     <Optimize>false</Optimize>
     <NoWarn>CA1861</NoWarn>
+    <!-- Signed so Shouldly can grant it InternalsVisibleTo, to test internal modules such as Equality directly. -->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
