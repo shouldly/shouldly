@@ -1,0 +1,8 @@
+half
+    should be
+2
+    but was
+1.5
+
+Additional Info:
+    Some additional context

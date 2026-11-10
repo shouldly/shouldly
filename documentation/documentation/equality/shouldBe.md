@@ -180,6 +180,73 @@ theBeSharps
 <!-- endInclude -->
 
 
+### Enumerable types that override `Equals`
+
+A type that implements `IEnumerable<T>` is compared element by element, even when it overrides `Equals`. Its `Equals` is never called, so two values with different identities but the same items pass:
+
+<!-- snippet: IdBag -->
+<a id='snippet-IdBag'></a>
+```cs
+// An enumerable type whose equality is its Id, not its items.
+public sealed class IdBag(int id, params int[] items) : IEnumerable<int>
+{
+    public int Id { get; } = id;
+
+    public IEnumerator<int> GetEnumerator() => ((IEnumerable<int>)items).GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public override bool Equals(object? obj) => obj is IdBag other && other.Id == Id;
+
+    public override int GetHashCode() => Id;
+}
+```
+<sup><a href='/src/DocumentationExamples/CompareAsObjectTypesRegistration.cs#L4-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-IdBag' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+To compare such a type with its own `Equals`, register its full name in `ShouldlyConfiguration.CompareAsObjectTypes` once, before any test runs, for example from a module initializer in your test project:
+
+<!-- snippet: RegisterCompareAsObjectType -->
+<a id='snippet-RegisterCompareAsObjectType'></a>
+```cs
+[ModuleInitializer]
+internal static void Initialize() =>
+    ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(IdBag).FullName!);
+```
+<sup><a href='/src/DocumentationExamples/CompareAsObjectTypesRegistration.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterCompareAsObjectType' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The name is matched against the type `ShouldBe` compares. `bag.ShouldBe(other)` binds to the enumerable overload, which compares `int` elements, so also state the type argument to compare the `IdBag` values themselves:
+
+<!-- snippet: ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs -->
+<a id='snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs'></a>
+```cs
+var bag = new IdBag(1, 1, 2, 3);
+bag.ShouldBe<IdBag>(new IdBag(2, 1, 2, 3));
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeExamples.EnumerableTypeWithEqualsOverride.exceptionText.approved.txt -->
+```
+bag
+    should be
+[1, 2, 3]
+    but was
+[1, 2, 3]
+    difference
+[1, 2, 3]
+```
+<!-- endInclude -->
+
+The message still lists the values' items, so the two sides can look identical: the failure comes from `Equals`.
+
+A type that enumerates itself, like `Newtonsoft.Json.Linq.JToken` (`class JToken : IEnumerable<JToken>`), needs no type argument, as its element type is the type itself. `JToken` is registered by default.
+
+Without the global setting, you can pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.
+
 ## Enumerables of Numerics
 
 If you have enumerables of `float`, `decimal` or `double` types then you can use the tolerance overloads, similar to the value extensions.
@@ -207,6 +274,38 @@ firstSet
 [1.23m, 2.34m, 3.45001m]
     difference
 [*1.23m*, 2.34m, *3.45001m*]
+```
+<!-- endInclude -->
+
+
+## Enumerables of Strings
+
+Enumerables of `string` can be compared with a `Case`. Add `ignoreOrder: true` to also ignore the order of the elements.
+
+<!-- snippet: ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs -->
+<a id='snippet-ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs'></a>
+```cs
+var simpsons = new[] { "Homer", "marge", "Bart" };
+simpsons.ShouldBe(["bart", "HOMER", "Lisa"], Case.Insensitive, ignoreOrder: true);
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeExamples.EnumerablesOfStrings.exceptionText.approved.txt -->
+```
+simpsons
+    should be (ignoring order, case insensitive comparison)
+["bart", "HOMER", "Lisa"]
+    but
+simpsons
+    is missing
+["Lisa"]
+    and
+["bart", "HOMER", "Lisa"]
+    is missing
+["marge"]
 ```
 <!-- endInclude -->
 

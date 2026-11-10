@@ -1,0 +1,11 @@
+new[] { "A", "b" }
+    should be (ignoring order, case insensitive comparison)
+["B", "c"]
+    but
+new[] { "A", "b" }
+    is missing
+["c"]
+    and
+["B", "c"]
+    is missing
+["A"]

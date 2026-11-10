@@ -76,6 +76,18 @@ public class ShouldBeExamples
     }
 
     [Fact]
+    public void EnumerableTypeWithEqualsOverride()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var bag = new IdBag(1, 1, 2, 3);
+                bag.ShouldBe<IdBag>(new IdBag(2, 1, 2, 3));
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
     public void EnumerablesOfNumerics()
     {
         DocExampleWriter.Document(
@@ -84,6 +96,18 @@ public class ShouldBeExamples
                 var firstSet = new[] { 1.23m, 2.34m, 3.45001m };
                 var secondSet = new[] { 1.4301m, 2.34m, 3.45m };
                 firstSet.ShouldBe(secondSet, 0.1m);
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
+    public void EnumerablesOfStrings()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var simpsons = new[] { "Homer", "marge", "Bart" };
+                simpsons.ShouldBe(["bart", "HOMER", "Lisa"], Case.Insensitive, ignoreOrder: true);
             },
             _testOutputHelper);
     }

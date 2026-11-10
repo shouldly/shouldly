@@ -3,5 +3,4 @@ list
 [1, 2, 3]
     but was
 [1, 2, 3]
-    difference
-[1, 2, 3]
+    which is a different instance (the two are equal by value)

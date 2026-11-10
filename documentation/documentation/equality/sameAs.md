@@ -22,6 +22,7 @@ principleSkinner
 Seymour Skinner
     but was
 Armin Tamzarian
+    which is a different instance
 ```
 <!-- endInclude -->
 

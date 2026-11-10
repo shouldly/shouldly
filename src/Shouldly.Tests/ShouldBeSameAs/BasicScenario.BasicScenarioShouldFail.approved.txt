@@ -3,6 +3,7 @@ apple
 System.Object (000000)
     but was
 System.Object (000000)
+    which is a different instance
 
 Additional Info:
     Some additional context
