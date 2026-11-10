@@ -1,0 +1,9 @@
+new object[] { 1, 2L, 3 }
+    should be subset of
+[1L, 2]
+    but
+[3]
+    is outside subset
+
+Additional Info:
+    Some additional context

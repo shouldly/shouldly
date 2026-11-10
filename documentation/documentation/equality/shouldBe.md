@@ -47,6 +47,7 @@ This applies to:
 - collections, with or without `ignoreOrder`
 - spans and memory
 - the leaf values that `ShouldBeEquivalentTo` compares
+- `ShouldContain`, `ShouldNotContain`, `ShouldBeOneOf`, `ShouldNotBeOneOf` and `ShouldBeSubsetOf`, without a comparer, where the values passed to the assertion are the expected side
 
 #### Asymmetric equality
 

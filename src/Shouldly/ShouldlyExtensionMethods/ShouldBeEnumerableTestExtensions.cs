@@ -14,12 +14,13 @@ namespace Shouldly;
 public static partial class ShouldBeEnumerableTestExtensions
 {
     /// <summary>
-    /// Asserts that the enumerable contains the expected value.
+    /// Asserts that the enumerable contains the expected value, comparing elements as <c>ShouldBe</c> does.
+    /// A set, or a dictionary's key collection, also contains what its own comparer finds.
     /// </summary>
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Contains(expected))
+        if (!Membership.Contains(actual, expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -34,12 +35,13 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
-    /// Asserts that the enumerable does not contain the expected value.
+    /// Asserts that the enumerable does not contain the expected value, comparing elements as <c>ShouldBe</c> does.
+    /// A set, or a dictionary's key collection, also contains what its own comparer finds.
     /// </summary>
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (actual.Contains(expected))
+        if (Membership.Contains(actual, expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -202,7 +204,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
-    /// Asserts that the enumerable is a subset of the expected enumerable.
+    /// Asserts that the enumerable is a subset of the expected enumerable, comparing elements as <c>ShouldBe</c> does.
     /// </summary>
     public static void ShouldBeSubsetOf<T>(this IEnumerable<T> actual, IEnumerable<T> expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
@@ -210,7 +212,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual.Equals(expected))
             return;
 
-        var outside = actual.Except(expected).ToList();
+        var outside = Membership.Unmatched(actual, expected);
         if (outside.Count > 0)
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(ComparisonRecord.FoundUnmatched(outside), expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
     }
@@ -230,13 +232,13 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
-    /// Asserts that the enumerable contains only unique elements.
+    /// Asserts that the enumerable contains only unique elements, comparing elements as <c>ShouldBe</c> does.
     /// </summary>
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        var duplicates = GetDuplicates(actual);
-        if (duplicates.Any())
+        var duplicates = Membership.Duplicates(actual);
+        if (duplicates.Count > 0)
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -246,8 +248,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        var duplicates = GetDuplicates(actual, comparer);
-        if (duplicates.Any())
+        var duplicates = Membership.Duplicates(actual, comparer);
+        if (duplicates.Count > 0)
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(actual, duplicates, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -319,22 +321,6 @@ public static partial class ShouldBeEnumerableTestExtensions
         return false;
     }
 #endif
-
-    private static HashSet<T> GetDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
-    {
-        var uniqueItems = new HashSet<T>(comparer);
-        var duplicates = new HashSet<T>(comparer);
-
-        foreach (var item in items)
-        {
-            if (!uniqueItems.Add(item))
-            {
-                duplicates.Add(item);
-            }
-        }
-
-        return duplicates;
-    }
 
     private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, string? customMessage, string? actualExpression = null)
     {

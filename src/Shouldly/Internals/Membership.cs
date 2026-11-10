@@ -1,0 +1,170 @@
+namespace Shouldly.Internals;
+
+/// <summary>
+/// Membership and set checks for the assertions that take no comparer — <c>ShouldContain</c>,
+/// <c>ShouldBeOneOf</c>, <c>ShouldBeSubsetOf</c>, <c>ShouldBeUnique</c> and their negations — comparing elements
+/// with <see cref="Is.ScalarComparerFor{T}"/> so that they agree with <c>ShouldBe</c> on what counts as equal
+/// (issue #1404). Each comparison goes through <see cref="Is.Equal{T}(T, T, IEqualityComparer{T})"/>, so
+/// <c>Equals</c> is called on the expected value.
+/// </summary>
+/// <remarks>
+/// Shouldly's comparer can't hash, so the set checks match pairwise: O(n·m) for a subset and O(n²) for
+/// uniqueness. Where <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> provably gives the same answer
+/// (<see cref="DefaultEqualityAgrees{T}"/>), they hash instead.
+/// </remarks>
+static class Membership
+{
+    /// <summary>
+    /// Whether <paramref name="actual"/> has an element equal to <paramref name="expected"/>. A set, or a
+    /// dictionary's key collection, also counts what its own lookup finds, since its comparer defines its membership,
+    /// as a dictionary's key comparer does for <c>ShouldContainKey</c>.
+    /// </summary>
+    public static bool Contains<T>(IEnumerable<T> actual, T expected)
+    {
+        if (OwnLookupContains(actual, expected))
+            return true;
+
+        var comparer = Is.ScalarComparerFor<T>();
+        foreach (var item in actual)
+        {
+            if (Is.Equal(item, expected, comparer))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Whether <paramref name="actual"/> equals one of <paramref name="candidates"/>.
+    /// </summary>
+    public static bool IsOneOf<T>(T? actual, IEnumerable<T> candidates)
+    {
+        var comparer = Is.ScalarComparerFor<T>();
+        foreach (var candidate in candidates)
+        {
+            if (Is.Equal(actual, candidate, comparer))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// The elements of <paramref name="actual"/> that equal none of <paramref name="expected"/>, each reported once,
+    /// in the order first found.
+    /// </summary>
+    public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected)
+    {
+        if (DefaultEqualityAgrees<T>.Value)
+            return actual.Except(expected).ToList();
+
+        var comparer = Is.ScalarComparerFor<T>();
+        var expectedItems = expected.ToList();
+        var unmatched = new List<T>();
+        foreach (var item in actual)
+        {
+            if (!expectedItems.Exists(expectedItem => Is.Equal(item, expectedItem, comparer)) &&
+                !unmatched.Exists(found => Is.Equal(item, found, comparer)))
+            {
+                unmatched.Add(item);
+            }
+        }
+
+        return unmatched;
+    }
+
+    /// <summary>
+    /// The elements of <paramref name="items"/> that equal an earlier element, each value reported once, in the
+    /// order first duplicated. Compares with <paramref name="comparer"/>, by hashing, when one is given.
+    /// </summary>
+    public static List<T> Duplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
+    {
+        if (comparer != null || DefaultEqualityAgrees<T>.Value)
+            return HashedDuplicates(items, comparer);
+
+        var scalarComparer = Is.ScalarComparerFor<T>();
+        var distinct = new List<T>();
+        var reported = new List<bool>();
+        var duplicates = new List<T>();
+        foreach (var item in items)
+        {
+            // The earlier element is the one Equals is called on.
+            var index = distinct.FindIndex(earlier => Is.Equal(item, earlier, scalarComparer));
+            if (index < 0)
+            {
+                distinct.Add(item);
+                reported.Add(false);
+            }
+            else if (!reported[index])
+            {
+                reported[index] = true;
+                duplicates.Add(item);
+            }
+        }
+
+        return duplicates;
+    }
+
+    private static List<T> HashedDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer)
+    {
+        var uniqueItems = new HashSet<T>(comparer);
+        var reported = new HashSet<T>(comparer);
+        var duplicates = new List<T>();
+        foreach (var item in items)
+        {
+            if (!uniqueItems.Add(item) && reported.Add(item))
+                duplicates.Add(item);
+        }
+
+        return duplicates;
+    }
+
+    private static bool OwnLookupContains<T>(IEnumerable<T> actual, T expected) =>
+        actual switch
+        {
+            ISet<T> set => set.Contains(expected),
+#if NET5_0_OR_GREATER
+            IReadOnlySet<T> set => set.Contains(expected),
+#endif
+            ICollection<T> keys when IsDictionaryKeyCollection(keys.GetType()) => keys.Contains(expected),
+            _ => false
+        };
+
+    // Matched by generic type definition, so no MakeGenericType is needed and it stays AOT-safe.
+    private static bool IsDictionaryKeyCollection(Type type) =>
+        type.IsGenericType &&
+        type.GetGenericTypeDefinition() is var definition &&
+        (definition == typeof(Dictionary<,>.KeyCollection) || definition == typeof(SortedDictionary<,>.KeyCollection));
+
+    /// <summary>
+    /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same answers as
+    /// <see cref="Is.ScalarComparerFor{T}"/>: true for a closed list of BCL types whose <c>Equals</c> Shouldly's
+    /// comparer reaches unchanged, whatever <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/> holds. Not for
+    /// <c>float</c>/<c>double</c>, which honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>,
+    /// nor for <c>object</c> or user types, whose elements may compare across types, structurally or through
+    /// <see cref="IEquatable{T}"/>/<see cref="IComparable{T}"/> without a matching <c>GetHashCode</c>.
+    /// </summary>
+    private static class DefaultEqualityAgrees<T>
+    {
+        public static readonly bool Value = Agrees(Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T));
+
+        private static bool Agrees(Type type) =>
+            type.IsEnum ||
+            type == typeof(string) ||
+            type == typeof(bool) ||
+            type == typeof(char) ||
+            type == typeof(sbyte) ||
+            type == typeof(byte) ||
+            type == typeof(short) ||
+            type == typeof(ushort) ||
+            type == typeof(int) ||
+            type == typeof(uint) ||
+            type == typeof(long) ||
+            type == typeof(ulong) ||
+            type == typeof(decimal) ||
+            type == typeof(Guid) ||
+            type == typeof(DateTime) ||
+            type == typeof(DateTimeOffset) ||
+            type == typeof(TimeSpan);
+    }
+}

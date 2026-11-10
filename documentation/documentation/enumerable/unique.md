@@ -1,5 +1,6 @@
 # ShouldBeUnique
 
+Without a comparer, duplicates are found the way [`ShouldBe`](../equality/shouldBe.md) compares values. Shouldly's comparison can't hash, so each element is compared with every distinct element before it, except for `string`, enums and the built-in integral, `decimal`, `bool`, `char`, `Guid`, `DateTime`, `DateTimeOffset` and `TimeSpan` types (and their nullable forms), whose hashing agrees with it. For a large collection of another type, pass an `IEqualityComparer<T>`; it is used through its `GetHashCode`.
 <!-- snippet: EnumerableShouldBeUniqueExamples.ShouldBeUnique.codeSample.approved.cs -->
 <a id='snippet-EnumerableShouldBeUniqueExamples.ShouldBeUnique.codeSample.approved.cs'></a>
 ```cs
