@@ -55,28 +55,14 @@ public class ExpectedActualShouldlyMessage : ShouldlyMessage
     }
 
     /// <summary>
-    /// Creates a new message with expected and actual values and the items the assertion could not match.
+    /// Creates a new message with expected and actual values and what the assertion established comparing them.
     /// </summary>
-    internal ExpectedActualShouldlyMessage(IEnumerable unmatchedItems, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
+    internal ExpectedActualShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
         {
             HasRelevantActual = true,
-            UnmatchedItems = unmatchedItems
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message with expected and actual values compared element by element with a custom comparer.
-    /// </summary>
-    internal ExpectedActualShouldlyMessage(Func<object?, object?, bool> customElementEquals, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true,
-            ElementEquals = customElementEquals,
-            UsesCustomComparer = true
+            Comparison = comparison
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
@@ -168,17 +154,17 @@ public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
     }
 
     /// <summary>
-    /// Creates a new message with expected and actual values that ignores order, using the element equality the
-    /// assertion compared with.
+    /// Creates a new message with expected and actual values that ignores order, and what the assertion
+    /// established comparing them.
     /// </summary>
-    internal ExpectedActualIgnoreOrderShouldlyMessage(Func<object?, object?, bool> elementEquals, object? expected, object? actual,
+    internal ExpectedActualIgnoreOrderShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual,
         string? customMessage, string shouldlyMethod, string? actualExpression)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
         {
             IgnoreOrder = true,
             HasRelevantActual = true,
-            ElementEquals = elementEquals
+            Comparison = comparison
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
@@ -207,19 +193,20 @@ public class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
     }
 
     /// <summary>
-    /// Creates a new message carrying the result of the assertion's own key lookup.
+    /// Creates a new message with expected and actual values, a key, and what the assertion established comparing
+    /// them.
     /// </summary>
-    internal ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key, DictionaryKeyLookup keyLookup,
+    internal ExpectedActualKeyShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual, object key,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
+        string shouldlyMethod,
+        string? actualExpression)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
         {
             Key = key,
             HasRelevantActual = true,
             HasRelevantKey = true,
-            KeyLookup = keyLookup
+            Comparison = comparison
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }
@@ -266,13 +253,13 @@ public class ExpectedEquivalenceShouldlyMessage : ShouldlyMessage
     }
 
     /// <summary>
-    /// Creates a new message from the differences collected by an equivalency comparison.
+    /// Creates a new message from what an equivalency comparison established, such as the differences it collected.
     /// </summary>
-    internal ExpectedEquivalenceShouldlyMessage(IReadOnlyList<Equivalency.EquivalencyDifference> differences, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
+    internal ExpectedEquivalenceShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
         {
-            EquivalencyDifferences = differences
+            Comparison = comparison
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }

@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.DifferenceHighlighting;
 
 /// <summary>
@@ -26,13 +28,10 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 
             var highestCount = Math.Max(actualList.Count(), expectedList.Count());
 
-            // Use the assertion's own element equality when it passed one, so a custom comparer's matches aren't
-            // highlighted as differences.
-            var equal = context is ShouldlyAssertionContext { ElementEquals: { } elementEquals }
-                ? elementEquals
-                : (a, e) => Is.Equal(a, e);
+            // Compare as the assertion did, so a custom comparer's matches aren't highlighted as differences.
+            var comparison = AssertionComparison.Of(context);
 
-            return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount, equal);
+            return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount, comparison.ElementsEqual);
         }
 
         return actual.ToStringAwesomely();

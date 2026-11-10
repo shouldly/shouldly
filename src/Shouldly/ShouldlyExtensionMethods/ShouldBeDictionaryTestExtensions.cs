@@ -53,7 +53,7 @@ public static partial class ShouldBeDictionaryTestExtensions
     {
         var keyExists = TryGetValue(dictionary, key, out var actual);
         if (!keyExists || !Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, new Internals.DictionaryKeyLookup(keyExists, actual), customMessage, actualExpression: actualExpression).ToString());
+            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(Internals.ComparisonRecord.LookedUpKey(keyExists, actual), val, dictionary, key, customMessage, nameof(ShouldContainKeyAndValue), actualExpression).ToString());
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public static partial class ShouldBeDictionaryTestExtensions
     {
         var keyExists = TryGetValue(dictionary, key, out var actual);
         if (!keyExists || Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(val, dictionary, key, new Internals.DictionaryKeyLookup(keyExists, actual), customMessage, actualExpression: actualExpression).ToString());
+            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(Internals.ComparisonRecord.LookedUpKey(keyExists, actual), val, dictionary, key, customMessage, nameof(ShouldNotContainValueForKey), actualExpression).ToString());
     }
 
     private static bool ContainsKey<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key)

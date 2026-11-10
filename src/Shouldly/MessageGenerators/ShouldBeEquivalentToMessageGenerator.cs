@@ -1,4 +1,5 @@
 using Shouldly.Equivalency;
+using Shouldly.Internals;
 
 namespace Shouldly.MessageGenerators;
 
@@ -11,7 +12,7 @@ class ShouldBeEquivalentToMessageGenerator : ShouldlyMessageGenerator
 
     public override string GenerateErrorMessage(IShouldlyAssertionContext context)
     {
-        if (context is ShouldlyAssertionContext { EquivalencyDifferences: { Count: > 0 } differences })
+        if (AssertionComparison.Of(context).EquivalencyDifferences is { Count: > 0 } differences)
             return GenerateFromDifferences(context, differences);
 
         return $"""

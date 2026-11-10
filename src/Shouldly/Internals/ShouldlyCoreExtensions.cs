@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly;
 
 /// <summary>
@@ -123,10 +125,11 @@ public static class ShouldlyCoreExtensions
 
     /// <summary>
     /// Asserts that two enumerables are equal ignoring order, comparing elements with <paramref name="comparer"/>;
-    /// the failure message reports missing elements using the same comparer.
+    /// the failure message reports missing elements using the same comparer. Pass <paramref name="isCustomComparer"/>
+    /// as <c>true</c> when the caller supplied <paramref name="comparer"/>.
     /// </summary>
     internal static void AssertAwesomelyIgnoringOrder<T>(
-        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer,
+        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer, bool isCustomComparer,
         string? customMessage, string shouldlyMethod, string? actualExpression)
     {
         try
@@ -139,7 +142,7 @@ public static class ShouldlyCoreExtensions
         }
 
         var message = new ExpectedActualIgnoreOrderShouldlyMessage(
-            ElementEquals(comparer), expected, actual, customMessage, shouldlyMethod, actualExpression);
+            ComparisonRecord.ComparedElementsWith(comparer, isCustomComparer), expected, actual, customMessage, shouldlyMethod, actualExpression);
         throw new ShouldAssertException(message.ToString());
     }
 
@@ -161,12 +164,9 @@ public static class ShouldlyCoreExtensions
         }
 
         var message = new ExpectedActualShouldlyMessage(
-            ElementEquals(comparer), expected, actual, customMessage, shouldlyMethod, actualExpression);
+            ComparisonRecord.ComparedElementsWith(comparer, isCustom: true), expected, actual, customMessage, shouldlyMethod, actualExpression);
         throw new ShouldAssertException(message.ToString());
     }
-
-    private static Func<object?, object?, bool> ElementEquals<T>(IEqualityComparer<T> comparer) =>
-        (actual, expected) => Is.Equal((T?)actual, (T?)expected, comparer);
 
     /// <summary>
     /// Asserts that the specified constraint is satisfied with a tolerance

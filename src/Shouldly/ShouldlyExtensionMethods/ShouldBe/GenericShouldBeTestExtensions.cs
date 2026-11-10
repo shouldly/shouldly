@@ -96,7 +96,7 @@ public static partial class ShouldBeTestExtensions
         {
             if (ignoreOrder)
             {
-                actual.AssertAwesomelyIgnoringOrder(expected, Is.GetEqualityComparer<T>(), customMessage, nameof(ShouldBe), actualExpression);
+                actual.AssertAwesomelyIgnoringOrder(expected, Is.GetEqualityComparer<T>(), isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression);
             }
             else
             {
@@ -118,7 +118,7 @@ public static partial class ShouldBeTestExtensions
     {
         if (ignoreOrder)
         {
-            actual.AssertAwesomelyIgnoringOrder(expected, comparer, customMessage, nameof(ShouldBe), actualExpression);
+            actual.AssertAwesomelyIgnoringOrder(expected, comparer, isCustomComparer: true, customMessage, nameof(ShouldBe), actualExpression);
         }
         else
         {

@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.Equivalency;
 
 /// <summary>
@@ -40,7 +42,7 @@ internal sealed class EquivalencyComparison
             return;
 
         throw new ShouldAssertException(
-            new ExpectedEquivalenceShouldlyMessage(comparison._differences, expected, actual, customMessage, shouldlyMethod, actualExpression).ToString());
+            new ExpectedEquivalenceShouldlyMessage(ComparisonRecord.FoundDifferences(comparison._differences), expected, actual, customMessage, shouldlyMethod, actualExpression).ToString());
     }
 
     private void CompareNodes(object? actual, object? expected, Type? declaredType, List<string> path)

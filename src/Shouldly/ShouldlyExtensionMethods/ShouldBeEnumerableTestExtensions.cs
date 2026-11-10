@@ -212,7 +212,7 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         var outside = actual.Except(expected).ToList();
         if (outside.Count > 0)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(outside, expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(ComparisonRecord.FoundUnmatched(outside), expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
     }
 
     /// <summary>
@@ -226,7 +226,7 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         var outside = actual.Except(expected, comparer).ToList();
         if (outside.Count > 0)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(outside, expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
+            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(ComparisonRecord.FoundUnmatched(outside), expected, actual, customMessage, nameof(ShouldBeSubsetOf), actualExpression).ToString());
     }
 
     /// <summary>
