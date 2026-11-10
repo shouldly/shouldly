@@ -24,7 +24,7 @@ class DictionaryShouldContainKeyAndValueMessageGenerator : ShouldlyMessageGenera
             """;
 
         var codePart = context.CodePart;
-        var lookup = DictionaryKeyLookup.From(context);
+        var lookup = AssertionComparison.Of(context).KeyLookup();
         var expected = context.Expected.ToStringAwesomely();
         var keyValue = context.Key.ToStringAwesomely();
 

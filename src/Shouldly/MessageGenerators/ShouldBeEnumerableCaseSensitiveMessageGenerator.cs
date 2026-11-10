@@ -1,4 +1,5 @@
 using Shouldly.DifferenceHighlighting;
+using Shouldly.Internals;
 
 namespace Shouldly.MessageGenerators;
 
@@ -19,12 +20,11 @@ class ShouldBeEnumerableCaseSensitiveMessageGenerator : ShouldlyMessageGenerator
     {
         var codePart = context.CodePart;
         // A custom comparer decides case sensitivity itself, so there's nothing accurate to say about it.
-        var caseSensitivity = context switch
-        {
-            ShouldlyAssertionContext { UsesCustomComparer: true } => string.Empty,
-            { CaseSensitivity: Case.Insensitive } => " (case insensitive comparison)",
-            _ => " (case sensitive comparison)"
-        };
+        var caseSensitivity = AssertionComparison.Of(context).UsesCustomComparer
+            ? string.Empty
+            : context.CaseSensitivity == Case.Insensitive
+                ? " (case insensitive comparison)"
+                : " (case sensitive comparison)";
         var actualValue = context.Actual.ToStringAwesomely();
         string actual;
         if (context.IsNegatedAssertion)

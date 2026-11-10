@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.MessageGenerators;
 
 class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
@@ -22,11 +24,8 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
-        // ShouldBe passes the element equality it compared with, so any custom comparer is honored. Fall back to
-        // default equality for other callers.
-        var equal = context is ShouldlyAssertionContext { ElementEquals: { } elementEquals }
-            ? elementEquals
-            : (a, e) => Is.Equal(a, e);
+        // Compare as the assertion did, so any custom comparer is honored.
+        var comparison = AssertionComparison.Of(context);
 
         // Match occurrences one-for-one, as Is.EqualIgnoreOrder does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.
@@ -34,7 +33,7 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         var missingFromExpected = new List<object>();
         foreach (var actualItem in actual)
         {
-            var index = missingFromActual.FindIndex(expectedItem => equal(actualItem, expectedItem));
+            var index = missingFromActual.FindIndex(expectedItem => comparison.ElementsEqual(actualItem, expectedItem));
             if (index < 0)
                 missingFromExpected.Add(actualItem);
             else
