@@ -59,20 +59,6 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
                """
             : string.Empty;
 
-        if (actualMissingMessage.Length == 0 && expectedMissingMessage.Length == 0)
-        {
-            // Both sides were too long to tell what's missing, so show them as far as they were read.
-            return $"""
-                    {codePart}
-                        {context.ShouldMethod.PascalToSpaced()} (ignoring order)
-                    {expectedFormattedValue}
-                        but was
-                    {actual.ToStringAwesomely()}
-                    """;
-        }
-
-        // "first should be second (ignoring order) but first is missing [4] and second is missing [2]"
-
         // A custom comparer decides case sensitivity itself, so only report a Case the caller passed.
         var caseSensitivity = comparison.UsesCustomComparer
             ? string.Empty
@@ -82,6 +68,20 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
                 Case.Sensitive => ", case sensitive comparison",
                 _ => string.Empty
             };
+
+        if (actualMissingMessage.Length == 0 && expectedMissingMessage.Length == 0)
+        {
+            // Both sides were too long to tell what's missing, so show them as far as they were read.
+            return $"""
+                    {codePart}
+                        {context.ShouldMethod.PascalToSpaced()} (ignoring order{caseSensitivity})
+                    {expectedFormattedValue}
+                        but was
+                    {actual.ToStringAwesomely()}
+                    """;
+        }
+
+        // "first should be second (ignoring order) but first is missing [4] and second is missing [2]"
 
         const string format =
             """

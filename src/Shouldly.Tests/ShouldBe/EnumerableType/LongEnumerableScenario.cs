@@ -43,6 +43,18 @@ public class LongEnumerableScenario
     }
 
     [Fact]
+    public void BothLongIgnoringOrderWithCaseShouldFail()
+    {
+        // The fallback for two cut-short sides still says how strings were compared.
+        string[] actual = ["A", "x"];
+
+        using (MaxEnumerableItemsScope.Of(1))
+        {
+            Verify.ShouldFail(() => actual.ShouldBe(["a", "y"], Case.Insensitive, ignoreOrder: true));
+        }
+    }
+
+    [Fact]
     public void EnumerableAtTheLimitIsNotCapped()
     {
         using (MaxEnumerableItemsScope.Of(3))
