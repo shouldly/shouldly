@@ -130,6 +130,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         // Snapshot one-shot sequences so the check and the failure message see the same items.
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
+        using var actualProxy = actual as EnumerableProxy<T>;
         if (actual != null && actual.Any())
             throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }
@@ -142,6 +143,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         // Snapshot one-shot sequences so the check and the failure message see the same items.
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
+        using var actualProxy = actual as EnumerableProxy<T>;
         if (actual == null || !actual.Any())
             throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
     }

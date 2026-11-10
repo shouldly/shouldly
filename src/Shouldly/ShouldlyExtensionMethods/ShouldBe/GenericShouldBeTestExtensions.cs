@@ -87,6 +87,8 @@ public static partial class ShouldBeTestExtensions
     {
         actual = EnumerableProxy<T>.WrapNonCollection(actual);
         expected = EnumerableProxy<T>.WrapNonCollection(expected);
+        using var actualProxy = actual as EnumerableProxy<T>;
+        using var expectedProxy = expected as EnumerableProxy<T>;
 
         if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
         {

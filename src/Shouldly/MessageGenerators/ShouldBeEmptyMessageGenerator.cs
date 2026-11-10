@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.MessageGenerators;
 
 class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
@@ -30,11 +32,11 @@ class ShouldBeEmptyMessageGenerator : ShouldlyMessageGenerator
         string details;
         if (context.Expected is IEnumerable enumerable and not string)
         {
-            var count = enumerable?.Cast<object?>().Count() ?? 0;
+            var (count, noun) = enumerable.DescribeCountForMessage();
             details = $"""
                         had
                        {count}
-                           item{(count == 1 ? string.Empty : "s")} and
+                           {noun} and
                        """;
         }
         else

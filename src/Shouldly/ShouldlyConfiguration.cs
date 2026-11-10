@@ -115,4 +115,36 @@ public static partial class ShouldlyConfiguration
     private const int DefaultMaxStringLengthInMessages = 1000;
 
     private const string MaxStringLengthInMessagesKey = "ShouldlyMaxStringLengthInMessages";
+
+    /// <summary>
+    /// Maximum number of items of an enumerable echoed back in assertion failure messages.
+    /// Longer enumerables are cut off after this many items and end with <c>...</c>.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This also bounds how far Shouldly reads a sequence to describe it, so a failing assertion
+    /// on an infinite or very long lazy sequence returns promptly instead of hanging. It applies to
+    /// the echoed values and to the <c>difference</c> section alike, and to nested enumerables.
+    /// </para>
+    /// <para>
+    /// Scoped to the logical call context. Flows down through async/await and
+    /// Task.Run by default; concurrent contexts get their own value.
+    /// </para>
+    /// </remarks>
+    public static int MaxEnumerableItemsInMessages
+    {
+        get => (int?)CallContext.LogicalGetData(MaxEnumerableItemsInMessagesKey) ?? DefaultMaxEnumerableItemsInMessages;
+        set
+        {
+            if (value < 1)
+                throw new ArgumentOutOfRangeException(nameof(value), value,
+                    $"{nameof(MaxEnumerableItemsInMessages)} must be at least 1.");
+
+            CallContext.LogicalSetData(MaxEnumerableItemsInMessagesKey, value);
+        }
+    }
+
+    private const int DefaultMaxEnumerableItemsInMessages = 1000;
+
+    private const string MaxEnumerableItemsInMessagesKey = "ShouldlyMaxEnumerableItemsInMessages";
 }

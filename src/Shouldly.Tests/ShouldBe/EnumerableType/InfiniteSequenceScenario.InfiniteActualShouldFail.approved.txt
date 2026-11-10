@@ -1,0 +1,7 @@
+naturals
+    should be
+[0, 1]
+    but was
+[0, 1, 2, 3, 4, ...]
+    difference
+[0, 1, *2*, *3*, *4*, ...]

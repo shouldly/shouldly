@@ -34,8 +34,7 @@ static class StringHelpers
 
         if (value.TryGetEnumerable(out var enumerable))
         {
-            var objects = enumerable.Cast<object>();
-            var inspect = "[" + objects.Select(o => o.ToStringAwesomely()).CommaDelimited() + "]";
+            var inspect = "[" + string.Join(", ", FormatItemsCapped(enumerable)) + "]";
             if (inspect == "[]")
             {
                 if (value is IEnumerableProxy proxy)
@@ -264,20 +263,40 @@ static class StringHelpers
     internal static string? NormalizeLineEndings(this string? s) =>
         s == null ? null : Regex.Replace(s, @"\r\n?", "\n");
 
-    private static string CommaDelimited<T>(this IEnumerable<T> enumerable)
-        where T : class? =>
-        enumerable.DelimitWith(", ");
+    /// <summary>
+    /// Formats a sequence as <c>[a, b, ...]</c> like <see cref="ToStringAwesomely(object?)"/>, but
+    /// appends the <c>...</c> marker whenever <paramref name="moreMayFollow"/> is set, for an item
+    /// list drawn from a sequence that was only partly read.
+    /// </summary>
+    internal static string ToStringAwesomely(this IEnumerable items, bool moreMayFollow) =>
+        "[" + string.Join(", ", FormatItemsCapped(items, moreMayFollow)) + "]";
 
-    private static string DelimitWith<T>(this IEnumerable<T> enumerable, string? separator)
-        where T : class? =>
-        string.Join(separator,
-            enumerable.Select(i =>
-                {
-                    if (Equals(i, null))
-                        return null;
-                    return i.ToString();
-                })
-                .ToArray());
+    // Formats at most MaxEnumerableItemsInMessages items, reading only one more to learn whether
+    // to append the "..." marker, so infinite or huge lazy sequences can't hang the message.
+    private static List<string?> FormatItemsCapped(IEnumerable enumerable, bool moreMayFollow = false)
+    {
+        var limit = ShouldlyConfiguration.MaxEnumerableItemsInMessages;
+        var items = new List<string?>();
+        var truncated = false;
+
+        foreach (var item in enumerable)
+        {
+            if (items.Count == limit)
+            {
+                truncated = true;
+                break;
+            }
+
+            items.Add(item.ToStringAwesomely());
+        }
+
+        if (truncated || moreMayFollow)
+            items.Add(EnumerableTruncationMarker);
+
+        return items;
+    }
+
+    internal const string EnumerableTruncationMarker = "...";
 
     private static string ToStringAwesomely(this Enum value) =>
         value.GetType().Name + "." + value;

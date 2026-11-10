@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly.MessageGenerators;
 
 class ShouldBeNullOrEmptyMessageGenerator : ShouldlyMessageGenerator
@@ -16,13 +18,13 @@ class ShouldBeNullOrEmptyMessageGenerator : ShouldlyMessageGenerator
         // A non-empty collection fails ShouldBeNullOrEmpty; report how many items it had, as ShouldBeEmpty does.
         if (!context.IsNegatedAssertion && context.Actual is IEnumerable enumerable and not string)
         {
-            var count = enumerable.Cast<object?>().Count();
+            var (count, noun) = enumerable.DescribeCountForMessage();
             return
                 $"""
                  {codePart}
                      {should} but had
                  {count}
-                     item{(count == 1 ? string.Empty : "s")} and was
+                     {noun} and was
                  {actual}
                  """;
         }

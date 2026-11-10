@@ -8,8 +8,6 @@ namespace Shouldly.DifferenceHighlighting;
 /// </summary>
 class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 {
-    private const int MaxElementsToShow = 1000;
-
     public bool CanProcess(IShouldlyAssertionContext context) =>
         context is
         {
@@ -19,64 +17,65 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 
     public string? HighlightDifferences(IShouldlyAssertionContext context)
     {
-        var actual = context.Actual as IEnumerable;
-        var expected = context.Expected as IEnumerable;
-        if (CanProcess(context))
-        {
-            var actualList = actual!.Cast<object>();
-            var expectedList = expected!.Cast<object>();
+        if (!CanProcess(context))
+            return context.Actual.ToStringAwesomely();
 
-            var highestCount = Math.Max(actualList.Count(), expectedList.Count());
+        // Compare as the assertion did, so a custom comparer's matches aren't highlighted as differences.
+        var comparison = AssertionComparison.Of(context);
 
-            // Compare as the assertion did, so a custom comparer's matches aren't highlighted as differences.
-            var comparison = AssertionComparison.Of(context);
-
-            return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount, comparison.ElementsEqual);
-        }
-
-        return actual.ToStringAwesomely();
+        return HighlightDifferencesBetweenLists((IEnumerable)context.Actual!, (IEnumerable)context.Expected!, comparison.ElementsEqual);
     }
 
-    private string HighlightDifferencesBetweenLists(IEnumerable<object> actualList, IEnumerable<object> expectedList, int highestListCount, Func<object?, object?, bool> equal)
+    // Walks both sequences in step, a single pass each, stopping after
+    // MaxEnumerableItemsInMessages positions so an infinite sequence can't hang the message.
+    private static string HighlightDifferencesBetweenLists(IEnumerable actualList, IEnumerable expectedList, Func<object?, object?, bool> equal)
     {
-        var returnMessage = new StringBuilder("[");
+        var limit = ShouldlyConfiguration.MaxEnumerableItemsInMessages;
+        var items = new List<string?>();
 
-        for (var listItem = 0; listItem < highestListCount; listItem++)
+        var actualEnum = actualList.GetEnumerator();
+        var expectedEnum = expectedList.GetEnumerator();
+        try
         {
-            if (listItem >= MaxElementsToShow)
+            while (true)
             {
-                returnMessage.Append("...");
-                break;
-            }
+                var actualHasItem = actualEnum.MoveNext();
+                var expectedHasItem = expectedEnum.MoveNext();
 
-            returnMessage.Append(GetComparedItemString(actualList, expectedList, listItem, equal));
+                if (!actualHasItem && !expectedHasItem)
+                    break;
 
-            if (listItem < highestListCount - 1)
-            {
-                returnMessage.Append(", ");
+                if (items.Count == limit)
+                {
+                    items.Add(StringHelpers.EnumerableTruncationMarker);
+                    break;
+                }
+
+                items.Add(GetComparedItemString(actualHasItem, actualEnum, expectedHasItem, expectedEnum, equal));
             }
         }
+        finally
+        {
+            (actualEnum as IDisposable)?.Dispose();
+            (expectedEnum as IDisposable)?.Dispose();
+        }
 
-        return returnMessage.Append("]").ToString();
+        return "[" + string.Join(", ", items) + "]";
     }
 
-    private string? GetComparedItemString(IEnumerable<object> actualList, IEnumerable<object> expectedList, int itemPosition, Func<object?, object?, bool> equal)
+    private static string? GetComparedItemString(
+        bool actualHasItem, IEnumerator actualEnum,
+        bool expectedHasItem, IEnumerator expectedEnum,
+        Func<object?, object?, bool> equal)
     {
-        if (expectedList.Count() <= itemPosition)
-        {
-            return ItemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
-        }
-
-        if (actualList.Count() <= itemPosition)
-        {
+        if (!actualHasItem)
             return ItemDifferenceHighlighter.HighlightCharacter;
-        }
 
-        if (equal(actualList.ElementAt(itemPosition), expectedList.ElementAt(itemPosition)))
-        {
-            return actualList.ElementAt(itemPosition).ToStringAwesomely();
-        }
+        var actualItem = actualEnum.Current;
+        var formatted = actualItem.ToStringAwesomely();
 
-        return ItemDifferenceHighlighter.HighlightItem(actualList.ElementAt(itemPosition).ToStringAwesomely());
+        return expectedHasItem && equal(actualItem, expectedEnum.Current)
+            ? formatted
+            : ItemDifferenceHighlighter.HighlightItem(formatted);
     }
 }

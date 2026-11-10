@@ -1,0 +1,7 @@
+naturals
+    should be (ignoring order)
+[1, 0]
+    but
+[1, 0]
+    is missing
+[2, 3, 4, 5, ...]

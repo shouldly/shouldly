@@ -1,0 +1,7 @@
+actual
+    should be
+[0, 99, 2, ...]
+    but was
+[0, 1, 2, ...]
+    difference
+[0, *1*, 2, ...]
