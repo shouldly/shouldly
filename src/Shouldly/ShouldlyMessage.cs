@@ -155,16 +155,17 @@ public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
 
     /// <summary>
     /// Creates a new message with expected and actual values that ignores order, and what the assertion
-    /// established comparing them.
+    /// established comparing them, including the case sensitivity it compared strings with, if any.
     /// </summary>
     internal ExpectedActualIgnoreOrderShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual,
-        string? customMessage, string shouldlyMethod, string? actualExpression)
+        string? customMessage, string shouldlyMethod, string? actualExpression, Case? caseSensitivity = null)
     {
         ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
         {
             IgnoreOrder = true,
             HasRelevantActual = true,
-            Comparison = comparison
+            Comparison = comparison,
+            CaseSensitivity = caseSensitivity
         };
         if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
     }

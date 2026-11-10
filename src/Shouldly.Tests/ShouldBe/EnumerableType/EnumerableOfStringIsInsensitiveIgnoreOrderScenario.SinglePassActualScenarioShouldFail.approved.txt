@@ -1,0 +1,11 @@
+SinglePass("A", "b")
+    should be (ignoring order, case insensitive comparison)
+["B", "c"]
+    but
+SinglePass("A", "b")
+    is missing
+["c"]
+    and
+["B", "c"]
+    is missing
+["A"]

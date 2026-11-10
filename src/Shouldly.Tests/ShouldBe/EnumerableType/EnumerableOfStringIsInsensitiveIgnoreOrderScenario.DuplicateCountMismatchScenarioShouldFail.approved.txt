@@ -1,0 +1,11 @@
+new List<string> { "a", "A", "b" }
+    should be (ignoring order, case insensitive comparison)
+["a", "B", "b"]
+    but
+new List<string> { "a", "A", "b" }
+    is missing
+["b"]
+    and
+["a", "B", "b"]
+    is missing
+["A"]
