@@ -88,24 +88,21 @@ static class Membership
         if (comparer != null || DefaultEqualityAgrees<T>.Value)
             return HashedDuplicates(items, comparer);
 
+        // Compared with every earlier element, and deduplicated against the reported values themselves, rather than
+        // against one representative per value: tolerance-based equality isn't transitive.
         var scalarComparer = Is.ScalarComparerFor<T>();
-        var distinct = new List<T>();
-        var reported = new List<bool>();
+        var earlierItems = new List<T>();
         var duplicates = new List<T>();
         foreach (var item in items)
         {
             // The earlier element is the one Equals is called on.
-            var index = distinct.FindIndex(earlier => Is.Equal(item, earlier, scalarComparer));
-            if (index < 0)
+            if (earlierItems.Exists(earlier => Is.Equal(item, earlier, scalarComparer)) &&
+                !duplicates.Exists(reported => Is.Equal(item, reported, scalarComparer)))
             {
-                distinct.Add(item);
-                reported.Add(false);
-            }
-            else if (!reported[index])
-            {
-                reported[index] = true;
                 duplicates.Add(item);
             }
+
+            earlierItems.Add(item);
         }
 
         return duplicates;

@@ -46,6 +46,22 @@ public class ShouldBeEqualityScenario
     }
 
     [Fact]
+    public void NonTransitiveToleranceScenarioShouldFail()
+    {
+        // Tolerance isn't transitive: -0.75 duplicates 0 without equalling 0.75, and the reported 2 and 1 are equal.
+        ShouldlyConfiguration.DefaultFloatingPointTolerance = 1;
+        try
+        {
+            Verify.ShouldFail(() =>
+                new[] { 0d, 0.75d, -0.75d, 3d, 5d, 4d, 5d }.ShouldBeUnique("Some additional context"));
+        }
+        finally
+        {
+            ShouldlyConfiguration.DefaultFloatingPointTolerance = 0.0;
+        }
+    }
+
+    [Fact]
     public void LargeDatasetOfAnUnhashableTypeStaysTractable() =>
         Enumerable.Range(1, 2000).Select(i => new EquatableOnly(i)).ToList().ShouldBeUnique();
 

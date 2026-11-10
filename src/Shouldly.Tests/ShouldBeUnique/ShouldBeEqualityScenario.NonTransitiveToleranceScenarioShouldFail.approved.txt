@@ -1,0 +1,7 @@
+new[] { 0d, 0.75d, -0.75d, 3d, 5d, 4d, 5d }
+    should be unique but
+[0.75d, -0.75d, 4d]
+    was duplicated
+
+Additional Info:
+    Some additional context
