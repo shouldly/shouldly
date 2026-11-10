@@ -70,6 +70,25 @@ public class EquatableElementScenario
         new List<object> { new ComparableEquatable() }.ShouldBe([new ComparableEquatable()]);
     }
 
+    [Fact]
+    public void MostDerivedEquatableWinsWhenInterfacesAreDeclaredBaseFirst() =>
+        MostDerivedEquatableWins(() => new BaseFirstJudge());
+
+    [Fact]
+    public void MostDerivedEquatableWinsWhenInterfacesAreDeclaredDerivedFirst() =>
+        MostDerivedEquatableWins(() => new DerivedFirstJudge());
+
+    private static void MostDerivedEquatableWins(Func<object> judge)
+    {
+        // Each judge (the expected value) implements IEquatable<Animal> answering false and IEquatable<Dog>
+        // answering true, so the result shows which one was chosen for each runtime type of the actual value.
+        // The same judge type is paired with each argument type in turn, so the lookups are cached separately.
+        ((object)new Animal()).ShouldNotBe(judge());
+        ((object)new Dog()).ShouldBe(judge());
+        ((object)new Puppy()).ShouldBe(judge());
+        ((object)new Animal()).ShouldNotBe(judge());
+    }
+
 #pragma warning disable CA1067 // These types deliberately implement IEquatable<T> without overriding Equals(object)
     private sealed class Equatable(int value) : IEquatable<Equatable>
     {
@@ -94,6 +113,26 @@ public class EquatableElementScenario
         public bool Equals(ComparableEquatable? other) => false;
 
         public int CompareTo(object? obj) => 0;
+    }
+
+    private class Animal;
+
+    private class Dog : Animal;
+
+    private sealed class Puppy : Dog;
+
+    private sealed class BaseFirstJudge : IEquatable<Animal>, IEquatable<Dog>
+    {
+        public bool Equals(Animal? other) => false;
+
+        public bool Equals(Dog? other) => true;
+    }
+
+    private sealed class DerivedFirstJudge : IEquatable<Dog>, IEquatable<Animal>
+    {
+        public bool Equals(Dog? other) => true;
+
+        public bool Equals(Animal? other) => false;
     }
 #pragma warning restore CA1067
 }
