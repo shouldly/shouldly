@@ -1,0 +1,8 @@
+bag
+    should not be
+[9]
+    but was
+[1, 2]
+
+Additional Info:
+    Some additional context

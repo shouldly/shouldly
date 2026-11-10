@@ -45,7 +45,7 @@ Shouldly runs the lambda without a synchronisation context, but deadlocks are st
 
 ## CompareAsObjectTypes
 
-Full names of enumerable types that `ShouldBe` compares with their own `Equals` rather than element by element.
+Full names of enumerable types that `ShouldBe` and `ShouldNotBe` compare with their own `Equals` rather than element by element.
 
 An example is `Newtonsoft.Json.Linq.JToken`, which looks like this: `class JToken : IEnumerable<JToken>`. Register your own types once, before any test runs, for example from a module initializer:
 
