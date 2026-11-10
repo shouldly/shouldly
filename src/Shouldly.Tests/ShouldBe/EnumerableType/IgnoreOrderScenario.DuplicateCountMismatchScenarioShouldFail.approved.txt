@@ -1,0 +1,11 @@
+new List<int> { 1, 1, 2 }
+    should be (ignoring order)
+[1, 2, 2]
+    but
+new List<int> { 1, 1, 2 }
+    is missing
+[2]
+    and
+[1, 2, 2]
+    is missing
+[1]

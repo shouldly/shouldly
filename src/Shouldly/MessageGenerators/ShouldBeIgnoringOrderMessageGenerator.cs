@@ -28,8 +28,18 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
             ? elementEquals
             : (a, e) => Is.Equal(a, e);
 
-        var missingFromExpected = actual.Where(a => !expected.Any(e => equal(a, e))).ToArray();
-        var missingFromActual = expected.Where(e => !actual.Any(a => equal(a, e))).ToArray();
+        // Match occurrences one-for-one, as Is.EqualIgnoreOrder does, so a difference in how many times an item
+        // occurs is reported rather than hidden by an earlier match.
+        var missingFromActual = expected.ToList();
+        var missingFromExpected = new List<object>();
+        foreach (var actualItem in actual)
+        {
+            var index = missingFromActual.FindIndex(expectedItem => equal(actualItem, expectedItem));
+            if (index < 0)
+                missingFromExpected.Add(actualItem);
+            else
+                missingFromActual.RemoveAt(index);
+        }
 
         var actualMissingMessage = missingFromActual.Any()
             ? $"""
