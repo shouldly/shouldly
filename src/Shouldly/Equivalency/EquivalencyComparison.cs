@@ -461,13 +461,13 @@ internal sealed class EquivalencyComparison
             TypeCode.Decimal;
 
     /// <summary>
-    /// Compares through <see cref="Numerics"/>, as ShouldBe does, so
-    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies. Mixed types are widened to
-    /// double first: Numerics would narrow a float compared with an integer or decimal to float, which isn't lossless.
+    /// Compares through <see cref="Numerics"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies. Under a default tolerance, mixed
+    /// types are widened to double first: Numerics would narrow a float compared with an integer or decimal to float.
     /// </summary>
     private static bool FloatingPointEquals(object actual, object expected)
     {
-        if (actual.GetType() != expected.GetType())
+        if (actual.GetType() != expected.GetType() && ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d)
         {
             actual = Convert.ToDouble(actual);
             expected = Convert.ToDouble(expected);

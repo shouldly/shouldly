@@ -31,6 +31,18 @@ static class Numerics
     /// <returns>True if the values are equal</returns>
     public static bool AreEqual(object expected, object actual, ref Tolerance tolerance)
     {
+        // A floating-point value compared with an integer or decimal, with no tolerance in effect, must hold exactly
+        // the same value: converting either side to the other's type can round it and make distinct values equal
+        // (#1427). Floating-point types widen into each other exactly, and integer types widen exactly too, so only
+        // this mix needs the exact comparison.
+        if (IsFloatingPoint(expected) != IsFloatingPoint(actual) &&
+            tolerance.IsEmpty && !(ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d))
+        {
+            return IsFloatingPoint(expected)
+                ? FloatingPointEqualsExactly(expected, actual)
+                : FloatingPointEqualsExactly(actual, expected);
+        }
+
 #if NET5_0_OR_GREATER
         // Half doesn't implement IConvertible, so it can't go through the Convert calls below. Every Half
         // value is exactly representable as a double, so widen it and compare like the other floating-point
@@ -311,8 +323,91 @@ static class Numerics
         return Convert.ToInt32(expected).CompareTo(Convert.ToInt32(actual));
     }
 
+    private static bool IsFloatingPoint(object value) =>
+        value is double or float
 #if NET5_0_OR_GREATER
-    private static double ToDouble(object value) =>
-        value is Half half ? (double)half : Convert.ToDouble(value);
+            or Half
 #endif
+            ;
+
+    /// <summary>
+    ///     Whether a floating-point value holds exactly the same value as an integer or decimal. Every integer and
+    ///     decimal is exact as a decimal, so the floating-point value is converted to decimal, and only counts if
+    ///     that conversion is exact.
+    /// </summary>
+    private static bool FloatingPointEqualsExactly(object floatingPoint, object other) =>
+        TryConvertToDecimalExactly(ToDouble(floatingPoint), out var value) &&
+        value == Convert.ToDecimal(other);
+
+    /// <summary>
+    ///     Converts a double to the decimal holding exactly the same value. Fails for NaN, infinities and values a
+    ///     decimal can't represent exactly; <see cref="Convert.ToDecimal(double)"/> rounds to 15 significant digits
+    ///     instead.
+    /// </summary>
+    private static bool TryConvertToDecimalExactly(double value, out decimal result)
+    {
+        result = 0m;
+        if (double.IsNaN(value) || double.IsInfinity(value))
+            return false;
+
+        if (value == 0.0d)
+            return true;
+
+        // value = ±mantissa × 2^exponent
+        var bits = BitConverter.DoubleToInt64Bits(value);
+        var biasedExponent = (int)((bits >> 52) & 0x7FF);
+        var mantissa = bits & 0xFFFFFFFFFFFFFL;
+        if (biasedExponent == 0)
+            biasedExponent = 1;
+        else
+            mantissa |= 1L << 52;
+        var exponent = biasedExponent - 1075;
+
+        while ((mantissa & 1) == 0)
+        {
+            mantissa >>= 1;
+            exponent++;
+        }
+
+        decimal magnitude = mantissa;
+        if (exponent >= 0)
+        {
+            // The value has (bits in mantissa + exponent) bits; a decimal holds integers below 2^96.
+            var mantissaBits = 0;
+            for (var m = mantissa; m != 0; m >>= 1)
+                mantissaBits++;
+            if (mantissaBits + exponent > 96)
+                return false;
+
+            for (var i = 0; i < exponent; i++)
+                magnitude *= 2;
+        }
+        else
+        {
+            // mantissa (odd) × 2^-k = mantissa × 5^k / 10^k needs exactly k decimal places, and a decimal has at
+            // most 28, with a 96-bit integer before scaling.
+            var scale = -exponent;
+            if (scale > 28)
+                return false;
+
+            for (var i = 0; i < scale; i++)
+            {
+                if (magnitude > decimal.MaxValue / 5)
+                    return false;
+                magnitude *= 5;
+            }
+
+            var parts = decimal.GetBits(magnitude);
+            magnitude = new(parts[0], parts[1], parts[2], false, (byte)scale);
+        }
+
+        result = value < 0 ? -magnitude : magnitude;
+        return true;
+    }
+
+    private static double ToDouble(object value) =>
+#if NET5_0_OR_GREATER
+        value is Half half ? (double)half :
+#endif
+        Convert.ToDouble(value);
 }
