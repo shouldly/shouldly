@@ -268,15 +268,41 @@ internal sealed class EquivalencyComparison
         var expectedEntries = shape.GetEntries(expected).ToList();
         var actualEntries = actualShape.GetEntries(actual).ToList();
 
-        // Match keys with maximum bipartite matching (see CompareUnordered) so that, when keys are
-        // themselves complex and a key is equivalent to more than one candidate, a greedy pairing
-        // cannot wrongly leave a matchable key unmatched.
+        // Match keys with maximum bipartite matching (see CompareUnordered) so that, when a key is
+        // equivalent to more than one candidate (complex keys, or floating-point keys within
+        // DefaultFloatingPointTolerance of each other), a greedy pairing cannot wrongly leave a
+        // matchable key unmatched. Entries whose values also match are paired first, so an ambiguous
+        // key isn't paired with the wrong entry and its value reported as a mismatch; the leftovers are
+        // then paired by key alone, so a genuine value mismatch is still reported against its key.
+        bool KeysMatch(int e, int a) => IsEquivalent(actualEntries[a].Key, expectedEntries[e].Key, shape.KeyType);
+
         var matchOfExpected = MatchByEquivalence(
             expectedEntries.Count,
             actualEntries.Count,
-            (e, a) => IsEquivalent(actualEntries[a].Key, expectedEntries[e].Key, shape.KeyType));
+            (e, a) => KeysMatch(e, a) && IsEquivalent(actualEntries[a].Value, expectedEntries[e].Value, shape.ValueType));
 
         var matchedActual = new bool[actualEntries.Count];
+        foreach (var matchIndex in matchOfExpected)
+        {
+            if (matchIndex >= 0)
+                matchedActual[matchIndex] = true;
+        }
+
+        var unmatchedExpected = Enumerable.Range(0, expectedEntries.Count).Where(e => matchOfExpected[e] < 0).ToList();
+        if (unmatchedExpected.Count > 0)
+        {
+            var unmatchedActual = Enumerable.Range(0, actualEntries.Count).Where(a => !matchedActual[a]).ToList();
+            var keyOnlyMatch = MatchByEquivalence(
+                unmatchedExpected.Count,
+                unmatchedActual.Count,
+                (e, a) => KeysMatch(unmatchedExpected[e], unmatchedActual[a]));
+
+            for (var i = 0; i < unmatchedExpected.Count; i++)
+            {
+                if (keyOnlyMatch[i] >= 0)
+                    matchOfExpected[unmatchedExpected[i]] = unmatchedActual[keyOnlyMatch[i]];
+            }
+        }
 
         for (var i = 0; i < expectedEntries.Count; i++)
         {

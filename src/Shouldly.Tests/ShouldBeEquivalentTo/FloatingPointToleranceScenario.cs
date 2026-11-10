@@ -94,6 +94,16 @@ public class FloatingPointToleranceScenario
     }
 
     [Fact]
+    public void KeysWithinTheDefaultToleranceOfEachOtherArePairedByTheirValues()
+    {
+        // Both keys are within tolerance of both expected keys, so key matching alone is ambiguous: pairing
+        // [1.005] with [1.0] would compare "b" with "a". The pairing must prefer entries whose values match too.
+        WithDefaultTolerance(0.01, () =>
+            new Dictionary<double, string> { [1.0] = "a", [1.005] = "b" }
+                .ShouldBeEquivalentTo(new Dictionary<double, string> { [1.005] = "b", [1.0] = "a" }));
+    }
+
+    [Fact]
     public void NaNIsStillEquivalentToNaN()
     {
         WithDefaultTolerance(1e-9, () => double.NaN.ShouldBeEquivalentTo(double.NaN));
