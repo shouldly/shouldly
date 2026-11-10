@@ -1,4 +1,6 @@
 using System.Collections.Concurrent;
+using System.Runtime.ExceptionServices;
+using NUnit.Framework.Constraints;
 
 namespace Shouldly.Internals;
 
@@ -11,6 +13,7 @@ namespace Shouldly.Internals;
 static class KeyValuePairs
 {
     private static readonly ConcurrentDictionary<Type, Accessors?> AccessorsByType = new();
+    private static readonly ConcurrentDictionary<(Type Receiver, Type Interface, Type Declared), MethodInfo?> DeclaredTypeMethods = new();
 
     /// <summary>
     /// When <paramref name="expected"/> and <paramref name="actual"/> are both <see cref="KeyValuePair{TKey, TValue}"/>s,
@@ -18,7 +21,8 @@ static class KeyValuePairs
     /// Each component is compared as <see cref="Is.ScalarComparerFor{T}"/> compares a value of the expected pair's
     /// <c>TKey</c> or <c>TValue</c>: with its own <see cref="object.Equals(object)"/> for <see cref="string"/> and the
     /// types in <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>, and otherwise with
-    /// <paramref name="elementComparer"/>. <c>Equals</c> is called on the expected component.
+    /// <paramref name="elementComparer"/> plus the <c>IEquatable&lt;S&gt;</c>/<c>IComparable&lt;S&gt;</c> steps for the
+    /// declared type <c>S</c> that it can't take itself. <c>Equals</c> is called on the expected component.
     /// </summary>
     public static bool TryEquals(object expected, object actual, IEqualityComparer elementComparer, out bool result)
     {
@@ -41,9 +45,106 @@ static class KeyValuePairs
 
         // Mirrors the condition in Is.ScalarComparerFor, which can't be called here without the static type.
         var componentType = expectedProperty.PropertyType;
-        return componentType == typeof(string) || ShouldlyConfiguration.CompareAsObjectTypes.Contains(componentType.FullName!)
-            ? Equals(expectedComponent, actualComponent)
-            : elementComparer.Equals(expectedComponent, actualComponent);
+        if (componentType == typeof(string) || ShouldlyConfiguration.CompareAsObjectTypes.Contains(componentType.FullName!))
+            return Equals(expectedComponent, actualComponent);
+
+        if (TryDeclaredTypeEquals(componentType, expectedComponent, actualComponent, out var result))
+            return result;
+
+        return elementComparer.Equals(expectedComponent, actualComponent);
+    }
+
+    /// <summary>
+    /// The <c>IEquatable&lt;S&gt;</c> and <c>IComparable&lt;S&gt;</c> steps that <c>EqualityComparer&lt;S&gt;</c> takes for
+    /// the component's declared type <c>S</c>, which the object element comparer can't: it only knows <c>object</c>.
+    /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric and enumerable cases, so the
+    /// element comparer then finishes the cascade (<see cref="IComparable"/>, runtime <c>IEquatable&lt;U&gt;</c>,
+    /// <see cref="object.Equals(object)"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
+    /// </summary>
+    private static bool TryDeclaredTypeEquals(Type declaredType, object? expected, object? actual, out bool result)
+    {
+        result = false;
+        if (expected is null || actual is null)
+            return false;
+
+        if (declaredType == typeof(object) ||
+            ReferenceEquals(expected, actual) ||
+            !declaredType.IsInstanceOfType(actual) ||
+            (Numerics.IsNumericType(expected) && Numerics.IsNumericType(actual)) ||
+            (expected.TryGetEnumerable(out _) && actual.TryGetEnumerable(out _)))
+            return false;
+
+        var receiverType = expected.GetType();
+        if (FindDeclaredTypeMethod(receiverType, typeof(IEquatable<>), declaredType) is { } equals)
+        {
+            result = (bool)Invoke(equals, expected, actual);
+            return true;
+        }
+
+        if (FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
+        {
+            result = (int)Invoke(compareTo, expected, actual) == 0;
+            return true;
+        }
+
+        return false;
+    }
+
+    private static object Invoke(MethodInfo method, object receiver, object argument)
+    {
+        try
+        {
+            return method.Invoke(receiver, [argument])!;
+        }
+        catch (TargetInvocationException e) when (e.InnerException is not null)
+        {
+            // Surface the user's own exception, as a direct call would.
+            ExceptionDispatchInfo.Capture(e.InnerException).Throw();
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// The method of the <paramref name="openInterface"/> (<c>IEquatable&lt;&gt;</c> or <c>IComparable&lt;&gt;</c>) that
+    /// <c>x is IEquatable&lt;S&gt;</c> / <c>x is IComparable&lt;S&gt;</c> would bind to for a receiver of
+    /// <paramref name="receiverType"/>: the interface closed over <c>S</c> itself or, both being contravariant, over a
+    /// type <c>S</c> converts to by reference, preferring the most derived. Found on the receiver's interfaces, so no
+    /// <c>MakeGenericType</c> is needed.
+    /// </summary>
+    private static MethodInfo? FindDeclaredTypeMethod(Type receiverType, Type openInterface, Type declaredType) =>
+        DeclaredTypeMethods.GetOrAdd((receiverType, openInterface, declaredType),
+            static key => FindDeclaredTypeMethodUncached(key.Receiver, key.Interface, key.Declared));
+
+    // Without these, NativeAOT drops the interfaces' method metadata and GetMethod finds nothing.
+#if NET5_0_OR_GREATER
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(IEquatable<>))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(IComparable<>))]
+#endif
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "Reads the interfaces of a type that has a live instance. If trimming removed an implementation, none is found and the comparison falls back to the element comparer.")]
+    [UnconditionalSuppressMessage("Trimming", "IL2075",
+        Justification = "IEquatable<T>.Equals and IComparable<T>.CompareTo are rooted by the DynamicDependency attributes above.")]
+    private static MethodInfo? FindDeclaredTypeMethodUncached(Type receiverType, Type openInterface, Type declaredType)
+    {
+        Type? best = null;
+        MethodInfo? bestMethod = null;
+        foreach (var @interface in receiverType.GetInterfaces())
+        {
+            if (!@interface.IsGenericType || @interface.GetGenericTypeDefinition() != openInterface)
+                continue;
+
+            var argument = @interface.GenericTypeArguments[0];
+            var matches = argument == declaredType ||
+                          (!declaredType.IsValueType && !argument.IsValueType && argument.IsAssignableFrom(declaredType));
+            if (matches && (best is null || best.IsAssignableFrom(argument)) &&
+                @interface.GetMethod(openInterface == typeof(IEquatable<>) ? nameof(IEquatable<object>.Equals) : nameof(IComparable<object>.CompareTo)) is { } method)
+            {
+                best = argument;
+                bestMethod = method;
+            }
+        }
+
+        return bestMethod;
     }
 
     private static Accessors? Find(object value) =>

@@ -91,6 +91,36 @@ public class KeyValuePairScenario
         new Dictionary<Strange, int> { ["x"] = 1 }.ShouldNotBe(new Dictionary<Strange, int> { ["y"] = 1 });
 
     [Fact]
+    public void ValuesUseTheirDeclaredTypesComparableInterface()
+    {
+        // Only IComparable<OnlyGenericComparable> says these are equal, as it does for the value on its own.
+        var actual = new Dictionary<string, OnlyGenericComparable> { ["a"] = new(1) };
+        var expected = new Dictionary<string, OnlyGenericComparable> { ["a"] = new(1) };
+
+        actual["a"].ShouldBe(expected["a"]);
+        actual.ShouldContainKeyAndValue("a", expected["a"]);
+        actual.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void ValuesUseTheirDeclaredTypesEquatableBeforeIComparable()
+    {
+        // IEquatable<EquatableBeforeComparable> says unequal and is consulted before the non-generic IComparable,
+        // as it is for the value on its own.
+        var actual = new Dictionary<string, EquatableBeforeComparable> { ["a"] = new() };
+        var expected = new Dictionary<string, EquatableBeforeComparable> { ["a"] = new() };
+
+        actual["a"].ShouldNotBe(expected["a"]);
+        Should.Throw<ShouldAssertException>(() => actual.ShouldContainKeyAndValue("a", expected["a"]));
+        actual.ShouldNotBe(expected);
+    }
+
+    [Fact]
+    public void KeysUseTheirDeclaredTypesComparableInterface() =>
+        new Dictionary<OnlyGenericComparable, int> { [new(1)] = 1 }
+            .ShouldBe(new Dictionary<OnlyGenericComparable, int> { [new(1)] = 1 });
+
+    [Fact]
     public void NestedDictionariesAreComparedStructurally() =>
         new Dictionary<string, Dictionary<string, int[]>> { ["a"] = new() { ["b"] = [1] } }
             .ShouldBe(new Dictionary<string, Dictionary<string, int[]>> { ["a"] = new() { ["b"] = [1] } });
@@ -138,6 +168,29 @@ public class KeyValuePairScenario
             new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
                 .ShouldBe(new Dictionary<string, int[]> { ["b"] = [3], ["a"] = [1] }, ignoreOrder: true, "Some additional context"));
     }
+
+    /// <summary>
+    /// Equal to another instance only through <see cref="IComparable{T}"/>: no <see cref="IComparable"/>,
+    /// <see cref="IEquatable{T}"/> or <see cref="object.Equals(object)"/> override.
+    /// </summary>
+    public sealed class OnlyGenericComparable(int value) : IComparable<OnlyGenericComparable>
+    {
+        private int Value { get; } = value;
+
+        public int CompareTo(OnlyGenericComparable? other) => other is null ? 1 : Value.CompareTo(other.Value);
+    }
+
+    /// <summary>
+    /// <see cref="IEquatable{T}"/> says unequal while the non-generic <see cref="IComparable"/> says equal.
+    /// </summary>
+#pragma warning disable CA1067 // Deliberately disagrees with object.Equals to show which interface is consulted.
+    public sealed class EquatableBeforeComparable : IEquatable<EquatableBeforeComparable>, IComparable
+    {
+        public bool Equals(EquatableBeforeComparable? other) => false;
+
+        public int CompareTo(object? obj) => 0;
+    }
+#pragma warning restore CA1067
 
     /// <summary>
     /// Counts two pairs equal only when their values are the same array instance, to show a caller-supplied
