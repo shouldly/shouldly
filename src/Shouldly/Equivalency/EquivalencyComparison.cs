@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using Shouldly.Internals;
 
 namespace Shouldly.Equivalency;
@@ -405,8 +406,15 @@ internal sealed class EquivalencyComparison
 
     private static bool LeafEquals(object actual, object expected)
     {
-        if (actual.GetType() != expected.GetType() && IsNumeric(actual) && IsNumeric(expected))
-            return NumericEquals(actual, expected);
+        if (IsNumeric(actual) && IsNumeric(expected))
+        {
+            if (actual is float or double || expected is float or double)
+                return FloatingPointEquals(actual, expected);
+
+            // Mixed integral and decimal values compare exactly through decimal.
+            if (actual.GetType() != expected.GetType())
+                return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
+        }
 
         // Equals is called on the expected value, as in ShouldBe (see Is.Equal), so a broken Equals on the value
         // under test can't make the comparison pass.
@@ -423,13 +431,21 @@ internal sealed class EquivalencyComparison
             TypeCode.Single or TypeCode.Double or
             TypeCode.Decimal;
 
-    private static bool NumericEquals(object actual, object expected)
+    /// <summary>
+    /// Compares through <see cref="Numerics"/>, as ShouldBe does, so
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies. Mixed types are widened to
+    /// double first: Numerics would narrow a float compared with an integer or decimal to float, which isn't lossless.
+    /// </summary>
+    private static bool FloatingPointEquals(object actual, object expected)
     {
-        if (actual is float or double || expected is float or double)
-            return Convert.ToDouble(actual).Equals(Convert.ToDouble(expected));
+        if (actual.GetType() != expected.GetType())
+        {
+            actual = Convert.ToDouble(actual);
+            expected = Convert.ToDouble(expected);
+        }
 
-        // Integral and decimal values compare exactly through decimal.
-        return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
+        var tolerance = Tolerance.Empty;
+        return Numerics.AreEqual(expected, actual, ref tolerance);
     }
 
     private void AddDifference(EquivalencyDifferenceKind kind, List<string> path, object? expected, object? actual, string? detail = null) =>

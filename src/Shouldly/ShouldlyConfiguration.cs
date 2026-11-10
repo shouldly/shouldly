@@ -51,7 +51,12 @@ public static partial class ShouldlyConfiguration
     }
 
     /// <summary>
-    /// Default tolerance used for floating point comparisons
+    /// Linear tolerance used when an assertion compares two <see cref="float"/> or <see cref="double"/> values
+    /// and wasn't given a tolerance of its own. Honoured by <c>ShouldBe</c>/<c>ShouldNotBe</c> (including
+    /// collections, spans and memory), the dictionary value assertions, and the leaf values compared by
+    /// <c>ShouldBeEquivalentTo</c>. Values compared with their own <c>Equals</c>, such as the members of a
+    /// record passed to <c>ShouldBe</c>, are compared exactly. <see cref="decimal"/> and integer values are
+    /// never affected. Defaults to 0 (exact comparison).
     /// </summary>
     public static double DefaultFloatingPointTolerance = 0.0d;
 

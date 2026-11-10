@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.FloatingPointToleranceScenario+Measurement]
+    Value [System.Double]
+
+    Expected value to be
+1d
+    but was
+1.5d
+
+Additional Info:
+    Some additional context
