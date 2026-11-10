@@ -244,6 +244,8 @@ bag
 
 The message still lists the values' items, so the two sides can look identical: the failure comes from `Equals`.
 
+`ShouldNotBe` compares registered types the same way, so it passes exactly when `ShouldBe` fails. It has no enumerable overload, so `bag.ShouldNotBe(other)` needs no type argument.
+
 A type that enumerates itself, like `Newtonsoft.Json.Linq.JToken` (`class JToken : IEnumerable<JToken>`), needs no type argument, as its element type is the type itself. `JToken` is registered by default.
 
 Without the global setting, you can pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.

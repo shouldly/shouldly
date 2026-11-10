@@ -42,7 +42,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        actual.AssertAwesomely(v => !Is.Equal(v, expected, Is.ScalarComparerFor<T>()), actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>

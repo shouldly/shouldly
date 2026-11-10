@@ -14,12 +14,12 @@ public static partial class ShouldlyConfiguration
     }
 
     /// <summary>
-    /// Full names (<see cref="Type.FullName"/>) of enumerable types that <c>ShouldBe</c> should compare with
+    /// Full names (<see cref="Type.FullName"/>) of enumerable types that <c>ShouldBe</c> and <c>ShouldNotBe</c> compare with
     /// their own <see cref="object.Equals(object)"/> rather than element by element.
     /// </summary>
     /// <remarks>
     /// Defaults to <c>Newtonsoft.Json.Linq.JToken</c>. A name is matched against the type <c>ShouldBe</c>
-    /// compares: the value's type for the single-value overload (and the dictionary value assertions), or the
+    /// compares: the value's type for the single-value overload (and <c>ShouldNotBe</c> and the dictionary value assertions), or the
     /// element type for the enumerable overload. Register types once, before any assertion runs (for example
     /// from a module initializer), as the list is not thread-safe.
     /// </remarks>

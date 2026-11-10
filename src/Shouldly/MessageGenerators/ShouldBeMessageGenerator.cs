@@ -17,10 +17,13 @@ class ShouldBeMessageGenerator : ShouldlyMessageGenerator
         if (context.IsNegatedAssertion)
         {
             // The values were equal, so repeating actual adds nothing (#304). Equal only by a custom comparer's
-            // reckoning is worth saying, though.
+            // reckoning is worth saying, though, and so is an actual that reads differently from expected: a type
+            // registered in CompareAsObjectTypes is equal by its own Equals, whatever its items (#1425).
             actual = AssertionComparison.Of(context).UsesCustomComparer
                 ? " (using a custom comparer)"
-                : string.Empty;
+                : actualValue == expected
+                    ? string.Empty
+                    : $"\r\n{actualValue}";
         }
         else if (codePart == actualValue)
         {

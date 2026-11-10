@@ -13,5 +13,5 @@ public class CompareAsObjectTypesDefaults
     public void TestTypesAreRegisteredByTheTestProjectNotShipped() =>
         ShouldlyConfiguration.CompareAsObjectTypes
             .Where(name => name.StartsWith("Shouldly.Tests.", StringComparison.Ordinal))
-            .ShouldBe([typeof(Strange).FullName!]);
+            .ShouldBe([typeof(Strange).FullName!, typeof(IdBag).FullName!]);
 }
