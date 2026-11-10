@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Shouldly.Tests.TestHelpers;
 using static Shouldly.Tests.CommonWaitDurations;
 
 namespace Shouldly.Tests;
@@ -9,6 +10,10 @@ internal static class ModuleInitializer
     internal static void Initialize()
     {
         ShouldlyConfiguration.DefaultTaskTimeout = LongWait;
+
+        // Strange emulates JToken (an enumerable of itself that overrides Equals). Registering it here,
+        // before any test runs, keeps it out of the defaults Shouldly ships to consumers (issue #1410).
+        ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(Strange).FullName!);
 
         // Arm the global trip-wire so that any assertion that falls back to stack-trace parsing
         // (instead of using the [CallerArgumentExpression]-supplied value) throws. Individual call
