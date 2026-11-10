@@ -1,7 +1,7 @@
 comparison1
     should not be
 Shouldly.Tests.TestHelpers.ComparableClass (000000)
-    but was
+    but was (using a custom comparer)
 
 Additional Info:
     Some additional context

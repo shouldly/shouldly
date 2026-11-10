@@ -62,6 +62,28 @@ public static class ShouldlyCoreExtensions
     }
 
     /// <summary>
+    /// Asserts that the specified constraint is satisfied, recording on the failure message what the assertion
+    /// established comparing the values.
+    /// </summary>
+    internal static void AssertAwesomely<T>(
+        this T actual, Func<T, bool> specifiedConstraint, ComparisonRecord comparison,
+        object? originalActual, object? originalExpected,
+        string? customMessage, string shouldlyMethod, string? actualExpression)
+    {
+        try
+        {
+            if (specifiedConstraint(actual)) return;
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ShouldAssertException(ex.Message, ex);
+        }
+
+        var message = new ExpectedActualShouldlyMessage(comparison, originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression);
+        throw new ShouldAssertException(message.ToString());
+    }
+
+    /// <summary>
     /// Asserts that the specified constraint is satisfied with case sensitivity
     /// </summary>
     /// <typeparam name="T">The type of the actual value</typeparam>

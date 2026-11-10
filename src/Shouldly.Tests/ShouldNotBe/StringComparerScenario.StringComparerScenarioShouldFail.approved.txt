@@ -1,0 +1,4 @@
+upper
+    should not be
+"a"
+    but was (using a custom comparer)

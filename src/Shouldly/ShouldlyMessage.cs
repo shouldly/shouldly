@@ -476,6 +476,7 @@ public abstract class ShouldlyMessage
         new ShouldThrowMessageGenerator(),
         new ShouldBeNullMessageGenerator(),
         new ShouldBeMessageGenerator(),
+        new ShouldBeSameAsMessageGenerator(),
         new ShouldBePositiveMessageGenerator(),
         new ShouldBeNegativeMessageGenerator(),
         new ShouldBeTypeMessageGenerator(),
@@ -560,7 +561,8 @@ public abstract class ShouldlyMessage
                  but was{actualString}
              """;
 
-        if (DifferenceHighlighter.CanHighlightDifferences(context))
+        // A negated assertion fails because actual matched expected, so there's no difference to highlight.
+        if (!context.IsNegatedAssertion && DifferenceHighlighter.CanHighlightDifferences(context))
         {
             message += $"""
                         

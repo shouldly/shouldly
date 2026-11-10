@@ -1,4 +1,5 @@
 using Shouldly.DifferenceHighlighting;
+using Shouldly.Internals;
 
 namespace Shouldly.MessageGenerators;
 
@@ -15,7 +16,11 @@ class ShouldBeMessageGenerator : ShouldlyMessageGenerator
         string actual;
         if (context.IsNegatedAssertion)
         {
-            actual = string.Empty;
+            // The values were equal, so repeating actual adds nothing (#304). Equal only by a custom comparer's
+            // reckoning is worth saying, though.
+            actual = AssertionComparison.Of(context).UsesCustomComparer
+                ? " (using a custom comparer)"
+                : string.Empty;
         }
         else if (codePart == actualValue)
         {
@@ -34,7 +39,8 @@ class ShouldBeMessageGenerator : ShouldlyMessageGenerator
                  but was{actual}
              """;
 
-        if (DifferenceHighlighter.CanHighlightDifferences(context))
+        // A negated assertion fails only when the values are equal, so there's no difference to highlight.
+        if (!context.IsNegatedAssertion && DifferenceHighlighter.CanHighlightDifferences(context))
         {
             message += $"""
                         

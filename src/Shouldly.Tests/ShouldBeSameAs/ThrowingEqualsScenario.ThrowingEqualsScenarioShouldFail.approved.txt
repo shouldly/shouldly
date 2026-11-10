@@ -1,0 +1,6 @@
+first
+    should be same as
+ThrowsOnEquals
+    but was
+ThrowsOnEquals
+    which is a different instance
