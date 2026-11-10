@@ -1,0 +1,23 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="global.json" />
+    <File Path="README.md" />
+    <File Path="src/.editorconfig" />
+    <File Path="src/Directory.Build.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/EquivalencyComparisonTests/EquivalencyComparisonTests.csproj" />
+    <Project Path="src/LangVersionCompatTests/LangVersionCompatTests.csproj" />
+    <Project Path="src/TUnitTests/TUnitTests.csproj" />
+  </Folder>
+  <Project Path="src/DeterministicTests/DeterministicTests.csproj" />
+  <Project Path="src/DocumentationExamples/DocumentationExamples.csproj" />
+  <Project Path="src/Shouldly.DiffEngine/Shouldly.DiffEngine.csproj" />
+  <Project Path="src/Shouldly.Tests/Shouldly.Tests.csproj" />
+  <Project Path="src/Shouldly/Shouldly.csproj" />
+</Solution>
