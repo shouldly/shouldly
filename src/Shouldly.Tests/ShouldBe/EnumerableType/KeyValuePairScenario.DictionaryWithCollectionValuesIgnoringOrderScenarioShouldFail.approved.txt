@@ -1,0 +1,14 @@
+new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
+    should be (ignoring order)
+[["b" => [3]], ["a" => [1]]]
+    but
+new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
+    is missing
+[["b" => [3]]]
+    and
+[["b" => [3]], ["a" => [1]]]
+    is missing
+[["b" => [2]]]
+
+Additional Info:
+    Some additional context
