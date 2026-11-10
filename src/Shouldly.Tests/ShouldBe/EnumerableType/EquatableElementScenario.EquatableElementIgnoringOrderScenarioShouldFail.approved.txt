@@ -1,0 +1,14 @@
+List(1, 2, 3)
+    should be (ignoring order)
+[Equatable(3), Equatable(1), Equatable(4)]
+    but
+List(1, 2, 3)
+    is missing
+[Equatable(4)]
+    and
+[Equatable(3), Equatable(1), Equatable(4)]
+    is missing
+[Equatable(2)]
+
+Additional Info:
+    Some additional context

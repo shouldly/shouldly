@@ -8,15 +8,17 @@
     <!--
       Pinned to an older LangVersion on purpose. [OverloadResolutionPriority] is only
       honoured by the compiler from C# 13, so this project guards that Shouldly's core
-      overload sets stay unambiguous for consumers on LangVersion < 13. See issue #1278.
-      The successful compile of this project IS the regression test.
+      overload sets stay unambiguous for consumers on LangVersion < 13 (issue #1278), and
+      that the overloads they bind to there still give the right results (issue #825).
+      Compiling guards the former; the tests run in CI (build.ps1) guard the latter.
     -->
     <LangVersion>12</LangVersion>
-    <!-- Analyzer style rules are noise here; this project only guards overload resolution. -->
+    <!-- Analyzer style rules are noise here; these tests exist for LangVersion behaviour, not style. -->
     <NoWarn>$(NoWarn);CA1861</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.3" />
+    <PackageReference Include="GitHubActionsTestLogger" Version="3.0.5" PrivateAssets="all" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
   </ItemGroup>
 </Project>

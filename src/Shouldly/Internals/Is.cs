@@ -36,13 +36,11 @@ static class Is
     /// assertion comparing one value — <c>ShouldBe</c>, the dictionary value assertions — agrees on equality.
     /// </summary>
     /// <remarks>
-    /// Agreement stops at the elements of a collection-typed <typeparamref name="T"/>. The element type isn't
-    /// available here, so elements go through the default object comparer, which — unlike
-    /// <c>EqualityComparer&lt;TElement&gt;</c> — can't see a typed <see cref="IEquatable{T}"/> implementation.
-    /// An element type that implements <see cref="IEquatable{T}"/> without overriding
-    /// <see cref="object.Equals(object)"/> (which CA1067 flags) therefore compares by reference, where
-    /// <c>ShouldBe</c>'s enumerable overload — which has the element type statically — honours it. That overload
-    /// loses the same way one level deeper, on nested collections.
+    /// The elements of a collection-typed <typeparamref name="T"/> go through the default object comparer, as the
+    /// element type isn't available here. That comparer still honours an element's <see cref="IEquatable{T}"/>
+    /// implementation, picked from the runtime types, so an element type that implements it without overriding
+    /// <see cref="object.Equals(object)"/> (CA1067) compares the same way here as under <c>ShouldBe</c>'s
+    /// enumerable overload, at any depth (issue #825).
     /// </remarks>
     public static IEqualityComparer<T> ScalarComparerFor<T>() =>
         ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string)
