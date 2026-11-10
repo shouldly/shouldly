@@ -266,6 +266,30 @@ public static partial class ShouldBeEnumerableTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the string enumerable equals the expected enumerable with the specified case sensitivity,
+    /// optionally ignoring order.
+    /// </summary>
+    // This is a separate overload, rather than an optional ignoreOrder on the one above, so that overload
+    // keeps its signature (binary compatibility, and positional customMessage callers). ignoreOrder is
+    // required: if it were optional, ShouldBe(expected, caseSensitivity) would match both overloads with
+    // defaults filled in and fail with CS0121 on every C# version, not something
+    // [OverloadResolutionPriority] could settle on LangVersion < 13 (see issue #1278).
+    public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, bool ignoreOrder,
+        string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        if (!ignoreOrder)
+        {
+            actual.ShouldBe(expected, caseSensitivity, customMessage, actualExpression);
+            return;
+        }
+
+        var comparer = caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        actual.AssertAwesomelyIgnoringOrder(expected, comparer, isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression,
+            caseSensitivity);
+    }
+
+    /// <summary>
     /// Asserts that the enumerable is in ascending order.
     /// </summary>
     public static void ShouldBeInOrder<T>(this IEnumerable<T> actual, string? customMessage = null,

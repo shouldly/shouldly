@@ -1,0 +1,13 @@
+```
+simpsons
+    should be (ignoring order, case insensitive comparison)
+["bart", "HOMER", "Lisa"]
+    but
+simpsons
+    is missing
+["Lisa"]
+    and
+["bart", "HOMER", "Lisa"]
+    is missing
+["marge"]
+```

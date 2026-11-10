@@ -89,6 +89,18 @@ public class ShouldBeExamples
     }
 
     [Fact]
+    public void EnumerablesOfStrings()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var simpsons = new[] { "Homer", "marge", "Bart" };
+                simpsons.ShouldBe(["bart", "HOMER", "Lisa"], Case.Insensitive, ignoreOrder: true);
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
     public void BooleanExample()
     {
         DocExampleWriter.Document(

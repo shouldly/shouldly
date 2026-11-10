@@ -211,6 +211,38 @@ firstSet
 <!-- endInclude -->
 
 
+## Enumerables of Strings
+
+Enumerables of `string` can be compared with a `Case`. Add `ignoreOrder: true` to also ignore the order of the elements.
+
+<!-- snippet: ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs -->
+<a id='snippet-ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs'></a>
+```cs
+var simpsons = new[] { "Homer", "marge", "Bart" };
+simpsons.ShouldBe(["bart", "HOMER", "Lisa"], Case.Insensitive, ignoreOrder: true);
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerablesOfStrings.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeExamples.EnumerablesOfStrings.exceptionText.approved.txt -->
+```
+simpsons
+    should be (ignoring order, case insensitive comparison)
+["bart", "HOMER", "Lisa"]
+    but
+simpsons
+    is missing
+["Lisa"]
+    and
+["bart", "HOMER", "Lisa"]
+    is missing
+["marge"]
+```
+<!-- endInclude -->
+
+
 ## Bools
 
 <!-- snippet: ShouldBeExamples.BooleanExample.codeSample.approved.cs -->

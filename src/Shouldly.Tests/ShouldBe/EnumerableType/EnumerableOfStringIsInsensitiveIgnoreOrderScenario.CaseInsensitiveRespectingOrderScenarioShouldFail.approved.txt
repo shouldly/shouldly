@@ -1,0 +1,7 @@
+new[] { "A", "b" }
+    should be
+["B", "a"]
+    but was (case insensitive comparison)
+["A", "b"]
+    difference
+[*"A"*, *"b"*]
