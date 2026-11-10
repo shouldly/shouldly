@@ -45,9 +45,24 @@ public class EqualityTests
         // IEquatable<T> is honoured even where the static type has been lost (#825)
         ["IEquatable-only elements as objects"] = (() => Equality.Equal(new List<object> { new EquatableOnly(1) }, [new EquatableOnly(1)]), true),
 
-        // Compare-as-object types use their own Equals, not their items
-        ["compare-as-object, same id, different items"] = (() => Equality.Equal(new IdBag(1, 1), new IdBag(1, 2)), true),
-        ["compare-as-object, different id, same items"] = (() => Equality.Equal(new IdBag(1, 1), new IdBag(2, 1)), false),
+        // A registered equality rule decides, for the type and its subtypes, at any depth (see ModuleInitializer)
+        ["rule, own Equals, same id, different items"] = (() => Equality.Equal(new IdBag(1, 1), new IdBag(1, 2)), true),
+        ["rule, own Equals, different id, same items"] = (() => Equality.Equal(new IdBag(1, 1), new IdBag(2, 1)), false),
+        ["rule, subtype, same leaf"] = (() => Equality.Equal<Node>(new Leaf("a"), new Leaf("a")), true),
+        ["rule, subtype, different leaf (walked, both are empty)"] = (() => Equality.Equal<Node>(new Leaf("a"), new Leaf("b")), false),
+        ["rule, deep equal branches"] = (() => Equality.Equal<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("a"))), true),
+        ["rule, different branches"] = (() => Equality.Equal<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("b"))), false),
+        ["rule, static subtype"] = (() => Equality.Equal(new Leaf("a"), new Leaf("b")), false),
+        ["rule, whole value through the sequence overload"] = (() => Equality.SequenceEqual<Node>(new Leaf("a"), new Leaf("b")), false),
+        ["rule, sequence of equal values"] = (() => Equality.SequenceEqual<Node>([new Leaf("a")], [new Leaf("a")]), true),
+        ["rule, sequence of different values"] = (() => Equality.SequenceEqual<Node>([new Leaf("a")], [new Leaf("b")]), false),
+        ["rule, ignoring order, permuted"] = (() => Equality.SequenceEqual<Node>([new Leaf("a"), new Leaf("b")], [new Leaf("b"), new Leaf("a")], ignoreOrder: true), true),
+        ["rule, ignoring order, different"] = (() => Equality.SequenceEqual<Node>([new Leaf("a")], [new Leaf("b")], ignoreOrder: true), false),
+        ["rule, nested as objects"] = (() => Equality.Equal(new List<object> { new Leaf("a") }, [new Leaf("b")]), false),
+        ["rule, KeyValuePair value"] = (() => Equality.Equal(new KeyValuePair<string, Node>("k", new Leaf("a")), new("k", new Leaf("b"))), false),
+        ["rule, KeyValuePair value as object"] = (() => Equality.Equal(new KeyValuePair<string, object>("k", new Leaf("a")), new("k", new Leaf("b"))), false),
+        ["rule, most specific wins"] = (() => Equality.Equal(new CaseInsensitiveLeaf("A"), new CaseInsensitiveLeaf("a")), true),
+        ["rule, applies only when both values are its type"] = (() => Equality.Equal<Leaf>(new CaseInsensitiveLeaf("A"), new Leaf("a")), false),
 
         // A caller-supplied comparer decides
         ["custom comparer"] = (() => Equality.Equal("a", "A", StringComparer.OrdinalIgnoreCase), true),

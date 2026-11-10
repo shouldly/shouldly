@@ -1,3 +1,5 @@
+using Shouldly.Internals;
+
 namespace Shouldly;
 
 /// <summary>
@@ -5,25 +7,40 @@ namespace Shouldly;
 /// </summary>
 public static partial class ShouldlyConfiguration
 {
-    static ShouldlyConfiguration()
+    /// <summary>
+    /// Registers how Shouldly decides whether two values of type <typeparamref name="T"/> are equal, for a type whose
+    /// own <see cref="object.Equals(object)"/> or enumeration doesn't capture its meaning. For example, to compare
+    /// Newtonsoft.Json values as JSON:
+    /// <code>ShouldlyConfiguration.UseEquality&lt;JToken&gt;(JToken.DeepEquals);</code>
+    /// </summary>
+    /// <remarks>
+    /// The rule applies wherever Shouldly compares two values that are both instances of <typeparamref name="T"/>,
+    /// including subtypes and implementations, at any depth: <c>ShouldBe</c>, <c>ShouldNotBe</c>, collection elements,
+    /// dictionary keys and values, and the membership assertions (<c>ShouldContain</c>, <c>ShouldBeOneOf</c>, ...).
+    /// A value it applies to is never walked as a collection. <paramref name="equal"/> is called with the expected value
+    /// first and never with <c>null</c>. When several rules apply, the one for the most specific type wins; of equally
+    /// specific ones, the one registered last. Register rules once, before any assertion runs, for example from a
+    /// module initializer.
+    /// </remarks>
+    public static void UseEquality<T>(Func<T, T, bool> equal)
     {
-        CompareAsObjectTypes =
-        [
-            "Newtonsoft.Json.Linq.JToken"
-        ];
+        if (equal == null)
+            throw new ArgumentNullException(nameof(equal));
+
+        EqualityRules.Add(equal);
     }
 
     /// <summary>
-    /// Full names (<see cref="Type.FullName"/>) of enumerable types that <c>ShouldBe</c> and <c>ShouldNotBe</c> compare with
-    /// their own <see cref="object.Equals(object)"/> rather than element by element.
+    /// Registers <paramref name="comparer"/> as how Shouldly decides whether two values of type
+    /// <typeparamref name="T"/> are equal. See <see cref="UseEquality{T}(Func{T, T, bool})"/>.
     /// </summary>
-    /// <remarks>
-    /// Defaults to <c>Newtonsoft.Json.Linq.JToken</c>. A name is matched against the type <c>ShouldBe</c>
-    /// compares: the value's type for the single-value overload (and <c>ShouldNotBe</c> and the dictionary value assertions), or the
-    /// element type for the enumerable overload. Register types once, before any assertion runs (for example
-    /// from a module initializer), as the list is not thread-safe.
-    /// </remarks>
-    public static List<string> CompareAsObjectTypes { get; }
+    public static void UseEquality<T>(IEqualityComparer<T> comparer)
+    {
+        if (comparer == null)
+            throw new ArgumentNullException(nameof(comparer));
+
+        EqualityRules.Add<T>(comparer.Equals);
+    }
 
     /// <summary>
     /// Suppresses the legacy stack-trace + source-file parser that recovers the actual argument's

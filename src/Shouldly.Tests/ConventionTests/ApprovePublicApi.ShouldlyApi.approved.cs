@@ -581,7 +581,6 @@ namespace Shouldly
     {
         public static double DefaultFloatingPointTolerance;
         public static System.TimeSpan DefaultTaskTimeout;
-        public static System.Collections.Generic.List<string> CompareAsObjectTypes { get; }
         public static Shouldly.DiffStyle DiffStyle { get; set; }
         public static Shouldly.EscapeStyle EscapeStyle { get; set; }
         public static int MaxEnumerableItemsInMessages { get; set; }
@@ -590,6 +589,8 @@ namespace Shouldly
         public static System.IDisposable AssertCallerArgumentExpressionIsUsed() { }
         public static System.IDisposable DisableSourceInErrors() { }
         public static bool IsSourceDisabledInErrors() { }
+        public static void UseEquality<T>(System.Collections.Generic.IEqualityComparer<T> comparer) { }
+        public static void UseEquality<T>(System.Func<T, T, bool> equal) { }
     }
     public static class ShouldlyCoreExtensions
     {

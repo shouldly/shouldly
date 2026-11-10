@@ -2,9 +2,9 @@ namespace Shouldly.Internals;
 
 /// <summary>
 /// Shouldly's single definition of when an actual value equals an expected one. Every assertion that compares
-/// values asks this module rather than assembling its own comparer, so the rules (null equivalence, numerics,
-/// compare-as-object types, key/value pairs, <see cref="IEquatable{T}"/>, <c>Equals</c> on the expected value) are
-/// decided in one place.
+/// values asks this module rather than assembling its own comparer, so the rules (null equivalence, equality rules
+/// registered with <see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>, numerics, key/value pairs,
+/// <see cref="IEquatable{T}"/>, <c>Equals</c> on the expected value) are decided in one place.
 /// </summary>
 /// <remarks>
 /// The only option is an element comparer: a caller-supplied one, or one of <see cref="Within(double)"/>,
@@ -26,6 +26,8 @@ static class Equality
     /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal elements: in the same order, or,
     /// with <paramref name="ignoreOrder"/>, matched one for one in any order. A default <c>ImmutableArray&lt;T&gt;</c>
     /// counts as null, and null equals only null. Elements are compared by <paramref name="comparer"/> when given.
+    /// Without one, an equality rule that applies to both sequences as whole values decides instead, so a type such as
+    /// <c>JToken</c>, which enumerates its children, isn't compared by shape alone.
     /// </summary>
     public static bool SequenceEqual<T>(
         IEnumerable<T>? actual,
@@ -39,25 +41,20 @@ static class Equality
         if (actual == null || expected == null)
             return actual == null && expected == null;
 
-        if (comparer == null && !ignoreOrder && IsCompareAsObjectType(typeof(T)))
-            return Equal(actual, expected, new ObjectEqualityComparer<IEnumerable<T>>());
+        if (comparer == null && EqualityRules.TryEquals(expected, actual, out var ruleResult))
+            return ruleResult;
 
-        comparer ??= StructuralComparer<T>();
+        comparer ??= ComparerFor<T>();
         return ignoreOrder
             ? MatchOneForOne(actual, expected, comparer)
             : MatchInOrder(actual, expected, comparer);
     }
 
     /// <summary>
-    /// The comparer behind <see cref="Equal{T}"/>, for code that hands one on: Shouldly's structural comparer, except
-    /// for <see cref="string"/> and the compare-as-object types (<see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>),
-    /// which are compared with their own <see cref="object.Equals(object)"/> rather than walked as enumerables.
-    /// It can't hash: <see cref="IEqualityComparer{T}.GetHashCode(T)"/> throws.
+    /// The comparer behind <see cref="Equal{T}"/>, for code that hands one on. It can't hash:
+    /// <see cref="IEqualityComparer{T}.GetHashCode(T)"/> throws.
     /// </summary>
-    public static IEqualityComparer<T> ComparerFor<T>() =>
-        typeof(T) == typeof(string) || IsCompareAsObjectType(typeof(T))
-            ? new ObjectEqualityComparer<T>()
-            : StructuralComparer<T>();
+    public static IEqualityComparer<T> ComparerFor<T>() => new EqualityComparer<T>();
 
     /// <summary>
     /// Compares numbers as equal when they differ by no more than <paramref name="tolerance"/>.
@@ -74,11 +71,6 @@ static class Equality
     /// </summary>
     public static IEqualityComparer<string?> For(Case caseSensitivity) =>
         caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-
-    private static bool IsCompareAsObjectType(Type type) =>
-        ShouldlyConfiguration.CompareAsObjectTypes.Contains(type.FullName!);
-
-    private static IEqualityComparer<T> StructuralComparer<T>() => new EqualityComparer<T>();
 
     private static bool MatchInOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
     {

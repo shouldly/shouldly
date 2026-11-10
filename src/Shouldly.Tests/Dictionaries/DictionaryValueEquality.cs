@@ -77,12 +77,12 @@ public class DictionaryValueEquality
 
     /// <summary>
     /// <see cref="Strange"/> emulates JToken: implicitly convertible from a string, <see cref="IEnumerable{T}"/>,
-    /// and registered in <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/> so that it is compared with its
-    /// own Equals rather than being walked as an (empty) enumerable. The dictionary value assertions honour that
-    /// registration for the same reason ShouldBe does.
+    /// with an equality rule (see <see cref="ModuleInitializer"/>) so that it is compared with its own Equals rather
+    /// than being walked as an (empty) enumerable. The dictionary value assertions honour that rule for the same
+    /// reason ShouldBe does.
     /// </summary>
     [Fact]
-    public void CompareAsObjectTypesIsHonoured()
+    public void EqualityRuleIsHonoured()
     {
         var dictionary = new Dictionary<string, Strange> { ["key"] = new() };
 

@@ -36,23 +36,9 @@ static class Is
         new Internals.EqualityComparer<T>(innerComparer);
 
     /// <summary>
-    /// The comparer used to compare a single value of type <typeparamref name="T"/>: Shouldly's structural
-    /// comparer, except for <see cref="string"/> and the types registered in
-    /// <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>, which are compared with their own
-    /// <see cref="object.Equals(object)"/> rather than being walked as enumerables. Shared so that every
-    /// assertion comparing one value — <c>ShouldBe</c>, the dictionary value assertions — agrees on equality.
+    /// The comparer used to compare a single value of type <typeparamref name="T"/>: <see cref="Internals.Equality.ComparerFor{T}"/>.
     /// </summary>
-    /// <remarks>
-    /// The elements of a collection-typed <typeparamref name="T"/> go through the default object comparer, as the
-    /// element type isn't available here. That comparer still honours an element's <see cref="IEquatable{T}"/>
-    /// implementation, picked from the runtime types, so an element type that implements it without overriding
-    /// <see cref="object.Equals(object)"/> (CA1067) compares the same way here as under <c>ShouldBe</c>'s
-    /// enumerable overload, at any depth (issue #825).
-    /// </remarks>
-    public static IEqualityComparer<T> ScalarComparerFor<T>() =>
-        ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string)
-            ? new ObjectEqualityComparer<T>()
-            : GetEqualityComparer<T>();
+    public static IEqualityComparer<T> ScalarComparerFor<T>() => Internals.Equality.ComparerFor<T>();
 
     public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
         // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which

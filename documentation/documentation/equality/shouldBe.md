@@ -181,7 +181,7 @@ theBeSharps
 <!-- endInclude -->
 
 
-### Enumerable types that override `Equals`
+### Types with their own equality
 
 A type that implements `IEnumerable<T>` is compared element by element, even when it overrides `Equals`. Its `Equals` is never called, so two values with different identities but the same items pass:
 
@@ -202,28 +202,28 @@ public sealed class IdBag(int id, params int[] items) : IEnumerable<int>
     public override int GetHashCode() => Id;
 }
 ```
-<sup><a href='/src/DocumentationExamples/CompareAsObjectTypesRegistration.cs#L4-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-IdBag' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/EqualityRuleRegistration.cs#L4-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-IdBag' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-To compare such a type with its own `Equals`, register its full name in `ShouldlyConfiguration.CompareAsObjectTypes` once, before any test runs, for example from a module initializer in your test project:
+To tell Shouldly what equality means for such a type, register an equality rule once, before any test runs, for example from a module initializer in your test project:
 
-<!-- snippet: RegisterCompareAsObjectType -->
-<a id='snippet-RegisterCompareAsObjectType'></a>
+<!-- snippet: RegisterEqualityRule -->
+<a id='snippet-RegisterEqualityRule'></a>
 ```cs
 [ModuleInitializer]
 internal static void Initialize() =>
-    ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(IdBag).FullName!);
+    ShouldlyConfiguration.UseEquality<IdBag>((expected, actual) => expected.Equals(actual));
 ```
-<sup><a href='/src/DocumentationExamples/CompareAsObjectTypesRegistration.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterCompareAsObjectType' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/EqualityRuleRegistration.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterEqualityRule' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The name is matched against the type `ShouldBe` compares. `bag.ShouldBe(other)` binds to the enumerable overload, which compares `int` elements, so also state the type argument to compare the `IdBag` values themselves:
+The rule applies wherever Shouldly compares two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. A value the rule covers is never walked as a collection, so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
 
 <!-- snippet: ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs'></a>
 ```cs
 var bag = new IdBag(1, 1, 2, 3);
-bag.ShouldBe<IdBag>(new IdBag(2, 1, 2, 3));
+bag.ShouldBe(new IdBag(2, 1, 2, 3));
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -242,13 +242,19 @@ bag
 ```
 <!-- endInclude -->
 
-The message still lists the values' items, so the two sides can look identical: the failure comes from `Equals`.
+The message still lists the values' items, so the two sides can look identical: the failure comes from the rule.
 
-`ShouldNotBe` compares registered types the same way, so it passes exactly when `ShouldBe` fails. It has no enumerable overload, so `bag.ShouldNotBe(other)` needs no type argument.
+When several rules apply, the one for the most specific type wins. The rule is called with the expected value first, and never with `null`. You can also register an `IEqualityComparer<T>`: `ShouldlyConfiguration.UseEquality(myComparer)`. For a one-off comparison without a global rule, pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.
 
-A type that enumerates itself, like `Newtonsoft.Json.Linq.JToken` (`class JToken : IEnumerable<JToken>`), needs no type argument, as its element type is the type itself. `JToken` is registered by default.
+#### Newtonsoft.Json
 
-Without the global setting, you can pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.
+`JToken` (and so `JObject`, `JArray` and `JValue`) is enumerable, and only `JValue` overrides `Equals`. Compared element by element, two tokens are equal whenever they have the same shape, so `{"a":1}` equals `{"b":2}`. Register `JToken.DeepEquals` to compare them as JSON:
+
+```csharp
+[ModuleInitializer]
+internal static void Initialize() =>
+    ShouldlyConfiguration.UseEquality<JToken>(JToken.DeepEquals);
+```
 
 ## Enumerables of Numerics
 

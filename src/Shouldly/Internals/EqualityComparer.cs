@@ -54,7 +54,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
 
     public bool Equals(T? x, T? y)
     {
-        if (s_useTypedEquatableFastPath)
+        if (s_useTypedEquatableFastPath && (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T))))
         {
             // Value-type T with IEquatable<T> and no IEnumerable / float-tolerance
             // entanglement: BCL EqualityComparer<T>.Default dispatches to the
@@ -72,6 +72,15 @@ class EqualityComparer<T> : IEqualityComparer<T>
 
         if (NullEquivalence.IsNull(y))
             return false;
+
+        // A registered equality rule decides before anything else, so a value it covers is never walked (x is the
+        // expected value: callers compare as Equals(expected, actual)).
+        if (EqualityRules.TryEquals(x, y, out var ruleResult))
+            return ruleResult;
+
+        // Strings are compared with their own Equals rather than walked as sequences of characters.
+        if (x is string xString && y is string yString)
+            return string.Equals(xString, yString);
 
         if (Numerics.IsNumericType(x) &&
             Numerics.IsNumericType(y))
