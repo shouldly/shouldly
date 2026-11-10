@@ -1,0 +1,7 @@
+new object[] { 1, 2, 1L }
+    should be unique but
+[1L]
+    was duplicated
+
+Additional Info:
+    Some additional context

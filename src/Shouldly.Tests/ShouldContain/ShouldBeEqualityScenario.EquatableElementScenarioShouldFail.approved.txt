@@ -1,0 +1,8 @@
+new[] { new EquatableOnly(1), new EquatableOnly(2) }
+    should contain
+EquatableOnly(3)
+    but was actually
+[EquatableOnly(1), EquatableOnly(2)]
+
+Additional Info:
+    Some additional context

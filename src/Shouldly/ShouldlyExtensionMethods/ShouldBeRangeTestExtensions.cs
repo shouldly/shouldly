@@ -1,15 +1,16 @@
+using Shouldly.Internals;
+
 namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
 {
     /// <summary>
-    /// Asserts that the actual value is one of the expected values.
+    /// Asserts that the actual value is one of the expected values, comparing as <c>ShouldBe</c> does.
     /// </summary>
     public static void ShouldBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        // Enumerable.Contains on an array always tolerates null.
-        if (!expected.Contains(actual!))
+        if (!Membership.IsOneOf(actual, expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
     }
 
@@ -25,13 +26,12 @@ public static partial class ShouldBeTestExtensions
     }
 
     /// <summary>
-    /// Asserts that the actual value is not one of the expected values.
+    /// Asserts that the actual value is not one of the expected values, comparing as <c>ShouldBe</c> does.
     /// </summary>
     public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        // Enumerable.Contains on an array always tolerates null.
-        if (expected.Contains(actual!))
+        if (Membership.IsOneOf(actual, expected))
             throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
     }
 

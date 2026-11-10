@@ -1,5 +1,6 @@
 # Contain
 
+Without a comparer, `ShouldContain` and `ShouldNotContain` compare elements the way [`ShouldBe`](../equality/shouldBe.md) compares values, whatever the collection type. A set (`ISet<T>`, `IReadOnlySet<T>`) or the `Keys` of a `Dictionary`, `SortedDictionary`, `SortedList` or `ReadOnlyDictionary` also contains whatever its own comparer finds, so a `HashSet<string>` created with `StringComparer.OrdinalIgnoreCase` contains `"A"` when it holds `"a"`. Pass an `IEqualityComparer<T>` to compare elements differently.
 
 ## ShouldContain
 
