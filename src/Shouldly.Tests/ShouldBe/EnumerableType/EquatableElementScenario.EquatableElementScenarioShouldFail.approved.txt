@@ -1,0 +1,10 @@
+List(1, 2, 3)
+    should be
+[Equatable(1), Equatable(2), Equatable(4)]
+    but was
+[Equatable(1), Equatable(2), Equatable(3)]
+    difference
+[Equatable(1), Equatable(2), *Equatable(3)*]
+
+Additional Info:
+    Some additional context

@@ -101,25 +101,26 @@ public class DictionaryValueEquality
     }
 
     /// <summary>
-    /// A limitation shared with <c>ShouldBe</c>, pinned here so the divergence is deliberate rather than
-    /// discovered: the elements of a collection value are compared without their static element type, so an
-    /// element implementing <see cref="IEquatable{T}"/> without an <see cref="object.Equals(object)"/> override
-    /// (CA1067) falls back to reference equality. <c>ShouldBe</c> on the value itself has the element type
-    /// statically and honours it; it loses the same way one level deeper, on nested collections.
+    /// The elements of a collection value are compared without their static element type, so an element
+    /// implementing <see cref="IEquatable{T}"/> without an <see cref="object.Equals(object)"/> override (CA1067)
+    /// is compared with its runtime <see cref="IEquatable{T}"/> implementation — the same answer
+    /// <c>ShouldBe</c> on the value gives, where the element type is statically known. See issue #825.
     /// </summary>
     [Fact]
-    public void ElementsOfACollectionValueDoNotHonourIEquatableWithoutAnEqualsOverride()
+    public void ElementsOfACollectionValueHonourIEquatableWithoutAnEqualsOverride()
     {
         var element = new EquatableWithoutEqualsOverride(1);
         var dictionary = new Dictionary<string, EquatableWithoutEqualsOverride[]> { ["key"] = [element] };
         EquatableWithoutEqualsOverride[] equalButNotIdentical = [new(1)];
 
-        dictionary.ShouldNotContainValueForKey("key", equalButNotIdentical);
+        dictionary.ShouldContainKeyAndValue("key", equalButNotIdentical);
+        Should.Throw<ShouldAssertException>(() => dictionary.ShouldNotContainValueForKey("key", equalButNotIdentical));
+        dictionary.ShouldNotContainValueForKey("key", [new(2)]);
 
-        // The same elements do compare equal where the element type is statically known...
+        // Agrees with ShouldBe on the value itself...
         dictionary["key"].ShouldBe(equalButNotIdentical);
 
-        // ...and where the value is the equatable itself rather than an element of one.
+        // ...and with the value being the equatable itself rather than an element of one.
         new Dictionary<string, EquatableWithoutEqualsOverride> { ["key"] = element }
             .ShouldContainKeyAndValue("key", new(1));
     }

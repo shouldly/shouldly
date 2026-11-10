@@ -120,6 +120,13 @@ class EqualityComparer<T> : IEqualityComparer<T>
             }
         }
 
+        // Implements IEquatable<U> for the runtime types? Reached when T has lost the element type — the elements
+        // of a collection compared through the object comparer, or ShouldBe<object> — so a typed Equals isn't
+        // ignored in favour of reference equality (#825). Deliberately after IComparable, so only types whose
+        // Equals(object) disagrees with their IEquatable<U> see a different answer.
+        if (RuntimeEquatable.TryEquals(x, y, out var runtimeEquatableResult))
+            return runtimeEquatableResult;
+
         // Last case, rely on Object.Equals
         return object.Equals(x, y);
     }
