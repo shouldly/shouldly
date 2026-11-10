@@ -5,7 +5,31 @@ Shouldly has a few configuration options:
 
 ## DefaultFloatingPointTolerance
 
-Allows specifying a floating point tolerance for all assertions
+A linear tolerance used when an assertion compares two `float` or `double` values and wasn't given
+a tolerance of its own. `decimal` and integer values are always compared exactly.
+
+```csharp
+ShouldlyConfiguration.DefaultFloatingPointTolerance = 1e-9;
+
+(0.1 + 0.2).ShouldBe(0.3);                                // passes
+new Point(0.1 + 0.2).ShouldBeEquivalentTo(new Point(0.3)); // passes
+```
+
+It applies to:
+
+- `ShouldBe` and `ShouldNotBe`, including collections (with or without `ignoreOrder`), spans and
+  memory
+- `ShouldContainKeyAndValue` and `ShouldNotContainValueForKey`
+- the leaf values that `ShouldBeEquivalentTo` compares, wherever they sit in the graph: members,
+  collection elements, dictionary keys and values, and the members of records and tuples
+
+A `float` or `double` inside a value compared with its own `Equals` isn't reached by the tolerance.
+For example, `ShouldBe` on two records or tuples uses the record's or tuple's `Equals`, which
+compares their `double` members exactly. Use `ShouldBeEquivalentTo` to compare them member by
+member.
+
+The setting is a plain static field, not scoped to the logical call context, so a test that changes
+it should restore the previous value when it's done.
 
 **Default value:** 0.0d
 

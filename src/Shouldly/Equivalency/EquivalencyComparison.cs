@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using Shouldly.Internals;
 
 namespace Shouldly.Equivalency;
@@ -267,15 +268,41 @@ internal sealed class EquivalencyComparison
         var expectedEntries = shape.GetEntries(expected).ToList();
         var actualEntries = actualShape.GetEntries(actual).ToList();
 
-        // Match keys with maximum bipartite matching (see CompareUnordered) so that, when keys are
-        // themselves complex and a key is equivalent to more than one candidate, a greedy pairing
-        // cannot wrongly leave a matchable key unmatched.
+        // Match keys with maximum bipartite matching (see CompareUnordered) so that, when a key is
+        // equivalent to more than one candidate (complex keys, or floating-point keys within
+        // DefaultFloatingPointTolerance of each other), a greedy pairing cannot wrongly leave a
+        // matchable key unmatched. Entries whose values also match are paired first, so an ambiguous
+        // key isn't paired with the wrong entry and its value reported as a mismatch; the leftovers are
+        // then paired by key alone, so a genuine value mismatch is still reported against its key.
+        bool KeysMatch(int e, int a) => IsEquivalent(actualEntries[a].Key, expectedEntries[e].Key, shape.KeyType);
+
         var matchOfExpected = MatchByEquivalence(
             expectedEntries.Count,
             actualEntries.Count,
-            (e, a) => IsEquivalent(actualEntries[a].Key, expectedEntries[e].Key, shape.KeyType));
+            (e, a) => KeysMatch(e, a) && IsEquivalent(actualEntries[a].Value, expectedEntries[e].Value, shape.ValueType));
 
         var matchedActual = new bool[actualEntries.Count];
+        foreach (var matchIndex in matchOfExpected)
+        {
+            if (matchIndex >= 0)
+                matchedActual[matchIndex] = true;
+        }
+
+        var unmatchedExpected = Enumerable.Range(0, expectedEntries.Count).Where(e => matchOfExpected[e] < 0).ToList();
+        if (unmatchedExpected.Count > 0)
+        {
+            var unmatchedActual = Enumerable.Range(0, actualEntries.Count).Where(a => !matchedActual[a]).ToList();
+            var keyOnlyMatch = MatchByEquivalence(
+                unmatchedExpected.Count,
+                unmatchedActual.Count,
+                (e, a) => KeysMatch(unmatchedExpected[e], unmatchedActual[a]));
+
+            for (var i = 0; i < unmatchedExpected.Count; i++)
+            {
+                if (keyOnlyMatch[i] >= 0)
+                    matchOfExpected[unmatchedExpected[i]] = unmatchedActual[keyOnlyMatch[i]];
+            }
+        }
 
         for (var i = 0; i < expectedEntries.Count; i++)
         {
@@ -405,8 +432,15 @@ internal sealed class EquivalencyComparison
 
     private static bool LeafEquals(object actual, object expected)
     {
-        if (actual.GetType() != expected.GetType() && IsNumeric(actual) && IsNumeric(expected))
-            return NumericEquals(actual, expected);
+        if (IsNumeric(actual) && IsNumeric(expected))
+        {
+            if (actual is float or double || expected is float or double)
+                return FloatingPointEquals(actual, expected);
+
+            // Mixed integral and decimal values compare exactly through decimal.
+            if (actual.GetType() != expected.GetType())
+                return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
+        }
 
         // Equals is called on the expected value, as in ShouldBe (see Is.Equal), so a broken Equals on the value
         // under test can't make the comparison pass.
@@ -423,13 +457,21 @@ internal sealed class EquivalencyComparison
             TypeCode.Single or TypeCode.Double or
             TypeCode.Decimal;
 
-    private static bool NumericEquals(object actual, object expected)
+    /// <summary>
+    /// Compares through <see cref="Numerics"/>, as ShouldBe does, so
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies. Mixed types are widened to
+    /// double first: Numerics would narrow a float compared with an integer or decimal to float, which isn't lossless.
+    /// </summary>
+    private static bool FloatingPointEquals(object actual, object expected)
     {
-        if (actual is float or double || expected is float or double)
-            return Convert.ToDouble(actual).Equals(Convert.ToDouble(expected));
+        if (actual.GetType() != expected.GetType())
+        {
+            actual = Convert.ToDouble(actual);
+            expected = Convert.ToDouble(expected);
+        }
 
-        // Integral and decimal values compare exactly through decimal.
-        return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
+        var tolerance = Tolerance.Empty;
+        return Numerics.AreEqual(expected, actual, ref tolerance);
     }
 
     private void AddDifference(EquivalencyDifferenceKind kind, List<string> path, object? expected, object? actual, string? detail = null) =>
