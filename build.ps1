@@ -50,6 +50,7 @@ $testProjects = @(
     "src/Shouldly.Tests/Shouldly.Tests.csproj"
     "src/EquivalencyComparisonTests/EquivalencyComparisonTests.csproj"
     "src/DocumentationExamples/DocumentationExamples.csproj"
+    "src/LangVersionCompatTests/LangVersionCompatTests.csproj"
 )
 
 # Run tests for each project
