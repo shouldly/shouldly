@@ -1,0 +1,7 @@
+list
+    should not be
+[1, 2]
+    but was
+
+Additional Info:
+    Some additional context

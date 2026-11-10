@@ -50,6 +50,13 @@ sealed class ComparisonRecord
             usesCustomComparer: isCustom);
 
     /// <summary>
+    /// A comparison of whole values with a caller-supplied comparer. Records no element equality: the comparer
+    /// compares whole values, so it can't stand in for comparing their elements.
+    /// </summary>
+    public static ComparisonRecord ComparedValuesWithCustomComparer() =>
+        new(usesCustomComparer: true);
+
+    /// <summary>
     /// A subset comparison, with the actual items it found outside the expected set.
     /// </summary>
     public static ComparisonRecord FoundUnmatched(IEnumerable unmatchedItems) =>

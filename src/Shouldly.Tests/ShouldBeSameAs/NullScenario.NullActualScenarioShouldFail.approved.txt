@@ -1,0 +1,5 @@
+nothing
+    should be same as
+[1]
+    but was
+null
