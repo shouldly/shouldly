@@ -1,0 +1,8 @@
+ImmutableArray.Create(1)
+    should be
+null
+    but was
+[1]
+
+Additional Info:
+    Some additional context

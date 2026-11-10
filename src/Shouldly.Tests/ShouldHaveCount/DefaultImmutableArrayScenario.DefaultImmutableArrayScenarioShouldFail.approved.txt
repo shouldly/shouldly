@@ -1,0 +1,8 @@
+actual
+    should have 0 items but had
+0
+    items and was
+null
+
+Additional Info:
+    Some additional context

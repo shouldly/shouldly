@@ -62,6 +62,9 @@ static class Is
 
     public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
     {
+        actual = Internals.NullEquivalence.Normalize(actual);
+        expected = Internals.NullEquivalence.Normalize(expected);
+
         if (actual == null && expected == null)
             return true;
         if (actual == null || expected == null)
@@ -93,6 +96,9 @@ static class Is
 
     public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
     {
+        actual = Internals.NullEquivalence.Normalize(actual);
+        expected = Internals.NullEquivalence.Normalize(expected);
+
         if (actual == null && expected == null)
             return true;
 

@@ -10,12 +10,16 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 {
     private const int MaxElementsToShow = 1000;
 
+    // A default ImmutableArray<T> is IEnumerable but throws when enumerated, so it is left to the formatter, which
+    // prints it as null (#1406).
     public bool CanProcess(IShouldlyAssertionContext context) =>
         context is
         {
             Expected: IEnumerable and not string,
             Actual: IEnumerable and not string
-        };
+        } &&
+        !NullEquivalence.IsNull(context.Expected) &&
+        !NullEquivalence.IsNull(context.Actual);
 
     public string? HighlightDifferences(IShouldlyAssertionContext context)
     {

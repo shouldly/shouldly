@@ -66,7 +66,11 @@ class EqualityComparer<T> : IEqualityComparer<T>
         if (ReferenceEquals(x, y))
             return true;
 
-        if (x is null || y is null)
+        // A default ImmutableArray<T> counts as null: it equals null or another default, and is never enumerated (#1406).
+        if (NullEquivalence.IsNull(x))
+            return NullEquivalence.IsNull(y);
+
+        if (NullEquivalence.IsNull(y))
             return false;
 
         if (Numerics.IsNumericType(x) &&

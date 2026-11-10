@@ -1,0 +1,8 @@
+DefaultArray
+    should be
+[] (System.Collections.Immutable.ImmutableArray`1[System.Int32])
+    but was
+null
+
+Additional Info:
+    Some additional context

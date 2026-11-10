@@ -1,0 +1,10 @@
+new[] { ImmutableArray.Create(1), DefaultArray }
+    should be
+[[1], [] (System.Collections.Immutable.ImmutableArray`1[System.Int32])]
+    but was
+[[1], null]
+    difference
+[[1], *null*]
+
+Additional Info:
+    Some additional context

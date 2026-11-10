@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+new Holder(ImmutableArray.Create(1)) [Shouldly.Tests.ShouldBeEquivalentTo.ImmutableArrayScenario+Holder]
+    Values
+
+    Expected value to be
+null
+    but was
+[1]
+
+Additional Info:
+    Some additional context

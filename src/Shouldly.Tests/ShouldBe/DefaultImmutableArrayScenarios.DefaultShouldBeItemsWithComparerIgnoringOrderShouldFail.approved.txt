@@ -1,0 +1,8 @@
+DefaultArray
+    should be
+[1, 2]
+    but was
+null
+
+Additional Info:
+    Some additional context

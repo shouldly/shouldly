@@ -1,0 +1,8 @@
+actual
+    should be of type
+System.String
+    but was
+System.Collections.Immutable.ImmutableArray`1[[System.Int32]]
+
+Additional Info:
+    Some additional context

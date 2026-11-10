@@ -6,7 +6,7 @@ static class StringHelpers
 {
     internal static string? ToStringAwesomely(this object? value)
     {
-        if (value == null)
+        if (NullEquivalence.IsNull(value))
             return "null";
 
         if (value is string)

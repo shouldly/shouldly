@@ -85,8 +85,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        expected = EnumerableProxy<T>.WrapNonCollection(expected);
+        actual = EnumerableProxy<T>.WrapNonCollection(NullEquivalence.Normalize(actual));
+        expected = EnumerableProxy<T>.WrapNonCollection(NullEquivalence.Normalize(expected));
 
         if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
         {
@@ -116,6 +116,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        actual = NullEquivalence.Normalize(actual);
+        expected = NullEquivalence.Normalize(expected);
+
         if (ignoreOrder)
         {
             actual.AssertAwesomelyIgnoringOrder(expected, comparer, isCustomComparer: true, customMessage, nameof(ShouldBe), actualExpression);
