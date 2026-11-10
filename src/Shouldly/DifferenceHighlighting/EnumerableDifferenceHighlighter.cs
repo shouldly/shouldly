@@ -26,13 +26,19 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
 
             var highestCount = Math.Max(actualList.Count(), expectedList.Count());
 
-            return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount);
+            // Use the assertion's own element equality when it passed one, so a custom comparer's matches aren't
+            // highlighted as differences.
+            var equal = context is ShouldlyAssertionContext { ElementEquals: { } elementEquals }
+                ? elementEquals
+                : (a, e) => Is.Equal(a, e);
+
+            return HighlightDifferencesBetweenLists(actualList, expectedList, highestCount, equal);
         }
 
         return actual.ToStringAwesomely();
     }
 
-    private string HighlightDifferencesBetweenLists(IEnumerable<object> actualList, IEnumerable<object> expectedList, int highestListCount)
+    private string HighlightDifferencesBetweenLists(IEnumerable<object> actualList, IEnumerable<object> expectedList, int highestListCount, Func<object?, object?, bool> equal)
     {
         var returnMessage = new StringBuilder("[");
 
@@ -44,7 +50,7 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
                 break;
             }
 
-            returnMessage.Append(GetComparedItemString(actualList, expectedList, listItem));
+            returnMessage.Append(GetComparedItemString(actualList, expectedList, listItem, equal));
 
             if (listItem < highestListCount - 1)
             {
@@ -55,7 +61,7 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
         return returnMessage.Append("]").ToString();
     }
 
-    private string? GetComparedItemString(IEnumerable<object> actualList, IEnumerable<object> expectedList, int itemPosition)
+    private string? GetComparedItemString(IEnumerable<object> actualList, IEnumerable<object> expectedList, int itemPosition, Func<object?, object?, bool> equal)
     {
         if (expectedList.Count() <= itemPosition)
         {
@@ -67,7 +73,7 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
             return ItemDifferenceHighlighter.HighlightCharacter;
         }
 
-        if (Is.Equal(actualList.ElementAt(itemPosition), expectedList.ElementAt(itemPosition)))
+        if (equal(actualList.ElementAt(itemPosition), expectedList.ElementAt(itemPosition)))
         {
             return actualList.ElementAt(itemPosition).ToStringAwesomely();
         }

@@ -406,7 +406,9 @@ internal sealed class EquivalencyComparison
         if (actual.GetType() != expected.GetType() && IsNumeric(actual) && IsNumeric(expected))
             return NumericEquals(actual, expected);
 
-        return actual.Equals(expected);
+        // Equals is called on the expected value, as in ShouldBe (see Is.Equal), so a broken Equals on the value
+        // under test can't make the comparison pass.
+        return expected.Equals(actual);
     }
 
     private static bool IsNumeric(object value) =>

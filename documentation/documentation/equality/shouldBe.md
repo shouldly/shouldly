@@ -5,7 +5,7 @@
 
 `ShouldBe` works on all types and compares using `.Equals`.
 
-`Equals` is called on the **expected** value, with the actual value as its argument (`expected.Equals(actual)`). This way a broken `Equals` on the value under test, one that accepts anything, can't make an assertion pass. When you pass a custom `IEqualityComparer<T>`, it is called as `comparer.Equals(expected, actual)`. This holds for every `ShouldBe` and `ShouldNotBe` overload, collections (with or without `ignoreOrder`) and spans included. For types whose equality isn't symmetric, such as a type that compares equal to a `string` that knows nothing of it, specify the type explicitly (`path.ShouldBe<FilePath>("C:\\file.txt")`) or pass a comparer.
+`Equals` is called on the **expected** value, with the actual value as its argument (`expected.Equals(actual)`). This way a broken `Equals` on the value under test, one that accepts anything, can't make an assertion pass. When you pass a custom `IEqualityComparer<T>`, it is called as `comparer.Equals(expected, actual)`. This holds for every `ShouldBe` and `ShouldNotBe` overload, collections (with or without `ignoreOrder`) and spans included, and for the leaf values `ShouldBeEquivalentTo` compares. For types whose equality isn't symmetric, such as a type that compares equal to a `string` that knows nothing of it, specify the type explicitly (`path.ShouldBe<FilePath>("C:\\file.txt")`) or pass a comparer.
 
 <!-- snippet: ShouldBeObjects -->
 <a id='snippet-ShouldBeObjects'></a>

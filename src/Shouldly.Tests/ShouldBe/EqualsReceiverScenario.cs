@@ -65,6 +65,67 @@ public class EqualsReceiverScenario
             Actual().ShouldBe(Expected(), ignoreOrder: true, "Some additional context"));
     }
 
+    [Fact]
+    public void EquivalentToLeafCallsEqualsOnExpected()
+    {
+        // ShouldBeEquivalentTo compares a string-valued node as a leaf, so this is #1076's shape again.
+        var path = new PathLike("C:\\file.txt");
+
+        Should.Throw<ShouldAssertException>(() => path.ShouldBeEquivalentTo("C:\\file.txt"));
+        Should.Throw<ShouldAssertException>(() =>
+            new { File = (object)path }.ShouldBeEquivalentTo(new { File = (object)"C:\\file.txt" }));
+    }
+
+    [Fact]
+    public void IgnoringOrderWithComparerScenarioShouldFail()
+    {
+        // The message must match elements with the comparer the assertion used, or it would report 1 and 11 as
+        // missing even though the comparer matched them.
+        int[] actual = [1, 2];
+
+        Verify.ShouldFail(() =>
+            actual.ShouldBe([11, 3], new LastDigitComparer(), ignoreOrder: true, "Some additional context"));
+    }
+
+    [Fact]
+    public void StringsIgnoringOrderWithComparerScenarioShouldFail()
+    {
+        // String collections used to get the positional, case-sensitivity message instead of the ignore-order one,
+        // which flagged "A" as a difference although the comparer matched it to "a".
+        string[] actual = ["A", "b"];
+
+        Verify.ShouldFail(() =>
+            actual.ShouldBe(["a", "c"], StringComparer.OrdinalIgnoreCase, ignoreOrder: true, "Some additional context"));
+    }
+
+    [Fact]
+    public void StringsWithComparerScenarioShouldFail()
+    {
+        // The comparer decides case sensitivity, so the message mustn't claim a case-sensitive comparison, and
+        // mustn't highlight "A" as a difference when the comparer matched it to "a".
+        string[] actual = ["A", "b"];
+
+        Verify.ShouldFail(() =>
+            actual.ShouldBe(["a", "c"], StringComparer.OrdinalIgnoreCase, customMessage: "Some additional context"));
+    }
+
+    [Fact]
+    public void WithComparerScenarioShouldFail()
+    {
+        // The difference highlighting must use the comparer: 1 matches 11, only 2 vs 3 differs.
+        int[] actual = [1, 2];
+
+        Verify.ShouldFail(() =>
+            actual.ShouldBe([11, 3], new LastDigitComparer(), customMessage: "Some additional context"));
+    }
+
+    [Fact]
+    public void ScalarStringWithComparerScenarioShouldFail()
+    {
+        Verify.ShouldFail(() =>
+            "A".ShouldBe("b", StringComparer.OrdinalIgnoreCase, "Some additional context"));
+    }
+
     private static Element[] Actual() => [new Lenient()];
 
     private static Element[] Expected() => [new Strict()];
@@ -107,6 +168,13 @@ public class EqualsReceiverScenario
         }
 
         public int GetHashCode(Named obj) => 0;
+    }
+
+    private sealed class LastDigitComparer : IEqualityComparer<int>
+    {
+        public bool Equals(int x, int y) => x % 10 == y % 10;
+
+        public int GetHashCode(int obj) => obj % 10;
     }
 
     private readonly struct PathLike(string path) : IEquatable<PathLike>

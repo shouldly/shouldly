@@ -1,0 +1,10 @@
+actual
+    should be
+["a", "c"]
+    but was
+["A", "b"]
+    difference
+["A", *"b"*]
+
+Additional Info:
+    Some additional context

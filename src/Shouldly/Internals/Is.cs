@@ -32,7 +32,7 @@ static class Is
     public static bool Equal<T>(T? actual, T? expected, IEqualityComparer<T> comparer) =>
         comparer.Equals(expected, actual);
 
-    private static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
+    internal static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
         new Internals.EqualityComparer<T>(innerComparer);
 
     /// <summary>

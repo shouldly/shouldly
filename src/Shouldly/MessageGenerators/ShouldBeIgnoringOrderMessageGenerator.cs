@@ -22,8 +22,14 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         var codePart = context.CodePart;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
-        var missingFromExpected = actual.Where(a => !expected.Any(e => Is.Equal(a, e))).ToArray();
-        var missingFromActual = expected.Where(e => !actual.Any(a => Is.Equal(a, e))).ToArray();
+        // ShouldBe passes the element equality it compared with, so any custom comparer is honored. Fall back to
+        // default equality for other callers.
+        var equal = context is ShouldlyAssertionContext { ElementEquals: { } elementEquals }
+            ? elementEquals
+            : (a, e) => Is.Equal(a, e);
+
+        var missingFromExpected = actual.Where(a => !expected.Any(e => equal(a, e))).ToArray();
+        var missingFromActual = expected.Where(e => !actual.Any(a => equal(a, e))).ToArray();
 
         var actualMissingMessage = missingFromActual.Any()
             ? $"""

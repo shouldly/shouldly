@@ -1,0 +1,14 @@
+actual
+    should be (ignoring order)
+["a", "c"]
+    but
+actual
+    is missing
+["c"]
+    and
+["a", "c"]
+    is missing
+["b"]
+
+Additional Info:
+    Some additional context
