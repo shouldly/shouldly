@@ -58,6 +58,15 @@ public class ShouldBeEqualityScenario
     }
 
     [Fact]
+    public void DefaultHashSetsAnswerFromTheirOwnLookup()
+    {
+        var set = new HashSet<int>(Enumerable.Range(1, 1000));
+
+        set.ShouldNotContain(-1);
+        Should.Throw<ShouldAssertException>(() => set.ShouldNotContain(500));
+    }
+
+    [Fact]
     public void DictionaryKeysKeepTheDictionarysComparer()
     {
         var dictionary = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) { ["a"] = 1 };

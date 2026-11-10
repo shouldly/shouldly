@@ -24,6 +24,12 @@ static class Membership
         if (OwnLookupContains(actual, expected))
             return true;
 
+        // A hash set whose comparer agrees with Shouldly's has answered exactly, so don't scan it.
+        if (DefaultEqualityAgrees<T>.Value &&
+            actual is HashSet<T> hashSet &&
+            hashSet.Comparer.Equals(System.Collections.Generic.EqualityComparer<T>.Default))
+            return false;
+
         var comparer = Is.ScalarComparerFor<T>();
         foreach (var item in actual)
         {
