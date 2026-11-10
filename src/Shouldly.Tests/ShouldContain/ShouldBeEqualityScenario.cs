@@ -23,6 +23,17 @@ public class ShouldBeEqualityScenario
         new object[] { 1 }.ShouldContain(1L);
 
     [Fact]
+    public void CrossTypeNumericsAreComparedLosslessly()
+    {
+        new object[] { 9007199254740992L, 0.5m }.ShouldContain(9007199254740992.0);
+        new object[] { 9007199254740992L, 0.5m }.ShouldContain(0.5f);
+        Should.Throw<ShouldAssertException>(() => new object[] { 9007199254740993L }.ShouldContain(9007199254740992.0));
+        Should.Throw<ShouldAssertException>(() => new object[] { 0.1000000000000000001m }.ShouldContain(0.1));
+        Should.Throw<ShouldAssertException>(() => new object[] { 16777217 }.ShouldContain(16777216f));
+        Should.Throw<ShouldAssertException>(() => new object[] { 0.1f }.ShouldContain(0.1));
+    }
+
+    [Fact]
     public void CollectionElementsAreComparedStructurally()
     {
         new List<int[]> { new[] { 1 } }.ShouldContain([1]);
