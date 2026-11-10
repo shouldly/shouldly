@@ -87,6 +87,23 @@ public class ShouldBeScenarios
             new Strange().ShouldBe("string", "Some additional context"));
     }
 
+    /// <summary>
+    /// Two Strange values bind to the enumerable overload with T = Strange. As Strange isn't a collection,
+    /// that overload wraps each side in a proxy; the registered-type check must compare the original values
+    /// with their own Equals, not the proxies by reference.
+    /// </summary>
+    [Fact]
+    public void RegisteredSelfEnumerableIsComparedWithItsOwnEquals()
+    {
+        Strange value = "string";
+        Strange equal = "string";
+        Strange different = "other";
+
+        value.ShouldBe(value);
+        value.ShouldBe(equal);
+        Should.Throw<ShouldAssertException>(() => value.ShouldBe(different));
+    }
+
     [Fact]
     public void NumbersOfDifferentTypesScenarioShouldFail()
     {

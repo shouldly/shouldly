@@ -86,15 +86,17 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        expected = EnumerableProxy<T>.WrapNonCollection(expected);
-
+        // Registered types are compared with their own Equals, so check before wrapping: a proxy around a
+        // non-collection value would compare by reference.
         if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
         {
             actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, customMessage, actualExpression: actualExpression);
         }
         else
         {
+            actual = EnumerableProxy<T>.WrapNonCollection(actual);
+            expected = EnumerableProxy<T>.WrapNonCollection(expected);
+
             if (ignoreOrder)
             {
                 actual.AssertAwesomelyIgnoringOrder(expected, Is.GetEqualityComparer<T>(), isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression);

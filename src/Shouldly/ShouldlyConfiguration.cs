@@ -9,14 +9,20 @@ public static partial class ShouldlyConfiguration
     {
         CompareAsObjectTypes =
         [
-            "Newtonsoft.Json.Linq.JToken",
-            "Shouldly.Tests.TestHelpers.Strange"
+            "Newtonsoft.Json.Linq.JToken"
         ];
     }
 
     /// <summary>
-    /// List of type names that should be compared as objects rather than using their Equals method
+    /// Full names (<see cref="Type.FullName"/>) of enumerable types that <c>ShouldBe</c> should compare with
+    /// their own <see cref="object.Equals(object)"/> rather than element by element.
     /// </summary>
+    /// <remarks>
+    /// Defaults to <c>Newtonsoft.Json.Linq.JToken</c>. A name is matched against the type <c>ShouldBe</c>
+    /// compares: the value's type for the single-value overload (and the dictionary value assertions), or the
+    /// element type for the enumerable overload. Register types once, before any assertion runs (for example
+    /// from a module initializer), as the list is not thread-safe.
+    /// </remarks>
     public static List<string> CompareAsObjectTypes { get; }
 
     /// <summary>
