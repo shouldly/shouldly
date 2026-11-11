@@ -147,6 +147,10 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
         if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
             throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }

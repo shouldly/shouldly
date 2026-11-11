@@ -1,3 +1,4 @@
+using Shouldly.Internals;
 using Shouldly.Internals.Failures;
 
 namespace Shouldly;
@@ -20,6 +21,10 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this IEnumerable<double> actual, IEnumerable<double> expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
         if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
             throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
@@ -30,6 +35,10 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this IEnumerable<float> actual, IEnumerable<float> expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
         if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
             throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }

@@ -28,6 +28,8 @@ public static partial class ShouldBeDictionaryTestExtensions
         [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
         where TKey : notnull
     {
+        using var captured = Internals.CapturedSequence.Of(dictionary);
+        dictionary = captured.Items!;
         if (!ContainsKey(dictionary, key))
             throw Fail.ShouldContainKey.With(key).For(dictionary, customMessage, actualExpression);
     }
@@ -39,6 +41,8 @@ public static partial class ShouldBeDictionaryTestExtensions
         [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
         where TKey : notnull
     {
+        using var captured = Internals.CapturedSequence.Of(dictionary);
+        dictionary = captured.Items!;
         if (ContainsKey(dictionary, key))
             throw Fail.ShouldNotContainKey.With(key).For(dictionary, customMessage, actualExpression);
     }
@@ -52,6 +56,8 @@ public static partial class ShouldBeDictionaryTestExtensions
         [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
         where TKey : notnull
     {
+        using var captured = Internals.CapturedSequence.Of(dictionary);
+        dictionary = captured.Items!;
         var keyExists = TryGetValue(dictionary, key, out var actual);
         if (!keyExists || !Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
             throw Fail.ShouldContainKeyAndValue.With(key, val, keyExists, actual).For(dictionary, customMessage, actualExpression);
@@ -66,6 +72,8 @@ public static partial class ShouldBeDictionaryTestExtensions
         [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
         where TKey : notnull
     {
+        using var captured = Internals.CapturedSequence.Of(dictionary);
+        dictionary = captured.Items!;
         var keyExists = TryGetValue(dictionary, key, out var actual);
         if (!keyExists || Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
             throw Fail.ShouldNotContainValueForKey.With(key, val, keyExists).For(dictionary, customMessage, actualExpression);

@@ -23,12 +23,12 @@ static class CapturedSequence
     /// <see cref="CapturedSequence{T}.Items"/> from then on, and dispose the capture when the assertion ends.
     /// </summary>
     /// <remarks>
-    /// A collection, which can be read again, and null are left as they are. Any other sequence is buffered as it
+    /// A collection or a string, which can be read again, and null are left as they are. Any other sequence is buffered as it
     /// is first read rather than all up front, so an infinite or very long sequence is only read as far as
     /// anything actually asks.
     /// </remarks>
     public static CapturedSequence<T> Of<T>(IEnumerable<T>? sequence) =>
-        sequence is null or IReadOnlyCollection<T> or ICollection<T> or ICollection or ICapturedSequence
+        sequence is null or string or IReadOnlyCollection<T> or ICollection<T> or ICollection or ICapturedSequence
             ? new(sequence, null)
             : new(null, new LazyCapture<T>(sequence));
 
