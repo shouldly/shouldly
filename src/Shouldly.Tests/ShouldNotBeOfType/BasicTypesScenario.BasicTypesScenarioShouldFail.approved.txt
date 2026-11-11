@@ -2,7 +2,7 @@ one
     should not be of type
 System.Int32
     but was
-1
+System.Int32
 
 Additional Info:
     Some additional context

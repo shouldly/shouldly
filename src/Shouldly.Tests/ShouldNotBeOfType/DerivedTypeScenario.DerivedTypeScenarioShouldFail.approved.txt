@@ -2,7 +2,7 @@ myThing
     should not be of type
 Shouldly.Tests.TestHelpers.MyThing
     but was
-Shouldly.Tests.TestHelpers.MyThing (000000)
+Shouldly.Tests.TestHelpers.MyThing
 
 Additional Info:
     Some additional context

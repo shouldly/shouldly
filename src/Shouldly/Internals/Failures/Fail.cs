@@ -61,9 +61,8 @@ static class Fail
 
     public static readonly TypeFailure ShouldBeOfType = new();
     public static readonly TypeFailure ShouldBeAssignableTo = new();
-    // These two get the plain shape, which shows the actual value where ShouldBeOfType shows its type.
-    public static readonly PlainFailure ShouldNotBeOfType = new(negated: true);
-    public static readonly PlainFailure ShouldNotBeAssignableTo = new(negated: true);
+    public static readonly TypeFailure ShouldNotBeOfType = new(negated: true);
+    public static readonly TypeFailure ShouldNotBeAssignableTo = new(negated: true);
 
     public static readonly ExpectedOnlyFailure ShouldBeDecoratedWith = new();
 

@@ -1,9 +1,9 @@
 namespace Shouldly.Internals.Failures;
 
 /// <summary>
-/// A value should have been of, or assignable to, a type.
+/// A value should have been of, or assignable to, a type, or should not have been.
 /// </summary>
-sealed class TypeFailure([CallerMemberName] string name = "") : Failure(name, negated: false)
+sealed class TypeFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
     internal override SlotReading? FromSlots(Slots s) =>
         new(new(this, sentence => Word(sentence, s.Expected)), s.Actual);
