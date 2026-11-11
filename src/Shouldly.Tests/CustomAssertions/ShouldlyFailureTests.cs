@@ -1,0 +1,266 @@
+using System.Runtime.CompilerServices;
+
+namespace Shouldly.Tests.CustomAssertions;
+
+/// <summary>
+/// The building block for custom assertions: <see cref="ShouldAssertException.For"/> and the controls on the
+/// <see cref="ShouldlyFailure"/> it returns.
+/// </summary>
+public class ShouldlyFailureTests
+{
+    private static readonly string[] Fruit = ["apple", "pear"];
+
+    [Fact]
+    public void ShowsTheSubjectThePhraseAndTheActualValue() =>
+        MessageOf(() => 5.ShouldBeAwesome())
+            .ShouldBe(
+                """
+                5
+                    should be awesome
+                    but was not
+                """, StringCompareShould.IgnoreLineEndings);
+
+    [Fact]
+    public void TakesThePhraseFromTheNameOfTheAssertion()
+    {
+        var count = 5;
+
+        MessageOf(() => count.ShouldBeAwesome())
+            .ShouldBe(
+                """
+                count
+                    should be awesome
+                    but was
+                5
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ExpectedAddsTheExpectedValue()
+    {
+        var name = "Bob";
+
+        MessageOf(() => ShouldAssertException.For(name, null, nameof(name), "ShouldBeNamed").Expected("Alice").Throw())
+            .ShouldBe(
+                """
+                name
+                    should be named
+                "Alice"
+                    but was
+                "Bob"
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ExpectedAndActualSequencesHaveTheirDifferencesHighlighted()
+    {
+        string[] basket = ["apple", "plum"];
+
+        MessageOf(() => ShouldAssertException.For(basket, null, nameof(basket), "ShouldHold").Expected(Fruit).Throw())
+            .ShouldBe(
+                """
+                basket
+                    should hold
+                ["apple", "pear"]
+                    but was
+                ["apple", "plum"]
+                    difference
+                ["apple", *"plum"*]
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void PhraseStatesThePhrase()
+    {
+        var response = "400";
+
+        MessageOf(() => ShouldAssertException.For(response, null, nameof(response), "ShouldHaveError").Phrase("should have an error for").Expected("name").Throw())
+            .ShouldBe(
+                """
+                response
+                    should have an error for
+                "name"
+                    but was
+                "400"
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void WithoutActualLeavesTheActualValueOut()
+    {
+        var type = typeof(string);
+
+        MessageOf(() => ShouldAssertException.For(type, null, nameof(type), "ShouldBeDecoratedWith").Expected("Obsolete").WithoutActual().Throw())
+            .ShouldBe(
+                """
+                type
+                    should be decorated with
+                "Obsolete"
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ExpectedInWordsIsShownAsWritten()
+    {
+        var items = Array.Empty<int>();
+
+        MessageOf(() => ShouldAssertException.For(items.Length, null, "items.Length", "ShouldHaveCount").ExpectedInWords("at least 1 element").Throw())
+            .ShouldBe(
+                """
+                items.Length
+                    should have count
+                at least 1 element
+                    but was
+                0
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ActualInWordsReplacesTheActualValue()
+    {
+        var json = "{}";
+
+        MessageOf(() => ShouldAssertException.For(json, null, nameof(json), "ShouldHaveArrayCount").Expected(3).ActualInWords("no value at '/items'").Throw())
+            .ShouldBe(
+                """
+                json
+                    should have array count
+                3
+                    but was
+                no value at '/items'
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ValuesDescribedInWordsHaveNoDifferenceHighlighted()
+    {
+        string[] basket = ["apple", "plum"];
+
+        MessageOf(() => ShouldAssertException.For(basket, null, nameof(basket), "ShouldHold").Expected(Fruit).ActualInWords("something else").Throw())
+            .ShouldNotContain("difference");
+    }
+
+    [Fact]
+    public void ContextAppendsLabelledBlocksAfterTheCustomMessage()
+    {
+        var status = 404;
+
+        MessageOf(() => ShouldAssertException.For(status, "after creating the party", nameof(status), "ShouldBeStatus")
+                .Expected(200)
+                .Context("Response", "GET /parties/42\nHTTP/1.1 404")
+                .Context("Empty", "")
+                .Context("Request id", "abc-123")
+                .Throw())
+            .ShouldBe(
+                """
+                status
+                    should be status
+                200
+                    but was
+                404
+
+                Additional Info:
+                    after creating the party
+
+                Response:
+                    GET /parties/42
+                    HTTP/1.1 404
+
+                Request id:
+                    abc-123
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void APhraseSayingNotIsNegated()
+    {
+        string[] basket = ["apple", "pear"];
+
+        // A negated assertion fails because the values matched, so no difference is highlighted.
+        MessageOf(() => ShouldAssertException.For(basket, null, nameof(basket), "ShouldNotHold").Expected(Fruit).Throw())
+            .ShouldBe(
+                """
+                basket
+                    should not hold
+                ["apple", "pear"]
+                    but was
+                ["apple", "pear"]
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ANameThatMerelyContainsNotIsNotNegated()
+    {
+        string[] basket = ["apple", "plum"];
+
+        MessageOf(() => ShouldAssertException.For(basket, null, nameof(basket), "ShouldBeNoteworthy").Expected(Fruit).Throw())
+            .ShouldContain("difference");
+    }
+
+    [Fact]
+    public void TheLastStatementOfALineWins()
+    {
+        var value = 1;
+
+        MessageOf(() => ShouldAssertException.For(value, null, nameof(value), "ShouldBeOdd")
+                .WithoutActual().ActualInWords("even").ExpectedInWords("an odd number").Expected(3).Throw())
+            .ShouldBe(
+                """
+                value
+                    should be odd
+                3
+                    but was
+                even
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void IsCaughtAsAShouldAssertException()
+    {
+        var value = 2;
+
+        var exception = Should.Throw<ShouldAssertException>(() => value.ShouldBeAwesome());
+
+        exception.ShouldBeOfType<ShouldlyFailure>();
+    }
+
+    [Fact]
+    public void TripsTheTripWireWithoutAnExpression()
+    {
+        // The suite arms the trip-wire, so a custom assertion that loses its captured expression is caught here.
+        var exception = Should.Throw<InvalidOperationException>(() => ShouldAssertException.For(1, null, null, "ShouldBeLost"));
+
+        exception.Message.ShouldContain("ShouldBeLost");
+    }
+
+    [Fact]
+    public void FallsBackToTheValueWithoutAnExpression()
+    {
+        using (ShouldlyConfiguration.AllowStackWalking())
+        {
+            MessageOf(() => ShouldAssertException.For(5, null, null, "ShouldBeSix").Expected(6).Throw())
+                .ShouldBe(
+                    """
+                    5
+                        should be six
+                    6
+                        but was not
+                    """, StringCompareShould.IgnoreLineEndings);
+        }
+    }
+
+    private static string MessageOf(Action failingAssertion) =>
+        Should.Throw<ShouldlyFailure>(failingAssertion).Message;
+}
+
+static class CustomAssertionsUnderTest
+{
+    public static void ShouldBeAwesome(this int actual, string? customMessage = null,
+        [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+    {
+        if (actual != 42)
+            throw ShouldAssertException.For(actual, customMessage, actualExpression);
+    }
+
+    public static void Throw(this ShouldlyFailure failure) => throw failure;
+}
