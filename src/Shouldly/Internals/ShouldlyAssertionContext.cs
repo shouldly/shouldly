@@ -1,4 +1,5 @@
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -103,39 +104,6 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
         Actual = actual;
         ShouldMethod = shouldlyMethod;
 
-        if (actualExpression != null)
-        {
-            CodePart = actualExpression;
-        }
-        else
-        {
-            if (ShouldlyConfiguration.IsCallerArgumentExpressionRequired())
-                throw TripWireException(shouldlyMethod);
-
-#if NETSTANDARD2_0
-            if (ShouldlyConfiguration.IsSourceDisabledInErrors())
-            {
-                CodePart = actual.ToStringAwesomely();
-            }
-            else
-            {
-                var actualCodeGetter = new ActualCodeTextGetter();
-                CodePart = actualCodeGetter.GetCodeText(actual, stackTrace);
-                FileName = actualCodeGetter.FileName;
-                LineNumber = actualCodeGetter.LineNumber;
-            }
-#else
-            CodePart = actual.ToStringAwesomely();
-#endif
-        }
+        CodePart = Subject.Resolve(shouldlyMethod, actual, actualExpression, stackTrace);
     }
-
-    private static InvalidOperationException TripWireException(string shouldlyMethod) =>
-        new(
-            $"Assertion '{shouldlyMethod}' fell back to stack-trace parsing despite the " +
-            $"{nameof(ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed)} trip-wire being armed. " +
-            "Either the public method is missing its [CallerArgumentExpression] parameter, the captured " +
-            "value is not threaded through to the message constructor, or the call site cannot use CAE " +
-            $"(e.g. dynamic dispatch, obsolete params overloads) — wrap such call sites in " +
-            $"{nameof(ShouldlyConfiguration)}.{nameof(ShouldlyConfiguration.AllowStackWalking)}() to opt out.");
 }

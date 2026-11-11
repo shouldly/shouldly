@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace Shouldly;
@@ -24,7 +25,7 @@ public static partial class ShouldBeNullExtensions
         where T : class
     {
         if (!NullEquivalence.IsNull(actual))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeNull.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -38,7 +39,7 @@ public static partial class ShouldBeNullExtensions
         where T : struct
     {
         if (!NullEquivalence.IsNull(actual))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeNull.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -52,7 +53,7 @@ public static partial class ShouldBeNullExtensions
         where T : class =>
         actual is { } value && !NullEquivalence.IsNull(value)
             ? value
-            : throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            : throw Fail.ShouldNotBeNull.For(actual, customMessage, actualExpression);
 
     /// <summary>
     /// Asserts that the actual value is not null.
@@ -65,5 +66,5 @@ public static partial class ShouldBeNullExtensions
         where T : struct =>
         actual is { } value && !NullEquivalence.IsNull(value)
             ? value
-            : throw new ShouldAssertException(new ExpectedShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            : throw Fail.ShouldNotBeNull.For(actual, customMessage, actualExpression);
 }
