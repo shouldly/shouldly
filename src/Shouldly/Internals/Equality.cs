@@ -5,7 +5,7 @@ namespace Shouldly.Internals;
 /// without a tolerance or case option (<c>ShouldBe</c>, <c>ShouldNotBe</c>, sequences, membership, dictionary values
 /// and key/value pairs) ask this module rather than assembling their own comparer, so the rules (null equivalence,
 /// equality rules registered with <see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>, numerics,
-/// key/value pairs, <see cref="IEquatable{T}"/>, <c>Equals</c> on the expected value) are decided in one place.
+/// key/value pairs and tuples, <see cref="IEquatable{T}"/>, <c>Equals</c> on the expected value) are decided in one place.
 /// </summary>
 /// <remarks>
 /// The only option is an element comparer supplied by the caller. Leaving it out means Shouldly's own rules.

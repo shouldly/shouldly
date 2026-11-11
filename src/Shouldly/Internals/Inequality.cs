@@ -107,8 +107,8 @@ static class Inequality
             return (finding ?? new("they differ")).Under($"[{index}]");
         }
 
-        // A key/value pair is compared as its key and its value, each by Shouldly's equality.
-        if (KeyValuePairs.TryFindUnequalComponent(expected, actual, ObjectComparer, out var name, out var expectedComponent, out var actualComponent))
+        // A key/value pair or a tuple is compared item by item, each by Shouldly's equality.
+        if (Tuples.TryFindUnequalComponent(expected, actual, ObjectComparer, out var name, out var expectedComponent, out var actualComponent))
         {
             var finding = ReadTheSame(actualComponent, expectedComponent)
                 ? ByShouldlyEquality(actualComponent, expectedComponent, depth + 1)

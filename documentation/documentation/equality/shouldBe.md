@@ -29,6 +29,17 @@ Actual:   "Santas little helper"
 ```
 <!-- endInclude -->
 
+### Tuples and key/value pairs
+
+A tuple (`ValueTuple` or `Tuple`, of any arity) and a `KeyValuePair` are compared item by item, each item the way `ShouldBe` compares a single value, rather than with their own `Equals`. So an item that is a collection is compared element by element, and numbers compare across types:
+
+```cs
+(1, new[] { 1 }).ShouldBe((1, new[] { 1 }));   // passes
+((object)(1, 2)).ShouldBe((object)(1L, 2L));   // passes
+```
+
+Records, anonymous types and structs are compared with their own `Equals`, so a record's collection member is compared by reference. Use `ShouldBeEquivalentTo` to compare them member by member.
+
 ### Which value's `Equals` is called
 
 `ShouldBe` calls `Equals` on the **expected** value and passes the actual value as the argument:

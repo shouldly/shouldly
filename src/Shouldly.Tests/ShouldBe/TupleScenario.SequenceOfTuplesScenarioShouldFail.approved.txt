@@ -1,0 +1,11 @@
+actual
+    should be
+[(1, System.Int32[]), (2, System.Int32[])]
+    but was
+[(1, System.Int32[]), (2, System.Int32[])]
+    difference
+[(1, System.Int32[]), *(2, System.Int32[])*]
+    first difference at index 1: at Item2, they differ (expected [3], actual [2])
+
+Additional Info:
+    Some additional context
