@@ -20,6 +20,12 @@ sealed class AssertionComparison
         this.record = record;
     }
 
+    /// <summary>
+    /// What an assertion established, read from the record alone.
+    /// </summary>
+    public static AssertionComparison Of(ComparisonRecord? record) =>
+        new(null!, record);
+
     public static AssertionComparison Of(IShouldlyAssertionContext context) =>
         new(context, (context as ShouldlyAssertionContext)?.Comparison);
 

@@ -268,12 +268,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomelyWithCaseSensitivity(
-            v => Is.EnumerableStringEqualWithCaseSensitivity(v, expected, caseSensitivity),
-            actual,
-            expected,
-            caseSensitivity,
-            customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.EnumerableStringEqualWithCaseSensitivity(v, expected, caseSensitivity)))
+            throw Fail.ShouldBe.With(expected, caseSensitivity).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -302,8 +298,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         using var expectedProxy = bufferedExpected as EnumerableProxy<string>;
 
         var comparer = caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-        bufferedActual.AssertAwesomelyIgnoringOrder(bufferedExpected, comparer, isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression,
-            caseSensitivity);
+        if (!bufferedActual.Satisfies(v => Equality.SequenceEqual(v, bufferedExpected, ignoreOrder: true, comparer)))
+            throw Fail.ShouldBe.IgnoringOrder(bufferedExpected, ComparisonRecord.ComparedElementsWith<string>(comparer, isCustom: false), caseSensitivity).For(bufferedActual, customMessage, actualExpression);
     }
 
     /// <summary>

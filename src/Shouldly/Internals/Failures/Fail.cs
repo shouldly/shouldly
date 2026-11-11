@@ -8,6 +8,10 @@ namespace Shouldly.Internals.Failures;
 static class Fail
 {
     public static readonly NullFailure ShouldBeNull = new();
+    public static readonly ShouldBeFailure ShouldBe = new();
+    public static readonly ShouldBeFailure ShouldNotBe = new(negated: true);
+    public static readonly ShouldBeFailure ShouldMatchApproved = new();
+
     public static readonly NullFailure ShouldNotBeNull = new(negated: true);
 
     public static readonly BooleanFailure ShouldBeTrue = new(expected: true);

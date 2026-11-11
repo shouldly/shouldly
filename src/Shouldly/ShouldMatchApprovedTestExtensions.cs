@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using Shouldly.Internals;
-using Shouldly.Internals.AssertionFactories;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -78,9 +78,8 @@ public static class ShouldMatchApprovedTestExtensions
 
         var approvedFileContents = File.ReadAllText(approvedFile);
         var receivedFileContents = File.ReadAllText(receivedFile);
-        var assertion = StringShouldBeAssertionFactory
-            .Create(approvedFileContents, receivedFileContents, config.StringCompareOptions, actualExpression: actualExpression);
-        var contentsMatch = assertion.IsSatisfied();
+        var strings = ComparedStrings.Under(config.StringCompareOptions, receivedFileContents, approvedFileContents);
+        var contentsMatch = strings.AreEqual();
 
         if (!contentsMatch)
         {
@@ -89,7 +88,7 @@ public static class ShouldMatchApprovedTestExtensions
                 config.DiffViewer.Launch(receivedFile, approvedFile);
             }
 
-            throw new ShouldMatchApprovedException(assertion.GenerateMessage(customMessage), receivedFile, approvedFile, !config.PreventDiff && config.DiffViewer == null);
+            throw new ShouldMatchApprovedException(Fail.ShouldMatchApproved.With(strings).Text(strings.Actual, customMessage, actualExpression), receivedFile, approvedFile, !config.PreventDiff && config.DiffViewer == null);
         }
 
         File.Delete(receivedFile);
