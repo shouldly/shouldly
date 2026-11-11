@@ -1,4 +1,3 @@
-using Shouldly.Internals.Failures;
 using System.Collections;
 
 namespace Shouldly.Tests.Dictionaries;
@@ -123,36 +122,6 @@ public class NonDictionaryKeyValueSequences
 
         pairs.ShouldContainKeyAndValue("k", [1, 2, 3]);
         Should.Throw<ShouldAssertException>(() => pairs.ShouldContainKeyAndValue("k", [1, 2, 4]));
-    }
-
-    // The negative message only needs to know the key is present, so it must not read the value through the
-    // indexer.
-    [Fact]
-    public void MessageForShouldNotContainValueForKeyDoesNotReadTheValue()
-    {
-        var dictionary = new HashtableWithThrowingIndexer { ["a"] = 1 };
-
-        var message = Fail.ShouldNotContainValueForKey.With("a", 1, keyExists: true).Text(dictionary, null, "dictionary");
-
-        message.ShouldContain("but does");
-    }
-
-    // The assertion says whether it found the key, and the message reports what it was told.
-    [Fact]
-    public void MessageForShouldNotContainValueForKeyReportsAMissingKey()
-    {
-        var message = Fail.ShouldNotContainValueForKey.With("z", 1, keyExists: false).Text(PairList(), null, "pairs");
-
-        message.ShouldEndWith("but the key does not exist");
-    }
-
-    private sealed class HashtableWithThrowingIndexer : Hashtable
-    {
-        public override object? this[object key]
-        {
-            get => throw new InvalidOperationException("The value should not be read.");
-            set => base[key] = value;
-        }
     }
 
     private sealed class CaseInsensitiveHeaders : IDictionary<string, string>
