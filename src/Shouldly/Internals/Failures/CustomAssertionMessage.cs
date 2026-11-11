@@ -11,8 +11,22 @@ static class CustomAssertionMessage
 
     public static string Text(string shouldlyMethod, Slots slots, string? customMessage, string? actualExpression)
     {
-        var reading = FailureNames.Find(shouldlyMethod)?.Read(slots) ?? PlainShapeOf(shouldlyMethod, slots);
-        return reading.Message.Text(reading.Actual, customMessage, actualExpression);
+        // The message reads a sequence more than once: to format it, to stand in for the subject and to highlight
+        // differences. Some wordings also read all of it, to count it or to find the items outside another, so a
+        // sequence is captured as it is read rather than cut to what the message shows.
+        var expected = CapturedSequence.Lazily(slots.Expected);
+        var actual = CapturedSequence.Lazily(slots.Actual);
+        try
+        {
+            slots = slots.WithValues(expected, actual);
+            var reading = FailureNames.Find(shouldlyMethod)?.Read(slots) ?? PlainShapeOf(shouldlyMethod, slots);
+            return reading.Message.Text(reading.Actual, customMessage, actualExpression);
+        }
+        finally
+        {
+            CapturedSequence.Release(expected);
+            CapturedSequence.Release(actual);
+        }
     }
 
     /// <summary>

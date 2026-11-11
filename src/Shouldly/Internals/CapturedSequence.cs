@@ -30,7 +30,7 @@ static class CapturedSequence
     public static CapturedSequence<T> Of<T>(IEnumerable<T>? sequence) =>
         sequence is null or string or IReadOnlyCollection<T> or ICollection<T> or ICollection or ICapturedSequence
             ? new(sequence, null)
-            : new(null, new LazyCapture<T>(sequence));
+            : new(null, new LazyCapture<T>(sequence, sequence));
 
     /// <summary>
     /// <paramref name="value"/> read as far as a failure message shows, when it is a sequence, so that the message
@@ -46,15 +46,35 @@ static class CapturedSequence
             : value;
 
     /// <summary>
+    /// Captures <paramref name="value"/> lazily when it is a sequence, for a message that may need to read all of
+    /// it: a count, or the items outside another sequence. Any other value, and a collection, is returned as it is.
+    /// Release the capture with <see cref="Release"/> once the message is written.
+    /// </summary>
+    public static object? Lazily(object? value) =>
+        value is IEnumerable sequence and not (string or ICollection or ICapturedSequence) && !NullEquivalence.IsNull(value)
+            ? new LazyCapture<object?>(sequence.Cast<object?>(), value)
+            : value;
+
+    /// <summary>
+    /// Releases a capture made by <see cref="Lazily"/>. Any other value is left alone, even one that is disposable.
+    /// </summary>
+    public static void Release(object? value)
+    {
+        if (value is ICapturedSequence and IDisposable capture)
+            capture.Dispose();
+    }
+
+    /// <summary>
     /// The sequence <paramref name="value"/> captured, or <paramref name="value"/> itself when it isn't a capture.
     /// </summary>
     public static object Original(object value) =>
         value is ICapturedSequence captured ? captured.Original : value;
 
     /// <summary>
-    /// A sequence buffered as it is first read.
+    /// A sequence buffered as it is first read from <paramref name="source"/>, which reads
+    /// <paramref name="original"/>.
     /// </summary>
-    internal sealed class LazyCapture<T>(IEnumerable<T> original) : IEnumerable<T>, ICapturedSequence, IDisposable
+    internal sealed class LazyCapture<T>(IEnumerable<T> source, object original) : IEnumerable<T>, ICapturedSequence, IDisposable
     {
         private readonly List<T> _buffer = [];
         private IEnumerator<T>? _source;
@@ -80,7 +100,7 @@ static class CapturedSequence
             if (_sourceFinished)
                 return false;
 
-            _source ??= original.GetEnumerator();
+            _source ??= source.GetEnumerator();
             if (_source.MoveNext())
             {
                 _buffer.Add(_source.Current);

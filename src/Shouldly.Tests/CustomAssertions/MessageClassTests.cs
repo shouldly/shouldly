@@ -235,6 +235,47 @@ public class MessageClassTests
     }
 
     [Fact]
+    public void ACountReadsTheWholeSequenceNotJustWhatTheMessageShows()
+    {
+        using (MaxEnumerableItemsScope.Of(3))
+        {
+            var onArray = new ExpectedActualShouldlyMessage(2, new[] { 1, 2, 3, 4, 5, 6 }, null, "ShouldHaveCount", "numbers").ToString();
+
+            var onSinglePass = new ExpectedActualShouldlyMessage(2, new SinglePass<int>(1, 2, 3, 4, 5, 6), null, "ShouldHaveCount", "numbers").ToString();
+
+            onSinglePass.ShouldBe(onArray);
+        }
+    }
+
+    [Fact]
+    public void ASubsetIsJudgedAgainstTheWholeExpectedSequence()
+    {
+        using (MaxEnumerableItemsScope.Of(3))
+        {
+            var onArrays = new ExpectedActualShouldlyMessage(new[] { 1, 2, 3, 4, 5 }, new[] { 5, 6 }, null, "ShouldBeSubsetOf", "numbers").ToString();
+
+            var onSinglePass = new ExpectedActualShouldlyMessage(new SinglePass<int>(1, 2, 3, 4, 5), new SinglePass<int>(5, 6), null, "ShouldBeSubsetOf", "numbers").ToString();
+
+            onSinglePass.ShouldBe(onArrays);
+        }
+    }
+
+    [Fact]
+    public void ACaseOptionIsShownForASinglePassSequenceOfStrings()
+    {
+        var onArrays = new ExpectedActualWithCaseSensitivityShouldlyMessage(new[] { "a", "b" }, new[] { "a", "c" }, Case.Insensitive, null, "ShouldBe", "letters").ToString();
+
+        var onSinglePass = new ExpectedActualWithCaseSensitivityShouldlyMessage(new SinglePass<string>("a", "b"), new SinglePass<string>("a", "c"), Case.Insensitive, null, "ShouldBe", "letters").ToString();
+
+        onSinglePass.ShouldBe(onArrays);
+    }
+
+    [Fact]
+    public void ATypeMessageNamesTheSequencesOwnType() =>
+        new ExpectedActualShouldlyMessage(typeof(int[]), new SinglePass<int>(1), null, "ShouldBeOfType", "numbers").ToString()
+            .ShouldContain(typeof(SinglePass<int>).FullName!);
+
+    [Fact]
     public void AssertAwesomelyReadsASinglePassSequenceOnlyOnceMore()
     {
         // The assertion's own check reads the sequence first; the message then reads it once, not again for each
