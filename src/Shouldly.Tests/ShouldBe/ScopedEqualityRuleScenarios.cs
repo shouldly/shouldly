@@ -46,6 +46,21 @@ public class ScopedEqualityRuleScenarios
     }
 
     [Fact]
+    public void MemoryShouldBeHonoursARuleForTheMemoryItself()
+    {
+        using var _ = EqualityRules.RestoreAfterwards();
+        ShouldlyConfiguration.UseEquality<Memory<int>>((expected, actual) => expected.Length == actual.Length);
+        ShouldlyConfiguration.UseEquality<ReadOnlyMemory<int>>((expected, actual) => expected.Length == actual.Length);
+
+        new Memory<int>([1]).ShouldBe(new Memory<int>([2]));
+        new ReadOnlyMemory<int>([1]).ShouldBe(new ReadOnlyMemory<int>([2]));
+        new List<Memory<int>> { new([1]) }.ShouldBe([new Memory<int>([2])]);
+        Should.Throw<ShouldAssertException>(() => new Memory<int>([1]).ShouldNotBe(new Memory<int>([2])));
+        Should.Throw<ShouldAssertException>(() => new ReadOnlyMemory<int>([1]).ShouldNotBe(new ReadOnlyMemory<int>([2])));
+        Should.Throw<ShouldAssertException>(() => new Memory<int>([1]).ShouldBe(new Memory<int>([1, 2])));
+    }
+
+    [Fact]
     public void KeyValuePairNeverHandsARuleANullEquivalentValue()
     {
         using var _ = EqualityRules.RestoreAfterwards();
