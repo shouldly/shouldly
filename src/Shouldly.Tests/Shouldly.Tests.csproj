@@ -5,7 +5,10 @@
     <OutputType>Exe</OutputType>
     <Optimize>false</Optimize>
     <NoWarn>CA1861</NoWarn>
-    <!-- Signed so Shouldly can grant it InternalsVisibleTo, to test internal modules such as Equality directly. -->
+    <!-- Signed so Shouldly can grant it InternalsVisibleTo, to test internal modules such as Equality directly.
+         CS8002 (a signed assembly referencing an unsigned one, here TestStack.ConventionTests) is only reported for
+         .NET Framework, and only as a compile-time check: the runtime loads the unsigned reference by name. -->
+    <NoWarn>$(NoWarn);CS8002</NoWarn>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\sn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
