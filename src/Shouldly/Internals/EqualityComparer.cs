@@ -40,6 +40,13 @@ class EqualityComparer<T> : IEqualityComparer<T>
         // (e.g. underlying array reference) — a behaviour change.
         if (typeof(IEnumerable).IsAssignableFrom(t)) return false;
 
+        // Memory<T>/ReadOnlyMemory<T> aren't IEnumerable, but the cascade below walks their contents too
+        // (TryGetEnumerable), each element by its rules. Their IEquatable<T> compares which array they wrap instead.
+        if (t.IsGenericType &&
+            t.GetGenericTypeDefinition() is var definition &&
+            (definition == typeof(Memory<>) || definition == typeof(ReadOnlyMemory<>)))
+            return false;
+
         // Need a typed Equals to dispatch through without boxing.
         return typeof(IEquatable<T>).IsAssignableFrom(t);
     }

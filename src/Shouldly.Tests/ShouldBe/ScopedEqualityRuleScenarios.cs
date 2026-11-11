@@ -46,6 +46,17 @@ public class ScopedEqualityRuleScenarios
     }
 
     [Fact]
+    public void MemoriesInATypedSequenceHonourAnElementRule()
+    {
+        using var _ = EqualityRules.RestoreAfterwards();
+        ShouldlyConfiguration.UseEquality<char>((expected, actual) =>
+            char.ToUpperInvariant(expected) == char.ToUpperInvariant(actual));
+
+        new List<Memory<char>> { "a".ToCharArray() }.ShouldBe(["A".ToCharArray()]);
+        new List<ReadOnlyMemory<char>> { "a".ToCharArray() }.ShouldBe(["A".ToCharArray()]);
+    }
+
+    [Fact]
     public void MemoryShouldBeHonoursARuleForTheMemoryItself()
     {
         using var _ = EqualityRules.RestoreAfterwards();
