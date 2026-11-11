@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.CollectionWithMembersScenario+Headers]
+    Version [System.String]
+
+    Expected value to be
+"v2"
+    but was
+"v1"
+
+Additional Info:
+    Some additional context

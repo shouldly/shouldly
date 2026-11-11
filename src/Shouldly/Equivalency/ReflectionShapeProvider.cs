@@ -56,6 +56,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
                     }
                 }
 
+                members = CreateCollectionMembers(type);
                 break;
 
             case EquivalencyNodeKind.Set:
@@ -63,6 +64,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
                 elementType = type.IsArray
                     ? type.GetElementType()
                     : FindGenericInterface(type, typeof(IEnumerable<>))?.GetGenericArguments()[0];
+                members = CreateCollectionMembers(type);
                 break;
 
             case EquivalencyNodeKind.Complex:
@@ -205,6 +207,38 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         }
     }
 
+    /// <summary>
+    /// The members a collection type declares beyond being a collection, such as a paged list's total count or a
+    /// grouping's key (#1431). A member declared by a framework type (<c>List&lt;T&gt;.Capacity</c>, an array's
+    /// <c>Length</c>) or named by a framework interface the type implements (<c>Count</c>, <c>SyncRoot</c>,
+    /// <c>Keys</c>) is how the collection holds its items, not state of its own, so it is left out. A grouping's
+    /// <c>Key</c> is kept: it is state, even though the framework declares it.
+    /// </summary>
+    [RequiresUnreferencedCode("Reflects over the fields, properties, and interfaces of arbitrary types.")]
+    private static IReadOnlyList<EquivalencyMemberShape> CreateCollectionMembers(Type type)
+    {
+        var isGrouping = FindGenericInterface(type, typeof(IGrouping<,>)) != null;
+
+        var interfaces = type.IsInterface ? new[] { type }.Concat(type.GetInterfaces()) : type.GetInterfaces();
+        var interfaceMemberNames = new HashSet<string>(
+            interfaces
+                .Where(IsFrameworkType)
+                .SelectMany(i => i.GetProperties().Select(p => p.Name)),
+            StringComparer.Ordinal);
+
+        return CreateMembers(type)
+            .Cast<ReflectionMemberShape>()
+            .Where(member =>
+                isGrouping && member.Name == nameof(IGrouping<int, int>.Key) ||
+                !member.IsDeclaredByFrameworkType && !interfaceMemberNames.Contains(member.Name))
+            .ToList<EquivalencyMemberShape>();
+    }
+
+    /// <summary>A type that ships with .NET itself, as opposed to one from the user or a third-party library.</summary>
+    private static bool IsFrameworkType(Type type) =>
+        type.Assembly.GetName().Name is { } name
+        && (name is "mscorlib" or "netstandard" or "System" || name.StartsWith("System.", StringComparison.Ordinal));
+
     private sealed class ReflectionTypeShape : EquivalencyTypeShape
     {
         private readonly IReadOnlyList<EquivalencyMemberShape> _members;
@@ -280,6 +314,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             _member = member;
 
         public override string Name => _member.Name;
+
+        public bool IsDeclaredByFrameworkType => _member.DeclaringType is { } declaringType && IsFrameworkType(declaringType);
 
         public override Type DeclaredType => _member switch
         {

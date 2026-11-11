@@ -12,7 +12,10 @@ internal abstract class EquivalencyTypeShape
 
     public abstract EquivalencyNodeKind Kind { get; }
 
-    /// <summary>Public instance fields and readable, non-indexer properties (Complex nodes).</summary>
+    /// <summary>
+    /// Public instance fields and readable, non-indexer properties: all of them for a Complex node, and for a
+    /// Dictionary, Set or Sequence node those the type declares beyond being a collection (#1431).
+    /// </summary>
     public abstract IReadOnlyList<EquivalencyMemberShape> Members { get; }
 
     public abstract EquivalencyMemberShape? FindMember(string name);
