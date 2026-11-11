@@ -91,7 +91,7 @@ public class ComparableWithOwnEqualsScenarios
 
         public override bool Equals(object? obj) => obj is Person p && p.Name == Name && p.Age == Age;
 
-        public override int GetHashCode() => HashCode.Combine(Name, Age);
+        public override int GetHashCode() => Name.GetHashCode() ^ Age;
 
         public override string ToString() => $"{Name} ({Age})";
     }
@@ -106,7 +106,7 @@ public class ComparableWithOwnEqualsScenarios
 
         public override bool Equals(object? obj) => obj is NonGenericPerson p && p.Name == Name && p.Age == Age;
 
-        public override int GetHashCode() => HashCode.Combine(Name, Age);
+        public override int GetHashCode() => Name.GetHashCode() ^ Age;
     }
 
     private sealed class SortedByVersion(string id, int version) : IComparable<SortedByVersion>
