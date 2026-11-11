@@ -31,6 +31,24 @@ static class EqualityRules
     }
 
     /// <summary>
+    /// For tests: restores the rules registered now when the result is disposed, so a test can register a rule
+    /// (for a type as common as <see cref="string"/>) without it outliving the test. Only safe in a test that runs
+    /// alone, as the rule applies to every comparison while registered.
+    /// </summary>
+    internal static IDisposable RestoreAfterwards() => new Restorer(s_state);
+
+    private sealed class Restorer(State saved) : IDisposable
+    {
+        public void Dispose()
+        {
+            lock (RegistrationLock)
+            {
+                s_state = saved;
+            }
+        }
+    }
+
+    /// <summary>
     /// Whether a rule could decide the equality of a value of <paramref name="type"/>, for the shortcuts that compare
     /// without consulting rules (hashing, the BCL's typed comparer). A <see cref="Nullable{T}"/> is judged by its
     /// underlying type, as its values box to that type when a rule is consulted.

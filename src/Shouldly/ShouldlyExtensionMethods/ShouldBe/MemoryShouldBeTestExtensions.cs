@@ -74,12 +74,14 @@ public static partial class ShouldBeTestExtensions
         // and the per-element boxing inside Internals.EqualityComparer<T>.
         // The typeof(T) chain folds to a constant per generic instantiation.
         // Gated on net8+: the netstandard2.0 SequenceEqual<T> overload
-        // constrains T to IEquatable<T>.
-        if (typeof(T) == typeof(byte) || typeof(T) == typeof(sbyte) ||
+        // constrains T to IEquatable<T>. Skipped when an equality rule could
+        // apply to T, which only the comparer below consults.
+        if ((Internals.EqualityRules.IsEmpty || !Internals.EqualityRules.CouldApplyTo(typeof(T))) &&
+            (typeof(T) == typeof(byte) || typeof(T) == typeof(sbyte) ||
             typeof(T) == typeof(short) || typeof(T) == typeof(ushort) ||
             typeof(T) == typeof(int) || typeof(T) == typeof(uint) ||
             typeof(T) == typeof(long) || typeof(T) == typeof(ulong) ||
-            typeof(T) == typeof(char))
+            typeof(T) == typeof(char)))
         {
             return actual.SequenceEqual(expected);
         }

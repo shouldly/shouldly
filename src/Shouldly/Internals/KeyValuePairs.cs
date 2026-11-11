@@ -42,8 +42,9 @@ static class KeyValuePairs
         var expectedComponent = expectedProperty.GetValue(expected);
         var actualComponent = actualProperty.GetValue(actual);
 
-        // A rule decides before the declared-type steps below, as it does in EqualityComparer<S>.
-        if (expectedComponent is not null && actualComponent is not null &&
+        // A rule decides before the declared-type steps below, as it does in EqualityComparer<S>, and likewise never
+        // sees a null-equivalent value such as a default ImmutableArray<T>.
+        if (!NullEquivalence.IsNull(expectedComponent) && !NullEquivalence.IsNull(actualComponent) &&
             EqualityRules.TryEquals(expectedComponent, actualComponent, out var ruleResult))
             return ruleResult;
 
