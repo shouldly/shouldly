@@ -21,8 +21,14 @@ static class TypeExtensions
     // call, which is acceptable for the failure-message formatting path; the
     // equality path uses Memory<T>-typed ShouldBe overloads that walk the Span
     // directly without allocating.
+    // Without these, NativeAOT drops ToArray's metadata and GetMethod finds nothing, so memories would be compared
+    // by the array they wrap and formatted by their type name instead of their contents.
+#if NET5_0_OR_GREATER
+    [DynamicDependency(nameof(Memory<int>.ToArray), typeof(Memory<>))]
+    [DynamicDependency(nameof(ReadOnlyMemory<int>.ToArray), typeof(ReadOnlyMemory<>))]
+#endif
     [UnconditionalSuppressMessage("Trimming", "IL2075",
-        Justification = "Targets Memory<T>/ReadOnlyMemory<T> — BCL types whose public ToArray() method is part of their stable contract and preserved by the trimmer.")]
+        Justification = "Memory<T>.ToArray and ReadOnlyMemory<T>.ToArray are rooted by the DynamicDependency attributes above.")]
     private static bool TryGetMemoryArray(object obj, [NotNullWhen(true)] out Array? array)
     {
         var type = obj.GetType();
