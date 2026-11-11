@@ -29,6 +29,31 @@ Actual:   "Santas little helper"
 ```
 <!-- endInclude -->
 
+### Which equality decides
+
+A value is compared with the equality its type defines. Strings, numbers, collections and dictionaries are handled first (see below), and an [equality rule](../configuration.md#useequality) decides before anything else. Otherwise Shouldly asks the type, in this order:
+
+1. its `IEquatable<T>`
+2. its overridden `Equals(object)`
+3. its `IComparable<T>` or `IComparable`, only when the type defines neither of the above
+4. `object.Equals`, which for a class is reference equality
+
+`CompareTo` says how to sort, so a type that also defines `Equals` is compared with `Equals`. A common case sorts by one key and is equal by all its fields:
+
+```cs
+class Person(string name, int age) : IComparable<Person>
+{
+    public int CompareTo(Person? other) => string.Compare(name, other?.Name, StringComparison.Ordinal);
+    public override bool Equals(object? obj) => obj is Person p && p.Name == name && p.Age == age;
+    // ...
+}
+
+new Person("Bob", 30).ShouldBe(new Person("Bob", 40));           // fails: Equals is false
+((object)new Person("Bob", 30)).ShouldBe(new Person("Bob", 40)); // fails the same way
+```
+
+`IEquatable<T>` and `Equals` are found on the value itself, so for a type that defines its equality the answer doesn't depend on the type the assertion is made at: `ShouldBe<Person>`, `ShouldBe<object>` and a `Person[]` all agree.
+
 ### Which value's `Equals` is called
 
 `ShouldBe` calls `Equals` on the **expected** value and passes the actual value as the argument:
@@ -190,7 +215,7 @@ timeSpan
 
 ## Enumerables
 
-Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass.
+Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass. Two dictionaries, or two sets, are compared without regard to the order they enumerate in: a dictionary's entries are matched by key. See [Dictionaries and sets](../enumerable/shouldBe.md#dictionaries-and-sets).
 
 <!-- snippet: ShouldBeExamples.Enumerables.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs'></a>

@@ -1,0 +1,2 @@
+var duffStock = new Dictionary<string, int> { ["Duff"] = 12, ["Duff Lite"] = 6, ["Duff Dry"] = 3 };
+duffStock.ShouldBe(new Dictionary<string, int> { ["Duff Dry"] = 3, ["Duff"] = 24, ["Raspberry Duff"] = 1 });

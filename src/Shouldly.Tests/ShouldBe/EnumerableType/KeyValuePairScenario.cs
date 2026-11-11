@@ -115,6 +115,19 @@ public class KeyValuePairScenario
     }
 
     [Fact]
+    public void ValuesUseTheirRuntimeEquatableBeforeTheirDeclaredTypesComparableInterface()
+    {
+        // The runtime type's IEquatable<RuntimeEquatable> says unequal and is consulted before IComparable<ComparableBase>,
+        // as it is for the value on its own (#1428).
+        var actual = new Dictionary<string, ComparableBase> { ["a"] = new RuntimeEquatable() };
+        var expected = new Dictionary<string, ComparableBase> { ["a"] = new RuntimeEquatable() };
+
+        actual["a"].ShouldNotBe(expected["a"]);
+        Should.Throw<ShouldAssertException>(() => actual.ShouldContainKeyAndValue("a", expected["a"]));
+        actual.ShouldNotBe(expected);
+    }
+
+    [Fact]
     public void KeysUseTheirDeclaredTypesComparableInterface() =>
         new Dictionary<OnlyGenericComparable, int> { [new(1)] = 1 }
             .ShouldBe(new Dictionary<OnlyGenericComparable, int> { [new(1)] = 1 });
@@ -153,7 +166,7 @@ public class KeyValuePairScenario
     [Fact]
     public void DictionaryWithCollectionValuesScenarioShouldFail()
     {
-        // Only the entry whose value differs is highlighted.
+        // Only the key whose value differs is reported.
         Verify.ShouldFail(() =>
             new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
                 .ShouldBe(new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [3] }, "Some additional context"));
@@ -162,7 +175,7 @@ public class KeyValuePairScenario
     [Fact]
     public void DictionaryWithCollectionValuesIgnoringOrderScenarioShouldFail()
     {
-        // Only the entry whose value differs is reported as missing.
+        // Two dictionaries are told apart by key, whether or not order was to be ignored (#1430).
         Verify.ShouldFail(() =>
             new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
                 .ShouldBe(new Dictionary<string, int[]> { ["b"] = [3], ["a"] = [1] }, ignoreOrder: true, "Some additional context"));
@@ -188,6 +201,25 @@ public class KeyValuePairScenario
         public bool Equals(EquatableBeforeComparable? other) => false;
 
         public int CompareTo(object? obj) => 0;
+    }
+#pragma warning restore CA1067
+
+    /// <summary>
+    /// Equal to any other instance through <see cref="IComparable{T}"/>, with no equality of its own.
+    /// </summary>
+    public class ComparableBase : IComparable<ComparableBase>
+    {
+        public int CompareTo(ComparableBase? other) => 0;
+    }
+
+    /// <summary>
+    /// <see cref="IEquatable{T}"/> on the runtime type says unequal, while its declared base's
+    /// <see cref="IComparable{T}"/> says equal.
+    /// </summary>
+#pragma warning disable CA1067 // Deliberately disagrees with object.Equals to show which interface is consulted.
+    public sealed class RuntimeEquatable : ComparableBase, IEquatable<RuntimeEquatable>
+    {
+        public bool Equals(RuntimeEquatable? other) => false;
     }
 #pragma warning restore CA1067
 

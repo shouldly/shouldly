@@ -135,7 +135,7 @@ public class InequalityTests
             "first difference at index 0: at [1].Item1, they are different types (expected System.Int64, actual System.Int32)"),
         ["dictionary values"] = (
             () => Explain(new Dictionary<string, Order> { ["k"] = new(1, ["a"]) }, new Dictionary<string, Order> { ["k"] = new(1, ["a"]) }),
-            $"first difference at index 0: at Value.Lines, they are different instances, and List<String> compares by reference; {UseEquivalentTo}"),
+            $"but at [\"k\"].Lines, they are different instances, and List<String> compares by reference; {UseEquivalentTo}"),
         ["items an equality rule covers"] = (
             () => Explain(new[] { new IdBag(1, 1) }, new[] { new IdBag(2, 1) }),
             "first difference at index 0: the equality rule for IdBag says they are not equal"),

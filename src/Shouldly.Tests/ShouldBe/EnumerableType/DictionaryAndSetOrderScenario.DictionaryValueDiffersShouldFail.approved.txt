@@ -1,0 +1,10 @@
+new Dictionary<string, int> { ["a"] = 1, ["b"] = 2, ["c"] = 3 }
+    should be
+[["c" => 3], ["b" => 5], ["a" => 1]]
+    but was
+[["a" => 1], ["b" => 2], ["c" => 3]]
+    difference
+["b"] should be 5 but was 2
+
+Additional Info:
+    Some additional context

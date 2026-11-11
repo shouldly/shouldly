@@ -22,10 +22,12 @@ static class DifferenceHighlighter
 
     /// <summary>
     /// What walking <paramref name="actual"/> and <paramref name="expected"/> in step found, or null when they aren't
-    /// sequences that can be walked.
+    /// sequences that can be walked in step: two dictionaries or two sets aren't compared in order, so where their
+    /// items first differ in order says nothing (see <see cref="UnorderedCollection"/>).
     /// </summary>
     public static SequenceDifference? Find(object? actual, object? expected, ComparisonRecord? comparison = null) =>
-        EnumerableDifferenceHighlighter.CanHighlight(actual, expected)
+        EnumerableDifferenceHighlighter.CanHighlight(actual, expected) &&
+        UnorderedCollection.BothAre(actual, expected) == UnorderedCollection.Kind.None
             ? EnumerableDifferenceHighlighter.Find((IEnumerable)actual!, (IEnumerable)expected!, comparison ?? ComparisonRecord.Default)
             : null;
 }
