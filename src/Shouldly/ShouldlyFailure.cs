@@ -11,7 +11,8 @@ namespace Shouldly;
 /// <remarks>
 /// Shouldly resolves the subject, formats values, highlights differences between an expected and an actual value,
 /// and appends the custom message. Values are formatted as they are passed in, so the message is unaffected if a
-/// value is disposed or changed after the assertion throws.
+/// value is disposed or changed after the assertion throws. A sequence is read once, and no further than a message
+/// shows.
 /// </remarks>
 public sealed class ShouldlyFailure : ShouldAssertException
 {
@@ -26,6 +27,10 @@ public sealed class ShouldlyFailure : ShouldAssertException
     internal ShouldlyFailure(object? actual, string? customMessage, string? actualExpression, string shouldlyMethod)
         : base(null)
     {
+        // The message reads a sequence more than once: to format it, to stand in for the subject and to highlight
+        // differences. A sequence that may be single-pass is read once here and its snapshot used from then on.
+        actual = SequenceSnapshot.Of(actual);
+
         _actual = actual;
         _customMessage = customMessage;
         _phrase = shouldlyMethod.PascalToSpaced();
@@ -39,7 +44,7 @@ public sealed class ShouldlyFailure : ShouldAssertException
     /// <param name="expected">The value the assertion compared the actual value against.</param>
     public ShouldlyFailure Expected(object? expected)
     {
-        _lines = _lines.WithExpected(expected, _actual);
+        _lines = _lines.WithExpected(SequenceSnapshot.Of(expected), _actual);
         return this;
     }
 

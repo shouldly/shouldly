@@ -275,6 +275,91 @@ public class ShouldlyFailureTests
     }
 
     [Fact]
+    public void SinglePassSequencesAreReadOnce()
+    {
+        var basket = new SinglePass<string>("apple", "plum");
+        var expected = new SinglePass<string>("apple", "pear");
+
+        MessageOf(() => ShouldAssertException.For(basket, null, nameof(basket), "ShouldHold").Expected(expected).Throw())
+            .ShouldBe(
+                """
+                basket
+                    should hold
+                ["apple", "pear"]
+                    but was
+                ["apple", "plum"]
+                    difference
+                ["apple", *"plum"*]
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ASinglePassSequenceStandingInForTheSubjectIsReadOnce()
+    {
+        var basket = new SinglePass<string>("apple");
+
+        using (ShouldlyConfiguration.DisableSourceInErrors())
+        {
+            MessageOf(() => ShouldAssertException.For(basket, null, null, "ShouldBeEmpty").Throw())
+                .ShouldBe(
+                    """
+                    ["apple"]
+                        should be empty
+                        but was not
+                    """, StringCompareShould.IgnoreLineEndings);
+        }
+    }
+
+    [Fact]
+    public void AnEndlessSequenceIsReadOnlyAsFarAsItIsShown()
+    {
+        using (MaxEnumerableItemsScope.Of(3))
+        {
+            MessageOf(() => ShouldAssertException.For(Endless(), null, "numbers", "ShouldStop").Expected(new[] { 1, 2 }).Throw())
+                .ShouldBe(
+                    """
+                    numbers
+                        should stop
+                    [1, 2]
+                        but was
+                    [1, 2, 3, ...]
+                        difference
+                    [1, 2, *3*, ...]
+                    """, StringCompareShould.IgnoreLineEndings);
+        }
+
+        static IEnumerable<int> Endless()
+        {
+            for (var number = 1; ; number++)
+                yield return number;
+        }
+    }
+
+    [Fact]
+    public void AnEmptySequenceIsStillDescribedByItsOwnText()
+    {
+        var nothing = new NamedEmpty();
+
+        MessageOf(() => ShouldAssertException.For(nothing, null, nameof(nothing), "ShouldHaveItems").Throw())
+            .ShouldBe(
+                """
+                nothing
+                    should have items
+                    but was
+                [] (an empty basket)
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    private sealed class NamedEmpty : IEnumerable<string>
+    {
+        public IEnumerator<string> GetEnumerator() => Enumerable.Empty<string>().GetEnumerator();
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public override string ToString() => "an empty basket";
+    }
+
+    [Fact]
     public void ALargeContextBlockIsAppendedLineByLine()
     {
         var lines = Enumerable.Range(1, 2000).Select(line => $"line {line}").ToArray();
