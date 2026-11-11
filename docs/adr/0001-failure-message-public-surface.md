@@ -43,7 +43,7 @@ Shouldly keeps the subject, value formatting, difference highlighting, layout an
 
 ## Rules for custom assertions
 
-- **Names.** A message class constructed from a method named exactly like a built-in assertion gets that assertion's wording. Any other name gets the plain shape of the class constructed.
+- **Names.** A message class constructed from a method named exactly like a built-in assertion gets that assertion's wording, where the class carries what the wording needs. Any other name gets the plain shape of the class constructed.
 - **Tolerance and case.** The tolerance and case-sensitivity classes always print their tolerance or case option, whatever the method is called.
 - **Negation.** A failure is negated when its phrase contains the word "not". This applies to the building block and the message classes alike.
 
