@@ -58,7 +58,7 @@ duffStock
 ```
 <!-- endInclude -->
 
-A set's elements are matched one for one:
+A set's elements are matched one for one, also when you pass a `Case` for strings, a tolerance for numbers, or a comparer:
 
 <!-- snippet: EnumerableShouldBeExamples.ShouldBeSet.codeSample.approved.cs -->
 <a id='snippet-EnumerableShouldBeExamples.ShouldBeSet.codeSample.approved.cs'></a>

@@ -145,6 +145,33 @@ public class DictionaryAndSetOrderScenario
             new HashSet<string> { "b", "A" }.ShouldBe(new HashSet<string> { "a", "c" }, Case.Insensitive, ignoreOrder: true, "Some additional context"));
 
     [Fact]
+    public void AToleranceComparesTheNumbersOfSetsInAnyOrder()
+    {
+        new HashSet<double> { 2.0, 1.0 }.ShouldBe(new HashSet<double> { 1.001, 2.001 }, 0.01);
+        new HashSet<float> { 2f, 1f }.ShouldBe(new HashSet<float> { 1.001f, 2.001f }, 0.01);
+        new HashSet<decimal> { 2m, 1m }.ShouldBe(new HashSet<decimal> { 1.001m, 2.001m }, 0.01m);
+    }
+
+    [Fact]
+    public void ATolerancePairsTheNumbersOfSetsSoThatEveryOneMatches() =>
+        // 1.01 is within the tolerance of both 1.0 and 1.02, so pairing it with 1.02 would leave 1.03 unmatched.
+        new HashSet<double> { 1.03, 1.01 }.ShouldBe(new HashSet<double> { 1.02, 1.0 }, 0.015);
+
+    [Fact]
+    public void ATolerancePairsSetsOneForOne()
+    {
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<double> { 1.0, 2.0 }.ShouldBe(new HashSet<double> { 1.0, 3.0 }, 0.01));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<double> { 1.0, 1.005 }.ShouldBe(new HashSet<double> { 1.0 }, 0.01));
+    }
+
+    [Fact]
+    public void SetWithAToleranceShouldFail() =>
+        Verify.ShouldFail(() =>
+            new HashSet<double> { 4.0, 2.0, 1.0 }.ShouldBe(new HashSet<double> { 1.001, 2.001, 3.001 }, 0.01, "Some additional context"));
+
+    [Fact]
     public void DictionaryValueDiffersShouldFail() =>
         Verify.ShouldFail(() =>
             new Dictionary<string, int> { ["a"] = 1, ["b"] = 2, ["c"] = 3 }
