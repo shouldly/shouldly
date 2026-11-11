@@ -133,7 +133,7 @@ public class CollectionSpecs
         Compare.Run(actual, expected).ShouldDiverge(
             shouldly: Outcome.Fail,
             fluentAssertions: Outcome.Pass,
-            because: "FluentAssertions compares a collection by its items alone; Shouldly also compares the members a collection type declares beyond being a collection (#1431)");
+            because: "FluentAssertions compares a collection by its items alone; Shouldly also compares the members a type adds to the .NET collection class it derives from (#1431)");
     }
 
     private sealed class PagedList(int total, params int[] items) : List<int>(items)

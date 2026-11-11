@@ -2,7 +2,8 @@ using System.Collections;
 
 namespace Shouldly.Tests.ShouldBeEquivalentTo;
 
-// A collection type that declares its own public members is compared by its items and by those members (#1431).
+// A type that derives from a .NET collection class and adds public members is compared by its items and by those
+// members, as is a grouping by its key (#1431).
 public class CollectionWithMembersScenario
 {
     [Fact]
@@ -101,10 +102,31 @@ public class CollectionWithMembersScenario
     }
 
     [Fact]
-    public void ShouldNotCompareCollectionInterfaceMembersACustomCollectionImplements()
+    public void ShouldNotCompareCollectionInterfaceMembersADerivedCollectionImplements()
     {
-        var subject = new CustomCollection(1, 2);
-        subject.ShouldBeEquivalentTo(new CustomCollection(1, 2));
+        var subject = new SyncedList(1, 2);
+        subject.ShouldBeEquivalentTo(new SyncedList(1, 2));
+    }
+
+    [Fact]
+    public void ShouldCompareACollectionThatImplementsTheInterfacesItselfByItsItemsAlone()
+    {
+        new PagedBuffer(total: 10, capacity: 16, 1, 2).ShouldBeEquivalentTo(new PagedBuffer(total: 99, capacity: 9, 1, 2));
+        new PagedBuffer(total: 10, capacity: 16).ShouldBeEquivalentTo(new PagedBuffer(total: 10, capacity: 9));
+    }
+
+    [Fact]
+    public void ShouldIgnoreTheContainerTypeOfACollectionThatImplementsTheInterfacesItself()
+    {
+        var subject = new[] { 1, 2 };
+        subject.ShouldBeEquivalentTo(new PagedBuffer(total: 10, capacity: 16, 1, 2));
+    }
+
+    [Fact]
+    public void ShouldFindTheMemberOnAnActualCollectionThatImplementsTheInterfacesItself()
+    {
+        var subject = new PagedBuffer(total: 10, capacity: 16, 1, 2);
+        subject.ShouldBeEquivalentTo(new PagedList(10, 1, 2));
     }
 
     private sealed class PagedList(int total, params int[] items) : List<int>(items)
@@ -126,18 +148,25 @@ public class CollectionWithMembersScenario
 
     private sealed record Group(IGrouping<string, int> Items);
 
-    // Implements ICollection itself, so its SyncRoot (a fresh object per instance) and the other members it
-    // implements are collection plumbing, not state.
-    private sealed class CustomCollection(params int[] items) : ICollection
+    // Its SyncRoot (a fresh object per instance) is a member of ICollection, so it is collection plumbing, not
+    // state, even though this type declares it.
+    private sealed class SyncedList(params int[] items) : List<int>(items), ICollection
     {
-        public int Count => items.Length;
-
-        public bool IsSynchronized => false;
-
         public object SyncRoot { get; } = new();
+    }
 
-        public void CopyTo(Array array, int index) => items.CopyTo(array, index);
+    // Implements IEnumerable<T> itself, so nothing tells its state (TotalCount) apart from how it holds its items
+    // (Capacity) or from views of them (First, which throws when there are none). None of them is compared.
+    private sealed class PagedBuffer(int total, int capacity, params int[] items) : IEnumerable<int>
+    {
+        public int TotalCount { get; } = total;
 
-        public IEnumerator GetEnumerator() => items.GetEnumerator();
+        public int Capacity { get; } = capacity;
+
+        public int First => items.Length > 0 ? items[0] : throw new InvalidOperationException("The buffer is empty.");
+
+        public IEnumerator<int> GetEnumerator() => ((IEnumerable<int>)items).GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -33,6 +33,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         PropertyInfo? kvpKeyProperty = null;
         PropertyInfo? kvpValueProperty = null;
         IReadOnlyList<EquivalencyMemberShape> members = [];
+        IReadOnlyList<EquivalencyMemberShape> allMembers = [];
 
         switch (kind)
         {
@@ -56,7 +57,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
                     }
                 }
 
-                members = CreateCollectionMembers(type);
+                allMembers = CreateMembers(type);
+                members = CreateCollectionMembers(type, allMembers);
                 break;
 
             case EquivalencyNodeKind.Set:
@@ -64,15 +66,16 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
                 elementType = type.IsArray
                     ? type.GetElementType()
                     : FindGenericInterface(type, typeof(IEnumerable<>))?.GetGenericArguments()[0];
-                members = CreateCollectionMembers(type);
+                allMembers = CreateMembers(type);
+                members = CreateCollectionMembers(type, allMembers);
                 break;
 
             case EquivalencyNodeKind.Complex:
-                members = CreateMembers(type);
+                allMembers = members = CreateMembers(type);
                 break;
         }
 
-        return new ReflectionTypeShape(type, kind, members, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
+        return new ReflectionTypeShape(type, kind, members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
     }
 
     [RequiresUnreferencedCode("Reflects over the interfaces of arbitrary types.")]
@@ -208,30 +211,49 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
     }
 
     /// <summary>
-    /// The members a collection type declares beyond being a collection, such as a paged list's total count or a
-    /// grouping's key (#1431). A member declared by a framework type (<c>List&lt;T&gt;.Capacity</c>, an array's
-    /// <c>Length</c>) or named by a framework interface the type implements (<c>Count</c>, <c>SyncRoot</c>,
-    /// <c>Keys</c>) is how the collection holds its items, not state of its own, so it is left out. A grouping's
-    /// <c>Key</c> is kept: it is state, even though the framework declares it.
+    /// The state a collection type holds beyond its items (#1431): the members a type adds to the framework
+    /// collection class it derives from, such as a <c>List&lt;T&gt;</c> subclass's total count, and a grouping's
+    /// <c>Key</c>, which is state even though the framework declares it.
+    /// <para>
+    /// The framework base holds the items, so what a subclass adds is its own state. A member declared by a
+    /// framework type (<c>List&lt;T&gt;.Capacity</c>, an array's <c>Length</c>) or named by a framework interface
+    /// the type implements (<c>Count</c>, <c>SyncRoot</c>, <c>Keys</c>) is left out. A collection that implements
+    /// the interfaces itself has no members here: nothing tells its state apart from how it holds its items or
+    /// from views of them (a buffer's <c>Capacity</c>, a cons list's <c>Head</c> and <c>Tail</c>, a tree node's
+    /// <c>Parent</c> and <c>Next</c>), and such getters can differ between equal collections, or throw.
+    /// </para>
     /// </summary>
-    [RequiresUnreferencedCode("Reflects over the fields, properties, and interfaces of arbitrary types.")]
-    private static IReadOnlyList<EquivalencyMemberShape> CreateCollectionMembers(Type type)
+    [RequiresUnreferencedCode("Reflects over the interfaces of arbitrary types.")]
+    private static IReadOnlyList<EquivalencyMemberShape> CreateCollectionMembers(Type type, IReadOnlyList<EquivalencyMemberShape> allMembers)
     {
         var isGrouping = FindGenericInterface(type, typeof(IGrouping<,>)) != null;
+        var addsToFrameworkCollection = DerivesFromFrameworkCollection(type);
+        if (!isGrouping && !addsToFrameworkCollection)
+            return [];
 
-        var interfaces = type.IsInterface ? new[] { type }.Concat(type.GetInterfaces()) : type.GetInterfaces();
         var interfaceMemberNames = new HashSet<string>(
-            interfaces
+            type.GetInterfaces()
                 .Where(IsFrameworkType)
                 .SelectMany(i => i.GetProperties().Select(p => p.Name)),
             StringComparer.Ordinal);
 
-        return CreateMembers(type)
+        return allMembers
             .Cast<ReflectionMemberShape>()
             .Where(member =>
                 isGrouping && member.Name == nameof(IGrouping<int, int>.Key) ||
-                !member.IsDeclaredByFrameworkType && !interfaceMemberNames.Contains(member.Name))
+                addsToFrameworkCollection && !member.IsDeclaredByFrameworkType && !interfaceMemberNames.Contains(member.Name))
             .ToList<EquivalencyMemberShape>();
+    }
+
+    private static bool DerivesFromFrameworkCollection(Type type)
+    {
+        for (var baseType = type.BaseType; baseType != null; baseType = baseType.BaseType)
+        {
+            if (IsFrameworkType(baseType) && typeof(IEnumerable).IsAssignableFrom(baseType))
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>A type that ships with .NET itself, as opposed to one from the user or a third-party library.</summary>
@@ -242,6 +264,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
     private sealed class ReflectionTypeShape : EquivalencyTypeShape
     {
         private readonly IReadOnlyList<EquivalencyMemberShape> _members;
+        private readonly IReadOnlyList<EquivalencyMemberShape> _allMembers;
         private readonly PropertyInfo? _kvpKeyProperty;
         private readonly PropertyInfo? _kvpValueProperty;
 
@@ -249,6 +272,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             Type type,
             EquivalencyNodeKind kind,
             IReadOnlyList<EquivalencyMemberShape> members,
+            IReadOnlyList<EquivalencyMemberShape> allMembers,
             Type? elementType,
             Type? keyType,
             Type? valueType,
@@ -258,6 +282,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             Type = type;
             Kind = kind;
             _members = members;
+            _allMembers = allMembers;
             ElementType = elementType;
             KeyType = keyType;
             ValueType = valueType;
@@ -279,7 +304,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
 
         public override EquivalencyMemberShape? FindMember(string name)
         {
-            foreach (var member in _members)
+            foreach (var member in _allMembers)
             {
                 if (string.Equals(member.Name, name, StringComparison.Ordinal))
                     return member;
