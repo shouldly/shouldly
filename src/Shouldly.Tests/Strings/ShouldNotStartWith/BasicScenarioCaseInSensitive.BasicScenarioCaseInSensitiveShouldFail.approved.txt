@@ -1,7 +1,7 @@
 "Cheese"
     should not start with
 "cH"
-    but was
+    but did
 
 Additional Info:
     Some additional context

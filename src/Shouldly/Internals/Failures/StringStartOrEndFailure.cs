@@ -1,9 +1,9 @@
 namespace Shouldly.Internals.Failures;
 
 /// <summary>
-/// A string should have ended with another, or should not have.
+/// A string should have started or ended with another, or should not have.
 /// </summary>
-sealed class StringEndFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
+sealed class StringStartOrEndFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
     internal override SlotReading? FromSlots(Slots s) =>
         new(With(s.Expected), s.Actual);

@@ -69,11 +69,10 @@ static class Fail
     public static readonly FlagFailure ShouldHaveFlag = new();
     public static readonly FlagFailure ShouldNotHaveFlag = new(negated: true);
 
-    // The two StartWith assertions get the plain shape, which says "but was" where EndWith says "but did not".
-    public static readonly PlainFailure ShouldStartWith = new();
-    public static readonly PlainFailure ShouldNotStartWith = new(negated: true);
-    public static readonly StringEndFailure ShouldEndWith = new();
-    public static readonly StringEndFailure ShouldNotEndWith = new(negated: true);
+    public static readonly StringStartOrEndFailure ShouldStartWith = new();
+    public static readonly StringStartOrEndFailure ShouldNotStartWith = new(negated: true);
+    public static readonly StringStartOrEndFailure ShouldEndWith = new();
+    public static readonly StringStartOrEndFailure ShouldNotEndWith = new(negated: true);
 
     public static readonly KeyFailure ShouldContainKey = new();
     public static readonly KeyFailure ShouldNotContainKey = new(negated: true);
