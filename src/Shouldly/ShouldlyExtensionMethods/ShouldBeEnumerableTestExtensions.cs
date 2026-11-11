@@ -134,9 +134,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
-        // Snapshot one-shot sequences so the check and the failure message see the same items.
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        using var actualProxy = actual as EnumerableProxy<T>;
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual != null && actual.Any())
             throw Fail.ShouldBeNullOrEmpty.For(actual, customMessage, actualExpression);
     }
@@ -148,9 +147,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
-        // Snapshot one-shot sequences so the check and the failure message see the same items.
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        using var actualProxy = actual as EnumerableProxy<T>;
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual == null || !actual.Any())
             throw Fail.ShouldNotBeNullOrEmpty.For(actual, customMessage, actualExpression);
     }
@@ -291,15 +289,14 @@ public static partial class ShouldBeEnumerableTestExtensions
             return;
         }
 
-        // The failure message reads both sequences again, so buffer single-pass ones.
-        var bufferedActual = EnumerableProxy<string>.WrapNonCollection(actual);
-        var bufferedExpected = EnumerableProxy<string>.WrapNonCollection(expected);
-        using var actualProxy = bufferedActual as EnumerableProxy<string>;
-        using var expectedProxy = bufferedExpected as EnumerableProxy<string>;
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
 
         var comparer = caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-        if (!bufferedActual.Satisfies(v => Equality.SequenceEqual(v, bufferedExpected, ignoreOrder: true, comparer)))
-            throw Fail.ShouldBe.IgnoringOrder(bufferedExpected, ComparisonRecord.ComparedElementsWith<string>(comparer, isCustom: false), caseSensitivity).For(bufferedActual, customMessage, actualExpression);
+        if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, ignoreOrder: true, comparer)))
+            throw Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith<string>(comparer, isCustom: false), caseSensitivity).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>

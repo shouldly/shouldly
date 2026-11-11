@@ -93,10 +93,10 @@ public static partial class ShouldBeTestExtensions
         actual = NullEquivalence.Normalize(actual);
         expected = NullEquivalence.Normalize(expected);
 
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        expected = EnumerableProxy<T>.WrapNonCollection(expected);
-        using var actualProxy = actual as EnumerableProxy<T>;
-        using var expectedProxy = expected as EnumerableProxy<T>;
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items;
+        expected = capturedExpected.Items;
 
         if (ignoreOrder)
         {
@@ -124,11 +124,10 @@ public static partial class ShouldBeTestExtensions
         actual = NullEquivalence.Normalize(actual);
         expected = NullEquivalence.Normalize(expected);
 
-        // The failure message reads both sequences again, so buffer single-pass ones.
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        expected = EnumerableProxy<T>.WrapNonCollection(expected);
-        using var actualProxy = actual as EnumerableProxy<T>;
-        using var expectedProxy = expected as EnumerableProxy<T>;
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items;
+        expected = capturedExpected.Items;
 
         if (ignoreOrder)
         {

@@ -69,7 +69,7 @@ static class EqualityRules
     /// When a rule applies to both values, sets <paramref name="result"/> to its verdict and returns <c>true</c>.
     /// A rule applies when both values are instances of its type; when several do, the most specific wins, and of
     /// equally specific (or unrelated) ones, the one registered last. A value wrapped by
-    /// <see cref="EnumerableProxy{T}"/> is judged as the value it wraps.
+    /// captured sequence is judged as the sequence it captured.
     /// </summary>
     public static bool TryEquals(object expected, object actual, out bool result)
     {
@@ -80,8 +80,8 @@ static class EqualityRules
             return false;
         }
 
-        expected = Unwrap(expected);
-        actual = Unwrap(actual);
+        expected = CapturedSequence.Original(expected);
+        actual = CapturedSequence.Original(actual);
         if (state.RuleFor(expected.GetType(), actual.GetType()) is not { } rule)
         {
             result = false;
@@ -91,9 +91,6 @@ static class EqualityRules
         result = rule.Equal(expected, actual);
         return true;
     }
-
-    private static object Unwrap(object value) =>
-        value is IEnumerableProxy proxy ? proxy.ProxiedValue : value;
 
     private sealed record Rule(Type Type, Func<object, object, bool> Equal);
 

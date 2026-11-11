@@ -37,11 +37,8 @@ static class StringHelpers
             var inspect = "[" + string.Join(", ", FormatItemsCapped(enumerable)) + "]";
             if (inspect == "[]")
             {
-                if (value is IEnumerableProxy proxy)
-                {
-                    objectType = proxy.ProxiedValue.GetType();
-                    value = proxy.ProxiedValue;
-                }
+                value = CapturedSequence.Original(value);
+                objectType = value.GetType();
 
                 if (value.ToString() != objectType.FullName)
                 {
