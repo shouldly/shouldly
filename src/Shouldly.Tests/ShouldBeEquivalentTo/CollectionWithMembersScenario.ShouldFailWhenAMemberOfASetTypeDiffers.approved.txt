@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.CollectionWithMembersScenario+TaggedSet]
+    Tag [System.String]
+
+    Expected value to be
+"blue"
+    but was
+"red"
+
+Additional Info:
+    Some additional context

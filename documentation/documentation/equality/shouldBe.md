@@ -301,6 +301,8 @@ public sealed class IdBag(int id, params int[] items) : IEnumerable<int>
 <sup><a href='/src/DocumentationExamples/EqualityRuleRegistration.cs#L4-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-IdBag' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+The same goes for the type's other members: a collection type that adds state of its own, such as a paged list's total count, is compared by its items alone, so two pages with the same items and different totals are equal. For a type that derives from one of .NET's collection classes, such as a `List<T>` subclass, `ShouldBeEquivalentTo` compares those members as well as the items.
+
 To tell Shouldly what equality means for such a type, register an equality rule once, before any test runs, for example from a module initializer in your test project:
 
 <!-- snippet: RegisterEqualityRule -->

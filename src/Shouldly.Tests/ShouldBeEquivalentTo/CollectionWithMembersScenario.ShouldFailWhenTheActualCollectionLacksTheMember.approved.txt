@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.CollectionWithMembersScenario+PagedList]
+    TotalCount
+
+    Expected a public member named
+"TotalCount"
+    but was not found on
+System.Collections.Generic.List<System.Int32>
+
+Additional Info:
+    Some additional context
