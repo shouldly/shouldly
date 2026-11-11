@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -23,14 +24,13 @@ public static partial class ShouldBeCompletedSuccessfullyExtensions
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
         if (task is null)
-            throw new ShouldAssertException(new ActualShouldlyMessage(null, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeCompletedSuccessfully.WithNoTask().For(task, customMessage, actualExpression);
 
         // Read the status once, so a task completing concurrently can't contradict the failure message.
         var status = task.Status;
         if (status != TaskStatus.RanToCompletion)
         {
-            var snapshot = new MessageGenerators.TaskStatusSnapshot(status, status == TaskStatus.Faulted ? task.Exception : null);
-            throw new ShouldAssertException(new ActualShouldlyMessage(snapshot, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeCompletedSuccessfully.With(status, status == TaskStatus.Faulted ? task.Exception : null).For(task, customMessage, actualExpression);
         }
     }
 

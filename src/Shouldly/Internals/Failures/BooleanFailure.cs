@@ -1,0 +1,28 @@
+namespace Shouldly.Internals.Failures;
+
+/// <summary>
+/// A boolean should have been true, or should have been false.
+/// </summary>
+sealed class BooleanFailure(bool expected, [CallerMemberName] string name = "") : FailureWithoutFacts(name, negated: false)
+{
+    protected override string Word(Sentence sentence) => Word(sentence, expected);
+
+    internal static string Word(Sentence sentence, object? expectedValue)
+    {
+        var codePart = sentence.Subject;
+        var expected = expectedValue.ToStringAwesomely();
+
+        var actual = sentence.ActualText;
+        var actualString = codePart == actual ? " not" : $"""
+
+                                                          {actual}
+                                                          """;
+
+        return $"""
+                {codePart}
+                    should be
+                {expected}
+                    but was{actualString}
+                """;
+    }
+}

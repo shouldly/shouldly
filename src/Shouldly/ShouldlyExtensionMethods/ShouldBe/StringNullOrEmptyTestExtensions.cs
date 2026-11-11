@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -12,7 +13,7 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!string.IsNullOrEmpty(actual))
-            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeNullOrEmpty.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -23,6 +24,6 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (string.IsNullOrEmpty(actual))
-            throw new ShouldAssertException(new ActualShouldlyMessage(actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldNotBeNullOrEmpty.For(actual, customMessage, actualExpression);
     }
 }

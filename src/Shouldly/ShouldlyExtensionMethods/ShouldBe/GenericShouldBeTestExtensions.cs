@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -146,7 +147,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Same(v, expected)))
+            throw Fail.ShouldBeSameAs.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -155,6 +157,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBeSameAs(this object? actual, object? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Same(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.Same(v, expected)))
+            throw Fail.ShouldNotBeSameAs.With(expected).For(actual, customMessage, actualExpression);
     }
 }

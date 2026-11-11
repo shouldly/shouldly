@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -52,7 +53,8 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.StringMatchingRegex(v, regexPattern)))
+            throw Fail.ShouldMatch.With(regexPattern).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -61,7 +63,8 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldNotMatch(this string actual, [RegexPattern] string regexPattern, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.StringMatchingRegex(v, regexPattern), actual, regexPattern, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.StringMatchingRegex(v, regexPattern)))
+            throw Fail.ShouldNotMatch.With(regexPattern).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -19,7 +20,7 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeTrue.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -31,10 +32,10 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual is null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(true, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeTrue.For(actual, customMessage, actualExpression);
 
         if (actual.Value != true)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(true, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeTrue.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -46,7 +47,7 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeFalse.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -58,9 +59,9 @@ public static partial class ShouldBeBooleanExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual is null)
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(false, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeFalse.For(actual, customMessage, actualExpression);
 
         if (actual.Value != false)
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(false, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeFalse.For(actual, customMessage, actualExpression);
     }
 }

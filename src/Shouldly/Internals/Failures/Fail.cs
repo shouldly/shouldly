@@ -10,6 +10,25 @@ static class Fail
     public static readonly NullFailure ShouldBeNull = new();
     public static readonly NullFailure ShouldNotBeNull = new(negated: true);
 
+    public static readonly BooleanFailure ShouldBeTrue = new(expected: true);
+    public static readonly BooleanFailure ShouldBeFalse = new(expected: false);
+
+    public static readonly PositiveFailure ShouldBePositive = new();
+    public static readonly NegativeFailure ShouldBeNegative = new();
+
+    public static readonly NullOrEmptyFailure ShouldBeNullOrEmpty = new();
+    public static readonly NullOrEmptyFailure ShouldNotBeNullOrEmpty = new(negated: true);
+    public static readonly NullOrWhiteSpaceFailure ShouldBeNullOrWhiteSpace = new();
+    public static readonly NullOrWhiteSpaceFailure ShouldNotBeNullOrWhiteSpace = new(negated: true);
+
+    public static readonly SameAsFailure ShouldBeSameAs = new();
+    public static readonly PlainFailure ShouldNotBeSameAs = new(negated: true);
+
+    public static readonly PlainFailure ShouldMatch = new();
+    public static readonly NotMatchFailure ShouldNotMatch = new();
+
+    public static readonly CompletedSuccessfullyFailure ShouldBeCompletedSuccessfully = new();
+
     public static readonly PlainFailure ShouldBeGreaterThan = new();
     public static readonly PlainFailure ShouldBeGreaterThanOrEqualTo = new();
     public static readonly PlainFailure ShouldBeLessThan = new();

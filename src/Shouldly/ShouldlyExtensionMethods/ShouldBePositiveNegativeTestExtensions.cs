@@ -1,3 +1,5 @@
+using Shouldly.Internals.Failures;
+
 namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
@@ -9,7 +11,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(decimal);
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBePositive.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -19,7 +22,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(decimal);
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeNegative.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -29,7 +33,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(double);
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBePositive.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -39,7 +44,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(double);
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeNegative.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -49,7 +55,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(float);
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBePositive.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -59,7 +66,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(float);
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeNegative.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -69,7 +77,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(int);
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBePositive.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -79,7 +88,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(int);
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeNegative.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -89,7 +99,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(long);
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBePositive.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -99,7 +110,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(long);
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeNegative.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -109,7 +121,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(short);
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBePositive.For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -119,6 +132,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         var expected = default(short);
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeNegative.For(actual, customMessage, actualExpression);
     }
 }
