@@ -1,0 +1,13 @@
+new HashSet<double> { 4.0, 2.0, 1.0 }
+    should be within
+0.01d
+    of
+[1.001d, 2.001d, 3.001d]
+    but was
+[4d, 2d, 1d]
+    difference
+3.001d is missing
+4d is not expected
+
+Additional Info:
+    Some additional context

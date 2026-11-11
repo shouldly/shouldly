@@ -123,4 +123,21 @@ public class CollectionSpecs
     {
         Compare.Run<List<int>?>(null, []).ShouldAgree(Outcome.Fail);
     }
+
+    [Fact]
+    public void Collection_type_with_a_differing_extra_member()
+    {
+        var actual = new PagedList(10, 1, 2);
+        var expected = new PagedList(99, 1, 2);
+
+        Compare.Run(actual, expected).ShouldDiverge(
+            shouldly: Outcome.Fail,
+            fluentAssertions: Outcome.Pass,
+            because: "FluentAssertions compares a collection by its items alone; Shouldly also compares the members a type adds to the .NET collection class it derives from (#1431)");
+    }
+
+    private sealed class PagedList(int total, params int[] items) : List<int>(items)
+    {
+        public int TotalCount { get; } = total;
+    }
 }

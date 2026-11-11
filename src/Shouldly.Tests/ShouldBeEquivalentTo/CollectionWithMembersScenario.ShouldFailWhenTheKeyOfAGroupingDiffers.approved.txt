@@ -1,0 +1,12 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.CollectionWithMembersScenario+Group]
+    Items [System.Linq.IGrouping<System.String, System.Int32>]
+        Key [System.String]
+
+    Expected value to be
+"even"
+    but was
+"odd"
+
+Additional Info:
+    Some additional context

@@ -24,7 +24,8 @@ static class Equality
 
     /// <summary>
     /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal elements: in the same order, or,
-    /// with <paramref name="ignoreOrder"/>, matched one for one in any order. A default <c>ImmutableArray&lt;T&gt;</c>
+    /// with <paramref name="ignoreOrder"/>, or when both are dictionaries or both are sets (see
+    /// <see cref="UnorderedCollection"/>), matched one for one in any order. A default <c>ImmutableArray&lt;T&gt;</c>
     /// counts as null, and null equals only null. Elements are compared by <paramref name="comparer"/> when given.
     /// Without one, an equality rule that applies to both sequences as whole values decides instead, so a type such as
     /// <c>JToken</c>, which enumerates its children, isn't compared by shape alone. With <paramref name="ignoreOrder"/>
@@ -47,8 +48,11 @@ static class Equality
             return ruleResult;
 
         comparer ??= ComparerFor<T>();
-        return ignoreOrder
-            ? MatchOneForOne(actual, expected, comparer)
+        var elementComparer = comparer;
+
+        // The order two dictionaries or two sets enumerate in isn't part of their value (#1430).
+        return ignoreOrder || UnorderedCollection.BothAre(actual, expected) != UnorderedCollection.Kind.None
+            ? UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => Equal(a, e, elementComparer))
             : MatchInOrder(actual, expected, comparer);
     }
 
@@ -74,28 +78,5 @@ static class Equality
             if (!Equal(actualEnum.Current, expectedEnum.Current, comparer))
                 return false;
         }
-    }
-
-    private static bool MatchOneForOne<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
-    {
-        if (actual is ICollection actualCollection &&
-            expected is ICollection expectedCollection &&
-            actualCollection.Count != expectedCollection.Count)
-            return false;
-
-        var expectedList = expected.ToList();
-        foreach (var actualElement in actual)
-        {
-            // Match by index rather than FirstOrDefault + Remove: when no element is equivalent,
-            // FirstOrDefault returns default(T), and Remove(default(T)) would succeed whenever
-            // default(T) (e.g. 0 or null) is present in the list.
-            var index = expectedList.FindIndex(expectedElement => Equal(actualElement, expectedElement, comparer));
-            if (index < 0)
-                return false;
-
-            expectedList.RemoveAt(index);
-        }
-
-        return expectedList.Count == 0;
     }
 }

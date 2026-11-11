@@ -46,7 +46,25 @@ static class WithinWording
                         {difference}
                         """;
         }
+        else if (!sentence.Negated && WithinTolerance(toleranceValue) is { } withinTolerance)
+        {
+            // Two sets of numbers aren't compared in order, so they are told apart by what one has that the other doesn't.
+            message += UnorderedWording.Difference(sentence.Actual, expectedValue, ComparisonRecord.ComparedElementsBy(withinTolerance));
+        }
 
         return message;
     }
+
+    // Whether two numbers are within the tolerance of each other, as the assertions on sequences of numbers compare them.
+    private static Func<object?, object?, bool>? WithinTolerance(object? tolerance) =>
+        tolerance switch
+        {
+            decimal decimalTolerance => (actual, expected) =>
+                actual is decimal actualNumber && expected is decimal expectedNumber &&
+                Is.Equal(actualNumber, expectedNumber, decimalTolerance),
+            double doubleTolerance => (actual, expected) =>
+                actual is double or float && expected is double or float &&
+                Is.Equal(Convert.ToDouble(actual), Convert.ToDouble(expected), doubleTolerance),
+            _ => null
+        };
 }

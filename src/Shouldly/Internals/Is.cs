@@ -76,6 +76,9 @@ static class Is
 
     public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
     {
+        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+            return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
+
         using var expectedEnum = expected.GetEnumerator();
         using var actualEnum = actual.GetEnumerator();
 
@@ -96,6 +99,9 @@ static class Is
 
     public static bool Equal(IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
     {
+        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+            return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
+
         using var expectedEnum = expected.GetEnumerator();
         using var actualEnum = actual.GetEnumerator();
 
@@ -116,6 +122,9 @@ static class Is
 
     public static bool Equal(IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
     {
+        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+            return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
+
         using var expectedEnum = expected.GetEnumerator();
         using var actualEnum = actual.GetEnumerator();
 
@@ -132,6 +141,28 @@ static class Is
                 return false;
             }
         }
+    }
+
+    /// <summary>
+    /// Whether two sets of numbers hold numbers within a tolerance of each other, paired one for one in any order
+    /// (#1430). Being within a tolerance isn't transitive, so a number may be close enough to two others, and pairing
+    /// it with the wrong one can leave another unpaired. Pairing the two sets smallest to largest finds a pairing
+    /// whenever there is one.
+    /// </summary>
+    private static bool PairInOrderOfSize<T>(IEnumerable<T> actual, IEnumerable<T> expected, Func<T, T, bool> withinTolerance)
+    {
+        var actualInOrder = actual.OrderBy(number => number).ToList();
+        var expectedInOrder = expected.OrderBy(number => number).ToList();
+        if (actualInOrder.Count != expectedInOrder.Count)
+            return false;
+
+        for (var index = 0; index < actualInOrder.Count; index++)
+        {
+            if (!withinTolerance(actualInOrder[index], expectedInOrder[index]))
+                return false;
+        }
+
+        return true;
     }
 
     public static bool Equal(decimal actual, decimal expected, decimal tolerance) =>
@@ -205,6 +236,10 @@ static class Is
 
     public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
     {
+        // The order two sets enumerate in isn't part of their value (#1430).
+        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+            return Internals.UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => StringEqualWithCaseSensitivity(a, e, caseSensitivity));
+
         using var expectedEnum = expected.GetEnumerator();
         using var actualEnum = actual.GetEnumerator();
 

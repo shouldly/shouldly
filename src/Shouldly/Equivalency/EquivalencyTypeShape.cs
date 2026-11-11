@@ -12,9 +12,18 @@ internal abstract class EquivalencyTypeShape
 
     public abstract EquivalencyNodeKind Kind { get; }
 
-    /// <summary>Public instance fields and readable, non-indexer properties (Complex nodes).</summary>
+    /// <summary>
+    /// Public instance fields and readable, non-indexer properties: all of them for a Complex node, and for a
+    /// Dictionary, Set or Sequence node only the state it holds beyond its items: the members a type adds to the
+    /// framework collection class it derives from, and a grouping's key (#1431).
+    /// </summary>
     public abstract IReadOnlyList<EquivalencyMemberShape> Members { get; }
 
+    /// <summary>
+    /// Finds the member an expectation asks for on a value of this type. For a collection type this looks beyond
+    /// <see cref="Members"/>, at every public member: which of its own members a collection is compared by is a
+    /// question for the expectation's type, not for the type of the value it is compared with.
+    /// </summary>
     public abstract EquivalencyMemberShape? FindMember(string name);
 
     /// <summary>The declared element type of a Sequence or Set, when statically known.</summary>

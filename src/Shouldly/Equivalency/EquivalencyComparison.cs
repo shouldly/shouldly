@@ -105,18 +105,22 @@ internal sealed class EquivalencyComparison
 
                 case EquivalencyNodeKind.Dictionary:
                     CompareDictionaries(actual, expected, shape, annotatedPath);
+                    CompareMembers(actual, expected, shape, annotatedPath);
                     break;
 
                 case EquivalencyNodeKind.Set:
                     CompareUnordered(actual, expected, shape.ElementType, annotatedPath);
+                    CompareMembers(actual, expected, shape, annotatedPath);
                     break;
 
                 case EquivalencyNodeKind.Sequence:
                     CompareSequences(actual, expected, shape.ElementType, annotatedPath);
+                    CompareMembers(actual, expected, shape, annotatedPath);
                     break;
 
                 default:
-                    CompareComplex(actual, expected, shape, annotatedPath);
+                    if (!CompareMembers(actual, expected, shape, annotatedPath))
+                        AddDifference(EquivalencyDifferenceKind.VacuousComparison, annotatedPath, expected, actual, GetDisplayName(shape.Type));
                     break;
             }
         }
@@ -127,8 +131,15 @@ internal sealed class EquivalencyComparison
         }
     }
 
-    private void CompareComplex(object actual, object expected, EquivalencyTypeShape shape, List<string> path)
+    /// <summary>
+    /// Compares the members of <paramref name="shape"/>: every member of a complex type, or the members a
+    /// collection type declares beyond its items. Returns whether any member was compared, rather than ignored.
+    /// </summary>
+    private bool CompareMembers(object actual, object expected, EquivalencyTypeShape shape, List<string> path)
     {
+        if (shape.Members.Count == 0)
+            return false;
+
         var actualType = actual.GetType();
         var actualShape = actualType == shape.Type ? shape : _shapes.GetShape(actualType);
 
@@ -151,8 +162,7 @@ internal sealed class EquivalencyComparison
             CompareNodes(actualMember.GetValue(actual), member.GetValue(expected), member.DeclaredType, memberPath);
         }
 
-        if (!comparedAny)
-            AddDifference(EquivalencyDifferenceKind.VacuousComparison, path, expected, actual, GetDisplayName(shape.Type));
+        return comparedAny;
     }
 
     private void CompareSequences(object actual, object expected, Type? elementType, List<string> path)

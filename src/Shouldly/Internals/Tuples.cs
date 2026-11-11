@@ -90,6 +90,34 @@ static class Tuples
         return false;
     }
 
+    /// <summary>
+    /// When <paramref name="pair"/> is a <see cref="KeyValuePair{TKey, TValue}"/>, gives its key and its value.
+    /// </summary>
+    public static bool TryDeconstructKeyValuePair(object pair, out object? key, out object? value)
+    {
+        if (FindKeyValuePair(pair) is not { } accessors)
+        {
+            key = value = null;
+            return false;
+        }
+
+        key = accessors.Items[0].GetValue(pair);
+        value = accessors.Items[1].GetValue(pair);
+        return true;
+    }
+
+    /// <summary>
+    /// Whether two <see cref="KeyValuePair{TKey, TValue}"/>s have equal keys, compared as <see cref="TryEquals"/>
+    /// compares them. False when either isn't a pair.
+    /// </summary>
+    public static bool KeysEqual(object expected, object actual, IEqualityComparer elementComparer) =>
+        FindKeyValuePair(expected) is { } expectedAccessors &&
+        FindKeyValuePair(actual) is { } actualAccessors &&
+        ItemEquals(expectedAccessors.Items[0], actualAccessors.Items[0], expected, actual, elementComparer);
+
+    private static Accessors? FindKeyValuePair(object value) =>
+        Find(value) is { } accessors && accessors.Definition == typeof(KeyValuePair<,>) ? accessors : null;
+
     private static bool ItemEquals(Item expectedItem, Item actualItem, object expected, object actual, IEqualityComparer elementComparer)
     {
         var expectedComponent = expectedItem.GetValue(expected);
@@ -110,8 +138,9 @@ static class Tuples
     /// <summary>
     /// The <c>IEquatable&lt;S&gt;</c> and <c>IComparable&lt;S&gt;</c> steps that <c>EqualityComparer&lt;S&gt;</c> takes for
     /// the item's declared type <c>S</c>, which the object element comparer can't: it only knows <c>object</c>.
-    /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric, enumerable and tuple cases, so the
-    /// element comparer then finishes the cascade (<see cref="IComparable"/>, runtime <c>IEquatable&lt;U&gt;</c>,
+    /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric, enumerable and tuple cases, with
+    /// the runtime <c>IEquatable&lt;U&gt;</c> and overridden <see cref="object.Equals(object)"/> steps between them in the
+    /// same order, so the element comparer then finishes the cascade (<see cref="IComparable"/>,
     /// <see cref="object.Equals(object)"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
     /// </summary>
     private static bool TryDeclaredTypeEquals(Type declaredType, object? expected, object? actual, out bool result)
@@ -135,7 +164,14 @@ static class Tuples
             return true;
         }
 
-        if (FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
+        // The runtime type's IEquatable<U> comes next, as in EqualityComparer<S>: it is the type's own equality, so it
+        // decides before CompareTo (#1428).
+        if (RuntimeEquatable.TryEquals(expected, actual, out result))
+            return true;
+
+        // A type that defines its own Equals is left to the element comparer, which asks it before CompareTo (#1428).
+        if (!OverriddenEquals.IsDefinedBy(expected) &&
+            FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
         {
             result = (int)Invoke(compareTo, expected, actual) == 0;
             return true;
