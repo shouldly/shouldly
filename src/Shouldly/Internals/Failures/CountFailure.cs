@@ -6,18 +6,26 @@ namespace Shouldly.Internals.Failures;
 sealed class CountFailure([CallerMemberName] string name = "") : Failure(name, negated: false)
 {
     protected override SlotReading? FromSlots(Slots s) =>
-        new(new(this, sentence => Word(sentence, s.Expected)), s.Actual);
+        new(new(this, sentence => Word(sentence, s.Expected, count: null)), s.Actual);
 
+    /// <summary>
+    /// The number of items there should have been, and the number the assertion found.
+    /// </summary>
+    public FailureMessage With(int expected, int count) =>
+        new(this, sentence => Word(sentence, expected, count));
+
+    /// <summary>
+    /// The number of items there should have been, for an actual value that wasn't counted, such as null.
+    /// </summary>
     public FailureMessage With(int expected) =>
-        new(this, sentence => Word(sentence, expected));
+        new(this, sentence => Word(sentence, expected, count: null));
 
-    internal static string Word(Sentence sentence, object? expectedValue)
+    internal static string Word(Sentence sentence, object? expectedValue, int? count)
     {
         var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
-        var count = sentence.Actual switch
+        count ??= sentence.Actual switch
         {
-            // The assertion always hands us a materialized collection, so read its count cheaply rather than re-enumerating.
             ICollection collection => collection.Count,
             IEnumerable enumerable => enumerable.Cast<object>().Count(),
             _ => 0

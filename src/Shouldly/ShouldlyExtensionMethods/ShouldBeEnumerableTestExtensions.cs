@@ -195,15 +195,22 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
+        if (actual == null)
+            throw Fail.ShouldHaveCount.With(expected).For(actual, customMessage, actualExpression);
 
-        // A source that knows its count, such as a list or a query over an array, passes without being read.
-        if (actual != null && actual.TryGetNonEnumeratedCount(out var count) && count == expected)
+        // A source that knows its count, such as a list or a query over an array, isn't read to count it: it passes
+        // without being read, and fails reading only as far as the message shows.
+        var counted = actual.TryGetNonEnumeratedCount(out var count);
+        if (counted && count == expected)
             return;
 
         using var captured = CapturedSequence.Of(actual);
-        actual = captured.Items;
-        if (actual == null || actual.Count() != expected)
-            throw Fail.ShouldHaveCount.With(expected).For(actual, customMessage, actualExpression);
+        actual = captured.Items!;
+        if (!counted)
+            count = actual.Count();
+
+        if (count != expected)
+            throw Fail.ShouldHaveCount.With(expected, count).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
