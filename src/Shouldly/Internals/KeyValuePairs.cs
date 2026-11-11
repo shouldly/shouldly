@@ -88,9 +88,10 @@ static class KeyValuePairs
     /// <summary>
     /// The <c>IEquatable&lt;S&gt;</c> and <c>IComparable&lt;S&gt;</c> steps that <c>EqualityComparer&lt;S&gt;</c> takes for
     /// the component's declared type <c>S</c>, which the object element comparer can't: it only knows <c>object</c>.
-    /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric and enumerable cases, so the
-    /// element comparer then finishes the cascade (runtime <c>IEquatable&lt;U&gt;</c>, an overridden
-    /// <see cref="object.Equals(object)"/>, <see cref="IComparable"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
+    /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric and enumerable cases, with the
+    /// runtime <c>IEquatable&lt;U&gt;</c> and overridden <see cref="object.Equals(object)"/> steps between them in the
+    /// same order, so the element comparer then finishes the cascade (<see cref="IComparable"/>,
+    /// <see cref="object.Equals(object)"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
     /// </summary>
     private static bool TryDeclaredTypeEquals(Type declaredType, object? expected, object? actual, out bool result)
     {
@@ -111,6 +112,11 @@ static class KeyValuePairs
             result = (bool)Invoke(equals, expected, actual);
             return true;
         }
+
+        // The runtime type's IEquatable<U> comes next, as in EqualityComparer<S>: it is the type's own equality, so it
+        // decides before CompareTo (#1428).
+        if (RuntimeEquatable.TryEquals(expected, actual, out result))
+            return true;
 
         // A type that defines its own Equals is left to the element comparer, which asks it before CompareTo (#1428).
         if (!OverriddenEquals.IsDefinedBy(expected) &&
