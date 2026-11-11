@@ -127,30 +127,31 @@ static class Inequality
     {
         var actualType = TypeOf(actual);
         var expectedType = TypeOf(expected);
+        var equalsDeclaredBy = OverriddenEquals.DeclaringType(CapturedSequence.Original(expected));
 
         if (actualType != expectedType)
         {
             // Two tuples, or two anonymous types, of different element types: say which element.
-            var inMember = HaveOneGenericDefinition(actualType, expectedType) && ComparesMemberByMember(expectedType)
+            var inMember = HaveOneGenericDefinition(actualType, expectedType) && ComparesMemberByMember(expectedType, equalsDeclaredBy)
                 ? InMembers(actual, expected, depth)
                 : null;
             return inMember ?? new($"they are different types (expected {FullName(expectedType)}, actual {FullName(actualType)})");
         }
 
-        if (ComparesByReference(expectedType))
+        if (ComparesByReference(expectedType, equalsDeclaredBy))
             return new($"they are different instances, and {ShortName(expectedType)} compares by reference; use ShouldBeEquivalentTo to compare members");
 
-        if (ComparesMemberByMember(expectedType) && InMembers(actual, expected, depth) is { } memberFinding)
+        if (ComparesMemberByMember(expectedType, equalsDeclaredBy) && InMembers(actual, expected, depth) is { } memberFinding)
             return memberFinding;
 
-        return new(ByOwnVerdict(actual, expected, expectedType));
+        return new(ByOwnVerdict(actual, expected, expectedType, equalsDeclaredBy));
     }
 
     // Which of the type's own members Equality asked depends on the type the assertion was made at, which isn't
     // known here, so this states only what calling them again bears out.
-    private static string ByOwnVerdict(object actual, object expected, Type type)
+    private static string ByOwnVerdict(object actual, object expected, Type type, Type equalsDeclaredBy)
     {
-        var definesEquals = type.IsValueType || EqualsDeclaringType(type) != typeof(object) || ImplementsForItself(type, typeof(IEquatable<>));
+        var definesEquals = type.IsValueType || equalsDeclaredBy != typeof(object) || ImplementsForItself(type, typeof(IEquatable<>));
         if (definesEquals && Returns(() => !expected.Equals(actual)))
             return $"{ShortName(type)}.Equals returned false";
 
@@ -260,9 +261,9 @@ static class Inequality
     /// Whether nothing of <paramref name="type"/> defines equality, so that two instances are equal only when they
     /// are the same instance.
     /// </summary>
-    private static bool ComparesByReference(Type type) =>
+    private static bool ComparesByReference(Type type, Type equalsDeclaredBy) =>
         !type.IsValueType &&
-        EqualsDeclaringType(type) == typeof(object) &&
+        equalsDeclaredBy == typeof(object) &&
         !typeof(IComparable).IsAssignableFrom(type) &&
         !ImplementsForItself(type, typeof(IEquatable<>)) &&
         !ImplementsForItself(type, typeof(IComparable<>));
@@ -272,11 +273,11 @@ static class Inequality
     /// with that member's own <c>Equals</c>: a tuple, an anonymous type, a record, or a struct that doesn't override
     /// <c>Equals</c>.
     /// </summary>
-    private static bool ComparesMemberByMember(Type type) =>
+    private static bool ComparesMemberByMember(Type type, Type equalsDeclaredBy) =>
         IsTuple(type) ||
         IsAnonymous(type) ||
         IsRecord(type) ||
-        (type.IsValueType && EqualsDeclaringType(type) == typeof(ValueType));
+        (type.IsValueType && equalsDeclaredBy == typeof(ValueType));
 
     private static bool IsTuple(Type type) =>
         type.IsGenericType &&
@@ -302,10 +303,6 @@ static class Inequality
                printMembers.IsDefined(typeof(CompilerGeneratedAttribute), inherit: false);
     }
 
-    [UnconditionalSuppressMessage("Trimming", "IL2070",
-        Justification = "Equals(object) is virtual on System.Object, so it or its override is kept for any type that has a live instance.")]
-    private static Type? EqualsDeclaringType(Type type) =>
-        type.GetMethod(nameof(Equals), BindingFlags.Public | BindingFlags.Instance, binder: null, [typeof(object)], modifiers: null)?.DeclaringType;
 
     // Whether the type implements IEquatable<T> or IComparable<T> for a T it is itself an instance of.
     [UnconditionalSuppressMessage("Trimming", "IL2070",

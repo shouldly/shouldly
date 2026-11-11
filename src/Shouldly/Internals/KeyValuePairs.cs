@@ -113,7 +113,7 @@ static class KeyValuePairs
         }
 
         // A type that defines its own Equals is left to the element comparer, which asks it before CompareTo (#1428).
-        if (!OverriddenEquals.IsDefinedBy(receiverType) &&
+        if (!OverriddenEquals.IsDefinedBy(expected) &&
             FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
         {
             result = (int)Invoke(compareTo, expected, actual) == 0;

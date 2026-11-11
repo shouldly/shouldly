@@ -138,7 +138,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
             return runtimeEquatableResult;
 
         // Overrides Equals(object)?
-        if (OverriddenEquals.IsDefinedBy(x.GetType()))
+        if (OverriddenEquals.IsDefinedBy(x))
             return x.Equals(y);
 
         // Only a type that doesn't define equality is compared with CompareTo.
