@@ -123,9 +123,25 @@ class EqualityComparer<T> : IEqualityComparer<T>
         if (KeyValuePairs.TryEquals(x, y, _innerComparerFactory(), out var keyValuePairResult))
             return keyValuePairResult;
 
+        // A type's own equality decides before CompareTo, which only says how to sort: a type may sort by one key and
+        // be equal by all its fields (#1428). Each step looks at what the runtime type defines, so ShouldBe<Person>
+        // and ShouldBe<object> agree.
+
         // Implements IEquatable<T>?
         if (x is IEquatable<T> equatable)
             return equatable.Equals(y);
+
+        // Implements IEquatable<U> for the runtime types? Reached when T has lost the element type — the elements
+        // of a collection compared through the object comparer, or ShouldBe<object> — so a typed Equals isn't
+        // ignored in favour of reference equality (#825).
+        if (RuntimeEquatable.TryEquals(x, y, out var runtimeEquatableResult))
+            return runtimeEquatableResult;
+
+        // Overrides Equals(object)?
+        if (OverriddenEquals.IsDefinedBy(x.GetType()))
+            return x.Equals(y);
+
+        // Only a type that doesn't define equality is compared with CompareTo.
 
         // Implements IComparable<T>?
         if (x is IComparable<T> comparableGeneric)
@@ -143,13 +159,6 @@ class EqualityComparer<T> : IEqualityComparer<T>
                 // Thrown when two comparable types are not compatible, i.e string and int
             }
         }
-
-        // Implements IEquatable<U> for the runtime types? Reached when T has lost the element type — the elements
-        // of a collection compared through the object comparer, or ShouldBe<object> — so a typed Equals isn't
-        // ignored in favour of reference equality (#825). Deliberately after IComparable, so only types whose
-        // Equals(object) disagrees with their IEquatable<U> see a different answer.
-        if (RuntimeEquatable.TryEquals(x, y, out var runtimeEquatableResult))
-            return runtimeEquatableResult;
 
         // Last case, rely on Object.Equals
         return object.Equals(x, y);

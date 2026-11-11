@@ -89,8 +89,8 @@ static class KeyValuePairs
     /// The <c>IEquatable&lt;S&gt;</c> and <c>IComparable&lt;S&gt;</c> steps that <c>EqualityComparer&lt;S&gt;</c> takes for
     /// the component's declared type <c>S</c>, which the object element comparer can't: it only knows <c>object</c>.
     /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric and enumerable cases, so the
-    /// element comparer then finishes the cascade (<see cref="IComparable"/>, runtime <c>IEquatable&lt;U&gt;</c>,
-    /// <see cref="object.Equals(object)"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
+    /// element comparer then finishes the cascade (runtime <c>IEquatable&lt;U&gt;</c>, an overridden
+    /// <see cref="object.Equals(object)"/>, <see cref="IComparable"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
     /// </summary>
     private static bool TryDeclaredTypeEquals(Type declaredType, object? expected, object? actual, out bool result)
     {
@@ -112,7 +112,9 @@ static class KeyValuePairs
             return true;
         }
 
-        if (FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
+        // A type that defines its own Equals is left to the element comparer, which asks it before CompareTo (#1428).
+        if (!OverriddenEquals.IsDefinedBy(receiverType) &&
+            FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
         {
             result = (int)Invoke(compareTo, expected, actual) == 0;
             return true;
