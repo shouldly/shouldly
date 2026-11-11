@@ -100,8 +100,4 @@ static class Fail
     public static readonly NotThrowFailure NotThrowAsync = new();
     public static readonly NotThrowFailure ShouldNotThrow = new(extensionForm: true);
     public static readonly NotThrowFailure ShouldNotThrowAsync = new();
-
-    // Should.ThrowAsync(Func<Task>, Type) reports a different exception type in the plain shape, under the name
-    // of its internal method.
-    public static readonly PlainFailure ThrowAsyncInternal = new();
 }

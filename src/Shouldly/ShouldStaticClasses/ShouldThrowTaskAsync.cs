@@ -84,7 +84,7 @@ public static partial class Should
             if (exceptionType.IsInstanceOfType(e))
                 return e;
 
-            throw Fail.ThrowAsyncInternal.With(exceptionType).For(e.GetType(), customMessage, actualExpression);
+            throw failure.With(exceptionType, e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
         }
 
         throw failure.With(exceptionType, thrown: null, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);

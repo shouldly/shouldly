@@ -194,8 +194,16 @@ public class FuncOfTaskScenarioAsync
         {
             await action.ShouldThrowAsync(typeof(ArgumentException));
         }
-        catch (ShouldAssertException)
+        catch (ShouldAssertException ex)
         {
+            ex.Message.ShouldBe(
+                """
+                Task `action`
+                    should throw
+                System.ArgumentException
+                    but threw
+                System.InvalidOperationException
+                """, StringCompareShould.IgnoreLineEndings);
             return;
         }
 
