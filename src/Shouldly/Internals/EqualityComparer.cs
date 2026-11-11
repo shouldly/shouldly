@@ -40,6 +40,13 @@ class EqualityComparer<T> : IEqualityComparer<T>
         // (e.g. underlying array reference) — a behaviour change.
         if (typeof(IEnumerable).IsAssignableFrom(t)) return false;
 
+        // Memory<T>/ReadOnlyMemory<T> aren't IEnumerable, but the cascade below walks their contents too
+        // (TryGetEnumerable), each element by its rules. Their IEquatable<T> compares which array they wrap instead.
+        if (t.IsGenericType &&
+            t.GetGenericTypeDefinition() is var definition &&
+            (definition == typeof(Memory<>) || definition == typeof(ReadOnlyMemory<>)))
+            return false;
+
         // Need a typed Equals to dispatch through without boxing.
         return typeof(IEquatable<T>).IsAssignableFrom(t);
     }
@@ -54,7 +61,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
 
     public bool Equals(T? x, T? y)
     {
-        if (s_useTypedEquatableFastPath)
+        if (s_useTypedEquatableFastPath && (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T))))
         {
             // Value-type T with IEquatable<T> and no IEnumerable / float-tolerance
             // entanglement: BCL EqualityComparer<T>.Default dispatches to the
@@ -72,6 +79,15 @@ class EqualityComparer<T> : IEqualityComparer<T>
 
         if (NullEquivalence.IsNull(y))
             return false;
+
+        // A registered equality rule decides before anything else, so a value it covers is never walked (x is the
+        // expected value: callers compare as Equals(expected, actual)).
+        if (EqualityRules.TryEquals(x, y, out var ruleResult))
+            return ruleResult;
+
+        // Strings are compared with their own Equals rather than walked as sequences of characters.
+        if (x is string xString && y is string yString)
+            return string.Equals(xString, yString);
 
         if (Numerics.IsNumericType(x) &&
             Numerics.IsNumericType(y))

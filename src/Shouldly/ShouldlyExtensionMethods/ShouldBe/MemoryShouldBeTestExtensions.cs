@@ -12,7 +12,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(
-            v => SpanSequenceEqual(v.Span, expected.Span),
+            v => MemoryEqual(v, expected, v.Span, expected.Span),
             actual, expected, customMessage, actualExpression: actualExpression);
     }
 
@@ -26,7 +26,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(
-            v => SpanSequenceEqual(v.Span, expected.Span),
+            v => MemoryEqual(v, expected, v.Span, expected.Span),
             actual, expected, customMessage, actualExpression: actualExpression);
     }
 
@@ -40,7 +40,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(
-            v => !SpanSequenceEqual(v.Span, expected.Span),
+            v => !MemoryEqual(v, expected, v.Span, expected.Span),
             actual, expected, customMessage, actualExpression: actualExpression);
     }
 
@@ -54,8 +54,20 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual.AssertAwesomely(
-            v => !SpanSequenceEqual(v.Span, expected.Span),
+            v => !MemoryEqual(v, expected, v.Span, expected.Span),
             actual, expected, customMessage, actualExpression: actualExpression);
+    }
+
+    // A rule registered for the memory type itself decides first, as it does when the memories are compared as
+    // elements of a sequence; otherwise the contents are compared element by element.
+    private static bool MemoryEqual<TMemory, T>(TMemory actual, TMemory expected, ReadOnlySpan<T> actualSpan, ReadOnlySpan<T> expectedSpan)
+        where TMemory : struct
+    {
+        if (!Internals.EqualityRules.IsEmpty &&
+            Internals.EqualityRules.TryEquals(expected, actual, out var ruleResult))
+            return ruleResult;
+
+        return SpanSequenceEqual(actualSpan, expectedSpan);
     }
 
     // Walks two spans element-wise via Shouldly's own equality comparer so the
@@ -74,12 +86,14 @@ public static partial class ShouldBeTestExtensions
         // and the per-element boxing inside Internals.EqualityComparer<T>.
         // The typeof(T) chain folds to a constant per generic instantiation.
         // Gated on net8+: the netstandard2.0 SequenceEqual<T> overload
-        // constrains T to IEquatable<T>.
-        if (typeof(T) == typeof(byte) || typeof(T) == typeof(sbyte) ||
+        // constrains T to IEquatable<T>. Skipped when an equality rule could
+        // apply to T, which only the comparer below consults.
+        if ((Internals.EqualityRules.IsEmpty || !Internals.EqualityRules.CouldApplyTo(typeof(T))) &&
+            (typeof(T) == typeof(byte) || typeof(T) == typeof(sbyte) ||
             typeof(T) == typeof(short) || typeof(T) == typeof(ushort) ||
             typeof(T) == typeof(int) || typeof(T) == typeof(uint) ||
             typeof(T) == typeof(long) || typeof(T) == typeof(ulong) ||
-            typeof(T) == typeof(char))
+            typeof(T) == typeof(char)))
         {
             return actual.SequenceEqual(expected);
         }

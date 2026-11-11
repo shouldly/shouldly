@@ -25,7 +25,7 @@ static class Membership
             return true;
 
         // A hash set whose comparer agrees with Shouldly's has answered exactly, so don't scan it.
-        if (DefaultEqualityAgrees<T>.Value &&
+        if (CanHash<T>() &&
             actual is HashSet<T> hashSet &&
             hashSet.Comparer.Equals(System.Collections.Generic.EqualityComparer<T>.Default))
             return false;
@@ -61,7 +61,7 @@ static class Membership
     /// </summary>
     public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected)
     {
-        if (DefaultEqualityAgrees<T>.Value)
+        if (CanHash<T>())
             return actual.Except(expected).ToList();
 
         var comparer = Is.ScalarComparerFor<T>();
@@ -85,7 +85,7 @@ static class Membership
     /// </summary>
     public static List<T> Duplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
     {
-        if (comparer != null || DefaultEqualityAgrees<T>.Value)
+        if (comparer != null || CanHash<T>())
             return HashedDuplicates(items, comparer);
 
         // Compared with every earlier element, and deduplicated against the reported values themselves, rather than
@@ -145,9 +145,16 @@ static class Membership
          (definition.DeclaringType == typeof(SortedList<,>) && definition.Name == "KeyList"));
 
     /// <summary>
+    /// Whether elements of <typeparamref name="T"/> can be hashed with the BCL's default comparer: it agrees with
+    /// Shouldly's, and no registered equality rule could apply to them instead.
+    /// </summary>
+    private static bool CanHash<T>() =>
+        DefaultEqualityAgrees<T>.Value && (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T)));
+
+    /// <summary>
     /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same answers as
     /// <see cref="Is.ScalarComparerFor{T}"/>: true for a closed list of BCL types whose <c>Equals</c> Shouldly's
-    /// comparer reaches unchanged, whatever <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/> holds. Not for
+    /// comparer reaches unchanged, when no equality rule applies (see <see cref="CanHash{T}"/>). Not for
     /// <c>float</c>/<c>double</c>, which honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>,
     /// nor for <c>object</c> or user types, whose elements may compare across types, structurally or through
     /// <see cref="IEquatable{T}"/>/<see cref="IComparable{T}"/> without a matching <c>GetHashCode</c>.

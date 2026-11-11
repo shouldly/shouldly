@@ -11,6 +11,7 @@
     <None Include="..\..\assets\logo_128x128.png" Pack="true" PackagePath="assets" />
     <None Include="buildTransitive\Shouldly.targets" Pack="true" PackagePath="buildTransitive\Shouldly.targets" />
     <InternalsVisibleTo Include="Shouldly.Approvals" Key="$(ShouldlyPublicKey)" />
+    <InternalsVisibleTo Include="Shouldly.Tests" Key="$(ShouldlyPublicKey)" />
     <EmbeddedResource Include="ILLink.Substitutions.xml">
       <LogicalName>ILLink.Substitutions.xml</LogicalName>
     </EmbeddedResource>

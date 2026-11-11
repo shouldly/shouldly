@@ -43,19 +43,21 @@ Shouldly runs the lambda without a synchronisation context, but deadlocks are st
 **Default value:** 10 seconds
 
 
-## CompareAsObjectTypes
+## UseEquality
 
-Full names of enumerable types that `ShouldBe` and `ShouldNotBe` compare with their own `Equals` rather than element by element.
-
-An example is `Newtonsoft.Json.Linq.JToken`, which looks like this: `class JToken : IEnumerable<JToken>`. Register your own types once, before any test runs, for example from a module initializer:
+Registers what equality means for a type and its subtypes, for a type whose own `Equals` or items don't capture it. `ShouldBe`, `ShouldNotBe`, the collection, dictionary and membership assertions ask the rule wherever they compare two values of that type, at any depth, and never walk them as collections, except to match their elements when you pass `ignoreOrder: true`. `ShouldBeEquivalentTo` doesn't use rules: it compares member by member. Register rules once, before any test runs, for example from a module initializer:
 
 ```csharp
-ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(IdBag).FullName!);
+// Compare Newtonsoft.Json values as JSON
+ShouldlyConfiguration.UseEquality<JToken>(JToken.DeepEquals);
+
+// Compare an enumerable type with its own Equals rather than its items
+ShouldlyConfiguration.UseEquality<IdBag>((expected, actual) => expected.Equals(actual));
 ```
 
-See [Enumerable types that override `Equals`](equality/shouldBe.md#enumerable-types-that-override-equals) for when it applies.
+See [Types with their own equality](equality/shouldBe.md#types-with-their-own-equality) for details.
 
-**Default value:** Newtonsoft.Json.Linq.JToken
+**Default value:** no rules
 
 
 ## MaxStringLengthInMessages

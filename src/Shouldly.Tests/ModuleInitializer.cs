@@ -11,10 +11,16 @@ internal static class ModuleInitializer
     {
         ShouldlyConfiguration.DefaultTaskTimeout = LongWait;
 
-        // Strange emulates JToken (an enumerable of itself that overrides Equals). Registering it here,
-        // before any test runs, keeps it out of the defaults Shouldly ships to consumers (issue #1410).
-        ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(Strange).FullName!);
-        ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(IdBag).FullName!);
+        // Equality rules, registered before any test runs as a consumer would. Strange emulates JValue (an empty
+        // enumerable of itself that overrides Equals); Node emulates JToken as a whole (an abstract base whose
+        // subtypes compare by reference but have a static DeepEquals); CaseInsensitiveLeaf tests that the most
+        // specific rule wins; Shade is a value type whose nullable form must honour its rule too.
+        ShouldlyConfiguration.UseEquality<Strange>((expected, actual) => expected.Equals(actual));
+        ShouldlyConfiguration.UseEquality<Shade>(ShadeEquality.Equal);
+        ShouldlyConfiguration.UseEquality<IdBag>((expected, actual) => expected.Equals(actual));
+        ShouldlyConfiguration.UseEquality<Node>(Node.DeepEquals);
+        ShouldlyConfiguration.UseEquality<CaseInsensitiveLeaf>((expected, actual) =>
+            string.Equals(expected.Text, actual.Text, StringComparison.OrdinalIgnoreCase));
 
         // Arm the global trip-wire so that any assertion that falls back to stack-trace parsing
         // (instead of using the [CallerArgumentExpression]-supplied value) throws. Individual call

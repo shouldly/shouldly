@@ -19,7 +19,7 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, Is.ScalarComparerFor<T>()), actual, expected, customMessage, actualExpression: actualExpression);
+        actual.AssertAwesomely(v => Equality.Equal(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
+        actual.AssertAwesomely(v => Equality.Equal(v, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected, Is.ScalarComparerFor<T>()), actual, expected, customMessage, actualExpression: actualExpression);
+        actual.AssertAwesomely(v => !Equality.Equal(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe<T>(this T? actual, T? expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected, comparer), ComparisonRecord.ComparedValuesWithCustomComparer(),
+        actual.AssertAwesomely(v => !Equality.Equal(v, expected, comparer), ComparisonRecord.ComparedValuesWithCustomComparer(),
             actual, expected, customMessage, nameof(ShouldNotBe), actualExpression);
     }
 
@@ -89,27 +89,18 @@ public static partial class ShouldBeTestExtensions
         actual = NullEquivalence.Normalize(actual);
         expected = NullEquivalence.Normalize(expected);
 
-        // Registered types are compared with their own Equals, so check before wrapping: a proxy around a
-        // non-collection value would compare by reference.
-        if (!ignoreOrder && ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!))
+        actual = EnumerableProxy<T>.WrapNonCollection(actual);
+        expected = EnumerableProxy<T>.WrapNonCollection(expected);
+        using var actualProxy = actual as EnumerableProxy<T>;
+        using var expectedProxy = expected as EnumerableProxy<T>;
+
+        if (ignoreOrder)
         {
-            actual.AssertAwesomely(v => Is.Equal(v, expected, new ObjectEqualityComparer<IEnumerable<T>?>()), actual, expected, customMessage, actualExpression: actualExpression);
+            actual.AssertAwesomelyIgnoringOrder(expected, comparer: null, isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression);
         }
         else
         {
-            actual = EnumerableProxy<T>.WrapNonCollection(actual);
-            expected = EnumerableProxy<T>.WrapNonCollection(expected);
-            using var actualProxy = actual as EnumerableProxy<T>;
-            using var expectedProxy = expected as EnumerableProxy<T>;
-
-            if (ignoreOrder)
-            {
-                actual.AssertAwesomelyIgnoringOrder(expected, Is.GetEqualityComparer<T>(), isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression);
-            }
-            else
-            {
-                actual.AssertAwesomely(v => Is.Equal(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
-            }
+            actual.AssertAwesomely(v => Equality.SequenceEqual(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
         }
     }
 

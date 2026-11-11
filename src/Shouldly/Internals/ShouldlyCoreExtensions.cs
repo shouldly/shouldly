@@ -146,18 +146,18 @@ public static class ShouldlyCoreExtensions
     }
 
     /// <summary>
-    /// Asserts that two enumerables are equal ignoring order, comparing elements with <paramref name="comparer"/>;
-    /// the failure message reports missing elements using the same comparer. Pass <paramref name="isCustomComparer"/>
+    /// Asserts that two enumerables are equal ignoring order, comparing elements with <paramref name="comparer"/>, or by
+    /// <see cref="Equality"/>'s own rules when it is <c>null</c>; the failure message reports missing elements the same way. Pass <paramref name="isCustomComparer"/>
     /// as <c>true</c> when the caller supplied <paramref name="comparer"/>. Pass <paramref name="caseSensitivity"/>
     /// when <paramref name="comparer"/> implements a <see cref="Case"/> the caller chose, so the message reports it.
     /// </summary>
     internal static void AssertAwesomelyIgnoringOrder<T>(
-        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer, bool isCustomComparer,
+        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T>? comparer, bool isCustomComparer,
         string? customMessage, string shouldlyMethod, string? actualExpression, Case? caseSensitivity = null)
     {
         try
         {
-            if (Is.EqualIgnoreOrder(actual, expected, comparer)) return;
+            if (Equality.SequenceEqual(actual, expected, ignoreOrder: true, comparer)) return;
         }
         catch (ArgumentException ex)
         {
@@ -165,7 +165,7 @@ public static class ShouldlyCoreExtensions
         }
 
         var message = new ExpectedActualIgnoreOrderShouldlyMessage(
-            ComparisonRecord.ComparedElementsWith(comparer, isCustomComparer), expected, actual, customMessage, shouldlyMethod, actualExpression,
+            ComparisonRecord.ComparedElementsWith(comparer ?? Equality.ComparerFor<T>(), isCustomComparer), expected, actual, customMessage, shouldlyMethod, actualExpression,
             caseSensitivity);
         throw new ShouldAssertException(message.ToString());
     }
@@ -180,7 +180,7 @@ public static class ShouldlyCoreExtensions
     {
         try
         {
-            if (Is.Equal(actual, expected, comparer)) return;
+            if (Equality.SequenceEqual(actual, expected, comparer: comparer)) return;
         }
         catch (ArgumentException ex)
         {

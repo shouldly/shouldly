@@ -18,9 +18,8 @@ static class KeyValuePairs
     /// <summary>
     /// When <paramref name="expected"/> and <paramref name="actual"/> are both <see cref="KeyValuePair{TKey, TValue}"/>s,
     /// sets <paramref name="result"/> to whether their keys and their values are equal and returns <c>true</c>.
-    /// Each component is compared as <see cref="Is.ScalarComparerFor{T}"/> compares a value of the expected pair's
-    /// <c>TKey</c> or <c>TValue</c>: with its own <see cref="object.Equals(object)"/> for <see cref="string"/> and the
-    /// types in <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>, and otherwise with
+    /// Each component is compared as <see cref="Equality.ComparerFor{T}"/> compares a value of the expected pair's
+    /// <c>TKey</c> or <c>TValue</c>: by a registered equality rule when one applies, and otherwise with
     /// <paramref name="elementComparer"/> plus the <c>IEquatable&lt;S&gt;</c>/<c>IComparable&lt;S&gt;</c> steps for the
     /// declared type <c>S</c> that it can't take itself. <c>Equals</c> is called on the expected component.
     /// </summary>
@@ -43,12 +42,13 @@ static class KeyValuePairs
         var expectedComponent = expectedProperty.GetValue(expected);
         var actualComponent = actualProperty.GetValue(actual);
 
-        // Mirrors the condition in Is.ScalarComparerFor, which can't be called here without the static type.
-        var componentType = expectedProperty.PropertyType;
-        if (componentType == typeof(string) || ShouldlyConfiguration.CompareAsObjectTypes.Contains(componentType.FullName!))
-            return Equals(expectedComponent, actualComponent);
+        // A rule decides before the declared-type steps below, as it does in EqualityComparer<S>, and likewise never
+        // sees a null-equivalent value such as a default ImmutableArray<T>.
+        if (!NullEquivalence.IsNull(expectedComponent) && !NullEquivalence.IsNull(actualComponent) &&
+            EqualityRules.TryEquals(expectedComponent, actualComponent, out var ruleResult))
+            return ruleResult;
 
-        if (TryDeclaredTypeEquals(componentType, expectedComponent, actualComponent, out var result))
+        if (TryDeclaredTypeEquals(expectedProperty.PropertyType, expectedComponent, actualComponent, out var result))
             return result;
 
         return elementComparer.Equals(expectedComponent, actualComponent);

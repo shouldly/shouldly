@@ -1,11 +1,11 @@
 namespace Shouldly.Tests.ShouldNotBe;
 
 /// <summary>
-/// For a type registered in <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>, <c>ShouldNotBe</c> compares
-/// with the type's own <c>Equals</c>, as <c>ShouldBe</c> does, so it passes exactly when <c>ShouldBe</c> fails.
+/// For a type with an equality rule (<see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>),
+/// <c>ShouldNotBe</c> compares by the rule, as <c>ShouldBe</c> does, so it passes exactly when <c>ShouldBe</c> fails.
 /// See issue #1425.
 /// </summary>
-public class CompareAsObjectTypeScenario
+public class EqualityRuleScenario
 {
     [Fact]
     public void DifferentIdSameItems()

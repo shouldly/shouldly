@@ -4,7 +4,7 @@ namespace Shouldly.Tests.TestHelpers;
 
 /// <summary>
 /// An enumerable whose <c>Equals</c> compares only <see cref="Id"/>, not its items, as in the documentation's
-/// <c>CompareAsObjectTypes</c> example. Registered in <see cref="ModuleInitializer"/>.
+/// <c>UseEquality</c> example. Its equality rule is registered in <see cref="ModuleInitializer"/>.
 /// </summary>
 public sealed class IdBag(int id, params int[] items) : IEnumerable<int>
 {

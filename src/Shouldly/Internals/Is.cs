@@ -36,23 +36,9 @@ static class Is
         new Internals.EqualityComparer<T>(innerComparer);
 
     /// <summary>
-    /// The comparer used to compare a single value of type <typeparamref name="T"/>: Shouldly's structural
-    /// comparer, except for <see cref="string"/> and the types registered in
-    /// <see cref="ShouldlyConfiguration.CompareAsObjectTypes"/>, which are compared with their own
-    /// <see cref="object.Equals(object)"/> rather than being walked as enumerables. Shared so that every
-    /// assertion comparing one value — <c>ShouldBe</c>, the dictionary value assertions — agrees on equality.
+    /// The comparer used to compare a single value of type <typeparamref name="T"/>: <see cref="Internals.Equality.ComparerFor{T}"/>.
     /// </summary>
-    /// <remarks>
-    /// The elements of a collection-typed <typeparamref name="T"/> go through the default object comparer, as the
-    /// element type isn't available here. That comparer still honours an element's <see cref="IEquatable{T}"/>
-    /// implementation, picked from the runtime types, so an element type that implements it without overriding
-    /// <see cref="object.Equals(object)"/> (CA1067) compares the same way here as under <c>ShouldBe</c>'s
-    /// enumerable overload, at any depth (issue #825).
-    /// </remarks>
-    public static IEqualityComparer<T> ScalarComparerFor<T>() =>
-        ShouldlyConfiguration.CompareAsObjectTypes.Contains(typeof(T).FullName!) || typeof(T) == typeof(string)
-            ? new ObjectEqualityComparer<T>()
-            : GetEqualityComparer<T>();
+    public static IEqualityComparer<T> ScalarComparerFor<T>() => Internals.Equality.ComparerFor<T>();
 
     public static bool Equal<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
         // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
@@ -86,44 +72,6 @@ static class Is
                 return false;
             }
         }
-    }
-
-    public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected) =>
-        // The initial implementation of this functionality call Equal(actualEnum.Current, expectedEnum.Current), which
-        // internally calls GetEqualityComparer<T>() to get the comparer.  As this is the case, we can just call GetEqualityComparer<T>()
-        // and move the contents to the overload that supports accepting the comparer method.
-        EqualIgnoreOrder(actual, expected, GetEqualityComparer<T>());
-
-    public static bool EqualIgnoreOrder<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer)
-    {
-        actual = Internals.NullEquivalence.Normalize(actual);
-        expected = Internals.NullEquivalence.Normalize(expected);
-
-        if (actual == null && expected == null)
-            return true;
-
-        if (actual == null || expected == null)
-            return false;
-
-        if (actual is ICollection actualCollection &&
-            expected is ICollection collection &&
-            actualCollection.Count != collection.Count)
-            return false;
-
-        var expectedList = expected.ToList();
-        foreach (var actualElement in actual)
-        {
-            // Match by index rather than FirstOrDefault + Remove: when no element is equivalent,
-            // FirstOrDefault returns default(T), and Remove(default(T)) would succeed whenever
-            // default(T) (e.g. 0 or null) is present in the list.
-            var index = expectedList.FindIndex(expectedElement => Equal(actualElement, expectedElement, comparer));
-            if (index < 0)
-                return false;
-
-            expectedList.RemoveAt(index);
-        }
-
-        return expectedList.Count == 0;
     }
 
     public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)

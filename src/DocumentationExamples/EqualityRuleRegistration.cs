@@ -19,13 +19,13 @@ public sealed class IdBag(int id, params int[] items) : IEnumerable<int>
 
 #endregion
 
-static class CompareAsObjectTypesRegistration
+static class EqualityRuleRegistration
 {
-    #region RegisterCompareAsObjectType
+    #region RegisterEqualityRule
 
     [ModuleInitializer]
     internal static void Initialize() =>
-        ShouldlyConfiguration.CompareAsObjectTypes.Add(typeof(IdBag).FullName!);
+        ShouldlyConfiguration.UseEquality<IdBag>((expected, actual) => expected.Equals(actual));
 
     #endregion
 }

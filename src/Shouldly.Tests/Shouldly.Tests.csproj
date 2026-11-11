@@ -6,6 +6,17 @@
     <Optimize>false</Optimize>
     <NoWarn>CA1861</NoWarn>
   </PropertyGroup>
+  <!-- Signed so Shouldly can grant it InternalsVisibleTo, to test internal modules such as Equality directly. Not on
+       net48: .NET Framework won't let a signed assembly load an unsigned one (TestStack.ConventionTests), so there the
+       tests that use internals are left out, and the same behaviour is covered through the public assertions. -->
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'net48' ">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\sn.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+    <Compile Remove="InternalTests\EqualityTests.cs" />
+    <Compile Remove="ShouldBe\ScopedEqualityRuleScenarios.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <None Include="**\*.approved.cs;**\*.received.cs" />

@@ -75,10 +75,9 @@ public class KeyValuePairScenario
     }
 
     [Fact]
-    public void ValuesOfCompareAsObjectTypesAreComparedWithTheirEquals()
+    public void ValuesWithAnEqualityRuleAreComparedByIt()
     {
-        // Strange is registered in ShouldlyConfiguration.CompareAsObjectTypes and enumerates as empty, so only its
-        // Equals tells two apart, as it does for ShouldContainKeyAndValue and dictionary[key].ShouldBe(value).
+        // Strange has an equality rule (its own Equals) and enumerates as empty, so only the rule tells two apart, as it does for ShouldContainKeyAndValue and dictionary[key].ShouldBe(value).
         var actual = new Dictionary<string, Strange> { ["a"] = "x" };
 
         actual.ShouldBe(new Dictionary<string, Strange> { ["a"] = "x" });
@@ -87,7 +86,7 @@ public class KeyValuePairScenario
     }
 
     [Fact]
-    public void KeysOfCompareAsObjectTypesAreComparedWithTheirEquals() =>
+    public void KeysWithAnEqualityRuleAreComparedByIt() =>
         new Dictionary<Strange, int> { ["x"] = 1 }.ShouldNotBe(new Dictionary<Strange, int> { ["y"] = 1 });
 
     [Fact]

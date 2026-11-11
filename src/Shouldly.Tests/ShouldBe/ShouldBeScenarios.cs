@@ -78,7 +78,8 @@ public class ShouldBeScenarios
     /// Strange emulates JToken, a class which can be implicitly cast to from a string which is IEnumerable,
     /// but enumerable can be empty which means we get a false pass.
     ///
-    /// To make this test pass, for types like JToken and Strange we have to use .Equals not compare them as Enumerables
+    /// To make this test pass, types like JToken and Strange need an equality rule
+    /// (ShouldlyConfiguration.UseEquality), so they aren't compared as enumerables. See ModuleInitializer.
     /// </summary>
     [Fact]
     public void JTokenScenarioShouldFail()
@@ -89,8 +90,8 @@ public class ShouldBeScenarios
 
     /// <summary>
     /// Two Strange values bind to the enumerable overload with T = Strange. As Strange isn't a collection,
-    /// that overload wraps each side in a proxy; the registered-type check must compare the original values
-    /// with their own Equals, not the proxies by reference.
+    /// that overload wraps each side in a proxy; the equality rule must judge the original values, not the
+    /// proxies.
     /// </summary>
     [Fact]
     public void RegisteredSelfEnumerableIsComparedWithItsOwnEquals()

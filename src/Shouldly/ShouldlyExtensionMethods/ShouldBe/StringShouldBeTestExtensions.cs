@@ -43,7 +43,7 @@ public static partial class ShouldBeStringTestExtensions
         StringCompareShould options,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options, actualExpression: actualExpression);
+        var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options, actualExpression: actualExpression, useEqualityRules: true);
         ExecuteAssertion(assertion, customMessage);
     }
 
