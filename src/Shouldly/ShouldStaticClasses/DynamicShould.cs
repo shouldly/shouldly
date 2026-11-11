@@ -1,6 +1,7 @@
 using System.Dynamic;
 using JetBrains.Annotations;
 using Shouldly;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -43,7 +44,7 @@ public static partial class DynamicShould
 
         if (!HasProperty(instance, propertyName))
         {
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(propertyName, customMessage, actualExpression: receiverExpression).ToString());
+            throw Fail.HaveProperty.With(propertyName).For(null, customMessage, receiverExpression);
         }
     }
 

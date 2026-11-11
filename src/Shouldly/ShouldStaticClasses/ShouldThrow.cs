@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -12,13 +13,13 @@ public static partial class Should
     public static TException Throw<TException>([InstantHandle] Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        ThrowInternal<TException>(actual, customMessage, Fail.Throw, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Action actual,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
@@ -33,10 +34,10 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
+            throw failure.With(typeof(TException), e.GetType(), isTask: false).ForDelegate(customMessage, actualExpression, inner: e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), thrown: null, isTask: false).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -44,11 +45,11 @@ public static partial class Should
     /// </summary>
     public static Exception Throw([InstantHandle] Action actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(actual, customMessage, exceptionType, Fail.Throw, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal([InstantHandle] Action actual, string? customMessage, Type exceptionType,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -63,10 +64,10 @@ public static partial class Should
                 return e;
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
+            throw failure.With(exceptionType, e.GetType(), isTask: false).ForDelegate(customMessage, actualExpression, inner: e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(exceptionType, thrown: null, isTask: false).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -75,13 +76,13 @@ public static partial class Should
     public static TException Throw<TException>([InstantHandle] Func<object?> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        ThrowInternal<TException>(actual, customMessage, Fail.Throw, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Func<object?> actual,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
@@ -96,10 +97,10 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
+            throw failure.With(typeof(TException), e.GetType(), isTask: false).ForDelegate(customMessage, actualExpression, inner: e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), thrown: null, isTask: false).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -107,18 +108,18 @@ public static partial class Should
     /// </summary>
     public static Exception Throw([InstantHandle] Func<object?> actual, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(actual, null, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(actual, null, exceptionType, Fail.Throw, actualExpression);
 
     /// <summary>
     /// Verifies that the provided function throws an exception of the specified type
     /// </summary>
     public static Exception Throw([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(actual, customMessage, exceptionType, Fail.Throw, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal([InstantHandle] Func<object?> actual, string? customMessage, Type exceptionType,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -133,10 +134,10 @@ public static partial class Should
                 return e;
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
+            throw failure.With(exceptionType, e.GetType(), isTask: false).ForDelegate(customMessage, actualExpression, inner: e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(exceptionType, thrown: null, isTask: false).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -146,7 +147,7 @@ public static partial class Should
     public static TException ThrowExactly<TException>([InstantHandle] Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        ThrowExactlyInternal<TException>(actual, customMessage, Fail.ThrowExactly, actualExpression);
 
     /// <summary>
     /// Verifies that the provided function throws an exception of exactly type <typeparamref name="TException"/>.
@@ -155,13 +156,13 @@ public static partial class Should
     public static TException ThrowExactly<TException>([InstantHandle] Func<object?> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        ThrowExactlyInternal<TException>(actual, customMessage, Fail.ThrowExactly, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowExactlyInternal<TException>(
         [InstantHandle] Action actual,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
@@ -177,20 +178,20 @@ public static partial class Should
                 return (TException)e;
             }
 
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString(), e);
+            throw failure.With(typeof(TException), e.GetType(), isTask: false).ForDelegate(customMessage, actualExpression, inner: e);
         }
 
-        throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), thrown: null, isTask: false).ForDelegate(customMessage, actualExpression);
     }
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowExactlyInternal<TException>(
         [InstantHandle] Func<object?> actual,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception =>
-        ThrowExactlyInternal<TException>(() => { _ = actual(); }, customMessage, shouldlyMethod, actualExpression);
+        ThrowExactlyInternal<TException>(() => { _ = actual(); }, customMessage, failure, actualExpression);
 
     /// <summary>
     /// Verifies that the provided action does not throw any exceptions
@@ -198,12 +199,12 @@ public static partial class Should
     public static void NotThrow([InstantHandle] Action action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        NotThrowInternal(action, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(action, customMessage, Fail.NotThrow, actualExpression);
     }
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static void NotThrowInternal([InstantHandle] Action action, string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        NotThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -213,7 +214,7 @@ public static partial class Should
         }
         catch (Exception ex)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), exceptionMessage: ex.Message, customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(ex.GetType(), ex.Message, isTask: false).ForDelegate(customMessage, actualExpression);
         }
     }
 
@@ -222,7 +223,7 @@ public static partial class Should
     /// </summary>
     public static T NotThrow<T>([InstantHandle] Func<T> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        NotThrowInternal(action, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(action, customMessage, Fail.NotThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the provided action does not throw an exception of type <typeparamref name="TException"/>.
@@ -231,14 +232,14 @@ public static partial class Should
     public static void NotThrow<TException>([InstantHandle] Action action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
         where TException : Exception =>
-        NotThrowInternal<TException>(action, customMessage, actualExpression: actualExpression);
+        NotThrowInternal<TException>(action, customMessage, Fail.NotThrow, actualExpression);
 
     /// <summary>
     /// Used to differentiate between the extension methods and the static methods
     /// </summary>
     [DebuggerDisableUserUnhandledExceptions]
     internal static T NotThrowInternal<T>([InstantHandle] Func<T> action, string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        NotThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -248,13 +249,13 @@ public static partial class Should
         }
         catch (Exception ex)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(ex.GetType(), exceptionMessage: ex.Message, customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(ex.GetType(), ex.Message, isTask: false).ForDelegate(customMessage, actualExpression);
         }
     }
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static void NotThrowInternal<TException>([InstantHandle] Action action, string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        NotThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
@@ -265,7 +266,7 @@ public static partial class Should
         }
         catch (TException ex)
         {
-            throw new ShouldAssertException(new ShouldlyThrowMessage(typeof(TException), ex, customMessage, shouldlyMethod, actualExpression).ToString(), ex);
+            throw failure.WithDisallowed(typeof(TException), ex, isTask: false).ForDelegate(customMessage, actualExpression, inner: ex);
         }
     }
 }

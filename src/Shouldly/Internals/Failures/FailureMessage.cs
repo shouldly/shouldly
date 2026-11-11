@@ -27,6 +27,12 @@ readonly struct FailureMessage
         new(Text(actual, customMessage, actualExpression, stackTrace), inner);
 
     /// <summary>
+    /// The exception to throw for a failing assertion on a delegate or task, which has no value to show.
+    /// </summary>
+    public ShouldAssertException ForDelegate(string? customMessage, string? actualExpression, Exception? inner = null, StackTrace? stackTrace = null) =>
+        For(null, customMessage, actualExpression, inner, stackTrace);
+
+    /// <summary>
     /// The failure message, without throwing.
     /// </summary>
     public string Text(object? actual, string? customMessage, string? actualExpression, StackTrace? stackTrace = null)

@@ -1,4 +1,5 @@
 using System.Runtime.ExceptionServices;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -122,7 +123,7 @@ public static partial class Should
             // When exception is a timeout exception we can provide a better error, otherwise rethrow
             if (inner is ShouldlyTimeoutException exception)
             {
-                var message = new CompleteInShouldlyMessage(what, timeout, customMessage, actualExpression: actualExpression).ToString();
+                var message = Fail.CompleteIn.With(what, timeout).Text(null, customMessage, actualExpression);
                 throw new ShouldCompleteInException(message, exception);
             }
 

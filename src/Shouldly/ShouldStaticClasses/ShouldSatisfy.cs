@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -20,8 +21,8 @@ public static partial class Should
         {
             // There is no single value under test, so the captured conditions expression is threaded
             // through only to satisfy the CallerArgumentExpression convention/trip-wire; the message
-            // itself has no subject and the generator does not render it (see ShouldSatisfyMessageGenerator).
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(errorMessageString, customMessage, actualExpression: actualExpression).ToString());
+            // itself has no subject and its wording does not show one (see SatisfyFailure).
+            throw Fail.Satisfy.With(errorMessageString).For(null, customMessage, actualExpression);
         }
     }
 }

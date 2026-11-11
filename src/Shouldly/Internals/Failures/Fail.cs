@@ -75,4 +75,33 @@ static class Fail
     public static readonly PlainFailure ShouldNotStartWith = new(negated: true);
     public static readonly StringEndFailure ShouldEndWith = new();
     public static readonly StringEndFailure ShouldNotEndWith = new(negated: true);
+
+    public static readonly KeyFailure ShouldContainKey = new();
+    public static readonly KeyFailure ShouldNotContainKey = new(negated: true);
+    public static readonly KeyAndValueFailure ShouldContainKeyAndValue = new();
+    public static readonly ValueForKeyFailure ShouldNotContainValueForKey = new();
+
+    public static readonly SatisfyAllConditionsFailure ShouldSatisfy = new();
+    public static readonly SatisfyFailure Satisfy = new();
+    public static readonly EquivalentFailure ShouldBeEquivalentTo = new();
+    public static readonly DynamicPropertyFailure HaveProperty = new();
+    public static readonly CompleteInFailure CompleteIn = new();
+
+    // The static Should.Throw forms name the delegate as written; the ShouldThrow extensions show it invoked.
+    public static readonly ThrowFailure Throw = new();
+    public static readonly ThrowFailure ThrowExactly = new(exactly: true);
+    public static readonly ThrowFailure ThrowAsync = new();
+    public static readonly ThrowFailure ThrowExactlyAsync = new(exactly: true);
+    public static readonly ThrowFailure ShouldThrow = new(extensionForm: true);
+    public static readonly ThrowFailure ShouldThrowExactly = new(extensionForm: true, exactly: true);
+    public static readonly ThrowFailure ShouldThrowAsync = new(extensionForm: true);
+    public static readonly ThrowFailure ShouldThrowExactlyAsync = new(extensionForm: true, exactly: true);
+    public static readonly NotThrowFailure NotThrow = new();
+    public static readonly NotThrowFailure NotThrowAsync = new();
+    public static readonly NotThrowFailure ShouldNotThrow = new(extensionForm: true);
+    public static readonly NotThrowFailure ShouldNotThrowAsync = new();
+
+    // Should.ThrowAsync(Func<Task>, Type) reports a different exception type in the plain shape, under the name
+    // of its internal method.
+    public static readonly PlainFailure ThrowAsyncInternal = new();
 }

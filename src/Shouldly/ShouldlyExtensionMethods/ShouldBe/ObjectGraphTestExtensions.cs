@@ -24,7 +24,7 @@ public static partial class ObjectGraphTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        EquivalencyComparison.Assert(actual, expected, new(), customMessage, "ShouldBeEquivalentTo", actualExpression);
+        EquivalencyComparison.Assert(actual, expected, new(), customMessage, actualExpression);
     }
 
     /// <summary>
@@ -38,6 +38,6 @@ public static partial class ObjectGraphTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        EquivalencyComparison.Assert(actual, expected, options, customMessage, "ShouldBeEquivalentTo", actualExpression);
+        EquivalencyComparison.Assert(actual, expected, options, customMessage, actualExpression);
     }
 }
