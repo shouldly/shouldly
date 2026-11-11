@@ -5,6 +5,9 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class NegativeFailure([CallerMemberName] string name = "") : FailureWithoutFacts(name, negated: false)
 {
+    internal override SlotReading? FromSlots(Slots s) =>
+        new(new(this, Word), s.Actual);
+
 
     protected override string Word(Sentence sentence)
     {

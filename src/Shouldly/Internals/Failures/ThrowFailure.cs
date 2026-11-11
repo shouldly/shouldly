@@ -5,6 +5,11 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class ThrowFailure(bool extensionForm = false, bool exactly = false, [CallerMemberName] string name = "") : Failure(name, negated: false)
 {
+    internal override SlotReading? FromSlots(Slots s) =>
+        s.Shape == MessageShape.Throw
+            ? new(new(this, sentence => Word(sentence, s.Expected, s.HasActual ? s.Actual : null, s.ExceptionMessage, isTask: false, extensionForm, exactly)), s.Actual)
+            : null;
+
     /// <summary>
     /// The exception type required and the type thrown instead, or null when nothing was thrown.
     /// </summary>

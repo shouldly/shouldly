@@ -5,6 +5,10 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class NullOrWhiteSpaceFailure(bool negated = false, [CallerMemberName] string name = "") : FailureWithoutFacts(name, negated)
 {
+    // A custom assertion may pass the value under test in either slot.
+    internal override SlotReading? FromSlots(Slots s) =>
+        new(new(this, Word), s.HasActual ? s.Actual : s.Expected);
+
 
     protected override string Word(Sentence sentence)
     {

@@ -26,7 +26,7 @@ static class IgnoringOrderWording
         var expectedFormattedValue = expected.ToStringAwesomely();
 
         // Compare as the assertion did, so any custom comparer is honored.
-        var comparison = AssertionComparison.Of(record);
+        var comparison = (record ?? ComparisonRecord.Default);
 
         // Match occurrences one-for-one, as Equality.SequenceEqual does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.

@@ -22,6 +22,12 @@ abstract class Failure
 
     /// <summary>Whether the assertion requires something not to hold, so it fails when it does.</summary>
     public bool Negated { get; }
+
+    /// <summary>
+    /// This failure as a custom assertion states it through one of the public message classes, or null when
+    /// those classes can't carry what its wording needs.
+    /// </summary>
+    internal virtual SlotReading? FromSlots(Slots slots) => null;
 }
 
 /// <summary>

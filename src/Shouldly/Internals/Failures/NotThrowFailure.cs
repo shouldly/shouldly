@@ -5,6 +5,11 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class NotThrowFailure(bool extensionForm = false, [CallerMemberName] string name = "") : Failure(name, negated: true)
 {
+    internal override SlotReading? FromSlots(Slots s) =>
+        s.Shape == MessageShape.Throw
+            ? new(new(this, sentence => Word(sentence, s.Expected, s.Actual as Exception, s.ExceptionMessage, isTask: false, extensionForm)), s.Actual)
+            : null;
+
     /// <summary>
     /// The exception that was thrown, when none was allowed.
     /// </summary>

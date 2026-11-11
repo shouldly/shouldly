@@ -1,77 +1,49 @@
-using Shouldly.Equivalency;
-
 namespace Shouldly.Internals;
 
 /// <summary>
-/// What an assertion established while comparing actual with expected: the element equality it used, or a result
-/// it already computed. The assertion records this on its context so the failure message reports what the
-/// assertion did, rather than redoing the comparison with default equality.
+/// How an assertion compared its values, when that was by something other than Shouldly's own equality. A failure
+/// message reads it so that what it reports agrees with the comparison that failed: items a custom comparer
+/// matched aren't highlighted as differences, and a custom comparer is not described as case sensitive.
 /// </summary>
-/// <remarks>
-/// Each factory belongs to one family of assertions and records everything that family knows in one call, so
-/// related facts (a comparer and whether it is custom) can't be set apart. Message generators don't read this
-/// directly; they go through <see cref="AssertionComparison"/>, which supplies the defaults.
-/// </remarks>
 sealed class ComparisonRecord
 {
-    private ComparisonRecord(
-        Func<object?, object?, bool>? elementEquals = null,
-        bool usesCustomComparer = false,
-        IEnumerable? unmatchedItems = null,
-        DictionaryKeyLookup? keyLookup = null,
-        IReadOnlyList<EquivalencyDifference>? equivalencyDifferences = null)
+    private readonly Func<object?, object?, bool>? _elementEquals;
+
+    private ComparisonRecord(Func<object?, object?, bool>? elementEquals, bool usesCustomComparer)
     {
-        ElementEquals = elementEquals;
+        _elementEquals = elementEquals;
         UsesCustomComparer = usesCustomComparer;
-        UnmatchedItems = unmatchedItems;
-        KeyLookup = keyLookup;
-        EquivalencyDifferences = equivalencyDifferences;
     }
 
-    /// <summary>Called as <c>(actual, expected)</c>.</summary>
-    public Func<object?, object?, bool>? ElementEquals { get; }
+    /// <summary>
+    /// The record of an assertion that compared with Shouldly's own equality.
+    /// </summary>
+    public static ComparisonRecord Default { get; } = new(null, usesCustomComparer: false);
 
+    /// <summary>
+    /// Whether the caller supplied the comparer, so the comparison's rules are theirs and not Shouldly's.
+    /// </summary>
     public bool UsesCustomComparer { get; }
 
-    public IEnumerable? UnmatchedItems { get; }
-
-    public DictionaryKeyLookup? KeyLookup { get; }
-
-    public IReadOnlyList<EquivalencyDifference>? EquivalencyDifferences { get; }
-
     /// <summary>
-    /// A collection comparison that compared elements with <paramref name="comparer"/>. Pass
-    /// <paramref name="isCustom"/> as <c>true</c> when the caller supplied the comparer, since the message then
-    /// can't describe its semantics (case sensitivity included).
+    /// Whether two elements are equal as the assertion compared them.
     /// </summary>
-    public static ComparisonRecord ComparedElementsWith<T>(IEqualityComparer<T> comparer, bool isCustom) =>
-        new(
-            elementEquals: (actual, expected) => Is.Equal((T?)actual, (T?)expected, comparer),
-            usesCustomComparer: isCustom);
+    public bool ElementsEqual(object? actual, object? expected) =>
+        _elementEquals is { } elementEquals
+            ? elementEquals(actual, expected)
+            : Is.Equal(actual, expected);
 
     /// <summary>
-    /// A comparison of whole values with a caller-supplied comparer. Records no element equality: the comparer
-    /// compares whole values, so it can't stand in for comparing their elements.
+    /// The assertion compared the elements of two sequences with <paramref name="comparer"/>.
+    /// </summary>
+    /// <param name="comparer">The comparer the elements were compared with.</param>
+    /// <param name="isCustom">Whether the caller supplied it.</param>
+    public static ComparisonRecord ComparedElementsWith<T>(IEqualityComparer<T> comparer, bool isCustom) =>
+        new((actual, expected) => Is.Equal((T?)actual, (T?)expected, comparer), isCustom);
+
+    /// <summary>
+    /// The assertion compared two values with a comparer the caller supplied.
     /// </summary>
     public static ComparisonRecord ComparedValuesWithCustomComparer() =>
-        new(usesCustomComparer: true);
-
-    /// <summary>
-    /// A subset comparison, with the actual items it found outside the expected set.
-    /// </summary>
-    public static ComparisonRecord FoundUnmatched(IEnumerable unmatchedItems) =>
-        new(unmatchedItems: unmatchedItems);
-
-    /// <summary>
-    /// A dictionary key-and-value comparison, with the result of looking the key up through the dictionary's own
-    /// comparer.
-    /// </summary>
-    public static ComparisonRecord LookedUpKey(bool keyExists, object? value) =>
-        new(keyLookup: new(keyExists, value));
-
-    /// <summary>
-    /// An equivalency comparison, with the differences it collected.
-    /// </summary>
-    public static ComparisonRecord FoundDifferences(IReadOnlyList<EquivalencyDifference> differences) =>
-        new(equivalencyDifferences: differences);
+        new(null, usesCustomComparer: true);
 }

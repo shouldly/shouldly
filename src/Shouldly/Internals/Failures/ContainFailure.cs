@@ -5,6 +5,14 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class ContainFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
+    internal override SlotReading? FromSlots(Slots s) => s.Shape switch
+    {
+        MessageShape.Throw or MessageShape.Equivalence => null,
+        MessageShape.Tolerance when s.Tolerance is { } tolerance => new(Within(s.Expected, tolerance), s.Actual),
+        _ when s.Expected is Expression condition => new(WithCondition(condition), s.Actual),
+        _ => new(With(s.Expected, s.CaseSensitivity), s.Actual)
+    };
+
     /// <summary>
     /// A value that should, or should not, have been contained.
     /// </summary>

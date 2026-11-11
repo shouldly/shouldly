@@ -12,7 +12,7 @@ static class StringSequenceWording
     {
         var codePart = sentence.Subject;
         // A custom comparer decides case sensitivity itself, so there's nothing accurate to say about it.
-        var caseSensitivity = AssertionComparison.Of(record).UsesCustomComparer
+        var caseSensitivity = (record ?? ComparisonRecord.Default).UsesCustomComparer
             ? string.Empty
             : caseOption == Case.Insensitive
                 ? " (case insensitive comparison)"

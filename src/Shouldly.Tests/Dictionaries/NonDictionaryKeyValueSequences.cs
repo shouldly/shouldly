@@ -1,3 +1,4 @@
+using Shouldly.Internals.Failures;
 using System.Collections;
 
 namespace Shouldly.Tests.Dictionaries;
@@ -124,28 +125,25 @@ public class NonDictionaryKeyValueSequences
         Should.Throw<ShouldAssertException>(() => pairs.ShouldContainKeyAndValue("k", [1, 2, 4]));
     }
 
-    // A message built through the public constructor falls back to the non-generic IDictionary. The negative
-    // message only needs to know the key is present, so it must not read the value through the indexer.
+    // The negative message only needs to know the key is present, so it must not read the value through the
+    // indexer.
     [Fact]
-    public void PublicMessageForShouldNotContainValueForKeyDoesNotReadTheValue()
+    public void MessageForShouldNotContainValueForKeyDoesNotReadTheValue()
     {
         var dictionary = new HashtableWithThrowingIndexer { ["a"] = 1 };
 
-        var message = new ExpectedActualKeyShouldlyMessage(1, dictionary, "a", null, "ShouldNotContainValueForKey", "dictionary").ToString();
+        var message = Fail.ShouldNotContainValueForKey.With("a", 1, keyExists: true).Text(dictionary, null, "dictionary");
 
         message.ShouldContain("but does");
     }
 
-    // Without an IDictionary or the assertion's own lookup, the message cannot know whether the key is present,
-    // so it must not claim either way.
+    // The assertion says whether it found the key, and the message reports what it was told.
     [Fact]
-    public void PublicMessageForShouldNotContainValueForKeyOverASequenceDoesNotClaimTheKeyIsPresent()
+    public void MessageForShouldNotContainValueForKeyReportsAMissingKey()
     {
-        var message = new ExpectedActualKeyShouldlyMessage(1, PairList(), "z", null, "ShouldNotContainValueForKey", "pairs").ToString();
+        var message = Fail.ShouldNotContainValueForKey.With("z", 1, keyExists: false).Text(PairList(), null, "pairs");
 
-        message.ShouldNotContain("but does");
-        message.ShouldNotContain("but the key does not exist");
-        message.ShouldEndWith("1");
+        message.ShouldEndWith("but the key does not exist");
     }
 
     private sealed class HashtableWithThrowingIndexer : Hashtable

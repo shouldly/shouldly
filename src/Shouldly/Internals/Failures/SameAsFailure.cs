@@ -5,6 +5,9 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class SameAsFailure([CallerMemberName] string name = "") : Failure(name, negated: false)
 {
+    internal override SlotReading? FromSlots(Slots s) =>
+        new(With(s.Expected), s.Actual);
+
     public FailureMessage With(object? expected) =>
         new(this, sentence => Word(sentence, expected));
 

@@ -5,12 +5,25 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 readonly struct FailureMessage
 {
-    private readonly Failure _failure;
+    private readonly string _name;
+    private readonly string _phrase;
+    private readonly bool _negated;
     private readonly Func<Sentence, string> _wording;
 
     public FailureMessage(Failure failure, Func<Sentence, string> wording)
+        : this(failure.Name, failure.Phrase, failure.Negated, wording)
     {
-        _failure = failure;
+    }
+
+    /// <param name="name">The assertion's name, for the trip-wire's message.</param>
+    /// <param name="phrase">What the assertion required of the subject.</param>
+    /// <param name="negated">Whether the assertion requires something not to hold.</param>
+    /// <param name="wording">How the failure is worded.</param>
+    public FailureMessage(string name, string phrase, bool negated, Func<Sentence, string> wording)
+    {
+        _name = name;
+        _phrase = phrase;
+        _negated = negated;
         _wording = wording;
     }
 
@@ -37,8 +50,8 @@ readonly struct FailureMessage
     /// </summary>
     public string Text(object? actual, string? customMessage, string? actualExpression, StackTrace? stackTrace = null)
     {
-        var subject = Subject.Resolve(_failure.Name, actual, actualExpression, stackTrace, out var fromSource);
-        return WithAdditionalInfo(_wording(new(_failure, subject, fromSource, actual)), customMessage);
+        var subject = Subject.Resolve(_name, actual, actualExpression, stackTrace, out var fromSource);
+        return WithAdditionalInfo(_wording(new(_phrase, _negated, subject, fromSource, actual)), customMessage);
     }
 
     /// <summary>

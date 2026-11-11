@@ -1,6 +1,4 @@
-using Shouldly.DifferenceHighlighting;
-using Shouldly.Internals;
-using Shouldly.MessageGenerators;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -12,11 +10,8 @@ public class ExpectedShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message with the expected value
     /// </summary>
-    public ExpectedShouldlyMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+    public ExpectedShouldlyMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Expected, expected), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -27,14 +22,8 @@ public class ActualShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message with the actual value
     /// </summary>
-    public ActualShouldlyMessage(object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, actual: actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+    public ActualShouldlyMessage(object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Actual, actual: actual, hasActual: true), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -45,46 +34,8 @@ public class ExpectedActualShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message with expected and actual values
     /// </summary>
-    public ExpectedActualShouldlyMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message with expected and actual values and what the assertion established comparing them.
-    /// </summary>
-    internal ExpectedActualShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true,
-            Comparison = comparison
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that filter actual values with a predicate
-/// </summary>
-public class ActualFilteredWithPredicateShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message with a filter expression and result
-    /// </summary>
-    public ActualFilteredWithPredicateShouldlyMessage(Expression filter, object? result, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, result, actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true,
-            Filter = filter
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+    public ExpectedActualShouldlyMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.ExpectedActual, expected, actual, hasActual: true), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -99,15 +50,8 @@ public class ExpectedActualWithCaseSensitivityShouldlyMessage : ShouldlyMessage
         Case? caseSensitivity,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true,
-            CaseSensitivity = caseSensitivity
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+        string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.CaseSensitivity, expected, actual, hasActual: true, caseSensitivity: caseSensitivity), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -121,119 +65,8 @@ public class ExpectedActualToleranceShouldlyMessage : ShouldlyMessage
     public ExpectedActualToleranceShouldlyMessage(object? expected, object? actual, object tolerance,
         string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            Tolerance = tolerance,
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that compare expected and actual values ignoring order
-/// </summary>
-public class ExpectedActualIgnoreOrderShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message with expected and actual values that ignores order
-    /// </summary>
-    public ExpectedActualIgnoreOrderShouldlyMessage(object? expected, object? actual,
-        string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            IgnoreOrder = true,
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message with expected and actual values that ignores order, and what the assertion
-    /// established comparing them, including the case sensitivity it compared strings with, if any.
-    /// </summary>
-    internal ExpectedActualIgnoreOrderShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual,
-        string? customMessage, string shouldlyMethod, string? actualExpression, Case? caseSensitivity = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            IgnoreOrder = true,
-            HasRelevantActual = true,
-            Comparison = comparison,
-            CaseSensitivity = caseSensitivity
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that compare expected and actual values with a key
-/// </summary>
-public class ExpectedActualKeyShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message with expected and actual values and a key
-    /// </summary>
-    public ExpectedActualKeyShouldlyMessage(object? expected, object? actual, object key,
-        string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            Key = key,
-            HasRelevantActual = true,
-            HasRelevantKey = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message with expected and actual values, a key, and what the assertion established comparing
-    /// them.
-    /// </summary>
-    internal ExpectedActualKeyShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual, object key,
-        string? customMessage,
-        string shouldlyMethod,
-        string? actualExpression)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            Key = key,
-            HasRelevantActual = true,
-            HasRelevantKey = true,
-            Comparison = comparison
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that check the order of elements
-/// </summary>
-public class ExpectedOrderShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message for order assertions
-    /// </summary>
-    public ExpectedOrderShouldlyMessage(object? actual, SortDirection expectedDirection, int outOfOrderIndex, object? outOfOrderObject,
-        string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, actual: actual, actualExpression: actualExpression)
-        {
-            SortDirection = expectedDirection,
-            OutOfOrderIndex = outOfOrderIndex,
-            OutOfOrderObject = outOfOrderObject
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+        string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Tolerance, expected, actual, hasActual: true, tolerance: tolerance), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -244,26 +77,8 @@ public class ExpectedEquivalenceShouldlyMessage : ShouldlyMessage
     /// <summary>
     /// Creates a new message for equivalence assertions
     /// </summary>
-    public ExpectedEquivalenceShouldlyMessage(object? expected, object? actual, IEnumerable<string> path, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            Path = path
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message from what an equivalency comparison established, such as the differences it collected.
-    /// </summary>
-    internal ExpectedEquivalenceShouldlyMessage(ComparisonRecord comparison, object? expected, object? actual, string? customMessage, string shouldlyMethod, string? actualExpression)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            Comparison = comparison
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+    public ExpectedEquivalenceShouldlyMessage(object? expected, object? actual, IEnumerable<string> path, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Equivalence, expected, actual, path: path), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -276,167 +91,24 @@ public class ShouldlyThrowMessage : ShouldlyMessage
     /// </summary>
     public ShouldlyThrowMessage(object? expected, string exceptionMessage, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exceptionMessage, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+        string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Throw, expected, exceptionMessage: exceptionMessage), customMessage, actualExpression);
 
     /// <summary>
     /// Creates a new message for exception assertions with expected and actual values
     /// </summary>
     public ShouldlyThrowMessage(object? expected, object? actual, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+        string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Throw, expected, actual, hasActual: true), customMessage, actualExpression);
 
     /// <summary>
     /// Creates a new message for exception assertions with only an expected value
     /// </summary>
     public ShouldlyThrowMessage(object? expected, string? customMessage,
         [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that check if a collection contains items with a specific count
-/// </summary>
-public class ShouldContainWithCountShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message for containment assertions with a match count
-    /// </summary>
-    public ShouldContainWithCountShouldlyMessage(object? expected, object? actual, int matchCount, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, expected, actual, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true,
-            MatchCount = matchCount
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that check exceptions in asynchronous operations
-/// </summary>
-public class TaskShouldlyThrowMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message for task exception assertions with an exception
-    /// </summary>
-    public TaskShouldlyThrowMessage(object? expected, Exception exception, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, null, exception.Message, isAsync: true, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message for task exception assertions with expected and actual values
-    /// </summary>
-    public TaskShouldlyThrowMessage(object? expected, object? actual, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, isAsync: true, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message for task exception assertions with only an expected value
-    /// </summary>
-    public TaskShouldlyThrowMessage(object? expected, string? customMessage, [CallerMemberName] string shouldlyMethod = null!, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, isAsync: true, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that check if an operation completes within a specified time
-/// </summary>
-public class CompleteInShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message for completion time assertions
-    /// </summary>
-    public CompleteInShouldlyMessage(string what, TimeSpan timeout,
-        string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldlyAssertionContext(shouldlyMethod, what, actualExpression: actualExpression)
-        {
-            Timeout = timeout
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that check exceptions in asynchronous operations
-/// </summary>
-public class AsyncShouldlyThrowShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message for async exception assertions with a stack trace
-    /// </summary>
-    public AsyncShouldlyThrowShouldlyMessage(Type exception, string? customMessage, StackTrace? stackTrace,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    /// <summary>
-    /// Creates a new message for async exception assertions with expected and actual types
-    /// </summary>
-    public AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace? stackTrace, string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-
-    internal AsyncShouldlyThrowShouldlyMessage(Type expected, Type actual, string? customMessage, StackTrace? stackTrace, string shouldlyMethod, string? actualExpression)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(expected, actual, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod, actualExpression: actualExpression)
-        {
-            HasRelevantActual = true
-        };
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
-}
-
-/// <summary>
-/// Message for assertions that verify asynchronous operations do not throw exceptions
-/// </summary>
-public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
-{
-    /// <summary>
-    /// Creates a new message for async not-throw assertions
-    /// </summary>
-    public AsyncShouldlyNotThrowShouldlyMessage(Type exception, string? customMessage, StackTrace? stackTrace, string exceptionMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
-        string? actualExpression = null)
-    {
-        ShouldlyAssertionContext = new ShouldThrowAssertionContext(exception, stackTrace: stackTrace, isAsync: true, shouldlyMethod: shouldlyMethod, actual: null, exceptionMessage: exceptionMessage, actualExpression: actualExpression);
-        if (customMessage != null) ShouldlyAssertionContext.CustomMessage = customMessage;
-    }
+        string? actualExpression = null) =>
+        Describe(shouldlyMethod, new(MessageShape.Throw, expected), customMessage, actualExpression);
 }
 
 /// <summary>
@@ -444,134 +116,17 @@ public class AsyncShouldlyNotThrowShouldlyMessage : ShouldlyMessage
 /// </summary>
 public abstract class ShouldlyMessage
 {
-    private static readonly IEnumerable<ShouldlyMessageGenerator> ShouldlyMessageGenerators =
-    [
-        new ShouldHaveFlagMessageGenerator(),
-        new ShouldNotHaveFlagMessageGenerator(),
-        new ShouldBeNullOrEmptyMessageGenerator(),
-        new ShouldBeEmptyMessageGenerator(),
-        new ShouldAllBeMessageGenerator(),
-        new DynamicShouldMessageGenerator(),
-        new ShouldCompleteInMessageGenerator(),
-        new ShouldBeCompletedSuccessfullyMessageGenerator(),
-        new ShouldBeNullOrWhiteSpaceMessageGenerator(),
-        new DictionaryShouldContainKeyAndValueMessageGenerator(),
-        new DictionaryShouldOrNotContainKeyMessageGenerator(),
-        new DictionaryShouldNotContainValueForKeyMessageGenerator(),
-        new ShouldBeginEndWithMessageGenerator(),
-        new ShouldBeWithinRangeMessageGenerator(),
-        new ShouldContainWithinRangeMessageGenerator(),
-        new ShouldBeUniqueMessageGenerator(),
-        new ShouldBeEnumerableCaseSensitiveMessageGenerator(),
-        new ShouldContainMessageGenerator(),
-        new ShouldContainPredicateMessageGenerator(),
-        new ShouldBeIgnoringOrderMessageGenerator(),
-        new ShouldSatisfyMessageGenerator(),
-        new ShouldSatisfyAllConditionsMessageGenerator(),
-        new ShouldBeSubsetOfMessageGenerator(),
-        new ShouldHaveSingleItemMessageGenerator(),
-        new ShouldHaveCountMessageGenerator(),
-        new ShouldBeBooleanMessageGenerator(),
-        new ShouldNotThrowMessageGenerator(),
-        new ShouldNotMatchMessageGenerator(),
-        new ShouldThrowMessageGenerator(),
-        new ShouldBeNullMessageGenerator(),
-        new ShouldBeMessageGenerator(),
-        new ShouldBeSameAsMessageGenerator(),
-        new ShouldBePositiveMessageGenerator(),
-        new ShouldBeNegativeMessageGenerator(),
-        new ShouldBeTypeMessageGenerator(),
-        new ShouldBeInOrderMessageGenerator(),
-        new ShouldBeEquivalentToMessageGenerator()
-    ];
+    private string? _message;
 
     /// <summary>
-    /// The assertion context for the current shouldly assertion
+    /// States the failure. The subject is resolved here, so the trip-wire that proves caller argument expressions
+    /// are in use trips when the message is constructed.
     /// </summary>
-    protected IShouldlyAssertionContext ShouldlyAssertionContext { get; set; } = null!;
+    private protected void Describe(string shouldlyMethod, Slots slots, string? customMessage, string? actualExpression) =>
+        _message = CustomAssertionMessage.Text(shouldlyMethod, slots, customMessage, actualExpression);
 
     /// <summary>
     /// Converts the message to a string representation
     /// </summary>
-    public override string ToString()
-    {
-        var message = GenerateShouldMessage();
-        if (ShouldlyAssertionContext.CustomMessage != null)
-        {
-            message += $"""
-
-
-                        Additional Info:
-                            {ShouldlyAssertionContext.CustomMessage}
-                        """;
-        }
-
-        return message;
-    }
-
-    private string GenerateShouldMessage()
-    {
-        var messageGenerator = ShouldlyMessageGenerators.FirstOrDefault(x => x.CanProcess(ShouldlyAssertionContext));
-        if (messageGenerator != null)
-        {
-            var message = messageGenerator.GenerateErrorMessage(ShouldlyAssertionContext);
-            return message;
-        }
-
-        if (ShouldlyAssertionContext.HasRelevantActual)
-        {
-            return CreateActualVsExpectedMessage(ShouldlyAssertionContext);
-        }
-
-        return CreateExpectedErrorMessage();
-    }
-
-    private string CreateExpectedErrorMessage()
-    {
-        var codePart = ShouldlyAssertionContext.CodePart;
-        var isNegatedAssertion = ShouldlyAssertionContext.ShouldMethod.Contains("Not");
-
-        var shouldMethod = ShouldlyAssertionContext.ShouldMethod.PascalToSpaced();
-        var expected = ShouldlyAssertionContext.Expected.ToStringAwesomely();
-        var conditionString = ShouldlyAssertionContext.Expected is BinaryExpression
-            ? "an element satisfying the condition"
-            : "";
-        return
-            $"""
-             {codePart}
-                 {shouldMethod} {conditionString}
-             {expected}
-                 but does{(isNegatedAssertion ? "" : " not")}
-             """;
-    }
-
-    private static string CreateActualVsExpectedMessage(IShouldlyAssertionContext context)
-    {
-        var codePart = context.CodePart;
-        var actual = context.Actual.ToStringAwesomely();
-        var actualString = codePart == actual ? context.IsNegatedAssertion ? string.Empty : " not" : $"""
-
-             {actual}
-             """;
-
-        var message =
-            $"""
-             {codePart}
-                 {context.ShouldMethod.PascalToSpaced()}
-             {context.Expected.ToStringAwesomely()}
-                 but was{actualString}
-             """;
-
-        // A negated assertion fails because actual matched expected, so there's no difference to highlight.
-        if (!context.IsNegatedAssertion && DifferenceHighlighter.CanHighlightDifferences(context))
-        {
-            message += $"""
-                        
-                            difference
-                        {DifferenceHighlighter.HighlightDifferences(context)}
-                        """;
-        }
-
-        return message;
-    }
+    public override string ToString() => _message ?? string.Empty;
 }

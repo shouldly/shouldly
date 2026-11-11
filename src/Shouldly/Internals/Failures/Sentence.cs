@@ -6,13 +6,13 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 readonly struct Sentence
 {
-    public Sentence(Failure failure, string? subject, bool subjectFromSource, object? actual)
+    public Sentence(string phrase, bool negated, string? subject, bool subjectFromSource, object? actual)
     {
+        Phrase = phrase;
+        Negated = negated;
         Subject = subject;
         SubjectFromSource = subjectFromSource;
         Actual = actual;
-        Phrase = failure.Phrase;
-        Negated = failure.Negated;
     }
 
     /// <summary>The source text of the actual value's expression, or what stands in for it.</summary>

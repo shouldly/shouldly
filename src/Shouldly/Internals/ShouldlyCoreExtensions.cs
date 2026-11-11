@@ -1,4 +1,4 @@
-using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -66,38 +66,8 @@ public static class ShouldlyCoreExtensions
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
-        try
-        {
-            if (specifiedConstraint(actual)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        throw new ShouldAssertException(new ExpectedActualShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString());
-    }
-
-    /// <summary>
-    /// Asserts that the specified constraint is satisfied, recording on the failure message what the assertion
-    /// established comparing the values.
-    /// </summary>
-    internal static void AssertAwesomely<T>(
-        this T actual, Func<T, bool> specifiedConstraint, ComparisonRecord comparison,
-        object? originalActual, object? originalExpected,
-        string? customMessage, string shouldlyMethod, string? actualExpression)
-    {
-        try
-        {
-            if (specifiedConstraint(actual)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        var message = new ExpectedActualShouldlyMessage(comparison, originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression);
-        throw new ShouldAssertException(message.ToString());
+        if (!actual.Satisfies(specifiedConstraint))
+            throw new ShouldAssertException(CustomAssertionMessage.Text(shouldlyMethod, new(MessageShape.ExpectedActual, originalExpected, originalActual, hasActual: true), customMessage, actualExpression));
     }
 
     /// <summary>
@@ -119,17 +89,8 @@ public static class ShouldlyCoreExtensions
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
-        try
-        {
-            if (specifiedConstraint(actual)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        var message = new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression);
-        throw new ShouldAssertException(message.ToString());
+        if (!actual.Satisfies(specifiedConstraint))
+            throw new ShouldAssertException(CustomAssertionMessage.Text(shouldlyMethod, new(MessageShape.CaseSensitivity, originalExpected, originalActual, hasActual: true, caseSensitivity: caseSensitivity), customMessage, actualExpression));
     }
 
     /// <summary>
@@ -150,63 +111,8 @@ public static class ShouldlyCoreExtensions
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
-        try
-        {
-            if (specifiedConstraint(actual)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        throw new ShouldAssertException(new ExpectedActualIgnoreOrderShouldlyMessage(originalExpected, originalActual, customMessage, shouldlyMethod, actualExpression).ToString());
-    }
-
-    /// <summary>
-    /// Asserts that two enumerables are equal ignoring order, comparing elements with <paramref name="comparer"/>, or by
-    /// <see cref="Equality"/>'s own rules when it is <c>null</c>; the failure message reports missing elements the same way. Pass <paramref name="isCustomComparer"/>
-    /// as <c>true</c> when the caller supplied <paramref name="comparer"/>. Pass <paramref name="caseSensitivity"/>
-    /// when <paramref name="comparer"/> implements a <see cref="Case"/> the caller chose, so the message reports it.
-    /// </summary>
-    internal static void AssertAwesomelyIgnoringOrder<T>(
-        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T>? comparer, bool isCustomComparer,
-        string? customMessage, string shouldlyMethod, string? actualExpression, Case? caseSensitivity = null)
-    {
-        try
-        {
-            if (Equality.SequenceEqual(actual, expected, ignoreOrder: true, comparer)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        var message = new ExpectedActualIgnoreOrderShouldlyMessage(
-            ComparisonRecord.ComparedElementsWith(comparer ?? Equality.ComparerFor<T>(), isCustomComparer), expected, actual, customMessage, shouldlyMethod, actualExpression,
-            caseSensitivity);
-        throw new ShouldAssertException(message.ToString());
-    }
-
-    /// <summary>
-    /// Asserts that two enumerables are equal in order, comparing elements with a caller-supplied
-    /// <paramref name="comparer"/>; the failure message highlights differences using the same comparer.
-    /// </summary>
-    internal static void AssertAwesomelyWithComparer<T>(
-        this IEnumerable<T>? actual, IEnumerable<T>? expected, IEqualityComparer<T> comparer,
-        string? customMessage, string shouldlyMethod, string? actualExpression)
-    {
-        try
-        {
-            if (Equality.SequenceEqual(actual, expected, comparer: comparer)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        var message = new ExpectedActualShouldlyMessage(
-            ComparisonRecord.ComparedElementsWith(comparer, isCustom: true), expected, actual, customMessage, shouldlyMethod, actualExpression);
-        throw new ShouldAssertException(message.ToString());
+        if (!actual.Satisfies(specifiedConstraint))
+            throw new ShouldAssertException(CustomAssertionMessage.Text(shouldlyMethod, new(MessageShape.IgnoringOrder, originalExpected, originalActual, hasActual: true), customMessage, actualExpression));
     }
 
     /// <summary>
@@ -228,16 +134,8 @@ public static class ShouldlyCoreExtensions
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
-        try
-        {
-            if (specifiedConstraint(actual)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        throw new ShouldAssertException(new ExpectedActualToleranceShouldlyMessage(originalExpected, originalActual, tolerance, customMessage, shouldlyMethod, actualExpression).ToString());
+        if (!actual.Satisfies(specifiedConstraint))
+            throw new ShouldAssertException(CustomAssertionMessage.Text(shouldlyMethod, new(MessageShape.Tolerance, originalExpected, originalActual, hasActual: true, tolerance: tolerance), customMessage, actualExpression));
     }
 
     /// <summary>
@@ -259,15 +157,7 @@ public static class ShouldlyCoreExtensions
         [CallerMemberName] string shouldlyMethod = null!,
         string? actualExpression = null)
     {
-        try
-        {
-            if (specifiedConstraint(actual)) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        throw new ShouldAssertException(new ExpectedActualWithCaseSensitivityShouldlyMessage(originalExpected, originalActual, caseSensitivity, customMessage, shouldlyMethod, actualExpression).ToString());
+        if (!actual.Satisfies(specifiedConstraint))
+            throw new ShouldAssertException(CustomAssertionMessage.Text(shouldlyMethod, new(MessageShape.CaseSensitivity, originalExpected, originalActual, hasActual: true, caseSensitivity: caseSensitivity), customMessage, actualExpression));
     }
 }

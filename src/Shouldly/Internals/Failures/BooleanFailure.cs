@@ -5,6 +5,10 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class BooleanFailure(bool expected, [CallerMemberName] string name = "") : FailureWithoutFacts(name, negated: false)
 {
+    // A custom assertion states its own expected value.
+    internal override SlotReading? FromSlots(Slots s) =>
+        new(new(this, sentence => Word(sentence, s.Expected)), s.Actual);
+
     protected override string Word(Sentence sentence) => Word(sentence, expected);
 
     internal static string Word(Sentence sentence, object? expectedValue)

@@ -6,29 +6,19 @@ namespace Shouldly.DifferenceHighlighting;
 /// Highlights differences between IEnumerables of the same type,
 /// marking differences with asterisks
 /// </summary>
-class EnumerableDifferenceHighlighter : IDifferenceHighlighter
+static class EnumerableDifferenceHighlighter
 {
     // A default ImmutableArray<T> is IEnumerable but throws when enumerated, so it is left to the formatter, which
     // prints it as null (#1406).
-    public bool CanProcess(IShouldlyAssertionContext context) =>
-        context is
-        {
-            Expected: IEnumerable and not string,
-            Actual: IEnumerable and not string
-        } &&
-        !NullEquivalence.IsNull(context.Expected) &&
-        !NullEquivalence.IsNull(context.Actual);
+    public static bool CanHighlight(object? actual, object? expected) =>
+        expected is IEnumerable and not string &&
+        actual is IEnumerable and not string &&
+        !NullEquivalence.IsNull(expected) &&
+        !NullEquivalence.IsNull(actual);
 
-    public string? HighlightDifferences(IShouldlyAssertionContext context)
-    {
-        if (!CanProcess(context))
-            return context.Actual.ToStringAwesomely();
-
-        // Compare as the assertion did, so a custom comparer's matches aren't highlighted as differences.
-        var comparison = AssertionComparison.Of(context);
-
-        return HighlightDifferencesBetweenLists((IEnumerable)context.Actual!, (IEnumerable)context.Expected!, (a, e) => ItemsEqual(a, e, comparison));
-    }
+    // Compares as the assertion did, so a custom comparer's matches aren't highlighted as differences.
+    public static string Highlight(IEnumerable actual, IEnumerable expected, ComparisonRecord comparison) =>
+        HighlightDifferencesBetweenLists(actual, expected, (a, e) => ItemsEqual(a, e, comparison));
 
     // Walks both sequences in step, a single pass each, stopping after
     // MaxEnumerableItemsInMessages positions so an infinite sequence can't hang the message.
@@ -71,7 +61,7 @@ class EnumerableDifferenceHighlighter : IDifferenceHighlighter
     // shows, so a nested sequence there may never end. When one is longer than a message shows,
     // compare it only as far as it's shown, as the top level is. A caller-supplied comparer is
     // left to decide for itself. A default ImmutableArray<T> can't be read, so the comparison treats it as null (#1406).
-    private static bool ItemsEqual(object? actual, object? expected, AssertionComparison comparison)
+    private static bool ItemsEqual(object? actual, object? expected, ComparisonRecord comparison)
     {
         if (!comparison.UsesCustomComparer
             && actual is IEnumerable actualItems and not string

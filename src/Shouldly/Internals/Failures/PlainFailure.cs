@@ -1,5 +1,3 @@
-using Shouldly.DifferenceHighlighting;
-
 namespace Shouldly.Internals.Failures;
 
 /// <summary>
@@ -11,34 +9,8 @@ sealed class PlainFailure(bool negated = false, [CallerMemberName] string name =
     public FailureMessage With(object? expected) =>
         new(this, sentence => Word(sentence, expected));
 
-    internal static string Word(Sentence sentence, object? expected, ComparisonRecord? comparison = null)
-    {
-        var actual = sentence.ActualText;
-        var actualString = sentence.SubjectShows(actual) ? sentence.Negated ? string.Empty : " not" : $"""
-
-             {actual}
-             """;
-
-        var message =
-            $"""
-             {sentence.Subject}
-                 {sentence.Phrase}
-             {expected.ToStringAwesomely()}
-                 but was{actualString}
-             """;
-
-        // A negated assertion fails because actual matched expected, so there's no difference to highlight.
-        if (!sentence.Negated && DifferenceHighlighter.Between(sentence.Actual, expected, comparison) is { } difference)
-        {
-            message += $"""
-                        
-                            difference
-                        {difference}
-                        """;
-        }
-
-        return message;
-    }
+    internal static string Word(Sentence sentence, object? expected, ComparisonRecord? comparison = null) =>
+        PlainWording.Word(sentence, PlainLines.ExpectedAndActual(expected), comparison);
 }
 
 /// <summary>

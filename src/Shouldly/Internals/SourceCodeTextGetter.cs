@@ -1,16 +1,12 @@
 namespace Shouldly.Internals;
 
-class ActualCodeTextGetter : ICodeTextGetter
+class ActualCodeTextGetter
 {
     private bool _determinedOriginatingFrame;
     private string? _shouldMethod;
 
     public string? FileName { get; private set; }
     public int LineNumber { get; private set; }
-
-    [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the call site. Method metadata may be trimmed away.")]
-    public string? GetCodeText(object? actual, StackTrace? stackTrace) =>
-        GetSourceText(stackTrace) ?? actual.ToStringAwesomely();
 
     /// <summary>
     /// The source text of the asserted expression, or null when it can't be recovered.

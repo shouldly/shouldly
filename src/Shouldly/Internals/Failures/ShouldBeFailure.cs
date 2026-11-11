@@ -7,6 +7,15 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
+    internal override SlotReading? FromSlots(Slots s) => s.Shape switch
+    {
+        MessageShape.Throw or MessageShape.Equivalence => null,
+        MessageShape.IgnoringOrder => new(IgnoringOrder(s.Expected, null), s.Actual),
+        MessageShape.Tolerance when s.Tolerance is { } tolerance => new(Within(s.Expected, tolerance), s.Actual),
+        MessageShape.CaseSensitivity when s.CaseSensitivity is { } caseSensitivity => new(With(s.Expected, caseSensitivity), s.Actual),
+        _ => new(With(s.Expected), s.Actual)
+    };
+
     /// <summary>
     /// The value it was compared with, and what the assertion established comparing them when that is more than
     /// Shouldly's own equality.
@@ -29,7 +38,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     /// <summary>
     /// The sequence it should have matched in any order, and how the assertion compared their elements.
     /// </summary>
-    public FailureMessage IgnoringOrder(object? expected, ComparisonRecord comparison, Case? caseSensitivity = null) =>
+    public FailureMessage IgnoringOrder(object? expected, ComparisonRecord? comparison, Case? caseSensitivity = null) =>
         new(this, sentence => IsWalkable(sentence.Actual) && IsWalkable(expected)
             ? IgnoringOrderWording.Word(sentence, expected, comparison, caseSensitivity)
             : Word(sentence, expected, comparison));
@@ -61,7 +70,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
             // The values were equal, so repeating actual adds nothing (#304). Equal only by a custom comparer's
             // reckoning is worth saying, though, and so is an actual that reads differently from expected: a value
             // compared by a registered equality rule may be equal whatever its items (#1425).
-            actual = AssertionComparison.Of(record).UsesCustomComparer
+            actual = (record ?? ComparisonRecord.Default).UsesCustomComparer
                 ? " (using a custom comparer)"
                 : actualValue == expected
                     ? string.Empty
