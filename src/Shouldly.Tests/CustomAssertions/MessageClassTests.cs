@@ -223,6 +223,95 @@ public class MessageClassTests
         Should.Throw<ShouldAssertException>(() => numbers.ShouldHoldInAnyOrder([2, 3])).Message
             .ShouldContain("is missing");
     }
+
+    [Fact]
+    public void SinglePassSequencesAreReadOnce()
+    {
+        var onArrays = new ExpectedActualShouldlyMessage(new[] { "apple", "pear" }, new[] { "apple", "plum" }, null, "ShouldHold", "basket").ToString();
+
+        var onSinglePass = new ExpectedActualShouldlyMessage(new SinglePass<string>("apple", "pear"), new SinglePass<string>("apple", "plum"), null, "ShouldHold", "basket").ToString();
+
+        onSinglePass.ShouldBe(onArrays);
+    }
+
+    [Fact]
+    public void ACountReadsTheWholeSequenceNotJustWhatTheMessageShows()
+    {
+        using (MaxEnumerableItemsScope.Of(3))
+        {
+            var onArray = new ExpectedActualShouldlyMessage(2, new[] { 1, 2, 3, 4, 5, 6 }, null, "ShouldHaveCount", "numbers").ToString();
+
+            var onSinglePass = new ExpectedActualShouldlyMessage(2, new SinglePass<int>(1, 2, 3, 4, 5, 6), null, "ShouldHaveCount", "numbers").ToString();
+
+            onSinglePass.ShouldBe(onArray);
+        }
+    }
+
+    [Fact]
+    public void ASubsetIsJudgedAgainstTheWholeExpectedSequence()
+    {
+        using (MaxEnumerableItemsScope.Of(3))
+        {
+            var onArrays = new ExpectedActualShouldlyMessage(new[] { 1, 2, 3, 4, 5 }, new[] { 5, 6 }, null, "ShouldBeSubsetOf", "numbers").ToString();
+
+            var onSinglePass = new ExpectedActualShouldlyMessage(new SinglePass<int>(1, 2, 3, 4, 5), new SinglePass<int>(5, 6), null, "ShouldBeSubsetOf", "numbers").ToString();
+
+            onSinglePass.ShouldBe(onArrays);
+        }
+    }
+
+    [Fact]
+    public void ACaseOptionIsShownForASinglePassSequenceOfStrings()
+    {
+        var onArrays = new ExpectedActualWithCaseSensitivityShouldlyMessage(new[] { "a", "b" }, new[] { "a", "c" }, Case.Insensitive, null, "ShouldBe", "letters").ToString();
+
+        var onSinglePass = new ExpectedActualWithCaseSensitivityShouldlyMessage(new SinglePass<string>("a", "b"), new SinglePass<string>("a", "c"), Case.Insensitive, null, "ShouldBe", "letters").ToString();
+
+        onSinglePass.ShouldBe(onArrays);
+    }
+
+    [Fact]
+    public void ATypeMessageNamesTheSequencesOwnType() =>
+        new ExpectedActualShouldlyMessage(typeof(int[]), new SinglePass<int>(1), null, "ShouldBeOfType", "numbers").ToString()
+            .ShouldContain(typeof(SinglePass<int>).FullName!);
+
+    [Fact]
+    public void AssertAwesomelyReadsASinglePassSequenceOnlyOnceMore()
+    {
+        // The assertion's own check reads the sequence first; the message then reads it once, not again for each
+        // place it is shown.
+        var numbers = new ReadTwice<int>(1, 2);
+
+        Should.Throw<ShouldAssertException>(() => numbers.ShouldHoldOnlyThree()).Message
+            .ShouldBe(
+                """
+                numbers
+                    should hold only three
+                [3]
+                    but was
+                [1, 2]
+                    difference
+                [*1*, *2*]
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    /// <summary>
+    /// A sequence that throws if it is enumerated a third time.
+    /// </summary>
+    private sealed class ReadTwice<T>(params T[] items) : IEnumerable<T>
+    {
+        private int _reads;
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            if (++_reads > 2)
+                throw new InvalidOperationException("This sequence can only be enumerated twice.");
+
+            return ((IEnumerable<T>)items).GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+    }
 }
 
 static class MessageClassAssertionsUnderTest
@@ -234,4 +323,8 @@ static class MessageClassAssertionsUnderTest
     public static void ShouldHoldInAnyOrder(this int[] actual, int[] expected, string? customMessage = null,
         [System.Runtime.CompilerServices.CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
         actual.AssertAwesomelyIgnoringOrder(v => v.OrderBy(x => x).SequenceEqual(expected.OrderBy(x => x)), actual, expected, customMessage, actualExpression: actualExpression);
+
+    public static void ShouldHoldOnlyThree(this IEnumerable<int> actual, string? customMessage = null,
+        [System.Runtime.CompilerServices.CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
+        actual.AssertAwesomely(v => v.SequenceEqual([3]), actual, new[] { 3 }, customMessage, actualExpression: actualExpression);
 }

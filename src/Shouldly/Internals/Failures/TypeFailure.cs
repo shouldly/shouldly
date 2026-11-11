@@ -13,7 +13,7 @@ sealed class TypeFailure(bool negated = false, [CallerMemberName] string name = 
 
     internal static string Word(Sentence sentence, object? expected)
     {
-        var actualType = sentence.Actual?.GetType().FullName;
+        var actualType = sentence.Actual is { } actual ? CapturedSequence.Original(actual).GetType().FullName : null;
 
         var actualString = sentence.SubjectShows(actualType) || sentence.Subject == "null" ? " not" : $"""
 

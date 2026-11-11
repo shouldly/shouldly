@@ -60,7 +60,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
             : Word(sentence, expected, record);
 
     private bool SaysHowCaseWasTreated(object? actual, object? expected) =>
-        !Negated && actual is IEnumerable<string> && expected is not Expression;
+        !Negated && actual is not null && CapturedSequence.Original(actual) is IEnumerable<string> && expected is not Expression;
 
     // A default ImmutableArray<T> is IEnumerable but throws when enumerated; it is reported as null (#1406).
     private static bool IsWalkable(object? value) =>

@@ -29,7 +29,7 @@ public sealed class ShouldlyFailure : ShouldAssertException
     {
         // The message reads a sequence more than once: to format it, to stand in for the subject and to highlight
         // differences. A sequence that may be single-pass is read once here and its snapshot used from then on.
-        actual = SequenceSnapshot.Of(actual);
+        actual = CapturedSequence.ForMessage(actual);
 
         _actual = actual;
         _customMessage = customMessage;
@@ -44,7 +44,7 @@ public sealed class ShouldlyFailure : ShouldAssertException
     /// <param name="expected">The value the assertion compared the actual value against.</param>
     public ShouldlyFailure Expected(object? expected)
     {
-        _lines = _lines.WithExpected(SequenceSnapshot.Of(expected), _actual);
+        _lines = _lines.WithExpected(CapturedSequence.ForMessage(expected), _actual);
         return this;
     }
 

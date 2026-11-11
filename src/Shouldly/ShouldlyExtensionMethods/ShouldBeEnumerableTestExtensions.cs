@@ -21,6 +21,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         if (!Membership.Contains(actual, expected))
             throw Fail.ShouldContain.With(expected).For(actual, customMessage, actualExpression);
     }
@@ -31,6 +33,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         if (!actual.Contains(expected, comparer))
             throw Fail.ShouldContain.With(expected).For(actual, customMessage, actualExpression);
     }
@@ -42,6 +46,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         if (Membership.Contains(actual, expected))
             throw Fail.ShouldNotContain.With(expected).For(actual, customMessage, actualExpression);
     }
@@ -52,6 +58,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         if (actual.Contains(expected, comparer))
             throw Fail.ShouldNotContain.With(expected).For(actual, customMessage, actualExpression);
     }
@@ -62,6 +70,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, int expectedCount, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var condition = elementPredicate.Compile();
         var actualCount = actual.Count(condition);
         if (actualCount != expectedCount)
@@ -76,6 +86,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var condition = elementPredicate.Compile();
         if (!actual.Any(condition))
             throw Fail.ShouldContain.WithCondition(elementPredicate.Body).For(actual, customMessage, actualExpression);
@@ -87,6 +99,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldNotContain<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var condition = elementPredicate.Compile();
         var matchingElements = actual.Where(condition).ToList();
         if (matchingElements.Count > 0)
@@ -99,6 +113,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldAllBe<T>(this IEnumerable<T> actual, [InstantHandle] Expression<Func<T, bool>> elementPredicate, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var condition = elementPredicate.Compile();
         var actualResults = actual.Where(part => !condition(part));
         if (actualResults.Any())
@@ -112,6 +128,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual == null || actual.Any())
             throw Fail.ShouldBeEmpty.For(actual, customMessage, actualExpression);
     }
@@ -123,6 +141,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual == null || !actual.Any())
             throw Fail.ShouldNotBeEmpty.For(actual, customMessage, actualExpression);
     }
@@ -134,9 +154,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
-        // Snapshot one-shot sequences so the check and the failure message see the same items.
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        using var actualProxy = actual as EnumerableProxy<T>;
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual != null && actual.Any())
             throw Fail.ShouldBeNullOrEmpty.For(actual, customMessage, actualExpression);
     }
@@ -148,9 +167,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
-        // Snapshot one-shot sequences so the check and the failure message see the same items.
-        actual = EnumerableProxy<T>.WrapNonCollection(actual);
-        using var actualProxy = actual as EnumerableProxy<T>;
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual == null || !actual.Any())
             throw Fail.ShouldNotBeNullOrEmpty.For(actual, customMessage, actualExpression);
     }
@@ -162,6 +180,8 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items;
         if (actual == null || actual.Count() != 1)
             throw Fail.ShouldHaveSingleItem.For(actual, customMessage, actualExpression);
 
@@ -178,18 +198,19 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual == null)
             throw Fail.ShouldHaveCount.With(expected).For(actual, customMessage, actualExpression);
 
-        // Use the count directly when the source can provide it without enumerating (arrays, lists, etc.).
-        if (actual.TryGetNonEnumeratedCount(out var count))
-        {
-            if (count != expected)
-                throw Fail.ShouldHaveCount.With(expected).For(actual, customMessage, actualExpression);
+        // A source that knows its count, such as a list or a query over an array, isn't read to count it: it passes
+        // without being read, and fails reading only as far as the message shows.
+        var counted = actual.TryGetNonEnumeratedCount(out var count);
+        if (counted && count == expected)
             return;
-        }
 
-        // Otherwise materialize once so a lazy source isn't enumerated again when building the failure message.
-        var actualItems = actual.ToList();
-        if (actualItems.Count != expected)
-            throw Fail.ShouldHaveCount.With(expected).For(actualItems, customMessage, actualExpression);
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
+        if (!counted)
+            count = actual.Count();
+
+        if (count != expected)
+            throw Fail.ShouldHaveCount.With(expected, count).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -198,6 +219,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain(this IEnumerable<float> actual, float expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         if (!actual.Any(a => Is.Equal(a, expected, tolerance)))
             throw Fail.ShouldContain.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
@@ -208,6 +231,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldContain(this IEnumerable<double> actual, double expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         if (!actual.Any(a => Is.Equal(a, expected, tolerance)))
             throw Fail.ShouldContain.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
@@ -220,6 +245,11 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         if (actual.Equals(expected))
             return;
+
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
 
         var outside = Membership.Unmatched(actual, expected);
         if (outside.Count > 0)
@@ -235,6 +265,11 @@ public static partial class ShouldBeEnumerableTestExtensions
         if (actual.Equals(expected))
             return;
 
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
+
         var outside = actual.Except(expected, comparer).ToList();
         if (outside.Count > 0)
             throw Fail.ShouldBeSubsetOf.With(expected, outside).For(actual, customMessage, actualExpression);
@@ -246,6 +281,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var duplicates = Membership.Duplicates(actual);
         if (duplicates.Count > 0)
             throw Fail.ShouldBeUnique.With(duplicates).For(actual, customMessage, actualExpression);
@@ -257,6 +294,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBeUnique<T>(this IEnumerable<T> actual, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var duplicates = Membership.Duplicates(actual, comparer);
         if (duplicates.Count > 0)
             throw Fail.ShouldBeUnique.With(duplicates).For(actual, customMessage, actualExpression);
@@ -268,6 +307,10 @@ public static partial class ShouldBeEnumerableTestExtensions
     public static void ShouldBe(this IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
         if (!actual.Satisfies(v => Is.EnumerableStringEqualWithCaseSensitivity(v, expected, caseSensitivity)))
             throw Fail.ShouldBe.With(expected, caseSensitivity).For(actual, customMessage, actualExpression);
     }
@@ -291,15 +334,14 @@ public static partial class ShouldBeEnumerableTestExtensions
             return;
         }
 
-        // The failure message reads both sequences again, so buffer single-pass ones.
-        var bufferedActual = EnumerableProxy<string>.WrapNonCollection(actual);
-        var bufferedExpected = EnumerableProxy<string>.WrapNonCollection(expected);
-        using var actualProxy = bufferedActual as EnumerableProxy<string>;
-        using var expectedProxy = bufferedExpected as EnumerableProxy<string>;
+        using var capturedActual = CapturedSequence.Of(actual);
+        using var capturedExpected = CapturedSequence.Of(expected);
+        actual = capturedActual.Items!;
+        expected = capturedExpected.Items!;
 
         var comparer = caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-        if (!bufferedActual.Satisfies(v => Equality.SequenceEqual(v, bufferedExpected, ignoreOrder: true, comparer)))
-            throw Fail.ShouldBe.IgnoringOrder(bufferedExpected, ComparisonRecord.ComparedElementsWith<string>(comparer, isCustom: false), caseSensitivity).For(bufferedActual, customMessage, actualExpression);
+        if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, ignoreOrder: true, comparer)))
+            throw Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith<string>(comparer, isCustom: false), caseSensitivity).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -359,6 +401,8 @@ public static partial class ShouldBeEnumerableTestExtensions
 
     private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, string? customMessage, string? actualExpression = null)
     {
+        using var captured = CapturedSequence.Of(actual);
+        actual = captured.Items!;
         var previousItem = default(T);
         var currentIndex = -1;
 

@@ -34,6 +34,12 @@ readonly struct Slots
         Path = path;
     }
 
+    /// <summary>
+    /// These slots with the expected and actual values replaced, such as by their captures.
+    /// </summary>
+    public Slots WithValues(object? expected, object? actual) =>
+        new(Shape, expected, actual, HasActual, Tolerance, CaseSensitivity, ExceptionMessage, Path);
+
     public MessageShape Shape { get; }
     public object? Expected { get; }
     public object? Actual { get; }
