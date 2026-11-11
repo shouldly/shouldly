@@ -124,6 +124,12 @@ public static partial class ShouldBeTestExtensions
         actual = NullEquivalence.Normalize(actual);
         expected = NullEquivalence.Normalize(expected);
 
+        // The failure message reads both sequences again, so buffer single-pass ones.
+        actual = EnumerableProxy<T>.WrapNonCollection(actual);
+        expected = EnumerableProxy<T>.WrapNonCollection(expected);
+        using var actualProxy = actual as EnumerableProxy<T>;
+        using var expectedProxy = expected as EnumerableProxy<T>;
+
         if (ignoreOrder)
         {
             if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, ignoreOrder: true, comparer)))
