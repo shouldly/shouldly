@@ -45,7 +45,7 @@ Shouldly runs the lambda without a synchronisation context, but deadlocks are st
 
 ## UseEquality
 
-Registers what equality means for a type and its subtypes, for a type whose own `Equals` or items don't capture it. Shouldly asks the rule wherever it compares two values of that type, at any depth, and never walks them as collections. Register rules once, before any test runs, for example from a module initializer:
+Registers what equality means for a type and its subtypes, for a type whose own `Equals` or items don't capture it. Shouldly asks the rule wherever it compares two values of that type, at any depth, and never walks them as collections, except to match their elements when you pass `ignoreOrder: true`. Register rules once, before any test runs, for example from a module initializer:
 
 ```csharp
 // Compare Newtonsoft.Json values as JSON

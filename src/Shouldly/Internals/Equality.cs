@@ -27,7 +27,9 @@ static class Equality
     /// with <paramref name="ignoreOrder"/>, matched one for one in any order. A default <c>ImmutableArray&lt;T&gt;</c>
     /// counts as null, and null equals only null. Elements are compared by <paramref name="comparer"/> when given.
     /// Without one, an equality rule that applies to both sequences as whole values decides instead, so a type such as
-    /// <c>JToken</c>, which enumerates its children, isn't compared by shape alone.
+    /// <c>JToken</c>, which enumerates its children, isn't compared by shape alone. With <paramref name="ignoreOrder"/>
+    /// the caller has asked for the elements to be matched in any order, which a whole-value rule (such as the
+    /// order-sensitive <c>JToken.DeepEquals</c>) can't honour, so the elements are matched instead, each by its rules.
     /// </summary>
     public static bool SequenceEqual<T>(
         IEnumerable<T>? actual,
@@ -41,7 +43,7 @@ static class Equality
         if (actual == null || expected == null)
             return actual == null && expected == null;
 
-        if (comparer == null && EqualityRules.TryEquals(expected, actual, out var ruleResult))
+        if (comparer == null && !ignoreOrder && EqualityRules.TryEquals(expected, actual, out var ruleResult))
             return ruleResult;
 
         comparer ??= ComparerFor<T>();

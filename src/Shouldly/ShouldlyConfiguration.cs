@@ -17,10 +17,11 @@ public static partial class ShouldlyConfiguration
     /// The rule applies wherever Shouldly compares two values that are both instances of <typeparamref name="T"/>,
     /// including subtypes and implementations, at any depth: <c>ShouldBe</c>, <c>ShouldNotBe</c>, collection elements,
     /// dictionary keys and values, and the membership assertions (<c>ShouldContain</c>, <c>ShouldBeOneOf</c>, ...).
-    /// A value it applies to is never walked as a collection. <paramref name="equal"/> is called with the expected value
-    /// first and never with <c>null</c>. When several rules apply, the one for the most specific type wins; of equally
-    /// specific ones, the one registered last. Register rules once, before any assertion runs, for example from a
-    /// module initializer.
+    /// A value it applies to is never walked as a collection, except by <c>ignoreOrder: true</c>, which matches its
+    /// elements in any order, each by its rules. <paramref name="equal"/> is called with the expected value first and
+    /// never with <c>null</c>. When several rules apply, the one for the most specific type wins; of equally specific
+    /// ones, the one registered last. Register rules once, before any assertion runs, for example from a module
+    /// initializer.
     /// </remarks>
     public static void UseEquality<T>(Func<T, T, bool> equal)
     {

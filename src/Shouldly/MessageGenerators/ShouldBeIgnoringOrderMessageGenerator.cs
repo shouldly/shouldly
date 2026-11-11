@@ -33,7 +33,7 @@ class ShouldBeIgnoringOrderMessageGenerator : ShouldlyMessageGenerator
         // Compare as the assertion did, so any custom comparer is honored.
         var comparison = AssertionComparison.Of(context);
 
-        // Match occurrences one-for-one, as Is.EqualIgnoreOrder does, so a difference in how many times an item
+        // Match occurrences one-for-one, as Equality.SequenceEqual does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.
         var missingFromActual = expected.ToList();
         var missingFromExpected = new List<object?>();

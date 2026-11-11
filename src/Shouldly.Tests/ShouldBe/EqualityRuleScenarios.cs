@@ -36,6 +36,16 @@ public class EqualityRuleScenarios
     }
 
     [Fact]
+    public void RuleCoveredSequenceIgnoringOrder()
+    {
+        // The rule (like JToken.DeepEquals) is order-sensitive, so it decides only when order matters; with
+        // ignoreOrder the elements are matched in any order, each by the rule.
+        Should.Throw<ShouldAssertException>(() => new Branch(A, B).ShouldBe(new Branch(B, A)));
+        new Branch(A, B).ShouldBe(new Branch(B, A), ignoreOrder: true);
+        Should.Throw<ShouldAssertException>(() => new Branch(A, B).ShouldBe(new Branch(A, A), ignoreOrder: true));
+    }
+
+    [Fact]
     public void DictionaryValues()
     {
         var dictionary = new Dictionary<string, Node> { ["k"] = A };
