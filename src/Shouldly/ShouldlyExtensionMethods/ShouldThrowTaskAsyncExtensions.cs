@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -49,5 +50,5 @@ public static partial class ShouldThrowAsyncExtensions
     public static Task<TException> ShouldThrowExactlyAsync<TException>(this Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowExactlyAsyncInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        Should.ThrowExactlyAsyncInternal<TException>(actual, customMessage, Fail.ShouldThrowExactlyAsync, actualExpression);
 }

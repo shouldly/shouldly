@@ -1,3 +1,5 @@
+using Shouldly.Internals.Failures;
+
 namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
@@ -11,9 +13,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(
-            v => MemoryEqual(v, expected, v.Span, expected.Span),
-            actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => MemoryEqual(v, expected, v.Span, expected.Span)))
+            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -25,9 +26,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(
-            v => MemoryEqual(v, expected, v.Span, expected.Span),
-            actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => MemoryEqual(v, expected, v.Span, expected.Span)))
+            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -39,9 +39,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(
-            v => !MemoryEqual(v, expected, v.Span, expected.Span),
-            actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !MemoryEqual(v, expected, v.Span, expected.Span)))
+            throw Fail.ShouldNotBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -53,9 +52,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(
-            v => !MemoryEqual(v, expected, v.Span, expected.Span),
-            actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !MemoryEqual(v, expected, v.Span, expected.Span)))
+            throw Fail.ShouldNotBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     // A rule registered for the memory type itself decides first, as it does when the memories are compared as

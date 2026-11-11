@@ -124,39 +124,6 @@ public class NonDictionaryKeyValueSequences
         Should.Throw<ShouldAssertException>(() => pairs.ShouldContainKeyAndValue("k", [1, 2, 4]));
     }
 
-    // A message built through the public constructor falls back to the non-generic IDictionary. The negative
-    // message only needs to know the key is present, so it must not read the value through the indexer.
-    [Fact]
-    public void PublicMessageForShouldNotContainValueForKeyDoesNotReadTheValue()
-    {
-        var dictionary = new HashtableWithThrowingIndexer { ["a"] = 1 };
-
-        var message = new ExpectedActualKeyShouldlyMessage(1, dictionary, "a", null, "ShouldNotContainValueForKey", "dictionary").ToString();
-
-        message.ShouldContain("but does");
-    }
-
-    // Without an IDictionary or the assertion's own lookup, the message cannot know whether the key is present,
-    // so it must not claim either way.
-    [Fact]
-    public void PublicMessageForShouldNotContainValueForKeyOverASequenceDoesNotClaimTheKeyIsPresent()
-    {
-        var message = new ExpectedActualKeyShouldlyMessage(1, PairList(), "z", null, "ShouldNotContainValueForKey", "pairs").ToString();
-
-        message.ShouldNotContain("but does");
-        message.ShouldNotContain("but the key does not exist");
-        message.ShouldEndWith("1");
-    }
-
-    private sealed class HashtableWithThrowingIndexer : Hashtable
-    {
-        public override object? this[object key]
-        {
-            get => throw new InvalidOperationException("The value should not be read.");
-            set => base[key] = value;
-        }
-    }
-
     private sealed class CaseInsensitiveHeaders : IDictionary<string, string>
     {
         private readonly Dictionary<string, string> _inner = new(StringComparer.OrdinalIgnoreCase);

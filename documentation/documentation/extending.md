@@ -14,11 +14,11 @@ person.Manager
 null
 ```
 
-The first line is the **caller argument expression** — the literal source text `person.Manager`, captured at compile time by `[CallerArgumentExpression]`. The second line is the assertion method's name (`ShouldBeAwesome` → "should be awesome"), captured by `[CallerMemberName]`. Your custom assertion gets all of this for free as long as it declares and forwards the right parameters.
+The first line is the **caller argument expression** — the literal source text `person.Manager`, captured at compile time by `[CallerArgumentExpression]`. The second line is the **phrase**: the assertion method's name (`ShouldBeAwesome` → "should be awesome"), captured by `[CallerMemberName]`. Your custom assertion gets all of this for free as long as it declares and forwards the right parameters.
 
 ## The basic pattern
 
-A custom assertion method needs three things: the `this` parameter being asserted, an optional `customMessage`, and a `[CallerArgumentExpression]` parameter that captures the call-site text:
+A custom assertion declares the value being asserted, an optional `customMessage`, and a `[CallerArgumentExpression]` parameter that captures the call-site text. When the check fails, pass those three to `ShouldAssertException.For` in the same order and throw the result:
 
 ```csharp
 public static class CustomAssertions
@@ -29,26 +29,64 @@ public static class CustomAssertions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (actual is not { IsAwesome: true })
-            throw new ShouldAssertException(
-                new ExpectedActualShouldlyMessage("an awesome person", actual,
-                    customMessage, actualExpression: actualExpression).ToString());
+            throw ShouldAssertException.For(actual, customMessage, actualExpression)
+                .Expected("an awesome person");
     }
 }
 ```
 
-> **Pass `actualExpression` by name.** The message constructors take a `[CallerMemberName]` parameter *before* `actualExpression` — passing it positionally silently clobbers the method name instead. Always write `actualExpression: actualExpression`.
+`For` returns a `ShouldlyFailure`, which is a `ShouldAssertException`. Shouldly supplies the subject (`person.Manager`), the phrase (`ShouldBeAwesome` → "should be awesome"), value formatting, difference highlighting between an expected and an actual value, and the `Additional Info` section for `customMessage`.
 
-The message classes cover the common shapes:
+Always `throw` the failure. `For` only builds it, so a failure that isn't thrown lets the assertion pass.
 
-| Class | Message shape |
+Values are formatted as you pass them in, so the message is unaffected if a value is disposed or changed after the assertion throws, for example by a `using` block around the assertion.
+
+## Controlling the message
+
+By default the message shows the subject, the phrase, and the actual value. Add to the same expression to change that:
+
+| Call | Effect |
 | --- | --- |
-| `ExpectedShouldlyMessage` | `x should … expected but does not` |
-| `ActualShouldlyMessage` | `x should … but was actual` |
-| `ExpectedActualShouldlyMessage` | `x should … expected but was actual` |
-| `ExpectedActualToleranceShouldlyMessage` | adds a tolerance line |
-| `ExpectedActualWithCaseSensitivityShouldlyMessage` | adds case-sensitivity wording |
+| `.Expected(value)` | Adds the expected value, formatted by Shouldly. Leave it off for no expected line. |
+| `.Phrase("should have error")` | States the phrase instead of taking it from the method name. |
+| `.ExpectedInWords("at least 1 element")` | Describes what was expected in words, shown as written. |
+| `.ActualInWords("no value at '/items'")` | Describes what was found in words, in place of the actual value. |
+| `.WithoutActual()` | Leaves the actual value out. |
+| `.Context("Response", text)` | Appends a labelled block after the message. Repeatable. |
 
-All take the failing method's name via `[CallerMemberName]`, so constructing them directly inside your assertion produces correctly-worded messages. Note that the method name also drives wording: a name containing `Not` is phrased as a negated assertion.
+For example, an assertion on an HTTP response can say what it was looking for in its own words and attach the response:
+
+```csharp
+public static void ShouldHaveError(
+    this HttpResponse actual,
+    string field,
+    string? customMessage = null,
+    [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
+{
+    var errors = ReadErrors(actual);
+    if (!errors.ContainsKey(field))
+        throw ShouldAssertException.For(errors.Keys, customMessage, actualExpression)
+            .Phrase("should have an error for")
+            .Expected(field)
+            .Context("Response", Describe(actual));
+}
+```
+
+```
+response
+    should have an error for
+"name"
+    but was
+["email", "age"]
+
+Response:
+    HTTP/1.1 400 Bad Request
+    {"errors":{"email":["required"],"age":["must be positive"]}}
+```
+
+A phrase containing the word "not", such as "should not be empty", marks the assertion as negated. A negated assertion fails because the values matched, so its message highlights no difference.
+
+Shouldly keeps the subject, the formatting of values and the layout of the message. If you need a line the controls don't offer, describe it with `ExpectedInWords`, `ActualInWords` or a `Context` block rather than building the whole message as a string.
 
 ## Composing existing assertions
 
@@ -70,7 +108,7 @@ Without the forwarding, a failure inside `ShouldBeValidOrder(order)` would repor
 
 ## Predicate-style assertions with `AssertAwesomely`
 
-For assert-a-predicate cases, `ShouldlyCoreExtensions.AssertAwesomely` wraps the throw-a-message dance:
+For assert-a-predicate cases, `ShouldlyCoreExtensions.AssertAwesomely` runs the check and reports an expected and an actual value in one call:
 
 ```csharp
 public static void ShouldBePositive(
@@ -82,6 +120,32 @@ public static void ShouldBePositive(
         customMessage, actualExpression: actualExpression);
 }
 ```
+
+## The message classes
+
+Assertions written for v4 construct a message class and pass its text to `ShouldAssertException`. These keep working:
+
+```csharp
+throw new ShouldAssertException(
+    new ExpectedActualShouldlyMessage("an awesome person", actual,
+        customMessage, actualExpression: actualExpression).ToString());
+```
+
+> **Pass `actualExpression` by name.** The message constructors and `AssertAwesomely` take a `[CallerMemberName]` parameter *before* `actualExpression` — passing it positionally silently clobbers the method name instead. `ShouldAssertException.For` has no such trap.
+
+| Class | Message shape |
+| --- | --- |
+| `ExpectedShouldlyMessage` | `x should … expected but does not` |
+| `ActualShouldlyMessage` | `x should … but was actual` |
+| `ExpectedActualShouldlyMessage` | `x should … expected but was actual` |
+| `ExpectedActualToleranceShouldlyMessage` | `x should be within tolerance of expected but was actual` |
+| `ExpectedActualWithCaseSensitivityShouldlyMessage` | adds the case option to the phrase |
+| `ShouldlyThrowMessage` | `` `x` should throw expected but threw actual `` |
+| `ExpectedEquivalenceShouldlyMessage` | the path to a difference between two object graphs |
+
+A method named exactly like one of Shouldly's own assertions gets that assertion's wording, so a `ShouldBeNull` for your own type reads like the built-in one. Any other name gets the shape above, with the phrase taken from the method name. The tolerance and case-sensitivity classes always show their option: if the built-in wording has no place for it, they keep the shape above.
+
+For new assertions prefer `ShouldAssertException.For`, which gives you control over the message that these classes don't.
 
 ## Verifying your wiring with the trip-wire
 

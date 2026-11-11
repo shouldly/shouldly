@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -37,7 +38,7 @@ public static partial class ShouldSatisfyAllConditionsTestExtensions
         var errorMessageString = CollectConditionFailures(conditions);
         if (errorMessageString != null)
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(errorMessageString, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldSatisfy.With(errorMessageString).For(actual, customMessage, actualExpression);
         }
     }
 

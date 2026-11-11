@@ -1,4 +1,4 @@
 "Cheese"
     should start with
 "ch"
-    but was not
+    but did not

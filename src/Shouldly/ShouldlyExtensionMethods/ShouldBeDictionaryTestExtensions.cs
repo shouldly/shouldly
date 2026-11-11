@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -28,7 +29,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (!ContainsKey(dictionary, key))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldContainKey.With(key).For(dictionary, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         where TKey : notnull
     {
         if (ContainsKey(dictionary, key))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(key, dictionary, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldNotContainKey.With(key).For(dictionary, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -53,7 +54,7 @@ public static partial class ShouldBeDictionaryTestExtensions
     {
         var keyExists = TryGetValue(dictionary, key, out var actual);
         if (!keyExists || !Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(Internals.ComparisonRecord.LookedUpKey(keyExists, actual), val, dictionary, key, customMessage, nameof(ShouldContainKeyAndValue), actualExpression).ToString());
+            throw Fail.ShouldContainKeyAndValue.With(key, val, keyExists, actual).For(dictionary, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -67,7 +68,7 @@ public static partial class ShouldBeDictionaryTestExtensions
     {
         var keyExists = TryGetValue(dictionary, key, out var actual);
         if (!keyExists || Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
-            throw new ShouldAssertException(new ExpectedActualKeyShouldlyMessage(Internals.ComparisonRecord.LookedUpKey(keyExists, actual), val, dictionary, key, customMessage, nameof(ShouldNotContainValueForKey), actualExpression).ToString());
+            throw Fail.ShouldNotContainValueForKey.With(key, val, keyExists).For(dictionary, customMessage, actualExpression);
     }
 
     private static bool ContainsKey<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key)

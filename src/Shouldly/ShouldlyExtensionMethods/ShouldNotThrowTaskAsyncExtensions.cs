@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 

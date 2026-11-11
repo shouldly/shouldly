@@ -1,3 +1,5 @@
+using Shouldly.Internals.Failures;
+
 namespace Shouldly;
 
 /// <summary>
@@ -15,7 +17,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(_ => Is.GreaterThan(actual, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(_ => Is.GreaterThan(actual, expected, comparer)))
+            throw Fail.ShouldBeGreaterThan.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -28,7 +31,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : IComparable<T>?
     {
-        actual.AssertAwesomely(v => Is.GreaterThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThan(v, expected)))
+            throw Fail.ShouldBeGreaterThan.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -41,7 +45,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(_ => Is.LessThan(actual, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(_ => Is.LessThan(actual, expected, comparer)))
+            throw Fail.ShouldBeLessThan.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -54,7 +59,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : IComparable<T>?
     {
-        actual.AssertAwesomely(v => Is.LessThan(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThan(v, expected)))
+            throw Fail.ShouldBeLessThan.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -67,7 +73,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(_ => Is.GreaterThanOrEqualTo(actual, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(_ => Is.GreaterThanOrEqualTo(actual, expected, comparer)))
+            throw Fail.ShouldBeGreaterThanOrEqualTo.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -80,7 +87,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : IComparable<T>?
     {
-        actual.AssertAwesomely(v => Is.GreaterThanOrEqualTo(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.GreaterThanOrEqualTo(v, expected)))
+            throw Fail.ShouldBeGreaterThanOrEqualTo.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -93,7 +101,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(_ => Is.LessThanOrEqualTo(actual, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(_ => Is.LessThanOrEqualTo(actual, expected, comparer)))
+            throw Fail.ShouldBeLessThanOrEqualTo.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -106,6 +115,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : IComparable<T>?
     {
-        actual.AssertAwesomely(v => Is.LessThanOrEqualTo(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.LessThanOrEqualTo(v, expected)))
+            throw Fail.ShouldBeLessThanOrEqualTo.With(expected).For(actual, customMessage, actualExpression);
     }
 }

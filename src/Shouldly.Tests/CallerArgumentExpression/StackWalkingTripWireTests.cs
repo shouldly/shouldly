@@ -10,10 +10,10 @@ public class StackWalkingTripWireTests
     [Fact]
     public void Trip_wire_fires_when_actualExpression_is_null()
     {
-        // Construct the context directly with null actualExpression, simulating an assertion
-        // that failed to thread CAE through to the message constructor.
+        // Construct a message with null actualExpression, simulating an assertion that failed to
+        // thread CAE through to the message constructor.
         var ex = Should.Throw<InvalidOperationException>(() =>
-            new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null));
+            new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null));
 
         ex.Message.ShouldContain("FakeAssertionMethod");
         ex.Message.ShouldContain("AssertCallerArgumentExpressionIsUsed");
@@ -26,7 +26,7 @@ public class StackWalkingTripWireTests
         {
             // No throw — the scope opts out of the trip-wire for code paths that legitimately
             // cannot use CAE (e.g. dynamic dispatch).
-            _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
+            _ = new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null);
         }
     }
 
@@ -37,7 +37,7 @@ public class StackWalkingTripWireTests
         {
             // No throw — the user has deliberately opted out of stack-walking, so falling back
             // to the value-only message is the expected behaviour.
-            _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
+            _ = new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null);
         }
     }
 
@@ -45,8 +45,8 @@ public class StackWalkingTripWireTests
     public void Trip_wire_stays_silent_when_actualExpression_is_supplied()
     {
         // The whole point: when CAE supplies the expression, no stack-walking happens, no throw.
-        var context = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: "someVariable");
-        context.CodePart.ShouldBe("someVariable");
+        var message = new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: "someVariable");
+        message.ToString().ShouldStartWith("someVariable");
     }
 
     [Fact]
@@ -57,15 +57,15 @@ public class StackWalkingTripWireTests
             using (ShouldlyConfiguration.AllowStackWalking())
             {
                 // Inner scope active — no throw.
-                _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
+                _ = new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null);
             }
 
             // Inner scope disposed, outer scope still active — must still suppress the trip-wire.
-            _ = new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null);
+            _ = new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null);
         }
 
         // Both scopes disposed — the trip-wire is armed again.
         Should.Throw<InvalidOperationException>(() =>
-            new ShouldlyAssertionContext("FakeAssertionMethod", expected: 1, actual: 2, actualExpression: null));
+            new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null));
     }
 }

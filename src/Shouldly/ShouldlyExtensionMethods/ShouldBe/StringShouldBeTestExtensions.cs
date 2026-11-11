@@ -1,5 +1,6 @@
 using System.ComponentModel;
-using Shouldly.Internals.AssertionFactories;
+using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -43,21 +44,8 @@ public static partial class ShouldBeStringTestExtensions
         StringCompareShould options,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        var assertion = StringShouldBeAssertionFactory.Create(expected, actual, options, actualExpression: actualExpression, useEqualityRules: true);
-        ExecuteAssertion(assertion, customMessage);
-    }
-
-    private static void ExecuteAssertion(Internals.Assertions.IAssertion assertion, string? customMessage)
-    {
-        try
-        {
-            if (assertion.IsSatisfied()) return;
-        }
-        catch (ArgumentException ex)
-        {
-            throw new ShouldAssertException(ex.Message, ex);
-        }
-
-        throw new ShouldAssertException(assertion.GenerateMessage(customMessage));
+        var strings = ComparedStrings.Under(options, actual, expected, useEqualityRules: true);
+        if (!strings.Satisfies(compared => compared.AreEqual()))
+            throw Fail.ShouldBe.With(strings).For(strings.Actual, customMessage, actualExpression);
     }
 }

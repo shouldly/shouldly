@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -12,7 +13,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception
     {
-        return ThrowInternal<TException>(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        return ThrowInternal<TException>(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.Throw, actualExpression);
     }
 
     /// <summary>
@@ -21,7 +22,7 @@ public static partial class Should
     [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static Exception Throw(Task actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(() => actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType, Fail.Throw, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task function throws an exception of type <typeparamref name="TException"/>
@@ -29,14 +30,14 @@ public static partial class Should
     public static TException Throw<TException>([InstantHandle] Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowInternal<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        ThrowInternal<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.Throw, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task function throws an exception of the specified type
     /// </summary>
     public static Exception Throw([InstantHandle] Func<Task> actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, exceptionType, Fail.Throw, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task throws an exception of type <typeparamref name="TException"/> within the specified timeout
@@ -45,7 +46,7 @@ public static partial class Should
     public static TException Throw<TException>(Task actual, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowInternal<TException>(() => actual, timeoutAfter, customMessage, actualExpression: actualExpression);
+        ThrowInternal<TException>(() => actual, timeoutAfter, customMessage, Fail.Throw, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task throws an exception of the specified type within the specified timeout
@@ -54,7 +55,7 @@ public static partial class Should
     public static Exception Throw(Task actual, TimeSpan timeoutAfter, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        return ThrowInternal(() => actual, timeoutAfter, customMessage, exceptionType, actualExpression: actualExpression);
+        return ThrowInternal(() => actual, timeoutAfter, customMessage, exceptionType, Fail.Throw, actualExpression);
     }
 
     /// <summary>
@@ -63,25 +64,25 @@ public static partial class Should
     public static TException Throw<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowInternal<TException>(actual, timeoutAfter, customMessage, actualExpression: actualExpression);
+        ThrowInternal<TException>(actual, timeoutAfter, customMessage, Fail.Throw, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowInternal<TException>(
         [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
         var e = RunAndCaptureException(actual, timeoutAfter, customMessage);
         if (e == null)
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(typeof(TException), thrown: null, isTask: true).ForDelegate(customMessage, actualExpression);
 
         if (e is TException exception)
             return exception;
 
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -89,32 +90,32 @@ public static partial class Should
     /// </summary>
     public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(actual, timeoutAfter, null, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(actual, timeoutAfter, null, exceptionType, Fail.Throw, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task function throws an exception of the specified type within the specified timeout
     /// </summary>
     public static Exception Throw([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, Type exceptionType,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowInternal(actual, timeoutAfter, customMessage, exceptionType, actualExpression: actualExpression);
+        ThrowInternal(actual, timeoutAfter, customMessage, exceptionType, Fail.Throw, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static Exception ThrowInternal(
         [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
         string? customMessage,
         Type exceptionType,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
         var e = RunAndCaptureException(actual, timeoutAfter, customMessage);
         if (e == null)
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(exceptionType, thrown: null, isTask: true).ForDelegate(customMessage, actualExpression);
 
         if (exceptionType.IsInstanceOfType(e))
             return e;
 
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(exceptionType, e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(exceptionType, e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -124,7 +125,7 @@ public static partial class Should
     public static TException ThrowExactly<TException>([InstantHandle] Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowExactlyInternal<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        ThrowExactlyInternal<TException>(actual, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.ThrowExactly, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task function throws an exception of exactly type <typeparamref name="TException"/> within the specified timeout.
@@ -133,25 +134,25 @@ public static partial class Should
     public static TException ThrowExactly<TException>([InstantHandle] Func<Task> actual, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowExactlyInternal<TException>(actual, timeoutAfter, customMessage, actualExpression: actualExpression);
+        ThrowExactlyInternal<TException>(actual, timeoutAfter, customMessage, Fail.ThrowExactly, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static TException ThrowExactlyInternal<TException>(
         [InstantHandle] Func<Task> actual, TimeSpan timeoutAfter,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
         var e = RunAndCaptureException(actual, timeoutAfter, customMessage);
         if (e == null)
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(typeof(TException), thrown: null, isTask: true).ForDelegate(customMessage, actualExpression);
 
         if (e.GetType() == typeof(TException))
             return (TException)e;
 
-        throw new ShouldAssertException(new TaskShouldlyThrowMessage(typeof(TException), e.GetType(), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression);
     }
 
     /// <summary>
@@ -199,7 +200,7 @@ public static partial class Should
     public static void NotThrow(Task action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.NotThrow, actualExpression);
     }
 
     /// <summary>
@@ -209,7 +210,7 @@ public static partial class Should
     public static T NotThrow<T>(Task<T> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        return NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        return NotThrowInternal(() => action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.NotThrow, actualExpression);
     }
 
     /// <summary>
@@ -218,7 +219,7 @@ public static partial class Should
     public static void NotThrow([InstantHandle] Func<Task> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.NotThrow, actualExpression);
     }
 
     /// <summary>
@@ -228,7 +229,7 @@ public static partial class Should
     public static void NotThrow(Task action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        NotThrowInternal(() => action, timeoutAfter, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(() => action, timeoutAfter, customMessage, Fail.NotThrow, actualExpression);
     }
 
     /// <summary>
@@ -237,14 +238,14 @@ public static partial class Should
     public static void NotThrow([InstantHandle] Func<Task> action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
     {
-        NotThrowInternal(action, timeoutAfter, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(action, timeoutAfter, customMessage, Fail.NotThrow, actualExpression);
     }
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static void NotThrowInternal(
         [InstantHandle] Func<Task> action, TimeSpan timeoutAfter,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        NotThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -260,7 +261,7 @@ public static partial class Should
         {
             ex = (ex as AggregateException)?.InnerException ?? ex;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(ex.GetType(), ex.Message, isTask: true).ForDelegate(customMessage, actualExpression);
         }
     }
 
@@ -269,7 +270,7 @@ public static partial class Should
     /// </summary>
     public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(action, ShouldlyConfiguration.DefaultTaskTimeout, customMessage, Fail.NotThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task does not throw any exceptions within the specified timeout and returns its result
@@ -277,20 +278,20 @@ public static partial class Should
     [Obsolete(TaskOverloadObsolescence.Message, error: true)]
     public static T NotThrow<T>(Task<T> action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        NotThrowInternal(() => action, timeoutAfter, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(() => action, timeoutAfter, customMessage, Fail.NotThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the provided task function does not throw any exceptions within the specified timeout and returns its result
     /// </summary>
     public static T NotThrow<T>([InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        NotThrowInternal(action, timeoutAfter, customMessage, actualExpression: actualExpression);
+        NotThrowInternal(action, timeoutAfter, customMessage, Fail.NotThrow, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static T NotThrowInternal<T>(
         [InstantHandle] Func<Task<T>> action, TimeSpan timeoutAfter,
         [InstantHandle] string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        NotThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -310,7 +311,7 @@ public static partial class Should
         {
             ex = (ex as AggregateException)?.InnerException ?? ex;
 
-            throw new ShouldAssertException(new TaskShouldlyThrowMessage(ex.GetType(), ex, customMessage, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(ex.GetType(), ex.Message, isTask: true).ForDelegate(customMessage, actualExpression);
         }
     }
 

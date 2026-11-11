@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using JetBrains.Annotations;
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -19,7 +20,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Equality.Equal(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -32,7 +34,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Equality.Equal(v, expected, comparer), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Equality.Equal(v, expected, comparer)))
+            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -42,7 +45,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Equality.Equal(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -52,8 +56,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe<T>(this T? actual, T? expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Equality.Equal(v, expected, comparer), ComparisonRecord.ComparedValuesWithCustomComparer(),
-            actual, expected, customMessage, nameof(ShouldNotBe), actualExpression);
+        if (!actual.Satisfies(v => !Equality.Equal(v, expected, comparer)))
+            throw Fail.ShouldNotBe.With(expected, ComparisonRecord.ComparedValuesWithCustomComparer()).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -96,11 +100,13 @@ public static partial class ShouldBeTestExtensions
 
         if (ignoreOrder)
         {
-            actual.AssertAwesomelyIgnoringOrder(expected, comparer: null, isCustomComparer: false, customMessage, nameof(ShouldBe), actualExpression);
+            if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, ignoreOrder: true)))
+                throw Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith(Equality.ComparerFor<T>(), isCustom: false)).For(actual, customMessage, actualExpression);
         }
         else
         {
-            actual.AssertAwesomely(v => Equality.SequenceEqual(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+            if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected)))
+                throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
         }
     }
 
@@ -118,13 +124,21 @@ public static partial class ShouldBeTestExtensions
         actual = NullEquivalence.Normalize(actual);
         expected = NullEquivalence.Normalize(expected);
 
+        // The failure message reads both sequences again, so buffer single-pass ones.
+        actual = EnumerableProxy<T>.WrapNonCollection(actual);
+        expected = EnumerableProxy<T>.WrapNonCollection(expected);
+        using var actualProxy = actual as EnumerableProxy<T>;
+        using var expectedProxy = expected as EnumerableProxy<T>;
+
         if (ignoreOrder)
         {
-            actual.AssertAwesomelyIgnoringOrder(expected, comparer, isCustomComparer: true, customMessage, nameof(ShouldBe), actualExpression);
+            if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, ignoreOrder: true, comparer)))
+                throw Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith(comparer, isCustom: true)).For(actual, customMessage, actualExpression);
         }
         else
         {
-            actual.AssertAwesomelyWithComparer(expected, comparer, customMessage, nameof(ShouldBe), actualExpression);
+            if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, comparer: comparer)))
+                throw Fail.ShouldBe.With(expected, ComparisonRecord.ComparedElementsWith(comparer, isCustom: true)).For(actual, customMessage, actualExpression);
         }
     }
 
@@ -134,7 +148,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -146,7 +161,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Same(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Same(v, expected)))
+            throw Fail.ShouldBeSameAs.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -155,6 +171,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBeSameAs(this object? actual, object? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Same(v, expected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.Same(v, expected)))
+            throw Fail.ShouldNotBeSameAs.With(expected).For(actual, customMessage, actualExpression);
     }
 }

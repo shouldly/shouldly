@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -12,7 +13,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
         where TException : Exception
     {
-        return ThrowAsyncInternal<TException>(() => task, customMessage, actualExpression: actualExpression);
+        return ThrowAsyncInternal<TException>(() => task, customMessage, Fail.ThrowAsync, actualExpression);
     }
 
     /// <summary>
@@ -22,7 +23,7 @@ public static partial class Should
     public static Task<Exception> ThrowAsync(Task task, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
-        return ThrowAsyncInternal(() => task, exceptionType, customMessage, actualExpression: actualExpression);
+        return ThrowAsyncInternal(() => task, exceptionType, customMessage, Fail.ThrowAsync, actualExpression);
     }
 
     /// <summary>
@@ -31,11 +32,11 @@ public static partial class Should
     public static Task<TException> ThrowAsync<TException>(Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowAsyncInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        ThrowAsyncInternal<TException>(actual, customMessage, Fail.ThrowAsync, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static async Task<TException> ThrowAsyncInternal<TException>(Func<Task> actual, string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
@@ -54,10 +55,10 @@ public static partial class Should
         }
         catch (Exception e)
         {
-            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace, actualExpression).ToString());
+            throw failure.With(typeof(TException), e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
         }
 
-        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), thrown: null, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
     }
 
     /// <summary>
@@ -65,11 +66,11 @@ public static partial class Should
     /// </summary>
     public static Task<Exception> ThrowAsync(Func<Task> actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        ThrowAsyncInternal(actual, exceptionType, customMessage, actualExpression: actualExpression);
+        ThrowAsyncInternal(actual, exceptionType, customMessage, Fail.ThrowAsync, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static async Task<Exception> ThrowAsyncInternal(Func<Task> actual, Type exceptionType, string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -83,10 +84,10 @@ public static partial class Should
             if (exceptionType.IsInstanceOfType(e))
                 return e;
 
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(exceptionType, e.GetType(), customMessage, actualExpression: actualExpression).ToString());
+            throw failure.With(exceptionType, e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
         }
 
-        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(exceptionType, customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(exceptionType, thrown: null, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
     }
 
     /// <summary>
@@ -96,11 +97,11 @@ public static partial class Should
     public static Task<TException> ThrowExactlyAsync<TException>(Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        ThrowExactlyAsyncInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        ThrowExactlyAsyncInternal<TException>(actual, customMessage, Fail.ThrowExactlyAsync, actualExpression);
 
     [DebuggerDisableUserUnhandledExceptions]
     internal static async Task<TException> ThrowExactlyAsyncInternal<TException>(Func<Task> actual, string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        ThrowFailure failure,
         string? actualExpression = null)
         where TException : Exception
     {
@@ -115,10 +116,10 @@ public static partial class Should
             if (e.GetType() == typeof(TException))
                 return (TException)e;
 
-            throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), e.GetType(), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(typeof(TException), e.GetType(), isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
         }
 
-        throw new ShouldAssertException(new AsyncShouldlyThrowShouldlyMessage(typeof(TException), customMessage, stackTrace, shouldlyMethod, actualExpression).ToString());
+        throw failure.With(typeof(TException), thrown: null, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
     }
 
     /// <summary>
@@ -128,7 +129,7 @@ public static partial class Should
     public static Task NotThrowAsync(Task task, string? customMessage = null,
         [CallerArgumentExpression(nameof(task))] string? actualExpression = null)
     {
-        return NotThrowAsyncInternal(() => task, customMessage, actualExpression: actualExpression);
+        return NotThrowAsyncInternal(() => task, customMessage, Fail.NotThrowAsync, actualExpression);
     }
 
     /// <summary>
@@ -136,7 +137,7 @@ public static partial class Should
     /// </summary>
     public static Task NotThrowAsync(Func<Task> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        NotThrowAsyncInternal(actual, customMessage, actualExpression: actualExpression);
+        NotThrowAsyncInternal(actual, customMessage, Fail.NotThrowAsync, actualExpression);
 
     /// <summary>
     /// Asynchronously verifies that the provided task function does not throw any exceptions and returns its result
@@ -145,7 +146,7 @@ public static partial class Should
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         Task<T>? task = null;
-        await NotThrowAsyncInternal(() => task = actual(), customMessage, actualExpression: actualExpression);
+        await NotThrowAsyncInternal(() => task = actual(), customMessage, Fail.NotThrowAsync, actualExpression);
         // NotThrowAsyncInternal has awaited the task and verified it completed successfully
         return await task!;
     }
@@ -154,7 +155,7 @@ public static partial class Should
     internal static async Task NotThrowAsyncInternal(
         [InstantHandle] Func<Task> actual,
         string? customMessage,
-        [CallerMemberName] string shouldlyMethod = null!,
+        NotThrowFailure failure,
         string? actualExpression = null)
     {
         actualExpression = actualExpression.NormalizeDelegateExpression();
@@ -176,13 +177,13 @@ public static partial class Should
                 if (flattened.InnerExceptions.Count == 1 && flattened.InnerException != null)
                 {
                     var inner = flattened.InnerException;
-                    throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(inner.GetType(), customMessage, stackTrace, inner.Message, shouldlyMethod, actualExpression).ToString());
+                    throw failure.With(inner.GetType(), inner.Message, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
                 }
 
-                throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(aggregate.GetType(), customMessage, stackTrace, aggregate.Message, shouldlyMethod, actualExpression).ToString());
+                throw failure.With(aggregate.GetType(), aggregate.Message, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
             }
 
-            throw new ShouldAssertException(new AsyncShouldlyNotThrowShouldlyMessage(ex.GetType(), customMessage, stackTrace, ex.Message, shouldlyMethod, actualExpression).ToString());
+            throw failure.With(ex.GetType(), ex.Message, isTask: true).ForDelegate(customMessage, actualExpression, stackTrace: stackTrace);
         }
     }
 }

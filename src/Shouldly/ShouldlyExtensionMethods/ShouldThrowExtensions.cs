@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -16,7 +17,7 @@ public static partial class ShouldThrowExtensions
     public static TException ShouldThrow<TException>(this Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        Should.ThrowInternal<TException>(actual, customMessage, Fail.ShouldThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the function throws a <typeparamref name="TException"/> exception.
@@ -24,21 +25,21 @@ public static partial class ShouldThrowExtensions
     public static TException ShouldThrow<TException>(this Func<object?> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        Should.ThrowInternal<TException>(actual, customMessage, Fail.ShouldThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the action throws an exception of the specified type.
     /// </summary>
     public static Exception ShouldThrow(this Action actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        Should.ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
+        Should.ThrowInternal(actual, customMessage, exceptionType, Fail.ShouldThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the function throws an exception of the specified type.
     /// </summary>
     public static Exception ShouldThrow(this Func<object?> actual, Type exceptionType, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null) =>
-        Should.ThrowInternal(actual, customMessage, exceptionType, actualExpression: actualExpression);
+        Should.ThrowInternal(actual, customMessage, exceptionType, Fail.ShouldThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the action throws an exception of exactly type <typeparamref name="TException"/>.
@@ -47,7 +48,7 @@ public static partial class ShouldThrowExtensions
     public static TException ShouldThrowExactly<TException>(this Action actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        Should.ThrowExactlyInternal<TException>(actual, customMessage, Fail.ShouldThrowExactly, actualExpression);
 
     /// <summary>
     /// Verifies that the function throws an exception of exactly type <typeparamref name="TException"/>.
@@ -56,21 +57,21 @@ public static partial class ShouldThrowExtensions
     public static TException ShouldThrowExactly<TException>(this Func<object?> actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where TException : Exception =>
-        Should.ThrowExactlyInternal<TException>(actual, customMessage, actualExpression: actualExpression);
+        Should.ThrowExactlyInternal<TException>(actual, customMessage, Fail.ShouldThrowExactly, actualExpression);
 
     /// <summary>
     /// Verifies that the action completes without throwing any exceptions.
     /// </summary>
     public static void ShouldNotThrow(this Action action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        Should.NotThrowInternal(action, customMessage, actualExpression: actualExpression);
+        Should.NotThrowInternal(action, customMessage, Fail.ShouldNotThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the function completes without throwing any exceptions and returns the result.
     /// </summary>
     public static T ShouldNotThrow<T>(this Func<T> action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null) =>
-        Should.NotThrowInternal(action, customMessage, actualExpression: actualExpression);
+        Should.NotThrowInternal(action, customMessage, Fail.ShouldNotThrow, actualExpression);
 
     /// <summary>
     /// Verifies that the action does not throw an exception of type <typeparamref name="TException"/>.
@@ -79,5 +80,5 @@ public static partial class ShouldThrowExtensions
     public static void ShouldNotThrow<TException>(this Action action, string? customMessage = null,
         [CallerArgumentExpression(nameof(action))] string? actualExpression = null)
         where TException : Exception =>
-        Should.NotThrowInternal<TException>(action, customMessage, actualExpression: actualExpression);
+        Should.NotThrowInternal<TException>(action, customMessage, Fail.ShouldNotThrow, actualExpression);
 }

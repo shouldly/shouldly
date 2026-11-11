@@ -46,6 +46,6 @@ theSimpsonsDog
     should not be of type
 Simpsons.Cat
     but was
-Santas little helper
+Simpsons.Cat
 ```
 <!-- endInclude -->

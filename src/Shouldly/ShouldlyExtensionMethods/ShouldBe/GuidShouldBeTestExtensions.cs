@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -15,7 +16,8 @@ public static partial class GuidShouldBeTestExtensions
     public static void ShouldBeEmpty(this Guid actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, Guid.Empty), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, Guid.Empty)))
+            throw Fail.ShouldBeEmpty.ComparedWith(Guid.Empty).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -24,7 +26,8 @@ public static partial class GuidShouldBeTestExtensions
     public static void ShouldNotBeEmpty(this Guid actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, Guid.Empty), actual, Guid.Empty, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.Equal(v, Guid.Empty)))
+            throw Fail.ShouldNotBeEmpty.ComparedWith(Guid.Empty).For(actual, customMessage, actualExpression);
     }
 }
 

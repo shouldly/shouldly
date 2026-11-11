@@ -1,3 +1,5 @@
+using Shouldly.Internals.Failures;
+
 namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
@@ -64,23 +66,19 @@ public static partial class ShouldBeTestExtensions
     }
 
     // Spans are ref structs: they cannot be boxed into object?, captured in the
-    // Func<T,bool> AssertAwesomely expects, or stored on the assertion context.
+    // Func<T, bool> a check takes, or held by a failure message.
     // So we compare inline and only materialise (ToArray) on the failure path,
-    // where we're allocating to build the message anyway. CallerMemberName picks
-    // up "ShouldBe"/"ShouldNotBe" from the public overload that called us, so the
-    // message generator negates correctly.
+    // where we're allocating to build the message anyway.
     private static void AssertSpansEqual<T>(
         ReadOnlySpan<T> actual,
         ReadOnlySpan<T> expected,
         bool shouldBeEqual,
         string? customMessage,
-        string? actualExpression,
-        [CallerMemberName] string shouldlyMethod = null!)
+        string? actualExpression)
     {
         if (SpanSequenceEqual(actual, expected) == shouldBeEqual)
             return;
 
-        throw new ShouldAssertException(
-            new ExpectedActualShouldlyMessage(expected.ToArray(), actual.ToArray(), customMessage, shouldlyMethod, actualExpression).ToString());
+        throw (shouldBeEqual ? Fail.ShouldBe : Fail.ShouldNotBe).With(expected.ToArray()).For(actual.ToArray(), customMessage, actualExpression);
     }
 }

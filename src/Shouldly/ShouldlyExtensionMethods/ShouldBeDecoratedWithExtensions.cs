@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -18,7 +19,7 @@ public static partial class ShouldBeDecoratedWithExtensions
         where T : Attribute
     {
         if (!actual.HasAttribute(typeof(T)))
-            throw new ShouldAssertException(new ExpectedShouldlyMessage(typeof(T).Name, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeDecoratedWith.With(typeof(T).Name).For(actual, customMessage, actualExpression);
     }
 
     private static bool HasAttribute(this Type type, Type attributeType) =>

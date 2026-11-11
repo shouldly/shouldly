@@ -1,4 +1,5 @@
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -21,7 +22,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBeAssignableTo(this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v =>
+        if (!actual.Satisfies(v =>
         {
             if (v == null)
             {
@@ -30,7 +31,8 @@ public static partial class ShouldBeTestExtensions
             }
 
             return expected.IsInstanceOfType(v);
-        }, actual, expected, customMessage, actualExpression: actualExpression);
+        }))
+            throw Fail.ShouldBeAssignableTo.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -49,7 +51,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBeOfType([NotNull] this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => v != null && v.GetType() == expected, actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => v != null && v.GetType() == expected))
+            throw Fail.ShouldBeOfType.With(expected).For(actual, customMessage, actualExpression);
         Debug.Assert(actual != null);
     }
 
@@ -68,7 +71,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBeAssignableTo(this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !expected.IsInstanceOfType(v), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !expected.IsInstanceOfType(v)))
+            throw Fail.ShouldNotBeAssignableTo.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -86,6 +90,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBeOfType(this object? actual, Type expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => v == null || v.GetType() != expected, actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => v == null || v.GetType() != expected))
+            throw Fail.ShouldNotBeOfType.With(expected).For(actual, customMessage, actualExpression);
     }
 }

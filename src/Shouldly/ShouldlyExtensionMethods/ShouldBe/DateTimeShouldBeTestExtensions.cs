@@ -1,3 +1,5 @@
+using Shouldly.Internals.Failures;
+
 namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
@@ -8,7 +10,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this DateTime actual, DateTime expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -17,7 +20,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -26,7 +30,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -35,7 +40,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe(this DateTime actual, DateTime expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldNotBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -44,7 +50,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldNotBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -53,6 +60,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldNotBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 }

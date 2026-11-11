@@ -1,3 +1,5 @@
+using Shouldly.Internals.Failures;
+
 namespace Shouldly;
 
 public static partial class ShouldBeTestExtensions
@@ -8,7 +10,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this float actual, float expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -17,7 +20,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this IEnumerable<double> actual, IEnumerable<double> expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -26,7 +30,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this IEnumerable<float> actual, IEnumerable<float> expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -35,7 +40,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this double actual, double expected, double tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -44,6 +50,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this decimal actual, decimal expected, decimal tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.Equal(v, expected, tolerance), actual, expected, tolerance, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
+            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 }

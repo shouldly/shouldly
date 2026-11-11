@@ -42,6 +42,9 @@ public static partial class StackTraceTests
                     FailingUserCode_ShouldContain
                 ])
 
+            .Add<ShouldlyFailure>(
+                throwDirectly: () => throw ShouldAssertException.For(1, null, "one"))
+
             .Add<ShouldlyTimeoutException>(
                 throwDirectly: () => throw new ShouldlyTimeoutException(null, null))
 

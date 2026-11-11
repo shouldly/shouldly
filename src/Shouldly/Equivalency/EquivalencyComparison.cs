@@ -1,5 +1,6 @@
 using NUnit.Framework.Constraints;
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly.Equivalency;
 
@@ -33,7 +34,6 @@ internal sealed class EquivalencyComparison
         object? expected,
         EquivalencyOptions options,
         string? customMessage,
-        string shouldlyMethod,
         string? actualExpression)
     {
         var comparison = new EquivalencyComparison(EquivalencyShapes.Current, options);
@@ -42,8 +42,7 @@ internal sealed class EquivalencyComparison
         if (comparison._differences.Count == 0)
             return;
 
-        throw new ShouldAssertException(
-            new ExpectedEquivalenceShouldlyMessage(ComparisonRecord.FoundDifferences(comparison._differences), expected, actual, customMessage, shouldlyMethod, actualExpression).ToString());
+        throw Fail.ShouldBeEquivalentTo.With(comparison._differences).For(actual, customMessage, actualExpression);
     }
 
     private void CompareNodes(object? actual, object? expected, Type? declaredType, List<string> path)
