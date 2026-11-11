@@ -32,6 +32,23 @@ public static class ShouldlyCoreExtensions
     }
 
     /// <summary>
+    /// Whether <paramref name="actual"/> satisfies the constraint. A constraint that throws an
+    /// <see cref="ArgumentException"/>, as a comparison of values that can't be compared does, fails the assertion
+    /// with that exception's message.
+    /// </summary>
+    internal static bool Satisfies<T>(this T actual, Func<T, bool> specifiedConstraint)
+    {
+        try
+        {
+            return specifiedConstraint(actual);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ShouldAssertException(ex.Message, ex);
+        }
+    }
+
+    /// <summary>
     /// Asserts that the specified constraint is satisfied
     /// </summary>
     /// <typeparam name="T">The type of the actual value</typeparam>

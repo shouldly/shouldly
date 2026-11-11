@@ -1,4 +1,5 @@
 using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -10,7 +11,8 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldStartWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity)))
+            throw Fail.ShouldStartWith.With(expected).For(actual, customMessage, actualExpression);
         Debug.Assert(actual != null);
     }
 
@@ -20,7 +22,8 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldEndWith([NotNull] this string? actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity)))
+            throw Fail.ShouldEndWith.With(expected).For(actual, customMessage, actualExpression);
         Debug.Assert(actual != null);
     }
 
@@ -30,7 +33,8 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldNotStartWith(this string? actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity)))
+            throw Fail.ShouldNotStartWith.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -48,6 +52,7 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldNotEndWith(this string? actual, string expected, string? customMessage = null, Case caseSensitivity = Case.Sensitive,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity)))
+            throw Fail.ShouldNotEndWith.With(expected).For(actual, customMessage, actualExpression);
     }
 }

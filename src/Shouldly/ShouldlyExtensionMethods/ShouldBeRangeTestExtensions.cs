@@ -1,4 +1,5 @@
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly;
 
@@ -11,7 +12,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!Membership.IsOneOf(actual, expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeOneOf.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -22,7 +23,7 @@ public static partial class ShouldBeTestExtensions
     {
         // Enumerable.Contains on an array always tolerates null.
         if (!expected.Contains(actual!, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldBeOneOf.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -32,7 +33,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (Membership.IsOneOf(actual, expected))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldNotBeOneOf.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -43,7 +44,7 @@ public static partial class ShouldBeTestExtensions
     {
         // Enumerable.Contains on an array always tolerates null.
         if (expected.Contains(actual!, comparer))
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expected, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldNotBeOneOf.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -53,7 +54,8 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : IComparable<T>
     {
-        actual.AssertAwesomely(v => Is.InRange(v, from, to), actual, new { from, to }, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => Is.InRange(v, from, to)))
+            throw Fail.ShouldBeInRange.With(new { from, to }).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -63,6 +65,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
         where T : IComparable<T>
     {
-        actual.AssertAwesomely(v => !Is.InRange(v, from, to), actual, new { from, to }, customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => !Is.InRange(v, from, to)))
+            throw Fail.ShouldNotBeInRange.With(new { from, to }).For(actual, customMessage, actualExpression);
     }
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly.ShouldlyExtensionMethods;
 
@@ -18,7 +19,7 @@ public static partial class ShouldHaveEnumExtensions
         CheckEnumHasFlagAttribute(actual);
         if (!actual.HasFlag(expectedFlag))
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldHaveFlag.With(expectedFlag).For(actual, customMessage, actualExpression);
         }
     }
 
@@ -31,7 +32,7 @@ public static partial class ShouldHaveEnumExtensions
         CheckEnumHasFlagAttribute(actual);
         if (actual.HasFlag(expectedFlag))
         {
-            throw new ShouldAssertException(new ExpectedActualShouldlyMessage(expectedFlag, actual, customMessage, actualExpression: actualExpression).ToString());
+            throw Fail.ShouldNotHaveFlag.With(expectedFlag).For(actual, customMessage, actualExpression);
         }
     }
 

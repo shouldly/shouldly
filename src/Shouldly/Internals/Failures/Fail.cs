@@ -9,4 +9,30 @@ static class Fail
 {
     public static readonly NullFailure ShouldBeNull = new();
     public static readonly NullFailure ShouldNotBeNull = new(negated: true);
+
+    public static readonly PlainFailure ShouldBeGreaterThan = new();
+    public static readonly PlainFailure ShouldBeGreaterThanOrEqualTo = new();
+    public static readonly PlainFailure ShouldBeLessThan = new();
+    public static readonly PlainFailure ShouldBeLessThanOrEqualTo = new();
+    public static readonly PlainFailure ShouldBeInRange = new();
+    public static readonly PlainFailure ShouldNotBeInRange = new(negated: true);
+    public static readonly PlainFailure ShouldBeOneOf = new();
+    public static readonly PlainFailure ShouldNotBeOneOf = new(negated: true);
+
+    public static readonly TypeFailure ShouldBeOfType = new();
+    public static readonly TypeFailure ShouldBeAssignableTo = new();
+    // These two get the plain shape, which shows the actual value where ShouldBeOfType shows its type.
+    public static readonly PlainFailure ShouldNotBeOfType = new(negated: true);
+    public static readonly PlainFailure ShouldNotBeAssignableTo = new(negated: true);
+
+    public static readonly ExpectedOnlyFailure ShouldBeDecoratedWith = new();
+
+    public static readonly FlagFailure ShouldHaveFlag = new();
+    public static readonly FlagFailure ShouldNotHaveFlag = new(negated: true);
+
+    // The two StartWith assertions get the plain shape, which says "but was" where EndWith says "but did not".
+    public static readonly PlainFailure ShouldStartWith = new();
+    public static readonly PlainFailure ShouldNotStartWith = new(negated: true);
+    public static readonly StringEndFailure ShouldEndWith = new();
+    public static readonly StringEndFailure ShouldNotEndWith = new(negated: true);
 }
