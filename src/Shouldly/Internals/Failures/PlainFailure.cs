@@ -10,7 +10,7 @@ sealed class PlainFailure(bool negated = false, [CallerMemberName] string name =
         new(this, sentence => Word(sentence, expected));
 
     internal static string Word(Sentence sentence, object? expected, ComparisonRecord? comparison = null) =>
-        PlainWording.Word(sentence, PlainLines.ExpectedAndActual(expected), comparison);
+        PlainWording.Word(sentence, PlainLines.For(sentence.Actual).WithExpected(expected, sentence.Actual, comparison, highlightDifferences: !sentence.Negated));
 }
 
 /// <summary>

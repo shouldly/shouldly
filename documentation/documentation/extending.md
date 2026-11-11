@@ -39,6 +39,8 @@ public static class CustomAssertions
 
 Always `throw` the failure. `For` only builds it, so a failure that isn't thrown lets the assertion pass.
 
+Values are formatted as you pass them in, so the message is unaffected if a value is disposed or changed after the assertion throws, for example by a `using` block around the assertion.
+
 ## Controlling the message
 
 By default the message shows the subject, the phrase, and the actual value. Add to the same expression to change that:

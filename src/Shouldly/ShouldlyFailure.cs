@@ -10,7 +10,8 @@ namespace Shouldly;
 /// </summary>
 /// <remarks>
 /// Shouldly resolves the subject, formats values, highlights differences between an expected and an actual value,
-/// and appends the custom message.
+/// and appends the custom message. Values are formatted as they are passed in, so the message is unaffected if a
+/// value is disposed or changed after the assertion throws.
 /// </remarks>
 public sealed class ShouldlyFailure : ShouldAssertException
 {
@@ -19,7 +20,7 @@ public sealed class ShouldlyFailure : ShouldAssertException
     private readonly string? _subject;
     private readonly bool _subjectFromSource;
     private string _phrase;
-    private PlainLines _lines = PlainLines.ActualOnly;
+    private PlainLines _lines;
     private List<KeyValuePair<string, string>>? _context;
 
     internal ShouldlyFailure(object? actual, string? customMessage, string? actualExpression, string shouldlyMethod)
@@ -28,6 +29,7 @@ public sealed class ShouldlyFailure : ShouldAssertException
         _actual = actual;
         _customMessage = customMessage;
         _phrase = shouldlyMethod.PascalToSpaced();
+        _lines = PlainLines.For(actual);
         _subject = Subject.Resolve(shouldlyMethod, actual, actualExpression, null, out _subjectFromSource);
     }
 
@@ -37,7 +39,7 @@ public sealed class ShouldlyFailure : ShouldAssertException
     /// <param name="expected">The value the assertion compared the actual value against.</param>
     public ShouldlyFailure Expected(object? expected)
     {
-        _lines = _lines.WithExpected(expected);
+        _lines = _lines.WithExpected(expected, _actual);
         return this;
     }
 
@@ -107,35 +109,27 @@ public sealed class ShouldlyFailure : ShouldAssertException
     {
         get
         {
-            var sentence = new Sentence(_phrase, CustomAssertionMessage.IsNegated(_phrase), _subject, _subjectFromSource, _actual);
+            // Only the text captured so far is assembled here. The values themselves are not read again.
+            var sentence = new Sentence(_phrase, CustomAssertionMessage.IsNegated(_phrase), _subject, _subjectFromSource, actual: null);
             var message = FailureMessage.WithAdditionalInfo(PlainWording.Word(sentence, _lines), _customMessage);
+            if (_context == null)
+                return message;
 
-            if (_context != null)
+            var builder = new StringBuilder(message);
+            foreach (var block in _context)
             {
-                foreach (var block in _context)
-                    message += ContextBlock(block.Key, block.Value);
+                builder.Append(LineBreak).Append(LineBreak).Append(block.Key).Append(':');
+                foreach (var line in block.Value.Split('\n'))
+                    builder.Append(LineBreak).Append("    ").Append(line.TrimEnd('\r'));
             }
 
-            return message;
+            return builder.ToString();
         }
     }
 
-    private static string ContextBlock(string label, string text)
-    {
-        var block = $"""
+    // One line break, as the raw string literals the rest of a message is built from have it.
+    private const string LineBreak = """
 
 
-                     {label}:
-                     """;
-
-        foreach (var line in text.Split('\n'))
-        {
-            block += $"""
-
-                          {line.TrimEnd('\r')}
-                      """;
-        }
-
-        return block;
-    }
+        """;
 }

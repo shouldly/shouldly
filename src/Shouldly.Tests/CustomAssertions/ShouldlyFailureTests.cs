@@ -236,7 +236,9 @@ public class ShouldlyFailureTests
     [Fact]
     public void FallsBackToTheValueWithoutAnExpression()
     {
-        using (ShouldlyConfiguration.AllowStackWalking())
+        // Without source to show, the value stands in for the subject. Source is disabled so that the build for
+        // older targets doesn't go looking for it on the stack.
+        using (ShouldlyConfiguration.DisableSourceInErrors())
         {
             MessageOf(() => ShouldAssertException.For(5, null, null, "ShouldBeSix").Expected(6).Throw())
                 .ShouldBe(
@@ -247,6 +249,50 @@ public class ShouldlyFailureTests
                         but was not
                     """, StringCompareShould.IgnoreLineEndings);
         }
+    }
+
+    [Fact]
+    public void TheMessageIsUnaffectedByWhatHappensToTheValuesAfterwards()
+    {
+        var actual = new Fickle("as it was");
+        var expected = new Fickle("as expected");
+        var failure = ShouldAssertException.For(actual, null, nameof(actual), "ShouldBeSettled").Expected(expected);
+
+        // A test framework reads the message after the assertion has thrown, by when a using block may have
+        // disposed the values.
+        actual.Dispose();
+        expected.Dispose();
+
+        failure.Message
+            .ShouldBe(
+                """
+                actual
+                    should be settled
+                as expected
+                    but was
+                as it was
+                """, StringCompareShould.IgnoreLineEndings);
+    }
+
+    [Fact]
+    public void ALargeContextBlockIsAppendedLineByLine()
+    {
+        var lines = Enumerable.Range(1, 2000).Select(line => $"line {line}").ToArray();
+
+        var message = ShouldAssertException.For(1, null, "one", "ShouldBeTwo").Context("Log", string.Join("\r\n", lines)).Message;
+
+        message.ShouldEndWith("    line 2000");
+        message.Split('\n').Count(line => line.StartsWith("    line ", StringComparison.Ordinal)).ShouldBe(lines.Length);
+    }
+
+    private sealed class Fickle(string text) : IDisposable
+    {
+        private bool _disposed;
+
+        public void Dispose() => _disposed = true;
+
+        public override string ToString() =>
+            _disposed ? throw new ObjectDisposedException(nameof(Fickle)) : text;
     }
 
     private static string MessageOf(Action failingAssertion) =>
