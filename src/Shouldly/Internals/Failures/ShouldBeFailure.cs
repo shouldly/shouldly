@@ -12,8 +12,8 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
         MessageShape.Throw or MessageShape.Equivalence => null,
         MessageShape.IgnoringOrder => new(IgnoringOrder(s.Expected, null), s.Actual),
         MessageShape.Tolerance when s.Tolerance is { } tolerance => new(Within(s.Expected, tolerance), s.Actual),
-        MessageShape.CaseSensitivity when s.CaseSensitivity is { } caseSensitivity => new(With(s.Expected, caseSensitivity), s.Actual),
-        _ => new(With(s.Expected), s.Actual)
+        MessageShape.CaseSensitivity when s.CaseSensitivity is { } caseSensitivity => new(ComparedSomehow(s.Expected, caseSensitivity), s.Actual),
+        _ => new(ComparedSomehow(s.Expected, caseSensitivity: null), s.Actual)
     };
 
     // A tolerance has its own wording. A case option is only shown for a sequence of strings.
@@ -30,8 +30,18 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     /// <summary>
     /// A sequence of strings it was compared with, under a case option.
     /// </summary>
-    public FailureMessage With(object? expected, Case caseSensitivity) =>
-        new(this, sentence => WordEquality(sentence, expected, record: null, caseSensitivity));
+    public FailureMessage With(IEnumerable<string> expected, Case caseSensitivity) =>
+        new(this, sentence => WordEquality(sentence, expected, ComparedStringsWith(caseSensitivity), caseSensitivity));
+
+    // So that strings differing only in case aren't marked as differences when case was ignored.
+    private static ComparisonRecord? ComparedStringsWith(Case caseSensitivity) =>
+        caseSensitivity == Case.Insensitive
+            ? ComparisonRecord.ComparedElementsWith<string>(StringComparer.OrdinalIgnoreCase, isCustom: false)
+            : null;
+
+    // A custom assertion states its values but not how it compared them, so its message can't say why they differ.
+    private FailureMessage ComparedSomehow(object? expected, Case? caseSensitivity) =>
+        new(this, sentence => WordEquality(sentence, expected, record: null, caseSensitivity, explain: false));
 
     /// <summary>
     /// The value it should have been within a tolerance of.
@@ -54,10 +64,10 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
         new(this, sentence => StringWording.Word(sentence, strings));
 
     // A sequence of strings that should have equalled another says how case was treated.
-    private string WordEquality(Sentence sentence, object? expected, ComparisonRecord? record, Case? caseSensitivity) =>
+    private string WordEquality(Sentence sentence, object? expected, ComparisonRecord? record, Case? caseSensitivity, bool explain = true) =>
         SaysHowCaseWasTreated(sentence.Actual, expected)
-            ? StringSequenceWording.Word(sentence, expected, record, caseSensitivity)
-            : Word(sentence, expected, record);
+            ? StringSequenceWording.Word(sentence, expected, record, caseSensitivity, explain)
+            : Word(sentence, expected, record, explain);
 
     private bool SaysHowCaseWasTreated(object? actual, object? expected) =>
         !Negated && actual is not null && CapturedSequence.Original(actual) is IEnumerable<string> && expected is not Expression;
@@ -66,7 +76,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     private static bool IsWalkable(object? value) =>
         value is IEnumerable && !NullEquivalence.IsNull(value);
 
-    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record)
+    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, bool explain = true)
     {
         var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
@@ -100,16 +110,40 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
                  but was{actual}
              """;
 
-        // A negated assertion fails only when the values are equal, so there's no difference to highlight.
-        if (!sentence.Negated && DifferenceHighlighter.Between(sentence.Actual, expectedValue, record) is { } difference)
+        // A negated assertion fails only when the values are equal, so there's no difference to highlight or explain.
+        return sentence.Negated
+            ? message
+            : message + DifferenceAndReason(sentence.Actual, expectedValue, record, explain);
+    }
+
+    /// <summary>
+    /// What closes the message of a value that should have equalled another: the differences between two sequences,
+    /// and, with <paramref name="explain"/>, the line that says why the two are unequal when the message doesn't
+    /// otherwise show it.
+    /// </summary>
+    internal static string DifferenceAndReason(object? actual, object? expected, ComparisonRecord? record, bool explain)
+    {
+        var found = DifferenceHighlighter.Find(actual, expected, record);
+        var closing = string.Empty;
+
+        // A list with nothing marked in it would only repeat the actual value.
+        if (found is { FirstIndex: not null } difference)
         {
-            message += $"""
-                        
+            closing += $"""
+
                             difference
-                        {difference}
+                        {difference.Text}
                         """;
         }
 
-        return message;
+        if (explain && Inequality.Explain(actual, expected, record, found) is { } reason)
+        {
+            closing += $"""
+
+                            {reason}
+                        """;
+        }
+
+        return closing;
     }
 }

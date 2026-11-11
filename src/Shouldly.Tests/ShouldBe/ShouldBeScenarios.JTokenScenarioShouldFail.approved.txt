@@ -3,8 +3,6 @@ new Strange()
 [] (string)
     but was
 [] (null)
-    difference
-[]
 
 Additional Info:
     Some additional context

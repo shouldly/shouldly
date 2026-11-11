@@ -17,6 +17,7 @@
     <Compile Remove="ConventionTests\FailureCatalogueConventions.cs" />
     <Compile Remove="InternalTests\DictionaryFailureTests.cs" />
     <Compile Remove="InternalTests\EqualityTests.cs" />
+    <Compile Remove="InternalTests\InequalityTests.cs" />
     <Compile Remove="ShouldBe\ScopedEqualityRuleScenarios.cs" />
   </ItemGroup>
   <ItemGroup>

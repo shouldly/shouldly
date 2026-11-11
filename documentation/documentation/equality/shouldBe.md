@@ -64,6 +64,45 @@ To compare such a type, either:
 - state the type explicitly so its own equality is used: `path.ShouldBe<FilePath>("C:\\file.txt")`
 - or pass an `IEqualityComparer<T>` that defines the comparison you want
 
+### When both values read the same
+
+Two values can print the same text and still be unequal. A record prints a list member as its type name, a boxed `BigInteger` prints like an `int`, and a class with no `Equals` is only ever equal to itself. When that happens, the message closes with a line that says why they are unequal. Here `Order` is `record Order(int Id, List<string> Lines)`:
+
+<!-- snippet: ShouldBeExamples.ValuesThatReadTheSame.codeSample.approved.cs -->
+<a id='snippet-ShouldBeExamples.ValuesThatReadTheSame.codeSample.approved.cs'></a>
+```cs
+var order = new Order(1, ["Duff Beer"]);
+order.ShouldBe(new Order(1, ["Duff Beer"]));
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.ValuesThatReadTheSame.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.ValuesThatReadTheSame.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeExamples.ValuesThatReadTheSame.exceptionText.approved.txt -->
+```
+order
+    should be
+Order { Id = 1, Lines = System.Collections.Generic.List`1[System.String] }
+    but was
+Order { Id = 1, Lines = System.Collections.Generic.List`1[System.String] }
+    but at Lines, they are different instances, and List<String> compares by reference; use ShouldBeEquivalentTo to compare members
+```
+<!-- endInclude -->
+
+The line names whatever decided the comparison:
+
+| The message closes with | When |
+| --- | --- |
+| `but they are different types (expected System.Int32, actual System.Numerics.BigInteger)` | The two values have different runtime types. |
+| `but they are different instances, and Cat compares by reference; use ShouldBeEquivalentTo to compare members` | The type defines no equality of its own, so a value only equals itself. |
+| `but Money.Equals returned false` | The type's own `Equals` said so. |
+| `but at Lines, …` | A record, tuple, anonymous type or struct without an `Equals` override differs in that member, for the reason that follows. |
+| `but the equality rule for IdBag says they are not equal` | A [registered equality rule](#types-with-their-own-equality) decided. |
+| `but the custom comparer says they are not equal` | The `IEqualityComparer<T>` you passed decided. |
+
+Values that already read differently get no such line.
+
 
 ## Numeric
 
@@ -181,6 +220,38 @@ theBeSharps
 <!-- endInclude -->
 
 
+### Where two enumerables first differ
+
+The `difference` section marks each item that differs. When the first of them is past the tenth item, the message also says where it is, so you don't have to count:
+
+<!-- snippet: ShouldBeExamples.LongEnumerables.codeSample.approved.cs -->
+<a id='snippet-ShouldBeExamples.LongEnumerables.codeSample.approved.cs'></a>
+```cs
+var episodes = Enumerable.Range(1, 12).ToList();
+episodes.ShouldBe([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13]);
+```
+<sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.LongEnumerables.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.LongEnumerables.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Exception**
+
+<!-- include: ShouldBeExamples.LongEnumerables.exceptionText.approved.txt -->
+```
+episodes
+    should be
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13]
+    but was
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    difference
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, *12*]
+    first difference at index 11
+```
+<!-- endInclude -->
+
+When the two items there read the same, the line goes on to say [why they are unequal](#when-both-values-read-the-same), wherever in the enumerable they are: `first difference at index 0: at Lines, they are different instances, …`.
+
+A message shows at most [`MaxEnumerableItemsInMessages`](../configuration.md#maxenumerableitemsinmessages) items. When the first difference is further on than that, the `difference` section would have nothing to mark, so the message leaves it out and says `the first difference is after the 1000 items shown`.
+
 ### Types with their own equality
 
 A type that implements `IEnumerable<T>` is compared element by element, even when it overrides `Equals`. Its `Equals` is never called, so two values with different identities but the same items pass:
@@ -237,12 +308,11 @@ bag
 [1, 2, 3]
     but was
 [1, 2, 3]
-    difference
-[1, 2, 3]
+    but the equality rule for IdBag says they are not equal
 ```
 <!-- endInclude -->
 
-The message still lists the values' items, so the two sides can look identical: the failure comes from the rule.
+The message lists the values' items, which can read the same on both sides, so it closes by saying that the rule decided.
 
 When several rules apply, the one for the most specific type wins. The rule is called with the expected value first, and never with `null`. You can also register an `IEqualityComparer<T>`: `ShouldlyConfiguration.UseEquality(myComparer)`. For a one-off comparison without a global rule, pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.
 

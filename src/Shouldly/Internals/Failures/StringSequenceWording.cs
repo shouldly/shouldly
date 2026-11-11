@@ -1,5 +1,3 @@
-using Shouldly.DifferenceHighlighting;
-
 namespace Shouldly.Internals.Failures;
 
 /// <summary>
@@ -7,7 +5,7 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class StringSequenceWording
 {
-    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption)
+    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption, bool explain = true)
     {
         var subject = sentence.Subject;
         // A custom comparer decides case sensitivity itself, so there's nothing accurate to say about it.
@@ -33,7 +31,7 @@ static class StringSequenceWording
         }
 
         var expected = expectedValue.ToStringAwesomely();
-        var format =
+        var message =
             $"""
              {subject}
                  {sentence.Phrase}
@@ -41,16 +39,6 @@ static class StringSequenceWording
                  but was{caseSensitivity}{actual}
              """;
 
-        if (DifferenceHighlighter.Between(sentence.Actual, expectedValue, record) is { } difference)
-        {
-            format +=
-                $"""
-                 
-                     difference
-                 {difference}
-                 """;
-        }
-
-        return format;
+        return message + ShouldBeFailure.DifferenceAndReason(sentence.Actual, expectedValue, record, explain);
     }
 }

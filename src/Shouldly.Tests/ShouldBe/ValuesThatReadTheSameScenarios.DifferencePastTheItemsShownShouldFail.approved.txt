@@ -1,0 +1,6 @@
+numbers
+    should be
+[0, 1, 2, ...]
+    but was
+[0, 1, 2, ...]
+    the first difference is after the 3 items shown

@@ -29,6 +29,26 @@ internal static class EquivalencyShapes
                 "and no equivalency shape provider is registered. Reference the Shouldly equivalency source-generation " +
                 "package and register shapes for the compared types, or re-enable the feature switch."));
 
+    /// <summary>
+    /// The shape of <paramref name="type"/>, or null when no provider can give one: reflection is switched off and
+    /// no provider is registered, or the registered provider doesn't know the type. For code that can do without a
+    /// shape, such as a failure message.
+    /// </summary>
+    internal static EquivalencyTypeShape? TryGetShape(Type type)
+    {
+        if (_customProvider is null && !IsReflectionEnabledByDefault)
+            return null;
+
+        try
+        {
+            return Current.GetShape(type);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
     [UnconditionalSuppressMessage("Trimming", "IL2026",
         Justification = "Guarded by the Shouldly.Equivalency.IsReflectionEnabledByDefault feature switch. " +
                         "Trimmed publishes that disable the switch stub this property to false (ILLink.Substitutions.xml), " +

@@ -35,7 +35,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => Equality.Equal(v, expected, comparer)))
-            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldBe.With(expected, ComparisonRecord.ComparedValuesWithCustomComparer()).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>

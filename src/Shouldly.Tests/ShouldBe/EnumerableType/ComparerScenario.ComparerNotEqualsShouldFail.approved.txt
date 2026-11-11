@@ -5,6 +5,7 @@ comparison1
 [Shouldly.Tests.TestHelpers.ComparableClass (000000), Shouldly.Tests.TestHelpers.ComparableClass (000000)]
     difference
 [*Shouldly.Tests.TestHelpers.ComparableClass (000000)*, *Shouldly.Tests.TestHelpers.ComparableClass (000000)*]
+    first difference at index 0: the custom comparer says they are not equal
 
 Additional Info:
     Some additional context

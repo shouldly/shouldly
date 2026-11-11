@@ -3,6 +3,7 @@ new BadEquatable()
 Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
     but was
 Shouldly.Tests.ShouldBe.ShouldBeScenarios+BadEquatable (000000)
+    but BadEquatable.Equals returned false
 
 Additional Info:
     Some additional context

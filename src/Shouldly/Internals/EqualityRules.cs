@@ -92,6 +92,21 @@ static class EqualityRules
         return true;
     }
 
+    /// <summary>
+    /// The type the rule that applies to both values was registered for, or null when none applies. It is the rule
+    /// <see cref="TryEquals"/> asks.
+    /// </summary>
+    public static Type? RuleTypeFor(object expected, object actual)
+    {
+        var state = s_state;
+        if (state.Rules.Length == 0)
+            return null;
+
+        expected = CapturedSequence.Original(expected);
+        actual = CapturedSequence.Original(actual);
+        return state.RuleFor(expected.GetType(), actual.GetType())?.Type;
+    }
+
     private sealed record Rule(Type Type, Func<object, object, bool> Equal);
 
     private sealed class State(Rule[] rules)

@@ -1,0 +1,6 @@
+thing
+    should be
+Shouldly.Tests.ShouldBe.ValuesThatReadTheSameScenarios+Thing (000000)
+    but was
+Shouldly.Tests.ShouldBe.ValuesThatReadTheSameScenarios+Thing (000000)
+    but they are different instances, and Thing compares by reference; use ShouldBeEquivalentTo to compare members
