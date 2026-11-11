@@ -5,6 +5,10 @@ namespace Shouldly.Tests.ShouldBe;
 /// item, each the way <c>ShouldBe</c> compares a single value, as a <see cref="KeyValuePair{TKey, TValue}"/> is, rather
 /// than with the tuple's own <c>Equals</c>, which compares a collection-typed item by reference. See issue #1429.
 /// </summary>
+// FloatingPointItemsHonourTheDefaultTolerance mutates the global ShouldlyConfiguration.DefaultFloatingPointTolerance, so
+// the class runs in the non-parallel Global configuration collection to keep that change from leaking into other
+// test classes.
+[Collection(GlobalConfigCollection.Name)]
 public class TupleScenario
 {
     [Fact]
@@ -58,6 +62,32 @@ public class TupleScenario
     }
 
     [Fact]
+    public void ItemsPastTheFourteenthAreComparedStructurally()
+    {
+        // The fifteenth item onwards lives in the Rest of the tuple's Rest.
+        (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 16 })
+            .ShouldBe((1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 16 }));
+        (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 16 })
+            .ShouldNotBe((1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 17 }));
+    }
+
+    [Fact]
+    public void TuplesOfDifferentAritiesPastTheSeventhAreUnequal()
+    {
+        // Every tuple of eight items or more has the one generic definition, and differs only in its Rest.
+        ((object)(1, 2, 3, 4, 5, 6, 7, 8)).ShouldNotBe((object)(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        ((object)Tuple.Create(1, 2, 3, 4, 5, 6, 7, 8))
+            .ShouldNotBe(new Tuple<int, int, int, int, int, int, int, Tuple<int, int>>(1, 2, 3, 4, 5, 6, 7, Tuple.Create(8, 9)));
+    }
+
+    [Fact]
+    public void ADefaultTupleWhoseRestIsNotATupleIsCompared()
+    {
+        default(ValueTuple<int, int, int, int, int, int, int, int>)
+            .ShouldBe(default(ValueTuple<int, int, int, int, int, int, int, int>));
+    }
+
+    [Fact]
     public void NestedTuplesAreComparedStructurally()
     {
         (1, (2, new[] { 3 })).ShouldBe((1, (2, new[] { 3 })));
@@ -102,6 +132,26 @@ public class TupleScenario
     public void ItemsUseTheirDeclaredTypesComparableInterface() =>
         // Only IComparable<OnlyGenericComparable> says these are equal, as it does for the item on its own.
         (1, new OnlyGenericComparable(1)).ShouldBe((1, new OnlyGenericComparable(1)));
+
+    [Fact]
+    public void FloatingPointItemsHonourTheDefaultTolerance()
+    {
+        // As the item on its own does: a tuple's own Equals would compare it exactly.
+        ShouldlyConfiguration.DefaultFloatingPointTolerance = 1e-9;
+        try
+        {
+            (1, 0.1 + 0.2).ShouldBe((1, 0.3));
+            Tuple.Create(1, 0.1 + 0.2).ShouldBe(Tuple.Create(1, 0.3));
+            new List<(int, double)> { (1, 0.1 + 0.2) }.ShouldBe([(1, 0.3)]);
+            (1, 0.1 + 0.2).ShouldNotBe((1, 0.31));
+        }
+        finally
+        {
+            ShouldlyConfiguration.DefaultFloatingPointTolerance = 0.0;
+        }
+
+        (1, 0.1 + 0.2).ShouldNotBe((1, 0.3));
+    }
 
     [Fact]
     public void ACustomComparerStillDecides() =>

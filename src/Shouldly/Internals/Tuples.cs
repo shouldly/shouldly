@@ -17,8 +17,10 @@ namespace Shouldly.Internals;
 /// </remarks>
 static class Tuples
 {
-    // Item1 to Item7, then Rest: the shape of every ValueTuple and Tuple, of any arity.
-    private static readonly string[] ItemNames = ["Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Rest"];
+    // A ValueTuple or Tuple holds at most seven items of its own. An eighth type argument is Rest, a tuple holding the
+    // items from the eighth on.
+    private const int ItemsBeforeRest = 7;
+    private const string Rest = "Rest";
 
     private static readonly ConcurrentDictionary<Type, Accessors?> AccessorsByType = new();
     private static readonly ConcurrentDictionary<(Type Receiver, Type Interface, Type Declared), MethodInfo?> DeclaredTypeMethods = new();
@@ -60,8 +62,9 @@ static class Tuples
 
     /// <summary>
     /// When <paramref name="expected"/> and <paramref name="actual"/> are tuples <see cref="TryEquals"/> compares item by
-    /// item, names the first item it found unequal (<c>Key</c>, <c>Value</c>, <c>Item1</c>, ..., <c>Rest</c>) and gives
-    /// the two items, for a failure message that says where two tuples differ.
+    /// item, names the first item it found unequal (<c>Key</c>, <c>Value</c>, or <c>Item1</c>, <c>Item2</c> and so on,
+    /// numbered as C# numbers them, so the first item held in <c>Rest</c> is <c>Item8</c>) and gives the two items, for
+    /// a failure message that says where two tuples differ.
     /// </summary>
     public static bool TryFindUnequalComponent(object expected, object actual, IEqualityComparer elementComparer,
         [NotNullWhen(true)] out string? name, out object? expectedComponent, out object? actualComponent)
@@ -198,11 +201,13 @@ static class Tuples
         return bestMethod;
     }
 
-    // Both tuples, and of one kind and arity, so their items line up one for one.
+    // Both tuples, and of one kind and arity, so their items line up one for one. The definition alone doesn't give
+    // the arity: every tuple of eight items or more has the same one, and the rest of its items in Rest.
     private static (Accessors Expected, Accessors Actual)? FindBoth(object expected, object actual) =>
         Find(expected) is { } expectedAccessors &&
         Find(actual) is { } actualAccessors &&
-        expectedAccessors.Definition == actualAccessors.Definition
+        expectedAccessors.Definition == actualAccessors.Definition &&
+        expectedAccessors.Items.Length == actualAccessors.Items.Length
             ? (expectedAccessors, actualAccessors)
             : null;
 
@@ -266,11 +271,45 @@ static class Tuples
             ]);
         }
 
-        var names = ItemNames.Take(type.GenericTypeArguments.Length);
-        return new(definition, IsValueTuple(definition)
-            ? names.Select(name => Item.Of(type.GetField(name)!)).ToArray()
-            : names.Select(name => Item.Of(type.GetProperty(name)!)).ToArray());
+        // Item1 to Item7 are read from the tuple, and the items after them from its Rest, numbered on from Item8 as
+        // C# numbers them, and from that tuple's Rest in turn.
+        var isValueTuple = IsValueTuple(definition);
+        var items = new List<Item>();
+        Func<object, object?>? readHolder = null;
+        var restName = Rest;
+        for (var holderType = type;;)
+        {
+            var typeArguments = holderType.GenericTypeArguments;
+            for (var i = 0; i < Math.Min(typeArguments.Length, ItemsBeforeRest); i++)
+                items.Add(Member(holderType, $"Item{i + 1}", isValueTuple).Within(readHolder, $"Item{items.Count + 1}"));
+
+            if (typeArguments.Length <= ItemsBeforeRest)
+                break;
+
+            // A Rest that isn't a tuple of the same kind (possible only in a default ValueTuple, or when it is
+            // declared as a base type) is an item like any other.
+            var rest = Member(holderType, Rest, isValueTuple).Within(readHolder, restName);
+            var restType = typeArguments[ItemsBeforeRest];
+            if (FindDefinition(restType) is not { } restDefinition ||
+                !(isValueTuple ? IsValueTuple(restDefinition) : IsTuple(restDefinition)))
+            {
+                items.Add(rest);
+                break;
+            }
+
+            readHolder = rest.GetValue;
+            restName += $".{Rest}";
+            holderType = restType;
+        }
+
+        return new(definition, [.. items]);
     }
+
+    // A ValueTuple's items are fields and a Tuple's are properties.
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "Called only by FindAccessors, whose DynamicDependency attributes root the public fields of ValueTuple<...> and the public properties of Tuple<...>.")]
+    private static Item Member(Type tupleType, string name, bool isValueTuple) =>
+        isValueTuple ? Item.Of(tupleType.GetField(name)!) : Item.Of(tupleType.GetProperty(name)!);
 
     private sealed record Accessors(Type Definition, Item[] Items);
 
@@ -282,5 +321,17 @@ static class Tuples
         public static Item Of(PropertyInfo property) => new(property.Name, property.PropertyType, property.GetValue);
 
         public static Item Of(FieldInfo field) => new(field.Name, field.FieldType, field.GetValue);
+
+        /// <summary>
+        /// This item under <paramref name="name"/>, read from the tuple that <paramref name="readHolder"/> finds in
+        /// the value given: the <c>Rest</c> of a tuple of eight items or more. Null when it is read from the value itself.
+        /// </summary>
+        public Item Within(Func<object, object?>? readHolder, string name)
+        {
+            var getValue = GetValue;
+            return new(name, DeclaredType, readHolder is null
+                ? getValue
+                : tuple => readHolder(tuple) is { } holder ? getValue(holder) : null);
+        }
     }
 }

@@ -91,6 +91,20 @@ public class InequalityTests
         ["tuple with a record element"] = (
             () => Explain((1, new Order(1, ["a"])), (1, new Order(1, ["a"]))),
             $"but at Item2.Lines, they are different instances, and List<String> compares by reference; {UseEquivalentTo}"),
+        // An item held in a tuple's Rest is numbered as C# numbers it.
+        ["tuple that differs in its eighth item"] = (
+            () => Explain((1, 2, 3, 4, 5, 6, 7, new[] { 8 }), (1, 2, 3, 4, 5, 6, 7, new[] { 9 })),
+            "but at Item8, they differ (expected [9], actual [8])"),
+        ["Tuple that differs in its ninth item"] = (
+            () => Explain(
+                new Tuple<int, int, int, int, int, int, int, Tuple<int, int[]>>(1, 2, 3, 4, 5, 6, 7, Tuple.Create(8, new[] { 9 })),
+                new Tuple<int, int, int, int, int, int, int, Tuple<int, int[]>>(1, 2, 3, 4, 5, 6, 7, Tuple.Create(8, new[] { 0 }))),
+            "but at Item9, they differ (expected [0], actual [9])"),
+        ["tuple that differs in its sixteenth item"] = (
+            () => Explain(
+                (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 16 }),
+                (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 17 })),
+            "but at Item16, they differ (expected [17], actual [16])"),
         ["tuples of different element types"] = (
             () => Explain((1, new BigInteger(2)), (1, (Int128)2)),
             "but at Item2, they are different types (expected System.Int128, actual System.Numerics.BigInteger)"),
