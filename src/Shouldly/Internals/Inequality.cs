@@ -54,6 +54,9 @@ static class Inequality
         if (!comparison.UsesCustomComparer && EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
             return ReadTheSame(actual, expected) ? $"but {ByRule(ruleType)}" : null;
 
+        if (UnorderedCollection.Find(actual, expected, comparison) is { } unordered)
+            return InUnordered(unordered, depth: 0) is { } unorderedFinding ? $"but {unorderedFinding.Render()}" : null;
+
         if (AreSequences(actual, expected, out var actualItems, out var expectedItems))
             return InSequences(difference ?? EnumerableDifferenceHighlighter.Find(actualItems, expectedItems, comparison), comparison);
 
@@ -95,6 +98,9 @@ static class Inequality
         if (EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
             return new(ByRule(ruleType));
 
+        if (UnorderedCollection.Find(actual, expected, ComparisonRecord.Default) is { } unordered)
+            return InUnordered(unordered, depth + 1);
+
         if (AreSequences(actual, expected, out var actualItems, out var expectedItems))
         {
             var found = EnumerableDifferenceHighlighter.Find(actualItems, expectedItems, ComparisonRecord.Default);
@@ -117,6 +123,20 @@ static class Inequality
         }
 
         return ByTheirOwnEquality(actual, expected, depth);
+    }
+
+    /// <summary>
+    /// Why two dictionaries are unequal, when the failure message doesn't show it: the first key whose two values
+    /// read the same. What else tells two dictionaries or two sets apart, the message lists.
+    /// </summary>
+    private static Finding? InUnordered(UnorderedCollection.Differences differences, int depth)
+    {
+        if (!differences.ByKey ||
+            differences.Items.FirstOrDefault(difference => difference.Kind == UnorderedCollection.DifferenceKind.ValueDiffers) is not { } valueDiffers ||
+            !ReadTheSame(valueDiffers.Actual, valueDiffers.Expected))
+            return null;
+
+        return ByShouldlyEquality(valueDiffers.Actual, valueDiffers.Expected, depth)?.Under($"[{valueDiffers.Item.ToStringAwesomely()}]");
     }
 
     /// <summary>

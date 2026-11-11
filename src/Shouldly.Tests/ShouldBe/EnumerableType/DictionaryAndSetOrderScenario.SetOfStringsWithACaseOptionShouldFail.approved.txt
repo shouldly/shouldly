@@ -1,0 +1,11 @@
+new HashSet<string> { "b", "A" }
+    should be
+["a", "c"]
+    but was (case insensitive comparison)
+["b", "A"]
+    difference
+"c" is missing
+"b" is not expected
+
+Additional Info:
+    Some additional context

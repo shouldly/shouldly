@@ -68,6 +68,31 @@ static class KeyValuePairs
         return false;
     }
 
+    /// <summary>
+    /// When <paramref name="pair"/> is a <see cref="KeyValuePair{TKey, TValue}"/>, gives its key and its value.
+    /// </summary>
+    public static bool TryDeconstruct(object pair, out object? key, out object? value)
+    {
+        if (Find(pair) is not { } accessors)
+        {
+            key = value = null;
+            return false;
+        }
+
+        key = accessors.Key.GetValue(pair);
+        value = accessors.Value.GetValue(pair);
+        return true;
+    }
+
+    /// <summary>
+    /// Whether two <see cref="KeyValuePair{TKey, TValue}"/>s have equal keys, compared as <see cref="TryEquals"/>
+    /// compares them. False when either isn't a pair.
+    /// </summary>
+    public static bool KeysEqual(object expected, object actual, IEqualityComparer elementComparer) =>
+        Find(expected) is { } expectedAccessors &&
+        Find(actual) is { } actualAccessors &&
+        ComponentEquals(expectedAccessors.Key, actualAccessors.Key, expected, actual, elementComparer);
+
     private static bool ComponentEquals(PropertyInfo expectedProperty, PropertyInfo actualProperty, object expected, object actual, IEqualityComparer elementComparer)
     {
         var expectedComponent = expectedProperty.GetValue(expected);

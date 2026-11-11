@@ -21,4 +21,30 @@ public class EnumerableShouldBeExamples
             },
             _testOutputHelper);
     }
+
+    [Fact]
+    public void ShouldBeDictionary()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var duffStock = new Dictionary<string, int> { ["Duff"] = 12, ["Duff Lite"] = 6, ["Duff Dry"] = 3 };
+
+                duffStock.ShouldBe(new Dictionary<string, int> { ["Duff Dry"] = 3, ["Duff"] = 24, ["Raspberry Duff"] = 1 });
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
+    public void ShouldBeSet()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var bowlingTeam = new HashSet<string> { "Homer", "Moe", "Otto" };
+
+                bowlingTeam.ShouldBe(new HashSet<string> { "Apu", "Homer", "Moe" });
+            },
+            _testOutputHelper);
+    }
 }

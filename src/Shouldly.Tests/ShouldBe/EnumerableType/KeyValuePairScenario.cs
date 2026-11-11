@@ -153,7 +153,7 @@ public class KeyValuePairScenario
     [Fact]
     public void DictionaryWithCollectionValuesScenarioShouldFail()
     {
-        // Only the entry whose value differs is highlighted.
+        // Only the key whose value differs is reported.
         Verify.ShouldFail(() =>
             new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
                 .ShouldBe(new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [3] }, "Some additional context"));
@@ -162,7 +162,7 @@ public class KeyValuePairScenario
     [Fact]
     public void DictionaryWithCollectionValuesIgnoringOrderScenarioShouldFail()
     {
-        // Only the entry whose value differs is reported as missing.
+        // Two dictionaries are told apart by key, whether or not order was to be ignored (#1430).
         Verify.ShouldFail(() =>
             new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
                 .ShouldBe(new Dictionary<string, int[]> { ["b"] = [3], ["a"] = [1] }, ignoreOrder: true, "Some additional context"));

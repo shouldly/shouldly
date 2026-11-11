@@ -205,6 +205,10 @@ static class Is
 
     public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
     {
+        // The order two sets enumerate in isn't part of their value (#1430).
+        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+            return Internals.UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => StringEqualWithCaseSensitivity(a, e, caseSensitivity));
+
         using var expectedEnum = expected.GetEnumerator();
         using var actualEnum = actual.GetEnumerator();
 
