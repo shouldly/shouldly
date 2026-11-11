@@ -5,7 +5,7 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class KeyFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
-    internal override SlotReading? FromSlots(Slots s) =>
+    protected override SlotReading? FromSlots(Slots s) =>
         new(With(s.Expected), s.Actual);
 
     public FailureMessage With(object? key) =>

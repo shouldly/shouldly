@@ -24,10 +24,24 @@ abstract class Failure
     public bool Negated { get; }
 
     /// <summary>
-    /// This failure as a custom assertion states it through one of the public message classes, or null when
-    /// those classes can't carry what its wording needs.
+    /// This failure as a custom assertion states it through one of the public message classes, or null when its
+    /// wording can't be used: either those classes don't carry what it needs, or it would drop a tolerance or case
+    /// option the class was given. The caller then falls back to the plain shape of the class, which shows the option.
     /// </summary>
-    internal virtual SlotReading? FromSlots(Slots slots) => null;
+    internal SlotReading? Read(Slots slots) =>
+        slots.HasOption && !ShowsOption(slots) ? null : FromSlots(slots);
+
+    /// <summary>
+    /// This failure read from the slots of a public message class, or null when they don't carry what its wording
+    /// needs.
+    /// </summary>
+    protected virtual SlotReading? FromSlots(Slots slots) => null;
+
+    /// <summary>
+    /// Whether this failure's wording shows the tolerance or case option the slots carry. Most wordings have no
+    /// place for one.
+    /// </summary>
+    protected virtual bool ShowsOption(Slots slots) => false;
 }
 
 /// <summary>

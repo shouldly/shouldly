@@ -6,7 +6,7 @@ namespace Shouldly.Internals.Failures;
 sealed class SubsetFailure([CallerMemberName] string name = "") : Failure(name, negated: false)
 {
     // A custom assertion has no record of what fell outside the subset, so it is worked out again.
-    internal override SlotReading? FromSlots(Slots s) =>
+    protected override SlotReading? FromSlots(Slots s) =>
         new(With(s.Expected, AsObjects(s.Actual).Except(AsObjects(s.Expected)).ToList()), s.Actual);
 
     private static IEnumerable<object> AsObjects(object? value) =>

@@ -45,6 +45,13 @@ readonly struct Slots
     public Case? CaseSensitivity { get; }
     public string? ExceptionMessage { get; }
     public IEnumerable<string>? Path { get; }
+
+    /// <summary>
+    /// Whether the class constructed was given a tolerance or a case option, which its message must show.
+    /// </summary>
+    public bool HasOption =>
+        (Shape == MessageShape.Tolerance && Tolerance != null) ||
+        (Shape == MessageShape.CaseSensitivity && CaseSensitivity != null);
 }
 
 /// <summary>

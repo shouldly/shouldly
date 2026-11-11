@@ -5,7 +5,11 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class ContainFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
-    internal override SlotReading? FromSlots(Slots s) => s.Shape switch
+    // A tolerance has its own wording. The wording mentions case only when it was ignored.
+    protected override bool ShowsOption(Slots s) =>
+        s.Shape == MessageShape.Tolerance || s.CaseSensitivity == Case.Insensitive;
+
+    protected override SlotReading? FromSlots(Slots s) => s.Shape switch
     {
         MessageShape.Throw or MessageShape.Equivalence => null,
         MessageShape.Tolerance when s.Tolerance is { } tolerance => new(Within(s.Expected, tolerance), s.Actual),

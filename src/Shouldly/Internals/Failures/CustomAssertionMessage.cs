@@ -2,8 +2,8 @@ namespace Shouldly.Internals.Failures;
 
 /// <summary>
 /// Words the failure of a custom assertion that states it through one of the public message classes. An assertion
-/// named exactly like a built-in one gets that assertion's wording; any other gets the plain shape of the class it
-/// constructed.
+/// named exactly like a built-in one gets that assertion's wording, unless that wording would drop a tolerance or
+/// case option; any other gets the plain shape of the class it constructed.
 /// </summary>
 static class CustomAssertionMessage
 {
@@ -11,7 +11,7 @@ static class CustomAssertionMessage
 
     public static string Text(string shouldlyMethod, Slots slots, string? customMessage, string? actualExpression)
     {
-        var reading = FailureNames.Find(shouldlyMethod)?.FromSlots(slots) ?? PlainShapeOf(shouldlyMethod, slots);
+        var reading = FailureNames.Find(shouldlyMethod)?.Read(slots) ?? PlainShapeOf(shouldlyMethod, slots);
         return reading.Message.Text(reading.Actual, customMessage, actualExpression);
     }
 

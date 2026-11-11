@@ -7,7 +7,7 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(name, negated: false)
 {
-    internal override SlotReading? FromSlots(Slots s) =>
+    protected override SlotReading? FromSlots(Slots s) =>
         s.Shape == MessageShape.Throw ? null : new(new(this, sentence => Word(sentence, s.Expected, null, s.Path)), s.Actual);
 
     private const int IndentSize = 4;

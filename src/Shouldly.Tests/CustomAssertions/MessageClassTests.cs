@@ -90,6 +90,59 @@ public class MessageClassTests
                 "B"
                 """, StringCompareShould.IgnoreLineEndings);
 
+    // ShouldBe's own wording only mentions case for a sequence of strings, so for two strings the class's plain
+    // shape is used, which shows the option.
+    [Fact]
+    public void CaseSensitivityMessageNamedLikeABuiltInAssertionKeepsItsCaseOption() =>
+        new ExpectedActualWithCaseSensitivityShouldlyMessage("a", "B", Case.Insensitive, null, "ShouldBe", "letter").ToString()
+            .ShouldBe(
+                """
+                letter
+                    should be (case insensitive comparison)
+                "a"
+                    but was
+                "B"
+                """, StringCompareShould.IgnoreLineEndings);
+
+    [Fact]
+    public void CaseSensitivityMessageGetsTheBuiltInWordingWhereItShowsTheCaseOption() =>
+        new ExpectedActualWithCaseSensitivityShouldlyMessage(new[] { "a" }, new[] { "B" }, Case.Insensitive, null, "ShouldBe", "letters").ToString()
+            .ShouldBe(
+                """
+                letters
+                    should be
+                ["a"]
+                    but was (case insensitive comparison)
+                ["B"]
+                    difference
+                [*"B"*]
+                """, StringCompareShould.IgnoreLineEndings);
+
+    [Theory]
+    [InlineData(Case.Insensitive, "should contain (case insensitive comparison)\n\"a\"\n    but was actually\n\"B\"")]
+    [InlineData(Case.Sensitive, "should contain (case sensitive comparison)\n\"a\"\n    but was\n\"B\"")]
+    public void CaseSensitivityMessageNamedShouldContainShowsEitherCaseOption(Case caseSensitivity, string expectedAfterSubject) =>
+        new ExpectedActualWithCaseSensitivityShouldlyMessage("a", "B", caseSensitivity, null, "ShouldContain", "letter").ToString()
+            .ShouldBe("letter\n    " + expectedAfterSubject, StringCompareShould.IgnoreLineEndings);
+
+    // ShouldStartWith's own wording has no place for a tolerance.
+    [Theory]
+    [InlineData("ShouldStartWith")]
+    [InlineData("ShouldBeNull")]
+    [InlineData("ShouldBe")]
+    public void ToleranceMessageNamedLikeABuiltInAssertionKeepsItsTolerance(string shouldlyMethod) =>
+        new ExpectedActualToleranceShouldlyMessage(1.0, 2.0, 0.5, null, shouldlyMethod, "reading").ToString()
+            .ShouldBe(
+                """
+                reading
+                    should be within
+                0.5d
+                    of
+                1d
+                    but was
+                2d
+                """, StringCompareShould.IgnoreLineEndings);
+
     [Fact]
     public void ThrowMessageNamedLikeTheExtensionShowsTheDelegateInvoked() =>
         new ShouldlyThrowMessage(typeof(ArgumentException), typeof(InvalidOperationException), null, "ShouldThrow", "action").ToString()

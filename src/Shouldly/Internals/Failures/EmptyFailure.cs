@@ -6,7 +6,7 @@ namespace Shouldly.Internals.Failures;
 sealed class EmptyFailure(bool negated = false, [CallerMemberName] string name = "") : FailureWithoutFacts(name, negated)
 {
     // A custom assertion that passes an actual value is comparing it with an empty one.
-    internal override SlotReading? FromSlots(Slots s) =>
+    protected override SlotReading? FromSlots(Slots s) =>
         s.HasActual ? new(ComparedWith(s.Expected), s.Actual) : new(new(this, Word), s.Expected);
 
     /// <summary>

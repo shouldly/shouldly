@@ -7,7 +7,7 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string name = "") : Failure(name, negated)
 {
-    internal override SlotReading? FromSlots(Slots s) => s.Shape switch
+    protected override SlotReading? FromSlots(Slots s) => s.Shape switch
     {
         MessageShape.Throw or MessageShape.Equivalence => null,
         MessageShape.IgnoringOrder => new(IgnoringOrder(s.Expected, null), s.Actual),
@@ -15,6 +15,10 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
         MessageShape.CaseSensitivity when s.CaseSensitivity is { } caseSensitivity => new(With(s.Expected, caseSensitivity), s.Actual),
         _ => new(With(s.Expected), s.Actual)
     };
+
+    // A tolerance has its own wording. A case option is only shown for a sequence of strings.
+    protected override bool ShowsOption(Slots s) =>
+        s.Shape == MessageShape.Tolerance || SaysHowCaseWasTreated(s.Actual, s.Expected);
 
     /// <summary>
     /// The value it was compared with, and what the assertion established comparing them when that is more than
@@ -51,9 +55,12 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
 
     // A sequence of strings that should have equalled another says how case was treated.
     private string WordEquality(Sentence sentence, object? expected, ComparisonRecord? record, Case? caseSensitivity) =>
-        !Negated && sentence.Actual is IEnumerable<string> && expected is not Expression
+        SaysHowCaseWasTreated(sentence.Actual, expected)
             ? StringSequenceWording.Word(sentence, expected, record, caseSensitivity)
             : Word(sentence, expected, record);
+
+    private bool SaysHowCaseWasTreated(object? actual, object? expected) =>
+        !Negated && actual is IEnumerable<string> && expected is not Expression;
 
     // A default ImmutableArray<T> is IEnumerable but throws when enumerated; it is reported as null (#1406).
     private static bool IsWalkable(object? value) =>

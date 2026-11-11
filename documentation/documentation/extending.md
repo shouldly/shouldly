@@ -141,7 +141,7 @@ throw new ShouldAssertException(
 | `ShouldlyThrowMessage` | `` `x` should throw expected but threw actual `` |
 | `ExpectedEquivalenceShouldlyMessage` | the path to a difference between two object graphs |
 
-A method named exactly like one of Shouldly's own assertions gets that assertion's wording, so a `ShouldBeNull` for your own type reads like the built-in one. Any other name gets the shape above, with the phrase taken from the method name.
+A method named exactly like one of Shouldly's own assertions gets that assertion's wording, so a `ShouldBeNull` for your own type reads like the built-in one. Any other name gets the shape above, with the phrase taken from the method name. The tolerance and case-sensitivity classes always show their option: if the built-in wording has no place for it, they keep the shape above.
 
 For new assertions prefer `ShouldAssertException.For`, which gives you control over the message that these classes don't.
 

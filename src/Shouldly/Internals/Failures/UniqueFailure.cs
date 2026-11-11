@@ -6,7 +6,7 @@ namespace Shouldly.Internals.Failures;
 sealed class UniqueFailure([CallerMemberName] string name = "") : Failure(name, negated: false)
 {
     // A custom assertion passes the collection as expected and its duplicates as actual.
-    internal override SlotReading? FromSlots(Slots s) =>
+    protected override SlotReading? FromSlots(Slots s) =>
         s.HasActual ? new(With(s.Actual), s.Expected) : null;
 
     /// <summary>
