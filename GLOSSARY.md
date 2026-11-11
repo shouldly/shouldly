@@ -15,6 +15,9 @@ _Avoid_: error message, Shouldly message (the v4 class family custom assertions 
 **Phrase**: the words in a failure message that say what the assertion required of the subject, such as `should be awesome`.
 _Avoid_: should method, method name (one source of a phrase, not the phrase).
 
+**Captured sequence**: a sequence as an assertion read it. The check and the failure message both read the capture, never the sequence itself, so a sequence that can only be enumerated once is read once, and no further than the check and the message ask. Every built-in assertion with a sequence parameter captures it before checking it. Lives in `Shouldly.Internals.CapturedSequence`.
+_Avoid_: proxy, snapshot, buffer.
+
 **Equality**: Shouldly's single definition of when an actual value equals an expected one. The assertions that compare values without a tolerance or case option (`ShouldBe`, `ShouldNotBe`, sequences, membership and dictionary assertions) ask it, rather than assembling their own comparer. Lives in `Shouldly.Internals.Equality`.
 
 **Equality rule**: a user-registered definition of equality for a type and its subtypes (`ShouldlyConfiguration.UseEquality<T>`), which Equality consults before its own rules, wherever it compares two values of that type. `ShouldBeEquivalentTo` doesn't consult equality rules: it compares member by member. A value an equality rule covers is never walked as a collection, except by `ignoreOrder: true`, which matches its elements instead. Shouldly ships none: it has no built-in knowledge of third-party types such as Newtonsoft.Json's `JToken`, whose users register `JToken.DeepEquals`.

@@ -41,6 +41,8 @@ Always `throw` the failure. `For` only builds it, so a failure that isn't thrown
 
 Values are formatted as you pass them in, so the message is unaffected if a value is disposed or changed after the assertion throws, for example by a `using` block around the assertion.
 
+The message reads a sequence once, and no further than it shows. Your own check reads the sequence before the message does, so if it may only be enumerable once, such as a LINQ query over a data reader, call `ToList()` on it before checking it and pass the list on.
+
 ## Controlling the message
 
 By default the message shows the subject, the phrase, and the actual value. Add to the same expression to change that:
@@ -144,6 +146,8 @@ throw new ShouldAssertException(
 | `ExpectedEquivalenceShouldlyMessage` | the path to a difference between two object graphs |
 
 A method named exactly like one of Shouldly's own assertions gets that assertion's wording, so a `ShouldBeNull` for your own type reads like the built-in one. Any other name gets the shape above, with the phrase taken from the method name. The tolerance and case-sensitivity classes always show their option: if the built-in wording has no place for it, they keep the shape above.
+
+Like `For`, the message classes and `AssertAwesomely` read a sequence once, and no further than the message shows.
 
 For new assertions prefer `ShouldAssertException.For`, which gives you control over the message that these classes don't.
 
