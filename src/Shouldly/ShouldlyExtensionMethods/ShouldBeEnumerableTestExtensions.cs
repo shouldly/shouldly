@@ -195,6 +195,11 @@ public static partial class ShouldBeEnumerableTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         actual = NullEquivalence.Normalize(actual);
+
+        // A source that knows its count, such as a list or a query over an array, passes without being read.
+        if (actual != null && actual.TryGetNonEnumeratedCount(out var count) && count == expected)
+            return;
+
         using var captured = CapturedSequence.Of(actual);
         actual = captured.Items;
         if (actual == null || actual.Count() != expected)
@@ -365,6 +370,27 @@ public static partial class ShouldBeEnumerableTestExtensions
 
         ShouldBeInOrder(actual, expectedSortDirection, (x, y) => isOutOfOrder(customComparer.Compare(x, y)), customMessage, actualExpression);
     }
+
+#if !NET6_0_OR_GREATER
+    // Polyfill of Enumerable.TryGetNonEnumeratedCount (introduced in .NET 6) for the netstandard2.0 target.
+    private static bool TryGetNonEnumeratedCount<T>(this IEnumerable<T> source, out int count)
+    {
+        if (source is ICollection<T> genericCollection)
+        {
+            count = genericCollection.Count;
+            return true;
+        }
+
+        if (source is ICollection collection)
+        {
+            count = collection.Count;
+            return true;
+        }
+
+        count = 0;
+        return false;
+    }
+#endif
 
     private static void ShouldBeInOrder<T>(IEnumerable<T> actual, SortDirection expectedSortDirection, Func<T, T, bool> isOutOfOrder, string? customMessage, string? actualExpression = null)
     {

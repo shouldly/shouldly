@@ -24,11 +24,9 @@ readonly struct Slots
     public Slots(MessageShape shape, object? expected = null, object? actual = null, bool hasActual = false,
         object? tolerance = null, Case? caseSensitivity = null, string? exceptionMessage = null, IEnumerable<string>? path = null)
     {
-        // The message reads a sequence more than once: to format it, to stand in for the subject and to highlight
-        // differences. A sequence that may be single-pass is read once here and its snapshot used from then on.
         Shape = shape;
-        Expected = CapturedSequence.ForMessage(expected);
-        Actual = CapturedSequence.ForMessage(actual);
+        Expected = expected;
+        Actual = actual;
         HasActual = hasActual;
         Tolerance = tolerance;
         CaseSensitivity = caseSensitivity;
