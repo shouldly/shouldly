@@ -68,4 +68,16 @@ public class EqualityRuleScenarios
         Should.Throw<ShouldAssertException>(() => nodes.ShouldContain(new Leaf("c")));
         Should.Throw<ShouldAssertException>(() => new List<Node> { A, A }.ShouldBeUnique());
     }
+
+    [Fact]
+    public void MembershipOfAValueTypeAndItsNullableForm()
+    {
+        // Shade's values would otherwise be hashed, which ignores the rule (Red and Crimson are equal under it).
+        new[] { Shade.Red }.ShouldBeSubsetOf([Shade.Crimson]);
+        new Shade?[] { Shade.Red }.ShouldBeSubsetOf([Shade.Crimson]);
+        new HashSet<Shade?> { Shade.Red }.ShouldContain(Shade.Crimson);
+        new HashSet<Shade> { Shade.Red }.ShouldContain(Shade.Crimson);
+        Should.Throw<ShouldAssertException>(() => new Shade?[] { Shade.Red, Shade.Crimson }.ShouldBeUnique());
+        Should.Throw<ShouldAssertException>(() => new Shade?[] { Shade.Blue }.ShouldBeSubsetOf([Shade.Crimson]));
+    }
 }

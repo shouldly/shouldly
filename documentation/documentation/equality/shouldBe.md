@@ -217,7 +217,7 @@ internal static void Initialize() =>
 <sup><a href='/src/DocumentationExamples/EqualityRuleRegistration.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterEqualityRule' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The rule applies wherever Shouldly compares two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. A value the rule covers is never walked as a collection (unless you pass `ignoreOrder: true`, which matches its elements in any order, each by the rule), so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
+The rule applies wherever these assertions compare two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. `ShouldBeEquivalentTo` doesn't use rules. A value the rule covers is never walked as a collection (unless you pass `ignoreOrder: true`, which matches its elements in any order, each by the rule), so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
 
 <!-- snippet: ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs'></a>

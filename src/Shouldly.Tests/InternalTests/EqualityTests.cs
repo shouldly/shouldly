@@ -85,19 +85,6 @@ public class EqualityTests
         ["ignoring order, different counts"] = (() => Equality.SequenceEqual([1, 1, 2], [1, 2, 2], ignoreOrder: true), false),
         ["ignoring order, missing default value"] = (() => Equality.SequenceEqual([1], [0], ignoreOrder: true), false),
         ["ignoring order, null vs null"] = (() => Equality.SequenceEqual<int>(null, null, ignoreOrder: true), true),
-
-        // Tolerance
-        ["double within tolerance"] = (() => Equality.Equal(1.0, 1.05, Equality.Within(0.1)), true),
-        ["double outside tolerance"] = (() => Equality.Equal(1.0, 1.2, Equality.Within(0.1)), false),
-        ["double at tolerance boundary"] = (() => Equality.Equal(1.0, 1.5, Equality.Within(0.5)), true),
-        ["float sequence within tolerance"] = (() => Equality.SequenceEqual([1f, 2f], [1.05f, 2.05f], comparer: Equality.Within(0.1)), true),
-        ["decimal within tolerance"] = (() => Equality.Equal(1.0m, 1.05m, Equality.Within(0.1m)), true),
-        ["decimal outside tolerance"] = (() => Equality.Equal(1.0m, 1.2m, Equality.Within(0.1m)), false),
-
-        // Case
-        ["case insensitive"] = (() => Equality.Equal("a", "A", Equality.For(Case.Insensitive)), true),
-        ["case sensitive"] = (() => Equality.Equal("a", "A", Equality.For(Case.Sensitive)), false),
-        ["case insensitive sequence"] = (() => Equality.SequenceEqual(["a", "b"], ["A", "B"], comparer: Equality.For(Case.Insensitive)), true),
     };
 
     public static TheoryData<string> CaseNames => [.. Cases.Keys];

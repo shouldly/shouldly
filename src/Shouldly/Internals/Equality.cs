@@ -1,14 +1,14 @@
 namespace Shouldly.Internals;
 
 /// <summary>
-/// Shouldly's single definition of when an actual value equals an expected one. Every assertion that compares
-/// values asks this module rather than assembling its own comparer, so the rules (null equivalence, equality rules
-/// registered with <see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>, numerics, key/value pairs,
-/// <see cref="IEquatable{T}"/>, <c>Equals</c> on the expected value) are decided in one place.
+/// Shouldly's single definition of when an actual value equals an expected one. The assertions that compare values
+/// without a tolerance or case option (<c>ShouldBe</c>, <c>ShouldNotBe</c>, sequences, membership, dictionary values
+/// and key/value pairs) ask this module rather than assembling their own comparer, so the rules (null equivalence,
+/// equality rules registered with <see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>, numerics,
+/// key/value pairs, <see cref="IEquatable{T}"/>, <c>Equals</c> on the expected value) are decided in one place.
 /// </summary>
 /// <remarks>
-/// The only option is an element comparer: a caller-supplied one, or one of <see cref="Within(double)"/>,
-/// <see cref="Within(decimal)"/> and <see cref="For(Case)"/>. Leaving it out means Shouldly's own rules.
+/// The only option is an element comparer supplied by the caller. Leaving it out means Shouldly's own rules.
 /// Every comparison calls the comparer as <c>comparer.Equals(expected, actual)</c>, so the default rules call
 /// <c>Equals</c> on the expected value: a broken <c>Equals</c> on the value under test can't make an assertion pass
 /// (issue #1076).
@@ -58,22 +58,6 @@ static class Equality
     /// </summary>
     public static IEqualityComparer<T> ComparerFor<T>() => new EqualityComparer<T>();
 
-    /// <summary>
-    /// Compares numbers as equal when they differ by no more than <paramref name="tolerance"/>.
-    /// </summary>
-    public static AbsoluteTolerance Within(double tolerance) => new(tolerance);
-
-    /// <summary>
-    /// Compares decimals as equal when they differ by no more than <paramref name="tolerance"/>.
-    /// </summary>
-    public static IEqualityComparer<decimal> Within(decimal tolerance) => new DecimalTolerance(tolerance);
-
-    /// <summary>
-    /// Compares strings ordinally, ignoring case when <paramref name="caseSensitivity"/> is <see cref="Case.Insensitive"/>.
-    /// </summary>
-    public static IEqualityComparer<string?> For(Case caseSensitivity) =>
-        caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-
     private static bool MatchInOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer)
     {
         using var expectedEnum = expected.GetEnumerator();
@@ -113,27 +97,5 @@ static class Equality
         }
 
         return expectedList.Count == 0;
-    }
-
-    /// <summary>
-    /// Compares <see cref="double"/>s and <see cref="float"/>s (widened to <see cref="double"/>) as equal when they
-    /// differ by no more than the tolerance. Can't hash.
-    /// </summary>
-    internal sealed class AbsoluteTolerance(double tolerance) : IEqualityComparer<double>, IEqualityComparer<float>
-    {
-        public bool Equals(double x, double y) => Math.Abs(x - y) <= tolerance;
-
-        public bool Equals(float x, float y) => Equals((double)x, y);
-
-        public int GetHashCode(double obj) => throw new NotSupportedException();
-
-        public int GetHashCode(float obj) => throw new NotSupportedException();
-    }
-
-    private sealed class DecimalTolerance(decimal tolerance) : IEqualityComparer<decimal>
-    {
-        public bool Equals(decimal x, decimal y) => Math.Abs(x - y) <= tolerance;
-
-        public int GetHashCode(decimal obj) => throw new NotSupportedException();
     }
 }

@@ -32,10 +32,12 @@ static class EqualityRules
 
     /// <summary>
     /// Whether a rule could decide the equality of a value of <paramref name="type"/>, for the shortcuts that compare
-    /// without consulting rules (hashing, the BCL's typed comparer).
+    /// without consulting rules (hashing, the BCL's typed comparer). A <see cref="Nullable{T}"/> is judged by its
+    /// underlying type, as its values box to that type when a rule is consulted.
     /// </summary>
     public static bool CouldApplyTo(Type type)
     {
+        type = Nullable.GetUnderlyingType(type) ?? type;
         foreach (var rule in s_state.Rules)
         {
             if (rule.Type.IsAssignableFrom(type))
