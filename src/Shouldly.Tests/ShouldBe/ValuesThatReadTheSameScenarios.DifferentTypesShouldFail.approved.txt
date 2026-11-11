@@ -1,0 +1,6 @@
+count
+    should be
+5
+    but was
+5
+    but they are different types (expected System.Int32, actual System.Numerics.BigInteger)

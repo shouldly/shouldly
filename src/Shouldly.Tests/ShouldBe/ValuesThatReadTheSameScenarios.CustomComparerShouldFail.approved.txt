@@ -1,0 +1,6 @@
+actual
+    should be
+thing
+    but was
+thing
+    but the custom comparer says they are not equal

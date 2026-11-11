@@ -88,6 +88,30 @@ public class ShouldBeExamples
     }
 
     [Fact]
+    public void ValuesThatReadTheSame()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var order = new Order(1, ["Duff Beer"]);
+                order.ShouldBe(new Order(1, ["Duff Beer"]));
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
+    public void LongEnumerables()
+    {
+        DocExampleWriter.Document(
+            () =>
+            {
+                var episodes = Enumerable.Range(1, 12).ToList();
+                episodes.ShouldBe([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13]);
+            },
+            _testOutputHelper);
+    }
+
+    [Fact]
     public void EnumerablesOfNumerics()
     {
         DocExampleWriter.Document(

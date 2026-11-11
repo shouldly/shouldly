@@ -3,6 +3,7 @@ comparison1
 Shouldly.Tests.TestHelpers.ComparableClass (000000)
     but was
 Shouldly.Tests.TestHelpers.ComparableClass (000000)
+    but the custom comparer says they are not equal
 
 Additional Info:
     Some additional context

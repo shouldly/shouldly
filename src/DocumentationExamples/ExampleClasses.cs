@@ -33,3 +33,5 @@ public class Person
 
     public override string? ToString() => Name;
 }
+
+public record Order(int Id, List<string> Lines);

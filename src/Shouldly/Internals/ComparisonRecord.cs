@@ -26,6 +26,18 @@ sealed class ComparisonRecord
     public bool UsesCustomComparer { get; }
 
     /// <summary>
+    /// Whether the caller's comparer compared the elements of two sequences, so that how two elements compare is
+    /// for it alone to say.
+    /// </summary>
+    public bool ComparesElementsItself => UsesCustomComparer && _elementEquals is not null;
+
+    /// <summary>
+    /// Whether the caller's comparer compared the two values whole, so that nothing of Shouldly's own equality
+    /// decided the outcome.
+    /// </summary>
+    public bool ComparesValuesItself => UsesCustomComparer && _elementEquals is null;
+
+    /// <summary>
     /// Whether two elements are equal as the assertion compared them.
     /// </summary>
     public bool ElementsEqual(object? actual, object? expected) =>

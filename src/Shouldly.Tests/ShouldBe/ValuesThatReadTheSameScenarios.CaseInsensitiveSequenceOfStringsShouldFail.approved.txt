@@ -1,0 +1,8 @@
+lines
+    should be
+["LINE 0", "LINE 1", "LINE 2", "LINE 3", "LINE 4", "LINE 5", "LINE 6", "LINE 7", "LINE 8", "LINE 9", "LINE 10", "other"]
+    but was (case insensitive comparison)
+["line 0", "line 1", "line 2", "line 3", "line 4", "line 5", "line 6", "line 7", "line 8", "line 9", "line 10", "line 11"]
+    difference
+["line 0", "line 1", "line 2", "line 3", "line 4", "line 5", "line 6", "line 7", "line 8", "line 9", "line 10", *"line 11"*]
+    first difference at index 11

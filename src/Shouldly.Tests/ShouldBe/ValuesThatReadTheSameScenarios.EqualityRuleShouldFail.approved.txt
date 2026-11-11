@@ -1,0 +1,6 @@
+bag
+    should be
+[1, 2, 3]
+    but was
+[1, 2, 3]
+    but the equality rule for IdBag says they are not equal

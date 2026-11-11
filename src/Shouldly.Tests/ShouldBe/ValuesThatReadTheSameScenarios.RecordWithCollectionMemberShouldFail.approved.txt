@@ -1,0 +1,9 @@
+order
+    should be
+Order { Id = 1, Lines = System.Collections.Generic.List`1[System.String] }
+    but was
+Order { Id = 1, Lines = System.Collections.Generic.List`1[System.String] }
+    but at Lines, they are different instances, and List<String> compares by reference; use ShouldBeEquivalentTo to compare members
+
+Additional Info:
+    Some additional context

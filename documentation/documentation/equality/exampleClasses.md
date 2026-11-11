@@ -40,6 +40,8 @@ public class Person
 
     public override string? ToString() => Name;
 }
+
+public record Order(int Id, List<string> Lines);
 ```
-<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/DocumentationExamples/ExampleClasses.cs#L1-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-DocumentationExamples/ExampleClasses.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

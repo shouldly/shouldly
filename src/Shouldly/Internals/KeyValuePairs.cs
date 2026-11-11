@@ -37,6 +37,37 @@ static class KeyValuePairs
         return true;
     }
 
+    /// <summary>
+    /// When <paramref name="expected"/> and <paramref name="actual"/> are both <see cref="KeyValuePair{TKey, TValue}"/>s,
+    /// names the first component <see cref="TryEquals"/> found unequal, <c>Key</c> or <c>Value</c>, and gives the two
+    /// components, for a failure message that says where two pairs differ.
+    /// </summary>
+    public static bool TryFindUnequalComponent(object expected, object actual, IEqualityComparer elementComparer,
+        [NotNullWhen(true)] out string? name, out object? expectedComponent, out object? actualComponent)
+    {
+        name = null;
+        expectedComponent = actualComponent = null;
+        if (Find(expected) is not { } expectedAccessors || Find(actual) is not { } actualAccessors)
+            return false;
+
+        foreach (var (expectedProperty, actualProperty) in new[]
+                 {
+                     (expectedAccessors.Key, actualAccessors.Key),
+                     (expectedAccessors.Value, actualAccessors.Value)
+                 })
+        {
+            if (ComponentEquals(expectedProperty, actualProperty, expected, actual, elementComparer))
+                continue;
+
+            name = expectedProperty.Name;
+            expectedComponent = expectedProperty.GetValue(expected);
+            actualComponent = actualProperty.GetValue(actual);
+            return true;
+        }
+
+        return false;
+    }
+
     private static bool ComponentEquals(PropertyInfo expectedProperty, PropertyInfo actualProperty, object expected, object actual, IEqualityComparer elementComparer)
     {
         var expectedComponent = expectedProperty.GetValue(expected);

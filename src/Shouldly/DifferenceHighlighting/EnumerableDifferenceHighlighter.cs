@@ -17,15 +17,17 @@ static class EnumerableDifferenceHighlighter
         !NullEquivalence.IsNull(actual);
 
     // Compares as the assertion did, so a custom comparer's matches aren't highlighted as differences.
-    public static string Highlight(IEnumerable actual, IEnumerable expected, ComparisonRecord comparison) =>
-        HighlightDifferencesBetweenLists(actual, expected, (a, e) => ItemsEqual(a, e, comparison));
-
     // Walks both sequences in step, a single pass each, stopping after
     // MaxEnumerableItemsInMessages positions so an infinite sequence can't hang the message.
-    private static string HighlightDifferencesBetweenLists(IEnumerable actualList, IEnumerable expectedList, Func<object?, object?, bool> equal)
+    public static SequenceDifference Find(IEnumerable actualList, IEnumerable expectedList, ComparisonRecord comparison)
     {
         var limit = ShouldlyConfiguration.MaxEnumerableItemsInMessages;
         var items = new List<string?>();
+        int? firstIndex = null;
+        var firstIsPair = false;
+        object? firstActual = null;
+        object? firstExpected = null;
+        var cutShort = false;
 
         var actualEnum = actualList.GetEnumerator();
         var expectedEnum = expectedList.GetEnumerator();
@@ -42,10 +44,22 @@ static class EnumerableDifferenceHighlighter
                 if (items.Count == limit)
                 {
                     items.Add(StringHelpers.EnumerableTruncationMarker);
+                    cutShort = true;
                     break;
                 }
 
-                items.Add(GetComparedItemString(actualHasItem, actualEnum, expectedHasItem, expectedEnum, equal));
+                var actualItem = actualHasItem ? actualEnum.Current : null;
+                var expectedItem = expectedHasItem ? expectedEnum.Current : null;
+                var differs = !actualHasItem || !expectedHasItem || !ItemsEqual(actualItem, expectedItem, comparison);
+                if (differs && firstIndex is null)
+                {
+                    firstIndex = items.Count;
+                    firstIsPair = actualHasItem && expectedHasItem;
+                    firstActual = actualItem;
+                    firstExpected = expectedItem;
+                }
+
+                items.Add(Format(actualHasItem, actualItem, differs));
             }
         }
         finally
@@ -54,7 +68,7 @@ static class EnumerableDifferenceHighlighter
             (expectedEnum as IDisposable)?.Dispose();
         }
 
-        return "[" + string.Join(", ", items) + "]";
+        return new("[" + string.Join(", ", items) + "]", firstIndex, firstIsPair, firstActual, firstExpected, cutShort);
     }
 
     // The assertion stops at its first difference, but the highlighter compares every position it
@@ -63,7 +77,7 @@ static class EnumerableDifferenceHighlighter
     // left to decide for itself. A default ImmutableArray<T> can't be read, so the comparison treats it as null (#1406).
     private static bool ItemsEqual(object? actual, object? expected, ComparisonRecord comparison)
     {
-        if (!comparison.UsesCustomComparer
+        if (!comparison.ComparesElementsItself
             && actual is IEnumerable actualItems and not string
             && expected is IEnumerable expectedItems and not string
             && !NullEquivalence.IsNull(actual)
@@ -78,19 +92,12 @@ static class EnumerableDifferenceHighlighter
         return comparison.ElementsEqual(actual, expected);
     }
 
-    private static string? GetComparedItemString(
-        bool actualHasItem, IEnumerator actualEnum,
-        bool expectedHasItem, IEnumerator expectedEnum,
-        Func<object?, object?, bool> equal)
+    private static string? Format(bool actualHasItem, object? actualItem, bool differs)
     {
         if (!actualHasItem)
             return ItemDifferenceHighlighter.HighlightCharacter;
 
-        var actualItem = actualEnum.Current;
         var formatted = actualItem.ToStringAwesomely();
-
-        return expectedHasItem && equal(actualItem, expectedEnum.Current)
-            ? formatted
-            : ItemDifferenceHighlighter.HighlightItem(formatted);
+        return differs ? ItemDifferenceHighlighter.HighlightItem(formatted) : formatted;
     }
 }
