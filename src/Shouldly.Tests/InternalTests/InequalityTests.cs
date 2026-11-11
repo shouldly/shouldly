@@ -86,12 +86,28 @@ public class InequalityTests
         ["record with a member that can't be read"] = (
             () => Explain(new Unreadable(1), new Unreadable(2)),
             "but Unreadable.Equals returned false"),
-        ["tuple with a collection element"] = (
-            () => Explain((1, new[] { 1 }), (1, new[] { 1 })),
-            $"but at Item2, they are different instances, and Int32[] compares by reference; {UseEquivalentTo}"),
+        // A tuple's items are compared by Shouldly's equality (#1429), so a collection item is walked and numbers
+        // compare across types: what differs is found inside the item.
+        ["tuple with a record element"] = (
+            () => Explain((1, new Order(1, ["a"])), (1, new Order(1, ["a"]))),
+            $"but at Item2.Lines, they are different instances, and List<String> compares by reference; {UseEquivalentTo}"),
+        // An item held in a tuple's Rest is numbered as C# numbers it.
+        ["tuple that differs in its eighth item"] = (
+            () => Explain((1, 2, 3, 4, 5, 6, 7, new[] { 8 }), (1, 2, 3, 4, 5, 6, 7, new[] { 9 })),
+            "but at Item8, they differ (expected [9], actual [8])"),
+        ["Tuple that differs in its ninth item"] = (
+            () => Explain(
+                new Tuple<int, int, int, int, int, int, int, Tuple<int, int[]>>(1, 2, 3, 4, 5, 6, 7, Tuple.Create(8, new[] { 9 })),
+                new Tuple<int, int, int, int, int, int, int, Tuple<int, int[]>>(1, 2, 3, 4, 5, 6, 7, Tuple.Create(8, new[] { 0 }))),
+            "but at Item9, they differ (expected [0], actual [9])"),
+        ["tuple that differs in its sixteenth item"] = (
+            () => Explain(
+                (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 16 }),
+                (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, new[] { 17 })),
+            "but at Item16, they differ (expected [17], actual [16])"),
         ["tuples of different element types"] = (
-            () => Explain((1, 2), (1L, 2L)),
-            "but at Item1, they are different types (expected System.Int64, actual System.Int32)"),
+            () => Explain((1, new BigInteger(2)), (1, (Int128)2)),
+            "but at Item2, they are different types (expected System.Int128, actual System.Numerics.BigInteger)"),
         ["anonymous types of different member types"] = (
             () => Explain(new { A = 1 }, new { A = 1L }),
             "but at A, they are different types (expected System.Int64, actual System.Int32)"),
@@ -131,8 +147,8 @@ public class InequalityTests
             () => Explain(new object[] { 1, new BigInteger(5) }, new object[] { 1, (Int128)5 }),
             "first difference at index 1: they are different types (expected System.Int128, actual System.Numerics.BigInteger)"),
         ["items within items"] = (
-            () => Explain(new object[] { new object[] { 1, (1, 2) } }, new object[] { new object[] { 1, (1L, 2L) } }),
-            "first difference at index 0: at [1].Item1, they are different types (expected System.Int64, actual System.Int32)"),
+            () => Explain(new object[] { new object[] { 1, (1, new BigInteger(2)) } }, new object[] { new object[] { 1, (1, (Int128)2) } }),
+            "first difference at index 0: at [1].Item2, they are different types (expected System.Int128, actual System.Numerics.BigInteger)"),
         ["dictionary values"] = (
             () => Explain(new Dictionary<string, Order> { ["k"] = new(1, ["a"]) }, new Dictionary<string, Order> { ["k"] = new(1, ["a"]) }),
             $"but at [\"k\"].Lines, they are different instances, and List<String> compares by reference; {UseEquivalentTo}"),

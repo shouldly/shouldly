@@ -47,6 +47,10 @@ class EqualityComparer<T> : IEqualityComparer<T>
             (definition == typeof(Memory<>) || definition == typeof(ReadOnlyMemory<>)))
             return false;
 
+        // A ValueTuple's IEquatable<T> compares a collection-typed item by reference. The cascade below compares
+        // its items, each by its rules (#1429).
+        if (Tuples.ComparesItemByItem(t)) return false;
+
         // Need a typed Equals to dispatch through without boxing.
         return typeof(IEquatable<T>).IsAssignableFrom(t);
     }
@@ -128,10 +132,11 @@ class EqualityComparer<T> : IEqualityComparer<T>
             }
         }
 
-        // KeyValuePair? Compare its key and value, so a dictionary's entries compare like its values do under
-        // ShouldBe and ShouldContainKeyAndValue, not by ValueType.Equals (#1408).
-        if (KeyValuePairs.TryEquals(x, y, _innerComparerFactory(), out var keyValuePairResult))
-            return keyValuePairResult;
+        // KeyValuePair or tuple? Compare it item by item, so a dictionary's entries compare like its values do under
+        // ShouldBe and ShouldContainKeyAndValue (#1408), and a tuple's items like the items on their own (#1429),
+        // not by the tuple's own Equals, which compares a collection by reference.
+        if (Tuples.TryEquals(x, y, _innerComparerFactory(), out var tupleResult))
+            return tupleResult;
 
         // A type's own equality decides before CompareTo, which only says how to sort: a type may sort by one key and
         // be equal by all its fields (#1428). Each step looks at what the runtime type defines, so ShouldBe<Person>

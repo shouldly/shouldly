@@ -96,7 +96,7 @@ static class UnorderedCollection
         // structs) and Shouldly's own equality compared them.
         var byKey = kind == Kind.Dictionary &&
                     !comparison.UsesCustomComparer &&
-                    actualList.Concat(expectedList).All(entry => entry is not null && KeyValuePairs.TryDeconstruct(entry, out _, out _));
+                    actualList.Concat(expectedList).All(entry => entry is not null && Tuples.TryDeconstructKeyValuePair(entry, out _, out _));
 
         var differences = new List<Difference>();
         var matchedActual = new bool[actualList.Count];
@@ -115,11 +115,11 @@ static class UnorderedCollection
 
         foreach (var expectedItem in unmatchedExpected)
         {
-            if (byKey && FindUnmatched(actualList, matchedActual, 0, actualItem => KeyValuePairs.KeysEqual(expectedItem!, actualItem!, ObjectComparer)) is { } a)
+            if (byKey && FindUnmatched(actualList, matchedActual, 0, actualItem => Tuples.KeysEqual(expectedItem!, actualItem!, ObjectComparer)) is { } a)
             {
                 matchedActual[a] = true;
-                KeyValuePairs.TryDeconstruct(expectedItem!, out var key, out var expectedValue);
-                KeyValuePairs.TryDeconstruct(actualList[a]!, out _, out var actualValue);
+                Tuples.TryDeconstructKeyValuePair(expectedItem!, out var key, out var expectedValue);
+                Tuples.TryDeconstructKeyValuePair(actualList[a]!, out _, out var actualValue);
                 differences.Add(new(DifferenceKind.ValueDiffers, key, expectedValue, actualValue));
             }
             else
@@ -142,7 +142,7 @@ static class UnorderedCollection
         if (!byKey)
             return item;
 
-        KeyValuePairs.TryDeconstruct(item!, out var key, out _);
+        Tuples.TryDeconstructKeyValuePair(item!, out var key, out _);
         return key;
     }
 
