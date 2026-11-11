@@ -9,7 +9,14 @@ class ActualCodeTextGetter : ICodeTextGetter
     public int LineNumber { get; private set; }
 
     [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the call site. Method metadata may be trimmed away.")]
-    public string? GetCodeText(object? actual, StackTrace? stackTrace)
+    public string? GetCodeText(object? actual, StackTrace? stackTrace) =>
+        GetSourceText(stackTrace) ?? actual.ToStringAwesomely();
+
+    /// <summary>
+    /// The source text of the asserted expression, or null when it can't be recovered.
+    /// </summary>
+    [RequiresUnreferencedCode("Walks the stack trace via StackFrame.GetMethod() to locate the call site. Method metadata may be trimmed away.")]
+    public string? GetSourceText(StackTrace? stackTrace)
     {
         try
         {
@@ -21,7 +28,7 @@ class ActualCodeTextGetter : ICodeTextGetter
             // If we fail to parse the stack trace to determine the expression of the actual argument, we'll format the value instead
         }
 
-        return GetCodePart() ?? actual.ToStringAwesomely();
+        return GetCodePart();
     }
 
     [RequiresUnreferencedCode("Uses StackFrame.GetMethod() which requires unreferenced metadata.")]

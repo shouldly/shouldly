@@ -29,6 +29,23 @@ static class Fail
 
     public static readonly CompletedSuccessfullyFailure ShouldBeCompletedSuccessfully = new();
 
+    public static readonly ContainFailure ShouldContain = new();
+    public static readonly ContainFailure ShouldNotContain = new(negated: true);
+    public static readonly ContainFailure ShouldContainAll = new();
+    public static readonly ContainFailure ShouldNotContainAll = new(negated: true);
+    public static readonly ContainFailure ShouldContainAny = new();
+    public static readonly ContainFailure ShouldNotContainAny = new(negated: true);
+    public static readonly ContainFailure ShouldContainWithoutWhitespace = new();
+
+    public static readonly AllBeFailure ShouldAllBe = new();
+    public static readonly EmptyFailure ShouldBeEmpty = new();
+    public static readonly EmptyFailure ShouldNotBeEmpty = new(negated: true);
+    public static readonly SingleItemFailure ShouldHaveSingleItem = new();
+    public static readonly CountFailure ShouldHaveCount = new();
+    public static readonly SubsetFailure ShouldBeSubsetOf = new();
+    public static readonly UniqueFailure ShouldBeUnique = new();
+    public static readonly InOrderFailure ShouldBeInOrder = new();
+
     public static readonly PlainFailure ShouldBeGreaterThan = new();
     public static readonly PlainFailure ShouldBeGreaterThanOrEqualTo = new();
     public static readonly PlainFailure ShouldBeLessThan = new();

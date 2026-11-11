@@ -31,8 +31,8 @@ readonly struct FailureMessage
     /// </summary>
     public string Text(object? actual, string? customMessage, string? actualExpression, StackTrace? stackTrace = null)
     {
-        var subject = Subject.Resolve(_failure.Name, actual, actualExpression, stackTrace);
-        return WithAdditionalInfo(_wording(new(_failure, subject, actual)), customMessage);
+        var subject = Subject.Resolve(_failure.Name, actual, actualExpression, stackTrace, out var fromSource);
+        return WithAdditionalInfo(_wording(new(_failure, subject, fromSource, actual)), customMessage);
     }
 
     /// <summary>

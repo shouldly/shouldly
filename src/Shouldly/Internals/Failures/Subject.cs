@@ -14,8 +14,10 @@ static class Subject
     /// <param name="actual">The value under test.</param>
     /// <param name="actualExpression">The expression captured by <c>[CallerArgumentExpression]</c>, if any.</param>
     /// <param name="stackTrace">A stack trace captured before an <c>await</c>, for the stack-walking fallback.</param>
-    public static string? Resolve(string assertion, object? actual, string? actualExpression, StackTrace? stackTrace = null)
+    /// <param name="fromSource">Whether the subject is source text, as opposed to the formatted value standing in for it.</param>
+    public static string? Resolve(string assertion, object? actual, string? actualExpression, StackTrace? stackTrace, out bool fromSource)
     {
+        fromSource = true;
         if (actualExpression != null)
             return actualExpression;
 
@@ -23,12 +25,13 @@ static class Subject
             throw TripWireException(assertion);
 
 #if NETSTANDARD2_0
-        return ShouldlyConfiguration.IsSourceDisabledInErrors()
-            ? actual.ToStringAwesomely()
-            : new ActualCodeTextGetter().GetCodeText(actual, stackTrace);
-#else
-        return actual.ToStringAwesomely();
+        if (!ShouldlyConfiguration.IsSourceDisabledInErrors() &&
+            new ActualCodeTextGetter().GetSourceText(stackTrace) is { } sourceText)
+            return sourceText;
 #endif
+
+        fromSource = false;
+        return actual.ToStringAwesomely();
     }
 
     private static InvalidOperationException TripWireException(string assertion) =>

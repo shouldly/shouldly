@@ -6,9 +6,10 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 readonly struct Sentence
 {
-    public Sentence(Failure failure, string? subject, object? actual)
+    public Sentence(Failure failure, string? subject, bool subjectFromSource, object? actual)
     {
         Subject = subject;
+        SubjectFromSource = subjectFromSource;
         Actual = actual;
         Phrase = failure.Phrase;
         Negated = failure.Negated;
@@ -16,6 +17,12 @@ readonly struct Sentence
 
     /// <summary>The source text of the actual value's expression, or what stands in for it.</summary>
     public string? Subject { get; }
+
+    /// <summary>
+    /// Whether the subject is source text. When no source text was captured, the formatted actual value stands in
+    /// for it, and a wording has nothing to gain by repeating that value.
+    /// </summary>
+    public bool SubjectFromSource { get; }
 
     /// <summary>The value under test.</summary>
     public object? Actual { get; }

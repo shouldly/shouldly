@@ -104,6 +104,6 @@ public class ShouldlyAssertionContext : IShouldlyAssertionContext
         Actual = actual;
         ShouldMethod = shouldlyMethod;
 
-        CodePart = Subject.Resolve(shouldlyMethod, actual, actualExpression, stackTrace);
+        CodePart = Subject.Resolve(shouldlyMethod, actual, actualExpression, stackTrace, out _);
     }
 }

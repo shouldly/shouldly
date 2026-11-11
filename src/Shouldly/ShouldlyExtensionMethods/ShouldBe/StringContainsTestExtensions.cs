@@ -17,7 +17,8 @@ public static partial class ShouldBeStringTestExtensions
         var strippedActual = actual.Quotify().StripWhitespace();
         var strippedExpected = (expected?.ToString() ?? "NULL").Quotify().StripWhitespace();
 
-        strippedActual.AssertAwesomely(v => v.Contains(strippedExpected), actual, expected, customMessage, actualExpression: actualExpression);
+        if (!strippedActual.Satisfies(v => v.Contains(strippedExpected)))
+            throw Fail.ShouldContainWithoutWhitespace.With(expected).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -26,12 +27,8 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldContain(this string actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(
-            v => caseSensitivity == Case.Sensitive ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected),
-            actual?.Clip(100, "..."),
-            expected,
-            caseSensitivity,
-            customMessage, actualExpression: actualExpression);
+        if (!actual.Satisfies(v => caseSensitivity == Case.Sensitive ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected)))
+            throw Fail.ShouldContain.With(expected, caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
     }
 
     /// <summary>
@@ -40,11 +37,12 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldNotContain(this string actual, string expected, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v =>
+        if (!actual.Satisfies(v =>
         {
             var b = caseSensitivity == Case.Sensitive ? !Is.StringContainingUsingCaseSensitivity(v, expected) : !Is.StringContainingIgnoreCase(v, expected);
             return b;
-        }, actual?.Clip(100, "..."), expected, caseSensitivity, customMessage, actualExpression: actualExpression);
+        }))
+            throw Fail.ShouldNotContain.With(expected, caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
     }
 
     /// <summary>
@@ -73,13 +71,14 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldContainAll(this string actual, string[] expectedValues, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v =>
+        if (!actual.Satisfies(v =>
         {
             return expectedValues.All(expected =>
                 caseSensitivity == Case.Sensitive
                     ? Is.StringContainingUsingCaseSensitivity(v, expected)
                     : Is.StringContainingIgnoreCase(v, expected));
-        }, actual?.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage, actualExpression: actualExpression);
+        }))
+            throw Fail.ShouldContainAll.With(string.Join(", ", expectedValues), caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
     }
 
     /// <summary>
@@ -88,13 +87,14 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldContainAny(this string actual, string[] expectedValues, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v =>
+        if (!actual.Satisfies(v =>
         {
             return expectedValues.Any(expected =>
                 caseSensitivity == Case.Sensitive
                     ? Is.StringContainingUsingCaseSensitivity(v, expected)
                     : Is.StringContainingIgnoreCase(v, expected));
-        }, actual?.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage, actualExpression: actualExpression);
+        }))
+            throw Fail.ShouldContainAny.With(string.Join(", ", expectedValues), caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
     }
 
     /// <summary>
@@ -103,13 +103,14 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldNotContainAll(this string actual, string[] expectedValues, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v =>
+        if (!actual.Satisfies(v =>
         {
             return !expectedValues.All(expected =>
                 caseSensitivity == Case.Sensitive
                     ? Is.StringContainingUsingCaseSensitivity(v, expected)
                     : Is.StringContainingIgnoreCase(v, expected));
-        }, actual?.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage, actualExpression: actualExpression);
+        }))
+            throw Fail.ShouldNotContainAll.With(string.Join(", ", expectedValues), caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
     }
 
     /// <summary>
@@ -118,12 +119,13 @@ public static partial class ShouldBeStringTestExtensions
     public static void ShouldNotContainAny(this string actual, string[] expectedValues, Case caseSensitivity = Case.Sensitive, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        actual.AssertAwesomely(v =>
+        if (!actual.Satisfies(v =>
         {
             return !expectedValues.Any(expected =>
                 caseSensitivity == Case.Sensitive
                     ? Is.StringContainingUsingCaseSensitivity(v, expected)
                     : Is.StringContainingIgnoreCase(v, expected));
-        }, actual?.Clip(100, "..."), string.Join(", ", expectedValues), caseSensitivity, customMessage, actualExpression: actualExpression);
+        }))
+            throw Fail.ShouldNotContainAny.With(string.Join(", ", expectedValues), caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
     }
 }
