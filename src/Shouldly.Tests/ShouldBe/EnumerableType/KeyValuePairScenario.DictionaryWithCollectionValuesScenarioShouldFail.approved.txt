@@ -4,7 +4,7 @@ new Dictionary<string, int[]> { ["a"] = [1], ["b"] = [2] }
     but was
 [["a" => [1]], ["b" => [2]]]
     difference
-[["a" => [1]], *["b" => [2]]*]
+["b"] should be [3] but was [2]
 
 Additional Info:
     Some additional context

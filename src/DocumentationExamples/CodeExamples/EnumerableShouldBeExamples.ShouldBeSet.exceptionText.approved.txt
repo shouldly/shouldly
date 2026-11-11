@@ -1,0 +1,10 @@
+```
+bowlingTeam
+    should be
+["Apu", "Homer", "Moe"]
+    but was (case sensitive comparison)
+["Homer", "Moe", "Otto"]
+    difference
+"Apu" is missing
+"Otto" is not expected
+```

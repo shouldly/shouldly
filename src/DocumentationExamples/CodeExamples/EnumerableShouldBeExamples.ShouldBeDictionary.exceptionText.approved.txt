@@ -1,0 +1,11 @@
+```
+duffStock
+    should be
+[["Duff Dry" => 3], ["Duff" => 24], ["Raspberry Duff" => 1]]
+    but was
+[["Duff" => 12], ["Duff Lite" => 6], ["Duff Dry" => 3]]
+    difference
+["Duff"] should be 24 but was 12
+["Raspberry Duff"] is missing
+["Duff Lite"] is not expected
+```

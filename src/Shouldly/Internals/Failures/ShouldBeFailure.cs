@@ -52,10 +52,17 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     /// <summary>
     /// The sequence it should have matched in any order, and how the assertion compared their elements.
     /// </summary>
+    /// <remarks>
+    /// Two dictionaries or two sets are never compared in order, so they are told apart as <c>ShouldBe</c> without
+    /// <c>ignoreOrder</c> tells them apart: a dictionary by key.
+    /// </remarks>
     public FailureMessage IgnoringOrder(object? expected, ComparisonRecord? comparison, Case? caseSensitivity = null) =>
-        new(this, sentence => IsWalkable(sentence.Actual) && IsWalkable(expected)
-            ? IgnoringOrderWording.Word(sentence, expected, comparison, caseSensitivity)
-            : Word(sentence, expected, comparison));
+        new(this, sentence =>
+            !IsWalkable(sentence.Actual) || !IsWalkable(expected)
+                ? Word(sentence, expected, comparison)
+                : UnorderedCollection.BothAre(sentence.Actual, expected) == UnorderedCollection.Kind.None
+                    ? IgnoringOrderWording.Word(sentence, expected, comparison, caseSensitivity)
+                    : WordEquality(sentence, expected, comparison, caseSensitivity));
 
     /// <summary>
     /// The string it was compared with under string comparison options.
@@ -124,7 +131,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     internal static string DifferenceAndReason(object? actual, object? expected, ComparisonRecord? record, bool explain)
     {
         var found = DifferenceHighlighter.Find(actual, expected, record);
-        var closing = string.Empty;
+        var closing = UnorderedWording.Difference(actual, expected, record) ?? string.Empty;
 
         // A list with nothing marked in it would only repeat the actual value.
         if (found is { FirstIndex: not null } difference)

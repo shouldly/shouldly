@@ -99,6 +99,16 @@ class EqualityComparer<T> : IEqualityComparer<T>
         if (x.TryGetEnumerable(out var enumerableX) &&
             y.TryGetEnumerable(out var enumerableY))
         {
+            // The order two dictionaries or two sets enumerate in isn't part of their value (#1430).
+            if (UnorderedCollection.BothAre(y, x) != UnorderedCollection.Kind.None)
+            {
+                var elementComparer = _innerComparerFactory();
+                return UnorderedCollection.MatchOneForOne(
+                    enumerableY.Cast<object?>(),
+                    enumerableX.Cast<object?>(),
+                    (actualItem, expectedItem) => elementComparer.Equals(expectedItem, actualItem));
+            }
+
             var enumeratorX = enumerableX.GetEnumerator();
             using var enumeratorXDispose = enumeratorX as IDisposable;
             var enumeratorY = enumerableY.GetEnumerator();
