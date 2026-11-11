@@ -64,10 +64,11 @@ public class EquatableElementScenario
     }
 
     [Fact]
-    public void ComparableElementsStillCompareWithCompareTo()
+    public void TypedEqualsTakesPrecedenceOverCompareTo()
     {
-        // IComparable is consulted before the typed Equals, as it was before #825.
-        new List<object> { new ComparableEquatable() }.ShouldBe([new ComparableEquatable()]);
+        // The typed Equals is the type's own equality, so it decides before CompareTo, as it does where the element
+        // type is known (#1428).
+        new List<object> { new ComparableEquatable() }.ShouldNotBe([new ComparableEquatable()]);
     }
 
     [Fact]
