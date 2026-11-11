@@ -17,17 +17,17 @@ sealed class UniqueFailure([CallerMemberName] string name = "") : Failure(name, 
 
     internal static string Word(Sentence sentence, object? duplicates)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var actual = duplicates.ToStringAwesomely();
 
-        if (codePart == actual)
+        if (subject == actual)
         {
-            codePart = sentence.ActualText;
+            subject = sentence.ActualText;
         }
 
         return
             $"""
-             {codePart}
+             {subject}
                  {sentence.Phrase} but
              {actual}
                  was duplicated

@@ -8,12 +8,11 @@ sealed class NegativeFailure([CallerMemberName] string name = "") : FailureWitho
     internal override SlotReading? FromSlots(Slots s) =>
         new(new(this, Word), s.Actual);
 
-
     protected override string Word(Sentence sentence)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var actual = sentence.ActualText;
-        var actualValue = codePart != actual ? $"""
+        var actualValue = subject != actual ? $"""
 
                                                 {actual}
                                                     
@@ -22,7 +21,7 @@ sealed class NegativeFailure([CallerMemberName] string name = "") : FailureWitho
         var should = sentence.Phrase;
         return
             $"""
-             {codePart}
+             {subject}
                  {should} but{actualValue}is positive
              """;
     }

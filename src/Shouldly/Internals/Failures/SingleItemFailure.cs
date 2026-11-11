@@ -9,20 +9,19 @@ sealed class SingleItemFailure([CallerMemberName] string name = "") : FailureWit
     internal override SlotReading? FromSlots(Slots s) =>
         new(new(this, Word), s.HasActual ? s.Actual : s.Expected);
 
-
     protected override string Word(Sentence sentence)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = sentence.Actual;
         var should = sentence.Phrase;
 
         if (expected is null)
         {
-            if (codePart != "null")
+            if (subject != "null")
             {
                 return
                     $"""
-                     {codePart}
+                     {subject}
                          {should} but was
                      null
                      """;
@@ -38,11 +37,11 @@ sealed class SingleItemFailure([CallerMemberName] string name = "") : FailureWit
         var expectedString = expected.ToStringAwesomely();
         var count = (expected as IEnumerable)?.Cast<object>().Count() ?? 0;
 
-        if (codePart != "null" && sentence.SubjectFromSource)
+        if (subject != "null" && sentence.SubjectFromSource)
         {
             return
                 $"""
-                 {codePart}
+                 {subject}
                      {should} but had
                  {count}
                      items and was

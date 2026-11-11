@@ -66,7 +66,7 @@ public static partial class ShouldBeTestExtensions
     }
 
     // Spans are ref structs: they cannot be boxed into object?, captured in the
-    // Func<T,bool> AssertAwesomely expects, or stored on the assertion context.
+    // Func<T, bool> a check takes, or held by a failure message.
     // So we compare inline and only materialise (ToArray) on the failure path,
     // where we're allocating to build the message anyway.
     private static void AssertSpansEqual<T>(

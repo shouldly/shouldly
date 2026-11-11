@@ -7,15 +7,14 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class WithinWording
 {
-
     internal static string Word(Sentence sentence, object? expectedValue, object? toleranceValue)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var tolerance = toleranceValue.ToStringAwesomely();
         var expected = expectedValue.ToStringAwesomely();
         var actualValue = sentence.ActualText;
         string actual;
-        if (codePart == actualValue)
+        if (subject == actualValue)
         {
             actual = " not";
         }
@@ -31,7 +30,7 @@ static class WithinWording
 
         var message =
             $"""
-             {codePart}
+             {subject}
                  should {negated}be within
              {tolerance}
                  of

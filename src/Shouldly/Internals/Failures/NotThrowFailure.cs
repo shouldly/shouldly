@@ -31,20 +31,20 @@ sealed class NotThrowFailure(bool extensionForm = false, [CallerMemberName] stri
     internal static string Word(Sentence sentence, object? expectedValue, Exception? thrownException, string? exceptionMessage, bool isTask, bool extensionForm)
     {
         var isExtensionMethod = extensionForm;
-        var codePart = sentence.Subject;
+        var source = sentence.Subject;
 
         string subject;
-        if (codePart == "null" || !sentence.SubjectFromSource)
+        if (source == "null" || !sentence.SubjectFromSource)
         {
             subject = isTask ? "Task" : "delegate";
         }
         else if (isExtensionMethod)
         {
-            subject = isTask ? $"Task `{codePart}`" : $"`{codePart}()`";
+            subject = isTask ? $"Task `{source}`" : $"`{source}()`";
         }
         else
         {
-            subject = $"`{codePart}`";
+            subject = $"`{source}`";
         }
 
         // NotThrow<TException> carries the disallowed type in Expected and the thrown

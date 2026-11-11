@@ -23,16 +23,16 @@ sealed class ThrowFailure(bool extensionForm = false, bool exactly = false, [Cal
     {
         var isExtensionMethod = extensionForm;
         var maybeInvokeMethod = isExtensionMethod && !isTask ? "()" : string.Empty;
-        string codePart;
+        string subject;
         if (sentence.Subject == "null" || !sentence.SubjectFromSource)
         {
-            codePart = isTask ? "Task" : "delegate";
+            subject = isTask ? "Task" : "delegate";
         }
         else
         {
-            codePart = $"`{sentence.Subject}{maybeInvokeMethod}`";
+            subject = $"`{sentence.Subject}{maybeInvokeMethod}`";
             if (isTask)
-                codePart = "Task " + codePart;
+                subject = "Task " + subject;
         }
 
         var expected = expectedValue.ToStringAwesomely();
@@ -42,17 +42,17 @@ sealed class ThrowFailure(bool extensionForm = false, bool exactly = false, [Cal
         if (thrown != null)
         {
             errorMessage = string.Format($"""
-                                          {codePart.Replace("{", "{{").Replace("}", "}}")}
+                                          {subject.Replace("{", "{{").Replace("}", "}}")}
                                               {shouldThrow}
                                           {expected}
                                               but threw
                                           {thrown}
-                                          """, codePart, expected, thrown, maybeInvokeMethod);
+                                          """, subject, expected, thrown, maybeInvokeMethod);
         }
         else
         {
             errorMessage = $"""
-                            {codePart}
+                            {subject}
                                 {shouldThrow}
                             {expected}
                                 but did not

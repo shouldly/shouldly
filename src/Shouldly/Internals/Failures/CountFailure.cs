@@ -13,7 +13,7 @@ sealed class CountFailure([CallerMemberName] string name = "") : Failure(name, n
 
     internal static string Word(Sentence sentence, object? expectedValue)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
         var count = sentence.Actual switch
         {
@@ -30,7 +30,7 @@ sealed class CountFailure([CallerMemberName] string name = "") : Failure(name, n
         {
             return
                 $"""
-                 {codePart}
+                 {subject}
                      should have {expected} {expectedItems} but had
                  {count}
                      {actualItems} and was
@@ -40,7 +40,7 @@ sealed class CountFailure([CallerMemberName] string name = "") : Failure(name, n
 
         return
             $"""
-             {codePart}
+             {subject}
                  should have {expected} {expectedItems} but had
              {count}
                  {actualItems}

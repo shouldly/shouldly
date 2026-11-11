@@ -15,11 +15,11 @@ sealed class AllBeFailure([CallerMemberName] string name = "") : Failure(name, n
 
     internal static string Word(Sentence sentence, object? expectedValue, Expression filter)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
         var expression = ExpressionStringBuilder.ToString(filter);
         return $"""
-                {codePart}
+                {subject}
                     should satisfy the condition
                 {expression}
                     but

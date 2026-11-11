@@ -7,10 +7,9 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class ContainConditionWording
 {
-
     internal static string Word(Sentence sentence, object? expectedValue, Expression? condition, int? matchCount)
     {
-        var codePart = sentence.Subject == "null" ? sentence.ActualText : sentence.Subject;
+        var subject = sentence.Subject == "null" ? sentence.ActualText : sentence.Subject;
 
         var elementPhrase = matchCount.HasValue
             ? matchCount.Value + " element(s)"
@@ -21,7 +20,7 @@ static class ContainConditionWording
         {
             return
                 $"""
-                 {codePart}
+                 {subject}
                      {should} {elementPhrase} satisfying the condition
                  {ExpressionStringBuilder.ToString(filter)}
                      but
@@ -35,7 +34,7 @@ static class ContainConditionWording
         {
             return
                 $"""
-                 {codePart}
+                 {subject}
                      {should} {elementPhrase} satisfying the condition
                  {expected}
                      but does{""}
@@ -44,7 +43,7 @@ static class ContainConditionWording
 
         return
             $"""
-             {codePart}
+             {subject}
                  {should} {elementPhrase} satisfying the condition
              {expected}
                  but does not

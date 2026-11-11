@@ -15,9 +15,9 @@ sealed class NotMatchFailure([CallerMemberName] string name = "") : Failure(name
     {
         const string format = "{0} should not match {1} but did";
 
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
 
-        return string.Format(format, codePart, expected);
+        return string.Format(format, subject, expected);
     }
 }

@@ -19,7 +19,7 @@ sealed class CompletedSuccessfullyFailure([CallerMemberName] string name = "") :
 
     internal static string Word(Sentence sentence, TaskStatus? status, AggregateException? exception)
     {
-        var codePart = sentence.Subject == "null" || !sentence.SubjectFromSource ? "Task" : sentence.Subject;
+        var subject = sentence.Subject == "null" || !sentence.SubjectFromSource ? "Task" : sentence.Subject;
 
         var outcome = status switch
         {
@@ -33,7 +33,7 @@ sealed class CompletedSuccessfullyFailure([CallerMemberName] string name = "") :
         };
 
         return $"""
-                {codePart}
+                {subject}
                     should be completed successfully {outcome}
                 """;
     }

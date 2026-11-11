@@ -21,15 +21,15 @@ sealed class KeyFailure(bool negated = false, [CallerMemberName] string name = "
                 but does{3}
             """;
 
-        var codePart = sentence.Subject ?? sentence.ActualText;
+        var subject = sentence.Subject ?? sentence.ActualText;
         var expected = expectedValue.ToStringAwesomely();
 
         var should = sentence.Phrase;
         if (sentence.Negated)
         {
-            return string.Format(format, codePart, should, expected, "");
+            return string.Format(format, subject, should, expected, "");
         }
 
-        return string.Format(format, codePart, should, expected, " not");
+        return string.Format(format, subject, should, expected, " not");
     }
 }

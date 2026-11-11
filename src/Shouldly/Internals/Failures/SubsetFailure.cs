@@ -20,14 +20,14 @@ sealed class SubsetFailure([CallerMemberName] string name = "") : Failure(name, 
 
     internal static string Word(Sentence sentence, object? expectedValue, IEnumerable outside)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
         // The items the assertion found outside the subset, so any custom comparer is honored.
         var missing = outside.Cast<object>().ToList();
 
         return
             $"""
-             {codePart}
+             {subject}
                  should be subset of
              {expected}
                  but

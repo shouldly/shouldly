@@ -25,16 +25,16 @@ sealed class ValueForKeyFailure([CallerMemberName] string name = "") : Failure(n
                 {3}
             """;
 
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
         var keyValue = key.ToStringAwesomely();
 
         if (lookup is { KeyExists: true })
-            return string.Format(format, codePart, keyValue, expected, "but does");
+            return string.Format(format, subject, keyValue, expected, "but does");
 
         if (lookup is { KeyExists: false })
-            return string.Format(format, codePart, keyValue, expected, "but the key does not exist");
+            return string.Format(format, subject, keyValue, expected, "but the key does not exist");
 
-        return string.Format(format, codePart, keyValue, expected, "").TrimEnd();
+        return string.Format(format, subject, keyValue, expected, "").TrimEnd();
     }
 }

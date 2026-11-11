@@ -14,14 +14,14 @@ static class StringWording
 
         // With no source text to show, the rendered value stands in for it. Using the same echo means the
         // "but was" line below collapses to " not" instead of repeating it.
-        var codeText = sentence.SubjectFromSource ? sentence.Subject : actualValue;
+        var subject = sentence.SubjectFromSource ? sentence.Subject : actualValue;
         var withOption = string.IsNullOrEmpty(strings.Options) ? null : $" with options: {strings.Options}";
 
         // Differences come from the full values. Truncating first would let a difference that
         // sits past the echo budget disappear from the message entirely.
         var differences = new StringDifferenceHighlighter(strings.Sensitivity).HighlightDifferences(strings.Expected, strings.Actual);
 
-        var actual = codeText == actualValue ?
+        var actual = subject == actualValue ?
             " not" :
             $"""
 
@@ -29,7 +29,7 @@ static class StringWording
              """;
         var message =
             $"""
-             {codeText}
+             {subject}
                  {sentence.Phrase}{withOption}
              {expectedValue}
                  but was{actual}

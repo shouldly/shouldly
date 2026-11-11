@@ -9,10 +9,9 @@ sealed class NullOrEmptyFailure(bool negated = false, [CallerMemberName] string 
     internal override SlotReading? FromSlots(Slots s) =>
         new(new(this, Word), s.HasActual ? s.Actual : s.Expected);
 
-
     protected override string Word(Sentence sentence)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var should = sentence.Phrase;
         var actual = sentence.ActualText;
 
@@ -22,7 +21,7 @@ sealed class NullOrEmptyFailure(bool negated = false, [CallerMemberName] string 
             var (count, noun) = enumerable.DescribeCountForMessage();
             return
                 $"""
-                 {codePart}
+                 {subject}
                      {should} but had
                  {count}
                      {noun} and was
@@ -41,6 +40,6 @@ sealed class NullOrEmptyFailure(bool negated = false, [CallerMemberName] string 
                 {1}
             """;
 
-        return string.Format(format, codePart, should, actual);
+        return string.Format(format, subject, should, actual);
     }
 }

@@ -17,20 +17,20 @@ sealed class EmptyFailure(bool negated = false, [CallerMemberName] string name =
 
     protected override string Word(Sentence sentence)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = sentence.ActualText;
         var shouldMethod = sentence.Phrase;
 
         if (sentence.Negated)
         {
-            if (codePart == "null" || !sentence.SubjectFromSource)
+            if (subject == "null" || !sentence.SubjectFromSource)
             {
-                codePart = expected;
+                subject = expected;
             }
 
             return
                 $"""
-                 {codePart}
+                 {subject}
                      {shouldMethod} but was{(sentence.Actual == null ? " null" : "")}
                  """;
         }
@@ -51,9 +51,9 @@ sealed class EmptyFailure(bool negated = false, [CallerMemberName] string name =
         }
 
         string expectedString;
-        if (codePart == "null" || !sentence.SubjectFromSource)
+        if (subject == "null" || !sentence.SubjectFromSource)
         {
-            codePart = expected;
+            subject = expected;
             expectedString = " not empty";
         }
         else
@@ -66,7 +66,7 @@ sealed class EmptyFailure(bool negated = false, [CallerMemberName] string name =
 
         return
             $"""
-             {codePart}
+             {subject}
                  {shouldMethod} but{details} was{expectedString}
              """;
     }

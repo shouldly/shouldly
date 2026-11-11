@@ -5,7 +5,6 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class IgnoringOrderWording
 {
-
     internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption)
     {
         if (expectedValue is not IEnumerable expectedEnumerable)
@@ -22,7 +21,7 @@ static class IgnoringOrderWording
         // that was cut short may still hold matches for the other side's items further on.
         var expected = expectedEnumerable.ReadForMessage(out var expectedTruncated);
         var actual = actualEnumerable.ReadForMessage(out var actualTruncated);
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
         // Compare as the assertion did, so any custom comparer is honored.
@@ -45,7 +44,7 @@ static class IgnoringOrderWording
         // rest of the side it came from may hold more such items.
         var actualMissingMessage = !actualTruncated && missingFromActual.Any()
             ? $"""
-               {codePart}
+               {subject}
                    is missing
                {missingFromActual.ToStringAwesomely(moreMayFollow: expectedTruncated)}
                """
@@ -72,7 +71,7 @@ static class IgnoringOrderWording
         {
             // Both sides were too long to tell what's missing, so show them as far as they were read.
             return $"""
-                    {codePart}
+                    {subject}
                         {sentence.Phrase} (ignoring order{caseSensitivity})
                     {expectedFormattedValue}
                         but was
@@ -99,6 +98,6 @@ static class IgnoringOrderWording
                {expectedMissingMessage}
                """
             : $"{actualMissingMessage}{expectedMissingMessage}";
-        return string.Format(format, codePart, sentence.Phrase, expectedFormattedValue, missingMessage, caseSensitivity);
+        return string.Format(format, subject, sentence.Phrase, expectedFormattedValue, missingMessage, caseSensitivity);
     }
 }

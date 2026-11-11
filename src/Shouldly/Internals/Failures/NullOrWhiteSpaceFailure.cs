@@ -9,7 +9,6 @@ sealed class NullOrWhiteSpaceFailure(bool negated = false, [CallerMemberName] st
     internal override SlotReading? FromSlots(Slots s) =>
         new(new(this, Word), s.HasActual ? s.Actual : s.Expected);
 
-
     protected override string Word(Sentence sentence)
     {
         var format = sentence.SubjectShows(sentence.ActualText) ?
@@ -23,16 +22,16 @@ sealed class NullOrWhiteSpaceFailure(bool negated = false, [CallerMemberName] st
                 {1}
             """;
 
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
 
         var isNegatedAssertion = sentence.Negated;
         var should = sentence.Phrase;
         var actual = sentence.ActualText;
         if (isNegatedAssertion)
         {
-            return string.Format(format, codePart, should, actual);
+            return string.Format(format, subject, should, actual);
         }
 
-        return string.Format(format, codePart, should, actual);
+        return string.Format(format, subject, should, actual);
     }
 }

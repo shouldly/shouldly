@@ -16,12 +16,12 @@ sealed class SatisfyAllConditionsFailure([CallerMemberName] string name = "") : 
 
     internal static string Word(Sentence sentence, object? expectedValue)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue?.ToString();
 
         return
             $"""
-             {codePart}
+             {subject}
                  should satisfy all the conditions specified, but does not.
              The following errors were found ...
              {expected}

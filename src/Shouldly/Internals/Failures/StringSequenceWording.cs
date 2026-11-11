@@ -7,10 +7,9 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class StringSequenceWording
 {
-
     internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         // A custom comparer decides case sensitivity itself, so there's nothing accurate to say about it.
         var caseSensitivity = (record ?? ComparisonRecord.Default).UsesCustomComparer
             ? string.Empty
@@ -23,7 +22,7 @@ static class StringSequenceWording
         {
             actual = string.Empty;
         }
-        else if (codePart == actualValue)
+        else if (subject == actualValue)
         {
             actual = $" not{caseSensitivity}";
             caseSensitivity = string.Empty;
@@ -36,7 +35,7 @@ static class StringSequenceWording
         var expected = expectedValue.ToStringAwesomely();
         var format =
             $"""
-             {codePart}
+             {subject}
                  {sentence.Phrase}
              {expected}
                  but was{caseSensitivity}{actual}

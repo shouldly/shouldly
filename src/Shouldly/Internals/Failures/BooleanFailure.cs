@@ -13,17 +13,17 @@ sealed class BooleanFailure(bool expected, [CallerMemberName] string name = "") 
 
     internal static string Word(Sentence sentence, object? expectedValue)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
 
         var actual = sentence.ActualText;
-        var actualString = codePart == actual ? " not" : $"""
+        var actualString = subject == actual ? " not" : $"""
 
                                                           {actual}
                                                           """;
 
         return $"""
-                {codePart}
+                {subject}
                     should be
                 {expected}
                     but was{actualString}

@@ -16,15 +16,15 @@ sealed class DynamicPropertyFailure([CallerMemberName] string name = "") : Failu
         Debug.Assert(expectedValue is object);
 
         var propertyName = expectedValue;
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
 
-        if (string.IsNullOrEmpty(codePart))
+        if (string.IsNullOrEmpty(subject))
         {
             const string genericFormat = """Dynamic object should contain property "{0}" but does not.""";
             return string.Format(genericFormat, propertyName?.ToString()?.Trim());
         }
 
         const string format = """Dynamic object "{0}" should contain property "{1}" but does not.""";
-        return string.Format(format, codePart!.Trim(), propertyName?.ToString()?.Trim());
+        return string.Format(format, subject!.Trim(), propertyName?.ToString()?.Trim());
     }
 }

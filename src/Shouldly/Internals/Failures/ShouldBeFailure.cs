@@ -61,7 +61,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
 
     internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var expected = expectedValue.ToStringAwesomely();
         var actualValue = sentence.ActualText;
         string actual;
@@ -76,7 +76,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
                     ? string.Empty
                     : $"\r\n{actualValue}";
         }
-        else if (codePart == actualValue)
+        else if (subject == actualValue)
         {
             actual = " not";
         }
@@ -87,7 +87,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
 
         var message =
             $"""
-             {codePart}
+             {subject}
                  {sentence.Phrase}
              {expected}
                  but was{actual}

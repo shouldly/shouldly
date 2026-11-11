@@ -39,17 +39,17 @@ sealed class ContainFailure(bool negated = false, [CallerMemberName] string name
 
     internal static string Word(Sentence sentence, object? expectedValue, Case? caseOption)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var caseSensitivity = caseOption == Case.Insensitive ? " (case insensitive comparison)" : string.Empty;
         var actual = sentence.ActualText;
-        var but = codePart == actual ? sentence.Negated ? "did" : "did not" : $"""
+        var but = subject == actual ? sentence.Negated ? "did" : "did not" : $"""
              was actually
              {actual}
              """;
 
         return
             $"""
-             {codePart}
+             {subject}
                  {sentence.Phrase}{caseSensitivity}
              {expectedValue.ToStringAwesomely()}
                  but {but}

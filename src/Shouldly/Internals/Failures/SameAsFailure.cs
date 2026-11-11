@@ -13,15 +13,15 @@ sealed class SameAsFailure([CallerMemberName] string name = "") : Failure(name, 
 
     internal static string Word(Sentence sentence, object? expected)
     {
-        var codePart = sentence.Subject;
+        var subject = sentence.Subject;
         var actualValue = sentence.ActualText;
-        var actual = codePart == actualValue
+        var actual = subject == actualValue
             ? " not"
             : $"\r\n{actualValue}";
 
         var message =
             $"""
-             {codePart}
+             {subject}
                  should be same as
              {expected.ToStringAwesomely()}
                  but was{actual}

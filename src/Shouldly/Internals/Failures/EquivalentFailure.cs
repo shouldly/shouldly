@@ -105,9 +105,9 @@ sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(na
          {actual.ToStringAwesomely()}
          """;
 
-    private static string FormatPath(string? codePart, IEnumerable<string>? path)
+    private static string FormatPath(string? subject, IEnumerable<string>? path)
     {
-        var result = new StringBuilder(codePart);
+        var result = new StringBuilder(subject);
         if (path != null)
         {
             var i = 0;
