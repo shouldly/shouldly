@@ -1,0 +1,25 @@
+Comparing object equivalence, found 2 differences:
+
+at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.EqualityRuleScenario+Envelope]
+    Payload [Shouldly.Tests.TestHelpers.Leaf]
+
+    Expected value to be
+[] (Leaf(b))
+    but was
+[] (Leaf(a))
+    and the equality rule for Node says they are not equal
+
+at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.EqualityRuleScenario+Envelope]
+    Parts [System.Collections.Generic.List<Shouldly.Tests.TestHelpers.Node>]
+        Element [1] [Shouldly.Tests.TestHelpers.Leaf]
+
+    Expected value to be
+[] (Leaf(z))
+    but was
+[] (Leaf(y))
+    and the equality rule for Node says they are not equal
+
+Additional Info:
+    Some additional context

@@ -23,6 +23,7 @@ public class ClosedShapeProviderTests
         new SequenceShape<IEnumerable<Shape>, Shape>(),
         new SequenceShape<List<Shape>, Shape>(),
         new SequenceShape<string[], string>(),
+        new SequenceShape<Node[], Node>(),
         new SetShape<HashSet<string>, string>(keepsAnOrder: false),
         new SetShape<SortedSet<string>, string>(keepsAnOrder: true));
 
@@ -91,6 +92,21 @@ public class ClosedShapeProviderTests
 
         exception.Message.ShouldContain("ClosedShapeProviderTests+Square");
         exception.Message.ShouldContain("Main");
+    }
+
+    // An equality rule is a delegate looked up by the values' types, so it needs no shape: not for the type it
+    // covers (Node's, registered in ModuleInitializer), which the closed provider has never heard of.
+    [Theory]
+    [MemberData(nameof(Providers))]
+    public void ComparesValuesAnEqualityRuleCoversWithoutAShape(string provider)
+    {
+        Compare(provider, new Leaf("a"), new Leaf("a"));
+        Compare(provider, new Node[] { new Leaf("a"), new Branch(new Leaf("b")) }, new Node[] { new Leaf("a"), new Branch(new Leaf("b")) });
+
+        Should.Throw<ShouldAssertException>(() => Compare(provider, new Leaf("a"), new Leaf("b")));
+        Should.Throw<ShouldAssertException>(() =>
+                Compare(provider, new Node[] { new Leaf("a"), new Branch(new Leaf("b")) }, new Node[] { new Leaf("a"), new Branch(new Leaf("c")) }))
+            .Message.ShouldContain("the equality rule for Node says they are not equal");
     }
 
     private static void Compare(string provider, object actual, object expected) =>

@@ -5,7 +5,7 @@ namespace Shouldly.Internals;
 /// <summary>
 /// The equality rules registered with <see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>:
 /// user-supplied definitions of equality for a type and its subtypes, which <see cref="Equality"/> consults before
-/// its own rules, at any depth.
+/// its own rules, at any depth. <c>ShouldBeEquivalentTo</c> consults them too, before it walks a value.
 /// </summary>
 /// <remarks>
 /// Registration is copy-on-write: each one publishes a new, immutable state, so comparisons running in parallel

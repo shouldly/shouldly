@@ -8,7 +8,8 @@ namespace Shouldly.Equivalency;
 /// The equivalency engine: walks the actual/expected graphs with a per-node strategy
 /// (leaf / dictionary / set / sequence / member-wise), selecting members from the type of
 /// each expected value with subset semantics, and collects every difference instead of
-/// stopping at the first.
+/// stopping at the first. Two values that an equality rule covers (<see cref="EqualityRules"/>) are not walked:
+/// the rule decides.
 /// </summary>
 /// <remarks>
 /// A value is compared by the shape of the type it is, not of the type its member or collection declares, so a
@@ -73,6 +74,25 @@ internal sealed class EquivalencyComparison
             // is no single compared type to report.
             if (!(actual is null && expected is null))
                 AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual);
+
+            return;
+        }
+
+        // An equality rule that covers both values decides, as it does in ShouldBe: whoever registered it has said
+        // what makes two of them the same, so they are compared whole, as a leaf is, and never by their members
+        // or items. This comes before the shape, so a type with a rule needs none. Two JSON values are judged the
+        // same way, by the rule Shouldly has for them without being told.
+        if (EqualityRules.TryEquals(expected, actual, out var equalByRule))
+        {
+            if (!equalByRule)
+            {
+                AddDifference(
+                    EquivalencyDifferenceKind.ValueMismatch,
+                    AnnotateWithType(path, TypeToName(expected.GetType(), declared.Expected)),
+                    expected,
+                    actual,
+                    EqualityRules.RuleTypeFor(expected, actual) is { } ruleType ? Inequality.ByRule(ruleType) : null);
+            }
 
             return;
         }
@@ -481,11 +501,6 @@ internal sealed class EquivalencyComparison
             if (actual.GetType() != expected.GetType())
                 return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
         }
-
-#if NET8_0_OR_GREATER
-        if (JsonValues.TryEquals(expected, actual, out var sameJson))
-            return sameJson;
-#endif
 
         // Equals is called on the expected value, as in ShouldBe (see Is.Equal), so a broken Equals on the value
         // under test can't make the comparison pass.

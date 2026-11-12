@@ -326,7 +326,7 @@ internal static void Initialize() =>
 <sup><a href='/src/DocumentationExamples/EqualityRuleRegistration.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterEqualityRule' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The rule applies wherever these assertions compare two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. `ShouldBeEquivalentTo` doesn't use rules. A value the rule covers is never walked as a collection (unless you pass `ignoreOrder: true`, which matches its elements in any order, each by the rule), so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
+The rule applies wherever these assertions compare two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. [`ShouldBeEquivalentTo` asks it too](#equality-rules-in-shouldbeequivalentto). A value the rule covers is never walked as a collection (unless you pass `ignoreOrder: true`, which matches its elements in any order, each by the rule), so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
 
 <!-- snippet: ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs'></a>
@@ -354,6 +354,32 @@ The message lists the values' items, which can read the same on both sides, so i
 
 When several rules apply, the one for the most specific type wins. The rule is called with the expected value first, and never with `null`. You can also register an `IEqualityComparer<T>`: `ShouldlyConfiguration.UseEquality(myComparer)`. For a one-off comparison without a global rule, pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.
 
+#### Equality rules in `ShouldBeEquivalentTo`
+
+`ShouldBeEquivalentTo` compares member by member, and ignores a type's own `Equals`. An equality rule is the exception: two values that a rule covers are compared by the rule, as one value, wherever they sit in the graph. That is how to compare a type that has no public members to walk, or that isn't what its members say it is:
+
+```csharp
+ShouldlyConfiguration.UseEquality<Money>((expected, actual) => expected.Equals(actual));
+
+order.ShouldBeEquivalentTo(expectedOrder);   // order.Total, a Money, is compared by the rule
+```
+
+A failure names the rule:
+
+```
+Comparing object equivalence, at path:
+order [Order]
+    Total [Money]
+
+    Expected value to be
+6 GBP
+    but was
+5 GBP
+    and the equality rule for Money says they are not equal
+```
+
+A rule replaces the member-by-member comparison of its type, everywhere, so it decides how much of a value is compared. A rule that calls two customers equal when their IDs match leaves their names and addresses uncompared in every graph that holds a customer. `IgnoreOrder` and `MembersToIgnore` don't apply inside a value a rule decides. When a rule covers only one of the two values, such as an entity compared with an anonymous type, they are compared member by member as usual.
+
 #### Newtonsoft.Json
 
 `JToken` (and so `JObject`, `JArray` and `JValue`) is enumerable, and only `JValue` overrides `Equals`. Compared element by element, two tokens are equal whenever they have the same shape, so `{"a":1}` equals `{"b":2}`. Register `JToken.DeepEquals` to compare them as JSON:
@@ -364,7 +390,7 @@ internal static void Initialize() =>
     ShouldlyConfiguration.UseEquality<JToken>(JToken.DeepEquals);
 ```
 
-`ShouldBeEquivalentTo` doesn't use rules, so it can't compare a `JToken`: compare tokens with `ShouldBe`.
+[`ShouldBeEquivalentTo` uses the rule too](#equality-rules-in-shouldbeequivalentto), so a token is compared as JSON wherever it sits in an object graph. Without the rule it can't compare a `JToken`.
 
 #### System.Text.Json
 

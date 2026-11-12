@@ -396,7 +396,9 @@ actual.ShouldBeEquivalentTo(expected, new EquivalencyOptions
 - **Comparers and tolerances** — a fluent `.WithAutoConversion()` switch, `.Using<T>(...)` custom
   comparers, or approximate numeric/`DateTime` matching — are not exposed as options yet. Numeric
   *leaves* are auto-converted across kinds, so `int` `5` is equivalent to `long` `5` or `double`
-  `5.0`.
+  `5.0`. What FA's global `ComparingByValue<T>()` and `Using<T>(...)` do for a type, an
+  [equality rule](equality/shouldBe.md#equality-rules-in-shouldbeequivalentto) does:
+  `ShouldlyConfiguration.UseEquality<T>(...)` applies to every assertion, in every test.
 
 For the rare test that needs an FA feature with no counterpart today (custom comparison rules,
 member selection by predicate), assert the members individually with

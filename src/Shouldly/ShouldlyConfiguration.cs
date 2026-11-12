@@ -17,7 +17,8 @@ public static partial class ShouldlyConfiguration
     /// The rule applies wherever Shouldly compares two values that are both instances of <typeparamref name="T"/>,
     /// including subtypes and implementations, at any depth: <c>ShouldBe</c>, <c>ShouldNotBe</c>, collection elements,
     /// dictionary keys and values, and the membership assertions (<c>ShouldContain</c>, <c>ShouldBeOneOf</c>, ...).
-    /// <c>ShouldBeEquivalentTo</c> doesn't use rules: it compares member by member.
+    /// <c>ShouldBeEquivalentTo</c> uses it too: two values the rule covers are compared by the rule, as one value,
+    /// and not member by member, so the rule decides how much of them is compared.
     /// A value it applies to is never walked as a collection, except by <c>ignoreOrder: true</c>, which matches its
     /// elements in any order, each by its rules. <paramref name="equal"/> is called with the expected value first and
     /// never with <c>null</c>. When several rules apply, the one for the most specific type wins; of equally specific

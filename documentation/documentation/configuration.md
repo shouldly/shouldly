@@ -44,7 +44,7 @@ Shouldly runs the lambda without a synchronisation context, but deadlocks are st
 
 ## UseEquality
 
-Registers what equality means for a type and its subtypes, for a type whose own `Equals` or items don't capture it. `ShouldBe`, `ShouldNotBe`, the collection, dictionary and membership assertions ask the rule wherever they compare two values of that type, at any depth, and never walk them as collections, except to match their elements when you pass `ignoreOrder: true`. `ShouldBeEquivalentTo` doesn't use rules: it compares member by member. Register rules once, before any test runs, for example from a module initializer:
+Registers what equality means for a type and its subtypes, for a type whose own `Equals` or items don't capture it. `ShouldBe`, `ShouldNotBe`, the collection, dictionary and membership assertions ask the rule wherever they compare two values of that type, at any depth, and never walk them as collections, except to match their elements when you pass `ignoreOrder: true`. `ShouldBeEquivalentTo` asks it too, and compares two values a rule covers by the rule [instead of member by member](equality/shouldBe.md#equality-rules-in-shouldbeequivalentto). Register rules once, before any test runs, for example from a module initializer:
 
 ```csharp
 // Compare Newtonsoft.Json values as JSON

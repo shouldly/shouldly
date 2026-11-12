@@ -94,6 +94,13 @@ sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(na
                  which would make the assertion vacuously pass; assert on specific members instead
              """,
 
+        // The detail of a value mismatch is what decided it, when that isn't plain from the two values.
+        _ when difference.Detail is { } decidedBy =>
+            $"""
+             {GenerateValueMismatchBody(difference.Expected, difference.Actual)}
+                 and {decidedBy}
+             """,
+
         _ => GenerateValueMismatchBody(difference.Expected, difference.Actual),
     };
 

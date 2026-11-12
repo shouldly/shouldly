@@ -18,6 +18,8 @@ public static partial class ObjectGraphTestExtensions
     /// dictionary or set that keeps no order of its own), and
     /// everything else member-wise over the expectation's public properties and fields, recursively.
     /// Each expected value is compared as the type it is, not as the type its member or collection declares.
+    /// Two values covered by an equality rule (<see cref="ShouldlyConfiguration.UseEquality{T}(Func{T, T, bool})"/>)
+    /// are compared by the rule, as one value.
     /// All differences are collected and reported with their paths.
     /// </summary>
     public static void ShouldBeEquivalentTo(

@@ -259,7 +259,8 @@ static class Inequality
 
     private static IEqualityComparer ObjectComparer => new EqualityComparerAdapter(Equality.ComparerFor<object>());
 
-    private static string ByRule(Type ruleType) =>
+    /// <summary>What a failure message says of two values that an equality rule judged unequal.</summary>
+    public static string ByRule(Type ruleType) =>
         $"the equality rule for {ShortName(ruleType)} says they are not equal";
 
     private static string Differ(object? actual, object? expected) =>
