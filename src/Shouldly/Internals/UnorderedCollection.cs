@@ -4,19 +4,26 @@ namespace Shouldly.Internals;
 
 /// <summary>
 /// Dictionaries and sets, the collections whose enumeration order is an implementation detail of the collection
-/// rather than part of its value. When both sides of a comparison are dictionaries, or both are sets,
-/// <see cref="Equality"/> matches their items one for one in any order, and a failure message reports what one has
-/// that the other doesn't, rather than where they first differ (issue #1430). When only one side is a dictionary or a
-/// set, its order is compared like any other sequence's.
+/// rather than part of its value. <see cref="Equality"/> matches the items of two collections one for one in any
+/// order when both are dictionaries or sets, or when one is and has no order of its own to compare (a
+/// <c>HashSet&lt;T&gt;</c> against an array). A failure message then reports what one has that the other doesn't,
+/// rather than where they first differ (issue #1430).
 /// </summary>
 /// <remarks>
+/// <para>
+/// A sorted or ordered collection (a <c>SortedSet&lt;T&gt;</c>, an <c>OrderedDictionary</c>) does have an order of
+/// its own, so against a list or an array it is compared in order, like any other sequence: the test may be about
+/// that order.
+/// </para>
+/// <para>
 /// A dictionary's entries are matched by key and their values compared, each by <see cref="Equality"/>, as
 /// <c>ShouldBeEquivalentTo</c> matches them. Neither dictionary's own key comparer, nor a set's own element comparer,
 /// takes part: Shouldly never consults a collection's comparer when it compares two collections.
+/// </para>
 /// </remarks>
 static class UnorderedCollection
 {
-    private static readonly ConcurrentDictionary<Type, Kind> KindsByType = new();
+    private static readonly ConcurrentDictionary<Type, Traits> TraitsByType = new();
 
     public enum Kind
     {
@@ -26,17 +33,66 @@ static class UnorderedCollection
     }
 
     /// <summary>
-    /// The kind of unordered collection both <paramref name="actual"/> and <paramref name="expected"/> are, or
-    /// <see cref="Kind.None"/> when they aren't both dictionaries or both sets. A captured sequence is judged by the
-    /// sequence it captured.
+    /// Whether <paramref name="actual"/> and <paramref name="expected"/> are compared without regard to order: both
+    /// are dictionaries or sets, or one of them is and keeps no order of its own. A captured sequence is judged by
+    /// the sequence it captured.
     /// </summary>
-    public static Kind BothAre(object? actual, object? expected)
+    public static bool IgnoresOrder(object? actual, object? expected) =>
+        KindOfPair(actual, expected) != Kind.None;
+
+    // Dictionary when either is one, as the entries of a dictionary and of a list of key/value pairs are told apart by key.
+    private static Kind KindOfPair(object? actual, object? expected)
     {
         if (actual is null || expected is null)
             return Kind.None;
 
-        var kind = KindOf(CapturedSequence.Original(expected));
-        return kind != Kind.None && KindOf(CapturedSequence.Original(actual)) == kind ? kind : Kind.None;
+        var actualTraits = TraitsOf(CapturedSequence.Original(actual));
+        var expectedTraits = TraitsOf(CapturedSequence.Original(expected));
+        var ignoresOrder = actualTraits.Kind != Kind.None && expectedTraits.Kind != Kind.None ||
+                           actualTraits.Kind != Kind.None && !actualTraits.KeepsAnOrder ||
+                           expectedTraits.Kind != Kind.None && !expectedTraits.KeepsAnOrder;
+        if (!ignoresOrder)
+            return Kind.None;
+
+        return actualTraits.Kind == Kind.Dictionary || expectedTraits.Kind == Kind.Dictionary ? Kind.Dictionary : Kind.Set;
+    }
+
+    /// <summary>
+    /// Whether a dictionary or set of <paramref name="type"/> keeps its items in an order that is part of what it
+    /// is, rather than an accident of how it stores them: one of .NET's sorted or ordered collections, or one that
+    /// can be indexed by position.
+    /// </summary>
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "Reads the interfaces of a type that has a live instance. If trimming removed one, the collection is taken to have no order of its own unless it is one of the sorted types named here.")]
+    public static bool KeepsAnOrder(Type type)
+    {
+        for (var current = type; current is not null; current = current.BaseType)
+        {
+            var name = current.IsGenericType ? current.GetGenericTypeDefinition().FullName : current.FullName;
+            if (name is
+                "System.Collections.Generic.SortedSet`1" or
+                "System.Collections.Generic.SortedDictionary`2" or
+                "System.Collections.Generic.SortedList`2" or
+                "System.Collections.Generic.OrderedDictionary`2" or
+                "System.Collections.SortedList" or
+                "System.Collections.Specialized.OrderedDictionary" or
+                "System.Collections.Immutable.ImmutableSortedSet`1" or
+                "System.Collections.Immutable.ImmutableSortedDictionary`2")
+                return true;
+        }
+
+        if (typeof(IList).IsAssignableFrom(type))
+            return true;
+
+        foreach (var @interface in type.GetInterfaces())
+        {
+            if (@interface.IsGenericType &&
+                @interface.GetGenericTypeDefinition() is var definition &&
+                (definition == typeof(IList<>) || definition == typeof(IReadOnlyList<>)))
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -73,7 +129,8 @@ static class UnorderedCollection
     /// <summary>
     /// What one of two dictionaries or sets has that the other doesn't, for a failure message: the entries of two
     /// dictionaries matched by key, or the items of two sets matched one for one. Null when
-    /// <paramref name="actual"/> and <paramref name="expected"/> aren't both dictionaries or both sets.
+    /// <paramref name="actual"/> and <paramref name="expected"/> are compared in order (see
+    /// <see cref="IgnoresOrder"/>).
     /// </summary>
     /// <param name="actual">The value under test.</param>
     /// <param name="expected">The value it was compared against.</param>
@@ -83,7 +140,7 @@ static class UnorderedCollection
     /// </param>
     public static Differences? Find(object? actual, object? expected, ComparisonRecord comparison)
     {
-        var kind = BothAre(actual, expected);
+        var kind = KindOfPair(actual, expected);
         if (kind == Kind.None ||
             CapturedSequence.Original(actual!) is not IEnumerable actualItems ||
             CapturedSequence.Original(expected!) is not IEnumerable expectedItems)
@@ -163,8 +220,11 @@ static class UnorderedCollection
         return null;
     }
 
-    private static Kind KindOf(object value) =>
-        value is string ? Kind.None : KindsByType.GetOrAdd(value.GetType(), static type => KindOfType(type));
+    private static Traits TraitsOf(object value) =>
+        value is string ? default : TraitsByType.GetOrAdd(value.GetType(), static type => TraitsOfType(type));
+
+    private static Traits TraitsOfType(Type type) =>
+        KindOfType(type) is var kind and not Kind.None ? new(kind, KeepsAnOrder(type)) : default;
 
     [UnconditionalSuppressMessage("Trimming", "IL2070",
         Justification = "Reads the interfaces of a type that has a live instance. If trimming removed one, the collection is compared in order, as any other sequence is.")]
@@ -189,6 +249,9 @@ static class UnorderedCollection
 
         return isSet ? Kind.Set : Kind.None;
     }
+
+    // What kind of unordered collection a type is, and whether it keeps an order of its own all the same.
+    private readonly record struct Traits(Kind Kind, bool KeepsAnOrder);
 
     public enum DifferenceKind
     {

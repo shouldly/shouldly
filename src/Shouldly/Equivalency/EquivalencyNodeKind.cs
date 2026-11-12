@@ -14,10 +14,16 @@ internal enum EquivalencyNodeKind
     /// <summary>Matched by key; values compared recursively.</summary>
     Dictionary,
 
-    /// <summary>Order-insensitive element matching.</summary>
+    /// <summary>
+    /// Order-insensitive element matching, except against a Sequence when the set keeps an order of its own
+    /// (see <see cref="EquivalencyTypeShape.KeepsAnOrder"/>).
+    /// </summary>
     Set,
 
-    /// <summary>Order-sensitive element-by-element comparison; container type ignored.</summary>
+    /// <summary>
+    /// Order-sensitive element-by-element comparison; container type ignored. Against a Set or Dictionary that
+    /// keeps no order of its own, order-insensitive.
+    /// </summary>
     Sequence,
 
     /// <summary>Member-wise recursive comparison over public properties and fields.</summary>

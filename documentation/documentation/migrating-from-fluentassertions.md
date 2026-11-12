@@ -378,7 +378,7 @@ actual.ShouldBeEquivalentTo(expected, new EquivalencyOptions
 
 - `MembersToIgnore` is the counterpart to FA's `.Excluding(...)`, matched by member name anywhere in
   the graph.
-- `IgnoreOrder` makes sequences compare order-insensitively; sets and dictionaries are always
+- `IgnoreOrder` makes sequences compare order-insensitively; sets and dictionaries are already
   compared unordered/by key.
 
 ### What still differs from FA

@@ -226,7 +226,7 @@ timeSpan
 
 ## Enumerables
 
-Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass. Two dictionaries, or two sets, are compared without regard to the order they enumerate in: a dictionary's entries are matched by key. See [Dictionaries and sets](../enumerable/shouldBe.md#dictionaries-and-sets).
+Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass. A dictionary or a set is compared without regard to the order it enumerates in, against another one or against a list: a dictionary's entries are matched by key. A sorted or ordered one is compared in order against a list. See [Dictionaries and sets](../enumerable/shouldBe.md#dictionaries-and-sets).
 
 <!-- snippet: ShouldBeExamples.Enumerables.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs'></a>

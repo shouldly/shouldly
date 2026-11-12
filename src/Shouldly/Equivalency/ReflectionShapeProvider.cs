@@ -75,7 +75,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
                 break;
         }
 
-        return new ReflectionTypeShape(type, kind, members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
+        var keepsAnOrder = kind is EquivalencyNodeKind.Dictionary or EquivalencyNodeKind.Set && Internals.UnorderedCollection.KeepsAnOrder(type);
+        return new ReflectionTypeShape(type, kind, keepsAnOrder, members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
     }
 
     [RequiresUnreferencedCode("Reflects over the interfaces of arbitrary types.")]
@@ -271,6 +272,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         public ReflectionTypeShape(
             Type type,
             EquivalencyNodeKind kind,
+            bool keepsAnOrder,
             IReadOnlyList<EquivalencyMemberShape> members,
             IReadOnlyList<EquivalencyMemberShape> allMembers,
             Type? elementType,
@@ -281,6 +283,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         {
             Type = type;
             Kind = kind;
+            KeepsAnOrder = keepsAnOrder;
             _members = members;
             _allMembers = allMembers;
             ElementType = elementType;
@@ -293,6 +296,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         public override Type Type { get; }
 
         public override EquivalencyNodeKind Kind { get; }
+
+        public override bool KeepsAnOrder { get; }
 
         public override IReadOnlyList<EquivalencyMemberShape> Members => _members;
 

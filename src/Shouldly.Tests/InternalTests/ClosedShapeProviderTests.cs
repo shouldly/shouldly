@@ -18,9 +18,13 @@ public class ClosedShapeProviderTests
             new Member<Circle, double>("Radius", circle => circle.Radius)),
         new ComplexShape<Drawing>(
             new Member<Drawing, Shape?>("Main", drawing => drawing.Main),
-            new Member<Drawing, IEnumerable<Shape>?>("Shapes", drawing => drawing.Shapes)),
+            new Member<Drawing, IEnumerable<Shape>?>("Shapes", drawing => drawing.Shapes),
+            new Member<Drawing, IEnumerable<string>?>("Tags", drawing => drawing.Tags)),
         new SequenceShape<IEnumerable<Shape>, Shape>(),
-        new SequenceShape<List<Shape>, Shape>());
+        new SequenceShape<List<Shape>, Shape>(),
+        new SequenceShape<string[], string>(),
+        new SetShape<HashSet<string>, string>(keepsAnOrder: false),
+        new SetShape<SortedSet<string>, string>(keepsAnOrder: true));
 
     public static TheoryData<string> Providers => ["closed", "reflection"];
 
@@ -60,6 +64,19 @@ public class ClosedShapeProviderTests
         Compare(provider, actual, new Drawing { Shapes = circles.Select(circle => new Circle { Label = circle.Label, Radius = circle.Radius }) });
         Should.Throw<ShouldAssertException>(() =>
             Compare(provider, actual, new Drawing { Shapes = circles.Select(circle => new Circle { Label = circle.Label, Radius = 9 }) }));
+    }
+
+    // Whether a set keeps an order of its own is for its shape to say.
+    [Theory]
+    [MemberData(nameof(Providers))]
+    public void ComparesASetWithAListInOrderOnlyWhenTheSetKeepsOne(string provider)
+    {
+        Compare(provider, new Drawing { Tags = new HashSet<string> { "b", "a" } }, new Drawing { Tags = new[] { "a", "b" } });
+        Compare(provider, new Drawing { Tags = new[] { "b", "a" } }, new Drawing { Tags = new HashSet<string> { "a", "b" } });
+        Compare(provider, new Drawing { Tags = new SortedSet<string> { "b", "a" } }, new Drawing { Tags = new[] { "a", "b" } });
+
+        Should.Throw<ShouldAssertException>(() =>
+            Compare(provider, new Drawing { Tags = new SortedSet<string> { "b", "a" } }, new Drawing { Tags = new[] { "b", "a" } }));
     }
 
     // The provider must not fall back on the declared type here: a Shape's members are fewer than a Square's, and
@@ -104,6 +121,7 @@ public class ClosedShapeProviderTests
     {
         public Shape? Main { get; set; }
         public IEnumerable<Shape>? Shapes { get; set; }
+        public IEnumerable<string>? Tags { get; set; }
     }
 
     /// <summary>A provider of the shapes it is given and no others, each written out as a generator would emit it.</summary>
@@ -131,6 +149,7 @@ public class ClosedShapeProviderTests
     {
         public override Type Type => typeof(T);
         public override EquivalencyNodeKind Kind => kind;
+        public override bool KeepsAnOrder => false;
         public override IReadOnlyList<EquivalencyMemberShape> Members => [];
         public override EquivalencyMemberShape? FindMember(string name) => null;
         public override Type? ElementType => null;
@@ -143,6 +162,12 @@ public class ClosedShapeProviderTests
 
     private sealed class SequenceShape<T, TElement>() : ShapeOf<T>(EquivalencyNodeKind.Sequence)
     {
+        public override Type? ElementType => typeof(TElement);
+    }
+
+    private sealed class SetShape<T, TElement>(bool keepsAnOrder) : ShapeOf<T>(EquivalencyNodeKind.Set)
+    {
+        public override bool KeepsAnOrder => keepsAnOrder;
         public override Type? ElementType => typeof(TElement);
     }
 

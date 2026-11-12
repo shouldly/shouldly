@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 namespace Shouldly.Tests.ShouldBe.EnumerableType;
 
 /// <summary>
-/// When both sides are dictionaries, or both are sets, <c>ShouldBe</c> compares them without regard to the order they
-/// enumerate in, which is an implementation detail of the collection. A dictionary's entries are matched by key and
-/// their values compared, as <c>ShouldBeEquivalentTo</c> does. See issue #1430.
+/// <c>ShouldBe</c> compares dictionaries and sets without regard to the order they enumerate in, which is an
+/// implementation detail of the collection: when both sides are dictionaries or sets, and when one is and keeps no
+/// order of its own to compare with a list's. A dictionary's entries are matched by key and their values compared,
+/// as <c>ShouldBeEquivalentTo</c> does. See issue #1430.
 /// </summary>
 public class DictionaryAndSetOrderScenario
 {
@@ -105,20 +106,87 @@ public class DictionaryAndSetOrderScenario
         new HashSet<int> { 2, 1 }.ShouldNotBe(new HashSet<int> { 1 });
     }
 
+    // A HashSet has no order of its own for a list's to be compared with, whichever side it is on.
     [Fact]
-    public void OnlyOneSideBeingADictionaryKeepsTheOrder() =>
-        // Issue #882: a sequence of pairs still compares with a dictionary, in order.
-        new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) }
-            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 });
+    public void ASetHasNoOrderToCompareWithAList()
+    {
+        new HashSet<int> { 3, 2, 1 }.ShouldBe([1, 2, 3]);
+        new HashSet<int> { 3, 2, 1 }.ShouldBe(new[] { 1, 2, 3 });
+        new List<int> { 2, 1 }.ShouldBe(new HashSet<int> { 1, 2 });
+        new HashSet<int> { 3, 2, 1 }.Where(_ => true).ShouldBe(new HashSet<int> { 1, 2, 3 });
+
+        new HashSet<int> { 1, 2 }.ShouldNotBe<IEnumerable<int>>(new[] { 1, 2, 3 });
+        new HashSet<int> { 1, 2 }.ShouldNotBe<IEnumerable<int>>(new[] { 1, 1, 2 });
+        new HashSet<int> { 1, 2 }.ShouldNotBe<IEnumerable<int>>(new[] { 1, 3 });
+    }
 
     [Fact]
-    public void OnlyOneSideBeingASetKeepsTheOrder() =>
-        new List<int> { 2, 1 }.ShouldNotBe<IEnumerable<int>>(new HashSet<int> { 1, 2 });
-
-    [Fact]
-    public void ADictionaryIsNotEqualToASetOfItsEntries() =>
+    public void ADictionaryHasNoOrderToCompareWithAListOfItsEntries()
+    {
+        // Issue #882
         new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
-            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new HashSet<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+            .ShouldBe([new("b", 2), new("a", 1)]);
+        new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) }
+            .ShouldBe(new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 });
+
+        new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 9) });
+    }
+
+    [Fact]
+    public void ADictionaryEqualsASetOfItsEntries() =>
+        new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+            .ShouldBe(new HashSet<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+
+    [Fact]
+    public void ASetInsideAListHasNoOrderToCompareWithAList() =>
+        new List<IEnumerable<int>> { new HashSet<int> { 2, 1 } }
+            .ShouldBe(new List<IEnumerable<int>> { new[] { 1, 2 } });
+
+    // A sorted or ordered collection does have an order of its own, which a test may be about, so against a list it
+    // is compared in order. Against another dictionary or set, it isn't.
+    [Fact]
+    public void ASortedSetIsComparedInOrderWithAList()
+    {
+        var descending = new SortedSet<int>(Comparer<int>.Create((x, y) => y.CompareTo(x))) { 1, 2, 3 };
+
+        descending.ShouldBe([3, 2, 1]);
+        descending.ShouldNotBe<IEnumerable<int>>(new[] { 1, 2, 3 });
+        new[] { 1, 2, 3 }.ShouldNotBe<IEnumerable<int>>(descending);
+        ImmutableSortedSet.Create(1, 2, 3).ShouldNotBe<IEnumerable<int>>(new[] { 3, 2, 1 });
+
+        descending.ShouldBe(new HashSet<int> { 1, 2, 3 });
+        descending.ShouldBe(new SortedSet<int> { 1, 2, 3 });
+    }
+
+    [Fact]
+    public void ASortedOrOrderedDictionaryIsComparedInOrderWithAList()
+    {
+        new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldBe([new("a", 1), new("b", 2)]);
+        new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+        new SortedList<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+#if NET9_0_OR_GREATER
+        new OrderedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("a", 1), new("b", 2) });
+#endif
+
+        new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldBe(new Dictionary<string, int> { ["b"] = 2, ["a"] = 1 });
+    }
+
+    [Fact]
+    public void SetAndListShouldFail() =>
+        Verify.ShouldFail(() =>
+            new HashSet<int> { 1, 2, 3 }.ShouldBe([1, 2, 4], "Some additional context"));
+
+    [Fact]
+    public void DictionaryAndListOfEntriesShouldFail() =>
+        Verify.ShouldFail(() =>
+            new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+                .ShouldBe([new("a", 1), new("b", 20), new("c", 3)], "Some additional context"));
 
     [Fact]
     public void ACustomComparerComparesTheElementsOfSetsInAnyOrder() =>

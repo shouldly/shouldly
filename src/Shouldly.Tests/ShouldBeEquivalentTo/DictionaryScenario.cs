@@ -91,4 +91,31 @@ public class DictionaryScenario
         Verify.ShouldFail(() =>
             subject.ShouldBeEquivalentTo(expected, "Some additional context"));
     }
+
+    // A dictionary and a list of its entries: the entries are matched in any order, each by its key and its value.
+    [Fact]
+    public void ShouldCompareADictionaryWithAListOfItsEntriesWithoutRegardToOrder()
+    {
+        var dictionary = new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 };
+        var entries = new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) };
+
+        dictionary.ShouldBeEquivalentTo(entries);
+        entries.ShouldBeEquivalentTo(dictionary);
+
+        Should.Throw<ShouldAssertException>(() =>
+            dictionary.ShouldBeEquivalentTo(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 9) }));
+        Should.Throw<ShouldAssertException>(() =>
+            new List<KeyValuePair<string, int>> { new("b", 2), new("a", 9) }.ShouldBeEquivalentTo(dictionary));
+    }
+
+    [Fact]
+    public void ShouldCompareASortedDictionaryWithAListOfItsEntriesInOrder()
+    {
+        var sorted = new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 };
+
+        sorted.ShouldBeEquivalentTo(new List<KeyValuePair<string, int>> { new("a", 1), new("b", 2) });
+        sorted.ShouldBeEquivalentTo(new Dictionary<string, int> { ["b"] = 2, ["a"] = 1 });
+        Should.Throw<ShouldAssertException>(() =>
+            sorted.ShouldBeEquivalentTo(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) }));
+    }
 }

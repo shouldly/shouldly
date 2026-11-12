@@ -114,17 +114,9 @@ internal sealed class EquivalencyComparison
                     break;
 
                 case EquivalencyNodeKind.Dictionary:
-                    CompareDictionaries(actual, expected, shape, declared.Actual, annotatedPath);
-                    CompareMembers(actual, expected, shape, declared.Actual, annotatedPath);
-                    break;
-
                 case EquivalencyNodeKind.Set:
-                    CompareUnordered(actual, expected, ElementTypes(actual, declared.Actual, shape), annotatedPath);
-                    CompareMembers(actual, expected, shape, declared.Actual, annotatedPath);
-                    break;
-
                 case EquivalencyNodeKind.Sequence:
-                    CompareSequences(actual, expected, ElementTypes(actual, declared.Actual, shape), annotatedPath);
+                    CompareCollections(actual, expected, shape, declared.Actual, annotatedPath);
                     CompareMembers(actual, expected, shape, declared.Actual, annotatedPath);
                     break;
 
@@ -175,20 +167,51 @@ internal sealed class EquivalencyComparison
         return comparedAny;
     }
 
+    /// <summary>
+    /// Compares the items of two collections: two dictionaries by key, and any other two in order, unless order
+    /// isn't to be compared (see <see cref="OrderIsIgnored"/>).
+    /// </summary>
+    private void CompareCollections(object actual, object expected, EquivalencyTypeShape shape, Type? actualDeclaredType, List<string> path)
+    {
+        // A provider with a closed set of shapes may have none for the actual collection. It is then taken for a
+        // plain sequence, which is the stricter reading: its order is compared.
+        var actualShape = actual is IEnumerable ? _shapes.GetShape(actual.GetType(), actualDeclaredType) : null;
+
+        if (shape.Kind == EquivalencyNodeKind.Dictionary && actualShape?.Kind == EquivalencyNodeKind.Dictionary)
+        {
+            CompareDictionaries(actual, expected, shape, actualShape, path);
+            return;
+        }
+
+        var elementTypes = new DeclaredTypes(actualShape?.ElementType, shape.ElementType);
+        if (expected is Array { Rank: > 1 } || actual is Array { Rank: > 1 })
+            CompareMultidimensionalArrays(actual, expected, elementTypes, path);
+        else if (_options.IgnoreOrder || OrderIsIgnored(shape, actualShape))
+            CompareUnordered(actual, expected, elementTypes, path);
+        else
+            CompareSequences(actual, expected, elementTypes, path);
+    }
+
+    /// <summary>
+    /// Whether two collections are compared without regard to order, as <c>ShouldBe</c> decides it (see
+    /// <see cref="UnorderedCollection"/>): both are dictionaries or sets, or one of them is and keeps no order of
+    /// its own. A <c>HashSet&lt;T&gt;</c> has no order to compare with a list's. A <c>SortedSet&lt;T&gt;</c> does.
+    /// </summary>
+    private static bool OrderIsIgnored(EquivalencyTypeShape expected, EquivalencyTypeShape? actual)
+    {
+        var expectedIsUnordered = IsDictionaryOrSet(expected);
+        var actualIsUnordered = actual is not null && IsDictionaryOrSet(actual);
+        if (expectedIsUnordered && actualIsUnordered)
+            return true;
+
+        return expectedIsUnordered ? !expected.KeepsAnOrder : actualIsUnordered && !actual!.KeepsAnOrder;
+
+        static bool IsDictionaryOrSet(EquivalencyTypeShape shape) =>
+            shape.Kind is EquivalencyNodeKind.Dictionary or EquivalencyNodeKind.Set;
+    }
+
     private void CompareSequences(object actual, object expected, DeclaredTypes elementType, List<string> path)
     {
-        if (expected is Array { Rank: > 1 } || actual is Array { Rank: > 1 })
-        {
-            CompareMultidimensionalArrays(actual, expected, elementType, path);
-            return;
-        }
-
-        if (_options.IgnoreOrder)
-        {
-            CompareUnordered(actual, expected, elementType, path);
-            return;
-        }
-
         if (actual is not IEnumerable actualEnumerable)
         {
             AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual);
@@ -278,15 +301,8 @@ internal sealed class EquivalencyComparison
         }
     }
 
-    private void CompareDictionaries(object actual, object expected, EquivalencyTypeShape shape, Type? actualDeclaredType, List<string> path)
+    private void CompareDictionaries(object actual, object expected, EquivalencyTypeShape shape, EquivalencyTypeShape actualShape, List<string> path)
     {
-        var actualShape = ShapeOf(actual, actualDeclaredType, path);
-        if (actualShape.Kind != EquivalencyNodeKind.Dictionary)
-        {
-            AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual);
-            return;
-        }
-
         var expectedEntries = shape.GetEntries(expected).ToList();
         var actualEntries = actualShape.GetEntries(actual).ToList();
 
@@ -508,13 +524,6 @@ internal sealed class EquivalencyComparison
             $"ShouldBeEquivalentTo can't compare a value of type {GetDisplayName(value.GetType())}" +
             (path.Count == 0 ? "" : $" (at {string.Join(" > ", path).Trim()})") +
             ": the registered equivalency shape provider has no shape for it. Register a shape for the type.");
-
-    /// <summary>
-    /// The types the two collections declare their elements as, for the provider (see <see cref="DeclaredTypes"/>).
-    /// A collection the provider has no shape for declares none.
-    /// </summary>
-    private DeclaredTypes ElementTypes(object actual, Type? actualDeclaredType, EquivalencyTypeShape expectedShape) =>
-        new(_shapes.GetShape(actual.GetType(), actualDeclaredType)?.ElementType, expectedShape.ElementType);
 
     private void AddDifference(EquivalencyDifferenceKind kind, List<string> path, object? expected, object? actual, string? detail = null) =>
         _differences.Add(new(kind, path, expected, actual, detail));

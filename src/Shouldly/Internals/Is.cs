@@ -76,7 +76,7 @@ static class Is
 
     public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
     {
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
 
         using var expectedEnum = expected.GetEnumerator();
@@ -99,7 +99,7 @@ static class Is
 
     public static bool Equal(IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
     {
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
 
         using var expectedEnum = expected.GetEnumerator();
@@ -122,7 +122,7 @@ static class Is
 
     public static bool Equal(IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
     {
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
 
         using var expectedEnum = expected.GetEnumerator();
@@ -236,8 +236,8 @@ static class Is
 
     public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
     {
-        // The order two sets enumerate in isn't part of their value (#1430).
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        // The order a set enumerates in isn't part of its value (#1430).
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return Internals.UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => StringEqualWithCaseSensitivity(a, e, caseSensitivity));
 
         using var expectedEnum = expected.GetEnumerator();

@@ -13,6 +13,13 @@ internal abstract class EquivalencyTypeShape
     public abstract EquivalencyNodeKind Kind { get; }
 
     /// <summary>
+    /// For a Dictionary or Set, whether it keeps its items in an order that is part of what it is (a
+    /// <c>SortedSet&lt;T&gt;</c>, an <c>OrderedDictionary</c>), rather than an accident of how it stores them (a
+    /// <c>HashSet&lt;T&gt;</c>). Against a Sequence, only the first kind has an order to compare.
+    /// </summary>
+    public abstract bool KeepsAnOrder { get; }
+
+    /// <summary>
     /// Public instance fields and readable, non-indexer properties: all of them for a Complex node, and for a
     /// Dictionary, Set or Sequence node only the state it holds beyond its items: the members a type adds to the
     /// framework collection class it derives from, and a grouping's key (#1431).

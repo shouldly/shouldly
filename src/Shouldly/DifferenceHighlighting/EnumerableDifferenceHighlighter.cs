@@ -75,11 +75,11 @@ static class EnumerableDifferenceHighlighter
     // shows, so a nested sequence there may never end. When one is longer than a message shows,
     // compare it only as far as it's shown, as the top level is. A caller-supplied comparer is
     // left to decide for itself. A default ImmutableArray<T> can't be read, so the comparison treats it as null (#1406).
-    // Two dictionaries or two sets aren't compared in order, so a part of each can't stand for the whole.
+    // Dictionaries and sets aren't compared in order, so a part of each can't stand for the whole.
     private static bool ItemsEqual(object? actual, object? expected, ComparisonRecord comparison)
     {
         if (!comparison.ComparesElementsItself
-            && UnorderedCollection.BothAre(actual, expected) == UnorderedCollection.Kind.None
+            && !UnorderedCollection.IgnoresOrder(actual, expected)
             && actual is IEnumerable actualItems and not string
             && expected is IEnumerable expectedItems and not string
             && !NullEquivalence.IsNull(actual)
