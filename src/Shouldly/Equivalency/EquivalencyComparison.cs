@@ -197,6 +197,14 @@ internal sealed class EquivalencyComparison
         // plain sequence, which is the stricter reading: its order is compared.
         var actualShape = actual is IEnumerable ? _shapes.GetShape(actual.GetType(), actualDeclaredType) : null;
 
+        // A string can be enumerated, and so can other values that are compared whole (a JsonArray), but none of
+        // them is a collection: an empty string is not an empty dictionary.
+        if (actual is string || actualShape?.Kind == EquivalencyNodeKind.Leaf)
+        {
+            AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual);
+            return;
+        }
+
         if (shape.Kind == EquivalencyNodeKind.Dictionary && actualShape?.Kind == EquivalencyNodeKind.Dictionary)
         {
             CompareDictionaries(actual, expected, shape, actualShape, path);

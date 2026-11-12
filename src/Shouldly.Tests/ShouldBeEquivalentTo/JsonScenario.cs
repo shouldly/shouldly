@@ -69,6 +69,14 @@ public class JsonScenario
         Should.Throw<ShouldAssertException>(() => Nested(nested).ShouldBeEquivalentTo(Nested($"[{nested}]")));
     }
 
+    // A JsonArray is JSON, compared whole, and not a list of nodes.
+    [Fact]
+    public void ShouldFailWhenAJsonArrayIsComparedWithAList()
+    {
+        Should.Throw<ShouldAssertException>(() => new JsonArray().ShouldBeEquivalentTo(new List<JsonNode>()));
+        Should.Throw<ShouldAssertException>(() => new List<JsonNode>().ShouldBeEquivalentTo(new JsonArray()));
+    }
+
     // A JsonDocument is compared by its one member, the root element.
     [Fact]
     public void ShouldCompareDocumentsByTheirRootElement()
