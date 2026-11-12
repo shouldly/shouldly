@@ -20,6 +20,8 @@
     <Compile Remove="InternalTests\EqualityTests.cs" />
     <Compile Remove="InternalTests\InequalityTests.cs" />
     <Compile Remove="ShouldBe\ScopedEqualityRuleScenarios.cs" />
+    <Compile Remove="ShouldBe\JsonScenarios.cs" />
+    <Compile Remove="ShouldBeEquivalentTo\JsonScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />

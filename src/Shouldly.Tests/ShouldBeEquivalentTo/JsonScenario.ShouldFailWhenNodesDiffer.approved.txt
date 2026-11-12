@@ -1,0 +1,10 @@
+Comparing object equivalence, at path:
+subject [System.Text.Json.Nodes.JsonObject]
+
+    Expected value to be
+{"name":"Bob","roles":["guest"]}
+    but was
+{"name":"Alice","roles":["admin"]}
+
+Additional Info:
+    Some additional context

@@ -134,7 +134,10 @@ public class ValuesThatReadTheSameScenarios
 
     private sealed record Order(int Id, List<string> Lines);
 
-    private sealed class Thing;
+    private sealed class Thing
+    {
+        public int Size { get; set; }
+    }
 
     private sealed class Named(string name)
     {

@@ -71,6 +71,18 @@ public class ScopedEqualityRuleScenarios
         Should.Throw<ShouldAssertException>(() => new Memory<int>([1]).ShouldBe(new Memory<int>([1, 2])));
     }
 
+    // System.Text.Json's values are compared as JSON without a rule. One registered for them decides instead.
+    [Fact]
+    public void ARuleForJsonDecidesBeforeShouldlyComparesItAsJson()
+    {
+        using var _ = EqualityRules.RestoreAfterwards();
+        ShouldlyConfiguration.UseEquality<System.Text.Json.Nodes.JsonNode>((expected, actual) =>
+            expected.GetValueKind() == actual.GetValueKind());
+
+        System.Text.Json.Nodes.JsonNode.Parse("""{"a":1}""")!.ShouldBe(System.Text.Json.Nodes.JsonNode.Parse("""{"b":2}""")!);
+        System.Text.Json.Nodes.JsonNode.Parse("""{"a":1}""")!.ShouldNotBe(System.Text.Json.Nodes.JsonNode.Parse("[1]")!);
+    }
+
     [Fact]
     public void KeyValuePairNeverHandsARuleANullEquivalentValue()
     {

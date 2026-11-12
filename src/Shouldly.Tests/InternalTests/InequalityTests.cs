@@ -44,7 +44,7 @@ public class InequalityTests
             $"but they are different instances, and Named compares by reference; {UseEquivalentTo}"),
         ["reference equality, told apart only by a hash code"] = (
             () => Explain(new Plain(), new Plain()),
-            $"but they are different instances, and Plain compares by reference; {UseEquivalentTo}"),
+            "but they are different instances, and Plain compares by reference"),
         ["reference equality, generic type"] = (
             () => Explain(new Box<int>(), new Box<int>()),
             $"but they are different instances, and Box<Int32> compares by reference; {UseEquivalentTo}"),
@@ -205,15 +205,20 @@ public class InequalityTests
         Monday = 1
     }
 
+    // With no public members, ShouldBeEquivalentTo has nothing to compare it by, so the explanation doesn't suggest it.
     private sealed class Plain;
 
     private sealed class Named(string name)
     {
+        public string Name => name;
+
         public override string ToString() => name;
     }
 
     private sealed class Box<T>
     {
+        public T? Value { get; set; }
+
         public override string ToString() => "box";
     }
 

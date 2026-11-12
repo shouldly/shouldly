@@ -8,6 +8,7 @@ internal enum EquivalencyNodeKind
     /// <summary>
     /// Compared with <see cref="object.Equals(object)"/> on the expected value, plus lossless cross-numeric equality;
     /// <see cref="float"/>/<see cref="double"/> values honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>.
+    /// Two <c>System.Text.Json</c> values are compared as JSON.
     /// </summary>
     Leaf,
 

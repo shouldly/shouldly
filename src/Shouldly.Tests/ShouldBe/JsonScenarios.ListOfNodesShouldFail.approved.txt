@@ -1,0 +1,10 @@
+new List<JsonNode> { Node("""{"a":1}"""), Node("""{"b":2}""") }
+    should be
+[{"a":1}, {"b":3}]
+    but was
+[{"a":1}, {"b":2}]
+    difference
+[{"a":1}, *{"b":2}*]
+
+Additional Info:
+    Some additional context

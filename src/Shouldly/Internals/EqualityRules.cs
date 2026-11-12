@@ -69,27 +69,28 @@ static class EqualityRules
     /// When a rule applies to both values, sets <paramref name="result"/> to its verdict and returns <c>true</c>.
     /// A rule applies when both values are instances of its type; when several do, the most specific wins, and of
     /// equally specific (or unrelated) ones, the one registered last. A value wrapped by
-    /// captured sequence is judged as the sequence it captured.
+    /// captured sequence is judged as the sequence it captured. When no registered rule applies, two JSON values
+    /// are judged as JSON (see <c>JsonValues</c>), as if by a rule.
     /// </summary>
     public static bool TryEquals(object expected, object actual, out bool result)
     {
-        var state = s_state;
-        if (state.Rules.Length == 0)
-        {
-            result = false;
-            return false;
-        }
-
         expected = CapturedSequence.Original(expected);
         actual = CapturedSequence.Original(actual);
-        if (state.RuleFor(expected.GetType(), actual.GetType()) is not { } rule)
+
+        var state = s_state;
+        if (state.Rules.Length != 0 && state.RuleFor(expected.GetType(), actual.GetType()) is { } rule)
         {
-            result = false;
-            return false;
+            result = rule.Equal(expected, actual);
+            return true;
         }
 
-        result = rule.Equal(expected, actual);
-        return true;
+#if NET8_0_OR_GREATER
+        // What Shouldly knows without being told: System.Text.Json's values are compared as JSON.
+        return JsonValues.TryEquals(expected, actual, out result);
+#else
+        result = false;
+        return false;
+#endif
     }
 
     /// <summary>

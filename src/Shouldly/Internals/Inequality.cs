@@ -159,7 +159,14 @@ static class Inequality
         }
 
         if (ComparesByReference(expectedType, equalsDeclaredBy))
-            return new($"they are different instances, and {ShortName(expectedType)} compares by reference; use ShouldBeEquivalentTo to compare members");
+        {
+            // ShouldBeEquivalentTo is no way out for a type it has nothing to compare by: one with no public members,
+            // which it refuses, or one it compares as a single value, with the Equals that has just said no.
+            var advice = EquivalencyShapes.TryGetShape(expectedType) is { Kind: EquivalencyNodeKind.Leaf } or { Kind: EquivalencyNodeKind.Complex, Members.Count: 0 }
+                ? ""
+                : "; use ShouldBeEquivalentTo to compare members";
+            return new($"they are different instances, and {ShortName(expectedType)} compares by reference{advice}");
+        }
 
         if (ComparesMemberByMember(expectedType, equalsDeclaredBy) && InMembers(actual, expected, depth) is { } memberFinding)
             return memberFinding;

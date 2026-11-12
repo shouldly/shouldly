@@ -54,6 +54,8 @@ ShouldlyConfiguration.UseEquality<JToken>(JToken.DeepEquals);
 ShouldlyConfiguration.UseEquality<IdBag>((expected, actual) => expected.Equals(actual));
 ```
 
+`System.Text.Json`'s `JsonNode` and `JsonElement` need no rule on .NET 8 and later: every assertion, `ShouldBeEquivalentTo` included, [compares them as JSON](equality/shouldBe.md#systemtextjson).
+
 See [Types with their own equality](equality/shouldBe.md#types-with-their-own-equality) for details.
 
 **Default value:** no rules

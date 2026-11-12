@@ -1,0 +1,11 @@
+Node("""{"name":"Alice","roles":["admin"]}""")
+    should be
+{"name":"Bob","roles":["guest"]}
+    but was
+{"name":"Alice","roles":["admin"]}
+    difference
+["name"] should be "Bob" but was "Alice"
+["roles"] should be ["guest"] but was ["admin"]
+
+Additional Info:
+    Some additional context

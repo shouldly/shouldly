@@ -482,6 +482,11 @@ internal sealed class EquivalencyComparison
                 return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
         }
 
+#if NET8_0_OR_GREATER
+        if (JsonValues.TryEquals(expected, actual, out var sameJson))
+            return sameJson;
+#endif
+
         // Equals is called on the expected value, as in ShouldBe (see Is.Equal), so a broken Equals on the value
         // under test can't make the comparison pass.
         return expected.Equals(actual);

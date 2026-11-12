@@ -131,7 +131,7 @@ The line names whatever decided the comparison:
 | The message closes with | When |
 | --- | --- |
 | `but they are different types (expected System.Int32, actual System.Numerics.BigInteger)` | The two values have different runtime types. |
-| `but they are different instances, and Cat compares by reference; use ShouldBeEquivalentTo to compare members` | The type defines no equality of its own, so a value only equals itself. |
+| `but they are different instances, and Cat compares by reference; use ShouldBeEquivalentTo to compare members` | The type defines no equality of its own, so a value only equals itself. The advice is left out for a type that has no public members for `ShouldBeEquivalentTo` to compare. |
 | `but Money.Equals returned false` | The type's own `Equals` said so. |
 | `but at Lines, …` | A record, tuple, anonymous type or struct without an `Equals` override differs in that member, for the reason that follows. |
 | `but the equality rule for IdBag says they are not equal` | A [registered equality rule](#types-with-their-own-equality) decided. |
@@ -363,6 +363,30 @@ When several rules apply, the one for the most specific type wins. The rule is c
 internal static void Initialize() =>
     ShouldlyConfiguration.UseEquality<JToken>(JToken.DeepEquals);
 ```
+
+`ShouldBeEquivalentTo` doesn't use rules, so it can't compare a `JToken`: compare tokens with `ShouldBe`.
+
+#### System.Text.Json
+
+`JsonNode` (and so `JsonObject`, `JsonArray` and `JsonValue`) and `JsonElement` need no rule. On .NET 8 and later, `ShouldBe`, `ShouldBeEquivalentTo` and the other assertions compare two of them as JSON, wherever they sit: on their own, as a member, in a collection. Property order and whitespace don't count, and a failure message shows the JSON:
+
+```csharp
+JsonNode.Parse("""{"name":"Alice","roles":["admin"]}""")
+    .ShouldBe(JsonNode.Parse("""{ "roles": ["admin"], "name": "Alice" }"""));  // passes
+```
+
+```
+actual
+    should be
+{"name":"Bob","roles":["guest"]}
+    but was
+{"name":"Alice","roles":["admin"]}
+    difference
+["name"] should be "Bob" but was "Alice"
+["roles"] should be ["guest"] but was ["admin"]
+```
+
+A rule registered for `JsonNode` or `JsonElement` still decides instead. On .NET Framework, where `System.Text.Json` is a package Shouldly doesn't reference, register `JsonNode.DeepEquals` and `JsonElement.DeepEquals` as above for `ShouldBe`, and compare JSON values with `ShouldBe` rather than `ShouldBeEquivalentTo`.
 
 ## Enumerables of Numerics
 

@@ -117,6 +117,12 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             || type == typeof(Version))
             return true;
 
+#if NET8_0_OR_GREATER
+        // JSON is compared as JSON, whole. Its members say little of it: a JsonElement's only its kind.
+        if (Internals.JsonValues.IsJsonType(type))
+            return true;
+#endif
+
         // Reflection objects and delegates have well-defined identity semantics via Equals and
         // reflection-heavy object graphs; walking their members is never what the user wants.
         if (typeof(MemberInfo).IsAssignableFrom(type) || typeof(Delegate).IsAssignableFrom(type))
