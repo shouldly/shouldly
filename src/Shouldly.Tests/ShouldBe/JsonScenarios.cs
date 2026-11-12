@@ -54,6 +54,25 @@ public class JsonScenarios
         default(JsonElement).ShouldNotBe(Element("null"));
     }
 
+    // An element is valid JSON to whatever read it, which may have allowed more than a parser does by default:
+    // deeper nesting than 64, comments, trailing commas. Comparing it mustn't read its text again more strictly.
+    [Fact]
+    public void ElementsReadWithOptionsAParserDoesNotDefaultToAreCompared()
+    {
+        var nested = new string('[', 65) + new string(']', 65);
+        var options = new JsonDocumentOptions { MaxDepth = 200, CommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true };
+        JsonElement Read(string json) => JsonDocument.Parse(json, options).RootElement.Clone();
+
+        Read(nested).ShouldBe(Read(nested));
+        Read(nested).ShouldNotBe(Read($"[{nested}]"));
+        Read("""{/* a comment */"a":[1,2,],}""").ShouldBe(Read("""{"a":[1,2]}"""));
+        Read("""{/* a comment */"a":[1,2,],}""").ShouldNotBe(Read("""{"a":[1,3]}"""));
+
+        ((object)Read(nested)).ShouldBe(JsonNode.Parse(nested, documentOptions: options));
+        ((object)JsonNode.Parse("""{"a":[1,2]}""")!).ShouldBe(Read("""{/* a comment */"a":[1,2,],}"""));
+        Should.Throw<ShouldAssertException>(() => Read(nested).ShouldBe(Read($"[{nested}]")));
+    }
+
     [Fact]
     public void ANodeAndAnElementAreComparedAsJson()
     {

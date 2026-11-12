@@ -36,8 +36,7 @@ static class JsonValues
 
         // A default JsonElement holds no JSON, so it equals only another.
         var expectedHasValue = HasValue(expected);
-        result = expectedHasValue == HasValue(actual) &&
-                 (!expectedHasValue || JsonNode.DeepEquals(ToNode(expected), ToNode(actual)));
+        result = expectedHasValue == HasValue(actual) && (!expectedHasValue || SameJson(expected, actual));
         return true;
     }
 
@@ -50,11 +49,32 @@ static class JsonValues
         _ => null
     };
 
+    private static bool SameJson(object expected, object actual)
+    {
+#if NET9_0_OR_GREATER
+        // Two elements are compared as they are. Unlike a node, an element may repeat a property name.
+        if (expected is JsonElement expectedElement && actual is JsonElement actualElement)
+            return JsonElement.DeepEquals(expectedElement, actualElement);
+#endif
+
+        return JsonNode.DeepEquals(ToNode(expected), ToNode(actual));
+    }
+
     private static bool HasValue(object json) =>
         json is not JsonElement { ValueKind: JsonValueKind.Undefined };
 
-    // JSON's null is a null node.
+    // JSON's null is a null node. An element is wrapped rather than parsed again from its text: it was valid to
+    // whatever read it, which may have allowed more than a parser does by default (nesting deeper than 64,
+    // comments, trailing commas).
     private static JsonNode? ToNode(object json) =>
-        json is JsonElement element ? JsonNode.Parse(element.GetRawText()) : (JsonNode)json;
+        json is not JsonElement element
+            ? (JsonNode)json
+            : element.ValueKind switch
+            {
+                JsonValueKind.Null => null,
+                JsonValueKind.Object => JsonObject.Create(element),
+                JsonValueKind.Array => JsonArray.Create(element),
+                _ => JsonValue.Create(element)
+            };
 }
 #endif

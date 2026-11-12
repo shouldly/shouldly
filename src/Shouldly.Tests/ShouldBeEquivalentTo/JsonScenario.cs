@@ -57,6 +57,18 @@ public class JsonScenario
         subject.ShouldBeEquivalentTo(new { Body = Element("""{ "id": 1 }""") });
     }
 
+    // An element is valid JSON to whatever read it, which may have allowed more than a parser does by default.
+    [Fact]
+    public void ShouldCompareElementsReadWithOptionsAParserDoesNotDefaultTo()
+    {
+        var nested = new string('[', 65) + new string(']', 65);
+        JsonElement Nested(string json) => JsonDocument.Parse(json, new JsonDocumentOptions { MaxDepth = 200 }).RootElement.Clone();
+
+        Nested(nested).ShouldBeEquivalentTo(Nested(nested));
+        new { Body = Nested(nested) }.ShouldBeEquivalentTo(new { Body = Nested(nested) });
+        Should.Throw<ShouldAssertException>(() => Nested(nested).ShouldBeEquivalentTo(Nested($"[{nested}]")));
+    }
+
     // A JsonDocument is compared by its one member, the root element.
     [Fact]
     public void ShouldCompareDocumentsByTheirRootElement()
