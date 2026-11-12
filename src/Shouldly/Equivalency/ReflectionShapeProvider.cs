@@ -90,7 +90,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             || FindGenericInterface(type, typeof(IReadOnlyDictionary<,>)) != null)
             return EquivalencyNodeKind.Dictionary;
 
-        if (FindGenericInterface(type, typeof(ISet<>)) != null
+        if (Internals.UnorderedCollection.IsKnownSet(type)
+            || FindGenericInterface(type, typeof(ISet<>)) != null
             || FindGenericInterfaceByName(type, "System.Collections.Generic.IReadOnlySet`1") != null)
             return EquivalencyNodeKind.Set;
 

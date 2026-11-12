@@ -1,4 +1,8 @@
 using System.Collections.Concurrent;
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+using System.Collections.Immutable;
+#endif
 
 namespace Shouldly.Internals;
 
@@ -24,6 +28,36 @@ namespace Shouldly.Internals;
 static class UnorderedCollection
 {
     private static readonly ConcurrentDictionary<Type, Traits> TraitsByType = new();
+
+    // .NET's own sets, and its sorted and ordered collections, named as types where Shouldly can refer to them. A
+    // type's interfaces and its name are read by reflection, which finds less in a trimmed or NativeAOT app: an
+    // interface nothing else asked of the type may be gone. A reference to the type itself always resolves.
+    private static readonly Type[] KnownSets =
+    [
+        typeof(HashSet<>),
+        typeof(SortedSet<>),
+#if NET8_0_OR_GREATER
+        typeof(ImmutableHashSet<>),
+        typeof(ImmutableSortedSet<>),
+        typeof(FrozenSet<>),
+#endif
+    ];
+
+    private static readonly Type[] KnownToKeepAnOrder =
+    [
+        typeof(SortedSet<>),
+        typeof(SortedDictionary<,>),
+        typeof(SortedList<,>),
+        typeof(SortedList),
+        typeof(System.Collections.Specialized.OrderedDictionary),
+#if NET8_0_OR_GREATER
+        typeof(ImmutableSortedSet<>),
+        typeof(ImmutableSortedDictionary<,>),
+#endif
+#if NET9_0_OR_GREATER
+        typeof(OrderedDictionary<,>),
+#endif
+    ];
 
     public enum Kind
     {
@@ -66,16 +100,15 @@ static class UnorderedCollection
         Justification = "Reads the interfaces of a type that has a live instance. If trimming removed one, the collection is taken to have no order of its own unless it is one of the sorted types named here.")]
     public static bool KeepsAnOrder(Type type)
     {
+        if (IsOrDerivesFrom(type, KnownToKeepAnOrder))
+            return true;
+
+        // The same collections where this build of Shouldly can't refer to them, found by name.
         for (var current = type; current is not null; current = current.BaseType)
         {
             var name = current.IsGenericType ? current.GetGenericTypeDefinition().FullName : current.FullName;
             if (name is
-                "System.Collections.Generic.SortedSet`1" or
-                "System.Collections.Generic.SortedDictionary`2" or
-                "System.Collections.Generic.SortedList`2" or
                 "System.Collections.Generic.OrderedDictionary`2" or
-                "System.Collections.SortedList" or
-                "System.Collections.Specialized.OrderedDictionary" or
                 "System.Collections.Immutable.ImmutableSortedSet`1" or
                 "System.Collections.Immutable.ImmutableSortedDictionary`2")
                 return true;
@@ -233,7 +266,7 @@ static class UnorderedCollection
         if (typeof(IDictionary).IsAssignableFrom(type))
             return Kind.Dictionary;
 
-        var isSet = false;
+        var isSet = IsOrDerivesFrom(type, KnownSets);
         foreach (var @interface in type.GetInterfaces())
         {
             if (!@interface.IsGenericType)
@@ -249,6 +282,20 @@ static class UnorderedCollection
 
         return isSet ? Kind.Set : Kind.None;
     }
+
+    private static bool IsOrDerivesFrom(Type type, Type[] definitions)
+    {
+        for (var current = type; current is not null; current = current.BaseType)
+        {
+            if (Array.IndexOf(definitions, current.IsGenericType ? current.GetGenericTypeDefinition() : current) >= 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Whether <paramref name="type"/> is one of .NET's own set types, or derives from one.</summary>
+    public static bool IsKnownSet(Type type) => IsOrDerivesFrom(type, KnownSets);
 
     // What kind of unordered collection a type is, and whether it keeps an order of its own all the same.
     private readonly record struct Traits(Kind Kind, bool KeepsAnOrder);
