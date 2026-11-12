@@ -133,8 +133,21 @@ static class UnorderedCollection
     /// order by <paramref name="equal"/>, which is called as <c>equal(actual, expected)</c>.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// Each item is tried first against the item at its own position, so two collections that happen to enumerate in
     /// the same order are matched in a single pass.
+    /// </para>
+    /// <para>
+    /// Equality needn't be transitive: under a floating-point tolerance, or a comparer or an equality rule of the
+    /// caller's, an item can equal two others that don't equal each other. Taking the first equal item could then
+    /// leave a later one with no partner, and the answer would depend on the order the items happen to come in. So
+    /// an item with no partner left looks for an earlier pairing that can be changed to free one for it, and a
+    /// complete pairing is found whenever there is one.
+    /// </para>
+    /// <para>
+    /// <paramref name="actual"/> is read no further than its first item that can't be paired, so one that never ends
+    /// is still told apart.
+    /// </para>
     /// </remarks>
     public static bool MatchOneForOne<T>(IEnumerable<T> actual, IEnumerable<T> expected, Func<T, T, bool> equal)
     {
@@ -143,27 +156,133 @@ static class UnorderedCollection
             actualCollection.Count != expectedCollection.Count)
             return false;
 
-        var expectedItems = expected.ToList();
-        var matched = new bool[expectedItems.Count];
-        var unmatched = expectedItems.Count;
-        var position = 0;
+        var pairing = new Pairing<T>(expected.ToList(), equal);
         foreach (var actualItem in actual)
         {
-            if (FindUnmatched(expectedItems, matched, position++, expectedItem => equal(actualItem, expectedItem)) is not { } index)
+            if (!pairing.TryAdd(actualItem))
                 return false;
-
-            matched[index] = true;
-            unmatched--;
         }
 
-        return unmatched == 0;
+        return pairing.IsComplete;
+    }
+
+    /// <summary>
+    /// A one-for-one pairing of actual items with expected ones, built up an actual item at a time: a maximum
+    /// matching, grown along augmenting paths.
+    /// </summary>
+    private sealed class Pairing<T>(List<T> expectedItems, Func<T, T, bool> equal)
+    {
+        private const int None = -1;
+
+        private readonly List<T> _actualItems = [];
+
+        // The index of the expected item each actual item is paired with, and the reverse.
+        private readonly List<int> _expectedOfActual = [];
+        private readonly int[] _actualOfExpected = Enumerable.Repeat(None, expectedItems.Count).ToArray();
+
+        // What equal said of an actual and an expected item, kept once pairings are being revisited, as the same
+        // two items are then asked about again.
+        private Dictionary<(int Actual, int Expected), bool>? _verdicts;
+
+        public bool IsComplete => _actualItems.Count == expectedItems.Count;
+
+        /// <summary>
+        /// Pairs <paramref name="actualItem"/> with an expected item, changing earlier pairings if it takes that.
+        /// False when there is no pairing of every actual item so far.
+        /// </summary>
+        public bool TryAdd(T actualItem)
+        {
+            var added = _actualItems.Count;
+            if (added == expectedItems.Count)
+                return false;
+
+            _actualItems.Add(actualItem);
+            _expectedOfActual.Add(None);
+
+            // The common case: the item at the same position is its partner.
+            if (_actualOfExpected[added] == None && equal(actualItem, expectedItems[added]))
+            {
+                Pair(added, added);
+                return true;
+            }
+
+            return TryPairAlongAPath(added);
+        }
+
+        // Breadth-first from the new item: over the expected items it equals, then over the items those are paired
+        // with and the expected items they equal instead, until one is free. Each pairing on the way there is then
+        // moved along by one.
+        private bool TryPairAlongAPath(int added)
+        {
+            var reachedFrom = new int[expectedItems.Count];
+            var reached = new bool[expectedItems.Count];
+            var toVisit = new Queue<int>();
+            toVisit.Enqueue(added);
+
+            while (toVisit.Count > 0)
+            {
+                var actualIndex = toVisit.Dequeue();
+                for (var expectedIndex = 0; expectedIndex < expectedItems.Count; expectedIndex++)
+                {
+                    if (reached[expectedIndex] || !AreEqual(actualIndex, expectedIndex, remember: actualIndex != added))
+                        continue;
+
+                    reached[expectedIndex] = true;
+                    reachedFrom[expectedIndex] = actualIndex;
+
+                    if (_actualOfExpected[expectedIndex] == None)
+                    {
+                        MoveAlong(expectedIndex, reachedFrom);
+                        return true;
+                    }
+
+                    toVisit.Enqueue(_actualOfExpected[expectedIndex]);
+                }
+            }
+
+            return false;
+        }
+
+        private void MoveAlong(int freeExpectedIndex, int[] reachedFrom)
+        {
+            var expectedIndex = freeExpectedIndex;
+            while (expectedIndex != None)
+            {
+                var actualIndex = reachedFrom[expectedIndex];
+                var gaveUp = _expectedOfActual[actualIndex];
+                Pair(actualIndex, expectedIndex);
+                expectedIndex = gaveUp;
+            }
+        }
+
+        private void Pair(int actualIndex, int expectedIndex)
+        {
+            _expectedOfActual[actualIndex] = expectedIndex;
+            _actualOfExpected[expectedIndex] = actualIndex;
+        }
+
+        private bool AreEqual(int actualIndex, int expectedIndex, bool remember)
+        {
+            if (!remember)
+                return equal(_actualItems[actualIndex], expectedItems[expectedIndex]);
+
+            _verdicts ??= [];
+            if (!_verdicts.TryGetValue((actualIndex, expectedIndex), out var verdict))
+            {
+                verdict = equal(_actualItems[actualIndex], expectedItems[expectedIndex]);
+                _verdicts[(actualIndex, expectedIndex)] = verdict;
+            }
+
+            return verdict;
+        }
     }
 
     /// <summary>
     /// What one of two dictionaries or sets has that the other doesn't, for a failure message: the entries of two
     /// dictionaries matched by key, or the items of two sets matched one for one. Null when
     /// <paramref name="actual"/> and <paramref name="expected"/> are compared in order (see
-    /// <see cref="IgnoresOrder"/>).
+    /// <see cref="IgnoresOrder"/>), and no differences when one of them is a sequence too long for all of it to
+    /// have been kept for the message.
     /// </summary>
     /// <param name="actual">The value under test.</param>
     /// <param name="expected">The value it was compared against.</param>
@@ -174,13 +293,11 @@ static class UnorderedCollection
     public static Differences? Find(object? actual, object? expected, ComparisonRecord comparison)
     {
         var kind = KindOfPair(actual, expected);
-        if (kind == Kind.None ||
-            CapturedSequence.Original(actual!) is not IEnumerable actualItems ||
-            CapturedSequence.Original(expected!) is not IEnumerable expectedItems)
+        if (kind == Kind.None || actual is not IEnumerable || expected is not IEnumerable)
             return null;
 
-        var actualList = actualItems.Cast<object?>().ToList();
-        var expectedList = expectedItems.Cast<object?>().ToList();
+        if (!TryRead(actual, out var actualList) || !TryRead(expected, out var expectedList))
+            return new(ByKey: false, []);
 
         // A dictionary is read by key only when its entries are key/value pairs (a Hashtable's are DictionaryEntry
         // structs) and Shouldly's own equality compared them.
@@ -225,6 +342,24 @@ static class UnorderedCollection
         }
 
         return new(byKey, differences);
+    }
+
+    // The items of one side, for a failure message. A collection is read whole, from the collection itself: it can
+    // be read again, and a message may have kept only the part of it that it shows. Any other sequence is read from
+    // what was given, never from the sequence behind it, which may be readable only once and was read by the
+    // assertion already. It is read no further than a message shows, as it may never end. False when that isn't
+    // all of it, so that what the two sides don't share can't be told.
+    private static bool TryRead(object value, out List<object?> items)
+    {
+        var original = CapturedSequence.Original(value);
+        if (original is ICollection || TraitsOf(original).Kind != Kind.None)
+        {
+            items = ((IEnumerable)original).Cast<object?>().ToList();
+            return true;
+        }
+
+        items = ((IEnumerable)value).ReadForMessage(out var cutShort);
+        return !cutShort;
     }
 
     private static object? KeyOf(object? item, bool byKey)

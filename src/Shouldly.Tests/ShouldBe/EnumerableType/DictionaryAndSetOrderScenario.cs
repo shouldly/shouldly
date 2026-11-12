@@ -192,6 +192,74 @@ public class DictionaryAndSetOrderScenario
     public void ACustomComparerComparesTheElementsOfSetsInAnyOrder() =>
         new HashSet<string> { "b", "a" }.ShouldBe(new HashSet<string> { "A", "B" }, StringComparer.OrdinalIgnoreCase);
 
+    // Under this comparer 1.01 equals both 1.0 and 1.02, which don't equal each other. Whichever comes first, it
+    // must be left for 1.03 to be paired with 1.02.
+    [Fact]
+    public void ItemsThatEqualMoreThanOneOtherArePairedSoThatEveryOneMatches()
+    {
+        var within = new Within(0.015);
+
+        new HashSet<double> { 1.01, 1.03 }.ShouldBe(new[] { 1.02, 1.0 }, within);
+        new HashSet<double> { 1.01, 1.03 }.ShouldBe(new[] { 1.0, 1.02 }, within);
+        new[] { 1.02, 1.0 }.ShouldBe(new HashSet<double> { 1.01, 1.03 }, within);
+        new HashSet<double> { 1.01, 1.03 }.ShouldBe(new HashSet<double> { 1.02, 1.0 }, within);
+        new[] { 1.01, 1.03 }.ShouldBe(new[] { 1.02, 1.0 }, within, ignoreOrder: true);
+
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<double> { 1.0, 1.01, 1.02 }.ShouldBe(new[] { 1.01, 1.02, 1.5 }, within));
+    }
+
+    // The message is written from what the assertion read, not by reading the sequence again.
+    [Fact]
+    public void ASequenceThatCanOnlyBeReadOnceIsReadOnceAgainstASet()
+    {
+        new SinglePass<int>(3, 2, 1).ShouldBe(new HashSet<int> { 1, 2, 3 });
+        new HashSet<int> { 1, 2, 3 }.ShouldBe(new SinglePass<int>(3, 2, 1));
+
+        Should.Throw<ShouldAssertException>(() => new SinglePass<int>(1, 2, 3).ShouldBe(new HashSet<int> { 1, 2, 4 }))
+            .Message.ShouldBe(Should.Throw<ShouldAssertException>(() => new[] { 1, 2, 3 }.ShouldBe(new HashSet<int> { 1, 2, 4 })).Message
+                .Replace("new[] { 1, 2, 3 }", "new SinglePass<int>(1, 2, 3)"));
+        Should.Throw<ShouldAssertException>(() => new HashSet<int> { 1, 2, 4 }.ShouldBe(new SinglePass<int>(1, 2, 3)))
+            .Message.ShouldContain("3 is missing");
+        Should.Throw<ShouldAssertException>(() =>
+                new SinglePass<KeyValuePair<string, int>>(new KeyValuePair<string, int>("a", 1))
+                    .ShouldBe(new Dictionary<string, int> { ["a"] = 2 }))
+            .Message.ShouldContain("""["a"] should be 2 but was 1""");
+    }
+
+    [Fact]
+    public void SinglePassSequenceAndSetShouldFail() =>
+        Verify.ShouldFail(() =>
+            new SinglePass<int>(1, 2, 3).ShouldBe(new HashSet<int> { 1, 2, 4 }, "Some additional context"));
+
+    // Neither the check nor the message reads on once the sequence has an item the set can't pair.
+    [Fact]
+    public void ASequenceThatNeverEndsIsNotASet()
+    {
+        var message = Should.Throw<ShouldAssertException>(() => Naturals().ShouldBe(new HashSet<int> { 1, 2, 3 })).Message;
+
+        message.ShouldNotContain("is missing");
+
+        static IEnumerable<int> Naturals()
+        {
+            for (var number = 0; ; number++)
+                yield return number;
+        }
+    }
+
+    // A sequence is kept for the message only as far as the message shows it. What a longer one lacks can't be
+    // told from that, so the message doesn't say.
+    [Fact]
+    public void ASequenceLongerThanAMessageShowsHasNoDifferenceSection()
+    {
+        using var scope = MaxEnumerableItemsScope.Of(3);
+
+        var message = Should.Throw<ShouldAssertException>(() =>
+            Enumerable.Range(0, 5).Where(_ => true).ShouldBe(new HashSet<int> { 1, 2, 3, 4, 5 })).Message;
+
+        message.ShouldNotContain("difference");
+    }
+
     [Fact]
     public void ACaseOptionComparesTheStringsOfSetsInAnyOrder()
     {
@@ -273,6 +341,13 @@ public class DictionaryAndSetOrderScenario
     /// A dictionary that is only an <see cref="IReadOnlyDictionary{TKey, TValue}"/>: neither
     /// <see cref="IDictionary{TKey, TValue}"/> nor <see cref="System.Collections.IDictionary"/>.
     /// </summary>
+    private sealed class Within(double tolerance) : IEqualityComparer<double>
+    {
+        public bool Equals(double x, double y) => Math.Abs(x - y) <= tolerance;
+
+        public int GetHashCode(double obj) => 0;
+    }
+
     private sealed class OnlyReadOnlyDictionary(params (string Key, int Value)[] entries) : IReadOnlyDictionary<string, int>
     {
         private readonly Dictionary<string, int> _entries = entries.ToDictionary(entry => entry.Key, entry => entry.Value);
