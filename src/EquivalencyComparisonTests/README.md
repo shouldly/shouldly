@@ -23,13 +23,13 @@ Every remaining divergence is deliberate; the rationale is recorded in the roadm
 | Different enum types with the same underlying value | Fail | Pass — enums compared by value | Two distinct enum types agreeing numerically is usually an accident |
 | Cyclic object graphs, identical shape | Pass — visited pairs tracked by reference | Fail — cycles rejected by default | Strictly more useful; no configuration needed |
 | Object graphs deeper than 10 levels | Pass — unbounded recursion | Fail — 10-level depth cap by default | Safe with correct cycle tracking |
-| Root objects held in base-typed references with differing derived-only members | Fail — the `object`-typed API cannot see the static type, so the root falls back to the expectation's runtime type | Pass — the generic API's static type drives member selection | API-shape consequence, not a semantic choice |
+| Derived instances held as a base type or an interface (a root reference, a member, a collection's elements), differing in a derived-only member | Fail — a value is compared by the members of its own type | Pass — the declared (static) type drives member selection | A difference in a member the declared type doesn't have would otherwise pass unnoticed, and nothing in the test says the member was left out. An expectation that should ask less can be an anonymous type or the base type itself |
 | Collection type with its own members (a `List<int>` subclass adding `TotalCount`), equal items, differing member | Fail — compares the members a type adds to the .NET collection class it derives from, as well as its items | Pass — compares the items alone | Equivalency compares member by member; a public member that holds state shouldn't be skipped because the type is also enumerable (#1431). A collection that implements the interfaces itself is still compared by its items alone, as nothing tells its state apart from views of its items |
 | Two `new object()`s (no members) | Fail — vacuous-comparison guard with guidance | **Error** — "no members" `InvalidOperationException` | Both refuse a zero-member comparison; Shouldly fails the assertion with an actionable message instead of throwing |
 
 Everywhere else tested, the two libraries agree — including the scenarios that diverged before
 the v5 rewrite: cross-type and anonymous-type expectations (subset semantics, by the
-expectation's members), declared-type member selection, dictionaries matched by key with
+expectation's members), dictionaries matched by key with
 recursion into values, sets compared order-insensitively, container types ignored
 (array ≡ `List<T>`), lossless cross-numeric equality (`int 1` ≡ `long 1`), multidimensional
 array shape checks, indexers skipped, `Type`/`Uri` as leaf values, strings (ordinal,

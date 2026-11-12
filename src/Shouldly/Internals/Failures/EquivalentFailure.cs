@@ -91,7 +91,7 @@ sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(na
             $"""
                  Found no public members to compare on
              {difference.Detail}
-                 which would make the assertion vacuously pass; cast the expectation to a concrete type or assert on specific members instead
+                 which would make the assertion vacuously pass; assert on specific members instead
              """,
 
         _ => GenerateValueMismatchBody(difference.Expected, difference.Actual),

@@ -16,6 +16,7 @@ public static partial class ObjectGraphTestExtensions
     /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> as ShouldBe does; dictionaries are matched
     /// by key, sets order-insensitively, other collections element-by-element in order, and
     /// everything else member-wise over the expectation's public properties and fields, recursively.
+    /// Each expected value is compared as the type it is, not as the type its member or collection declares.
     /// All differences are collected and reported with their paths.
     /// </summary>
     public static void ShouldBeEquivalentTo(

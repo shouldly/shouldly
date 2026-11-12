@@ -6,10 +6,17 @@ namespace Shouldly.Equivalency;
 
 /// <summary>
 /// The equivalency engine: walks the actual/expected graphs with a per-node strategy
-/// (leaf / dictionary / set / sequence / member-wise), selecting members from the
-/// expectation's declared types with subset semantics, and collects every difference
-/// instead of stopping at the first.
+/// (leaf / dictionary / set / sequence / member-wise), selecting members from the type of
+/// each expected value with subset semantics, and collects every difference instead of
+/// stopping at the first.
 /// </summary>
+/// <remarks>
+/// A value is compared by the shape of the type it is, not of the type its member or collection declares, so a
+/// <c>Circle</c> in a <c>List&lt;Shape&gt;</c> is compared by a circle's members. The engine learns about types
+/// only from the <see cref="IEquivalencyShapeProvider"/>, which it tells both types, so that a provider with a
+/// closed set of shapes (a source-generated one) can stand in for the reflection provider: it resolves the types
+/// it knows, and for a type it can't resolve the assertion throws, rather than comparing less.
+/// </remarks>
 internal sealed class EquivalencyComparison
 {
     private readonly IEquivalencyShapeProvider _shapes;
@@ -34,10 +41,20 @@ internal sealed class EquivalencyComparison
         object? expected,
         EquivalencyOptions options,
         string? customMessage,
-        string? actualExpression)
+        string? actualExpression) =>
+        Assert(actual, expected, options, customMessage, actualExpression, EquivalencyShapes.Current);
+
+    /// <summary>Compares with the shapes of <paramref name="shapes"/>, rather than of the provider in use.</summary>
+    internal static void Assert(
+        object? actual,
+        object? expected,
+        EquivalencyOptions options,
+        string? customMessage,
+        string? actualExpression,
+        IEquivalencyShapeProvider shapes)
     {
-        var comparison = new EquivalencyComparison(EquivalencyShapes.Current, options);
-        comparison.CompareNodes(actual, expected, null, []);
+        var comparison = new EquivalencyComparison(shapes, options);
+        comparison.CompareNodes(actual, expected, default, []);
 
         if (comparison._differences.Count == 0)
             return;
@@ -45,7 +62,7 @@ internal sealed class EquivalencyComparison
         throw Fail.ShouldBeEquivalentTo.With(comparison._differences).For(actual, customMessage, actualExpression);
     }
 
-    private void CompareNodes(object? actual, object? expected, Type? declaredType, List<string> path)
+    private void CompareNodes(object? actual, object? expected, DeclaredTypes declared, List<string> path)
     {
         actual = NullEquivalence.Normalize(actual);
         expected = NullEquivalence.Normalize(expected);
@@ -60,17 +77,10 @@ internal sealed class EquivalencyComparison
             return;
         }
 
-        // Member selection is driven by declared types; members declared as object fall back to
-        // the expectation's runtime type so anonymous types and object-typed members compare
-        // their real members rather than none.
-        var comparisonType = declaredType is null || declaredType == typeof(object)
-            ? expected.GetType()
-            : declaredType;
-        comparisonType = Nullable.GetUnderlyingType(comparisonType) ?? comparisonType;
-
-        var annotatedPath = AnnotateWithType(path, comparisonType);
-
-        var shape = _shapes.GetShape(comparisonType);
+        // The expected value's own type decides how the node is compared and which members are selected, so a
+        // member or element declared as a base type or an interface is compared by all that the value has.
+        var shape = ShapeOf(expected, declared.Expected, path);
+        var annotatedPath = AnnotateWithType(path, TypeToName(shape.Type, declared.Expected));
 
         // Cycle / identity guard for composite reference nodes. Leaves compare by value and cannot
         // form cycles; value types are copied and cannot participate in reference-identity cycles.
@@ -104,22 +114,22 @@ internal sealed class EquivalencyComparison
                     break;
 
                 case EquivalencyNodeKind.Dictionary:
-                    CompareDictionaries(actual, expected, shape, annotatedPath);
-                    CompareMembers(actual, expected, shape, annotatedPath);
+                    CompareDictionaries(actual, expected, shape, declared.Actual, annotatedPath);
+                    CompareMembers(actual, expected, shape, declared.Actual, annotatedPath);
                     break;
 
                 case EquivalencyNodeKind.Set:
-                    CompareUnordered(actual, expected, shape.ElementType, annotatedPath);
-                    CompareMembers(actual, expected, shape, annotatedPath);
+                    CompareUnordered(actual, expected, ElementTypes(actual, declared.Actual, shape), annotatedPath);
+                    CompareMembers(actual, expected, shape, declared.Actual, annotatedPath);
                     break;
 
                 case EquivalencyNodeKind.Sequence:
-                    CompareSequences(actual, expected, shape.ElementType, annotatedPath);
-                    CompareMembers(actual, expected, shape, annotatedPath);
+                    CompareSequences(actual, expected, ElementTypes(actual, declared.Actual, shape), annotatedPath);
+                    CompareMembers(actual, expected, shape, declared.Actual, annotatedPath);
                     break;
 
                 default:
-                    if (!CompareMembers(actual, expected, shape, annotatedPath))
+                    if (!CompareMembers(actual, expected, shape, declared.Actual, annotatedPath))
                         AddDifference(EquivalencyDifferenceKind.VacuousComparison, annotatedPath, expected, actual, GetDisplayName(shape.Type));
                     break;
             }
@@ -135,13 +145,13 @@ internal sealed class EquivalencyComparison
     /// Compares the members of <paramref name="shape"/>: every member of a complex type, or the members a
     /// collection type declares beyond its items. Returns whether any member was compared, rather than ignored.
     /// </summary>
-    private bool CompareMembers(object actual, object expected, EquivalencyTypeShape shape, List<string> path)
+    private bool CompareMembers(object actual, object expected, EquivalencyTypeShape shape, Type? actualDeclaredType, List<string> path)
     {
         if (shape.Members.Count == 0)
             return false;
 
         var actualType = actual.GetType();
-        var actualShape = actualType == shape.Type ? shape : _shapes.GetShape(actualType);
+        var actualShape = actualType == shape.Type ? shape : ShapeOf(actual, actualDeclaredType, path);
 
         var comparedAny = false;
         foreach (var member in shape.Members)
@@ -159,13 +169,13 @@ internal sealed class EquivalencyComparison
                 continue;
             }
 
-            CompareNodes(actualMember.GetValue(actual), member.GetValue(expected), member.DeclaredType, memberPath);
+            CompareNodes(actualMember.GetValue(actual), member.GetValue(expected), new(actualMember.DeclaredType, member.DeclaredType), memberPath);
         }
 
         return comparedAny;
     }
 
-    private void CompareSequences(object actual, object expected, Type? elementType, List<string> path)
+    private void CompareSequences(object actual, object expected, DeclaredTypes elementType, List<string> path)
     {
         if (expected is Array { Rank: > 1 } || actual is Array { Rank: > 1 })
         {
@@ -198,7 +208,7 @@ internal sealed class EquivalencyComparison
             CompareNodes(actualList[i], expectedList[i], elementType, Append(path, $"Element [{i}]"));
     }
 
-    private void CompareMultidimensionalArrays(object actual, object expected, Type? elementType, List<string> path)
+    private void CompareMultidimensionalArrays(object actual, object expected, DeclaredTypes elementType, List<string> path)
     {
         if (expected is not Array expectedArray || actual is not Array actualArray || actualArray.Rank != expectedArray.Rank)
         {
@@ -236,7 +246,7 @@ internal sealed class EquivalencyComparison
         }
     }
 
-    private void CompareUnordered(object actual, object expected, Type? elementType, List<string> path)
+    private void CompareUnordered(object actual, object expected, DeclaredTypes elementType, List<string> path)
     {
         if (actual is not IEnumerable actualEnumerable)
         {
@@ -268,9 +278,9 @@ internal sealed class EquivalencyComparison
         }
     }
 
-    private void CompareDictionaries(object actual, object expected, EquivalencyTypeShape shape, List<string> path)
+    private void CompareDictionaries(object actual, object expected, EquivalencyTypeShape shape, Type? actualDeclaredType, List<string> path)
     {
-        var actualShape = _shapes.GetShape(actual.GetType());
+        var actualShape = ShapeOf(actual, actualDeclaredType, path);
         if (actualShape.Kind != EquivalencyNodeKind.Dictionary)
         {
             AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual);
@@ -286,12 +296,14 @@ internal sealed class EquivalencyComparison
         // matchable key unmatched. Entries whose values also match are paired first, so an ambiguous
         // key isn't paired with the wrong entry and its value reported as a mismatch; the leftovers are
         // then paired by key alone, so a genuine value mismatch is still reported against its key.
-        bool KeysMatch(int e, int a) => IsEquivalent(actualEntries[a].Key, expectedEntries[e].Key, shape.KeyType);
+        var keyTypes = new DeclaredTypes(actualShape.KeyType, shape.KeyType);
+        var valueTypes = new DeclaredTypes(actualShape.ValueType, shape.ValueType);
+        bool KeysMatch(int e, int a) => IsEquivalent(actualEntries[a].Key, expectedEntries[e].Key, keyTypes);
 
         var matchOfExpected = MatchByEquivalence(
             expectedEntries.Count,
             actualEntries.Count,
-            (e, a) => KeysMatch(e, a) && IsEquivalent(actualEntries[a].Value, expectedEntries[e].Value, shape.ValueType));
+            (e, a) => KeysMatch(e, a) && IsEquivalent(actualEntries[a].Value, expectedEntries[e].Value, valueTypes));
 
         var matchedActual = new bool[actualEntries.Count];
         foreach (var matchIndex in matchOfExpected)
@@ -326,7 +338,7 @@ internal sealed class EquivalencyComparison
             }
 
             matchedActual[matchIndex] = true;
-            CompareNodes(actualEntries[matchIndex].Value, expectedEntries[i].Value, shape.ValueType, Append(path, $"[{expectedEntries[i].Key.ToStringAwesomely()}]"));
+            CompareNodes(actualEntries[matchIndex].Value, expectedEntries[i].Value, valueTypes, Append(path, $"[{expectedEntries[i].Key.ToStringAwesomely()}]"));
         }
 
         var unexpectedKeys = new List<object?>();
@@ -341,14 +353,14 @@ internal sealed class EquivalencyComparison
     }
 
     /// <summary>Runs a full sub-comparison, discarding differences; used for order-insensitive matching.</summary>
-    private bool IsEquivalent(object? actual, object? expected, Type? declaredType)
+    private bool IsEquivalent(object? actual, object? expected, DeclaredTypes declared)
     {
         // Share the live ancestor set. Entries are pushed and popped in CompareNodes, so the set is restored
         // when this returns and sibling trials never observe each other's entries. The sub-comparison
         // still gets a fresh _visitedPairs, keeping each trial's shared-subgraph dedup independent - a
         // pair fully compared in one trial must be re-derived in another rather than assumed equal.
         var comparison = new EquivalencyComparison(_shapes, _options, _activePairs);
-        comparison.CompareNodes(actual, expected, declaredType, []);
+        comparison.CompareNodes(actual, expected, declared, []);
         return comparison._differences.Count == 0;
     }
 
@@ -485,8 +497,40 @@ internal sealed class EquivalencyComparison
         return Numerics.AreEqual(expected, actual);
     }
 
+    /// <summary>
+    /// The shape of <paramref name="value"/>'s own type. A provider that knows a closed set of types can't always
+    /// give one, and then the comparison stops: carrying on with the shape of the declared type would compare
+    /// fewer members than the value has, and pass when they differ.
+    /// </summary>
+    private EquivalencyTypeShape ShapeOf(object value, Type? declaredType, List<string> path) =>
+        _shapes.GetShape(value.GetType(), declaredType)
+        ?? throw new NotSupportedException(
+            $"ShouldBeEquivalentTo can't compare a value of type {GetDisplayName(value.GetType())}" +
+            (path.Count == 0 ? "" : $" (at {string.Join(" > ", path).Trim()})") +
+            ": the registered equivalency shape provider has no shape for it. Register a shape for the type.");
+
+    /// <summary>
+    /// The types the two collections declare their elements as, for the provider (see <see cref="DeclaredTypes"/>).
+    /// A collection the provider has no shape for declares none.
+    /// </summary>
+    private DeclaredTypes ElementTypes(object actual, Type? actualDeclaredType, EquivalencyTypeShape expectedShape) =>
+        new(_shapes.GetShape(actual.GetType(), actualDeclaredType)?.ElementType, expectedShape.ElementType);
+
     private void AddDifference(EquivalencyDifferenceKind kind, List<string> path, object? expected, object? actual, string? detail = null) =>
         _differences.Add(new(kind, path, expected, actual, detail));
+
+    /// <summary>
+    /// The type a path names a node by: the type it was compared as, unless that is one of .NET's own internal
+    /// types (<c>RuntimeType</c>, a LINQ iterator), which the type it is declared as says more plainly.
+    /// </summary>
+    private static Type TypeToName(Type comparedType, Type? declaredType) =>
+        declaredType is not null &&
+        declaredType != typeof(object) &&
+        !comparedType.IsVisible &&
+        comparedType.Namespace is { } @namespace &&
+        (@namespace == "System" || @namespace.StartsWith("System.", StringComparison.Ordinal))
+            ? declaredType
+            : comparedType;
 
     private static List<string> AnnotateWithType(List<string> path, Type type)
     {
@@ -529,6 +573,18 @@ internal sealed class EquivalencyComparison
 
     private static List<string> Append(List<string> path, string segment) =>
         [.. path, segment];
+
+    /// <summary>
+    /// The types the members or collections holding the two values declare them as, when known. They don't decide
+    /// how a value is compared. They are passed to the shape provider, which may need them for a value whose own
+    /// type it has no shape for, such as a LINQ iterator held as an <c>IEnumerable&lt;T&gt;</c>.
+    /// </summary>
+    private readonly struct DeclaredTypes(Type? actual, Type? expected)
+    {
+        public Type? Actual { get; } = actual;
+
+        public Type? Expected { get; } = expected;
+    }
 
     private readonly struct VisitedPair : IEquatable<VisitedPair>
     {

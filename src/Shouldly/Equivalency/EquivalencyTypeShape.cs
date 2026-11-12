@@ -26,7 +26,12 @@ internal abstract class EquivalencyTypeShape
     /// </summary>
     public abstract EquivalencyMemberShape? FindMember(string name);
 
-    /// <summary>The declared element type of a Sequence or Set, when statically known.</summary>
+    /// <summary>
+    /// The declared element type of a Sequence or Set, when statically known. Like <see cref="KeyType"/>,
+    /// <see cref="ValueType"/> and <see cref="EquivalencyMemberShape.DeclaredType"/>, it doesn't decide how an
+    /// element is compared: an element is compared by the shape of its own type, and this is passed to
+    /// <see cref="IEquivalencyShapeProvider.GetShape"/> alongside it.
+    /// </summary>
     public abstract Type? ElementType { get; }
 
     /// <summary>The declared key type of a Dictionary, when statically known.</summary>
@@ -44,7 +49,7 @@ internal abstract class EquivalencyMemberShape
 {
     public abstract string Name { get; }
 
-    /// <summary>The member's declared (compile-time) type, which drives the child node's comparison strategy.</summary>
+    /// <summary>The member's declared (compile-time) type (see <see cref="EquivalencyTypeShape.ElementType"/>).</summary>
     public abstract Type DeclaredType { get; }
 
     public abstract object? GetValue(object instance);

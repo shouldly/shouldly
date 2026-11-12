@@ -388,6 +388,11 @@ actual.ShouldBeEquivalentTo(expected, new EquivalencyOptions
 - **`Equals` overrides on complex types are ignored** — comparison is always member-wise, so a type
   with a custom `Equals` is still compared property-by-property. (Well-known value-semantic types
   such as `string`, `Guid`, `DateTime`, and `Uri` are treated as leaves and compared with `Equals`.)
+- **Members come from the expected value's own type, not the declared type.** A `Dog` held in a
+  member declared as `Animal` is compared by a dog's members, which FA only does with
+  `RespectingRuntimeTypes()`. An FA assertion that passed because a derived-only member was never
+  compared fails in Shouldly. To compare less, expect an anonymous type or an instance of the base
+  type.
 - **Comparers and tolerances** — a fluent `.WithAutoConversion()` switch, `.Using<T>(...)` custom
   comparers, or approximate numeric/`DateTime` matching — are not exposed as options yet. Numeric
   *leaves* are auto-converted across kinds, so `int` `5` is equivalent to `long` `5` or `double`

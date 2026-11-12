@@ -19,7 +19,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
     [UnconditionalSuppressMessage("Trimming", "IL2026",
         Justification = "This provider is only constructed while the Shouldly.Equivalency.IsReflectionEnabledByDefault feature switch is on. " +
                         "Trimmed publishes that disable the switch remove it entirely; see EquivalencyShapes.")]
-    public EquivalencyTypeShape GetShape(Type type) =>
+    public EquivalencyTypeShape GetShape(Type type, Type? declaredType = null) =>
         _cache.GetOrAdd(type, static t => CreateShape(t));
 
     [RequiresUnreferencedCode("Reflects over the fields, properties, and interfaces of arbitrary types.")]

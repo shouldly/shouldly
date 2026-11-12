@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Compile Remove="ConventionTests\FailureCatalogueConventions.cs" />
+    <Compile Remove="InternalTests\ClosedShapeProviderTests.cs" />
     <Compile Remove="InternalTests\DictionaryFailureTests.cs" />
     <Compile Remove="InternalTests\EqualityTests.cs" />
     <Compile Remove="InternalTests\InequalityTests.cs" />

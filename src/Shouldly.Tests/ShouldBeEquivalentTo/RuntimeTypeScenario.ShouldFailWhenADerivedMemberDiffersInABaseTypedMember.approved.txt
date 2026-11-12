@@ -1,0 +1,12 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.RuntimeTypeScenario+Drawing]
+    Main [Shouldly.Tests.ShouldBeEquivalentTo.RuntimeTypeScenario+Circle]
+        Radius [System.Double]
+
+    Expected value to be
+500d
+    but was
+1d
+
+Additional Info:
+    Some additional context
