@@ -19,8 +19,18 @@ static class Is
         return ReferenceEquals(actual, expected);
     }
 
-    public static bool Equal(decimal actual, decimal expected, decimal tolerance) =>
-        Math.Abs(actual - expected) <= tolerance;
+    public static bool Equal(decimal actual, decimal expected, decimal tolerance)
+    {
+        try
+        {
+            return Math.Abs(actual - expected) <= tolerance;
+        }
+        catch (OverflowException)
+        {
+            // The difference is larger than any decimal, so larger than any tolerance.
+            return false;
+        }
+    }
 
     public static bool Equal(double actual, double expected, double tolerance)
     {

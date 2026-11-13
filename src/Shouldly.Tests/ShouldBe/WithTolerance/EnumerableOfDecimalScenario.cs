@@ -19,4 +19,12 @@ public class EnumerableOfDecimalScenario
         var secondSet = new[] { 1.2301m, 2.34m, 3.45m };
         firstSet.ShouldBe(secondSet, 0.01m);
     }
+
+    [Fact]
+    public void ValuesTooFarApartToSubtractShouldFail()
+    {
+        var firstSet = new[] { 1m, decimal.MaxValue };
+        var secondSet = new[] { 1m, decimal.MinValue };
+        Should.Throw<ShouldAssertException>(() => firstSet.ShouldBe(secondSet, 1m));
+    }
 }
