@@ -171,7 +171,7 @@ static class Tuples
 
         // The runtime type's IEquatable<U> comes next, as in EqualityComparer<S>: it is the type's own equality, so it
         // decides before CompareTo (#1428).
-        if (RuntimeEquatable.TryEquals(expected, actual, out result))
+        if (RuntimeEquality.TryEquals(expected, actual, out result))
             return true;
 
         // A type that defines its own Equals is left to the element comparer, which asks it before CompareTo (#1428).

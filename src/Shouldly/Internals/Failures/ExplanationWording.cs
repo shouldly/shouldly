@@ -189,8 +189,8 @@ static class ExplanationWording
         return new(ByOwnVerdict(actual, expected, expectedType, equalsDeclaredBy));
     }
 
-    // Which of the type's own members Equality asked depends on the type the assertion was made at, which isn't
-    // known here, so this states only what calling them again bears out.
+    // Equality asks the members the runtime types define, but which one decided isn't recorded, so this states only
+    // what calling them again bears out.
     private static string ByOwnVerdict(object actual, object expected, Type type, Type equalsDeclaredBy)
     {
         var definesEquals = type.IsValueType || equalsDeclaredBy != typeof(object) || ImplementsForItself(type, typeof(IEquatable<>));
