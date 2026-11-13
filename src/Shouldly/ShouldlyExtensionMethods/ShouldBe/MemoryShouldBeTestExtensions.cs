@@ -97,11 +97,11 @@ public static partial class ShouldBeTestExtensions
         }
 #endif
 
-        IEqualityComparer<T> comparer = new Internals.EqualityComparer<T>();
+        var comparer = Internals.Equality.ComparerFor<T>();
         for (var i = 0; i < actual.Length; i++)
         {
-            // Equals is called on the expected element, as everywhere else in ShouldBe (see Is.Equal).
-            if (!Is.Equal(actual[i], expected[i], comparer))
+            // Equals is called on the expected element, as everywhere else in ShouldBe (see Equality.Equal).
+            if (!Internals.Equality.Equal(actual[i], expected[i], comparer))
                 return false;
         }
 

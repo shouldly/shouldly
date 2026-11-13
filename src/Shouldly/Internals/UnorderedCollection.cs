@@ -453,7 +453,7 @@ static class UnorderedCollection
         return key;
     }
 
-    private static IEqualityComparer ObjectComparer => new EqualityComparerAdapter(Equality.ComparerFor<object>());
+    private static IEqualityComparer<object?> ObjectComparer => Equality.ComparerFor<object?>();
 
     private static Traits TraitsOf(object value) =>
         value is string ? default : TraitsByType.GetOrAdd(value.GetType(), static type => TraitsOfType(type));

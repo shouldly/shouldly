@@ -39,7 +39,7 @@ static class Tuples
     /// <paramref name="elementComparer"/> plus the <c>IEquatable&lt;S&gt;</c>/<c>IComparable&lt;S&gt;</c> steps for the
     /// declared type <c>S</c> that it can't take itself. <c>Equals</c> is called on the expected item.
     /// </summary>
-    public static bool TryEquals(object expected, object actual, IEqualityComparer elementComparer, out bool result)
+    public static bool TryEquals(object expected, object actual, IEqualityComparer<object?> elementComparer, out bool result)
     {
         if (FindBoth(expected, actual) is not (var expectedAccessors, var actualAccessors))
         {
@@ -66,7 +66,7 @@ static class Tuples
     /// numbered as C# numbers them, so the first item held in <c>Rest</c> is <c>Item8</c>) and gives the two items, for
     /// a failure message that says where two tuples differ.
     /// </summary>
-    public static bool TryFindUnequalComponent(object expected, object actual, IEqualityComparer elementComparer,
+    public static bool TryFindUnequalComponent(object expected, object actual, IEqualityComparer<object?> elementComparer,
         [NotNullWhen(true)] out string? name, out object? expectedComponent, out object? actualComponent)
     {
         name = null;
@@ -110,7 +110,7 @@ static class Tuples
     /// Whether two <see cref="KeyValuePair{TKey, TValue}"/>s have equal keys, compared as <see cref="TryEquals"/>
     /// compares them. False when either isn't a pair.
     /// </summary>
-    public static bool KeysEqual(object expected, object actual, IEqualityComparer elementComparer) =>
+    public static bool KeysEqual(object expected, object actual, IEqualityComparer<object?> elementComparer) =>
         FindKeyValuePair(expected) is { } expectedAccessors &&
         FindKeyValuePair(actual) is { } actualAccessors &&
         ItemEquals(expectedAccessors.Items[0], actualAccessors.Items[0], expected, actual, elementComparer);
@@ -118,7 +118,7 @@ static class Tuples
     private static Accessors? FindKeyValuePair(object value) =>
         Find(value) is { } accessors && accessors.Definition == typeof(KeyValuePair<,>) ? accessors : null;
 
-    private static bool ItemEquals(Item expectedItem, Item actualItem, object expected, object actual, IEqualityComparer elementComparer)
+    private static bool ItemEquals(Item expectedItem, Item actualItem, object expected, object actual, IEqualityComparer<object?> elementComparer)
     {
         var expectedComponent = expectedItem.GetValue(expected);
         var actualComponent = actualItem.GetValue(actual);

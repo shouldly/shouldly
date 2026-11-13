@@ -257,7 +257,7 @@ static class Inequality
                expected.TryGetEnumerable(out expectedItems);
     }
 
-    private static IEqualityComparer ObjectComparer => new EqualityComparerAdapter(Equality.ComparerFor<object>());
+    private static IEqualityComparer<object?> ObjectComparer => Equality.ComparerFor<object?>();
 
     /// <summary>What a failure message says of two values that an equality rule judged unequal.</summary>
     public static string ByRule(Type ruleType) =>

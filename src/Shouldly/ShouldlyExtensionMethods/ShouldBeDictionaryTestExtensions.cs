@@ -59,7 +59,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         using var captured = Internals.CapturedSequence.Of(dictionary);
         dictionary = captured.Items!;
         var keyExists = TryGetValue(dictionary, key, out var actual);
-        if (!keyExists || !Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
+        if (!keyExists || !Internals.Equality.Equal(actual, val))
             throw Fail.ShouldContainKeyAndValue.With(key, val, keyExists, actual).For(dictionary, customMessage, actualExpression);
     }
 
@@ -75,7 +75,7 @@ public static partial class ShouldBeDictionaryTestExtensions
         using var captured = Internals.CapturedSequence.Of(dictionary);
         dictionary = captured.Items!;
         var keyExists = TryGetValue(dictionary, key, out var actual);
-        if (!keyExists || Is.Equal(actual, val, Is.ScalarComparerFor<TValue>()))
+        if (!keyExists || Internals.Equality.Equal(actual, val))
             throw Fail.ShouldNotContainValueForKey.With(key, val, keyExists).For(dictionary, customMessage, actualExpression);
     }
 

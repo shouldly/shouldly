@@ -618,7 +618,7 @@ internal sealed class EquivalencyComparison
                 return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
         }
 
-        // Equals is called on the expected value, as in ShouldBe (see Is.Equal), so a broken Equals on the value
+        // Equals is called on the expected value, as in ShouldBe (see Equality.Equal), so a broken Equals on the value
         // under test can't make the comparison pass.
         return expected.Equals(actual);
     }
