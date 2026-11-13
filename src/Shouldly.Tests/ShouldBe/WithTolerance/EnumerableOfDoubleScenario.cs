@@ -20,6 +20,26 @@ public class EnumerableOfDoubleScenario
     }
 
     [Fact]
+    [UseCulture("en-US")]
+    public void NullActualShouldFail()
+    {
+        IEnumerable<double>? readings = null;
+        Verify.ShouldFail(() =>
+            readings!.ShouldBe([1.0, 2.0], 0.01, "Some additional context"));
+    }
+
+    // A null sequence fails the assertion, as it does without a tolerance, rather than throwing.
+    [Fact]
+    public void NullActualFailsForEveryTolerance()
+    {
+        Should.Throw<ShouldAssertException>(() => ((IEnumerable<double>)null!).ShouldBe([1.0], 0.01));
+        Should.Throw<ShouldAssertException>(() => ((IEnumerable<float>)null!).ShouldBe([1f], 0.01));
+        Should.Throw<ShouldAssertException>(() => ((IEnumerable<decimal>)null!).ShouldBe([1m], 0.01m));
+        Should.Throw<ShouldAssertException>(() => ((IEnumerable<string>)null!).ShouldBe(["a"], Case.Insensitive));
+        Should.Throw<ShouldAssertException>(() => new[] { 1.0 }.ShouldBe(null!, 0.01));
+    }
+
+    [Fact]
     public void ShouldPass()
     {
         new[] { MathEx.PI, MathEx.PI }.ShouldBe([3.14, 3.14], 0.01);
