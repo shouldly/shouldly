@@ -81,7 +81,7 @@ abstract class Equality
     /// Compares by <paramref name="comparer"/>, a comparer of the caller's, alone.
     /// </summary>
     public static Equality<T> Using<T>(IEqualityComparer<T> comparer) =>
-        new(comparer, usesCustomComparer: true);
+        new(comparer, usesCustomComparer: true, hashes: true);
 
     /// <summary>
     /// The element equality of an assertion that takes a <see cref="decimal"/> tolerance: two decimals are equal when
@@ -143,7 +143,7 @@ abstract class Equality
     /// </summary>
     public static Equality<string> ForCase(Case caseSensitivity) =>
         new(caseSensitivity == Shouldly.Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal,
-            caseSensitivity: caseSensitivity);
+            caseSensitivity: caseSensitivity, hashes: true);
 
     /// <summary>
     /// Compares two sequences: equal when they hold equal elements, compared by <paramref name="elements"/>, in the same
@@ -163,6 +163,37 @@ abstract class Equality
             ? DefaultSequences<T>.Instance
             : new(new SequenceComparer<T>(elements, ignoreOrder),
                 elements.Tolerance, elements.Case, elements.UsesCustomComparer, ignoreOrder, elements);
+
+    /// <summary>
+    /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same
+    /// answers as Shouldly's own rules for values of <paramref name="type"/>, when no equality rule applies: true for a
+    /// closed list of BCL types whose <c>Equals</c> the rules reach unchanged. Not for the floating-point types, which
+    /// honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> (see
+    /// <see cref="Numbers.HonoursDefaultTolerance"/>), nor for <c>object</c> or user types, whose values may compare
+    /// across types, structurally or through <see cref="IEquatable{T}"/>/<see cref="IComparable{T}"/> without a
+    /// matching <c>GetHashCode</c>.
+    /// </summary>
+    private protected static bool DefaultComparerAgreesFor(Type type)
+    {
+        type = Nullable.GetUnderlyingType(type) ?? type;
+        return type.IsEnum ||
+               type == typeof(string) ||
+               type == typeof(bool) ||
+               type == typeof(char) ||
+               type == typeof(sbyte) ||
+               type == typeof(byte) ||
+               type == typeof(short) ||
+               type == typeof(ushort) ||
+               type == typeof(int) ||
+               type == typeof(uint) ||
+               type == typeof(long) ||
+               type == typeof(ulong) ||
+               type == typeof(decimal) ||
+               type == typeof(Guid) ||
+               type == typeof(DateTime) ||
+               type == typeof(DateTimeOffset) ||
+               type == typeof(TimeSpan);
+    }
 
     private static double? AsDouble<T>(T value) =>
         value switch
@@ -235,12 +266,18 @@ abstract class Equality
 /// </summary>
 sealed class Equality<T> : Equality
 {
+    private static readonly bool s_defaultComparerAgrees = DefaultComparerAgreesFor(typeof(T));
+
     private readonly IEqualityComparer<T> _comparer;
+    private readonly bool _hashes;
 
     internal Equality(IEqualityComparer<T> comparer, object? tolerance = null, Case? caseSensitivity = null,
-        bool usesCustomComparer = false, bool ignoresOrder = false, Equality? elements = null)
-        : base(tolerance, caseSensitivity, usesCustomComparer, ignoresOrder, elements) =>
+        bool usesCustomComparer = false, bool ignoresOrder = false, Equality? elements = null, bool hashes = false)
+        : base(tolerance, caseSensitivity, usesCustomComparer, ignoresOrder, elements)
+    {
         _comparer = comparer;
+        _hashes = hashes;
+    }
 
     /// <summary>
     /// Shouldly's own rules.
@@ -257,6 +294,19 @@ sealed class Equality<T> : Equality
     /// <see cref="IEqualityComparer{T}.GetHashCode(T)"/> throws.
     /// </summary>
     public IEqualityComparer<T> Comparer => _comparer;
+
+    /// <summary>
+    /// A comparer that gives the same answers as <see cref="Equal"/> and can hash, so a set check can match in one
+    /// pass rather than pairwise; null when there's none. A comparer of the caller's is it. For Shouldly's own rules it
+    /// is <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/>, for the types whose own equality the
+    /// rules reach unchanged, while no equality rule could apply to them.
+    /// </summary>
+    public IEqualityComparer<T>? HashingComparer =>
+        _hashes ? _comparer
+        : ReferenceEquals(this, Default) && s_defaultComparerAgrees &&
+          (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T)))
+            ? System.Collections.Generic.EqualityComparer<T>.Default
+            : null;
 
     public override bool EqualObjects(object? actual, object? expected) => Equal((T?)actual, (T?)expected);
 }

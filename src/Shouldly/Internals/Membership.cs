@@ -9,10 +9,9 @@ namespace Shouldly.Internals;
 /// <c>comparer.Equals(expected, element)</c> (issue #1076).
 /// </summary>
 /// <remarks>
-/// Shouldly's comparer can't hash, so without a comparer of the caller's the set checks match pairwise: O(n·m) for a
-/// subset and O(n²) for uniqueness. A comparer of the caller's is hashed, as the documentation for those assertions
-/// says. Where <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> provably gives the same answer
-/// (<see cref="DefaultEqualityAgrees{T}"/>), they hash instead.
+/// The set checks hash with <see cref="Equality{T}.HashingComparer"/>: a comparer of the caller's, as the documentation
+/// for those assertions says, or the BCL's for the types where it provably agrees with Shouldly's rules. Otherwise
+/// they match pairwise: O(n·m) for a subset and O(n²) for uniqueness.
 /// </remarks>
 static class Membership
 {
@@ -27,12 +26,12 @@ static class Membership
             return true;
 
         // A hash set whose comparer agrees with Shouldly's has answered exactly, so don't scan it.
-        if (CanHash<T>() &&
-            actual is HashSet<T> hashSet &&
-            hashSet.Comparer.Equals(System.Collections.Generic.EqualityComparer<T>.Default))
+        var equality = Equality<T>.Default;
+        if (actual is HashSet<T> hashSet &&
+            equality.HashingComparer is { } hashing &&
+            hashSet.Comparer.Equals(hashing))
             return false;
 
-        var equality = Equality<T>.Default;
         foreach (var item in actual)
         {
             if (equality.Equal(item, expected))
@@ -93,12 +92,22 @@ static class Membership
     /// The elements of <paramref name="actual"/> that equal none of <paramref name="expected"/>, each reported once,
     /// in the order first found.
     /// </summary>
-    public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected)
-    {
-        if (CanHash<T>())
-            return actual.Except(expected).ToList();
+    public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected) =>
+        Unmatched(actual, expected, Equality<T>.Default);
 
-        var equality = Equality<T>.Default;
+    /// <summary>
+    /// The elements of <paramref name="actual"/> that <paramref name="comparer"/>, a comparer of the caller's, finds
+    /// equal to none of <paramref name="expected"/>, each reported once, in the order first found.
+    /// </summary>
+    public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer) =>
+        Unmatched(actual, expected, Equality.Using(comparer));
+
+    private static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected, Equality<T> equality)
+    {
+        // Except puts the expected elements in a set first, so each actual element is the argument to Equals.
+        if (equality.HashingComparer is { } hashing)
+            return actual.Except(expected, hashing).ToList();
+
         var expectedItems = expected.ToList();
         var unmatched = new List<T>();
         foreach (var item in actual)
@@ -114,30 +123,39 @@ static class Membership
     }
 
     /// <summary>
-    /// The elements of <paramref name="actual"/> that <paramref name="comparer"/>, a comparer of the caller's, finds
-    /// equal to none of <paramref name="expected"/>, each reported once, in the order first found. The comparer is
-    /// hashed, so a large collection is matched quickly (documented for <c>ShouldBeSubsetOf</c>), and called as
-    /// <c>comparer.Equals(expected, element)</c>.
+    /// The elements of <paramref name="items"/> that equal an earlier element, each value reported once, in the
+    /// order first duplicated.
     /// </summary>
-    public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer) =>
-        // Except puts the expected elements in a set first, so each actual element is the argument to Equals.
-        actual.Except(expected, comparer).ToList();
+    public static List<T> Duplicates<T>(IEnumerable<T> items) =>
+        Duplicates(items, Equality<T>.Default);
 
     /// <summary>
-    /// The elements of <paramref name="items"/> that equal an earlier element, each value reported once, in the
-    /// order first duplicated. Compares with <paramref name="comparer"/>, a comparer of the caller's, when one is given,
-    /// by hashing it, so a large collection is matched quickly (documented for <c>ShouldBeUnique</c>).
+    /// The elements of <paramref name="items"/> that <paramref name="comparer"/>, a comparer of the caller's, finds
+    /// equal to an earlier element, each value reported once, in the order first duplicated.
     /// </summary>
-    public static List<T> Duplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
+    public static List<T> Duplicates<T>(IEnumerable<T> items, IEqualityComparer<T> comparer) =>
+        Duplicates(items, Equality.Using(comparer));
+
+    private static List<T> Duplicates<T>(IEnumerable<T> items, Equality<T> equality)
     {
-        if (comparer != null || CanHash<T>())
-            return HashedDuplicates(items, comparer);
+        var duplicates = new List<T>();
+        if (equality.HashingComparer is { } hashing)
+        {
+            // A set calls Equals on the element it already holds, the earlier one.
+            var uniqueItems = new HashSet<T>(hashing);
+            var reported = new HashSet<T>(hashing);
+            foreach (var item in items)
+            {
+                if (!uniqueItems.Add(item) && reported.Add(item))
+                    duplicates.Add(item);
+            }
+
+            return duplicates;
+        }
 
         // Compared with every earlier element, and deduplicated against the reported values themselves, rather than
         // against one representative per value: tolerance-based equality isn't transitive.
-        var equality = Equality<T>.Default;
         var earlierItems = new List<T>();
-        var duplicates = new List<T>();
         foreach (var item in items)
         {
             // The earlier element is the one Equals is called on.
@@ -148,20 +166,6 @@ static class Membership
             }
 
             earlierItems.Add(item);
-        }
-
-        return duplicates;
-    }
-
-    private static List<T> HashedDuplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer)
-    {
-        var uniqueItems = new HashSet<T>(comparer);
-        var reported = new HashSet<T>(comparer);
-        var duplicates = new List<T>();
-        foreach (var item in items)
-        {
-            if (!uniqueItems.Add(item) && reported.Add(item))
-                duplicates.Add(item);
         }
 
         return duplicates;
@@ -188,43 +192,4 @@ static class Membership
          definition == typeof(SortedDictionary<,>.KeyCollection) ||
          definition == typeof(System.Collections.ObjectModel.ReadOnlyDictionary<,>.KeyCollection) ||
          (definition.DeclaringType == typeof(SortedList<,>) && definition.Name == "KeyList"));
-
-    /// <summary>
-    /// Whether elements of <typeparamref name="T"/> can be hashed with the BCL's default comparer: it agrees with
-    /// Shouldly's, and no registered equality rule could apply to them instead.
-    /// </summary>
-    private static bool CanHash<T>() =>
-        DefaultEqualityAgrees<T>.Value && (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T)));
-
-    /// <summary>
-    /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same answers as
-    /// <see cref="Equality{T}.Default"/>: true for a closed list of BCL types whose <c>Equals</c> Shouldly's
-    /// comparer reaches unchanged, when no equality rule applies (see <see cref="CanHash{T}"/>). Not for the
-    /// floating-point types, which honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> (see
-    /// <see cref="Numbers.HonoursDefaultTolerance"/>), nor for <c>object</c> or user types, whose elements may compare across types, structurally or through
-    /// <see cref="IEquatable{T}"/>/<see cref="IComparable{T}"/> without a matching <c>GetHashCode</c>.
-    /// </summary>
-    private static class DefaultEqualityAgrees<T>
-    {
-        public static readonly bool Value = Agrees(Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T));
-
-        private static bool Agrees(Type type) =>
-            type.IsEnum ||
-            type == typeof(string) ||
-            type == typeof(bool) ||
-            type == typeof(char) ||
-            type == typeof(sbyte) ||
-            type == typeof(byte) ||
-            type == typeof(short) ||
-            type == typeof(ushort) ||
-            type == typeof(int) ||
-            type == typeof(uint) ||
-            type == typeof(long) ||
-            type == typeof(ulong) ||
-            type == typeof(decimal) ||
-            type == typeof(Guid) ||
-            type == typeof(DateTime) ||
-            type == typeof(DateTimeOffset) ||
-            type == typeof(TimeSpan);
-    }
 }

@@ -122,6 +122,25 @@ public class EqualityTests
         actual.EqualsCalled.ShouldBeFalse();
     }
 
+    [Fact]
+    public void HashesWithTheBclComparerOnlyWhereItAgrees()
+    {
+        Equality<int>.Default.HashingComparer.ShouldBeSameAs(System.Collections.Generic.EqualityComparer<int>.Default);
+        Equality<string>.Default.HashingComparer.ShouldBeSameAs(System.Collections.Generic.EqualityComparer<string>.Default);
+        Equality<double>.Default.HashingComparer.ShouldBeNull();
+        Equality<object>.Default.HashingComparer.ShouldBeNull();
+        Equality<EquatableOnly>.Default.HashingComparer.ShouldBeNull();
+        Equality.WithinTolerance<decimal>(0.1m).HashingComparer.ShouldBeNull();
+    }
+
+    [Fact]
+    public void HashesWithACallersComparer()
+    {
+        var comparer = StringComparer.OrdinalIgnoreCase;
+
+        Equality.Using<string>(comparer).HashingComparer.ShouldBeSameAs(comparer);
+    }
+
     // How an assertion asks Equality: by Shouldly's rules, unless a comparer of the caller's is given.
     private static bool Equal<T>(T? actual, T? expected, IEqualityComparer<T>? comparer = null) =>
         (comparer is null ? Equality<T>.Default : Equality.Using(comparer)).Equal(actual, expected);
