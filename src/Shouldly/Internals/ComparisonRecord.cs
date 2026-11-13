@@ -43,7 +43,7 @@ sealed class ComparisonRecord
     public bool ElementsEqual(object? actual, object? expected) =>
         _elementEquals is { } elementEquals
             ? elementEquals(actual, expected)
-            : Equality.Equal(actual, expected);
+            : Equality<object>.Default.Equal(actual, expected);
 
     /// <summary>
     /// The assertion compared the elements of two sequences with <paramref name="comparer"/>.
@@ -51,7 +51,7 @@ sealed class ComparisonRecord
     /// <param name="comparer">The comparer the elements were compared with.</param>
     /// <param name="isCustom">Whether the caller supplied it.</param>
     public static ComparisonRecord ComparedElementsWith<T>(IEqualityComparer<T> comparer, bool isCustom) =>
-        new((actual, expected) => Equality.Equal((T?)actual, (T?)expected, comparer), isCustom);
+        new((actual, expected) => comparer.Equals((T?)expected!, (T?)actual!), isCustom);
 
     /// <summary>
     /// The assertion compared two values with a comparer the caller supplied.

@@ -14,77 +14,77 @@ public class EqualityTests
     private static readonly Dictionary<string, (Func<bool> Compare, bool Equal)> Cases = new()
     {
         // Single values
-        ["int, same"] = (() => Equality.Equal(1, 1), true),
-        ["int, different"] = (() => Equality.Equal(1, 2), false),
-        ["null, null"] = (() => Equality.Equal<object>(null, null), true),
-        ["null actual"] = (() => Equality.Equal<object>(null, 1), false),
-        ["null expected"] = (() => Equality.Equal<object>(1, null), false),
-        ["string, same"] = (() => Equality.Equal("a", "a"), true),
-        ["string, different case"] = (() => Equality.Equal("a", "A"), false),
-        ["Guid, same"] = (() => Equality.Equal(Guid.Empty, new Guid()), true),
+        ["int, same"] = (() => Equal(1, 1), true),
+        ["int, different"] = (() => Equal(1, 2), false),
+        ["null, null"] = (() => Equal<object>(null, null), true),
+        ["null actual"] = (() => Equal<object>(null, 1), false),
+        ["null expected"] = (() => Equal<object>(1, null), false),
+        ["string, same"] = (() => Equal("a", "a"), true),
+        ["string, different case"] = (() => Equal("a", "A"), false),
+        ["Guid, same"] = (() => Equal(Guid.Empty, new Guid()), true),
 
         // Numbers of different types compare by value, exactly (#1426, #1427)
-        ["int vs long, same value"] = (() => Equality.Equal<object>(1, 1L), true),
-        ["int vs double, same value"] = (() => Equality.Equal<object>(1, 1.0), true),
-        ["uint.MaxValue vs -1"] = (() => Equality.Equal<object>(uint.MaxValue, -1), false),
-        ["decimal 0.1 vs double 0.1"] = (() => Equality.Equal<object>(0.1m, 0.1), false),
+        ["int vs long, same value"] = (() => Equal<object>(1, 1L), true),
+        ["int vs double, same value"] = (() => Equal<object>(1, 1.0), true),
+        ["uint.MaxValue vs -1"] = (() => Equal<object>(uint.MaxValue, -1), false),
+        ["decimal 0.1 vs double 0.1"] = (() => Equal<object>(0.1m, 0.1), false),
 
         // A default ImmutableArray counts as null (#1406)
-        ["default ImmutableArray vs null"] = (() => Equality.Equal<object>(default(ImmutableArray<int>), null), true),
-        ["default ImmutableArray vs empty"] = (() => Equality.Equal<object>(default(ImmutableArray<int>), ImmutableArray<int>.Empty), false),
+        ["default ImmutableArray vs null"] = (() => Equal<object>(default(ImmutableArray<int>), null), true),
+        ["default ImmutableArray vs empty"] = (() => Equal<object>(default(ImmutableArray<int>), ImmutableArray<int>.Empty), false),
 
         // Collections are walked structurally, at any depth
-        ["nested lists, same items"] = (() => Equality.Equal(NestedList(1), NestedList(1)), true),
-        ["nested lists, different items"] = (() => Equality.Equal(NestedList(1), NestedList(2)), false),
-        ["array vs list, same items"] = (() => Equality.Equal<IEnumerable<int>>(new[] { 1, 2 }, new List<int> { 1, 2 }), true),
+        ["nested lists, same items"] = (() => Equal(NestedList(1), NestedList(1)), true),
+        ["nested lists, different items"] = (() => Equal(NestedList(1), NestedList(2)), false),
+        ["array vs list, same items"] = (() => Equal<IEnumerable<int>>(new[] { 1, 2 }, new List<int> { 1, 2 }), true),
 
         // Key/value pairs compare their key and value with the same rules (#1408)
-        ["KeyValuePair, structurally equal values"] = (() => Equality.Equal(Pair("k", [1, 2]), Pair("k", [1, 2])), true),
-        ["KeyValuePair, different values"] = (() => Equality.Equal(Pair("k", [1, 2]), Pair("k", [1, 3])), false),
+        ["KeyValuePair, structurally equal values"] = (() => Equal(Pair("k", [1, 2]), Pair("k", [1, 2])), true),
+        ["KeyValuePair, different values"] = (() => Equal(Pair("k", [1, 2]), Pair("k", [1, 3])), false),
 
         // IEquatable<T> is honoured even where the static type has been lost (#825)
-        ["IEquatable-only elements as objects"] = (() => Equality.Equal(new List<object> { new EquatableOnly(1) }, [new EquatableOnly(1)]), true),
+        ["IEquatable-only elements as objects"] = (() => Equal(new List<object> { new EquatableOnly(1) }, [new EquatableOnly(1)]), true),
 
         // A registered equality rule decides, for the type and its subtypes, at any depth (see ModuleInitializer)
-        ["rule, own Equals, same id, different items"] = (() => Equality.Equal(new IdBag(1, 1), new IdBag(1, 2)), true),
-        ["rule, own Equals, different id, same items"] = (() => Equality.Equal(new IdBag(1, 1), new IdBag(2, 1)), false),
-        ["rule, subtype, same leaf"] = (() => Equality.Equal<Node>(new Leaf("a"), new Leaf("a")), true),
-        ["rule, subtype, different leaf (walked, both are empty)"] = (() => Equality.Equal<Node>(new Leaf("a"), new Leaf("b")), false),
-        ["rule, deep equal branches"] = (() => Equality.Equal<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("a"))), true),
-        ["rule, different branches"] = (() => Equality.Equal<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("b"))), false),
-        ["rule, static subtype"] = (() => Equality.Equal(new Leaf("a"), new Leaf("b")), false),
-        ["rule, whole value through the sequence overload"] = (() => Equality.SequenceEqual<Node>(new Leaf("a"), new Leaf("b")), false),
-        ["rule, sequence of equal values"] = (() => Equality.SequenceEqual<Node>([new Leaf("a")], [new Leaf("a")]), true),
-        ["rule, sequence of different values"] = (() => Equality.SequenceEqual<Node>([new Leaf("a")], [new Leaf("b")]), false),
-        ["rule, ignoring order, permuted"] = (() => Equality.SequenceEqual<Node>([new Leaf("a"), new Leaf("b")], [new Leaf("b"), new Leaf("a")], ignoreOrder: true), true),
-        ["rule, ignoring order, different"] = (() => Equality.SequenceEqual<Node>([new Leaf("a")], [new Leaf("b")], ignoreOrder: true), false),
-        ["rule, whole value, permuted"] = (() => Equality.SequenceEqual<Node>(new Branch(new Leaf("a"), new Leaf("b")), new Branch(new Leaf("b"), new Leaf("a"))), false),
-        ["rule, whole value ignoring order, permuted"] = (() => Equality.SequenceEqual<Node>(new Branch(new Leaf("a"), new Leaf("b")), new Branch(new Leaf("b"), new Leaf("a")), ignoreOrder: true), true),
-        ["rule, whole value ignoring order, different"] = (() => Equality.SequenceEqual<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("b")), ignoreOrder: true), false),
-        ["rule, nested as objects"] = (() => Equality.Equal(new List<object> { new Leaf("a") }, [new Leaf("b")]), false),
-        ["rule, KeyValuePair value"] = (() => Equality.Equal(new KeyValuePair<string, Node>("k", new Leaf("a")), new("k", new Leaf("b"))), false),
-        ["rule, KeyValuePair value as object"] = (() => Equality.Equal(new KeyValuePair<string, object>("k", new Leaf("a")), new("k", new Leaf("b"))), false),
-        ["rule, most specific wins"] = (() => Equality.Equal(new CaseInsensitiveLeaf("A"), new CaseInsensitiveLeaf("a")), true),
-        ["rule, applies only when both values are its type"] = (() => Equality.Equal<Leaf>(new CaseInsensitiveLeaf("A"), new Leaf("a")), false),
+        ["rule, own Equals, same id, different items"] = (() => Equal(new IdBag(1, 1), new IdBag(1, 2)), true),
+        ["rule, own Equals, different id, same items"] = (() => Equal(new IdBag(1, 1), new IdBag(2, 1)), false),
+        ["rule, subtype, same leaf"] = (() => Equal<Node>(new Leaf("a"), new Leaf("a")), true),
+        ["rule, subtype, different leaf (walked, both are empty)"] = (() => Equal<Node>(new Leaf("a"), new Leaf("b")), false),
+        ["rule, deep equal branches"] = (() => Equal<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("a"))), true),
+        ["rule, different branches"] = (() => Equal<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("b"))), false),
+        ["rule, static subtype"] = (() => Equal(new Leaf("a"), new Leaf("b")), false),
+        ["rule, whole value through the sequence overload"] = (() => SequenceEqual<Node>(new Leaf("a"), new Leaf("b")), false),
+        ["rule, sequence of equal values"] = (() => SequenceEqual<Node>([new Leaf("a")], [new Leaf("a")]), true),
+        ["rule, sequence of different values"] = (() => SequenceEqual<Node>([new Leaf("a")], [new Leaf("b")]), false),
+        ["rule, ignoring order, permuted"] = (() => SequenceEqual<Node>([new Leaf("a"), new Leaf("b")], [new Leaf("b"), new Leaf("a")], ignoreOrder: true), true),
+        ["rule, ignoring order, different"] = (() => SequenceEqual<Node>([new Leaf("a")], [new Leaf("b")], ignoreOrder: true), false),
+        ["rule, whole value, permuted"] = (() => SequenceEqual<Node>(new Branch(new Leaf("a"), new Leaf("b")), new Branch(new Leaf("b"), new Leaf("a"))), false),
+        ["rule, whole value ignoring order, permuted"] = (() => SequenceEqual<Node>(new Branch(new Leaf("a"), new Leaf("b")), new Branch(new Leaf("b"), new Leaf("a")), ignoreOrder: true), true),
+        ["rule, whole value ignoring order, different"] = (() => SequenceEqual<Node>(new Branch(new Leaf("a")), new Branch(new Leaf("b")), ignoreOrder: true), false),
+        ["rule, nested as objects"] = (() => Equal(new List<object> { new Leaf("a") }, [new Leaf("b")]), false),
+        ["rule, KeyValuePair value"] = (() => Equal(new KeyValuePair<string, Node>("k", new Leaf("a")), new("k", new Leaf("b"))), false),
+        ["rule, KeyValuePair value as object"] = (() => Equal(new KeyValuePair<string, object>("k", new Leaf("a")), new("k", new Leaf("b"))), false),
+        ["rule, most specific wins"] = (() => Equal(new CaseInsensitiveLeaf("A"), new CaseInsensitiveLeaf("a")), true),
+        ["rule, applies only when both values are its type"] = (() => Equal<Leaf>(new CaseInsensitiveLeaf("A"), new Leaf("a")), false),
 
         // A caller-supplied comparer decides
-        ["custom comparer"] = (() => Equality.Equal("a", "A", StringComparer.OrdinalIgnoreCase), true),
+        ["custom comparer"] = (() => Equal("a", "A", StringComparer.OrdinalIgnoreCase), true),
 
         // Sequences in order
-        ["sequence, same order"] = (() => Equality.SequenceEqual([1, 2, 3], [1, 2, 3]), true),
-        ["sequence, different order"] = (() => Equality.SequenceEqual([1, 2, 3], [3, 2, 1]), false),
-        ["sequence, actual shorter"] = (() => Equality.SequenceEqual([1, 2], [1, 2, 3]), false),
-        ["sequence, actual longer"] = (() => Equality.SequenceEqual([1, 2, 3], [1, 2]), false),
-        ["sequence, null vs null"] = (() => Equality.SequenceEqual<int>(null, null), true),
-        ["sequence, null vs empty"] = (() => Equality.SequenceEqual<int>(null, []), false),
-        ["sequence, default ImmutableArray vs null"] = (() => Equality.SequenceEqual<int>(default(ImmutableArray<int>), null), true),
-        ["sequence, custom comparer"] = (() => Equality.SequenceEqual(["a"], ["A"], comparer: StringComparer.OrdinalIgnoreCase), true),
+        ["sequence, same order"] = (() => SequenceEqual([1, 2, 3], [1, 2, 3]), true),
+        ["sequence, different order"] = (() => SequenceEqual([1, 2, 3], [3, 2, 1]), false),
+        ["sequence, actual shorter"] = (() => SequenceEqual([1, 2], [1, 2, 3]), false),
+        ["sequence, actual longer"] = (() => SequenceEqual([1, 2, 3], [1, 2]), false),
+        ["sequence, null vs null"] = (() => SequenceEqual<int>(null, null), true),
+        ["sequence, null vs empty"] = (() => SequenceEqual<int>(null, []), false),
+        ["sequence, default ImmutableArray vs null"] = (() => SequenceEqual<int>(default(ImmutableArray<int>), null), true),
+        ["sequence, custom comparer"] = (() => SequenceEqual(["a"], ["A"], comparer: StringComparer.OrdinalIgnoreCase), true),
 
         // Sequences ignoring order match elements one for one
-        ["ignoring order, permuted"] = (() => Equality.SequenceEqual([1, 2, 2], [2, 1, 2], ignoreOrder: true), true),
-        ["ignoring order, different counts"] = (() => Equality.SequenceEqual([1, 1, 2], [1, 2, 2], ignoreOrder: true), false),
-        ["ignoring order, missing default value"] = (() => Equality.SequenceEqual([1], [0], ignoreOrder: true), false),
-        ["ignoring order, null vs null"] = (() => Equality.SequenceEqual<int>(null, null, ignoreOrder: true), true),
+        ["ignoring order, permuted"] = (() => SequenceEqual([1, 2, 2], [2, 1, 2], ignoreOrder: true), true),
+        ["ignoring order, different counts"] = (() => SequenceEqual([1, 1, 2], [1, 2, 2], ignoreOrder: true), false),
+        ["ignoring order, missing default value"] = (() => SequenceEqual([1], [0], ignoreOrder: true), false),
+        ["ignoring order, null vs null"] = (() => SequenceEqual<int>(null, null, ignoreOrder: true), true),
     };
 
     public static TheoryData<string> CaseNames => [.. Cases.Keys];
@@ -104,7 +104,7 @@ public class EqualityTests
         var actual = new SpyEquatable();
         var expected = new SpyEquatable();
 
-        Equality.Equal(actual, expected);
+        Equal(actual, expected);
 
         expected.EqualsCalled.ShouldBeTrue();
         actual.EqualsCalled.ShouldBeFalse();
@@ -116,11 +116,18 @@ public class EqualityTests
         var actual = new SpyEquatable();
         var expected = new SpyEquatable();
 
-        Equality.SequenceEqual([actual], [expected]);
+        SequenceEqual([actual], [expected]);
 
         expected.EqualsCalled.ShouldBeTrue();
         actual.EqualsCalled.ShouldBeFalse();
     }
+
+    // How an assertion asks Equality: by Shouldly's rules, unless a comparer of the caller's is given.
+    private static bool Equal<T>(T? actual, T? expected, IEqualityComparer<T>? comparer = null) =>
+        (comparer is null ? Equality<T>.Default : Equality.Using(comparer)).Equal(actual, expected);
+
+    private static bool SequenceEqual<T>(IEnumerable<T>? actual, IEnumerable<T>? expected, bool ignoreOrder = false, IEqualityComparer<T>? comparer = null) =>
+        Equality.OfSequences(comparer is null ? Equality<T>.Default : Equality.Using(comparer), ignoreOrder).Equal(actual, expected);
 
     private static List<object> NestedList(int item) => [new List<object> { new List<int> { item } }];
 

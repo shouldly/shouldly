@@ -27,7 +27,7 @@ static class IgnoringOrderWording
         // Compare as the assertion did, so any custom comparer is honored.
         var comparison = (record ?? ComparisonRecord.Default);
 
-        // Match occurrences one-for-one, as Equality.SequenceEqual does, so a difference in how many times an item
+        // Match occurrences one-for-one, as Equality does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.
         var (missingFromExpected, missingFromActual) = UnorderedCollection.Unpaired(actual, expected, comparison.ElementsEqual);
 

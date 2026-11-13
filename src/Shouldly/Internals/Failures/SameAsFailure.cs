@@ -47,7 +47,7 @@ sealed class SameAsFailure([CallerMemberName] string name = "") : Failure(name, 
     {
         try
         {
-            return Equality.Equal(actual, expected);
+            return Equality<object>.Default.Equal(actual, expected);
         }
         catch (Exception)
         {

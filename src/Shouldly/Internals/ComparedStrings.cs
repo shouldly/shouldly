@@ -51,7 +51,7 @@ readonly struct ComparedStrings
         if (useEqualityRules && options == 0 && !EqualityRules.IsEmpty && EqualityRules.CouldApplyTo(typeof(string)))
         {
             sensitivity = Case.Sensitive;
-            stringComparer = (actualValue, expectedValue) => Equality.Equal(actualValue, expectedValue);
+            stringComparer = (actualValue, expectedValue) => Equality<string>.Default.Equal(actualValue, expectedValue);
         }
         else if ((options & StringCompareShould.IgnoreCase) == 0)
         {

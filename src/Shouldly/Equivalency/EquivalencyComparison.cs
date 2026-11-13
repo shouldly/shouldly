@@ -538,7 +538,7 @@ internal sealed class EquivalencyComparison
         bool equal;
         try
         {
-            equal = Equality.Equal(actual, expected);
+            equal = Equality<object?>.Default.Equal(actual, expected);
         }
         catch (Exception)
         {
@@ -618,7 +618,7 @@ internal sealed class EquivalencyComparison
                 return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
         }
 
-        // Equals is called on the expected value, as in ShouldBe (see Equality.Equal), so a broken Equals on the value
+        // Equals is called on the expected value, as in ShouldBe (see Equality), so a broken Equals on the value
         // under test can't make the comparison pass.
         return expected.Equals(actual);
     }

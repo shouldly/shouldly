@@ -69,8 +69,8 @@ static class WithinWording
     private static ComparisonRecord? ImpliedBy(object? tolerance) =>
         tolerance switch
         {
-            decimal decimalTolerance => ComparisonRecord.ComparedElementsWith(Equality.WithinTolerance<object?>(decimalTolerance), isCustom: false),
-            double doubleTolerance => ComparisonRecord.ComparedElementsWith(Equality.WithinTolerance<object?>(doubleTolerance), isCustom: false),
+            decimal decimalTolerance => ComparisonRecord.ComparedElementsWith(Equality.WithinTolerance<object?>(decimalTolerance).Comparer, isCustom: false),
+            double doubleTolerance => ComparisonRecord.ComparedElementsWith(Equality.WithinTolerance<object?>(doubleTolerance).Comparer, isCustom: false),
             _ => null
         };
 }

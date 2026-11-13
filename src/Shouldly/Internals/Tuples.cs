@@ -34,7 +34,7 @@ static class Tuples
     /// When <paramref name="expected"/> and <paramref name="actual"/> are both tuples of one kind and arity (both
     /// <see cref="KeyValuePair{TKey, TValue}"/>s, both two-item <see cref="ValueTuple{T1, T2}"/>s, and so on),
     /// sets <paramref name="result"/> to whether each of their items is equal and returns <c>true</c>.
-    /// Each item is compared as <see cref="Equality.ComparerFor{T}"/> compares a value of the expected tuple's
+    /// Each item is compared as <see cref="Equality{T}.Default"/> compares a value of the expected tuple's
     /// declared item type: by a registered equality rule when one applies, and otherwise with
     /// <paramref name="elementComparer"/> plus the <c>IEquatable&lt;S&gt;</c>/<c>IComparable&lt;S&gt;</c> steps for the
     /// declared type <c>S</c> that it can't take itself. <c>Equals</c> is called on the expected item.
