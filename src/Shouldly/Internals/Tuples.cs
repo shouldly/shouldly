@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Runtime.ExceptionServices;
-using NUnit.Framework.Constraints;
 
 namespace Shouldly.Internals;
 
@@ -158,7 +157,7 @@ static class Tuples
         if (declaredType == typeof(object) ||
             ReferenceEquals(expected, actual) ||
             !declaredType.IsInstanceOfType(actual) ||
-            (Numerics.IsNumericType(expected) && Numerics.IsNumericType(actual)) ||
+            (Numbers.IsNumber(expected) && Numbers.IsNumber(actual)) ||
             (expected.TryGetEnumerable(out _) && actual.TryGetEnumerable(out _)) ||
             FindBoth(expected, actual) is not null)
             return false;

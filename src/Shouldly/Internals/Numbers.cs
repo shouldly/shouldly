@@ -1,19 +1,19 @@
-namespace NUnit.Framework.Constraints;
+namespace Shouldly.Internals;
 
 /// <summary>
-///     The Numerics class contains common operations on numeric values.
+/// How Shouldly compares two numbers: which values are numbers, and when two of them are equal, whatever their types,
+/// within <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>. Equality and ShouldBeEquivalentTo both
+/// ask it, so they give two numbers the same verdict. The conversion rules began as NUnit's <c>Numerics</c>.
 /// </summary>
-static class Numerics
+static class Numbers
 {
     /// <summary>
-    ///     Checks the type of the object, returning true if
-    ///     the object is a numeric type.
+    /// Whether <paramref name="value"/> is a number: a value of one of .NET's built-in numeric types, <c>Half</c>
+    /// included, and not a <c>char</c>, an enum or a <c>BigInteger</c>.
     /// </summary>
-    /// <param name="obj">The object to check</param>
-    /// <returns>true if the object is a numeric type</returns>
-    public static bool IsNumericType([NotNullWhen(true)] object? obj)
+    public static bool IsNumber([NotNullWhen(true)] object? value)
     {
-        return obj is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort
+        return value is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort
 #if NET5_0_OR_GREATER
             or Half
 #endif
@@ -21,13 +21,10 @@ static class Numerics
     }
 
     /// <summary>
-    ///     Test two numeric values for equality, performing the usual numeric conversions. Floating-point values
-    ///     honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>; everything else must match exactly.
+    /// Whether two numbers are equal, whatever their types. Floating-point values are compared within
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>; everything else must match exactly.
     /// </summary>
-    /// <param name="expected">The expected value</param>
-    /// <param name="actual">The actual value</param>
-    /// <returns>True if the values are equal</returns>
-    public static bool AreEqual(object expected, object actual)
+    public static bool Equal(object expected, object actual)
     {
         // A floating-point value compared with an integer or decimal, with no tolerance in effect, must hold exactly
         // the same value: converting either side to the other's type can round it and make distinct values equal
@@ -42,13 +39,13 @@ static class Numerics
         }
 
         if (expected is float expectedFloat && actual is float actualFloat)
-            return AreEqual(expectedFloat, actualFloat);
+            return Equal(expectedFloat, actualFloat);
 
         // Any other pair with a floating-point value in it is compared as doubles. A float widens to a double
         // exactly, as does a Half (which can't go through Convert, not being IConvertible, #1405), while narrowing
         // the other value to float would round it first: 16777217 would equal 16777216f.
         if (IsFloatingPoint(expected) || IsFloatingPoint(actual))
-            return AreEqual(ToDouble(expected), ToDouble(actual));
+            return Equal(ToDouble(expected), ToDouble(actual));
 
         if (expected is decimal || actual is decimal || MixesSignedWithUnsigned(expected, actual))
             return Convert.ToDecimal(expected) == Convert.ToDecimal(actual);
@@ -65,7 +62,7 @@ static class Numerics
         return Convert.ToInt32(expected) == Convert.ToInt32(actual);
     }
 
-    private static bool AreEqual(double expected, double actual)
+    private static bool Equal(double expected, double actual)
     {
         if (double.IsNaN(expected) && double.IsNaN(actual))
             return true;
@@ -80,7 +77,7 @@ static class Numerics
             : expected.Equals(actual);
     }
 
-    private static bool AreEqual(float expected, float actual)
+    private static bool Equal(float expected, float actual)
     {
         if (float.IsNaN(expected) && float.IsNaN(actual))
             return true;

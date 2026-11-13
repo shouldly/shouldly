@@ -1,5 +1,3 @@
-using NUnit.Framework.Constraints;
-
 namespace Shouldly.Internals;
 
 /*
@@ -26,7 +24,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
         if (!t.IsValueType) return false;
 
         // float/double/Half participate in
-        // ShouldlyConfiguration.DefaultFloatingPointTolerance via Numerics.AreEqual.
+        // ShouldlyConfiguration.DefaultFloatingPointTolerance via Numbers.Equal.
         // System.Collections.Generic.EqualityComparer<T>.Default doesn't know
         // about that configuration, so keep them on the boxing path to preserve
         // tolerance semantics.
@@ -89,7 +87,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
                 return string.Equals((string)(object)x, (string)(object)y);
 
             case EqualityStepKind.Number:
-                return Numerics.AreEqual(x, y);
+                return Numbers.Equal(x, y);
 
             case EqualityStepKind.UnorderedCollection:
                 return UnorderedCollection.MatchOneForOne(

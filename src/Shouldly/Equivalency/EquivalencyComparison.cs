@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using Shouldly.Internals;
 using Shouldly.Internals.Failures;
 
@@ -608,12 +607,12 @@ internal sealed class EquivalencyComparison
 
     private static bool LeafEquals(object actual, object expected)
     {
-        if (Numerics.IsNumericType(actual) && Numerics.IsNumericType(expected))
+        if (Numbers.IsNumber(actual) && Numbers.IsNumber(expected))
         {
 #if NET5_0_OR_GREATER
-            // Half isn't IConvertible, so it can't be converted below. Numerics widens it to double, as ShouldBe does.
+            // Half isn't IConvertible, so it can't be converted below. Numbers widens it to double, as ShouldBe does.
             if (actual is Half || expected is Half)
-                return Numerics.AreEqual(expected, actual);
+                return Numbers.Equal(expected, actual);
 #endif
 
             if (actual is float or double || expected is float or double)
@@ -630,11 +629,11 @@ internal sealed class EquivalencyComparison
     }
 
     /// <summary>
-    /// Compares through <see cref="Numerics"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
+    /// Compares through <see cref="Numbers"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
     /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies.
     /// </summary>
     private static bool FloatingPointEquals(object actual, object expected) =>
-        Numerics.AreEqual(expected, actual);
+        Numbers.Equal(expected, actual);
 
     /// <summary>
     /// The shape of <paramref name="value"/>'s own type. A provider that knows a closed set of types can't always

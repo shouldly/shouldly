@@ -1,5 +1,3 @@
-using NUnit.Framework.Constraints;
-
 namespace Shouldly.Internals;
 
 /// <summary>
@@ -58,7 +56,7 @@ readonly struct EqualityStep
         if (expected is string && actual is string)
             return new(EqualityStepKind.String);
 
-        if (Numerics.IsNumericType(expected) && Numerics.IsNumericType(actual))
+        if (Numbers.IsNumber(expected) && Numbers.IsNumber(actual))
             return new(EqualityStepKind.Number);
 
         // Anything it can enumerate, a Memory<T> included. The order a dictionary or a set enumerates in isn't part
