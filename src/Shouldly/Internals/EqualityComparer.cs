@@ -23,15 +23,10 @@ class EqualityComparer<T> : IEqualityComparer<T>
         // below — the gain is exclusive to value-type T.
         if (!t.IsValueType) return false;
 
-        // float/double/Half participate in
-        // ShouldlyConfiguration.DefaultFloatingPointTolerance via Numbers.Equal.
         // System.Collections.Generic.EqualityComparer<T>.Default doesn't know
-        // about that configuration, so keep them on the boxing path to preserve
-        // tolerance semantics.
-        if (t == typeof(float) || t == typeof(double)) return false;
-#if NET5_0_OR_GREATER
-        if (t == typeof(Half)) return false;
-#endif
+        // ShouldlyConfiguration.DefaultFloatingPointTolerance, so the types it
+        // reaches stay on the boxing path, where Numbers compares them.
+        if (Numbers.HonoursDefaultTolerance(t)) return false;
 
         // Value types that are themselves IEnumerable (e.g. ImmutableArray<T>)
         // currently recurse into element-wise comparison via TryGetEnumerable.

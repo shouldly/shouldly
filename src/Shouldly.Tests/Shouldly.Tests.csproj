@@ -20,6 +20,7 @@
     <Compile Remove="InternalTests\DifferencesTests.cs" />
     <Compile Remove="InternalTests\EqualityTests.cs" />
     <Compile Remove="InternalTests\ExplanationWordingTests.cs" />
+    <Compile Remove="InternalTests\NumbersTests.cs" />
     <Compile Remove="InternalTests\UnorderedCollectionTests.cs" />
     <Compile Remove="ShouldBe\ScopedEqualityRuleScenarios.cs" />
     <Compile Remove="ShouldBe\JsonScenarios.cs" />

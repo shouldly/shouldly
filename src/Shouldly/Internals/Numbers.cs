@@ -21,6 +21,19 @@ static class Numbers
     }
 
     /// <summary>
+    /// Whether values of <paramref name="type"/> are compared within
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>: the floating-point types. The BCL's own
+    /// equality and hashing for such a type don't know the tolerance, so they can't stand in for Shouldly's, even
+    /// while it is zero, as it can change after that is decided.
+    /// </summary>
+    public static bool HonoursDefaultTolerance(Type type) =>
+        type == typeof(double) || type == typeof(float)
+#if NET5_0_OR_GREATER
+        || type == typeof(Half)
+#endif
+        ;
+
+    /// <summary>
     /// Whether two numbers are equal, whatever their types. Floating-point values are compared within
     /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>; everything else must match exactly.
     /// </summary>
