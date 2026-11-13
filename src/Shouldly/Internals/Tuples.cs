@@ -31,6 +31,12 @@ static class Tuples
     public static bool ComparesItemByItem(Type type) => FindDefinition(type) is not null;
 
     /// <summary>
+    /// Whether <paramref name="expected"/> and <paramref name="actual"/> are tuples of one kind and arity, which
+    /// <see cref="TryEquals"/> compares item by item.
+    /// </summary>
+    public static bool AreComparedItemByItem(object expected, object actual) => FindBoth(expected, actual) is not null;
+
+    /// <summary>
     /// When <paramref name="expected"/> and <paramref name="actual"/> are both tuples of one kind and arity (both
     /// <see cref="KeyValuePair{TKey, TValue}"/>s, both two-item <see cref="ValueTuple{T1, T2}"/>s, and so on),
     /// sets <paramref name="result"/> to whether each of their items is equal and returns <c>true</c>.
