@@ -134,6 +134,18 @@ public class TupleScenario
         (1, new OnlyGenericComparable(1)).ShouldBe((1, new OnlyGenericComparable(1)));
 
     [Fact]
+    public void ItemsAreComparedByTheirRuntimeTypesAsObjectElementsAre()
+    {
+        // The judge's IEquatable<Animal> says unequal and its IEquatable<Dog> says equal. Held as an object, the dog
+        // is compared by the most derived of the two, and a tuple item declared as an Animal is compared the same way.
+        var judge = new Judge();
+
+        new List<object> { new Dog() }.ShouldBe([judge]);
+        ((Animal)new Dog(), 1).ShouldBe((judge, 1));
+        new KeyValuePair<string, Animal>("a", new Dog()).ShouldBe(new KeyValuePair<string, Animal>("a", judge));
+    }
+
+    [Fact]
     public void FloatingPointItemsHonourTheDefaultTolerance()
     {
         // As the item on its own does: a tuple's own Equals would compare it exactly.
@@ -193,6 +205,19 @@ public class TupleScenario
 
         public int CompareTo(OnlyGenericComparable? other) => other is null ? 1 : Value.CompareTo(other.Value);
     }
+
+    private class Animal;
+
+    private class Dog : Animal;
+
+#pragma warning disable CA1067 // Deliberately disagrees with object.Equals to show which interface is consulted.
+    private sealed class Judge : Dog, IEquatable<Animal>, IEquatable<Dog>
+    {
+        public bool Equals(Animal? other) => false;
+
+        public bool Equals(Dog? other) => true;
+    }
+#pragma warning restore CA1067
 
     private sealed class ReferenceComparer : IEqualityComparer<(int, int[])>
     {
