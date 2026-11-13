@@ -607,33 +607,14 @@ internal sealed class EquivalencyComparison
 
     private static bool LeafEquals(object actual, object expected)
     {
+        // Two numbers are compared as ShouldBe compares them, whatever their types (see Numbers).
         if (Numbers.IsNumber(actual) && Numbers.IsNumber(expected))
-        {
-#if NET5_0_OR_GREATER
-            // Half isn't IConvertible, so it can't be converted below. Numbers widens it to double, as ShouldBe does.
-            if (actual is Half || expected is Half)
-                return Numbers.Equal(expected, actual);
-#endif
-
-            if (actual is float or double || expected is float or double)
-                return FloatingPointEquals(actual, expected);
-
-            // Mixed integral and decimal values compare exactly through decimal.
-            if (actual.GetType() != expected.GetType())
-                return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
-        }
+            return Numbers.Equal(expected, actual);
 
         // Equals is called on the expected value, as in ShouldBe (see Equality), so a broken Equals on the value
         // under test can't make the comparison pass.
         return expected.Equals(actual);
     }
-
-    /// <summary>
-    /// Compares through <see cref="Numbers"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
-    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies.
-    /// </summary>
-    private static bool FloatingPointEquals(object actual, object expected) =>
-        Numbers.Equal(expected, actual);
 
     /// <summary>
     /// The shape of <paramref name="value"/>'s own type. A provider that knows a closed set of types can't always
