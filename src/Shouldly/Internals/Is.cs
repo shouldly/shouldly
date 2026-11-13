@@ -52,7 +52,19 @@ static class Is
     public static bool Equal(DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance) =>
         (actual - expected).Duration() <= tolerance;
 
-    public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance) => (actual - expected).Duration() <= tolerance;
+    public static bool Equal(TimeSpan actual, TimeSpan expected, TimeSpan tolerance)
+    {
+        try
+        {
+            return (actual - expected).Duration() <= tolerance;
+        }
+        catch (OverflowException)
+        {
+            // The difference is longer than any TimeSpan, so longer than any tolerance. Duration() overflows too, on a
+            // difference of exactly TimeSpan.MinValue, which is a tick longer than TimeSpan.MaxValue.
+            return false;
+        }
+    }
 
     public static bool StringMatchingRegex(string actual, [RegexPattern] string regexPattern) =>
         Regex.IsMatch(actual, regexPattern);
