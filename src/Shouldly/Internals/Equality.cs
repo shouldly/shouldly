@@ -66,27 +66,37 @@ static class Equality
 
     /// <summary>
     /// The element comparer of an assertion that takes a <see cref="decimal"/> tolerance: two decimals are equal when
-    /// they are within <paramref name="tolerance"/> of each other. Values of any other type are unequal. It can't
-    /// hash, and it isn't transitive, which <see cref="SequenceEqual{T}"/> allows for when it matches in any order.
+    /// they are within <paramref name="tolerance"/> of each other. Any other pair is compared by Shouldly's own rules,
+    /// as a custom assertion's message may hold values of another type than its tolerance. It can't hash, and it
+    /// isn't transitive, which <see cref="SequenceEqual{T}"/> allows for when it matches in any order.
     /// </summary>
     /// <remarks>
     /// The assertion checks with it and hands the same comparer to its failure message, so that what the message
     /// marks as different is what the check found different.
     /// </remarks>
-    public static IEqualityComparer<T> WithinTolerance<T>(decimal tolerance) =>
-        new ElementComparer<T>((expected, actual) =>
-            expected is decimal expectedNumber && actual is decimal actualNumber &&
-            Is.Equal(actualNumber, expectedNumber, tolerance));
+    public static IEqualityComparer<T> WithinTolerance<T>(decimal tolerance)
+    {
+        var otherwise = ComparerFor<T>();
+        return new ElementComparer<T>((expected, actual) =>
+            expected is decimal expectedNumber && actual is decimal actualNumber
+                ? Is.Equal(actualNumber, expectedNumber, tolerance)
+                : otherwise.Equals(expected!, actual!));
+    }
 
     /// <summary>
     /// The element comparer of an assertion that takes a <see cref="double"/> tolerance: two doubles or floats are
-    /// equal when they are within <paramref name="tolerance"/> of each other, a float widened to a double. Values of
-    /// any other type are unequal. Like <see cref="WithinTolerance{T}(decimal)"/>, it can't hash and isn't transitive.
+    /// equal when they are within <paramref name="tolerance"/> of each other, a float widened to a double. Like
+    /// <see cref="WithinTolerance{T}(decimal)"/>, it compares any other pair by Shouldly's own rules, can't hash and
+    /// isn't transitive.
     /// </summary>
-    public static IEqualityComparer<T> WithinTolerance<T>(double tolerance) =>
-        new ElementComparer<T>((expected, actual) =>
-            AsDouble(expected) is { } expectedNumber && AsDouble(actual) is { } actualNumber &&
-            Is.Equal(actualNumber, expectedNumber, tolerance));
+    public static IEqualityComparer<T> WithinTolerance<T>(double tolerance)
+    {
+        var otherwise = ComparerFor<T>();
+        return new ElementComparer<T>((expected, actual) =>
+            AsDouble(expected) is { } expectedNumber && AsDouble(actual) is { } actualNumber
+                ? Is.Equal(actualNumber, expectedNumber, tolerance)
+                : otherwise.Equals(expected!, actual!));
+    }
 
     /// <summary>
     /// The element comparer of an assertion on strings that takes a <see cref="Case"/> option: ordinal, ignoring

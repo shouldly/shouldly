@@ -96,6 +96,24 @@ public class MessageClassTests
                 [1.005d, *2.5d*]
                 """, StringCompareShould.IgnoreLineEndings);
 
+    // Its values needn't be of its tolerance's type. Those that aren't are compared as ShouldBe compares them, so an
+    // item equal to the one it's compared with isn't marked.
+    [Fact]
+    public void ToleranceMessageComparesItemsOfAnotherTypeAsShouldBeDoes() =>
+        new ExpectedActualToleranceShouldlyMessage(new[] { 1.0m, 2.0m }, new[] { 1.0m, 2.5m }, 0.01, null, "ShouldBeCloseTo", "readings").ToString()
+            .ShouldBe(
+                """
+                readings
+                    should be within
+                0.01d
+                    of
+                [1.0m, 2.0m]
+                    but was
+                [1.0m, 2.5m]
+                    difference
+                [1.0m, *2.5m*]
+                """, StringCompareShould.IgnoreLineEndings);
+
     [Fact]
     public void CaseSensitivityMessageAlwaysShowsItsCaseOption() =>
         new ExpectedActualWithCaseSensitivityShouldlyMessage("a", "B", Case.Insensitive, null, "ShouldResemble", "letter").ToString()
