@@ -99,7 +99,7 @@ public class OwnEqualityFoldScenario
 
         public override bool Equals(object? obj) => obj is GridCell other && Equals(other);
 
-        public override int GetHashCode() => HashCode.Combine(Row, Column);
+        public override int GetHashCode() => Row * 397 ^ Column;
 
         public override string ToString() => $"R{Row}C{Column}";
     }
@@ -113,7 +113,7 @@ public class OwnEqualityFoldScenario
 
         public override bool Equals(object? obj) => obj is Amount other && Equals(other);
 
-        public override int GetHashCode() => HashCode.Combine(Value, Currency);
+        public override int GetHashCode() => Value.GetHashCode() * 397 ^ Currency.GetHashCode();
     }
 
     public record Person(string Name, int Age);
