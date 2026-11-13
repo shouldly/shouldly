@@ -66,18 +66,12 @@ static class EqualityRules
     }
 
     /// <summary>
-    /// When a rule applies to both values, sets <paramref name="result"/> to its verdict and returns <c>true</c>.
-    /// A rule applies when both values are instances of its type; when several do, the most specific wins, and of
-    /// equally specific (or unrelated) ones, the one registered last. A value wrapped by
-    /// captured sequence is judged as the sequence it captured. When no registered rule applies, two JSON values
-    /// are judged as JSON (see <c>JsonValues</c>), as if by a rule.
-    /// </summary>
-    public static bool TryEquals(object expected, object actual, out bool result) =>
-        TryDecide(expected, actual, out _, out result);
-
-    /// <summary>
-    /// <see cref="TryEquals"/>, also giving the type of the rule that decided: null when no registered rule
-    /// applied and the two were judged as JSON.
+    /// When a rule applies to both values, sets <paramref name="result"/> to its verdict, and
+    /// <paramref name="ruleType"/> to the type it was registered for, and returns <c>true</c>. A rule applies when
+    /// both values are instances of its type; when several do, the most specific wins, and of equally specific (or
+    /// unrelated) ones, the one registered last. A value wrapped by captured sequence is judged as the sequence it
+    /// captured. When no registered rule applies, two JSON values are judged as JSON (see <c>JsonValues</c>), as if by
+    /// a rule, and <paramref name="ruleType"/> is null.
     /// </summary>
     public static bool TryDecide(object expected, object actual, out Type? ruleType, out bool result)
     {
@@ -100,21 +94,6 @@ static class EqualityRules
         result = false;
         return false;
 #endif
-    }
-
-    /// <summary>
-    /// The type the rule that applies to both values was registered for, or null when none applies. It is the rule
-    /// <see cref="TryEquals"/> asks.
-    /// </summary>
-    public static Type? RuleTypeFor(object expected, object actual)
-    {
-        var state = s_state;
-        if (state.Rules.Length == 0)
-            return null;
-
-        expected = CapturedSequence.Original(expected);
-        actual = CapturedSequence.Original(actual);
-        return state.RuleFor(expected.GetType(), actual.GetType())?.Type;
     }
 
     private sealed record Rule(Type Type, Func<object, object, bool> Equal);

@@ -91,7 +91,10 @@ class EqualityComparer<T> : IEqualityComparer<T>
                     (actualItem, expectedItem) => ItemComparer.Equals(expectedItem, actualItem));
 
             case EqualityStepKind.Sequence:
-                return ItemsEqualInOrder(step.ExpectedItems!, step.ActualItems!);
+                return Equality.MatchInOrder(
+                    step.ActualItems!.Cast<object?>(),
+                    step.ExpectedItems!.Cast<object?>(),
+                    (actualItem, expectedItem) => ItemComparer.Equals(expectedItem, actualItem));
 
             case EqualityStepKind.Tuple:
                 // Each item compared by Shouldly's equality, not by the tuple's own Equals, which compares a
@@ -101,26 +104,6 @@ class EqualityComparer<T> : IEqualityComparer<T>
 
             default:
                 return OwnEquality(x!, y!);
-        }
-    }
-
-    private static bool ItemsEqualInOrder(IEnumerable expectedItems, IEnumerable actualItems)
-    {
-        var expectedEnumerator = expectedItems.GetEnumerator();
-        using var expectedDispose = expectedEnumerator as IDisposable;
-        var actualEnumerator = actualItems.GetEnumerator();
-        using var actualDispose = actualEnumerator as IDisposable;
-
-        while (true)
-        {
-            var expectedHasNext = expectedEnumerator.MoveNext();
-            var actualHasNext = actualEnumerator.MoveNext();
-
-            if (!expectedHasNext || !actualHasNext)
-                return expectedHasNext == actualHasNext;
-
-            if (!ItemComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current))
-                return false;
         }
     }
 
@@ -138,7 +121,7 @@ class EqualityComparer<T> : IEqualityComparer<T>
         // Implements IEquatable<U> for the runtime types? Reached when T has lost the element type — the elements
         // of a collection compared through the object comparer, or ShouldBe<object> — so a typed Equals isn't
         // ignored in favour of reference equality (#825).
-        if (RuntimeEquatable.TryEquals(x, y, out var runtimeEquatableResult))
+        if (RuntimeEquality.TryEquals(x, y, out var runtimeEquatableResult))
             return runtimeEquatableResult;
 
         // Overrides Equals(object)?
@@ -150,6 +133,11 @@ class EqualityComparer<T> : IEqualityComparer<T>
         // Implements IComparable<T>?
         if (x is IComparable<T> comparableGeneric)
             return comparableGeneric.CompareTo(y) == 0;
+
+        // Implements IComparable<U> for the runtime types? Reached, as for IEquatable<U>, when T has lost the type the
+        // two share, such as an interface they are compared through.
+        if (RuntimeEquality.TryCompareTo(x, y, out var runtimeComparableResult))
+            return runtimeComparableResult;
 
         // Implements IComparable?
         if (x is IComparable comparable)

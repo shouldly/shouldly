@@ -85,7 +85,7 @@ internal sealed class EquivalencyComparison
         // what makes two of them the same, so they are compared whole, as a leaf is, and never by their members
         // or items. This comes before the shape, so a type with a rule needs none. Two JSON values are judged the
         // same way, by the rule Shouldly has for them without being told.
-        if (EqualityRules.TryEquals(expected, actual, out var equalByRule))
+        if (EqualityRules.TryDecide(expected, actual, out var ruleType, out var equalByRule))
         {
             if (!equalByRule)
             {
@@ -94,7 +94,7 @@ internal sealed class EquivalencyComparison
                     AnnotateWithType(path, TypeToName(expected.GetType(), declared.Expected)),
                     expected,
                     actual,
-                    EqualityRules.RuleTypeFor(expected, actual) is { } ruleType ? Internals.Failures.ExplanationWording.ByRule(ruleType) : null);
+                    ruleType is null ? null : Internals.Failures.ExplanationWording.ByRule(ruleType));
             }
 
             return;

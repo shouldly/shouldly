@@ -76,7 +76,7 @@ public static partial class ShouldBeTestExtensions
         string? customMessage,
         string? actualExpression)
     {
-        if (SpanSequenceEqual(actual, expected) == shouldBeEqual)
+        if (Internals.Equality.SpansEqual(actual, expected) == shouldBeEqual)
             return;
 
         throw (shouldBeEqual ? Fail.ShouldBe : Fail.ShouldNotBe).With(expected.ToArray(), Internals.Equality.OfSequences(Internals.Equality<T>.Default)).For(actual.ToArray(), customMessage, actualExpression);

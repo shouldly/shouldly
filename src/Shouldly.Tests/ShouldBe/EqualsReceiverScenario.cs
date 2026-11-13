@@ -60,6 +60,37 @@ public class EqualsReceiverScenario
     }
 
     [Fact]
+    public void EveryAssertionTakingAComparerPassesItExpectedThenActual()
+    {
+        var comparer = new RecordingComparer();
+        Named Actual() => new("actual");
+        Named Expected() => new("expected");
+
+        Actual().ShouldBe(Expected(), comparer);
+        Should.Throw<ShouldAssertException>(() => Actual().ShouldNotBe(Expected(), comparer));
+        new[] { Actual() }.ShouldBe([Expected()], comparer);
+        new[] { Actual() }.ShouldBe([Expected()], comparer, ignoreOrder: true);
+        new[] { Actual() }.ShouldContain(Expected(), comparer);
+        Should.Throw<ShouldAssertException>(() => new[] { Actual() }.ShouldNotContain(Expected(), comparer));
+        Actual().ShouldBeOneOf([Expected()], comparer);
+        Should.Throw<ShouldAssertException>(() => Actual().ShouldNotBeOneOf([Expected()], comparer));
+        new[] { Actual() }.ShouldBeSubsetOf([Expected()], comparer);
+
+        comparer.Calls.ShouldNotBeEmpty();
+        comparer.Calls.ShouldAllBe(call => call == "expected,actual");
+    }
+
+    [Fact]
+    public void UniqueWithComparerPassesItTheEarlierElementFirst()
+    {
+        var comparer = new RecordingComparer();
+
+        Should.Throw<ShouldAssertException>(() => new[] { new Named("earlier"), new Named("later") }.ShouldBeUnique(comparer));
+
+        comparer.Calls.ShouldBe(["earlier,later"]);
+    }
+
+    [Fact]
     public void ShouldBeOfObjectCallsEqualsOnExpected()
     {
         // The shape from #1076: the actual value's Equals would accept the string, the string's doesn't.

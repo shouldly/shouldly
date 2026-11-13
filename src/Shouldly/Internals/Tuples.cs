@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using System.Runtime.ExceptionServices;
 
 namespace Shouldly.Internals;
 
@@ -22,7 +21,6 @@ static class Tuples
     private const string Rest = "Rest";
 
     private static readonly ConcurrentDictionary<Type, Accessors?> AccessorsByType = new();
-    private static readonly ConcurrentDictionary<(Type Receiver, Type Interface, Type Declared), MethodInfo?> DeclaredTypeMethods = new();
 
     /// <summary>
     /// Whether values of <paramref name="type"/> are compared item by item by <see cref="TryEquals"/>.
@@ -39,10 +37,8 @@ static class Tuples
     /// When <paramref name="expected"/> and <paramref name="actual"/> are both tuples of one kind and arity (both
     /// <see cref="KeyValuePair{TKey, TValue}"/>s, both two-item <see cref="ValueTuple{T1, T2}"/>s, and so on),
     /// sets <paramref name="result"/> to whether each of their items is equal and returns <c>true</c>.
-    /// Each item is compared as <see cref="Equality{T}.Default"/> compares a value of the expected tuple's
-    /// declared item type: by a registered equality rule when one applies, and otherwise with
-    /// <paramref name="elementComparer"/> plus the <c>IEquatable&lt;S&gt;</c>/<c>IComparable&lt;S&gt;</c> steps for the
-    /// declared type <c>S</c> that it can't take itself. <c>Equals</c> is called on the expected item.
+    /// Each item is compared with <paramref name="elementComparer"/>, as an element of a sequence held as objects is,
+    /// so what decides is what the item's runtime type defines. <c>Equals</c> is called on the expected item.
     /// </summary>
     public static bool TryEquals(object expected, object actual, IEqualityComparer<object?> elementComparer, out bool result)
     {
@@ -123,124 +119,10 @@ static class Tuples
     private static Accessors? FindKeyValuePair(object value) =>
         Find(value) is { } accessors && accessors.Definition == typeof(KeyValuePair<,>) ? accessors : null;
 
-    private static bool ItemEquals(Item expectedItem, Item actualItem, object expected, object actual, IEqualityComparer<object?> elementComparer)
-    {
-        var expectedComponent = expectedItem.GetValue(expected);
-        var actualComponent = actualItem.GetValue(actual);
-
-        // A rule decides before the declared-type steps below, as it does in EqualityComparer<S>, and likewise never
-        // sees a null-equivalent value such as a default ImmutableArray<T>.
-        if (!NullEquivalence.IsNull(expectedComponent) && !NullEquivalence.IsNull(actualComponent) &&
-            EqualityRules.TryEquals(expectedComponent, actualComponent, out var ruleResult))
-            return ruleResult;
-
-        if (TryDeclaredTypeEquals(expectedItem.DeclaredType, expectedComponent, actualComponent, out var result))
-            return result;
-
-        return elementComparer.Equals(expectedComponent, actualComponent);
-    }
-
-    /// <summary>
-    /// The <c>IEquatable&lt;S&gt;</c> and <c>IComparable&lt;S&gt;</c> steps that <c>EqualityComparer&lt;S&gt;</c> takes for
-    /// the item's declared type <c>S</c>, which the object element comparer can't: it only knows <c>object</c>.
-    /// Taken where <c>EqualityComparer&lt;S&gt;</c> takes them, after the null, numeric, enumerable and tuple cases, with
-    /// the runtime <c>IEquatable&lt;U&gt;</c> and overridden <see cref="object.Equals(object)"/> steps between them in the
-    /// same order, so the element comparer then finishes the cascade (<see cref="IComparable"/>,
-    /// <see cref="object.Equals(object)"/>) as <c>EqualityComparer&lt;S&gt;</c> would.
-    /// </summary>
-    private static bool TryDeclaredTypeEquals(Type declaredType, object? expected, object? actual, out bool result)
-    {
-        result = false;
-        if (expected is null || actual is null)
-            return false;
-
-        if (declaredType == typeof(object) ||
-            ReferenceEquals(expected, actual) ||
-            !declaredType.IsInstanceOfType(actual) ||
-            (Numbers.IsNumber(expected) && Numbers.IsNumber(actual)) ||
-            (expected.TryGetEnumerable(out _) && actual.TryGetEnumerable(out _)) ||
-            FindBoth(expected, actual) is not null)
-            return false;
-
-        var receiverType = expected.GetType();
-        if (FindDeclaredTypeMethod(receiverType, typeof(IEquatable<>), declaredType) is { } equals)
-        {
-            result = (bool)Invoke(equals, expected, actual);
-            return true;
-        }
-
-        // The runtime type's IEquatable<U> comes next, as in EqualityComparer<S>: it is the type's own equality, so it
-        // decides before CompareTo (#1428).
-        if (RuntimeEquatable.TryEquals(expected, actual, out result))
-            return true;
-
-        // A type that defines its own Equals is left to the element comparer, which asks it before CompareTo (#1428).
-        if (!OverriddenEquals.IsDefinedBy(expected) &&
-            FindDeclaredTypeMethod(receiverType, typeof(IComparable<>), declaredType) is { } compareTo)
-        {
-            result = (int)Invoke(compareTo, expected, actual) == 0;
-            return true;
-        }
-
-        return false;
-    }
-
-    private static object Invoke(MethodInfo method, object receiver, object argument)
-    {
-        try
-        {
-            return method.Invoke(receiver, [argument])!;
-        }
-        catch (TargetInvocationException e) when (e.InnerException is not null)
-        {
-            // Surface the user's own exception, as a direct call would.
-            ExceptionDispatchInfo.Capture(e.InnerException).Throw();
-            throw;
-        }
-    }
-
-    /// <summary>
-    /// The method of the <paramref name="openInterface"/> (<c>IEquatable&lt;&gt;</c> or <c>IComparable&lt;&gt;</c>) that
-    /// <c>x is IEquatable&lt;S&gt;</c> / <c>x is IComparable&lt;S&gt;</c> would bind to for a receiver of
-    /// <paramref name="receiverType"/>: the interface closed over <c>S</c> itself or, both being contravariant, over a
-    /// type <c>S</c> converts to by reference, preferring the most derived. Found on the receiver's interfaces, so no
-    /// <c>MakeGenericType</c> is needed.
-    /// </summary>
-    private static MethodInfo? FindDeclaredTypeMethod(Type receiverType, Type openInterface, Type declaredType) =>
-        DeclaredTypeMethods.GetOrAdd((receiverType, openInterface, declaredType),
-            static key => FindDeclaredTypeMethodUncached(key.Receiver, key.Interface, key.Declared));
-
-    // Without these, NativeAOT drops the interfaces' method metadata and GetMethod finds nothing.
-#if NET5_0_OR_GREATER
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(IEquatable<>))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(IComparable<>))]
-#endif
-    [UnconditionalSuppressMessage("Trimming", "IL2070",
-        Justification = "Reads the interfaces of a type that has a live instance. If trimming removed an implementation, none is found and the comparison falls back to the element comparer.")]
-    [UnconditionalSuppressMessage("Trimming", "IL2075",
-        Justification = "IEquatable<T>.Equals and IComparable<T>.CompareTo are rooted by the DynamicDependency attributes above.")]
-    private static MethodInfo? FindDeclaredTypeMethodUncached(Type receiverType, Type openInterface, Type declaredType)
-    {
-        Type? best = null;
-        MethodInfo? bestMethod = null;
-        foreach (var @interface in receiverType.GetInterfaces())
-        {
-            if (!@interface.IsGenericType || @interface.GetGenericTypeDefinition() != openInterface)
-                continue;
-
-            var argument = @interface.GenericTypeArguments[0];
-            var matches = argument == declaredType ||
-                          (!declaredType.IsValueType && !argument.IsValueType && argument.IsAssignableFrom(declaredType));
-            if (matches && (best is null || best.IsAssignableFrom(argument)) &&
-                @interface.GetMethod(openInterface == typeof(IEquatable<>) ? nameof(IEquatable<object>.Equals) : nameof(IComparable<object>.CompareTo)) is { } method)
-            {
-                best = argument;
-                bestMethod = method;
-            }
-        }
-
-        return bestMethod;
-    }
+    // Each item is compared as a value on its own is: by the element comparer, which consults equality rules first
+    // and asks what the item's runtime type defines, called on the expected item.
+    private static bool ItemEquals(Item expectedItem, Item actualItem, object expected, object actual, IEqualityComparer<object?> elementComparer) =>
+        elementComparer.Equals(expectedItem.GetValue(expected), actualItem.GetValue(actual));
 
     // Both tuples, and of one kind and arity, so their items line up one for one. The definition alone doesn't give
     // the arity: every tuple of eight items or more has the same one, and the rest of its items in Rest.
@@ -355,13 +237,13 @@ static class Tuples
     private sealed record Accessors(Type Definition, Item[] Items);
 
     /// <summary>
-    /// One item of a tuple: its name, the type it is declared as, and how to read it.
+    /// One item of a tuple: its name, and how to read it.
     /// </summary>
-    private sealed record Item(string Name, Type DeclaredType, Func<object, object?> GetValue)
+    private sealed record Item(string Name, Func<object, object?> GetValue)
     {
-        public static Item Of(PropertyInfo property) => new(property.Name, property.PropertyType, property.GetValue);
+        public static Item Of(PropertyInfo property) => new(property.Name, property.GetValue);
 
-        public static Item Of(FieldInfo field) => new(field.Name, field.FieldType, field.GetValue);
+        public static Item Of(FieldInfo field) => new(field.Name, field.GetValue);
 
         /// <summary>
         /// This item under <paramref name="name"/>, read from the tuple that <paramref name="readHolder"/> finds in
@@ -370,7 +252,7 @@ static class Tuples
         public Item Within(Func<object, object?>? readHolder, string name)
         {
             var getValue = GetValue;
-            return new(name, DeclaredType, readHolder is null
+            return new(name, readHolder is null
                 ? getValue
                 : tuple => readHolder(tuple) is { } holder ? getValue(holder) : null);
         }

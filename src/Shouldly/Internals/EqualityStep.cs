@@ -38,14 +38,18 @@ readonly struct EqualityStep
     /// The step that compares two values that are neither null nor the same instance, in the order Shouldly takes
     /// them: an equality rule, then JSON, a string, a number, a collection, a tuple, and last the type's own equality.
     /// </summary>
-    public static EqualityStep For(object expected, object actual)
-    {
+    public static EqualityStep For(object expected, object actual) =>
         // A registered equality rule decides before anything else, so a value it covers is never walked.
-        if (EqualityRules.TryDecide(expected, actual, out var ruleType, out var verdict))
-            return new(ruleType is null ? EqualityStepKind.Json : EqualityStepKind.Rule, ruleType, verdict);
+        ByRule(expected, actual) ?? Structural(expected, actual);
 
-        return Structural(expected, actual);
-    }
+    /// <summary>
+    /// The step <see cref="For"/> takes first: an equality rule that covers both values, or, when none does, two JSON
+    /// values compared as JSON. Null when neither decides, for a comparison that walks the two its own way after.
+    /// </summary>
+    public static EqualityStep? ByRule(object expected, object actual) =>
+        EqualityRules.TryDecide(expected, actual, out var ruleType, out var verdict)
+            ? new(ruleType is null ? EqualityStepKind.Json : EqualityStepKind.Rule, ruleType, verdict)
+            : null;
 
     /// <summary>
     /// The step <see cref="For"/> takes once rules and JSON have had their say: what the two values are shaped as.
