@@ -24,4 +24,13 @@ public class DecimalScenario
         const decimal pi = (decimal)MathEx.PI;
         pi.ShouldBe(pi, 0);
     }
+
+    // The difference is beyond what a decimal holds, so beyond any tolerance: the assertion fails rather than
+    // overflowing.
+    [Fact]
+    public void ValuesTooFarApartToSubtractShouldFail()
+    {
+        Should.Throw<ShouldAssertException>(() => decimal.MaxValue.ShouldBe(decimal.MinValue, 1m));
+        Should.Throw<ShouldAssertException>(() => decimal.MinValue.ShouldBe(decimal.MaxValue, decimal.MaxValue));
+    }
 }
