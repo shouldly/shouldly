@@ -62,7 +62,12 @@ static class Numbers
         return Convert.ToInt32(expected) == Convert.ToInt32(actual);
     }
 
-    private static bool Equal(double expected, double actual)
+    /// <summary>
+    /// Whether two doubles are within <paramref name="tolerance"/> of each other, which takes the place of
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>. Two NaNs are equal, and an infinity equals
+    /// only an infinity of the same sign, whatever the tolerance.
+    /// </summary>
+    public static bool EqualWithin(double expected, double actual, double tolerance)
     {
         if (double.IsNaN(expected) && double.IsNaN(actual))
             return true;
@@ -72,9 +77,30 @@ static class Numbers
         if (double.IsInfinity(expected) || double.IsInfinity(actual) || double.IsNaN(expected) || double.IsNaN(actual))
             return expected.Equals(actual);
 
+        return Math.Abs(expected - actual) <= tolerance;
+    }
+
+    /// <summary>
+    /// Whether two decimals are within <paramref name="tolerance"/> of each other.
+    /// </summary>
+    public static bool EqualWithin(decimal expected, decimal actual, decimal tolerance)
+    {
+        try
+        {
+            return Math.Abs(expected - actual) <= tolerance;
+        }
+        catch (OverflowException)
+        {
+            // The difference is larger than any decimal, so larger than any tolerance.
+            return false;
+        }
+    }
+
+    private static bool Equal(double expected, double actual)
+    {
         var tolerance = ShouldlyConfiguration.DefaultFloatingPointTolerance;
         return tolerance > 0.0d
-            ? Math.Abs(expected - actual) <= tolerance
+            ? EqualWithin(expected, actual, tolerance)
             : expected.Equals(actual);
     }
 

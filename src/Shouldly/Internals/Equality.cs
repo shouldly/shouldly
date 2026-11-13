@@ -95,7 +95,7 @@ abstract class Equality
         return new(
             new ElementComparer<T>((expected, actual) =>
                 expected is decimal expectedNumber && actual is decimal actualNumber
-                    ? Is.Equal(actualNumber, expectedNumber, tolerance)
+                    ? Numbers.EqualWithin(expectedNumber, actualNumber, tolerance)
                     : otherwise.Equal(actual, expected)),
             tolerance: tolerance);
     }
@@ -112,7 +112,7 @@ abstract class Equality
         return new(
             new ElementComparer<T>((expected, actual) =>
                 AsDouble(expected) is { } expectedNumber && AsDouble(actual) is { } actualNumber
-                    ? Is.Equal(actualNumber, expectedNumber, tolerance)
+                    ? Numbers.EqualWithin(expectedNumber, actualNumber, tolerance)
                     : otherwise.Equal(actual, expected)),
             tolerance: tolerance);
     }

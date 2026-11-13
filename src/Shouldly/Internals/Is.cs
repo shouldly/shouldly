@@ -19,33 +19,6 @@ static class Is
         return ReferenceEquals(actual, expected);
     }
 
-    public static bool Equal(decimal actual, decimal expected, decimal tolerance)
-    {
-        try
-        {
-            return Math.Abs(actual - expected) <= tolerance;
-        }
-        catch (OverflowException)
-        {
-            // The difference is larger than any decimal, so larger than any tolerance.
-            return false;
-        }
-    }
-
-    public static bool Equal(double actual, double expected, double tolerance)
-    {
-        // Subtracting two infinities, or anything from NaN, gives NaN, which is within no tolerance. So NaN and
-        // infinities are compared as they are without a tolerance: two NaNs are equal, and an infinity equals only an
-        // infinity of the same sign, never a finite number, however large the tolerance.
-        if (double.IsNaN(actual) || double.IsNaN(expected))
-            return double.IsNaN(actual) && double.IsNaN(expected);
-
-        if (double.IsInfinity(actual) || double.IsInfinity(expected))
-            return actual.Equals(expected);
-
-        return Math.Abs(actual - expected) <= tolerance;
-    }
-
     public static bool Equal(DateTime actual, DateTime expected, TimeSpan tolerance) =>
         (actual - expected).Duration() <= tolerance;
 
