@@ -88,7 +88,7 @@ static class EnumerableDifferenceHighlighter
             var actualRead = actualItems.ReadForMessage(out var actualTruncated);
             var expectedRead = expectedItems.ReadForMessage(out var expectedTruncated);
             if (actualTruncated || expectedTruncated)
-                return Is.Equal(actualRead, expectedRead);
+                return Equality.Equal(actualRead, expectedRead);
         }
 
         return comparison.ElementsEqual(actual, expected);

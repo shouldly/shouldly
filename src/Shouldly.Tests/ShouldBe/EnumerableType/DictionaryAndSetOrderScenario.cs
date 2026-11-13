@@ -327,6 +327,20 @@ public class DictionaryAndSetOrderScenario
         // 1.01 is within the tolerance of both 1.0 and 1.02, so pairing it with 1.02 would leave 1.03 unmatched.
         new HashSet<double> { 1.03, 1.01 }.ShouldBe(new HashSet<double> { 1.02, 1.0 }, 0.015);
 
+    // Each number is within the tolerance of up to four others. The largest come first, and each takes the smallest
+    // partner it can, so the smallest numbers are left with none until earlier pairings are changed. When there is
+    // no pairing, the search for one goes through every number before the assertion fails.
+    [Fact]
+    public void ATolerancePairsLargeSetsOfCloseNumbers()
+    {
+        var actual = new HashSet<double>(Enumerable.Range(0, 500).Reverse().Select(i => i * 0.001));
+        var expected = new HashSet<double>(Enumerable.Range(0, 500).Select(i => i * 0.001 + 0.0015));
+
+        actual.ShouldBe(expected, 0.0021);
+        Should.Throw<ShouldAssertException>(() =>
+            actual.ShouldBe(new HashSet<double>(expected.Take(499)) { 10.0 }, 0.0021));
+    }
+
     [Fact]
     public void ATolerancePairsSetsOneForOne()
     {
