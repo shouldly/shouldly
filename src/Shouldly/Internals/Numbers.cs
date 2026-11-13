@@ -67,8 +67,9 @@ static class Numbers
         if (double.IsNaN(expected) && double.IsNaN(actual))
             return true;
 
-        // Subtracting two infinite values gives NaN, so infinities and NaN are compared directly.
-        if (double.IsInfinity(expected) || double.IsNaN(expected) || double.IsNaN(actual))
+        // Subtracting two infinite values gives NaN, and an infinity is beyond any finite value, however large the
+        // tolerance, so infinities and NaN are compared directly.
+        if (double.IsInfinity(expected) || double.IsInfinity(actual) || double.IsNaN(expected) || double.IsNaN(actual))
             return expected.Equals(actual);
 
         var tolerance = ShouldlyConfiguration.DefaultFloatingPointTolerance;
@@ -82,8 +83,9 @@ static class Numbers
         if (float.IsNaN(expected) && float.IsNaN(actual))
             return true;
 
-        // Subtracting two infinite values gives NaN, so infinities and NaN are compared directly.
-        if (float.IsInfinity(expected) || float.IsNaN(expected) || float.IsNaN(actual))
+        // Subtracting two infinite values gives NaN, and an infinity is beyond any finite value, however large the
+        // tolerance, so infinities and NaN are compared directly.
+        if (float.IsInfinity(expected) || float.IsInfinity(actual) || float.IsNaN(expected) || float.IsNaN(actual))
             return expected.Equals(actual);
 
         var tolerance = ShouldlyConfiguration.DefaultFloatingPointTolerance;
