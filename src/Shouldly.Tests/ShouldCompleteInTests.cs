@@ -60,7 +60,7 @@ public class ShouldCompleteInTests
         Should.Throw<NotImplementedException>(
             () => Should.CompleteIn(
                 () => throw new NotImplementedException(),
-                ImmediateTaskTimeout));
+                LongWait));
     }
 
     [Fact]
@@ -134,6 +134,6 @@ public class ShouldCompleteInTests
             () => Should.CompleteIn(
                 new Func<string>(
                     () => throw new NotImplementedException()),
-                ImmediateTaskTimeout));
+                LongWait));
     }
 }

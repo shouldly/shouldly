@@ -12,7 +12,4 @@ internal static class CommonWaitDurations
 
     public static TimeSpan LongWait =>
         TimeSpan.FromSeconds(IsRunningOnContinuousIntegration ? 15 : 5);
-
-    public static TimeSpan ImmediateTaskTimeout =>
-        TimeSpan.FromSeconds(IsRunningOnContinuousIntegration ? 2 : 0.5);
 }
