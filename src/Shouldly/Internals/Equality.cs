@@ -165,6 +165,23 @@ abstract class Equality
                 elements.Tolerance, elements.Case, elements.UsesCustomComparer, ignoreOrder, elements);
 
     /// <summary>
+    /// Compares two <see cref="Memory{T}"/>s by what they hold: equal when their elements, compared by
+    /// <paramref name="elements"/>, are equal in the same order. With Shouldly's own rules for the elements, an equality
+    /// rule that covers both memories decides instead, as it does for memories inside a sequence.
+    /// </summary>
+    public static Equality<Memory<T>> OfMemories<T>(Equality<T> elements) =>
+        new(new MemoryComparer<Memory<T>, T>(elements, static memory => memory),
+            elements.Tolerance, elements.Case, elements.UsesCustomComparer, elements: elements);
+
+    /// <summary>
+    /// Compares two <see cref="ReadOnlyMemory{T}"/>s by what they hold, as <see cref="OfMemories{T}"/> compares two
+    /// <see cref="Memory{T}"/>s.
+    /// </summary>
+    public static Equality<ReadOnlyMemory<T>> OfReadOnlyMemories<T>(Equality<T> elements) =>
+        new(new MemoryComparer<ReadOnlyMemory<T>, T>(elements, static memory => memory),
+            elements.Tolerance, elements.Case, elements.UsesCustomComparer, elements: elements);
+
+    /// <summary>
     /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal items in the same order, by
     /// <paramref name="equal"/>, which is called as <c>equal(actual, expected)</c>. Each is read once, and no further
     /// than the first difference. The one walk of two sequences in order that a check takes, as
@@ -240,6 +257,25 @@ abstract class Equality
 
         public int GetHashCode(T obj) =>
             throw new NotSupportedException("Values within a tolerance of each other can't be hashed alike.");
+    }
+
+    // Generic over the memory type, so that a rule registered for Memory<T> or for ReadOnlyMemory<T> sees the value
+    // it was registered for.
+    private sealed class MemoryComparer<TMemory, T>(Equality<T> elements, Func<TMemory, ReadOnlyMemory<T>> contents)
+        : IEqualityComparer<TMemory>
+        where TMemory : struct
+    {
+        public bool Equals(TMemory expected, TMemory actual)
+        {
+            if (ReferenceEquals(elements, Equality<T>.Default) &&
+                EqualityStep.ByRule(expected, actual) is { } step)
+                return step.Verdict;
+
+            return elements.MatchInOrder(contents(actual).Span, contents(expected).Span);
+        }
+
+        public int GetHashCode(TMemory obj) =>
+            throw new NotSupportedException("Memories compared by Shouldly's equality can't be hashed.");
     }
 
     private sealed class SequenceComparer<T>(Equality<T> elements, bool ignoreOrder) : IEqualityComparer<IEnumerable<T>>

@@ -13,8 +13,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldBe.With(expected, Internals.Equality<Memory<T>>.Default).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.OfMemories(Internals.Equality<T>.Default);
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -26,8 +27,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldBe.With(expected, Internals.Equality<ReadOnlyMemory<T>>.Default).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.OfReadOnlyMemories(Internals.Equality<T>.Default);
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -39,8 +41,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldNotBe.With(expected, Internals.Equality<Memory<T>>.Default).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.OfMemories(Internals.Equality<T>.Default);
+        if (!actual.Satisfies(v => !equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -52,19 +55,8 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldNotBe.With(expected, Internals.Equality<ReadOnlyMemory<T>>.Default).For(actual, customMessage, actualExpression);
-    }
-
-    // A rule registered for the memory type itself decides first, as it does when the memories are compared as
-    // elements of a sequence; otherwise the contents are compared element by element.
-    private static bool MemoryEqual<TMemory, T>(TMemory actual, TMemory expected, ReadOnlySpan<T> actualSpan, ReadOnlySpan<T> expectedSpan)
-        where TMemory : struct
-    {
-        if (!Internals.EqualityRules.IsEmpty &&
-            Internals.EqualityRules.TryEquals(expected, actual, out var ruleResult))
-            return ruleResult;
-
-        return Internals.Equality<T>.Default.MatchInOrder(actualSpan, expectedSpan);
+        var equality = Internals.Equality.OfReadOnlyMemories(Internals.Equality<T>.Default);
+        if (!actual.Satisfies(v => !equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 }
