@@ -14,9 +14,18 @@ namespace Shouldly.Internals;
 /// message shows them as JSON.
 /// </summary>
 /// <remarks>
+/// <para>
 /// Unlike an equality rule, this isn't registered: <c>System.Text.Json</c> is part of .NET from .NET 8, where
 /// Shouldly can refer to it without reflection. An equality rule registered for one of these types still decides
 /// first. On older frameworks Shouldly doesn't know the types, and their users register the rule.
+/// </para>
+/// <para>
+/// Only a pair of JSON values is compared this way. Against a collection that isn't JSON (a
+/// <c>List&lt;JsonNode&gt;</c>, say), a <see cref="JsonArray"/> or a <see cref="JsonObject"/> is the list or
+/// dictionary of nodes it also is, as a string is a sequence of characters against a <c>char[]</c>.
+/// <see cref="Equality"/> compares their items, each pair of nodes as JSON. <c>ShouldBeEquivalentTo</c> takes a
+/// JSON value, like a string, for a single value, and says the two differ.
+/// </para>
 /// </remarks>
 static class JsonValues
 {

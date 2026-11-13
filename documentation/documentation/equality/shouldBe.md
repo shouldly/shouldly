@@ -412,6 +412,10 @@ actual
 ["roles"] should be ["guest"] but was ["admin"]
 ```
 
+Strings and numbers are compared as the runtime compares them: .NET 9 and later take `1.0` and `1` for the same number, and .NET 8 doesn't.
+
+Only two JSON values are compared this way. Against a collection that isn't JSON, a `JsonArray` or a `JsonObject` is the list or dictionary of nodes it also is: `ShouldBe` compares a `JsonArray` with a `List<JsonNode>` item by item, each pair of nodes as JSON, and `ShouldBeEquivalentTo`, which takes a JSON value for a single value, says they differ.
+
 A rule registered for `JsonNode` or `JsonElement` still decides instead. On .NET Framework, where `System.Text.Json` is a package Shouldly doesn't reference, register `JsonNode.DeepEquals` and `JsonElement.DeepEquals` as above for `ShouldBe`, and compare JSON values with `ShouldBe` rather than `ShouldBeEquivalentTo`.
 
 ## Enumerables of Numerics

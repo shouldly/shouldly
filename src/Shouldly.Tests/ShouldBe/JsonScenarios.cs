@@ -136,6 +136,20 @@ public class JsonScenarios
         ((object)Element("""{"a":1}""")).ShouldNotBe(Node("""{"a":2}"""));
     }
 
+    // Against a collection that isn't JSON, an array or an object of nodes is the collection it also is, as a string
+    // is a sequence of characters against a char[]. Each pair of nodes is still compared as JSON.
+    [Fact]
+    public void AJsonArrayOrObjectIsACollectionAgainstOneThatIsNotJson()
+    {
+        new JsonArray(1, Node("""{"a":1}""")).ShouldBe(new List<JsonNode?> { 1, Node("""{ "a": 1 }""") });
+        new List<JsonNode?> { 1, 2 }.ShouldBe(new JsonArray(1, 2));
+        new JsonObject { ["a"] = 1 }.ShouldBe(new Dictionary<string, JsonNode?> { ["a"] = 1 });
+
+        Should.Throw<ShouldAssertException>(() => new JsonArray(1, 2).ShouldBe(new List<JsonNode?> { 1, 3 }));
+        Should.Throw<ShouldAssertException>(() =>
+            new JsonObject { ["a"] = 1 }.ShouldBe(new Dictionary<string, JsonNode?> { ["a"] = 2 }));
+    }
+
     [Fact]
     public void JsonIsComparedAsJsonWhereverItSits()
     {
