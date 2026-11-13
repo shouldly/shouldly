@@ -54,14 +54,6 @@ sealed class ComparisonRecord
         new((actual, expected) => Is.Equal((T?)actual, (T?)expected, comparer), isCustom);
 
     /// <summary>
-    /// The assertion compared the elements of two sequences with <paramref name="elementEquals"/>, called as
-    /// <c>elementEquals(actual, expected)</c>, an option of the assertion's such as a tolerance rather than a comparer
-    /// the caller supplied.
-    /// </summary>
-    public static ComparisonRecord ComparedElementsBy(Func<object?, object?, bool> elementEquals) =>
-        new(elementEquals, usesCustomComparer: false);
-
-    /// <summary>
     /// The assertion compared two values with a comparer the caller supplied.
     /// </summary>
     public static ComparisonRecord ComparedValuesWithCustomComparer() =>

@@ -78,6 +78,42 @@ public class MessageClassTests
                 2d
                 """, StringCompareShould.IgnoreLineEndings);
 
+    // A message class states its tolerance but not how its assertion compared with it, so it is taken to have
+    // compared as ShouldBe does with that tolerance: only the item outside it is marked.
+    [Fact]
+    public void ToleranceMessageMarksOnlyItemsOutsideItsTolerance() =>
+        new ExpectedActualToleranceShouldlyMessage(new[] { 1.0, 2.0 }, new[] { 1.005, 2.5 }, 0.01, null, "ShouldBeCloseTo", "readings").ToString()
+            .ShouldBe(
+                """
+                readings
+                    should be within
+                0.01d
+                    of
+                [1d, 2d]
+                    but was
+                [1.005d, 2.5d]
+                    difference
+                [1.005d, *2.5d*]
+                """, StringCompareShould.IgnoreLineEndings);
+
+    // Its values needn't be of its tolerance's type. Those that aren't are compared as ShouldBe compares them, so an
+    // item equal to the one it's compared with isn't marked.
+    [Fact]
+    public void ToleranceMessageComparesItemsOfAnotherTypeAsShouldBeDoes() =>
+        new ExpectedActualToleranceShouldlyMessage(new[] { 1.0m, 2.0m }, new[] { 1.0m, 2.5m }, 0.01, null, "ShouldBeCloseTo", "readings").ToString()
+            .ShouldBe(
+                """
+                readings
+                    should be within
+                0.01d
+                    of
+                [1.0m, 2.0m]
+                    but was
+                [1.0m, 2.5m]
+                    difference
+                [1.0m, *2.5m*]
+                """, StringCompareShould.IgnoreLineEndings);
+
     [Fact]
     public void CaseSensitivityMessageAlwaysShowsItsCaseOption() =>
         new ExpectedActualWithCaseSensitivityShouldlyMessage("a", "B", Case.Insensitive, null, "ShouldResemble", "letter").ToString()

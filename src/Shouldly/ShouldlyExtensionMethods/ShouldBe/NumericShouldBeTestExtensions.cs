@@ -25,8 +25,9 @@ public static partial class ShouldBeTestExtensions
         using var capturedExpected = CapturedSequence.Of(expected);
         actual = capturedActual.Items!;
         expected = capturedExpected.Items!;
-        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var comparer = Equality.WithinTolerance<double>(tolerance);
+        if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, comparer: comparer)))
+            throw Fail.ShouldBe.Within(expected, tolerance, comparer).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -39,8 +40,9 @@ public static partial class ShouldBeTestExtensions
         using var capturedExpected = CapturedSequence.Of(expected);
         actual = capturedActual.Items!;
         expected = capturedExpected.Items!;
-        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var comparer = Equality.WithinTolerance<float>(tolerance);
+        if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, comparer: comparer)))
+            throw Fail.ShouldBe.Within(expected, tolerance, comparer).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>

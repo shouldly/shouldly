@@ -1,0 +1,10 @@
+readings
+    should be within
+0.01d
+    of
+[1d, 2d]
+    but was
+null
+
+Additional Info:
+    Some additional context

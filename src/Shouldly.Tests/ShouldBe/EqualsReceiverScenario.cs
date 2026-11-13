@@ -49,6 +49,17 @@ public class EqualsReceiverScenario
     }
 
     [Fact]
+    public void ContainWithComparerReceivesExpectedThenActual()
+    {
+        var comparer = new RecordingComparer();
+
+        new[] { new Named("actual") }.ShouldContain(new Named("expected"), comparer);
+        Should.Throw<ShouldAssertException>(() => new[] { new Named("actual") }.ShouldNotContain(new Named("expected"), comparer));
+
+        comparer.Calls.ShouldBe(["expected,actual", "expected,actual"]);
+    }
+
+    [Fact]
     public void ShouldBeOfObjectCallsEqualsOnExpected()
     {
         // The shape from #1076: the actual value's Equals would accept the string, the string's doesn't.

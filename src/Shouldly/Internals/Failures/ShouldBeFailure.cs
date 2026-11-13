@@ -28,16 +28,11 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
         new(this, sentence => WordEquality(sentence, expected, comparison, caseSensitivity: null));
 
     /// <summary>
-    /// A sequence of strings it was compared with, under a case option.
+    /// A sequence of strings it was compared with under a case option, and the comparer the option stood for, so
+    /// that strings differing only in case aren't marked as differences when case was ignored.
     /// </summary>
-    public FailureMessage With(IEnumerable<string> expected, Case caseSensitivity) =>
-        new(this, sentence => WordEquality(sentence, expected, ComparedStringsWith(caseSensitivity), caseSensitivity));
-
-    // So that strings differing only in case aren't marked as differences when case was ignored.
-    private static ComparisonRecord? ComparedStringsWith(Case caseSensitivity) =>
-        caseSensitivity == Case.Insensitive
-            ? ComparisonRecord.ComparedElementsWith<string>(StringComparer.OrdinalIgnoreCase, isCustom: false)
-            : null;
+    public FailureMessage With(IEnumerable<string> expected, Case caseSensitivity, IEqualityComparer<string> comparedWith) =>
+        new(this, sentence => WordEquality(sentence, expected, ComparisonRecord.ComparedElementsWith(comparedWith, isCustom: false), caseSensitivity));
 
     // A custom assertion states its values but not how it compared them, so its message can't say why they differ.
     private FailureMessage ComparedSomehow(object? expected, Case? caseSensitivity) =>
@@ -48,6 +43,13 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     /// </summary>
     public FailureMessage Within(object? expected, object tolerance) =>
         new(this, sentence => WithinWording.Word(sentence, expected, tolerance));
+
+    /// <summary>
+    /// The sequence it should have been within a tolerance of, and the comparer the tolerance stood for, so that the
+    /// items marked as different are the ones the check found different.
+    /// </summary>
+    public FailureMessage Within<T>(object? expected, object tolerance, IEqualityComparer<T> comparedWith) =>
+        new(this, sentence => WithinWording.Word(sentence, expected, tolerance, ComparisonRecord.ComparedElementsWith(comparedWith, isCustom: false)));
 
     /// <summary>
     /// The sequence it should have matched in any order, and how the assertion compared their elements.
