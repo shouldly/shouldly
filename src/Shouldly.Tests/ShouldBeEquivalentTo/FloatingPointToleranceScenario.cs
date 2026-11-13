@@ -104,6 +104,30 @@ public class FloatingPointToleranceScenario
                 .ShouldBeEquivalentTo(new Dictionary<double, string> { [1.005] = "b", [1.0] = "a" }));
     }
 
+#if NET5_0_OR_GREATER
+    [Fact]
+    public void HalvesWithinTheDefaultToleranceAreEquivalent()
+    {
+        WithDefaultTolerance(0.01, () => ((Half)1).ShouldBeEquivalentTo((Half)1.005));
+    }
+
+    [Fact]
+    public void HalfAndDoubleWithinTheDefaultToleranceAreEquivalent()
+    {
+        WithDefaultTolerance(0.01, () => ((object)(Half)1).ShouldBeEquivalentTo(1.005d));
+    }
+
+    [Fact]
+    public void HalfIsEquivalentToTheSameValueOfAnotherNumericType()
+    {
+        // As with ShouldBe, a Half is a number like any other, so it is compared by the value it holds.
+        ((object)(Half)1).ShouldBeEquivalentTo(1.0);
+        ((object)1).ShouldBeEquivalentTo((Half)1);
+        new object[] { (Half)2 }.ShouldBeEquivalentTo(new object[] { 2m });
+        Should.Throw<ShouldAssertException>(() => ((object)(Half)1).ShouldBeEquivalentTo(2.0));
+    }
+
+#endif
     [Fact]
     public void NaNIsStillEquivalentToNaN()
     {

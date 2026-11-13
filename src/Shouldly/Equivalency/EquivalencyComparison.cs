@@ -608,8 +608,14 @@ internal sealed class EquivalencyComparison
 
     private static bool LeafEquals(object actual, object expected)
     {
-        if (IsNumeric(actual) && IsNumeric(expected))
+        if (Numerics.IsNumericType(actual) && Numerics.IsNumericType(expected))
         {
+#if NET5_0_OR_GREATER
+            // Half isn't IConvertible, so it can't be converted below. Numerics widens it to double, as ShouldBe does.
+            if (actual is Half || expected is Half)
+                return Numerics.AreEqual(expected, actual);
+#endif
+
             if (actual is float or double || expected is float or double)
                 return FloatingPointEquals(actual, expected);
 
@@ -622,16 +628,6 @@ internal sealed class EquivalencyComparison
         // under test can't make the comparison pass.
         return expected.Equals(actual);
     }
-
-    private static bool IsNumeric(object value) =>
-        value is not Enum
-        && Convert.GetTypeCode(value) is
-            TypeCode.SByte or TypeCode.Byte or
-            TypeCode.Int16 or TypeCode.UInt16 or
-            TypeCode.Int32 or TypeCode.UInt32 or
-            TypeCode.Int64 or TypeCode.UInt64 or
-            TypeCode.Single or TypeCode.Double or
-            TypeCode.Decimal;
 
     /// <summary>
     /// Compares through <see cref="Numerics"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
