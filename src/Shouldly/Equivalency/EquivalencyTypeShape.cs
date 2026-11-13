@@ -20,6 +20,19 @@ internal abstract class EquivalencyTypeShape
     public abstract bool KeepsAnOrder { get; }
 
     /// <summary>
+    /// Whether the type defines equality of its own (<see cref="IEquatable{T}"/> or an <see cref="object.Equals(object)"/>
+    /// override), which <c>ShouldBe</c> compares it by. A Complex node is still compared member by member; this lets a
+    /// failure say when the type's own equality would have called the two values equal.
+    /// </summary>
+    public abstract bool DefinesEquality { get; }
+
+    /// <summary>
+    /// Whether the type is a record, whose equality the compiler writes from its members. Such equality says nothing
+    /// of the type that comparing the members doesn't say in more detail.
+    /// </summary>
+    public abstract bool IsRecord { get; }
+
+    /// <summary>
     /// Public instance fields and readable, non-indexer properties: all of them for a Complex node, and for a
     /// Dictionary, Set or Sequence node only the state it holds beyond its items: the members a type adds to the
     /// framework collection class it derives from, and a grouping's key (#1431).

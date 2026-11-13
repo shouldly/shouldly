@@ -23,6 +23,10 @@ internal sealed class EquivalencyComparison
     private readonly IEquivalencyShapeProvider _shapes;
     private readonly EquivalencyOptions _options;
     private readonly List<EquivalencyDifference> _differences = [];
+
+    // The types, in the order first met, of values that differed member by member though their type's own equality
+    // calls them equal (see ConsultOwnEquality). A failure names each once.
+    private readonly List<Type> _equalByOwnEquality = [];
     private readonly HashSet<VisitedPair> _visitedPairs = [];
 
     // Pairs currently on the recursion stack (ancestors of the node being compared). Unlike
@@ -60,7 +64,7 @@ internal sealed class EquivalencyComparison
         if (comparison._differences.Count == 0)
             return;
 
-        throw Fail.ShouldBeEquivalentTo.With(comparison._differences).For(actual, customMessage, actualExpression);
+        throw Fail.ShouldBeEquivalentTo.With(comparison._differences, comparison._equalByOwnEquality).For(actual, customMessage, actualExpression);
     }
 
     private void CompareNodes(object? actual, object? expected, DeclaredTypes declared, List<string> path)
@@ -141,8 +145,12 @@ internal sealed class EquivalencyComparison
                     break;
 
                 default:
-                    if (!CompareMembers(actual, expected, shape, declared.Actual, annotatedPath))
+                    var before = new Mark(_differences.Count, _equalByOwnEquality.Count);
+                    var differingMembers = new List<string>();
+                    if (!CompareMembers(actual, expected, shape, declared.Actual, annotatedPath, differingMembers))
                         AddDifference(EquivalencyDifferenceKind.VacuousComparison, annotatedPath, expected, actual, GetDisplayName(shape.Type));
+                    else if (differingMembers.Count > 0)
+                        ConsultOwnEquality(actual, expected, shape, annotatedPath, before, differingMembers);
                     break;
             }
         }
@@ -155,9 +163,10 @@ internal sealed class EquivalencyComparison
 
     /// <summary>
     /// Compares the members of <paramref name="shape"/>: every member of a complex type, or the members a
-    /// collection type declares beyond its items. Returns whether any member was compared, rather than ignored.
+    /// collection type declares beyond its items. Returns whether any member was compared, rather than ignored, and
+    /// adds the name of each member that differed to <paramref name="differingMembers"/> when given.
     /// </summary>
-    private bool CompareMembers(object actual, object expected, EquivalencyTypeShape shape, Type? actualDeclaredType, List<string> path)
+    private bool CompareMembers(object actual, object expected, EquivalencyTypeShape shape, Type? actualDeclaredType, List<string> path, List<string>? differingMembers = null)
     {
         if (shape.Members.Count == 0)
             return false;
@@ -173,15 +182,16 @@ internal sealed class EquivalencyComparison
 
             comparedAny = true;
 
+            var differencesBefore = _differences.Count;
             var memberPath = Append(path, member.Name);
             var actualMember = actualShape.FindMember(member.Name);
             if (actualMember is null)
-            {
                 AddDifference(EquivalencyDifferenceKind.MissingMember, memberPath, member.Name, actual, GetDisplayName(actualType));
-                continue;
-            }
+            else
+                CompareNodes(actualMember.GetValue(actual), member.GetValue(expected), new(actualMember.DeclaredType, member.DeclaredType), memberPath);
 
-            CompareNodes(actualMember.GetValue(actual), member.GetValue(expected), new(actualMember.DeclaredType, member.DeclaredType), memberPath);
+            if (_differences.Count > differencesBefore)
+                differingMembers?.Add(member.Name);
         }
 
         return comparedAny;
@@ -496,6 +506,104 @@ internal sealed class EquivalencyComparison
 
             return false;
         }
+    }
+
+    /// <summary>
+    /// Asks the type's own equality about two values that differ member by member, once the members have decided.
+    /// It never changes the outcome, only what the failure says:
+    /// <list type="bullet">
+    /// <item>When it calls the values equal (an entity equal by Id, a value whose Equals ignores case), the failure
+    /// names the type, so the reader knows why <c>ShouldBe</c> would pass and how to compare the type that way.</item>
+    /// <item>When it agrees they differ, and the differences span several members, they are reported as one: the two
+    /// values as their type writes them, and the members that differ. A NodaTime <c>LocalDate</c> is one difference
+    /// of dates, not three of <c>Day</c>, <c>DayOfWeek</c> and <c>DayOfYear</c>. A record's equality is its
+    /// members, which say more than the record does as a whole, so a record is left as it is, and so is a value with a
+    /// member that had nothing to compare: the guard's guidance would be lost, and the member named as differing when
+    /// it may not.</item>
+    /// </list>
+    /// Folding drops what the members' comparison recorded, notes included: a note names values the failure shows.
+    /// </summary>
+    private void ConsultOwnEquality(
+        object actual,
+        object expected,
+        EquivalencyTypeShape shape,
+        List<string> path,
+        Mark before,
+        List<string> differingMembers)
+    {
+        // An anonymous type's Equals compares its members as ShouldBe would, and it has no name to register a rule by.
+        if (!shape.DefinesEquality || shape.Type.Name.Contains("AnonymousType"))
+            return;
+
+        bool equal;
+        try
+        {
+            equal = Equality.Equal(actual, expected);
+        }
+        catch (Exception)
+        {
+            // An Equals that throws says nothing either way.
+            return;
+        }
+
+        if (equal)
+        {
+            if (!_equalByOwnEquality.Contains(shape.Type))
+                _equalByOwnEquality.Add(shape.Type);
+        }
+        else if (differingMembers.Count > 1 && !shape.IsRecord && !HasVacuousComparison(before) && ReadsAsAValue(actual, expected))
+        {
+            _differences.RemoveRange(before.Differences, _differences.Count - before.Differences);
+            _equalByOwnEquality.RemoveRange(before.Notes, _equalByOwnEquality.Count - before.Notes);
+            AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual, DifferAt(differingMembers));
+        }
+    }
+
+    /// <summary>How much had been recorded before a node's members were compared.</summary>
+    private readonly record struct Mark(int Differences, int Notes);
+
+    private bool HasVacuousComparison(Mark before)
+    {
+        for (var i = before.Differences; i < _differences.Count; i++)
+        {
+            if (_differences[i].Kind == EquivalencyDifferenceKind.VacuousComparison)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Whether a failure can show the two values whole: they are of one type, which writes them as text of its own,
+    /// different for each. Values of different types differ in which members they have, which only the members show;
+    /// and a type without a <c>ToString</c> of its own reads as its name.
+    /// </summary>
+    private static bool ReadsAsAValue(object actual, object expected)
+    {
+        if (actual.GetType() != expected.GetType())
+            return false;
+
+        try
+        {
+            var expectedText = expected.ToString();
+            return expectedText != expected.GetType().ToString() &&
+                   expected.ToStringAwesomely() != actual.ToStringAwesomely();
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    private const int DifferingMembersNamed = 5;
+
+    private static string DifferAt(List<string> members)
+    {
+        var named = string.Join(", ", members.Take(DifferingMembersNamed));
+        var others = members.Count - DifferingMembersNamed;
+        return others > 0
+            ? $"they differ at {named} and {others} other members"
+            : $"they differ at {named}";
     }
 
     private static bool LeafEquals(object actual, object expected)

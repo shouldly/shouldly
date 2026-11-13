@@ -76,7 +76,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         }
 
         var keepsAnOrder = kind is EquivalencyNodeKind.Dictionary or EquivalencyNodeKind.Set && Internals.UnorderedCollection.KeepsAnOrder(type);
-        return new ReflectionTypeShape(type, kind, keepsAnOrder, members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
+        return new ReflectionTypeShape(type, kind, keepsAnOrder, DefinesEquality(type), IsRecord(type), members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
     }
 
     [RequiresUnreferencedCode("Reflects over the interfaces of arbitrary types.")]
@@ -98,7 +98,57 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         if (typeof(IEnumerable).IsAssignableFrom(type))
             return EquivalencyNodeKind.Sequence;
 
+        if (DefinesEquality(type))
+        {
+            // A type that ships with .NET and defines its own equality is a value: a CultureInfo, an IPAddress, an
+            // Encoding, a Complex. Its public members are views of that value, which can differ between equal values
+            // (two equal CultureInfos), repeat one difference many times, or throw (IPAddress.ScopeId).
+            if (IsFrameworkType(type))
+                return EquivalencyNodeKind.Leaf;
+
+            // A type with no public members has nothing to walk, and would only fail the vacuous-comparison guard.
+            // Its own equality (NodaTime's Instant, a value object holding private state) is all there is to compare
+            // it by. Ignoring Equals on a complex type keeps members from being hidden by a lenient Equals; with no
+            // members, there is nothing for it to hide.
+            if (CreateMembers(type).Count == 0)
+                return EquivalencyNodeKind.Leaf;
+        }
+
         return EquivalencyNodeKind.Complex;
+    }
+
+    /// <summary>
+    /// Whether <paramref name="type"/> defines equality of its own, as <c>ShouldBe</c> reads it: it implements
+    /// <see cref="IEquatable{T}"/> of itself or a base type, or it or a base type other than <see cref="object"/> or
+    /// <see cref="System.ValueType"/> overrides <see cref="object.Equals(object)"/>. A struct's inherited
+    /// field-by-field <c>Equals</c> doesn't count, and neither does the <c>Equals</c> of a type that <c>ShouldBe</c>
+    /// compares by its contents instead: a tuple, whose <c>Equals</c> compares a collection-typed item by reference,
+    /// and a <c>Memory&lt;T&gt;</c>, whose <c>Equals</c> compares which array it wraps.
+    /// </summary>
+    [RequiresUnreferencedCode("Reflects over the methods and interfaces of arbitrary types.")]
+    private static bool DefinesEquality(Type type)
+    {
+        if (Internals.Tuples.ComparesItemByItem(type))
+            return false;
+
+        if (type.IsGenericType &&
+            type.GetGenericTypeDefinition() is var definition &&
+            (definition == typeof(Memory<>) || definition == typeof(ReadOnlyMemory<>)))
+            return false;
+
+        var equals = type.GetMethod(nameof(Equals), BindingFlags.Public | BindingFlags.Instance, null, [typeof(object)], null);
+        if (equals?.DeclaringType is { } declaringType && declaringType != typeof(object) && declaringType != typeof(ValueType))
+            return true;
+
+        foreach (var candidate in type.GetInterfaces())
+        {
+            if (candidate.IsGenericType
+                && candidate.GetGenericTypeDefinition() == typeof(IEquatable<>)
+                && candidate.GetGenericArguments()[0].IsAssignableFrom(type))
+                return true;
+        }
+
+        return false;
     }
 
     private static bool IsLeaf(Type type)
@@ -139,6 +189,15 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             "System.Text.Rune" or
             "System.Numerics.BigInteger";
     }
+
+    /// <summary>
+    /// Whether <paramref name="type"/> is a record class or record struct: its <c>Equals(T)</c>, the one
+    /// <see cref="IEquatable{T}"/> of itself calls, is written by the compiler.
+    /// </summary>
+    [RequiresUnreferencedCode("Reflects over the methods of arbitrary types.")]
+    private static bool IsRecord(Type type) =>
+        type.GetMethod(nameof(Equals), BindingFlags.Public | BindingFlags.Instance, null, [type], null) is { } equals &&
+        equals.IsDefined(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), inherit: false);
 
     [RequiresUnreferencedCode("Reflects over the interfaces of arbitrary types.")]
     private static Type? FindGenericInterface(Type type, Type genericDefinition)
@@ -280,6 +339,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             Type type,
             EquivalencyNodeKind kind,
             bool keepsAnOrder,
+            bool definesEquality,
+            bool isRecord,
             IReadOnlyList<EquivalencyMemberShape> members,
             IReadOnlyList<EquivalencyMemberShape> allMembers,
             Type? elementType,
@@ -291,6 +352,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             Type = type;
             Kind = kind;
             KeepsAnOrder = keepsAnOrder;
+            DefinesEquality = definesEquality;
+            IsRecord = isRecord;
             _members = members;
             _allMembers = allMembers;
             ElementType = elementType;
@@ -305,6 +368,10 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         public override EquivalencyNodeKind Kind { get; }
 
         public override bool KeepsAnOrder { get; }
+
+        public override bool DefinesEquality { get; }
+
+        public override bool IsRecord { get; }
 
         public override IReadOnlyList<EquivalencyMemberShape> Members => _members;
 

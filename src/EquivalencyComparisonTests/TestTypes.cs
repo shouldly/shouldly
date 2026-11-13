@@ -80,6 +80,16 @@ public class TypeHolder
     public Type? Type { get; set; }
 }
 
+/// <summary>A value object whose state is all private: its own Equals is the only way to compare it.</summary>
+public class OpaqueValue(string value)
+{
+    private readonly string _value = value;
+
+    public override bool Equals(object? obj) => obj is OpaqueValue other && other._value == _value;
+
+    public override int GetHashCode() => _value.GetHashCode();
+}
+
 public class Node
 {
     public string? Name { get; set; }

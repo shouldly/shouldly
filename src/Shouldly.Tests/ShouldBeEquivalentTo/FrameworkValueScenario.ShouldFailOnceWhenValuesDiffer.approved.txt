@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [<anonymous type>]
+    Culture [System.Globalization.CultureInfo]
+
+    Expected value to be
+fr-FR
+    but was
+en-GB
+
+Additional Info:
+    Some additional context

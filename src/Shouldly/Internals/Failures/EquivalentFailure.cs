@@ -15,13 +15,22 @@ sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(na
     /// <summary>
     /// The differences the comparison found.
     /// </summary>
-    public FailureMessage With(IReadOnlyList<EquivalencyDifference> differences) =>
-        new(this, sentence => Word(sentence, null, differences, null));
+    /// <param name="differences">The differences the comparison found.</param>
+    /// <param name="equalByOwnEquality">
+    /// The types of values that differed member by member though their own equality calls them equal.
+    /// </param>
+    public FailureMessage With(IReadOnlyList<EquivalencyDifference> differences, IReadOnlyList<Type>? equalByOwnEquality = null) =>
+        new(this, sentence => Word(sentence, null, differences, null, equalByOwnEquality));
 
-    internal static string Word(Sentence sentence, object? expectedValue, IReadOnlyList<EquivalencyDifference>? found, IEnumerable<string>? path)
+    internal static string Word(
+        Sentence sentence,
+        object? expectedValue,
+        IReadOnlyList<EquivalencyDifference>? found,
+        IEnumerable<string>? path,
+        IReadOnlyList<Type>? equalByOwnEquality = null)
     {
         if (found is { Count: > 0 } differences)
-            return GenerateFromDifferences(sentence, differences);
+            return GenerateFromDifferences(sentence, differences) + OwnEqualityNotes(equalByOwnEquality);
 
         return $"""
                 Comparing object equivalence, at path:
@@ -103,6 +112,27 @@ sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(na
 
         _ => GenerateValueMismatchBody(difference.Expected, difference.Actual),
     };
+
+    // Each note says why ShouldBe would call the values equal and how to have ShouldBeEquivalentTo agree. The rule is
+    // left for the reader to register: the members may be exactly what the test means to compare.
+    private static string OwnEqualityNotes(IReadOnlyList<Type>? types)
+    {
+        if (types is not { Count: > 0 })
+            return "";
+
+        var sb = new StringBuilder();
+        foreach (var type in types)
+        {
+            var name = Inequality.ShortName(type);
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine($"    {name}'s own equality says the {name} values above are equal, but ShouldBeEquivalentTo compares their members.");
+            sb.AppendLine($"    To compare {name} by its own equality, register");
+            sb.Append($"ShouldlyConfiguration.UseEquality<{name}>((expected, actual) => expected.Equals(actual))");
+        }
+
+        return sb.ToString();
+    }
 
     private static string GenerateValueMismatchBody(object? expected, object? actual) =>
         $"""

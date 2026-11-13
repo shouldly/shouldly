@@ -8,5 +8,9 @@ subject [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatableHolder]
     but was
 "two"
 
+    KeyEquatable's own equality says the KeyEquatable values above are equal, but ShouldBeEquivalentTo compares their members.
+    To compare KeyEquatable by its own equality, register
+ShouldlyConfiguration.UseEquality<KeyEquatable>((expected, actual) => expected.Equals(actual))
+
 Additional Info:
     Some additional context

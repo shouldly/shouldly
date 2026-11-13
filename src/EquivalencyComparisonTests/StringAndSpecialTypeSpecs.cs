@@ -78,4 +78,17 @@ public class SpecialTypeSpecs
             fluentAssertions: Outcome.Error,
             because: "both refuse to compare zero members, differently: Shouldly's vacuous-comparison guard fails the assertion with guidance; FluentAssertions throws an InvalidOperationException");
     }
+
+    [Fact]
+    public void Equal_values_with_no_public_members_and_their_own_equality_are_equivalent()
+    {
+        // With no members to walk, both compare such a type by its own Equals.
+        Compare.Run(new { Value = new OpaqueValue("a") }, new { Value = new OpaqueValue("a") }).ShouldAgree(Outcome.Pass);
+    }
+
+    [Fact]
+    public void Different_values_with_no_public_members_and_their_own_equality_are_not_equivalent()
+    {
+        Compare.Run(new { Value = new OpaqueValue("a") }, new { Value = new OpaqueValue("b") }).ShouldAgree(Outcome.Fail);
+    }
 }

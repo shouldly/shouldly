@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.OpaqueHolder]
+    Value [Shouldly.Tests.ShouldBeEquivalentTo.Opaque]
+
+    Expected value to be
+Opaque(b)
+    but was
+Opaque(a)
+
+Additional Info:
+    Some additional context

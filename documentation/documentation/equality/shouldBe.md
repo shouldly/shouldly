@@ -356,7 +356,7 @@ When several rules apply, the one for the most specific type wins. The rule is c
 
 #### Equality rules in `ShouldBeEquivalentTo`
 
-`ShouldBeEquivalentTo` compares member by member, and ignores a type's own `Equals`. An equality rule is the exception: two values that a rule covers are compared by the rule, as one value, wherever they sit in the graph. That is how to compare a type that has no public members to walk, or that isn't what its members say it is:
+`ShouldBeEquivalentTo` compares member by member, and ignores a type's own `Equals`, unless the type has no public members to walk, or ships with .NET (a `CultureInfo`, an `IPAddress`): then its own equality (`IEquatable<T>` or an `Equals` override) is what it is compared by. When values differ member by member but their type's own equality calls them equal, the failure ends by saying so, and names the rule that would compare the type by its own equality. When the type's own equality agrees that they differ, and they differ in several members, the failure reports them as one difference: the two values as the type writes them (`Thursday, 2 January 2020` for a NodaTime `LocalDate`), and the members that differ, rather than a difference for each of `Day`, `DayOfWeek` and `DayOfYear`. A record, a type without a `ToString` of its own, and values of two different types are reported member by member. An equality rule is the other exception: two values that a rule covers are compared by the rule, as one value, wherever they sit in the graph. That is how to compare a type that has no public members and no equality of its own, or that isn't what its members say it is:
 
 ```csharp
 ShouldlyConfiguration.UseEquality<Money>((expected, actual) => expected.Equals(actual));

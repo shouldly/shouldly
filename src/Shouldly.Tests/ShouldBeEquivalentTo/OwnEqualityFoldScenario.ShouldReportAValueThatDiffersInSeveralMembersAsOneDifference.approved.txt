@@ -1,0 +1,12 @@
+Comparing object equivalence, at path:
+subject [<anonymous type>]
+    Distance [Shouldly.Tests.ShouldBeEquivalentTo.OwnEqualityFoldScenario+Distance]
+
+    Expected value to be
+2 m
+    but was
+1 m
+    and they differ at Metres, Kilometres, Centimetres, Millimetres, Feet and 2 other members
+
+Additional Info:
+    Some additional context

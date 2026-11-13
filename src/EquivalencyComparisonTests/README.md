@@ -32,7 +32,7 @@ the v5 rewrite: cross-type and anonymous-type expectations (subset semantics, by
 expectation's members), dictionaries matched by key with
 recursion into values, sets compared order-insensitively, container types ignored
 (array ≡ `List<T>`), lossless cross-numeric equality (`int 1` ≡ `long 1`), multidimensional
-array shape checks, indexers skipped, `Type`/`Uri` as leaf values, strings (ordinal,
+array shape checks, indexers skipped, `Type`/`Uri` as leaf values, a type with no public members compared by its own `Equals`, strings (ordinal,
 case-sensitive), public fields, private member exclusion, structs and records member-wise,
 `DateTime` (tick-exact, `Kind`-insensitive), `DateTimeOffset` (instant), `decimal` scale,
 `Guid`, NaN, nullable lifting, null handling, and duplicate multiplicity in collections.

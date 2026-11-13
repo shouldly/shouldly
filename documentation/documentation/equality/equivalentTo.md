@@ -16,7 +16,7 @@ A comparison strategy is selected per node in the object graph:
 
 | Node type | Strategy |
 | --- | --- |
-| Leaf values: primitives, enums, `string` (ordinal), `Guid`, `DateTime`/`DateTimeOffset`/`TimeSpan`, `Uri`, `Type`, delegates, `System.*` value-semantic types generally, and `System.Text.Json`'s `JsonNode` and `JsonElement` ([compared as JSON](shouldBe.md#systemtextjson)) | Compared with `Equals` on the expected value, with [exact cross-numeric equality](../upgrade/4to5.md#numbers-of-different-types-are-compared-exactly) (`int 1` ≡ `long 1` ≡ `double 1.0`, but `decimal 0.1` ≢ `double 0.1`); `float`/`double` honour [`DefaultFloatingPointTolerance`](../configuration.md#defaultfloatingpointtolerance) |
+| Leaf values: primitives, enums, `string` (ordinal), `Guid`, `DateTime`/`DateTimeOffset`/`TimeSpan`, `Uri`, `Type`, delegates, any other type that ships with .NET and defines its own equality (`CultureInfo`, `IPAddress`, `Encoding`, `Complex`, `Vector3`; tuples and `Memory<T>` excepted, which are compared by their items), `System.Text.Json`'s `JsonNode` and `JsonElement` ([compared as JSON](shouldBe.md#systemtextjson)), and a type with no public members that defines its own equality (`IEquatable<T>` or an `Equals` override, such as NodaTime's `Instant`) | Compared with `Equals` on the expected value, with [exact cross-numeric equality](../upgrade/4to5.md#numbers-of-different-types-are-compared-exactly) (`int 1` ≡ `long 1` ≡ `double 1.0`, but `decimal 0.1` ≢ `double 0.1`); `float`/`double` honour [`DefaultFloatingPointTolerance`](../configuration.md#defaultfloatingpointtolerance) |
 | Two values of a type with an [equality rule](shouldBe.md#equality-rules-in-shouldbeequivalentto) | Compared by the rule, as one value, whatever the type is |
 | Dictionaries (`IDictionary`, `IDictionary<,>`, `IReadOnlyDictionary<,>`, immutable variants) | Matched **by key**, recursing into values |
 | Sets (`ISet<>`, `IReadOnlySet<>`, immutable variants) | Order-insensitive |
@@ -76,9 +76,13 @@ customer [<anonymous type>]
 38
 ```
 
+Several differences in the members of one value whose type defines its own equality, and agrees that the values differ, are reported as one difference that shows the two values as the type writes them and names the members that differ: a NodaTime `LocalDate` differs once, not at `Day`, `DayOfWeek` and `DayOfYear`. A record, a type without a `ToString` of its own, and values of two different types are reported member by member.
+
+When values differ member by member but their type's own equality calls them equal, the failure ends by saying so, and names the [equality rule](shouldBe.md#equality-rules-in-shouldbeequivalentto) that would compare the type by its own equality.
+
 ## A comparison with nothing to compare fails
 
-If a node has no members to compare, such as `new object()`, a struct with no public members, or a type whose every member is ignored through the options, the assertion fails instead of silently passing:
+If a node has no members to compare, such as `new object()`, a struct with no public members and no equality of its own, or a type whose every member is ignored through the options, the assertion fails instead of silently passing:
 
 ```
 Comparing object equivalence, at path:
@@ -89,7 +93,7 @@ System.Object
     which would make the assertion vacuously pass; assert on specific members instead
 ```
 
-An [equality rule](shouldBe.md#equality-rules-in-shouldbeequivalentto) for the type says how to compare it instead.
+A type with no public members that defines its own equality (`IEquatable<T>` or an `Equals` override) is compared by that equality instead. Otherwise, an [equality rule](shouldBe.md#equality-rules-in-shouldbeequivalentto) for the type says how to compare it.
 
 ## `EquivalencyOptions`
 
@@ -105,7 +109,7 @@ Lists and arrays are compared in order unless `IgnoreOrder` is set. Dictionaries
 
 ## Equality rules
 
-A type's own `Equals` is ignored, but an equality rule registered with `ShouldlyConfiguration.UseEquality` is not: two values a rule covers are compared by the rule, as one value, wherever they sit in the graph. See [Equality rules in `ShouldBeEquivalentTo`](shouldBe.md#equality-rules-in-shouldbeequivalentto).
+A type's own `Equals` is ignored, unless the type has no public members to walk or ships with .NET, but an equality rule registered with `ShouldlyConfiguration.UseEquality` never is: two values a rule covers are compared by the rule, as one value, wherever they sit in the graph. See [Equality rules in `ShouldBeEquivalentTo`](shouldBe.md#equality-rules-in-shouldbeequivalentto).
 
 ## Coming from FluentAssertions
 
