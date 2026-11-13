@@ -69,6 +69,16 @@ public class JsonScenario
         Should.Throw<ShouldAssertException>(() => Nested(nested).ShouldBeEquivalentTo(Nested($"[{nested}]")));
     }
 
+    // An element may repeat a property name, which a node can't hold.
+    [Fact]
+    public void ShouldCompareElementsThatRepeatAPropertyName()
+    {
+        Element("""{"x":1,"x":2}""").ShouldBeEquivalentTo(Element("""{ "x": 1, "x": 2 }"""));
+        new { Body = Element("""{"x":1,"x":2}""") }.ShouldBeEquivalentTo(new { Body = Element("""{"x":1,"x":2}""") });
+        Should.Throw<ShouldAssertException>(() =>
+            Element("""{"x":1,"x":2}""").ShouldBeEquivalentTo(Element("""{"x":1,"x":3}""")));
+    }
+
     // A JsonArray is JSON, compared whole, and not a list of nodes.
     [Fact]
     public void ShouldFailWhenAJsonArrayIsComparedWithAList()

@@ -73,6 +73,62 @@ public class JsonScenarios
         Should.Throw<ShouldAssertException>(() => Read(nested).ShouldBe(Read($"[{nested}]")));
     }
 
+    // Shouldly walks two elements itself, so that it compares them the same way on .NET 8, which has no
+    // JsonElement.DeepEquals. This holds what it says to what .NET says.
+    [Theory]
+    [InlineData("""{"x":1,"x":2}""", """{"x":1,"x":2}""")]
+    [InlineData("""{"x":1,"x":2}""", """{"x":1,"x":3}""")]
+    [InlineData("""{"x":1,"x":2}""", """{"x":2,"x":1}""")]
+    [InlineData("""{"x":1,"y":0,"x":2}""", """{"y":0,"x":1,"x":2}""")]
+    [InlineData("""{"x":1,"x":2}""", """{"x":1}""")]
+    [InlineData("""{"x":1}""", """{"x":1,"x":1}""")]
+    [InlineData("""{"x":1}""", """{"x":1,"y":2}""")]
+    [InlineData("""{"x":1,"y":2}""", """{"x":1}""")]
+    [InlineData("""{"x":1}""", """{"y":1}""")]
+    [InlineData("""{"x":1,"y":2}""", """{"y":2,"x":1}""")]
+    [InlineData("[1,2]", "[1,2,3]")]
+    [InlineData("[1,2,3]", "[1,2]")]
+    [InlineData("[1,2]", "[2,1]")]
+    [InlineData("[true]", "[true]")]
+    [InlineData("[true]", "[false]")]
+    [InlineData("[null]", "[false]")]
+    [InlineData("[null]", "[null]")]
+    [InlineData("""["a"]""", """["\u0061"]""")]
+    [InlineData("""["a"]""", """["b"]""")]
+    [InlineData("[1.0]", "[1]")]
+    [InlineData("[1e2]", "[100]")]
+    [InlineData("[1]", "[2]")]
+    [InlineData("1", "\"1\"")]
+    [InlineData("{}", "[]")]
+    [InlineData("{}", "{}")]
+    [InlineData("[]", "[]")]
+    [InlineData("""{"a":[{"b":null,"c":[true,"s",1.5]}]}""", """{ "a": [ { "c": [true, "s", 1.5], "b": null } ] }""")]
+    [InlineData("""{"a":[{"b":null,"c":[true,"s",1.5]}]}""", """{ "a": [ { "c": [true, "s", 2.5], "b": null } ] }""")]
+    public void ElementsAreComparedAsDotNetComparesThem(string actual, string expected)
+    {
+        if (JsonElement.DeepEquals(Element(actual), Element(expected)))
+        {
+            Element(actual).ShouldBe(Element(expected));
+            Element(expected).ShouldBe(Element(actual));
+        }
+        else
+        {
+            Element(actual).ShouldNotBe(Element(expected));
+            Element(expected).ShouldNotBe(Element(actual));
+        }
+    }
+
+    // An element may repeat a property name, which a node can't hold.
+    [Fact]
+    public void ElementsThatRepeatAPropertyNameAreCompared()
+    {
+        Element("""{"x":1,"x":2}""").ShouldBe(Element("""{ "x": 1, "x": 2 }"""));
+        Element("""{"x":1,"x":2}""").ShouldNotBe(Element("""{"x":1,"x":3}"""));
+        Element("""{"x":1,"x":2}""").ShouldNotBe(Element("""{"x":1}"""));
+        Should.Throw<ShouldAssertException>(() => Element("""{"x":1,"x":2}""").ShouldBe(Element("""{"x":1,"x":3}""")))
+            .Message.ShouldContain("""{"x":1,"x":3}""");
+    }
+
     [Fact]
     public void ANodeAndAnElementAreComparedAsJson()
     {

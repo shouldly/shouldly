@@ -1,4 +1,5 @@
 #if NET8_0_OR_GREATER
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -49,15 +50,82 @@ static class JsonValues
         _ => null
     };
 
-    private static bool SameJson(object expected, object actual)
-    {
-#if NET9_0_OR_GREATER
-        // Two elements are compared as they are. Unlike a node, an element may repeat a property name.
-        if (expected is JsonElement expectedElement && actual is JsonElement actualElement)
-            return JsonElement.DeepEquals(expectedElement, actualElement);
-#endif
+    // Two elements are compared as they are. A node can't hold an object that repeats a property name, which an
+    // element may, so turning such an element into a node throws.
+    private static bool SameJson(object expected, object actual) =>
+        expected is JsonElement expectedElement && actual is JsonElement actualElement
+            ? SameElement(expectedElement, actualElement)
+            : JsonNode.DeepEquals(ToNode(expected), ToNode(actual));
 
-        return JsonNode.DeepEquals(ToNode(expected), ToNode(actual));
+    // JsonElement.DeepEquals does this from .NET 9. Shouldly also runs on .NET 8, so it walks objects and arrays
+    // itself wherever it runs, and what it does is then the same, and tested, on each. A string or a number is still
+    // compared by the runtime.
+    private static bool SameElement(JsonElement expected, JsonElement actual)
+    {
+        if (expected.ValueKind != actual.ValueKind)
+            return false;
+
+        switch (expected.ValueKind)
+        {
+            case JsonValueKind.Object:
+                RuntimeHelpers.EnsureSufficientExecutionStack();
+                return SameProperties(expected, actual);
+
+            case JsonValueKind.Array:
+                RuntimeHelpers.EnsureSufficientExecutionStack();
+                return SameItems(expected, actual);
+
+            case JsonValueKind.String:
+            case JsonValueKind.Number:
+                return JsonNode.DeepEquals(JsonValue.Create(expected), JsonValue.Create(actual));
+
+            default:
+                // true, false and null are each the only value of their kind.
+                return true;
+        }
+    }
+
+    private static bool SameItems(JsonElement expected, JsonElement actual)
+    {
+        if (expected.GetArrayLength() != actual.GetArrayLength())
+            return false;
+
+        using var expectedItems = expected.EnumerateArray();
+        using var actualItems = actual.EnumerateArray();
+        while (expectedItems.MoveNext() && actualItems.MoveNext())
+        {
+            if (!SameElement(expectedItems.Current, actualItems.Current))
+                return false;
+        }
+
+        return true;
+    }
+
+    // Properties are matched by name, in any order. Those that share a name are matched in the order they come in.
+    private static bool SameProperties(JsonElement expected, JsonElement actual)
+    {
+        var actualValues = new Dictionary<string, Queue<JsonElement>>(StringComparer.Ordinal);
+        var unmatched = 0;
+        foreach (var property in actual.EnumerateObject())
+        {
+            if (!actualValues.TryGetValue(property.Name, out var values))
+                actualValues[property.Name] = values = new();
+
+            values.Enqueue(property.Value);
+            unmatched++;
+        }
+
+        foreach (var property in expected.EnumerateObject())
+        {
+            if (!actualValues.TryGetValue(property.Name, out var values) ||
+                values.Count == 0 ||
+                !SameElement(property.Value, values.Dequeue()))
+                return false;
+
+            unmatched--;
+        }
+
+        return unmatched == 0;
     }
 
     private static bool HasValue(object json) =>
