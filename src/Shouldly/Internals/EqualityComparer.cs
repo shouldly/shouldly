@@ -91,7 +91,10 @@ class EqualityComparer<T> : IEqualityComparer<T>
                     (actualItem, expectedItem) => ItemComparer.Equals(expectedItem, actualItem));
 
             case EqualityStepKind.Sequence:
-                return ItemsEqualInOrder(step.ExpectedItems!, step.ActualItems!);
+                return Equality.MatchInOrder(
+                    step.ActualItems!.Cast<object?>(),
+                    step.ExpectedItems!.Cast<object?>(),
+                    (actualItem, expectedItem) => ItemComparer.Equals(expectedItem, actualItem));
 
             case EqualityStepKind.Tuple:
                 // Each item compared by Shouldly's equality, not by the tuple's own Equals, which compares a
@@ -101,26 +104,6 @@ class EqualityComparer<T> : IEqualityComparer<T>
 
             default:
                 return OwnEquality(x!, y!);
-        }
-    }
-
-    private static bool ItemsEqualInOrder(IEnumerable expectedItems, IEnumerable actualItems)
-    {
-        var expectedEnumerator = expectedItems.GetEnumerator();
-        using var expectedDispose = expectedEnumerator as IDisposable;
-        var actualEnumerator = actualItems.GetEnumerator();
-        using var actualDispose = actualEnumerator as IDisposable;
-
-        while (true)
-        {
-            var expectedHasNext = expectedEnumerator.MoveNext();
-            var actualHasNext = actualEnumerator.MoveNext();
-
-            if (!expectedHasNext || !actualHasNext)
-                return expectedHasNext == actualHasNext;
-
-            if (!ItemComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current))
-                return false;
         }
     }
 

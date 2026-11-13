@@ -165,6 +165,30 @@ abstract class Equality
                 elements.Tolerance, elements.Case, elements.UsesCustomComparer, ignoreOrder, elements);
 
     /// <summary>
+    /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal items in the same order, by
+    /// <paramref name="equal"/>, which is called as <c>equal(actual, expected)</c>. Each is read once, and no further
+    /// than the first difference. The one walk of two sequences in order that a check takes, as
+    /// <see cref="UnorderedCollection.MatchOneForOne{T}"/> is the one in any order.
+    /// </summary>
+    internal static bool MatchInOrder<T>(IEnumerable<T> actual, IEnumerable<T> expected, Func<T, T, bool> equal)
+    {
+        using var expectedEnum = expected.GetEnumerator();
+        using var actualEnum = actual.GetEnumerator();
+
+        while (true)
+        {
+            var expectedHasData = expectedEnum.MoveNext();
+            var actualHasData = actualEnum.MoveNext();
+
+            if (!expectedHasData || !actualHasData)
+                return expectedHasData == actualHasData;
+
+            if (!equal(actualEnum.Current, expectedEnum.Current))
+                return false;
+        }
+    }
+
+    /// <summary>
     /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same
     /// answers as Shouldly's own rules for values of <paramref name="type"/>, when no equality rule applies: true for a
     /// closed list of BCL types whose <c>Equals</c> the rules reach unchanged. Not for the floating-point types, which
@@ -235,29 +259,11 @@ abstract class Equality
             // The order a dictionary or a set enumerates in isn't part of its value (#1430).
             return ignoreOrder || UnorderedCollection.IgnoresOrder(actual, expected)
                 ? UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => elements.Equal(a, e))
-                : MatchInOrder(actual, expected);
+                : MatchInOrder(actual, expected, (a, e) => elements.Equal(a, e));
         }
 
         public int GetHashCode(IEnumerable<T> obj) =>
             throw new NotSupportedException("Sequences compared by Shouldly's equality can't be hashed.");
-
-        private bool MatchInOrder(IEnumerable<T> actual, IEnumerable<T> expected)
-        {
-            using var expectedEnum = expected.GetEnumerator();
-            using var actualEnum = actual.GetEnumerator();
-
-            while (true)
-            {
-                var expectedHasData = expectedEnum.MoveNext();
-                var actualHasData = actualEnum.MoveNext();
-
-                if (!expectedHasData || !actualHasData)
-                    return expectedHasData == actualHasData;
-
-                if (!elements.Equal(actualEnum.Current, expectedEnum.Current))
-                    return false;
-            }
-        }
     }
 }
 
@@ -307,6 +313,31 @@ sealed class Equality<T> : Equality
           (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T)))
             ? System.Collections.Generic.EqualityComparer<T>.Default
             : null;
+
+    /// <summary>
+    /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal elements, compared by this, in the
+    /// same order: <see cref="Equality.MatchInOrder{T}(IEnumerable{T}, IEnumerable{T}, Func{T, T, bool})"/> for spans, which can't be enumerated as sequences.
+    /// </summary>
+    public bool MatchInOrder(ReadOnlySpan<T> actual, ReadOnlySpan<T> expected)
+    {
+        if (actual.Length != expected.Length)
+            return false;
+
+#if NET8_0_OR_GREATER
+        // A comparer that agrees and can hash can also be handed to the BCL, which compares the types whose equality
+        // is bitwise without a call per element. Called on the expected span, so Equals is called on its elements.
+        if (HashingComparer is { } agreeing)
+            return expected.SequenceEqual(actual, agreeing);
+#endif
+
+        for (var i = 0; i < actual.Length; i++)
+        {
+            if (!Equal(actual[i], expected[i]))
+                return false;
+        }
+
+        return true;
+    }
 
     public override bool EqualObjects(object? actual, object? expected) => Equal((T?)actual, (T?)expected);
 }
