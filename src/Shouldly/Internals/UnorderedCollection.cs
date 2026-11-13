@@ -170,6 +170,25 @@ static class UnorderedCollection
     }
 
     /// <summary>
+    /// The items of <paramref name="actual"/> and of <paramref name="expected"/> left over when as many as can be
+    /// are paired one for one by <paramref name="equal"/>, which is called as <c>equal(actual, expected)</c>. Each
+    /// is in the order it was given in.
+    /// </summary>
+    /// <remarks>
+    /// A failure message reports these, so they are paired as <see cref="MatchOneForOne{T}"/> pairs them: an item
+    /// that equals more than one other is never reported for want of a partner that another item could have done
+    /// without.
+    /// </remarks>
+    public static (List<T> Actual, List<T> Expected) Unpaired<T>(IReadOnlyList<T> actual, List<T> expected, Func<T, T, bool> equal)
+    {
+        var pairing = new Pairing<T>(expected, equal);
+        var unpairedActual = actual.Where(actualItem => !pairing.TryAdd(actualItem)).ToList();
+        var unpairedExpected = expected.Where((_, expectedIndex) => !pairing.HasPartner(expectedIndex)).ToList();
+
+        return (unpairedActual, unpairedExpected);
+    }
+
+    /// <summary>
     /// Reads all of <paramref name="actual"/> and <paramref name="expected"/>, an item of each at a time. False as
     /// soon as one ends before the other: they don't hold the same number of items, so they can't be matched one
     /// for one.
@@ -226,6 +245,9 @@ static class UnorderedCollection
         private int[]? _reachedFrom;
         private bool[]? _reached;
         private Queue<int>? _toVisit;
+
+        /// <summary>Whether the expected item at <paramref name="expectedIndex"/> is paired with an actual item.</summary>
+        public bool HasPartner(int expectedIndex) => _actualOfExpected[expectedIndex] != None;
 
         /// <summary>
         /// Pairs <paramref name="actualItem"/> with an expected item, changing earlier pairings if it takes that.
@@ -375,27 +397,21 @@ static class UnorderedCollection
                     actualList.Concat(expectedList).All(entry => entry is not null && Tuples.TryDeconstructKeyValuePair(entry, out _, out _));
 
         var differences = new List<Difference>();
-        var matchedActual = new bool[actualList.Count];
 
         // Items that are equal whole are matched first, so that a key two entries share isn't paired with the wrong
         // one and its value reported as different.
-        var unmatchedExpected = new List<object?>();
-        for (var e = 0; e < expectedList.Count; e++)
-        {
-            var expectedItem = expectedList[e];
-            if (FindUnmatched(actualList, matchedActual, e, actualItem => comparison.ElementsEqual(actualItem, expectedItem)) is { } a)
-                matchedActual[a] = true;
-            else
-                unmatchedExpected.Add(expectedItem);
-        }
+        var (onlyInActual, onlyInExpected) = Unpaired(actualList, expectedList, comparison.ElementsEqual);
 
-        foreach (var expectedItem in unmatchedExpected)
+        foreach (var expectedItem in onlyInExpected)
         {
-            if (byKey && FindUnmatched(actualList, matchedActual, 0, actualItem => Tuples.KeysEqual(expectedItem!, actualItem!, ObjectComparer)) is { } a)
+            var sameKey = byKey
+                ? onlyInActual.FindIndex(actualItem => Tuples.KeysEqual(expectedItem!, actualItem!, ObjectComparer))
+                : -1;
+            if (sameKey >= 0)
             {
-                matchedActual[a] = true;
                 Tuples.TryDeconstructKeyValuePair(expectedItem!, out var key, out var expectedValue);
-                Tuples.TryDeconstructKeyValuePair(actualList[a]!, out _, out var actualValue);
+                Tuples.TryDeconstructKeyValuePair(onlyInActual[sameKey]!, out _, out var actualValue);
+                onlyInActual.RemoveAt(sameKey);
                 differences.Add(new(DifferenceKind.ValueDiffers, key, expectedValue, actualValue));
             }
             else
@@ -404,11 +420,8 @@ static class UnorderedCollection
             }
         }
 
-        for (var a = 0; a < actualList.Count; a++)
-        {
-            if (!matchedActual[a])
-                differences.Add(new(DifferenceKind.Unexpected, KeyOf(actualList[a], byKey), null, actualList[a]));
-        }
+        foreach (var actualItem in onlyInActual)
+            differences.Add(new(DifferenceKind.Unexpected, KeyOf(actualItem, byKey), null, actualItem));
 
         return new(byKey, differences);
     }
@@ -441,21 +454,6 @@ static class UnorderedCollection
     }
 
     private static IEqualityComparer ObjectComparer => new EqualityComparerAdapter(Equality.ComparerFor<object>());
-
-    // The first unmatched item that satisfies the predicate, trying the one at the given position before the rest.
-    private static int? FindUnmatched<T>(List<T> items, bool[] matched, int position, Func<T, bool> predicate)
-    {
-        if (position < items.Count && !matched[position] && predicate(items[position]))
-            return position;
-
-        for (var index = 0; index < items.Count; index++)
-        {
-            if (index != position && !matched[index] && predicate(items[index]))
-                return index;
-        }
-
-        return null;
-    }
 
     private static Traits TraitsOf(object value) =>
         value is string ? default : TraitsByType.GetOrAdd(value.GetType(), static type => TraitsOfType(type));

@@ -142,6 +142,23 @@ public class UnorderedCollectionTests
         static IEnumerable<int> Lazily(params int[] items) => items.Select(item => item);
     }
 
+    // What a failure message reports. 1.01 equals both 1.0 and 1.02, and only pairing it with 1.0 leaves 1.02 for 1.03.
+    [Theory]
+    [InlineData(new[] { 1.01, 1.03, 5.0 }, new[] { 1.02, 1.0, 6.0 }, new[] { 5.0 }, new[] { 6.0 })]
+    [InlineData(new[] { 5.0, 1.03, 1.01 }, new[] { 1.0, 6.0, 1.02 }, new[] { 5.0 }, new[] { 6.0 })]
+    [InlineData(new[] { 1.0, 1.0, 2.0 }, new[] { 1.0, 2.0, 2.0 }, new[] { 1.0 }, new[] { 2.0 })]
+    [InlineData(new[] { 1.0, 2.0, 3.0 }, new[] { 2.0 }, new[] { 1.0, 3.0 }, new double[0])]
+    [InlineData(new[] { 2.0 }, new[] { 1.0, 2.0, 3.0 }, new double[0], new[] { 1.0, 3.0 })]
+    [InlineData(new[] { 1.0, 2.0 }, new[] { 2.0, 1.0 }, new double[0], new double[0])]
+    [InlineData(new double[0], new double[0], new double[0], new double[0])]
+    public void LeavesUnpairedOnlyTheItemsNoPairingHasAPartnerFor(double[] actual, double[] expected, double[] onlyInActual, double[] onlyInExpected)
+    {
+        var unpaired = UnorderedCollection.Unpaired(actual, expected.ToList(), Within(0.015));
+
+        unpaired.Actual.ShouldBe(onlyInActual);
+        unpaired.Expected.ShouldBe(onlyInExpected);
+    }
+
     private static Func<double, double, bool> Within(double tolerance) =>
         (actual, expected) => Math.Abs(actual - expected) <= tolerance;
 

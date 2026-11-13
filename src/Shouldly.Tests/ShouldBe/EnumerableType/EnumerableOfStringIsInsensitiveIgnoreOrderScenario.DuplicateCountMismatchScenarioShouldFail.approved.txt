@@ -4,7 +4,7 @@ new List<string> { "a", "A", "b" }
     but
 new List<string> { "a", "A", "b" }
     is missing
-["b"]
+["B"]
     and
 ["a", "B", "b"]
     is missing

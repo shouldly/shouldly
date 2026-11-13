@@ -29,16 +29,7 @@ static class IgnoringOrderWording
 
         // Match occurrences one-for-one, as Equality.SequenceEqual does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.
-        var missingFromActual = expected.ToList();
-        var missingFromExpected = new List<object?>();
-        foreach (var actualItem in actual)
-        {
-            var index = missingFromActual.FindIndex(expectedItem => comparison.ElementsEqual(actualItem, expectedItem));
-            if (index < 0)
-                missingFromExpected.Add(actualItem);
-            else
-                missingFromActual.RemoveAt(index);
-        }
+        var (missingFromExpected, missingFromActual) = UnorderedCollection.Unpaired(actual, expected, comparison.ElementsEqual);
 
         // An item is only known to be missing from a side that was read to the end; the unread
         // rest of the side it came from may hold more such items.

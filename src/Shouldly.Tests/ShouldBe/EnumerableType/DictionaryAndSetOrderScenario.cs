@@ -210,6 +210,17 @@ public class DictionaryAndSetOrderScenario
     }
 
     // The message is written from what the assertion read, not by reading the sequence again.
+    // The message pairs the items as the check did: 1.01 and 1.03 each have a partner, so neither is reported.
+    [Fact]
+    public void ItemsThatEqualMoreThanOneOtherShouldFail() =>
+        Verify.ShouldFail(() =>
+            new HashSet<double> { 1.01, 1.03, 5 }.ShouldBe([1.02, 1.0, 6], new Within(0.015), customMessage: "Some additional context"));
+
+    [Fact]
+    public void ItemsThatEqualMoreThanOneOtherIgnoringOrderShouldFail() =>
+        Verify.ShouldFail(() =>
+            new[] { 1.01, 1.03, 5 }.ShouldBe([1.02, 1.0, 6], new Within(0.015), ignoreOrder: true, "Some additional context"));
+
     [Fact]
     public void ASequenceThatCanOnlyBeReadOnceIsReadOnceAgainstASet()
     {
