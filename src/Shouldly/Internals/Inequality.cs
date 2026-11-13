@@ -350,7 +350,8 @@ static class Inequality
 
     private static string FullName(Type type) => Name(type, qualified: true);
 
-    private static string ShortName(Type type) => Name(type, qualified: false);
+    /// <summary>A type's name as source code would spell it, without its namespace.</summary>
+    internal static string ShortName(Type type) => Name(type, qualified: false);
 
     // A type's name as source code would spell it, where FullName writes List`1[[System.String, System.Private.CoreLib, ...]].
     private static string Name(Type type, bool qualified)

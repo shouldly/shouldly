@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [<anonymous type>]
+    Value [System.Numerics.Complex]
+
+    Expected value to be
+<1; 3>
+    but was
+<1; 2>
+
+Additional Info:
+    Some additional context

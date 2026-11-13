@@ -1,0 +1,28 @@
+Comparing object equivalence, found 2 differences:
+
+at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatable[]]
+    Element [0] [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatable]
+        Data [System.String]
+
+    Expected value to be
+"two"
+    but was
+"one"
+
+at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatable[]]
+    Element [1] [Shouldly.Tests.ShouldBeEquivalentTo.KeyEquatable]
+        Data [System.String]
+
+    Expected value to be
+"two"
+    but was
+"one"
+
+    KeyEquatable's own equality says the KeyEquatable values above are equal, but ShouldBeEquivalentTo compares their members.
+    To compare KeyEquatable by its own equality, register
+ShouldlyConfiguration.UseEquality<KeyEquatable>((expected, actual) => expected.Equals(actual))
+
+Additional Info:
+    Some additional context

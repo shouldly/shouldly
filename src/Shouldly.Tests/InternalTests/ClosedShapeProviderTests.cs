@@ -166,6 +166,8 @@ public class ClosedShapeProviderTests
         public override Type Type => typeof(T);
         public override EquivalencyNodeKind Kind => kind;
         public override bool KeepsAnOrder => false;
+        public override bool DefinesEquality => false;
+        public override bool IsRecord => false;
         public override IReadOnlyList<EquivalencyMemberShape> Members => [];
         public override EquivalencyMemberShape? FindMember(string name) => null;
         public override Type? ElementType => null;
