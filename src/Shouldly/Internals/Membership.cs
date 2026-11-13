@@ -171,9 +171,9 @@ static class Membership
     /// <summary>
     /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same answers as
     /// <see cref="Equality{T}.Default"/>: true for a closed list of BCL types whose <c>Equals</c> Shouldly's
-    /// comparer reaches unchanged, when no equality rule applies (see <see cref="CanHash{T}"/>). Not for
-    /// <c>float</c>/<c>double</c>, which honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>,
-    /// nor for <c>object</c> or user types, whose elements may compare across types, structurally or through
+    /// comparer reaches unchanged, when no equality rule applies (see <see cref="CanHash{T}"/>). Not for the
+    /// floating-point types, which honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> (see
+    /// <see cref="Numbers.HonoursDefaultTolerance"/>), nor for <c>object</c> or user types, whose elements may compare across types, structurally or through
     /// <see cref="IEquatable{T}"/>/<see cref="IComparable{T}"/> without a matching <c>GetHashCode</c>.
     /// </summary>
     private static class DefaultEqualityAgrees<T>

@@ -1,19 +1,19 @@
-namespace NUnit.Framework.Constraints;
+namespace Shouldly.Internals;
 
 /// <summary>
-///     The Numerics class contains common operations on numeric values.
+/// How Shouldly compares two numbers: which values are numbers, and when two of them are equal, whatever their types,
+/// within <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>. Equality and ShouldBeEquivalentTo both
+/// ask it, so they give two numbers the same verdict. The conversion rules began as NUnit's <c>Numerics</c>.
 /// </summary>
-static class Numerics
+static class Numbers
 {
     /// <summary>
-    ///     Checks the type of the object, returning true if
-    ///     the object is a numeric type.
+    /// Whether <paramref name="value"/> is a number: a value of one of .NET's built-in numeric types, <c>Half</c>
+    /// included, and not a <c>char</c>, an enum or a <c>BigInteger</c>.
     /// </summary>
-    /// <param name="obj">The object to check</param>
-    /// <returns>true if the object is a numeric type</returns>
-    public static bool IsNumericType([NotNullWhen(true)] object? obj)
+    public static bool IsNumber([NotNullWhen(true)] object? value)
     {
-        return obj is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort
+        return value is double or float or byte or sbyte or decimal or int or uint or long or ulong or short or ushort
 #if NET5_0_OR_GREATER
             or Half
 #endif
@@ -21,13 +21,23 @@ static class Numerics
     }
 
     /// <summary>
-    ///     Test two numeric values for equality, performing the usual numeric conversions. Floating-point values
-    ///     honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>; everything else must match exactly.
+    /// Whether values of <paramref name="type"/> are compared within
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>: the floating-point types. The BCL's own
+    /// equality and hashing for such a type don't know the tolerance, so they can't stand in for Shouldly's, even
+    /// while it is zero, as it can change after that is decided.
     /// </summary>
-    /// <param name="expected">The expected value</param>
-    /// <param name="actual">The actual value</param>
-    /// <returns>True if the values are equal</returns>
-    public static bool AreEqual(object expected, object actual)
+    public static bool HonoursDefaultTolerance(Type type) =>
+        type == typeof(double) || type == typeof(float)
+#if NET5_0_OR_GREATER
+        || type == typeof(Half)
+#endif
+        ;
+
+    /// <summary>
+    /// Whether two numbers are equal, whatever their types. Floating-point values are compared within
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>; everything else must match exactly.
+    /// </summary>
+    public static bool Equal(object expected, object actual)
     {
         // A floating-point value compared with an integer or decimal, with no tolerance in effect, must hold exactly
         // the same value: converting either side to the other's type can round it and make distinct values equal
@@ -41,19 +51,14 @@ static class Numerics
                 : FloatingPointEqualsExactly(actual, expected);
         }
 
-#if NET5_0_OR_GREATER
-        // Half doesn't implement IConvertible, so it can't go through the Convert calls below. Every Half
-        // value is exactly representable as a double, so widen it and compare like the other floating-point
-        // types (#1405). Decided before the float branch so the other operand isn't narrowed to float.
-        if (expected is Half || actual is Half)
-            return AreEqual(ToDouble(expected), ToDouble(actual));
-#endif
+        if (expected is float expectedFloat && actual is float actualFloat)
+            return Equal(expectedFloat, actualFloat);
 
-        if (expected is double || actual is double)
-            return AreEqual(Convert.ToDouble(expected), Convert.ToDouble(actual));
-
-        if (expected is float || actual is float)
-            return AreEqual(Convert.ToSingle(expected), Convert.ToSingle(actual));
+        // Any other pair with a floating-point value in it is compared as doubles. A float widens to a double
+        // exactly, as does a Half (which can't go through Convert, not being IConvertible, #1405), while narrowing
+        // the other value to float would round it first: 16777217 would equal 16777216f.
+        if (IsFloatingPoint(expected) || IsFloatingPoint(actual))
+            return Equal(ToDouble(expected), ToDouble(actual));
 
         if (expected is decimal || actual is decimal || MixesSignedWithUnsigned(expected, actual))
             return Convert.ToDecimal(expected) == Convert.ToDecimal(actual);
@@ -70,28 +75,56 @@ static class Numerics
         return Convert.ToInt32(expected) == Convert.ToInt32(actual);
     }
 
-    private static bool AreEqual(double expected, double actual)
+    /// <summary>
+    /// Whether two doubles are within <paramref name="tolerance"/> of each other, which takes the place of
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>. Two NaNs are equal, and an infinity equals
+    /// only an infinity of the same sign, whatever the tolerance.
+    /// </summary>
+    public static bool EqualWithin(double expected, double actual, double tolerance)
     {
         if (double.IsNaN(expected) && double.IsNaN(actual))
             return true;
 
-        // Subtracting two infinite values gives NaN, so infinities and NaN are compared directly.
-        if (double.IsInfinity(expected) || double.IsNaN(expected) || double.IsNaN(actual))
+        // Subtracting two infinite values gives NaN, and an infinity is beyond any finite value, however large the
+        // tolerance, so infinities and NaN are compared directly.
+        if (double.IsInfinity(expected) || double.IsInfinity(actual) || double.IsNaN(expected) || double.IsNaN(actual))
             return expected.Equals(actual);
 
+        return Math.Abs(expected - actual) <= tolerance;
+    }
+
+    /// <summary>
+    /// Whether two decimals are within <paramref name="tolerance"/> of each other.
+    /// </summary>
+    public static bool EqualWithin(decimal expected, decimal actual, decimal tolerance)
+    {
+        try
+        {
+            return Math.Abs(expected - actual) <= tolerance;
+        }
+        catch (OverflowException)
+        {
+            // The difference is larger than any decimal, so larger than any tolerance.
+            return false;
+        }
+    }
+
+    private static bool Equal(double expected, double actual)
+    {
         var tolerance = ShouldlyConfiguration.DefaultFloatingPointTolerance;
         return tolerance > 0.0d
-            ? Math.Abs(expected - actual) <= tolerance
+            ? EqualWithin(expected, actual, tolerance)
             : expected.Equals(actual);
     }
 
-    private static bool AreEqual(float expected, float actual)
+    private static bool Equal(float expected, float actual)
     {
         if (float.IsNaN(expected) && float.IsNaN(actual))
             return true;
 
-        // Subtracting two infinite values gives NaN, so infinities and NaN are compared directly.
-        if (float.IsInfinity(expected) || float.IsNaN(expected) || float.IsNaN(actual))
+        // Subtracting two infinite values gives NaN, and an infinity is beyond any finite value, however large the
+        // tolerance, so infinities and NaN are compared directly.
+        if (float.IsInfinity(expected) || float.IsInfinity(actual) || float.IsNaN(expected) || float.IsNaN(actual))
             return expected.Equals(actual);
 
         var tolerance = ShouldlyConfiguration.DefaultFloatingPointTolerance;

@@ -39,8 +39,8 @@ public class FloatingPointToleranceScenario
     [Fact]
     public void FloatAndIntegerAreComparedAsDoubles()
     {
-        // 16777217 isn't representable as a float. Converting both sides to float, as Numerics does for
-        // float-vs-integer under a tolerance, would make these equal; equivalency widens to double instead.
+        // 16777217 isn't representable as a float. Converting both sides to float would make these equal; they are
+        // widened to double instead, as ShouldBe does.
         WithDefaultTolerance(1e-9, () =>
             Should.Throw<ShouldAssertException>(() => ((object)16777217).ShouldBeEquivalentTo(16777216f)));
     }
@@ -104,6 +104,30 @@ public class FloatingPointToleranceScenario
                 .ShouldBeEquivalentTo(new Dictionary<double, string> { [1.005] = "b", [1.0] = "a" }));
     }
 
+#if NET5_0_OR_GREATER
+    [Fact]
+    public void HalvesWithinTheDefaultToleranceAreEquivalent()
+    {
+        WithDefaultTolerance(0.01, () => ((Half)1).ShouldBeEquivalentTo((Half)1.005));
+    }
+
+    [Fact]
+    public void HalfAndDoubleWithinTheDefaultToleranceAreEquivalent()
+    {
+        WithDefaultTolerance(0.01, () => ((object)(Half)1).ShouldBeEquivalentTo(1.005d));
+    }
+
+    [Fact]
+    public void HalfIsEquivalentToTheSameValueOfAnotherNumericType()
+    {
+        // As with ShouldBe, a Half is a number like any other, so it is compared by the value it holds.
+        ((object)(Half)1).ShouldBeEquivalentTo(1.0);
+        ((object)1).ShouldBeEquivalentTo((Half)1);
+        new object[] { (Half)2 }.ShouldBeEquivalentTo(new object[] { 2m });
+        Should.Throw<ShouldAssertException>(() => ((object)(Half)1).ShouldBeEquivalentTo(2.0));
+    }
+
+#endif
     [Fact]
     public void NaNIsStillEquivalentToNaN()
     {

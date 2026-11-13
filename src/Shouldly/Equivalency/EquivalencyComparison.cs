@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using Shouldly.Internals;
 using Shouldly.Internals.Failures;
 
@@ -608,45 +607,13 @@ internal sealed class EquivalencyComparison
 
     private static bool LeafEquals(object actual, object expected)
     {
-        if (IsNumeric(actual) && IsNumeric(expected))
-        {
-            if (actual is float or double || expected is float or double)
-                return FloatingPointEquals(actual, expected);
-
-            // Mixed integral and decimal values compare exactly through decimal.
-            if (actual.GetType() != expected.GetType())
-                return Convert.ToDecimal(actual) == Convert.ToDecimal(expected);
-        }
+        // Two numbers are compared as ShouldBe compares them, whatever their types (see Numbers).
+        if (Numbers.IsNumber(actual) && Numbers.IsNumber(expected))
+            return Numbers.Equal(expected, actual);
 
         // Equals is called on the expected value, as in ShouldBe (see Equality), so a broken Equals on the value
         // under test can't make the comparison pass.
         return expected.Equals(actual);
-    }
-
-    private static bool IsNumeric(object value) =>
-        value is not Enum
-        && Convert.GetTypeCode(value) is
-            TypeCode.SByte or TypeCode.Byte or
-            TypeCode.Int16 or TypeCode.UInt16 or
-            TypeCode.Int32 or TypeCode.UInt32 or
-            TypeCode.Int64 or TypeCode.UInt64 or
-            TypeCode.Single or TypeCode.Double or
-            TypeCode.Decimal;
-
-    /// <summary>
-    /// Compares through <see cref="Numerics"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
-    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies. Under a default tolerance, mixed
-    /// types are widened to double first: Numerics would narrow a float compared with an integer or decimal to float.
-    /// </summary>
-    private static bool FloatingPointEquals(object actual, object expected)
-    {
-        if (actual.GetType() != expected.GetType() && ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d)
-        {
-            actual = Convert.ToDouble(actual);
-            expected = Convert.ToDouble(expected);
-        }
-
-        return Numerics.AreEqual(expected, actual);
     }
 
     /// <summary>

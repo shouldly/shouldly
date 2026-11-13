@@ -221,7 +221,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         using var captured = CapturedSequence.Of(actual);
         actual = captured.Items!;
-        if (!actual.Any(a => Is.Equal(a, expected, tolerance)))
+        var equality = Equality.WithinTolerance<float>(tolerance);
+        if (!actual.Any(a => equality.Equal(a, expected)))
             throw Fail.ShouldContain.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
@@ -233,7 +234,8 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         using var captured = CapturedSequence.Of(actual);
         actual = captured.Items!;
-        if (!actual.Any(a => Is.Equal(a, expected, tolerance)))
+        var equality = Equality.WithinTolerance<double>(tolerance);
+        if (!actual.Any(a => equality.Equal(a, expected)))
             throw Fail.ShouldContain.Within(expected, tolerance).For(actual, customMessage, actualExpression);
     }
 
