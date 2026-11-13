@@ -62,6 +62,54 @@ public class OwnEqualityFoldScenario
         exception.Message.ShouldNotContain("they differ at");
     }
 
+    [Fact]
+    public void ShouldDropTheNoteOfAMemberWhoseValuesAreFoldedAway()
+    {
+        // Guest's own equality calls the guests equal, but the failure shows bookings, not guests.
+        var exception = Should.Throw<ShouldAssertException>(() =>
+            new Booking { Guest = new() { Key = "ann", Data = "one" }, Nights = 1 }
+                .ShouldBeEquivalentTo(new Booking { Guest = new() { Key = "ann", Data = "two" }, Nights = 2 }));
+
+        exception.Message.ShouldContain("they differ at Guest, Nights");
+        exception.Message.ShouldNotContain("own equality");
+    }
+
+    [Fact]
+    public void ShouldReportEachMemberWhenAMemberHadNothingToCompare()
+    {
+        // Tag has no members to compare, so it can't be said to differ, and the guard's guidance must stay.
+        var exception = Should.Throw<ShouldAssertException>(() =>
+            new Parcel { Tag = new object(), Weight = 1 }.ShouldBeEquivalentTo(new Parcel { Tag = new object(), Weight = 2 }));
+
+        exception.Message.ShouldContain("found 2 differences");
+        exception.Message.ShouldContain("Found no public members to compare");
+        exception.Message.ShouldNotContain("they differ at");
+    }
+
+    public class Booking
+    {
+        public KeyEquatable? Guest { get; set; }
+        public int Nights { get; set; }
+
+        public override bool Equals(object? obj) => obj is Booking other && Equals(Guest, other.Guest) && Nights == other.Nights;
+
+        public override int GetHashCode() => Nights;
+
+        public override string ToString() => $"{Guest?.Key} for {Nights} nights";
+    }
+
+    public class Parcel
+    {
+        public object? Tag { get; set; }
+        public int Weight { get; set; }
+
+        public override bool Equals(object? obj) => obj is Parcel other && Weight == other.Weight;
+
+        public override int GetHashCode() => Weight;
+
+        public override string ToString() => $"{Weight} kg";
+    }
+
     /// <summary>A value whose public members are views of one number.</summary>
     public readonly struct Distance(double metres) : IEquatable<Distance>
     {

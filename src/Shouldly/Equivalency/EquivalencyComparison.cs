@@ -145,12 +145,12 @@ internal sealed class EquivalencyComparison
                     break;
 
                 default:
-                    var differencesBefore = _differences.Count;
+                    var before = new Mark(_differences.Count, _equalByOwnEquality.Count);
                     var differingMembers = new List<string>();
                     if (!CompareMembers(actual, expected, shape, declared.Actual, annotatedPath, differingMembers))
                         AddDifference(EquivalencyDifferenceKind.VacuousComparison, annotatedPath, expected, actual, GetDisplayName(shape.Type));
                     else if (differingMembers.Count > 0)
-                        ConsultOwnEquality(actual, expected, shape, annotatedPath, differencesBefore, differingMembers);
+                        ConsultOwnEquality(actual, expected, shape, annotatedPath, before, differingMembers);
                     break;
             }
         }
@@ -517,15 +517,18 @@ internal sealed class EquivalencyComparison
     /// <item>When it agrees they differ, and the differences span several members, they are reported as one: the two
     /// values as their type writes them, and the members that differ. A NodaTime <c>LocalDate</c> is one difference
     /// of dates, not three of <c>Day</c>, <c>DayOfWeek</c> and <c>DayOfYear</c>. A record's equality is its
-    /// members, which say more than the record does as a whole, so a record is left as it is.</item>
+    /// members, which say more than the record does as a whole, so a record is left as it is, and so is a value with a
+    /// member that had nothing to compare: the guard's guidance would be lost, and the member named as differing when
+    /// it may not.</item>
     /// </list>
+    /// Folding drops what the members' comparison recorded, notes included: a note names values the failure shows.
     /// </summary>
     private void ConsultOwnEquality(
         object actual,
         object expected,
         EquivalencyTypeShape shape,
         List<string> path,
-        int differencesBefore,
+        Mark before,
         List<string> differingMembers)
     {
         // An anonymous type's Equals compares its members as ShouldBe would, and it has no name to register a rule by.
@@ -548,11 +551,26 @@ internal sealed class EquivalencyComparison
             if (!_equalByOwnEquality.Contains(shape.Type))
                 _equalByOwnEquality.Add(shape.Type);
         }
-        else if (differingMembers.Count > 1 && !shape.IsRecord && ReadsAsAValue(actual, expected))
+        else if (differingMembers.Count > 1 && !shape.IsRecord && !HasVacuousComparison(before) && ReadsAsAValue(actual, expected))
         {
-            _differences.RemoveRange(differencesBefore, _differences.Count - differencesBefore);
+            _differences.RemoveRange(before.Differences, _differences.Count - before.Differences);
+            _equalByOwnEquality.RemoveRange(before.Notes, _equalByOwnEquality.Count - before.Notes);
             AddDifference(EquivalencyDifferenceKind.ValueMismatch, path, expected, actual, DifferAt(differingMembers));
         }
+    }
+
+    /// <summary>How much had been recorded before a node's members were compared.</summary>
+    private readonly record struct Mark(int Differences, int Notes);
+
+    private bool HasVacuousComparison(Mark before)
+    {
+        for (var i = before.Differences; i < _differences.Count; i++)
+        {
+            if (_differences[i].Kind == EquivalencyDifferenceKind.VacuousComparison)
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>
