@@ -123,7 +123,7 @@ sealed class EquivalentFailure([CallerMemberName] string name = "") : Failure(na
         var sb = new StringBuilder();
         foreach (var type in types)
         {
-            var name = Inequality.ShortName(type);
+            var name = ExplanationWording.ShortName(type);
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine($"    {name}'s own equality says the {name} values above are equal, but ShouldBeEquivalentTo compares their members.");

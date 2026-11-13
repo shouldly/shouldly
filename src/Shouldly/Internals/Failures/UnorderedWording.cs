@@ -8,15 +8,13 @@ namespace Shouldly.Internals.Failures;
 static class UnorderedWording
 {
     /// <summary>
-    /// The <c>difference</c> section of the message, or null when <paramref name="actual"/> and
-    /// <paramref name="expected"/> are compared in order, or nothing tells them apart as the assertion compared
-    /// them.
+    /// The <c>difference</c> section of the message, or null when the two are compared in order, or nothing tells
+    /// them apart as the assertion compared them.
     /// </summary>
-    public static string? Difference(object? actual, object? expected, ComparisonRecord? record)
+    public static string? Difference(Differences found)
     {
-        var comparison = record ?? ComparisonRecord.Default;
-        if (comparison.ComparesValuesItself ||
-            UnorderedCollection.Find(actual, expected, comparison) is not { Items.Count: > 0 } differences)
+        if (found.Equality.ComparesValuesItself ||
+            found.Unordered is not { Items.Count: > 0 } differences)
             return null;
 
         var limit = ShouldlyConfiguration.MaxEnumerableItemsInMessages;
@@ -34,16 +32,16 @@ static class UnorderedWording
                 """;
     }
 
-    private static string Line(UnorderedCollection.Difference difference, bool byKey)
+    private static string Line(UnorderedDifference difference, bool byKey)
     {
         var item = byKey
             ? $"[{difference.Item.ToStringAwesomely()}]"
             : difference.Item.ToStringAwesomely();
         return difference.Kind switch
         {
-            UnorderedCollection.DifferenceKind.ValueDiffers =>
+            UnorderedDifferenceKind.ValueDiffers =>
                 $"{item} should be {difference.Expected.ToStringAwesomely()} but was {difference.Actual.ToStringAwesomely()}",
-            UnorderedCollection.DifferenceKind.Missing => $"{item} is missing",
+            UnorderedDifferenceKind.Missing => $"{item} is missing",
             _ => $"{item} is not expected"
         };
     }

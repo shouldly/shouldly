@@ -16,7 +16,7 @@ public static partial class GuidShouldBeTestExtensions
     public static void ShouldBeEmpty(this Guid actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => Is.Equal(v, Guid.Empty)))
+        if (!actual.Satisfies(v => Internals.Equality<Guid>.Default.Equal(v, Guid.Empty)))
             throw Fail.ShouldBeEmpty.ComparedWith(Guid.Empty).For(actual, customMessage, actualExpression);
     }
 
@@ -26,7 +26,7 @@ public static partial class GuidShouldBeTestExtensions
     public static void ShouldNotBeEmpty(this Guid actual, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !Is.Equal(v, Guid.Empty)))
+        if (!actual.Satisfies(v => !Internals.Equality<Guid>.Default.Equal(v, Guid.Empty)))
             throw Fail.ShouldNotBeEmpty.ComparedWith(Guid.Empty).For(actual, customMessage, actualExpression);
     }
 }

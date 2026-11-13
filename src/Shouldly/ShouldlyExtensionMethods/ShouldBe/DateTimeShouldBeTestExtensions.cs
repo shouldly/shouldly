@@ -10,8 +10,9 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this DateTime actual, DateTime expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.WithinTolerance<DateTime>(tolerance);
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -20,8 +21,9 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.WithinTolerance<DateTimeOffset>(tolerance);
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -30,8 +32,9 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.WithinTolerance<TimeSpan>(tolerance);
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -40,8 +43,9 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe(this DateTime actual, DateTime expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldNotBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.WithinTolerance<DateTime>(tolerance);
+        if (!actual.Satisfies(v => !equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -50,8 +54,9 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe(this DateTimeOffset actual, DateTimeOffset expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldNotBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.WithinTolerance<DateTimeOffset>(tolerance);
+        if (!actual.Satisfies(v => !equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -60,7 +65,8 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe(this TimeSpan actual, TimeSpan expected, TimeSpan tolerance, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !Is.Equal(v, expected, tolerance)))
-            throw Fail.ShouldNotBe.Within(expected, tolerance).For(actual, customMessage, actualExpression);
+        var equality = Internals.Equality.WithinTolerance<TimeSpan>(tolerance);
+        if (!actual.Satisfies(v => !equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 }

@@ -1,13 +1,14 @@
 using System.Numerics;
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly.Tests.InternalTests;
 
 /// <summary>
 /// The line a <c>ShouldBe</c> failure adds when its message doesn't otherwise show why two values are unequal (#1432),
-/// tested through <see cref="Inequality"/>'s own interface. The assertions only need a smoke test showing they ask it.
+/// tested through <see cref="ExplanationWording"/>'s own interface. The assertions only need a smoke test showing they ask it.
 /// </summary>
-public class InequalityTests
+public class ExplanationWordingTests
 {
     private const string UseEquivalentTo = "use ShouldBeEquivalentTo to compare members";
 
@@ -36,7 +37,7 @@ public class InequalityTests
             "but they are different types (expected System.Double, actual System.Half)"),
         ["different generic types"] = (
             () => Explain(new Box<int>(), new Box<long[]>()),
-            "but they are different types (expected Shouldly.Tests.InternalTests.InequalityTests+Box<System.Int64[]>, actual Shouldly.Tests.InternalTests.InequalityTests+Box<System.Int32>)"),
+            "but they are different types (expected Shouldly.Tests.InternalTests.ExplanationWordingTests+Box<System.Int64[]>, actual Shouldly.Tests.InternalTests.ExplanationWordingTests+Box<System.Int32>)"),
 
         // One type, compared by reference
         ["reference equality"] = (
@@ -118,13 +119,13 @@ public class InequalityTests
             "but the equality rule for IdBag says they are not equal"),
         ["equality rule, values that read differently"] = (() => Explain(new IdBag(1, 1), new IdBag(2, 2)), null),
         ["custom comparer"] = (
-            () => Inequality.Explain(new Named("a"), new Named("a"), ComparisonRecord.ComparedValuesWithCustomComparer()),
+            () => Explain(new Named("a"), new Named("a"), Equality.Using(System.Collections.Generic.EqualityComparer<object>.Default)),
             "but the custom comparer says they are not equal"),
         ["custom comparer, values that read differently"] = (
-            () => Inequality.Explain(new Named("a"), new Named("b"), ComparisonRecord.ComparedValuesWithCustomComparer()),
+            () => Explain(new Named("a"), new Named("b"), Equality.Using(System.Collections.Generic.EqualityComparer<object>.Default)),
             null),
         ["custom comparer overrides an equality rule"] = (
-            () => Inequality.Explain(new IdBag(1, 1), new IdBag(2, 1), ComparisonRecord.ComparedValuesWithCustomComparer()),
+            () => Explain(new IdBag(1, 1), new IdBag(2, 1), Equality.Using(System.Collections.Generic.EqualityComparer<object>.Default)),
             "but the custom comparer says they are not equal"),
 
         // Sequences say where they first differ once that takes finding
@@ -156,7 +157,7 @@ public class InequalityTests
             () => Explain(new[] { new IdBag(1, 1) }, new[] { new IdBag(2, 1) }),
             "first difference at index 0: the equality rule for IdBag says they are not equal"),
         ["items compared by a custom comparer"] = (
-            () => Inequality.Explain(new[] { new Named("a") }, new[] { new Named("a") }, ComparisonRecord.ComparedElementsWith(new NeverEqual<Named>(), isCustom: true)),
+            () => Explain(new[] { new Named("a") }, new[] { new Named("a") }, Equality.OfSequences(Equality.Using(new NeverEqual<Named>()))),
             "first difference at index 0: the custom comparer says they are not equal"),
     };
 
@@ -189,7 +190,8 @@ public class InequalityTests
         }
     }
 
-    private static string? Explain(object? actual, object? expected) => Inequality.Explain(actual, expected);
+    private static string? Explain(object? actual, object? expected, Equality? equality = null) =>
+        ExplanationWording.Explain((equality ?? Equality<object?>.Default).DifferencesBetween(actual, expected));
 
     private static int[] Numbers(int count, int? changedAt = null) =>
         [.. Enumerable.Range(0, count).Select(n => n == changedAt ? -1 : n)];

@@ -14,7 +14,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldBe.With(expected, Internals.Equality<Memory<T>>.Default).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldBe.With(expected, Internals.Equality<ReadOnlyMemory<T>>.Default).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => !MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldNotBe.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldNotBe.With(expected, Internals.Equality<Memory<T>>.Default).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public static partial class ShouldBeTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => !MemoryEqual(v, expected, v.Span, expected.Span)))
-            throw Fail.ShouldNotBe.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldNotBe.With(expected, Internals.Equality<ReadOnlyMemory<T>>.Default).For(actual, customMessage, actualExpression);
     }
 
     // A rule registered for the memory type itself decides first, as it does when the memories are compared as
@@ -97,11 +97,11 @@ public static partial class ShouldBeTestExtensions
         }
 #endif
 
-        IEqualityComparer<T> comparer = new Internals.EqualityComparer<T>();
+        var elements = Internals.Equality<T>.Default;
         for (var i = 0; i < actual.Length; i++)
         {
-            // Equals is called on the expected element, as everywhere else in ShouldBe (see Is.Equal).
-            if (!Is.Equal(actual[i], expected[i], comparer))
+            // Equals is called on the expected element, as everywhere else in ShouldBe (see Equality).
+            if (!elements.Equal(actual[i], expected[i]))
                 return false;
         }
 

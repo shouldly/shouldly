@@ -19,27 +19,6 @@ static class Is
         return ReferenceEquals(actual, expected);
     }
 
-    public static bool Equal<T>(T? actual, T? expected) =>
-        Equal(actual, expected, GetEqualityComparer<T>());
-
-    /// <summary>
-    /// Whether <paramref name="actual"/> equals <paramref name="expected"/>. By design, the comparer is called as
-    /// <c>comparer.Equals(expected, actual)</c>, so the default comparer calls <c>Equals</c> on the expected
-    /// value: a broken <c>Equals</c> on the value under test can't make an assertion pass. Every comparison
-    /// between an actual and an expected value goes through here so that the order is the same everywhere
-    /// (issue #1076).
-    /// </summary>
-    public static bool Equal<T>(T? actual, T? expected, IEqualityComparer<T> comparer) =>
-        comparer.Equals(expected, actual);
-
-    internal static IEqualityComparer<T> GetEqualityComparer<T>(IEqualityComparer? innerComparer = null) =>
-        new Internals.EqualityComparer<T>(innerComparer);
-
-    /// <summary>
-    /// The comparer used to compare a single value of type <typeparamref name="T"/>: <see cref="Internals.Equality.ComparerFor{T}"/>.
-    /// </summary>
-    public static IEqualityComparer<T> ScalarComparerFor<T>() => Internals.Equality.ComparerFor<T>();
-
     public static bool Equal(decimal actual, decimal expected, decimal tolerance) =>
         Math.Abs(actual - expected) <= tolerance;
 

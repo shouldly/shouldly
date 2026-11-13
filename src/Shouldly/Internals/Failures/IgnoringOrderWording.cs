@@ -5,53 +5,34 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class IgnoringOrderWording
 {
-    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption)
+    internal static string Word(Sentence sentence, object? expectedValue, Equality equality)
     {
-        if (expectedValue is not IEnumerable expectedEnumerable)
-        {
-            throw new("`expectedValue` should be IEnumerable");
-        }
-
-        if (sentence.Actual is not IEnumerable actualEnumerable)
-        {
-            throw new("`sentence.Actual` should be IEnumerable");
-        }
-
-        // Read only as far as a message can show, so an infinite sequence can't hang it. A side
-        // that was cut short may still hold matches for the other side's items further on.
-        var expected = expectedEnumerable.ReadForMessage(out var expectedTruncated);
-        var actual = actualEnumerable.ReadForMessage(out var actualTruncated);
+        var unpaired = equality.DifferencesBetween(sentence.Actual, expectedValue).Unpaired
+                       ?? throw new("`sentence.Actual` and `expectedValue` should be IEnumerable");
         var subject = sentence.Subject;
-        var expectedFormattedValue = expected.ToStringAwesomely();
-
-        // Compare as the assertion did, so any custom comparer is honored.
-        var comparison = (record ?? ComparisonRecord.Default);
-
-        // Match occurrences one-for-one, as Equality.SequenceEqual does, so a difference in how many times an item
-        // occurs is reported rather than hidden by an earlier match.
-        var (missingFromExpected, missingFromActual) = UnorderedCollection.Unpaired(actual, expected, comparison.ElementsEqual);
+        var expectedFormattedValue = unpaired.Expected.ToStringAwesomely();
 
         // An item is only known to be missing from a side that was read to the end; the unread
         // rest of the side it came from may hold more such items.
-        var actualMissingMessage = !actualTruncated && missingFromActual.Any()
+        var actualMissingMessage = !unpaired.ActualCutShort && unpaired.OnlyInExpected.Any()
             ? $"""
                {subject}
                    is missing
-               {missingFromActual.ToStringAwesomely(moreMayFollow: expectedTruncated)}
+               {unpaired.OnlyInExpected.ToStringAwesomely(moreMayFollow: unpaired.ExpectedCutShort)}
                """
             : string.Empty;
-        var expectedMissingMessage = !expectedTruncated && missingFromExpected.Any()
+        var expectedMissingMessage = !unpaired.ExpectedCutShort && unpaired.OnlyInActual.Any()
             ? $"""
                {expectedFormattedValue}
                    is missing
-               {missingFromExpected.ToStringAwesomely(moreMayFollow: actualTruncated)}
+               {unpaired.OnlyInActual.ToStringAwesomely(moreMayFollow: unpaired.ActualCutShort)}
                """
             : string.Empty;
 
         // A custom comparer decides case sensitivity itself, so only report a Case the caller passed.
-        var caseSensitivity = comparison.UsesCustomComparer
+        var caseSensitivity = equality.UsesCustomComparer
             ? string.Empty
-            : caseOption switch
+            : equality.Case switch
             {
                 Case.Insensitive => ", case insensitive comparison",
                 Case.Sensitive => ", case sensitive comparison",
@@ -66,7 +47,7 @@ static class IgnoringOrderWording
                         {sentence.Phrase} (ignoring order{caseSensitivity})
                     {expectedFormattedValue}
                         but was
-                    {actual.ToStringAwesomely()}
+                    {unpaired.Actual.ToStringAwesomely()}
                     """;
         }
 

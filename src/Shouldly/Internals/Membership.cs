@@ -3,8 +3,8 @@ namespace Shouldly.Internals;
 /// <summary>
 /// Membership and set checks for <c>ShouldContain</c>, <c>ShouldBeOneOf</c>, <c>ShouldBeSubsetOf</c>,
 /// <c>ShouldBeUnique</c> and their negations. Without a comparer of the caller's, elements are compared with
-/// <see cref="Is.ScalarComparerFor{T}"/> so that they agree with <c>ShouldBe</c> on what counts as equal
-/// (issue #1404). Each comparison goes through <see cref="Is.Equal{T}(T, T, IEqualityComparer{T})"/>, so
+/// <see cref="Equality{T}.Default"/> so that they agree with <c>ShouldBe</c> on what counts as equal
+/// (issue #1404). Each comparison goes through <see cref="Equality{T}.Equal"/>, so
 /// <c>Equals</c> is called on the expected value, and a caller's comparer is called as
 /// <c>comparer.Equals(expected, element)</c> (issue #1076).
 /// </summary>
@@ -31,10 +31,10 @@ static class Membership
             hashSet.Comparer.Equals(System.Collections.Generic.EqualityComparer<T>.Default))
             return false;
 
-        var comparer = Is.ScalarComparerFor<T>();
+        var equality = Equality<T>.Default;
         foreach (var item in actual)
         {
-            if (Is.Equal(item, expected, comparer))
+            if (equality.Equal(item, expected))
                 return true;
         }
 
@@ -47,9 +47,10 @@ static class Membership
     /// </summary>
     public static bool Contains<T>(IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer)
     {
+        var equality = Equality.Using(comparer);
         foreach (var item in actual)
         {
-            if (Is.Equal(item, expected, comparer))
+            if (equality.Equal(item, expected))
                 return true;
         }
 
@@ -61,10 +62,10 @@ static class Membership
     /// </summary>
     public static bool IsOneOf<T>(T? actual, IEnumerable<T> candidates)
     {
-        var comparer = Is.ScalarComparerFor<T>();
+        var equality = Equality<T>.Default;
         foreach (var candidate in candidates)
         {
-            if (Is.Equal(actual, candidate, comparer))
+            if (equality.Equal(actual, candidate))
                 return true;
         }
 
@@ -80,13 +81,13 @@ static class Membership
         if (CanHash<T>())
             return actual.Except(expected).ToList();
 
-        var comparer = Is.ScalarComparerFor<T>();
+        var equality = Equality<T>.Default;
         var expectedItems = expected.ToList();
         var unmatched = new List<T>();
         foreach (var item in actual)
         {
-            if (!expectedItems.Exists(expectedItem => Is.Equal(item, expectedItem, comparer)) &&
-                !unmatched.Exists(found => Is.Equal(item, found, comparer)))
+            if (!expectedItems.Exists(expectedItem => equality.Equal(item, expectedItem)) &&
+                !unmatched.Exists(found => equality.Equal(item, found)))
             {
                 unmatched.Add(item);
             }
@@ -106,14 +107,14 @@ static class Membership
 
         // Compared with every earlier element, and deduplicated against the reported values themselves, rather than
         // against one representative per value: tolerance-based equality isn't transitive.
-        var scalarComparer = Is.ScalarComparerFor<T>();
+        var equality = Equality<T>.Default;
         var earlierItems = new List<T>();
         var duplicates = new List<T>();
         foreach (var item in items)
         {
             // The earlier element is the one Equals is called on.
-            if (earlierItems.Exists(earlier => Is.Equal(item, earlier, scalarComparer)) &&
-                !duplicates.Exists(reported => Is.Equal(item, reported, scalarComparer)))
+            if (earlierItems.Exists(earlier => equality.Equal(item, earlier)) &&
+                !duplicates.Exists(reported => equality.Equal(item, reported)))
             {
                 duplicates.Add(item);
             }
@@ -169,7 +170,7 @@ static class Membership
 
     /// <summary>
     /// Whether <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> (and so its hashing) gives the same answers as
-    /// <see cref="Is.ScalarComparerFor{T}"/>: true for a closed list of BCL types whose <c>Equals</c> Shouldly's
+    /// <see cref="Equality{T}.Default"/>: true for a closed list of BCL types whose <c>Equals</c> Shouldly's
     /// comparer reaches unchanged, when no equality rule applies (see <see cref="CanHash{T}"/>). Not for
     /// <c>float</c>/<c>double</c>, which honour <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/>,
     /// nor for <c>object</c> or user types, whose elements may compare across types, structurally or through

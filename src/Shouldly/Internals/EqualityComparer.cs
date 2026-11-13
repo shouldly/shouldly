@@ -8,7 +8,8 @@ namespace Shouldly.Internals;
  */
 class EqualityComparer<T> : IEqualityComparer<T>
 {
-    private static readonly IEqualityComparer DefaultInnerComparer = new EqualityComparerAdapter(new EqualityComparer<object>());
+    // Compares the items of two sequences, and of two tuples, as values of any type.
+    private static readonly IEqualityComparer<object?> ItemComparer = new EqualityComparer<object?>();
 
     // Static per-T strategy: decided once at first use, then cached. The CLR
     // specialises this generic class per closed T, so each closed instantiation
@@ -55,14 +56,6 @@ class EqualityComparer<T> : IEqualityComparer<T>
         return typeof(IEquatable<T>).IsAssignableFrom(t);
     }
 
-    private readonly Func<IEqualityComparer> _innerComparerFactory;
-
-    public EqualityComparer(IEqualityComparer? innerComparer = null)
-    {
-        // Use a thunk to delay evaluation of DefaultInnerComparer
-        _innerComparerFactory = () => innerComparer ?? DefaultInnerComparer;
-    }
-
     public bool Equals(T? x, T? y)
     {
         if (s_useTypedEquatableFastPath && (EqualityRules.IsEmpty || !EqualityRules.CouldApplyTo(typeof(T))))
@@ -84,60 +77,63 @@ class EqualityComparer<T> : IEqualityComparer<T>
         if (NullEquivalence.IsNull(y))
             return false;
 
-        // A registered equality rule decides before anything else, so a value it covers is never walked (x is the
-        // expected value: callers compare as Equals(expected, actual)).
-        if (EqualityRules.TryEquals(x, y, out var ruleResult))
-            return ruleResult;
-
-        // Strings are compared with their own Equals rather than walked as sequences of characters.
-        if (x is string xString && y is string yString)
-            return string.Equals(xString, yString);
-
-        if (Numerics.IsNumericType(x) &&
-            Numerics.IsNumericType(y))
+        // x is the expected value: callers compare as Equals(expected, actual).
+        var step = EqualityStep.For(x, y);
+        switch (step.Kind)
         {
-            return Numerics.AreEqual(x, y);
-        }
+            case EqualityStepKind.Rule:
+            case EqualityStepKind.Json:
+                return step.Verdict;
 
-        // Enumerable?
-        if (x.TryGetEnumerable(out var enumerableX) &&
-            y.TryGetEnumerable(out var enumerableY))
-        {
-            // The order a dictionary or a set enumerates in isn't part of its value (#1430).
-            if (UnorderedCollection.IgnoresOrder(y, x))
-            {
-                var elementComparer = _innerComparerFactory();
+            case EqualityStepKind.String:
+                return string.Equals((string)(object)x, (string)(object)y);
+
+            case EqualityStepKind.Number:
+                return Numerics.AreEqual(x, y);
+
+            case EqualityStepKind.UnorderedCollection:
                 return UnorderedCollection.MatchOneForOne(
-                    enumerableY.Cast<object?>(),
-                    enumerableX.Cast<object?>(),
-                    (actualItem, expectedItem) => elementComparer.Equals(expectedItem, actualItem));
-            }
+                    step.ActualItems!.Cast<object?>(),
+                    step.ExpectedItems!.Cast<object?>(),
+                    (actualItem, expectedItem) => ItemComparer.Equals(expectedItem, actualItem));
 
-            var enumeratorX = enumerableX.GetEnumerator();
-            using var enumeratorXDispose = enumeratorX as IDisposable;
-            var enumeratorY = enumerableY.GetEnumerator();
-            using var enumeratorYDispose = enumeratorY as IDisposable;
-            var equalityComparer = _innerComparerFactory();
+            case EqualityStepKind.Sequence:
+                return ItemsEqualInOrder(step.ExpectedItems!, step.ActualItems!);
 
-            while (true)
-            {
-                var hasNextX = enumeratorX.MoveNext();
-                var hasNextY = enumeratorY.MoveNext();
+            case EqualityStepKind.Tuple:
+                // Each item compared by Shouldly's equality, not by the tuple's own Equals, which compares a
+                // collection by reference.
+                Tuples.TryEquals(x, y, ItemComparer, out var tupleResult);
+                return tupleResult;
 
-                if (!hasNextX || !hasNextY)
-                    return hasNextX == hasNextY;
-
-                if (!equalityComparer.Equals(enumeratorX.Current, enumeratorY.Current))
-                    return false;
-            }
+            default:
+                return OwnEquality(x!, y!);
         }
+    }
 
-        // KeyValuePair or tuple? Compare it item by item, so a dictionary's entries compare like its values do under
-        // ShouldBe and ShouldContainKeyAndValue (#1408), and a tuple's items like the items on their own (#1429),
-        // not by the tuple's own Equals, which compares a collection by reference.
-        if (Tuples.TryEquals(x, y, _innerComparerFactory(), out var tupleResult))
-            return tupleResult;
+    private static bool ItemsEqualInOrder(IEnumerable expectedItems, IEnumerable actualItems)
+    {
+        var expectedEnumerator = expectedItems.GetEnumerator();
+        using var expectedDispose = expectedEnumerator as IDisposable;
+        var actualEnumerator = actualItems.GetEnumerator();
+        using var actualDispose = actualEnumerator as IDisposable;
 
+        while (true)
+        {
+            var expectedHasNext = expectedEnumerator.MoveNext();
+            var actualHasNext = actualEnumerator.MoveNext();
+
+            if (!expectedHasNext || !actualHasNext)
+                return expectedHasNext == actualHasNext;
+
+            if (!ItemComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current))
+                return false;
+        }
+    }
+
+    // The last step: what the type itself defines.
+    private static bool OwnEquality([DisallowNull] T x, [DisallowNull] T y)
+    {
         // A type's own equality decides before CompareTo, which only says how to sort: a type may sort by one key and
         // be equal by all its fields (#1428). Each step looks at what the runtime type defines, so ShouldBe<Person>
         // and ShouldBe<object> agree.

@@ -5,11 +5,11 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class StringSequenceWording
 {
-    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption, bool explain = true)
+    internal static string Word(Sentence sentence, object? expectedValue, Equality? equality, Case? caseOption)
     {
         var subject = sentence.Subject;
         // A custom comparer decides case sensitivity itself, so there's nothing accurate to say about it.
-        var caseSensitivity = (record ?? ComparisonRecord.Default).UsesCustomComparer
+        var caseSensitivity = equality is { UsesCustomComparer: true }
             ? string.Empty
             : caseOption == Case.Insensitive
                 ? " (case insensitive comparison)"
@@ -39,6 +39,6 @@ static class StringSequenceWording
                  but was{caseSensitivity}{actual}
              """;
 
-        return message + ShouldBeFailure.DifferenceAndReason(sentence.Actual, expectedValue, record, explain);
+        return message + ShouldBeFailure.DifferenceAndReason(sentence.Actual, expectedValue, equality);
     }
 }

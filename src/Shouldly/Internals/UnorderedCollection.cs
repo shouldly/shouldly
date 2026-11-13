@@ -74,8 +74,12 @@ static class UnorderedCollection
     public static bool IgnoresOrder(object? actual, object? expected) =>
         KindOfPair(actual, expected) != Kind.None;
 
-    // Dictionary when either is one, as the entries of a dictionary and of a list of key/value pairs are told apart by key.
-    private static Kind KindOfPair(object? actual, object? expected)
+    /// <summary>
+    /// What kind of unordered collection two values are compared as, or <see cref="Kind.None"/> when they are
+    /// compared in order: a dictionary when either is one, as the entries of a dictionary and of a list of key/value
+    /// pairs are told apart by key.
+    /// </summary>
+    public static Kind KindOfPair(object? actual, object? expected)
     {
         if (actual is null || expected is null)
             return Kind.None;
@@ -369,91 +373,9 @@ static class UnorderedCollection
     }
 
     /// <summary>
-    /// What one of two dictionaries or sets has that the other doesn't, for a failure message: the entries of two
-    /// dictionaries matched by key, or the items of two sets matched one for one. Null when
-    /// <paramref name="actual"/> and <paramref name="expected"/> are compared in order (see
-    /// <see cref="IgnoresOrder"/>), and no differences when one of them is a sequence too long for all of it to
-    /// have been kept for the message.
+    /// What kind of unordered collection <paramref name="value"/> is, if any.
     /// </summary>
-    /// <param name="actual">The value under test.</param>
-    /// <param name="expected">The value it was compared against.</param>
-    /// <param name="comparison">
-    /// How the assertion compared two items. When a comparer of the caller's compared them, a dictionary's entries
-    /// are matched whole, as the comparer saw them, rather than by key.
-    /// </param>
-    public static Differences? Find(object? actual, object? expected, ComparisonRecord comparison)
-    {
-        var kind = KindOfPair(actual, expected);
-        if (kind == Kind.None || actual is not IEnumerable || expected is not IEnumerable)
-            return null;
-
-        if (!TryRead(actual, out var actualList) || !TryRead(expected, out var expectedList))
-            return new(ByKey: false, []);
-
-        // A dictionary is read by key only when its entries are key/value pairs (a Hashtable's are DictionaryEntry
-        // structs) and Shouldly's own equality compared them.
-        var byKey = kind == Kind.Dictionary &&
-                    !comparison.UsesCustomComparer &&
-                    actualList.Concat(expectedList).All(entry => entry is not null && Tuples.TryDeconstructKeyValuePair(entry, out _, out _));
-
-        var differences = new List<Difference>();
-
-        // Items that are equal whole are matched first, so that a key two entries share isn't paired with the wrong
-        // one and its value reported as different.
-        var (onlyInActual, onlyInExpected) = Unpaired(actualList, expectedList, comparison.ElementsEqual);
-
-        foreach (var expectedItem in onlyInExpected)
-        {
-            var sameKey = byKey
-                ? onlyInActual.FindIndex(actualItem => Tuples.KeysEqual(expectedItem!, actualItem!, ObjectComparer))
-                : -1;
-            if (sameKey >= 0)
-            {
-                Tuples.TryDeconstructKeyValuePair(expectedItem!, out var key, out var expectedValue);
-                Tuples.TryDeconstructKeyValuePair(onlyInActual[sameKey]!, out _, out var actualValue);
-                onlyInActual.RemoveAt(sameKey);
-                differences.Add(new(DifferenceKind.ValueDiffers, key, expectedValue, actualValue));
-            }
-            else
-            {
-                differences.Add(new(DifferenceKind.Missing, KeyOf(expectedItem, byKey), expectedItem, null));
-            }
-        }
-
-        foreach (var actualItem in onlyInActual)
-            differences.Add(new(DifferenceKind.Unexpected, KeyOf(actualItem, byKey), null, actualItem));
-
-        return new(byKey, differences);
-    }
-
-    // The items of one side, for a failure message. A collection is read whole, from the collection itself: it can
-    // be read again, and a message may have kept only the part of it that it shows. Any other sequence is read from
-    // what was given, never from the sequence behind it, which may be readable only once and was read by the
-    // assertion already. It is read no further than a message shows, as it may never end. False when that isn't
-    // all of it, so that what the two sides don't share can't be told.
-    private static bool TryRead(object value, out List<object?> items)
-    {
-        var original = CapturedSequence.Original(value);
-        if (original is ICollection || TraitsOf(original).Kind != Kind.None)
-        {
-            items = ((IEnumerable)original).Cast<object?>().ToList();
-            return true;
-        }
-
-        items = ((IEnumerable)value).ReadForMessage(out var cutShort);
-        return !cutShort;
-    }
-
-    private static object? KeyOf(object? item, bool byKey)
-    {
-        if (!byKey)
-            return item;
-
-        Tuples.TryDeconstructKeyValuePair(item!, out var key, out _);
-        return key;
-    }
-
-    private static IEqualityComparer ObjectComparer => new EqualityComparerAdapter(Equality.ComparerFor<object>());
+    public static Kind KindOf(object value) => TraitsOf(value).Kind;
 
     private static Traits TraitsOf(object value) =>
         value is string ? default : TraitsByType.GetOrAdd(value.GetType(), static type => TraitsOfType(type));
@@ -501,32 +423,4 @@ static class UnorderedCollection
 
     // What kind of unordered collection a type is, and whether it keeps an order of its own all the same.
     private readonly record struct Traits(Kind Kind, bool KeepsAnOrder);
-
-    public enum DifferenceKind
-    {
-        /// <summary>The expected collection has an item, or a dictionary a key, that the actual one doesn't.</summary>
-        Missing,
-
-        /// <summary>The actual collection has an item, or a dictionary a key, that the expected one doesn't.</summary>
-        Unexpected,
-
-        /// <summary>Both dictionaries have the key, with different values.</summary>
-        ValueDiffers
-    }
-
-    /// <summary>
-    /// One thing one collection has that the other doesn't.
-    /// </summary>
-    /// <param name="Kind">What differs.</param>
-    /// <param name="Item">The key, when two dictionaries were matched by key, and otherwise the item.</param>
-    /// <param name="Expected">The expected item, or the expected value for the key.</param>
-    /// <param name="Actual">The actual item, or the actual value for the key.</param>
-    public sealed record Difference(DifferenceKind Kind, object? Item, object? Expected, object? Actual);
-
-    /// <summary>
-    /// What one of two dictionaries or sets has that the other doesn't.
-    /// </summary>
-    /// <param name="ByKey">Whether two dictionaries were matched by key, so each difference is about a key.</param>
-    /// <param name="Items">The differences: the expected side's first, in its order, then what only the actual side has.</param>
-    public sealed record Differences(bool ByKey, IReadOnlyList<Difference> Items);
 }
