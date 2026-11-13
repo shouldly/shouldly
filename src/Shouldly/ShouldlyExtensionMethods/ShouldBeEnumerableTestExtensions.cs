@@ -35,7 +35,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         using var captured = CapturedSequence.Of(actual);
         actual = captured.Items!;
-        if (!actual.Contains(expected, comparer))
+        if (!Membership.Contains(actual, expected, comparer))
             throw Fail.ShouldContain.With(expected).For(actual, customMessage, actualExpression);
     }
 
@@ -60,7 +60,7 @@ public static partial class ShouldBeEnumerableTestExtensions
     {
         using var captured = CapturedSequence.Of(actual);
         actual = captured.Items!;
-        if (actual.Contains(expected, comparer))
+        if (Membership.Contains(actual, expected, comparer))
             throw Fail.ShouldNotContain.With(expected).For(actual, customMessage, actualExpression);
     }
 

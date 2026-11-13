@@ -1,11 +1,12 @@
 namespace Shouldly.Internals;
 
 /// <summary>
-/// Membership and set checks for the assertions that take no comparer — <c>ShouldContain</c>,
-/// <c>ShouldBeOneOf</c>, <c>ShouldBeSubsetOf</c>, <c>ShouldBeUnique</c> and their negations — comparing elements
-/// with <see cref="Is.ScalarComparerFor{T}"/> so that they agree with <c>ShouldBe</c> on what counts as equal
+/// Membership and set checks for <c>ShouldContain</c>, <c>ShouldBeOneOf</c>, <c>ShouldBeSubsetOf</c>,
+/// <c>ShouldBeUnique</c> and their negations. Without a comparer of the caller's, elements are compared with
+/// <see cref="Is.ScalarComparerFor{T}"/> so that they agree with <c>ShouldBe</c> on what counts as equal
 /// (issue #1404). Each comparison goes through <see cref="Is.Equal{T}(T, T, IEqualityComparer{T})"/>, so
-/// <c>Equals</c> is called on the expected value.
+/// <c>Equals</c> is called on the expected value, and a caller's comparer is called as
+/// <c>comparer.Equals(expected, element)</c> (issue #1076).
 /// </summary>
 /// <remarks>
 /// Shouldly's comparer can't hash, so the set checks match pairwise: O(n·m) for a subset and O(n²) for
@@ -31,6 +32,21 @@ static class Membership
             return false;
 
         var comparer = Is.ScalarComparerFor<T>();
+        foreach (var item in actual)
+        {
+            if (Is.Equal(item, expected, comparer))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Whether <paramref name="actual"/> has an element that <paramref name="comparer"/>, a comparer of the caller's,
+    /// finds equal to <paramref name="expected"/>. The comparer alone decides, so a set's own lookup isn't consulted.
+    /// </summary>
+    public static bool Contains<T>(IEnumerable<T> actual, T expected, IEqualityComparer<T> comparer)
+    {
         foreach (var item in actual)
         {
             if (Is.Equal(item, expected, comparer))
