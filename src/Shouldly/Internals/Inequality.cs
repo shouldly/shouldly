@@ -30,11 +30,11 @@ static class Inequality
     /// <param name="expected">The value it was compared against.</param>
     /// <param name="comparison">How the assertion compared them.</param>
     /// <param name="difference">What walking the two found, when they are sequences already walked.</param>
-    public static string? Explain(object? actual, object? expected, ComparisonRecord? comparison = null, SequenceDifference? difference = null)
+    public static string? Explain(object? actual, object? expected, Equality? comparison = null, SequenceDifference? difference = null)
     {
         try
         {
-            return ExplainTopLevel(actual, expected, comparison ?? ComparisonRecord.Default, difference);
+            return ExplainTopLevel(actual, expected, comparison ?? Equality<object?>.Default, difference);
         }
         catch (Exception)
         {
@@ -42,7 +42,7 @@ static class Inequality
         }
     }
 
-    private static string? ExplainTopLevel(object? actual, object? expected, ComparisonRecord comparison, SequenceDifference? difference)
+    private static string? ExplainTopLevel(object? actual, object? expected, Equality comparison, SequenceDifference? difference)
     {
         if (NullEquivalence.IsNull(actual) || NullEquivalence.IsNull(expected))
             return null;
@@ -65,7 +65,7 @@ static class Inequality
             : null;
     }
 
-    private static string? InSequences(SequenceDifference found, ComparisonRecord comparison)
+    private static string? InSequences(SequenceDifference found, Equality comparison)
     {
         if (found.FirstIndex is not { } index)
         {
@@ -98,12 +98,12 @@ static class Inequality
         if (EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
             return new(ByRule(ruleType));
 
-        if (UnorderedCollection.Find(actual, expected, ComparisonRecord.Default) is { } unordered)
+        if (UnorderedCollection.Find(actual, expected, Equality<object?>.Default) is { } unordered)
             return InUnordered(unordered, depth + 1);
 
         if (AreSequences(actual, expected, out var actualItems, out var expectedItems))
         {
-            var found = EnumerableDifferenceHighlighter.Find(actualItems, expectedItems, ComparisonRecord.Default);
+            var found = EnumerableDifferenceHighlighter.Find(actualItems, expectedItems, Equality<object?>.Default);
             if (found.FirstIndex is not { } index)
                 return null;
 

@@ -10,14 +10,12 @@ static class WithinWording
     /// <param name="sentence">The sentence the message is written for.</param>
     /// <param name="expectedValue">The value the actual value should have been within the tolerance of.</param>
     /// <param name="toleranceValue">The tolerance.</param>
-    /// <param name="comparison">
-    /// How the assertion compared the elements of two sequences. Left out, it is taken to be how the built-in
-    /// assertions compare with a tolerance of that type.
+    /// <param name="equality">
+    /// How the assertion compared the two, or null when that isn't known: a custom assertion that states a tolerance
+    /// of a type no built-in assertion on sequences takes.
     /// </param>
-    internal static string Word(Sentence sentence, object? expectedValue, object? toleranceValue, ComparisonRecord? comparison = null)
+    internal static string Word(Sentence sentence, object? expectedValue, object? toleranceValue, Equality? equality)
     {
-        comparison ??= ImpliedBy(toleranceValue);
-
         var subject = sentence.Subject;
         var tolerance = toleranceValue.ToStringAwesomely();
         var expected = expectedValue.ToStringAwesomely();
@@ -47,7 +45,7 @@ static class WithinWording
                  but was{actual}
              """;
 
-        if (DifferenceHighlighter.Between(sentence.Actual, expectedValue, comparison) is { } difference)
+        if (DifferenceHighlighter.Between(sentence.Actual, expectedValue, equality) is { } difference)
         {
             message += $"""
                         
@@ -55,22 +53,25 @@ static class WithinWording
                         {difference}
                         """;
         }
-        else if (!sentence.Negated && comparison is not null)
+        else if (!sentence.Negated && equality is not null)
         {
             // Two sets of numbers aren't compared in order, so they are told apart by what one has that the other doesn't.
-            message += UnorderedWording.Difference(sentence.Actual, expectedValue, comparison);
+            message += UnorderedWording.Difference(sentence.Actual, expectedValue, equality);
         }
 
         return message;
     }
 
-    // A custom assertion states its tolerance but not how it compared with it, so it is taken to have compared as the
-    // built-in assertions on sequences of numbers do with a tolerance of that type.
-    private static ComparisonRecord? ImpliedBy(object? tolerance) =>
+    /// <summary>
+    /// How a custom assertion that states a tolerance, but not how it compared with it, is taken to have compared: as
+    /// the built-in assertions on sequences of numbers do with a tolerance of that type. Null for a tolerance of any
+    /// other type.
+    /// </summary>
+    public static Equality? ImpliedBy(object? tolerance) =>
         tolerance switch
         {
-            decimal decimalTolerance => ComparisonRecord.ComparedElementsWith(Equality.WithinTolerance<object?>(decimalTolerance).Comparer, isCustom: false),
-            double doubleTolerance => ComparisonRecord.ComparedElementsWith(Equality.WithinTolerance<object?>(doubleTolerance).Comparer, isCustom: false),
+            decimal decimalTolerance => Equality.OfSequences(Equality.WithinTolerance<object?>(decimalTolerance)),
+            double doubleTolerance => Equality.OfSequences(Equality.WithinTolerance<object?>(doubleTolerance)),
             _ => null
         };
 }

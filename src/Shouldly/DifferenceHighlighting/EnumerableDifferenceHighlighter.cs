@@ -19,7 +19,7 @@ static class EnumerableDifferenceHighlighter
     // Compares as the assertion did, so a custom comparer's matches aren't highlighted as differences.
     // Walks both sequences in step, a single pass each, stopping after
     // MaxEnumerableItemsInMessages positions so an infinite sequence can't hang the message.
-    public static SequenceDifference Find(IEnumerable actualList, IEnumerable expectedList, ComparisonRecord comparison)
+    public static SequenceDifference Find(IEnumerable actualList, IEnumerable expectedList, Equality comparison)
     {
         var limit = ShouldlyConfiguration.MaxEnumerableItemsInMessages;
         var items = new List<string?>();
@@ -76,7 +76,7 @@ static class EnumerableDifferenceHighlighter
     // compare it only as far as it's shown, as the top level is. A caller-supplied comparer is
     // left to decide for itself. A default ImmutableArray<T> can't be read, so the comparison treats it as null (#1406).
     // Dictionaries and sets aren't compared in order, so a part of each can't stand for the whole.
-    private static bool ItemsEqual(object? actual, object? expected, ComparisonRecord comparison)
+    private static bool ItemsEqual(object? actual, object? expected, Equality comparison)
     {
         if (!comparison.ComparesElementsItself
             && !UnorderedCollection.IgnoresOrder(actual, expected)

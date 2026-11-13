@@ -118,13 +118,13 @@ public class InequalityTests
             "but the equality rule for IdBag says they are not equal"),
         ["equality rule, values that read differently"] = (() => Explain(new IdBag(1, 1), new IdBag(2, 2)), null),
         ["custom comparer"] = (
-            () => Inequality.Explain(new Named("a"), new Named("a"), ComparisonRecord.ComparedValuesWithCustomComparer()),
+            () => Inequality.Explain(new Named("a"), new Named("a"), Equality.Using(System.Collections.Generic.EqualityComparer<object>.Default)),
             "but the custom comparer says they are not equal"),
         ["custom comparer, values that read differently"] = (
-            () => Inequality.Explain(new Named("a"), new Named("b"), ComparisonRecord.ComparedValuesWithCustomComparer()),
+            () => Inequality.Explain(new Named("a"), new Named("b"), Equality.Using(System.Collections.Generic.EqualityComparer<object>.Default)),
             null),
         ["custom comparer overrides an equality rule"] = (
-            () => Inequality.Explain(new IdBag(1, 1), new IdBag(2, 1), ComparisonRecord.ComparedValuesWithCustomComparer()),
+            () => Inequality.Explain(new IdBag(1, 1), new IdBag(2, 1), Equality.Using(System.Collections.Generic.EqualityComparer<object>.Default)),
             "but the custom comparer says they are not equal"),
 
         // Sequences say where they first differ once that takes finding
@@ -156,7 +156,7 @@ public class InequalityTests
             () => Explain(new[] { new IdBag(1, 1) }, new[] { new IdBag(2, 1) }),
             "first difference at index 0: the equality rule for IdBag says they are not equal"),
         ["items compared by a custom comparer"] = (
-            () => Inequality.Explain(new[] { new Named("a") }, new[] { new Named("a") }, ComparisonRecord.ComparedElementsWith(new NeverEqual<Named>(), isCustom: true)),
+            () => Inequality.Explain(new[] { new Named("a") }, new[] { new Named("a") }, Equality.OfSequences(Equality.Using(new NeverEqual<Named>()))),
             "first difference at index 0: the custom comparer says they are not equal"),
     };
 

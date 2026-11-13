@@ -79,6 +79,6 @@ public static partial class ShouldBeTestExtensions
         if (SpanSequenceEqual(actual, expected) == shouldBeEqual)
             return;
 
-        throw (shouldBeEqual ? Fail.ShouldBe : Fail.ShouldNotBe).With(expected.ToArray()).For(actual.ToArray(), customMessage, actualExpression);
+        throw (shouldBeEqual ? Fail.ShouldBe : Fail.ShouldNotBe).With(expected.ToArray(), Internals.Equality.OfSequences(Internals.Equality<T>.Default)).For(actual.ToArray(), customMessage, actualExpression);
     }
 }

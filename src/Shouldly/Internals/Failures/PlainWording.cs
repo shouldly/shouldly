@@ -47,11 +47,14 @@ readonly struct PlainLines
     /// <summary>Adds the expected value, and the differences between it and the actual value.</summary>
     /// <param name="expected">The expected value.</param>
     /// <param name="actual">The actual value, to highlight differences against.</param>
-    /// <param name="comparison">How the assertion compared them, so that the highlighting agrees with it.</param>
     /// <param name="highlightDifferences">Whether to look for differences to highlight at all.</param>
-    public PlainLines WithExpected(object? expected, object? actual, ComparisonRecord? comparison = null, bool highlightDifferences = true) =>
+    /// <remarks>
+    /// The assertion states its values but not how it compared them, so differences are highlighted as Shouldly's own
+    /// rules tell them apart.
+    /// </remarks>
+    public PlainLines WithExpected(object? expected, object? actual, bool highlightDifferences = true) =>
         new(true, expected.ToStringAwesomely(), true, HasActual, ActualText, ActualInWords,
-            highlightDifferences ? DifferenceHighlighter.Between(actual, expected, comparison) : null);
+            highlightDifferences ? DifferenceHighlighter.Between(actual, expected, equality: null) : null);
 
     public PlainLines WithExpectedInWords(string description) =>
         new(true, description, false, HasActual, ActualText, ActualInWords, null);

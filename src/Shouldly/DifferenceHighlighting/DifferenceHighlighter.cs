@@ -14,9 +14,12 @@ static class DifferenceHighlighter
     /// </summary>
     /// <param name="actual">The value under test.</param>
     /// <param name="expected">The value it was compared against.</param>
-    /// <param name="comparison">How the assertion compared them, so that the highlighting agrees with it.</param>
-    public static string? Between(object? actual, object? expected, ComparisonRecord? comparison = null) =>
-        Find(actual, expected, comparison) is { FirstIndex: not null } difference
+    /// <param name="equality">
+    /// How the assertion compared them, so that the highlighting agrees with it, or null when that isn't known: items
+    /// are then told apart by Shouldly's own rules.
+    /// </param>
+    public static string? Between(object? actual, object? expected, Equality? equality) =>
+        Find(actual, expected, equality) is { FirstIndex: not null } difference
             ? difference.Text
             : null;
 
@@ -25,9 +28,9 @@ static class DifferenceHighlighter
     /// sequences that can be walked in step: dictionaries and sets aren't compared in order, so where their
     /// items first differ in order says nothing (see <see cref="UnorderedCollection"/>).
     /// </summary>
-    public static SequenceDifference? Find(object? actual, object? expected, ComparisonRecord? comparison = null) =>
+    public static SequenceDifference? Find(object? actual, object? expected, Equality? equality) =>
         EnumerableDifferenceHighlighter.CanHighlight(actual, expected) &&
         !UnorderedCollection.IgnoresOrder(actual, expected)
-            ? EnumerableDifferenceHighlighter.Find((IEnumerable)actual!, (IEnumerable)expected!, comparison ?? ComparisonRecord.Default)
+            ? EnumerableDifferenceHighlighter.Find((IEnumerable)actual!, (IEnumerable)expected!, equality ?? Equality<object?>.Default)
             : null;
 }

@@ -12,9 +12,9 @@ static class UnorderedWording
     /// <paramref name="expected"/> are compared in order, or nothing tells them apart as the assertion compared
     /// them.
     /// </summary>
-    public static string? Difference(object? actual, object? expected, ComparisonRecord? record)
+    public static string? Difference(object? actual, object? expected, Equality? equality)
     {
-        var comparison = record ?? ComparisonRecord.Default;
+        var comparison = equality ?? Equality<object?>.Default;
         if (comparison.ComparesValuesItself ||
             UnorderedCollection.Find(actual, expected, comparison) is not { Items.Count: > 0 } differences)
             return null;

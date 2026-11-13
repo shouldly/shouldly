@@ -20,8 +20,9 @@ public static partial class ShouldBeTestExtensions
         string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => Equality<T>.Default.Equal(v, expected)))
-            throw Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
+        var equality = Equality<T>.Default;
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -36,7 +37,7 @@ public static partial class ShouldBeTestExtensions
     {
         var equality = Equality.Using(comparer);
         if (!actual.Satisfies(v => equality.Equal(v, expected)))
-            throw Fail.ShouldBe.With(expected, ComparisonRecord.ComparedValuesWithCustomComparer()).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -46,8 +47,9 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBe<T>(this T? actual, T? expected, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        if (!actual.Satisfies(v => !Equality<T>.Default.Equal(v, expected)))
-            throw Fail.ShouldNotBe.With(expected).For(actual, customMessage, actualExpression);
+        var equality = Equality<T>.Default;
+        if (!actual.Satisfies(v => !equality.Equal(v, expected)))
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -59,7 +61,7 @@ public static partial class ShouldBeTestExtensions
     {
         var equality = Equality.Using(comparer);
         if (!actual.Satisfies(v => !equality.Equal(v, expected)))
-            throw Fail.ShouldNotBe.With(expected, ComparisonRecord.ComparedValuesWithCustomComparer()).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldNotBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -102,11 +104,7 @@ public static partial class ShouldBeTestExtensions
 
         var equality = Equality.OfSequences(Equality<T>.Default, ignoreOrder);
         if (!actual.Satisfies(v => equality.Equal(v, expected)))
-        {
-            throw ignoreOrder
-                ? Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith(Equality<T>.Default.Comparer, isCustom: false)).For(actual, customMessage, actualExpression)
-                : Fail.ShouldBe.With(expected).For(actual, customMessage, actualExpression);
-        }
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -130,11 +128,7 @@ public static partial class ShouldBeTestExtensions
 
         var equality = Equality.OfSequences(Equality.Using(comparer), ignoreOrder);
         if (!actual.Satisfies(v => equality.Equal(v, expected)))
-        {
-            throw ignoreOrder
-                ? Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith(comparer, isCustom: true)).For(actual, customMessage, actualExpression)
-                : Fail.ShouldBe.With(expected, ComparisonRecord.ComparedElementsWith(comparer, isCustom: true)).For(actual, customMessage, actualExpression);
-        }
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -147,9 +141,9 @@ public static partial class ShouldBeTestExtensions
         using var capturedExpected = CapturedSequence.Of(expected);
         actual = capturedActual.Items!;
         expected = capturedExpected.Items!;
-        var elements = Equality.WithinTolerance<decimal>(tolerance);
-        if (!actual.Satisfies(v => Equality.OfSequences(elements).Equal(v, expected)))
-            throw Fail.ShouldBe.Within(expected, tolerance, elements.Comparer).For(actual, customMessage, actualExpression);
+        var equality = Equality.OfSequences(Equality.WithinTolerance<decimal>(tolerance));
+        if (!actual.Satisfies(v => equality.Equal(v, expected)))
+            throw Fail.ShouldBe.With(expected, equality).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>

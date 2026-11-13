@@ -46,14 +46,14 @@ static class CustomAssertionMessage
                 wording = sentence => ExpectedOnlyFailure.Word(sentence, slots.Expected);
                 break;
             case MessageShape.Tolerance:
-                wording = sentence => WithinWording.Word(sentence, slots.Expected, slots.Tolerance);
+                wording = sentence => WithinWording.Word(sentence, slots.Expected, slots.Tolerance, WithinWording.ImpliedBy(slots.Tolerance));
                 break;
             case MessageShape.CaseSensitivity when slots.CaseSensitivity is { } caseSensitivity:
                 phrase += caseSensitivity == Case.Insensitive ? " (case insensitive comparison)" : " (case sensitive comparison)";
                 wording = sentence => PlainFailure.Word(sentence, slots.Expected);
                 break;
             case MessageShape.IgnoringOrder when IsWalkable(slots.Actual) && IsWalkable(slots.Expected):
-                wording = sentence => IgnoringOrderWording.Word(sentence, slots.Expected, record: null, caseOption: null);
+                wording = sentence => IgnoringOrderWording.Word(sentence, slots.Expected, Equality.OfSequences(Equality<object?>.Default, ignoreOrder: true));
                 break;
             case MessageShape.Throw when negated:
                 wording = sentence => NotThrowFailure.Word(sentence, slots.Expected, slots.Actual as Exception, slots.ExceptionMessage, isTask: false, extensionForm: false);

@@ -50,11 +50,26 @@ abstract class Equality
     /// </summary>
     public Equality? Elements { get; }
 
+    /// <summary>Whether a comparer of the caller's compared two values whole, so none of Shouldly's rules decided.</summary>
+    public bool ComparesValuesItself => UsesCustomComparer && Elements is null;
+
+    /// <summary>Whether a comparer of the caller's compared the elements of two sequences.</summary>
+    public bool ComparesElementsItself => UsesCustomComparer && Elements is not null;
+
     /// <summary>
     /// Whether two values of the type it compares are equal, for code that holds them as objects, such as a failure
     /// message.
     /// </summary>
     public abstract bool EqualObjects(object? actual, object? expected);
+
+    /// <summary>
+    /// Whether two items of the values it compares are equal: by <see cref="Elements"/> when it compares sequences,
+    /// and otherwise by Shouldly's own rules.
+    /// </summary>
+    public bool ElementsEqual(object? actual, object? expected) =>
+        Elements is { } elements
+            ? elements.EqualObjects(actual, expected)
+            : Equality<object?>.Default.Equal(actual, expected);
 
     /// <summary>
     /// Compares by <paramref name="comparer"/>, a comparer of the caller's, alone.
@@ -93,6 +108,26 @@ abstract class Equality
                 AsDouble(expected) is { } expectedNumber && AsDouble(actual) is { } actualNumber
                     ? Is.Equal(actualNumber, expectedNumber, tolerance)
                     : otherwise.Equal(actual, expected)),
+            tolerance: tolerance);
+    }
+
+    /// <summary>
+    /// The equality of an assertion on dates and times that takes a <see cref="TimeSpan"/> tolerance: two
+    /// <see cref="DateTime"/>s, <see cref="DateTimeOffset"/>s or <see cref="TimeSpan"/>s are equal when they are within
+    /// <paramref name="tolerance"/> of each other. Any other pair is compared by Shouldly's own rules.
+    /// </summary>
+    public static Equality<T> WithinTolerance<T>(TimeSpan tolerance)
+    {
+        var otherwise = Equality<T>.Default;
+        return new(
+            new ElementComparer<T>((expected, actual) =>
+                (expected, actual) switch
+                {
+                    (DateTime expectedTime, DateTime actualTime) => Is.Equal(actualTime, expectedTime, tolerance),
+                    (DateTimeOffset expectedTime, DateTimeOffset actualTime) => Is.Equal(actualTime, expectedTime, tolerance),
+                    (TimeSpan expectedSpan, TimeSpan actualSpan) => Is.Equal(actualSpan, expectedSpan, tolerance),
+                    _ => otherwise.Equal(actual, expected)
+                }),
             tolerance: tolerance);
     }
 

@@ -5,7 +5,7 @@ namespace Shouldly.Internals.Failures;
 /// </summary>
 static class IgnoringOrderWording
 {
-    internal static string Word(Sentence sentence, object? expectedValue, ComparisonRecord? record, Case? caseOption)
+    internal static string Word(Sentence sentence, object? expectedValue, Equality equality)
     {
         if (expectedValue is not IEnumerable expectedEnumerable)
         {
@@ -24,12 +24,9 @@ static class IgnoringOrderWording
         var subject = sentence.Subject;
         var expectedFormattedValue = expected.ToStringAwesomely();
 
-        // Compare as the assertion did, so any custom comparer is honored.
-        var comparison = (record ?? ComparisonRecord.Default);
-
-        // Match occurrences one-for-one, as Equality does, so a difference in how many times an item
+        // Compare as the assertion did, so any custom comparer is honored. Match occurrences one-for-one, as Equality does, so a difference in how many times an item
         // occurs is reported rather than hidden by an earlier match.
-        var (missingFromExpected, missingFromActual) = UnorderedCollection.Unpaired(actual, expected, comparison.ElementsEqual);
+        var (missingFromExpected, missingFromActual) = UnorderedCollection.Unpaired(actual, expected, equality.ElementsEqual);
 
         // An item is only known to be missing from a side that was read to the end; the unread
         // rest of the side it came from may hold more such items.
@@ -49,9 +46,9 @@ static class IgnoringOrderWording
             : string.Empty;
 
         // A custom comparer decides case sensitivity itself, so only report a Case the caller passed.
-        var caseSensitivity = comparison.UsesCustomComparer
+        var caseSensitivity = equality.UsesCustomComparer
             ? string.Empty
-            : caseOption switch
+            : equality.Case switch
             {
                 Case.Insensitive => ", case insensitive comparison",
                 Case.Sensitive => ", case sensitive comparison",

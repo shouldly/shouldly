@@ -381,7 +381,7 @@ static class UnorderedCollection
     /// How the assertion compared two items. When a comparer of the caller's compared them, a dictionary's entries
     /// are matched whole, as the comparer saw them, rather than by key.
     /// </param>
-    public static Differences? Find(object? actual, object? expected, ComparisonRecord comparison)
+    public static Differences? Find(object? actual, object? expected, Equality comparison)
     {
         var kind = KindOfPair(actual, expected);
         if (kind == Kind.None || actual is not IEnumerable || expected is not IEnumerable)
