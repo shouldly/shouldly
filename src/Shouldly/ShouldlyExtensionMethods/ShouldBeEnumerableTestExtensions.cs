@@ -272,7 +272,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         actual = capturedActual.Items!;
         expected = capturedExpected.Items!;
 
-        var outside = actual.Except(expected, comparer).ToList();
+        var outside = Membership.Unmatched(actual, expected, comparer);
         if (outside.Count > 0)
             throw Fail.ShouldBeSubsetOf.With(expected, outside).For(actual, customMessage, actualExpression);
     }

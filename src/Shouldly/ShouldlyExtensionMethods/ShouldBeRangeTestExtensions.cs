@@ -21,8 +21,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldBeOneOf<T>(this T? actual, T[] expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        // Enumerable.Contains on an array always tolerates null.
-        if (!expected.Contains(actual!, comparer))
+        if (!Membership.IsOneOf(actual, expected, comparer))
             throw Fail.ShouldBeOneOf.With(expected).For(actual, customMessage, actualExpression);
     }
 
@@ -42,8 +41,7 @@ public static partial class ShouldBeTestExtensions
     public static void ShouldNotBeOneOf<T>(this T? actual, T[] expected, IEqualityComparer<T> comparer, string? customMessage = null,
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
-        // Enumerable.Contains on an array always tolerates null.
-        if (expected.Contains(actual!, comparer))
+        if (Membership.IsOneOf(actual, expected, comparer))
             throw Fail.ShouldNotBeOneOf.With(expected).For(actual, customMessage, actualExpression);
     }
 

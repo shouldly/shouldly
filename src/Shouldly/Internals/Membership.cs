@@ -9,8 +9,9 @@ namespace Shouldly.Internals;
 /// <c>comparer.Equals(expected, element)</c> (issue #1076).
 /// </summary>
 /// <remarks>
-/// Shouldly's comparer can't hash, so the set checks match pairwise: O(n·m) for a subset and O(n²) for
-/// uniqueness. Where <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> provably gives the same answer
+/// Shouldly's comparer can't hash, so without a comparer of the caller's the set checks match pairwise: O(n·m) for a
+/// subset and O(n²) for uniqueness. A comparer of the caller's is hashed, as the documentation for those assertions
+/// says. Where <see cref="System.Collections.Generic.EqualityComparer{T}.Default"/> provably gives the same answer
 /// (<see cref="DefaultEqualityAgrees{T}"/>), they hash instead.
 /// </remarks>
 static class Membership
@@ -73,6 +74,22 @@ static class Membership
     }
 
     /// <summary>
+    /// Whether <paramref name="comparer"/>, a comparer of the caller's, finds <paramref name="actual"/> equal to one of
+    /// <paramref name="candidates"/>.
+    /// </summary>
+    public static bool IsOneOf<T>(T? actual, IEnumerable<T> candidates, IEqualityComparer<T> comparer)
+    {
+        var equality = Equality.Using(comparer);
+        foreach (var candidate in candidates)
+        {
+            if (equality.Equal(actual, candidate))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// The elements of <paramref name="actual"/> that equal none of <paramref name="expected"/>, each reported once,
     /// in the order first found.
     /// </summary>
@@ -97,8 +114,19 @@ static class Membership
     }
 
     /// <summary>
+    /// The elements of <paramref name="actual"/> that <paramref name="comparer"/>, a comparer of the caller's, finds
+    /// equal to none of <paramref name="expected"/>, each reported once, in the order first found. The comparer is
+    /// hashed, so a large collection is matched quickly (documented for <c>ShouldBeSubsetOf</c>), and called as
+    /// <c>comparer.Equals(expected, element)</c>.
+    /// </summary>
+    public static List<T> Unmatched<T>(IEnumerable<T> actual, IEnumerable<T> expected, IEqualityComparer<T> comparer) =>
+        // Except puts the expected elements in a set first, so each actual element is the argument to Equals.
+        actual.Except(expected, comparer).ToList();
+
+    /// <summary>
     /// The elements of <paramref name="items"/> that equal an earlier element, each value reported once, in the
-    /// order first duplicated. Compares with <paramref name="comparer"/>, by hashing, when one is given.
+    /// order first duplicated. Compares with <paramref name="comparer"/>, a comparer of the caller's, when one is given,
+    /// by hashing it, so a large collection is matched quickly (documented for <c>ShouldBeUnique</c>).
     /// </summary>
     public static List<T> Duplicates<T>(IEnumerable<T> items, IEqualityComparer<T>? comparer = null)
     {
