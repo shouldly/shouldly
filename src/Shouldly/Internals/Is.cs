@@ -151,10 +151,12 @@ static class Is
     /// </summary>
     private static bool PairInOrderOfSize<T>(IEnumerable<T> actual, IEnumerable<T> expected, Func<T, T, bool> withinTolerance)
     {
-        var actualInOrder = actual.OrderBy(number => number).ToList();
-        var expectedInOrder = expected.OrderBy(number => number).ToList();
-        if (actualInOrder.Count != expectedInOrder.Count)
+        // Read in step, so that a sequence that never ends is found to be longer than the set it is compared with.
+        if (!Internals.UnorderedCollection.TryReadBoth(actual, expected, out var actualInOrder, out var expectedInOrder))
             return false;
+
+        actualInOrder.Sort();
+        expectedInOrder.Sort();
 
         for (var index = 0; index < actualInOrder.Count; index++)
         {

@@ -93,17 +93,53 @@ public class UnorderedCollectionTests
         UnorderedCollection.MatchOneForOne(actual, [.. shifted.Take(4999), -5.0], Within(0.015)).ShouldBeFalse();
     }
 
+    // Most items here have a partner that is free, and a few have to take one from an earlier item.
     [Fact]
-    public void ReadsTheActualItemsNoFurtherThanTheFirstThatCannotBePaired()
+    public void PairsManyItemsThatComeInADifferentOrder()
     {
-        UnorderedCollection.MatchOneForOne(Naturals(), [1.0, 2.0, 3.0], Within(0.015)).ShouldBeFalse();
-        UnorderedCollection.MatchOneForOne(Naturals(), [0.0, 1.0, 2.0], Within(0.015)).ShouldBeFalse();
+        var actual = Enumerable.Range(0, 2000).Select(number => number * 0.01).ToList();
+        var expected = actual.Select(number => number + 0.01).Reverse().ToList();
 
-        static IEnumerable<double> Naturals()
+        UnorderedCollection.MatchOneForOne(actual, expected, Within(0.015)).ShouldBeTrue();
+    }
+
+    [Fact]
+    public void ReadsNeitherSequenceMoreThanOneItemPastTheEndOfTheOther()
+    {
+        var read = 0;
+
+        UnorderedCollection.MatchOneForOne(Naturals(), [1.0, 2.0, 0.0], Within(0.015)).ShouldBeFalse();
+        read.ShouldBe(4);
+
+        read = 0;
+        UnorderedCollection.MatchOneForOne([1.0, 2.0, 0.0], Naturals(), Within(0.015)).ShouldBeFalse();
+        read.ShouldBe(4);
+
+        IEnumerable<double> Naturals()
         {
             for (var number = 0; ; number++)
+            {
+                read++;
                 yield return number;
+            }
         }
+    }
+
+    [Fact]
+    public void ReadsBothSequencesWhenTheyHoldTheSameNumberOfItems()
+    {
+        UnorderedCollection.TryReadBoth(Lazily(1, 2, 3), Lazily(4, 5, 6), out var actual, out var expected).ShouldBeTrue();
+
+        actual.ShouldBe([1, 2, 3]);
+        expected.ShouldBe([4, 5, 6]);
+
+        UnorderedCollection.TryReadBoth(Lazily(1, 2), Lazily(4, 5, 6), out _, out _).ShouldBeFalse();
+        UnorderedCollection.TryReadBoth(Lazily(1, 2, 3), Lazily(4, 5), out _, out _).ShouldBeFalse();
+        UnorderedCollection.TryReadBoth(Lazily(), Lazily(), out actual, out expected).ShouldBeTrue();
+        actual.ShouldBeEmpty();
+        expected.ShouldBeEmpty();
+
+        static IEnumerable<int> Lazily(params int[] items) => items.Select(item => item);
     }
 
     private static Func<double, double, bool> Within(double tolerance) =>

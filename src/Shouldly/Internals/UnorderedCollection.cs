@@ -145,8 +145,8 @@ static class UnorderedCollection
     /// complete pairing is found whenever there is one.
     /// </para>
     /// <para>
-    /// <paramref name="actual"/> is read no further than its first item that can't be paired, so one that never ends
-    /// is still told apart.
+    /// Neither sequence is read more than one item past the end of the other (see <see cref="TryReadBoth{T}"/>), so
+    /// one that never ends is still told apart from one that does.
     /// </para>
     /// </remarks>
     public static bool MatchOneForOne<T>(IEnumerable<T> actual, IEnumerable<T> expected, Func<T, T, bool> equal)
@@ -156,19 +156,55 @@ static class UnorderedCollection
             actualCollection.Count != expectedCollection.Count)
             return false;
 
-        var pairing = new Pairing<T>(expected.ToList(), equal);
-        foreach (var actualItem in actual)
+        if (!TryReadBoth(actual, expected, out var actualItems, out var expectedItems))
+            return false;
+
+        var pairing = new Pairing<T>(expectedItems, equal);
+        foreach (var actualItem in actualItems)
         {
             if (!pairing.TryAdd(actualItem))
                 return false;
         }
 
-        return pairing.IsComplete;
+        return true;
+    }
+
+    /// <summary>
+    /// Reads all of <paramref name="actual"/> and <paramref name="expected"/>, an item of each at a time. False as
+    /// soon as one ends before the other: they don't hold the same number of items, so they can't be matched one
+    /// for one.
+    /// </summary>
+    /// <remarks>
+    /// Reading them in step means neither is read more than one item past the end of the other. Either may be a
+    /// sequence that never ends, and reading all of one before looking at the other would never return.
+    /// </remarks>
+    public static bool TryReadBoth<T>(IEnumerable<T> actual, IEnumerable<T> expected, out List<T> actualItems, out List<T> expectedItems)
+    {
+        actualItems = [];
+        expectedItems = [];
+
+        using var expectedEnumerator = expected.GetEnumerator();
+        using var actualEnumerator = actual.GetEnumerator();
+
+        while (true)
+        {
+            var expectedHasItem = expectedEnumerator.MoveNext();
+            var actualHasItem = actualEnumerator.MoveNext();
+            if (expectedHasItem != actualHasItem)
+                return false;
+
+            if (!expectedHasItem)
+                return true;
+
+            expectedItems.Add(expectedEnumerator.Current);
+            actualItems.Add(actualEnumerator.Current);
+        }
     }
 
     /// <summary>
     /// A one-for-one pairing of actual items with expected ones, built up an actual item at a time: a maximum
-    /// matching, grown along augmenting paths.
+    /// matching, grown along augmenting paths. An item that finds no partner when it is added never finds one
+    /// later, and one that has a partner always keeps one, though not always the same one.
     /// </summary>
     private sealed class Pairing<T>(List<T> expectedItems, Func<T, T, bool> equal)
     {
@@ -179,44 +215,73 @@ static class UnorderedCollection
         // The index of the expected item each actual item is paired with, and the reverse.
         private readonly List<int> _expectedOfActual = [];
         private readonly int[] _actualOfExpected = Enumerable.Repeat(None, expectedItems.Count).ToArray();
+        private int _pairs;
 
         // What equal said of an actual and an expected item, kept once pairings are being revisited, as the same
         // two items are then asked about again.
         private Dictionary<(int Actual, int Expected), bool>? _verdicts;
 
-        public bool IsComplete => _actualItems.Count == expectedItems.Count;
+        // Where a search for a path has been. Kept from one search to the next, as a search is made for every item
+        // whose partner isn't free.
+        private int[]? _reachedFrom;
+        private bool[]? _reached;
+        private Queue<int>? _toVisit;
 
         /// <summary>
         /// Pairs <paramref name="actualItem"/> with an expected item, changing earlier pairings if it takes that.
-        /// False when there is no pairing of every actual item so far.
+        /// False when no pairing of the items so far gives it a partner.
         /// </summary>
         public bool TryAdd(T actualItem)
         {
             var added = _actualItems.Count;
-            if (added == expectedItems.Count)
-                return false;
-
             _actualItems.Add(actualItem);
             _expectedOfActual.Add(None);
 
-            // The common case: the item at the same position is its partner.
-            if (_actualOfExpected[added] == None && equal(actualItem, expectedItems[added]))
+            // With every expected item paired already, there is no partner to find.
+            if (_pairs == expectedItems.Count)
+                return false;
+
+            if (!TryPairWithAFreeItem(added) && !TryPairAlongAPath(added))
+                return false;
+
+            _pairs++;
+            return true;
+        }
+
+        // The item at the same position first, the common case, then any other that has no partner yet.
+        private bool TryPairWithAFreeItem(int added)
+        {
+            if (added < expectedItems.Count && IsFreeAndEqual(added))
             {
                 Pair(added, added);
                 return true;
             }
 
-            return TryPairAlongAPath(added);
+            for (var expectedIndex = 0; expectedIndex < expectedItems.Count; expectedIndex++)
+            {
+                if (expectedIndex != added && IsFreeAndEqual(expectedIndex))
+                {
+                    Pair(added, expectedIndex);
+                    return true;
+                }
+            }
+
+            return false;
+
+            bool IsFreeAndEqual(int expectedIndex) =>
+                _actualOfExpected[expectedIndex] == None && equal(_actualItems[added], expectedItems[expectedIndex]);
         }
 
-        // Breadth-first from the new item: over the expected items it equals, then over the items those are paired
-        // with and the expected items they equal instead, until one is free. Each pairing on the way there is then
-        // moved along by one.
+        // Breadth-first from the new item: over the paired expected items it equals, then over the items those are
+        // paired with and the expected items they equal instead, until one is free. Each pairing on the way there
+        // is then moved along by one.
         private bool TryPairAlongAPath(int added)
         {
-            var reachedFrom = new int[expectedItems.Count];
-            var reached = new bool[expectedItems.Count];
-            var toVisit = new Queue<int>();
+            var reachedFrom = _reachedFrom ??= new int[expectedItems.Count];
+            var reached = _reached ??= new bool[expectedItems.Count];
+            var toVisit = _toVisit ??= new();
+            Array.Clear(reached, 0, reached.Length);
+            toVisit.Clear();
             toVisit.Enqueue(added);
 
             while (toVisit.Count > 0)
@@ -224,13 +289,17 @@ static class UnorderedCollection
                 var actualIndex = toVisit.Dequeue();
                 for (var expectedIndex = 0; expectedIndex < expectedItems.Count; expectedIndex++)
                 {
-                    if (reached[expectedIndex] || !AreEqual(actualIndex, expectedIndex, remember: actualIndex != added))
+                    // The new item equals none of the free ones, or it would have been paired with one.
+                    var isFree = _actualOfExpected[expectedIndex] == None;
+                    if (reached[expectedIndex] ||
+                        isFree && actualIndex == added ||
+                        !AreEqual(actualIndex, expectedIndex, remember: actualIndex != added))
                         continue;
 
                     reached[expectedIndex] = true;
                     reachedFrom[expectedIndex] = actualIndex;
 
-                    if (_actualOfExpected[expectedIndex] == None)
+                    if (isFree)
                     {
                         MoveAlong(expectedIndex, reachedFrom);
                         return true;

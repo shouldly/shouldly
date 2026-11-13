@@ -232,19 +232,42 @@ public class DictionaryAndSetOrderScenario
         Verify.ShouldFail(() =>
             new SinglePass<int>(1, 2, 3).ShouldBe(new HashSet<int> { 1, 2, 4 }, "Some additional context"));
 
-    // Neither the check nor the message reads on once the sequence has an item the set can't pair.
+    // The check reads the sequence one item past the end of the set, and the message no further than it shows.
     [Fact]
     public void ASequenceThatNeverEndsIsNotASet()
     {
-        var message = Should.Throw<ShouldAssertException>(() => Naturals().ShouldBe(new HashSet<int> { 1, 2, 3 })).Message;
+        var message = Should.Throw<ShouldAssertException>(() => new GuardedSequence().ShouldBe(new HashSet<int> { 1, 2, 3 })).Message;
 
         message.ShouldNotContain("is missing");
+    }
 
-        static IEnumerable<int> Naturals()
-        {
-            for (var number = 0; ; number++)
-                yield return number;
-        }
+    [Fact]
+    public void ASetIsNotASequenceThatNeverEnds()
+    {
+        var naturals = new GuardedSequence();
+
+        Should.Throw<ShouldAssertException>(() => new HashSet<int> { 1, 2, 3 }.ShouldBe(naturals));
+
+        // The check read one item past the end of the set. The message reads on as far as it shows.
+        naturals.ElementsRead.ShouldBe(ShouldlyConfiguration.MaxEnumerableItemsInMessages + 1);
+
+        Should.Throw<ShouldAssertException>(() => ((object)new HashSet<int> { 1, 2, 3 }).ShouldBe(new GuardedSequence()));
+        Should.Throw<ShouldAssertException>(() => new[] { 1, 2, 3 }.ShouldBe(new GuardedSequence(), ignoreOrder: true));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<string> { "1", "2" }.ShouldBe(new GuardedSequence().Select(number => number.ToString()), Case.Insensitive));
+    }
+
+    [Fact]
+    public void ASetIsNotASequenceThatNeverEndsWithinATolerance()
+    {
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<double> { 1, 2, 3 }.ShouldBe(new GuardedSequence().Select(number => (double)number), 0.1));
+        Should.Throw<ShouldAssertException>(() =>
+            new GuardedSequence().Select(number => (double)number).ShouldBe(new HashSet<double> { 1, 2, 3 }, 0.1));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<float> { 1, 2, 3 }.ShouldBe(new GuardedSequence().Select(number => (float)number), 0.1));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<decimal> { 1, 2, 3 }.ShouldBe(new GuardedSequence().Select(number => (decimal)number), 0.1m));
     }
 
     // A sequence is kept for the message only as far as the message shows it. What a longer one lacks can't be
