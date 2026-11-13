@@ -1,18 +1,19 @@
 using Shouldly.Equivalency;
 
-namespace Shouldly.Internals;
+namespace Shouldly.Internals.Failures;
 
 /// <summary>
-/// Says why <see cref="Equality"/> found two values unequal, for a failure message that doesn't show it: the two
-/// values read the same, or they are sequences whose first difference takes finding. It follows the steps
-/// Equality's comparer takes, so what it names (an equality rule, a difference in type, reference equality, the
-/// type's own <c>Equals</c>) is what decided.
+/// The Explanation: the line that says why <see cref="Equality"/> found two values unequal, for a failure message that
+/// doesn't show it: the two values read the same, or they are sequences whose first difference takes finding. It
+/// reads the step of Shouldly's rules that compared them from <see cref="Differences.Step"/>, the step the check took,
+/// so what it names (an equality rule, a custom comparer, a difference in type, reference equality, the type's own
+/// <c>Equals</c>) is what decided.
 /// </summary>
 /// <remarks>
 /// An explanation is a courtesy. It reads members and calls <c>Equals</c> on values that have already failed an
 /// assertion, so when any of that throws, the message goes without one.
 /// </remarks>
-static class Inequality
+static class ExplanationWording
 {
     // A marker this near the start of a list is found at a glance. Past it, an index saves the counting.
     private const int FirstIndexWorthStating = 10;
@@ -39,26 +40,33 @@ static class Inequality
 
     private static string? ExplainTopLevel(Differences differences)
     {
-        var (actual, expected, comparison) = (differences.Actual, differences.Expected, differences.Equality);
+        var (actual, expected) = (differences.Actual, differences.Expected);
         if (NullEquivalence.IsNull(actual) || NullEquivalence.IsNull(expected))
             return null;
 
-        // A comparer of the caller's, or an equality rule, judged the two whole. Nothing else had a say.
-        if (comparison.ComparesValuesItself)
+        // A comparer of the caller's judged the two whole. None of Shouldly's rules had a say.
+        if (differences.Equality.ComparesValuesItself)
             return ReadTheSame(actual, expected) ? $"but {ByCustomComparer}" : null;
 
-        if (!comparison.UsesCustomComparer && EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
-            return ReadTheSame(actual, expected) ? $"but {ByRule(ruleType)}" : null;
+        switch (differences.Step?.Kind)
+        {
+            // An equality rule judged the two whole. Nothing else had a say.
+            case EqualityStepKind.Rule:
+                return ReadTheSame(actual, expected) ? $"but {ByRule(differences.Step.Value.RuleType!)}" : null;
 
-        if (differences.Unordered is { } unordered)
-            return InUnordered(unordered, depth: 0) is { } unorderedFinding ? $"but {unorderedFinding.Render()}" : null;
+            case EqualityStepKind.UnorderedCollection:
+                return differences.Unordered is { } unordered && InUnordered(unordered, depth: 0) is { } unorderedFinding
+                    ? $"but {unorderedFinding.Render()}"
+                    : null;
 
-        if (differences.InOrder is { } inOrder)
-            return InSequences(inOrder, comparison);
+            case EqualityStepKind.Sequence:
+                return differences.InOrder is { } inOrder ? InSequences(inOrder, differences.Equality) : null;
 
-        return ReadTheSame(actual, expected) && ByShouldlyEquality(actual, expected, depth: 0) is { } finding
-            ? $"but {finding.Render()}"
-            : null;
+            default:
+                return ReadTheSame(actual, expected) && ByStep(differences, depth: 0) is { } finding
+                    ? $"but {finding.Render()}"
+                    : null;
+        }
     }
 
     private static string? InSequences(SequenceDifference found, Equality comparison)
@@ -83,42 +91,53 @@ static class Inequality
     }
 
     /// <summary>
-    /// Why two values that read the same are unequal by Shouldly's own equality, following the steps of
-    /// <see cref="EqualityComparer{T}"/>.
+    /// Why two values that read the same are unequal by Shouldly's own equality.
     /// </summary>
     private static Finding? ByShouldlyEquality(object? actual, object? expected, int depth)
     {
         if (NullEquivalence.IsNull(actual) || NullEquivalence.IsNull(expected) || depth > MaxDepth)
             return null;
 
-        if (EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
-            return new(ByRule(ruleType));
+        return ByStep(Equality<object?>.Default.DifferencesBetween(actual, expected), depth);
+    }
 
-        var differences = Equality<object?>.Default.DifferencesBetween(actual, expected);
-        if (differences.Unordered is { } unordered)
-            return InUnordered(unordered, depth + 1);
-
-        if (differences.InOrder is { } found)
+    /// <summary>
+    /// Why two values that are neither null are unequal, by the step of Shouldly's rules that compared them.
+    /// </summary>
+    private static Finding? ByStep(Differences differences, int depth)
+    {
+        var (actual, expected) = (differences.Actual!, differences.Expected!);
+        switch (differences.Step?.Kind)
         {
-            if (found.FirstIndex is not { } index)
-                return null;
+            case EqualityStepKind.Rule:
+                return new(ByRule(differences.Step.Value.RuleType!));
 
-            var finding = found.FirstIsPair && ReadTheSame(found.FirstActual, found.FirstExpected)
-                ? ByShouldlyEquality(found.FirstActual, found.FirstExpected, depth + 1)
-                : null;
-            return (finding ?? new("they differ")).Under($"[{index}]");
+            case EqualityStepKind.UnorderedCollection:
+                return differences.Unordered is { } unordered ? InUnordered(unordered, depth + 1) : null;
+
+            case EqualityStepKind.Sequence:
+            {
+                if (differences.InOrder is not { FirstIndex: { } index } found)
+                    return null;
+
+                var finding = found.FirstIsPair && ReadTheSame(found.FirstActual, found.FirstExpected)
+                    ? ByShouldlyEquality(found.FirstActual, found.FirstExpected, depth + 1)
+                    : null;
+                return (finding ?? new("they differ")).Under($"[{index}]");
+            }
+
+            // A key/value pair or a tuple is compared item by item, each by Shouldly's equality.
+            case EqualityStepKind.Tuple when Tuples.TryFindUnequalComponent(expected, actual, Equality<object?>.Default.Comparer, out var name, out var expectedComponent, out var actualComponent):
+            {
+                var finding = ReadTheSame(actualComponent, expectedComponent)
+                    ? ByShouldlyEquality(actualComponent, expectedComponent, depth + 1)
+                    : new(Differ(actualComponent, expectedComponent));
+                return finding?.Under($".{name}");
+            }
+
+            default:
+                return ByTheirOwnEquality(actual, expected, depth);
         }
-
-        // A key/value pair or a tuple is compared item by item, each by Shouldly's equality.
-        if (Tuples.TryFindUnequalComponent(expected, actual, ObjectComparer, out var name, out var expectedComponent, out var actualComponent))
-        {
-            var finding = ReadTheSame(actualComponent, expectedComponent)
-                ? ByShouldlyEquality(actualComponent, expectedComponent, depth + 1)
-                : new(Differ(actualComponent, expectedComponent));
-            return finding?.Under($".{name}");
-        }
-
-        return ByTheirOwnEquality(actual, expected, depth);
     }
 
     /// <summary>
@@ -242,8 +261,6 @@ static class Inequality
                actualText.StartsWith(undecorated, StringComparison.Ordinal) &&
                expectedText.StartsWith(undecorated, StringComparison.Ordinal);
     }
-
-    private static IEqualityComparer<object?> ObjectComparer => Equality<object?>.Default.Comparer;
 
     /// <summary>What a failure message says of two values that an equality rule judged unequal.</summary>
     public static string ByRule(Type ruleType) =>

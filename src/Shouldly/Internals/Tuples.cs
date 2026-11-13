@@ -12,7 +12,7 @@ namespace Shouldly.Internals;
 /// </summary>
 /// <remarks>
 /// Only these BCL types are taken apart. A record, an anonymous type or a struct keeps its own <c>Equals</c>, which is
-/// its author's to define, and <see cref="Inequality"/> points at <c>ShouldBeEquivalentTo</c> when that compares a
+/// its author's to define, and <see cref="Failures.ExplanationWording"/> points at <c>ShouldBeEquivalentTo</c> when that compares a
 /// collection by reference.
 /// </remarks>
 static class Tuples

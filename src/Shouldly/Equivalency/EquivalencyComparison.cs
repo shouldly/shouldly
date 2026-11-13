@@ -95,7 +95,7 @@ internal sealed class EquivalencyComparison
                     AnnotateWithType(path, TypeToName(expected.GetType(), declared.Expected)),
                     expected,
                     actual,
-                    EqualityRules.RuleTypeFor(expected, actual) is { } ruleType ? Inequality.ByRule(ruleType) : null);
+                    EqualityRules.RuleTypeFor(expected, actual) is { } ruleType ? Internals.Failures.ExplanationWording.ByRule(ruleType) : null);
             }
 
             return;

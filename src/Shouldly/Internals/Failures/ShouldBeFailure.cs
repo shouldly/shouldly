@@ -129,7 +129,7 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
                         """;
         }
 
-        if (equality is not null && Inequality.Explain(differences) is { } reason)
+        if (equality is not null && ExplanationWording.Explain(differences) is { } reason)
         {
             closing += $"""
 

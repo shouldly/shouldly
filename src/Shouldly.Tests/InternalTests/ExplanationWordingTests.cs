@@ -1,13 +1,14 @@
 using System.Numerics;
 using Shouldly.Internals;
+using Shouldly.Internals.Failures;
 
 namespace Shouldly.Tests.InternalTests;
 
 /// <summary>
 /// The line a <c>ShouldBe</c> failure adds when its message doesn't otherwise show why two values are unequal (#1432),
-/// tested through <see cref="Inequality"/>'s own interface. The assertions only need a smoke test showing they ask it.
+/// tested through <see cref="ExplanationWording"/>'s own interface. The assertions only need a smoke test showing they ask it.
 /// </summary>
-public class InequalityTests
+public class ExplanationWordingTests
 {
     private const string UseEquivalentTo = "use ShouldBeEquivalentTo to compare members";
 
@@ -36,7 +37,7 @@ public class InequalityTests
             "but they are different types (expected System.Double, actual System.Half)"),
         ["different generic types"] = (
             () => Explain(new Box<int>(), new Box<long[]>()),
-            "but they are different types (expected Shouldly.Tests.InternalTests.InequalityTests+Box<System.Int64[]>, actual Shouldly.Tests.InternalTests.InequalityTests+Box<System.Int32>)"),
+            "but they are different types (expected Shouldly.Tests.InternalTests.ExplanationWordingTests+Box<System.Int64[]>, actual Shouldly.Tests.InternalTests.ExplanationWordingTests+Box<System.Int32>)"),
 
         // One type, compared by reference
         ["reference equality"] = (
@@ -190,7 +191,7 @@ public class InequalityTests
     }
 
     private static string? Explain(object? actual, object? expected, Equality? equality = null) =>
-        Inequality.Explain((equality ?? Equality<object?>.Default).DifferencesBetween(actual, expected));
+        ExplanationWording.Explain((equality ?? Equality<object?>.Default).DifferencesBetween(actual, expected));
 
     private static int[] Numbers(int count, int? changedAt = null) =>
         [.. Enumerable.Range(0, count).Select(n => n == changedAt ? -1 : n)];

@@ -5,7 +5,7 @@ namespace Shouldly.Tests.ShouldBe;
 /// <summary>
 /// When the two sides of a <c>ShouldBe</c> failure read the same, or two sequences first differ where it takes
 /// finding, the message closes with a line that says why they are unequal (#1432). The explanations themselves are
-/// tested in <c>InequalityTests</c>; these show the assertions asking for one, and where it goes in the message.
+/// tested in <c>ExplanationWordingTests</c>; these show the assertions asking for one, and where it goes in the message.
 /// </summary>
 public class ValuesThatReadTheSameScenarios
 {
