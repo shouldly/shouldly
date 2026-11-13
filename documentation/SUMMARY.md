@@ -12,6 +12,7 @@
 * [Equality](documentation/equality/README.md)
   * [ShouldBe](documentation/equality/shouldBe.md)
   * [NotBe](documentation/equality/notBe.md)
+  * [EquivalentTo](documentation/equality/equivalentTo.md)
   * [Null](documentation/equality/null.md)
   * [Bool](documentation/equality/trueFalse.md)
   * [Flags](documentation/equality/haveFlag.md)

@@ -319,7 +319,8 @@ Two collection assertions have no Shouldly counterpart:
 
 ## Object equivalence: `ShouldBeEquivalentTo`
 
-`ShouldBeEquivalentTo` walks the object graph and compares public fields and properties recursively.
+`ShouldBeEquivalentTo` walks the object graph and compares public fields and properties recursively
+(see [ShouldBeEquivalentTo](equality/equivalentTo.md) for how each kind of value is compared).
 Like FA's `BeEquivalentTo`, it is **direction-sensitive**: comparison is driven by the *expected*
 value's members, and any extra members the actual value carries are ignored. It does **not** require
 the two sides to be the same type, so two structurally identical objects of different types are
@@ -393,6 +394,8 @@ actual.ShouldBeEquivalentTo(expected, new EquivalencyOptions
   `RespectingRuntimeTypes()`. An FA assertion that passed because a derived-only member was never
   compared fails in Shouldly. To compare less, expect an anonymous type or an instance of the base
   type.
+- **Different enum types are not equivalent**, even when their underlying values are equal.
+- **Cyclic graphs are compared without configuration, and recursion depth is unbounded.**
 - **Comparers and tolerances** — a fluent `.WithAutoConversion()` switch, `.Using<T>(...)` custom
   comparers, or approximate numeric/`DateTime` matching — are not exposed as options yet. Numeric
   *leaves* are auto-converted across kinds, so `int` `5` is equivalent to `long` `5` or `double`
@@ -404,6 +407,9 @@ For the rare test that needs an FA feature with no counterpart today (custom com
 member selection by predicate), assert the members individually with
 [`ShouldSatisfy`](satisfyAllConditions.md) so you still get every failure at once, or keep a
 dedicated equivalence library for those cases.
+
+The executable comparison suite at `src/EquivalencyComparisonTests` documents every remaining
+divergence.
 
 
 ## Exceptions and messages
