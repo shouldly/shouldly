@@ -311,8 +311,9 @@ public static partial class ShouldBeEnumerableTestExtensions
         using var capturedExpected = CapturedSequence.Of(expected);
         actual = capturedActual.Items!;
         expected = capturedExpected.Items!;
-        if (!actual.Satisfies(v => Is.EnumerableStringEqualWithCaseSensitivity(v, expected, caseSensitivity)))
-            throw Fail.ShouldBe.With(expected, caseSensitivity).For(actual, customMessage, actualExpression);
+        var comparer = Equality.ForCase(caseSensitivity);
+        if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, comparer: comparer)))
+            throw Fail.ShouldBe.With(expected, caseSensitivity, comparer).For(actual, customMessage, actualExpression);
     }
 
     /// <summary>
@@ -339,7 +340,7 @@ public static partial class ShouldBeEnumerableTestExtensions
         actual = capturedActual.Items!;
         expected = capturedExpected.Items!;
 
-        var comparer = caseSensitivity == Case.Insensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        var comparer = Equality.ForCase(caseSensitivity);
         if (!actual.Satisfies(v => Equality.SequenceEqual(v, expected, ignoreOrder: true, comparer)))
             throw Fail.ShouldBe.IgnoringOrder(expected, ComparisonRecord.ComparedElementsWith<string>(comparer, isCustom: false), caseSensitivity).For(actual, customMessage, actualExpression);
     }

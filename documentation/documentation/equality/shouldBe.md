@@ -444,7 +444,7 @@ firstSet
     but was
 [1.23m, 2.34m, 3.45001m]
     difference
-[*1.23m*, 2.34m, *3.45001m*]
+[*1.23m*, 2.34m, 3.45001m]
 ```
 <!-- endInclude -->
 
