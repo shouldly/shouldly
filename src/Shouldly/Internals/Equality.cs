@@ -252,12 +252,29 @@ abstract class Equality
             if (actual == null || expected == null)
                 return actual == null && expected == null;
 
-            if (ReferenceEquals(elements, Equality<T>.Default) && !ignoreOrder &&
-                EqualityRules.TryEquals(expected, actual, out var ruleResult))
-                return ruleResult;
+            bool anyOrder;
+            if (ignoreOrder)
+            {
+                anyOrder = true;
+            }
+            else if (ReferenceEquals(elements, Equality<T>.Default))
+            {
+                // Shouldly's own rules take the step they take for any pair, so a rule that covers both sequences
+                // decides, as one value, before they are walked. Their elements are then walked here rather than as
+                // objects, so each keeps its declared type.
+                var step = EqualityStep.For(expected, actual);
+                if (step.Kind is EqualityStepKind.Rule or EqualityStepKind.Json)
+                    return step.Verdict;
 
-            // The order a dictionary or a set enumerates in isn't part of its value (#1430).
-            return ignoreOrder || UnorderedCollection.IgnoresOrder(actual, expected)
+                anyOrder = step.Kind == EqualityStepKind.UnorderedCollection;
+            }
+            else
+            {
+                // The order a dictionary or a set enumerates in isn't part of its value (#1430).
+                anyOrder = UnorderedCollection.IgnoresOrder(actual, expected);
+            }
+
+            return anyOrder
                 ? UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => elements.Equal(a, e))
                 : MatchInOrder(actual, expected, (a, e) => elements.Equal(a, e));
         }
