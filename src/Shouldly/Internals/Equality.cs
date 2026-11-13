@@ -182,6 +182,22 @@ abstract class Equality
             elements.Tolerance, elements.Case, elements.UsesCustomComparer, elements: elements);
 
     /// <summary>
+    /// Whether two spans are equal by Shouldly's own rules: compared as the arrays of their elements, by
+    /// <see cref="OfSequences{T}"/> with <see cref="Equality{T}.Default"/>, the Equality their failure message reads.
+    /// </summary>
+    /// <remarks>
+    /// A span can't be boxed, so no equality rule can cover it, but one can cover the array of its elements, and then
+    /// decides, in the check as in the message. Where none could, the spans are walked as they are, without copying.
+    /// </remarks>
+    public static bool SpansEqual<T>(ReadOnlySpan<T> actual, ReadOnlySpan<T> expected)
+    {
+        if (!EqualityRules.IsEmpty && EqualityRules.CouldApplyTo(typeof(T[])))
+            return OfSequences(Equality<T>.Default).Equal(actual.ToArray(), expected.ToArray());
+
+        return Equality<T>.Default.MatchInOrder(actual, expected);
+    }
+
+    /// <summary>
     /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal items in the same order, by
     /// <paramref name="equal"/>, which is called as <c>equal(actual, expected)</c>. Each is read once, and no further
     /// than the first difference. The one walk of two sequences in order that a check takes, as
