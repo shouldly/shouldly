@@ -39,8 +39,8 @@ public class FloatingPointToleranceScenario
     [Fact]
     public void FloatAndIntegerAreComparedAsDoubles()
     {
-        // 16777217 isn't representable as a float. Converting both sides to float, as Numerics does for
-        // float-vs-integer under a tolerance, would make these equal; equivalency widens to double instead.
+        // 16777217 isn't representable as a float. Converting both sides to float would make these equal; they are
+        // widened to double instead, as ShouldBe does.
         WithDefaultTolerance(1e-9, () =>
             Should.Throw<ShouldAssertException>(() => ((object)16777217).ShouldBeEquivalentTo(16777216f)));
     }

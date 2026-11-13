@@ -631,19 +631,10 @@ internal sealed class EquivalencyComparison
 
     /// <summary>
     /// Compares through <see cref="Numerics"/>, as ShouldBe does, so mixed types are compared exactly (#1427) and
-    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies. Under a default tolerance, mixed
-    /// types are widened to double first: Numerics would narrow a float compared with an integer or decimal to float.
+    /// <see cref="ShouldlyConfiguration.DefaultFloatingPointTolerance"/> applies.
     /// </summary>
-    private static bool FloatingPointEquals(object actual, object expected)
-    {
-        if (actual.GetType() != expected.GetType() && ShouldlyConfiguration.DefaultFloatingPointTolerance > 0.0d)
-        {
-            actual = Convert.ToDouble(actual);
-            expected = Convert.ToDouble(expected);
-        }
-
-        return Numerics.AreEqual(expected, actual);
-    }
+    private static bool FloatingPointEquals(object actual, object expected) =>
+        Numerics.AreEqual(expected, actual);
 
     /// <summary>
     /// The shape of <paramref name="value"/>'s own type. A provider that knows a closed set of types can't always

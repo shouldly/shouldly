@@ -41,19 +41,14 @@ static class Numerics
                 : FloatingPointEqualsExactly(actual, expected);
         }
 
-#if NET5_0_OR_GREATER
-        // Half doesn't implement IConvertible, so it can't go through the Convert calls below. Every Half
-        // value is exactly representable as a double, so widen it and compare like the other floating-point
-        // types (#1405). Decided before the float branch so the other operand isn't narrowed to float.
-        if (expected is Half || actual is Half)
+        if (expected is float expectedFloat && actual is float actualFloat)
+            return AreEqual(expectedFloat, actualFloat);
+
+        // Any other pair with a floating-point value in it is compared as doubles. A float widens to a double
+        // exactly, as does a Half (which can't go through Convert, not being IConvertible, #1405), while narrowing
+        // the other value to float would round it first: 16777217 would equal 16777216f.
+        if (IsFloatingPoint(expected) || IsFloatingPoint(actual))
             return AreEqual(ToDouble(expected), ToDouble(actual));
-#endif
-
-        if (expected is double || actual is double)
-            return AreEqual(Convert.ToDouble(expected), Convert.ToDouble(actual));
-
-        if (expected is float || actual is float)
-            return AreEqual(Convert.ToSingle(expected), Convert.ToSingle(actual));
 
         if (expected is decimal || actual is decimal || MixesSignedWithUnsigned(expected, actual))
             return Convert.ToDecimal(expected) == Convert.ToDecimal(actual);

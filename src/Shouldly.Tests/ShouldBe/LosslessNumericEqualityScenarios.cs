@@ -107,8 +107,28 @@ public class LosslessNumericEqualityScenarios
         {
             ((object)0.1m).ShouldBe(0.1);
             ((object)9007199254740993L).ShouldBe(9007199254740992.0);
-            ((object)16777217).ShouldBe(16777216f);
             ((object)1).ShouldNotBe(1.1);
+        }
+        finally
+        {
+            ShouldlyConfiguration.DefaultFloatingPointTolerance = 0.0;
+        }
+    }
+
+    [Fact]
+    public void NothingIsNarrowedToFloatUnderTheDefaultTolerance()
+    {
+        // 16777217 isn't a float: converting it to float rounds it to 16777216, and the tolerance would then compare
+        // two equal floats. Both are widened to double instead, as ShouldBeEquivalentTo does, so the tolerance
+        // compares the values they hold.
+        ShouldlyConfiguration.DefaultFloatingPointTolerance = 1e-9;
+        try
+        {
+            ((object)16777217).ShouldNotBe(16777216f);
+            ((object)16777216f).ShouldNotBe(16777217L);
+            ((object)16777217m).ShouldNotBe(16777216f);
+            new object[] { 16777217 }.ShouldNotBe([16777216f]);
+            ((object)16777216).ShouldBe(16777216f);
         }
         finally
         {
