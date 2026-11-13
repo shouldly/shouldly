@@ -45,7 +45,8 @@ static class WithinWording
                  but was{actual}
              """;
 
-        if (DifferenceHighlighter.Between(sentence.Actual, expectedValue, equality) is { } difference)
+        var differences = (equality ?? Equality<object?>.Default).DifferencesBetween(sentence.Actual, expectedValue);
+        if (DifferenceHighlighter.Between(differences) is { } difference)
         {
             message += $"""
                         
@@ -56,7 +57,7 @@ static class WithinWording
         else if (!sentence.Negated && equality is not null)
         {
             // Two sets of numbers aren't compared in order, so they are told apart by what one has that the other doesn't.
-            message += UnorderedWording.Difference(sentence.Actual, expectedValue, equality);
+            message += UnorderedWording.Difference(differences);
         }
 
         return message;

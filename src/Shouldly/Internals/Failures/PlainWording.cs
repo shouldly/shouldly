@@ -54,7 +54,7 @@ readonly struct PlainLines
     /// </remarks>
     public PlainLines WithExpected(object? expected, object? actual, bool highlightDifferences = true) =>
         new(true, expected.ToStringAwesomely(), true, HasActual, ActualText, ActualInWords,
-            highlightDifferences ? DifferenceHighlighter.Between(actual, expected, equality: null) : null);
+            highlightDifferences ? DifferenceHighlighter.Between(Equality<object?>.Default.DifferencesBetween(actual, expected)) : null);
 
     public PlainLines WithExpectedInWords(string description) =>
         new(true, description, false, HasActual, ActualText, ActualInWords, null);

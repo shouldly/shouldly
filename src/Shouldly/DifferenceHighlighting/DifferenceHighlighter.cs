@@ -3,34 +3,46 @@ using Shouldly.Internals;
 namespace Shouldly.DifferenceHighlighting;
 
 /// <summary>
-/// Highlights the differences between an actual and an expected value in a failure message.
+/// Highlights the differences between an actual and an expected sequence in a failure message: the actual
+/// sequence's items, with each that differs from the expected one marked with asterisks.
 /// </summary>
 static class DifferenceHighlighter
 {
+    private const string HighlightCharacter = "*";
+
     /// <summary>
-    /// The highlighted differences between <paramref name="actual"/> and <paramref name="expected"/>, or null when
-    /// they aren't values whose differences can be highlighted, or when no item the message shows differs: a list
-    /// with nothing marked in it would only repeat the actual value.
+    /// The highlighted differences, or null when the two aren't sequences a message shows item by item, or when no
+    /// item the message shows differs: a list with nothing marked in it would only repeat the actual value.
     /// </summary>
-    /// <param name="actual">The value under test.</param>
-    /// <param name="expected">The value it was compared against.</param>
-    /// <param name="equality">
-    /// How the assertion compared them, so that the highlighting agrees with it, or null when that isn't known: items
-    /// are then told apart by Shouldly's own rules.
-    /// </param>
-    public static string? Between(object? actual, object? expected, Equality? equality) =>
-        Find(actual, expected, equality) is { FirstIndex: not null } difference
-            ? difference.Text
+    public static string? Between(Differences differences) =>
+        Find(differences) is { FirstIndex: not null } found
+            ? Text(found)
             : null;
 
     /// <summary>
-    /// What walking <paramref name="actual"/> and <paramref name="expected"/> in step found, or null when they aren't
-    /// sequences that can be walked in step: dictionaries and sets aren't compared in order, so where their
-    /// items first differ in order says nothing (see <see cref="UnorderedCollection"/>).
+    /// What walking the two in step found, when they are sequences a message shows item by item. A
+    /// <see cref="Memory{T}"/> is compared as a sequence but shown as a value, so it isn't highlighted.
     /// </summary>
-    public static SequenceDifference? Find(object? actual, object? expected, Equality? equality) =>
-        EnumerableDifferenceHighlighter.CanHighlight(actual, expected) &&
-        !UnorderedCollection.IgnoresOrder(actual, expected)
-            ? EnumerableDifferenceHighlighter.Find((IEnumerable)actual!, (IEnumerable)expected!, equality ?? Equality<object?>.Default)
+    public static SequenceDifference? Find(Differences differences) =>
+        differences.Actual is IEnumerable && differences.Expected is IEnumerable
+            ? differences.InOrder
             : null;
+
+    private static string Text(SequenceDifference found)
+    {
+        var items = found.Positions.Select(Format).ToList();
+        if (found.CutShort)
+            items.Add(StringHelpers.EnumerableTruncationMarker);
+
+        return "[" + string.Join(", ", items) + "]";
+    }
+
+    private static string? Format(WalkedPosition position)
+    {
+        if (!position.HasActual)
+            return HighlightCharacter;
+
+        var formatted = position.Actual.ToStringAwesomely();
+        return position.Differs ? HighlightCharacter + formatted + HighlightCharacter : formatted;
+    }
 }

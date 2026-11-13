@@ -1,4 +1,3 @@
-using Shouldly.DifferenceHighlighting;
 using Shouldly.Equivalency;
 
 namespace Shouldly.Internals;
@@ -26,15 +25,11 @@ static class Inequality
     /// <summary>
     /// The line that explains a failed comparison, or null when the message already shows why it failed.
     /// </summary>
-    /// <param name="actual">The value under test.</param>
-    /// <param name="expected">The value it was compared against.</param>
-    /// <param name="comparison">How the assertion compared them.</param>
-    /// <param name="difference">What walking the two found, when they are sequences already walked.</param>
-    public static string? Explain(object? actual, object? expected, Equality? comparison = null, SequenceDifference? difference = null)
+    public static string? Explain(Differences differences)
     {
         try
         {
-            return ExplainTopLevel(actual, expected, comparison ?? Equality<object?>.Default, difference);
+            return ExplainTopLevel(differences);
         }
         catch (Exception)
         {
@@ -42,8 +37,9 @@ static class Inequality
         }
     }
 
-    private static string? ExplainTopLevel(object? actual, object? expected, Equality comparison, SequenceDifference? difference)
+    private static string? ExplainTopLevel(Differences differences)
     {
+        var (actual, expected, comparison) = (differences.Actual, differences.Expected, differences.Equality);
         if (NullEquivalence.IsNull(actual) || NullEquivalence.IsNull(expected))
             return null;
 
@@ -54,11 +50,11 @@ static class Inequality
         if (!comparison.UsesCustomComparer && EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
             return ReadTheSame(actual, expected) ? $"but {ByRule(ruleType)}" : null;
 
-        if (UnorderedCollection.Find(actual, expected, comparison) is { } unordered)
+        if (differences.Unordered is { } unordered)
             return InUnordered(unordered, depth: 0) is { } unorderedFinding ? $"but {unorderedFinding.Render()}" : null;
 
-        if (AreSequences(actual, expected, out var actualItems, out var expectedItems))
-            return InSequences(difference ?? EnumerableDifferenceHighlighter.Find(actualItems, expectedItems, comparison), comparison);
+        if (differences.InOrder is { } inOrder)
+            return InSequences(inOrder, comparison);
 
         return ReadTheSame(actual, expected) && ByShouldlyEquality(actual, expected, depth: 0) is { } finding
             ? $"but {finding.Render()}"
@@ -98,12 +94,12 @@ static class Inequality
         if (EqualityRules.RuleTypeFor(expected, actual) is { } ruleType)
             return new(ByRule(ruleType));
 
-        if (UnorderedCollection.Find(actual, expected, Equality<object?>.Default) is { } unordered)
+        var differences = Equality<object?>.Default.DifferencesBetween(actual, expected);
+        if (differences.Unordered is { } unordered)
             return InUnordered(unordered, depth + 1);
 
-        if (AreSequences(actual, expected, out var actualItems, out var expectedItems))
+        if (differences.InOrder is { } found)
         {
-            var found = EnumerableDifferenceHighlighter.Find(actualItems, expectedItems, Equality<object?>.Default);
             if (found.FirstIndex is not { } index)
                 return null;
 
@@ -129,10 +125,10 @@ static class Inequality
     /// Why two dictionaries are unequal, when the failure message doesn't show it: the first key whose two values
     /// read the same. What else tells two dictionaries or two sets apart, the message lists.
     /// </summary>
-    private static Finding? InUnordered(UnorderedCollection.Differences differences, int depth)
+    private static Finding? InUnordered(UnorderedDifferences differences, int depth)
     {
         if (!differences.ByKey ||
-            differences.Items.FirstOrDefault(difference => difference.Kind == UnorderedCollection.DifferenceKind.ValueDiffers) is not { } valueDiffers ||
+            differences.Items.FirstOrDefault(difference => difference.Kind == UnorderedDifferenceKind.ValueDiffers) is not { } valueDiffers ||
             !ReadTheSame(valueDiffers.Actual, valueDiffers.Expected))
             return null;
 
@@ -245,16 +241,6 @@ static class Inequality
                undecorated == expected.ToString() &&
                actualText.StartsWith(undecorated, StringComparison.Ordinal) &&
                expectedText.StartsWith(undecorated, StringComparison.Ordinal);
-    }
-
-    // As EqualityComparer<T> decides it: anything it can enumerate, a Memory<T> included, but never a string.
-    private static bool AreSequences(object actual, object expected, [NotNullWhen(true)] out IEnumerable? actualItems, [NotNullWhen(true)] out IEnumerable? expectedItems)
-    {
-        actualItems = expectedItems = null;
-        return actual is not string &&
-               expected is not string &&
-               actual.TryGetEnumerable(out actualItems) &&
-               expected.TryGetEnumerable(out expectedItems);
     }
 
     private static IEqualityComparer<object?> ObjectComparer => Equality<object?>.Default.Comparer;

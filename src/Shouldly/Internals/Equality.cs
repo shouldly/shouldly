@@ -72,6 +72,12 @@ abstract class Equality
             : Equality<object?>.Default.Equal(actual, expected);
 
     /// <summary>
+    /// What tells <paramref name="actual"/> apart from <paramref name="expected"/> as this compares them, for the
+    /// failure message of a check that found them unequal, or equal when they shouldn't have been.
+    /// </summary>
+    public Differences DifferencesBetween(object? actual, object? expected) => new(this, actual, expected);
+
+    /// <summary>
     /// Compares by <paramref name="comparer"/>, a comparer of the caller's, alone.
     /// </summary>
     public static Equality<T> Using<T>(IEqualityComparer<T> comparer) =>

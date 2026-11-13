@@ -117,20 +117,19 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     /// </summary>
     internal static string DifferenceAndReason(object? actual, object? expected, Equality? equality)
     {
-        var found = DifferenceHighlighter.Find(actual, expected, equality);
-        var closing = UnorderedWording.Difference(actual, expected, equality) ?? string.Empty;
+        var differences = (equality ?? Equality<object?>.Default).DifferencesBetween(actual, expected);
+        var closing = UnorderedWording.Difference(differences) ?? string.Empty;
 
-        // A list with nothing marked in it would only repeat the actual value.
-        if (found is { FirstIndex: not null } difference)
+        if (DifferenceHighlighter.Between(differences) is { } highlighted)
         {
             closing += $"""
 
                             difference
-                        {difference.Text}
+                        {highlighted}
                         """;
         }
 
-        if (equality is not null && Inequality.Explain(actual, expected, equality, found) is { } reason)
+        if (equality is not null && Inequality.Explain(differences) is { } reason)
         {
             closing += $"""
 
