@@ -1,6 +1,5 @@
 using System.Globalization;
 using System.Net;
-using System.Numerics;
 using System.Text;
 
 namespace Shouldly.Tests.ShouldBeEquivalentTo;
@@ -20,8 +19,10 @@ public class FrameworkValueScenario
     [Fact]
     public void ShouldFailOnceWhenValuesDiffer()
     {
-        var subject = new { Value = new Complex(1, 2) };
-        var expected = new { Value = new Complex(1, 3) };
+        // Two cultures differ in dozens of members; they are reported as one difference. (A culture is used because its
+        // text is its name on every runtime, which Complex's isn't.)
+        var subject = new { Culture = CultureInfo.GetCultureInfo("en-GB") };
+        var expected = new { Culture = CultureInfo.GetCultureInfo("fr-FR") };
 
         Verify.ShouldFail(() =>
             subject.ShouldBeEquivalentTo(expected, "Some additional context"));

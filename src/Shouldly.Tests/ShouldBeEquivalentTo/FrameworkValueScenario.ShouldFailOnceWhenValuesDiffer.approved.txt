@@ -1,11 +1,11 @@
 Comparing object equivalence, at path:
 subject [<anonymous type>]
-    Value [System.Numerics.Complex]
+    Culture [System.Globalization.CultureInfo]
 
     Expected value to be
-<1; 3>
+fr-FR
     but was
-<1; 2>
+en-GB
 
 Additional Info:
     Some additional context
