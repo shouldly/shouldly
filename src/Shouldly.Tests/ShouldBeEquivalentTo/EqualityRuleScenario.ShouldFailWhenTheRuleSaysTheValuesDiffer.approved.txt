@@ -1,0 +1,11 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.TestHelpers.Branch]
+
+    Expected value to be
+[[] (Leaf(a)), [] (Leaf(c))]
+    but was
+[[] (Leaf(a)), [] (Leaf(b))]
+    and the equality rule for Node says they are not equal
+
+Additional Info:
+    Some additional context

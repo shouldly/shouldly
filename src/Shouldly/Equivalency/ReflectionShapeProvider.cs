@@ -19,7 +19,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
     [UnconditionalSuppressMessage("Trimming", "IL2026",
         Justification = "This provider is only constructed while the Shouldly.Equivalency.IsReflectionEnabledByDefault feature switch is on. " +
                         "Trimmed publishes that disable the switch remove it entirely; see EquivalencyShapes.")]
-    public EquivalencyTypeShape GetShape(Type type) =>
+    public EquivalencyTypeShape GetShape(Type type, Type? declaredType = null) =>
         _cache.GetOrAdd(type, static t => CreateShape(t));
 
     [RequiresUnreferencedCode("Reflects over the fields, properties, and interfaces of arbitrary types.")]
@@ -75,7 +75,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
                 break;
         }
 
-        return new ReflectionTypeShape(type, kind, members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
+        var keepsAnOrder = kind is EquivalencyNodeKind.Dictionary or EquivalencyNodeKind.Set && Internals.UnorderedCollection.KeepsAnOrder(type);
+        return new ReflectionTypeShape(type, kind, keepsAnOrder, members, allMembers, elementType, keyType, valueType, kvpKeyProperty, kvpValueProperty);
     }
 
     [RequiresUnreferencedCode("Reflects over the interfaces of arbitrary types.")]
@@ -89,7 +90,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             || FindGenericInterface(type, typeof(IReadOnlyDictionary<,>)) != null)
             return EquivalencyNodeKind.Dictionary;
 
-        if (FindGenericInterface(type, typeof(ISet<>)) != null
+        if (Internals.UnorderedCollection.IsKnownSet(type)
+            || FindGenericInterface(type, typeof(ISet<>)) != null
             || FindGenericInterfaceByName(type, "System.Collections.Generic.IReadOnlySet`1") != null)
             return EquivalencyNodeKind.Set;
 
@@ -115,6 +117,12 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
             || type == typeof(Uri)
             || type == typeof(Version))
             return true;
+
+#if NET8_0_OR_GREATER
+        // JSON is compared as JSON, whole. Its members say little of it: a JsonElement's only its kind.
+        if (Internals.JsonValues.IsJsonType(type))
+            return true;
+#endif
 
         // Reflection objects and delegates have well-defined identity semantics via Equals and
         // reflection-heavy object graphs; walking their members is never what the user wants.
@@ -271,6 +279,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         public ReflectionTypeShape(
             Type type,
             EquivalencyNodeKind kind,
+            bool keepsAnOrder,
             IReadOnlyList<EquivalencyMemberShape> members,
             IReadOnlyList<EquivalencyMemberShape> allMembers,
             Type? elementType,
@@ -281,6 +290,7 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         {
             Type = type;
             Kind = kind;
+            KeepsAnOrder = keepsAnOrder;
             _members = members;
             _allMembers = allMembers;
             ElementType = elementType;
@@ -293,6 +303,8 @@ internal sealed class ReflectionShapeProvider : IEquivalencyShapeProvider
         public override Type Type { get; }
 
         public override EquivalencyNodeKind Kind { get; }
+
+        public override bool KeepsAnOrder { get; }
 
         public override IReadOnlyList<EquivalencyMemberShape> Members => _members;
 

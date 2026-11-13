@@ -1,0 +1,10 @@
+Comparing object equivalence, at path:
+subject [System.Collections.Generic.Dictionary<System.String, System.Int32>]
+
+    Expected value to be
+[] (System.Collections.Generic.Dictionary`2[System.String,System.Int32])
+    but was
+""
+
+Additional Info:
+    Some additional context

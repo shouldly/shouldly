@@ -1,0 +1,11 @@
+new HashSet<int> { 1, 2, 3 }
+    should be
+[1, 2, 4]
+    but was
+[1, 2, 3]
+    difference
+4 is missing
+3 is not expected
+
+Additional Info:
+    Some additional context

@@ -131,7 +131,7 @@ The line names whatever decided the comparison:
 | The message closes with | When |
 | --- | --- |
 | `but they are different types (expected System.Int32, actual System.Numerics.BigInteger)` | The two values have different runtime types. |
-| `but they are different instances, and Cat compares by reference; use ShouldBeEquivalentTo to compare members` | The type defines no equality of its own, so a value only equals itself. |
+| `but they are different instances, and Cat compares by reference; use ShouldBeEquivalentTo to compare members` | The type defines no equality of its own, so a value only equals itself. The advice is left out for a type that has no public members for `ShouldBeEquivalentTo` to compare. |
 | `but Money.Equals returned false` | The type's own `Equals` said so. |
 | `but at Lines, …` | A record, tuple, anonymous type or struct without an `Equals` override differs in that member, for the reason that follows. |
 | `but the equality rule for IdBag says they are not equal` | A [registered equality rule](#types-with-their-own-equality) decided. |
@@ -226,7 +226,7 @@ timeSpan
 
 ## Enumerables
 
-Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass. Two dictionaries, or two sets, are compared without regard to the order they enumerate in: a dictionary's entries are matched by key. See [Dictionaries and sets](../enumerable/shouldBe.md#dictionaries-and-sets).
+Enumerable comparison is done on the elements in the enumerable, so you can compare an array to a list and have it pass. A dictionary or a set is compared without regard to the order it enumerates in, against another one or against a list: a dictionary's entries are matched by key. A sorted or ordered one is compared in order against a list. See [Dictionaries and sets](../enumerable/shouldBe.md#dictionaries-and-sets).
 
 <!-- snippet: ShouldBeExamples.Enumerables.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.Enumerables.codeSample.approved.cs'></a>
@@ -326,7 +326,7 @@ internal static void Initialize() =>
 <sup><a href='/src/DocumentationExamples/EqualityRuleRegistration.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-RegisterEqualityRule' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The rule applies wherever these assertions compare two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. `ShouldBeEquivalentTo` doesn't use rules. A value the rule covers is never walked as a collection (unless you pass `ignoreOrder: true`, which matches its elements in any order, each by the rule), so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
+The rule applies wherever these assertions compare two values that are both instances of the type (or of a subtype): `ShouldBe` and `ShouldNotBe`, collection elements, dictionary keys and values, and `ShouldContain`, `ShouldBeOneOf`, `ShouldBeUnique` and the other membership assertions. [`ShouldBeEquivalentTo` asks it too](#equality-rules-in-shouldbeequivalentto). A value the rule covers is never walked as a collection (unless you pass `ignoreOrder: true`, which matches its elements in any order, each by the rule), so `bag.ShouldBe(other)` asks the rule even though it binds to the enumerable overload:
 
 <!-- snippet: ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.EnumerableTypeWithEqualsOverride.codeSample.approved.cs'></a>
@@ -354,6 +354,32 @@ The message lists the values' items, which can read the same on both sides, so i
 
 When several rules apply, the one for the most specific type wins. The rule is called with the expected value first, and never with `null`. You can also register an `IEqualityComparer<T>`: `ShouldlyConfiguration.UseEquality(myComparer)`. For a one-off comparison without a global rule, pass a comparer instead: `bag.ShouldBe(other, EqualityComparer<IdBag>.Default)`.
 
+#### Equality rules in `ShouldBeEquivalentTo`
+
+`ShouldBeEquivalentTo` compares member by member, and ignores a type's own `Equals`. An equality rule is the exception: two values that a rule covers are compared by the rule, as one value, wherever they sit in the graph. That is how to compare a type that has no public members to walk, or that isn't what its members say it is:
+
+```csharp
+ShouldlyConfiguration.UseEquality<Money>((expected, actual) => expected.Equals(actual));
+
+order.ShouldBeEquivalentTo(expectedOrder);   // order.Total, a Money, is compared by the rule
+```
+
+A failure names the rule:
+
+```
+Comparing object equivalence, at path:
+order [Order]
+    Total [Money]
+
+    Expected value to be
+6 GBP
+    but was
+5 GBP
+    and the equality rule for Money says they are not equal
+```
+
+A rule replaces the member-by-member comparison of its type, everywhere, so it decides how much of a value is compared. A rule that calls two customers equal when their IDs match leaves their names and addresses uncompared in every graph that holds a customer. `IgnoreOrder` and `MembersToIgnore` don't apply inside a value a rule decides. When a rule covers only one of the two values, such as an entity compared with an anonymous type, they are compared member by member as usual.
+
 #### Newtonsoft.Json
 
 `JToken` (and so `JObject`, `JArray` and `JValue`) is enumerable, and only `JValue` overrides `Equals`. Compared element by element, two tokens are equal whenever they have the same shape, so `{"a":1}` equals `{"b":2}`. Register `JToken.DeepEquals` to compare them as JSON:
@@ -363,6 +389,34 @@ When several rules apply, the one for the most specific type wins. The rule is c
 internal static void Initialize() =>
     ShouldlyConfiguration.UseEquality<JToken>(JToken.DeepEquals);
 ```
+
+[`ShouldBeEquivalentTo` uses the rule too](#equality-rules-in-shouldbeequivalentto), so a token is compared as JSON wherever it sits in an object graph. Without the rule it can't compare a `JToken`.
+
+#### System.Text.Json
+
+`JsonNode` (and so `JsonObject`, `JsonArray` and `JsonValue`) and `JsonElement` need no rule. On .NET 8 and later, `ShouldBe`, `ShouldBeEquivalentTo` and the other assertions compare two of them as JSON, wherever they sit: on their own, as a member, in a collection. Property order and whitespace don't count, and a failure message shows the JSON:
+
+```csharp
+JsonNode.Parse("""{"name":"Alice","roles":["admin"]}""")
+    .ShouldBe(JsonNode.Parse("""{ "roles": ["admin"], "name": "Alice" }"""));  // passes
+```
+
+```
+actual
+    should be
+{"name":"Bob","roles":["guest"]}
+    but was
+{"name":"Alice","roles":["admin"]}
+    difference
+["name"] should be "Bob" but was "Alice"
+["roles"] should be ["guest"] but was ["admin"]
+```
+
+Strings and numbers are compared as the runtime compares them: .NET 9 and later take `1.0` and `1` for the same number, and .NET 8 doesn't.
+
+Only two JSON values are compared this way. Against a collection that isn't JSON, a `JsonArray` or a `JsonObject` is the list or dictionary of nodes it also is: `ShouldBe` compares a `JsonArray` with a `List<JsonNode>` item by item, each pair of nodes as JSON, and `ShouldBeEquivalentTo`, which takes a JSON value for a single value, says they differ.
+
+A rule registered for `JsonNode` or `JsonElement` still decides instead. On .NET Framework, where `System.Text.Json` is a package Shouldly doesn't reference, register `JsonNode.DeepEquals` and `JsonElement.DeepEquals` as above for `ShouldBe`, and compare JSON values with `ShouldBe` rather than `ShouldBeEquivalentTo`.
 
 ## Enumerables of Numerics
 

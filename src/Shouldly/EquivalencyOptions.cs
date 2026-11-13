@@ -7,8 +7,9 @@ public class EquivalencyOptions
 {
     /// <summary>
     /// When true, collections are compared order-insensitively: every expected element must have
-    /// an equivalent element in the actual collection, regardless of position. Sets are always
-    /// compared order-insensitively.
+    /// an equivalent element in the actual collection, regardless of position. Dictionaries and sets
+    /// are compared order-insensitively without it, against each other and against other collections,
+    /// except that a sorted or ordered one is compared in order against a list or an array.
     /// </summary>
     public bool IgnoreOrder { get; set; }
 

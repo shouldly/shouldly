@@ -3,9 +3,9 @@ using Xunit;
 namespace EquivalencyComparisonTests;
 
 /// <summary>
-/// Declared-type vs runtime-type semantics, mirroring FluentAssertions.Equivalency.Specs and
-/// the subject of shouldly#1094: both libraries select members from the declared
-/// (compile-time) type of a member by default.
+/// Declared-type vs runtime-type semantics, mirroring FluentAssertions.Equivalency.Specs:
+/// FluentAssertions selects members from the declared (compile-time) type by default, and
+/// Shouldly from the type of the expected value itself.
 /// </summary>
 public class InheritanceSpecs
 {
@@ -15,9 +15,10 @@ public class InheritanceSpecs
         var actual = new PetOwner { Pet = new Dog { Name = "Rex", Breed = "Lab" } };
         var expected = new PetOwner { Pet = new Dog { Name = "Rex", Breed = "Poodle" } };
 
-        // Since shouldly#1094, Shouldly selects members from the declared type Animal like
-        // FluentAssertions, so the derived-only Breed member is not compared.
-        Compare.Run(actual, expected).ShouldAgree(Outcome.Pass);
+        Compare.Run(actual, expected).ShouldDiverge(
+            shouldly: Outcome.Fail,
+            fluentAssertions: Outcome.Pass,
+            because: "FluentAssertions selects members from the declared type Animal, so the derived-only Breed is never compared; Shouldly compares the expected value by the members of its own type, Dog, so a difference in a member the declared type doesn't have can't pass unnoticed");
     }
 
     [Fact]
@@ -38,6 +39,6 @@ public class InheritanceSpecs
         Compare.Run(actual, expected).ShouldDiverge(
             shouldly: Outcome.Fail,
             fluentAssertions: Outcome.Pass,
-            because: "the static type Animal drives FluentAssertions' member selection at the root; Shouldly's object-typed API cannot see the static type, so the root falls back to the expectation's runtime type Dog");
+            because: "the static type Animal drives FluentAssertions' member selection at the root; Shouldly compares the expected value by the members of its own type, Dog, at the root as everywhere else");
     }
 }

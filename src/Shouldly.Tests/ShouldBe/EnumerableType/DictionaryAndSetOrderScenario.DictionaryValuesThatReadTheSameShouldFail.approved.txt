@@ -5,7 +5,7 @@ new Dictionary<string, UncomparableClass> { ["a"] = new("x") }
 [["a" => x]]
     difference
 ["a"] should be x but was x
-    but at ["a"], they are different instances, and UncomparableClass compares by reference; use ShouldBeEquivalentTo to compare members
+    but at ["a"], they are different instances, and UncomparableClass compares by reference
 
 Additional Info:
     Some additional context

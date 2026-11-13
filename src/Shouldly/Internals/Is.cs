@@ -76,7 +76,7 @@ static class Is
 
     public static bool Equal(IEnumerable<decimal> actual, IEnumerable<decimal> expected, decimal tolerance)
     {
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
 
         using var expectedEnum = expected.GetEnumerator();
@@ -99,7 +99,7 @@ static class Is
 
     public static bool Equal(IEnumerable<float> actual, IEnumerable<float> expected, double tolerance)
     {
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
 
         using var expectedEnum = expected.GetEnumerator();
@@ -122,7 +122,7 @@ static class Is
 
     public static bool Equal(IEnumerable<double> actual, IEnumerable<double> expected, double tolerance)
     {
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return PairInOrderOfSize(actual, expected, (a, e) => Equal(a, e, tolerance));
 
         using var expectedEnum = expected.GetEnumerator();
@@ -151,10 +151,12 @@ static class Is
     /// </summary>
     private static bool PairInOrderOfSize<T>(IEnumerable<T> actual, IEnumerable<T> expected, Func<T, T, bool> withinTolerance)
     {
-        var actualInOrder = actual.OrderBy(number => number).ToList();
-        var expectedInOrder = expected.OrderBy(number => number).ToList();
-        if (actualInOrder.Count != expectedInOrder.Count)
+        // Read in step, so that a sequence that never ends is found to be longer than the set it is compared with.
+        if (!Internals.UnorderedCollection.TryReadBoth(actual, expected, out var actualInOrder, out var expectedInOrder))
             return false;
+
+        actualInOrder.Sort();
+        expectedInOrder.Sort();
 
         for (var index = 0; index < actualInOrder.Count; index++)
         {
@@ -236,8 +238,8 @@ static class Is
 
     public static bool EnumerableStringEqualWithCaseSensitivity(IEnumerable<string> actual, IEnumerable<string> expected, Case caseSensitivity)
     {
-        // The order two sets enumerate in isn't part of their value (#1430).
-        if (Internals.UnorderedCollection.BothAre(actual, expected) != Internals.UnorderedCollection.Kind.None)
+        // The order a set enumerates in isn't part of its value (#1430).
+        if (Internals.UnorderedCollection.IgnoresOrder(actual, expected))
             return Internals.UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => StringEqualWithCaseSensitivity(a, e, caseSensitivity));
 
         using var expectedEnum = expected.GetEnumerator();

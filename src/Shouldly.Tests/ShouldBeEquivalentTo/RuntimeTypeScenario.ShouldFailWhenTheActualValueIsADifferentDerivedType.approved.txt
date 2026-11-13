@@ -1,0 +1,12 @@
+Comparing object equivalence, at path:
+subject [Shouldly.Tests.ShouldBeEquivalentTo.RuntimeTypeScenario+Drawing]
+    Main [Shouldly.Tests.ShouldBeEquivalentTo.RuntimeTypeScenario+Circle]
+        Radius
+
+    Expected a public member named
+"Radius"
+    but was not found on
+Shouldly.Tests.ShouldBeEquivalentTo.RuntimeTypeScenario+Square
+
+Additional Info:
+    Some additional context

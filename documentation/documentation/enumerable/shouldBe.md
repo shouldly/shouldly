@@ -29,7 +29,25 @@ theBeSharps
 
 ## Dictionaries and sets
 
-The order a dictionary or a set enumerates in isn't part of its value, so when both sides are dictionaries (`IDictionary<TKey, TValue>`, `IReadOnlyDictionary<TKey, TValue>` or `IDictionary`), or both are sets (`ISet<T>` or `IReadOnlySet<T>`), `ShouldBe` and `ShouldNotBe` compare them in any order. A `Dictionary` equals a `SortedDictionary` with the same entries, and a `HashSet` equals a `SortedSet` with the same elements. This applies at any depth, so a dictionary inside a list, or a set inside a dictionary, is compared the same way.
+The order a dictionary or a set enumerates in isn't part of its value, so when both sides are dictionaries (`IDictionary<TKey, TValue>`, `IReadOnlyDictionary<TKey, TValue>` or `IDictionary`) or sets (`ISet<T>` or `IReadOnlySet<T>`), `ShouldBe` and `ShouldNotBe` compare them in any order. A `Dictionary` equals a `SortedDictionary` with the same entries, and a `HashSet` equals a `SortedSet` with the same elements. This applies at any depth, so a dictionary inside a list, or a set inside a dictionary, is compared the same way.
+
+The same goes when only one side is a dictionary or a set, and the other a list, an array or a LINQ query. A `HashSet` has no order for the list's to be compared with:
+
+```cs
+new HashSet<int> { 3, 2, 1 }.ShouldBe([1, 2, 3]);                           // passes
+set.Where(x => x > 0).ShouldBe(set);                                        // passes
+new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+    .ShouldBe([new("b", 2), new("a", 1)]);                                  // passes
+```
+
+A sorted or ordered collection is the exception. A `SortedSet`, `SortedDictionary`, `SortedList`, `ImmutableSortedSet`, `ImmutableSortedDictionary` or `OrderedDictionary`, or any dictionary or set that can be indexed by position, keeps an order that a test may be about, so against a list or an array it is compared in order:
+
+```cs
+var newestFirst = new SortedSet<int>(Comparer<int>.Create((x, y) => y.CompareTo(x))) { 1, 2, 3 };
+
+newestFirst.ShouldBe([3, 2, 1]);                                            // passes
+newestFirst.ShouldBe([1, 2, 3]);                                            // fails: compared in order
+```
 
 A dictionary's entries are matched by key, and their values compared, each the way `ShouldBe` compares a single value, as `ShouldBeEquivalentTo` matches them. Neither dictionary's own key comparer takes part, so a dictionary created with `StringComparer.OrdinalIgnoreCase` holding `"A"` doesn't equal one holding `"a"`. The failure message lists each key that is missing, isn't expected, or has a different value:
 
@@ -84,4 +102,4 @@ bowlingTeam
 ```
 <!-- endInclude -->
 
-When only one side is a dictionary or a set, such as a dictionary compared with a `List<KeyValuePair<TKey, TValue>>`, the two are compared in order, like any other sequences. Pass `ignoreOrder: true` to compare them in any order.
+The views a dictionary gives of its keys and values (`dictionary.Keys`, `dictionary.Values`) are neither dictionaries nor sets, so against a list they are compared in order. Pass `ignoreOrder: true` to compare them in any order.

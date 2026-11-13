@@ -32,6 +32,12 @@ static class StringHelpers
 
         var objectType = value.GetType();
 
+#if NET8_0_OR_GREATER
+        // A JsonObject would otherwise read as a dictionary and a JsonArray as a list, and lose their JSON.
+        if (JsonValues.TextOf(CapturedSequence.Original(value)) is { } json)
+            return json;
+#endif
+
         if (value.TryGetEnumerable(out var enumerable))
         {
             var inspect = "[" + string.Join(", ", FormatItemsCapped(enumerable)) + "]";

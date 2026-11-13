@@ -24,7 +24,7 @@ static class Equality
 
     /// <summary>
     /// Whether <paramref name="actual"/> and <paramref name="expected"/> hold equal elements: in the same order, or,
-    /// with <paramref name="ignoreOrder"/>, or when both are dictionaries or both are sets (see
+    /// with <paramref name="ignoreOrder"/>, or when they are dictionaries or sets whose order isn't compared (see
     /// <see cref="UnorderedCollection"/>), matched one for one in any order. A default <c>ImmutableArray&lt;T&gt;</c>
     /// counts as null, and null equals only null. Elements are compared by <paramref name="comparer"/> when given.
     /// Without one, an equality rule that applies to both sequences as whole values decides instead, so a type such as
@@ -50,8 +50,8 @@ static class Equality
         comparer ??= ComparerFor<T>();
         var elementComparer = comparer;
 
-        // The order two dictionaries or two sets enumerate in isn't part of their value (#1430).
-        return ignoreOrder || UnorderedCollection.BothAre(actual, expected) != UnorderedCollection.Kind.None
+        // The order a dictionary or a set enumerates in isn't part of its value (#1430).
+        return ignoreOrder || UnorderedCollection.IgnoresOrder(actual, expected)
             ? UnorderedCollection.MatchOneForOne(actual, expected, (a, e) => Equal(a, e, elementComparer))
             : MatchInOrder(actual, expected, comparer);
     }

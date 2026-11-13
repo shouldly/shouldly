@@ -1,0 +1,11 @@
+new HashSet<double> { 1.01, 1.03, 5 }
+    should be
+[1.02d, 1d, 6d]
+    but was
+[1.01d, 1.03d, 5d]
+    difference
+6d is missing
+5d is not expected
+
+Additional Info:
+    Some additional context

@@ -53,14 +53,14 @@ sealed class ShouldBeFailure(bool negated = false, [CallerMemberName] string nam
     /// The sequence it should have matched in any order, and how the assertion compared their elements.
     /// </summary>
     /// <remarks>
-    /// Two dictionaries or two sets are never compared in order, so they are told apart as <c>ShouldBe</c> without
+    /// Dictionaries and sets are never compared in order, so they are told apart as <c>ShouldBe</c> without
     /// <c>ignoreOrder</c> tells them apart: a dictionary by key.
     /// </remarks>
     public FailureMessage IgnoringOrder(object? expected, ComparisonRecord? comparison, Case? caseSensitivity = null) =>
         new(this, sentence =>
             !IsWalkable(sentence.Actual) || !IsWalkable(expected)
                 ? Word(sentence, expected, comparison)
-                : UnorderedCollection.BothAre(sentence.Actual, expected) == UnorderedCollection.Kind.None
+                : !UnorderedCollection.IgnoresOrder(sentence.Actual, expected)
                     ? IgnoringOrderWording.Word(sentence, expected, comparison, caseSensitivity)
                     : WordEquality(sentence, expected, comparison, caseSensitivity));
 

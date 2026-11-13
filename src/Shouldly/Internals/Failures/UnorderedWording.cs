@@ -1,16 +1,16 @@
 namespace Shouldly.Internals.Failures;
 
 /// <summary>
-/// How two dictionaries, or two sets, that should have been equal are told apart in a failure message: by what one
-/// has that the other doesn't, since the order they enumerate in isn't compared (see
-/// <see cref="UnorderedCollection"/>). A dictionary's entries are told apart by key.
+/// How two collections compared without regard to order (see <see cref="UnorderedCollection"/>) that should have
+/// been equal are told apart in a failure message: by what one has that the other doesn't. A dictionary's entries
+/// are told apart by key.
 /// </summary>
 static class UnorderedWording
 {
     /// <summary>
     /// The <c>difference</c> section of the message, or null when <paramref name="actual"/> and
-    /// <paramref name="expected"/> aren't both dictionaries or both sets, or nothing tells them apart as the
-    /// assertion compared them.
+    /// <paramref name="expected"/> are compared in order, or nothing tells them apart as the assertion compared
+    /// them.
     /// </summary>
     public static string? Difference(object? actual, object? expected, ComparisonRecord? record)
     {

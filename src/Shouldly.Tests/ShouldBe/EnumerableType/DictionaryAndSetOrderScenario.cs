@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 namespace Shouldly.Tests.ShouldBe.EnumerableType;
 
 /// <summary>
-/// When both sides are dictionaries, or both are sets, <c>ShouldBe</c> compares them without regard to the order they
-/// enumerate in, which is an implementation detail of the collection. A dictionary's entries are matched by key and
-/// their values compared, as <c>ShouldBeEquivalentTo</c> does. See issue #1430.
+/// <c>ShouldBe</c> compares dictionaries and sets without regard to the order they enumerate in, which is an
+/// implementation detail of the collection: when both sides are dictionaries or sets, and when one is and keeps no
+/// order of its own to compare with a list's. A dictionary's entries are matched by key and their values compared,
+/// as <c>ShouldBeEquivalentTo</c> does. See issue #1430.
 /// </summary>
 public class DictionaryAndSetOrderScenario
 {
@@ -105,24 +106,193 @@ public class DictionaryAndSetOrderScenario
         new HashSet<int> { 2, 1 }.ShouldNotBe(new HashSet<int> { 1 });
     }
 
+    // A HashSet has no order of its own for a list's to be compared with, whichever side it is on.
     [Fact]
-    public void OnlyOneSideBeingADictionaryKeepsTheOrder() =>
-        // Issue #882: a sequence of pairs still compares with a dictionary, in order.
-        new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) }
-            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 });
+    public void ASetHasNoOrderToCompareWithAList()
+    {
+        new HashSet<int> { 3, 2, 1 }.ShouldBe([1, 2, 3]);
+        new HashSet<int> { 3, 2, 1 }.ShouldBe(new[] { 1, 2, 3 });
+        new List<int> { 2, 1 }.ShouldBe(new HashSet<int> { 1, 2 });
+        new HashSet<int> { 3, 2, 1 }.Where(_ => true).ShouldBe(new HashSet<int> { 1, 2, 3 });
+
+        new HashSet<int> { 1, 2 }.ShouldNotBe<IEnumerable<int>>(new[] { 1, 2, 3 });
+        new HashSet<int> { 1, 2 }.ShouldNotBe<IEnumerable<int>>(new[] { 1, 1, 2 });
+        new HashSet<int> { 1, 2 }.ShouldNotBe<IEnumerable<int>>(new[] { 1, 3 });
+    }
 
     [Fact]
-    public void OnlyOneSideBeingASetKeepsTheOrder() =>
-        new List<int> { 2, 1 }.ShouldNotBe<IEnumerable<int>>(new HashSet<int> { 1, 2 });
-
-    [Fact]
-    public void ADictionaryIsNotEqualToASetOfItsEntries() =>
+    public void ADictionaryHasNoOrderToCompareWithAListOfItsEntries()
+    {
+        // Issue #882
         new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
-            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new HashSet<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+            .ShouldBe([new("b", 2), new("a", 1)]);
+        new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) }
+            .ShouldBe(new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 });
+
+        new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 9) });
+    }
+
+    [Fact]
+    public void ADictionaryEqualsASetOfItsEntries() =>
+        new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+            .ShouldBe(new HashSet<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+
+    [Fact]
+    public void ASetInsideAListHasNoOrderToCompareWithAList() =>
+        new List<IEnumerable<int>> { new HashSet<int> { 2, 1 } }
+            .ShouldBe(new List<IEnumerable<int>> { new[] { 1, 2 } });
+
+    // A sorted or ordered collection does have an order of its own, which a test may be about, so against a list it
+    // is compared in order. Against another dictionary or set, it isn't.
+    [Fact]
+    public void ASortedSetIsComparedInOrderWithAList()
+    {
+        var descending = new SortedSet<int>(Comparer<int>.Create((x, y) => y.CompareTo(x))) { 1, 2, 3 };
+
+        descending.ShouldBe([3, 2, 1]);
+        descending.ShouldNotBe<IEnumerable<int>>(new[] { 1, 2, 3 });
+        new[] { 1, 2, 3 }.ShouldNotBe<IEnumerable<int>>(descending);
+        ImmutableSortedSet.Create(1, 2, 3).ShouldNotBe<IEnumerable<int>>(new[] { 3, 2, 1 });
+
+        descending.ShouldBe(new HashSet<int> { 1, 2, 3 });
+        descending.ShouldBe(new SortedSet<int> { 1, 2, 3 });
+    }
+
+    [Fact]
+    public void ASortedOrOrderedDictionaryIsComparedInOrderWithAList()
+    {
+        new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldBe([new("a", 1), new("b", 2)]);
+        new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+        new SortedList<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("b", 2), new("a", 1) });
+#if NET9_0_OR_GREATER
+        new OrderedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldNotBe<IEnumerable<KeyValuePair<string, int>>>(new List<KeyValuePair<string, int>> { new("a", 1), new("b", 2) });
+#endif
+
+        new SortedDictionary<string, int> { ["b"] = 2, ["a"] = 1 }
+            .ShouldBe(new Dictionary<string, int> { ["b"] = 2, ["a"] = 1 });
+    }
+
+    [Fact]
+    public void SetAndListShouldFail() =>
+        Verify.ShouldFail(() =>
+            new HashSet<int> { 1, 2, 3 }.ShouldBe([1, 2, 4], "Some additional context"));
+
+    [Fact]
+    public void DictionaryAndListOfEntriesShouldFail() =>
+        Verify.ShouldFail(() =>
+            new Dictionary<string, int> { ["a"] = 1, ["b"] = 2 }
+                .ShouldBe([new("a", 1), new("b", 20), new("c", 3)], "Some additional context"));
 
     [Fact]
     public void ACustomComparerComparesTheElementsOfSetsInAnyOrder() =>
         new HashSet<string> { "b", "a" }.ShouldBe(new HashSet<string> { "A", "B" }, StringComparer.OrdinalIgnoreCase);
+
+    // Under this comparer 1.01 equals both 1.0 and 1.02, which don't equal each other. Whichever comes first, it
+    // must be left for 1.03 to be paired with 1.02.
+    [Fact]
+    public void ItemsThatEqualMoreThanOneOtherArePairedSoThatEveryOneMatches()
+    {
+        var within = new Within(0.015);
+
+        new HashSet<double> { 1.01, 1.03 }.ShouldBe(new[] { 1.02, 1.0 }, within);
+        new HashSet<double> { 1.01, 1.03 }.ShouldBe(new[] { 1.0, 1.02 }, within);
+        new[] { 1.02, 1.0 }.ShouldBe(new HashSet<double> { 1.01, 1.03 }, within);
+        new HashSet<double> { 1.01, 1.03 }.ShouldBe(new HashSet<double> { 1.02, 1.0 }, within);
+        new[] { 1.01, 1.03 }.ShouldBe(new[] { 1.02, 1.0 }, within, ignoreOrder: true);
+
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<double> { 1.0, 1.01, 1.02 }.ShouldBe(new[] { 1.01, 1.02, 1.5 }, within));
+    }
+
+    // The message is written from what the assertion read, not by reading the sequence again.
+    // The message pairs the items as the check did: 1.01 and 1.03 each have a partner, so neither is reported.
+    [Fact]
+    public void ItemsThatEqualMoreThanOneOtherShouldFail() =>
+        Verify.ShouldFail(() =>
+            new HashSet<double> { 1.01, 1.03, 5 }.ShouldBe([1.02, 1.0, 6], new Within(0.015), customMessage: "Some additional context"));
+
+    [Fact]
+    public void ItemsThatEqualMoreThanOneOtherIgnoringOrderShouldFail() =>
+        Verify.ShouldFail(() =>
+            new[] { 1.01, 1.03, 5 }.ShouldBe([1.02, 1.0, 6], new Within(0.015), ignoreOrder: true, "Some additional context"));
+
+    [Fact]
+    public void ASequenceThatCanOnlyBeReadOnceIsReadOnceAgainstASet()
+    {
+        new SinglePass<int>(3, 2, 1).ShouldBe(new HashSet<int> { 1, 2, 3 });
+        new HashSet<int> { 1, 2, 3 }.ShouldBe(new SinglePass<int>(3, 2, 1));
+
+        Should.Throw<ShouldAssertException>(() => new SinglePass<int>(1, 2, 3).ShouldBe(new HashSet<int> { 1, 2, 4 }))
+            .Message.ShouldBe(Should.Throw<ShouldAssertException>(() => new[] { 1, 2, 3 }.ShouldBe(new HashSet<int> { 1, 2, 4 })).Message
+                .Replace("new[] { 1, 2, 3 }", "new SinglePass<int>(1, 2, 3)"));
+        Should.Throw<ShouldAssertException>(() => new HashSet<int> { 1, 2, 4 }.ShouldBe(new SinglePass<int>(1, 2, 3)))
+            .Message.ShouldContain("3 is missing");
+        Should.Throw<ShouldAssertException>(() =>
+                new SinglePass<KeyValuePair<string, int>>(new KeyValuePair<string, int>("a", 1))
+                    .ShouldBe(new Dictionary<string, int> { ["a"] = 2 }))
+            .Message.ShouldContain("""["a"] should be 2 but was 1""");
+    }
+
+    [Fact]
+    public void SinglePassSequenceAndSetShouldFail() =>
+        Verify.ShouldFail(() =>
+            new SinglePass<int>(1, 2, 3).ShouldBe(new HashSet<int> { 1, 2, 4 }, "Some additional context"));
+
+    // The check reads the sequence one item past the end of the set, and the message no further than it shows.
+    [Fact]
+    public void ASequenceThatNeverEndsIsNotASet()
+    {
+        var message = Should.Throw<ShouldAssertException>(() => new GuardedSequence().ShouldBe(new HashSet<int> { 1, 2, 3 })).Message;
+
+        message.ShouldNotContain("is missing");
+    }
+
+    [Fact]
+    public void ASetIsNotASequenceThatNeverEnds()
+    {
+        var naturals = new GuardedSequence();
+
+        Should.Throw<ShouldAssertException>(() => new HashSet<int> { 1, 2, 3 }.ShouldBe(naturals));
+
+        // The check read one item past the end of the set. The message reads on as far as it shows.
+        naturals.ElementsRead.ShouldBe(ShouldlyConfiguration.MaxEnumerableItemsInMessages + 1);
+
+        Should.Throw<ShouldAssertException>(() => ((object)new HashSet<int> { 1, 2, 3 }).ShouldBe(new GuardedSequence()));
+        Should.Throw<ShouldAssertException>(() => new[] { 1, 2, 3 }.ShouldBe(new GuardedSequence(), ignoreOrder: true));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<string> { "1", "2" }.ShouldBe(new GuardedSequence().Select(number => number.ToString()), Case.Insensitive));
+    }
+
+    [Fact]
+    public void ASetIsNotASequenceThatNeverEndsWithinATolerance()
+    {
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<double> { 1, 2, 3 }.ShouldBe(new GuardedSequence().Select(number => (double)number), 0.1));
+        Should.Throw<ShouldAssertException>(() =>
+            new GuardedSequence().Select(number => (double)number).ShouldBe(new HashSet<double> { 1, 2, 3 }, 0.1));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<float> { 1, 2, 3 }.ShouldBe(new GuardedSequence().Select(number => (float)number), 0.1));
+        Should.Throw<ShouldAssertException>(() =>
+            new HashSet<decimal> { 1, 2, 3 }.ShouldBe(new GuardedSequence().Select(number => (decimal)number), 0.1m));
+    }
+
+    // A sequence is kept for the message only as far as the message shows it. What a longer one lacks can't be
+    // told from that, so the message doesn't say.
+    [Fact]
+    public void ASequenceLongerThanAMessageShowsHasNoDifferenceSection()
+    {
+        using var scope = MaxEnumerableItemsScope.Of(3);
+
+        var message = Should.Throw<ShouldAssertException>(() =>
+            Enumerable.Range(0, 5).Where(_ => true).ShouldBe(new HashSet<int> { 1, 2, 3, 4, 5 })).Message;
+
+        message.ShouldNotContain("difference");
+    }
 
     [Fact]
     public void ACaseOptionComparesTheStringsOfSetsInAnyOrder()
@@ -205,6 +375,13 @@ public class DictionaryAndSetOrderScenario
     /// A dictionary that is only an <see cref="IReadOnlyDictionary{TKey, TValue}"/>: neither
     /// <see cref="IDictionary{TKey, TValue}"/> nor <see cref="System.Collections.IDictionary"/>.
     /// </summary>
+    private sealed class Within(double tolerance) : IEqualityComparer<double>
+    {
+        public bool Equals(double x, double y) => Math.Abs(x - y) <= tolerance;
+
+        public int GetHashCode(double obj) => 0;
+    }
+
     private sealed class OnlyReadOnlyDictionary(params (string Key, int Value)[] entries) : IReadOnlyDictionary<string, int>
     {
         private readonly Dictionary<string, int> _entries = entries.ToDictionary(entry => entry.Key, entry => entry.Value);

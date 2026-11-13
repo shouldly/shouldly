@@ -3,7 +3,7 @@ subject [System.Object]
 
     Found no public members to compare on
 System.Object
-    which would make the assertion vacuously pass; cast the expectation to a concrete type or assert on specific members instead
+    which would make the assertion vacuously pass; assert on specific members instead
 
 Additional Info:
     Some additional context
