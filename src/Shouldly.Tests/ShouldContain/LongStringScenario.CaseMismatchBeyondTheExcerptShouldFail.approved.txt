@@ -1,0 +1,7 @@
+log
+    should contain
+"warning:"
+    but was actually
+"...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaWarning: xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb..."
+    found differing only in case at index 300
+"Warning:"

@@ -18,10 +18,10 @@ sealed class ContainFailure(bool negated = false, [CallerMemberName] string name
     };
 
     /// <summary>
-    /// A value that should, or should not, have been contained.
+    /// A value that should, or should not, have been contained, and where it was found differing only in case.
     /// </summary>
-    public FailureMessage With(object? expected, Case? caseSensitivity = null) =>
-        new(this, sentence => Word(sentence, expected, caseSensitivity));
+    public FailureMessage With(object? expected, Case? caseSensitivity = null, CaseNearMiss? nearMiss = null) =>
+        new(this, sentence => Word(sentence, expected, caseSensitivity) + nearMiss?.Word());
 
     /// <summary>
     /// A value that should have been contained to within a tolerance.

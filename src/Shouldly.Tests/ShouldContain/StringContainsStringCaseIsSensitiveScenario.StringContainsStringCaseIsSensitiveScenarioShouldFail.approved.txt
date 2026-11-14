@@ -3,3 +3,5 @@ target
 "legendary"
     but was actually
 "Shouldly is LEGENDARY"
+    found differing only in case at index 12
+"LEGENDARY"

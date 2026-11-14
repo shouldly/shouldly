@@ -8,8 +8,11 @@ sealed class StringStartOrEndFailure(bool negated = false, [CallerMemberName] st
     protected override SlotReading? FromSlots(Slots s) =>
         new(With(s.Expected), s.Actual);
 
-    public FailureMessage With(object? expected) =>
-        new(this, sentence => Word(sentence, expected));
+    /// <summary>
+    /// The string it should, or should not, have started or ended with, and where it did differing only in case.
+    /// </summary>
+    public FailureMessage With(object? expected, CaseNearMiss? nearMiss = null) =>
+        new(this, sentence => Word(sentence, expected) + nearMiss?.Word());
 
     internal static string Word(Sentence sentence, object? expected)
     {

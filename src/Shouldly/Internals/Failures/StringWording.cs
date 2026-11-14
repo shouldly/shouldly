@@ -35,6 +35,15 @@ static class StringWording
                  but was{actual}
              """;
 
+        if (strings.DifferOnlyInCase)
+        {
+            message +=
+                """
+
+                    which differs only in case
+                """;
+        }
+
         if (differences != null)
         {
             message +=
