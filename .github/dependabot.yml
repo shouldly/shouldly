@@ -24,3 +24,8 @@ updates:
     versions:
     - 16.9.1
   - dependency-name: FluentAssertions
+  # Shouldly needs nothing newer than 4.5.x, and consumers that pin System.Memory 4.5.5 (e.g. dotnet/msbuild) hit
+  # CS1705 against a higher version (#1459).
+  - dependency-name: System.Memory
+    versions:
+    - ">= 4.6.0"
