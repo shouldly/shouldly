@@ -177,11 +177,19 @@ namespace Shouldly
     [Shouldly.ShouldlyMethods]
     public static class ShouldBeDictionaryTestExtensions
     {
+        public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
+            where TKey :  notnull { }
         public static void ShouldContainKey<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
+            where TKey :  notnull { }
+        public static void ShouldContainKeyAndValue<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
             where TKey :  notnull { }
         public static void ShouldContainKeyAndValue<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, TValue val, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
             where TKey :  notnull { }
+        public static void ShouldNotContainKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
+            where TKey :  notnull { }
         public static void ShouldNotContainKey<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
+            where TKey :  notnull { }
+        public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
             where TKey :  notnull { }
         public static void ShouldNotContainValueForKey<TKey, TValue>(this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> dictionary, TKey key, TValue val, string? customMessage = null, [System.Runtime.CompilerServices.CallerArgumentExpression("dictionary")] string? actualExpression = null)
             where TKey :  notnull { }

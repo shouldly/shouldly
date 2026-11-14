@@ -20,6 +20,13 @@ public static partial class ShouldBeDictionaryTestExtensions
     // in #1278). Collapsing to the shared base type keeps a single unambiguous overload at every
     // LangVersion and TFM, while still covering IDictionary-only and IReadOnlyDictionary-only types.
     // See issue #1284.
+    //
+    // Each assertion also has an IDictionary<TKey, TValue> overload, so TKey and TValue can be inferred
+    // for a dictionary that implements another IEnumerable<T> too, such as one that also enumerates its
+    // values (MSBuild's PropertyDictionary<T>): inference through IEnumerable<KeyValuePair<,>> needs the
+    // receiver to implement exactly one IEnumerable<>. IDictionary<,> derives from
+    // IEnumerable<KeyValuePair<,>>, so where both overloads apply the IDictionary<,> one is the better
+    // conversion, and there is no ambiguity at any LangVersion. See issue #1459.
 
     /// <summary>
     /// Asserts that the dictionary contains the specified key.
@@ -35,6 +42,14 @@ public static partial class ShouldBeDictionaryTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the dictionary contains the specified key.
+    /// </summary>
+    public static void ShouldContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null,
+        [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
+        where TKey : notnull =>
+        ShouldContainKey((IEnumerable<KeyValuePair<TKey, TValue>>)dictionary, key, customMessage, actualExpression);
+
+    /// <summary>
     /// Asserts that the dictionary does not contain the specified key.
     /// </summary>
     public static void ShouldNotContainKey<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key, string? customMessage = null,
@@ -46,6 +61,14 @@ public static partial class ShouldBeDictionaryTestExtensions
         if (ContainsKey(dictionary, key))
             throw Fail.ShouldNotContainKey.With(key).For(dictionary, customMessage, actualExpression);
     }
+
+    /// <summary>
+    /// Asserts that the dictionary does not contain the specified key.
+    /// </summary>
+    public static void ShouldNotContainKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, string? customMessage = null,
+        [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
+        where TKey : notnull =>
+        ShouldNotContainKey((IEnumerable<KeyValuePair<TKey, TValue>>)dictionary, key, customMessage, actualExpression);
 
     /// <summary>
     /// Asserts that the dictionary contains the specified key with the specified value.
@@ -64,6 +87,16 @@ public static partial class ShouldBeDictionaryTestExtensions
     }
 
     /// <summary>
+    /// Asserts that the dictionary contains the specified key with the specified value.
+    /// The value is compared the same way <c>ShouldBe</c> compares it, so collection values are
+    /// compared element-wise rather than by reference.
+    /// </summary>
+    public static void ShouldContainKeyAndValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null,
+        [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
+        where TKey : notnull =>
+        ShouldContainKeyAndValue((IEnumerable<KeyValuePair<TKey, TValue>>)dictionary, key, val, customMessage, actualExpression);
+
+    /// <summary>
     /// Asserts that the dictionary does not contain the specified value for the specified key.
     /// The value is compared the same way <c>ShouldBe</c> compares it, so collection values are
     /// compared element-wise rather than by reference.
@@ -78,6 +111,16 @@ public static partial class ShouldBeDictionaryTestExtensions
         if (!keyExists || Internals.Equality<TValue>.Default.Equal(actual, val))
             throw Fail.ShouldNotContainValueForKey.With(key, val, keyExists).For(dictionary, customMessage, actualExpression);
     }
+
+    /// <summary>
+    /// Asserts that the dictionary does not contain the specified value for the specified key.
+    /// The value is compared the same way <c>ShouldBe</c> compares it, so collection values are
+    /// compared element-wise rather than by reference.
+    /// </summary>
+    public static void ShouldNotContainValueForKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue val, string? customMessage = null,
+        [CallerArgumentExpression(nameof(dictionary))] string? actualExpression = null)
+        where TKey : notnull =>
+        ShouldNotContainValueForKey((IEnumerable<KeyValuePair<TKey, TValue>>)dictionary, key, val, customMessage, actualExpression);
 
     private static bool ContainsKey<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, TKey key)
         where TKey : notnull =>
