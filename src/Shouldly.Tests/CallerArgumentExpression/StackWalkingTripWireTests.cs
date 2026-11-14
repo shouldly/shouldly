@@ -50,6 +50,18 @@ public class StackWalkingTripWireTests
     }
 
     [Fact]
+    public void Trip_wire_stays_silent_when_a_composed_assertion_does_not_forward_its_expression()
+    {
+        // The inner assertion captures the helper's parameter name, which is an expression, so there is nothing for
+        // the trip-wire to see. extending.md says so, and points at testing the message instead.
+        var orderLines = new List<int> { 1 };
+
+        var exception = Should.Throw<ShouldAssertException>(() => orderLines.ShouldBeEmptyWithoutForwarding());
+
+        exception.Message.ShouldStartWith("items");
+    }
+
+    [Fact]
     public void AllowStackWalking_nests_correctly()
     {
         using (ShouldlyConfiguration.AllowStackWalking())
@@ -68,4 +80,9 @@ public class StackWalkingTripWireTests
         Should.Throw<InvalidOperationException>(() =>
             new ExpectedActualShouldlyMessage(1, 2, null, "FakeAssertionMethod", actualExpression: null));
     }
+}
+
+file static class NonForwardingAssertions
+{
+    public static void ShouldBeEmptyWithoutForwarding<T>(this IEnumerable<T> items) => items.ShouldBeEmpty();
 }

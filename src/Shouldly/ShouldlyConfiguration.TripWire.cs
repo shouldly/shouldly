@@ -17,6 +17,11 @@ public static partial class ShouldlyConfiguration
     /// it in a module initializer of the test suite covering your custom assertion methods.
     /// Stack-walking that is deliberately suppressed (via <see cref="DisableSourceInErrors"/> or
     /// <see cref="AllowStackWalking"/>) does not trigger the trip-wire.
+    /// <para>
+    /// The trip-wire sees only a missing expression. A custom assertion that calls a built-in one
+    /// without forwarding its own captured expression still passes an expression, its parameter's
+    /// name, so the failure names that parameter and the trip-wire stays silent.
+    /// </para>
     /// </summary>
     public static IDisposable AssertCallerArgumentExpressionIsUsed()
     {

@@ -153,7 +153,7 @@ For new assertions prefer `ShouldAssertException.For`, which gives you control o
 
 ## Verifying your wiring with the trip-wire
 
-Forgetting the `[CallerArgumentExpression]` parameter — or forgetting to forward it — does not fail any test; it just silently degrades your failure messages. Shouldly ships the guard it uses on its own test suite: arm `ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed()` once for the test run, and any Shouldly message built without a captured expression throws `InvalidOperationException` instead of degrading:
+Forgetting the `[CallerArgumentExpression]` parameter, or forgetting to pass it on, does not fail any test; it just silently degrades your failure messages. Shouldly ships the guard it uses on its own test suite: arm `ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed()` once for the test run, and a failure built without an expression throws `InvalidOperationException` instead of degrading:
 
 ```csharp
 internal static class ModuleInitializer
@@ -161,6 +161,22 @@ internal static class ModuleInitializer
     [ModuleInitializer]
     internal static void Initialize() =>
         _ = ShouldlyConfiguration.AssertCallerArgumentExpressionIsUsed();
+}
+```
+
+The trip-wire catches a custom assertion that builds its failure with no expression: one without a `[CallerArgumentExpression]` parameter, or one that has the parameter but doesn't pass it to `ShouldAssertException.For` or the message class (passing it by position to a message class counts, see above). It checks when the failure is built, so it covers only the assertions your tests make fail.
+
+It can't catch a composed assertion that doesn't forward the expression. An inner call such as `actual.Lines.ShouldNotBeEmpty()` captures an expression of its own, `actual.Lines`, so it has one to show, and the message names your helper's parameter rather than the caller's code. Nor can it see a missing expression behind a subject built from it, such as `$"{actualExpression}.Lines"`, which is never null even when `actualExpression` is. To check a composed assertion, make it fail in a test and look at where the message starts:
+
+```csharp
+[Fact]
+public void ShouldBeValidOrder_names_the_callers_expression()
+{
+    var order = new Order { Lines = [] };
+
+    var exception = Should.Throw<ShouldAssertException>(() => order.ShouldBeValidOrder());
+
+    exception.Message.ShouldStartWith("order.Lines");
 }
 ```
 
