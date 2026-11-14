@@ -251,7 +251,7 @@ public static partial class Should
         actualExpression = actualExpression.NormalizeDelegateExpression();
         try
         {
-            RunAndWait(action, timeoutAfter, customMessage);
+            RunAndWait(action, timeoutAfter, customMessage, actualExpression);
         }
         catch (ShouldlyTimeoutException)
         {
@@ -300,7 +300,7 @@ public static partial class Should
             // Drop the sync context so continuations will not post to it, causing a deadlock
             using (Utils.WithSynchronizationContext(null))
             {
-                return CompleteIn(action, timeoutAfter, customMessage);
+                return CompleteIn(action, timeoutAfter, customMessage, actualExpression);
             }
         }
         catch (ShouldlyTimeoutException)
@@ -315,12 +315,12 @@ public static partial class Should
         }
     }
 
-    private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter, string? customMessage)
+    private static void RunAndWait(Func<Task> actual, TimeSpan timeoutAfter, string? customMessage, string? actualExpression)
     {
         // Drop the sync context so continuations will not post to it, causing a deadlock
         using (Utils.WithSynchronizationContext(null))
         {
-            CompleteIn(actual, timeoutAfter, customMessage);
+            CompleteIn(actual, timeoutAfter, customMessage, actualExpression);
         }
     }
 }
