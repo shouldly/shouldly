@@ -3,6 +3,8 @@ cheeseVar
 "Se"
     but was
 "Cheese"
+    found differing only in case at index 4
+"se"
 
 Additional Info:
     Some additional context

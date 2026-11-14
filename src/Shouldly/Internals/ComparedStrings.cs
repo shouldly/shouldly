@@ -32,6 +32,14 @@ readonly struct ComparedStrings
     /// <summary>Whether the two strings are equal under the options.</summary>
     public bool AreEqual() => _equal(Actual, Expected);
 
+    /// <summary>
+    /// Whether case counted and is all that tells the two strings apart, so ignoring it would have made them equal.
+    /// </summary>
+    public bool DifferOnlyInCase =>
+        Sensitivity == Case.Sensitive &&
+        !string.Equals(Actual, Expected, StringComparison.Ordinal) &&
+        string.Equals(Actual, Expected, StringComparison.OrdinalIgnoreCase);
+
     /// <param name="actual">The actual string.</param>
     /// <param name="expected">The expected string.</param>
     /// <param name="options">How to compare them.</param>

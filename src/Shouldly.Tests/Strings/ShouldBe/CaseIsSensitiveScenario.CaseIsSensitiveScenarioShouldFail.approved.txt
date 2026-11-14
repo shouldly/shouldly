@@ -3,6 +3,7 @@ str
 "sAMPLe"
     but was
 "SamplE"
+    which differs only in case
     difference
 Expected: "sAMPLe"
 Actual:   "SamplE"

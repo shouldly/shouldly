@@ -28,7 +28,11 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => caseSensitivity == Case.Sensitive ? Is.StringContainingUsingCaseSensitivity(v, expected) : Is.StringContainingIgnoreCase(v, expected)))
-            throw Fail.ShouldContain.With(expected, caseSensitivity).For(actual?.Clip(100, "..."), customMessage, actualExpression);
+        {
+            var nearMiss = CaseNearMiss.Within(actual, expected, caseSensitivity);
+            throw Fail.ShouldContain.With(expected, caseSensitivity, nearMiss)
+                .For(nearMiss?.Excerpt(actual!, 100) ?? actual?.Clip(100, "..."), customMessage, actualExpression);
+        }
     }
 
     /// <summary>

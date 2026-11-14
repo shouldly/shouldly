@@ -2,3 +2,5 @@
     should start with
 "ch"
     but did not
+    found differing only in case at index 0
+"Ch"

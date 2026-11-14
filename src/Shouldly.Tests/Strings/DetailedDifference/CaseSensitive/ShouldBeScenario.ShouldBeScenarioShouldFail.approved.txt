@@ -3,6 +3,7 @@ str
 "StringOne"
     but was
 "Stringone"
+    which differs only in case
     difference
                  ▼
 Expected: "StringOne"

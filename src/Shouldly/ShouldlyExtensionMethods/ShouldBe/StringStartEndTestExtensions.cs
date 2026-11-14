@@ -12,7 +12,7 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => Is.StringStartingWithUsingCaseSensitivity(v, expected, caseSensitivity)))
-            throw Fail.ShouldStartWith.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldStartWith.With(expected, CaseNearMiss.AtStart(actual, expected, caseSensitivity)).For(actual, customMessage, actualExpression);
         Debug.Assert(actual != null);
     }
 
@@ -23,7 +23,7 @@ public static partial class ShouldBeStringTestExtensions
         [CallerArgumentExpression(nameof(actual))] string? actualExpression = null)
     {
         if (!actual.Satisfies(v => Is.EndsWithUsingCaseSensitivity(v, expected, caseSensitivity)))
-            throw Fail.ShouldEndWith.With(expected).For(actual, customMessage, actualExpression);
+            throw Fail.ShouldEndWith.With(expected, CaseNearMiss.AtEnd(actual, expected, caseSensitivity)).For(actual, customMessage, actualExpression);
         Debug.Assert(actual != null);
     }
 
