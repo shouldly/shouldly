@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance;
 public class EnumerableOfDecimalScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void EnumerableOfDecimalScenarioShouldFail()
     {
         var firstSet = new[] { 1.23m, 2.34m, 3.45001m };

@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance;
 public class EnumerableOfFloatScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void EnumerableOfFloatScenarioShouldFail()
     {
         Verify.ShouldFail(() =>

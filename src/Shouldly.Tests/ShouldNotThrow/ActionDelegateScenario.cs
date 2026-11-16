@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldNotThrow;
 public class ActionDelegateScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void ActionDelegateScenarioShouldFail()
     {
         Verify.ShouldFail(() =>

@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldNotThrow;
 public class ExtractsCodeScenarios
 {
     [Fact]
-    [UseCulture("en-US")]
     public void ExtractsCodeCorrectly1()
     {
         TestHelpers.Should.Error(() =>
@@ -22,7 +21,6 @@ public class ExtractsCodeScenarios
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ExtractsCodeCorrectly3()
     {
         TestHelpers.Should.Error(() =>
@@ -33,7 +31,6 @@ public class ExtractsCodeScenarios
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ExtractsCodeCorrectly4()
     {
         TestHelpers.Should.Error(
@@ -50,7 +47,6 @@ public class ExtractsCodeScenarios
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ExtractsCodeCorrectly5()
     {
         TestHelpers.Should.Error(() =>
