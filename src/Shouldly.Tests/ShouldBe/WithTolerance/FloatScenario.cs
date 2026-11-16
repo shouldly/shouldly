@@ -8,7 +8,6 @@ public static class MathEx
 public class FloatScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void FloatScenarioShouldFail()
     {
         const float pi = (float)MathEx.PI;

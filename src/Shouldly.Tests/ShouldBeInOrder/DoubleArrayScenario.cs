@@ -6,7 +6,6 @@ public class DoubleArrayScenario
     private readonly double[] _descendingTarget = [1.5, 1.4, 1.3, 1.2, 1.1];
 
     [Fact]
-    [UseCulture("en-US")]
     public void ShouldFailWithDefaultDirection()
     {
         Verify.ShouldFail(() =>
@@ -14,7 +13,6 @@ public class DoubleArrayScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ShouldFailWhenAscendingIsSpecified()
     {
         Verify.ShouldFail(() =>
@@ -22,7 +20,6 @@ public class DoubleArrayScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ShouldFailWhenDescendingIsSpecified()
     {
         Verify.ShouldFail(() =>
@@ -30,7 +27,6 @@ public class DoubleArrayScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ShouldFailWhenDescendingIsSpecifiedAndComparerIsGiven()
     {
         Verify.ShouldFail(() =>

@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance;
 public class EnumerableOfDoubleScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void EnumerableOfDoubleScenarioShouldFail()
     {
         Verify.ShouldFail(() =>
@@ -12,7 +11,6 @@ public class EnumerableOfDoubleScenario
 
     // Only the item outside the tolerance is marked: the message compares the items as the check did.
     [Fact]
-    [UseCulture("en-US")]
     public void ItemsWithinTheToleranceAreNotMarkedAsDifferent()
     {
         Verify.ShouldFail(() =>
@@ -20,7 +18,6 @@ public class EnumerableOfDoubleScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void NullActualShouldFail()
     {
         IEnumerable<double>? readings = null;

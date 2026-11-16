@@ -1,6 +1,5 @@
 namespace Shouldly.Tests.ShouldBeNegative;
 
-[UseCulture("en-US")]
 public class DecimalScenario
 {
     [Fact]
