@@ -147,7 +147,7 @@ Values that already read differently get no such line.
 <!-- snippet: ShouldBeExamples.Numeric.codeSample.approved.cs -->
 <a id='snippet-ShouldBeExamples.Numeric.codeSample.approved.cs'></a>
 ```cs
-const decimal pi = (decimal)Math.PI;
+const decimal pi = 3.14159m;
 pi.ShouldBe(3.24m, 0.01m);
 ```
 <sup><a href='/src/DocumentationExamples/CodeExamples/ShouldBeExamples.Numeric.codeSample.approved.cs#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-ShouldBeExamples.Numeric.codeSample.approved.cs' title='Start of snippet'>anchor</a></sup>
@@ -163,7 +163,7 @@ pi
     of
 3.24m
     but was
-3.14159265358979m
+3.14159m
 ```
 <!-- endInclude -->
 
