@@ -6,7 +6,7 @@ public class DecimalScenario
     [UseCulture("en-US")]
     public void DecimalScenarioShouldFail()
     {
-        const decimal pi = (decimal)MathEx.PI;
+        const decimal pi = 3.14159m;
         Verify.ShouldFail(() =>
             pi.ShouldBe(3.24m, 0.01m, "Some additional context"));
     }
@@ -14,14 +14,14 @@ public class DecimalScenario
     [Fact]
     public void ShouldPass()
     {
-        const decimal pi = (decimal)MathEx.PI;
+        const decimal pi = 3.14159m;
         pi.ShouldBe(3.14m, 0.01m);
     }
 
     [Fact]
     public void ShouldPassWithZeroTolerance()
     {
-        const decimal pi = (decimal)MathEx.PI;
+        const decimal pi = 3.14159m;
         pi.ShouldBe(pi, 0);
     }
 
