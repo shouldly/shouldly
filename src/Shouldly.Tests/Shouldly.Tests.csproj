@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net48' ">
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
-    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.11.0" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Runtime" />
