@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance;
 public class DecimalScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void DecimalScenarioShouldFail()
     {
         const decimal pi = 3.14159m;

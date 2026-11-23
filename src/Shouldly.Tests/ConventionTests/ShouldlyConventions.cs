@@ -16,7 +16,6 @@ public class ShouldlyConventions
 
 #if false
         [Fact]
-        [UseCulture("en-US")]
         public void ShouldHaveCustomMessageOverloads()
         {
             Convention.GetFailures(new ShouldlyMethodsShouldHaveCustomMessageOverload(), _shouldlyMethodClasses)

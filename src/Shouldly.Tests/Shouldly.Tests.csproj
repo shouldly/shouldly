@@ -30,6 +30,7 @@
   <ItemGroup>
     <Compile Remove="**\*.approved.cs;**\*.received.cs" />
     <None Include="**\*.approved.cs;**\*.received.cs" />
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="..\Shouldly.DiffEngine\Shouldly.DiffEngine.csproj" />
     <ProjectReference Include="..\Shouldly\Shouldly.csproj" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="29.0.0" PrivateAssets="all" />

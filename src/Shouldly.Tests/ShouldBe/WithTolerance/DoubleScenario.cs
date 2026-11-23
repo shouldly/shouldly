@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldBe.WithTolerance;
 public class DoubleScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void DoubleScenarioShouldFail()
     {
         const double pi = MathEx.PI;

@@ -3,7 +3,6 @@ namespace Shouldly.Tests;
 public class ShouldNotBeInRangeTests
 {
     [Fact]
-    [UseCulture("en-US")]
     public void ShouldNotBeInRangeTestsShouldFail()
     {
         var @decimal = 1.5m;

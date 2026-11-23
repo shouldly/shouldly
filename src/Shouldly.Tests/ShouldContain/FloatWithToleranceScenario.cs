@@ -3,7 +3,6 @@ namespace Shouldly.Tests.ShouldContain;
 public class FloatWithToleranceScenario
 {
     [Fact]
-    [UseCulture("en-US")]
     public void FloatWithToleranceScenarioShouldFail()
     {
         Verify.ShouldFail(() =>

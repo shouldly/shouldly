@@ -25,7 +25,6 @@ public class GenericExceptionTypeScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void StaticMethodShouldFailWhenExceptionTypeIsThrown()
     {
         var action = new Action(() => throw new InvalidOperationException());
@@ -34,7 +33,6 @@ public class GenericExceptionTypeScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ExtensionMethodShouldFailWhenExceptionTypeIsThrown()
     {
         var action = new Action(() => throw new InvalidOperationException());
@@ -43,7 +41,6 @@ public class GenericExceptionTypeScenario
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ShouldFailWhenDerivedExceptionTypeIsThrown()
     {
         var action = new Action(() => throw new InvalidOperationException("the operation failed"));

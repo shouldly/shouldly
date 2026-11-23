@@ -82,7 +82,6 @@ public class HalfScenarios
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ObjectHalfShouldBeAnotherNumericTypeShouldFail()
     {
         object half = (Half)1.5;
@@ -102,7 +101,6 @@ public class HalfScenarios
     }
 
     [Fact]
-    [UseCulture("en-US")]
     public void ObjectArrayElementsShouldFail()
     {
         object[] halves = [(Half)1, (Half)2.5];
